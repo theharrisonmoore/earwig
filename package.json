@@ -1,0 +1,54 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "jest": {
+    "testRegex": "__test__/*",
+    "coverageDirectory": "./coverage/",
+    "collectCoverageFrom": [
+      "**/*.js",
+      "!**/node_modules/**",
+      "!**/__snapshots__/**",
+      "!**/client/**",
+      "!**/server/app.js",
+      "!**/coverage/**"
+    ]
+  },
+  "proxy": "http://localhost:8080",
+  "scripts": {
+    "start": "node ./server/bin/www",
+    "dev": "nodemon ./server/bin/www",
+    "dev:both": "concurrently --kill-others-on-fail \"cd client && npm start\" \"nodemon ./server/bin/www\"",
+    "client:init": "cd client && npm i",
+    "build": "cd client && npm run build",
+    "client:build": "cd client && npm run build",
+    "init:both": "npm i && npm run client:init",
+    "coverage": "codecov",
+    "test:coverage": "NODE_ENV=test jest --coverage --runInBand --detectOpenHandles --forceExit",
+    "test:client": "cd client && npm test",
+    "test:client:coverage": "NODE_ENV=test cd client && npm run test:coverage",
+    "test": "NODE_ENV=test npm run test:coverage && npm run test:client:coverage",
+    "heroku-postbuild": "npm run client:init && npm run client:build"
+  },
+  "devDependencies": {
+    "codecov": "^3.2.0",
+    "concurrently": "^4.1.0",
+    "eslint": "5.12.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.0",
+    "eslint-plugin-react": "^7.12.4",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
+    "debug": "^4.1.1",
+    "express": "^4.16.4",
+    "http-errors": "^1.7.2",
+    "morgan": "^1.9.1"
+  }
+}
