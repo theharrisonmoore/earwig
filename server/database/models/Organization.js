@@ -29,8 +29,7 @@ const organizationSchema = new Schema({
   },
   contractor: {
     name: String,
-    logoTitle: String,
-    logoUrl: String,
+    logo: String,
   },
   questions: [
     {
