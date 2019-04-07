@@ -4,9 +4,6 @@ const constants = require("./../../constants");
 
 const { Schema } = mongoose;
 
-const { ObjectId } = Schema.Types;
-
-
 const organizationSchema = new Schema({
   name: {
     type: String,
@@ -32,12 +29,6 @@ const organizationSchema = new Schema({
     name: String,
     logo: String,
   },
-  questions: [
-    {
-      type: ObjectId,
-      ref: "questions",
-    },
-  ],
   lastViewed: Date,
 }, {
   timestamps: true,
