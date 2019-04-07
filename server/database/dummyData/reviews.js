@@ -6,6 +6,7 @@ module.exports = async () => {
   const companies = await Organization.find({ type: "company" });
   const agencies = await Organization.find({ type: "agency" });
   const worksites = await Organization.find({ type: "worksite" });
+  const payrolls = await Organization.find({ type: "payroll" });
 
   const users = await User.find({ verified: true, isAdmin: false });
   const reviews = [
@@ -160,8 +161,55 @@ module.exports = async () => {
           points: 5,
         }],
       },
-      isVerified: true,
+      isVerified: false,
       siteImages: ["site-images3.png", "site-images4.png"],
+    },
+    // Payrolls reviews
+    {
+      organization: payrolls[0],
+      user: users[0],
+      workPeriod: {
+        from: "2018-10-01",
+        to: "2019-03-31",
+      },
+      rate: 5,
+      overallReview: {
+        text: "Great experience",
+        replies: [
+          {
+            user: users[1],
+            text: "yeah that's right",
+          },
+        ],
+        votes: [{
+          user: users[1],
+          points: 5,
+        }],
+      },
+      isVerified: true,
+    },
+    {
+      organization: payrolls[0],
+      user: users[1],
+      workPeriod: {
+        from: "2018-10-01",
+        to: "2019-03-31",
+      },
+      rate: 5,
+      overallReview: {
+        text: "Bad payroll",
+        replies: [
+          {
+            user: users[0],
+            text: "yeah that's right",
+          },
+        ],
+        votes: [{
+          user: users[0],
+          points: 5,
+        }],
+      },
+      isVerified: true,
     },
   ];
   return Review.create(reviews);
