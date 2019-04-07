@@ -37,6 +37,10 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  awaitingReview: {
+    type: Boolean,
+    default: false,
+  },
   userId: {
     type: String,
     default: shortid.generate,
