@@ -14,11 +14,6 @@ describe("Test User schema", () => {
     mongoose.disconnect();
   });
 
-  beforeEach(async () => {
-    // build dummy data
-    await buildDB();
-  });
-
   test("should Organization schema be defined", async () => {
     expect(Organization).toBeDefined();
   });
