@@ -48,6 +48,7 @@ const userSchema = new Schema({
     default: false,
   },
   tradeId: String,
+  timestamps: true,
 });
 
 
