@@ -3,12 +3,20 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const voteReplySchema = new Schema({
+const replySchema = new Schema({
   user: {
     type: ObjectId,
     ref: "users",
   },
   text: String,
+  timestamps: true,
+});
+const voteSchema = new Schema({
+  user: {
+    type: ObjectId,
+    ref: "users",
+  },
+  points: Number,
   timestamps: true,
 });
 
@@ -17,7 +25,7 @@ const reviewSchema = new Schema({
     type: ObjectId,
     ref: "organizations",
   },
-  userID: {
+  user: {
     type: ObjectId,
     ref: "users",
   },
@@ -38,21 +46,15 @@ const reviewSchema = new Schema({
     max: 5,
   },
   overallReview: {
-    type: String,
-    required: true,
-    replies: [voteReplySchema],
-    votes: [voteReplySchema],
+    text: String,
+    replies: [replySchema],
+    votes: [voteSchema],
   },
   voiceReview: {
-    type: String,
-    required: false,
-    replies: [voteReplySchema],
-    votes: [voteReplySchema],
+    audio: String,
+    replies: [replySchema],
+    votes: [voteSchema],
   },
-  answers: [{
-    type: ObjectId,
-    ref: "answers",
-  }],
   isVerified: {
     type: Boolean,
     default: false,

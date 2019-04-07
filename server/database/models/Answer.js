@@ -14,7 +14,7 @@ const answerSchema = new Schema({
   },
   comment: {
     type: ObjectId,
-    ref: "questions",
+    ref: "comments",
   },
   user: {
     type: ObjectId,
