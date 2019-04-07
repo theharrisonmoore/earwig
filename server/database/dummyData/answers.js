@@ -6,10 +6,10 @@ const Review = require("../models/Review");
 const Answer = require("../models/Answer");
 
 module.exports = async () => {
-  const agencyQuestions = await Question.find({ orgType: "agency" });
-  const payrollQuestions = await Question.find({ orgType: "payroll" });
-  const companyQuestions = await Question.find({ orgType: "company" });
-  const worksiteQuestions = await Question.find({ orgType: "worksite" });
+  const agencyQuestions = await Question.find({ category: "agency" }).sort({ number: 1 });
+  const payrollQuestions = await Question.find({ category: "payroll" }).sort({ number: -1 });
+  const companyQuestions = await Question.find({ category: "company" }).sort({ number: -1 });
+  const worksiteQuestions = await Question.find({ category: "worksite" }).sort({ number: -1 });
 
   const agencies = await Organization.find({ type: "agency" });
   const companies = await Organization.find({ type: "company" });

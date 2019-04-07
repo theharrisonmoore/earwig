@@ -20,7 +20,7 @@ module.exports = () => {
       isJumping: true,
       jumpTo: [{ value: "yes", nextQuestion: 2 }, { value: "no", nextQuestion: 3 }],
       options: ["yes", "no"],
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 2,
@@ -28,7 +28,7 @@ module.exports = () => {
       text: "Did they send you this information before your work began?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 3,
@@ -36,7 +36,7 @@ module.exports = () => {
       text: "Taking into account all the information you were given before starting work, such as pay, hours, type of work and length of job, how accurate was the description you were given about the job overall?",
       isJumping: false,
       options: ["totally inaccurate", "Not very accurate", "Mostly accurate", "Fully accurate"],
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 4,
@@ -44,7 +44,7 @@ module.exports = () => {
       text: "Did they give you correct information about the pay?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 5,
@@ -52,7 +52,7 @@ module.exports = () => {
       text: "Did they give you correct information about the hours?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 6,
@@ -60,7 +60,7 @@ module.exports = () => {
       text: "Did they give you correct information about the type of work?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 7,
@@ -68,7 +68,7 @@ module.exports = () => {
       text: "Did they give you correct information about the length of the job?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 8,
@@ -76,14 +76,14 @@ module.exports = () => {
       text: "What's the name of the rep you dealt with at this agency?",
       hintText: "This will be seen only by the agency",
       isJumping: false,
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 9,
       type: "number",
       text: "What hourly rate were you paid?",
       isJumping: false,
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 10,
@@ -92,7 +92,7 @@ module.exports = () => {
       isJumping: true,
       jumpTo: [{ value: "yes", nextQuestion: 18 }, { value: "no", nextQuestion: 11 }],
       options: ["yes", "no"],
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 11,
@@ -110,7 +110,7 @@ module.exports = () => {
         "Crystal Payroll (Payroll Services Company)",
         "Danbro",
       ],
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 12,
@@ -118,7 +118,7 @@ module.exports = () => {
       text: "What was the payroll type?",
       isJumping: false,
       options: ["CIS", "Ltd", "PAYE", "Umbrella"],
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 13,
@@ -126,7 +126,7 @@ module.exports = () => {
       text: "Were you paid within the timeframe you expected?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 14,
@@ -134,7 +134,7 @@ module.exports = () => {
       text: "Were you paid the amount you expected?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 15,
@@ -142,7 +142,7 @@ module.exports = () => {
       text: "Were your payslips easily accessible?",
       isJumping: false,
       options: ["yes", "no", "I didn't check"],
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 16,
@@ -151,7 +151,7 @@ module.exports = () => {
       isJumping: true,
       jumpTo: [{ value: "yes", nextQuestion: 17 }, { value: "no", nextQuestion: 18 }],
       options: ["yes", "no"],
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 17,
@@ -159,7 +159,7 @@ module.exports = () => {
       text: "How much were you charged?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 18,
@@ -167,7 +167,7 @@ module.exports = () => {
       text: "Were you always treated fairly by this agency over any payment issues?",
       isJumping: false,
       options: ["yes", "no", "no issues"],
-      orgType: "agency",
+      category: "agency",
     },
     {
       number: 19,
@@ -175,7 +175,7 @@ module.exports = () => {
       text: "Overall, would you be happy to use this agency again?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "agency",
+      category: "agency",
     },
 
     /* =========================== questionsPayroll ==================================== */
@@ -188,7 +188,7 @@ module.exports = () => {
       isJumping: true,
       jumpTo: [{ value: "yes", nextQuestion: 2 }, { value: "no", nextQuestion: 3 }],
       options: ["yes", "no"],
-      orgType: "payroll",
+      category: "payroll",
     },
     {
       number: 2,
@@ -196,7 +196,7 @@ module.exports = () => {
       text: "Did they send you this information before your work began?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "payroll",
+      category: "payroll",
     },
     {
       number: 3,
@@ -205,14 +205,14 @@ module.exports = () => {
       hintText: "This will be seen only by the payroll",
       isJumping: false,
       options: ["totally inaccurate", "Not very accurate", "Mostly accurate", "Fully accurate"],
-      orgType: "payroll",
+      category: "payroll",
     },
     {
       number: 4,
       type: "number",
       text: "What hourly rate were you paid?",
       isJumping: false,
-      orgType: "payroll",
+      category: "payroll",
     },
     {
       number: 5,
@@ -220,7 +220,7 @@ module.exports = () => {
       text: "What was the payroll type?",
       isJumping: false,
       options: ["CIS", "Ltd", "PAYE", "Umbrella"],
-      orgType: "agency",
+      category: "payroll",
     },
     {
       number: 6,
@@ -228,7 +228,7 @@ module.exports = () => {
       text: "Were you paid within the timeframe you expected?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "agency",
+      category: "payroll",
     },
     {
       number: 7,
@@ -236,7 +236,7 @@ module.exports = () => {
       text: "Were you paid the amount you expected?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "agency",
+      category: "payroll",
     },
     {
       number: 8,
@@ -244,7 +244,7 @@ module.exports = () => {
       text: "Were your payslips easily accessible?",
       isJumping: false,
       options: ["yes", "no", "I didn't check"],
-      orgType: "agency",
+      category: "payroll",
     },
     {
       number: 9,
@@ -252,7 +252,7 @@ module.exports = () => {
       text: "Did the payslips show all the information you needed?",
       isJumping: false,
       options: ["yes", "no", "I didn't check"],
-      orgType: "payroll",
+      category: "payroll",
     },
     {
       number: 10,
@@ -261,7 +261,7 @@ module.exports = () => {
       isJumping: true,
       jumpTo: [{ value: "yes", nextQuestion: 11 }, { value: "no", nextQuestion: 12 }],
       options: ["yes", "no"],
-      orgType: "payroll",
+      category: "payroll",
     },
     {
       number: 11,
@@ -269,7 +269,7 @@ module.exports = () => {
       text: "How much were you charged?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "payroll",
+      category: "payroll",
     },
     {
       number: 12,
@@ -277,7 +277,7 @@ module.exports = () => {
       text: "Were you always treated fairly by this payroll over any payment issues?",
       isJumping: false,
       options: ["yes", "no", "no issues"],
-      orgType: "payroll",
+      category: "payroll",
     },
     {
       number: 13,
@@ -304,7 +304,7 @@ module.exports = () => {
         "Bluebaring Recruitment",
         "Bluebell",
       ],
-      orgType: "payroll",
+      category: "payroll",
     },
 
     {
@@ -313,7 +313,7 @@ module.exports = () => {
       text: "Overall, would you be happy to use this agency again?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "payroll",
+      category: "payroll",
     },
 
     /* =============================== worksite ================================ */
@@ -325,7 +325,7 @@ module.exports = () => {
       hintText: "i.e., buses, trains, etc.",
       isJumping: false,
       options: ["yes", "no", "don't know"],
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 2,
@@ -334,7 +334,7 @@ module.exports = () => {
       isJumping: true,
       jumpTo: [{ value: "yes", nextQuestion: 3 }, { value: "no", nextQuestion: 5 }, { value: "don't know", nextQuestion: 5 }],
       options: ["yes", "no", "don't know"],
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 3,
@@ -343,14 +343,14 @@ module.exports = () => {
       isJumping: true,
       jumpTo: [{ value: "yes", nextQuestion: 5 }, { value: "no", nextQuestion: 4 }],
       options: ["yes", "no"],
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 4,
       type: "number",
       text: "How much did car parking cost per day?",
       isJumping: false,
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 5,
@@ -359,7 +359,7 @@ module.exports = () => {
       hintText: "E.g., Lockers, cloak room, etc.",
       isJumping: false,
       options: ["yes", "no", "yes, but I didn't need it"],
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 6,
@@ -367,7 +367,7 @@ module.exports = () => {
       text: "Did you have to use fingerprint scanners or eye recognition to access the site?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 7,
@@ -375,7 +375,7 @@ module.exports = () => {
       text: "Were the work areas tidy?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 8,
@@ -383,7 +383,7 @@ module.exports = () => {
       text: "Did you feel this site was safe to work on?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 9,
@@ -391,7 +391,7 @@ module.exports = () => {
       text: "Upload a photo of the site",
       hintText: "Offer workers a behind-the-scenes look at the site, e.g., work areas, canteen, etc.",
       isJumping: false,
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 10,
@@ -399,7 +399,7 @@ module.exports = () => {
       text: "Were the toilets well maintained?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 11,
@@ -407,7 +407,7 @@ module.exports = () => {
       text: "Was there free drinking water available?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 12,
@@ -415,7 +415,7 @@ module.exports = () => {
       text: "Did this site have a prayer room?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 13,
@@ -424,7 +424,7 @@ module.exports = () => {
       isJumping: true,
       jumpTo: [{ value: "yes", nextQuestion: 14 }, { value: "no", nextQuestion: 16 }, { value: "don't know", nextQuestion: 16 }],
       options: ["yes", "no", "i didn't check"],
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 14,
@@ -432,7 +432,7 @@ module.exports = () => {
       text: "Was the canteen heated?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 15,
@@ -440,7 +440,7 @@ module.exports = () => {
       text: "What amenities did the canteen have?",
       isJumping: false,
       options: ["hot foot served", "vending machines", "tables and charis", "microwave", "kettle/boiling water", "fridge", "I didn't check"],
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 16,
@@ -448,7 +448,7 @@ module.exports = () => {
       text: "Were there shops to buy hot food within 10 minutes walk of this site?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 17,
@@ -456,21 +456,21 @@ module.exports = () => {
       text: "Could you buy hot food and a drink for less than £5?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 18,
       type: "open",
       text: "Is there a good shop or café near site that you would recommend to other workers?",
       isJumping: false,
-      orgType: "worksite",
+      category: "worksite",
     },
     {
       number: 19,
       type: "open",
       text: "Overall, would you be happy to work on this site again?",
       isJumping: false,
-      orgType: "worksite",
+      category: "worksite",
     },
 
     /* ============================= company ================================== */
@@ -481,7 +481,7 @@ module.exports = () => {
       text: "Was their materials store well organised?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
-      orgType: "company",
+      category: "company",
     },
     {
       number: 2,
@@ -490,7 +490,7 @@ module.exports = () => {
       hintText: "E.g., stepladders, harnesses, lifters, etc.",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
-      orgType: "company",
+      category: "company",
     },
     {
       number: 3,
@@ -498,7 +498,7 @@ module.exports = () => {
       text: "Was the access equipment in safe condition?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
-      orgType: "company",
+      category: "company",
     },
     {
       number: 4,
@@ -506,7 +506,7 @@ module.exports = () => {
       text: "Were you offered secure storage for your tools overnight?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
-      orgType: "company",
+      category: "company",
     },
     {
       number: 5,
@@ -514,7 +514,7 @@ module.exports = () => {
       text: "Did the supervisor share all the information you needed to do a good job?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
-      orgType: "company",
+      category: "company",
     },
     {
       number: 6,
@@ -522,7 +522,7 @@ module.exports = () => {
       text: "Did the supervisor treat you with respect?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
-      orgType: "company",
+      category: "company",
     },
     {
       number: 7,
@@ -530,7 +530,7 @@ module.exports = () => {
       text: "What's the name of the supervisor you worked with?",
       hintText: "This will be seen only by the company",
       isJumping: false,
-      orgType: "company",
+      category: "company",
     },
     {
       number: 8,
@@ -538,7 +538,7 @@ module.exports = () => {
       text: "Did the other company employees treat you with respect?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "company",
+      category: "company",
     },
     {
       number: 9,
@@ -546,7 +546,7 @@ module.exports = () => {
       text: "Overall, did you feel valued working with this company?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "company",
+      category: "company",
     },
     {
       number: 9,
@@ -554,7 +554,7 @@ module.exports = () => {
       text: "Overall, would you be happy to work with this company again?",
       isJumping: false,
       options: ["yes", "no"],
-      orgType: "company",
+      category: "company",
     },
   ];
   return Question.create(questions);

@@ -4,10 +4,10 @@ const User = require("../models/User");
 const Comment = require("../models/Comment");
 
 module.exports = async () => {
-  const agencyQuestions = await Question.find({ orgType: "agency" });
-  const payrollQuestions = await Question.find({ orgType: "payroll" });
-  const companyQuestions = await Question.find({ orgType: "company" });
-  const worksiteQuestions = await Question.find({ orgType: "worksite" });
+  const agencyQuestions = await Question.find({ category: "agency" });
+  const payrollQuestions = await Question.find({ category: "payroll" });
+  const companyQuestions = await Question.find({ category: "company" });
+  const worksiteQuestions = await Question.find({ category: "worksite" });
 
   const agencies = await Organization.find({ type: "agency" });
   const companies = await Organization.find({ type: "company" });
