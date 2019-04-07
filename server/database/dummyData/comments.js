@@ -1,6 +1,7 @@
 const Question = require("../models/Question");
 const Organization = require("../models/Organization");
 const User = require("../models/User");
+const Comment = require("../models/Comment");
 
 module.exports = async () => {
   const agencyQuestions = await Question.find({ orgType: "agency" });
@@ -41,4 +42,5 @@ module.exports = async () => {
       text: "Good company",
     },
   ];
+  return Comment.create(comments);
 };
