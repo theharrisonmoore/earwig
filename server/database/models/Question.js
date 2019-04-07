@@ -15,7 +15,7 @@ const questionSchema = new Schema({
     nextQuestion: Number,
   }],
   options: [String],
-  orgType: {
+  category: {
     type: String,
     enum: constants.database.ORGANIZATIONS_TYPE,
   },
