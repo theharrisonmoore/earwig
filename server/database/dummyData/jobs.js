@@ -12,7 +12,7 @@ module.exports = async () => {
 
   const jobs = [
     {
-      titile: "Electrician",
+      title: "Electrician",
       description: "Inspection & testing electricians required across Manchester to start ASAP. Ongoing work.",
       trade: electricianTrade,
       rate: 25,
@@ -24,7 +24,7 @@ module.exports = async () => {
       favorites: [user],
       location: "Parkway, Manchester",
     }, {
-      titile: "Plumber",
+      title: "Plumber",
       description: "Inspection & testing electricians required across Manchester to start ASAP. Ongoing work.",
       trade: electricianTrade,
       rate: 23,

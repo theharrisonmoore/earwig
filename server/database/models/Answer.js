@@ -24,6 +24,6 @@ const answerSchema = new Schema({
     type: ObjectId,
     ref: "reviews",
   },
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model("answeres", answerSchema);

@@ -9,6 +9,7 @@ const replySchema = new Schema({
     ref: "users",
   },
   text: String,
+}, {
   timestamps: true,
 });
 const voteSchema = new Schema({
@@ -17,6 +18,7 @@ const voteSchema = new Schema({
     ref: "users",
   },
   points: Number,
+}, {
   timestamps: true,
 });
 
@@ -61,6 +63,7 @@ const reviewSchema = new Schema({
   },
   siteImages: [String],
   worksiteImage: String,
+}, {
   timestamps: true,
 });
 

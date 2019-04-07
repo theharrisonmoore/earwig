@@ -46,8 +46,8 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  timestamps: true,
-});
+},
+{ timestamps: true });
 
 
 function hashPassword(next) {

@@ -38,6 +38,7 @@ const organizationSchema = new Schema({
     },
   ],
   lastViewed: Date,
+}, {
   timestamps: true,
 });
 
