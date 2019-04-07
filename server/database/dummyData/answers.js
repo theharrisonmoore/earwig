@@ -11,16 +11,16 @@ module.exports = async () => {
   const companyQuestions = await Question.find({ category: "company" }).sort({ number: -1 });
   const worksiteQuestions = await Question.find({ category: "worksite" }).sort({ number: -1 });
 
-  const agencies = await Organization.find({ type: "agency" });
-  const companies = await Organization.find({ type: "company" });
-  const payrolls = await Organization.find({ type: "payroll" });
-  const worksites = await Organization.find({ type: "worksite" });
+  const agencies = await Organization.find({ category: "agency" });
+  const companies = await Organization.find({ category: "company" });
+  const payrolls = await Organization.find({ category: "payroll" });
+  const worksites = await Organization.find({ category: "worksite" });
+
   const users = await User.find({ verified: true, isAdmin: false });
 
   const comments = await Comment.find({ user: users[0], organization: agencies[0] });
 
   const reviews = await Review.find({ user: users[0], organization: agencies[0] });
-
 
   const answers = [
     {

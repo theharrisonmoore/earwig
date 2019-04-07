@@ -28,9 +28,9 @@ describe("Test Job schema", () => {
 
   test("should Job schema store correctly", async () => {
     const electricianTrade = await Trade.findOne({ title: "Electrician" });
-    const companies = await Organization.find({ type: "company" });
-    const agencies = await Organization.find({ type: "agency" });
-    const worksites = await Organization.find({ type: "worksite" });
+    const companies = await Organization.find({ category: "company" });
+    const agencies = await Organization.find({ category: "agency" });
+    const worksites = await Organization.find({ category: "worksite" });
     const user = await User.findOne({ verified: true, isAdmin: false });
 
     const job = {

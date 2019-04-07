@@ -3,10 +3,10 @@ const Organization = require("../models/Organization");
 const User = require("../models/User");
 
 module.exports = async () => {
-  const companies = await Organization.find({ type: "company" });
-  const agencies = await Organization.find({ type: "agency" });
-  const worksites = await Organization.find({ type: "worksite" });
-  const payrolls = await Organization.find({ type: "payroll" });
+  const companies = await Organization.find({ category: "company" });
+  const agencies = await Organization.find({ category: "agency" });
+  const worksites = await Organization.find({ category: "worksite" });
+  const payrolls = await Organization.find({ category: "payroll" });
 
   const users = await User.find({ verified: true, isAdmin: false });
   const reviews = [

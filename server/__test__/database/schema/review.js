@@ -26,7 +26,7 @@ describe("Test Review schema", () => {
   });
 
   test("should Review schema store correctly", async () => {
-    const companies = await Organization.find({ type: "company" });
+    const companies = await Organization.find({ category: "company" });
     const users = await User.find({ verified: true, isAdmin: false });
 
     const review = {
