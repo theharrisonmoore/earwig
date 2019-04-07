@@ -13,6 +13,7 @@ const questionSchema = new Schema({
   jumpTo: [{
     value: String,
     nextQuestion: Number,
+    _id: false,
   }],
   options: [String],
   category: {
