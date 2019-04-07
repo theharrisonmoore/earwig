@@ -27,6 +27,12 @@ module.exports = async () => {
       trade: trades[2],
       verified: true,
       awaitingReview: false,
+    }, {
+      email: "level3-2@earwig.com",
+      password: "123456",
+      trade: trades[3],
+      verified: true,
+      awaitingReview: false,
     },
     // Admin
     {
@@ -34,6 +40,7 @@ module.exports = async () => {
       password: "123456",
       verified: true,
       awaitingReview: false,
+      isAdmin: true,
     },
   ];
 
