@@ -8,7 +8,7 @@ const constants = require("./../../constants");
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-shortid.characters(constants.database.SHORTID_CHARACTERS);
+shortid.characters(constants.database.SHORT_ID_CHARACTERS);
 
 const userSchema = new Schema({
   email: {
