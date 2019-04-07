@@ -3,6 +3,7 @@ const Organization = require("../models/Organization");
 const User = require("../models/User");
 const Comment = require("../models/Comment");
 const Review = require("../models/Review");
+const Answer = require("../models/Answer");
 
 module.exports = async () => {
   const agencyQuestions = await Question.find({ orgType: "agency" });
@@ -14,12 +15,12 @@ module.exports = async () => {
   const companies = await Organization.find({ type: "company" });
   const payrolls = await Organization.find({ type: "payroll" });
   const worksites = await Organization.find({ type: "worksite" });
+  const users = await User.find({ verified: true, isAdmin: false });
 
   const comments = await Comment.find({ user: users[0], organization: agencies[0] });
 
-  const reviews = await Review.find({ user: user[0], organization: agencies[0] });
+  const reviews = await Review.find({ user: users[0], organization: agencies[0] });
 
-  const users = await User.find({ verified: true, isAdmin: false });
 
   const answers = [
     {
@@ -27,7 +28,9 @@ module.exports = async () => {
       answer: "no",
       comment: comments.filter(comment => comment.question === agencyQuestions[0].id)[0],
       user: users[0],
-      review: review[0],
+      review: reviews[0],
     },
   ];
+
+  return Answer.create(answers);
 };
