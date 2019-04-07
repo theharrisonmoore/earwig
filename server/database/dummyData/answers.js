@@ -18,7 +18,7 @@ module.exports = async () => {
 
   const users = await User.find({ verified: true, isAdmin: false });
 
-  const comments = await Comment.find({ user: users[0], organization: agencies[0] });
+  const comments = await Comment.find({ user: users[0], organization: agencies[0], question: agencyQuestions[0] });
 
   const reviews = await Review.find({ user: users[0], organization: agencies[0] });
 
@@ -26,6 +26,76 @@ module.exports = async () => {
     {
       question: agencyQuestions[0],
       answer: "no",
+      comment: comments.filter(comment => comment.question === agencyQuestions[0].id)[0],
+      user: users[0],
+      review: reviews[0],
+    },
+    {
+      question: agencyQuestions[2],
+      answer: "Fully accurate",
+      comment: comments.filter(comment => comment.question === agencyQuestions[0].id)[0],
+      user: users[0],
+      review: reviews[0],
+    },
+    {
+      question: agencyQuestions[3],
+      answer: "yes",
+      comment: comments.filter(comment => comment.question === agencyQuestions[0].id)[0],
+      user: users[0],
+      review: reviews[0],
+    },
+    {
+      question: agencyQuestions[4],
+      answer: "no",
+      comment: comments.filter(comment => comment.question === agencyQuestions[0].id)[0],
+      user: users[0],
+      review: reviews[0],
+    },
+    {
+      question: agencyQuestions[5],
+      answer: "no",
+      comment: comments.filter(comment => comment.question === agencyQuestions[0].id)[0],
+      user: users[0],
+      review: reviews[0],
+    },
+    {
+      question: agencyQuestions[6],
+      answer: "no",
+      comment: comments.filter(comment => comment.question === agencyQuestions[0].id)[0],
+      user: users[0],
+      review: reviews[0],
+    },
+    {
+      question: agencyQuestions[7],
+      answer: "John Doe",
+      comment: comments.filter(comment => comment.question === agencyQuestions[0].id)[0],
+      user: users[0],
+      review: reviews[0],
+    },
+    {
+      question: agencyQuestions[8],
+      answer: 20,
+      comment: comments.filter(comment => comment.question === agencyQuestions[0].id)[0],
+      user: users[0],
+      review: reviews[0],
+    },
+    {
+      question: agencyQuestions[9],
+      answer: "yes",
+      comment: comments.filter(comment => comment.question === agencyQuestions[0].id)[0],
+      user: users[0],
+      review: reviews[0],
+    },
+    {
+      question: agencyQuestions[17],
+      answer: 10,
+      comment: comments.filter(comment => comment.question === agencyQuestions[0].id)[0],
+      user: users[0],
+      review: reviews[0],
+    },
+    {
+      question: agencyQuestions[18],
+      answer: "yes",
       comment: comments.filter(comment => comment.question === agencyQuestions[0].id)[0],
       user: users[0],
       review: reviews[0],
