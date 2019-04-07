@@ -57,6 +57,7 @@ const reviewSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  siteImages: [String],
   worksiteImage: String,
   timestamps: true,
 });

@@ -23,16 +23,7 @@ const userSchema = new Schema({
     type: ObjectId,
     ref: "trades",
   },
-  verificationPhoto: {
-    name: {
-      type: String,
-      required: false,
-    },
-    photoUrl: {
-      type: String,
-      required: false,
-    },
-  },
+  verificationPhoto: String,
   verified: {
     type: Boolean,
     default: false,
@@ -46,12 +37,15 @@ const userSchema = new Schema({
     default: shortid.generate,
     required: true,
   },
-  points: Number,
+  points: {
+    type: Number,
+    default: 0,
+    required: true,
+  },
   isAdmin: {
     type: Boolean,
     default: false,
   },
-  tradeId: String,
   timestamps: true,
 });
 
