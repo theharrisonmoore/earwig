@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const constants = require("./../../constants");
+
 const { Schema } = mongoose;
 
 const { ObjectId } = Schema.Types;
@@ -12,7 +14,7 @@ const organizationSchema = new Schema({
   },
   category: {
     type: String,
-    enum: ["company", "agency", "payroll", "worksite"],
+    enum: constants.database.ORGANIZATIONS_TYPE,
     required: true,
   },
   phoneNumber: String,

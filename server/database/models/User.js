@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const shortid = require("shortid");
+
+const constants = require("./../../constants");
+
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const shortid = require("shortid");
-
-shortid.characters("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+shortid.characters(constants.database.SHORTID_CHARACTERS);
 
 const userSchema = new Schema({
   email: {

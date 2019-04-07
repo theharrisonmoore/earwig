@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const constants = require("./../../constants");
+
 const { Schema } = mongoose;
 
 const questionSchema = new Schema({
@@ -15,7 +17,7 @@ const questionSchema = new Schema({
   options: [String],
   orgType: {
     type: String,
-    enum: ["company", "agency", "payroll", "worksite"],
+    enum: constants.database.ORGANIZATIONS_TYPE,
   },
 });
 
