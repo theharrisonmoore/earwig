@@ -6,7 +6,12 @@
 
 const debug = require("debug")("server:server");
 const http = require("http");
+const dotenv = require("dotenv");
 const app = require("../app");
+const dbConnection = require("./../database/dbConnection");
+
+dotenv.config();
+
 
 /**
  * Create HTTP server.
@@ -78,12 +83,18 @@ function onListening() {
   debug(`Listening on ${bind}`);
 }
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
-});
+// connect to DB
+dbConnection()
+  .then(() => {
+  /**
+   * Listen on provided port, on all network interfaces.
+   */
+    server.listen(port, () => {
+      console.log(`Server is listening on port ${port}`);
+    });
+  }).catch(() => {
+    console.error("Error in connection");
+    throw new Error("Can't connect to DB");
+  });
 server.on("error", onError);
 server.on("listening", onListening);
