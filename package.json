@@ -57,6 +57,7 @@
     "env2": "^2.2.2",
     "express": "^4.16.4",
     "http-errors": "^1.7.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.4.22",
     "morgan": "^1.9.1",
     "shortid": "^2.2.14"
