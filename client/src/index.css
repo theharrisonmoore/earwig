@@ -12,3 +12,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+html {
+  /* 
+  * this make each rem = 10px which make it easy to calculate.
+  * so 16px will be 1.6rem
+  */
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit
+}
