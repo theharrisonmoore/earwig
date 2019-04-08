@@ -13,11 +13,17 @@ export const StyledForm = styled(Form).attrs()`
   flex-direction: column;
 `;
 
-export const StyledErrorMessage = styled(ErrorMessage).attrs()``;
+export const StyledErrorMessage = styled(ErrorMessage).attrs()`
+  color: ${colors.red};
+  font-weight: 100;
+  font-size: 1rem;
+  text-align: left;
+  margin-top: -1.5rem;
+`;
 
 export const StyledField = styled(Field).attrs()`
-  background: #ffffff;
-  border: 1px solid #979797;
+  background: ${colors.white};
+  border: 1px solid ${colors.inputBorder};
   box-sizing: border-box;
   border-radius: 5px;
   padding: 0.75rem 1rem;

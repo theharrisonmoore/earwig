@@ -6,6 +6,8 @@ import { colors } from "./../../../theme";
 export const LoginWrapper = styled.div.attrs({ className: "login" })`
   max-width: 60rem;
   margin: 0 auto;
+  padding-top: 3rem;
+
   & .paragraph {
     color: red;
     display: block;
@@ -21,6 +23,7 @@ export const StyledLink = styled(Link).attrs({})`
   font-size: 2rem;
   color: ${colors.purpleLinks};
   font-weight: 900;
+
   &:hover {
     color: ${colors.profileFontColor};
     text-decoration: none;
@@ -31,8 +34,8 @@ export const SmallLink = styled(StyledLink)`
   font-size: 1.5rem;
   text-align: right;
   font-weight: initial;
-
   color: ${colors.profileFontColor};
+
   &:hover {
     color: ${colors.profileFontColor};
   }
