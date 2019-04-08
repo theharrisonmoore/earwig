@@ -1,7 +1,5 @@
 const router = require("express").Router();
 
-const controllers = require("./controllers");
-
-router.use(controllers);
+// require all the routes in this file
 
 module.exports = router;
