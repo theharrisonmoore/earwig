@@ -16,14 +16,14 @@ export const StyledForm = styled(Form).attrs()`
 export const StyledFormikErrorMessage = styled(ErrorMessage).attrs()`
   color: ${colors.red};
   font-weight: 100;
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-align: left;
 `;
 
 export const GeneralErrorMessage = styled.p.attrs()`
   color: ${colors.red};
   font-weight: 100;
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-align: left;
 `;
 
