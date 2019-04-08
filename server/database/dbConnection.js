@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 // read the config file
-require("dotenv").config();
+// require("dotenv").config();
+require("env2")("./.env");
 
 let mongoURI = process.env.MONGO_URI;
 
@@ -11,12 +12,9 @@ if (process.env.NODE_ENV === "test") {
 }
 
 // create DB connection
-const dbConnection = () => mongoose.connect(
-  mongoURI,
-  {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-  },
-);
+const dbConnection = () => mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+});
 
 module.exports = dbConnection;
