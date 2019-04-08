@@ -1,3 +1,3 @@
 const User = require("./../../models/User");
 
-module.exports.findByEmail = email => User.findOne({ email });
+module.exports.findByEmail = email => User.findOne({ email: email.toLowerCase() });

@@ -60,6 +60,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.4.22",
     "morgan": "^1.9.1",
-    "shortid": "^2.2.14"
+    "shortid": "^2.2.14",
+    "supertest": "^4.0.2"
   }
 }
