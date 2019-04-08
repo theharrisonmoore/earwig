@@ -19,14 +19,15 @@ export const LoginWrapper = styled.div.attrs({ className: "login" })`
 export const StyledLink = styled(Link).attrs({})`
   display: block;
   text-decoration: none;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   font-size: 2rem;
   color: ${colors.purpleLinks};
   font-weight: 900;
 
-  &:hover {
-    color: ${colors.profileFontColor};
+  &:hover,
+  &:active {
     text-decoration: none;
+    color: ${colors.purpleLinks};
   }
 `;
 
@@ -36,7 +37,8 @@ export const SmallLink = styled(StyledLink)`
   font-weight: initial;
   color: ${colors.profileFontColor};
 
-  &:hover {
+  &:hover,
+  &:active {
     color: ${colors.profileFontColor};
   }
 `;
@@ -46,7 +48,7 @@ export const Devider = styled.div`
   height: 5rem;
   width: 80%;
   margin: 0 auto;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 
   :after {
     content: "";

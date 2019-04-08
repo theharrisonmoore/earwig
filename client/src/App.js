@@ -4,16 +4,22 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import "./App.css";
 
-import Login from "./Components/Pages/Login";
 import Routes from "./Components/";
 
 class App extends Component {
+  state = {
+    isLogin: false
+  };
+
+  handleChangeState = data => {
+    this.setState(data);
+  };
+
   render() {
     return (
       <Router>
         <div className="App container">
-          <Routes />
-          <Login />
+          <Routes handleChangeState={this.handleChangeState} />
         </div>
       </Router>
     );
