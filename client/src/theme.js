@@ -1,5 +1,5 @@
 // Organization colors
-export const Organizations = {
+export const organizations = {
   agency: {
     primary: "#8B51FC",
     secondary: "rgba(139, 81, 252, 0.0964543)"
@@ -26,7 +26,9 @@ export const colors = {
   gray1: "#818181", // heading underline
   gray2: "#DBD5DD", //section border
   profileFontColor: "#4A4A4A",
-  inputBorder: "#979797"
+  inputBorder: "#979797",
+  purpleLinks: "#8B51FC",
+  lightGray: "#9B9B9B"
 };
 
 // shadows
