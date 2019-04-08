@@ -1,8 +1,8 @@
 const searchQuery = require("../database/queries/search");
 
 module.exports = (req, res, next) => {
-  // const searchTerm = "Abbey Builders";
-  searchQuery()
+  const searchTerm = "A A C Mechanical & Electrical";
+  searchQuery(searchTerm)
     .then((result) => {
       console.log(result);
       res.json(result);
