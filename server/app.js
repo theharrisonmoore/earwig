@@ -6,9 +6,16 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
 const router = require("./router");
+const dbConnection = require("./database/dbConnection");
 
 const app = express();
 
+// read the config file
+// eslint-disable-next-line global-require
+require("env2")("./.env");
+
+// connect to DB
+dbConnection();
 
 app.use(logger("dev"));
 app.use(express.json());
