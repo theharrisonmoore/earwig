@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import "./App.css";
 
+import Login from "./Components/Pages/Login";
 import Routes from "./Components/";
 
 class App extends Component {
@@ -12,6 +13,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <Routes />
+          <Login />
         </div>
       </Router>
     );
