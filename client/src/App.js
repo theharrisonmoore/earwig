@@ -8,7 +8,7 @@ import Routes from "./Components/";
 
 class App extends Component {
   state = {
-    isLogin: false
+    isLoggedIn: false
   };
 
   handleChangeState = data => {
