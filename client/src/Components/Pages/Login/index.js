@@ -5,10 +5,17 @@ import {
   StyledForm as Form,
   StyledField as Field,
   StyledErrorMessage as ErrorMessage,
-  Label
+  Label,
+  Button
 } from "./../../Common/Formik/Formik.style";
 
-import { StyledLink as Link } from "./Login.style";
+import {
+  StyledLink as Link,
+  LoginWrapper,
+  SmallLink,
+  Devider,
+  Circle
+} from "./Login.style";
 
 import logo from "./../../../assets/logo.svg";
 
@@ -16,7 +23,7 @@ import { StyledField } from "./../../Common/Formik/Formik.style";
 export default class Login extends Component {
   render() {
     return (
-      <div>
+      <LoginWrapper>
         <img src={logo} />
         <Formik
           initialValues={{ email: "", password: "" }}
@@ -51,14 +58,26 @@ export default class Login extends Component {
                 <ErrorMessage name="email" component="div" id="password" />
               </Label>
               <ErrorMessage name="password" component="div" />
-              <Link to="/reset-password">Forget password?</Link>
-              <button type="submit" disabled={isSubmitting}>
-                Submit
-              </button>
+              <SmallLink to="/reset-password">Forget password?</SmallLink>
+              <Button type="submit" disabled={isSubmitting}>
+                Log in
+              </Button>
             </Form>
           )}
         </Formik>
-      </div>
+        <p className="paragraph">
+          Don’t have an account?
+          <Link to="signup" purple>
+            Create an account
+          </Link>
+        </p>
+        <Devider>
+          <Circle>OR</Circle>
+        </Devider>
+        <Link to="signup" purple>
+          Create an account
+        </Link>
+      </LoginWrapper>
     );
   }
 }
