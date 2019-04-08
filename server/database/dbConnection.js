@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 // read the config file
-require("dotenv").config();
+// require("dotenv").config();
+require("env2")("./.env");
 
 let mongoURI = process.env.MONGO_URI;
 
