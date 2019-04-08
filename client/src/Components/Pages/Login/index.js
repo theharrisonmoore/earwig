@@ -36,6 +36,9 @@ export default class Login extends Component {
             ) {
               errors.email = "Invalid email address";
             }
+            if (!values.password) {
+              errors.password = "Required";
+            }
             return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {
@@ -74,9 +77,7 @@ export default class Login extends Component {
         <Devider>
           <Circle>OR</Circle>
         </Devider>
-        <Link to="signup" purple>
-          Create an account
-        </Link>
+        <Link to="/intro">Continue without an account</Link>
       </LoginWrapper>
     );
   }
