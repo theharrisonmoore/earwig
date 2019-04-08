@@ -4,10 +4,13 @@ import {
   StyledFormik as Formik,
   StyledForm as Form,
   StyledField as Field,
-  StyledErrorMessage as ErrorMessage,
+  StyledFormikErrorMessage as FormikErrorMessage,
   Label,
-  Button
+  Button,
+  GeneralErrorMessage
 } from "./../../Common/Formik/Formik.style";
+
+import axios from "axios";
 
 import {
   StyledLink as Link,
@@ -20,11 +23,33 @@ import {
 import logo from "./../../../assets/logo.svg";
 
 import { StyledField } from "./../../Common/Formik/Formik.style";
+
 export default class Login extends Component {
+  state = {
+    error: ""
+  };
+
+  handleSubmit = (values, { setSubmitting }) => {
+    setSubmitting(true);
+
+    axios
+      .post("/api/login", values)
+      .then(({ data }) => {
+        this.props.handleChangeState({ ...data, isLoggedIn: true });
+        this.props.history.push(`/search`);
+      })
+      .catch(err => {
+        this.setState({ error: err.response.data.error });
+        setSubmitting(false);
+      });
+  };
+
   render() {
+    const { error } = this.state;
+
     return (
       <LoginWrapper>
-        <img src={logo} />
+        <img src={logo} alt="logo" />
         <Formik
           initialValues={{ email: "", password: "" }}
           validate={values => {
@@ -41,26 +66,26 @@ export default class Login extends Component {
             }
             return errors;
           }}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
-          }}
+          onSubmit={this.handleSubmit}
         >
           {({ isSubmitting }) => (
             <Form>
               <Label htmlFor="email">
                 Email
                 <StyledField type="email" name="email" id="email" />
-                <ErrorMessage name="email" component="div" />
+                <FormikErrorMessage name="email" component="div" />
               </Label>
               <Label htmlFor="password">
                 Password
                 <Field type="password" name="password" />
-                <ErrorMessage name="email" component="div" id="password" />
+                <FormikErrorMessage
+                  name="email"
+                  component="div"
+                  id="password"
+                />
               </Label>
-              <ErrorMessage name="password" component="div" />
+              <FormikErrorMessage name="password" component="div" />
+              {error && <GeneralErrorMessage>error</GeneralErrorMessage>}
               <SmallLink to="/reset-password">Forget password?</SmallLink>
               <Button type="submit" disabled={isSubmitting}>
                 Log in
