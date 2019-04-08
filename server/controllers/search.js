@@ -1,12 +1,11 @@
-const searchQuery = require("../database/queries/search/search");
+const searchQuery = require("../database/queries/search");
 
 module.exports = (req, res, next) => {
-  console.log("reached");
-
-  const searchTerm = "anything";
-  searchQuery(searchTerm)
+  // const searchTerm = "Abbey Builders";
+  searchQuery()
     .then((result) => {
+      console.log(result);
       res.json(result);
     })
-    .catch(() => console.warn("err"));
+    .catch(err => console.log(err));
 };

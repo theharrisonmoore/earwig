@@ -11,12 +11,9 @@ if (process.env.NODE_ENV === "test") {
 }
 
 // create DB connection
-const dbConnection = () => mongoose.connect(
-  mongoURI,
-  {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-  },
-);
+const dbConnection = () => mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+});
 
 module.exports = dbConnection;
