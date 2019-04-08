@@ -28,7 +28,8 @@
     "test:client": "cd client && npm test",
     "test:client:coverage": "NODE_ENV=test cd client && npm run test:coverage",
     "test": "NODE_ENV=test npm run test:coverage && npm run test:client:coverage",
-    "heroku-postbuild": "npm run client:init && npm run client:build"
+    "heroku-postbuild": "npm run client:init && npm run client:build",
+    "build:data": "node server/database/dummyData/index.js"
   },
   "devDependencies": {
     "codecov": "^3.2.0",
@@ -48,12 +49,15 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",
     "debug": "^4.1.1",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "http-errors": "^1.7.2",
     "mongoose": "^5.4.22",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "shortid": "^2.2.14"
   }
 }
