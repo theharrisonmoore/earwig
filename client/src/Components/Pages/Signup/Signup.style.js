@@ -4,8 +4,10 @@ import styled from "styled-components";
 import { colors } from "../../../theme";
 
 export const SignupWrapper = styled.div.attrs({ className: "login" })`
+  width: 100%;
   max-width: 60rem;
-  margin: 0 auto;
+  margin: 1.5rem auto;
+  padding: 0 1.5rem;
   padding-top: 3rem;
 
   & .paragraph {
