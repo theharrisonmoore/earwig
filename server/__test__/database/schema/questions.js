@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 const Question = require("../../../database/models/Question");
 const buildDB = require("../../../database/dummyData");
 
+/**
+ * @jest-environment node
+ */
+
 describe("Test Question schema", () => {
   beforeAll(async () => {
     // build dummy data
@@ -21,7 +25,7 @@ describe("Test Question schema", () => {
   test("should Question schema get data correctly", async () => {
     const questions = await Question.find();
 
-    expect(questions).toHaveLength(62);
+    expect(questions).toHaveLength(61);
   });
 
   test("should Question schema store correctly", async () => {
