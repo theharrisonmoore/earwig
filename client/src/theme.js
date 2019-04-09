@@ -28,7 +28,8 @@ export const colors = {
   profileFontColor: "#4A4A4A",
   inputBorder: "#979797",
   purpleLinks: "#8B51FC",
-  lightGray: "#9B9B9B"
+  lightGray: "#9B9B9B",
+  black: "#3E3E3E"
 };
 
 // shadows

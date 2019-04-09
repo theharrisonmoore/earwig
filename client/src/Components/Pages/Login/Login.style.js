@@ -6,7 +6,7 @@ import { colors } from "./../../../theme";
 export const LoginWrapper = styled.div.attrs({ className: "login" })`
   max-width: 60rem;
   margin: 0 auto;
-  padding-top: 3rem;
+  padding-top: 6rem;
 
   & .paragraph {
     color: red;

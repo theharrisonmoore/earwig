@@ -3,9 +3,10 @@ import { Route, Switch } from "react-router-dom";
 
 import Thankyou from "./Pages/ThankYou";
 import Login from "./Pages/Login";
+import Navbar from "./Common/Navbar";
 
 export default function index(props) {
-  const { handleChangeState } = props;
+  const { handleChangeState, width, isLoggedIn } = props;
   return (
     <>
       <Switch>
@@ -15,7 +16,16 @@ export default function index(props) {
           exact
           path="/login"
           render={props => (
-            <Login {...props} handleChangeState={handleChangeState} />
+            <>
+              <Navbar
+                {...props}
+                title="Page Not Found"
+                width={width}
+                search
+                isLoggedIn={isLoggedIn}
+              />
+              <Login {...props} handleChangeState={handleChangeState} />
+            </>
           )}
         />
 
@@ -26,6 +36,10 @@ export default function index(props) {
   );
 }
 
-function PageNotFound() {
-  return <h1>Page Not Found</h1>;
+function PageNotFound(props) {
+  return (
+    <>
+      <h1>Page Not Found</h1>
+    </>
+  );
 }
