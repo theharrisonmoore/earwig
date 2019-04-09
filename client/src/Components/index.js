@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 
 import Login from "./Pages/Login";
+import Navbar from "./Common/Navbar";
 
 export default function index(props) {
   const { handleChangeState } = props;
@@ -24,5 +25,10 @@ export default function index(props) {
 }
 
 function PageNotFound() {
-  return <h1>Page Not Found</h1>;
+  return (
+    <>
+      <Navbar />
+      <h1>Page Not Found</h1>
+    </>
+  );
 }
