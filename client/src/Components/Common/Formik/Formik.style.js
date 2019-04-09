@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
-import { colors, shadows } from "./../../../theme";
+import { colors, shadows } from "./../../../Components/theme";
 
 export const StyledFormik = styled(Formik).attrs()`
   display: flex;
