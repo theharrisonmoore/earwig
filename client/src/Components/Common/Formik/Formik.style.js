@@ -59,3 +59,31 @@ export const Button = styled.button`
   text-decoration: captalized;
   margin-bottom: 2rem;
 `;
+
+export const CheckboxWrapper = styled.div.attrs({
+  className: "custom-control custom-checkbox"
+})`
+  text-align: left;
+  margin-bottom: 2rem;
+`;
+
+export const Checkbox = styled(Field).attrs({
+  className: "custom-control-input"
+})``;
+
+export const CheckboxLabel = styled.label.attrs({
+  className: "custom-control-label"
+})`
+  font-size: 1.5rem;
+  color: ${colors.profileFontColor};
+  padding-left: 2rem;
+  line-height: 3rem;
+  cursor: pointer;
+
+  &:after,
+  &:before {
+    padding-right: 0.5rem;
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+`;
