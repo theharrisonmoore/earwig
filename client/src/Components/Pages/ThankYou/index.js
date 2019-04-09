@@ -8,6 +8,7 @@
  *  </Link>
  *
  * */
+
 import React, { Component } from "react";
 
 import {
@@ -32,7 +33,7 @@ export default class ThankYou extends Component {
     if (!orgType) {
       return this.props.history.goBack();
     }
-    const img = require(`./../../../assets/${orgType}.svg`);
+    const img = require(`./../../../assets/thank-you-${orgType}.svg`);
 
     return (
       <ThankYouWrapper>
