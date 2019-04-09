@@ -13,7 +13,10 @@ export default function index(props) {
           exact
           path="/login"
           render={props => (
-            <Login {...props} handleChangeState={handleChangeState} />
+            <>
+              <Navbar {...props} title="Page Not Found" width={width} />
+              <Login {...props} handleChangeState={handleChangeState} />
+            </>
           )}
         />
 
@@ -27,7 +30,6 @@ export default function index(props) {
 function PageNotFound(props) {
   return (
     <>
-      <Navbar title="Page Not Found" />
       <h1>Page Not Found</h1>
     </>
   );
