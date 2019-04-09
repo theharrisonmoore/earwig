@@ -16,14 +16,14 @@ export const StyledForm = styled(Form).attrs()`
 export const StyledFormikErrorMessage = styled(ErrorMessage).attrs()`
   color: ${colors.red};
   font-weight: 100;
-  font-size: 1.5rem;
+  font-size: 1rem;
   text-align: left;
 `;
 
 export const GeneralErrorMessage = styled.p.attrs()`
   color: ${colors.red};
   font-weight: 100;
-  font-size: 1.5rem;
+  font-size: 1rem;
   text-align: left;
 `;
 
@@ -32,7 +32,7 @@ export const StyledField = styled(Field).attrs()`
   border: 1px solid ${colors.inputBorder};
   box-sizing: border-box;
   border-radius: 5px;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 0.75rem;
   display: block;
   width: 100%;
   border: 1px solid ${colors.inputBorder};
@@ -42,20 +42,20 @@ export const StyledField = styled(Field).attrs()`
 export const Label = styled.label.attrs()`
   display: block;
   text-align: left;
-  font-size: 1.8rem;
+  font-size: 1.25rem;
   font-weight: 900;
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
 `;
 
 export const Button = styled.button`
   border-radius: 5px;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 0.75rem;
   background-color: ${colors.white};
-  font-size: 2rem;
+  font-size: 1.25rem;
   border: 1px solid ${colors.black};
   box-shadow: ${shadows.buttonShadow};
   outline: none;
   font-weight: 900;
   text-decoration: captalized;
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
 `;
