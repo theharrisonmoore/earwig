@@ -10,7 +10,7 @@ router.post("/login",
   loginController);
 
 router.post("/signup",
-  // validation("signup"),
+  validation("signup"),
   signupController);
 
 module.exports = router;

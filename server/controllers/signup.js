@@ -36,7 +36,7 @@ module.exports = (req, res, next) => {
             { expiresIn: tokenMaxAge.string },
           );
 
-          res.cookie("token", token, { maxAge: tokenMaxAge.string, httpOnly: true });
+          res.cookie("token", token, { maxAge: tokenMaxAge.number, httpOnly: true });
 
           // send the user info
           return res.json(userInfo);

@@ -59,7 +59,7 @@ export default class Signup extends Component {
       errors.rePassword = "Password not match";
     }
     if (!values.checkbox) {
-      errors.checkbox = "Should agree";
+      errors.checkbox = "You should agree Earwig terms of user";
     }
     this.setState({ errors });
     return errors;
@@ -76,7 +76,7 @@ export default class Signup extends Component {
             email: "",
             password: "",
             rePassword: "",
-            checkbox: true
+            checkbox: false
           }}
           validate={this.validate}
           onSubmit={this.handleSubmit}
