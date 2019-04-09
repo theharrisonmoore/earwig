@@ -16,7 +16,7 @@ export default function index(props) {
             <>
               <Navbar
                 {...props}
-                title="Page Not Found"
+                title="Log In"
                 width={width}
                 search
                 isLoggedIn={isLoggedIn}
