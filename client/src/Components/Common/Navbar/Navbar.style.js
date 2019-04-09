@@ -52,8 +52,8 @@ export const ToggleMenu = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
-  z-index: 2;
-  min-width: 6rem;
+  z-index: 4;
+  min-width: 5.25rem;
   justify-content: flex-end;
   h2 {
     font-size: 1rem;

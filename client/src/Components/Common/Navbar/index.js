@@ -16,34 +16,30 @@ export default class Navbar extends Component {
   openMenu = () => {
     const { menuOpen } = this.state;
     this.setState({ menuOpen: !menuOpen });
-    console.log("hello", menuOpen);
   };
 
   render() {
-    // need to know
-    // width
-    // page title?
-    // meant to be there?
-    // search bar?
-
-    const { title, width } = this.props;
+    const { title, width, search, isLoggedIn } = this.props;
     const { menuOpen } = this.state;
 
     if (width > 769) {
       return (
         <Wrapper height="4rem">
           <Icon src={Logo} alt="logo" />
-          <NavSearch>
-            <input placeholder="Try searching for agencies, payrolls, worksites, or companies..." />
-            <img src={SearchIcon} alt="search" />
-          </NavSearch>
+          {search && (
+            <NavSearch>
+              <input placeholder="Try searching for agencies, payrolls, worksites, or companies..." />
+              <img src={SearchIcon} alt="search" />
+            </NavSearch>
+          )}
+
           {menuOpen ? (
             <>
               <ToggleMenu onClick={this.openMenu}>
                 <h2>CLOSE</h2>
                 <img src={Close} alt="close" />
               </ToggleMenu>
-              <Menu width={width} />
+              <Menu width={width} isLoggedIn={isLoggedIn} />
             </>
           ) : (
             <ToggleMenu onClick={this.openMenu}>
@@ -59,7 +55,18 @@ export default class Navbar extends Component {
         <Wrapper height="3rem">
           <Icon src={SearchIcon} alt="search" />
           <h2>{title && title}</h2>
-          <Icon src={Hamburger} alt="hamburger" />
+          {menuOpen ? (
+            <>
+              <ToggleMenu onClick={this.openMenu}>
+                <img src={Close} alt="close" />
+              </ToggleMenu>
+              <Menu width={width} isLoggedIn={isLoggedIn} />
+            </>
+          ) : (
+            <ToggleMenu onClick={this.openMenu}>
+              <Icon src={Hamburger} alt="hamburger" />
+            </ToggleMenu>
+          )}
           {/* MOBILE VERSION */}
         </Wrapper>
       );

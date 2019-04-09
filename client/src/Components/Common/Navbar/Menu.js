@@ -7,9 +7,15 @@ import { Wrapper, MenuItem } from "./Menu.style.js";
 
 export default class Menu extends Component {
   render() {
-    const { width } = this.props;
+    const { width, isLoggedIn } = this.props;
     return (
       <Wrapper width={width}>
+        {width < 770 && (
+          <MenuItem to="/search">
+            <SVG src="/icons/mobile-search-icon.svg" className="menuIcon" />
+            Search
+          </MenuItem>
+        )}
         <MenuItem to="/profile">
           <SVG src="/icons/profile-icon.svg" className="menuIcon" />
           Your profile
@@ -30,10 +36,17 @@ export default class Menu extends Component {
           <SVG src="/icons/tcs-icon.svg" className="menuIcon" />
           Privacy & terms
         </MenuItem>
-        <MenuItem to="/logout">
-          <SVG src="/icons/log-out-icon.svg" className="menuIcon" />
-          Log out
-        </MenuItem>
+        {isLoggedIn ? (
+          <MenuItem to="/logout">
+            <SVG src="/icons/log-out-icon.svg" className="menuIcon" />
+            Log out
+          </MenuItem>
+        ) : (
+          <MenuItem to="/login">
+            <SVG src="/icons/log-out-icon.svg" className="menuIcon" />
+            Log in
+          </MenuItem>
+        )}
       </Wrapper>
     );
   }

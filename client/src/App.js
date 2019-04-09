@@ -32,12 +32,14 @@ class App extends Component {
   };
 
   render() {
+    const { isLoggedIn, width } = this.state;
     return (
       <Router>
         <div className="App">
           <Routes
             handleChangeState={this.handleChangeState}
-            width={this.state.width}
+            width={width}
+            isLoggedIn={isLoggedIn}
           />
         </div>
       </Router>

@@ -5,7 +5,7 @@ import Login from "./Pages/Login";
 import Navbar from "./Common/Navbar";
 
 export default function index(props) {
-  const { handleChangeState, width } = props;
+  const { handleChangeState, width, isLoggedIn } = props;
   return (
     <>
       <Switch>
@@ -14,7 +14,13 @@ export default function index(props) {
           path="/login"
           render={props => (
             <>
-              <Navbar {...props} title="Page Not Found" width={width} />
+              <Navbar
+                {...props}
+                title="Page Not Found"
+                width={width}
+                search
+                isLoggedIn={isLoggedIn}
+              />
               <Login {...props} handleChangeState={handleChangeState} />
             </>
           )}
