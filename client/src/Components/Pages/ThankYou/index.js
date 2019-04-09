@@ -39,7 +39,7 @@ export default class ThankYou extends Component {
       <ThankYouWrapper>
         <ContentWrapper>
           <Image src={img} />
-          <Heading>Thank ThankYou</Heading>
+          <Heading>You did it!</Heading>
           <BoldPargraph>
             Your review will be seen by this company and other workers who rely
             on reviews like yours
