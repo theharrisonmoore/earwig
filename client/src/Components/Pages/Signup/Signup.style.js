@@ -30,36 +30,15 @@ export const StyledLink = styled(Link).attrs({})`
   }
 `;
 
-export const Devider = styled.div`
-  position: relative;
-  height: 5rem;
-  width: 80%;
-  margin: 0 auto;
-  margin-bottom: 3rem;
+export const LinkSpan = styled(Link)`
+  color: ${colors.purpleLinks};
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 700;
 
-  :after {
-    content: "";
-    display: block;
-    border-top: 1px solid ${colors.inputBorder};
-    position: absolute;
-    top: 50%;
-    width: 100%;
+  &:hover,
+  &:active {
+    text-decoration: none;
+    color: ${colors.profileFontColor};
   }
-`;
-
-export const Circle = styled.div`
-  position: absolute;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 50%;
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-  border: 1px solid ${colors.inputBorder};
-  z-index: 2;
-  background-color: white;
-  font-size: 2rem;
-  color: ${colors.lightGray};
-  line-height: 5rem;
-  font-weight: 900;
 `;

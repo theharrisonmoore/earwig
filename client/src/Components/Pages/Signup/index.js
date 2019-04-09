@@ -15,7 +15,7 @@ import {
 
 import axios from "axios";
 
-import { StyledLink as Link, SignupWrapper } from "./Signup.style";
+import { StyledLink as Link, SignupWrapper, LinkSpan } from "./Signup.style";
 
 import logo from "./../../../assets/logo.svg";
 
@@ -55,6 +55,8 @@ export default class Signup extends Component {
     }
     if (!values.password) {
       errors.password = "Required";
+    } else if (values.password && values.password.length < 6) {
+      errors.password = "Password must be 6 charachters length at least";
     } else if (values.rePassword !== values.password) {
       errors.rePassword = "Password not match";
     }
@@ -112,7 +114,8 @@ export default class Signup extends Component {
               <CheckboxWrapper>
                 <Checkbox id="checkbox" type="checkbox" name="checkbox" />
                 <CheckboxLabel htmlFor="checkbox">
-                  I agree to the earwig Terms of Use.
+                  I agree to the earwig{" "}
+                  <LinkSpan to="T&C">Terms of Use.</LinkSpan>
                 </CheckboxLabel>
                 <FormikErrorMessage name="checkbox" component="div" />
               </CheckboxWrapper>
