@@ -35,7 +35,7 @@ export default class Signup extends Component {
         .post("/api/signup", values)
         .then(({ data }) => {
           this.props.handleChangeState({ ...data, isLoggedIn: true });
-          this.props.history.push(`/search`);
+          this.props.history.push(`/intro`);
         })
         .catch(err => {
           this.setState({ error: err.response.data.error });
