@@ -29,7 +29,7 @@ export const NavSearch = styled.div`
   border: 2px solid #000000;
   box-sizing: border-box;
   color: ${colors.gray1};
-  width: 50%;
+  width: 60%;
   height: ${props => props.height};
   position: relative;
 
@@ -48,10 +48,11 @@ export const NavSearch = styled.div`
   }
 `;
 
-export const DesktopMenu = styled.div`
+export const ToggleMenu = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
+  z-index: 2;
   h2 {
     font-size: 1rem;
     height: 100%;
