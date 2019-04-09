@@ -5,7 +5,7 @@ import Login from "./Pages/Login";
 import Navbar from "./Common/Navbar";
 
 export default function index(props) {
-  const { handleChangeState } = props;
+  const { handleChangeState, width } = props;
   return (
     <>
       <Switch>
@@ -24,10 +24,10 @@ export default function index(props) {
   );
 }
 
-function PageNotFound() {
+function PageNotFound(props) {
   return (
     <>
-      <Navbar />
+      <Navbar title="Page Not Found" />
       <h1>Page Not Found</h1>
     </>
   );

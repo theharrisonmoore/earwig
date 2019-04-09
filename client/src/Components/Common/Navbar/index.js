@@ -13,10 +13,14 @@ export default class Navbar extends Component {
     // meant to be there?
     // search bar?
 
+    const { title } = this.props;
+
+    console.log(this.props.width);
+
     return (
       <Wrapper>
         <Icon src={SearchIcon} alt="search" />
-        <h2>Hi</h2>
+        <h2>{title && title}</h2>
         <Icon src={Hamburger} alt="hamburger" />
         {/* MOBILE VERSION */}
       </Wrapper>
