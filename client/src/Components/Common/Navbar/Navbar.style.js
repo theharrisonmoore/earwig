@@ -29,7 +29,7 @@ export const NavSearch = styled.div`
   border: 2px solid #000000;
   box-sizing: border-box;
   color: ${colors.gray1};
-  width: 60%;
+  width: 50%;
   height: ${props => props.height};
   position: relative;
 
@@ -53,6 +53,8 @@ export const ToggleMenu = styled.div`
   display: flex;
   align-items: center;
   z-index: 2;
+  min-width: 6rem;
+  justify-content: flex-end;
   h2 {
     font-size: 1rem;
     height: 100%;

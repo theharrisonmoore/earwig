@@ -6,6 +6,7 @@ import Menu from "./Menu.js";
 import SearchIcon from "./../../../assets/search-icon.svg";
 import Hamburger from "./../../../assets/hamburger.svg";
 import Logo from "./../../../assets/logo.svg";
+import Close from "./../../../assets/close.svg";
 
 export default class Navbar extends Component {
   state = {
@@ -40,7 +41,7 @@ export default class Navbar extends Component {
             <>
               <ToggleMenu onClick={this.openMenu}>
                 <h2>CLOSE</h2>
-                <h2>X</h2>
+                <img src={Close} alt="close" />
               </ToggleMenu>
               <Menu width={width} />
             </>
