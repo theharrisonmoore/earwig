@@ -11,15 +11,28 @@ module.exports = searchInput => new Promise((resolve, reject) => {
     {
       $lookup: {
         from: "reviews",
-        localField: "organization",
-        foreignField: "_id",
+        localField: "_id",
+        foreignField: "organization",
         as: "reviews",
       },
     },
-    // { $unwind: "$reviews" },
+    {
+      $addFields: {
+        totalReviews: {
+          $size: "$reviews",
+        },
+        avgRatings: {
+          $avg: "$reviews.rate",
+        },
+      },
+    },
     {
       $project: {
-        reviews: 1,
+        _id: 1,
+        name: 1,
+        category: 1,
+        totalReviews: 1,
+        avgRatings: 1,
       },
     },
   ])
