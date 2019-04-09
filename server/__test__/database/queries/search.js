@@ -23,4 +23,10 @@ describe("Test for search query", () => {
       done();
     });
   });
+  test("test with invalid input", async (done) => {
+    searchQuery(searchInputs.invalid).then((result) => {
+      expect(result.length).toBe(0);
+      done();
+    });
+  });
 });
