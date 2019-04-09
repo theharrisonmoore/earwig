@@ -11,23 +11,18 @@ describe("testing search route", () => {
     await mongoose.disconnect();
   });
   beforeEach(async () => {
-    buildDB();
+    await buildDB();
   });
 
-  test("test with valid request", (done) => {
-    const data = {
-      searchTerm: "A A C Mechanical & Electrical",
-    };
+  test("test valid request", (done) => {
     request(app)
       .get("/api/search")
-      .send(data)
       .expect("Content-Type", /json/)
       .expect(200)
-      .end(async (err, res) => {
+      .end((err, res) => {
         expect(res).toBeDefined();
-        expect(res.body[0]).toBeDefined();
+        expect(res.body).toBeDefined();
         expect(res.body[0]._id).toBeDefined();
-        expect(res.body[0].category).toBe("company");
         done();
       });
   });

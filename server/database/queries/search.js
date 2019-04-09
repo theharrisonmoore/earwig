@@ -1,13 +1,8 @@
+// gets all organizations, includes number of reviews and average ratings for each entry
 const Organization = require("../models/Organization");
-// const Reviews = require("../models/Review");
 
-module.exports = searchInput => new Promise((resolve, reject) => {
+module.exports = () => new Promise((resolve, reject) => {
   Organization.aggregate([
-    {
-      $match: {
-        name: searchInput,
-      },
-    },
     {
       $lookup: {
         from: "reviews",
