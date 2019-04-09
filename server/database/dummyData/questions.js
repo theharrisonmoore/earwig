@@ -354,7 +354,7 @@ module.exports = () => {
     },
     {
       number: 5,
-      type: "number",
+      type: "radio",
       text: "At the site, were you offered secure storage for your personal belongings?",
       hintText: "E.g., Lockers, cloak room, etc.",
       isJumping: false,
@@ -467,9 +467,10 @@ module.exports = () => {
     },
     {
       number: 19,
-      type: "open",
+      type: "yesno",
       text: "Overall, would you be happy to work on this site again?",
       isJumping: false,
+      options: ["yes", "no"],
       category: "worksite",
     },
 
@@ -544,14 +545,6 @@ module.exports = () => {
       number: 9,
       type: "yesno",
       text: "Overall, did you feel valued working with this company?",
-      isJumping: false,
-      options: ["yes", "no"],
-      category: "company",
-    },
-    {
-      number: 9,
-      type: "yesno",
-      text: "Overall, would you be happy to work with this company again?",
       isJumping: false,
       options: ["yes", "no"],
       category: "company",
