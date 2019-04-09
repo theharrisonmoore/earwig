@@ -1,11 +1,9 @@
+const boom = require("boom");
 const searchQuery = require("../database/queries/search");
 
 module.exports = (req, res, next) => {
-  const searchTerm = "A A C Mechanical & Electrical";
+  const { searchTerm } = req.body;
   searchQuery(searchTerm)
-    .then((result) => {
-      console.log(result);
-      res.json(result);
-    })
-    .catch(err => console.log(err));
+    .then(result => res.json(result))
+    .catch(() => next(boom.badImplementation()));
 };
