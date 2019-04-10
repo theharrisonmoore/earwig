@@ -6,6 +6,7 @@ import StarRatingComponent from "react-star-rating-component";
 
 import {
   Headline,
+  Row,
   Item,
   LegendTitle,
   SearchLegend,
@@ -106,7 +107,7 @@ export default class Search extends Component {
   render() {
     const { loaded, value, suggestions } = this.state;
     const inputProps = {
-      placeholder: "type to search for organisations",
+      placeholder: "start typing...",
       value,
       onChange: this.onChange
     };
@@ -114,23 +115,30 @@ export default class Search extends Component {
 
     return (
       <SearchWrapper>
-        <Headline>Welcome to earwig. Try searching for…</Headline>
+        <Headline>
+          <h2>Welcome to earwig.</h2> <h2>Try searching for…</h2>
+        </Headline>
         <SearchLegend>
-          <Item>
-            <SVG src="/icons/agency-icon.svg" />
-            <LegendTitle color={`${organizations.agency.primary}`}>
-              Agencies
-            </LegendTitle>
-          </Item>
-          <Item>
-            <SVG src="/icons/payroll-icon.svg" />
-          </Item>
-          <Item>
-            <SVG src="/icons/worksite-icon.svg" />
-          </Item>
-          <Item>
-            <SVG src="/icons/company-icon.svg" />
-          </Item>
+          <Row>
+            <Item>
+              <SVG src="/icons/agency-icon.svg" />
+              <LegendTitle color="#8B51FC">Agencies</LegendTitle>
+            </Item>
+            <Item>
+              <SVG src="/icons/payroll-icon.svg" />
+              <LegendTitle color="#37B6FD">Payrolls</LegendTitle>
+            </Item>
+          </Row>
+          <Row>
+            <Item>
+              <SVG src="/icons/worksite-icon.svg" />
+              <LegendTitle color="#FFA400">Worksites</LegendTitle>
+            </Item>
+            <Item>
+              <SVG src="/icons/company-icon.svg" />
+              <LegendTitle color="#1C0F13">Companies</LegendTitle>
+            </Item>
+          </Row>
         </SearchLegend>
         <Autosuggest
           suggestions={suggestions}
