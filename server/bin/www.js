@@ -6,6 +6,11 @@
 
 const debug = require("debug")("server:server");
 const http = require("http");
+
+// read the config file
+require("env2")("./.env");
+
+
 const app = require("../app");
 
 /**

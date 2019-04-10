@@ -9,10 +9,6 @@ const dbConnection = require("./database/dbConnection");
 
 const app = express();
 
-// read the config file
-// eslint-disable-next-line global-require
-require("env2")("./.env");
-
 // connect to DB
 dbConnection();
 
