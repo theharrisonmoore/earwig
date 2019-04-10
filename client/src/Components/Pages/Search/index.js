@@ -122,7 +122,7 @@ export default class Search extends Component {
 
   // sort reviews by last viewed
   sortLastViewed = (a, b) =>
-    a.lastViewed > b.lastViewed ? 1 : b.lastViewed > a.lastViewed ? -1 : 0;
+    a.lastViewed > b.lastViewed ? -1 : b.lastViewed > a.lastViewed ? 1 : 0;
 
   onChange = (event, { newValue }) => {
     this.setState({ value: newValue });
