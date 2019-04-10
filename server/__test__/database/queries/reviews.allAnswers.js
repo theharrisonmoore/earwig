@@ -20,7 +20,10 @@ describe("Test overallReview query", () => {
 
     allAnswers(organizationID).then((result) => {
       expect(result).toBeDefined();
-      expect(result).toBe("hello");
+      expect(result[0].answers).toBeDefined();
+      expect(result[0].question).toBeDefined();
+      expect(result[0].answers[0].organization).toEqual(organizationID);
+      expect(result[0].answers[0].question).toEqual(result[0].question[0]._id);
       done();
     });
   });
