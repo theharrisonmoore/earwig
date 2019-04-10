@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import SVG from "react-inlinesvg";
 import axios from "axios";
 import Autosuggest from "react-autosuggest";
+import StarRatingComponent from 'react-star-rating-component';
+
 
 import {
   SearchWrapper,
@@ -10,14 +12,15 @@ import {
   DetailsDiv,
 } from "./Search.style";
 
-import { organizationIcons } from "./../../../theme";
+import { organizationIcons, organizations } from "./../../../theme";
 
 export default class Search extends Component {
   state = {
     loaded: false,
     data: null,
     value: "",
-    suggestions: []
+    suggestions: [],
+    rating: 1
   };
   // lifecycle
   componentDidMount() {
@@ -54,10 +57,16 @@ export default class Search extends Component {
         <SVG src={`/icons/${organizationIcons[suggestion.category]}.svg`} className="OrganizationIcon"/>
       </SymbolDiv>
       <DetailsDiv>
-        {" "}
         <h3>{suggestion.name}</h3>
-        {suggestion.avgRatings}
-        {suggestion.totalReviews}
+        <StarRatingComponent
+        name="orgaRate"
+        editing={false}
+        starCount={5}
+        value={suggestion.avgRatings}
+        starColor={`${organizations[suggestion.category].primary}`}
+        emptyStarColor={"#FFFFFF"}
+        />
+        <p>{suggestion.totalReviews} reviews</p>
       </DetailsDiv>
     </SuggestionBox>
   );
@@ -78,7 +87,7 @@ export default class Search extends Component {
 
   render() {
     console.log(this.state.data);
-    const { loaded, value, suggestions } = this.state;
+    const { loaded, value, suggestions, rating } = this.state;
     const inputProps = {
       placeholder: "type to search for organisations",
       value,
