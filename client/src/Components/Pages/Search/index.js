@@ -3,6 +3,7 @@ import SVG from "react-inlinesvg";
 import axios from "axios";
 import Autosuggest from "react-autosuggest";
 import StarRatingComponent from "react-star-rating-component";
+import autoCompleteTheme from "./autoCompleteTheme.css";
 
 import {
   Headline,
@@ -90,6 +91,38 @@ export default class Search extends Component {
     </SuggestionBox>
   );
 
+  // render lates organizations
+  renderOrgas = orga => (
+    <SuggestionInnerFrame orgType={orga.category}>
+      <SymbolDiv>
+        <SVG
+          src={`/icons/${organizationIcons[orga.category].symbol}.svg`}
+          className="OrganizationSymbol"
+        />
+      </SymbolDiv>
+      <DetailsDiv>
+        <h3>{orga.name}</h3>
+        <ReviewDetailsDiv>
+          <StarRatingComponent
+            name="orgaRate"
+            editing={false}
+            starCount={5}
+            value={orga.avgRatings}
+            starColor={`${organizations[orga.category].primary}`}
+            emptyStarColor={"#D3D3D3"}
+          />
+          <p>{orga.totalReviews} reviews</p>
+        </ReviewDetailsDiv>
+      </DetailsDiv>
+      <ArrowDiv>
+        <SVG
+          src={`/icons/${organizationIcons[orga.category].arrow}.svg`}
+          className="OrganizationArrowLink"
+        />{" "}
+      </ArrowDiv>
+    </SuggestionInnerFrame>
+  );
+
   onChange = (event, { newValue }) => {
     this.setState({ value: newValue });
   };
@@ -105,11 +138,12 @@ export default class Search extends Component {
   };
 
   render() {
-    const { loaded, value, suggestions } = this.state;
+    const { loaded, value, suggestions, data } = this.state;
     const inputProps = {
       placeholder: "start typing...",
       value,
-      onChange: this.onChange
+      onChange: this.onChange,
+      highlightFirstSuggestion: true
     };
     if (!loaded) return <p>loading...</p>;
 
@@ -141,13 +175,21 @@ export default class Search extends Component {
           </Row>
         </SearchLegend>
         <Autosuggest
+          theme={autoCompleteTheme}
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           inputProps={inputProps}
+          scrollable={true}
         />
+        <Headline>
+          <p>Or find out what's happening at...</p>
+        </Headline>
+        {data.map(orga => {
+          return this.renderOrgas(orga);
+        })}
       </SearchWrapper>
     );
   }

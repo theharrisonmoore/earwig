@@ -61,6 +61,7 @@ export const SuggestionBox = styled.div`
 export const SuggestionInnerFrame = styled.div`
   display: flex;
   padding: 1rem 1rem 1rem 1rem;
+  color: ${props => organizations[props.orgType].primary};
 `;
 
 export const SymbolDiv = styled.div`
