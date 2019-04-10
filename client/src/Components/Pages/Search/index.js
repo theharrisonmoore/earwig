@@ -18,7 +18,8 @@ import {
   ReviewDetailsDiv,
   SuggestionInnerFrame,
   ArrowDiv,
-  ImgDiv
+  ImgDiv,
+  ReviewsFrame
 } from "./Search.style";
 
 import { organizationIcons, organizations } from "./../../../theme";
@@ -89,12 +90,10 @@ export default class Search extends Component {
           </ReviewDetailsDiv>
         </DetailsDiv>
         <ArrowDiv>
-          <ImgDiv>
-            <SVG
-              src={`/icons/${organizationIcons[suggestion.category].arrow}.svg`}
-              className="OrganizationArrowLink"
-            />{" "}
-          </ImgDiv>
+          <SVG
+            src={`/icons/${organizationIcons[suggestion.category].arrow}.svg`}
+            className="OrganizationArrowLink"
+          />
         </ArrowDiv>
       </SuggestionInnerFrame>
     </SuggestionBox>
@@ -102,30 +101,32 @@ export default class Search extends Component {
 
   // render lates organizations
   renderLastViewed = orga => (
-    <SuggestionInnerFrame orgType={orga.category}>
-      <SymbolDiv>
-        <ImgDiv>
-          <SVG
-            src={`/icons/${organizationIcons[orga.category].symbol}.svg`}
-            className="OrganizationSymbol"
-          />
-        </ImgDiv>
-      </SymbolDiv>
-      <DetailsDiv>
-        <h3>{orga.name}</h3>
-        <ReviewDetailsDiv>
-          <StarRatingComponent
-            name="orgaRate"
-            editing={false}
-            starCount={5}
-            value={orga.avgRatings}
-            starColor={`${organizations[orga.category].primary}`}
-            emptyStarColor={"#D3D3D3"}
-          />
-          <p>{orga.totalReviews} reviews</p>
-        </ReviewDetailsDiv>
-      </DetailsDiv>
-    </SuggestionInnerFrame>
+    <ReviewsFrame>
+      <SuggestionInnerFrame orgType={orga.category}>
+        <SymbolDiv>
+          <ImgDiv>
+            <SVG
+              src={`/icons/${organizationIcons[orga.category].symbol}.svg`}
+              className="OrganizationSymbol"
+            />
+          </ImgDiv>
+        </SymbolDiv>
+        <DetailsDiv>
+          <h3>{orga.name}</h3>
+          <ReviewDetailsDiv>
+            <StarRatingComponent
+              name="orgaRate"
+              editing={false}
+              starCount={5}
+              value={orga.avgRatings}
+              starColor={`${organizations[orga.category].primary}`}
+              emptyStarColor={"#D3D3D3"}
+            />
+            <p>{orga.totalReviews} reviews</p>
+          </ReviewDetailsDiv>
+        </DetailsDiv>
+      </SuggestionInnerFrame>
+    </ReviewsFrame>
   );
 
   // sort reviews by last viewed

@@ -18,10 +18,11 @@ export const Headline = styled.div`
   flex-direction: column;
   text-align: center;
   padding-top: 2rem;
-  padding-bottom: 1.5rem;
+  padding-bottom: 0.7rem;
   color: ${colors.profileFontColor};
   h2 {
     font-size: 2rem;
+    font-weight: 350;
   }
   p {
     font-style: italic;
@@ -30,19 +31,20 @@ export const Headline = styled.div`
 
 export const SearchLegend = styled.div`
   display: flex;
+  padding-left: 1rem;
   flex-direction: column;
+  align-items: center;
   padding-bottom: 1rem;
 `;
 
 export const Row = styled.div`
   display: flex;
+  width: 100%;
 `;
 
 export const Item = styled.div`
   display: flex;
-  text-align: left;
-  padding-left: 1rem;
-  width: 100%;
+  width: 50%;
 `;
 export const LegendTitle = styled.h2`
   color: ${props => props.color};
@@ -56,11 +58,16 @@ export const SuggestionBox = styled.div`
   color: ${props => organizations[props.orgType].primary};
 `;
 
-export const SuggestionInnerFrame = styled.div`
+export const ReviewsFrame = styled.div`
   display: flex;
-  text-align: left;
-  padding-left: 1rem;
+  justify-content: center;
   padding-top: 0.3rem;
+  padding-left: 1rem;
+`;
+
+export const SuggestionInnerFrame = styled.div`
+  text-align: left;
+  width: 100%;
 `;
 
 export const SymbolDiv = styled.div`
@@ -72,6 +79,7 @@ export const SymbolDiv = styled.div`
 `;
 
 export const ArrowDiv = styled.div`
+  border: 1px solid green;
   display: flex;
   margin-left: auto;
   align-items: center;
