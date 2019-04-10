@@ -31,9 +31,9 @@ describe("Testing profile route", () => {
       .end((err, res) => {
         expect(res).toBeDefined();
         expect(res.body).toBeDefined();
-        expect(res.body.answers).toBeDefined();
+        expect(res.body.reviewDetails).toBeDefined();
         expect(res.body.summary).toBeDefined();
-        expect(res.body.answers.length).toBeGreaterThan(1);
+        expect(res.body.reviewDetails.length).toBeGreaterThan(1);
         done();
       });
   });

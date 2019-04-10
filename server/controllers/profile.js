@@ -12,7 +12,7 @@ module.exports = async (req, res, next) => {
 
   const summary = await overallReview(organizationID).catch(err => next(boom.badImplementation(err)));
 
-  const answers = await allAnswers(organizationID).catch(err => next(boom.badImplementation(err)));
+  const reviewDetails = await allAnswers(organizationID).catch(err => next(boom.badImplementation(err)));
 
   // overallReview(organizationID)
   //   .then(result => res.json({ summary: result, id: organizationID }))
@@ -20,5 +20,5 @@ module.exports = async (req, res, next) => {
 
   // checkOrgExists(organizationID).then(result => res.json(result));
 
-  return res.json({ summary, answers });
+  return res.json({ summary, reviewDetails });
 };
