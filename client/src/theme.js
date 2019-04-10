@@ -33,7 +33,8 @@ export const colors = {
 
 // shadows
 export const shadows = {
-  buttonShadow: "0px 4px 13px rgba(173, 145, 183, 0.273438)"
+  buttonShadow: "0px 4px 13px rgba(173, 145, 183, 0.273438)",
+  activeButtonShadow: "0px 2px 9px rgba(173, 145, 183, 0.273438)"
 };
 
 // gradient colors
