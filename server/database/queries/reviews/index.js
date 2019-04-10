@@ -32,3 +32,24 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
     .then(resolve)
     .catch(err => reject(err));
 });
+
+// get all the reviews that match an organisation id
+// get all the answers for that review and store in an answers field
+
+module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
+  Organization.aggregate([
+    {
+      $match: { organization: organizationID },
+    },
+    {
+      $lookup: {
+        from: "answers",
+        localField: "_id",
+        foreignField: "organization",
+        as: "answers",
+      },
+    },
+  ])
+    .then(resolve)
+    .catch(err => reject(err));
+});
