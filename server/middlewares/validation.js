@@ -5,7 +5,7 @@ const boom = require("boom");
 const schemas = {
   login: {
     email: Joi.string().email({ minDomainAtoms: 2 }).required(),
-    password: Joi.string().min(6).required(),
+    password: Joi.string().required(),
   },
 };
 

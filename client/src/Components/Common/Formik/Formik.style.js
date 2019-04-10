@@ -29,7 +29,6 @@ export const GeneralErrorMessage = styled.p.attrs()`
 
 export const StyledField = styled(Field).attrs()`
   background: ${colors.white};
-  border: 1px solid ${colors.inputBorder};
   box-sizing: border-box;
   border-radius: 5px;
   padding: 0.5rem 0.75rem;
