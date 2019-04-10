@@ -7,8 +7,10 @@ import {
   SearchWrapper,
   SuggestionBox,
   SymbolDiv,
-  DetailsDiv
+  DetailsDiv,
 } from "./Search.style";
+
+import { organizationIcons } from "./../../../theme";
 
 export default class Search extends Component {
   state = {
@@ -46,15 +48,15 @@ export default class Search extends Component {
 
   // render suggestions
   renderSuggestion = suggestion => (
-    <SuggestionBox>
+    <SuggestionBox orgType={suggestion.category}>
       <SymbolDiv>
         <SVG src="/icons/mobile-search-icon.svg" className="menuIcon" />
+        <SVG src={`/icons/${organizationIcons[suggestion.category]}.svg`} className="OrganizationIcon"/>
       </SymbolDiv>
       <DetailsDiv>
         {" "}
         <h3>{suggestion.name}</h3>
         {suggestion.avgRatings}
-        {suggestion.category}
         {suggestion.totalReviews}
       </DetailsDiv>
     </SuggestionBox>

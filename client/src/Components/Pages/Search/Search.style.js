@@ -10,7 +10,6 @@ export const SearchWrapper = styled.div`
   padding: 0 1rem;
   padding-top: 2rem;
   border: 1px solid blue;
-
   li {
     list-style-type: none;
   }
@@ -20,6 +19,7 @@ export const SuggestionBox = styled.div`
   opacity: 0.6;
   border: 1px solid #000000;
   box-shadow: ${colors.searchBoxShadow};
+  color: ${props => organizations[props.orgType].primary};
 `;
 
 export const SymbolDiv = styled.div``;

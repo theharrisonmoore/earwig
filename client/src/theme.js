@@ -49,4 +49,13 @@ export const gradient = {
     "linear-gradient(95.7deg, #BB51FC -0.49%, #37B6FD 16.44%, #FFA400 32.65%, #2A1E22 48.14%, rgba(42, 30, 34, 0) 68.67%)"
 };
 
+// icons
+
+export const organizationIcons = {
+  agency: 'agency-icon',
+  payroll: 'payrolls-icon',
+  worksite: 'worksite-icon',
+  company: 'companies-icon'
+};
+
 //  font families to be added
