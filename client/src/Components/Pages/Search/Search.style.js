@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 import { colors, shadows, organizations } from "./../../../theme";
 
@@ -15,36 +14,35 @@ export const SearchWrapper = styled.div`
 `;
 
 export const Headline = styled.div`
-  width: 100%;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 1.5rem;
+  color: ${colors.profileFontColor};
   h2 {
-    color: ${colors.profileFontColor};
     font-size: 2rem;
-    margin: 0;
+  }
+  p {
+    font-style: italic;
   }
 `;
 
 export const SearchLegend = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 1.5rem;
+  padding-bottom: 1rem;
 `;
 
 export const Row = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-left: 6rem;
-
-  @media (min-width: 769px) {
-    padding-left: 8rem;
-  }
 `;
 
 export const Item = styled.div`
   display: flex;
-  width: 50%;
+  text-align: left;
+  padding-left: 1rem;
+  width: 100%;
 `;
 export const LegendTitle = styled.h2`
   color: ${props => props.color};
@@ -58,16 +56,10 @@ export const SuggestionBox = styled.div`
   color: ${props => organizations[props.orgType].primary};
 `;
 
-export const OrganizationWrapper = styled.div`
-  padding-left: 6rem;
-  padding-bottom: -10rem;
-  @media (min-width: 769px) {
-    padding-left: 8rem;
-  }
-`;
-
 export const SuggestionInnerFrame = styled.div`
   display: flex;
+  text-align: left;
+  padding-left: 1rem;
   padding-top: 0.3rem;
 `;
 
@@ -86,6 +78,13 @@ export const ArrowDiv = styled.div`
   svg {
     margin-right: 1rem;
   }
+`;
+
+export const ImgDiv = styled.div`
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
 `;
 
 export const DetailsDiv = styled.div`

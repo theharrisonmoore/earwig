@@ -18,7 +18,7 @@ import {
   ReviewDetailsDiv,
   SuggestionInnerFrame,
   ArrowDiv,
-  OrganizationWrapper
+  ImgDiv
 } from "./Search.style";
 
 import { organizationIcons, organizations } from "./../../../theme";
@@ -62,11 +62,17 @@ export default class Search extends Component {
     <SuggestionBox orgType={suggestion.category}>
       <SuggestionInnerFrame>
         <SymbolDiv>
-          <SVG src="/icons/mobile-search-icon.svg" className="menuIcon" />
-          <SVG
-            src={`/icons/${organizationIcons[suggestion.category].symbol}.svg`}
-            className="OrganizationSymbol"
-          />
+          <ImgDiv>
+            <SVG src="/icons/mobile-search-icon.svg" className="menuIcon" />
+          </ImgDiv>
+          <ImgDiv>
+            <SVG
+              src={`/icons/${
+                organizationIcons[suggestion.category].symbol
+              }.svg`}
+              className="OrganizationSymbol"
+            />
+          </ImgDiv>
         </SymbolDiv>
         <DetailsDiv>
           <h3>{suggestion.name}</h3>
@@ -83,10 +89,12 @@ export default class Search extends Component {
           </ReviewDetailsDiv>
         </DetailsDiv>
         <ArrowDiv>
-          <SVG
-            src={`/icons/${organizationIcons[suggestion.category].arrow}.svg`}
-            className="OrganizationArrowLink"
-          />{" "}
+          <ImgDiv>
+            <SVG
+              src={`/icons/${organizationIcons[suggestion.category].arrow}.svg`}
+              className="OrganizationArrowLink"
+            />{" "}
+          </ImgDiv>
         </ArrowDiv>
       </SuggestionInnerFrame>
     </SuggestionBox>
@@ -94,30 +102,30 @@ export default class Search extends Component {
 
   // render lates organizations
   renderLastViewed = orga => (
-    <OrganizationWrapper>
-      <SuggestionInnerFrame orgType={orga.category}>
-        <SymbolDiv>
+    <SuggestionInnerFrame orgType={orga.category}>
+      <SymbolDiv>
+        <ImgDiv>
           <SVG
             src={`/icons/${organizationIcons[orga.category].symbol}.svg`}
             className="OrganizationSymbol"
           />
-        </SymbolDiv>
-        <DetailsDiv>
-          <h3>{orga.name}</h3>
-          <ReviewDetailsDiv>
-            <StarRatingComponent
-              name="orgaRate"
-              editing={false}
-              starCount={5}
-              value={orga.avgRatings}
-              starColor={`${organizations[orga.category].primary}`}
-              emptyStarColor={"#D3D3D3"}
-            />
-            <p>{orga.totalReviews} reviews</p>
-          </ReviewDetailsDiv>
-        </DetailsDiv>
-      </SuggestionInnerFrame>
-    </OrganizationWrapper>
+        </ImgDiv>
+      </SymbolDiv>
+      <DetailsDiv>
+        <h3>{orga.name}</h3>
+        <ReviewDetailsDiv>
+          <StarRatingComponent
+            name="orgaRate"
+            editing={false}
+            starCount={5}
+            value={orga.avgRatings}
+            starColor={`${organizations[orga.category].primary}`}
+            emptyStarColor={"#D3D3D3"}
+          />
+          <p>{orga.totalReviews} reviews</p>
+        </ReviewDetailsDiv>
+      </DetailsDiv>
+    </SuggestionInnerFrame>
   );
 
   // sort reviews by last viewed
@@ -157,21 +165,29 @@ export default class Search extends Component {
         <SearchLegend>
           <Row>
             <Item>
-              <SVG src="/icons/agency-icon.svg" />
+              <ImgDiv>
+                <SVG src="/icons/agency-icon.svg" />
+              </ImgDiv>
               <LegendTitle color="#8B51FC">Agencies</LegendTitle>
             </Item>
             <Item>
-              <SVG src="/icons/payroll-icon.svg" />
+              <ImgDiv>
+                <SVG src="/icons/payroll-icon.svg" />
+              </ImgDiv>
               <LegendTitle color="#37B6FD">Payrolls</LegendTitle>
             </Item>
           </Row>
           <Row>
             <Item>
-              <SVG src="/icons/worksite-icon.svg" />
+              <ImgDiv>
+                <SVG src="/icons/worksite-icon.svg" />
+              </ImgDiv>
               <LegendTitle color="#FFA400">Worksites</LegendTitle>
             </Item>
             <Item>
-              <SVG src="/icons/company-icon.svg" />
+              <ImgDiv>
+                <SVG src="/icons/company-icon.svg" />
+              </ImgDiv>
               <LegendTitle color="#1C0F13">Companies</LegendTitle>
             </Item>
           </Row>
