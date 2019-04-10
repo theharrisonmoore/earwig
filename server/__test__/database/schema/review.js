@@ -73,7 +73,6 @@ describe("Test Review schema", () => {
     expect(storedReviews).toBeDefined();
     expect(storedReviews.rate).toBe(review.rate);
     expect(storedReviews.overallReview.text).toBe(review.overallReview.text);
-    expect(storedReviews.organization).toBe("hello");
 
     // default values
     expect(storedReviews.createdAt).toBeDefined();

@@ -1,11 +1,14 @@
+const mongoose = require("mongoose");
 const Organization = require("./../../models/Organization");
 const Answer = require("./../../models/Answer");
+
+module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
 
 module.exports.overallReview = organizationID => new Promise((resolve, reject) => {
   Organization.aggregate([
     // get the specific organization
     {
-      $match: { _id: organizationID },
+      $match: { _id: mongoose.Types.ObjectId(organizationID) },
     },
     // get all the reviews that organization has
     {
@@ -45,7 +48,7 @@ module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
   Answer.aggregate([
     // get all answers related to that organization
     {
-      $match: { organization: organizationID },
+      $match: { organization: mongoose.Types.ObjectId(organizationID) },
     },
     // group the answers by the question
     // each question now has an array of the answers

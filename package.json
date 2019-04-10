@@ -51,6 +51,7 @@
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "boom": "^7.3.0",
     "cookie-parser": "^1.4.4",
     "debug": "^4.1.1",
     "dotenv": "^7.0.0",
@@ -59,6 +60,7 @@
     "http-errors": "^1.7.2",
     "mongoose": "^5.4.22",
     "morgan": "^1.9.1",
-    "shortid": "^2.2.14"
+    "shortid": "^2.2.14",
+    "supertest": "^4.0.2"
   }
 }

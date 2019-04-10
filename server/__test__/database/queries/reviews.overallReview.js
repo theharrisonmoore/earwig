@@ -27,4 +27,12 @@ describe("Test overallReview query", () => {
       done();
     });
   });
+
+  test("Test with incorrect organization ID", async (done) => {
+    overallReview(1111111111).then((result) => {
+      expect(result).toBeDefined();
+      expect(result.length).toBe(0);
+      done();
+    });
+  });
 });
