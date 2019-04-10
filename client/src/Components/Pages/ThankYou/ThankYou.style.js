@@ -25,19 +25,19 @@ export const Image = styled.img`
 
 export const Heading = styled.h1`
   color: ${colors.profileFontColor};
-  font-size: 28px;
+  font-size: 1.75rem;
   margin-top: 2rem;
 `;
 
 export const BoldPargraph = styled.p`
   color: ${colors.profileFontColor};
-  font-size: 18px;
+  font-size: 1.125rem;
   margin-top: 1rem;
 `;
 
 export const SubHeading = styled.h2`
   color: ${colors.profileFontColor};
-  font-size: 18px;
+  font-size: 1.125rem;
   margin-top: 2rem;
   text-align: left;
 `;
@@ -45,7 +45,7 @@ export const SubHeading = styled.h2`
 export const List = styled.ul`
   opacity: 0.8;
   color: ${colors.profileFontColor};
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 700;
 
   & li {
@@ -80,14 +80,14 @@ export const Icon = styled.i`
 export const Button = styled.button`
   display: block;
   width: 100%;
-  height: 56px;
+  height: 3.5rem;
   box-shadow: ${shadows.buttonShadow};
   border-radius: 6px;
   background-color: ${props => organizations[props.orgType].primary};
   color: ${colors.white};
   border: none;
   margin-bottom: 2.5rem;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 700;
   transition: all 0.2s;
 
@@ -108,7 +108,7 @@ export const StyledLink = styled(Link)`
     font-family: Roboto;
     font-style: normal;
     font-weight: 900;
-    font-size: 20px;
+    font-size: 1.25rem;
     color: ${props => organizations[props.orgType].primary};
     text-underline-position: under;
     text-decoration: underline;
