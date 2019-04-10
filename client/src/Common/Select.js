@@ -92,10 +92,12 @@ class CustomizedSelects extends React.Component {
           )}
           {/* <FormLabel component="label">Gender</FormLabel> */}
 
+          <label htmlFor={`${label}-customized-select`}>Label</label>
+
           <Select
             value={value}
             onChange={handleChange}
-            name="age"
+            name={label}
             displayEmpty
             className={classes.selectEmpty}
             input={
