@@ -5,6 +5,10 @@ import Autosuggest from "react-autosuggest";
 import StarRatingComponent from "react-star-rating-component";
 
 import {
+  Headline,
+  Item,
+  LegendTitle,
+  SearchLegend,
   SearchWrapper,
   SuggestionBox,
   SymbolDiv,
@@ -21,8 +25,7 @@ export default class Search extends Component {
     loaded: false,
     data: null,
     value: "",
-    suggestions: [],
-    rating: 1
+    suggestions: []
   };
   // lifecycle
   componentDidMount() {
@@ -101,8 +104,7 @@ export default class Search extends Component {
   };
 
   render() {
-    console.log(this.state.data);
-    const { loaded, value, suggestions, rating } = this.state;
+    const { loaded, value, suggestions } = this.state;
     const inputProps = {
       placeholder: "type to search for organisations",
       value,
@@ -112,6 +114,24 @@ export default class Search extends Component {
 
     return (
       <SearchWrapper>
+        <Headline>Welcome to earwig. Try searching for…</Headline>
+        <SearchLegend>
+          <Item>
+            <SVG src="/icons/agency-icon.svg" />
+            <LegendTitle color={`${organizations.agency.primary}`}>
+              Agencies
+            </LegendTitle>
+          </Item>
+          <Item>
+            <SVG src="/icons/payroll-icon.svg" />
+          </Item>
+          <Item>
+            <SVG src="/icons/worksite-icon.svg" />
+          </Item>
+          <Item>
+            <SVG src="/icons/company-icon.svg" />
+          </Item>
+        </SearchLegend>
         <Autosuggest
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}

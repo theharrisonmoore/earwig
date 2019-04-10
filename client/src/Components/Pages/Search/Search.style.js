@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 
 import { colors, shadows, organizations } from "./../../../theme";
 
+export const Headline = styled.h1`
+  color: ${colors.profileFontColor};
+  font-size: 1.75rem;
+  margin-top: 2rem;
+`;
+
 export const SearchWrapper = styled.div`
   width: 100%;
   max-width: 40rem;
@@ -13,6 +19,9 @@ export const SearchWrapper = styled.div`
     list-style-type: none;
   }
 `;
+
+export const SearchLegend = styled.div``;
+export const Item = styled.div``;
 
 export const SuggestionBox = styled.div`
   border: 0.5px solid ${colors.lightGray};
