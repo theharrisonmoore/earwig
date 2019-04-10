@@ -2,12 +2,16 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 
 import UploadImage from "./UploadImage";
+import Thankyou from "./Pages/ThankYou";
 
 export default function index(props) {
   return (
     <>
       <Switch>
         <Route exact path="/upload" component={UploadImage} />
+        {/* orgType required as state in Link for this */}
+        <Route path="/thank-you" component={Thankyou} />
+
         {/* 404 Error Page -need to be created */}
         <Route component={PageNotFound} />
       </Switch>

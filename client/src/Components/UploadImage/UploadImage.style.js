@@ -21,7 +21,7 @@ export const SelectWrapper = styled.div`
 `;
 
 export const Heading = styled.h1`
-  color: ${colors.mineShaft};
+  color: ${colors.mineShaft2};
   font-size: 1.125rem;
   font-weight: 900;
   margin-bottom: 2rem;
@@ -29,7 +29,7 @@ export const Heading = styled.h1`
 export const SubHeading = styled.h2`
   font-weight: 900;
   font-size: 1.125rem;
-  color: ${colors.mineShaft};
+  color: ${colors.mineShaft2};
   text-align: left;
   margin-bottom: 0;
 `;
@@ -58,7 +58,7 @@ export const Paragraph = styled.p`
 
 export const Button = styled.button`
   background: ${colors.white};
-  border: 1px solid ${colors.mineShaft};
+  border: 1px solid ${colors.mineShaft2};
   box-shadow: ${shadows.buttonShadow};
   border-radius: 3px;
   height: 3.25rem;
