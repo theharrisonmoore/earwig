@@ -1,7 +1,14 @@
 import React, { Component } from "react";
-import { SearchWrapper, SuggestionBox } from "./Search.style";
+import SVG from "react-inlinesvg";
 import axios from "axios";
 import Autosuggest from "react-autosuggest";
+
+import {
+  SearchWrapper,
+  SuggestionBox,
+  SymbolDiv,
+  DetailsDiv
+} from "./Search.style";
 
 export default class Search extends Component {
   state = {
@@ -39,7 +46,18 @@ export default class Search extends Component {
 
   // render suggestions
   renderSuggestion = suggestion => (
-    <SuggestionBox>{suggestion.name}</SuggestionBox>
+    <SuggestionBox>
+      <SymbolDiv>
+        <SVG src="/icons/mobile-search-icon.svg" className="menuIcon" />
+      </SymbolDiv>
+      <DetailsDiv>
+        {" "}
+        <h3>{suggestion.name}</h3>
+        {suggestion.avgRatings}
+        {suggestion.category}
+        {suggestion.totalReviews}
+      </DetailsDiv>
+    </SuggestionBox>
   );
 
   onChange = (event, { newValue }) => {
@@ -57,6 +75,7 @@ export default class Search extends Component {
   };
 
   render() {
+    console.log(this.state.data);
     const { loaded, value, suggestions } = this.state;
     const inputProps = {
       placeholder: "type to search for organisations",

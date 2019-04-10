@@ -10,6 +10,10 @@ export const SearchWrapper = styled.div`
   padding: 0 1rem;
   padding-top: 2rem;
   border: 1px solid blue;
+
+  li {
+    list-style-type: none;
+  }
 `;
 
 export const SuggestionBox = styled.div`
@@ -17,3 +21,6 @@ export const SuggestionBox = styled.div`
   border: 1px solid #000000;
   box-shadow: ${colors.searchBoxShadow};
 `;
+
+export const SymbolDiv = styled.div``;
+export const DetailsDiv = styled.div``;
