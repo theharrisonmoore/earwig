@@ -1,18 +1,34 @@
-const Review = require("./../../models/Review");
 const Organization = require("./../../models/Organization");
 
-module.exports.organizationDetails = organizationID => Organization.findById(organizationID);
-
-module.exports.totalReviews = organizationID => new Promise((resolve, reject) => {
-  Review.find({ organization: organizationID })
+module.exports.overallReview = organizationID => new Promise((resolve, reject) => {
+  Organization.aggregate([
+    {
+      $match: { _id: organizationID },
+    },
+    {
+      $lookup: {
+        from: "reviews",
+        localField: "_id",
+        foreignField: "organization",
+        as: "reviews",
+      },
+    },
+    {
+      $addFields: {
+        totalReviews: {
+          $size: "$reviews",
+        },
+        avgRatings: {
+          $avg: "$reviews.rate",
+        },
+      },
+    },
+    {
+      $project: {
+        lastViewed: 0,
+      },
+    },
+  ])
     .then(resolve)
     .catch(err => reject(err));
-
-  // get number of reviews
-  // get average overall rating
-  // get organisation name
-  // get organisation type
-  // get organisation number, email, website
-  // get overall review
-  // get siteImages
 });

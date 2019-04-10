@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 const buildDB = require("../../../database/dummyData/index");
-const { totalReviews } = require("./../../../database/queries/reviews");
+const { overallReview } = require("../../../database/queries/reviews");
 
 // const Organization = require("../../../database/models/Organization");
 const Review = require("../../../database/models/Review");
 
-describe("Test totalReviews query", () => {
+describe("Test overallReview query", () => {
   beforeAll(async () => {
     await buildDB();
   });
@@ -18,9 +18,12 @@ describe("Test totalReviews query", () => {
     const review = await Review.findOne();
     const organizationID = review.organization;
 
-    totalReviews(organizationID).then((result) => {
+    overallReview(organizationID).then((result) => {
       expect(result).toBeDefined();
-      expect(result.length).toBe(2);
+      expect(result.length).toBe(1);
+      expect(result[0].reviews.length).toBe(2);
+      expect(result[0]._id).toEqual(organizationID);
+      expect(result[0].reviews[0].organization).toEqual(organizationID);
       done();
     });
   });
