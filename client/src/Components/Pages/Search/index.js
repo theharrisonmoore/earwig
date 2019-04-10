@@ -6,7 +6,9 @@ import Autosuggest from "react-autosuggest";
 export default class Search extends Component {
   state = {
     loaded: false,
-    data: null
+    data: null,
+    value: "",
+    suggestions: []
   };
   // lifecycle
   componentDidMount() {
@@ -38,15 +40,39 @@ export default class Search extends Component {
   // render suggestions
   renderSuggestion = suggestion => <div>{suggestion.name}</div>;
 
-  render() {
-    console.log(this.state);
-    const { loaded } = this.state;
+  onChange = (event, { newValue }) => {
+    this.setState({ value: newValue });
+  };
+  // Autosuggest will call this function every time you need to update suggestions.
+  onSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: this.getSuggestions(value, this.state.data)
+    });
+  };
+  // Autosuggest will call this function every time you need to clear suggestions.
+  onSuggestionsClearRequested = () => {
+    this.setState({ suggestions: [] });
+  };
 
+  render() {
+    const { loaded, value, suggestions } = this.state;
+    const inputProps = {
+      placeholder: "type to search for organisations",
+      value,
+      onChange: this.onChange
+    };
     if (!loaded) return <p>loading...</p>;
 
     return (
       <SearchWrapper>
-        <Autosuggest />
+        <Autosuggest
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          getSuggestionValue={this.getSuggestionValue}
+          renderSuggestion={this.renderSuggestion}
+          inputProps={inputProps}
+        />
       </SearchWrapper>
     );
   }
