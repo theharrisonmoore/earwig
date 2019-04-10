@@ -58,15 +58,21 @@ export const SuggestionBox = styled.div`
   color: ${props => organizations[props.orgType].primary};
 `;
 
+export const OrganizationWrapper = styled.div`
+  padding-left: 6rem;
+  padding-bottom: -10rem;
+  @media (min-width: 769px) {
+    padding-left: 8rem;
+  }
+`;
+
 export const SuggestionInnerFrame = styled.div`
   display: flex;
-  padding: 1rem 1rem 1rem 1rem;
-  color: ${props => organizations[props.orgType].primary};
+  padding-top: 0.3rem;
 `;
 
 export const SymbolDiv = styled.div`
   display: flex;
-
   float: left;
   svg {
     margin-right: 1rem;

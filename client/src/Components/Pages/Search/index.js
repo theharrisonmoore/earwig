@@ -17,7 +17,8 @@ import {
   DetailsDiv,
   ReviewDetailsDiv,
   SuggestionInnerFrame,
-  ArrowDiv
+  ArrowDiv,
+  OrganizationWrapper
 } from "./Search.style";
 
 import { organizationIcons, organizations } from "./../../../theme";
@@ -92,36 +93,36 @@ export default class Search extends Component {
   );
 
   // render lates organizations
-  renderOrgas = orga => (
-    <SuggestionInnerFrame orgType={orga.category}>
-      <SymbolDiv>
-        <SVG
-          src={`/icons/${organizationIcons[orga.category].symbol}.svg`}
-          className="OrganizationSymbol"
-        />
-      </SymbolDiv>
-      <DetailsDiv>
-        <h3>{orga.name}</h3>
-        <ReviewDetailsDiv>
-          <StarRatingComponent
-            name="orgaRate"
-            editing={false}
-            starCount={5}
-            value={orga.avgRatings}
-            starColor={`${organizations[orga.category].primary}`}
-            emptyStarColor={"#D3D3D3"}
+  renderLastViewed = orga => (
+    <OrganizationWrapper>
+      <SuggestionInnerFrame orgType={orga.category}>
+        <SymbolDiv>
+          <SVG
+            src={`/icons/${organizationIcons[orga.category].symbol}.svg`}
+            className="OrganizationSymbol"
           />
-          <p>{orga.totalReviews} reviews</p>
-        </ReviewDetailsDiv>
-      </DetailsDiv>
-      <ArrowDiv>
-        <SVG
-          src={`/icons/${organizationIcons[orga.category].arrow}.svg`}
-          className="OrganizationArrowLink"
-        />{" "}
-      </ArrowDiv>
-    </SuggestionInnerFrame>
+        </SymbolDiv>
+        <DetailsDiv>
+          <h3>{orga.name}</h3>
+          <ReviewDetailsDiv>
+            <StarRatingComponent
+              name="orgaRate"
+              editing={false}
+              starCount={5}
+              value={orga.avgRatings}
+              starColor={`${organizations[orga.category].primary}`}
+              emptyStarColor={"#D3D3D3"}
+            />
+            <p>{orga.totalReviews} reviews</p>
+          </ReviewDetailsDiv>
+        </DetailsDiv>
+      </SuggestionInnerFrame>
+    </OrganizationWrapper>
   );
+
+  // sort reviews by last viewed
+  sortLastViewed = (a, b) =>
+    a.lastViewed > b.lastViewed ? 1 : b.lastViewed > a.lastViewed ? -1 : 0;
 
   onChange = (event, { newValue }) => {
     this.setState({ value: newValue });
@@ -138,6 +139,7 @@ export default class Search extends Component {
   };
 
   render() {
+    console.log(this.state.data);
     const { loaded, value, suggestions, data } = this.state;
     const inputProps = {
       placeholder: "start typing...",
@@ -187,8 +189,10 @@ export default class Search extends Component {
         <Headline>
           <p>Or find out what's happening at...</p>
         </Headline>
-        {data.map(orga => {
-          return this.renderOrgas(orga);
+        {data.sort(this.sortLastViewed).map((orga, index) => {
+          while (index < 4) {
+            return this.renderLastViewed(orga);
+          }
         })}
       </SearchWrapper>
     );

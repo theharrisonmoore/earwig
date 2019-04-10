@@ -25,6 +25,7 @@ module.exports = () => new Promise((resolve, reject) => {
       $project: {
         _id: 1,
         name: 1,
+        lastViewed: 1,
         category: 1,
         totalReviews: 1,
         avgRatings: 1,
