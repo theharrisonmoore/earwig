@@ -52,10 +52,22 @@ export const gradient = {
 // icons
 
 export const organizationIcons = {
-  agency: 'agency-icon',
-  payroll: 'payrolls-icon',
-  worksite: 'worksite-icon',
-  company: 'companies-icon'
+  agency: {
+    symbol: "agency-icon",
+    arrow: "agency-arrow"
+  },
+  payroll: {
+    symbol: "payroll-icon",
+    arrow: "payroll-arrow"
+  },
+  worksite: {
+    symbol: "worksite-icon",
+    arrow: "worksite-arrow"
+  },
+  company: {
+    symbol: "company-icon",
+    arrow: "company-arrow"
+  }
 };
 
 //  font families to be added

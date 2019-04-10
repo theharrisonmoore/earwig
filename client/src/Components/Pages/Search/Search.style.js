@@ -9,18 +9,51 @@ export const SearchWrapper = styled.div`
   margin: 1rem auto;
   padding: 0 1rem;
   padding-top: 2rem;
-  border: 1px solid blue;
   li {
     list-style-type: none;
   }
 `;
 
 export const SuggestionBox = styled.div`
-  opacity: 0.6;
-  border: 1px solid #000000;
+  border: 0.5px solid ${colors.lightGray};
   box-shadow: ${colors.searchBoxShadow};
   color: ${props => organizations[props.orgType].primary};
 `;
 
-export const SymbolDiv = styled.div``;
-export const DetailsDiv = styled.div``;
+export const SuggestionInnerFrame = styled.div`
+  display: flex;
+  padding: 1rem 1rem 1rem 1rem;
+`;
+
+export const SymbolDiv = styled.div`
+  display: flex;
+
+  float: left;
+  svg {
+    margin-right: 1rem;
+  }
+`;
+
+export const ArrowDiv = styled.div`
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  svg {
+    margin-right: 1rem;
+  }
+`;
+
+export const DetailsDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  h3 {
+    font-weight: 900;
+    font-size: 1.1rem;
+  }
+`;
+export const ReviewDetailsDiv = styled.div`
+  display: flex;
+  p {
+    margin-left: 1rem;
+  }
+`;

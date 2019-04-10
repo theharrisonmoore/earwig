@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import SVG from "react-inlinesvg";
 import axios from "axios";
 import Autosuggest from "react-autosuggest";
-import StarRatingComponent from 'react-star-rating-component';
-
+import StarRatingComponent from "react-star-rating-component";
 
 import {
   SearchWrapper,
   SuggestionBox,
   SymbolDiv,
   DetailsDiv,
+  ReviewDetailsDiv,
+  SuggestionInnerFrame,
+  ArrowDiv
 } from "./Search.style";
 
 import { organizationIcons, organizations } from "./../../../theme";
@@ -52,22 +54,35 @@ export default class Search extends Component {
   // render suggestions
   renderSuggestion = suggestion => (
     <SuggestionBox orgType={suggestion.category}>
-      <SymbolDiv>
-        <SVG src="/icons/mobile-search-icon.svg" className="menuIcon" />
-        <SVG src={`/icons/${organizationIcons[suggestion.category]}.svg`} className="OrganizationIcon"/>
-      </SymbolDiv>
-      <DetailsDiv>
-        <h3>{suggestion.name}</h3>
-        <StarRatingComponent
-        name="orgaRate"
-        editing={false}
-        starCount={5}
-        value={suggestion.avgRatings}
-        starColor={`${organizations[suggestion.category].primary}`}
-        emptyStarColor={"#FFFFFF"}
-        />
-        <p>{suggestion.totalReviews} reviews</p>
-      </DetailsDiv>
+      <SuggestionInnerFrame>
+        <SymbolDiv>
+          <SVG src="/icons/mobile-search-icon.svg" className="menuIcon" />
+          <SVG
+            src={`/icons/${organizationIcons[suggestion.category].symbol}.svg`}
+            className="OrganizationSymbol"
+          />
+        </SymbolDiv>
+        <DetailsDiv>
+          <h3>{suggestion.name}</h3>
+          <ReviewDetailsDiv>
+            <StarRatingComponent
+              name="orgaRate"
+              editing={false}
+              starCount={5}
+              value={suggestion.avgRatings}
+              starColor={`${organizations[suggestion.category].primary}`}
+              emptyStarColor={"#D3D3D3"}
+            />
+            <p>{suggestion.totalReviews} reviews</p>
+          </ReviewDetailsDiv>
+        </DetailsDiv>
+        <ArrowDiv>
+          <SVG
+            src={`/icons/${organizationIcons[suggestion.category].arrow}.svg`}
+            className="OrganizationArrowLink"
+          />{" "}
+        </ArrowDiv>
+      </SuggestionInnerFrame>
     </SuggestionBox>
   );
 
