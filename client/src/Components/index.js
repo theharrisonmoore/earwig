@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 
 import Login from "./Pages/Login";
 import Thankyou from "./Pages/ThankYou";
+import Search from "./Pages/Search";
 
 export default function index(props) {
   const { handleChangeState } = props;
@@ -19,6 +20,8 @@ export default function index(props) {
 
         {/* orgType required as state in Link for this */}
         <Route path="/thank-you" component={Thankyou} />
+
+        <Route path="/search" component={Search} />
 
         {/* 404 Error Page -need to be created */}
         <Route component={PageNotFound} />
