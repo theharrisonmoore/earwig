@@ -10,17 +10,22 @@
 
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputBase from "@material-ui/core/InputBase";
-import FormLabel from "@material-ui/core/FormLabel";
+import styled from "styled-components";
+
+const Label = styled.label`
+  display: block;
+  text-align: left;
+  margin-bottom: 0.25rem;
+`;
 
 const BootstrapInput = withStyles(theme => ({
   root: {
     "label + &": {
-      marginTop: theme.spacing.unit * 3
+      marginTop: 0
     }
   },
   input: {
@@ -28,8 +33,10 @@ const BootstrapInput = withStyles(theme => ({
     position: "relative",
     backgroundColor: theme.palette.background.paper,
     border: "1px solid #ced4da",
+    color: "#818181",
+    fontSize: "1rem",
+    textAlign: "left",
     fontSize: 16,
-    width: "auto",
     padding: "10px 26px 10px 12px",
     transition: theme.transitions.create(["border-color", "box-shadow"]),
     // Use the system font instead of the default Roboto font.
@@ -58,6 +65,7 @@ const styles = theme => ({
     display: "flex",
     flexWrap: "wrap"
   },
+  width: "100%",
   margin: {
     margin: theme.spacing.unit
   },
@@ -81,19 +89,10 @@ class CustomizedSelects extends React.Component {
 
     return (
       <form className={classes.root} autoComplete="off">
-        <FormControl className={classes.formControl}>
+        <FormControl className={classes.formControl} fullWidth={true}>
           {label && (
-            <InputLabel
-              htmlFor={`${label}-customized-select`}
-              className={classes.bootstrapFormLabel}
-            >
-              {label}
-            </InputLabel>
+            <Label htmlFor={`${label}-customized-select`}>{label}</Label>
           )}
-          {/* <FormLabel component="label">Gender</FormLabel> */}
-
-          <label htmlFor={`${label}-customized-select`}>Label</label>
-
           <Select
             value={value}
             onChange={handleChange}
