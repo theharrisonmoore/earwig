@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { SearchWrapper } from "./Search.style";
+import { SearchWrapper, SuggestionBox } from "./Search.style";
 import axios from "axios";
 import Autosuggest from "react-autosuggest";
 
@@ -38,7 +38,9 @@ export default class Search extends Component {
   getSuggestionValue = suggestion => suggestion.name;
 
   // render suggestions
-  renderSuggestion = suggestion => <div>{suggestion.name}</div>;
+  renderSuggestion = suggestion => (
+    <SuggestionBox>{suggestion.name}</SuggestionBox>
+  );
 
   onChange = (event, { newValue }) => {
     this.setState({ value: newValue });
