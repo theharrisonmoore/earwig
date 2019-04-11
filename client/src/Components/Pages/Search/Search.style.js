@@ -13,7 +13,7 @@ export const SearchWrapper = styled.div`
   }
 `;
 
-export const Headline = styled.div`
+export const HeadlineDiv = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -29,7 +29,7 @@ export const Headline = styled.div`
   }
 `;
 
-export const SearchLegend = styled.div`
+export const SearchLegendDiv = styled.div`
   display: flex;
   padding-left: 1rem;
   flex-direction: column;
@@ -37,12 +37,12 @@ export const SearchLegend = styled.div`
   padding-bottom: 1rem;
 `;
 
-export const Row = styled.div`
+export const RowDiv = styled.div`
   display: flex;
   width: 100%;
 `;
 
-export const Item = styled.div`
+export const ItemDiv = styled.div`
   display: flex;
   width: 50%;
 `;
@@ -65,9 +65,10 @@ export const ReviewsFrame = styled.div`
   padding-left: 1rem;
 `;
 
-export const SuggestionInnerFrame = styled.div`
+export const SuggestionInnerDiv = styled.div`
   text-align: left;
   width: 100%;
+  display: flex;
 `;
 
 export const SymbolDiv = styled.div`
@@ -79,7 +80,6 @@ export const SymbolDiv = styled.div`
 `;
 
 export const ArrowDiv = styled.div`
-  border: 1px solid green;
   display: flex;
   margin-left: auto;
   align-items: center;

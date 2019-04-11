@@ -6,17 +6,17 @@ import StarRatingComponent from "react-star-rating-component";
 import autoCompleteTheme from "./autoCompleteTheme.css";
 
 import {
-  Headline,
-  Row,
-  Item,
+  HeadlineDiv,
+  RowDiv,
+  ItemDiv,
   LegendTitle,
-  SearchLegend,
+  SearchLegendDiv,
   SearchWrapper,
   SuggestionBox,
   SymbolDiv,
   DetailsDiv,
   ReviewDetailsDiv,
-  SuggestionInnerFrame,
+  SuggestionInnerDiv,
   ArrowDiv,
   ImgDiv,
   ReviewsFrame
@@ -31,6 +31,7 @@ export default class Search extends Component {
     value: "",
     suggestions: []
   };
+
   // lifecycle
   componentDidMount() {
     axios.get("/api/search").then(organizations => {
@@ -58,21 +59,18 @@ export default class Search extends Component {
   // input value for every given suggestion.
   getSuggestionValue = suggestion => suggestion.name;
 
+  SVGcreator = source => <SVG src={`/icons/${source}.svg`} alt={`${source}`} />;
+
   // render suggestions
   renderSuggestion = suggestion => (
     <SuggestionBox orgType={suggestion.category}>
-      <SuggestionInnerFrame>
+      <SuggestionInnerDiv>
         <SymbolDiv>
+          <ImgDiv>{this.SVGcreator("mobile-search-icon")}</ImgDiv>
           <ImgDiv>
-            <SVG src="/icons/mobile-search-icon.svg" className="menuIcon" />
-          </ImgDiv>
-          <ImgDiv>
-            <SVG
-              src={`/icons/${
-                organizationIcons[suggestion.category].symbol
-              }.svg`}
-              className="OrganizationSymbol"
-            />
+            {this.SVGcreator(
+              `${organizationIcons[suggestion.category].symbol}`
+            )}
           </ImgDiv>
         </SymbolDiv>
         <DetailsDiv>
@@ -90,25 +88,19 @@ export default class Search extends Component {
           </ReviewDetailsDiv>
         </DetailsDiv>
         <ArrowDiv>
-          <SVG
-            src={`/icons/${organizationIcons[suggestion.category].arrow}.svg`}
-            className="OrganizationArrowLink"
-          />
+          {this.SVGcreator(`${organizationIcons[suggestion.category].arrow}`)}
         </ArrowDiv>
-      </SuggestionInnerFrame>
+      </SuggestionInnerDiv>
     </SuggestionBox>
   );
 
   // render lates organizations
   renderLastViewed = orga => (
     <ReviewsFrame>
-      <SuggestionInnerFrame orgType={orga.category}>
+      <SuggestionInnerDiv orgType={orga.category}>
         <SymbolDiv>
           <ImgDiv>
-            <SVG
-              src={`/icons/${organizationIcons[orga.category].symbol}.svg`}
-              className="OrganizationSymbol"
-            />
+            {this.SVGcreator(`${organizationIcons[orga.category].symbol}`)}
           </ImgDiv>
         </SymbolDiv>
         <DetailsDiv>
@@ -125,7 +117,7 @@ export default class Search extends Component {
             <p>{orga.totalReviews} reviews</p>
           </ReviewDetailsDiv>
         </DetailsDiv>
-      </SuggestionInnerFrame>
+      </SuggestionInnerDiv>
     </ReviewsFrame>
   );
 
@@ -148,7 +140,6 @@ export default class Search extends Component {
   };
 
   render() {
-    console.log(this.state.data);
     const { loaded, value, suggestions, data } = this.state;
     const inputProps = {
       placeholder: "start typing...",
@@ -160,39 +151,31 @@ export default class Search extends Component {
 
     return (
       <SearchWrapper>
-        <Headline>
+        <HeadlineDiv>
           <h2>Welcome to earwig.</h2> <h2>Try searching for…</h2>
-        </Headline>
-        <SearchLegend>
-          <Row>
-            <Item>
-              <ImgDiv>
-                <SVG src="/icons/agency-icon.svg" />
-              </ImgDiv>
+        </HeadlineDiv>
+        <SearchLegendDiv>
+          <RowDiv>
+            <ItemDiv>
+              <ImgDiv>{this.SVGcreator("agency-icon")}</ImgDiv>
               <LegendTitle color="#8B51FC">Agencies</LegendTitle>
-            </Item>
-            <Item>
-              <ImgDiv>
-                <SVG src="/icons/payroll-icon.svg" />
-              </ImgDiv>
+            </ItemDiv>
+            <ItemDiv>
+              <ImgDiv>{this.SVGcreator("payroll-icon")}</ImgDiv>
               <LegendTitle color="#37B6FD">Payrolls</LegendTitle>
-            </Item>
-          </Row>
-          <Row>
-            <Item>
-              <ImgDiv>
-                <SVG src="/icons/worksite-icon.svg" />
-              </ImgDiv>
+            </ItemDiv>
+          </RowDiv>
+          <RowDiv>
+            <ItemDiv>
+              <ImgDiv>{this.SVGcreator("worksite-icon")}</ImgDiv>
               <LegendTitle color="#FFA400">Worksites</LegendTitle>
-            </Item>
-            <Item>
-              <ImgDiv>
-                <SVG src="/icons/company-icon.svg" />
-              </ImgDiv>
+            </ItemDiv>
+            <ItemDiv>
+              <ImgDiv>{this.SVGcreator("company-icon")}</ImgDiv>
               <LegendTitle color="#1C0F13">Companies</LegendTitle>
-            </Item>
-          </Row>
-        </SearchLegend>
+            </ItemDiv>
+          </RowDiv>
+        </SearchLegendDiv>
         <Autosuggest
           theme={autoCompleteTheme}
           suggestions={suggestions}
@@ -203,14 +186,12 @@ export default class Search extends Component {
           inputProps={inputProps}
           scrollable={true}
         />
-        <Headline>
+        <HeadlineDiv>
           <p>Or find out what's happening at...</p>
-        </Headline>
-        {data.sort(this.sortLastViewed).map((orga, index) => {
-          while (index < 4) {
-            return this.renderLastViewed(orga);
-          }
-        })}
+        </HeadlineDiv>
+        {data
+          .sort(this.sortLastViewed)
+          .map((orga, index) => (index < 4 ? this.renderLastViewed(orga) : ""))}
       </SearchWrapper>
     );
   }
