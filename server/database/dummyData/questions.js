@@ -21,6 +21,7 @@ module.exports = () => {
       jumpTo: [{ value: "yes", nextQuestion: 2 }, { value: "no", nextQuestion: 3 }],
       options: ["yes", "no"],
       category: "agency",
+      group: "general",
     },
     {
       number: 2,
@@ -29,14 +30,16 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: "general",
     },
     {
       number: 3,
-      type: "radio",
+      type: "yesno",
       text: "Taking into account all the information you were given before starting work, such as pay, hours, type of work and length of job, how accurate was the description you were given about the job overall?",
       isJumping: false,
       options: ["totally inaccurate", "Not very accurate", "Mostly accurate", "Fully accurate"],
       category: "agency",
+      group: "general",
     },
     {
       number: 4,
@@ -45,6 +48,7 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: "general",
     },
     {
       number: 5,
@@ -53,6 +57,7 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: "general",
     },
     {
       number: 6,
@@ -61,6 +66,7 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: "general",
     },
     {
       number: 7,
@@ -69,6 +75,7 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: "general",
     },
     {
       number: 8,
@@ -77,6 +84,7 @@ module.exports = () => {
       hintText: "This will be seen only by the agency",
       isJumping: false,
       category: "agency",
+      group: "general",
     },
     {
       number: 9,
@@ -84,6 +92,7 @@ module.exports = () => {
       text: "What hourly rate were you paid?",
       isJumping: false,
       category: "agency",
+      group: "Getting your wages",
     },
     {
       number: 10,
@@ -93,10 +102,11 @@ module.exports = () => {
       jumpTo: [{ value: "yes", nextQuestion: 18 }, { value: "no", nextQuestion: 11 }],
       options: ["yes", "no"],
       category: "agency",
+      group: "Getting your wages",
     },
     {
       number: 11,
-      type: "radio",
+      type: "dropdown",
       text: "What's the name of the payroll?",
       isJumping: false,
       options: [
@@ -111,14 +121,16 @@ module.exports = () => {
         "Danbro",
       ],
       category: "agency",
+      group: "Getting your wages",
     },
     {
       number: 12,
-      type: "radio",
+      type: "yesno",
       text: "What was the payroll type?",
       isJumping: false,
       options: ["CIS", "Ltd", "PAYE", "Umbrella"],
       category: "agency",
+      group: "Getting your wages",
     },
     {
       number: 13,
@@ -127,6 +139,7 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: "Getting your wages",
     },
     {
       number: 14,
@@ -135,14 +148,16 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: "Getting your wages",
     },
     {
       number: 15,
-      type: "radio",
+      type: "yesno",
       text: "Were your payslips easily accessible?",
       isJumping: false,
       options: ["yes", "no", "I didn't check"],
       category: "agency",
+      group: "Getting your wages",
     },
     {
       number: 16,
@@ -152,6 +167,7 @@ module.exports = () => {
       jumpTo: [{ value: "yes", nextQuestion: 17 }, { value: "no", nextQuestion: 18 }],
       options: ["yes", "no"],
       category: "agency",
+      group: "Getting your wages",
     },
     {
       number: 17,
@@ -160,14 +176,16 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: "Getting your wages",
     },
     {
       number: 18,
-      type: "radio",
+      type: "yesno",
       text: "Were you always treated fairly by this agency over any payment issues?",
       isJumping: false,
       options: ["yes", "no", "no issues"],
       category: "agency",
+      group: "Getting your wages",
     },
     {
       number: 19,
@@ -176,6 +194,7 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: "Overall rating",
     },
 
     /* =========================== questionsPayroll ==================================== */

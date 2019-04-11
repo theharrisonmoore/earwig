@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { colors, organizations } from "../../theme";
 
 export const ReviewRapper = styled.div.attrs({ className: "" })`
-  max-width: 70rem;
+  font-family: "Roboto", sans-serif;
+  max-width: 40rem;
   margin: 0 auto;
+  text-align: left;
 
   .review-header {
     width: 100%;
@@ -20,9 +22,8 @@ export const ReviewRapper = styled.div.attrs({ className: "" })`
   }
 
   .questions {
-    width: 85%;
+    width: 90%;
     margin: 0 auto;
-    background-color: lightgrey;
 
     .question-container {
       margin-bottom: 1rem;
@@ -31,9 +32,9 @@ export const ReviewRapper = styled.div.attrs({ className: "" })`
 `;
 
 export const ReviewHeader = styled.div.attrs({ className: "login" })`
-  // max-width: 70rem;
-  // margin: 0 auto;
-  // padding-top: 3rem;
+  max-width: 70rem;
+  margin: 0 auto;
+  padding-top: 3rem;
 
   & .paragraph {
     display: block;

@@ -20,6 +20,7 @@ const questionSchema = new Schema({
     type: String,
     enum: constants.database.ORGANIZATIONS_TYPE,
   },
+  group: String,
 }, {
   timestamps: true,
 });

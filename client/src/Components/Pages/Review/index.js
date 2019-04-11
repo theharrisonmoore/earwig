@@ -60,8 +60,7 @@ class Review extends Component {
               }, 400);
             }}
           >
-            {({ values, isSubmitting }) => {
-              console.log("valuesssss", values);
+            {({ values, isSubmitting, handleChange }) => {
               return (
                 <Form>
                   <div className="question-container">
@@ -69,7 +68,11 @@ class Review extends Component {
                     {/* <MonthRangePicker /> */}
                   </div>
                   <div className="general-group">
-                    <Question question={questions[0]} />
+                    <Question
+                      {...values}
+                      handleChagne={handleChange}
+                      question={questions[0]}
+                    />
                     <Question question={questions[1]} />
                     <Question question={questions[2]} />
                     <Question question={questions[3]} />

@@ -1,6 +1,7 @@
-import React, { Component } from "react";
-import { Formik, Form, Field } from "formik";
+import React from "react";
+import { Field } from "formik";
 import classNames from "classnames";
+import styled from "styled-components";
 
 import {
   QuestionWrapper,
@@ -45,24 +46,18 @@ const QuestionOptions = props => {
   if (type === "yesno") {
     return (
       <QuestionOptionsWrapper>
-        <RadioButtonGroup id="radioGroup">
-          {options.map(option => {
-            return (
-              <InputWrapper>
-                <Field
-                  component={RadioButton}
-                  name={`questions[${number}]`}
-                  id={`${option}-${number}`}
-                  className="hide radio-input"
-                  value={option}
-                />
-                <label htmlFor={`${option}-${number}`} className="yesno">
-                  {option}
-                </label>
-              </InputWrapper>
-            );
-          })}
-        </RadioButtonGroup>
+        {options.map(option => {
+          return (
+            <Field
+              component={RadioButton}
+              name={`questions[${number}]`}
+              id={`${option}-${number}`}
+              className={`hide radio-input ${option}`}
+              value={option}
+              option={option}
+            />
+          );
+        })}
       </QuestionOptionsWrapper>
     );
   }
@@ -116,17 +111,23 @@ const RadioButton = ({
   className,
   ...props
 }) => {
+  console.log(props, id);
   return (
-    <input
-      name={name}
-      id={id}
-      type="radio"
-      value={id} // could be something else for output?
-      onChange={onChange}
-      onBlur={onBlur}
-      className={classNames("radio-button")}
-      {...props}
-    />
+    <InputWrapper option={props.option}>
+      <input
+        name={name}
+        id={id}
+        type="radio"
+        value={id} // could be something else for output?
+        onChange={onChange}
+        onBlur={onBlur}
+        className={classNames("radio-button")}
+        {...props}
+      />
+      <label htmlFor={id} className="yesno">
+        {props.option}
+      </label>
+    </InputWrapper>
   );
 };
 
@@ -149,15 +150,7 @@ const RadioButtonGroup = ({
     className
   );
 
-  return (
-    <div className={classes}>
-      <fieldset>
-        <legend>{label}</legend>
-        {children}
-        {/* {touched && <InputFeedback error={error} />} */}
-      </fieldset>
-    </div>
-  );
+  return <>{children}</>;
 };
 
 export default Question;

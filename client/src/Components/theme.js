@@ -1,5 +1,5 @@
 // Organization colors
-export const Organizations = {
+export const organizations = {
   agency: {
     primary: "#8B51FC",
     secondary: "rgba(139, 81, 252, 0.0964543)"

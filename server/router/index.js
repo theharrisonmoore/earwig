@@ -1,5 +1,7 @@
 const router = require("express").Router();
+const reviewController = require("../controllers/review");
 
-// require all the routes in this file
+
+router.get("/questions", reviewController);
 
 module.exports = router;
