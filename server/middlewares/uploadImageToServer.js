@@ -22,8 +22,6 @@ module.exports = fieldName => (req, res, next) => {
   const upload = multer({ storage }).single(fieldName);
 
   upload(req, res, (err) => {
-    console.log(err);
-
     if (err) { return next("Error in uploading photo"); }
     return next();
   });
