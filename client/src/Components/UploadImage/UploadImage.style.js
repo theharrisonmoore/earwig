@@ -69,6 +69,9 @@ export const Button = styled.button`
   margin-bottom: 2rem;
   margin-top: ${({ marginTop }) => (marginTop ? "2rem" : "0")};
   outline: none;
+  display: block;
+  padding: 0.75rem 0;
+  cursor: pointer;
 
   &:active,
   &:focus {
@@ -81,4 +84,7 @@ export const Link = styled.a`
   font-size: 1.125rem;
 
   color: ${colors.profileFontColor};
+`;
+export const ImageInput = styled.input`
+  display: none;
 `;

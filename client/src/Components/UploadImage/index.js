@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 import Select from "./../../Common/Select";
 import {
@@ -7,7 +8,7 @@ import {
   Heading,
   SubHeading,
   CardIcon,
-  Label,
+  ImageInput,
   Paragraph,
   Example,
   Button,
@@ -29,7 +30,7 @@ const options = [
 const label = "Trade";
 const placeholder = "Select your trade";
 
-export default class extends Component {
+export default class UploadImage extends Component {
   state = {
     tradeId: ""
   };
@@ -37,6 +38,48 @@ export default class extends Component {
     this.setState({ tradeId: event.target.value });
     console.log(this.state);
   };
+
+  handleImageChange = event => {
+    const image = event.target.files && event.target.files[0];
+    var reader = new FileReader();
+
+    reader.onload = () => {
+      var dataURL = reader.result;
+      this.setState({
+        image: dataURL
+      });
+    };
+
+    this.setState(
+      {
+        imageFile: image
+      },
+      () => {
+        reader.readAsDataURL(image);
+      }
+    );
+  };
+
+  handleSubmit = () => {
+    const form = new FormData();
+    form.append("avatar", this.state.imageFile);
+
+    axios({
+      method: "post",
+      url: "/api/upload-verification-image",
+      data: form,
+      headers: {
+        "content-type": `multipart/form-data; boundary=${form._boundary}`
+      }
+    })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     return (
       <UploadImageWrapper>
@@ -62,7 +105,15 @@ export default class extends Component {
             identity.
           </Paragraph>
           <Example src={example} />
-          <Button>Upload photo for verification</Button>
+          <Button as="label" htmlFor="image-input">
+            Upload photo for verification
+          </Button>
+          <ImageInput
+            id="image-input"
+            type="file"
+            onChange={this.handleImageChange}
+          />
+          {this.state.image && <img src={this.state.image} alt="user avatar" />}
           <SubHeading>Protecting you from blacklisting</SubHeading>
           <Paragraph>
             We believe that every voice counts and should be protected by
@@ -71,7 +122,9 @@ export default class extends Component {
             ID, which is the only thing that will be shown beside your reviews
             and replies.
           </Paragraph>
-          <Button marginTop={true}>Finish verification</Button>
+          <Button marginTop={true} onClick={this.handleSubmit}>
+            Finish verification
+          </Button>
           <Link>Cancel and return to your profile</Link>
         </ContentWrapper>
       </UploadImageWrapper>
