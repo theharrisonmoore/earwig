@@ -21,7 +21,7 @@ export const StyledLink = styled(Link).attrs({})`
   display: block;
   text-decoration: none;
   margin-bottom: 3rem;
-  font-size: 2rem;
+  font-size: 1.125rem;
   color: ${colors.profileFontColor};
   font-weight: 900;
 
@@ -35,7 +35,7 @@ export const StyledLink = styled(Link).attrs({})`
 export const LinkSpan = styled(Link)`
   color: ${colors.purpleLinks};
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 700;
 
   &:hover,

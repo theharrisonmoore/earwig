@@ -5,12 +5,16 @@ const loginController = require("./../controllers/login");
 const signupController = require("./../controllers/signup");
 
 // require all the routes in this file
-router.post("/login",
+router.post(
+  "/login",
   validation("login"),
-  loginController);
+  loginController,
+);
 
-router.post("/signup",
+router.post(
+  "/signup",
   validation("signup"),
-  signupController);
+  signupController,
+);
 
 module.exports = router;

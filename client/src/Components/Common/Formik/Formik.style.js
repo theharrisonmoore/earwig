@@ -58,6 +58,7 @@ export const Button = styled.button`
   font-weight: 900;
   text-decoration: captalized;
   margin-bottom: 1.25rem;
+  color: ${colors.profileFontColor};
 `;
 
 export const CheckboxWrapper = styled.div.attrs({
@@ -74,7 +75,7 @@ export const Checkbox = styled(Field).attrs({
 export const CheckboxLabel = styled.label.attrs({
   className: "custom-control-label"
 })`
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: ${colors.profileFontColor};
   padding-left: 2rem;
   line-height: 3rem;
@@ -83,7 +84,7 @@ export const CheckboxLabel = styled.label.attrs({
   &:after,
   &:before {
     padding-right: 0.5rem;
-    height: 2.5rem;
-    width: 2.5rem;
+    height: 2rem;
+    width: 2rem;
   }
 `;
