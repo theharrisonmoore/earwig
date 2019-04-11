@@ -108,7 +108,7 @@ export default class UploadImage extends Component {
               Swal.fire({
                 type: "error",
                 title: "Oops...",
-                text: "Something went wrong!" // error message from back to be here
+                text: err.response.data.error // error message from back to be here
               });
             });
         }

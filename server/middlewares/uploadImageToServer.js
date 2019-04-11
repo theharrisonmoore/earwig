@@ -1,12 +1,12 @@
 const multer = require("multer");
+const boom = require("boom");
+
 /**
  * upload function that return a multer middleware
  * @param { String }  fieldName - the request field name that contain the file
  */
 
 module.exports = fieldName => (req, res, next) => {
-  console.log(req.body);
-
   // storage config
   const storage = multer.diskStorage({
     destination(destinationReq, file, cb) {
@@ -22,7 +22,9 @@ module.exports = fieldName => (req, res, next) => {
   const upload = multer({ storage }).single(fieldName);
 
   upload(req, res, (err) => {
-    if (err) { return next("Error in uploading photo"); }
+    if (err) {
+      return next(boom.badImplementation("Error while uploading photo"));
+    }
     return next();
   });
 };

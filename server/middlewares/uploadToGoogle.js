@@ -1,4 +1,6 @@
 const admin = require("firebase-admin");
+const boom = require("boom");
+
 const { cred, storageBucket } = require("../config");
 
 admin.initializeApp({
@@ -13,15 +15,19 @@ admin.initializeApp({
 
 module.exports = () => async (req, res, next) => {
   if (!req.file) {
-    return next("error");
+    return next(boom.badImplementation());
   }
-  const bucket = admin.storage().bucket();
 
-  const [file] = await bucket.upload(req.file.path, {
+  try {
+    const bucket = admin.storage().bucket();
+    const [file] = await bucket.upload(req.file.path, {
     // Support for HTTP requests made with `Accept-Encoding: gzip`
-    gzip: true,
-  });
-  req.file.uploadedFileName = file.name;
+      gzip: true,
+    });
+    req.file.uploadedFileName = file.name;
+  } catch (error) {
+    next(boom.badImplementation("Error while uploading photo"));
+  }
 
   return next();
 };
