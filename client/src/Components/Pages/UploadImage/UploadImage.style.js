@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, shadows } from "./../theme";
+import { colors, shadows } from "./../../theme";
 
 export const UploadImageWrapper = styled.div`
   width: 100%;
@@ -44,6 +44,7 @@ export const CardIcon = styled.img`
 
 export const Example = styled.img`
   margin-bottom: 0.25rem;
+  max-width: 70%;
 `;
 
 export const Label = styled.label``;
@@ -58,7 +59,7 @@ export const Paragraph = styled.p`
 
 export const Button = styled.button`
   background: ${colors.white};
-  border: 1px solid ${colors.mineShaft2};
+  border: 1px solid ${props => (props.error ? colors.red : colors.mineShaft2)};
   box-shadow: ${shadows.buttonShadow};
   border-radius: 3px;
   height: 3.25rem;
@@ -85,6 +86,14 @@ export const Link = styled.a`
 
   color: ${colors.profileFontColor};
 `;
+
 export const ImageInput = styled.input`
   display: none;
+`;
+
+export const Error = styled.p`
+  margin-top: 0.5rem;
+  margin-bottom: -2rem;
+  color: red;
+  font-size: 1rem;
 `;
