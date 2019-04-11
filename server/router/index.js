@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const upload = require("../middlewares/uploadImageToServer");
+const upload = require("../middlewares/uploadFileToServer");
 const toGoogle = require("./../middlewares/uploadToGoogle");
 const uploadVerificationImage = require("./../controllers/uploadVerificationImage");
 const getTradesController = require("../controllers/getTrades");
