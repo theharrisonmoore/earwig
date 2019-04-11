@@ -3,7 +3,6 @@ import SVG from "react-inlinesvg";
 import axios from "axios";
 import Autosuggest from "react-autosuggest";
 import StarRatingComponent from "react-star-rating-component";
-import autoCompleteTheme from "./autoCompleteTheme.css";
 
 import {
   HeadlineDiv,
@@ -14,9 +13,9 @@ import {
   SearchWrapper,
   SuggestionBox,
   SymbolDiv,
-  DetailsDiv,
+  OrganisationDetailsDiv,
   ReviewDetailsDiv,
-  SuggestionInnerDiv,
+  InnerDiv,
   ArrowDiv,
   ImgDiv,
   ReviewsFrame
@@ -64,7 +63,7 @@ export default class Search extends Component {
   // render suggestions
   renderSuggestion = suggestion => (
     <SuggestionBox orgType={suggestion.category}>
-      <SuggestionInnerDiv>
+      <InnerDiv>
         <SymbolDiv>
           <ImgDiv>{this.SVGcreator("mobile-search-icon")}</ImgDiv>
           <ImgDiv>
@@ -73,7 +72,7 @@ export default class Search extends Component {
             )}
           </ImgDiv>
         </SymbolDiv>
-        <DetailsDiv>
+        <OrganisationDetailsDiv>
           <h3>{suggestion.name}</h3>
           <ReviewDetailsDiv>
             <StarRatingComponent
@@ -86,24 +85,24 @@ export default class Search extends Component {
             />
             <p>{suggestion.totalReviews} reviews</p>
           </ReviewDetailsDiv>
-        </DetailsDiv>
+        </OrganisationDetailsDiv>
         <ArrowDiv>
           {this.SVGcreator(`${organizationIcons[suggestion.category].arrow}`)}
         </ArrowDiv>
-      </SuggestionInnerDiv>
+      </InnerDiv>
     </SuggestionBox>
   );
 
   // render lates organizations
   renderLastViewed = orga => (
-    <ReviewsFrame>
-      <SuggestionInnerDiv orgType={orga.category}>
+    <ReviewsFrame orgType={orga.category}>
+      <InnerDiv orgType={orga.category}>
         <SymbolDiv>
           <ImgDiv>
             {this.SVGcreator(`${organizationIcons[orga.category].symbol}`)}
           </ImgDiv>
         </SymbolDiv>
-        <DetailsDiv>
+        <OrganisationDetailsDiv>
           <h3>{orga.name}</h3>
           <ReviewDetailsDiv>
             <StarRatingComponent
@@ -116,8 +115,8 @@ export default class Search extends Component {
             />
             <p>{orga.totalReviews} reviews</p>
           </ReviewDetailsDiv>
-        </DetailsDiv>
-      </SuggestionInnerDiv>
+        </OrganisationDetailsDiv>
+      </InnerDiv>
     </ReviewsFrame>
   );
 
@@ -177,7 +176,6 @@ export default class Search extends Component {
           </RowDiv>
         </SearchLegendDiv>
         <Autosuggest
-          theme={autoCompleteTheme}
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}

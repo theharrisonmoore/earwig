@@ -63,9 +63,10 @@ export const ReviewsFrame = styled.div`
   justify-content: center;
   padding-top: 0.3rem;
   padding-left: 1rem;
+  color: ${props => organizations[props.orgType].primary};
 `;
 
-export const SuggestionInnerDiv = styled.div`
+export const InnerDiv = styled.div`
   text-align: left;
   width: 100%;
   display: flex;
@@ -95,7 +96,7 @@ export const ImgDiv = styled.div`
   justify-content: center;
 `;
 
-export const DetailsDiv = styled.div`
+export const OrganisationDetailsDiv = styled.div`
   display: flex;
   flex-direction: column;
   h3 {
@@ -105,6 +106,7 @@ export const DetailsDiv = styled.div`
 `;
 export const ReviewDetailsDiv = styled.div`
   display: flex;
+  font-size: 0.75rem;
   p {
     margin-left: 1rem;
   }
