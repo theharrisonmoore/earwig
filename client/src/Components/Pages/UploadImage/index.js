@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 import Select from "./../../../Common/Select";
 
@@ -75,25 +76,43 @@ export default class UploadImage extends Component {
     } else if (!this.state.tradeId) {
       this.setState({ error: "Please select your trade" });
     } else {
-      this.setState({ error: "" });
+      Swal.fire({
+        title: "Uploading!",
+        onBeforeOpen: () => {
+          Swal.showLoading();
+          this.setState({ error: "" });
 
-      form.append("avatar", this.state.imageFile);
-      form.append("tradeId", this.state.tradeId);
+          form.append("avatar", this.state.imageFile);
+          form.append("tradeId", this.state.tradeId);
 
-      axios({
-        method: "post",
-        url: "/api/upload-verification-image",
-        data: form,
-        headers: {
-          "content-type": `multipart/form-data; boundary=${form._boundary}`
+          axios({
+            method: "post",
+            url: "/api/upload-verification-image",
+            data: form,
+            headers: {
+              "content-type": `multipart/form-data; boundary=${form._boundary}`
+            }
+          })
+            .then(res => {
+              Swal.fire({
+                type: "success",
+                title: "Done!",
+                showConfirmButton: false,
+                timer: 1500
+              }).then(() => {
+                this.props.history.push("/profile");
+              });
+            })
+            .catch(err => {
+              console.log(err);
+              Swal.fire({
+                type: "error",
+                title: "Oops...",
+                text: "Something went wrong!" // error message from back to be here
+              });
+            });
         }
-      })
-        .then(res => {
-          console.log(res);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      });
     }
   };
 
