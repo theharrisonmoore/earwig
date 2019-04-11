@@ -1,26 +1,27 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { colors } from "./../../../theme";
+import { colors } from "./../../../Components/theme";
 
 export const LoginWrapper = styled.div.attrs({ className: "login" })`
+  width: 100%;
   max-width: 60rem;
-  margin: 0 auto;
-  padding-top: 3rem;
+  margin: 1rem auto;
+  padding: 0 1rem;
+  padding-top: 2rem;
 
   & .paragraph {
     color: red;
     display: block;
     color: ${colors.profileFontColor};
-    font-size: 1.8rem;
+    font-size: 1.25rem;
   }
 `;
 
 export const StyledLink = styled(Link).attrs({})`
   display: block;
   text-decoration: none;
-  margin-bottom: 3rem;
-  font-size: 2rem;
+  font-size: 1.25rem;
   color: ${colors.purpleLinks};
   font-weight: 900;
 
@@ -32,9 +33,10 @@ export const StyledLink = styled(Link).attrs({})`
 `;
 
 export const SmallLink = styled(StyledLink)`
-  font-size: 1.5rem;
+  font-size: 1rem;
   text-align: right;
   font-weight: initial;
+  margin-bottom: 0.25rem;
   color: ${colors.profileFontColor};
 
   &:hover,
@@ -45,10 +47,9 @@ export const SmallLink = styled(StyledLink)`
 
 export const Devider = styled.div`
   position: relative;
-  height: 5rem;
+  height: 3.25rem;
   width: 80%;
-  margin: 0 auto;
-  margin-bottom: 3rem;
+  margin: 2rem auto;
 
   :after {
     content: "";
@@ -65,14 +66,14 @@ export const Circle = styled.div`
   transform: translate(-50%, -50%);
   left: 50%;
   top: 50%;
-  width: 5rem;
-  height: 5rem;
+  width: 3.25rem;
+  height: 3.25rem;
   border-radius: 50%;
   border: 1px solid ${colors.inputBorder};
   z-index: 2;
   background-color: white;
-  font-size: 2rem;
+  font-size: 1.25rem;
   color: ${colors.lightGray};
-  line-height: 5rem;
+  line-height: 3.25rem;
   font-weight: 900;
 `;
