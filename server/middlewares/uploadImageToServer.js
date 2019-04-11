@@ -1,29 +1,28 @@
-// const multer = require("multer");
 const multer = require("multer");
+/**
+ * upload function that return a multer middleware
+ * @param { String }  fieldName - the request field name that contain the file
+ */
 
-// module.exports = upload;
+module.exports = fieldName => (req, res, next) => {
+  // storage config
+  const storage = multer.diskStorage({
+    destination(destinationReq, file, cb) {
+      cb(null, "uploads/");
+    },
+    filename(fileReq, file, cb) {
+      const extention = file.originalname.split(".")[file.originalname.split(".").length - 1];
+      const fileName = file.originalname.split(".")[0];
+      cb(null, `${fileName}-${Date.now()}.${extention}`);
+    },
+  });
 
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename(req, file, cb) {
-    const extention = file.originalname.split(".")[file.originalname.split(".").length - 1];
-    cb(null, `${file.filename}.${extention}`);
-  },
-});
+  const upload = multer({ storage }).single(fieldName);
 
-module.exports = multer({ storage });
-//   {
-//     "body": {},
-//     "file": {
-//         "fieldname": "avatar",
-//         "originalname": "Tempo_Web.png",
-//         "encoding": "7bit",
-//         "mimetype": "image/png",
-//         "destination": "uploads/",
-//         "filename": "98df52f08f4308eec65416b2908169c2",
-//         "path": "uploads/98df52f08f4308eec65416b2908169c2",
-//         "size": 24500
-//     }
-// }
+  upload(req, res, (err) => {
+    console.log(err);
+
+    if (err) { return next("Error in uploading photo"); }
+    return next();
+  });
+};
