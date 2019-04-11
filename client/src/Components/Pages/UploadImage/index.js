@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-import Select from "./../../../Common/Select";
+import Select from "./../../Common/Select";
 
 import {
   UploadImageWrapper,
@@ -16,7 +16,8 @@ import {
   Button,
   Link,
   SelectWrapper,
-  Error
+  Error,
+  RightIcon
 } from "./UploadImage.style";
 import card from "./../../../assets/card.svg";
 import example from "./../../../assets/example.png";
@@ -44,7 +45,6 @@ export default class UploadImage extends Component {
 
   handleChange = event => {
     this.setState({ tradeId: event.target.value });
-    console.log(this.state);
   };
 
   handleImageChange = event => {
@@ -104,7 +104,6 @@ export default class UploadImage extends Component {
               });
             })
             .catch(err => {
-              console.log(err);
               Swal.fire({
                 type: "error",
                 title: "Oops...",
@@ -144,7 +143,8 @@ export default class UploadImage extends Component {
             </Paragraph>
             <Example src={image ? image : example} />
             <Button as="label" htmlFor="image-input">
-              Upload photo for verification
+              Upload photo for verification{" "}
+              {image && <RightIcon className="fas fa-check" />}
             </Button>
             <ImageInput
               id="image-input"

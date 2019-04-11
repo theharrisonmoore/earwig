@@ -4,6 +4,8 @@ const toGoogle = require("./../middlewares/uploadToGoogle");
 const uploadVerificationImage = require("./../controllers/uploadVerificationImage");
 const getTradesController = require("../controllers/getTrades");
 const deleteFileFromServer = require("../middlewares/deleteFileFromServer");
+const validation = require("./../middlewares/validation");
+const loginController = require("./../controllers/login");
 
 router.post(
   "/upload-verification-image",
@@ -12,6 +14,12 @@ router.post(
   toGoogle(),
   deleteFileFromServer,
   uploadVerificationImage,
+);
+// require all the routes in this file
+router.post(
+  "/login",
+  validation("login"),
+  loginController,
 );
 
 router.get(

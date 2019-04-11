@@ -4,6 +4,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+
 const router = require("./router");
 const dbConnection = require("./database/dbConnection");
 
@@ -39,7 +40,7 @@ app.use((req, res, next) => {
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   // send the error object
-  res.status(err.status || 500);
+  res.status(err.output.statusCode || 500);
   res.json({ error: err.message });
 });
 

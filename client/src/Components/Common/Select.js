@@ -84,8 +84,6 @@ class CustomizedSelects extends React.Component {
       value
     } = this.props;
 
-    console.log(this.props);
-
     return (
       <form className={classes.root} autoComplete="off">
         <FormControl className={classes.formControl} fullWidth={true}>

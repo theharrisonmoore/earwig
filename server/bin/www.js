@@ -13,6 +13,7 @@ require("env2")("./.env");
 
 const app = require("../app");
 
+
 /**
  * Create HTTP server.
  */
@@ -84,11 +85,11 @@ function onListening() {
 }
 
 /**
- * Listen on provided port, on all network interfaces.
- */
-
+   * Listen on provided port, on all network interfaces.
+   */
 server.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
+
 server.on("error", onError);
 server.on("listening", onListening);
