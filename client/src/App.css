@@ -33,11 +33,11 @@
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   width: 80%;
-  height: 30px;
+  height: 4.5rem;
   padding: 10px 20px;
   font-family: Helvetica, sans-serif;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .react-autosuggest__input--focused {
@@ -70,4 +70,10 @@
 }
 
 .react-autosuggest__suggestion--highlighted {
+}
+
+@media (min-width: 766px) {
+  .react-autosuggest__input {
+    width: 100%;
+  }
 }

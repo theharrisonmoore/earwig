@@ -31,10 +31,14 @@ export const HeadlineDiv = styled.div`
 
 export const SearchLegendDiv = styled.div`
   display: flex;
-  padding-left: 1rem;
+  padding-left: 2rem;
   flex-direction: column;
   align-items: center;
   padding-bottom: 1rem;
+
+  @media (min-width: 766px) {
+    padding-left: 6rem;
+  }
 `;
 
 export const RowDiv = styled.div`
@@ -62,11 +66,24 @@ export const ReviewsFrame = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 0.3rem;
-  padding-left: 1rem;
+  padding-left: 2rem;
   color: ${props => organizations[props.orgType].primary};
+  @media (min-width: 766px) {
+    padding-left: 6rem;
+  }
 `;
 
-export const InnerDiv = styled.div`
+export const InnerDivLastReviews = styled.div`
+  text-align: left;
+  width: 100%;
+  display: flex;
+  @media (min-width: 766px) {
+    border-bottom: 2px solid ${props => organizations[props.orgType].secondary};
+    width: 80%;
+  }
+`;
+
+export const InnerDivSuggestions = styled.div`
   text-align: left;
   width: 100%;
   display: flex;
@@ -100,8 +117,8 @@ export const OrganisationDetailsDiv = styled.div`
   display: flex;
   flex-direction: column;
   h3 {
-    font-weight: 900;
-    font-size: 0.9rem;
+    font-weight: 700;
+    font-size: 1rem;
   }
 `;
 export const ReviewDetailsDiv = styled.div`

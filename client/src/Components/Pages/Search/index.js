@@ -15,7 +15,8 @@ import {
   SymbolDiv,
   OrganisationDetailsDiv,
   ReviewDetailsDiv,
-  InnerDiv,
+  InnerDivLastReviews,
+  InnerDivSuggestions,
   ArrowDiv,
   ImgDiv,
   ReviewsFrame
@@ -63,7 +64,7 @@ export default class Search extends Component {
   // render suggestions
   renderSuggestion = suggestion => (
     <SuggestionBox orgType={suggestion.category}>
-      <InnerDiv>
+      <InnerDivSuggestions>
         <SymbolDiv>
           <ImgDiv>{this.SVGcreator("mobile-search-icon")}</ImgDiv>
           <ImgDiv>
@@ -89,14 +90,14 @@ export default class Search extends Component {
         <ArrowDiv>
           {this.SVGcreator(`${organizationIcons[suggestion.category].arrow}`)}
         </ArrowDiv>
-      </InnerDiv>
+      </InnerDivSuggestions>
     </SuggestionBox>
   );
 
   // render lates organizations
   renderLastViewed = orga => (
     <ReviewsFrame orgType={orga.category}>
-      <InnerDiv orgType={orga.category}>
+      <InnerDivLastReviews orgType={orga.category}>
         <SymbolDiv>
           <ImgDiv>
             {this.SVGcreator(`${organizationIcons[orga.category].symbol}`)}
@@ -116,7 +117,10 @@ export default class Search extends Component {
             <p>{orga.totalReviews} reviews</p>
           </ReviewDetailsDiv>
         </OrganisationDetailsDiv>
-      </InnerDiv>
+        <ArrowDiv>
+          {this.SVGcreator(`${organizationIcons[orga.category].arrow}`)}
+        </ArrowDiv>
+      </InnerDivLastReviews>
     </ReviewsFrame>
   );
 
@@ -141,7 +145,7 @@ export default class Search extends Component {
   render() {
     const { loaded, value, suggestions, data } = this.state;
     const inputProps = {
-      placeholder: "start typing...",
+      placeholder: "🔍        start typing...",
       value,
       onChange: this.onChange,
       highlightFirstSuggestion: true
