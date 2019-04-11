@@ -5,6 +5,8 @@ const multer = require("multer");
  */
 
 module.exports = fieldName => (req, res, next) => {
+  console.log(req.body);
+
   // storage config
   const storage = multer.diskStorage({
     destination(destinationReq, file, cb) {

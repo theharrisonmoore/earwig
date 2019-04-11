@@ -32,8 +32,20 @@ const placeholder = "Select your trade";
 
 export default class UploadImage extends Component {
   state = {
-    tradeId: ""
+    tradeId: "",
+    trades: []
   };
+
+  componentDidMount() {
+    axios.get("/api/trades").then(res => {
+      const { data } = res;
+      const trades = data.reduce((accu, current) => {
+        accu.push({ value: current._id, label: current.title });
+        return accu;
+      }, []);
+      this.setState({ trades });
+    });
+  }
   handleChange = event => {
     this.setState({ tradeId: event.target.value });
     console.log(this.state);
@@ -63,6 +75,7 @@ export default class UploadImage extends Component {
   handleSubmit = () => {
     const form = new FormData();
     form.append("avatar", this.state.imageFile);
+    form.append("tradeId", this.state.tradeId);
 
     axios({
       method: "post",
@@ -81,6 +94,8 @@ export default class UploadImage extends Component {
   };
 
   render() {
+    console.log(this.state);
+
     return (
       <UploadImageWrapper>
         <ContentWrapper>
@@ -90,7 +105,7 @@ export default class UploadImage extends Component {
             <Select
               placeholder={placeholder}
               label={label}
-              options={options}
+              options={this.state.trades}
               handleChange={this.handleChange}
               value={this.state.tradeId}
             />

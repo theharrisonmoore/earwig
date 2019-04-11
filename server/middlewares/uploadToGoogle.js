@@ -15,6 +15,8 @@ module.exports = () => async (req, res, next) => {
   if (!req.file) {
     return next("error");
   }
+  console.log(req.body, "2222222");
+
   const bucket = admin.storage().bucket();
 
   await bucket.upload(req.file.path, {
