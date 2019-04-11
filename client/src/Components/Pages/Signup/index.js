@@ -1,5 +1,7 @@
 // Render Prop
 import React, { Component } from "react";
+import * as Yup from "yup";
+
 import {
   StyledFormik as Formik,
   StyledForm as Form,
@@ -20,6 +22,45 @@ import { StyledLink as Link, SignupWrapper, LinkSpan } from "./Signup.style";
 import logo from "./../../../assets/logo.svg";
 
 import { StyledField } from "../../Common/Formik/Formik.style";
+
+// create custom function
+function equalTo(ref, msg) {
+  return this.test({
+    name: "equalTo",
+    exclusive: false,
+    message: msg || "Not match",
+    params: {
+      reference: ref.path
+    },
+    test: function(value) {
+      return value === this.resolve(ref);
+    }
+  });
+}
+
+Yup.addMethod(Yup.string, "equalTo", equalTo);
+
+const signupSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email")
+    .required("Required"),
+  password: Yup.string()
+    .min(6)
+    .required("Required"),
+  rePassword: Yup.string()
+    .required("Required")
+    .equalTo(Yup.ref("password")),
+  checkbox: Yup.boolean()
+    .required("Required")
+    .oneOf([true], "Must Accept Terms and Conditions")
+});
+
+const initialValues = {
+  email: "",
+  password: "",
+  rePassword: "",
+  checkbox: false
+};
 
 export default class Signup extends Component {
   state = {
@@ -46,27 +87,6 @@ export default class Signup extends Component {
     }
   };
 
-  validate = values => {
-    let errors = {};
-    if (!values.email) {
-      errors.email = "Required";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-      errors.email = "Invalid email address";
-    }
-    if (!values.password) {
-      errors.password = "Required";
-    } else if (values.password && values.password.length < 6) {
-      errors.password = "Password must be 6 charachters length at least";
-    } else if (values.rePassword !== values.password) {
-      errors.rePassword = "Password not match";
-    }
-    if (!values.checkbox) {
-      errors.checkbox = "You should agree Earwig terms of user";
-    }
-    this.setState({ errors });
-    return errors;
-  };
-
   render() {
     const { error } = this.state;
 
@@ -74,13 +94,8 @@ export default class Signup extends Component {
       <SignupWrapper>
         <img src={logo} alt="logo" />
         <Formik
-          initialValues={{
-            email: "",
-            password: "",
-            rePassword: "",
-            checkbox: false
-          }}
-          validate={this.validate}
+          initialValues={initialValues}
+          validationSchema={signupSchema}
           onSubmit={this.handleSubmit}
         >
           {({ isSubmitting }) => (
@@ -88,7 +103,7 @@ export default class Signup extends Component {
               <Label htmlFor="email">
                 Email
                 <StyledField type="email" name="email" id="email" />
-                <FormikErrorMessage name="email" component="div" />
+                <FormikErrorMessage name="email" component="p" />
               </Label>
 
               <Label htmlFor="password">
@@ -96,7 +111,7 @@ export default class Signup extends Component {
                 <Field type="password" name="password" />
                 <FormikErrorMessage
                   name="password"
-                  component="div"
+                  component="p"
                   id="password"
                 />
               </Label>

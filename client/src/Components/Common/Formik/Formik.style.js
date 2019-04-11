@@ -18,6 +18,7 @@ export const StyledFormikErrorMessage = styled(ErrorMessage).attrs()`
   font-weight: 100;
   font-size: 1rem;
   text-align: left;
+  margin-bottom: 0rem;
 `;
 
 export const GeneralErrorMessage = styled.p.attrs()`
