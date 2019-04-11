@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 import { colors, shadows, organizations } from "./../../../theme";
 
 export const SearchWrapper = styled.div`
@@ -138,4 +138,10 @@ export const SearchBoxDiv = styled.div`
   height: 3.5rem;
   box-shadow: ${shadows.buttonShadow};
   border-radius: 5px;
+`;
+
+export const ProfileLink = styled(Link)`
+  :hover {
+    text-decoration: none;
+  }
 `;

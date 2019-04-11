@@ -19,7 +19,8 @@ import {
   InnerDivSuggestions,
   ArrowDiv,
   ImgDiv,
-  ReviewsFrame
+  ReviewsFrame,
+  ProfileLink
 } from "./Search.style";
 
 import { organizationIcons, organizations } from "./../../../theme";
@@ -63,65 +64,69 @@ export default class Search extends Component {
 
   // render suggestions
   renderSuggestion = suggestion => (
-    <SuggestionBox orgType={suggestion.category}>
-      <InnerDivSuggestions>
-        <SymbolDiv>
-          <ImgDiv>{this.SVGcreator("mobile-search-icon")}</ImgDiv>
-          <ImgDiv>
-            {this.SVGcreator(
-              `${organizationIcons[suggestion.category].symbol}`
-            )}
-          </ImgDiv>
-        </SymbolDiv>
-        <OrganisationDetailsDiv>
-          <h3>{suggestion.name}</h3>
-          <ReviewDetailsDiv>
-            <StarRatingComponent
-              name="orgaRate"
-              editing={false}
-              starCount={5}
-              value={suggestion.avgRatings}
-              starColor={`${organizations[suggestion.category].primary}`}
-              emptyStarColor={"#D3D3D3"}
-            />
-            <p>{suggestion.totalReviews} reviews</p>
-          </ReviewDetailsDiv>
-        </OrganisationDetailsDiv>
-        <ArrowDiv>
-          {this.SVGcreator(`${organizationIcons[suggestion.category].arrow}`)}
-        </ArrowDiv>
-      </InnerDivSuggestions>
-    </SuggestionBox>
+    <ProfileLink to={`/profile/${suggestion._id}`}>
+      <SuggestionBox orgType={suggestion.category}>
+        <InnerDivSuggestions>
+          <SymbolDiv>
+            <ImgDiv>{this.SVGcreator("mobile-search-icon")}</ImgDiv>
+            <ImgDiv>
+              {this.SVGcreator(
+                `${organizationIcons[suggestion.category].symbol}`
+              )}
+            </ImgDiv>
+          </SymbolDiv>
+          <OrganisationDetailsDiv>
+            <h3>{suggestion.name}</h3>
+            <ReviewDetailsDiv>
+              <StarRatingComponent
+                name="orgaRate"
+                editing={false}
+                starCount={5}
+                value={suggestion.avgRatings}
+                starColor={`${organizations[suggestion.category].primary}`}
+                emptyStarColor={"#D3D3D3"}
+              />
+              <p>{suggestion.totalReviews} reviews</p>
+            </ReviewDetailsDiv>
+          </OrganisationDetailsDiv>
+          <ArrowDiv>
+            {this.SVGcreator(`${organizationIcons[suggestion.category].arrow}`)}
+          </ArrowDiv>
+        </InnerDivSuggestions>
+      </SuggestionBox>
+    </ProfileLink>
   );
 
   // render lates organizations
   renderLastViewed = orga => (
-    <ReviewsFrame orgType={orga.category}>
-      <InnerDivLastReviews orgType={orga.category}>
-        <SymbolDiv>
-          <ImgDiv>
-            {this.SVGcreator(`${organizationIcons[orga.category].symbol}`)}
-          </ImgDiv>
-        </SymbolDiv>
-        <OrganisationDetailsDiv>
-          <h3>{orga.name}</h3>
-          <ReviewDetailsDiv>
-            <StarRatingComponent
-              name="orgaRate"
-              editing={false}
-              starCount={5}
-              value={orga.avgRatings}
-              starColor={`${organizations[orga.category].primary}`}
-              emptyStarColor={"#D3D3D3"}
-            />
-            <p>{orga.totalReviews} reviews</p>
-          </ReviewDetailsDiv>
-        </OrganisationDetailsDiv>
-        <ArrowDiv>
-          {this.SVGcreator(`${organizationIcons[orga.category].arrow}`)}
-        </ArrowDiv>
-      </InnerDivLastReviews>
-    </ReviewsFrame>
+    <ProfileLink to={`/profile/${orga._id}`}>
+      <ReviewsFrame orgType={orga.category}>
+        <InnerDivLastReviews orgType={orga.category}>
+          <SymbolDiv>
+            <ImgDiv>
+              {this.SVGcreator(`${organizationIcons[orga.category].symbol}`)}
+            </ImgDiv>
+          </SymbolDiv>
+          <OrganisationDetailsDiv>
+            <h3>{orga.name}</h3>
+            <ReviewDetailsDiv>
+              <StarRatingComponent
+                name="orgaRate"
+                editing={false}
+                starCount={5}
+                value={orga.avgRatings}
+                starColor={`${organizations[orga.category].primary}`}
+                emptyStarColor={"#D3D3D3"}
+              />
+              <p>{orga.totalReviews} reviews</p>
+            </ReviewDetailsDiv>
+          </OrganisationDetailsDiv>
+          <ArrowDiv>
+            {this.SVGcreator(`${organizationIcons[orga.category].arrow}`)}
+          </ArrowDiv>
+        </InnerDivLastReviews>
+      </ReviewsFrame>
+    </ProfileLink>
   );
 
   // sort reviews by last viewed
