@@ -43,8 +43,8 @@ export default class Search extends Component {
     });
   }
 
-  // functions
-  // Teach Autosuggest how to calculate suggestions for any given input value.
+  // functions autosuggest component
+  // teach Autosuggest how to calculate suggestions for any given input value.
   getSuggestions = (value, organisationsArray) => {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
@@ -55,14 +55,30 @@ export default class Search extends Component {
         );
   };
 
-  // When suggestion is clicked, Autosuggest needs to populate the input
-  // based on the clicked suggestion. Teach Autosuggest how to calculate the
-  // input value for every given suggestion.
+  // When suggestion is clicked, Autosuggest needs to populate the input based on the clicked suggestion.
+  // Teach Autosuggest how to calculate the input value for every given suggestion.
   getSuggestionValue = suggestion => suggestion.name;
 
+  // Autosuggest will call this function every time you need to update suggestions.
+  onSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: this.getSuggestions(value, this.state.data)
+    });
+  };
+  // Autosuggest will call this function every time you need to clear suggestions.
+  onSuggestionsClearRequested = () => {
+    this.setState({ suggestions: [] });
+  };
+
+  onChange = (event, { newValue }) => {
+    this.setState({ value: newValue });
+  };
+
+  // render functions
+  // creates SVGs
   SVGcreator = source => <SVG src={`/icons/${source}.svg`} alt={`${source}`} />;
 
-  // render suggestions
+  // renders suggestion section for autocomplete
   renderSuggestion = suggestion => (
     <ProfileLink to={`/profile/${suggestion._id}`}>
       <SuggestionBox orgType={suggestion.category}>
@@ -97,7 +113,7 @@ export default class Search extends Component {
     </ProfileLink>
   );
 
-  // render lates organizations
+  // renders last viewed organization section (only slight differences to autocomplete render function so can be refactored in future)
   renderLastViewed = orga => (
     <ProfileLink to={`/profile/${orga._id}`}>
       <ReviewsFrame orgType={orga.category}>
@@ -129,23 +145,9 @@ export default class Search extends Component {
     </ProfileLink>
   );
 
-  // sort reviews by last viewed
+  // sorts reviews by last viewed
   sortLastViewed = (a, b) =>
     a.lastViewed > b.lastViewed ? -1 : b.lastViewed > a.lastViewed ? 1 : 0;
-
-  onChange = (event, { newValue }) => {
-    this.setState({ value: newValue });
-  };
-  // Autosuggest will call this function every time you need to update suggestions.
-  onSuggestionsFetchRequested = ({ value }) => {
-    this.setState({
-      suggestions: this.getSuggestions(value, this.state.data)
-    });
-  };
-  // Autosuggest will call this function every time you need to clear suggestions.
-  onSuggestionsClearRequested = () => {
-    this.setState({ suggestions: [] });
-  };
 
   render() {
     const { loaded, value, suggestions, data } = this.state;
