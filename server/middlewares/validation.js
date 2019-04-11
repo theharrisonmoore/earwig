@@ -7,6 +7,10 @@ const schemas = {
     email: Joi.string().email({ minDomainAtoms: 2 }).required(),
     password: Joi.string().required(),
   },
+  uploadVerificationImage: {
+    tradeId: Joi.string().length(24).required(),
+
+  },
 };
 
 module.exports = route => (req, res, next) => {

@@ -7,19 +7,20 @@ const deleteFileFromServer = require("../middlewares/deleteFileFromServer");
 const validation = require("./../middlewares/validation");
 const loginController = require("./../controllers/login");
 
-router.post(
-  "/upload-verification-image",
-  upload("verificationImage"),
-  // validate(), validate the rq.body data
-  toGoogle(),
-  deleteFileFromServer,
-  uploadVerificationImage,
-);
 // require all the routes in this file
 router.post(
   "/login",
   validation("login"),
   loginController,
+);
+
+router.post(
+  "/upload-verification-image",
+  upload("verificationImage"),
+  validation("uploadVerificationImage"),
+  toGoogle(),
+  deleteFileFromServer,
+  uploadVerificationImage,
 );
 
 router.get(

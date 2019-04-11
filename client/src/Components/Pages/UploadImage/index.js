@@ -150,6 +150,7 @@ export default class UploadImage extends Component {
               id="image-input"
               type="file"
               onChange={this.handleImageChange}
+              accept="image/*"
             />
             <SubHeading>Protecting you from blacklisting</SubHeading>
             <Paragraph>
