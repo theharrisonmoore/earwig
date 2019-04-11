@@ -51,7 +51,7 @@ describe("Tesing for login route", () => {
       .post("/api/login")
       .send(data)
       .expect("Content-Type", /json/)
-      .expect(403)
+      .expect(401)
       .end((err, res) => {
         expect(res.body.error).toMatch("login failed, email and password not match");
         done(err);
@@ -67,7 +67,7 @@ describe("Tesing for login route", () => {
       .post("/api/login")
       .send(data)
       .expect("Content-Type", /json/)
-      .expect(403)
+      .expect(401)
       .end((err, res) => {
         expect(res.body.error).toMatch("login failed, email and password not match");
         done(err);
