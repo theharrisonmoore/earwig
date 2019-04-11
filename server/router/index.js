@@ -7,7 +7,7 @@ const deleteFileFromServer = require("../middlewares/deleteFileFromServer");
 
 router.post(
   "/upload-verification-image",
-  upload("avatar"),
+  upload("verificationImage"),
   // validate(), validate the rq.body data
   toGoogle(),
   deleteFileFromServer,

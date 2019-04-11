@@ -82,7 +82,7 @@ export default class UploadImage extends Component {
           Swal.showLoading();
           this.setState({ error: "" });
 
-          form.append("avatar", this.state.imageFile);
+          form.append("verificationImage", this.state.imageFile);
           form.append("tradeId", this.state.tradeId);
 
           axios({
@@ -108,7 +108,7 @@ export default class UploadImage extends Component {
               Swal.fire({
                 type: "error",
                 title: "Oops...",
-                text: err.response.data.error // error message from back to be here
+                text: err.response.data.error
               });
             });
         }
