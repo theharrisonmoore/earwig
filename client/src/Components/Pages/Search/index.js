@@ -57,19 +57,14 @@ export default class Search extends Component {
       orga => orga.name.toLowerCase().slice(0, inputLength) === inputValue
     );
     if (suggestions.length === 0) {
-      return [{ isAddNew: true }];
+      return [{ isEmpty: true }];
     }
     return suggestions;
   };
 
   // When suggestion is clicked, Autosuggest needs to populate the input based on the clicked suggestion.
   // Teach Autosuggest how to calculate the input value for every given suggestion.
-  getSuggestionValue = suggestion => {
-    if (suggestion.isAddNew) {
-      return this.state.value;
-    }
-    return suggestion.name;
-  };
+  getSuggestionValue = suggestion => suggestion.name;
 
   // Autosuggest will call this function every time you need to update suggestions.
   onSuggestionsFetchRequested = ({ value }) => {
@@ -113,12 +108,8 @@ export default class Search extends Component {
 
   // renders individual suggestions in autosuggest search section
   renderSuggestion = suggestion => {
-    if (suggestion.isAddNew) {
-      return (
-        <span>
-          [+] Add new: <strong>{this.state.value}</strong>
-        </span>
-      );
+    if (suggestion.isEmpty) {
+      return;
     } else {
       return (
         <ProfileLink to={`/profile/${suggestion._id}`}>
@@ -148,6 +139,24 @@ export default class Search extends Component {
       );
     }
   };
+
+  renderSuggestionsContainer = ({ containerProps, children, query }) => (
+    <div {...containerProps}>
+      {children}
+      {
+        <div className="footer">
+          <ProfileLink to="">
+            <InnerDivSuggestions>
+              <SymbolDiv>{this.SVGcreator("mobile-search-icon")}</SymbolDiv>
+              <OrganisationDetailsDiv>
+                <h3>Add {query}</h3>
+              </OrganisationDetailsDiv>
+            </InnerDivSuggestions>
+          </ProfileLink>
+        </div>
+      }
+    </div>
+  );
 
   // renders last viewed organization section
   renderLastViewed = (orga, key) => (
@@ -215,6 +224,7 @@ export default class Search extends Component {
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           inputProps={inputProps}
+          renderSuggestionsContainer={this.renderSuggestionsContainer}
         />
         <HeadlineDiv>
           <p>Or find out what's happening at...</p>
