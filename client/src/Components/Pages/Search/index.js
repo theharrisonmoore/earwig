@@ -128,8 +128,8 @@ export default class Search extends Component {
   );
 
   // renders last viewed organization section
-  renderLastViewed = orga => (
-    <ProfileLink to={`/profile/${orga._id}`}>
+  renderLastViewed = (orga, key) => (
+    <ProfileLink key={key} to={`/profile/${orga._id}`}>
       <ReviewsFrame orgType={orga.category}>
         <InnerDivLastReviews orgType={orga.category}>
           <SymbolDiv>
@@ -155,8 +155,7 @@ export default class Search extends Component {
     const inputProps = {
       placeholder: "🔍        start typing...",
       value,
-      onChange: this.onChange,
-      highlightFirstSuggestion: true
+      onChange: this.onChange
     };
     if (!loaded) return <p>loading...</p>;
 
@@ -200,7 +199,9 @@ export default class Search extends Component {
         </HeadlineDiv>
         {data
           .sort(this.sortLastViewed)
-          .map((orga, index) => (index < 4 ? this.renderLastViewed(orga) : ""))}
+          .map((orga, index) =>
+            index < 4 ? this.renderLastViewed(orga, index) : ""
+          )}
       </SearchWrapper>
     );
   }
