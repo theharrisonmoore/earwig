@@ -76,32 +76,39 @@ export default class Search extends Component {
 
   // render functions
   // creates SVGs
-  SVGcreator = source => <SVG src={`/icons/${source}.svg`} alt={`${source}`} />;
+  SVGcreator = source => (
+    <ImgDiv>
+      <SVG src={`/icons/${source}.svg`} alt={`${source}`} />
+    </ImgDiv>
+  );
 
-  // renders suggestion section for autocomplete
+  // creates star rating component
+  StarRateCreator = entry => (
+    <StarRatingComponent
+      name="orgaRate"
+      editing={false}
+      starCount={5}
+      value={entry.avgRatings}
+      starColor={`${organizations[entry.category].primary}`}
+      emptyStarColor={"#D3D3D3"}
+    />
+  );
+
+  // renders individual suggestions in autosuggest search section
   renderSuggestion = suggestion => (
     <ProfileLink to={`/profile/${suggestion._id}`}>
       <SuggestionBox orgType={suggestion.category}>
         <InnerDivSuggestions>
           <SymbolDiv>
-            <ImgDiv>{this.SVGcreator("mobile-search-icon")}</ImgDiv>
-            <ImgDiv>
-              {this.SVGcreator(
-                `${organizationIcons[suggestion.category].symbol}`
-              )}
-            </ImgDiv>
+            {this.SVGcreator("mobile-search-icon")}
+            {this.SVGcreator(
+              `${organizationIcons[suggestion.category].symbol}`
+            )}
           </SymbolDiv>
           <OrganisationDetailsDiv>
             <h3>{suggestion.name}</h3>
             <ReviewDetailsDiv>
-              <StarRatingComponent
-                name="orgaRate"
-                editing={false}
-                starCount={5}
-                value={suggestion.avgRatings}
-                starColor={`${organizations[suggestion.category].primary}`}
-                emptyStarColor={"#D3D3D3"}
-              />
+              {this.StarRateCreator(suggestion)}
               <p>{suggestion.totalReviews} reviews</p>
             </ReviewDetailsDiv>
           </OrganisationDetailsDiv>
@@ -119,21 +126,12 @@ export default class Search extends Component {
       <ReviewsFrame orgType={orga.category}>
         <InnerDivLastReviews orgType={orga.category}>
           <SymbolDiv>
-            <ImgDiv>
-              {this.SVGcreator(`${organizationIcons[orga.category].symbol}`)}
-            </ImgDiv>
+            {this.SVGcreator(`${organizationIcons[orga.category].symbol}`)}
           </SymbolDiv>
           <OrganisationDetailsDiv>
             <h3>{orga.name}</h3>
             <ReviewDetailsDiv>
-              <StarRatingComponent
-                name="orgaRate"
-                editing={false}
-                starCount={5}
-                value={orga.avgRatings}
-                starColor={`${organizations[orga.category].primary}`}
-                emptyStarColor={"#D3D3D3"}
-              />
+              {this.StarRateCreator(orga)}
               <p>{orga.totalReviews} reviews</p>
             </ReviewDetailsDiv>
           </OrganisationDetailsDiv>
@@ -167,21 +165,21 @@ export default class Search extends Component {
         <SearchLegendDiv>
           <RowDiv>
             <ItemDiv>
-              <ImgDiv>{this.SVGcreator("agency-icon")}</ImgDiv>
+              {this.SVGcreator("agency-icon")}
               <LegendTitle color="#8B51FC">Agencies</LegendTitle>
             </ItemDiv>
             <ItemDiv>
-              <ImgDiv>{this.SVGcreator("payroll-icon")}</ImgDiv>
+              {this.SVGcreator("payroll-icon")}
               <LegendTitle color="#37B6FD">Payrolls</LegendTitle>
             </ItemDiv>
           </RowDiv>
           <RowDiv>
             <ItemDiv>
-              <ImgDiv>{this.SVGcreator("worksite-icon")}</ImgDiv>
+              {this.SVGcreator("worksite-icon")}
               <LegendTitle color="#FFA400">Worksites</LegendTitle>
             </ItemDiv>
             <ItemDiv>
-              <ImgDiv>{this.SVGcreator("company-icon")}</ImgDiv>
+              {this.SVGcreator("company-icon")}
               <LegendTitle color="#1C0F13">Companies</LegendTitle>
             </ItemDiv>
           </RowDiv>
