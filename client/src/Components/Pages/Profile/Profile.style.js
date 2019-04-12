@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import SVG from "react-inlinesvg";
 
 import { Organizations, colors, shadows } from "./../../theme";
 
@@ -104,6 +105,8 @@ export const ReviewType = styled.div`
   display: flex;
   width: 45%;
   align-items: center;
+  justify-content: ${props => props.align};
+  border: red 1px solid;
 `;
 
 export const ReviewButton = styled.button`
@@ -147,4 +150,9 @@ export const QuickReviewButton = styled(ReviewButton)`
     z-index: -1;
     border-radius: 0.25rem;
   }
+`;
+
+export const Icon = styled(SVG)`
+  margin: ${props => props.margin};
+  border: 1px solid green;
 `;

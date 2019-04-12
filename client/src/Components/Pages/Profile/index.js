@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+
 import {
   Wrapper,
   Banner,
@@ -13,7 +14,8 @@ import {
   ReviewType,
   ReviewButton,
   ReviewButtonsDiv,
-  QuickReviewButton
+  QuickReviewButton,
+  Icon
 } from "./Profile.style";
 
 export default class Profile extends Component {
@@ -64,7 +66,10 @@ export default class Profile extends Component {
         <Header>
           <CompanyDetails>
             <CompanyTitle>
-              <div>IMG</div>
+              <Icon
+                src={`/icons/${category}-icon-desktop.svg`}
+                margin="0 1rem 0 0"
+              />
               <div>
                 <h2>{name}</h2>
                 {avgRatings} {totalReviews} reviews
@@ -85,8 +90,8 @@ export default class Profile extends Component {
           <ReviewDiv>
             <h3>Give a review about {name}</h3>
             <ReviewButtonsDiv>
-              <ReviewType>
-                <div>CLOCK IMG</div>
+              <ReviewType align="flex-start">
+                <Icon src="/icons/clock-2min.svg" margin="0 0.5rem 0 0" />
                 <p>2 mins</p>
                 <ReviewButton category={category}>
                   <h4>Give a full review</h4>
@@ -94,9 +99,9 @@ export default class Profile extends Component {
                   <p>></p>
                 </ReviewButton>
               </ReviewType>
-              <div>OR</div>
-              <ReviewType>
-                <div>CLOCK IMG</div>
+              <Icon src="/icons/or-vertical.svg" margin="0 1rem 0 1rem" />
+              <ReviewType align="flex-end">
+                <Icon src="/icons/clock-30s.svg" />
                 <p>30 secs</p>
                 <QuickReviewButton category={category}>
                   <h4>Give a quick review</h4>
