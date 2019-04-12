@@ -50,16 +50,26 @@ export default class Search extends Component {
   getSuggestions = (value, organisationsArray) => {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
-    return inputLength === 0
-      ? []
-      : organisationsArray.filter(
-          orga => orga.name.toLowerCase().slice(0, inputLength) === inputValue
-        );
+    if (inputLength === 0) {
+      return [];
+    }
+    const suggestions = organisationsArray.filter(
+      orga => orga.name.toLowerCase().slice(0, inputLength) === inputValue
+    );
+    if (suggestions.length === 0) {
+      return [{ isAddNew: true }];
+    }
+    return suggestions;
   };
 
   // When suggestion is clicked, Autosuggest needs to populate the input based on the clicked suggestion.
   // Teach Autosuggest how to calculate the input value for every given suggestion.
-  getSuggestionValue = suggestion => suggestion.name;
+  getSuggestionValue = suggestion => {
+    if (suggestion.isAddNew) {
+      return this.state.value;
+    }
+    return suggestion.name;
+  };
 
   // Autosuggest will call this function every time you need to update suggestions.
   onSuggestionsFetchRequested = ({ value }) => {
@@ -102,30 +112,42 @@ export default class Search extends Component {
     a.lastViewed > b.lastViewed ? -1 : b.lastViewed > a.lastViewed ? 1 : 0;
 
   // renders individual suggestions in autosuggest search section
-  renderSuggestion = suggestion => (
-    <ProfileLink to={`/profile/${suggestion._id}`}>
-      <SuggestionBox orgType={suggestion.category}>
-        <InnerDivSuggestions>
-          <SymbolDiv>
-            {this.SVGcreator("mobile-search-icon")}
-            {this.SVGcreator(
-              `${organizationIcons[suggestion.category].symbol}`
-            )}
-          </SymbolDiv>
-          <OrganisationDetailsDiv>
-            <h3>{suggestion.name}</h3>
-            <ReviewDetailsDiv>
-              {this.StarRateCreator(suggestion)}
-              <p>{suggestion.totalReviews} reviews</p>
-            </ReviewDetailsDiv>
-          </OrganisationDetailsDiv>
-          <ArrowDiv>
-            {this.SVGcreator(`${organizationIcons[suggestion.category].arrow}`)}
-          </ArrowDiv>
-        </InnerDivSuggestions>
-      </SuggestionBox>
-    </ProfileLink>
-  );
+  renderSuggestion = suggestion => {
+    if (suggestion.isAddNew) {
+      return (
+        <span>
+          [+] Add new: <strong>{this.state.value}</strong>
+        </span>
+      );
+    } else {
+      return (
+        <ProfileLink to={`/profile/${suggestion._id}`}>
+          <SuggestionBox orgType={suggestion.category}>
+            <InnerDivSuggestions>
+              <SymbolDiv>
+                {this.SVGcreator("mobile-search-icon")}
+                {this.SVGcreator(
+                  `${organizationIcons[suggestion.category].symbol}`
+                )}
+              </SymbolDiv>
+              <OrganisationDetailsDiv>
+                <h3>{suggestion.name}</h3>
+                <ReviewDetailsDiv>
+                  {this.StarRateCreator(suggestion)}
+                  <p>{suggestion.totalReviews} reviews</p>
+                </ReviewDetailsDiv>
+              </OrganisationDetailsDiv>
+              <ArrowDiv>
+                {this.SVGcreator(
+                  `${organizationIcons[suggestion.category].arrow}`
+                )}
+              </ArrowDiv>
+            </InnerDivSuggestions>
+          </SuggestionBox>
+        </ProfileLink>
+      );
+    }
+  };
 
   // renders last viewed organization section
   renderLastViewed = (orga, key) => (
