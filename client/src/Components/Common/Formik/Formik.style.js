@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
-import { colors, shadows } from "./../../../theme";
+import { colors, shadows } from "./../../../Components/theme";
 
 export const StyledFormik = styled(Formik).attrs()`
   display: flex;
@@ -29,7 +29,6 @@ export const GeneralErrorMessage = styled.p.attrs()`
 
 export const StyledField = styled(Field).attrs()`
   background: ${colors.white};
-  border: 1px solid ${colors.inputBorder};
   box-sizing: border-box;
   border-radius: 5px;
   padding: 0.5rem 0.75rem;

@@ -1,5 +1,6 @@
-// Render Prop
 import React, { Component } from "react";
+import * as Yup from "yup";
+
 import {
   StyledFormik as Formik,
   StyledForm as Form,
@@ -24,14 +25,21 @@ import logo from "./../../../assets/logo.svg";
 
 import { StyledField } from "./../../Common/Formik/Formik.style";
 
+const initalValues = { email: "", password: "" };
+
+const loginSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email")
+    .required("Required"),
+  password: Yup.string().required("Required")
+});
+
 export default class Login extends Component {
   state = {
     error: ""
   };
 
   handleSubmit = (values, { setSubmitting }) => {
-    setSubmitting(true);
-
     axios
       .post("/api/login", values)
       .then(({ data }) => {
@@ -44,19 +52,6 @@ export default class Login extends Component {
       });
   };
 
-  validate = values => {
-    let errors = {};
-    if (!values.email) {
-      errors.email = "Required";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-      errors.email = "Invalid email address";
-    }
-    if (!values.password) {
-      errors.password = "Required";
-    }
-    return errors;
-  };
-
   render() {
     const { error } = this.state;
 
@@ -64,8 +59,8 @@ export default class Login extends Component {
       <LoginWrapper>
         <img src={logo} alt="logo" />
         <Formik
-          initialValues={{ email: "", password: "" }}
-          validate={this.validate}
+          initialValues={initalValues}
+          validationSchema={loginSchema}
           onSubmit={this.handleSubmit}
         >
           {({ isSubmitting }) => (
@@ -73,14 +68,14 @@ export default class Login extends Component {
               <Label htmlFor="email">
                 Email
                 <StyledField type="email" name="email" id="email" />
-                <FormikErrorMessage name="email" component="div" />
+                <FormikErrorMessage name="email" component="p" />
               </Label>
               <Label htmlFor="password">
                 Password
                 <Field type="password" name="password" />
                 <FormikErrorMessage
                   name="password"
-                  component="div"
+                  component="p"
                   id="password"
                 />
               </Label>
