@@ -4,14 +4,12 @@ import axios from "axios";
 import Autosuggest from "react-autosuggest";
 import StarRatingComponent from "react-star-rating-component";
 
+// styles
 import {
   HeadlineDiv,
   RowDiv,
   ItemDiv,
-  LegendTitle,
   SearchLegendDiv,
-  SearchWrapper,
-  SuggestionBox,
   SymbolDiv,
   OrganisationDetailsDiv,
   ReviewDetailsDiv,
@@ -19,6 +17,9 @@ import {
   InnerDivSuggestions,
   ArrowDiv,
   ImgDiv,
+  SearchWrapper,
+  SuggestionBox,
+  LegendTitle,
   ReviewsFrame,
   ProfileLink
 } from "./Search.style";
@@ -43,7 +44,8 @@ export default class Search extends Component {
     });
   }
 
-  // functions autosuggest component
+  // functions for autosuggest component
+
   // teach Autosuggest how to calculate suggestions for any given input value.
   getSuggestions = (value, organisationsArray) => {
     const inputValue = value.trim().toLowerCase();
@@ -75,7 +77,8 @@ export default class Search extends Component {
   };
 
   // render functions
-  // creates SVGs
+
+  // creates SVG Divs
   SVGcreator = source => (
     <ImgDiv>
       <SVG src={`/icons/${source}.svg`} alt={`${source}`} />
@@ -83,16 +86,20 @@ export default class Search extends Component {
   );
 
   // creates star rating component
-  StarRateCreator = entry => (
+  StarRateCreator = organisation => (
     <StarRatingComponent
-      name="orgaRate"
+      name="star rating component"
       editing={false}
       starCount={5}
-      value={entry.avgRatings}
-      starColor={`${organizations[entry.category].primary}`}
+      value={organisation.avgRatings}
+      starColor={`${organizations[organisation.category].primary}`}
       emptyStarColor={"#D3D3D3"}
     />
   );
+
+  // sorts reviews by last viewed
+  sortLastViewed = (a, b) =>
+    a.lastViewed > b.lastViewed ? -1 : b.lastViewed > a.lastViewed ? 1 : 0;
 
   // renders individual suggestions in autosuggest search section
   renderSuggestion = suggestion => (
@@ -120,7 +127,7 @@ export default class Search extends Component {
     </ProfileLink>
   );
 
-  // renders last viewed organization section (only slight differences to autocomplete render function so can be refactored in future)
+  // renders last viewed organization section
   renderLastViewed = orga => (
     <ProfileLink to={`/profile/${orga._id}`}>
       <ReviewsFrame orgType={orga.category}>
@@ -142,10 +149,6 @@ export default class Search extends Component {
       </ReviewsFrame>
     </ProfileLink>
   );
-
-  // sorts reviews by last viewed
-  sortLastViewed = (a, b) =>
-    a.lastViewed > b.lastViewed ? -1 : b.lastViewed > a.lastViewed ? 1 : 0;
 
   render() {
     const { loaded, value, suggestions, data } = this.state;
@@ -191,7 +194,6 @@ export default class Search extends Component {
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           inputProps={inputProps}
-          scrollable={true}
         />
         <HeadlineDiv>
           <p>Or find out what's happening at...</p>
