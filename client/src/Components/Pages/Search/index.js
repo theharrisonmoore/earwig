@@ -51,9 +51,6 @@ export default class Search extends Component {
   getSuggestions = (value, organisationsArray) => {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
-    if (inputLength === 0) {
-      return [];
-    }
     const suggestions = organisationsArray.filter(
       orga => orga.name.toLowerCase().slice(0, inputLength) === inputValue
     );
@@ -225,6 +222,7 @@ export default class Search extends Component {
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          shouldRenderSuggestions={() => true}
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           inputProps={inputProps}

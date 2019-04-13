@@ -66,7 +66,7 @@ export const AddItemBox = styled.div`
   border: 0.2px solid ${colors.lightGray};
   box-shadow: ${colors.searchBoxShadow};
   color: black;
-  margin-top: -15px;
+  margin-top: -1rem;
 `;
 
 export const ReviewsFrame = styled.div`

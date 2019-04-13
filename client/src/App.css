@@ -58,6 +58,8 @@
   position: absolute;
   width: 100%;
   background-color: #fff;
+  max-height: 350px;
+  overflow-y: auto;
   z-index: 2;
 }
 
