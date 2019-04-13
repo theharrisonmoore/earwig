@@ -19,6 +19,7 @@ import {
   ImgDiv,
   SearchWrapper,
   SuggestionBox,
+  AddItemBox,
   LegendTitle,
   ReviewsFrame,
   ProfileLink
@@ -46,7 +47,7 @@ export default class Search extends Component {
 
   // functions for autosuggest component
 
-  // teach Autosuggest how to calculate suggestions for any given input value.
+  // create suggestions array based on user input
   getSuggestions = (value, organisationsArray) => {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
@@ -56,17 +57,17 @@ export default class Search extends Component {
     const suggestions = organisationsArray.filter(
       orga => orga.name.toLowerCase().slice(0, inputLength) === inputValue
     );
+    // in case there are no suggestions still return a value enabling the 'add' box to be rendered
     if (suggestions.length === 0) {
       return [{ isEmpty: true }];
     }
     return suggestions;
   };
 
-  // When suggestion is clicked, Autosuggest needs to populate the input based on the clicked suggestion.
-  // Teach Autosuggest how to calculate the input value for every given suggestion.
+  // gets called when suggestions gets clicked
   getSuggestionValue = suggestion => suggestion.name;
 
-  // Autosuggest will call this function every time you need to update suggestions.
+  // Autosuggest will call this function every time suggestions are updated
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
       suggestions: this.getSuggestions(value, this.state.data)
@@ -108,6 +109,7 @@ export default class Search extends Component {
 
   // renders individual suggestions in autosuggest search section
   renderSuggestion = suggestion => {
+    // check if no suggestion available and return so that renderSuggestionsContainer function is still being called (gets deactivated otherwise)
     if (suggestion.isEmpty) {
       return;
     } else {
@@ -139,19 +141,21 @@ export default class Search extends Component {
       );
     }
   };
-
+  // renders all elements and the add item footer
   renderSuggestionsContainer = ({ containerProps, children, query }) => (
     <div {...containerProps}>
       {children}
       {
         <div className="footer">
           <ProfileLink to="">
-            <InnerDivSuggestions>
-              <SymbolDiv>{this.SVGcreator("mobile-search-icon")}</SymbolDiv>
-              <OrganisationDetailsDiv>
-                <h3>Add {query}</h3>
-              </OrganisationDetailsDiv>
-            </InnerDivSuggestions>
+            <AddItemBox>
+              <InnerDivSuggestions>
+                <SymbolDiv>{this.SVGcreator("add-item-icon")}</SymbolDiv>
+                <OrganisationDetailsDiv mt="0.2rem">
+                  <h3>Add {query}</h3>
+                </OrganisationDetailsDiv>
+              </InnerDivSuggestions>
+            </AddItemBox>
           </ProfileLink>
         </div>
       }

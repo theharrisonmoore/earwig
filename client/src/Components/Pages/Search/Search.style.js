@@ -57,9 +57,16 @@ export const LegendTitle = styled.h2`
 `;
 
 export const SuggestionBox = styled.div`
-  border: 0.5px solid ${colors.lightGray};
+  border: 0.2px solid ${colors.lightGray};
   box-shadow: ${colors.searchBoxShadow};
   color: ${props => organizations[props.orgType].primary};
+`;
+
+export const AddItemBox = styled.div`
+  border: 0.2px solid ${colors.lightGray};
+  box-shadow: ${colors.searchBoxShadow};
+  color: black;
+  margin-top: -15px;
 `;
 
 export const ReviewsFrame = styled.div`
@@ -85,6 +92,8 @@ export const InnerDivLastReviews = styled.div`
 
 export const InnerDivSuggestions = styled.div`
   text-align: left;
+  padding-left: 0.75rem;
+  padding-top: 0.75rem;
   width: 100%;
   display: flex;
 `;
@@ -117,10 +126,22 @@ export const OrganisationDetailsDiv = styled.div`
   display: flex;
   flex-direction: column;
   h3 {
+    margin-top: ${props => props.mt};
     font-weight: 700;
     font-size: 1rem;
   }
 `;
+
+export const AddDetailsDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  h3 {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-top: 0.2rem;
+  }
+`;
+
 export const ReviewDetailsDiv = styled.div`
   display: flex;
   font-size: 0.75rem;
