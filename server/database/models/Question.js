@@ -4,6 +4,7 @@ const constants = require("./../../constants");
 
 const { Schema } = mongoose;
 
+
 const questionSchema = new Schema({
   number: Number,
   type: String,
@@ -20,7 +21,11 @@ const questionSchema = new Schema({
     type: String,
     enum: constants.database.ORGANIZATIONS_TYPE,
   },
-  group: String,
+  group: {
+    groupOrder: Number,
+    name: String,
+    text: String,
+  },
 }, {
   timestamps: true,
 });

@@ -7,9 +7,10 @@ import axios from "axios";
 import Yup from "yup";
 import classNames from "classnames";
 
-import { ReviewRapper } from "./Review.style";
+import { ReviewRapper, SubmitButton } from "./Review.style";
 import Question from "./Question/index";
 import agencyIcon from "./../../../assets/agencyIcon.svg";
+import clockLong from "./../../../assets/clockLong.svg";
 
 const initialValues = {
   questions: {
@@ -18,35 +19,72 @@ const initialValues = {
   }
 };
 
+const STATIC_QUESTIONS = [
+  {
+    number: 18,
+    text: "How would you rate this agency?",
+    type: "rate",
+    options: ["bad", "ok", "good", "cool", "very cool"]
+  },
+  {
+    number: 19,
+    text: "If you’d like to write an overall review, go ahead here",
+    type: "textArea",
+    hintText:
+      "To help other workers, please try to explain why something was or wasn't good."
+  },
+  {
+    number: 20,
+    text: "Share a voice review",
+    hintText:
+      "30 seconds max. Bear in mind that people may be able to identify you from your voice.",
+    type: "audio",
+    options: ["bad", "ok", "good", "cool", "very cool"]
+  }
+];
+
 class Review extends Component {
   state = {
-    questions: []
+    groups: [],
+    organization: { category: "worksite", name: "Total Recruitment" }
   };
   componentDidMount() {
     axios
-      .get("/api/questions")
+      .get("/api/questions/", {
+        params: {
+          organization: this.state.organization.category
+        }
+      })
       .then(res => {
-        this.setState({ questions: res.data });
+        this.setState({ groups: res.data });
       })
       .catch(err => {
         console.log("err", err);
       });
   }
   render() {
-    if (!this.state.questions[0]) {
+    console.log(this.state.groups);
+    if (!this.state && !this.state.groups[0]) {
       return null;
     }
-    const { questions } = this.state;
+    const {
+      groups,
+      organization: { name }
+    } = this.state;
     return (
       <ReviewRapper>
         <section className="review-header">
           <div className="content">
-            <p>You're reviewing</p>
-            <div className="org">
-              <img src={agencyIcon} alt="" />
-              Total Recruitment
+            <div className="image-box">
+              <img src={agencyIcon} alt="" class="header-icon" />
             </div>
-            <p className="review-info">18 questions 2min</p>
+            <div className="org">
+              <p>You're reviewing:</p>
+              <p class="org-name">{name}</p>
+              <p className="review-info">
+                18 questions <img src={clockLong} alt="" /> 2 mins
+              </p>
+            </div>
           </div>
         </section>
 
@@ -54,10 +92,18 @@ class Review extends Component {
           <Formik
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-              }, 400);
+              axios
+                .post("/api/review", values)
+                .then(res => {
+                  console.log(res);
+                  // setSubmitting(false);
+                  this.props.history.push(`/search`);
+                })
+                .catch(err => {
+                  console.log(err);
+                  this.setState({ error: err.response.data.error });
+                  setSubmitting(false);
+                });
             }}
           >
             {({ values, isSubmitting, handleChange }) => {
@@ -65,41 +111,46 @@ class Review extends Component {
                 <Form>
                   <div className="question-container">
                     <p>Select the month(s) you used this agency?</p>
-                    {/* <MonthRangePicker /> */}
                   </div>
-                  <div className="general-group">
+                  <div className="questions">
+                    {groups.map(group => {
+                      return (
+                        <div className="group-section">
+                          <h2>{group.group.text}</h2>
+                          {group.questions.map(question => {
+                            return (
+                              <Question
+                                {...values}
+                                handleChagne={handleChange}
+                                question={question}
+                              />
+                            );
+                          })}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="footer">
                     <Question
                       {...values}
                       handleChagne={handleChange}
-                      question={questions[0]}
+                      question={STATIC_QUESTIONS[0]}
                     />
-                    <Question question={questions[1]} />
-                    <Question question={questions[2]} />
-                    <Question question={questions[3]} />
-                    <Question question={questions[4]} />
-                    <Question question={questions[5]} />
-                    <Question question={questions[6]} />
-                    <Question question={questions[7]} />
-                  </div>
-                  <div className="wages-group">
-                    <Question question={questions[8]} />
-                    <Question question={questions[9]} />
-                    <Question question={questions[10]} />
-                    <Question question={questions[11]} />
-                    <Question question={questions[12]} />
-                    <Question question={questions[13]} />
-                    <Question question={questions[14]} />
-                    <Question question={questions[15]} />
-                    <Question question={questions[16]} />
-                    <Question question={questions[17]} />
-                  </div>
-                  <div className="overall">
-                    <Question question={questions[18]} />
+                    <Question
+                      {...values}
+                      handleChagne={handleChange}
+                      question={STATIC_QUESTIONS[1]}
+                    />
+                    <Question
+                      {...values}
+                      handleChagne={handleChange}
+                      question={STATIC_QUESTIONS[2]}
+                    />
                   </div>
 
-                  <button type="submit" disabled={isSubmitting}>
+                  <SubmitButton type="submit" disabled={isSubmitting}>
                     Submit your review
-                  </button>
+                  </SubmitButton>
                 </Form>
               );
             }}

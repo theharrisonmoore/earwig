@@ -1,13 +1,17 @@
 import React from "react";
-import { Field } from "formik";
+import { Field, FieldArray } from "formik";
 import classNames from "classnames";
-import styled from "styled-components";
+import commentIcon from "../../../../assets/Bitmap.svg";
+import { Checkbox } from "antd";
+import "antd/dist/antd.css";
 
 import {
   QuestionWrapper,
   QuestionOptionsWrapper,
   InputWrapper
 } from "./Question.style";
+
+const CheckboxGroup = Checkbox.Group;
 
 const Question = props => {
   if (!props) {
@@ -23,6 +27,7 @@ const Question = props => {
     category,
     name
   } = props.question;
+  const { questions } = props;
   return (
     <QuestionWrapper>
       <p className="text">{text}</p>
@@ -33,31 +38,38 @@ const Question = props => {
         number={number}
         category={category}
         name={name}
+        questions={questions}
       />
     </QuestionWrapper>
   );
 };
 
 const QuestionOptions = props => {
-  if (!props) {
+  if (!props && !props.options) {
     return null;
   }
-  const { type, options, number, category, name } = props;
-  if (type === "yesno") {
+  const { type, options, number, category, name, questions } = props;
+  if (type === "yesno" || type === "radio") {
     return (
       <QuestionOptionsWrapper>
-        {options.map(option => {
-          return (
-            <Field
-              component={RadioButton}
-              name={`questions[${number}]`}
-              id={`${option}-${number}`}
-              className={`hide radio-input ${option}`}
-              value={option}
-              option={option}
-            />
-          );
-        })}
+        <div className={`choices choices-${options.length}`}>
+          {options.map((option, i, arr) => {
+            return (
+              <Field
+                component={RadioButton}
+                name={`questions[${number}]`}
+                id={`${option}-${number}`}
+                className={`hide radio-input ${option}`}
+                value={option}
+                option={option}
+                count={options.length}
+              />
+            );
+          })}
+        </div>
+        <div className="comment-icon-box">
+          <img src={commentIcon} alt="" />
+        </div>
       </QuestionOptionsWrapper>
     );
   }
@@ -100,6 +112,93 @@ const QuestionOptions = props => {
     );
   }
 
+  if (type === "checklist") {
+    return (
+      <QuestionOptionsWrapper>
+        <FieldArray
+          name="questions"
+          render={arrayHelpers => (
+            <div>
+              {options &&
+                options.length > 0 &&
+                options.map((option, index) => (
+                  <div key={index}>
+                    <Field
+                      type="checkbox"
+                      name={`questions[${number}]`}
+                      value={option}
+                      onChange={e => {
+                        if (e.target.checked) {
+                          if (Array.isArray(questions[number])) {
+                            questions[number] = questions[number].concat(
+                              option
+                            );
+                            console.log("inside is array", questions[number]);
+                          } else {
+                            questions[number] = [option];
+                            console.log(
+                              "outside is array111111111111111111",
+                              questions[number]
+                            );
+                          }
+                        } else {
+                          const idx = questions[number].indexOf(option);
+                          // const idx = `questions[${number}]`.indexOf(option);
+                          questions[number].filter(q => idx !== q);
+                        }
+                      }}
+                      checked={
+                        questions[number]
+                          ? questions[number].includes(option)
+                          : false
+                      }
+                    />
+                    <label>{option}</label>
+                  </div>
+                ))}
+              <div>
+                <button type="submit">Submit</button>
+              </div>
+            </div>
+          )}
+        />
+      </QuestionOptionsWrapper>
+    );
+  }
+  // if (type === "checklist") {
+  //   return (
+  //     <QuestionOptionsWrapper>
+  //       <ul>
+  //         {options.map(option => {
+  //           return (
+  //             <li>
+  //               <Field
+  //                 type="checkbox"
+  //                 name={`questions[${number}]`}
+  //                 id={`${option}-${number}`}
+  //               />
+  //               <label htmlFor={`${option}-${number}`}>{option}</label>
+  //             </li>
+  //           );
+  //         })}
+  //       </ul>
+  //     </QuestionOptionsWrapper>
+  //   );
+  // }
+
+  if (type === "image") {
+    return (
+      <QuestionOptionsWrapper>
+        {/* <Field component="select" name={`questions[${number}]`}>
+          {options.map(option => (
+            <option value={option}>{option}</option>
+          ))}
+        </Field> */}
+        Image uploader here
+      </QuestionOptionsWrapper>
+    );
+  }
+
   return null;
 };
 
@@ -111,7 +210,6 @@ const RadioButton = ({
   className,
   ...props
 }) => {
-  console.log(props, id);
   return (
     <InputWrapper option={props.option}>
       <input
@@ -124,7 +222,7 @@ const RadioButton = ({
         className={classNames("radio-button")}
         {...props}
       />
-      <label htmlFor={id} className="yesno">
+      <label htmlFor={id} className={`yesno options-${props.count}`}>
         {props.option}
       </label>
     </InputWrapper>

@@ -8,8 +8,11 @@ export const QuestionWrapper = styled.div.attrs({ className: "" })`
   margin-bottom: 1rem;
   color: #4a4a4a;
 
+  p {
+    margin: 0;
+  }
   .text {
-    font-weight: bold;
+    font-weight: 900;
   }
 
   .hint-text {
@@ -23,15 +26,43 @@ export const QuestionOptionsWrapper = styled.div`
   font-size: 16px;
   margin-bottom: 1rem;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 
-  .yesno {
+  .choices {
+    width: calc(80% - 1rem);
+    display: flex;
+    justify-content: space-between;
+    margin-right: 1rem;
+  }
+
+  .choices-3 div:last-child label {
+    font-size: 11px;
+    height: 24px;
+  }
+
+  .choices-4 {
+    width: 100%;
+  }
+
+  .comment-icon-box {
+    width: 20%;
+    margin: 0 auto;
+  }
+
+  /* .yesno {
     text-align: center;
     color: grey;
-    padding: 1rem 2rem;
     background-color: white;
     border: 1px solid #9b9b9b;
     display: inline-block;
     padding: 0.25rem 1rem;
+  } */
+
+  .radio {
+    /* width: 4.75rem; */
+    font-size: 14px;
+    margin: 0;
   }
   .hide {
     display: none;
@@ -39,18 +70,14 @@ export const QuestionOptionsWrapper = styled.div`
 `;
 
 export const InputWrapper = styled.div`
-  /* display: flex; */
-  /* justify-content: space-between; */
   color: #9b9b9b;
-  margin-right: 1.25rem;
-  /* width: 40%; */
+  /* width: calc(((80% - 10px) / 4)); */
 
   .radio-button {
     display: none;
   }
 
   .yesno {
-    /* width: 100%; */
     border: 3px solid transparent;
     background: #ccc;
     text-align: center;
@@ -59,6 +86,17 @@ export const InputWrapper = styled.div`
     border: 1px solid #9b9b9b;
     display: inline-block;
     padding: 0.25rem 1rem;
+  }
+
+  .options-2 {
+    width: 100px;
+  }
+
+  .options-3 {
+    font-size: 11;
+  }
+
+  .options-4 {
   }
 
   .radio-button:checked + .yesno {

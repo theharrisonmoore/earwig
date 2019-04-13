@@ -1,18 +1,23 @@
 const boom = require("boom");
 
-// const { getQuestionsByAgency } = require("./../database/queries/user");
-const Question = require("../database/models/Question");
+const { getQuetionsByOrg } = require("../database/queries/review");
 
+const getByOrg = (req, res, next) => {
+  const { organization } = req.query;
 
-module.exports = (req, res, next) => {
-  Question.find({ category: "agency" }).sort({ number: 1 })
-    .then((questions) => {
-      res.json(questions);
+  getQuetionsByOrg(organization)
+    .then((groups) => {
+      res.json(groups);
     })
-    .catch((err) => {
-      next(Boom.badImplementation());
+    .catch(() => {
+      next(boom.badImplementation());
     });
-  // getQuestionsByAgency("agency").then((questions) => {
-  //   console.log("hii", questions);
-  // });
 };
+
+const postReview = (req, res, next) => {
+  const { questions } = req.body;
+  console.log(questions);
+};
+
+
+module.exports = { getByOrg, postReview };
