@@ -1,8 +1,13 @@
 import React, { Component } from "react";
-import SVG from "react-inlinesvg";
 import axios from "axios";
 import Autosuggest from "react-autosuggest";
-import StarRatingComponent from "react-star-rating-component";
+
+// UI helper functions
+import {
+  SVGCreator,
+  StarRateCreator,
+  SortArrayNewest
+} from "../../../UIHelper";
 
 // styles
 import {
@@ -16,7 +21,6 @@ import {
   InnerDivLastReviews,
   InnerDivSuggestions,
   ArrowDiv,
-  ImgDiv,
   SearchWrapper,
   SuggestionBox,
   AddItemBox,
@@ -25,7 +29,7 @@ import {
   ProfileLink
 } from "./Search.style";
 
-import { organizationIcons, organizations } from "./../../../theme";
+import { organizationIcons } from "./../../../theme";
 
 export default class Search extends Component {
   state = {
@@ -35,7 +39,6 @@ export default class Search extends Component {
     suggestions: []
   };
 
-  // lifecycle
   componentDidMount() {
     axios.get("/api/search").then(organizations => {
       this.setState({
@@ -46,7 +49,6 @@ export default class Search extends Component {
   }
 
   // functions for autosuggest component
-
   // create suggestions array based on user input
   getSuggestions = (value, organisationsArray) => {
     const inputValue = value.trim().toLowerCase();
@@ -54,6 +56,7 @@ export default class Search extends Component {
     const suggestions = organisationsArray.filter(
       orga => orga.name.toLowerCase().slice(0, inputLength) === inputValue
     );
+
     // in case there are no suggestions still return a value enabling the 'add' box to be rendered
     if (suggestions.length === 0) {
       return [{ isEmpty: true }];
@@ -70,6 +73,7 @@ export default class Search extends Component {
       suggestions: this.getSuggestions(value, this.state.data)
     });
   };
+
   // Autosuggest will call this function every time you need to clear suggestions.
   onSuggestionsClearRequested = () => {
     this.setState({ suggestions: [] });
@@ -80,29 +84,6 @@ export default class Search extends Component {
   };
 
   // render functions
-
-  // creates SVG Divs
-  SVGcreator = source => (
-    <ImgDiv>
-      <SVG src={`/icons/${source}.svg`} alt={`${source}`} />
-    </ImgDiv>
-  );
-
-  // creates star rating component
-  StarRateCreator = organisation => (
-    <StarRatingComponent
-      name="star rating component"
-      editing={false}
-      starCount={5}
-      value={organisation.avgRatings}
-      starColor={`${organizations[organisation.category].primary}`}
-      emptyStarColor={"#D3D3D3"}
-    />
-  );
-
-  // sorts reviews by last viewed
-  sortLastViewed = (a, b) =>
-    a.lastViewed > b.lastViewed ? -1 : b.lastViewed > a.lastViewed ? 1 : 0;
 
   // renders individual suggestions in autosuggest search section
   renderSuggestion = suggestion => {
@@ -115,22 +96,18 @@ export default class Search extends Component {
           <SuggestionBox orgType={suggestion.category}>
             <InnerDivSuggestions>
               <SymbolDiv>
-                {this.SVGcreator("mobile-search-icon")}
-                {this.SVGcreator(
-                  `${organizationIcons[suggestion.category].symbol}`
-                )}
+                {SVGCreator("mobile-search-icon")}
+                {SVGCreator(`${organizationIcons[suggestion.category].symbol}`)}
               </SymbolDiv>
               <OrganisationDetailsDiv>
                 <h3>{suggestion.name}</h3>
                 <ReviewDetailsDiv>
-                  {this.StarRateCreator(suggestion)}
+                  {StarRateCreator(suggestion)}
                   <p>{suggestion.totalReviews} reviews</p>
                 </ReviewDetailsDiv>
               </OrganisationDetailsDiv>
               <ArrowDiv>
-                {this.SVGcreator(
-                  `${organizationIcons[suggestion.category].arrow}`
-                )}
+                {SVGCreator(`${organizationIcons[suggestion.category].arrow}`)}
               </ArrowDiv>
             </InnerDivSuggestions>
           </SuggestionBox>
@@ -138,6 +115,7 @@ export default class Search extends Component {
       );
     }
   };
+
   // renders all elements and the add item footer
   renderSuggestionsContainer = ({ containerProps, children, query }) => (
     <div {...containerProps}>
@@ -147,7 +125,7 @@ export default class Search extends Component {
           <ProfileLink to="">
             <AddItemBox>
               <InnerDivSuggestions>
-                <SymbolDiv>{this.SVGcreator("add-item-icon")}</SymbolDiv>
+                <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv>
                 <OrganisationDetailsDiv mt="0.2rem">
                   <h3>Add {query}</h3>
                 </OrganisationDetailsDiv>
@@ -165,17 +143,17 @@ export default class Search extends Component {
       <ReviewsFrame orgType={orga.category}>
         <InnerDivLastReviews orgType={orga.category}>
           <SymbolDiv>
-            {this.SVGcreator(`${organizationIcons[orga.category].symbol}`)}
+            {SVGCreator(`${organizationIcons[orga.category].symbol}`)}
           </SymbolDiv>
           <OrganisationDetailsDiv>
             <h3>{orga.name}</h3>
             <ReviewDetailsDiv>
-              {this.StarRateCreator(orga)}
+              {StarRateCreator(orga)}
               <p>{orga.totalReviews} reviews</p>
             </ReviewDetailsDiv>
           </OrganisationDetailsDiv>
           <ArrowDiv>
-            {this.SVGcreator(`${organizationIcons[orga.category].arrow}`)}
+            {SVGCreator(`${organizationIcons[orga.category].arrow}`)}
           </ArrowDiv>
         </InnerDivLastReviews>
       </ReviewsFrame>
@@ -190,7 +168,7 @@ export default class Search extends Component {
       onChange: this.onChange
     };
     if (!loaded) return <p>loading...</p>;
-
+    console.log(this.state);
     return (
       <SearchWrapper>
         <HeadlineDiv>
@@ -199,21 +177,21 @@ export default class Search extends Component {
         <SearchLegendDiv>
           <RowDiv>
             <ItemDiv>
-              {this.SVGcreator("agency-icon")}
+              {SVGCreator("agency-icon")}
               <LegendTitle color="#8B51FC">Agencies</LegendTitle>
             </ItemDiv>
             <ItemDiv>
-              {this.SVGcreator("payroll-icon")}
+              {SVGCreator("payroll-icon")}
               <LegendTitle color="#37B6FD">Payrolls</LegendTitle>
             </ItemDiv>
           </RowDiv>
           <RowDiv>
             <ItemDiv>
-              {this.SVGcreator("worksite-icon")}
+              {SVGCreator("worksite-icon")}
               <LegendTitle color="#FFA400">Worksites</LegendTitle>
             </ItemDiv>
             <ItemDiv>
-              {this.SVGcreator("company-icon")}
+              {SVGCreator("company-icon")}
               <LegendTitle color="#1C0F13">Companies</LegendTitle>
             </ItemDiv>
           </RowDiv>
@@ -232,7 +210,7 @@ export default class Search extends Component {
           <p>Or find out what's happening at...</p>
         </HeadlineDiv>
         {data
-          .sort(this.sortLastViewed)
+          .sort(SortArrayNewest)
           .map((orga, index) =>
             index < 4 ? this.renderLastViewed(orga, index) : ""
           )}

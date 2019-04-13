@@ -58,7 +58,7 @@
   position: absolute;
   width: 100%;
   background-color: #fff;
-  max-height: 350px;
+  max-height: 45vh;
   overflow-y: auto;
   z-index: 2;
 }
@@ -77,5 +77,8 @@
 @media (min-width: 766px) {
   .react-autosuggest__input {
     width: 100%;
+  }
+  .react-autosuggest__suggestions-container--open {
+    max-height: inherit;
   }
 }
