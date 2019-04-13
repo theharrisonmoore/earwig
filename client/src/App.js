@@ -7,11 +7,19 @@ import "./App.css";
 import Routes from "./Components/";
 
 class App extends Component {
+  state = {
+    isLoggedIn: false
+  };
+
+  handleChangeState = data => {
+    this.setState(data);
+  };
+
   render() {
     return (
       <Router>
         <div className="App">
-          <Routes />
+          <Routes handleChangeState={this.handleChangeState} />
         </div>
       </Router>
     );
