@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const boom = require("boom");
 const { compare } = require("bcryptjs");
+const { tokenMaxAge } = require("./../constants");
 
 const { findByEmail } = require("./../database/queries/user");
 
@@ -32,10 +33,10 @@ module.exports = (req, res, next) => {
         };
 
         // create token for 30 day
-        const token = jwt.sign({ id: user._id }, process.env.SECRET, { expiresIn: "30d" });
-        console.log(token);
-
-        res.cookie("token", token, { maxAge: 2592000000, httpOnly: true });
+        const token = jwt.sign({ id: user._id }, process.env.SECRET, {
+          expiresIn: tokenMaxAge.string,
+        });
+        res.cookie("token", token, { maxAge: tokenMaxAge.number, httpOnly: true });
 
         // send the user info
         return res.json(userInfo);
