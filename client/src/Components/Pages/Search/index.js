@@ -168,7 +168,7 @@ export default class Search extends Component {
       onChange: this.onChange
     };
     if (!loaded) return <p>loading...</p>;
-    console.log(this.state);
+
     return (
       <SearchWrapper>
         <HeadlineDiv>
