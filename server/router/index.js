@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const validation = require("./../middlewares/validation");
 const loginController = require("../controllers/login");
+const signupController = require("../controllers/signup");
 const searchController = require("../controllers/search");
 
 // require all the routes in this file
