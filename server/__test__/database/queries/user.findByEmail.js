@@ -6,7 +6,7 @@ const { findByEmail } = require("./../../../database/queries/user");
 
 const User = require("../../../database/models/User");
 
-describe("Test for getUserCard query", () => {
+describe("Test for findByEmail query", () => {
   beforeAll(async () => {
     // build dummy data
     await buildDB();
