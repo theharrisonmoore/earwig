@@ -9,7 +9,12 @@ const schemas = {
   },
   uploadVerificationImage: {
     tradeId: Joi.string().length(24).required(),
-
+  },
+  signup: {
+    email: Joi.string().email({ minDomainAtoms: 2 }).required(),
+    password: Joi.string().min(6).required(),
+    rePassword: Joi.any().valid(Joi.ref("password")).required().options({ language: { any: { allowOnly: "must match password" } } }),
+    checkbox: Joi.boolean().valid(true).error(() => "You should agree Earwig terms of user"),
   },
 };
 

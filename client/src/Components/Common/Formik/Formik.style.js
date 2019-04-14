@@ -18,6 +18,7 @@ export const StyledFormikErrorMessage = styled(ErrorMessage).attrs()`
   font-weight: 100;
   font-size: 1rem;
   text-align: left;
+  margin-bottom: 0rem;
 `;
 
 export const GeneralErrorMessage = styled.p.attrs()`
@@ -57,4 +58,33 @@ export const Button = styled.button`
   font-weight: 900;
   text-decoration: captalized;
   margin-bottom: 1.25rem;
+  color: ${colors.profileFontColor};
+`;
+
+export const CheckboxWrapper = styled.div.attrs({
+  className: "custom-control custom-checkbox"
+})`
+  text-align: left;
+  margin-bottom: 2rem;
+`;
+
+export const Checkbox = styled(Field).attrs({
+  className: "custom-control-input"
+})``;
+
+export const CheckboxLabel = styled.label.attrs({
+  className: "custom-control-label"
+})`
+  font-size: 1rem;
+  color: ${colors.profileFontColor};
+  padding-left: 2rem;
+  line-height: 3rem;
+  cursor: pointer;
+
+  &:after,
+  &:before {
+    padding-right: 0.5rem;
+    height: 2rem;
+    width: 2rem;
+  }
 `;
