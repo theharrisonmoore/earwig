@@ -12,13 +12,6 @@ import Question from "./Question/index";
 import agencyIcon from "./../../../assets/agencyIcon.svg";
 import clockLong from "./../../../assets/clockLong.svg";
 
-const initialValues = {
-  questions: {
-    1: "",
-    15: ""
-  }
-};
-
 const STATIC_QUESTIONS = [
   {
     number: 18,
@@ -29,7 +22,7 @@ const STATIC_QUESTIONS = [
   {
     number: 19,
     text: "If you’d like to write an overall review, go ahead here",
-    type: "textArea",
+    type: "overallReview",
     hintText:
       "To help other workers, please try to explain why something was or wasn't good."
   },
@@ -38,15 +31,27 @@ const STATIC_QUESTIONS = [
     text: "Share a voice review",
     hintText:
       "30 seconds max. Bear in mind that people may be able to identify you from your voice.",
-    type: "audio",
-    options: ["bad", "ok", "good", "cool", "very cool"]
+    type: "voiceReview"
   }
 ];
+
+const initialValues = {
+  questions: {},
+  checklist: [],
+  review: {
+    workPeriod: "",
+    rate: "",
+    overallReview: "",
+    voiceReview: ""
+  },
+  hasAgreed: false
+};
 
 class Review extends Component {
   state = {
     groups: [],
-    organization: { category: "worksite", name: "Total Recruitment" }
+    organization: { category: "worksite", name: "Bournemouth University" },
+    user: { email: "level3@earwig.com" }
   };
   componentDidMount() {
     axios
@@ -62,6 +67,29 @@ class Review extends Component {
         console.log("err", err);
       });
   }
+
+  handleSubmit = (values, { setSubmitting }) => {
+    const { organization } = this.state;
+    const { user } = this.state;
+    const review = {
+      values,
+      organization,
+      user
+    };
+    axios
+      .post("/api/review", review)
+      .then(res => {
+        console.log(res);
+        // setSubmitting(false);
+        this.props.history.push(`/search`);
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({ error: err.response.data.error });
+        setSubmitting(false);
+      });
+  };
+
   render() {
     console.log(this.state.groups);
     if (!this.state && !this.state.groups[0]) {
@@ -89,24 +117,9 @@ class Review extends Component {
         </section>
 
         <section className="questions">
-          <Formik
-            initialValues={initialValues}
-            onSubmit={(values, { setSubmitting }) => {
-              axios
-                .post("/api/review", values)
-                .then(res => {
-                  console.log(res);
-                  // setSubmitting(false);
-                  this.props.history.push(`/search`);
-                })
-                .catch(err => {
-                  console.log(err);
-                  this.setState({ error: err.response.data.error });
-                  setSubmitting(false);
-                });
-            }}
-          >
+          <Formik initialValues={initialValues} onSubmit={this.handleSubmit}>
             {({ values, isSubmitting, handleChange }) => {
+              console.log("valssssssssssssssss", values);
               return (
                 <Form>
                   <div className="question-container">
@@ -120,7 +133,7 @@ class Review extends Component {
                           {group.questions.map(question => {
                             return (
                               <Question
-                                {...values}
+                                values={values}
                                 handleChagne={handleChange}
                                 question={question}
                               />

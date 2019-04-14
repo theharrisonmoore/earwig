@@ -27,7 +27,7 @@ const Question = props => {
     category,
     name
   } = props.question;
-  const { questions } = props;
+  const { questions, values } = props;
   return (
     <QuestionWrapper>
       <p className="text">{text}</p>
@@ -39,6 +39,7 @@ const Question = props => {
         category={category}
         name={name}
         questions={questions}
+        values={values}
       />
     </QuestionWrapper>
   );
@@ -112,11 +113,49 @@ const QuestionOptions = props => {
     );
   }
 
+  if (type === "rate") {
+    return (
+      <QuestionOptionsWrapper>
+        <div className={`choices choices-${options.length}`}>
+          {options.map((option, i, arr) => {
+            return (
+              <Field
+                component={RadioButton}
+                name={`review.rate`}
+                id={`${option}-${number}`}
+                className={`hide radio-input ${option}`}
+                value={i + 1}
+                option={option}
+                count={options.length}
+              />
+            );
+          })}
+        </div>
+      </QuestionOptionsWrapper>
+    );
+  }
+
+  if (type === "overallReview") {
+    return (
+      <QuestionOptionsWrapper>
+        <Field
+          component="textarea"
+          name={`review.overallReview`}
+          id={`${number}`}
+          placeholder="per timesheet"
+        />
+      </QuestionOptionsWrapper>
+    );
+  }
+
+  // working partially
+
   if (type === "checklist") {
+    const { values } = props;
     return (
       <QuestionOptionsWrapper>
         <FieldArray
-          name="questions"
+          name="checklist"
           render={arrayHelpers => (
             <div>
               {options &&
@@ -124,47 +163,131 @@ const QuestionOptions = props => {
                 options.map((option, index) => (
                   <div key={index}>
                     <Field
+                      id={`${option}-${number}`}
                       type="checkbox"
-                      name={`questions[${number}]`}
+                      name={`checklist.${index}`}
                       value={option}
                       onChange={e => {
-                        if (e.target.checked) {
-                          if (Array.isArray(questions[number])) {
-                            questions[number] = questions[number].concat(
-                              option
-                            );
-                            console.log("inside is array", questions[number]);
-                          } else {
-                            questions[number] = [option];
-                            console.log(
-                              "outside is array111111111111111111",
-                              questions[number]
-                            );
-                          }
-                        } else {
-                          const idx = questions[number].indexOf(option);
-                          // const idx = `questions[${number}]`.indexOf(option);
-                          questions[number].filter(q => idx !== q);
+                        if (e.target.checked) arrayHelpers.push(option);
+                        else {
+                          const idx = values.checklist.indexOf(option);
+                          arrayHelpers.remove(idx);
                         }
                       }}
-                      checked={
-                        questions[number]
-                          ? questions[number].includes(option)
-                          : false
-                      }
+                      checked={values.checklist.includes(option)}
                     />
-                    <label>{option}</label>
+                    <label htmlFor={`${option}-${number}`}>{option}</label>
                   </div>
                 ))}
-              <div>
-                <button type="submit">Submit</button>
-              </div>
             </div>
           )}
         />
       </QuestionOptionsWrapper>
     );
   }
+
+  // // the seconed to last attempt
+  // if (type === "checklist") {
+  //   const { values } = props;
+  //   return (
+  //     <QuestionOptionsWrapper>
+  //       <FieldArray
+  //         name="questions"
+  //         render={arrayHelpers => (
+  //           <div>
+  //             {options &&
+  //               options.length > 0 &&
+  //               options.map((option, index) => (
+  //                 <div key={index}>
+  //                   <Field
+  //                     id={`${option}-${number}`}
+  //                     type="checkbox"
+  //                     name={`questions[${number}]`}
+  //                     value={option}
+  //                     onChange={e => {
+  //                       if (e.target.checked) arrayHelpers.push(option);
+  //                       else {
+  //                         const idx = values.questions.indexOf(option);
+  //                         arrayHelpers.remove(idx);
+  //                       }
+  //                     }}
+  //                     checked={values.questions[number].includes(option)}
+  //                   />
+  //                   <label htmlFor={`${option}-${number}`}>{option}</label>
+  //                   />
+  //                   <label>{option}</label>
+  //                 </div>
+  //               ))}
+  //           </div>
+  //         )}
+  //       />
+  //     </QuestionOptionsWrapper>
+  //   );
+  // }
+
+  // // the seconed to last attempt
+  // if (type === "checklist") {
+  //   return (
+  //     <QuestionOptionsWrapper>
+  //       <FieldArray
+  //         name="checklist"
+  //         render={arrayHelpers => (
+  //           <div>
+  //             {options &&
+  //               options.length > 0 &&
+  //               options.map((option, index) => (
+  //                 <div key={index}>
+  //                   <Field
+  //                     type="checkbox"
+  //                     name={`checklist.${index}`}
+  //                     value={option}
+  //                     onChange={e => {
+  //                       if (e.target.checked) {
+  //                         if (Array.isArray(questions[number])) {
+  //                           questions[number] = questions[number].concat(
+  //                             option
+  //                           );
+  //                           console.log(
+  //                             "inside is array",
+  //                             questions[number],
+  //                             e.target.checked
+  //                           );
+  //                         } else {
+  //                           questions[number] = [option];
+  //                           console.log(
+  //                             "outside is array111111111111111111",
+  //                             questions[number]
+  //                           );
+  //                         }
+  //                       } else {
+  //                         const idx = questions[number].indexOf(option);
+  //                         console.log(idx);
+  //                         console.log(
+  //                           questions[number],
+  //                           e.target.checked,
+  //                           "kkkkkkkkkkkkkkkkkkk"
+  //                         );
+  //                         // const idx = `questions[${number}]`.indexOf(option);
+  //                         questions[number] = questions[number].filter(
+  //                           q => idx !== q
+  //                         );
+  //                       }
+  //                     }}
+  //                     checked={
+  //                       questions[number]
+  //                         ? !questions[number].includes(option)
+  //                         : false
+  //                     }
+  //                   />
+  //                   <label>{option}</label>
+  //                 </div>
+  //               ))}
+  //           </div>
+  //         )}
+  //       />
+  //     </QuestionOptionsWrapper>
+  //   );
+  // }
   // if (type === "checklist") {
   //   return (
   //     <QuestionOptionsWrapper>
