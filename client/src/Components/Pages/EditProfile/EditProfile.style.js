@@ -12,7 +12,7 @@ export const EditWrapper = styled.div`
   padding-top: 3rem;
 
   & > div:first-child {
-  padding-top 0;
+    padding-top: 0;
   }
 `;
 

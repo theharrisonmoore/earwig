@@ -7,7 +7,7 @@ import Thankyou from "./Pages/ThankYou";
 import EditProfile from "./Pages/EditProfile";
 
 export default function index(props) {
-  const { handleChangeState } = props;
+  const { state, handleChangeState } = props;
   return (
     <>
       <Switch>
@@ -30,7 +30,11 @@ export default function index(props) {
           exact
           path="/edit-profile"
           render={props => (
-            <EditProfile {...props} handleChangeState={handleChangeState} />
+            <EditProfile
+              {...props}
+              handleChangeState={handleChangeState}
+              {...state}
+            />
           )}
         />
         {/* orgType required as state in Link for this */}
