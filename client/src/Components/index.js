@@ -7,14 +7,20 @@ import Signup from "./Pages/Signup";
 import Thankyou from "./Pages/ThankYou";
 
 export default function index(props) {
-  const { handleChangeState } = props;
+  const { handleChangeState, state } = props;
   return (
     <>
       <Switch>
         <Route
           exact
           path="/upload-verification-photo"
-          component={UploadImage}
+          render={props => (
+            <UploadImage
+              {...props}
+              handleChangeState={handleChangeState}
+              {...state}
+            />
+          )}
         />
         <Route
           exact

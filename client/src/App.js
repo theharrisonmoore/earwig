@@ -8,18 +8,31 @@ import Routes from "./Components/";
 
 class App extends Component {
   state = {
-    isLoggedIn: false
+    isLoggedIn: true,
+    id: "",
+    trade: "",
+    verified: false,
+    awaitingReview: false,
+    userId: "",
+    points: 0,
+    isAdmin: false,
+    email: ""
   };
 
   handleChangeState = data => {
     this.setState(data);
   };
 
+  componentDidMount() {}
+
   render() {
     return (
       <Router>
         <div className="App">
-          <Routes handleChangeState={this.handleChangeState} />
+          <Routes
+            handleChangeState={this.handleChangeState}
+            state={this.state}
+          />
         </div>
       </Router>
     );

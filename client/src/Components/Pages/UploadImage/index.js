@@ -33,14 +33,32 @@ export default class UploadImage extends Component {
   };
 
   componentDidMount() {
-    axios.get("/api/trades").then(res => {
-      const { data } = res;
-      const trades = data.reduce((accu, current) => {
-        accu.push({ value: current._id, label: current.title });
-        return accu;
-      }, []);
-      this.setState({ trades });
-    });
+    if (this.props.verified) {
+      Swal.fire({
+        type: "warning",
+        title: "Already verified",
+        text: "you are already verified!"
+      }).then(() => {
+        this.props.history.goBack();
+      });
+    } else if (this.props.awaitingReview) {
+      Swal.fire({
+        type: "warning",
+        title: "Already uploaded image",
+        text: "you are already uploaded verification image!"
+      }).then(() => {
+        this.props.history.goBack();
+      });
+    } else {
+      axios.get("/api/trades").then(res => {
+        const { data } = res;
+        const trades = data.reduce((accu, current) => {
+          accu.push({ value: current._id, label: current.title });
+          return accu;
+        }, []);
+        this.setState({ trades });
+      });
+    }
   }
 
   handleChange = event => {
@@ -100,6 +118,7 @@ export default class UploadImage extends Component {
                 showConfirmButton: false,
                 timer: 1500
               }).then(() => {
+                this.props.handleChangeState({ awaitingReview: true });
                 this.props.history.push("/profile");
               });
             })
