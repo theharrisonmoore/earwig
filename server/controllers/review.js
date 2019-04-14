@@ -72,11 +72,12 @@ const postReview = async (req, res, next) => {
       allAnswers = [...reviewAnswers, checklistAnswer];
     }
 
-    const insertedAnswers = await Answer.insertMany(allAnswers);
+    await Answer.insertMany(allAnswers);
 
-    console.log(insertedAnswers);
+    res.send();
   } catch (error) {
-    console.log(error);
+    console.log("catch errrrr", error);
+    next(boom.badImplementation);
   }
 };
 
