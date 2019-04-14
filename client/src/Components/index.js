@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Thankyou from "./Pages/ThankYou";
+import EditProfile from "./Pages/EditProfile";
 
 export default function index(props) {
   const { handleChangeState } = props;
@@ -22,6 +23,14 @@ export default function index(props) {
           path="/signup"
           render={props => (
             <Signup {...props} handleChangeState={handleChangeState} />
+          )}
+        />
+
+        <Route
+          exact
+          path="/edit-profile"
+          render={props => (
+            <EditProfile {...props} handleChangeState={handleChangeState} />
           )}
         />
         {/* orgType required as state in Link for this */}
