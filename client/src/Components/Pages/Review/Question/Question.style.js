@@ -32,13 +32,13 @@ export const QuestionOptionsWrapper = styled.div`
   .choices {
     width: calc(80% - 1rem);
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-right: 1rem;
   }
 
   .choices-3 div:last-child label {
     font-size: 11px;
-    height: 24px;
+    padding-top: 8px;
   }
 
   .choices-4 {
@@ -50,17 +50,7 @@ export const QuestionOptionsWrapper = styled.div`
     margin: 0 auto;
   }
 
-  /* .yesno {
-    text-align: center;
-    color: grey;
-    background-color: white;
-    border: 1px solid #9b9b9b;
-    display: inline-block;
-    padding: 0.25rem 1rem;
-  } */
-
   .radio {
-    /* width: 4.75rem; */
     font-size: 14px;
     margin: 0;
   }
@@ -71,7 +61,6 @@ export const QuestionOptionsWrapper = styled.div`
 
 export const InputWrapper = styled.div`
   color: #9b9b9b;
-  /* width: calc(((80% - 10px) / 4)); */
 
   .radio-button {
     display: none;
@@ -83,9 +72,10 @@ export const InputWrapper = styled.div`
     text-align: center;
     color: grey;
     background-color: white;
-    border: 1px solid #9b9b9b;
+    box-shadow: 0 0 0 1px #9b9b9b;
     display: inline-block;
     padding: 0.25rem 1rem;
+    height: 100%;
   }
 
   .options-2 {

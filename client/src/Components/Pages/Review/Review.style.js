@@ -4,10 +4,9 @@ import { colors, organizations } from "../../theme";
 
 export const ReviewRapper = styled.div`
   font-family: "Roboto", sans-serif;
-  max-width: 50rem;
+  max-width: 40rem;
   margin: 0 auto;
   text-align: left;
-  /* overflow: hidden; */
 
   .review-header {
     width: 100%;
@@ -75,4 +74,27 @@ export const SubmitButton = styled.button`
   display: block;
   margin: 0 auto;
   margin-bottom: 10rem;
+`;
+
+export const UserAgreement = styled.div`
+  h2 {
+    border-bottom: 1px solid grey;
+    display: inline-block;
+  }
+`;
+
+export const CheckboxWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  .agreement-checkbox {
+    width: 10%;
+  }
+
+  .agreement-label {
+    font-size: 15px;
+    color: #4a4a4a;
+    width: 90%;
+  }
 `;

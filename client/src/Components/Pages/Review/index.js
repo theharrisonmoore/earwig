@@ -4,13 +4,24 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 // import MonthRangePicker from "react-monthrange-picker";
 import moment from "moment";
 import axios from "axios";
-import Yup from "yup";
+import * as Yup from "yup";
 import classNames from "classnames";
 
-import { ReviewRapper, SubmitButton } from "./Review.style";
+import { Checkbox } from "antd";
+import "antd/dist/antd.css";
+
+import {
+  ReviewRapper,
+  SubmitButton,
+  UserAgreement,
+  CheckboxWrapper
+} from "./Review.style";
 import Question from "./Question/index";
 import agencyIcon from "./../../../assets/agencyIcon.svg";
 import clockLong from "./../../../assets/clockLong.svg";
+
+import { initQueestionsValues } from "./initialQuestionsValues";
+import { validationSchema } from "./validationSchema";
 
 const STATIC_QUESTIONS = [
   {
@@ -34,18 +45,6 @@ const STATIC_QUESTIONS = [
     type: "voiceReview"
   }
 ];
-
-const initialValues = {
-  questions: {},
-  checklist: [],
-  review: {
-    workPeriod: "",
-    rate: "",
-    overallReview: "",
-    voiceReview: ""
-  },
-  hasAgreed: false
-};
 
 class Review extends Component {
   state = {
@@ -77,19 +76,31 @@ class Review extends Component {
       user
     };
     axios
-      .post("/api/review", review)
+      .post(`/api/review/${organization.category}`, review)
       .then(res => {
-        // setSubmitting(false);
-        this.props.history.push(`/search`);
+        this.props.history.push(`/thank-you`, {
+          orgType: organization.category
+        });
       })
       .catch(err => {
         console.log(err);
-        this.setState({ error: err.response.data.error });
+        // this.setState({ error: err.response.data.error });
         setSubmitting(false);
       });
   };
 
   render() {
+    const initialValues = {
+      questions: initQueestionsValues[this.state.organization.category],
+      checklist: [],
+      review: {
+        workPeriod: "",
+        rate: "",
+        overallReview: "",
+        voiceReview: ""
+      },
+      hasAgreed: false
+    };
     if (!this.state && !this.state.groups[0]) {
       return null;
     }
@@ -102,11 +113,11 @@ class Review extends Component {
         <section className="review-header">
           <div className="content">
             <div className="image-box">
-              <img src={agencyIcon} alt="" class="header-icon" />
+              <img src={agencyIcon} alt="" className="header-icon" />
             </div>
             <div className="org">
               <p>You're reviewing:</p>
-              <p class="org-name">{name}</p>
+              <p className="org-name">{name}</p>
               <p className="review-info">
                 18 questions <img src={clockLong} alt="" /> 2 mins
               </p>
@@ -115,8 +126,14 @@ class Review extends Component {
         </section>
 
         <section className="questions">
-          <Formik initialValues={initialValues} onSubmit={this.handleSubmit}>
-            {({ values, isSubmitting, handleChange }) => {
+          <Formik
+            initialValues={initialValues}
+            onSubmit={this.handleSubmit}
+            validationSchema={
+              validationSchema[this.state.organization.category]
+            }
+          >
+            {({ values, isSubmitting, handleChange, errors }) => {
               return (
                 <Form>
                   <div className="question-container questions">
@@ -125,14 +142,16 @@ class Review extends Component {
                   <div className="questions">
                     {groups.map(group => {
                       return (
-                        <div className="group-section">
+                        <div className="group-section" key={group.name}>
                           <h2>{group.group.text}</h2>
                           {group.questions.map(question => {
                             return (
                               <Question
+                                key={question._id}
                                 values={values}
                                 handleChagne={handleChange}
                                 question={question}
+                                errors={errors}
                               />
                             );
                           })}
@@ -158,6 +177,34 @@ class Review extends Component {
                     />
                   </div>
 
+                  <UserAgreement className="questions">
+                    <h2>Submit your review</h2>
+                    <CheckboxWrapper>
+                      <Field
+                        type="checkbox"
+                        name={`hasAgreed`}
+                        className="agreement-checkbox"
+                        id="agreement"
+                      />
+                      <label className="agreement-label" htmlFor="agreement">
+                        I agree to the earwig Terms of Use. This review of my
+                        experience with this current or former agency is
+                        truthful.
+                      </label>
+                      <ErrorMessage name={`hasAgreed`}>
+                        {msg => {
+                          return (
+                            <div
+                              className="error-msg"
+                              style={{ color: "red", margin: "0 auto" }}
+                            >
+                              {msg}
+                            </div>
+                          );
+                        }}
+                      </ErrorMessage>
+                    </CheckboxWrapper>
+                  </UserAgreement>
                   <SubmitButton type="submit" disabled={isSubmitting}>
                     Submit your review
                   </SubmitButton>

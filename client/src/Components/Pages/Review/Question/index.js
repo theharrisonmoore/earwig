@@ -1,7 +1,7 @@
 import React from "react";
-import { Field, FieldArray } from "formik";
+import { Field, FieldArray, ErrorMessage } from "formik";
 import commentIcon from "../../../../assets/Bitmap.svg";
-import { Checkbox } from "antd";
+import { Rate } from "antd";
 import "antd/dist/antd.css";
 
 import {
@@ -24,7 +24,7 @@ const Question = props => {
     category,
     name
   } = props.question;
-  const { questions, values } = props;
+  const { questions, values, errors } = props;
   return (
     <QuestionWrapper>
       <p className="text">{text}</p>
@@ -37,6 +37,7 @@ const Question = props => {
         name={name}
         questions={questions}
         values={values}
+        errors={errors}
       />
     </QuestionWrapper>
   );
@@ -46,7 +47,7 @@ const QuestionOptions = props => {
   if (!props && !props.options) {
     return null;
   }
-  const { type, options, number, category, name, questions } = props;
+  const { type, options, number, category, name, questions, errors } = props;
   if (type === "yesno" || type === "radio") {
     return (
       <QuestionOptionsWrapper>
@@ -54,6 +55,7 @@ const QuestionOptions = props => {
           {options.map((option, i, arr) => {
             return (
               <Field
+                key={option}
                 component={RadioButton}
                 name={`questions[${number}]`}
                 id={`${option}-${number}`}
@@ -68,6 +70,19 @@ const QuestionOptions = props => {
         <div className="comment-icon-box">
           <img src={commentIcon} alt="" />
         </div>
+        <ErrorMessage name={`questions[${number}]`}>
+          {msg => {
+            console.log("msg", msg);
+            return (
+              <div
+                className="error-msg"
+                style={{ color: "red", margin: "0 auto", display: "block" }}
+              >
+                {msg}
+              </div>
+            );
+          }}
+        </ErrorMessage>
       </QuestionOptionsWrapper>
     );
   }
@@ -81,6 +96,16 @@ const QuestionOptions = props => {
           id={`${number}`}
           placeholder="John Doe"
         />
+        <ErrorMessage name={`questions[${number}]`}>
+          {msg => (
+            <div
+              className="error-msg"
+              style={{ color: "red", display: "inline" }}
+            >
+              {msg}
+            </div>
+          )}
+        </ErrorMessage>
       </QuestionOptionsWrapper>
     );
   }
@@ -94,6 +119,16 @@ const QuestionOptions = props => {
           id={`${number}`}
           placeholder="per timesheet"
         />
+        <ErrorMessage name={`questions[${number}]`}>
+          {msg => (
+            <div
+              className="error-msg"
+              style={{ color: "red", display: "inline" }}
+            >
+              {msg}
+            </div>
+          )}
+        </ErrorMessage>
       </QuestionOptionsWrapper>
     );
   }
@@ -103,9 +138,21 @@ const QuestionOptions = props => {
       <QuestionOptionsWrapper>
         <Field component="select" name={`questions[${number}]`}>
           {options.map(option => (
-            <option value={option}>{option}</option>
+            <option value={option} key={option}>
+              {option}
+            </option>
           ))}
         </Field>
+        <ErrorMessage name={`questions[${number}]`}>
+          {msg => (
+            <div
+              className="error-msg"
+              style={{ color: "red", display: "inline" }}
+            >
+              {msg}
+            </div>
+          )}
+        </ErrorMessage>
       </QuestionOptionsWrapper>
     );
   }
@@ -114,9 +161,27 @@ const QuestionOptions = props => {
     return (
       <QuestionOptionsWrapper>
         <div className={`choices choices-${options.length}`}>
-          {options.map((option, i, arr) => {
+          <Field
+            name={`review.rate`}
+            render={({ field: { name, value, onChange, onBlur } }) => (
+              <Rate name={name} onChange={onChange} />
+            )}
+          />
+          <ErrorMessage name={`questions[${number}]`}>
+            {msg => (
+              <div
+                className="error-msg"
+                style={{ color: "red", display: "inline" }}
+              >
+                {msg}
+              </div>
+            )}
+          </ErrorMessage>
+          {/* <Rate name={`review.rate`} /> */}
+          {/* {options.map((option, i, arr) => {
             return (
               <Field
+                key={option}
                 component={RadioButton}
                 name={`review.rate`}
                 id={`${option}-${number}`}
@@ -125,8 +190,9 @@ const QuestionOptions = props => {
                 option={option}
                 count={options.length}
               />
+              
             );
-          })}
+          })} */}
         </div>
       </QuestionOptionsWrapper>
     );
@@ -137,10 +203,22 @@ const QuestionOptions = props => {
       <QuestionOptionsWrapper>
         <Field
           component="textarea"
+          col="20"
+          row="30"
           name={`review.overallReview`}
           id={`${number}`}
           placeholder="per timesheet"
         />
+        <ErrorMessage name={`review.overallReview`}>
+          {msg => (
+            <div
+              className="error-msg"
+              style={{ color: "red", display: "inline" }}
+            >
+              {msg}
+            </div>
+          )}
+        </ErrorMessage>
       </QuestionOptionsWrapper>
     );
   }
@@ -156,7 +234,7 @@ const QuestionOptions = props => {
               {options &&
                 options.length > 0 &&
                 options.map((option, index) => (
-                  <div key={index}>
+                  <div key={option}>
                     <Field
                       id={`${option}-${number}`}
                       type="checkbox"
@@ -177,6 +255,16 @@ const QuestionOptions = props => {
             </div>
           )}
         />
+        <ErrorMessage name="checklist">
+          {msg => (
+            <div
+              className="error-msg"
+              style={{ color: "red", display: "inline" }}
+            >
+              {msg}
+            </div>
+          )}
+        </ErrorMessage>
       </QuestionOptionsWrapper>
     );
   }
