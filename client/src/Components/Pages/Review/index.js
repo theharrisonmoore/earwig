@@ -79,7 +79,6 @@ class Review extends Component {
     axios
       .post("/api/review", review)
       .then(res => {
-        console.log(res);
         // setSubmitting(false);
         this.props.history.push(`/search`);
       })
@@ -91,7 +90,6 @@ class Review extends Component {
   };
 
   render() {
-    console.log(this.state.groups);
     if (!this.state && !this.state.groups[0]) {
       return null;
     }
@@ -119,10 +117,9 @@ class Review extends Component {
         <section className="questions">
           <Formik initialValues={initialValues} onSubmit={this.handleSubmit}>
             {({ values, isSubmitting, handleChange }) => {
-              console.log("valssssssssssssssss", values);
               return (
                 <Form>
-                  <div className="question-container">
+                  <div className="question-container questions">
                     <p>Select the month(s) you used this agency?</p>
                   </div>
                   <div className="questions">
@@ -143,7 +140,7 @@ class Review extends Component {
                       );
                     })}
                   </div>
-                  <div className="footer">
+                  <div className="questions">
                     <Question
                       {...values}
                       handleChagne={handleChange}

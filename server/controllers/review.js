@@ -2,11 +2,9 @@ const boom = require("boom");
 
 const { getQuetionsByOrg, getOrganization, getQuestionsByOrgCategory } = require("../database/queries/review");
 const { findByEmail } = require("../database/queries/user");
-// to be moved to queries
 
 const Review = require("../database/models/Review");
 const Answer = require("../database/models/Answer");
-
 
 const getByOrg = (req, res, next) => {
   const { organization } = req.query;
@@ -19,7 +17,6 @@ const getByOrg = (req, res, next) => {
       next(boom.badImplementation());
     });
 };
-
 
 const postReview = async (req, res, next) => {
   const {
@@ -36,7 +33,6 @@ const postReview = async (req, res, next) => {
     const userData = await findByEmail(user.email);
     const questions = await getQuestionsByOrgCategory(organization.category);
 
-
     const newReview = new Review({
       rate,
       organization: organizationData,
@@ -50,6 +46,7 @@ const postReview = async (req, res, next) => {
       },
       voiceReview: voiceReview || "voice/file",
     });
+
     const currentReview = await newReview.save();
 
     const reviewAnswers = Object.keys(questionsAnswers).sort((a, b) => a - b).map((qAnswer) => {
@@ -82,6 +79,5 @@ const postReview = async (req, res, next) => {
     console.log(error);
   }
 };
-
 
 module.exports = { getByOrg, postReview };
