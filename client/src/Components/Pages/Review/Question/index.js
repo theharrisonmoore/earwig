@@ -47,7 +47,7 @@ const QuestionOptions = props => {
   if (!props && !props.options) {
     return null;
   }
-  const { type, options, number, category, name, questions, errors } = props;
+  const { type, options, number, category } = props;
   if (type === "yesno" || type === "radio") {
     return (
       <QuestionOptionsWrapper>
@@ -63,6 +63,7 @@ const QuestionOptions = props => {
                 value={option}
                 option={option}
                 count={options.length}
+                category={category}
               />
             );
           })}
@@ -177,22 +178,6 @@ const QuestionOptions = props => {
               </div>
             )}
           </ErrorMessage>
-          {/* <Rate name={`review.rate`} /> */}
-          {/* {options.map((option, i, arr) => {
-            return (
-              <Field
-                key={option}
-                component={RadioButton}
-                name={`review.rate`}
-                id={`${option}-${number}`}
-                className={`hide radio-input ${option}`}
-                value={i + 1}
-                option={option}
-                count={options.length}
-              />
-              
-            );
-          })} */}
         </div>
       </QuestionOptionsWrapper>
     );
@@ -285,7 +270,7 @@ const RadioButton = ({
   ...props
 }) => {
   return (
-    <InputWrapper option={props.option}>
+    <InputWrapper option={props.option} orgType={props.category}>
       <input
         name={name}
         id={id}

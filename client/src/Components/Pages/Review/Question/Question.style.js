@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 import { colors, organizations } from "../../../theme";
 
@@ -93,11 +92,11 @@ export const InputWrapper = styled.div`
     border: 3px solid
       ${props => {
         if (props.option === "yes") {
-          return "green";
+          return colors.green;
         } else if (props.option === "no") {
-          return `red`;
+          return colors.red;
         }
-        return "purple";
+        return organizations[props.orgType].primary;
       }};
   }
 `;

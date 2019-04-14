@@ -1,17 +1,9 @@
 import React, { Component } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-
-// import MonthRangePicker from "react-monthrange-picker";
-import moment from "moment";
 import axios from "axios";
-import * as Yup from "yup";
-import classNames from "classnames";
-
-import { Checkbox } from "antd";
-import "antd/dist/antd.css";
 
 import {
-  ReviewRapper,
+  ReviewWrapper,
   SubmitButton,
   UserAgreement,
   CheckboxWrapper
@@ -106,10 +98,10 @@ class Review extends Component {
     }
     const {
       groups,
-      organization: { name }
+      organization: { name, category }
     } = this.state;
     return (
-      <ReviewRapper>
+      <ReviewWrapper orgType={category}>
         <section className="review-header">
           <div className="content">
             <div className="image-box">
@@ -142,7 +134,7 @@ class Review extends Component {
                   <div className="questions">
                     {groups.map(group => {
                       return (
-                        <div className="group-section" key={group.name}>
+                        <div className="group-section" key={group._id}>
                           <h2>{group.group.text}</h2>
                           {group.questions.map(question => {
                             return (
@@ -205,7 +197,11 @@ class Review extends Component {
                       </ErrorMessage>
                     </CheckboxWrapper>
                   </UserAgreement>
-                  <SubmitButton type="submit" disabled={isSubmitting}>
+                  <SubmitButton
+                    type="submit"
+                    disabled={isSubmitting}
+                    orgType={category}
+                  >
                     Submit your review
                   </SubmitButton>
                 </Form>
@@ -213,7 +209,7 @@ class Review extends Component {
             }}
           </Formik>
         </section>
-      </ReviewRapper>
+      </ReviewWrapper>
     );
   }
 }

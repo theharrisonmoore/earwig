@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { colors, organizations } from "../../theme";
 
-export const ReviewRapper = styled.div`
+export const ReviewWrapper = styled.div`
   font-family: "Roboto", sans-serif;
   max-width: 40rem;
   margin: 0 auto;
@@ -10,7 +10,7 @@ export const ReviewRapper = styled.div`
 
   .review-header {
     width: 100%;
-    background-color: ${organizations.agency.primary};
+    background-color: ${props => organizations[props.orgType].primary};
     color: ${colors.white};
     font-size: 1.25rem;
     font-weight: 400;
@@ -63,7 +63,7 @@ export const ReviewHeader = styled.div.attrs({ className: "login" })`
 `;
 
 export const SubmitButton = styled.button`
-  background: #8b51fc;
+  background: ${props => organizations[props.orgType].primary};
   border: 1px solid #979797;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.195772), inset 0px 2px 0px #ffffff;
   border-radius: 6px;
