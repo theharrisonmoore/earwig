@@ -1,29 +1,23 @@
-const jwt = require("jsonwebtoken");
 const boom = require("boom");
-const { compare } = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
+const { findByEmail, addNew } = require("./../database/queries/user");
 const { tokenMaxAge } = require("./../constants");
 
-
-const { findByEmail } = require("./../database/queries/user");
-
-
 module.exports = (req, res, next) => {
-  const { email, password: plainPassword } = req.body;
+  const { email, password } = req.body;
 
+  // check if the email is already exist
   findByEmail(email)
-    .then((user) => {
-      if (!user) {
-        // no user founded
-        return next(boom.unauthorized("login failed, email and password not match"));
+    .then((storedUser) => {
+      if (storedUser) {
+        // email already exist
+        return next(boom.conflict("Email already taken"));
       }
 
-      // validate password
-      return compare(plainPassword, user.password)
-        .then((matched) => {
-          if (!matched) {
-            return next(boom.unauthorized("login failed, email and password not match"));
-          }
-
+      // create new user
+      return addNew({ email, password })
+        .then((user) => {
           // data to be sent in the response
           const userInfo = {
             id: user._id,
@@ -41,11 +35,13 @@ module.exports = (req, res, next) => {
             process.env.SECRET,
             { expiresIn: tokenMaxAge.string },
           );
+
           res.cookie("token", token, { maxAge: tokenMaxAge.number, httpOnly: true });
 
           // send the user info
           return res.json(userInfo);
         })
         .catch(() => next(boom.badImplementation()));
-    });
+    })
+    .catch(() => next(boom.badImplementation()));
 };
