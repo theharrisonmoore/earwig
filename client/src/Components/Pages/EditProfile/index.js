@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as Yup from "yup";
+import axios from "axios";
 
 import {
   EditWrapper,
@@ -8,7 +9,10 @@ import {
   Row,
   EditButton,
   PasswordWrapper,
-  LightLabel as Label
+  LightLabel as Label,
+  ImageInput,
+  StyledButton as Button,
+  StyledLink
 } from "./EditProfile.style";
 
 import {
@@ -16,27 +20,53 @@ import {
   StyledForm as Form,
   StyledField as Field,
   StyledFormikErrorMessage as FormikErrorMessage,
-  Button,
   GeneralErrorMessage
 } from "./../../Common/Formik/Formik.style";
 
 import cardImage from "./../../../assets/card-hand.svg";
 
-const initalValues = { oldPassword: "", newPassword: "", reNewPassword: "" };
+const initalValues = {
+  oldPassword: "",
+  newPassword: "",
+  reNewPassword: "",
+  image: ""
+};
 
-const editProfileSchema = Yup.object().shape({
-  oldPassword: Yup.string().required("Required"),
-  newPassword: Yup.string()
-    .min(6)
-    .required("Required"),
-  reNewPassword: Yup.string()
-    .required("Required")
-    .equalTo(Yup.ref("password"))
-});
+// create custom function
+function equalTo(ref, msg) {
+  return this.test({
+    name: "equalTo",
+    exclusive: false,
+    message: msg || "Not match",
+    params: {
+      reference: ref.path
+    },
+    test: function(value) {
+      return value === this.resolve(ref);
+    }
+  });
+}
+
+Yup.addMethod(Yup.string, "equalTo", equalTo);
 
 export default class EditProfile extends Component {
   state = {
     displayPassword: false
+  };
+
+  handleSubmit = (values, { setSubmitting }) => {
+    // axios
+    //   .post("/api/edit-profile", values)
+    //   .then(({ data }) => {
+    //     this.props.handleChangeState({ ...data, isLoggedIn: true });
+    //     this.props.history.push(`/intro`);
+    //   })
+    //   .catch(err => {
+    //     this.setState({ error: err.response.data.error });
+    //     setSubmitting(false);
+    //   });
+    console.log(values);
+    setSubmitting(false);
   };
 
   togglePassword = () => {
@@ -44,13 +74,28 @@ export default class EditProfile extends Component {
   };
 
   render() {
+    const editProfileSchema = Yup.object().shape(
+      this.state.displayPassword
+        ? {
+            oldPassword: Yup.string().required("Required"),
+            newPassword: Yup.string()
+              .min(6)
+              .required("Required"),
+            reNewPassword: Yup.string()
+              .required("Required")
+              .equalTo(Yup.ref("newPassword"))
+          }
+        : null
+    );
+
+    const { userId, email } = this.props;
     return (
       <EditWrapper>
         <Section>
-          <Title>Ramyshurafa@hotmail.com</Title>
+          <Title>ID: {userId}</Title>
         </Section>
         <Section>
-          <Title>Ramyshurafa@hotmail.com</Title>
+          <Title title={email}>{email}</Title>
         </Section>
         <Formik
           initialValues={initalValues}
@@ -61,21 +106,10 @@ export default class EditProfile extends Component {
             <Form>
               <Section>
                 <Row>
-                  <Title title="Ramyshurafa@hotmail.com">
-                    Ramyshurafa@hotmail.com
-                  </Title>
-                  <EditButton>Edit</EditButton>
-                </Row>
-              </Section>
-              <Section>
-                <Row>
-                  <div className="row__image-container">
-                    <img src={cardImage} alt="card icon" />
-                    <Title title="Ramyshurafa@hotmail.com">
-                      Ramyshurafa@hotmail.com
-                    </Title>
-                  </div>
-                  <EditButton onClick={this.togglePassword}>Edit</EditButton>
+                  <Title>Password</Title>
+                  <EditButton type="button" onClick={this.togglePassword}>
+                    Edit
+                  </EditButton>
                 </Row>
                 {/* old password */}
                 {this.state.displayPassword && (
@@ -112,12 +146,37 @@ export default class EditProfile extends Component {
                   </PasswordWrapper>
                 )}
               </Section>
+              <Section>
+                <Row>
+                  <div className="row__image-container">
+                    <img src={cardImage} alt="card icon" />
+                    <Title>Verification photo</Title>
+                  </div>
+                  <Field
+                    name="image"
+                    render={({ field, form: { isSubmitting } }) => (
+                      <ImageInput
+                        {...field}
+                        type="file"
+                        placeholder="lastName"
+                        accept="image/*"
+                        id="image"
+                      />
+                    )}
+                  />
+                  <FormikErrorMessage name="image" component="p" />
+                  <EditButton htmlFor="image" as="label">
+                    Edit
+                  </EditButton>
+                </Row>
+              </Section>
               <Button type="submit" disabled={isSubmitting}>
                 Save Changes
               </Button>
             </Form>
           )}
         </Formik>
+        <StyledLink to="/profile">Cancel Changes</StyledLink>
       </EditWrapper>
     );
   }

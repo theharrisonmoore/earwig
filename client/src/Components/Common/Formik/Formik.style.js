@@ -56,9 +56,15 @@ export const Button = styled.button`
   box-shadow: ${shadows.buttonShadow};
   outline: none;
   font-weight: 900;
-  text-decoration: captalized;
+  text-transform: capitalize;
   margin-bottom: 1.25rem;
   color: ${colors.profileFontColor};
+
+  &,
+  &:active,
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const CheckboxWrapper = styled.div.attrs({
