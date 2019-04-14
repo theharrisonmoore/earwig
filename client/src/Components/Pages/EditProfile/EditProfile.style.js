@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Label, Button } from "./../../Common/Formik/Formik.style";
 
-import { colors } from "./../../theme";
+import { colors, shadows, gradient } from "./../../theme";
 
 export const EditWrapper = styled.div`
   width: 100%;
@@ -15,6 +15,9 @@ export const EditWrapper = styled.div`
     padding-top: 0;
   }
 `;
+
+export const VerifiedWrapper = styled.div``;
+export const UnVerifiedWrapper = styled.div``;
 
 export const Section = styled.div`
   width: 100%;
@@ -92,6 +95,79 @@ export const StyledLink = styled(Link)`
   &:hover {
     text-decoration: none;
     color: ${colors.profileFontColor};
+    outline: none;
+  }
+`;
+
+export const StatusWrapper = styled.div`
+  position: relative;
+
+  &:after {
+    display: block;
+    content: "";
+    position: absolute;
+    width: calc(100% + 3rem);
+    left: -1.5rem;
+    box-shadow: ${shadows.sectionShadow};
+    height: 100%;
+    top: 0;
+  }
+`;
+
+export const Status = styled.h3`
+  font-weight: 900;
+  font-size: 1rem;
+  color: ${colors.gray};
+  line-height: 7rem;
+  text-align: left;
+`;
+
+export const UnVerifiedTitle = styled.h1`
+  font-weight: 900;
+  font-size: 1.375rem;
+  color: ${colors.profileFontColor};
+  margin-top: 2.5rem;
+  display: inline-block;
+  margin-bottom: 0;
+  &:after {
+    content: "";
+    height: 1px;
+    background: ${gradient.blackFade};
+    width: 100%;
+    display: block;
+  }
+`;
+
+export const Paragraph = styled.p`
+  font-weight: 500;
+  font-size: 1rem;
+  text-align: left;
+  color: ${colors.gray};
+  margin-top: 1rem;
+`;
+
+export const UnVerifiedButton = styled(Link)`
+  border-radius: 5px;
+  padding: 0.5rem 0.75rem;
+  background-color: ${colors.white};
+  font-size: 1.25rem;
+  border: 1px solid ${colors.black};
+  box-shadow: ${shadows.buttonShadow};
+  outline: none;
+  font-weight: 900;
+  text-transform: capitalize;
+  margin-bottom: 1.25rem;
+  color: ${colors.profileFontColor};
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 20rem;
+  margin: 0 auto 3.5rem auto;
+
+  &,
+  &:active,
+  &:focus {
     outline: none;
   }
 `;

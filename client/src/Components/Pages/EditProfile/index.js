@@ -4,6 +4,8 @@ import axios from "axios";
 
 import {
   EditWrapper,
+  VerifiedWrapper,
+  UnVerifiedWrapper,
   Section,
   Title,
   Row,
@@ -12,7 +14,12 @@ import {
   LightLabel as Label,
   ImageInput,
   StyledButton as Button,
-  StyledLink
+  StyledLink,
+  StatusWrapper,
+  Status,
+  UnVerifiedTitle,
+  Paragraph,
+  UnVerifiedButton
 } from "./EditProfile.style";
 
 import {
@@ -88,95 +95,129 @@ export default class EditProfile extends Component {
         : null
     );
 
-    const { userId, email } = this.props;
+    const { userId, email, verified } = this.props;
+    console.log(this.props);
+
     return (
       <EditWrapper>
-        <Section>
-          <Title>ID: {userId}</Title>
-        </Section>
-        <Section>
-          <Title title={email}>{email}</Title>
-        </Section>
-        <Formik
-          initialValues={initalValues}
-          validationSchema={editProfileSchema}
-          onSubmit={this.handleSubmit}
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              <Section>
-                <Row>
-                  <Title>Password</Title>
-                  <EditButton type="button" onClick={this.togglePassword}>
-                    Edit
-                  </EditButton>
-                </Row>
-                {/* old password */}
-                {this.state.displayPassword && (
-                  <PasswordWrapper>
-                    <Label htmlFor="oldPassword">
-                      Old Password
-                      <Field
-                        type="password"
-                        name="oldPassword"
-                        id="oldPassword"
-                      />
-                      <FormikErrorMessage name="oldPassword" component="p" />
-                    </Label>
+        {verified ? (
+          <VerifiedWrapper>
+            <Section>
+              <Title>ID: {userId}</Title>
+            </Section>
+            <Section>
+              <Title title={email}>{email}</Title>
+            </Section>
+            <Formik
+              initialValues={initalValues}
+              validationSchema={editProfileSchema}
+              onSubmit={this.handleSubmit}
+            >
+              {({ isSubmitting }) => (
+                <Form>
+                  <Section>
+                    <Row>
+                      <Title>Password</Title>
+                      <EditButton type="button" onClick={this.togglePassword}>
+                        Edit
+                      </EditButton>
+                    </Row>
+                    {this.state.displayPassword && (
+                      <PasswordWrapper>
+                        <Label htmlFor="oldPassword">
+                          Old Password
+                          <Field
+                            type="password"
+                            name="oldPassword"
+                            id="oldPassword"
+                          />
+                          <FormikErrorMessage
+                            name="oldPassword"
+                            component="p"
+                          />
+                        </Label>
 
-                    <Label htmlFor="newPassword">
-                      New Password
-                      <Field
-                        type="password"
-                        name="newPassword"
-                        id="newPassword"
-                      />
-                      <FormikErrorMessage name="newPassword" component="p" />
-                    </Label>
+                        <Label htmlFor="newPassword">
+                          New Password
+                          <Field
+                            type="password"
+                            name="newPassword"
+                            id="newPassword"
+                          />
+                          <FormikErrorMessage
+                            name="newPassword"
+                            component="p"
+                          />
+                        </Label>
 
-                    <Label htmlFor="reNewPassword">
-                      Re-Enter New Password
-                      <Field
-                        type="password"
-                        name="reNewPassword"
-                        id="reNewPassword"
-                      />
-                      <FormikErrorMessage name="reNewPassword" component="p" />
-                    </Label>
-                  </PasswordWrapper>
-                )}
-              </Section>
-              <Section>
-                <Row>
-                  <div className="row__image-container">
-                    <img src={cardImage} alt="card icon" />
-                    <Title>Verification photo</Title>
-                  </div>
-                  <Field
-                    name="image"
-                    render={({ field, form: { isSubmitting } }) => (
-                      <ImageInput
-                        {...field}
-                        type="file"
-                        placeholder="lastName"
-                        accept="image/*"
-                        id="image"
-                      />
+                        <Label htmlFor="reNewPassword">
+                          Re-Enter New Password
+                          <Field
+                            type="password"
+                            name="reNewPassword"
+                            id="reNewPassword"
+                          />
+                          <FormikErrorMessage
+                            name="reNewPassword"
+                            component="p"
+                          />
+                        </Label>
+                      </PasswordWrapper>
                     )}
-                  />
-                  <FormikErrorMessage name="image" component="p" />
-                  <EditButton htmlFor="image" as="label">
-                    Edit
-                  </EditButton>
-                </Row>
-              </Section>
-              <Button type="submit" disabled={isSubmitting}>
-                Save Changes
-              </Button>
-            </Form>
-          )}
-        </Formik>
-        <StyledLink to="/profile">Cancel Changes</StyledLink>
+                  </Section>
+                  <Section>
+                    <Row>
+                      <div className="row__image-container">
+                        <img src={cardImage} alt="card icon" />
+                        <Title>Verification photo</Title>
+                      </div>
+                      <Field
+                        name="image"
+                        render={({ field, form: { isSubmitting } }) => (
+                          <ImageInput
+                            {...field}
+                            type="file"
+                            placeholder="lastName"
+                            accept="image/*"
+                            id="image"
+                          />
+                        )}
+                      />
+                      <FormikErrorMessage name="image" component="p" />
+                      <EditButton htmlFor="image" as="label">
+                        Edit
+                      </EditButton>
+                    </Row>
+                  </Section>
+                  <Button type="submit" disabled={isSubmitting}>
+                    Save Changes
+                  </Button>
+                </Form>
+              )}
+            </Formik>
+            <StyledLink to="/profile">Cancel Changes</StyledLink>
+          </VerifiedWrapper>
+        ) : (
+          <UnVerifiedWrapper>
+            <StatusWrapper>
+              <Status>Unverified</Status>
+            </StatusWrapper>
+            <UnVerifiedTitle>Your reviews and impact</UnVerifiedTitle>
+            <Paragraph>
+              If you want to search jobs, help other workers by giving reviews
+              and comment on other reviews, you need to get verified as a
+              genuine worker.
+              <br />
+              <br />
+              This protects the worker community from fake reviews and spam by
+              non-workers.
+            </Paragraph>
+            <UnVerifiedButton to="/upload-verification-photo">
+              <img src={cardImage} alt="card icon" />
+              <Title>Verification photo</Title>
+            </UnVerifiedButton>
+          </UnVerifiedWrapper>
+        )}
       </EditWrapper>
     );
   }
