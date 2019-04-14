@@ -429,7 +429,6 @@ module.exports = () => {
       type: "number",
       text: "How much were you charged?",
       isJumping: false,
-      options: ["yes", "no"],
       category: "payroll",
       group: {
         groupOrder: 1,

@@ -11,7 +11,7 @@ export default function index(props) {
   return (
     <>
       <Switch>
-        <Route path="/review" render={props => <Review />} />
+        <Route path="/review" component={Review} />
         <Route
           exact
           path="/login"
