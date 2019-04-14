@@ -6,16 +6,18 @@ import "./App.css";
 
 import Routes from "./Components/";
 
+import { isMobile } from "./helpers";
+
 class App extends Component {
   state = {
     isLoggedIn: false,
-    width: 0
+    isMobile: false
   };
 
   updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
   updateWindowDimensions() {
-    this.setState({ width: window.innerWidth });
+    this.setState({ isMobile: isMobile(window.innerWidth) });
   }
 
   componentDidMount() {
@@ -32,13 +34,13 @@ class App extends Component {
   };
 
   render() {
-    const { isLoggedIn, width } = this.state;
+    const { isLoggedIn, isMobile } = this.state;
     return (
       <Router>
         <div className="App">
           <Routes
             handleChangeState={this.handleChangeState}
-            width={width}
+            isMobile={isMobile}
             isLoggedIn={isLoggedIn}
           />
         </div>

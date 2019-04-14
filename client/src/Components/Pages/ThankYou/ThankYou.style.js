@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { colors, shadows, organizations } from "./../../theme";
+import { colors, shadows, organizations } from "./../../../theme";
 
 export const ThankYouWrapper = styled.div`
   width: 100%;

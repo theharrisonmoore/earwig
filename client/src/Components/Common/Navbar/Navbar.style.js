@@ -19,9 +19,22 @@ export const Wrapper = styled.div`
   }
 `;
 
+export const SideDiv = styled.div`
+  width: 25%;
+  display: flex;
+  justify-content: ${props =>
+    props.position === "left" ? "flex-start" : "flex-end"};
+  align-items: center;
+`;
+
 export const Icon = styled.img`
   cursor: pointer;
   height: 1.5rem;
+`;
+
+export const LogoIcon = styled.img`
+  cursor: pointer;
+  height: 2rem;
 `;
 
 export const NavSearch = styled.div`

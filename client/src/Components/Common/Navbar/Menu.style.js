@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-import { colors } from "./../../../theme";
+import { colors, shadows } from "./../../../theme";
 
 export const Wrapper = styled.div`
   height: 100%;
@@ -12,10 +12,10 @@ export const Wrapper = styled.div`
   flex-direction: column;
   top: 0;
   right: 0rem;
-  width: ${props =>
-    props.width > 769 ? `${props.width * 0.25}px` : `${props.width}px`};
+  width: ${props => (props.isMobile ? `100%` : "25%")};
   padding-top: 4rem;
   z-index: 3;
+  box-shadow: ${shadows.buttonShadow};
 
   .active {
     color: ${colors.green};
