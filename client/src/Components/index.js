@@ -7,13 +7,15 @@ import {
   THANKYOU_URL
 } from "./../constants/naviagationUrls";
 
+import UploadImage from "./Pages/UploadImage";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Thankyou from "./Pages/ThankYou";
 import Navbar from "./Common/Navbar";
 
 export default function index(props) {
-  const { handleChangeState, isMobile, isLoggedIn } = props;
+  const { handleChangeState, isMobile, isLoggedIn, state } = props;
+
   return (
     <>
       <Switch>
@@ -40,6 +42,17 @@ export default function index(props) {
               />
               <Login {...props} handleChangeState={handleChangeState} />
             </>
+          )}
+        />
+        <Route
+          exact
+          path="/upload-verification-photo"
+          render={props => (
+            <UploadImage
+              {...props}
+              handleChangeState={handleChangeState}
+              {...state}
+            />
           )}
         />
 

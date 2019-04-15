@@ -11,7 +11,15 @@ import { isMobile } from "./helpers";
 class App extends Component {
   state = {
     isLoggedIn: false,
-    isMobile: false
+    isMobile: false,
+    id: "",
+    trade: "",
+    verified: false,
+    awaitingReview: false,
+    userId: "",
+    points: 0,
+    isAdmin: false,
+    email: ""
   };
 
   updateWindowDimensions = this.updateWindowDimensions.bind(this);
@@ -42,6 +50,7 @@ class App extends Component {
             handleChangeState={this.handleChangeState}
             isMobile={isMobile}
             isLoggedIn={isLoggedIn}
+            state={this.state}
           />
         </div>
       </Router>

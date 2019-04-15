@@ -9,6 +9,9 @@ const schemas = {
       .required(),
     password: Joi.string().required(),
   },
+  uploadVerificationImage: {
+    tradeId: Joi.string().length(24).required(),
+  },
   signup: {
     email: Joi.string()
       .email({ minDomainAtoms: 2 })
@@ -23,6 +26,9 @@ const schemas = {
     checkbox: Joi.boolean()
       .valid(true)
       .error(() => "You should agree Earwig terms of user"),
+  },
+  addTrade: {
+    trade: Joi.string().min(3).required(),
   },
 };
 
