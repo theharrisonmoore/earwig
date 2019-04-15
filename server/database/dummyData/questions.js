@@ -451,7 +451,7 @@ module.exports = () => {
     },
     {
       number: 13,
-      type: "radio",
+      type: "dropdown",
       text: "What's the name of the agency you used?",
       isJumping: false,
       options: [

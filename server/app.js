@@ -40,11 +40,20 @@ app.use((req, res, next) => {
   next(createError(404));
 });
 
+
 // error handler
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   // send the error object
-  res.status(err.output.statusCode || 500);
+  if (err.isBoom) {
+    console.log("err", err);
+    // for boom errors
+    res.status(err.output.statusCode || 500);
+  } else {
+    // for unexpected internal server errors
+    console.log("err", err);
+    res.status(err.statusCode || 500);
+  }
   res.json({ error: err.message });
 });
 

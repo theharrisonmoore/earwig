@@ -6,8 +6,22 @@ import {
   ReviewWrapper,
   SubmitButton,
   UserAgreement,
-  CheckboxWrapper
+  CheckboxWrapper,
+  Header,
+  Content,
+  ImageBox,
+  Image,
+  Organization,
+  OrgName,
+  ReviewTime,
+  Paragraph,
+  FormWrapper,
+  Level2Header,
+  AgreementLabel
 } from "./Review.style";
+
+import { StyledErrorMessage } from "./Question/Question.style";
+
 import Question from "./Question/index";
 import agencyIcon from "./../../../assets/agencyIcon.svg";
 import clockLong from "./../../../assets/clockLong.svg";
@@ -55,6 +69,7 @@ class Review extends Component {
         this.setState({ groups: res.data });
       })
       .catch(err => {
+        // server error 500
         console.log("err", err);
       });
   }
@@ -76,7 +91,7 @@ class Review extends Component {
       })
       .catch(err => {
         console.log(err);
-        // this.setState({ error: err.response.data.error });
+        // server error 500, maybe redirect to 500.error page??!!
         setSubmitting(false);
       });
   };
@@ -101,23 +116,23 @@ class Review extends Component {
       organization: { name, category }
     } = this.state;
     return (
-      <ReviewWrapper orgType={category}>
-        <section className="review-header">
-          <div className="content">
-            <div className="image-box">
-              <img src={agencyIcon} alt="" className="header-icon" />
-            </div>
-            <div className="org">
-              <p>You're reviewing:</p>
-              <p className="org-name">{name}</p>
-              <p className="review-info">
+      <ReviewWrapper>
+        <Header orgType={category}>
+          <Content>
+            <ImageBox className="image-box">
+              <Image src={agencyIcon} alt="" className="header-icon" />
+            </ImageBox>
+            <Organization>
+              <Paragraph>You're reviewing:</Paragraph>
+              <OrgName>{name}</OrgName>
+              <ReviewTime>
                 18 questions <img src={clockLong} alt="" /> 2 mins
-              </p>
-            </div>
-          </div>
-        </section>
+              </ReviewTime>
+            </Organization>
+          </Content>
+        </Header>
 
-        <section className="questions">
+        <section>
           <Formik
             initialValues={initialValues}
             onSubmit={this.handleSubmit}
@@ -127,84 +142,80 @@ class Review extends Component {
           >
             {({ values, isSubmitting, handleChange, errors }) => {
               return (
-                <Form>
-                  <div className="question-container questions">
-                    <p>Select the month(s) you used this agency?</p>
-                  </div>
-                  <div className="questions">
-                    {groups.map(group => {
-                      return (
-                        <div className="group-section" key={group._id}>
-                          <h2>{group.group.text}</h2>
-                          {group.questions.map(question => {
-                            return (
-                              <Question
-                                key={question._id}
-                                values={values}
-                                handleChagne={handleChange}
-                                question={question}
-                                errors={errors}
-                              />
-                            );
-                          })}
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div className="questions">
-                    <Question
-                      {...values}
-                      handleChagne={handleChange}
-                      question={STATIC_QUESTIONS[0]}
-                    />
-                    <Question
-                      {...values}
-                      handleChagne={handleChange}
-                      question={STATIC_QUESTIONS[1]}
-                    />
-                    <Question
-                      {...values}
-                      handleChagne={handleChange}
-                      question={STATIC_QUESTIONS[2]}
-                    />
-                  </div>
-
-                  <UserAgreement className="questions">
-                    <h2>Submit your review</h2>
-                    <CheckboxWrapper>
-                      <Field
-                        type="checkbox"
-                        name={`hasAgreed`}
-                        className="agreement-checkbox"
-                        id="agreement"
+                <FormWrapper>
+                  <Form>
+                    <div>
+                      {/* a placeholder to be edited with new picker */}
+                      <p>Select the month(s) you used this agency?</p>
+                    </div>
+                    <div>
+                      {groups.map(group => {
+                        return (
+                          <div key={group._id}>
+                            <h2>{group.group.text}</h2>
+                            {group.questions.map(question => {
+                              return (
+                                <Question
+                                  key={question._id}
+                                  values={values}
+                                  handleChagne={handleChange}
+                                  question={question}
+                                  errors={errors}
+                                />
+                              );
+                            })}
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div className="questions">
+                      <Question
+                        {...values}
+                        handleChagne={handleChange}
+                        question={STATIC_QUESTIONS[0]}
                       />
-                      <label className="agreement-label" htmlFor="agreement">
-                        I agree to the earwig Terms of Use. This review of my
-                        experience with this current or former agency is
-                        truthful.
-                      </label>
-                      <ErrorMessage name={`hasAgreed`}>
-                        {msg => {
-                          return (
-                            <div
-                              className="error-msg"
-                              style={{ color: "red", margin: "0 auto" }}
-                            >
-                              {msg}
-                            </div>
-                          );
-                        }}
-                      </ErrorMessage>
-                    </CheckboxWrapper>
-                  </UserAgreement>
-                  <SubmitButton
-                    type="submit"
-                    disabled={isSubmitting}
-                    orgType={category}
-                  >
-                    Submit your review
-                  </SubmitButton>
-                </Form>
+                      <Question
+                        {...values}
+                        handleChagne={handleChange}
+                        question={STATIC_QUESTIONS[1]}
+                      />
+                      <Question
+                        {...values}
+                        handleChagne={handleChange}
+                        question={STATIC_QUESTIONS[2]}
+                      />
+                    </div>
+
+                    <UserAgreement>
+                      <Level2Header>Submit your review</Level2Header>
+                      <CheckboxWrapper>
+                        <Field
+                          type="checkbox"
+                          name={`hasAgreed`}
+                          className="agreement-checkbox"
+                          id="agreement"
+                        />
+                        <AgreementLabel htmlFor="agreement">
+                          I agree to the earwig Terms of Use. This review of my
+                          experience with this current or former agency is
+                          truthful.
+                        </AgreementLabel>
+                        <ErrorMessage name={`hasAgreed`}>
+                          {msg => (
+                            <StyledErrorMessage>{msg}</StyledErrorMessage>
+                          )}
+                        </ErrorMessage>
+                      </CheckboxWrapper>
+                    </UserAgreement>
+                    <SubmitButton
+                      type="submit"
+                      disabled={isSubmitting}
+                      orgType={category}
+                    >
+                      Submit your review
+                    </SubmitButton>
+                  </Form>
+                </FormWrapper>
               );
             }}
           </Formik>

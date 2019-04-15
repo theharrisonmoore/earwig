@@ -7,8 +7,16 @@ import "antd/dist/antd.css";
 import {
   QuestionWrapper,
   QuestionOptionsWrapper,
-  InputWrapper
+  InputWrapper,
+  QText,
+  HintText,
+  Options,
+  CommentsIcon,
+  StyledErrorMessage,
+  Input
 } from "./Question.style";
+
+import { organizations } from "../../../theme";
 
 const Question = props => {
   if (!props) {
@@ -27,8 +35,8 @@ const Question = props => {
   const { questions, values, errors } = props;
   return (
     <QuestionWrapper>
-      <p className="text">{text}</p>
-      <p className="hint-text">{hintText}</p>
+      <QText>{text}</QText>
+      <HintText>{hintText}</HintText>
       <QuestionOptions
         type={type}
         options={options}
@@ -51,38 +59,30 @@ const QuestionOptions = props => {
   if (type === "yesno" || type === "radio") {
     return (
       <QuestionOptionsWrapper>
-        <div className={`choices choices-${options.length}`}>
-          {options.map((option, i, arr) => {
-            return (
-              <Field
-                key={option}
-                component={RadioButton}
-                name={`questions[${number}]`}
-                id={`${option}-${number}`}
-                className={`hide radio-input ${option}`}
-                value={option}
-                option={option}
-                count={options.length}
-                category={category}
-              />
-            );
-          })}
-        </div>
-        <div className="comment-icon-box">
-          <img src={commentIcon} alt="" />
-        </div>
+        <Options>
+          <div className={`choices choices-${options.length}`}>
+            {options.map((option, i, arr) => {
+              return (
+                <Field
+                  key={option}
+                  component={RadioButton}
+                  name={`questions[${number}]`}
+                  id={`${option}-${number}`}
+                  className={`hide radio-input ${option}`}
+                  value={option}
+                  option={option}
+                  count={options.length}
+                  category={category}
+                />
+              );
+            })}
+          </div>
+          <CommentsIcon>
+            <img src={commentIcon} alt="" />
+          </CommentsIcon>
+        </Options>
         <ErrorMessage name={`questions[${number}]`}>
-          {msg => {
-            console.log("msg", msg);
-            return (
-              <div
-                className="error-msg"
-                style={{ color: "red", margin: "0 auto", display: "block" }}
-              >
-                {msg}
-              </div>
-            );
-          }}
+          {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
         </ErrorMessage>
       </QuestionOptionsWrapper>
     );
@@ -98,14 +98,7 @@ const QuestionOptions = props => {
           placeholder="John Doe"
         />
         <ErrorMessage name={`questions[${number}]`}>
-          {msg => (
-            <div
-              className="error-msg"
-              style={{ color: "red", display: "inline" }}
-            >
-              {msg}
-            </div>
-          )}
+          {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
         </ErrorMessage>
       </QuestionOptionsWrapper>
     );
@@ -121,14 +114,7 @@ const QuestionOptions = props => {
           placeholder="per timesheet"
         />
         <ErrorMessage name={`questions[${number}]`}>
-          {msg => (
-            <div
-              className="error-msg"
-              style={{ color: "red", display: "inline" }}
-            >
-              {msg}
-            </div>
-          )}
+          {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
         </ErrorMessage>
       </QuestionOptionsWrapper>
     );
@@ -145,14 +131,7 @@ const QuestionOptions = props => {
           ))}
         </Field>
         <ErrorMessage name={`questions[${number}]`}>
-          {msg => (
-            <div
-              className="error-msg"
-              style={{ color: "red", display: "inline" }}
-            >
-              {msg}
-            </div>
-          )}
+          {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
         </ErrorMessage>
       </QuestionOptionsWrapper>
     );
@@ -165,18 +144,15 @@ const QuestionOptions = props => {
           <Field
             name={`review.rate`}
             render={({ field: { name, value, onChange, onBlur } }) => (
-              <Rate name={name} onChange={onChange} />
+              <Rate
+                name={name}
+                onChange={onChange}
+                style={{ color: organizations[category] }}
+              />
             )}
           />
           <ErrorMessage name={`questions[${number}]`}>
-            {msg => (
-              <div
-                className="error-msg"
-                style={{ color: "red", display: "inline" }}
-              >
-                {msg}
-              </div>
-            )}
+            {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
           </ErrorMessage>
         </div>
       </QuestionOptionsWrapper>
@@ -195,14 +171,7 @@ const QuestionOptions = props => {
           placeholder="per timesheet"
         />
         <ErrorMessage name={`review.overallReview`}>
-          {msg => (
-            <div
-              className="error-msg"
-              style={{ color: "red", display: "inline" }}
-            >
-              {msg}
-            </div>
-          )}
+          {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
         </ErrorMessage>
       </QuestionOptionsWrapper>
     );
@@ -241,14 +210,7 @@ const QuestionOptions = props => {
           )}
         />
         <ErrorMessage name="checklist">
-          {msg => (
-            <div
-              className="error-msg"
-              style={{ color: "red", display: "inline" }}
-            >
-              {msg}
-            </div>
-          )}
+          {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
         </ErrorMessage>
       </QuestionOptionsWrapper>
     );
@@ -261,7 +223,6 @@ const QuestionOptions = props => {
   return null;
 };
 
-// Radio input
 const RadioButton = ({
   field: { name, value, onChange, onBlur },
   id,
@@ -275,15 +236,15 @@ const RadioButton = ({
         name={name}
         id={id}
         type="radio"
-        value={id} // could be something else for output?
+        value={id}
         onChange={onChange}
         onBlur={onBlur}
         className="radio-button"
         {...props}
       />
-      <label htmlFor={id} className={`yesno options-${props.count}`}>
+      <Input htmlFor={id} className={`yesno options-${props.count}`}>
         {props.option}
-      </label>
+      </Input>
     </InputWrapper>
   );
 };
