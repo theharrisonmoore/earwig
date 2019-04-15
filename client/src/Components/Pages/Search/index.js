@@ -11,7 +11,6 @@ import {
 
 // styles
 import {
-  classNames,
   AutosuggestWrapper,
   HeadlineDiv,
   RowDiv,
@@ -19,6 +18,7 @@ import {
   SearchLegendDiv,
   SymbolDiv,
   OrganisationDetailsDiv,
+  AddItemDetails,
   ReviewDetailsDiv,
   InnerDivLastReviews,
   InnerDivSuggestions,
@@ -56,7 +56,7 @@ export default class Search extends Component {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
     const suggestions = organisationsArray.filter(
-      orga => orga.name.toLowerCase().slice(0, inputLength) === inputValue
+      org => org.name.toLowerCase().slice(0, inputLength) === inputValue
     );
 
     // in case there are no suggestions still return a value enabling the 'add' box to be rendered
@@ -127,9 +127,9 @@ export default class Search extends Component {
           <AddItemBox>
             <InnerDivSuggestions>
               <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv>
-              <OrganisationDetailsDiv mt="0.2rem">
+              <AddItemDetails>
                 <h3>Add {query}</h3>
-              </OrganisationDetailsDiv>
+              </AddItemDetails>
             </InnerDivSuggestions>
           </AddItemBox>
         </ProfileLink>
@@ -138,22 +138,22 @@ export default class Search extends Component {
   );
 
   // renders last viewed organization section
-  renderLastViewed = (orga, key) => (
-    <ProfileLink key={key} to={`/profile/${orga._id}`}>
-      <ReviewsFrame orgType={orga.category}>
-        <InnerDivLastReviews orgType={orga.category}>
+  renderLastViewed = (org, key) => (
+    <ProfileLink key={key} to={`/profile/${org._id}`}>
+      <ReviewsFrame orgType={org.category}>
+        <InnerDivLastReviews orgType={org.category}>
           <SymbolDiv>
-            {SVGCreator(`${organizationIcons[orga.category].symbol}`)}
+            {SVGCreator(`${organizationIcons[org.category].symbol}`)}
           </SymbolDiv>
           <OrganisationDetailsDiv>
-            <h3>{orga.name}</h3>
+            <h3>{org.name}</h3>
             <ReviewDetailsDiv>
-              {StarRateCreator(orga)}
-              <p>{orga.totalReviews} reviews</p>
+              {StarRateCreator(org)}
+              <p>{org.totalReviews} reviews</p>
             </ReviewDetailsDiv>
           </OrganisationDetailsDiv>
           <ArrowDiv>
-            {SVGCreator(`${organizationIcons[orga.category].arrow}`)}
+            {SVGCreator(`${organizationIcons[org.category].arrow}`)}
           </ArrowDiv>
         </InnerDivLastReviews>
       </ReviewsFrame>
@@ -198,7 +198,6 @@ export default class Search extends Component {
         </SearchLegendDiv>
         <AutosuggestWrapper>
           <Autosuggest
-            // theme={classNames}
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
@@ -214,8 +213,8 @@ export default class Search extends Component {
         </HeadlineDiv>
         {data
           .sort(SortArrayNewest)
-          .map((orga, index) =>
-            index < 4 ? this.renderLastViewed(orga, index) : ""
+          .map((org, index) =>
+            index < 4 ? this.renderLastViewed(org, index) : ""
           )}
       </SearchWrapper>
     );

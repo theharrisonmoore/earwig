@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { colors, shadows, organizations } from "./../../../theme";
+import { colors, shadows, organizations, breakpoints } from "./../../../theme";
 
 export const classNames = {
   container: "react-autosuggest__container",
@@ -18,17 +18,18 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
 .${classNames.container} {
   position: relative;
 }
+
 .${classNames.containerOpen} {
-  border: 1px solid #979797;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  border: 1px solid ${colors.inputBorder};
+  box-shadow: ${shadows.searchBoxShadow};
   border-radius: 5px;
   width: 80%;
   height: 4.5rem;
   padding: 10px 20px;
-  font-family: Helvetica, sans-serif;
   font-weight: 300;
   font-size: 1rem;
 }
+
 .${classNames.containerFocussed} {
   outline: none;
 }
@@ -43,7 +44,7 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
   display: block;
   position: absolute;
   width: 100%;
-  background-color: #fff;
+  background-color: ${colors.white};
   max-height: 45vh;
   overflow-y: auto;
   z-index: 2;
@@ -53,14 +54,14 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
 
 }
 .${classNames.suggestions} {
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0);
+  box-shadow: ${shadows.autocompleteSuggestionShadow};
   opacity: 0.8;
 }
 .${classNames.suggestionHighlighted} {
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0);
+  box-shadow: ${shadows.autocompleteSuggestionShadow};
   opacity: 0.8;
 }
-@media (min-width: 766px) {
+@media (${breakpoints.tablet}) {
   .${classNames.containerOpen} {
     width: 100%;
   }
@@ -98,12 +99,12 @@ export const HeadlineDiv = styled.div`
 
 export const SearchLegendDiv = styled.div`
   display: flex;
-  padding-left: 2rem;
+  padding-left: 1.5rem;
   flex-direction: column;
   align-items: center;
   padding-bottom: 1rem;
 
-  @media (min-width: 766px) {
+  @media (${breakpoints.tablet}) {
     padding-left: 6rem;
   }
 `;
@@ -142,7 +143,7 @@ export const ReviewsFrame = styled.div`
   padding-top: 0.3rem;
   padding-left: 2rem;
   color: ${props => organizations[props.orgType].primary};
-  @media (min-width: 766px) {
+  @media (${breakpoints.tablet}) {
     padding-left: 6rem;
   }
 `;
@@ -151,7 +152,7 @@ export const InnerDivLastReviews = styled.div`
   text-align: left;
   width: 100%;
   display: flex;
-  @media (min-width: 766px) {
+  @media (${breakpoints.tablet}) {
     border-bottom: 2px solid ${props => organizations[props.orgType].secondary};
     width: 80%;
   }
@@ -193,13 +194,12 @@ export const OrganisationDetailsDiv = styled.div`
   display: flex;
   flex-direction: column;
   h3 {
-    margin-top: ${props => props.mt};
     font-weight: 700;
     font-size: 1rem;
   }
 `;
 
-export const AddDetailsDiv = styled.div`
+export const AddItemDetails = styled.div`
   display: flex;
   flex-direction: column;
   h3 {

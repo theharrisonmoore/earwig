@@ -1,3 +1,28 @@
+// media queries
+// so far we only decided to use 1 breakpoint, 768px (tablet)
+const size = {
+  mobileS: "320px",
+  mobileM: "375px",
+  mobileL: "425px",
+  mobileXL: "680px",
+  tablet: "768px",
+  laptop: "1024px",
+  laptopL: "1440px",
+  desktop: "2560px"
+};
+
+export const breakpoints = {
+  mobileS: `(min-width: ${size.mobileS})`,
+  mobileM: `(min-width: ${size.mobileM})`,
+  mobileL: `(min-width: ${size.mobileL})`,
+  mobileXL: `(min-width: ${size.mobileXL})`,
+  tablet: `(min-width: ${size.tablet})`,
+  laptop: `(min-width: ${size.laptop})`,
+  laptopL: `(min-width: ${size.laptopL})`,
+  desktop: `(min-width: ${size.desktop})`,
+  desktopL: `(min-width: ${size.desktop})`
+};
+
 // Organization colors
 export const organizations = {
   agency: {
@@ -35,7 +60,8 @@ export const colors = {
 export const shadows = {
   buttonShadow: "0px 4px 13px rgba(173, 145, 183, 0.273438)",
   activeButtonShadow: "0px 1px 7px rgba(173, 145, 183, 0.273438)",
-  searchBoxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)"
+  searchBoxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
+  autocompleteSuggestionShadow: "0px 1px 2px rgba(0, 0, 0, 0)"
 };
 
 // gradient colors
