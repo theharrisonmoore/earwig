@@ -18,19 +18,17 @@ describe("Test for findByEmail query", () => {
 
   test("Test with correct eamil", async (done) => {
     const admin = await User.findOne({ isAdmin: true });
-    findByEmail(admin.email)
-      .then((user) => {
-        expect(user).toBeDefined();
-        expect(user.email).toBe(admin.email);
-        done();
-      });
+    findByEmail(admin.email).then((user) => {
+      expect(user).toBeDefined();
+      expect(user.email).toBe(admin.email);
+      done();
+    });
   });
 
   test("Test with unexist email", async (done) => {
-    findByEmail("wrong@eamil.com")
-      .then((user) => {
-        expect(user).toBeNull();
-        done();
-      });
+    findByEmail("wrong@eamil.com").then((user) => {
+      expect(user).toBeNull();
+      done();
+    });
   });
 });
