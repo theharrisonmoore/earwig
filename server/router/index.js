@@ -7,6 +7,7 @@ const deleteFileFromServer = require("../middlewares/deleteFileFromServer");
 const validation = require("./../middlewares/validation");
 const loginController = require("./../controllers/login");
 const signupController = require("./../controllers/signup");
+const postTradesController = require("../controllers/addTrade");
 
 // require all the routes in this file
 router.post(
@@ -27,6 +28,12 @@ router.post(
 router.get(
   "/trades",
   getTradesController,
+);
+
+router.post(
+  "/trades",
+  validation("addTrade"),
+  postTradesController,
 );
 
 router.post(
