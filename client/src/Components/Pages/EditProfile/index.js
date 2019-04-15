@@ -136,11 +136,11 @@ export default class EditProfile extends Component {
         : null
     );
 
-    const { userId, email } = this.props;
+    const { userId, email, verified } = this.props;
 
     return (
       <EditWrapper>
-        {true ? (
+        {verified ? (
           <VerifiedWrapper>
             <Section>
               <Title>ID: {userId}</Title>
