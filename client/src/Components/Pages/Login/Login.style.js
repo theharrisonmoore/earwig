@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { colors } from "./../../../Components/theme";
+import { colors } from "./../../../theme";
 
 export const LoginWrapper = styled.div.attrs({ className: "login" })`
   width: 100%;
   max-width: 60rem;
-  margin: 1rem auto;
-  padding: 0 1rem;
-  padding-top: 2rem;
+  margin: 0 auto;
+  padding: 1rem 1rem;
+  padding-top: 7rem;
 
   & .paragraph {
     color: red;

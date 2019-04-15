@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, shadows } from "./../../theme";
+import { colors, shadows } from "./../../../theme";
 
 export const UploadImageWrapper = styled.div`
   width: 100%;
