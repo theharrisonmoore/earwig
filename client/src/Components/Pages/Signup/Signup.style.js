@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { colors } from "../../../Components/theme";
+import { colors } from "../../../theme";
 
 export const SignupWrapper = styled.div.attrs({ className: "login" })`
   width: 100%;
   max-width: 60rem;
-  margin: 1.5rem auto;
-  padding: 0 1.5rem;
-  padding-top: 3rem;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  padding-top: 4rem;
 
   & .paragraph {
     display: block;
