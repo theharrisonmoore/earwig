@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Modal, Input, Alert } from "antd";
 
 import Select from "./../../Common/Select";
 
@@ -28,8 +29,14 @@ const placeholder = "Select your trade";
 export default class UploadImage extends Component {
   state = {
     tradeId: "",
+    newTrade: "",
     trades: [],
-    error: ""
+    error: "",
+    ismodalVisible: false,
+    confirmLoading: false,
+    newTradeError: "",
+    newTradeSuccess: false,
+    disableSelect: false
   };
 
   componentDidMount() {
@@ -61,8 +68,8 @@ export default class UploadImage extends Component {
     }
   }
 
-  handleChange = event => {
-    this.setState({ tradeId: event.target.value });
+  handleChange = value => {
+    this.setState({ tradeId: value });
   };
 
   handleImageChange = event => {
@@ -134,8 +141,86 @@ export default class UploadImage extends Component {
     }
   };
 
+  showModal = () => {
+    this.setState({
+      ismodalVisible: true
+    });
+  };
+
+  handleOk = () => {
+    if (this.state.newTrade && this.state.newTrade.length >= 3) {
+      this.setState(
+        {
+          confirmLoading: true
+        },
+        () => {
+          axios
+            .post("/api/trades", { trade: this.state.newTrade })
+            .then(res => {
+              const { data } = res;
+
+              this.setState({
+                trades: [{ value: data._id, label: data.title }],
+                tradeId: data._id,
+                disableSelect: true
+              });
+
+              this.setState(
+                {
+                  newTradeSuccess: true
+                },
+                () => {
+                  setTimeout(() => {
+                    this.setState({
+                      newTradeSuccess: false,
+                      ismodalVisible: false,
+                      confirmLoading: false
+                    });
+                  }, 1000);
+                }
+              );
+            })
+            .catch(err => {
+              this.setState(
+                {
+                  newTradeSuccess: false,
+                  newTradeError: err.response.data.error
+                },
+                () => {
+                  setTimeout(() => {
+                    this.setState({
+                      ismodalVisible: false,
+                      confirmLoading: false
+                    });
+                  }, 1000);
+                }
+              );
+            });
+        }
+      );
+    } else if (this.state.newTrade.length < 3) {
+      this.setState({
+        newTradeError: "Trade must be 3 charachters length at least"
+      });
+    }
+  };
+
+  handleCancel = () => {
+    this.setState({
+      ismodalVisible: false,
+      newTradeSuccess: false,
+      newTradeError: ""
+    });
+  };
+
+  addNewTradeHandler = event => {
+    const { value } = event.target;
+    this.setState({ newTrade: value, newTradeError: "" });
+  };
+
   render() {
     const { error, image } = this.state;
+    const { ismodalVisible, confirmLoading } = this.state;
     return (
       <UploadImageWrapper>
         <ContentWrapper>
@@ -149,7 +234,47 @@ export default class UploadImage extends Component {
                 options={this.state.trades}
                 handleChange={this.handleChange}
                 value={this.state.tradeId}
+                disabled={this.state.disableSelect}
+                isCreateNew
+                addHandler={this.showModal}
               />
+              <div>
+                <div>
+                  <Modal
+                    title="Add new trade"
+                    visible={ismodalVisible}
+                    onOk={this.handleOk}
+                    confirmLoading={confirmLoading}
+                    onCancel={this.handleCancel}
+                  >
+                    {this.state.newTradeError && (
+                      <>
+                        <Alert
+                          message={this.state.newTradeError}
+                          type="error"
+                          showIcon
+                        />
+                        <br />
+                      </>
+                    )}
+                    {this.state.newTradeSuccess && (
+                      <>
+                        <Alert
+                          message="Trade added successfully"
+                          type="success"
+                          showIcon
+                        />
+                        <br />
+                      </>
+                    )}
+                    <Input
+                      placeholder="Add your trade..."
+                      allowClear
+                      onChange={this.addNewTradeHandler}
+                    />
+                  </Modal>
+                </div>
+              </div>
             </SelectWrapper>
             <SubHeading>Photo</SubHeading>
             <Paragraph>
