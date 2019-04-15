@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { colors, shadows, organizations } from "./../../theme";
+import { colors, shadows, organizations } from "./../../../theme";
 
 export const ThankYouWrapper = styled.div`
   width: 100%;
   max-width: 40rem;
-  margin: 1rem auto;
+  margin: 0 auto;
   padding: 0 1rem;
-  padding-top: 2rem;
+  padding-top: 3rem;
 `;
 
 export const ContentWrapper = styled.div`

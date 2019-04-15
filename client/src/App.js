@@ -6,9 +6,12 @@ import "./App.css";
 
 import Routes from "./Components/";
 
+import { isMobile } from "./helpers";
+
 class App extends Component {
   state = {
-    isLoggedIn: true,
+    isLoggedIn: false,
+    isMobile: false,
     id: "",
     trade: "",
     verified: false,
@@ -19,18 +22,34 @@ class App extends Component {
     email: ""
   };
 
+  updateWindowDimensions = this.updateWindowDimensions.bind(this);
+
+  updateWindowDimensions() {
+    this.setState({ isMobile: isMobile(window.innerWidth) });
+  }
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener("resize", this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindowDimensions);
+  }
+
   handleChangeState = data => {
     this.setState(data);
   };
 
-  componentDidMount() {}
-
   render() {
+    const { isLoggedIn, isMobile } = this.state;
     return (
       <Router>
         <div className="App">
           <Routes
             handleChangeState={this.handleChangeState}
+            isMobile={isMobile}
+            isLoggedIn={isLoggedIn}
             state={this.state}
           />
         </div>

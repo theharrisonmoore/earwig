@@ -56,7 +56,8 @@ export const colors = {
 export const shadows = {
   buttonShadow: "0px 4px 13px rgba(173, 145, 183, 0.273438)",
   activeButtonShadow: "0px 2px 9px rgba(173, 145, 183, 0.273438)",
-  sectionShadow: "0px 12px 16px -13px rgba(173,145,183,0.273438)"
+  sectionShadow: "0px 12px 16px -13px rgba(173,145,183,0.273438)",
+  searchShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)"
 };
 
 // gradient colors
@@ -76,6 +77,10 @@ export const gradient = {
   }  16.44%, ${colorCodes.webOrange} 32.65%, ${
     colorCodes.cocoaBrown
   } 48.14%, rgba(42, 30, 34, 0) 68.67%)`
+};
+
+export const borders = {
+  searchBox: `1px solid ${colors.lightGray}`
 };
 
 //  font families to be added

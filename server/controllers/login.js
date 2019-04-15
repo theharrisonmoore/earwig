@@ -3,9 +3,7 @@ const boom = require("boom");
 const { compare } = require("bcryptjs");
 const { tokenMaxAge } = require("./../constants");
 
-
 const { findByEmail } = require("./../database/queries/user");
-
 
 module.exports = (req, res, next) => {
   const { email, password: plainPassword } = req.body;
