@@ -163,11 +163,12 @@ export const UnVerifiedButton = styled(Link)`
   justify-content: space-around;
   align-items: center;
   max-width: 20rem;
-  margin: 0 auto 3.5rem auto;
+  margin: 1rem auto 3.5rem auto;
 
   &,
   &:active,
   &:focus {
     outline: none;
+    text-decoration: none;
   }
 `;
