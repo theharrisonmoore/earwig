@@ -9,8 +9,11 @@ import {
   LogoIcon,
   Icon,
   NavSearch,
+  NavInput,
+  NavSearchIcon,
   ToggleMenu,
-  SideDiv
+  SideDiv,
+  WrapperH2
 } from "./Navbar.style";
 import Menu from "./Menu.js";
 
@@ -45,8 +48,8 @@ export default class Navbar extends Component {
           </SideDiv>
           {search && (
             <NavSearch>
-              <input placeholder="Try searching for agencies, payrolls, worksites, or companies..." />
-              <img src={SearchIcon} alt="search" />
+              <NavInput placeholder="Try searching for agencies, payrolls, worksites, or companies..." />
+              <NavSearchIcon src={SearchIcon} alt="search" />
             </NavSearch>
           )}
 
@@ -54,7 +57,7 @@ export default class Navbar extends Component {
             <>
               <SideDiv position="right">
                 <ToggleMenu onClick={this.toggleMenu}>
-                  <h2>CLOSE</h2>
+                  <WrapperH2>CLOSE</WrapperH2>
                   <img src={CloseIcon} alt="close" />
                 </ToggleMenu>
               </SideDiv>
@@ -63,7 +66,7 @@ export default class Navbar extends Component {
           ) : (
             <SideDiv position="right">
               <ToggleMenu onClick={this.toggleMenu}>
-                <h2>MENU</h2>
+                <WrapperH2>MENU</WrapperH2>
                 <Icon src={HamburgerIcon} alt="hamburger" />
               </ToggleMenu>
             </SideDiv>
@@ -77,7 +80,7 @@ export default class Navbar extends Component {
           <SideDiv position="left">
             <Icon src={SearchIcon} alt="search" />
           </SideDiv>
-          <h2>{title && title}</h2>
+          <WrapperH2>{title && title}</WrapperH2>
           {menuOpen ? (
             <>
               <ToggleMenu onClick={this.toggleMenu}>

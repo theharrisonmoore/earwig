@@ -12,11 +12,12 @@ export const Wrapper = styled.div`
   width: 100%;
   align-items: center;
   background: ${colors.white};
+`;
 
-  h2 {
-    margin: 0;
-    font-size: 1rem;
-  }
+export const WrapperH2 = styled.h2`
+  margin: 0;
+  font-size: 1rem;
+  margin-right: 0.5rem;
 `;
 
 export const SideDiv = styled.div`
@@ -44,20 +45,20 @@ export const NavSearch = styled.div`
   width: 50%;
   height: ${props => props.height};
   position: relative;
+`;
 
-  input {
-    width: 100%;
-    height: 100%;
-    padding: 0.5rem;
-    padding-left: 2.5rem;
-    border: none;
-  }
+export const NavInput = styled.input`
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
+  padding-left: 2.5rem;
+  border: none;
+`;
 
-  img {
-    position: absolute;
-    left: 0.5rem;
-    top: 0.5rem;
-  }
+export const NavSearchIcon = styled.img`
+  position: absolute;
+  left: 0.5rem;
+  top: 0.5rem;
 `;
 
 export const ToggleMenu = styled.div`
@@ -67,10 +68,4 @@ export const ToggleMenu = styled.div`
   z-index: 4;
   min-width: 5.25rem;
   justify-content: flex-end;
-  h2 {
-    font-size: 1rem;
-    height: 100%;
-    margin: 0;
-    margin-right: 0.5rem;
-  }
 `;
