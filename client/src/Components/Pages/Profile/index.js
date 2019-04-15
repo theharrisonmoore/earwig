@@ -15,7 +15,8 @@ import {
   ReviewButton,
   ReviewButtonsDiv,
   QuickReviewButton,
-  Icon
+  Icon,
+  Time
 } from "./Profile.style";
 
 export default class Profile extends Component {
@@ -92,20 +93,20 @@ export default class Profile extends Component {
             <ReviewButtonsDiv>
               <ReviewType align="flex-start">
                 <Icon src="/icons/clock-2min.svg" margin="0 0.5rem 0 0" />
-                <p>2 mins</p>
+                <Time>2 mins</Time>
                 <ReviewButton category={category}>
                   <h4>Give a full review</h4>
                   <p>(Most helpful!)</p>
-                  <p>></p>
+                  <Icon src="/icons/arrow-icon.svg" />
                 </ReviewButton>
               </ReviewType>
               <Icon src="/icons/or-vertical.svg" margin="0 1rem 0 1rem" />
               <ReviewType align="flex-end">
-                <Icon src="/icons/clock-30s.svg" />
-                <p>30 secs</p>
+                <Icon src="/icons/clock-30s.svg" margin="0 0.5rem 0 0" />
+                <Time>30 sec</Time>
                 <QuickReviewButton category={category}>
                   <h4>Give a quick review</h4>
-                  <p>></p>
+                  <Icon src="/icons/arrow-icon.svg" />
                 </QuickReviewButton>
               </ReviewType>
             </ReviewButtonsDiv>

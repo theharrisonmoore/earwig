@@ -53,7 +53,8 @@ export const CompanyTitle = styled.div`
     display: flex;
     flex-direction: column;
     h2 {
-      font-size: 1.5rem;
+      font-size: 2rem;
+      font-weight: 600;
     }
   }
 `;
@@ -106,19 +107,26 @@ export const ReviewType = styled.div`
   width: 45%;
   align-items: center;
   justify-content: ${props => props.align};
-  border: red 1px solid;
+`;
+
+export const Time = styled.p`
+  font-style: italic;
+  margin: 0;
+  color: ${colors.profileFontColor};
 `;
 
 export const ReviewButton = styled.button`
   background: ${props => Organizations[`${props.category}`].primary};
   color: ${colors.white};
   display: flex;
+  justify-content: space-between;
   box-shadow: ${shadows.buttonShadow};
   border-radius: 0.25rem;
   height: 3rem;
   padding: 0 0.5rem;
   align-items: center;
-  min-width: 7rem;
+  min-width: 8rem;
+  margin-left: 0.5rem;
 
   h4 {
     margin: 0;
@@ -126,27 +134,33 @@ export const ReviewButton = styled.button`
     width: 50%;
     text-align: left;
     line-height: 0.9rem;
+    font-weight: 700;
   }
 
   p {
     margin: 0;
     font-size: 0.9rem;
     font-style: italic;
+    margin-right: 0.5rem;
   }
 `;
 
 export const QuickReviewButton = styled(ReviewButton)`
-  width: 25%;
+  width: 35%;
   position: relative;
-  margin-left: auto;
+  margin-left: 30%;
+
+  h4 {
+    width: 100%;
+  }
 
   :after {
     content: "";
     border: 2px ${props => Organizations[`${props.category}`].primary} dashed;
     position: absolute;
-    left: -95%;
+    left: -75%;
     height: 100%;
-    width: 100%;
+    width: 80%;
     z-index: -1;
     border-radius: 0.25rem;
   }
@@ -154,5 +168,4 @@ export const QuickReviewButton = styled(ReviewButton)`
 
 export const Icon = styled(SVG)`
   margin: ${props => props.margin};
-  border: 1px solid green;
 `;
