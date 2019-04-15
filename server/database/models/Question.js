@@ -28,6 +28,7 @@ const questionSchema = new Schema(
       enum: constants.database.PROFILE_SECTIONS,
     },
     profileText: String,
+    profileType: String,
   },
   {
     timestamps: true,
