@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import ReviewSection from "./ReviewSection";
+
 import {
   Wrapper,
   Banner,
@@ -11,6 +13,7 @@ import {
   ButtonDiv,
   OrgButton,
   ReviewDiv,
+  GiveReviewTitle,
   ReviewType,
   ReviewButton,
   ReviewButtonsDiv,
@@ -43,9 +46,17 @@ export default class Profile extends Component {
     this.fetchData();
   }
 
+  sortInfo = () => {
+    const profileSections = this.state.reviewDetails.map(section =>
+      console.log(section)
+    );
+  };
+
   render() {
     const { summary, reviewDetails, loaded } = this.state;
     if (!loaded) return <h1>Loading...</h1>;
+
+    this.sortInfo();
 
     const {
       category,
@@ -89,7 +100,7 @@ export default class Profile extends Component {
             </ButtonDiv>
           </CompanyDetails>
           <ReviewDiv>
-            <h3>Give a review about {name}</h3>
+            <GiveReviewTitle>Give a review about {name}</GiveReviewTitle>
             <ReviewButtonsDiv>
               <ReviewType align="flex-start">
                 <Icon src="/icons/clock-2min.svg" margin="0 0.5rem 0 0" />
@@ -112,10 +123,25 @@ export default class Profile extends Component {
             </ReviewButtonsDiv>
           </ReviewDiv>
         </Header>
-        <div>Section to give a review</div>
-        <div>Key Ratings section</div>
-        <div>Detailed Ratings section</div>
-        <div>Overall Ratings section</div>
+        <ReviewDiv>
+          {/* KEY RATINGS SECTION */}
+          {reviewDetails.map(
+            section =>
+              section._id === "Key ratings" && (
+                <ReviewSection sectionDetails={section} />
+              )
+          )}
+          {/* OTHER SECTIONS */}
+          {reviewDetails.map(
+            section =>
+              section._id !== "Key ratings" && (
+                <ReviewSection sectionDetails={section} />
+              )
+          )}
+          {/* OVERALL RATINGS SECTION */}
+
+          <div>Overall Ratings section</div>
+        </ReviewDiv>
       </Wrapper>
     );
   }

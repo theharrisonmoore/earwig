@@ -20,10 +20,11 @@ describe("Test overallReview query", () => {
 
     allAnswers(organizationID).then((result) => {
       expect(result).toBeDefined();
-      expect(result[0].answers).toBeDefined();
-      expect(result[0].question).toBeDefined();
-      expect(result[0].answers[0].organization).toEqual(organizationID);
-      expect(result[0].answers[0].question).toEqual(result[0].question[0]._id);
+      expect(result[0].questions).toBeDefined();
+      expect(result[0].questions[0].answers[0].organization).toEqual(organizationID);
+      expect(result[0].questions[0].answers[0].question).toEqual(
+        result[0].questions[0].question._id,
+      );
       done();
     });
   });

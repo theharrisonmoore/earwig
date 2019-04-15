@@ -67,6 +67,16 @@ module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
         as: "question",
       },
     },
+    {
+      $unwind: "$question",
+    },
+    // group by profile sections
+    {
+      $group: {
+        _id: "$question.profileSection",
+        questions: { $push: "$$ROOT" },
+      },
+    },
   ])
     .then(resolve)
     .catch(err => reject(err));

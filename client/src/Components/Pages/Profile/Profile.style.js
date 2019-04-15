@@ -87,14 +87,14 @@ export const ReviewDiv = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem 7rem;
+`;
 
-  h3 {
-    font-size: 1.75rem;
-    font-style: italic;
-    font-weight: 300;
-    color: ${colors.profileFontColor};
-    margin-bottom: 1.5rem;
-  }
+export const GiveReviewTitle = styled.h3`
+  font-size: 1.75rem;
+  font-style: italic;
+  font-weight: 300;
+  color: ${colors.profileFontColor};
+  margin-bottom: 1.5rem;
 `;
 
 export const ReviewButtonsDiv = styled.div`
