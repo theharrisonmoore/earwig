@@ -11,6 +11,8 @@ import {
 
 // styles
 import {
+  classNames,
+  AutosuggestWrapper,
   HeadlineDiv,
   RowDiv,
   ItemDiv,
@@ -121,18 +123,16 @@ export default class Search extends Component {
     <div {...containerProps}>
       {children}
       {
-        <div className="footer">
-          <ProfileLink to="">
-            <AddItemBox>
-              <InnerDivSuggestions>
-                <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv>
-                <OrganisationDetailsDiv mt="0.2rem">
-                  <h3>Add {query}</h3>
-                </OrganisationDetailsDiv>
-              </InnerDivSuggestions>
-            </AddItemBox>
-          </ProfileLink>
-        </div>
+        <ProfileLink to="">
+          <AddItemBox>
+            <InnerDivSuggestions>
+              <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv>
+              <OrganisationDetailsDiv mt="0.2rem">
+                <h3>Add {query}</h3>
+              </OrganisationDetailsDiv>
+            </InnerDivSuggestions>
+          </AddItemBox>
+        </ProfileLink>
       }
     </div>
   );
@@ -196,16 +196,19 @@ export default class Search extends Component {
             </ItemDiv>
           </RowDiv>
         </SearchLegendDiv>
-        <Autosuggest
-          suggestions={suggestions}
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          shouldRenderSuggestions={() => true}
-          getSuggestionValue={this.getSuggestionValue}
-          renderSuggestion={this.renderSuggestion}
-          inputProps={inputProps}
-          renderSuggestionsContainer={this.renderSuggestionsContainer}
-        />
+        <AutosuggestWrapper>
+          <Autosuggest
+            // theme={classNames}
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            shouldRenderSuggestions={() => true}
+            getSuggestionValue={this.getSuggestionValue}
+            renderSuggestion={this.renderSuggestion}
+            inputProps={inputProps}
+            renderSuggestionsContainer={this.renderSuggestionsContainer}
+          />
+        </AutosuggestWrapper>
         <HeadlineDiv>
           <p>Or find out what's happening at...</p>
         </HeadlineDiv>

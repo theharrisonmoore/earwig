@@ -2,6 +2,73 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { colors, shadows, organizations } from "./../../../theme";
 
+export const classNames = {
+  container: "react-autosuggest__container",
+  containerOpen: "react-autosuggest__input",
+  containerFocussed: "react-autosuggest__input--focused",
+  containerInputOpen: "react-autosuggest__input--open",
+  suggestionsContainer: "react-autosuggest__suggestions-container",
+  suggestionsContainerOpen: "react-autosuggest__suggestions-container--open",
+  suggestionsList: "react-autosuggest__suggestions-list",
+  suggestions: "react-autosuggest__suggestion",
+  suggestionHighlighted: "react-autosuggest__suggestion--highlighted"
+};
+
+export const AutosuggestWrapper = styled.div.attrs(classNames)`
+.${classNames.container} {
+  position: relative;
+}
+.${classNames.containerOpen} {
+  border: 1px solid #979797;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  width: 80%;
+  height: 4.5rem;
+  padding: 10px 20px;
+  font-family: Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+}
+.${classNames.containerFocussed} {
+  outline: none;
+}
+.${classNames.containerInputOpen} {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.${classNames.suggestionsContainer} {
+  display: none;
+}
+.${classNames.suggestionsContainerOpen} {
+  display: block;
+  position: absolute;
+  width: 100%;
+  background-color: #fff;
+  max-height: 45vh;
+  overflow-y: auto;
+  z-index: 2;
+
+}
+.${classNames.suggestionsList} {
+
+}
+.${classNames.suggestions} {
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0);
+  opacity: 0.8;
+}
+.${classNames.suggestionHighlighted} {
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0);
+  opacity: 0.8;
+}
+@media (min-width: 766px) {
+  .${classNames.containerOpen} {
+    width: 100%;
+  }
+  .${classNames.suggestionsContainerOpen} {
+    max-height: inherit;
+  }
+`;
+
 export const SearchWrapper = styled.div`
   width: 100%;
   max-width: 40rem;
