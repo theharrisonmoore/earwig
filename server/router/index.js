@@ -21,7 +21,7 @@ router.post(
   "/upload-verification-image",
   upload("verificationImage"),
   validation("uploadVerificationImage"),
-  toGoogle(),
+  toGoogle(true),
   deleteFileFromServer,
   uploadVerificationImage,
 );
@@ -45,7 +45,10 @@ router.post(
 
 router.post(
   "/edit-profile",
+  upload("verificationImage"),
   validation("editProfile"),
+  toGoogle(false),
+  deleteFileFromServer,
   editProfile,
 );
 

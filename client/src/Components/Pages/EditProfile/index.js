@@ -26,8 +26,7 @@ import {
   StyledFormik as Formik,
   StyledForm as Form,
   StyledField as Field,
-  StyledFormikErrorMessage as FormikErrorMessage,
-  GeneralErrorMessage
+  StyledFormikErrorMessage as FormikErrorMessage
 } from "./../../Common/Formik/Formik.style";
 
 import cardImage from "./../../../assets/card-hand.svg";
@@ -36,7 +35,8 @@ const initalValues = {
   oldPassword: "",
   newPassword: "",
   reNewPassword: "",
-  image: ""
+  verificationImage: "",
+  imageFile: ""
 };
 
 // create custom function
@@ -61,19 +61,60 @@ export default class EditProfile extends Component {
     displayPassword: false
   };
 
+  handleImageChange = event => {
+    const image = event.target.files && event.target.files[0];
+    var reader = new FileReader();
+
+    reader.onload = () => {
+      var dataURL = reader.result;
+      this.setState({
+        image: dataURL
+      });
+    };
+    this.setState(
+      {
+        imageFile: image
+      },
+      () => {
+        image && reader.readAsDataURL(image);
+      }
+    );
+  };
+
   handleSubmit = (values, { setSubmitting }) => {
-    // axios
-    //   .post("/api/edit-profile", values)
-    //   .then(({ data }) => {
-    //     this.props.handleChangeState({ ...data, isLoggedIn: true });
-    //     this.props.history.push(`/intro`);
-    //   })
-    //   .catch(err => {
-    //     this.setState({ error: err.response.data.error });
-    //     setSubmitting(false);
-    //   });
-    console.log(values);
-    setSubmitting(false);
+    const form = new FormData();
+
+    // const arrays = Object.keys(values);
+    if (this.state.displayPassword || this.state.imageFile) {
+      if (this.state.displayPassword) {
+        form.append("oldPassword", values.oldPassword);
+        form.append("newPassword", values.newPassword);
+        form.append("reNewPassword", values.reNewPassword);
+      }
+      if (this.state.imageFile) {
+        form.append("verificationImage", this.state.imageFile);
+      }
+
+      axios({
+        method: "post",
+        url: "/api/edit-profile",
+        data: form,
+        headers: {
+          "content-type": `multipart/form-data; boundary=${form._boundary}`
+        }
+      })
+        .then(({ data }) => {
+          this.props.handleChangeState({ ...data, isLoggedIn: true });
+          this.props.history.push(`/profile`);
+        })
+        .catch(err => {
+          this.setState({ error: err.response.data.error });
+          setSubmitting(false);
+        });
+      setSubmitting(false);
+    } else {
+      setSubmitting(false);
+    }
   };
 
   togglePassword = () => {
@@ -95,12 +136,11 @@ export default class EditProfile extends Component {
         : null
     );
 
-    const { userId, email, verified } = this.props;
-    console.log(this.props);
+    const { userId, email } = this.props;
 
     return (
       <EditWrapper>
-        {verified ? (
+        {true ? (
           <VerifiedWrapper>
             <Section>
               <Title>ID: {userId}</Title>
@@ -172,19 +212,23 @@ export default class EditProfile extends Component {
                         <Title>Verification photo</Title>
                       </div>
                       <Field
-                        name="image"
+                        name="verificationImage"
                         render={({ field, form: { isSubmitting } }) => (
                           <ImageInput
                             {...field}
                             type="file"
                             placeholder="lastName"
                             accept="image/*"
-                            id="image"
+                            id="verificationImage"
+                            onChange={this.handleImageChange}
                           />
                         )}
                       />
-                      <FormikErrorMessage name="image" component="p" />
-                      <EditButton htmlFor="image" as="label">
+                      <FormikErrorMessage
+                        name="verificationImage"
+                        component="p"
+                      />
+                      <EditButton htmlFor="verificationImage" as="label">
                         Edit
                       </EditButton>
                     </Row>

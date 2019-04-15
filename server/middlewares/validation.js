@@ -17,9 +17,10 @@ const schemas = {
     checkbox: Joi.boolean().valid(true).error(() => "You should agree Earwig terms of user"),
   },
   editProfile: {
-    oldPassword: Joi.string().required(),
-    newPassword: Joi.string().min(6).required(),
-    reNewPassword: Joi.any().valid(Joi.ref("newPassword")).required().options({ language: { any: { allowOnly: "must match password" } } }),
+    oldPassword: Joi.string(),
+    newPassword: Joi.string().min(6),
+    reNewPassword: Joi.any().valid(Joi.ref("newPassword")).options({ language: { any: { allowOnly: "must match password" } } }),
+    verificationImage: Joi.any().allow("").optional(),
   },
   addTrade: {
     trade: Joi.string().min(3).required(),
