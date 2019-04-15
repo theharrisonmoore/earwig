@@ -37,7 +37,6 @@ export default class Navbar extends Component {
     const { menuOpen } = this.state;
 
     if (!isMobile) {
-      console.log("REACHED");
       return (
         <Wrapper height="4rem">
           <SideDiv position="left">
