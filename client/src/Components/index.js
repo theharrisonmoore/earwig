@@ -1,15 +1,27 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
+import UploadImage from "./Pages/UploadImage";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Thankyou from "./Pages/ThankYou";
 
 export default function index(props) {
-  const { handleChangeState } = props;
+  const { handleChangeState, state } = props;
   return (
     <>
       <Switch>
+        <Route
+          exact
+          path="/upload-verification-photo"
+          render={props => (
+            <UploadImage
+              {...props}
+              handleChangeState={handleChangeState}
+              {...state}
+            />
+          )}
+        />
         <Route
           exact
           path="/login"
