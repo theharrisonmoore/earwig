@@ -61,7 +61,7 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
   box-shadow: ${shadows.autocompleteSuggestionShadow};
   opacity: 0.8;
 }
-@media (${breakpoints.tablet}) {
+@media ${breakpoints.tablet} {
   .${classNames.containerOpen} {
     width: 100%;
   }
@@ -104,7 +104,14 @@ export const SearchLegendDiv = styled.div`
   align-items: center;
   padding-bottom: 1rem;
 
-  @media (${breakpoints.tablet}) {
+  @media ${breakpoints.mobileM} {
+    padding-left: 2.5rem;
+  }
+  @media ${breakpoints.mobileL} {
+    padding-left: 5rem;
+  }
+
+  @media ${breakpoints.tablet} {
     padding-left: 6rem;
   }
 `;
@@ -143,7 +150,7 @@ export const ReviewsFrame = styled.div`
   padding-top: 0.3rem;
   padding-left: 2rem;
   color: ${props => organizations[props.orgType].primary};
-  @media (${breakpoints.tablet}) {
+  @media ${breakpoints.tablet} {
     padding-left: 6rem;
   }
 `;
@@ -152,7 +159,7 @@ export const InnerDivLastReviews = styled.div`
   text-align: left;
   width: 100%;
   display: flex;
-  @media (${breakpoints.tablet}) {
+  @media ${breakpoints.tablet} {
     border-bottom: 2px solid ${props => organizations[props.orgType].secondary};
     width: 80%;
   }

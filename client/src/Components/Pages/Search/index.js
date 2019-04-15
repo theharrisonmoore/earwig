@@ -3,11 +3,7 @@ import axios from "axios";
 import Autosuggest from "react-autosuggest";
 
 // UI helper functions
-import {
-  SVGCreator,
-  StarRateCreator,
-  SortArrayNewest
-} from "../../../UIHelper";
+import { SVGCreator, StarRateCreator, SortArrayNewest } from "../../../helpers";
 
 // styles
 import {
