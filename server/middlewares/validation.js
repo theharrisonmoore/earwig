@@ -7,6 +7,9 @@ const schemas = {
     email: Joi.string().email({ minDomainAtoms: 2 }).required(),
     password: Joi.string().required(),
   },
+  uploadVerificationImage: {
+    tradeId: Joi.string().length(24).required(),
+  },
   signup: {
     email: Joi.string().email({ minDomainAtoms: 2 }).required(),
     password: Joi.string().min(6).required(),
@@ -17,6 +20,9 @@ const schemas = {
     oldPassword: Joi.string().required(),
     newPassword: Joi.string().min(6).required(),
     reNewPassword: Joi.any().valid(Joi.ref("newPassword")).required().options({ language: { any: { allowOnly: "must match password" } } }),
+  },
+  addTrade: {
+    trade: Joi.string().min(3).required(),
   },
 };
 
