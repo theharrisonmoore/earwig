@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors } from "./../../../theme";
+import { colors, borders, shadows } from "./../../../theme";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -39,12 +39,17 @@ export const LogoIcon = styled.img`
 `;
 
 export const NavSearch = styled.div`
-  border: 2px solid #000000;
+  border: ${borders.searchBox};
+  outline: none;
+  background: ${colors.white};
+  border-radius: 5px;
   box-sizing: border-box;
-  color: ${colors.gray1};
+  box-shadow: ${shadows.searchShadow};
+  color: ${colors.lightGray};
   width: 50%;
   height: ${props => props.height};
   position: relative;
+  overflow: hidden;
 `;
 
 export const NavInput = styled.input`

@@ -16,7 +16,6 @@ import {
 export default class Menu extends PureComponent {
   render() {
     const { isMobile, isLoggedIn } = this.props;
-    console.log(window.innerWidth);
     return (
       <Wrapper isMobile={isMobile}>
         {isMobile && (

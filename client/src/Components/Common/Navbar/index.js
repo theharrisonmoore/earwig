@@ -35,7 +35,6 @@ export default class Navbar extends Component {
   render() {
     const { title, isMobile, search, isLoggedIn } = this.props;
     const { menuOpen } = this.state;
-    console.log(isMobile);
 
     if (!isMobile) {
       console.log("REACHED");

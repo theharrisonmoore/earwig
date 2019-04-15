@@ -1,6 +1,12 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
+import {
+  SIGNUP_URL,
+  LOGIN_URL,
+  THANKYOU_URL
+} from "./../constants/naviagationUrls";
+
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Thankyou from "./Pages/ThankYou";
@@ -13,16 +19,16 @@ export default function index(props) {
       <Switch>
         <Route
           exact
-          path="/signup"
+          path={SIGNUP_URL}
           render={props => (
             <Signup {...props} handleChangeState={handleChangeState} />
           )}
         />
         {/* orgType required as state in Link for this */}
-        <Route path="/thank-you" component={Thankyou} />
+        <Route path={THANKYOU_URL} component={Thankyou} />
         <Route
           exact
-          path="/login"
+          path={LOGIN_URL}
           render={props => (
             <>
               <Navbar
