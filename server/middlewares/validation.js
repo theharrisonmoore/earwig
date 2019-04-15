@@ -4,8 +4,25 @@ const boom = require("boom");
 // define all routes schema here
 const schemas = {
   login: {
-    email: Joi.string().email({ minDomainAtoms: 2 }).required(),
-    password: Joi.string().min(6).required(),
+    email: Joi.string()
+      .email({ minDomainAtoms: 2 })
+      .required(),
+    password: Joi.string().required(),
+  },
+  signup: {
+    email: Joi.string()
+      .email({ minDomainAtoms: 2 })
+      .required(),
+    password: Joi.string()
+      .min(6)
+      .required(),
+    rePassword: Joi.any()
+      .valid(Joi.ref("password"))
+      .required()
+      .options({ language: { any: { allowOnly: "must match password" } } }),
+    checkbox: Joi.boolean()
+      .valid(true)
+      .error(() => "You should agree Earwig terms of user"),
   },
 };
 

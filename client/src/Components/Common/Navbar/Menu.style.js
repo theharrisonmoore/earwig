@@ -25,9 +25,11 @@ export const Wrapper = styled.div`
 export const MenuItem = styled(NavLink)`
   display: flex;
   text-decoration: none;
-  border-bottom: ${colors.gray2} 1px solid;
+  border-bottom: ${colors.lightGray} 1px solid;
   color: ${props =>
-    props.activeClassName === "active" ? colors.green : colors.black};
+    props.activeClassName === "active"
+      ? colors.green
+      : colors.profileFontColor};
   padding: 0.5rem;
   transition: all ease-in 0.2s;
   height: 4.5rem;

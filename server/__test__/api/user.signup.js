@@ -1,10 +1,10 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
 
-const buildDB = require("./../../database/dummyData/index");
-const app = require("./../../app");
+const buildDB = require("../../database/dummyData/index");
+const app = require("../../app");
 
-describe("Tesing for login route", () => {
+describe("Tesing for Signup route", () => {
   beforeAll(async () => {
     // build dummy data
     await buildDB();
@@ -21,55 +21,45 @@ describe("Tesing for login route", () => {
 
   test("test with correct email and password", (done) => {
     const data = {
-      email: "admin@earwig.com",
+      email: "new@user.com",
       password: "123456",
+      rePassword: "123456",
+      checkbox: true,
     };
 
     request(app)
-      .post("/api/login")
+      .post("/api/signup")
       .send(data)
       .expect("Content-Type", /json/)
       .expect(200)
       .end((err, res) => {
         expect(res).toBeDefined();
         expect(res.body).toBeDefined();
-
         expect(res.body.id).toBeDefined();
-        expect(res.body.isAdmin).toBeTruthy();
+        expect(res.body.isAdmin).toBeFalsy();
+        expect(res.body.userId).toBeTruthy();
+        expect(res.body.points).toBe(0);
+
         expect(res.headers["set-cookie"][0]).toMatch("token");
         done();
       });
   });
 
-  test("test with invalid request email", (done) => {
+  test("test with invalid data", (done) => {
     const data = {
-      email: "Wrong@email.com",
+      email: "Not eamil",
       password: "123456",
+      rePassword: "123456",
+      checkbox: true,
     };
 
     request(app)
-      .post("/api/login")
+      .post("/api/signup")
       .send(data)
       .expect("Content-Type", /json/)
-      .expect(401)
+      .expect(400)
       .end((err, res) => {
-        expect(res.body.error).toMatch("login failed, email and password not match");
-        done(err);
-      });
-  });
-  test("test with invalid request password", (done) => {
-    const data = {
-      email: "admin@earwig.com",
-      password: "123456563322",
-    };
-
-    request(app)
-      .post("/api/login")
-      .send(data)
-      .expect("Content-Type", /json/)
-      .expect(401)
-      .end((err, res) => {
-        expect(res.body.error).toMatch("login failed, email and password not match");
+        expect(res.body.error).toMatch("\"email\" must be a valid email");
         done(err);
       });
   });
