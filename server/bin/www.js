@@ -6,6 +6,11 @@
 
 const debug = require("debug")("server:server");
 const http = require("http");
+
+// read the config file
+require("env2")("./.env");
+
+
 const app = require("../app");
 
 /**
@@ -81,9 +86,9 @@ function onListening() {
 /**
  * Listen on provided port, on all network interfaces.
  */
-
 server.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
+
 server.on("error", onError);
 server.on("listening", onListening);

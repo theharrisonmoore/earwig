@@ -54,13 +54,16 @@
     "boom": "^7.3.0",
     "cookie-parser": "^1.4.4",
     "debug": "^4.1.1",
-    "dotenv": "^7.0.0",
     "env2": "^2.2.2",
     "express": "^4.16.4",
+    "firebase-admin": "^7.2.0",
     "http-errors": "^1.7.2",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.4.22",
     "morgan": "^1.9.1",
     "shortid": "^2.2.14",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "multer": "^1.4.1"
   }
 }

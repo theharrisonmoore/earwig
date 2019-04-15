@@ -12,4 +12,8 @@ module.exports = {
       "Tools & materials",
     ],
   },
+  tokenMaxAge: {
+    string: "30d",
+    number: 2592000000,
+  },
 };

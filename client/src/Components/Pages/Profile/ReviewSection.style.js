@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors } from "./../../theme";
+import { colors } from "./../../../theme";
 
 export const Wrapper = styled.div`
   display: flex;

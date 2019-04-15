@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import SVG from "react-inlinesvg";
 
-import { Organizations, colors, shadows } from "./../../theme";
+import { organizations, colors, shadows } from "./../../../theme";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Banner = styled.div`
-  background: ${props => Organizations[`${props.category}`].primary};
+  background: ${props => organizations[`${props.category}`].primary};
   height: 2.75rem;
   width: 100%;
   color: ${colors.white};
@@ -19,6 +19,7 @@ export const Banner = styled.div`
   align-items: center;
   text-transform: capitalize;
   position: fixed;
+  z-index: 2;
 
   p {
     margin-bottom: 0;
@@ -67,9 +68,9 @@ export const ButtonDiv = styled.div`
 `;
 
 export const OrgButton = styled.button`
-  border: ${props => Organizations[`${props.category}`].primary} solid 2px;
+  border: ${props => organizations[`${props.category}`].primary} solid 2px;
   box-sizing: border-box;
-  color: ${props => Organizations[`${props.category}`].primary};
+  color: ${props => organizations[`${props.category}`].primary};
   background: ${colors.white};
   transition: all ease-in 0.1s;
   width: 7rem;
@@ -78,7 +79,7 @@ export const OrgButton = styled.button`
   box-shadow: ${shadows.buttonShadow};
 
   :hover {
-    background: ${props => Organizations[`${props.category}`].primary};
+    background: ${props => organizations[`${props.category}`].primary};
     color: ${colors.white};
   }
 `;
@@ -116,7 +117,7 @@ export const Time = styled.p`
 `;
 
 export const ReviewButton = styled.button`
-  background: ${props => Organizations[`${props.category}`].primary};
+  background: ${props => organizations[`${props.category}`].primary};
   color: ${colors.white};
   display: flex;
   justify-content: space-between;
@@ -135,6 +136,7 @@ export const ReviewButton = styled.button`
     text-align: left;
     line-height: 0.9rem;
     font-weight: 700;
+    color: ${colors.white};
   }
 
   p {
@@ -156,7 +158,7 @@ export const QuickReviewButton = styled(ReviewButton)`
 
   :after {
     content: "";
-    border: 2px ${props => Organizations[`${props.category}`].primary} dashed;
+    border: 2px ${props => organizations[`${props.category}`].primary} dashed;
     position: absolute;
     left: -75%;
     height: 100%;
