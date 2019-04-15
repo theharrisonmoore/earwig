@@ -16,7 +16,7 @@ import {
   Input
 } from "./Question.style";
 
-import { organizations } from "../../../theme";
+import { organizations } from "../../../../theme";
 
 const Question = props => {
   if (!props) {

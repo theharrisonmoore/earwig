@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, organizations } from "../../theme";
+import { colors, organizations } from "../../../theme";
 
 export const Header = styled.section`
   width: 100%;
