@@ -6,7 +6,6 @@ import {
   MainIcon,
   SubTitle,
   SmallParagraph,
-  Iframe,
   LargeParagraph,
   TextArea,
   Button,

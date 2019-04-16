@@ -4,14 +4,10 @@ import {
   Wrapper,
   ContentWrapper,
   MainIcon,
-  SubTitle,
-  SmallParagraph,
-  Iframe,
   LargeParagraph,
   TextArea,
   Button,
-  PageTitle,
-  Devider
+  PageTitle
 } from "./Static.style";
 export default class ShapeEarwig extends Component {
   render() {

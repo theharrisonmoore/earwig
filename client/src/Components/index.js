@@ -14,6 +14,12 @@ import Thankyou from "./Pages/ThankYou";
 import StaticPages from "./Pages/Static";
 import Navbar from "./Common/Navbar";
 
+import {
+  RESOURCES_URL,
+  CONTACT_URL,
+  FAQ_URL,
+  PRIVACY_URL
+} from "./../constants/naviagationUrls";
 export default function index(props) {
   const { handleChangeState, isMobile, isLoggedIn, state } = props;
 
@@ -59,12 +65,7 @@ export default function index(props) {
 
         <Route
           exact
-          path={[
-            "/faq",
-            "/helpful-stuff",
-            "/shape-earwig",
-            "/privacy-and-terms"
-          ]}
+          path={[FAQ_URL, RESOURCES_URL, CONTACT_URL, PRIVACY_URL]}
           render={props => (
             <StaticPages
               {...props}

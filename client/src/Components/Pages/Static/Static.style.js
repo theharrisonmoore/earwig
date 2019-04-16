@@ -17,44 +17,44 @@ export const ContentWrapper = styled.div`
 `;
 
 export const MainIcon = styled.img`
-  min-width: 40px;
-  max-width: 60px;
+  min-width: 2.5rem;
+  max-width: 3.75rem;
   width: 10%;
   margin-bottom: 0.5rem;
 `;
 
 export const PageTitle = styled.h1`
   font-weight: 500;
-  font-size: 42px;
+  font-size: 2.625rem;
   text-align: center;
 
-  color: #4a4a4a;
+  color: ${colors.profileFontColor};
 
-  @media (max-width: 768px) {
+  @media (max-width: ${MOBILE_WIDTH}) {
     display: none;
   }
 `;
 
 export const SubTitle = styled.h4`
   font-weight: 900;
-  font-size: 18px;
+  font-size: 1.125rem;
 
-  color: #4a4a4a;
+  color: ${colors.profileFontColor};
   text-align: left;
   margin-bottom: 0;
   margin-top: ${props => (props.list ? "0" : "1.5rem")};
-  @media (min-width: 768px) {
-    font-size: 24px;
+  @media (min-width: ${MOBILE_WIDTH}) {
+    font-size: 1.5rem;
   }
 `;
 
 export const SmallParagraph = styled.p`
-  font-size: 16px;
+  font-size: 1rem;
 
-  color: #4a4a4a;
+  color: ${colors.profileFontColor};
   text-align: left;
-  @media (min-width: 768px) {
-    font-size: 18px;
+  @media (min-width: ${MOBILE_WIDTH}) {
+    font-size: 1.125rem;
   }
 `;
 
@@ -66,8 +66,8 @@ export const Iframe = styled.iframe`
 `;
 
 export const LargeParagraph = styled.p`
-  font-size: 24px;
-  color: #4a4a4a;
+  font-size: 1.5rem;
+  color: ${colors.profileFontColor};
   text-align: center;
   margin-top: 3rem;
 `;
@@ -76,7 +76,7 @@ export const TextArea = styled.textarea`
   width: 100%;
   max-width: 40rem;
   height: 10rem;
-  border: 1px solid #979797;
+  border: 1px solid ${colors.inputBorder};
   border-radius: 5px;
   outline: none;
   padding: 1rem;
@@ -84,12 +84,10 @@ export const TextArea = styled.textarea`
 `;
 
 export const Button = styled.button`
-  position: relative;
   background: ${colors.white};
   border: 1px solid ${props => (props.error ? colors.red : colors.mineShaft2)};
   box-shadow: ${shadows.buttonShadow};
   border-radius: 3px;
-  /* height: 3.25rem; */
   width: 100%;
 
   font-weight: 900;
@@ -105,7 +103,7 @@ export const Button = styled.button`
   &:focus {
     outline: none;
   }
-  @media (min-width: 768px) {
+  @media (min-width: ${MOBILE_WIDTH}) {
     max-width: 14rem;
   }
 `;
@@ -113,7 +111,7 @@ export const Button = styled.button`
 export const Devider = styled.div`
   width: 100%;
   height: 1px;
-  border-bottom: 1px solid #d8d8d8;
+  border-bottom: 1px solid ${colors.alto};
   margin: 5rem auto;
 
   @media (max-width: ${MOBILE_WIDTH}) {
