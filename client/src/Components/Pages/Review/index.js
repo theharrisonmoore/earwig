@@ -29,8 +29,8 @@ import {
 import { StyledErrorMessage } from "./Question/Question.style";
 
 import Question from "./Question/index";
-import agencyIcon from "./../../../assets/agencyIcon.svg";
-import clockLong from "./../../../assets/clockLong.svg";
+import agencyIcon from "./../../../assets/agency-icon.svg";
+import clockLong from "./../../../assets/clock-long-icon.svg";
 
 import { initQueestionsValues } from "./initialQuestionsValues";
 import { validationSchema } from "./validationSchema";
