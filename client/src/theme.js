@@ -14,9 +14,13 @@ const colorCodes = {
   tundora: "#4A4A4A",
   dustyGray1: "#979797",
   dustyGray2: "#9B9B9B",
+  veryLightGray: "#CDCDCD",
 
   // shadows color
-  cocoaBrown: "#2A1E22"
+  cocoaBrown: "#2A1E22",
+
+  // transparent
+  ghostWhite: "rgba(255, 255, 255, 0.5)"
 };
 
 // Organization colors
@@ -56,7 +60,8 @@ export const colors = {
 export const shadows = {
   buttonShadow: "0px 4px 13px rgba(173, 145, 183, 0.273438)",
   activeButtonShadow: "0px 2px 9px rgba(173, 145, 183, 0.273438)",
-  searchShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)"
+  searchShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
+  commentShadow: "0px 3px 4px rgba(152, 152, 152, 0.5);"
 };
 
 // gradient colors
@@ -79,7 +84,8 @@ export const gradient = {
 };
 
 export const borders = {
-  searchBox: `1px solid ${colors.lightGray}`
+  searchBox: `1px solid ${colors.lightGray}`,
+  commentBox: `1px solid ${colors.verLightGray}`
 };
 
 export const pieColors = {

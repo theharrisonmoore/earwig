@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Organization = require("./../../models/Organization");
 const Answer = require("./../../models/Answer");
+const Comment = require("./../../models/Comment")
 
 module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
 
@@ -50,6 +51,15 @@ module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
     {
       $match: { organization: mongoose.Types.ObjectId(organizationID) },
     },
+    // get the comments
+    {
+      $lookup: {
+        from: "comments",
+        localField: "comment",
+        foreignField: "_id",
+        as: "comment",
+      },
+    },
     // group the answers by the question
     // each question now has an array of the answers
     {
@@ -80,4 +90,37 @@ module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
   ])
     .then(resolve)
     .catch(err => reject(err));
+});
+
+module.exports.allComments = (organizationID, questionID) => new Promise((resolve, reject) => {
+  Comment.aggregate([
+    {
+      $match: { 
+        $and: [{
+          organization: mongoose.Types.ObjectId(organizationID) 
+        },
+        {
+          question: mongoose.Types.ObjectId(questionID) 
+        }]
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "user",
+        foreignField: "_id",
+        as: "user",
+      },
+    },
+    {
+      $unwind: "$user",
+    },
+    {
+      $project: {
+        userId: "$user.userId",
+        organization: 1,
+        text: 1,
+      },
+    },
+  ]).then(resolve).catch(err => reject(err));
 });

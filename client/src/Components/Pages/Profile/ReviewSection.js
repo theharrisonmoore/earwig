@@ -10,10 +10,11 @@ import {
 import YesNoAnswer from "./ProfileAnswers/YesNoAnswer.js";
 import ListAnswer from "./ProfileAnswers/ListAnswer.js";
 import PieAnswer from "./ProfileAnswers/PieAnswer.js";
+import ScatterAnswer from "./ProfileAnswers/ScatterAnswer";
 
 export default class ReviewSection extends Component {
   render() {
-    const { sectionDetails } = this.props;
+    const { sectionDetails, category, toggleComments } = this.props;
     const { _id: sectionTitle, questions } = sectionDetails;
 
     return (
@@ -25,13 +26,30 @@ export default class ReviewSection extends Component {
             <QuestionWrapper>
               <QuestionTitle>{question.question.profileText}</QuestionTitle>
               {question.question.profileType === "yesno" && (
-                <YesNoAnswer question={question} />
+                <YesNoAnswer
+                  question={question}
+                  toggleComments={toggleComments}
+                />
               )}
               {question.question.profileType === "list" && (
-                <ListAnswer question={question} />
+                <ListAnswer
+                  question={question}
+                  toggleComments={toggleComments}
+                />
               )}
               {question.question.profileType === "pieChart" && (
-                <PieAnswer question={question} />
+                <PieAnswer
+                  category={category}
+                  question={question}
+                  toggleComments={toggleComments}
+                />
+              )}
+              {question.question.profileType === "dotChart" && (
+                <ScatterAnswer
+                  category={category}
+                  question={question}
+                  toggleComments={toggleComments}
+                />
               )}
             </QuestionWrapper>
           ))}

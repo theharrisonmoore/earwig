@@ -3,6 +3,8 @@ import { Pie } from "react-chartjs-2";
 
 import { pieColors } from "./../../../../theme";
 
+import { Comment, RightCommentWrapper } from "./ProfileAnswers.style";
+
 export default class PieAnswer extends Component {
   createLabels = answers => {
     const labels = answers.map(answer => answer.answer);
@@ -16,7 +18,7 @@ export default class PieAnswer extends Component {
   };
 
   render() {
-    const { question } = this.props;
+    const { question, category } = this.props;
 
     const labelObject = this.createLabels(question.answers);
 
@@ -25,8 +27,8 @@ export default class PieAnswer extends Component {
       datasets: [
         {
           data: Object.values(labelObject),
-          backgroundColor: pieColors.agency,
-          hoverBackgroundColor: pieColors.agency
+          backgroundColor: pieColors[`${category}`],
+          hoverBackgroundColor: pieColors[`${category}`]
         }
       ]
     };
@@ -34,6 +36,15 @@ export default class PieAnswer extends Component {
     return (
       <div>
         <Pie data={data} legend={{ position: "bottom" }} />
+        <RightCommentWrapper>
+          <Comment
+            active={
+              question.answers.filter(answer => answer.comment).length > 0
+            }
+          >
+            Comments
+          </Comment>
+        </RightCommentWrapper>
       </div>
     );
   }

@@ -5,6 +5,7 @@ import moment from "moment";
 
 import ReviewSection from "./ReviewSection";
 import BarAnswer from "./ProfileAnswers/BarAnswer";
+import CommentsBox from "./ProfileAnswers/CommentsBox";
 
 import {
   Wrapper,
@@ -28,7 +29,9 @@ export default class Profile extends Component {
   state = {
     summary: null,
     reviewDetails: null,
-    loaded: false
+    loaded: false,
+    commentsOpen: false,
+    commentsQuestion: null
   };
 
   fetchData = () => {
@@ -47,6 +50,11 @@ export default class Profile extends Component {
   componentDidMount() {
     this.fetchData();
   }
+
+  toggleComments = question => {
+    const { commentsOpen } = this.state;
+    this.setState({ commentsOpen: !commentsOpen, commentsQuestion: question });
+  };
 
   reviewsByMonth = () => {
     const { reviews } = this.state.summary;
@@ -76,7 +84,13 @@ export default class Profile extends Component {
   };
 
   render() {
-    const { summary, reviewDetails, loaded } = this.state;
+    const {
+      summary,
+      reviewDetails,
+      loaded,
+      commentsOpen,
+      commentsQuestion
+    } = this.state;
     if (!loaded) return <h1>Loading...</h1>;
 
     const {
@@ -149,14 +163,21 @@ export default class Profile extends Component {
           {reviewDetails.map(
             section =>
               section._id === "Key ratings" && (
-                <ReviewSection sectionDetails={section} />
+                <ReviewSection
+                  sectionDetails={section}
+                  toggleComments={this.toggleComments}
+                />
               )
           )}
           {/* OTHER SECTIONS */}
           {reviewDetails.map(
             section =>
               section._id !== "Key ratings" && (
-                <ReviewSection sectionDetails={section} />
+                <ReviewSection
+                  category={category}
+                  sectionDetails={section}
+                  toggleComments={this.toggleComments}
+                />
               )
           )}
 
@@ -169,6 +190,12 @@ export default class Profile extends Component {
 
           <div>Overall Ratings section</div>
         </ReviewDiv>
+        {commentsOpen && (
+          <CommentsBox
+            question={commentsQuestion}
+            toggleComments={this.toggleComments}
+          />
+        )}
       </Wrapper>
     );
   }

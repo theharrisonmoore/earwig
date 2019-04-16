@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-import { colors, organizations, shadows } from "./../../../../theme";
+import { colors, organizations, shadows, borders } from "./../../../../theme";
 
 export const YesNoWrapper = styled.div`
   width: 100%;
   display: flex;
+  height: 2rem;
 `;
 
 export const YesHalf = styled.div`
@@ -13,6 +14,8 @@ export const YesHalf = styled.div`
   border-right: none;
   color: ${colors.green};
   padding: 0 0.5rem;
+  display: flex;
+  align-items: center;
 `;
 
 export const NoHalf = styled.div`
@@ -23,6 +26,7 @@ export const NoHalf = styled.div`
   padding: 0 0.5rem;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 `;
 
 export const Comment = styled.button`
@@ -39,6 +43,13 @@ export const Comment = styled.button`
   cursor: ${props => (props.active ? "pointer" : "not-allowed !important")};
 `;
 
+export const RightCommentWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+  height: 2rem;
+`;
+
 export const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -50,5 +61,46 @@ export const ListItem = styled.p`
     props.color === "default"
       ? `${colors.profileFontColor}`
       : `${organizations[props.color].primary}`};
+  font-weight: 900;
+`;
+
+export const Wrapper = styled.div`
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-color: ${colors.ghostWhite};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const CommentsDiv = styled.div`
+  background: white;
+  width: 60%;
+  height: 70%;
+  box-sizing: border-box;
+  border: ${borders.commentBox};
+  box-shadow: ${shadows.commentShadow};
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  text-align: left;
+`;
+
+export const CommentsHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid red;
+`;
+
+export const Close = styled.img`
+  margin-right: 0;
+  margin-left: 1rem;
+`;
+
+export const CommentsTitle = styled.h2`
+  font-size: 1.125rem;
+  color: ${colors.profileFontColor};
+  margin-bottom: 0;
   font-weight: 900;
 `;

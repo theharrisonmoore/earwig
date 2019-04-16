@@ -14,7 +14,7 @@ export default class YesNoAnswer extends Component {
   };
 
   render() {
-    const { question } = this.props;
+    const { question, toggleComments } = this.props;
 
     return (
       <YesNoWrapper>
@@ -24,11 +24,13 @@ export default class YesNoAnswer extends Component {
         <NoHalf width={this.countYesNo("no", question.answers)}>
           {this.countYesNo("no", question.answers)}
         </NoHalf>
-        <Comment
-          active={question.answers.filter(answer => answer.comment).length > 0}
-        >
-          Comments
-        </Comment>
+        {question.answers.filter(answer => answer.comment).length > 0 ? (
+          <Comment onClick={() => toggleComments(question)} active>
+            Comments
+          </Comment>
+        ) : (
+          <Comment>Comments</Comment>
+        )}
       </YesNoWrapper>
     );
   }
