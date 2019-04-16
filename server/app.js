@@ -1,5 +1,5 @@
 // test comment
-const createError = require("http-errors");
+const boom = require("boom");
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === "production") {
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  next(createError(404));
+  next(boom.notFound("Not Found"));
 });
 
 
@@ -42,12 +42,10 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   // send the error object
   if (err.isBoom) {
-    console.log("err", err);
     // for boom errors
     res.status(err.output.statusCode || 500);
   } else {
     // for unexpected internal server errors
-    console.log("err", err);
     res.status(err.statusCode || 500);
   }
   res.json({ error: err.message });
