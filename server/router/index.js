@@ -9,12 +9,21 @@ const loginController = require("./../controllers/login");
 const signupController = require("./../controllers/signup");
 const editProfile = require("./../controllers/editProfile");
 const postTradesController = require("../controllers/addTrade");
+const authentication = require("../middlewares/authentication");
 
 // require all the routes in this file
 router.post(
   "/login",
   validation("login"),
   loginController,
+);
+
+router.post(
+  "/test",
+  authentication,
+  (req, res) => {
+    console.log(req.user);
+  },
 );
 
 router.post(

@@ -1,5 +1,5 @@
 // test comment
-const createError = require("http-errors");
+const boom = require("boom");
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -33,14 +33,20 @@ if (process.env.NODE_ENV === "production") {
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  next(createError(404));
+  next(boom.notFound("Not Found"));
 });
 
 // error handler
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   // send the error object
-  res.status(err.output.statusCode || 500);
+  if (err.isBoom) {
+    // for boom errors
+    res.status(err.output.statusCode || 500);
+  } else {
+    // for unexpected internal server errors
+    res.status(err.statusCode || 500);
+  }
   res.json({ error: err.message });
 });
 

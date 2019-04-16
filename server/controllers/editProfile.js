@@ -2,7 +2,7 @@ const boom = require("boom");
 const { compare, hash } = require("bcryptjs");
 const User = require("./../database/models/User");
 
-const { findById, updateUserById } = require("./../database/queries/user");
+const { getUserById, updateUserById } = require("./../database/queries/user");
 
 module.exports = async (req, res, next) => {
   const { oldPassword, newPassword } = req.body;
@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
 
   const fakeUser = await User.findOne();
 
-  return findById(fakeUser.id)
+  return getUserById(fakeUser.id)
     .then((user) => {
       if (oldPassword || newPassword) {
         // validate old password
