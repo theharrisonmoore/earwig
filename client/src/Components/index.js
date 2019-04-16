@@ -13,6 +13,8 @@ import Signup from "./Pages/Signup";
 import Thankyou from "./Pages/ThankYou";
 import Navbar from "./Common/Navbar";
 
+import SideMenu from "./Pages/Admin/SideMenu";
+
 export default function index(props) {
   const { handleChangeState, isMobile, isLoggedIn, state } = props;
 
@@ -49,6 +51,17 @@ export default function index(props) {
           path="/upload-verification-photo"
           render={props => (
             <UploadImage
+              {...props}
+              handleChangeState={handleChangeState}
+              {...state}
+            />
+          )}
+        />
+
+        <Route
+          path="/admin"
+          render={props => (
+            <SideMenu
               {...props}
               handleChangeState={handleChangeState}
               {...state}
