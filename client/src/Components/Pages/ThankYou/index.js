@@ -1,4 +1,4 @@
-/**
+/** directions:
  * to redirect to to this page
  * add orgType in the Link state
  *  <Link
