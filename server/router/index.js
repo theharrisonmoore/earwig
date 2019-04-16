@@ -9,21 +9,15 @@ const loginController = require("./../controllers/login");
 const signupController = require("./../controllers/signup");
 const editProfile = require("./../controllers/editProfile");
 const postTradesController = require("../controllers/addTrade");
+
 const authentication = require("../middlewares/authentication");
+const authorization = require("../middlewares/authorization");
 
 // require all the routes in this file
 router.post(
   "/login",
   validation("login"),
   loginController,
-);
-
-router.post(
-  "/test",
-  authentication,
-  (req, res) => {
-    console.log(req.user);
-  },
 );
 
 router.post(
@@ -54,6 +48,8 @@ router.post(
 
 router.post(
   "/edit-profile",
+  authentication,
+  authorization("LEVEL3"),
   upload("verificationImage"),
   validation("editProfile"),
   toGoogle(false),
