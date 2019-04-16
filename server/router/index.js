@@ -10,6 +10,8 @@ const loginController = require("./../controllers/login");
 const signupController = require("./../controllers/signup");
 const postTradesController = require("../controllers/addTrade");
 
+const uploadWorksiteController = require("../controllers/uploadWorksiteImage");
+
 
 router.get("/questions", getByOrg);
 
@@ -30,6 +32,14 @@ router.post(
   toGoogle(),
   deleteFileFromServer,
   uploadVerificationImage,
+);
+
+router.post(
+  "/worksite-image",
+  upload("worksiteImage"),
+  toGoogle(),
+  deleteFileFromServer,
+  uploadWorksiteController,
 );
 
 router.get(
