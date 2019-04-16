@@ -128,6 +128,7 @@ export const ReviewButton = styled.button`
   align-items: center;
   min-width: 8rem;
   margin-left: 0.5rem;
+  z-index: -1;
 
   h4 {
     margin: 0;

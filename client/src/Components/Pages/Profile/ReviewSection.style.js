@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors } from "./../../../theme";
+import { colors, borders, shadows } from "./../../../theme";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -29,4 +29,7 @@ export const QuestionTitle = styled.h3`
   color: ${colors.profileFontColor};
   font-weight: bold;
   margin: 0;
+  margin-bottom: 0.25rem;
 `;
+
+

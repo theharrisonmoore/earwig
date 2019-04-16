@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   right: 0rem;
   width: ${props => (props.isMobile ? `100%` : "25%")};
   padding-top: 4rem;
-  z-index: 100;
+  z-index: 3;
   box-shadow: ${shadows.buttonShadow};
 
   .active {
