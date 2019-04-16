@@ -16,8 +16,6 @@ export default class ReviewSection extends Component {
     const { sectionDetails } = this.props;
     const { _id: sectionTitle, questions } = sectionDetails;
 
-    console.log("SECTION", sectionDetails);
-
     return (
       // Question - Title, AggregatedAnswer, Comment Box
       <Wrapper>

@@ -30,4 +30,5 @@ export const QuestionTitle = styled.h3`
   font-weight: bold;
   margin: 0;
   margin-bottom: 0.5rem;
+  text-align: left;
 `;

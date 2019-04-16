@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import moment from "moment";
 
 import ReviewSection from "./ReviewSection";
+import BarAnswer from "./ProfileAnswers/BarAnswer";
 
 import {
   Wrapper,
@@ -37,7 +39,7 @@ export default class Profile extends Component {
       .then(res => {
         const { summary, reviewDetails } = res.data;
 
-        this.setState({ summary, reviewDetails, loaded: true });
+        this.setState({ summary: summary[0], reviewDetails, loaded: true });
       })
       .catch(err => console.log(err));
   };
@@ -46,17 +48,36 @@ export default class Profile extends Component {
     this.fetchData();
   }
 
-  sortInfo = () => {
-    const profileSections = this.state.reviewDetails.map(section =>
-      console.log(section)
+  reviewsByMonth = () => {
+    const { reviews } = this.state.summary;
+
+    const reviewMonths = reviews.map(review =>
+      moment(review.createdAt).format("MMM")
     );
+
+    let reviewMonthsCount = {
+      Jan: 0,
+      Feb: 0,
+      Mar: 0,
+      Apr: 0,
+      May: 0,
+      Jun: 0,
+      Jul: 0,
+      Aug: 0,
+      Sep: 0,
+      Oct: 0,
+      Nov: 0,
+      Dec: 0
+    };
+
+    reviewMonths.map(month => (reviewMonthsCount[month] += 1));
+
+    return reviewMonthsCount;
   };
 
   render() {
     const { summary, reviewDetails, loaded } = this.state;
     if (!loaded) return <h1>Loading...</h1>;
-
-    this.sortInfo();
 
     const {
       category,
@@ -66,7 +87,7 @@ export default class Profile extends Component {
       phoneNumber,
       totalReviews,
       websiteURL
-    } = summary[0];
+    } = summary;
 
     return (
       <Wrapper>
@@ -138,6 +159,12 @@ export default class Profile extends Component {
                 <ReviewSection sectionDetails={section} />
               )
           )}
+
+          <BarAnswer
+            category={category}
+            reviewsByMonth={this.reviewsByMonth()}
+          />
+
           {/* OVERALL RATINGS SECTION */}
 
           <div>Overall Ratings section</div>
