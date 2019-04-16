@@ -17,8 +17,6 @@ import {
   Input
 } from "./Question.style";
 
-import { organizations } from "../../../../theme";
-
 const Question = props => {
   if (!props) {
     return null;
@@ -207,7 +205,7 @@ const QuestionOptions = props => {
   if (type === "rate") {
     return (
       <QuestionOptionsWrapper>
-        <Rater setFieldValue={props.setFieldValue} />;
+        <Rater setFieldValue={props.setFieldValue} />
       </QuestionOptionsWrapper>
     );
   }

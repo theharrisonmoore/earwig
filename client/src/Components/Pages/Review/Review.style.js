@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { colors, organizations } from "../../../theme";
-import { MOBILE_WIDTH } from "../../../constants/screenWidths";
 
 export const Header = styled.section`
   width: 100%;
