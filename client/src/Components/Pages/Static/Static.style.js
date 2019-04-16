@@ -30,7 +30,7 @@ export const PageTitle = styled.h1`
 
   color: ${colors.profileFontColor};
 
-  @media (max-width: ${MOBILE_WIDTH}) {
+  @media (max-width: ${MOBILE_WIDTH}px) {
     display: none;
   }
 `;
@@ -43,7 +43,7 @@ export const SubTitle = styled.h4`
   text-align: left;
   margin-bottom: 0;
   margin-top: ${props => (props.list ? "0" : "1.5rem")};
-  @media (min-width: ${MOBILE_WIDTH}) {
+  @media (min-width: ${MOBILE_WIDTH}px) {
     font-size: 1.5rem;
   }
 `;
@@ -53,7 +53,7 @@ export const SmallParagraph = styled.p`
 
   color: ${colors.profileFontColor};
   text-align: left;
-  @media (min-width: ${MOBILE_WIDTH}) {
+  @media (min-width: ${MOBILE_WIDTH}px) {
     font-size: 1.125rem;
   }
 `;
@@ -103,7 +103,7 @@ export const Button = styled.button`
   &:focus {
     outline: none;
   }
-  @media (min-width: ${MOBILE_WIDTH}) {
+  @media (min-width: ${MOBILE_WIDTH}px) {
     max-width: 14rem;
   }
 `;
@@ -114,7 +114,7 @@ export const Devider = styled.div`
   border-bottom: 1px solid ${colors.alto};
   margin: 5rem auto;
 
-  @media (max-width: ${MOBILE_WIDTH}) {
+  @media (max-width: ${MOBILE_WIDTH}px) {
     display: none;
   }
 `;

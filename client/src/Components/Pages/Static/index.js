@@ -14,16 +14,6 @@ import {
   PRIVACY_URL
 } from "./../../../constants/naviagationUrls";
 
-// export const SEARCH_URL = "/search";
-// export const PROFILE_URL = "/profile";
-// export const RESOURCES_URL = "/resources";
-// export const CONTACT_URL = "/contact";
-// export const FAQ_URL = "/faq";
-// export const LOGOUT_URL = "/logout";
-// export const LOGIN_URL = "/login";
-// export const SIGNUP_URL = "/signup";
-// export const THANKYOU_URL = "/thank-you";
-
 export default function(props) {
   const { isMobile, isLoggedIn } = props;
 

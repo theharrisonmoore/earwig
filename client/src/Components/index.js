@@ -63,17 +63,20 @@ export default function index(props) {
           )}
         />
 
-        <Route
-          exact
-          path={[FAQ_URL, RESOURCES_URL, CONTACT_URL, PRIVACY_URL]}
-          render={props => (
-            <StaticPages
-              {...props}
-              handleChangeState={handleChangeState}
-              {...state}
-            />
-          )}
-        />
+        {[FAQ_URL, RESOURCES_URL, CONTACT_URL, PRIVACY_URL].map(route => (
+          <Route
+            key={route}
+            exact
+            path={route}
+            render={props => (
+              <StaticPages
+                {...props}
+                handleChangeState={handleChangeState}
+                {...state}
+              />
+            )}
+          />
+        ))}
 
         {/* 404 Error Page -need to be created */}
         <Route component={PageNotFound} />

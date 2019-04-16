@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
 import quesstionIcon from "./../../../assets/question-mark.svg";
 import {
   Wrapper,
