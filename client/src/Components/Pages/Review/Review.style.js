@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { colors, organizations } from "../../../theme";
+import { MOBILE_WIDTH } from "../../../constants/screenWidths";
 
 export const Header = styled.section`
   width: 100%;
@@ -43,7 +44,7 @@ export const OrgName = styled.h2`
   margin-bottom: 0;
   font-weight: 900;
   font-size: 1.375rem;
-  color: white;
+  color: ${colors.white};
 `;
 
 export const ReviewTime = styled.p`
@@ -58,7 +59,7 @@ export const FormWrapper = styled.div`
 export const UserAgreement = styled.div``;
 
 export const Level2Header = styled.h2`
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid ${colors.lightGray};
   display: inline-block;
 `;
 

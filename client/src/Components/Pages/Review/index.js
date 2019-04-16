@@ -20,6 +20,12 @@ import {
   AgreementLabel
 } from "./Review.style";
 
+import {
+  GET_QUESTIONS_URL,
+  POST_REVIEW_URL,
+  THANKYOU_URL
+} from "../../../constants/naviagationUrls";
+
 import { StyledErrorMessage } from "./Question/Question.style";
 
 import Question from "./Question/index";
@@ -55,12 +61,13 @@ const STATIC_QUESTIONS = [
 class Review extends Component {
   state = {
     groups: [],
-    organization: { category: "worksite", name: "Bournemouth University" },
-    user: { email: "level3@earwig.com" }
+    organization: { category: "agency", name: "Bournemouth University" },
+    user: { email: "level3@earwig.com" },
+    worksiteImage: ""
   };
   componentDidMount() {
     axios
-      .get("/api/questions/", {
+      .get(GET_QUESTIONS_URL, {
         params: {
           organization: this.state.organization.category
         }
@@ -83,9 +90,9 @@ class Review extends Component {
       user
     };
     axios
-      .post(`/api/review/${organization.category}`, review)
+      .post(POST_REVIEW_URL, review)
       .then(res => {
-        this.props.history.push(`/thank-you`, {
+        this.props.history.push(THANKYOU_URL, {
           orgType: organization.category
         });
       })
@@ -106,8 +113,10 @@ class Review extends Component {
         overallReview: "",
         voiceReview: ""
       },
-      hasAgreed: false
+      hasAgreed: false,
+      worksiteImage: ""
     };
+
     if (!this.state && !this.state.groups[0]) {
       return null;
     }
@@ -140,7 +149,13 @@ class Review extends Component {
               validationSchema[this.state.organization.category]
             }
           >
-            {({ values, isSubmitting, handleChange, errors }) => {
+            {({
+              values,
+              isSubmitting,
+              handleChange,
+              errors,
+              setFieldValue
+            }) => {
               return (
                 <FormWrapper>
                   <Form>
@@ -161,6 +176,7 @@ class Review extends Component {
                                   handleChagne={handleChange}
                                   question={question}
                                   errors={errors}
+                                  setFieldValue={setFieldValue}
                                 />
                               );
                             })}
@@ -173,6 +189,7 @@ class Review extends Component {
                         {...values}
                         handleChagne={handleChange}
                         question={STATIC_QUESTIONS[0]}
+                        setFieldValue={setFieldValue}
                       />
                       <Question
                         {...values}

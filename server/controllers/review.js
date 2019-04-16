@@ -24,8 +24,8 @@ const postReview = async (req, res, next) => {
     review: {
       rate, overallReview, workPeriod, voiceReview,
     },
-    hasAgreed,
     checklist,
+    worksiteImage,
   } = req.body.values;
   const { user, organization } = req.body;
   try {
@@ -41,10 +41,10 @@ const postReview = async (req, res, next) => {
         text: overallReview,
       },
       workPeriod: workPeriod || {
-        from: "2019-01-01",
+        from: "2019-01-01", // temp until we agree on a datepicker
         to: "2019-03-31",
       },
-      voiceReview: voiceReview || "voice/file",
+      voiceReview: voiceReview || "voice/file", // temp until we agree on a datepicker
     });
 
     const currentReview = await newReview.save();
@@ -63,20 +63,31 @@ const postReview = async (req, res, next) => {
 
     if (organization.category === "worksite") {
       const checklistQuestin = questions.filter(q => q.type === "checklist");
-      const checklistAnswer = {
-        user: userData,
-        review: currentReview,
-        question: checklistQuestin[0],
-        answer: checklist,
-      };
-      allAnswers = [...reviewAnswers, checklistAnswer];
+      const image = questions.filter(q => q.type === "image");
+      if (checklistQuestin && checklistQuestin[0] && checklistQuestin[0].text) {
+        const checklistAnswer = {
+          user: userData,
+          review: currentReview,
+          question: checklistQuestin[0],
+          answer: checklist,
+        };
+        allAnswers = [...reviewAnswers, checklistAnswer];
+      }
+      if (image && image[0] && image[0].text) {
+        const imageAnswer = {
+          user: userData,
+          review: currentReview,
+          question: image[0],
+          answer: worksiteImage,
+        };
+        allAnswers = [...reviewAnswers, imageAnswer];
+      }
     }
 
     await Answer.insertMany(allAnswers);
 
     res.send();
   } catch (error) {
-    console.log("catch errrrr", error);
     next(boom.badImplementation);
   }
 };

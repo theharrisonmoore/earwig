@@ -7,3 +7,8 @@ export const LOGOUT_URL = "/logout";
 export const LOGIN_URL = "/login";
 export const SIGNUP_URL = "/signup";
 export const THANKYOU_URL = "/thank-you";
+
+// API URLs
+export const GET_QUESTIONS_URL = "/api/questions/";
+export const POST_REVIEW_URL = "/api/review/";
+export const UPLOAD_WORKSITE_IMAGE_URL = "/api/worksite-image";

@@ -1,8 +1,9 @@
 import React from "react";
 import { Field, FieldArray, ErrorMessage } from "formik";
-import commentIcon from "../../../../assets/Bitmap.svg";
-import { Rate } from "antd";
-import "antd/dist/antd.css";
+import commentIcon from "../../../../assets/comment-icon.svg";
+import Rater from "../../../Common/Rater";
+
+import UploadImage from "./UploadPhoto";
 
 import {
   QuestionWrapper,
@@ -32,7 +33,7 @@ const Question = props => {
     category,
     name
   } = props.question;
-  const { questions, values, errors } = props;
+  const { questions, values, errors, setFieldValue } = props;
   return (
     <QuestionWrapper>
       <QText>{text}</QText>
@@ -46,6 +47,7 @@ const Question = props => {
         questions={questions}
         values={values}
         errors={errors}
+        setFieldValue={setFieldValue}
       />
     </QuestionWrapper>
   );
@@ -137,28 +139,6 @@ const QuestionOptions = props => {
     );
   }
 
-  if (type === "rate") {
-    return (
-      <QuestionOptionsWrapper>
-        <div className={`choices choices-${options.length}`}>
-          <Field
-            name={`review.rate`}
-            render={({ field: { name, value, onChange, onBlur } }) => (
-              <Rate
-                name={name}
-                onChange={onChange}
-                style={{ color: organizations[category] }}
-              />
-            )}
-          />
-          <ErrorMessage name={`questions[${number}]`}>
-            {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
-          </ErrorMessage>
-        </div>
-      </QuestionOptionsWrapper>
-    );
-  }
-
   if (type === "overallReview") {
     return (
       <QuestionOptionsWrapper>
@@ -217,7 +197,19 @@ const QuestionOptions = props => {
   }
 
   if (type === "image") {
-    return <QuestionOptionsWrapper>Image uploader here</QuestionOptionsWrapper>;
+    return (
+      <QuestionOptionsWrapper>
+        <UploadImage setFieldValue={props.setFieldValue} />
+      </QuestionOptionsWrapper>
+    );
+  }
+
+  if (type === "rate") {
+    return (
+      <QuestionOptionsWrapper>
+        <Rater setFieldValue={props.setFieldValue} />;
+      </QuestionOptionsWrapper>
+    );
   }
 
   return null;
