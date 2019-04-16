@@ -1,6 +1,6 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
-import { colors, borders, shadows } from "./../../../../theme";
+import { colors, organizations, shadows } from "./../../../../theme";
 
 export const YesNoWrapper = styled.div`
   width: 100%;
@@ -39,3 +39,16 @@ export const Comment = styled.button`
   cursor: ${props => (props.active ? "pointer" : "not-allowed !important")};
 `;
 
+export const ListWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ListItem = styled.p`
+  margin: 0;
+  color: ${props =>
+    props.color === "default"
+      ? `${colors.profileFontColor}`
+      : `${organizations[props.color].primary}`};
+  font-weight: 900;
+`;
