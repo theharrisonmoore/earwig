@@ -22,6 +22,8 @@ router.post(
 
 router.post(
   "/upload-verification-image",
+  authentication,
+  authorization("LEVEL1"),
   upload("verificationImage"),
   validation("uploadVerificationImage"),
   toGoogle(true),
@@ -31,11 +33,15 @@ router.post(
 
 router.get(
   "/trades",
+  authentication,
+  authorization("LEVEL3"),
   getTradesController,
 );
 
 router.post(
   "/trades",
+  authentication,
+  authorization("LEVEL1"),
   validation("addTrade"),
   postTradesController,
 );
