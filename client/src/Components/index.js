@@ -4,7 +4,9 @@ import { Route, Switch } from "react-router-dom";
 import {
   SIGNUP_URL,
   LOGIN_URL,
-  THANKYOU_URL
+  THANKYOU_URL,
+  EDIT_PROFILE_URL,
+  UPLOAD_VERIFICATION_URL
 } from "./../constants/naviagationUrls";
 
 import UploadImage from "./Pages/UploadImage";
@@ -47,7 +49,7 @@ export default function index(props) {
         />
         <Route
           exact
-          path="/upload-verification-photo"
+          path={UPLOAD_VERIFICATION_URL}
           render={props => (
             <UploadImage
               {...props}
@@ -59,7 +61,7 @@ export default function index(props) {
 
         <Route
           exact
-          path="/edit-profile"
+          path={EDIT_PROFILE_URL}
           render={props => (
             <EditProfile
               {...props}
@@ -68,9 +70,6 @@ export default function index(props) {
             />
           )}
         />
-        {/* orgType required as state in Link for this */}
-        <Route path="/thank-you" component={Thankyou} />
-
         {/* 404 Error Page -need to be created */}
         <Route component={PageNotFound} />
       </Switch>
