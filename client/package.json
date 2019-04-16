@@ -5,9 +5,11 @@
   "dependencies": {
     "antd": "^3.16.3",
     "axios": "^0.18.0",
+    "chart.js": "^2.8.0",
     "formik": "^1.5.2",
     "http-proxy-middleware": "^0.19.1",
     "react": "^16.8.2",
+    "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.8.2",
     "react-inlinesvg": "^0.8.4",
     "react-router-dom": "^4.3.1",

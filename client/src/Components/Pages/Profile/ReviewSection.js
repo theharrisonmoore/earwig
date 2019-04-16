@@ -9,6 +9,7 @@ import {
 
 import YesNoAnswer from "./ProfileAnswers/YesNoAnswer.js";
 import ListAnswer from "./ProfileAnswers/ListAnswer.js";
+import PieAnswer from "./ProfileAnswers/PieAnswer.js";
 
 export default class ReviewSection extends Component {
   render() {
@@ -30,6 +31,9 @@ export default class ReviewSection extends Component {
               )}
               {question.question.profileType === "list" && (
                 <ListAnswer question={question} />
+              )}
+              {question.question.profileType === "pieChart" && (
+                <PieAnswer question={question} />
               )}
             </QuestionWrapper>
           ))}

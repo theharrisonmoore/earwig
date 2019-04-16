@@ -29,7 +29,5 @@ export const QuestionTitle = styled.h3`
   color: ${colors.profileFontColor};
   font-weight: bold;
   margin: 0;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
 `;
-
-

@@ -82,4 +82,17 @@ export const borders = {
   searchBox: `1px solid ${colors.lightGray}`
 };
 
+export const pieColors = {
+  agency: [
+    "#8B51FC",
+    "#7F4AE6",
+    "#7243CF",
+    "#663BB8",
+    "#5934A1",
+    "#4C2D8A",
+    "#402573",
+    "#331E5C"
+  ]
+};
+
 //  font families to be added
