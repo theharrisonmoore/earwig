@@ -1,18 +1,18 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { colors, shadows } from "./../../../theme";
+import { MOBILE_WIDTH } from "./../../../constants/screenWidths";
 
 export const Wrapper = styled.div`
   width: 100%;
   max-width: 60rem;
-  margin: 1rem auto;
+  margin: 0 auto 1rem;
   padding: 0 1rem;
   padding-top: 2rem;
 `;
 
 export const ContentWrapper = styled.div`
   width: calc(85% + 2rem);
-  margin: 0 auto;
+  margin: 5rem auto;
   margin-bottom: 3rem;
 `;
 
@@ -115,7 +115,8 @@ export const Devider = styled.div`
   height: 1px;
   border-bottom: 1px solid #d8d8d8;
   margin: 5rem auto;
-  @media (max-width: 768px) {
+
+  @media (max-width: ${MOBILE_WIDTH}) {
     display: none;
   }
 `;

@@ -11,6 +11,7 @@ import UploadImage from "./Pages/UploadImage";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Thankyou from "./Pages/ThankYou";
+import StaticPages from "./Pages/Static";
 import Navbar from "./Common/Navbar";
 
 export default function index(props) {
@@ -49,6 +50,23 @@ export default function index(props) {
           path="/upload-verification-photo"
           render={props => (
             <UploadImage
+              {...props}
+              handleChangeState={handleChangeState}
+              {...state}
+            />
+          )}
+        />
+
+        <Route
+          exact
+          path={[
+            "/faq",
+            "/helpful-stuff",
+            "/shape-earwig",
+            "/privacy-and-terms"
+          ]}
+          render={props => (
+            <StaticPages
               {...props}
               handleChangeState={handleChangeState}
               {...state}
