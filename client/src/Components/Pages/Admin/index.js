@@ -32,8 +32,17 @@ export default class Admin extends Component {
             />
             <Route path={USERS} render={props => <Users {...props} />} />
             <Route path={REVIEWS} render={props => <Reviews {...props} />} />
-            <Route path={TRADES} render={props => <h1>Trades</h1>} />
+            <Route exact path={TRADES} render={props => <h1>Trades</h1>} />
             <Route path={ORGANIZATIONS} render={props => <Organizations />} />
+            <Route
+              render={props => (
+                <>
+                  <h1>Not Found</h1>
+                  <br />
+                  <small>admin</small>
+                </>
+              )}
+            />
           </Switch>
         </ContentWrapper>
       </AdminWrapper>
