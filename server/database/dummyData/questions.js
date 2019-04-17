@@ -21,6 +21,11 @@ module.exports = () => {
       jumpTo: [{ value: "yes", nextQuestion: 2 }, { value: "no", nextQuestion: 3 }],
       options: ["yes", "no"],
       category: "agency",
+      group: {
+        groupOrder: 0,
+        name: "general",
+        text: "General",
+      },
     },
     {
       number: 2,
@@ -29,6 +34,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: {
+        groupOrder: 0,
+        name: "general",
+        text: "General",
+      },
     },
     {
       number: 3,
@@ -37,6 +47,11 @@ module.exports = () => {
       isJumping: false,
       options: ["totally inaccurate", "Not very accurate", "Mostly accurate", "Fully accurate"],
       category: "agency",
+      group: {
+        groupOrder: 0,
+        name: "general",
+        text: "General",
+      },
     },
     {
       number: 4,
@@ -45,6 +60,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: {
+        groupOrder: 0,
+        name: "general",
+        text: "General",
+      },
     },
     {
       number: 5,
@@ -53,6 +73,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: {
+        groupOrder: 0,
+        name: "general",
+        text: "General",
+      },
     },
     {
       number: 6,
@@ -61,6 +86,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: {
+        groupOrder: 0,
+        name: "general",
+        text: "General",
+      },
     },
     {
       number: 7,
@@ -69,6 +99,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: {
+        groupOrder: 0,
+        name: "general",
+        text: "General",
+      },
     },
     {
       number: 8,
@@ -77,13 +112,25 @@ module.exports = () => {
       hintText: "This will be seen only by the agency",
       isJumping: false,
       category: "agency",
+      group: {
+        groupOrder: 0,
+        name: "general",
+        text: "General",
+      },
     },
+
+
     {
       number: 9,
       type: "number",
       text: "What hourly rate were you paid?",
       isJumping: false,
       category: "agency",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting your wages",
+      },
     },
     {
       number: 10,
@@ -93,10 +140,15 @@ module.exports = () => {
       jumpTo: [{ value: "yes", nextQuestion: 18 }, { value: "no", nextQuestion: 11 }],
       options: ["yes", "no"],
       category: "agency",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting your wages",
+      },
     },
     {
       number: 11,
-      type: "radio",
+      type: "dropdown",
       text: "What's the name of the payroll?",
       isJumping: false,
       options: [
@@ -111,14 +163,24 @@ module.exports = () => {
         "Danbro",
       ],
       category: "agency",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting your wages",
+      },
     },
     {
       number: 12,
-      type: "radio",
+      type: "yesno",
       text: "What was the payroll type?",
       isJumping: false,
       options: ["CIS", "Ltd", "PAYE", "Umbrella"],
       category: "agency",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting your wages",
+      },
     },
     {
       number: 13,
@@ -127,6 +189,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting your wages",
+      },
     },
     {
       number: 14,
@@ -135,47 +202,90 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting your wages",
+      },
     },
     {
       number: 15,
-      type: "radio",
+      type: "yesno",
       text: "Were your payslips easily accessible?",
       isJumping: false,
       options: ["yes", "no", "I didn't check"],
       category: "agency",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting your wages",
+      },
     },
     {
       number: 16,
+      type: "yesno",
+      text: "Did the payslips show all the information you needed?",
+      isJumping: false,
+      options: ["yes", "no", "I didn't check"],
+      category: "agency",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting your wages",
+      },
+    },
+    {
+      number: 17,
       type: "yesno",
       text: "Were you charged for payroll?",
       isJumping: true,
       jumpTo: [{ value: "yes", nextQuestion: 17 }, { value: "no", nextQuestion: 18 }],
       options: ["yes", "no"],
       category: "agency",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting your wages",
+      },
     },
     {
-      number: 17,
+      number: 18,
       type: "number",
       text: "How much were you charged?",
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting your wages",
+      },
     },
     {
-      number: 18,
-      type: "radio",
+      number: 19,
+      type: "yesno",
       text: "Were you always treated fairly by this agency over any payment issues?",
       isJumping: false,
       options: ["yes", "no", "no issues"],
       category: "agency",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting your wages",
+      },
     },
     {
-      number: 19,
+      number: 20,
       type: "yesno",
       text: "Overall, would you be happy to use this agency again?",
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
+      group: {
+        groupOrder: 2,
+        name: "overall",
+        text: "Overall rating",
+      },
     },
 
     /* =========================== questionsPayroll ==================================== */
@@ -189,6 +299,11 @@ module.exports = () => {
       jumpTo: [{ value: "yes", nextQuestion: 2 }, { value: "no", nextQuestion: 3 }],
       options: ["yes", "no"],
       category: "payroll",
+      group: {
+        groupOrder: 0,
+        name: "general",
+        text: "General",
+      },
     },
     {
       number: 2,
@@ -197,6 +312,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "payroll",
+      group: {
+        groupOrder: 0,
+        name: "general",
+        text: "General",
+      },
     },
     {
       number: 3,
@@ -206,13 +326,24 @@ module.exports = () => {
       isJumping: false,
       options: ["totally inaccurate", "Not very accurate", "Mostly accurate", "Fully accurate"],
       category: "payroll",
+      group: {
+        groupOrder: 0,
+        name: "general",
+        text: "General",
+      },
     },
+
     {
       number: 4,
       type: "number",
       text: "What hourly rate were you paid?",
       isJumping: false,
       category: "payroll",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting yor wages",
+      },
     },
     {
       number: 5,
@@ -221,6 +352,11 @@ module.exports = () => {
       isJumping: false,
       options: ["CIS", "Ltd", "PAYE", "Umbrella"],
       category: "payroll",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting yor wages",
+      },
     },
     {
       number: 6,
@@ -229,6 +365,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "payroll",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting yor wages",
+      },
     },
     {
       number: 7,
@@ -237,6 +378,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "payroll",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting yor wages",
+      },
     },
     {
       number: 8,
@@ -245,6 +391,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no", "I didn't check"],
       category: "payroll",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting yor wages",
+      },
     },
     {
       number: 9,
@@ -253,6 +404,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no", "I didn't check"],
       category: "payroll",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting yor wages",
+      },
     },
     {
       number: 10,
@@ -262,14 +418,23 @@ module.exports = () => {
       jumpTo: [{ value: "yes", nextQuestion: 11 }, { value: "no", nextQuestion: 12 }],
       options: ["yes", "no"],
       category: "payroll",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting yor wages",
+      },
     },
     {
       number: 11,
       type: "number",
       text: "How much were you charged?",
       isJumping: false,
-      options: ["yes", "no"],
       category: "payroll",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting yor wages",
+      },
     },
     {
       number: 12,
@@ -278,10 +443,15 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no", "no issues"],
       category: "payroll",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting yor wages",
+      },
     },
     {
       number: 13,
-      type: "radio",
+      type: "dropdown",
       text: "What's the name of the agency you used?",
       isJumping: false,
       options: [
@@ -305,6 +475,11 @@ module.exports = () => {
         "Bluebell",
       ],
       category: "payroll",
+      group: {
+        groupOrder: 1,
+        name: "wages",
+        text: "Getting yor wages",
+      },
     },
 
     {
@@ -314,10 +489,14 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "payroll",
+      group: {
+        groupOrder: 2,
+        name: "overall",
+        text: "Overall rating",
+      },
     },
 
     /* =============================== worksite ================================ */
-
     {
       number: 1,
       type: "radio",
@@ -326,6 +505,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no", "don't know"],
       category: "worksite",
+      group: {
+        groupOrder: 0,
+        name: "getToSite",
+        text: "Getting on to site",
+      },
     },
     {
       number: 2,
@@ -335,6 +519,11 @@ module.exports = () => {
       jumpTo: [{ value: "yes", nextQuestion: 3 }, { value: "no", nextQuestion: 5 }, { value: "don't know", nextQuestion: 5 }],
       options: ["yes", "no", "don't know"],
       category: "worksite",
+      group: {
+        groupOrder: 0,
+        name: "getToSite",
+        text: "Getting on to site",
+      },
     },
     {
       number: 3,
@@ -344,6 +533,11 @@ module.exports = () => {
       jumpTo: [{ value: "yes", nextQuestion: 5 }, { value: "no", nextQuestion: 4 }],
       options: ["yes", "no"],
       category: "worksite",
+      group: {
+        groupOrder: 0,
+        name: "getToSite",
+        text: "Getting on to site",
+      },
     },
     {
       number: 4,
@@ -351,6 +545,11 @@ module.exports = () => {
       text: "How much did car parking cost per day?",
       isJumping: false,
       category: "worksite",
+      group: {
+        groupOrder: 0,
+        name: "getToSite",
+        text: "Getting on to site",
+      },
     },
     {
       number: 5,
@@ -360,7 +559,13 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no", "yes, but I didn't need it"],
       category: "worksite",
+      group: {
+        groupOrder: 0,
+        name: "getToSite",
+        text: "Getting on to site",
+      },
     },
+
     {
       number: 6,
       type: "yesno",
@@ -368,7 +573,13 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "worksite",
+      group: {
+        groupOrder: 0,
+        name: "getToSite",
+        text: "Getting on to site",
+      },
     },
+
     {
       number: 7,
       type: "yesno",
@@ -376,7 +587,13 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "worksite",
+      group: {
+        groupOrder: 1,
+        name: "onTheSite",
+        text: "Working on the site",
+      },
     },
+
     {
       number: 8,
       type: "yesno",
@@ -384,114 +601,184 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "worksite",
+      group: {
+        groupOrder: 1,
+        name: "onTheSite",
+        text: "Working on the site",
+      },
     },
+
     {
-      number: 9,
       type: "image",
       text: "Upload a photo of the site",
       hintText: "Offer workers a behind-the-scenes look at the site, e.g., work areas, canteen, etc.",
       isJumping: false,
       category: "worksite",
+      group: {
+        groupOrder: 1,
+        name: "onTheSite",
+        text: "Working on the site",
+      },
     },
     {
-      number: 10,
-      type: "radio",
+      number: 9,
+      type: "yesno",
       text: "Were the toilets well maintained?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "worksite",
+      group: {
+        groupOrder: 2,
+        name: "siteWelfare",
+        text: "The site welfare",
+      },
     },
     {
-      number: 11,
-      type: "radio",
+      number: 10,
+      type: "yesno",
       text: "Was there free drinking water available?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "worksite",
+      group: {
+        groupOrder: 2,
+        name: "siteWelfare",
+        text: "The site welfare",
+      },
     },
     {
-      number: 12,
-      type: "radio",
+      number: 11,
+      type: "yesno",
       text: "Did this site have a prayer room?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "worksite",
+      group: {
+        groupOrder: 2,
+        name: "siteWelfare",
+        text: "The site welfare",
+      },
     },
     {
-      number: 13,
+      number: 12,
       type: "radio",
       text: "Was there a canteen or space to take a break?",
       isJumping: true,
       jumpTo: [{ value: "yes", nextQuestion: 14 }, { value: "no", nextQuestion: 16 }, { value: "don't know", nextQuestion: 16 }],
       options: ["yes", "no", "i didn't check"],
       category: "worksite",
+      group: {
+        groupOrder: 2,
+        name: "siteWelfare",
+        text: "The site welfare",
+      },
     },
     {
-      number: 14,
+      number: 13,
       type: "radio",
       text: "Was the canteen heated?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "worksite",
+      group: {
+        groupOrder: 2,
+        name: "siteWelfare",
+        text: "The site welfare",
+      },
     },
     {
-      number: 15,
+      number: 14,
       type: "checklist",
       text: "What amenities did the canteen have?",
       isJumping: false,
       options: ["hot foot served", "vending machines", "tables and charis", "microwave", "kettle/boiling water", "fridge", "I didn't check"],
       category: "worksite",
+      group: {
+        groupOrder: 2,
+        name: "siteWelfare",
+        text: "The site welfare",
+      },
     },
     {
-      number: 16,
+      number: 15,
       type: "radio",
       text: "Were there shops to buy hot food within 10 minutes walk of this site?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "worksite",
+      group: {
+        groupOrder: 2,
+        name: "siteWelfare",
+        text: "The site welfare",
+      },
     },
     {
-      number: 17,
+      number: 16,
       type: "radio",
       text: "Could you buy hot food and a drink for less than £5?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "worksite",
+      group: {
+        groupOrder: 2,
+        name: "siteWelfare",
+        text: "The site welfare",
+      },
     },
     {
-      number: 18,
+      number: 17,
       type: "open",
       text: "Is there a good shop or café near site that you would recommend to other workers?",
       isJumping: false,
       category: "worksite",
+      group: {
+        groupOrder: 2,
+        name: "siteWelfare",
+        text: "The site welfare",
+      },
     },
     {
-      number: 19,
+      number: 18,
       type: "yesno",
       text: "Overall, would you be happy to work on this site again?",
       isJumping: false,
       options: ["yes", "no"],
       category: "worksite",
+      group: {
+        groupOrder: 3,
+        name: "overall",
+        text: "Overall rating",
+      },
     },
 
     /* ============================= company ================================== */
 
     {
       number: 1,
-      type: "radio",
+      type: "yesno",
       text: "Was their materials store well organised?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "company",
+      group: {
+        groupOrder: 0,
+        name: "toolsAndMaterials",
+        text: "Tools & materials",
+      },
     },
     {
       number: 2,
-      type: "radio",
+      type: "yesno",
       text: "Were you offered access equipment when you needed it?",
       hintText: "E.g., stepladders, harnesses, lifters, etc.",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "company",
+      group: {
+        groupOrder: 0,
+        name: "toolsAndMaterials",
+        text: "Tools & materials",
+      },
     },
     {
       number: 3,
@@ -500,6 +787,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "company",
+      group: {
+        groupOrder: 0,
+        name: "toolsAndMaterials",
+        text: "Tools & materials",
+      },
     },
     {
       number: 4,
@@ -508,6 +800,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "company",
+      group: {
+        groupOrder: 0,
+        name: "toolsAndMaterials",
+        text: "Tools & materials",
+      },
     },
     {
       number: 5,
@@ -516,6 +813,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "company",
+      group: {
+        groupOrder: 1,
+        name: "supervisorsAndEmployees",
+        text: "Supervisors & employees",
+      },
     },
     {
       number: 6,
@@ -524,6 +826,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "company",
+      group: {
+        groupOrder: 1,
+        name: "supervisorsAndEmployees",
+        text: "Supervisors & employees",
+      },
     },
     {
       number: 7,
@@ -532,6 +839,11 @@ module.exports = () => {
       hintText: "This will be seen only by the company",
       isJumping: false,
       category: "company",
+      group: {
+        groupOrder: 1,
+        name: "supervisorsAndEmployees",
+        text: "Supervisors & employees",
+      },
     },
     {
       number: 8,
@@ -540,6 +852,11 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "company",
+      group: {
+        groupOrder: 1,
+        name: "supervisorsAndEmployees",
+        text: "Supervisors & employees",
+      },
     },
     {
       number: 9,
@@ -548,6 +865,24 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no"],
       category: "company",
+      group: {
+        groupOrder: 1,
+        name: "supervisorsAndEmployees",
+        text: "Supervisors & employees",
+      },
+    },
+    {
+      number: 10,
+      type: "yesno",
+      text: "Overall, would you be happy to work with this company again?",
+      isJumping: false,
+      options: ["yes", "no"],
+      category: "company",
+      group: {
+        groupOrder: 2,
+        name: "`overall`",
+        text: "Overall rating",
+      },
     },
   ];
   return Question.create(questions);

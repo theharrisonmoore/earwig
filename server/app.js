@@ -36,6 +36,7 @@ app.use((req, res, next) => {
   next(boom.notFound("Not Found"));
 });
 
+
 // error handler
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {

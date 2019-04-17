@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { getByOrg, postReview } = require("../controllers/review");
 const upload = require("../middlewares/uploadFileToServer");
 const toGoogle = require("./../middlewares/uploadToGoogle");
 const uploadVerificationImage = require("./../controllers/uploadVerificationImage");
@@ -9,9 +10,22 @@ const loginController = require("./../controllers/login");
 const signupController = require("./../controllers/signup");
 const postTradesController = require("../controllers/addTrade");
 
-// require all the routes in this file
+const uploadWorksiteController = require("../controllers/uploadWorksiteImage");
+
+const {
+  LOGIN_URL,
+  GET_QUESTIONS_URL,
+  REVIEW_URL,
+  UPLOAD_WORKSITE_IMAGE_URL,
+} = require("../../client/src/apiUrls");
+
+
+router.get(GET_QUESTIONS_URL, getByOrg);
+
+router.post(REVIEW_URL, postReview);
+
 router.post(
-  "/login",
+  LOGIN_URL,
   validation("login"),
   loginController,
 );
@@ -23,6 +37,14 @@ router.post(
   toGoogle(),
   deleteFileFromServer,
   uploadVerificationImage,
+);
+
+router.post(
+  UPLOAD_WORKSITE_IMAGE_URL,
+  upload("worksiteImage"),
+  toGoogle(),
+  deleteFileFromServer,
+  uploadWorksiteController,
 );
 
 router.get(
