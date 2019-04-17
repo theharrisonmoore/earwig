@@ -30,6 +30,130 @@ const schemas = {
   addTrade: {
     trade: Joi.string().min(3).required(),
   },
+  agency: {
+    questions: Joi.object({
+      1: Joi.string().required(),
+      2: Joi.string().required(),
+      3: Joi.string().required(),
+      4: Joi.string().required(),
+      5: Joi.string().required(),
+      6: Joi.string().required(),
+      7: Joi.string().required(),
+      8: Joi.string().required(),
+
+      // number input
+      9: Joi.string().required(),
+
+      10: Joi.string().required(),
+      11: Joi.array().required(),
+      12: Joi.string().required(),
+      13: Joi.string().required(),
+      14: Joi.string().required(),
+      15: Joi.string().required(),
+      16: Joi.string().required(),
+      17: Joi.string().required(),
+      // number input
+      18: Joi.string().required(),
+
+      19: Joi.string().required(),
+      20: Joi.string().required(),
+    }),
+    checklist: Joi.array(),
+    review: Joi.object({
+      // workPeriod: Joi.string().required(),
+      // rate: Joi.string().required(),
+      overallReview: Joi.string().required(),
+      // voiceReview: Joi.any()
+    }),
+    hasAgreed: Joi.boolean().valid(true).error(() => "You should agree Earwig terms of user"),
+  },
+
+  payroll: {
+    questions: Joi.object({
+      1: Joi.string().required(),
+      2: Joi.string().required(),
+      3: Joi.string().required(),
+      // number
+      4: Joi.string().required(),
+
+      5: Joi.string().required(),
+      6: Joi.string().required(),
+      7: Joi.string().required(),
+      8: Joi.string().required(),
+      9: Joi.string().required(),
+      10: Joi.string().required(),
+      // number
+      11: Joi.string().required(),
+
+      12: Joi.string().required(),
+      13: Joi.string().required(),
+      14: Joi.string().required(),
+    }),
+    checklist: Joi.array(),
+    review: Joi.object({
+      // workPeriod: Joi.string().required(),
+      // rate: Joi.string().required(),
+      overallReview: Joi.string().required(),
+      // voiceReview: Joi.any()
+    }),
+    hasAgreed: Joi.boolean().valid(true).error(() => "You should agree Earwig terms of user"),
+  },
+  worksite: {
+    questions: Joi.object({
+      1: Joi.string().required(),
+      2: Joi.string().required(),
+      3: Joi.string().required(),
+      // number
+      4: Joi.string().required(),
+
+      5: Joi.string().required(),
+      6: Joi.string().required(),
+      7: Joi.string().required(),
+      8: Joi.string().required(),
+      9: Joi.string().required(),
+      10: Joi.string().required(),
+      11: Joi.string().required(),
+      12: Joi.string().required(),
+      13: Joi.string().required(),
+      // 14 has his own value (checklist)
+      15: Joi.string().required(),
+      16: Joi.string().required(),
+      17: Joi.string().required(),
+      18: Joi.string().required(),
+    }),
+    checklist: Joi.array(),
+    review: Joi.object({
+      // workPeriod: Joi.string().required(),
+      // rate: Joi.string().required(),
+      overallReview: Joi.string().required(),
+      // voiceReview: Joi.any()
+    }),
+    hasAgreed: Joi.boolean().valid(true).error(() => "You should agree Earwig terms of user"),
+  },
+  company: {
+    questions: Joi.object({
+      1: Joi.string().required(),
+      2: Joi.string().required(),
+      3: Joi.string().required(),
+      4: Joi.string().required(),
+      5: Joi.string().required(),
+      6: Joi.string().required(),
+      // name of the rep
+      7: Joi.string().required(),
+
+      8: Joi.string().required(),
+      9: Joi.string().required(),
+      10: Joi.string().required(),
+    }),
+    checklist: Joi.array(),
+    review: Joi.object({
+      // workPeriod: Joi.string().required(),
+      // rate: Joi.string().required(),
+      overallReview: Joi.string().required(),
+      // voiceReview: Joi.any()
+    }),
+    hasAgreed: Joi.boolean().valid(true).error(() => "You should agree Earwig terms of user"),
+  },
 };
 
 module.exports = route => (req, res, next) => {
