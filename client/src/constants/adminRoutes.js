@@ -1,4 +1,20 @@
-export default [
+export const routes = {
+  DASHBOARD: "/admin",
+  USERS: "/admin/users",
+  USERS_ALL: "/admin/users/",
+  USERS_VERIFY: "/admin/users/verify",
+  REVIEWS: "/admin/reviews",
+  REVIEWS_ALL: "/admin/reviews/",
+  REVIEWS_VERIFY: "/admin/reviews/verify",
+  TRADES: "/admin/trades",
+  ORGANIZATIONS: "/admin/organizations",
+  COMPANIES: "/admin/organizations/companies",
+  AGENCIES: "/admin/organizations/agencies",
+  PAYROLLS: "/admin/organizations/payrolls",
+  WORKSITES: "/admin/organizations/worksites"
+};
+
+export const menuElements = [
   {
     title: "Dashboard",
     icon: "dashboard",

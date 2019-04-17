@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { SideMenuWrapper } from "./SideMenu.style";
 import { Menu, Icon, Button } from "antd";
 import { Link } from "react-router-dom";
-import menuElements from "../../../../constants/adminRoutes";
+
+import { menuElements } from "../../../../constants/adminRoutes";
 const SubMenu = Menu.SubMenu;
 
 const rootSubmenuKeys = menuElements.reduce((accu, current) => {
