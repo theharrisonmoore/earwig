@@ -23,8 +23,7 @@ export const WrapperH2 = styled.h2`
 export const SideDiv = styled.div`
   width: 25%;
   display: flex;
-  justify-content: ${props =>
-    props.position === "left" ? "flex-start" : "flex-end"};
+  justify-content: ${props => props.position};
   align-items: center;
 `;
 
