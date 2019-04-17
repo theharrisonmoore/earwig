@@ -27,6 +27,7 @@ module.exports = (req, res, next) => {
             userId: user.userId,
             points: user.points,
             isAdmin: user.isAdmin,
+            email: user.email,
           };
 
           // create token for 30 day

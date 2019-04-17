@@ -14,7 +14,10 @@ const colorCodes = {
   tundora: "#4A4A4A",
   dustyGray1: "#979797",
   dustyGray2: "#9B9B9B",
+  athens1: "#EDEFF2",
+  athens2: "#F0F2F4",
   alto: "#D8D8D8",
+
   // shadows color
   cocoaBrown: "#2A1E22"
 };
@@ -76,7 +79,10 @@ export const gradient = {
     colorCodes.cocoaBrown
   }  16.44%, ${colorCodes.webOrange} 32.65%, ${
     colorCodes.cocoaBrown
-  } 48.14%, rgba(42, 30, 34, 0) 68.67%)`
+  } 48.14%, rgba(42, 30, 34, 0) 68.67%)`,
+  adminBackground: `linear-gradient(to bottom, ${colorCodes.athens1} 0%,  ${
+    colorCodes.athens2
+  } 100%)`
 };
 
 export const borders = {

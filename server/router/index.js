@@ -9,6 +9,9 @@ const validation = require("./../middlewares/validation");
 const loginController = require("./../controllers/login");
 const signupController = require("./../controllers/signup");
 const postTradesController = require("../controllers/addTrade");
+const userInfoController = require("../controllers/userInfo");
+
+const authentication = require("./../middlewares/authentication");
 
 const uploadWorksiteController = require("../controllers/uploadWorksiteImage");
 
@@ -28,6 +31,12 @@ router.post(
   LOGIN_URL,
   validation("login"),
   loginController,
+);
+
+router.get(
+  "/user",
+  authentication,
+  userInfoController,
 );
 
 router.post(

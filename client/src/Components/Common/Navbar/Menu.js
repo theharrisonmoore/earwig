@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import SVG from "react-inlinesvg";
 
 import { Wrapper, MenuItem } from "./Menu.style.js";
+import { Icon } from "antd";
 
 import {
   SEARCH_URL,
@@ -11,12 +12,13 @@ import {
   FAQ_URL,
   LOGOUT_URL,
   LOGIN_URL,
-  PRIVACY_URL
+  PRIVACY_URL,
+  ADMIN
 } from "./../../../constants/naviagationUrls";
 
 export default class Menu extends PureComponent {
   render() {
-    const { isMobile, isLoggedIn, toggleMenu } = this.props;
+    const { isMobile, isLoggedIn, toggleMenu, isAdmin } = this.props;
     return (
       <Wrapper isMobile={isMobile}>
         {isMobile && (
@@ -25,6 +27,20 @@ export default class Menu extends PureComponent {
             Search
           </MenuItem>
         )}
+        {isAdmin && (
+          <MenuItem to={ADMIN} onClick={toggleMenu}>
+            <Icon
+              type="dashboard"
+              style={{
+                fontSize: "24px",
+                color: "#4a4a4a",
+                marginRight: "16px"
+              }}
+            />
+            Admin Dashboard
+          </MenuItem>
+        )}
+
         <MenuItem to={PROFILE_URL} onClick={toggleMenu}>
           <SVG src="/icons/profile-icon.svg" className="menuIcon" />
           Your profile

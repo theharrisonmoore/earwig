@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import axios from "axios";
+
 import { BrowserRouter as Router } from "react-router-dom";
 
 import "antd/dist/antd.css";
@@ -8,18 +10,22 @@ import Routes from "./Components/";
 
 import { isMobile } from "./helpers";
 
+const initialState = {
+  isLoggedIn: false,
+  isMobile: false,
+  id: "",
+  trade: "",
+  verified: false,
+  awaitingReview: false,
+  userId: "",
+  points: 0,
+  isAdmin: false,
+  email: ""
+};
+
 class App extends Component {
   state = {
-    isLoggedIn: false,
-    isMobile: false,
-    id: "",
-    trade: "",
-    verified: false,
-    awaitingReview: false,
-    userId: "",
-    points: 0,
-    isAdmin: false,
-    email: ""
+    ...initialState
   };
 
   updateWindowDimensions = this.updateWindowDimensions.bind(this);
@@ -28,9 +34,25 @@ class App extends Component {
     this.setState({ isMobile: isMobile(window.innerWidth) });
   }
 
+  getUserInfo = () => {
+    axios
+      .get("/api/user")
+      .then(res => {
+        this.setState({ ...res.data, isLoggedIn: true });
+      })
+      .catch(err => {
+        if (err.response.status === 401) {
+          this.setState({ ...initialState });
+        } else {
+          this.setState({ error: err.response });
+        }
+      });
+  };
+
   componentDidMount() {
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);
+    this.getUserInfo();
   }
 
   componentWillUnmount() {
@@ -50,7 +72,7 @@ class App extends Component {
             handleChangeState={this.handleChangeState}
             isMobile={isMobile}
             isLoggedIn={isLoggedIn}
-            state={this.state}
+            {...this.state}
           />
         </div>
       </Router>
