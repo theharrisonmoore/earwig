@@ -12,8 +12,15 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Thankyou from "./Pages/ThankYou";
 import Review from "./Pages/Review";
+import StaticPages from "./Pages/Static";
 import Navbar from "./Common/Navbar";
 
+import {
+  RESOURCES_URL,
+  CONTACT_URL,
+  FAQ_URL,
+  PRIVACY_URL
+} from "./../constants/naviagationUrls";
 export default function index(props) {
   const { handleChangeState, isMobile, isLoggedIn, state } = props;
 
@@ -57,6 +64,21 @@ export default function index(props) {
             />
           )}
         />
+
+        {[FAQ_URL, RESOURCES_URL, CONTACT_URL, PRIVACY_URL].map(route => (
+          <Route
+            key={route}
+            exact
+            path={route}
+            render={props => (
+              <StaticPages
+                {...props}
+                handleChangeState={handleChangeState}
+                {...state}
+              />
+            )}
+          />
+        ))}
 
         {/* 404 Error Page -need to be created */}
         <Route component={PageNotFound} />
