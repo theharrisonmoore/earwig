@@ -12,15 +12,20 @@ const postTradesController = require("../controllers/addTrade");
 
 const uploadWorksiteController = require("../controllers/uploadWorksiteImage");
 
+const {
+  LOGIN_URL,
+  GET_QUESTIONS_URL,
+  REVIEW_URL,
+  UPLOAD_WORKSITE_IMAGE_URL,
+} = require("../../client/src/apiUrls");
 
-router.get("/questions", getByOrg);
 
-router.post("/review", postReview);
+router.get(GET_QUESTIONS_URL, getByOrg);
 
+router.post(REVIEW_URL, postReview);
 
-// require all the routes in this file
 router.post(
-  "/login",
+  LOGIN_URL,
   validation("login"),
   loginController,
 );
@@ -35,7 +40,7 @@ router.post(
 );
 
 router.post(
-  "/worksite-image",
+  UPLOAD_WORKSITE_IMAGE_URL,
   upload("worksiteImage"),
   toGoogle(),
   deleteFileFromServer,

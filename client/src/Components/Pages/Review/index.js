@@ -21,10 +21,10 @@ import {
 } from "./Review.style";
 
 import {
-  GET_QUESTIONS_URL,
-  POST_REVIEW_URL,
-  THANKYOU_URL
-} from "../../../constants/naviagationUrls";
+  API_GET_QUESTIONS_URL,
+  API_POST_REVIEW_URL,
+  API_THANKYOU_URL
+} from "../../../apiUrls";
 
 import { StyledErrorMessage } from "./Question/Question.style";
 
@@ -67,7 +67,7 @@ class Review extends Component {
   };
   componentDidMount() {
     axios
-      .get(GET_QUESTIONS_URL, {
+      .get(API_GET_QUESTIONS_URL, {
         params: {
           organization: this.state.organization.category
         }
@@ -90,9 +90,9 @@ class Review extends Component {
       user
     };
     axios
-      .post(POST_REVIEW_URL, review)
+      .post(API_POST_REVIEW_URL, review)
       .then(res => {
-        this.props.history.push(THANKYOU_URL, {
+        this.props.history.push(API_THANKYOU_URL, {
           orgType: organization.category
         });
       })

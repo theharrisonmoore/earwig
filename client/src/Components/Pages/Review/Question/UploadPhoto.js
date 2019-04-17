@@ -3,7 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 import uploadIcon from "../../../../assets/upload-worksite-icon.svg";
-import { UPLOAD_WORKSITE_IMAGE_URL } from "../../../../constants/naviagationUrls";
+import { API_UPLOAD_WORKSITE_IMAGE_URL } from "../../../../apiUrls";
 
 import {
   ImageUploader,
@@ -35,7 +35,7 @@ export default class UploadImage extends Component {
           form.append("worksiteImage", image);
           axios({
             method: "post",
-            url: UPLOAD_WORKSITE_IMAGE_URL,
+            url: API_UPLOAD_WORKSITE_IMAGE_URL,
             data: form,
             headers: {
               "content-type": `multipart/form-data; boundary=${form._boundary}`
