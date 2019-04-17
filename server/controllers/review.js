@@ -99,7 +99,6 @@ const postReview = async (req, res, next) => {
 const addNewAgencyPayroll = async (req, res, next) => {
   const { name, category } = req.body;
   await postOrg(category, name);
-  console.log("hi", req.body);
   res.send();
 };
 
@@ -118,7 +117,6 @@ const getOrgsByType = async (req, res, next) => {
 const getAgencesAndPayrollsNames = async (req, res, next) => {
   try {
     const agencyAndPayrolls = await getAgenciesAndPayrollsNames();
-    console.log("dkjfdkf", agencyAndPayrolls);
     res.send(agencyAndPayrolls);
   } catch (err) {
     console.log("database query error", err);

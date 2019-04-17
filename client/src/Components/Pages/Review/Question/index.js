@@ -86,7 +86,6 @@ class QuestionOptions extends React.Component {
   };
 
   handleOk = () => {
-    const { category } = this.props;
     this.props.setFieldValue(
       `questions[${this.props.number}]`,
       this.state.name
@@ -209,7 +208,7 @@ class QuestionOptions extends React.Component {
                       );
                     }}
                   >
-                    {dropdownOptions.map(option => (
+                    {newOptions.map(option => (
                       <Option value={option} key={option}>
                         {option}
                       </Option>

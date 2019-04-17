@@ -1,49 +1,7 @@
 import React from "react";
-import { Modal, Button, Input, Icon } from "antd";
-import axios from "axios";
+import { Modal, Button, Input } from "antd";
 
 class App extends React.Component {
-  // state = {
-  //   loading: false,
-  //   visible: false,
-  //   name: ""
-  // };
-
-  // showModal = () => {
-  //   this.setState({
-  //     visible: true
-  //   });
-  // };
-
-  // handleChange = e => {
-  //   this.setState({ name: e.target.value });
-  // };
-
-  // handleOk = () => {
-  //   const { category } = this.props;
-  //   this.setState({ loading: true });
-
-  //   axios
-  //     .post("/api/organizations", {
-  //       category,
-  //       name: this.state.name
-  //     })
-  //     .then(res => {
-  //       console.log("res", res);
-  //     })
-  //     .catch(err => {
-  //       console.log("err", err);
-  //     });
-
-  //   setTimeout(() => {
-  //     this.setState({ loading: false, visible: false });
-  //   }, 3000);
-  // };
-
-  // handleCancel = () => {
-  //   this.setState({ visible: false });
-  // };
-
   render() {
     const { visible, loading } = this.props;
     return (

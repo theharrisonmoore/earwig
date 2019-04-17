@@ -183,7 +183,6 @@ class Review extends Component {
               errors,
               setFieldValue
             }) => {
-              console.log(values);
               return (
                 <FormWrapper>
                   <Form>
