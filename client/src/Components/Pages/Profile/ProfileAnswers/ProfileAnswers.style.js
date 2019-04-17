@@ -77,25 +77,26 @@ export const Wrapper = styled.div`
 export const CommentsDiv = styled.div`
   background: white;
   width: 60%;
-  height: 70%;
+  height: auto;
   box-sizing: border-box;
   border: ${borders.commentBox};
   box-shadow: ${shadows.commentShadow};
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 1.5rem;
   text-align: left;
 `;
 
 export const CommentsHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  border: 1px solid red;
+  margin-bottom: 2rem;
 `;
 
 export const Close = styled.img`
   margin-right: 0;
   margin-left: 1rem;
+  cursor: pointer;
 `;
 
 export const CommentsTitle = styled.h2`
@@ -103,4 +104,26 @@ export const CommentsTitle = styled.h2`
   color: ${colors.profileFontColor};
   margin-bottom: 0;
   font-weight: 900;
+`;
+
+export const IndividComment = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex: initial;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+`;
+
+export const UserID = styled.h3`
+  font-weight: 900;
+  font-size: 1rem;
+  color: ${colors.profileFontColor};
+`;
+
+export const CommentBubble = styled.p`
+  background: ${colors.ghostGray};
+  border-radius: 1.125rem;
+  align-self: flex-start;
+  justify-content: flex-start;
+  padding: 0.5rem 1rem;
 `;

@@ -32,6 +32,7 @@ export default class Profile extends Component {
     loaded: false,
     commentsOpen: false,
     commentsQuestion: null,
+    comments: null,
     commentsLoaded: false,
   };
 
@@ -57,13 +58,16 @@ export default class Profile extends Component {
     const { _id: organizationID } = summary
     const { _id: questionID } = question
 
-    console.log("ORG", organizationID)
+    // reset loading state and toggle comments box
+    this.setState({ commentsLoaded: false, commentsOpen: !commentsOpen })
 
-    axios.post("/api/comments", { organizationID, questionID }).then(res => console.log(res.data)).catch(err => console.log(err))
+    // fetch comments
+    axios.post("/api/comments", { organizationID, questionID }).then(res => {
+      this.setState({ comments: res.data, commentsLoaded: true, commentsQuestion: question })
 
-    console.log("Q", question)
+      console.log(res.data)
+    }).catch(err => console.log(err))
 
-    this.setState({ commentsOpen: !commentsOpen, commentsQuestion: question });
   };
 
   reviewsByMonth = () => {
@@ -99,7 +103,9 @@ export default class Profile extends Component {
       reviewDetails,
       loaded,
       commentsOpen,
-      commentsQuestion
+      commentsQuestion,
+      comments,
+      commentsLoaded
     } = this.state;
     if (!loaded) return <h1>Loading...</h1>;
 
@@ -203,6 +209,8 @@ export default class Profile extends Component {
         {commentsOpen && (
           <CommentsBox
             question={commentsQuestion}
+            comments={comments}
+            commentsLoaded={commentsLoaded}
             toggleComments={this.toggleComments}
           />
         )}

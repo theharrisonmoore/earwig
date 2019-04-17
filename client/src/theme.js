@@ -20,7 +20,8 @@ const colorCodes = {
   cocoaBrown: "#2A1E22",
 
   // transparent
-  ghostWhite: "rgba(255, 255, 255, 0.5)"
+  ghostWhite: "rgba(255, 255, 255, 0.7)",
+  ghostGray: "rgba(28, 15, 19, 0.0514915)"
 };
 
 // Organization colors
@@ -85,7 +86,7 @@ export const gradient = {
 
 export const borders = {
   searchBox: `1px solid ${colors.lightGray}`,
-  commentBox: `1px solid ${colors.verLightGray}`
+  commentBox: `1px solid ${colors.veryLightGray}`
 };
 
 export const pieColors = {
