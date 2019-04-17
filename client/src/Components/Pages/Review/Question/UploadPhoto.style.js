@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
+import { colors } from "../../../../theme";
+
 export const ImageUploader = styled.div``;
 
 export const Label = styled.label`
   height: 4rem;
   width: 4rem;
   border-radius: 50%;
-  border: 1px solid grey;
+  border: 1px solid ${colors.lightGray};
   display: inline-block;
   position: relative;
 `;

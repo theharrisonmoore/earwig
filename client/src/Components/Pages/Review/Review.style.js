@@ -64,7 +64,7 @@ export const Level2Header = styled.h2`
 
 export const AgreementLabel = styled.label`
   font-size: 15px;
-  color: #4a4a4a;
+  color: ${colors.profileFontColor};
   width: 90%;
 `;
 
@@ -76,8 +76,8 @@ export const CheckboxWrapper = styled.div`
 
 export const SubmitButton = styled.button`
   background: ${props => organizations[props.orgType].primary};
-  border: 1px solid #979797;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.195772), inset 0px 2px 0px #ffffff;
+  border: 1px solid ${colors.inputBorder};
+  box-shadow: ${colors.buttonShadow};
   border-radius: 6px;
   font-weight: 900;
   font-size: 20px;

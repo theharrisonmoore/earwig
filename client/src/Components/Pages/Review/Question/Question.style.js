@@ -5,7 +5,7 @@ import { colors, organizations } from "../../../../theme";
 export const QuestionWrapper = styled.div.attrs({ className: "" })`
   font-size: 18px;
   margin-bottom: 1rem;
-  color: #4a4a4a;
+  color: ${colors.profileFontColor};
 `;
 
 export const QText = styled.p`
@@ -17,7 +17,7 @@ export const HintText = styled.p`
   margin: 0;
   font-style: italic;
   font-size: 16px;
-  color: #4a4a4a;
+  color: ${colors.profileFontColor};
 `;
 
 export const QuestionOptionsWrapper = styled.div`
@@ -74,18 +74,18 @@ export const StyledErrorMessage = styled.div`
 
 export const Input = styled.label`
   border: 3px solid transparent;
-  background: #ccc;
+  background: ${colors.lightGray};
   text-align: center;
-  color: grey;
-  background-color: white;
-  box-shadow: 0 0 0 1px #9b9b9b;
+  color: ${colors.lightGray};
+  background-color: ${colors.white};
+  box-shadow: 0 0 0 1px ${colors.lightGray};
   display: inline-block;
   padding: 0.25rem 1rem;
   height: 100%;
 `;
 
 export const InputWrapper = styled.div`
-  color: #9b9b9b;
+  color: ${colors.lightGray};
 
   .radio-button {
     display: none;
