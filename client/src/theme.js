@@ -16,6 +16,7 @@ const colorCodes = {
   dustyGray2: "#9B9B9B",
   athens1: "#EDEFF2",
   athens2: "#F0F2F4",
+  alto: "#D8D8D8",
 
   // shadows color
   cocoaBrown: "#2A1E22"
@@ -58,7 +59,8 @@ export const colors = {
 export const shadows = {
   buttonShadow: "0px 4px 13px rgba(173, 145, 183, 0.273438)",
   activeButtonShadow: "0px 2px 9px rgba(173, 145, 183, 0.273438)",
-  searchShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)"
+  searchShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
+  frameShadow: "0px 0px 19px 6px rgba(173,145,183,0.273438)"
 };
 
 // gradient colors
