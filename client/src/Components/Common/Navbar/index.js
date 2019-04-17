@@ -59,7 +59,11 @@ export default class Navbar extends Component {
                   <img src={CloseIcon} alt="close" />
                 </ToggleMenu>
               </SideDiv>
-              <Menu isMobile={isMobile} isLoggedIn={isLoggedIn} />
+              <Menu
+                isMobile={isMobile}
+                isLoggedIn={isLoggedIn}
+                toggleMenu={this.toggleMenu}
+              />
             </>
           ) : (
             <SideDiv position="right">
@@ -84,7 +88,11 @@ export default class Navbar extends Component {
               <ToggleMenu onClick={this.toggleMenu}>
                 <img src={CloseIcon} alt="close" />
               </ToggleMenu>
-              <Menu isMobile={isMobile} isLoggedIn={isLoggedIn} />
+              <Menu
+                isMobile={isMobile}
+                isLoggedIn={isLoggedIn}
+                toggleMenu={this.toggleMenu}
+              />
             </>
           ) : (
             <SideDiv position="right">
