@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import Autosuggest from "react-autosuggest";
 
+import { API_SEARCH_URL } from "../../../apiUrls";
+
 // UI helper functions
 import { SVGCreator, StarRateCreator, SortArrayNewest } from "../../../helpers";
 
@@ -30,7 +32,7 @@ import {
 import { organizationIcons } from "./../../../theme";
 
 export const axiosCall = async () => {
-  const response = await axios.get("api/search");
+  const response = await axios.get(API_SEARCH_URL);
   return response;
 };
 

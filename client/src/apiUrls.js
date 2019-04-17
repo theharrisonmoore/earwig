@@ -24,6 +24,7 @@ module.exports = {
   API_POST_REVIEW_URL,
   API_UPLOAD_WORKSITE_IMAGE_URL,
   API_THANKYOU_URL,
+  API_SEARCH_URL,
   // server varibles
   LOGIN_URL,
   GET_QUESTIONS_URL,

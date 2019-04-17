@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { colors, shadows, organizations, breakpoints } from "./../../../theme";
 
 export const classNames = {
