@@ -43,7 +43,6 @@ const reviewSchema = new Schema({
   },
   rate: {
     type: Number,
-    required: true,
     min: 1,
     max: 5,
   },

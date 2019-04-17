@@ -11,6 +11,7 @@ import UploadImage from "./Pages/UploadImage";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Thankyou from "./Pages/ThankYou";
+import Review from "./Pages/Review";
 import StaticPages from "./Pages/Static";
 import Navbar from "./Common/Navbar";
 import Admin from "./Pages/Admin";
@@ -29,6 +30,7 @@ export default function index(props) {
   return (
     <>
       <Switch>
+        <Route path="/review" component={Review} />
         <Route
           exact
           path={SIGNUP_URL}
