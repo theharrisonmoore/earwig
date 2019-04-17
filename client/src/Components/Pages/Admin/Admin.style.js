@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { gradient } from "./../../../theme";
 
 export const AdminWrapper = styled.div`
-  background-color: #f0f2f4;
+  background: ${gradient.adminBackground};
   min-height: 100vh;
 `;
 export const ContentWrapper = styled.div`

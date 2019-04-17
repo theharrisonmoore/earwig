@@ -77,7 +77,10 @@ export const gradient = {
     colorCodes.cocoaBrown
   }  16.44%, ${colorCodes.webOrange} 32.65%, ${
     colorCodes.cocoaBrown
-  } 48.14%, rgba(42, 30, 34, 0) 68.67%)`
+  } 48.14%, rgba(42, 30, 34, 0) 68.67%)`,
+  adminBackground: `linear-gradient(to bottom, ${colorCodes.athens1} 0%,  ${
+    colorCodes.athens2
+  } 100%)`
 };
 
 export const borders = {
