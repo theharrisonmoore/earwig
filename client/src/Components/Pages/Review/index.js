@@ -20,12 +20,6 @@ import {
   AgreementLabel
 } from "./Review.style";
 
-import {
-  API_GET_QUESTIONS_URL,
-  API_POST_REVIEW_URL,
-  API_THANKYOU_URL
-} from "../../../apiUrls";
-
 import { StyledErrorMessage } from "./Question/Question.style";
 
 import Question from "./Question/index";
@@ -34,6 +28,12 @@ import clockLong from "./../../../assets/clock-long-icon.svg";
 
 import { initQueestionsValues } from "./initialQuestionsValues";
 import { validationSchema } from "./validationSchema";
+
+const {
+  API_GET_QUESTIONS_URL,
+  API_POST_REVIEW_URL,
+  API_THANKYOU_URL
+} = require("../../../apiUrls");
 
 const STATIC_QUESTIONS = [
   {
@@ -61,7 +61,7 @@ const STATIC_QUESTIONS = [
 class Review extends Component {
   state = {
     groups: [],
-    organization: { category: "agency", name: "Bournemouth University" },
+    organization: { category: "worksite", name: "Bournemouth University" },
     user: { email: "level3@earwig.com" },
     worksiteImage: ""
   };
