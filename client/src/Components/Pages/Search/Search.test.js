@@ -11,6 +11,7 @@ import mockAxios from "axios";
 import { resultArray } from "./resultArray";
 
 // helpers
+// i wanna create a data object that can be called throughout all tests
 let data = null;
 // stores elements in data obj
 const init = elements => {

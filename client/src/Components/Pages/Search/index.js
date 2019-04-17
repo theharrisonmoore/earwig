@@ -29,6 +29,28 @@ import {
 
 import { organizationIcons } from "./../../../theme";
 
+export const axiosCall = async () => {
+  const response = await axios.get("api/search");
+  return response;
+};
+
+// gets called when suggestions gets clicked
+export const getSuggestionValue = suggestion => suggestion.name;
+
+export const getSuggestions = (value, organisationsArray) => {
+  const inputValue = value.trim().toLowerCase();
+  const inputLength = inputValue.length;
+  const suggestions = organisationsArray.filter(
+    org => org.name.toLowerCase().slice(0, inputLength) === inputValue
+  );
+
+  // in case there are no suggestions still return a value enabling the 'add' box to be rendered
+  if (suggestions.length === 0) {
+    return [{ isEmpty: true }];
+  }
+  return suggestions;
+};
+
 export default class Search extends Component {
   state = {
     loaded: false,
@@ -38,7 +60,7 @@ export default class Search extends Component {
   };
 
   componentDidMount() {
-    axios.get("/api/search").then(organizations => {
+    axiosCall().then(organizations => {
       this.setState({
         data: organizations.data,
         loaded: true
@@ -48,27 +70,11 @@ export default class Search extends Component {
 
   // functions for autosuggest component
   // create suggestions array based on user input
-  getSuggestions = (value, organisationsArray) => {
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
-    const suggestions = organisationsArray.filter(
-      org => org.name.toLowerCase().slice(0, inputLength) === inputValue
-    );
-
-    // in case there are no suggestions still return a value enabling the 'add' box to be rendered
-    if (suggestions.length === 0) {
-      return [{ isEmpty: true }];
-    }
-    return suggestions;
-  };
-
-  // gets called when suggestions gets clicked
-  getSuggestionValue = suggestion => suggestion.name;
 
   // Autosuggest will call this function every time suggestions are updated
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: this.getSuggestions(value, this.state.data)
+      suggestions: getSuggestions(value, this.state.data)
     });
   };
 
@@ -82,15 +88,14 @@ export default class Search extends Component {
   };
 
   // render functions
-
   // renders individual suggestions in autosuggest search section
   renderSuggestion = suggestion => {
     // check if no suggestion available and return so that renderSuggestionsContainer function is still being called (gets deactivated otherwise)
     if (suggestion.isEmpty) {
-      return;
+      return null;
     } else {
       return (
-        <ProfileLink to={`/profile/${suggestion._id}`}>
+        <ProfileLink href={`/profile/${suggestion._id}`}>
           <SuggestionBox orgType={suggestion.category}>
             <InnerDivSuggestions>
               <SymbolDiv>
@@ -113,13 +118,13 @@ export default class Search extends Component {
       );
     }
   };
-
   // renders all elements and the add item footer
-  renderSuggestionsContainer = ({ containerProps, children, query }) => (
-    <div {...containerProps}>
-      {children}
-      {
-        <ProfileLink to="">
+  renderSuggestionsContainer = ({ containerProps, children, query }) => {
+    return (
+      <div {...containerProps}>
+        {children}
+        <div className="my-suggestions-container-footer" />
+        <ProfileLink href="">
           <AddItemBox>
             <InnerDivSuggestions>
               <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv>
@@ -129,13 +134,12 @@ export default class Search extends Component {
             </InnerDivSuggestions>
           </AddItemBox>
         </ProfileLink>
-      }
-    </div>
-  );
-
+      </div>
+    );
+  };
   // renders last viewed organization section
   renderLastViewed = (org, key) => (
-    <ProfileLink key={key} to={`/profile/${org._id}`}>
+    <ProfileLink key={key} href={`/profile/${org._id}`}>
       <ReviewsFrame orgType={org.category}>
         <InnerDivLastReviews orgType={org.category}>
           <SymbolDiv>
@@ -163,10 +167,10 @@ export default class Search extends Component {
       value,
       onChange: this.onChange
     };
-    if (!loaded) return <p>loading...</p>;
+    if (!loaded) return <p data-testid="loading">loading...</p>;
 
     return (
-      <SearchWrapper>
+      <SearchWrapper data-testid="searchwrapper">
         <HeadlineDiv>
           <h2>Welcome to earwig.</h2> <h2>Try searching for…</h2>
         </HeadlineDiv>
@@ -194,11 +198,12 @@ export default class Search extends Component {
         </SearchLegendDiv>
         <AutosuggestWrapper>
           <Autosuggest
+            data-testid="react-autosuggest__container"
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
             shouldRenderSuggestions={() => true}
-            getSuggestionValue={this.getSuggestionValue}
+            getSuggestionValue={getSuggestionValue}
             renderSuggestion={this.renderSuggestion}
             inputProps={inputProps}
             renderSuggestionsContainer={this.renderSuggestionsContainer}
