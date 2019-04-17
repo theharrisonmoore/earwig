@@ -127,7 +127,7 @@ module.exports = async () => {
     {
       question: agencyQuestions[0],
       answer: "no",
-      comment: comments[0],
+      comment: comments[1],
       user: users[1],
       review: reviews[1],
       organization: reviews[1].organization,
@@ -135,7 +135,6 @@ module.exports = async () => {
     {
       question: agencyQuestions[1],
       answer: "yes",
-      comment: comments[0],
       user: users[1],
       review: reviews[1],
       organization: reviews[1].organization,
@@ -213,7 +212,7 @@ module.exports = async () => {
     {
       question: agencyQuestions[18],
       answer: "yes",
-      comment: comments[2],
+      comment: comments[3],
       user: users[1],
       review: reviews[1],
       organization: reviews[1].organization,
@@ -222,7 +221,6 @@ module.exports = async () => {
     {
       question: payrollQuestions[0],
       answer: "yes",
-      comment: comments[0],
       user: users[0],
       review: reviews[2],
       organization: reviews[2].organization,
@@ -230,7 +228,6 @@ module.exports = async () => {
     {
       question: payrollQuestions[1],
       answer: "yes",
-      comment: comments[0],
       user: users[0],
       review: reviews[2],
       organization: reviews[2].organization,
@@ -324,7 +321,6 @@ module.exports = async () => {
     {
       question: payrollQuestions[0],
       answer: "yes",
-      comment: comments[0],
       user: users[1],
       review: reviews[3],
       organization: reviews[3].organization,
@@ -332,7 +328,6 @@ module.exports = async () => {
     {
       question: payrollQuestions[1],
       answer: "no",
-      comment: comments[0],
       user: users[1],
       review: reviews[3],
       organization: reviews[3].organization,
@@ -413,7 +408,6 @@ module.exports = async () => {
     {
       question: worksiteQuestions[0],
       answer: "yes",
-      comment: comments[0],
       user: users[0],
       review: reviews[4],
       organization: reviews[4].organization,
@@ -421,7 +415,6 @@ module.exports = async () => {
     {
       question: worksiteQuestions[1],
       answer: "yes",
-      comment: comments[0],
       user: users[0],
       review: reviews[4],
       organization: reviews[4].organization,
@@ -545,7 +538,6 @@ module.exports = async () => {
     {
       question: worksiteQuestions[0],
       answer: "no",
-      comment: comments[0],
       user: users[1],
       review: reviews[5],
       organization: reviews[5].organization,
@@ -553,7 +545,6 @@ module.exports = async () => {
     {
       question: worksiteQuestions[1],
       answer: "yes",
-      comment: comments[0],
       user: users[1],
       review: reviews[5],
       organization: reviews[5].organization,
@@ -677,7 +668,6 @@ module.exports = async () => {
     {
       question: companyQuestions[0],
       answer: "yes",
-      comment: comments[0],
       user: users[0],
       review: reviews[6],
       organization: reviews[6].organization,
@@ -685,7 +675,6 @@ module.exports = async () => {
     {
       question: companyQuestions[1],
       answer: "yes",
-      comment: comments[0],
       user: users[0],
       review: reviews[6],
       organization: reviews[6].organization,
@@ -744,7 +733,6 @@ module.exports = async () => {
     {
       question: companyQuestions[0],
       answer: "no",
-      comment: comments[0],
       user: users[1],
       review: reviews[7],
       organization: reviews[7].organization,
@@ -752,7 +740,6 @@ module.exports = async () => {
     {
       question: companyQuestions[1],
       answer: "no",
-      comment: comments[0],
       user: users[1],
       review: reviews[7],
       organization: reviews[7].organization,

@@ -31,7 +31,8 @@ export default class Profile extends Component {
     reviewDetails: null,
     loaded: false,
     commentsOpen: false,
-    commentsQuestion: null
+    commentsQuestion: null,
+    commentsLoaded: false,
   };
 
   fetchData = () => {
@@ -52,7 +53,16 @@ export default class Profile extends Component {
   }
 
   toggleComments = question => {
-    const { commentsOpen } = this.state;
+    const { commentsOpen, summary } = this.state;
+    const { _id: organizationID } = summary
+    const { _id: questionID } = question
+
+    console.log("ORG", organizationID)
+
+    axios.post("/api/comments", { organizationID, questionID }).then(res => console.log(res.data)).catch(err => console.log(err))
+
+    console.log("Q", question)
+
     this.setState({ commentsOpen: !commentsOpen, commentsQuestion: question });
   };
 

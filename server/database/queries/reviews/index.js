@@ -51,15 +51,6 @@ module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
     {
       $match: { organization: mongoose.Types.ObjectId(organizationID) },
     },
-    // get the comments
-    {
-      $lookup: {
-        from: "comments",
-        localField: "comment",
-        foreignField: "_id",
-        as: "comment",
-      },
-    },
     // group the answers by the question
     // each question now has an array of the answers
     {
@@ -122,5 +113,8 @@ module.exports.allComments = (organizationID, questionID) => new Promise((resolv
         text: 1,
       },
     },
-  ]).then(resolve).catch(err => reject(err));
+  ]).then(result => {
+    console.log("RESULT", result)
+    resolve(result)
+  }).catch(err => reject(err));
 });
