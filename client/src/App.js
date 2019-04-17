@@ -37,7 +37,7 @@ class App extends Component {
     axios
       .get("/api/user")
       .then(res => {
-        this.setState({ ...res.data });
+        this.setState({ ...res.data, isLoggedIn: true });
       })
       .catch(err => {
         if (err.response.status === 401) {
