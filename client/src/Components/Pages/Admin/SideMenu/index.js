@@ -11,10 +11,12 @@ const rootSubmenuKeys = menuElements.reduce((accu, current) => {
   }
   return accu;
 }, []);
+
 export default class SideMenu extends Component {
   state = {
     collapsed: false,
-    openKeys: []
+    openKeys: [],
+    menuWidth: 0
   };
 
   toggleCollapsed = () => {
@@ -36,6 +38,13 @@ export default class SideMenu extends Component {
       });
     }
   };
+
+  componentDidMount() {
+    const resizeObserver = new ResizeObserver(entries => {
+      this.props.menuSizeObserver(entries[0].contentRect.width);
+    });
+    resizeObserver.observe(document.querySelector("#watcher"));
+  }
 
   render() {
     const { pathname } = this.props.location;
@@ -96,6 +105,7 @@ export default class SideMenu extends Component {
             )
           )}
         </Menu>
+        <div id="watcher" style={{ height: "1px", widht: "100%" }} />
       </SideMenuWrapper>
     );
   }

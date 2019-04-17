@@ -18,7 +18,7 @@ export default [
       {
         title: "Verify awaiting users",
         icon: "user-add",
-        route: "/add"
+        route: "/verify"
       }
     ]
   },

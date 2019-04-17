@@ -14,6 +14,8 @@ const colorCodes = {
   tundora: "#4A4A4A",
   dustyGray1: "#979797",
   dustyGray2: "#9B9B9B",
+  athens1: "#EDEFF2",
+  athens2: "#F0F2F4",
 
   // shadows color
   cocoaBrown: "#2A1E22"

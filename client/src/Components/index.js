@@ -13,7 +13,7 @@ import Signup from "./Pages/Signup";
 import Thankyou from "./Pages/ThankYou";
 import Navbar from "./Common/Navbar";
 
-import SideMenu from "./Pages/Admin/SideMenu";
+import Admin from "./Pages/Admin";
 
 export default function index(props) {
   const { handleChangeState, isMobile, isLoggedIn, state } = props;
@@ -61,7 +61,7 @@ export default function index(props) {
         <Route
           path="/admin"
           render={props => (
-            <SideMenu
+            <Admin
               {...props}
               handleChangeState={handleChangeState}
               {...state}
