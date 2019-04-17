@@ -8,7 +8,7 @@ import Organizations from "./Organizations";
 import { ContentWrapper, AdminWrapper } from "./Admin.style";
 
 import { routes } from "./../../../constants/adminRoutes";
-const { USERS, REVIEWS, ORGANIZATIONS, TRADES } = routes;
+const { USERS, REVIEWS, ORGANIZATIONS, TRADES, DASHBOARD } = routes;
 
 export default class Admin extends Component {
   state = {
@@ -25,6 +25,11 @@ export default class Admin extends Component {
         <SideMenu {...this.props} menuSizeObserver={this.menuSizeObserver} />
         <ContentWrapper marginLeft={`${Math.ceil(this.state.menuWidth)}`}>
           <Switch>
+            <Route
+              path={DASHBOARD}
+              exact
+              render={props => <h1>Main dashboard</h1>}
+            />
             <Route path={USERS} render={props => <Users {...props} />} />
             <Route path={REVIEWS} render={props => <Reviews {...props} />} />
             <Route path={TRADES} render={props => <h1>Trades</h1>} />
