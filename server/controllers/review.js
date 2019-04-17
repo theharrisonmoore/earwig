@@ -1,6 +1,10 @@
 const boom = require("boom");
 
-const { getQuetionsByOrg, getOrganization, getQuestionsByOrgCategory } = require("../database/queries/review");
+const {
+  getQuetionsByOrg, getOrganization, getQuestionsByOrgCategory,
+  postOrg, getOrgsNamesByType,
+  getAgenciesAndPayrollsNames,
+} = require("../database/queries/review");
 const { findByEmail } = require("../database/queries/user");
 
 const Review = require("../database/models/Review");
@@ -92,4 +96,36 @@ const postReview = async (req, res, next) => {
   }
 };
 
-module.exports = { getByOrg, postReview };
+const addNewAgencyPayroll = async (req, res, next) => {
+  const { name, category } = req.body;
+  await postOrg(category, name);
+  console.log("hi", req.body);
+  res.send();
+};
+
+const getOrgsByType = async (req, res, next) => {
+  const { category } = req.body;
+  try {
+    const organization = await getOrgsNamesByType(category);
+    const names = organization[0].category;
+    res.send({ names });
+  } catch (err) {
+    console.log("database query error", err);
+    boom.badImplementation();
+  }
+};
+
+const getAgencesAndPayrollsNames = async (req, res, next) => {
+  try {
+    const agencyAndPayrolls = await getAgenciesAndPayrollsNames();
+    console.log("dkjfdkf", agencyAndPayrolls);
+    res.send(agencyAndPayrolls);
+  } catch (err) {
+    console.log("database query error", err);
+    boom.badImplementation();
+  }
+};
+
+module.exports = {
+  getByOrg, postReview, addNewAgencyPayroll, getOrgsByType, getAgencesAndPayrollsNames,
+};

@@ -1,5 +1,7 @@
 const router = require("express").Router();
-const { getByOrg, postReview } = require("../controllers/review");
+const {
+  getByOrg, postReview, addNewAgencyPayroll, getOrgsByType, getAgencesAndPayrollsNames,
+} = require("../controllers/review");
 const upload = require("../middlewares/uploadFileToServer");
 const toGoogle = require("./../middlewares/uploadToGoogle");
 const uploadVerificationImage = require("./../controllers/uploadVerificationImage");
@@ -19,10 +21,14 @@ const {
   UPLOAD_WORKSITE_IMAGE_URL,
 } = require("../../client/src/apiUrls");
 
-
 router.get(GET_QUESTIONS_URL, getByOrg);
 
 router.post(REVIEW_URL, postReview);
+// Add new payroll and agency
+router.get("/organizations", getOrgsByType);
+router.post("/organizations", addNewAgencyPayroll);
+
+router.get("/agency-payroll", getAgencesAndPayrollsNames);
 
 router.post(
   LOGIN_URL,

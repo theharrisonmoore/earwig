@@ -29,10 +29,11 @@ import clockLong from "./../../../assets/clock-long-icon.svg";
 import { initQueestionsValues } from "./initialQuestionsValues";
 import { validationSchema } from "./validationSchema";
 
+import { THANKYOU_URL } from "../../../constants/naviagationUrls";
+
 const {
   API_GET_QUESTIONS_URL,
-  API_POST_REVIEW_URL,
-  API_THANKYOU_URL
+  API_POST_REVIEW_URL
 } = require("../../../apiUrls");
 
 const STATIC_QUESTIONS = [
@@ -61,9 +62,11 @@ const STATIC_QUESTIONS = [
 class Review extends Component {
   state = {
     groups: [],
-    organization: { category: "worksite", name: "Bournemouth University" },
+    organization: { category: "agency", name: "Bournemouth University" },
     user: { email: "level3@earwig.com" },
-    worksiteImage: ""
+    worksiteImage: "",
+    agencies: [],
+    payrolls: []
   };
   componentDidMount() {
     axios
@@ -79,7 +82,22 @@ class Review extends Component {
         // server error 500
         console.log("err", err);
       });
+    this.getAgenciesAndPayrolls();
   }
+
+  getAgenciesAndPayrolls = () => {
+    axios
+      .get("/api/agency-payroll")
+      .then(res => {
+        this.setState({
+          agencies: res.data[0].category,
+          payrolls: res.data[1].category
+        });
+      })
+      .catch(err => {
+        console.log("err", err);
+      });
+  };
 
   handleSubmit = (values, { setSubmitting }) => {
     const { organization } = this.state;
@@ -92,7 +110,7 @@ class Review extends Component {
     axios
       .post(API_POST_REVIEW_URL, review)
       .then(res => {
-        this.props.history.push(API_THANKYOU_URL, {
+        this.props.history.push(THANKYOU_URL, {
           orgType: organization.category
         });
       })
@@ -122,8 +140,17 @@ class Review extends Component {
     }
     const {
       groups,
+      agencies,
+      payrolls,
       organization: { name, category }
     } = this.state;
+
+    let dropdownOptions;
+    if (category === "agency") {
+      dropdownOptions = agencies;
+    } else if (category === "payroll") {
+      dropdownOptions = payrolls;
+    }
     return (
       <ReviewWrapper>
         <Header orgType={category}>
@@ -156,6 +183,7 @@ class Review extends Component {
               errors,
               setFieldValue
             }) => {
+              console.log(values);
               return (
                 <FormWrapper>
                   <Form>
@@ -177,6 +205,9 @@ class Review extends Component {
                                   question={question}
                                   errors={errors}
                                   setFieldValue={setFieldValue}
+                                  agencies={agencies}
+                                  payrolls={payrolls}
+                                  dropdownOptions={dropdownOptions}
                                 />
                               );
                             })}

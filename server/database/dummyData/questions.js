@@ -1,5 +1,7 @@
 const Question = require("../models/Question");
 
+const { getOrgsNamesByType } = require("../queries/review");
+
 /**
  * questions types:
  * 1.open: accept any string
@@ -10,7 +12,19 @@ const Question = require("../models/Question");
  * 6.image: for questions the require uploading images
  */
 
-module.exports = () => {
+module.exports = async () => {
+  let agencyNames;
+  let payrollsNames;
+  try {
+    const agencies = await getOrgsNamesByType("agency");
+    const payrolls = await getOrgsNamesByType("payroll");
+
+    agencyNames = agencies[0].category;
+    payrollsNames = payrolls[0].category;
+  } catch (err) {
+    console.log("database query error", err);
+  }
+
   const questions = [
     {
       number: 1,
@@ -151,17 +165,7 @@ module.exports = () => {
       type: "dropdown",
       text: "What's the name of the payroll?",
       isJumping: false,
-      options: [
-        "Capital Payroll Services",
-        "Champion Contractors",
-        "Churchill Knight",
-        "Cinch",
-        "Credipay",
-        "Crunch",
-        "Crystal Choice",
-        "Crystal Payroll (Payroll Services Company)",
-        "Danbro",
-      ],
+      options: payrollsNames,
       category: "agency",
       group: {
         groupOrder: 1,
@@ -454,26 +458,7 @@ module.exports = () => {
       type: "dropdown",
       text: "What's the name of the agency you used?",
       isJumping: false,
-      options: [
-        "Acrow Recruitment",
-        "Adecco",
-        "Advanced Technical Recruitment",
-        "Ahearne Support Services (previously: Gulmanda)",
-        "Anderselite",
-        "Apex Recruitment",
-        "Approach Personnel Specialists",
-        "Artisan",
-        "Aspire Recruitment",
-        "Atlas Recruitment Group",
-        "Aztec Resources",
-        "B M S L",
-        "B M S Performance",
-        "Bally Common",
-        "Besboke Civils Solutions (B C S)",
-        "Blade Recruitment",
-        "Bluebaring Recruitment",
-        "Bluebell",
-      ],
+      options: agencyNames,
       category: "payroll",
       group: {
         groupOrder: 1,

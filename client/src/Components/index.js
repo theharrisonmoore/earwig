@@ -21,6 +21,7 @@ import {
   FAQ_URL,
   PRIVACY_URL
 } from "./../constants/naviagationUrls";
+
 export default function index(props) {
   const { handleChangeState, isMobile, isLoggedIn, state } = props;
 
