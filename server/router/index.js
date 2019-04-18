@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const adminRouter = require("./admin");
 const { getByOrg, postReview } = require("../controllers/review");
 const upload = require("../middlewares/uploadFileToServer");
 const toGoogle = require("./../middlewares/uploadToGoogle");
@@ -12,6 +13,7 @@ const postTradesController = require("../controllers/addTrade");
 const userInfoController = require("../controllers/userInfo");
 
 const authentication = require("./../middlewares/authentication");
+const authorization = require("./../middlewares/authorization");
 
 const uploadWorksiteController = require("../controllers/uploadWorksiteImage");
 
@@ -71,6 +73,13 @@ router.post(
   "/signup",
   validation("signup"),
   signupController,
+);
+
+router.use(
+  "/admin",
+  authentication,
+  authorization("ADMIN"),
+  adminRouter,
 );
 
 module.exports = router;
