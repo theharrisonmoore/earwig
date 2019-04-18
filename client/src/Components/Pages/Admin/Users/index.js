@@ -4,7 +4,7 @@ import AllUsers from "./AllUsers";
 
 import { routes } from "./../../../../constants/adminRoutes";
 
-const { USERS_ALL, USERS_VERIFY } = routes;
+const { USERS_ALL, USERS_VERIFY, USERS_VIEW } = routes;
 
 export default class Users extends Component {
   render() {
@@ -19,6 +19,11 @@ export default class Users extends Component {
           exact
           path={USERS_VERIFY}
           render={props => <h1>verify users</h1>}
+        />
+        <Route
+          exact
+          path={`${USERS_VIEW}/:id`}
+          render={props => <h1>veriy user</h1>}
         />
       </Switch>
     );
