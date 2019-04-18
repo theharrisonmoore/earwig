@@ -30,48 +30,48 @@ export default class AddProfileSelection extends Component {
           </HeadlineDiv>
           <LogosContainer>
             <RowDiv>
-              <AddProfileLink
-                to={{
-                  pathname: `${ADD_PROFILE_START_REVIEW_URL}`,
-                  state: { name: `${name}`, category: "agency" }
-                }}
-              >
-                <ItemDiv>
+              <ItemDiv>
+                <AddProfileLink
+                  to={{
+                    pathname: `${ADD_PROFILE_START_REVIEW_URL}`,
+                    state: { name: `${name}`, category: "agency" }
+                  }}
+                >
                   {SVGCreator("agency-category", "125px", "100%")}
-                </ItemDiv>
-              </AddProfileLink>
-              <AddProfileLink
-                to={{
-                  pathname: `${ADD_PROFILE_START_REVIEW_URL}`,
-                  state: { name: `${name}`, category: "payroll" }
-                }}
-              >
-                <ItemDiv>
+                </AddProfileLink>
+              </ItemDiv>
+              <ItemDiv>
+                <AddProfileLink
+                  to={{
+                    pathname: `${ADD_PROFILE_START_REVIEW_URL}`,
+                    state: { name: `${name}`, category: "payroll" }
+                  }}
+                >
                   {SVGCreator("payroll-category", "125px", "100%")}
-                </ItemDiv>
-              </AddProfileLink>
+                </AddProfileLink>
+              </ItemDiv>
             </RowDiv>
             <RowDiv>
-              <AddProfileLink
-                to={{
-                  pathname: `${ADD_PROFILE_START_REVIEW_URL}`,
-                  state: { name: `${name}`, category: "worksite" }
-                }}
-              >
-                <ItemDiv>
+              <ItemDiv>
+                <AddProfileLink
+                  to={{
+                    pathname: `${ADD_PROFILE_START_REVIEW_URL}`,
+                    state: { name: `${name}`, category: "worksite" }
+                  }}
+                >
                   {SVGCreator("worksite-category", "125px", "100%")}
-                </ItemDiv>
-              </AddProfileLink>
-              <AddProfileLink
-                to={{
-                  pathname: `${ADD_PROFILE_START_REVIEW_URL}`,
-                  state: { name: `${name}`, category: "company" }
-                }}
-              >
-                <ItemDiv>
+                </AddProfileLink>
+              </ItemDiv>
+              <ItemDiv>
+                <AddProfileLink
+                  to={{
+                    pathname: `${ADD_PROFILE_START_REVIEW_URL}`,
+                    state: { name: `${name}`, category: "company" }
+                  }}
+                >
                   {SVGCreator("company-category", "125px", "100%")}
-                </ItemDiv>
-              </AddProfileLink>
+                </AddProfileLink>
+              </ItemDiv>
             </RowDiv>
           </LogosContainer>
           <ProfileLink to={SEARCH_URL}>

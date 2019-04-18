@@ -246,6 +246,7 @@ export const LogosContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
+  padding-left: 1rem;
 `;
 
 export const RowDiv = styled.div`
