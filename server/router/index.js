@@ -17,18 +17,21 @@ const authorization = require("../middlewares/authorization");
 
 const uploadWorksiteController = require("../controllers/uploadWorksiteImage");
 
+const searchController = require("../controllers/search");
+
 const {
   LOGIN_URL,
   GET_QUESTIONS_URL,
   REVIEW_URL,
   UPLOAD_WORKSITE_IMAGE_URL,
+  SEARCH_URL,
 } = require("../../client/src/apiUrls");
 
+router.get(SEARCH_URL, searchController)
 
 router.get(GET_QUESTIONS_URL, getByOrg);
 
 router.post(REVIEW_URL, postReview);
-
 
 // require all the routes in this file
 router.post(
@@ -37,11 +40,7 @@ router.post(
   loginController,
 );
 
-router.get(
-  "/user",
-  authentication,
-  userInfoController,
-);
+router.get("/user", authentication, userInfoController);
 
 router.post(
   "/upload-verification-image",
@@ -77,11 +76,7 @@ router.post(
   postTradesController,
 );
 
-router.post(
-  "/signup",
-  validation("signup"),
-  signupController,
-);
+router.post("/signup", validation("signup"), signupController);
 
 router.post(
   "/edit-profile",

@@ -1,3 +1,28 @@
+// media queries
+// so far we only decided to use 1 breakpoint, 768px (tablet)
+const size = {
+  mobileS: "320px",
+  mobileM: "375px",
+  mobileL: "425px",
+  mobileXL: "680px",
+  tablet: "768px",
+  laptop: "1024px",
+  laptopL: "1440px",
+  desktop: "2560px"
+};
+
+export const breakpoints = {
+  mobileS: `(min-width: ${size.mobileS})`,
+  mobileM: `(min-width: ${size.mobileM})`,
+  mobileL: `(min-width: ${size.mobileL})`,
+  mobileXL: `(min-width: ${size.mobileXL})`,
+  tablet: `(min-width: ${size.tablet})`,
+  laptop: `(min-width: ${size.laptop})`,
+  laptopL: `(min-width: ${size.laptopL})`,
+  desktop: `(min-width: ${size.desktop})`,
+  desktopL: `(min-width: ${size.desktop})`
+};
+
 const colorCodes = {
   // organizations
   heliotrope: "#8B51FC",
@@ -62,6 +87,8 @@ export const shadows = {
   activeButtonShadow: "0px 2px 9px rgba(173, 145, 183, 0.273438)",
   sectionShadow: "0px 12px 16px -13px rgba(173,145,183,0.273438)",
   searchShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
+  searchBoxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
+  autocompleteSuggestionShadow: "0px 1px 2px rgba(0, 0, 0, 0)",
   frameShadow: "0px 0px 19px 6px rgba(173,145,183,0.273438)"
 };
 
@@ -89,6 +116,27 @@ export const gradient = {
 
 export const borders = {
   searchBox: `1px solid ${colors.lightGray}`
+};
+
+// icons
+
+export const organizationIcons = {
+  agency: {
+    symbol: "agency-icon",
+    arrow: "agency-arrow"
+  },
+  payroll: {
+    symbol: "payroll-icon",
+    arrow: "payroll-arrow"
+  },
+  worksite: {
+    symbol: "worksite-icon",
+    arrow: "worksite-arrow"
+  },
+  company: {
+    symbol: "company-icon",
+    arrow: "company-arrow"
+  }
 };
 
 //  font families to be added

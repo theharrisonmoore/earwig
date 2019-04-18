@@ -18,12 +18,14 @@ import Review from "./Pages/Review";
 import StaticPages from "./Pages/Static";
 import Navbar from "./Common/Navbar";
 import Admin from "./Pages/Admin";
+import Search from "./Pages/Search";
 
 import {
   RESOURCES_URL,
   CONTACT_URL,
   FAQ_URL,
   PRIVACY_URL,
+  SEARCH_URL,
   ADMIN
 } from "./../constants/naviagationUrls";
 
@@ -34,6 +36,7 @@ export default function index(props) {
     <>
       <Switch>
         <Route path="/review" component={Review} />
+
         <Route
           exact
           path={SIGNUP_URL}
@@ -110,6 +113,8 @@ export default function index(props) {
             )}
           />
         ))}
+
+        <Route path={SEARCH_URL} component={Search} />
 
         <Route
           exact
