@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { colors, shadows, organizations, breakpoints } from "./../../../theme";
+import { Link } from "react-router-dom";
 
 export const classNames = {
   container: "react-autosuggest__container",
@@ -235,6 +236,12 @@ export const SearchBoxDiv = styled.div`
 `;
 
 export const ProfileLink = styled.a`
+  :hover {
+    text-decoration: none;
+  }
+`;
+
+export const AddProfileLink = styled(Link)`
   :hover {
     text-decoration: none;
   }

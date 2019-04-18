@@ -16,6 +16,7 @@ import StaticPages from "./Pages/Static";
 import Navbar from "./Common/Navbar";
 import Admin from "./Pages/Admin";
 import Search from "./Pages/Search";
+import AddProfile from "./Pages/Search/AddProfile";
 
 import {
   RESOURCES_URL,
@@ -23,6 +24,7 @@ import {
   FAQ_URL,
   PRIVACY_URL,
   SEARCH_URL,
+  ADD_PROFILE_URL,
   ADMIN
 } from "./../constants/naviagationUrls";
 
@@ -111,6 +113,7 @@ export default function index(props) {
         ))}
 
         <Route path={SEARCH_URL} component={Search} />
+        <Route path={ADD_PROFILE_URL} component={AddProfile} />
 
         {/* 404 Error Page -need to be created */}
         <Route component={PageNotFound} />

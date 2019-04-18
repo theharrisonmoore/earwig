@@ -3,6 +3,7 @@ import axios from "axios";
 import Autosuggest from "react-autosuggest";
 
 import { API_SEARCH_URL } from "../../../apiUrls";
+import { ADD_PROFILE_URL } from "../../../constants/naviagationUrls";
 
 // UI helper functions
 import { SVGCreator, StarRateCreator, SortArrayNewest } from "../../../helpers";
@@ -126,7 +127,7 @@ export default class Search extends Component {
       <div {...containerProps}>
         {children}
         <div className="my-suggestions-container-footer" />
-        <ProfileLink href="">
+        <ProfileLink to={`/${ADD_PROFILE_URL}`}>
           <AddItemBox>
             <InnerDivSuggestions>
               <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv>
