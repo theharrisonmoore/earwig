@@ -1,12 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import { Tag, Button, Icon } from "antd";
 
-import { routes } from "./../../../../constants/adminRoutes";
-const { USERS_VIEW } = routes;
-
-export default deletHandler => {
+export default ({ deletHandler, viewHandler }) => {
   return [
     {
       title: "User Id",
@@ -57,11 +53,13 @@ export default deletHandler => {
                 <Icon type="delete" style={{ color: "red" }} />
               </Button>
               {record.status === "awaiting review" && (
-                <Link to={`${USERS_VIEW}${record._id}`}>
-                  <Button type="primary" ghost>
-                    View
-                  </Button>
-                </Link>
+                <Button
+                  type="primary"
+                  ghost
+                  onClick={() => viewHandler(record._id)}
+                >
+                  View
+                </Button>
               )}
             </div>
           </div>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
+
 import AllUsers from "./AllUsers";
 
 import { routes } from "./../../../../constants/adminRoutes";
@@ -18,7 +19,7 @@ export default class Users extends Component {
         <Route
           exact
           path={USERS_VERIFY}
-          render={props => <h1>verify users</h1>}
+          render={props => <AllUsers {...props} awaitingReview />}
         />
         <Route
           exact

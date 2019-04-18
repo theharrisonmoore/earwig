@@ -3,7 +3,9 @@ const boom = require("boom");
 const { getAllUsers } = require("./../../database/queries/user");
 
 module.exports = ((req, res, next) => {
-  getAllUsers()
+  const awaitingReview = req.query.awaitingReview === "true";
+
+  getAllUsers(awaitingReview)
     .then((users) => {
       res.json(users);
     }).catch(() => {

@@ -1,29 +1,35 @@
 const User = require("../../models/User");
 
-module.exports = () => User.aggregate([
-  {
-    $match: {
-      isAdmin: false,
-    },
+module.exports = (awaitingReview) => {
+  const match = {
+    isAdmin: false,
+  };
+  if (awaitingReview === true) {
+    match.awaitingReview = true;
+  }
 
-  }, {
-    $project: {
-      status: {
-        $cond: {
-          if: { $eq: [true, "$verified"] },
-          then: "verified",
-          else: {
-            $cond: {
-              if: { $eq: [true, "$awaitingReview"] },
-              then: "awaiting review",
-              else: "unverified",
+  return User.aggregate([
+    {
+      $match: match,
+    }, {
+      $project: {
+        status: {
+          $cond: {
+            if: { $eq: [true, "$verified"] },
+            then: "verified",
+            else: {
+              $cond: {
+                if: { $eq: [true, "$awaitingReview"] },
+                then: "awaiting review",
+                else: "unverified",
+              },
             },
           },
         },
+        email: 1,
+        userId: 1,
+        key: "$_id",
       },
-      email: 1,
-      userId: 1,
-      key: "$_id",
     },
-  },
-]);
+  ]);
+};
