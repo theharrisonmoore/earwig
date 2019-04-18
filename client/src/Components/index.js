@@ -16,7 +16,8 @@ import StaticPages from "./Pages/Static";
 import Navbar from "./Common/Navbar";
 import Admin from "./Pages/Admin";
 import Search from "./Pages/Search";
-import AddProfile from "./Pages/Search/AddProfile";
+import AddProfileSelection from "./Pages/Search/AddProfileSelection";
+import AddProfileStartReview from "./Pages/Search/AddProfileReviewStart";
 
 import {
   RESOURCES_URL,
@@ -25,6 +26,7 @@ import {
   PRIVACY_URL,
   SEARCH_URL,
   ADD_PROFILE_URL,
+  ADD_PROFILE_START_REVIEW_URL,
   ADMIN
 } from "./../constants/naviagationUrls";
 
@@ -112,11 +114,32 @@ export default function index(props) {
           />
         ))}
 
-        <Route path={SEARCH_URL} component={Search} />
+        <Route
+          path={SEARCH_URL}
+          render={linkProps => (
+            <Search
+              {...props}
+              {...linkProps}
+              handleChangeState={handleChangeState}
+            />
+          )}
+        />
+
         <Route
           path={ADD_PROFILE_URL}
           render={linkProps => (
-            <AddProfile
+            <AddProfileSelection
+              {...props}
+              {...linkProps}
+              handleChangeState={handleChangeState}
+            />
+          )}
+        />
+
+        <Route
+          path={ADD_PROFILE_START_REVIEW_URL}
+          render={linkProps => (
+            <AddProfileStartReview
               {...props}
               {...linkProps}
               handleChangeState={handleChangeState}

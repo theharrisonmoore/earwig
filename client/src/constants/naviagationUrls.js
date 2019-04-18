@@ -1,5 +1,6 @@
 export const SEARCH_URL = "/search";
 export const ADD_PROFILE_URL = "/add-profile";
+export const ADD_PROFILE_START_REVIEW_URL = "/add-profile-start-review";
 export const PROFILE_URL = "/profile";
 export const RESOURCES_URL = "/resources";
 export const CONTACT_URL = "/contact";

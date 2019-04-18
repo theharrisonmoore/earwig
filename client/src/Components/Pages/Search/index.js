@@ -30,7 +30,6 @@ import {
   ProfileLink,
   AddProfileLink
 } from "./Search.style";
-import { BrowserRouter } from "react-router-dom";
 
 import { organizationIcons } from "./../../../theme";
 
@@ -125,11 +124,12 @@ export default class Search extends Component {
   };
   // renders all elements and the add item footer
   renderSuggestionsContainer = ({ containerProps, children, query }) => {
-    return (
-      <div {...containerProps}>
-        {children}
-        <div className="my-suggestions-container-footer" />
-        <BrowserRouter>
+    if (query && query.length > 0) {
+      return (
+        <div {...containerProps}>
+          {children}
+          <div className="my-suggestions-container-footer" />
+
           <AddProfileLink
             to={{ pathname: `${ADD_PROFILE_URL}`, state: { name: `${query}` } }}
           >
@@ -142,9 +142,11 @@ export default class Search extends Component {
               </InnerDivSuggestions>
             </AddItemBox>
           </AddProfileLink>
-        </BrowserRouter>
-      </div>
-    );
+        </div>
+      );
+    } else {
+      return <div {...containerProps}>{children}</div>;
+    }
   };
   // renders last viewed organization section
   renderLastViewed = (org, key) => (

@@ -232,10 +232,14 @@ export const H2 = styled.h2`
   opacity: 0.7;
 `;
 
-export const H3 = styled.h2`
+export const H3 = styled.h3`
   font-size: 1rem;
   letter-spacing: 0.3px;
   font-weight: 900;
+`;
+export const P = styled.p`
+  font-size: 1rem;
+  font-style: italic;
 `;
 
 export const LogosContainer = styled.div`
