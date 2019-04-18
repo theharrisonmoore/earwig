@@ -1,32 +1,37 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { Table, Modal } from "antd";
+import { Table, Modal, message } from "antd";
 import createColumns from "./UsersColumns";
-const confirm = Modal.confirm;
 
 export default class AllUsers extends Component {
   state = {
     data: []
   };
 
-  showDeleteConfirm = userId => {
-    confirm({
+  showDeleteConfirm = id => {
+    Modal.confirm({
       title: "Are you sure delete this user?",
       okText: "Yes",
       okType: "danger",
       cancelText: "Cancel",
       onOk() {
-        console.log("OK", userId);
-      },
-      onCancel() {
-        console.log("Cancel", userId);
+        return new Promise((resolve, reject) => {
+          axios
+            .delete(`/api/admin/users`, {
+              data: { id }
+            })
+            .then(() => {
+              message.success("Deleted");
+              resolve();
+            })
+            .catch(() => {
+              message.error("Something went wronge!");
+              resolve();
+            });
+        });
       }
     });
-  };
-
-  handleDeleteUser = () => {
-    console.log("1111");
   };
 
   componentDidMount() {
