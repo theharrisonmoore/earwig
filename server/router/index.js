@@ -10,18 +10,14 @@ const signupController = require("./../controllers/signup");
 const postTradesController = require("../controllers/addTrade");
 
 const profileController = require("./../controllers/profile");
-const commentsController = require("./../controllers/comments")
+const commentsController = require("./../controllers/comments");
 
 // require all the routes in this file
 router.post("/profile", profileController);
 
-router.post("/comments", commentsController)
+router.post("/comments", commentsController);
 
-router.post(
-  "/login",
-  validation("login"),
-  loginController,
-);
+router.post("/login", validation("login"), loginController);
 
 router.post(
   "/upload-verification-image",
@@ -32,21 +28,10 @@ router.post(
   uploadVerificationImage,
 );
 
-router.get(
-  "/trades",
-  getTradesController,
-);
+router.get("/trades", getTradesController);
 
-router.post(
-  "/trades",
-  validation("addTrade"),
-  postTradesController,
-);
+router.post("/trades", validation("addTrade"), postTradesController);
 
-router.post(
-  "/signup",
-  validation("signup"),
-  signupController,
-);
+router.post("/signup", validation("signup"), signupController);
 
 module.exports = router;

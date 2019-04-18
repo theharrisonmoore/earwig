@@ -5,6 +5,8 @@ const { overallReview, allAnswers, checkOrgExists } = require("./../database/que
 module.exports = async (req, res, next) => {
   const { organizationID } = req.body;
 
+  console.log("USER", req.user);
+
   // check organisation exists
   const organization = await checkOrgExists(organizationID).catch(err => next(boom.badImplementation(err)));
 
