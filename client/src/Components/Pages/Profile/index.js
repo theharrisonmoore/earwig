@@ -14,7 +14,7 @@ import {
   Banner,
   Header,
   CompanyDetails,
-  CompanyTitle,
+  CompanyDiv,
   ButtonDiv,
   OrgButton,
   ReviewDiv,
@@ -24,13 +24,16 @@ import {
   ReviewButtonsDiv,
   QuickReviewButton,
   Icon,
+  CompanyNameAndStars,
   Time,
   CommentDiv,
   UserID,
   CommentBubble,
   CommentDate,
   BubbleAndDate,
-  StarWrapper
+  StarWrapper,
+  CompanyTitle,
+  Reviews
 } from "./Profile.style";
 
 import { SectionTitle } from "./ReviewSection.style";
@@ -144,18 +147,19 @@ export default class Profile extends Component {
         </Banner>
         <Header>
           <CompanyDetails>
-            <CompanyTitle>
+            <CompanyDiv>
               <Icon
                 src={`/icons/${category}-icon-desktop.svg`}
                 margin="0 1rem 0 0"
               />
-              <div>
-                <h2>{name}</h2>
+              <CompanyNameAndStars>
+                <CompanyTitle>{name}</CompanyTitle>
                 <StarWrapper>
-                  {StarRateCreator(summary)} {totalReviews} reviews
+                  {StarRateCreator(summary)}
+                  <Reviews>{totalReviews} reviews</Reviews>
                 </StarWrapper>
-              </div>
-            </CompanyTitle>
+              </CompanyNameAndStars>
+            </CompanyDiv>
             <ButtonDiv>
               <a href="tel:0207-555-4444">
                 <OrgButton category={category}>Call</OrgButton>

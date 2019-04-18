@@ -46,19 +46,15 @@ export const CompanyDetails = styled.div`
   margin: 0 7rem;
 `;
 
-export const CompanyTitle = styled.div`
+export const CompanyDiv = styled.div`
   min-width: 50%;
   display: flex;
   text-align: left;
+`;
 
-  div {
-    display: flex;
-    flex-direction: column;
-    h2 {
-      font-size: 2rem;
-      font-weight: 600;
-    }
-  }
+export const CompanyTitle = styled.h2`
+  font-size: 2rem;
+  font-weight: 600;
 `;
 
 export const ButtonDiv = styled.div`
@@ -174,6 +170,11 @@ export const Icon = styled(SVG)`
   margin: ${props => props.margin};
 `;
 
+export const CompanyNameAndStars = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const CommentDiv = styled.div`
   align-self: flex-start;
   justify-content: flex-start;
@@ -210,4 +211,11 @@ export const CommentDate = styled.p`
 export const StarWrapper = styled.div`
   display: flex;
   text-align: left;
+  flex-direction: row;
+  justify-content: flex-start;
+`;
+
+export const Reviews = styled.p`
+  margin: 0;
+  margin-left: 1rem;
 `;
