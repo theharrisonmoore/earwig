@@ -17,7 +17,8 @@ import {
   CompanyTitle,
   Reviews,
   VerifyPromo,
-  VerifyLink
+  VerifyLink,
+  InactiveButton
 } from "./Profile.style";
 
 export default class HeaderSection extends Component {
@@ -48,23 +49,41 @@ export default class HeaderSection extends Component {
               </StarWrapper>
             </CompanyNameAndStars>
           </CompanyDiv>
-          <ButtonDiv isTablet={isTablet} isMobile={isMobile}>
-            <a href={`tel:${phoneNumber}`}>
-              <OrgButton category={category} isMobile={isMobile}>
+          {level > 1 ? (
+            <ButtonDiv isTablet={isTablet} isMobile={isMobile}>
+              <a href={`tel:${phoneNumber}`}>
+                <OrgButton category={category} isMobile={isMobile}>
+                  Call
+                </OrgButton>
+              </a>
+              <a href={`mailto:${email}`}>
+                <OrgButton category={category} isMobile={isMobile}>
+                  Email
+                </OrgButton>
+              </a>
+              <a
+                href={`${websiteURL}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <OrgButton category={category} isMobile={isMobile}>
+                  Website
+                </OrgButton>
+              </a>
+            </ButtonDiv>
+          ) : (
+            <ButtonDiv isTablet={isTablet} isMobile={isMobile}>
+              <InactiveButton category={category} isMobile={isMobile}>
                 Call
-              </OrgButton>
-            </a>
-            <a href={`mailto:${email}`}>
-              <OrgButton category={category} isMobile={isMobile}>
+              </InactiveButton>
+              <InactiveButton category={category} isMobile={isMobile}>
                 Email
-              </OrgButton>
-            </a>
-            <a href={`${websiteURL}`} target="_blank" rel="noopener noreferrer">
-              <OrgButton category={category} isMobile={isMobile}>
+              </InactiveButton>
+              <InactiveButton category={category} isMobile={isMobile}>
                 Website
-              </OrgButton>
-            </a>
-          </ButtonDiv>
+              </InactiveButton>
+            </ButtonDiv>
+          )}
         </CompanyDetails>
         {level === 2 && (
           <GiveReviewDiv>

@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   padding-top: ${props => (props.isMobile ? "3rem" : "4rem")};
   text-align: left;
+  padding-bottom: 2rem;
 `;
 
 export const Banner = styled.div`
@@ -88,6 +89,18 @@ export const OrgButton = styled.button`
   :hover {
     background: ${props => organizations[`${props.category}`].primary};
     color: ${colors.white};
+  }
+`;
+
+export const InactiveButton = styled(OrgButton)`
+  cursor: not-allowed !important;
+  opacity: 0.3;
+  outline: none;
+  box-shadow: none;
+
+  :hover {
+    background: ${colors.white};
+    color: ${props => colors.inputBorder};
   }
 `;
 
@@ -188,4 +201,26 @@ export const VerifyLink = styled(NavLink)`
   :hover {
     color: ${props => organizations[`${props.category}`].primary};
   }
+`;
+
+export const AccountIcon = styled(SVG)`
+  margin: ${props => props.margin};
+  width: 1rem;
+  fill: ${colors.profileFontColor};
+`;
+
+export const AccountPromo = styled.div`
+  font-size: 1.125rem;
+  font-weight: 900;
+  color: ${colors.profileFontColor};
+  display: flex;
+  flex-direction: column;
+`;
+
+export const AccountLink = styled(VerifyLink)`
+  padding-top: 1rem;
+`;
+
+export const AccountItem = styled.div`
+  display: flex;
 `;

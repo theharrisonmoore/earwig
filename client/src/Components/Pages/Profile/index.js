@@ -7,6 +7,9 @@ import BarAnswer from "./ProfileAnswers/BarAnswer";
 import CommentsBox from "./ProfileAnswers/CommentsBox";
 import HeaderSection from "./HeaderSection";
 
+import { ITEMS } from "./../../../constants/promoItems";
+import { SIGNUP_URL } from "./../../../constants/naviagationUrls";
+
 import {
   Wrapper,
   Banner,
@@ -15,7 +18,11 @@ import {
   CommentBubble,
   CommentDate,
   BubbleAndDate,
-  ReviewDiv
+  ReviewDiv,
+  AccountIcon,
+  AccountPromo,
+  AccountLink,
+  AccountItem
 } from "./Profile.style";
 
 import { SectionTitle } from "./ReviewSection.style";
@@ -132,6 +139,35 @@ export default class Profile extends Component {
           summary={summary}
           level={level}
         />
+        {/* BASIC VIEW FOR LOGGED OUT USERS */}
+        {level < 1 && (
+          <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
+            <ReviewSection
+              category={category}
+              sectionDetails={{ _id: "Key ratings" }}
+              summary={summary}
+            />
+            <AccountPromo>
+              <p>Create an account to see more detail, including:</p>
+              <div>
+                {ITEMS[category] &&
+                  ITEMS[category].map((item, index) => (
+                    <AccountItem key={index}>
+                      <AccountIcon
+                        src="/icons/tick-icon.svg"
+                        margin="0 1rem 0 0"
+                      />
+                      <p>{item}</p>
+                    </AccountItem>
+                  ))}
+              </div>
+              <AccountLink to={SIGNUP_URL} category={category}>
+                Create an account now >
+              </AccountLink>
+            </AccountPromo>
+          </ReviewDiv>
+        )}
+
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
           {/* KEY RATINGS SECTION */}
           {reviewDetails.map(
@@ -161,13 +197,15 @@ export default class Profile extends Component {
               )
           )}
 
-          <BarAnswer
-            category={category}
-            reviewsByMonth={this.reviewsByMonth()}
-          />
-
-          {/* OVERALL RATINGS SECTION */}
+          {level > 0 && (
+            <BarAnswer
+              category={category}
+              reviewsByMonth={this.reviewsByMonth()}
+            />
+          )}
         </ReviewDiv>
+
+        {/* OVERALL RATINGS SECTION */}
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
           <SectionTitle>Overall ratings</SectionTitle>
           {summary.reviews.map((review, index) => (
@@ -181,6 +219,14 @@ export default class Profile extends Component {
               </BubbleAndDate>
             </CommentDiv>
           ))}
+        </ReviewDiv>
+        <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
+          <AccountPromo>
+            <p>Create an account to see all reviews</p>
+            <AccountLink to={SIGNUP_URL} category={category}>
+              Create an account now >
+            </AccountLink>
+          </AccountPromo>
         </ReviewDiv>
 
         {/* COMMENTS BOX */}

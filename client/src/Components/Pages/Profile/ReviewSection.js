@@ -97,7 +97,7 @@ export default class ReviewSection extends Component {
               </QuestionWrapper>
             ))}
         {/* CANTEEN SECTION */}
-        {canteenQuestions.length > 0 && (
+        {canteenQuestions && (
           <QuestionWrapper>
             <CanteenItemAnswer
               questions={canteenQuestions}

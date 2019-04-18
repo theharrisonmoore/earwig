@@ -1,6 +1,11 @@
 const boom = require("boom");
 
-const { overallReview, allAnswers, checkOrgExists } = require("./../database/queries/reviews");
+const {
+  overallReview,
+  basicReview,
+  allAnswers,
+  checkOrgExists,
+} = require("./../database/queries/reviews");
 
 module.exports = async (req, res, next) => {
   const { organizationID } = req.body;
@@ -23,7 +28,7 @@ module.exports = async (req, res, next) => {
 
     level = user.verified ? 2 : 1;
   } else {
-    summary = await overallReview(organizationID).catch(err => next(boom.badImplementation(err)));
+    summary = await basicReview(organizationID).catch(err => next(boom.badImplementation(err)));
 
     reviewDetails = [];
 

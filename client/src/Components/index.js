@@ -84,7 +84,6 @@ export default function index(props) {
             <>
               <Navbar
                 {...props}
-                title="Profile"
                 isMobile={isMobile}
                 search
                 isLoggedIn={isLoggedIn}
