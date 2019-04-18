@@ -62,7 +62,6 @@ export const shadows = {
   activeButtonShadow: "0px 2px 9px rgba(173, 145, 183, 0.273438)",
   sectionShadow: "0px 12px 16px -13px rgba(173,145,183,0.273438)",
   searchShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
-  searchShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
   frameShadow: "0px 0px 19px 6px rgba(173,145,183,0.273438)"
 };
 
