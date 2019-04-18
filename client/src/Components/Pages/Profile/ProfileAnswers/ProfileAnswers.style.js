@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import SVG from "react-inlinesvg";
 
 import { colors, organizations, shadows, borders } from "./../../../../theme";
 
@@ -107,11 +108,11 @@ export const CommentsTitle = styled.h2`
 `;
 
 export const IndividComment = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex: initial;
-    justify-content: flex-start;
-    margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: initial;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
 `;
 
 export const UserID = styled.h3`
@@ -126,4 +127,25 @@ export const CommentBubble = styled.p`
   align-self: flex-start;
   justify-content: flex-start;
   padding: 0.5rem 1rem;
+`;
+
+export const SiteItem = styled.div`
+  margin: 0;
+  color: ${props =>
+    props.itemAvailable ? `${colors.green}` : `${colors.red}`};
+  font-weight: 900;
+  display: flex;
+`;
+
+export const SiteIcon = styled(SVG)`
+  fill: ${props => (props.itemAvailable ? `${colors.green}` : `${colors.red}`)};
+  width: 1rem;
+  margin-right: 1rem;
+`;
+
+export const CanteenSubList = styled.p`
+  padding-left: 3rem;
+  color: ${props =>
+    props.itemAvailable ? `${colors.green}` : `${colors.red}`};
+  font-weight: 900;
 `;

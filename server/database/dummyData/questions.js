@@ -119,7 +119,6 @@ module.exports = () => {
       jumpTo: [{ value: "yes", nextQuestion: 18 }, { value: "no", nextQuestion: 11 }],
       options: ["yes", "no"],
       category: "agency",
-      profileType: "yesno",
     },
     {
       number: 11,
@@ -140,7 +139,7 @@ module.exports = () => {
       category: "agency",
       profileText: "Pays using the following payrolls",
       profileSection: "Key ratings",
-      profileType: "list",
+      profileType: "payrollList",
     },
     {
       number: 12,
@@ -202,6 +201,7 @@ module.exports = () => {
       text: "How much were you charged?",
       isJumping: false,
       category: "agency",
+      profileType: "payrollSubList",
     },
     {
       number: 18,
@@ -436,7 +436,6 @@ module.exports = () => {
       jumpTo: [{ value: "yes", nextQuestion: 5 }, { value: "no", nextQuestion: 4 }],
       options: ["yes", "no"],
       category: "worksite",
-      profileType: "siteItem",
     },
     {
       number: 4,
@@ -477,6 +476,7 @@ module.exports = () => {
       category: "worksite",
       profileText: "Work areas are tidy",
       profileSection: "Working on the site",
+      profileType: "yesno",
     },
     {
       number: 8,
@@ -556,7 +556,9 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "worksite",
+      profileSection: "The site welfare",
       profileType: "canteenItem",
+      profileText: "heated",
     },
     {
       number: 15,
@@ -573,6 +575,7 @@ module.exports = () => {
         "I didn't check",
       ],
       category: "worksite",
+      profileSection: "The site welfare",
       profileType: "canteenItem",
     },
     {

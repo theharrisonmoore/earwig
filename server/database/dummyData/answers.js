@@ -498,7 +498,7 @@ module.exports = async () => {
     },
     {
       question: worksiteQuestions[14],
-      answer: "hot foot served",
+      answer: ["hot foot served"],
       user: users[0],
       review: reviews[4],
       organization: reviews[4].organization,
