@@ -4,7 +4,7 @@ const { overallReview, allAnswers, checkOrgExists } = require("./../database/que
 
 module.exports = async (req, res, next) => {
   const { organizationID } = req.body;
-
+  const { user } = req;
   console.log("USER", req.user);
 
   // check organisation exists
@@ -12,9 +12,23 @@ module.exports = async (req, res, next) => {
 
   if (!organization) return next(boom.notFound("Cannot find the organization you're looking for"));
 
-  const summary = await overallReview(organizationID).catch(err => next(boom.badImplementation(err)));
+  let summary;
+  let reviewDetails;
+  let level;
 
-  const reviewDetails = await allAnswers(organizationID).catch(err => next(boom.badImplementation(err)));
+  if (user) {
+    summary = await overallReview(organizationID).catch(err => next(boom.badImplementation(err)));
+
+    reviewDetails = await allAnswers(organizationID).catch(err => next(boom.badImplementation(err)));
+
+    level = user.verified ? 2 : 1;
+  } else {
+    summary = await overallReview(organizationID).catch(err => next(boom.badImplementation(err)));
+
+    reviewDetails = [];
+
+    level = 0;
+  }
 
   // overallReview(organizationID)
   //   .then(result => res.json({ summary: result, id: organizationID }))
@@ -22,7 +36,5 @@ module.exports = async (req, res, next) => {
 
   // checkOrgExists(organizationID).then(result => res.json(result));
 
-  console.log("SUM", summary[0].reviews);
-
-  return res.json({ summary, reviewDetails });
+  return res.json({ summary, reviewDetails, level });
 };

@@ -19,22 +19,38 @@ describe("Testing profile route", () => {
     await buildDB();
   });
 
-  test("test with correct organization id", async (done) => {
+  test("test with correct organization id and level 2 user", async (done) => {
     const review = await Review.findOne();
     const data = { organizationID: review.organization };
 
+    const user = {
+      email: "level3@earwig.com",
+      password: "123456",
+    };
+
+    // login with the origin password
     request(app)
-      .post("/api/profile")
-      .send(data)
+      .post("/api/login")
+      .send(user)
       .expect("Content-Type", /json/)
       .expect(200)
-      .end((err, res) => {
-        expect(res).toBeDefined();
-        expect(res.body).toBeDefined();
-        expect(res.body.reviewDetails).toBeDefined();
-        expect(res.body.summary).toBeDefined();
-        expect(res.body.reviewDetails.length).toBeGreaterThan(1);
-        done();
+      .end(async (error, result) => {
+        const token = result.headers["set-cookie"][0].split(";")[0];
+
+        request(app)
+          .post("/api/profile")
+          .set("Cookie", [token])
+          .send(data)
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .end((err, res) => {
+            expect(res).toBeDefined();
+            expect(res.body).toBeDefined();
+            expect(res.body.reviewDetails).toBeDefined();
+            expect(res.body.summary).toBeDefined();
+            expect(res.body.reviewDetails.length).toBeGreaterThan(1);
+            done(err);
+          });
       });
   });
 });

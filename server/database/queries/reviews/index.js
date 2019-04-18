@@ -77,7 +77,6 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
     },
   ])
     .then((result) => {
-      console.log("RES", result);
       resolve(result);
     })
     .catch(err => reject(err));
@@ -158,7 +157,6 @@ module.exports.allComments = (organizationID, questionID) => new Promise((resolv
     },
   ])
     .then((result) => {
-      console.log("RESULT", result);
       resolve(result);
     })
     .catch(err => reject(err));

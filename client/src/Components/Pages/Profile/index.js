@@ -5,31 +5,17 @@ import moment from "moment";
 import ReviewSection from "./ReviewSection";
 import BarAnswer from "./ProfileAnswers/BarAnswer";
 import CommentsBox from "./ProfileAnswers/CommentsBox";
-import GiveReview from "./../../Common/GiveReview";
-
-import { StarRateCreator } from "./../../../helpers";
+import HeaderSection from "./HeaderSection";
 
 import {
   Wrapper,
   Banner,
-  Header,
-  CompanyDetails,
-  CompanyDiv,
-  ButtonDiv,
-  OrgButton,
-  ReviewDiv,
-  GiveReviewTitle,
-  GiveReviewDiv,
-  Icon,
-  CompanyNameAndStars,
   CommentDiv,
   UserID,
   CommentBubble,
   CommentDate,
   BubbleAndDate,
-  StarWrapper,
-  CompanyTitle,
-  Reviews
+  ReviewDiv
 } from "./Profile.style";
 
 import { SectionTitle } from "./ReviewSection.style";
@@ -42,7 +28,8 @@ export default class Profile extends Component {
     commentsOpen: false,
     commentsQuestion: null,
     comments: null,
-    commentsLoaded: false
+    commentsLoaded: false,
+    level: 0
   };
 
   fetchData = () => {
@@ -51,9 +38,14 @@ export default class Profile extends Component {
     axios
       .post("/api/profile", { organizationID })
       .then(res => {
-        const { summary, reviewDetails } = res.data;
+        const { summary, reviewDetails, level } = res.data;
 
-        this.setState({ summary: summary[0], reviewDetails, loaded: true });
+        this.setState({
+          summary: summary[0],
+          reviewDetails,
+          level,
+          loaded: true
+        });
       })
       .catch(err => console.log(err));
   };
@@ -79,8 +71,6 @@ export default class Profile extends Component {
           commentsLoaded: true,
           commentsQuestion: question
         });
-
-        console.log(res.data);
       })
       .catch(err => console.log(err));
   };
@@ -120,20 +110,14 @@ export default class Profile extends Component {
       commentsOpen,
       commentsQuestion,
       comments,
-      commentsLoaded
+      commentsLoaded,
+      level
     } = this.state;
     if (!loaded) return <h1>Loading...</h1>;
 
-    const {
-      category,
-      name,
-      email,
-      phoneNumber,
-      totalReviews,
-      websiteURL
-    } = summary;
+    const { category, name } = summary;
 
-    const { isTablet, isMobile } = this.props;
+    const { isTablet, isMobile, isLoggedIn } = this.props;
 
     return (
       <Wrapper isMobile={isMobile}>
@@ -142,52 +126,12 @@ export default class Profile extends Component {
             <span>{category}:</span> {name}
           </p>
         </Banner>
-        <Header isTablet={isTablet} isMobile={isMobile}>
-          <CompanyDetails isTablet={isTablet} isMobile={isMobile}>
-            <CompanyDiv isMobile={isMobile}>
-              <Icon
-                src={`/icons/${category}-icon-desktop.svg`}
-                margin="0 1rem 0 0"
-              />
-              <CompanyNameAndStars>
-                <CompanyTitle>{name}</CompanyTitle>
-                <StarWrapper>
-                  {StarRateCreator(summary)}
-                  <Reviews>{totalReviews} reviews</Reviews>
-                </StarWrapper>
-              </CompanyNameAndStars>
-            </CompanyDiv>
-            <ButtonDiv isTablet={isTablet} isMobile={isMobile}>
-              <a href={`tel:${phoneNumber}`}>
-                <OrgButton category={category} isMobile={isMobile}>
-                  Call
-                </OrgButton>
-              </a>
-              <a href={`mailto:${email}`}>
-                <OrgButton category={category} isMobile={isMobile}>
-                  Email
-                </OrgButton>
-              </a>
-              <a
-                href={`${websiteURL}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <OrgButton category={category} isMobile={isMobile}>
-                  Website
-                </OrgButton>
-              </a>
-            </ButtonDiv>
-          </CompanyDetails>
-          <GiveReviewDiv>
-            <GiveReviewTitle>Give a review about {name}</GiveReviewTitle>
-            <GiveReview
-              category={category}
-              isTablet={isTablet}
-              isMobile={isMobile}
-            />
-          </GiveReviewDiv>
-        </Header>
+        <HeaderSection
+          isTablet={isTablet}
+          isMobile={isMobile}
+          summary={summary}
+          level={level}
+        />
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
           {/* KEY RATINGS SECTION */}
           {reviewDetails.map(
@@ -202,6 +146,7 @@ export default class Profile extends Component {
                 />
               )
           )}
+
           {/* OTHER SECTIONS */}
           {reviewDetails.map(
             (section, index) =>
@@ -237,6 +182,8 @@ export default class Profile extends Component {
             </CommentDiv>
           ))}
         </ReviewDiv>
+
+        {/* COMMENTS BOX */}
         {commentsOpen && (
           <CommentsBox
             question={commentsQuestion}

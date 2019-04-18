@@ -11,39 +11,69 @@ import UploadImage from "./Pages/UploadImage";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Thankyou from "./Pages/ThankYou";
+import Review from "./Pages/Review";
+import StaticPages from "./Pages/Static";
 import Navbar from "./Common/Navbar";
 import Profile from "./Pages/Profile";
+import Admin from "./Pages/Admin";
+
+import {
+  RESOURCES_URL,
+  CONTACT_URL,
+  FAQ_URL,
+  PRIVACY_URL,
+  ADMIN
+} from "./../constants/naviagationUrls";
 
 export default function index(props) {
-  const { handleChangeState, isMobile, isTablet, isLoggedIn, state } = props;
+  const {
+    handleChangeState,
+    isMobile,
+    isTablet,
+    isLoggedIn,
+    isAdmin,
+    state
+  } = props;
 
   return (
     <>
       <Switch>
+        <Route path="/review" component={Review} />
         <Route
           exact
           path={SIGNUP_URL}
-          render={props => (
-            <Signup {...props} handleChangeState={handleChangeState} />
+          render={linkProps => (
+            <Signup
+              {...props}
+              {...linkProps}
+              handleChangeState={handleChangeState}
+            />
           )}
         />
+
         {/* orgType required as state in Link for this */}
-        <Route path={THANKYOU_URL} component={Thankyou} />
+        <Route path={THANKYOU_URL} {...props} component={Thankyou} />
+
         <Route
           exact
           path={LOGIN_URL}
-          render={props => (
-            <Login {...props} handleChangeState={handleChangeState} />
+          render={linkProps => (
+            <Login
+              {...props}
+              {...linkProps}
+              handleChangeState={handleChangeState}
+            />
           )}
         />
+
         <Route
           exact
           path="/upload-verification-photo"
-          render={props => (
+          render={linkProps => (
             <UploadImage
               {...props}
+              {...linkProps}
               handleChangeState={handleChangeState}
-              {...state}
             />
           )}
         />
@@ -64,10 +94,39 @@ export default function index(props) {
                 handleChangeState={handleChangeState}
                 isTablet={isTablet}
                 isMobile={isMobile}
+                isLoggedIn={isLoggedIn}
               />
             </>
           )}
         />
+        {isAdmin && (
+          <Route
+            path={ADMIN}
+            render={linkProps =>
+              isAdmin && (
+                <Admin
+                  {...props}
+                  {...linkProps}
+                  handleChangeState={handleChangeState}
+                />
+              )
+            }
+          />
+        )}
+        {[FAQ_URL, RESOURCES_URL, CONTACT_URL, PRIVACY_URL].map(route => (
+          <Route
+            key={route}
+            exact
+            path={route}
+            render={linkProps => (
+              <StaticPages
+                {...props}
+                {...linkProps}
+                handleChangeState={handleChangeState}
+              />
+            )}
+          />
+        ))}
 
         {/* 404 Error Page -need to be created */}
         <Route component={PageNotFound} />

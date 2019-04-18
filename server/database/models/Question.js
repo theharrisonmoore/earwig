@@ -29,6 +29,11 @@ const questionSchema = new Schema(
     },
     profileText: String,
     profileType: String,
+    group: {
+      groupOrder: Number,
+      name: String,
+      text: String,
+    },
   },
   {
     timestamps: true,

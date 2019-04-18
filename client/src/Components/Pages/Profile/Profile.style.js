@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import SVG from "react-inlinesvg";
+import { NavLink } from "react-router-dom";
 
 import { organizations, colors, shadows, borders } from "./../../../theme";
 
@@ -41,7 +42,8 @@ export const Header = styled.div`
 `;
 
 export const CompanyDetails = styled.div`
-  border-bottom: ${borders.commentBox};
+  border-bottom: ${props =>
+    props.level > 0 ? `${borders.commentBox}` : "none"};
   display: flex;
   flex-direction: ${props =>
     props.isTablet || props.isMobile ? "column" : "row"};
@@ -81,6 +83,7 @@ export const OrgButton = styled.button`
   border-radius: 0.25rem;
   box-shadow: ${shadows.buttonShadow};
   margin: 0 0.5rem;
+  cursor: pointer;
 
   :hover {
     background: ${props => organizations[`${props.category}`].primary};
@@ -163,4 +166,26 @@ export const StarWrapper = styled.div`
 export const Reviews = styled.p`
   margin: 0;
   margin-left: 1rem;
+`;
+
+export const VerifyPromo = styled.div`
+  display: flex;
+  padding: 2rem 1rem;
+  color: ${colors.profileFontColor};
+  font-weight: 900;
+  font-size: 1.125rem;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const VerifyLink = styled(NavLink)`
+  font-size: 1.25rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all ease 0.1s;
+  color: ${colors.profileFontColor};
+
+  :hover {
+    color: ${props => organizations[`${props.category}`].primary};
+  }
 `;

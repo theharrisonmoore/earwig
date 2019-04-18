@@ -7,3 +7,5 @@ export const LOGOUT_URL = "/logout";
 export const LOGIN_URL = "/login";
 export const SIGNUP_URL = "/signup";
 export const THANKYOU_URL = "/thank-you";
+export const PRIVACY_URL = "/privacy";
+export const ADMIN = "/admin";
