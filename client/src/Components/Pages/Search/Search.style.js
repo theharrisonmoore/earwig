@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { colors, shadows, organizations, breakpoints } from "./../../../theme";
+import { Link } from "react-router-dom";
 
 export const classNames = {
   container: "react-autosuggest__container",
@@ -124,6 +125,7 @@ export const ItemDiv = styled.div`
   display: flex;
   width: 50%;
 `;
+
 export const LegendTitle = styled.h2`
   color: ${props => organizations[props.orgType].primary};
   font-size: 1rem;
@@ -234,7 +236,12 @@ export const SearchBoxDiv = styled.div`
   border-radius: 5px;
 `;
 
-export const ProfileLink = styled.a`
+export const ProfileLink = styled(Link)`
+  :hover {
+    text-decoration: none;
+  }
+`;
+export const AddProfileLink = styled(Link)`
   :hover {
     text-decoration: none;
   }

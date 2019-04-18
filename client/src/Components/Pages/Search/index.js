@@ -26,7 +26,8 @@ import {
   AddItemBox,
   LegendTitle,
   ReviewsFrame,
-  ProfileLink
+  ProfileLink,
+  AddProfileLink
 } from "./Search.style";
 
 import { organizationIcons } from "./../../../theme";
@@ -97,7 +98,7 @@ export default class Search extends Component {
       return null;
     }
     return (
-      <ProfileLink href={`/profile/${suggestion._id}`}>
+      <ProfileLink to={`/profile/${suggestion._id}`}>
         <SuggestionBox orgType={suggestion.category}>
           <InnerDivSuggestions>
             <SymbolDiv>
@@ -121,26 +122,30 @@ export default class Search extends Component {
   };
   // renders all elements and the add item footer
   renderSuggestionsContainer = ({ containerProps, children, query }) => {
-    return (
-      <div {...containerProps}>
-        {children}
-        <div className="my-suggestions-container-footer" />
-        <ProfileLink href="">
-          <AddItemBox>
-            <InnerDivSuggestions>
-              <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv>
-              <AddItemDetails>
-                <h3>Add {query}</h3>
-              </AddItemDetails>
-            </InnerDivSuggestions>
-          </AddItemBox>
-        </ProfileLink>
-      </div>
-    );
+    if (query && query.length > 0) {
+      return (
+        <div {...containerProps}>
+          {children}
+          <div className="my-suggestions-container-footer" />
+
+          <AddProfileLink to={{ pathname: ``, state: { name: `${query}` } }}>
+            <AddItemBox>
+              <InnerDivSuggestions>
+                <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv>
+                <AddItemDetails>
+                  <h3>Add {query}</h3>
+                </AddItemDetails>
+              </InnerDivSuggestions>
+            </AddItemBox>
+          </AddProfileLink>
+        </div>
+      );
+    }
+    return <div {...containerProps}>{children}</div>;
   };
   // renders last viewed organization section
   renderLastViewed = (org, key) => (
-    <ProfileLink key={key} href={`/profile/${org._id}`}>
+    <ProfileLink key={key} to={`/profile/${org._id}`}>
       <ReviewsFrame orgType={org.category}>
         <InnerDivLastReviews orgType={org.category}>
           <SymbolDiv>
@@ -178,21 +183,21 @@ export default class Search extends Component {
         <SearchLegendDiv>
           <RowDiv>
             <ItemDiv>
-              {SVGCreator("agency-icon")}
+              {SVGCreator("agency-icon", "40px", "70px")}
               <LegendTitle orgType="agency">Agencies</LegendTitle>
             </ItemDiv>
             <ItemDiv>
-              {SVGCreator("payroll-icon")}
+              {SVGCreator("payroll-icon", "40px", "70px")}
               <LegendTitle orgType="payroll">Payrolls</LegendTitle>
             </ItemDiv>
           </RowDiv>
           <RowDiv>
             <ItemDiv>
-              {SVGCreator("worksite-icon")}
+              {SVGCreator("worksite-icon", "40px", "70px")}
               <LegendTitle orgType="worksite">Worksites</LegendTitle>
             </ItemDiv>
             <ItemDiv>
-              {SVGCreator("company-icon")}
+              {SVGCreator("company-icon", "40px", "70px")}
               <LegendTitle orgType="company">Companies</LegendTitle>
             </ItemDiv>
           </RowDiv>
