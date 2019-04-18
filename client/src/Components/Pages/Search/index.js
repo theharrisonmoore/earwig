@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Autosuggest from "react-autosuggest";
-
 import { API_SEARCH_URL } from "../../../apiUrls";
 
 // UI helper functions
@@ -51,6 +50,7 @@ export const getSuggestions = (value, organisationsArray) => {
   if (suggestions.length === 0) {
     return [{ isEmpty: true }];
   }
+
   return suggestions;
 };
 
@@ -204,7 +204,6 @@ export default class Search extends Component {
         </SearchLegendDiv>
         <AutosuggestWrapper>
           <Autosuggest
-            data-testid="react-autosuggest__container"
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
