@@ -16,7 +16,7 @@ import {
   ProfileLink,
   AddProfileLink
 } from "./Search.style";
-import { SVGCreator } from "../../../helpers";
+
 export default class AddProfileReviewStart extends Component {
   render() {
     const { name, category } = this.props.location.state;
@@ -35,7 +35,7 @@ export default class AddProfileReviewStart extends Component {
             <AddProfileLink
               to={{
                 pathname: `/review`,
-                state: { name: `${name}`, category: { category } }
+                state: { name: `${name}`, category: `${category}` }
               }}
             >
               Full Review
@@ -43,7 +43,7 @@ export default class AddProfileReviewStart extends Component {
             <AddProfileLink
               to={{
                 pathname: `/review-quick`,
-                state: { name: `${name}`, category: { category } }
+                state: { name: `${name}`, category: `${category}` }
               }}
             >
               Quick Review

@@ -60,20 +60,31 @@ const STATIC_QUESTIONS = [
 
 class Review extends Component {
   state = {
+    loaded: false,
     groups: [],
-    organization: { category: "worksite", name: "Bournemouth University" },
+    organization: { category: "", name: "" },
     user: { email: "level3@earwig.com" },
     worksiteImage: ""
   };
   componentDidMount() {
+    // set organisation state with props from add Profile Page
+    const { category, name } = this.props.location.state;
+
+    const organization = { ...this.state.organization };
+    organization.category = category;
+    organization.name = name;
     axios
       .get(API_GET_QUESTIONS_URL, {
         params: {
-          organization: this.state.organization.category
+          organization: category
         }
       })
       .then(res => {
-        this.setState({ groups: res.data });
+        this.setState({
+          loaded: true,
+          groups: res.data,
+          organization: organization
+        });
       })
       .catch(err => {
         // server error 500
@@ -104,8 +115,12 @@ class Review extends Component {
   };
 
   render() {
+    const { loaded } = this.state;
+    if (!loaded) return <p>loading...</p>;
+    const { name, category } = this.state.organization;
+
     const initialValues = {
-      questions: initQueestionsValues[this.state.organization.category],
+      questions: initQueestionsValues[category],
       checklist: [],
       review: {
         workPeriod: "",
@@ -116,14 +131,8 @@ class Review extends Component {
       hasAgreed: false,
       worksiteImage: ""
     };
-
-    if (!this.state && !this.state.groups[0]) {
-      return null;
-    }
-    const {
-      groups,
-      organization: { name, category }
-    } = this.state;
+    const { groups } = this.state;
+    console.log(name, category);
     return (
       <ReviewWrapper>
         <Header orgType={category}>
@@ -140,7 +149,6 @@ class Review extends Component {
             </Organization>
           </Content>
         </Header>
-
         <section>
           <Formik
             initialValues={initialValues}
@@ -202,7 +210,6 @@ class Review extends Component {
                         question={STATIC_QUESTIONS[2]}
                       />
                     </div>
-
                     <UserAgreement>
                       <Level2Header>Submit your review</Level2Header>
                       <CheckboxWrapper>
