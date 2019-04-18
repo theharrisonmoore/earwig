@@ -55,7 +55,7 @@ export const getSuggestions = (value, organisationsArray) => {
 
 export default class Search extends Component {
   state = {
-    loaded: false,
+    isLoading: false,
     data: null,
     value: "",
     suggestions: []
@@ -65,7 +65,7 @@ export default class Search extends Component {
     axiosCall().then(organizations => {
       this.setState({
         data: organizations.data,
-        loaded: true
+        isLoading: true
       });
     });
   }
@@ -95,30 +95,29 @@ export default class Search extends Component {
     // check if no suggestion available and return so that renderSuggestionsContainer function is still being called (gets deactivated otherwise)
     if (suggestion.isEmpty) {
       return null;
-    } else {
-      return (
-        <ProfileLink href={`/profile/${suggestion._id}`}>
-          <SuggestionBox orgType={suggestion.category}>
-            <InnerDivSuggestions>
-              <SymbolDiv>
-                {SVGCreator("mobile-search-icon")}
-                {SVGCreator(`${organizationIcons[suggestion.category].symbol}`)}
-              </SymbolDiv>
-              <OrganisationDetailsDiv>
-                <h3>{suggestion.name}</h3>
-                <ReviewDetailsDiv>
-                  {StarRateCreator(suggestion)}
-                  <p>{suggestion.totalReviews} reviews</p>
-                </ReviewDetailsDiv>
-              </OrganisationDetailsDiv>
-              <ArrowDiv>
-                {SVGCreator(`${organizationIcons[suggestion.category].arrow}`)}
-              </ArrowDiv>
-            </InnerDivSuggestions>
-          </SuggestionBox>
-        </ProfileLink>
-      );
     }
+    return (
+      <ProfileLink href={`/profile/${suggestion._id}`}>
+        <SuggestionBox orgType={suggestion.category}>
+          <InnerDivSuggestions>
+            <SymbolDiv>
+              {SVGCreator("mobile-search-icon")}
+              {SVGCreator(`${organizationIcons[suggestion.category].symbol}`)}
+            </SymbolDiv>
+            <OrganisationDetailsDiv>
+              <h3>{suggestion.name}</h3>
+              <ReviewDetailsDiv>
+                {StarRateCreator(suggestion)}
+                <p>{suggestion.totalReviews} reviews</p>
+              </ReviewDetailsDiv>
+            </OrganisationDetailsDiv>
+            <ArrowDiv>
+              {SVGCreator(`${organizationIcons[suggestion.category].arrow}`)}
+            </ArrowDiv>
+          </InnerDivSuggestions>
+        </SuggestionBox>
+      </ProfileLink>
+    );
   };
   // renders all elements and the add item footer
   renderSuggestionsContainer = ({ containerProps, children, query }) => {
@@ -163,13 +162,13 @@ export default class Search extends Component {
   );
 
   render() {
-    const { loaded, value, suggestions, data } = this.state;
+    const { isLoading, value, suggestions, data } = this.state;
     const inputProps = {
       placeholder: "🔍        start typing...",
       value,
       onChange: this.onChange
     };
-    if (!loaded) return <p data-testid="loading">loading...</p>;
+    if (!isLoading) return <p data-testid="loading">loading...</p>;
 
     return (
       <SearchWrapper data-testid="searchwrapper">
@@ -180,21 +179,21 @@ export default class Search extends Component {
           <RowDiv>
             <ItemDiv>
               {SVGCreator("agency-icon")}
-              <LegendTitle color="#8B51FC">Agencies</LegendTitle>
+              <LegendTitle orgType="agency">Agencies</LegendTitle>
             </ItemDiv>
             <ItemDiv>
               {SVGCreator("payroll-icon")}
-              <LegendTitle color="#37B6FD">Payrolls</LegendTitle>
+              <LegendTitle orgType="payroll">Payrolls</LegendTitle>
             </ItemDiv>
           </RowDiv>
           <RowDiv>
             <ItemDiv>
               {SVGCreator("worksite-icon")}
-              <LegendTitle color="#FFA400">Worksites</LegendTitle>
+              <LegendTitle orgType="worksite">Worksites</LegendTitle>
             </ItemDiv>
             <ItemDiv>
               {SVGCreator("company-icon")}
-              <LegendTitle color="#1C0F13">Companies</LegendTitle>
+              <LegendTitle orgType="company">Companies</LegendTitle>
             </ItemDiv>
           </RowDiv>
         </SearchLegendDiv>

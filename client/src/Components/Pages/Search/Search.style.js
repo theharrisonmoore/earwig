@@ -125,7 +125,7 @@ export const ItemDiv = styled.div`
   width: 50%;
 `;
 export const LegendTitle = styled.h2`
-  color: ${props => props.color};
+  color: ${props => organizations[props.orgType].primary};
   font-size: 1rem;
   margin-left: 0.25rem;
 `;
@@ -139,7 +139,7 @@ export const SuggestionBox = styled.div`
 export const AddItemBox = styled.div`
   border: 0.2px solid ${colors.lightGray};
   box-shadow: ${colors.searchBoxShadow};
-  color: black;
+  color: ${colors.black};
   margin-top: -1rem;
 `;
 
