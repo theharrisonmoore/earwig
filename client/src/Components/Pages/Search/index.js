@@ -186,21 +186,21 @@ export default class Search extends Component {
         <SearchLegendDiv>
           <RowDiv>
             <ItemDiv>
-              {SVGCreator("agency-icon")}
+              {SVGCreator("agency-icon", "40px", "70px")}
               <LegendTitle color="#8B51FC">Agencies</LegendTitle>
             </ItemDiv>
             <ItemDiv>
-              {SVGCreator("payroll-icon")}
+              {SVGCreator("payroll-icon", "40px", "70px")}
               <LegendTitle color="#37B6FD">Payrolls</LegendTitle>
             </ItemDiv>
           </RowDiv>
           <RowDiv>
             <ItemDiv>
-              {SVGCreator("worksite-icon")}
+              {SVGCreator("worksite-icon", "40px", "70px")}
               <LegendTitle color="#FFA400">Worksites</LegendTitle>
             </ItemDiv>
             <ItemDiv>
-              {SVGCreator("company-icon")}
+              {SVGCreator("company-icon", "40px", "70px")}
               <LegendTitle color="#1C0F13">Companies</LegendTitle>
             </ItemDiv>
           </RowDiv>

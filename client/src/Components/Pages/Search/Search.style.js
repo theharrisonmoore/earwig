@@ -71,60 +71,26 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
 `;
 
 export const SearchWrapper = styled.div`
-  width: 100%;
-  max-width: 40rem;
-  margin: 1rem auto;
-  padding: 0 1rem;
-  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
   li {
     list-style-type: none;
   }
 `;
 
-export const HeadlineDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  padding-top: 2rem;
-  padding-bottom: 0.7rem;
-  color: ${colors.profileFontColor};
-  h2 {
-    font-size: 2rem;
-    font-weight: 350;
-  }
-  p {
-    font-style: italic;
-  }
-`;
-
 export const SearchLegendDiv = styled.div`
   display: flex;
-  padding-left: 1.5rem;
   flex-direction: column;
-  align-items: center;
   padding-bottom: 1rem;
-
-  @media ${breakpoints.mobileM} {
-    padding-left: 2.5rem;
-  }
-  @media ${breakpoints.mobileL} {
-    padding-left: 5rem;
-  }
-
-  @media ${breakpoints.tablet} {
-    padding-left: 6rem;
-  }
 `;
 
-export const RowDiv = styled.div`
+export const LastReviewsContainer = styled.div`
+  border: 1px solid;
   display: flex;
-  width: 100%;
+  flex-direction: column;
+  width: auto;
 `;
 
-export const ItemDiv = styled.div`
-  display: flex;
-  width: 50%;
-`;
 export const LegendTitle = styled.h2`
   color: ${props => props.color};
   font-size: 1rem;
@@ -148,7 +114,7 @@ export const ReviewsFrame = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 0.3rem;
-  padding-left: 2rem;
+  padding-left: 1rem;
   color: ${props => organizations[props.orgType].primary};
   @media ${breakpoints.tablet} {
     padding-left: 6rem;
@@ -191,10 +157,8 @@ export const ArrowDiv = styled.div`
 `;
 
 export const ImgDiv = styled.div`
-  height: 40px;
-  width: 40px;
-  display: flex;
-  justify-content: center;
+  height: ${props => props.height};
+  width: ${props => props.width};
 `;
 
 export const OrganisationDetailsDiv = styled.div`
@@ -245,4 +209,63 @@ export const AddProfileLink = styled(Link)`
   :hover {
     text-decoration: none;
   }
+`;
+
+export const HeadlineDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 0.7rem;
+  color: ${colors.profileFontColor};
+  h2 {
+    font-size: 2rem;
+    font-weight: 350;
+  }
+  p {
+    font-style: italic;
+  }
+`;
+
+export const H2 = styled.h2`
+  font-size: 2rem;
+  opacity: 0.7;
+`;
+
+export const H3 = styled.h2`
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  font-weight: 900;
+`;
+
+export const LogosContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+`;
+
+export const RowDiv = styled.div`
+  display: flex;
+  width: auto;
+`;
+
+export const ItemDiv = styled.div`
+  display: flex;
+  width: 50%;
+`;
+
+export const FooterDiv = styled.footer`
+  flex-shrink: 0;
+  margin-top: 70%;
+`;
+export const MainDiv = styled.div`
+  flex-grow: 1;
+  flex-shrink: 0;
+`;
+
+export const AddWrapper = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 `;
