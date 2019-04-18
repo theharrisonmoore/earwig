@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 4rem;
+  text-align: left;
 `;
 
 export const Banner = styled.div`
@@ -171,4 +172,37 @@ export const QuickReviewButton = styled(ReviewButton)`
 
 export const Icon = styled(SVG)`
   margin: ${props => props.margin};
+`;
+
+export const CommentDiv = styled.div`
+  align-self: flex-start;
+  justify-content: flex-start;
+  flex: initial;
+  margin-bottom: 1rem;
+`;
+
+export const BubbleAndDate = styled.div`
+  display: flex;
+  margin-bottom: 1rem;
+`;
+
+export const UserID = styled.h3`
+  font-weight: 900;
+  font-size: 1rem;
+  color: ${colors.profileFontColor};
+`;
+
+export const CommentBubble = styled.p`
+  background: ${colors.ghostGray};
+  border-radius: 1.125rem;
+  padding: 0.5rem 1rem;
+  position: relative;
+  margin-right: 0.5rem;
+  margin-bottom: 0;
+`;
+
+export const CommentDate = styled.p`
+  margin: 0;
+  text-align: right;
+  align-self: flex-end;
 `;

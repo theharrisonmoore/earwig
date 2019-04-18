@@ -6,7 +6,7 @@ export default class ListAnswer extends Component {
   decideColor = questionCategory => {
     if (questionCategory === "agency") return "payroll";
     else if (questionCategory === "payroll") return "agency";
-    else return "default";
+    else return questionCategory;
   };
 
   render() {

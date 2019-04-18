@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Organization = require("./../../models/Organization");
 const Answer = require("./../../models/Answer");
-const Comment = require("./../../models/Comment")
+const Comment = require("./../../models/Comment");
 
 module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
 
@@ -18,6 +18,44 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
         localField: "_id",
         foreignField: "organization",
         as: "reviews",
+      },
+    },
+    {
+      $unwind: "$reviews",
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "reviews.user",
+        foreignField: "_id",
+        as: "reviews.user",
+      },
+    },
+    {
+      $unwind: "$reviews.user",
+    },
+    {
+      $project: {
+        "reviews.user.email": 0,
+        "reviews.user.isAdmin": 0,
+        "reviews.user.password": 0,
+        "reviews.user.trade": 0,
+        "reviews.user.createdAt": 0,
+        "reviews.user.updatedAt": 0,
+      },
+    },
+    {
+      $group: {
+        _id: "$_id",
+        name: { $first: "$name" },
+        category: { $first: "$category" },
+        phoneNumber: { $first: "$phoneNumber" },
+        email: { $first: "$email" },
+        websiteUrl: { $first: "$websiteURL" },
+        location: { $first: "$location" },
+        contractor: { $first: "$contractor" },
+        lastViewed: { $first: "$lastViewed" },
+        reviews: { $push: "$reviews" },
       },
     },
     {
@@ -38,7 +76,10 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
       },
     },
   ])
-    .then(resolve)
+    .then((result) => {
+      console.log("RES", result);
+      resolve(result);
+    })
     .catch(err => reject(err));
 });
 
@@ -86,13 +127,15 @@ module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
 module.exports.allComments = (organizationID, questionID) => new Promise((resolve, reject) => {
   Comment.aggregate([
     {
-      $match: { 
-        $and: [{
-          organization: mongoose.Types.ObjectId(organizationID) 
-        },
-        {
-          question: mongoose.Types.ObjectId(questionID) 
-        }]
+      $match: {
+        $and: [
+          {
+            organization: mongoose.Types.ObjectId(organizationID),
+          },
+          {
+            question: mongoose.Types.ObjectId(questionID),
+          },
+        ],
       },
     },
     {
@@ -113,8 +156,10 @@ module.exports.allComments = (organizationID, questionID) => new Promise((resolv
         text: 1,
       },
     },
-  ]).then(result => {
-    console.log("RESULT", result)
-    resolve(result)
-  }).catch(err => reject(err));
+  ])
+    .then((result) => {
+      console.log("RESULT", result);
+      resolve(result);
+    })
+    .catch(err => reject(err));
 });

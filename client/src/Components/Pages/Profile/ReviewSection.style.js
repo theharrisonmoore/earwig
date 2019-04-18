@@ -32,3 +32,11 @@ export const QuestionTitle = styled.h3`
   margin-bottom: 0.5rem;
   text-align: left;
 `;
+
+export const StarWrapper = styled(QuestionTitle)`
+  font-size: 3rem;
+`;
+
+export const CategoryTitle = styled.span`
+  text-transform: capitalize;
+`;

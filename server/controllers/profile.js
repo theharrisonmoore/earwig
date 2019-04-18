@@ -20,5 +20,7 @@ module.exports = async (req, res, next) => {
 
   // checkOrgExists(organizationID).then(result => res.json(result));
 
+  console.log("SUM", summary[0].reviews);
+
   return res.json({ summary, reviewDetails });
 };

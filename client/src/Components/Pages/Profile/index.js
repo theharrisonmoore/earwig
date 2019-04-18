@@ -22,8 +22,15 @@ import {
   ReviewButtonsDiv,
   QuickReviewButton,
   Icon,
-  Time
+  Time,
+  CommentDiv,
+  UserID,
+  CommentBubble,
+  CommentDate,
+  BubbleAndDate
 } from "./Profile.style";
+
+import { SectionTitle } from "./ReviewSection.style";
 
 export default class Profile extends Component {
   state = {
@@ -33,7 +40,7 @@ export default class Profile extends Component {
     commentsOpen: false,
     commentsQuestion: null,
     comments: null,
-    commentsLoaded: false,
+    commentsLoaded: false
   };
 
   fetchData = () => {
@@ -55,19 +62,25 @@ export default class Profile extends Component {
 
   toggleComments = question => {
     const { commentsOpen, summary } = this.state;
-    const { _id: organizationID } = summary
-    const { _id: questionID } = question
+    const { _id: organizationID } = summary;
+    const { _id: questionID } = question;
 
     // reset loading state and toggle comments box
-    this.setState({ commentsLoaded: false, commentsOpen: !commentsOpen })
+    this.setState({ commentsLoaded: false, commentsOpen: !commentsOpen });
 
     // fetch comments
-    axios.post("/api/comments", { organizationID, questionID }).then(res => {
-      this.setState({ comments: res.data, commentsLoaded: true, commentsQuestion: question })
+    axios
+      .post("/api/comments", { organizationID, questionID })
+      .then(res => {
+        this.setState({
+          comments: res.data,
+          commentsLoaded: true,
+          commentsQuestion: question
+        });
 
-      console.log(res.data)
-    }).catch(err => console.log(err))
-
+        console.log(res.data);
+      })
+      .catch(err => console.log(err));
   };
 
   reviewsByMonth = () => {
@@ -180,8 +193,10 @@ export default class Profile extends Component {
             section =>
               section._id === "Key ratings" && (
                 <ReviewSection
+                  category={category}
                   sectionDetails={section}
                   toggleComments={this.toggleComments}
+                  summary={summary}
                 />
               )
           )}
@@ -193,6 +208,7 @@ export default class Profile extends Component {
                   category={category}
                   sectionDetails={section}
                   toggleComments={this.toggleComments}
+                  summary={summary}
                 />
               )
           )}
@@ -203,8 +219,20 @@ export default class Profile extends Component {
           />
 
           {/* OVERALL RATINGS SECTION */}
-
-          <div>Overall Ratings section</div>
+        </ReviewDiv>
+        <ReviewDiv>
+          <SectionTitle>Overall ratings</SectionTitle>
+          {summary.reviews.map(review => (
+            <CommentDiv>
+              <UserID>{review.user.userId}</UserID>
+              <BubbleAndDate>
+                <CommentBubble>{review.overallReview.text}</CommentBubble>
+                <CommentDate>
+                  {moment().diff(review.createdAt, "weeks")}w
+                </CommentDate>
+              </BubbleAndDate>
+            </CommentDiv>
+          ))}
         </ReviewDiv>
         {commentsOpen && (
           <CommentsBox

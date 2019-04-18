@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 
+import { StarRateCreator } from "./../../../helpers";
+
 import {
   Wrapper,
   SectionTitle,
   QuestionWrapper,
-  QuestionTitle
+  QuestionTitle,
+  StarWrapper,
+  CategoryTitle
 } from "./ReviewSection.style";
 
 import YesNoAnswer from "./ProfileAnswers/YesNoAnswer.js";
@@ -16,7 +20,7 @@ import CanteenItemAnswer from "./ProfileAnswers/CanteenItemAnswer";
 
 export default class ReviewSection extends Component {
   render() {
-    const { sectionDetails, category, toggleComments } = this.props;
+    const { sectionDetails, category, toggleComments, summary } = this.props;
     const { _id: sectionTitle, questions } = sectionDetails;
 
     const canteenQuestions =
@@ -29,6 +33,14 @@ export default class ReviewSection extends Component {
       // Question - Title, AggregatedAnswer, Comment Box
       <Wrapper>
         <SectionTitle>{sectionTitle}</SectionTitle>
+        {sectionTitle === "Key ratings" && (
+          <QuestionWrapper>
+            <QuestionTitle>
+              <CategoryTitle>{category}</CategoryTitle> overall rating
+            </QuestionTitle>
+            <StarWrapper>{StarRateCreator(summary)}</StarWrapper>
+          </QuestionWrapper>
+        )}
         {questions &&
           questions.map(question => (
             <>
