@@ -235,7 +235,7 @@ export const SearchBoxDiv = styled.div`
   border-radius: 5px;
 `;
 
-export const ProfileLink = styled.a`
+export const ProfileLink = styled(Link)`
   :hover {
     text-decoration: none;
   }

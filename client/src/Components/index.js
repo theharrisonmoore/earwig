@@ -113,7 +113,16 @@ export default function index(props) {
         ))}
 
         <Route path={SEARCH_URL} component={Search} />
-        <Route path={ADD_PROFILE_URL} component={AddProfile} />
+        <Route
+          path={ADD_PROFILE_URL}
+          render={linkProps => (
+            <AddProfile
+              {...props}
+              {...linkProps}
+              handleChangeState={handleChangeState}
+            />
+          )}
+        />
 
         {/* 404 Error Page -need to be created */}
         <Route component={PageNotFound} />

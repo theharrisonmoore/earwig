@@ -27,7 +27,8 @@ import {
   AddItemBox,
   LegendTitle,
   ReviewsFrame,
-  ProfileLink
+  ProfileLink,
+  AddProfileLink
 } from "./Search.style";
 
 import { organizationIcons } from "./../../../theme";
@@ -98,7 +99,7 @@ export default class Search extends Component {
       return null;
     } else {
       return (
-        <ProfileLink href={`/profile/${suggestion._id}`}>
+        <ProfileLink to={`/profile/${suggestion._id}`}>
           <SuggestionBox orgType={suggestion.category}>
             <InnerDivSuggestions>
               <SymbolDiv>
@@ -127,7 +128,9 @@ export default class Search extends Component {
       <div {...containerProps}>
         {children}
         <div className="my-suggestions-container-footer" />
-        <ProfileLink to={`/${ADD_PROFILE_URL}`}>
+        <AddProfileLink
+          to={{ pathname: `${ADD_PROFILE_URL}`, state: { name: `${query}` } }}
+        >
           <AddItemBox>
             <InnerDivSuggestions>
               <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv>
@@ -136,13 +139,13 @@ export default class Search extends Component {
               </AddItemDetails>
             </InnerDivSuggestions>
           </AddItemBox>
-        </ProfileLink>
+        </AddProfileLink>
       </div>
     );
   };
   // renders last viewed organization section
   renderLastViewed = (org, key) => (
-    <ProfileLink key={key} href={`/profile/${org._id}`}>
+    <ProfileLink key={key} to={`/profile/${org._id}`}>
       <ReviewsFrame orgType={org.category}>
         <InnerDivLastReviews orgType={org.category}>
           <SymbolDiv>
