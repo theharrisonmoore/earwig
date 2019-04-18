@@ -8,10 +8,12 @@ const deleteFileFromServer = require("../middlewares/deleteFileFromServer");
 const validation = require("./../middlewares/validation");
 const loginController = require("./../controllers/login");
 const signupController = require("./../controllers/signup");
+const editProfile = require("./../controllers/editProfile");
 const postTradesController = require("../controllers/addTrade");
 const userInfoController = require("../controllers/userInfo");
 
 const authentication = require("./../middlewares/authentication");
+const authorization = require("../middlewares/authorization");
 
 const uploadWorksiteController = require("../controllers/uploadWorksiteImage");
 
@@ -27,6 +29,8 @@ router.get(GET_QUESTIONS_URL, getByOrg);
 
 router.post(REVIEW_URL, postReview);
 
+
+// require all the routes in this file
 router.post(
   LOGIN_URL,
   validation("login"),
@@ -41,9 +45,11 @@ router.get(
 
 router.post(
   "/upload-verification-image",
+  authentication,
+  authorization("LEVEL1"),
   upload("verificationImage"),
   validation("uploadVerificationImage"),
-  toGoogle(),
+  toGoogle(true),
   deleteFileFromServer,
   uploadVerificationImage,
 );
@@ -58,11 +64,15 @@ router.post(
 
 router.get(
   "/trades",
+  authentication,
+  authorization("LEVEL3"),
   getTradesController,
 );
 
 router.post(
   "/trades",
+  authentication,
+  authorization("LEVEL1"),
   validation("addTrade"),
   postTradesController,
 );
@@ -71,6 +81,17 @@ router.post(
   "/signup",
   validation("signup"),
   signupController,
+);
+
+router.post(
+  "/edit-profile",
+  authentication,
+  authorization("LEVEL3"),
+  upload("verificationImage"),
+  validation("editProfile"),
+  toGoogle(false),
+  deleteFileFromServer,
+  editProfile,
 );
 
 module.exports = router;

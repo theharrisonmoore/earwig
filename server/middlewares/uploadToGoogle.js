@@ -13,9 +13,12 @@ admin.initializeApp({
  * that upload the file to Google storage
  */
 
-module.exports = () => async (req, res, next) => {
+module.exports = required => async (req, res, next) => {
   if (!req.file) {
-    return next(boom.badImplementation());
+    if (required) {
+      return next(boom.badImplementation());
+    }
+    return next();
   }
 
   try {

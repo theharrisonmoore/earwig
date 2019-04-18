@@ -8,4 +8,8 @@ module.exports.addNew = ({ email, password }) => User.create({
   password,
 });
 
-module.exports.getUserById = id => User.findById(id, { password: 0 });
+module.exports.getUserById = (id, withoutPassword) => (
+  withoutPassword
+    ? User.findById(id, { password: 0 })
+    : User.findById(id)
+);

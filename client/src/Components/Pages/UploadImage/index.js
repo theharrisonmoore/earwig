@@ -88,7 +88,7 @@ export default class UploadImage extends Component {
         imageFile: image
       },
       () => {
-        reader.readAsDataURL(image);
+        image && reader.readAsDataURL(image);
       }
     );
   };
