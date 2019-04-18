@@ -13,3 +13,5 @@ module.exports.addNew = ({ email, password }) => User.create({
 module.exports.getUserById = id => User.findById(id, { password: 0 });
 
 module.exports.getAllUsers = getAllUsers;
+
+module.exports.deleteUser = id => User.deleteOne({ _id: id });

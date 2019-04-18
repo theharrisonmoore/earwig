@@ -1,7 +1,7 @@
 const { getAllUsers } = require("./../../database/queries/user");
 
 module.exports = ((req, res) => {
-  getAllUsers({ isAdmin: false })
+  getAllUsers()
     .then((users) => {
       res.json(users);
     });

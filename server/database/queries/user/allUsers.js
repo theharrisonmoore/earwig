@@ -23,6 +23,7 @@ module.exports = () => User.aggregate([
       },
       email: 1,
       userId: 1,
+      key: "$_id",
     },
   },
 ]);
