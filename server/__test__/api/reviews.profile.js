@@ -53,4 +53,23 @@ describe("Testing profile route", () => {
           });
       });
   });
+
+  test("test with correct organization id and logged out user", async (done) => {
+    const review = await Review.findOne();
+    const data = { organizationID: review.organization };
+
+    request(app)
+      .post("/api/profile")
+      .send(data)
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .end((err, res) => {
+        expect(res).toBeDefined();
+        expect(res.body).toBeDefined();
+        expect(res.body.reviewDetails).toBeDefined();
+        expect(res.body.summary).toBeDefined();
+        expect(res.body.reviewDetails.length).toEqual(0);
+        done(err);
+      });
+  });
 });

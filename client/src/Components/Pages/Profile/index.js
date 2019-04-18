@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 
@@ -54,7 +55,9 @@ export default class Profile extends Component {
           loaded: true
         });
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   componentDidMount() {
@@ -120,11 +123,17 @@ export default class Profile extends Component {
       commentsLoaded,
       level
     } = this.state;
-    if (!loaded) return <h1>Loading...</h1>;
-
-    const { category, name } = summary;
 
     const { isTablet, isMobile, isLoggedIn } = this.props;
+
+    if (!loaded)
+      return (
+        <Wrapper isMobile={isMobile}>
+          <h1>Loading...</h1>
+        </Wrapper>
+      );
+
+    const { category, name } = summary;
 
     return (
       <Wrapper isMobile={isMobile}>
@@ -167,7 +176,6 @@ export default class Profile extends Component {
             </AccountPromo>
           </ReviewDiv>
         )}
-
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
           {/* KEY RATINGS SECTION */}
           {reviewDetails.map(
@@ -204,7 +212,6 @@ export default class Profile extends Component {
             />
           )}
         </ReviewDiv>
-
         {/* OVERALL RATINGS SECTION */}
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
           <SectionTitle>Overall ratings</SectionTitle>
@@ -228,7 +235,6 @@ export default class Profile extends Component {
             </AccountLink>
           </AccountPromo>
         </ReviewDiv>
-
         {/* COMMENTS BOX */}
         {commentsOpen && (
           <CommentsBox
