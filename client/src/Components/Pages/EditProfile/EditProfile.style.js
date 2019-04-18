@@ -7,8 +7,8 @@ import { colors, shadows, gradient } from "./../../../theme";
 export const EditWrapper = styled.div`
   width: 100%;
   max-width: 60rem;
-  margin: 1.5rem auto;
-  padding: 0 1.5rem;
+  margin: 0 auto;
+  padding: 1.5rem;
   padding-top: 3rem;
 
   & > div:first-child {

@@ -114,11 +114,11 @@ export default function index(props) {
         <Route
           exact
           path={EDIT_PROFILE_URL}
-          render={props => (
+          render={linkProps => (
             <EditProfile
               {...props}
               handleChangeState={handleChangeState}
-              {...state}
+              {...linkProps}
             />
           )}
         />
