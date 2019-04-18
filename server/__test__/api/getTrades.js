@@ -15,16 +15,32 @@ describe("Tesing for get trades route", () => {
   });
 
   test("test for get trades", (done) => {
+    const data = {
+      email: "level3@earwig.com",
+      password: "123456",
+    };
+
+    // login with the origin password
     request(app)
-      .get("/api/trades")
+      .post("/api/login")
+      .send(data)
       .expect("Content-Type", /json/)
       .expect(200)
-      .end((err, res) => {
-        expect(res).toBeDefined();
-        expect(res.body).toBeDefined();
+      .end(async (error, result) => {
+        const token = result.headers["set-cookie"][0].split(";")[0];
 
-        expect(res.body).toHaveLength(10);
-        done(err);
+        request(app)
+          .get("/api/trades")
+          .expect("Content-Type", /json/)
+          .set("Cookie", [token])
+          .expect(200)
+          .end((err, res) => {
+            expect(res).toBeDefined();
+            expect(res.body).toBeDefined();
+
+            expect(res.body).toHaveLength(10);
+            done(err);
+          });
       });
   });
 });

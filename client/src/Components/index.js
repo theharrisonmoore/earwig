@@ -4,13 +4,16 @@ import { Route, Switch } from "react-router-dom";
 import {
   SIGNUP_URL,
   LOGIN_URL,
-  THANKYOU_URL
+  THANKYOU_URL,
+  EDIT_PROFILE_URL,
+  UPLOAD_VERIFICATION_URL
 } from "./../constants/naviagationUrls";
 
 import UploadImage from "./Pages/UploadImage";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Thankyou from "./Pages/ThankYou";
+import EditProfile from "./Pages/EditProfile";
 import Review from "./Pages/Review";
 import StaticPages from "./Pages/Static";
 import Navbar from "./Common/Navbar";
@@ -33,6 +36,7 @@ export default function index(props) {
     <>
       <Switch>
         <Route path="/review" component={Review} />
+
         <Route
           exact
           path={SIGNUP_URL}
@@ -72,7 +76,7 @@ export default function index(props) {
 
         <Route
           exact
-          path="/upload-verification-photo"
+          path={UPLOAD_VERIFICATION_URL}
           render={linkProps => (
             <UploadImage
               {...props}
@@ -112,6 +116,17 @@ export default function index(props) {
 
         <Route path={SEARCH_URL} component={Search} />
 
+        <Route
+          exact
+          path={EDIT_PROFILE_URL}
+          render={linkProps => (
+            <EditProfile
+              {...props}
+              handleChangeState={handleChangeState}
+              {...linkProps}
+            />
+          )}
+        />
         {/* 404 Error Page -need to be created */}
         <Route component={PageNotFound} />
       </Switch>
