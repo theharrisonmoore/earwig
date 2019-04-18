@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import SVG from "react-inlinesvg";
 
-import { organizations, colors, shadows } from "./../../../theme";
+import { organizations, colors, shadows, borders } from "./../../../theme";
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 4rem;
+  padding-top: ${props => (props.isMobile ? "3rem" : "4rem")};
   text-align: left;
 `;
 
@@ -32,24 +32,30 @@ export const Banner = styled.div`
 `;
 
 export const Header = styled.div`
-  box-shadow: ${shadows.boxShadow};
+  box-shadow: ${shadows.headerShadow};
   display: flex;
   flex-direction: column;
   margin-top: 2.75rem;
+  padding: ${props =>
+    props.isTablet || props.isMobile ? "1.5rem 1rem" : "1.5rem 7rem"};
 `;
 
 export const CompanyDetails = styled.div`
-  border-bottom: ${colors.gray2} 1px solid;
+  border-bottom: ${borders.commentBox};
   display: flex;
-  flex-direction: row;
-  padding: 1.5rem 0;
-  margin: 0 7rem;
+  flex-direction: ${props =>
+    props.isTablet || props.isMobile ? "column" : "row"};
+  align-items: center;
+  padding-bottom: ${props =>
+    props.isTablet || props.isMobile ? "2rem" : "1rem"};
 `;
 
 export const CompanyDiv = styled.div`
   min-width: 50%;
   display: flex;
   text-align: left;
+  margin-bottom: 1rem;
+  justify-content: center;
 `;
 
 export const CompanyTitle = styled.h2`
@@ -58,9 +64,9 @@ export const CompanyTitle = styled.h2`
 `;
 
 export const ButtonDiv = styled.div`
-  min-width: 50%;
+  min-width: ${props => (props.isTablet || props.isMobile ? "100%" : "50%")};
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -70,10 +76,11 @@ export const OrgButton = styled.button`
   color: ${props => organizations[`${props.category}`].primary};
   background: ${colors.white};
   transition: all ease-in 0.1s;
-  width: 7rem;
+  width: ${props => (props.isMobile ? "5rem" : "7rem")};
   height: 2.5rem;
   border-radius: 0.25rem;
   box-shadow: ${shadows.buttonShadow};
+  margin: 0 0.5rem;
 
   :hover {
     background: ${props => organizations[`${props.category}`].primary};
@@ -81,10 +88,19 @@ export const OrgButton = styled.button`
   }
 `;
 
+export const GiveReviewDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+  text-align: center;
+`;
+
 export const ReviewDiv = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2rem 7rem;
+  padding: ${props =>
+    props.isTablet || props.isMobile ? "2rem 1rem" : "2rem 7rem"};
+  text-align: left;
 `;
 
 export const GiveReviewTitle = styled.h3`

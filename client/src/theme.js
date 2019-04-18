@@ -62,7 +62,8 @@ export const shadows = {
   buttonShadow: "0px 4px 13px rgba(173, 145, 183, 0.273438)",
   activeButtonShadow: "0px 2px 9px rgba(173, 145, 183, 0.273438)",
   searchShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
-  commentShadow: "0px 3px 4px rgba(152, 152, 152, 0.5);"
+  commentShadow: "0px 3px 4px rgba(152, 152, 152, 0.5);",
+  headerShadow: "0px -5px 17px #9B9B9B;"
 };
 
 // gradient colors

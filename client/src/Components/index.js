@@ -15,7 +15,7 @@ import Navbar from "./Common/Navbar";
 import Profile from "./Pages/Profile";
 
 export default function index(props) {
-  const { handleChangeState, isMobile, isLoggedIn, state } = props;
+  const { handleChangeState, isMobile, isTablet, isLoggedIn, state } = props;
 
   return (
     <>
@@ -59,7 +59,12 @@ export default function index(props) {
                 search
                 isLoggedIn={isLoggedIn}
               />
-              <Profile {...props} handleChangeState={handleChangeState} />
+              <Profile
+                {...props}
+                handleChangeState={handleChangeState}
+                isTablet={isTablet}
+                isMobile={isMobile}
+              />
             </>
           )}
         />

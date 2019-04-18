@@ -6,6 +6,7 @@ import moment from "moment";
 import ReviewSection from "./ReviewSection";
 import BarAnswer from "./ProfileAnswers/BarAnswer";
 import CommentsBox from "./ProfileAnswers/CommentsBox";
+import GiveReview from "./../../Common/GiveReview";
 
 import { StarRateCreator } from "./../../../helpers";
 
@@ -19,6 +20,7 @@ import {
   OrgButton,
   ReviewDiv,
   GiveReviewTitle,
+  GiveReviewDiv,
   ReviewType,
   ReviewButton,
   ReviewButtonsDiv,
@@ -131,23 +133,24 @@ export default class Profile extends Component {
     const {
       category,
       name,
-      avgRatings,
       email,
       phoneNumber,
       totalReviews,
       websiteURL
     } = summary;
 
+    const { isTablet, isMobile } = this.props;
+
     return (
-      <Wrapper>
+      <Wrapper isMobile={isMobile}>
         <Banner category={category}>
           <p>
             <span>{category}:</span> {name}
           </p>
         </Banner>
-        <Header>
-          <CompanyDetails>
-            <CompanyDiv>
+        <Header isTablet={isTablet} isMobile={isMobile}>
+          <CompanyDetails isTablet={isTablet} isMobile={isMobile}>
+            <CompanyDiv isMobile={isMobile}>
               <Icon
                 src={`/icons/${category}-icon-desktop.svg`}
                 margin="0 1rem 0 0"
@@ -160,43 +163,34 @@ export default class Profile extends Component {
                 </StarWrapper>
               </CompanyNameAndStars>
             </CompanyDiv>
-            <ButtonDiv>
-              <a href="tel:0207-555-4444">
-                <OrgButton category={category}>Call</OrgButton>
+            <ButtonDiv isTablet={isTablet} isMobile={isMobile}>
+              <a href={`tel:${phoneNumber}`}>
+                <OrgButton category={category} isMobile={isMobile}>
+                  Call
+                </OrgButton>
               </a>
-              <a href="mailto:www.com">
-                <OrgButton category={category}>Email</OrgButton>
+              <a href={`mailto:${email}`}>
+                <OrgButton category={category} isMobile={isMobile}>
+                  Email
+                </OrgButton>
               </a>
-              <a href="http://www.anything.com" target="_blank">
-                <OrgButton category={category}>Website</OrgButton>
+              <a href={`${websiteURL}`} target="_blank">
+                <OrgButton category={category} isMobile={isMobile}>
+                  Website
+                </OrgButton>
               </a>
             </ButtonDiv>
           </CompanyDetails>
-          <ReviewDiv>
+          <GiveReviewDiv>
             <GiveReviewTitle>Give a review about {name}</GiveReviewTitle>
-            <ReviewButtonsDiv>
-              <ReviewType align="flex-start">
-                <Icon src="/icons/clock-2min.svg" margin="0 0.5rem 0 0" />
-                <Time>2 mins</Time>
-                <ReviewButton category={category}>
-                  <h4>Give a full review</h4>
-                  <p>(Most helpful!)</p>
-                  <Icon src="/icons/arrow-icon.svg" />
-                </ReviewButton>
-              </ReviewType>
-              <Icon src="/icons/or-vertical.svg" margin="0 1rem 0 1rem" />
-              <ReviewType align="flex-end">
-                <Icon src="/icons/clock-30s.svg" margin="0 0.5rem 0 0" />
-                <Time>30 sec</Time>
-                <QuickReviewButton category={category}>
-                  <h4>Give a quick review</h4>
-                  <Icon src="/icons/arrow-icon.svg" />
-                </QuickReviewButton>
-              </ReviewType>
-            </ReviewButtonsDiv>
-          </ReviewDiv>
+            <GiveReview
+              category={category}
+              isTablet={isTablet}
+              isMobile={isMobile}
+            />
+          </GiveReviewDiv>
         </Header>
-        <ReviewDiv>
+        <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
           {/* KEY RATINGS SECTION */}
           {reviewDetails.map(
             section =>
@@ -229,7 +223,7 @@ export default class Profile extends Component {
 
           {/* OVERALL RATINGS SECTION */}
         </ReviewDiv>
-        <ReviewDiv>
+        <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
           <SectionTitle>Overall ratings</SectionTitle>
           {summary.reviews.map(review => (
             <CommentDiv>
@@ -249,6 +243,7 @@ export default class Profile extends Component {
             comments={comments}
             commentsLoaded={commentsLoaded}
             toggleComments={this.toggleComments}
+            isMobile={isMobile}
           />
         )}
       </Wrapper>

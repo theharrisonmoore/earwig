@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
 export const SectionTitle = styled.h2`
   font-size: 1.75rem;
   color: ${colors.profileFontColor};
-  border-bottom: 1px solid ${colors.gray2};
+  border-bottom: ${borders.commentBox};
   margin: 0;
   margin-bottom: 1.75rem;
   font-weight: medium;

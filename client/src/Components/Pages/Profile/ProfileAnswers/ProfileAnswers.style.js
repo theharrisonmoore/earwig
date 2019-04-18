@@ -77,7 +77,7 @@ export const Wrapper = styled.div`
 
 export const CommentsDiv = styled.div`
   background: white;
-  width: 60%;
+  width: ${props => (props.isMobile ? "90%" : "60%")};
   height: auto;
   box-sizing: border-box;
   border: ${borders.commentBox};
