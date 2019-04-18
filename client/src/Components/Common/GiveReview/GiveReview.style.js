@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import SVG from "react-inlinesvg";
+import { NavLink } from "react-router-dom";
 
 import { organizations, colors, shadows } from "./../../../theme";
 
@@ -34,8 +35,7 @@ export const ReviewButton = styled.button`
   height: 3rem;
   padding: 0 0.5rem;
   align-items: center;
-  width: 18rem;
-  margin-left: 0.5rem;
+  width: 100%;
   z-index: -1;
 
   h4 {
@@ -56,6 +56,12 @@ export const ReviewButton = styled.button`
   }
 `;
 
+export const FullLink = styled(NavLink)`
+  display: flex;
+  width: 18rem;
+  margin-left: 0.5rem;
+`;
+
 export const QuickReviewContainer = styled.div`
   width: 18rem;
   margin-left: 0.5rem;
@@ -69,9 +75,14 @@ export const QuickReviewDots = styled.div`
   border-right: 0;
 `;
 
+export const QuickLink = styled(NavLink)`
+  display: flex;
+  width: 60%;
+`;
+
 export const QuickReviewButton = styled(ReviewButton)`
   margin-left: 0;
-  width: 60%;
+  width: 100%;
   /* margin-left: 30%; */
 
   h4 {

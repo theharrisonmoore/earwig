@@ -14,8 +14,11 @@ export default class ListAnswer extends Component {
 
     return (
       <ListWrapper>
-        {question.answers.map(answer => (
-          <ListItem color={this.decideColor(question.question.category)}>
+        {question.answers.map((answer, index) => (
+          <ListItem
+            key={index}
+            color={this.decideColor(question.question.category)}
+          >
             {answer.answer}
           </ListItem>
         ))}

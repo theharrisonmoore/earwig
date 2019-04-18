@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 
 import {
   ReviewButtonsDiv,
@@ -8,7 +9,9 @@ import {
   QuickReviewButton,
   Icon,
   QuickReviewContainer,
-  QuickReviewDots
+  QuickReviewDots,
+  QuickLink,
+  FullLink
 } from "./GiveReview.style";
 
 export default class GiveReview extends Component {
@@ -20,26 +23,30 @@ export default class GiveReview extends Component {
         <ReviewType isTablet={isTablet} isMobile={isMobile}>
           <Icon src="/icons/clock-2min.svg" margin="0 0.5rem 0 0" />
           <Time>2 mins</Time>
-          <ReviewButton category={category}>
-            <h4>Give a full review</h4>
-            <p>(Most helpful!)</p>
-            <Icon src="/icons/arrow-icon.svg" />
-          </ReviewButton>
+          <FullLink to={"/review"}>
+            <ReviewButton category={category}>
+              <h4>Give a full review</h4>
+              <p>(Most helpful!)</p>
+              <Icon src="/icons/arrow-icon.svg" />
+            </ReviewButton>
+          </FullLink>
         </ReviewType>
         {isMobile || isTablet ? (
           <Icon src="/icons/or-horizontal.svg" margin="1rem 0 1rem 0" />
         ) : (
-          <Icon src="/icons/or-vertical.svg" margin="0 1rem 0 1rem" />
+          <Icon src="/icons/or-vertical.svg" margin="0 1rem 0 1.5rem" />
         )}
         <ReviewType isTablet={isTablet} isMobile={isMobile}>
           <Icon src="/icons/clock-30s.svg" margin="0 0.5rem 0 0" />
           <Time>30 sec</Time>
           <QuickReviewContainer>
             <QuickReviewDots category={category} />
-            <QuickReviewButton category={category}>
-              <h4>Give a quick review</h4>
-              <Icon src="/icons/arrow-icon.svg" />
-            </QuickReviewButton>
+            <QuickLink to={"/quick-review"}>
+              <QuickReviewButton category={category}>
+                <h4>Give a quick review</h4>
+                <Icon src="/icons/arrow-icon.svg" />
+              </QuickReviewButton>
+            </QuickLink>
           </QuickReviewContainer>
           {/* <QuickReviewButton category={category}>
             <h4>Give a quick review</h4>

@@ -45,8 +45,8 @@ export default class ReviewSection extends Component {
         {questions &&
           questions
             .filter(question => question.question.profileType === "yesno")
-            .map(question => (
-              <QuestionWrapper>
+            .map((question, index) => (
+              <QuestionWrapper key={index}>
                 <QuestionTitle>{question.question.profileText}</QuestionTitle>
                 <YesNoAnswer
                   question={question}
@@ -58,8 +58,8 @@ export default class ReviewSection extends Component {
         {questions &&
           questions
             .filter(question => question.question.profileType === "pieChart")
-            .map(question => (
-              <QuestionWrapper>
+            .map((question, index) => (
+              <QuestionWrapper key={index}>
                 <QuestionTitle>{question.question.profileText}</QuestionTitle>
                 <PieAnswer
                   category={category}
@@ -72,8 +72,8 @@ export default class ReviewSection extends Component {
         {questions &&
           questions
             .filter(question => question.question.profileType === "dotChart")
-            .map(question => (
-              <QuestionWrapper>
+            .map((question, index) => (
+              <QuestionWrapper key={index}>
                 <QuestionTitle>{question.question.profileText}</QuestionTitle>
                 <ScatterAnswer
                   category={category}
@@ -86,8 +86,8 @@ export default class ReviewSection extends Component {
         {questions &&
           questions
             .filter(question => question.question.profileType === "siteItem")
-            .map(question => (
-              <QuestionWrapper>
+            .map((question, index) => (
+              <QuestionWrapper key={index}>
                 <SiteItemAnswer
                   category={category}
                   question={question}
@@ -112,8 +112,8 @@ export default class ReviewSection extends Component {
                 question.question.profileType
               )
             )
-            .map(question => (
-              <QuestionWrapper>
+            .map((question, index) => (
+              <QuestionWrapper key={index}>
                 <QuestionTitle>{question.question.profileText}</QuestionTitle>
                 <ListAnswer
                   question={question}

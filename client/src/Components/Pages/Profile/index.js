@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 
@@ -21,13 +20,8 @@ import {
   ReviewDiv,
   GiveReviewTitle,
   GiveReviewDiv,
-  ReviewType,
-  ReviewButton,
-  ReviewButtonsDiv,
-  QuickReviewButton,
   Icon,
   CompanyNameAndStars,
-  Time,
   CommentDiv,
   UserID,
   CommentBubble,
@@ -174,7 +168,11 @@ export default class Profile extends Component {
                   Email
                 </OrgButton>
               </a>
-              <a href={`${websiteURL}`} target="_blank">
+              <a
+                href={`${websiteURL}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <OrgButton category={category} isMobile={isMobile}>
                   Website
                 </OrgButton>
@@ -193,9 +191,10 @@ export default class Profile extends Component {
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
           {/* KEY RATINGS SECTION */}
           {reviewDetails.map(
-            section =>
+            (section, index) =>
               section._id === "Key ratings" && (
                 <ReviewSection
+                  key={index}
                   category={category}
                   sectionDetails={section}
                   toggleComments={this.toggleComments}
@@ -205,9 +204,10 @@ export default class Profile extends Component {
           )}
           {/* OTHER SECTIONS */}
           {reviewDetails.map(
-            section =>
+            (section, index) =>
               section._id !== "Key ratings" && (
                 <ReviewSection
+                  key={index}
                   category={category}
                   sectionDetails={section}
                   toggleComments={this.toggleComments}
@@ -225,8 +225,8 @@ export default class Profile extends Component {
         </ReviewDiv>
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
           <SectionTitle>Overall ratings</SectionTitle>
-          {summary.reviews.map(review => (
-            <CommentDiv>
+          {summary.reviews.map((review, index) => (
+            <CommentDiv key={index}>
               <UserID>{review.user.userId}</UserID>
               <BubbleAndDate>
                 <CommentBubble>{review.overallReview.text}</CommentBubble>
