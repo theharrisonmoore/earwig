@@ -7,6 +7,8 @@ import ReviewSection from "./ReviewSection";
 import BarAnswer from "./ProfileAnswers/BarAnswer";
 import CommentsBox from "./ProfileAnswers/CommentsBox";
 
+import { StarRateCreator } from "./../../../helpers";
+
 import {
   Wrapper,
   Banner,
@@ -27,7 +29,8 @@ import {
   UserID,
   CommentBubble,
   CommentDate,
-  BubbleAndDate
+  BubbleAndDate,
+  StarWrapper
 } from "./Profile.style";
 
 import { SectionTitle } from "./ReviewSection.style";
@@ -148,7 +151,9 @@ export default class Profile extends Component {
               />
               <div>
                 <h2>{name}</h2>
-                {avgRatings} {totalReviews} reviews
+                <StarWrapper>
+                  {StarRateCreator(summary)} {totalReviews} reviews
+                </StarWrapper>
               </div>
             </CompanyTitle>
             <ButtonDiv>

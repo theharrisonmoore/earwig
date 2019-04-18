@@ -4,35 +4,37 @@ const constants = require("./../../constants");
 
 const { Schema } = mongoose;
 
-const organizationSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
+const organizationSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    category: {
+      type: String,
+      enum: constants.database.ORGANIZATIONS_TYPE,
+      required: true,
+    },
+    phoneNumber: String,
+    email: {
+      type: String,
+      unique: true,
+    },
+    websiteURL: String,
+    loacation: {
+      lat: Number,
+      long: Number,
+    },
+    contractor: {
+      name: String,
+      logo: String,
+    },
+    lastViewed: Date,
   },
-  category: {
-    type: String,
-    enum: constants.database.ORGANIZATIONS_TYPE,
-    required: true,
+  {
+    timestamps: true,
   },
-  phoneNumber: String,
-  email: {
-    type: String,
-    unique: true,
-  },
-  websiteURL: String,
-  loacation: {
-    lat: Number,
-    long: Number,
-  },
-  contractor: {
-    name: String,
-    logo: String,
-  },
-  lastViewed: Date,
-}, {
-  timestamps: true,
-});
-
+);
 
 module.exports = mongoose.model("organizations", organizationSchema);

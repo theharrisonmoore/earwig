@@ -41,50 +41,47 @@ export default class ReviewSection extends Component {
             <StarWrapper>{StarRateCreator(summary)}</StarWrapper>
           </QuestionWrapper>
         )}
+
         {questions &&
-          questions.map(question => (
-            <>
-              {question.question.profileType === "yesno" && (
-                <QuestionWrapper>
-                  <QuestionTitle>{question.question.profileText}</QuestionTitle>
-                  <YesNoAnswer
-                    question={question}
-                    toggleComments={toggleComments}
-                  />
-                </QuestionWrapper>
-              )}
-              {question.question.profileType === "pieChart" && (
-                <QuestionWrapper>
-                  <QuestionTitle>{question.question.profileText}</QuestionTitle>
-                  <PieAnswer
-                    category={category}
-                    question={question}
-                    toggleComments={toggleComments}
-                  />
-                </QuestionWrapper>
-              )}
-              {question.question.profileType === "dotChart" && (
-                <QuestionWrapper>
-                  <QuestionTitle>{question.question.profileText}</QuestionTitle>
-                  <ScatterAnswer
-                    category={category}
-                    question={question}
-                    toggleComments={toggleComments}
-                  />
-                </QuestionWrapper>
-              )}
-              {/* {question.question.profileType === "siteItem" && (
-                <QuestionWrapper>
-                  <SiteItemAnswer
-                    category={category}
-                    question={question}
-                    toggleComments={toggleComments}
-                    profileType={question.question.profileType}
-                  />
-                </QuestionWrapper>
-              )} */}
-            </>
-          ))}
+          questions
+            .filter(question => question.question.profileType === "yesno")
+            .map(question => (
+              <QuestionWrapper>
+                <QuestionTitle>{question.question.profileText}</QuestionTitle>
+                <YesNoAnswer
+                  question={question}
+                  toggleComments={toggleComments}
+                />
+              </QuestionWrapper>
+            ))}
+
+        {questions &&
+          questions
+            .filter(question => question.question.profileType === "pieChart")
+            .map(question => (
+              <QuestionWrapper>
+                <QuestionTitle>{question.question.profileText}</QuestionTitle>
+                <PieAnswer
+                  category={category}
+                  question={question}
+                  toggleComments={toggleComments}
+                />
+              </QuestionWrapper>
+            ))}
+
+        {questions &&
+          questions
+            .filter(question => question.question.profileType === "dotChart")
+            .map(question => (
+              <QuestionWrapper>
+                <QuestionTitle>{question.question.profileText}</QuestionTitle>
+                <ScatterAnswer
+                  category={category}
+                  question={question}
+                  toggleComments={toggleComments}
+                />
+              </QuestionWrapper>
+            ))}
 
         {questions &&
           questions
@@ -101,10 +98,12 @@ export default class ReviewSection extends Component {
             ))}
         {/* CANTEEN SECTION */}
         {canteenQuestions.length > 0 && (
-          <CanteenItemAnswer
-            questions={canteenQuestions}
-            toggleComments={toggleComments}
-          />
+          <QuestionWrapper>
+            <CanteenItemAnswer
+              questions={canteenQuestions}
+              toggleComments={toggleComments}
+            />
+          </QuestionWrapper>
         )}
         {questions &&
           questions

@@ -206,3 +206,8 @@ export const CommentDate = styled.p`
   text-align: right;
   align-self: flex-end;
 `;
+
+export const StarWrapper = styled.div`
+  display: flex;
+  text-align: left;
+`;
