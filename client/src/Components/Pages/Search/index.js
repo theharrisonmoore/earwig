@@ -30,6 +30,7 @@ import {
   ProfileLink,
   AddProfileLink
 } from "./Search.style";
+import { BrowserRouter } from "react-router-dom";
 
 import { organizationIcons } from "./../../../theme";
 
@@ -128,18 +129,20 @@ export default class Search extends Component {
       <div {...containerProps}>
         {children}
         <div className="my-suggestions-container-footer" />
-        <AddProfileLink
-          to={{ pathname: `${ADD_PROFILE_URL}`, state: { name: `${query}` } }}
-        >
-          <AddItemBox>
-            <InnerDivSuggestions>
-              <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv>
-              <AddItemDetails>
-                <h3>Add {query}</h3>
-              </AddItemDetails>
-            </InnerDivSuggestions>
-          </AddItemBox>
-        </AddProfileLink>
+        <BrowserRouter>
+          <AddProfileLink
+            to={{ pathname: `${ADD_PROFILE_URL}`, state: { name: `${query}` } }}
+          >
+            <AddItemBox>
+              <InnerDivSuggestions>
+                <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv>
+                <AddItemDetails>
+                  <h3>Add {query}</h3>
+                </AddItemDetails>
+              </InnerDivSuggestions>
+            </AddItemBox>
+          </AddProfileLink>
+        </BrowserRouter>
       </div>
     );
   };
