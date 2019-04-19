@@ -22,19 +22,19 @@ module.exports = async () => {
       organization: agencies[0],
       question: agencyQuestions[0],
       user: users[1],
-      text: "This is a shity agency I wouldn't work with them again",
+      text: "This is a shity agency with a confusing contract. I wouldn't work with them again",
     },
     {
-      organization: agencies[1],
+      organization: agencies[0],
       question: agencyQuestions[18],
       user: users[0],
-      text: "Bad company, stay away",
+      text: "Bad agency, stay away",
     },
     {
-      organization: agencies[1],
+      organization: agencies[0],
       question: agencyQuestions[18],
       user: users[1],
-      text: "Good company",
+      text: "Good agency",
     },
   ];
   return Comment.create(comments);
