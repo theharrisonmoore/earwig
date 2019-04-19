@@ -17,6 +17,10 @@ export const classNames = {
 export const AutosuggestWrapper = styled.div.attrs(classNames)`
 width: 80%;
 
+input {
+  text-align: center;
+}
+
 .${classNames.container} {
   position: relative;
   display: flex;
@@ -264,8 +268,10 @@ export const MainDiv = styled.div`
 `;
 
 export const AddWrapper = styled.div`
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  align-items: center;
 `;

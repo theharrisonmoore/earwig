@@ -130,7 +130,9 @@ export default class Search extends Component {
           {children}
           <div className="my-suggestions-container-footer" />
 
-          <AddProfileLink to={{ pathname: ``, state: { name: `${query}` } }}>
+          <AddProfileLink
+            to={{ pathname: `${ADD_PROFILE_URL}`, state: { name: `${query}` } }}
+          >
             <AddItemBox>
               <InnerDivSuggestions>
                 <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv>
@@ -171,7 +173,7 @@ export default class Search extends Component {
   render() {
     const { isLoading, value, suggestions, data } = this.state;
     const inputProps = {
-      placeholder: "🔍        start typing...",
+      placeholder: "🔍 start typing...",
       value,
       onChange: this.onChange
     };
@@ -223,7 +225,7 @@ export default class Search extends Component {
           {data
             .sort(SortArrayNewest)
             .map((org, index) =>
-              index < 4 ? this.renderLastViewed(org, index) : ""
+              index < 5 ? this.renderLastViewed(org, index) : ""
             )}
         </ReviewsContainer>
       </SearchWrapper>

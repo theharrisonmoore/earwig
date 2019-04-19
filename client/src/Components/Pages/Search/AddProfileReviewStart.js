@@ -5,9 +5,6 @@ import { SEARCH_URL } from "../../../constants/naviagationUrls";
 import {
   HeadlineDiv,
   H2,
-  RowDiv,
-  ItemDiv,
-  LogosContainer,
   FooterDiv,
   H3,
   P,
