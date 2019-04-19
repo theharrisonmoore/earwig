@@ -1,5 +1,11 @@
 import styled from "styled-components";
-import { colors, shadows, organizations, breakpoints } from "./../../../theme";
+import {
+  borders,
+  colors,
+  shadows,
+  organizations,
+  breakpoints
+} from "./../../../theme";
 import { Link } from "react-router-dom";
 
 export const classNames = {
@@ -15,8 +21,8 @@ export const classNames = {
 };
 
 export const AutosuggestWrapper = styled.div.attrs(classNames)`
-width: 80%;
-
+width: ${props => props.width};
+outline: none;
 input {
   text-align: center;
 }
@@ -28,10 +34,10 @@ input {
   align-items: center;
 }
 .${classNames.containerOpen} {
-  border: 1px solid ${colors.inputBorder};
-  box-shadow: ${shadows.searchBoxShadow};
+  border: ${borders.searchBox};
+  box-shadow: ${shadows.searchShadow};
   border-radius: 5px;
-  height: 4.5rem;
+  height: ${props => props.height};
   padding: 10px 20px;
   font-weight: 300;
   font-size: 1rem;
@@ -50,11 +56,11 @@ input {
 .${classNames.suggestionsContainerOpen} {
   display: block;
   position: absolute;
-  margin-top: 4.5rem;
+  margin-top: ${props => props.height};
   width: 100%;
   z-index: 2;
   background-color: ${colors.white};
-  max-height: 45vh;
+  max-height: 80vh;
   overflow-y: auto;
 }
 .${classNames.suggestionsList} {
@@ -75,6 +81,18 @@ input {
 `;
 
 export const SearchWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  li {
+    list-style-type: none;
+  }
+`;
+
+export const SearchContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;

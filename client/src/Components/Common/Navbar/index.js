@@ -80,12 +80,7 @@ export default class Navbar extends Component {
             )}
           </SideDiv>
           {search && (
-            <AutosuggestComponent data={data} />
-            // <NavSearch>
-            //   {/* <NavInput placeholder="Try searching for agencies, payrolls, worksites, or companies..." />
-            //   <NavSearchIcon src={SearchIcon} alt="search" /> */}
-
-            // </NavSearch>
+            <AutosuggestComponent height="3rem" width="50%" data={data} />
           )}
           {menuOpen ? (
             <>

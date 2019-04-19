@@ -91,19 +91,22 @@ export default function index(props) {
             />
           )}
         />
+
         <Route
           exact
           path="/profile/:profileID"
-          render={props => (
+          render={linkProps => (
             <>
               <Navbar
                 {...props}
+                {...linkProps}
                 isMobile={isMobile}
                 search
                 isLoggedIn={isLoggedIn}
               />
               <Profile
                 {...props}
+                {...linkProps}
                 handleChangeState={handleChangeState}
                 isTablet={isTablet}
                 isMobile={isMobile}

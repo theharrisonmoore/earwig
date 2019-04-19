@@ -124,6 +124,7 @@ export default class AutosuggestComponent extends Component {
 
   render() {
     const { value, suggestions } = this.state;
+    const { height, width } = this.props;
     const inputProps = {
       placeholder: "🔍 start typing...",
       value,
@@ -131,7 +132,7 @@ export default class AutosuggestComponent extends Component {
     };
 
     return (
-      <AutosuggestWrapper>
+      <AutosuggestWrapper height={height} width={width}>
         <Autosuggest
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
