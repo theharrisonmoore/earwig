@@ -69,7 +69,6 @@ class Review extends Component {
   componentDidMount() {
     // set organisation state with props from add Profile Page
     const { category, name } = this.props.location.state;
-
     const organization = { ...this.state.organization };
     organization.category = category;
     organization.name = name;
@@ -131,8 +130,9 @@ class Review extends Component {
       hasAgreed: false,
       worksiteImage: ""
     };
+
     const { groups } = this.state;
-    console.log(name, category);
+
     return (
       <ReviewWrapper>
         <Header orgType={category}>
@@ -173,23 +173,26 @@ class Review extends Component {
                     </div>
                     <div>
                       {groups.map(group => {
-                        return (
-                          <div key={group._id}>
-                            <h2>{group.group.text}</h2>
-                            {group.questions.map(question => {
-                              return (
-                                <Question
-                                  key={question._id}
-                                  values={values}
-                                  handleChagne={handleChange}
-                                  question={question}
-                                  errors={errors}
-                                  setFieldValue={setFieldValue}
-                                />
-                              );
-                            })}
-                          </div>
-                        );
+                        if (group.group && group.group.text) {
+                          return (
+                            <div key={group._id}>
+                              <h2>{group.group.text}</h2>
+                              {group.questions.map(question => {
+                                return (
+                                  <Question
+                                    key={question._id}
+                                    values={values}
+                                    handleChagne={handleChange}
+                                    question={question}
+                                    errors={errors}
+                                    setFieldValue={setFieldValue}
+                                  />
+                                );
+                              })}
+                            </div>
+                          );
+                        }
+                        return null;
                       })}
                     </div>
                     <div className="questions">

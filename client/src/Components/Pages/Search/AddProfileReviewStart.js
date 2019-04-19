@@ -10,13 +10,15 @@ import {
   P,
   MainDiv,
   AddWrapper,
-  ProfileLink,
-  AddProfileLink
+  ProfileLink
 } from "./Search.style";
+
+import GiveReview from "../../Common/GiveReview";
 
 export default class AddProfileReviewStart extends Component {
   render() {
     const { name, category } = this.props.location.state;
+    const { isTablet, isMobile } = this.props;
 
     return (
       <AddWrapper>
@@ -29,22 +31,12 @@ export default class AddProfileReviewStart extends Component {
             <P>please give a full or quick review </P>
           </HeadlineDiv>
           <div>
-            <AddProfileLink
-              to={{
-                pathname: `/review`,
-                state: { name: `${name}`, category: `${category}` }
-              }}
-            >
-              Full Review
-            </AddProfileLink>
-            <AddProfileLink
-              to={{
-                pathname: `/review-quick`,
-                state: { name: `${name}`, category: `${category}` }
-              }}
-            >
-              Quick Review
-            </AddProfileLink>
+            <GiveReview
+              category={category}
+              isTablet={isTablet}
+              isMobile={isMobile}
+              state={{ name: `${name}`, category: `${category}` }}
+            />
           </div>
           <ProfileLink to={SEARCH_URL}>
             <FooterDiv>

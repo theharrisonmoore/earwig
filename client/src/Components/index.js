@@ -158,6 +158,8 @@ export default function index(props) {
             <AddProfileStartReview
               {...props}
               {...linkProps}
+              isTablet={isTablet}
+              isMobile={isMobile}
               handleChangeState={handleChangeState}
             />
           )}
