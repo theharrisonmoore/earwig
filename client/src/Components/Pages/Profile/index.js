@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 
@@ -124,7 +123,7 @@ export default class Profile extends Component {
       level
     } = this.state;
 
-    const { isTablet, isMobile, isLoggedIn } = this.props;
+    const { isTablet, isMobile } = this.props;
 
     if (!loaded)
       return (
@@ -213,20 +212,22 @@ export default class Profile extends Component {
           )}
         </ReviewDiv>
         {/* OVERALL RATINGS SECTION */}
-        <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-          <SectionTitle>Overall ratings</SectionTitle>
-          {summary.reviews.map((review, index) => (
-            <CommentDiv key={index}>
-              <UserID>{review.user.userId}</UserID>
-              <BubbleAndDate>
-                <CommentBubble>{review.overallReview.text}</CommentBubble>
-                <CommentDate>
-                  {moment().diff(review.createdAt, "weeks")}w
-                </CommentDate>
-              </BubbleAndDate>
-            </CommentDiv>
-          ))}
-        </ReviewDiv>
+        {summary.reviews[0].createdAt && (
+          <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
+            <SectionTitle>Overall ratings</SectionTitle>
+            {summary.reviews.map((review, index) => (
+              <CommentDiv key={index}>
+                <UserID>{review.user && review.user.userId}</UserID>
+                <BubbleAndDate>
+                  <CommentBubble>{review.overallReview.text}</CommentBubble>
+                  <CommentDate>
+                    {moment().diff(review.createdAt, "weeks")}w
+                  </CommentDate>
+                </BubbleAndDate>
+              </CommentDiv>
+            ))}
+          </ReviewDiv>
+        )}
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
           <AccountPromo>
             <p>Create an account to see all reviews</p>

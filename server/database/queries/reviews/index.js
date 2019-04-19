@@ -21,8 +21,33 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
       },
     },
     {
-      $unwind: "$reviews",
+      $addFields: {
+        // store the total number of reviews
+        totalReviews: {
+          $size: "$reviews",
+        },
+        // work out the organization's average rating
+        avgRatings: {
+          $avg: "$reviews.rate",
+        },
+      },
     },
+    {
+      $unwind: { path: "$reviews", preserveNullAndEmptyArrays: true },
+    },
+    // {
+    //   $project: {
+    //     reviews: { $ifNull: ["$reviews", { user: "unspecified" }] },
+    //     name: 1,
+    //     category: 1,
+    //     phoneNumber: 1,
+    //     email: 1,
+    //     websiteUrl: 1,
+    //     location: 1,
+    //     contractor: 1,
+    //     lastViewed: 1,
+    //   },
+    // },
     {
       $lookup: {
         from: "users",
@@ -32,7 +57,7 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
       },
     },
     {
-      $unwind: "$reviews.user",
+      $unwind: { path: "$reviews.user", preserveNullAndEmptyArrays: true },
     },
     {
       $project: {
@@ -56,18 +81,8 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
         contractor: { $first: "$contractor" },
         lastViewed: { $first: "$lastViewed" },
         reviews: { $push: "$reviews" },
-      },
-    },
-    {
-      $addFields: {
-        // store the total number of reviews
-        totalReviews: {
-          $size: "$reviews",
-        },
-        // work out the organization's average rating
-        avgRatings: {
-          $avg: "$reviews.rate",
-        },
+        totalReviews: { $first: "$totalReviews" },
+        avgRatings: { $first: "$avgRatings" },
       },
     },
     {
@@ -77,6 +92,7 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
     },
   ])
     .then((result) => {
+      console.log("RES!!!!!", result);
       resolve(result);
     })
     .catch(err => reject(err));

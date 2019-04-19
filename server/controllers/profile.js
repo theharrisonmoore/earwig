@@ -20,6 +20,8 @@ module.exports = async (req, res, next) => {
   let reviewDetails;
   let level;
 
+  console.log("ORG", organizationID);
+
   if (user) {
     summary = await overallReview(organizationID).catch(err => next(boom.badImplementation(err)));
 
@@ -33,6 +35,9 @@ module.exports = async (req, res, next) => {
 
     level = 0;
   }
+
+  console.log("SUM", summary);
+  console.log("REV", summary[0].reviews[0]);
 
   // overallReview(organizationID)
   //   .then(result => res.json({ summary: result, id: organizationID }))

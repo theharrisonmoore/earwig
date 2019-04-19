@@ -23,11 +23,15 @@ export default class ReviewSection extends Component {
     const { sectionDetails, category, toggleComments, summary } = this.props;
     const { _id: sectionTitle, questions } = sectionDetails;
 
-    const canteenQuestions =
+    let canteenQuestions =
       questions &&
       questions.filter(
         question => question.question.profileType === "canteenItem"
       );
+
+    console.log("canteen", canteenQuestions);
+
+    // canteenQuestions = canteenQuestions.length > 0 ? canteenQuestions : null;
 
     return (
       // Question - Title, AggregatedAnswer, Comment Box
@@ -97,14 +101,14 @@ export default class ReviewSection extends Component {
               </QuestionWrapper>
             ))}
         {/* CANTEEN SECTION */}
-        {canteenQuestions && (
+        {/* {canteenQuestions && (
           <QuestionWrapper>
             <CanteenItemAnswer
               questions={canteenQuestions}
               toggleComments={toggleComments}
             />
           </QuestionWrapper>
-        )}
+        )} */}
         {questions &&
           questions
             .filter(question =>
