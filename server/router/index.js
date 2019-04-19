@@ -13,11 +13,13 @@ const postTradesController = require("../controllers/addTrade");
 const userInfoController = require("../controllers/userInfo");
 
 const authentication = require("./../middlewares/authentication");
+const softAuthCheck = require("./../middlewares/softAuthCheck");
 const authorization = require("../middlewares/authorization");
 
 const uploadWorksiteController = require("../controllers/uploadWorksiteImage");
-
 const searchController = require("../controllers/search");
+const profileController = require("./../controllers/profile");
+const commentsController = require("./../controllers/comments");
 
 const {
   LOGIN_URL,
@@ -27,20 +29,23 @@ const {
   SEARCH_URL,
 } = require("../../client/src/apiUrls");
 
-router.get(SEARCH_URL, searchController)
+router.get(SEARCH_URL, searchController);
+
+router.get("/user", authentication, userInfoController);
 
 router.get(GET_QUESTIONS_URL, getByOrg);
 
 router.post(REVIEW_URL, postReview);
 
 // require all the routes in this file
-router.post(
-  LOGIN_URL,
-  validation("login"),
-  loginController,
-);
+router.post(LOGIN_URL, validation("login"), loginController);
 
-router.get("/user", authentication, userInfoController);
+// require all the routes in this file
+router.post("/profile", softAuthCheck, profileController);
+
+router.post("/comments", commentsController);
+
+router.post(LOGIN_URL, validation("login"), loginController);
 
 router.post(
   "/upload-verification-image",
@@ -61,12 +66,7 @@ router.post(
   uploadWorksiteController,
 );
 
-router.get(
-  "/trades",
-  authentication,
-  authorization("LEVEL3"),
-  getTradesController,
-);
+router.get("/trades", authentication, authorization("LEVEL3"), getTradesController);
 
 router.post(
   "/trades",

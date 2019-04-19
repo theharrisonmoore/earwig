@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   display: flex;
   position: fixed;
   height: ${props => props.height};
-  border-bottom: 1px solid ${colors.gray2};
+  border-bottom: 1px solid ${colors.lightGray};
   padding: 0.5rem;
   justify-content: space-between;
   width: 100%;

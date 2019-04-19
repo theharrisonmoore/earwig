@@ -17,6 +17,7 @@ import EditProfile from "./Pages/EditProfile";
 import Review from "./Pages/Review";
 import StaticPages from "./Pages/Static";
 import Navbar from "./Common/Navbar";
+import Profile from "./Pages/Profile";
 import Admin from "./Pages/Admin";
 import Search from "./Pages/Search";
 
@@ -30,7 +31,7 @@ import {
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
-  const { handleChangeState, isMobile, isLoggedIn, isAdmin } = props;
+  const { handleChangeState, isMobile, isTablet, isLoggedIn, isAdmin } = props;
 
   return (
     <>
@@ -56,21 +57,11 @@ export default function index(props) {
           exact
           path={LOGIN_URL}
           render={linkProps => (
-            <>
-              <Navbar
-                {...linkProps}
-                {...props}
-                title="Page Not Found"
-                isMobile={isMobile}
-                search
-                isLoggedIn={isLoggedIn}
-              />
-              <Login
-                {...props}
-                {...linkProps}
-                handleChangeState={handleChangeState}
-              />
-            </>
+            <Login
+              {...props}
+              {...linkProps}
+              handleChangeState={handleChangeState}
+            />
           )}
         />
 
@@ -83,6 +74,27 @@ export default function index(props) {
               {...linkProps}
               handleChangeState={handleChangeState}
             />
+          )}
+        />
+        <Route
+          exact
+          path="/profile/:profileID"
+          render={props => (
+            <>
+              <Navbar
+                {...props}
+                isMobile={isMobile}
+                search
+                isLoggedIn={isLoggedIn}
+              />
+              <Profile
+                {...props}
+                handleChangeState={handleChangeState}
+                isTablet={isTablet}
+                isMobile={isMobile}
+                isLoggedIn={isLoggedIn}
+              />
+            </>
           )}
         />
         {isAdmin && (

@@ -1,7 +1,7 @@
-import { MOBILE_WIDTH } from "./constants/screenWidths";
+import { MOBILE_WIDTH, TABLET_WIDTH } from "./constants/screenWidths";
 import React from "react";
-import SVG from "react-inlinesvg";
 import StarRatingComponent from "react-star-rating-component";
+import SVG from "react-inlinesvg";
 import { ImgDiv } from "./Components/Pages/Search/Search.style";
 import { organizations } from "./theme";
 
@@ -29,4 +29,7 @@ export const SortArrayNewest = (a, b) => {
   return a.lastViewed > b.lastViewed ? -1 : b.lastViewed > a.lastViewed ? 1 : 0;
 };
 
-export const isMobile = width => width < MOBILE_WIDTH;
+export const isMobile = width => width <= MOBILE_WIDTH;
+
+export const isTablet = width => width <= TABLET_WIDTH && width > MOBILE_WIDTH;
+
