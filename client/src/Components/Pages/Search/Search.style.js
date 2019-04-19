@@ -15,21 +15,24 @@ export const classNames = {
 };
 
 export const AutosuggestWrapper = styled.div.attrs(classNames)`
+width: 80%;
+
 .${classNames.container} {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
 .${classNames.containerOpen} {
   border: 1px solid ${colors.inputBorder};
   box-shadow: ${shadows.searchBoxShadow};
   border-radius: 5px;
-  width: 80%;
   height: 4.5rem;
   padding: 10px 20px;
   font-weight: 300;
   font-size: 1rem;
+  width: 100%;
 }
-
 .${classNames.containerFocussed} {
   outline: none;
 }
@@ -43,15 +46,14 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
 .${classNames.suggestionsContainerOpen} {
   display: block;
   position: absolute;
+  margin-top: 4.5rem;
   width: 100%;
+  z-index: 2;
   background-color: ${colors.white};
   max-height: 45vh;
   overflow-y: auto;
-  z-index: 2;
-
 }
 .${classNames.suggestionsList} {
-
 }
 .${classNames.suggestions} {
   box-shadow: ${shadows.autocompleteSuggestionShadow};
@@ -62,9 +64,7 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
   opacity: 0.8;
 }
 @media ${breakpoints.tablet} {
-  .${classNames.containerOpen} {
-    width: 100%;
-  }
+
   .${classNames.suggestionsContainerOpen} {
     max-height: inherit;
   }
@@ -73,6 +73,10 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
 export const SearchWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  align-items: center;
   li {
     list-style-type: none;
   }
@@ -81,20 +85,23 @@ export const SearchWrapper = styled.div`
 export const SearchLegendDiv = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding-bottom: 1rem;
 `;
 
 export const LastReviewsContainer = styled.div`
-  border: 1px solid;
   display: flex;
   flex-direction: column;
-  width: auto;
+`;
+
+export const ItemDiv = styled.div`
+  display: flex;
+  width: 200px;
 `;
 
 export const LegendTitle = styled.h2`
-  color: ${props => props.color};
+  color: ${props => organizations[props.orgType].primary};
   font-size: 1rem;
-  margin-left: 0.25rem;
 `;
 
 export const SuggestionBox = styled.div`
@@ -106,28 +113,33 @@ export const SuggestionBox = styled.div`
 export const AddItemBox = styled.div`
   border: 0.2px solid ${colors.lightGray};
   box-shadow: ${colors.searchBoxShadow};
-  color: black;
+  color: ${colors.black};
   margin-top: -1rem;
 `;
 
 export const ReviewsFrame = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding-top: 0.3rem;
-  padding-left: 1rem;
   color: ${props => organizations[props.orgType].primary};
-  @media ${breakpoints.tablet} {
-    padding-left: 6rem;
-  }
+`;
+
+export const ReviewsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 80%;
 `;
 
 export const InnerDivLastReviews = styled.div`
   text-align: left;
-  width: 100%;
+  width: 90%;
   display: flex;
   @media ${breakpoints.tablet} {
     border-bottom: 2px solid ${props => organizations[props.orgType].secondary};
-    width: 80%;
   }
 `;
 
@@ -188,23 +200,11 @@ export const ReviewDetailsDiv = styled.div`
   }
 `;
 
-export const SearchBoxDiv = styled.div`
-  display: flex;
-  border: 1px solid #979797;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 3.5rem;
-  box-shadow: ${shadows.buttonShadow};
-  border-radius: 5px;
-`;
-
 export const ProfileLink = styled(Link)`
   :hover {
     text-decoration: none;
   }
 `;
-
 export const AddProfileLink = styled(Link)`
   :hover {
     text-decoration: none;
@@ -252,11 +252,6 @@ export const LogosContainer = styled.div`
 export const RowDiv = styled.div`
   display: flex;
   width: auto;
-`;
-
-export const ItemDiv = styled.div`
-  display: flex;
-  width: 50%;
 `;
 
 export const FooterDiv = styled.footer`

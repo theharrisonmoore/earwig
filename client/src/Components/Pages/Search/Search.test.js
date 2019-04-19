@@ -1,24 +1,20 @@
 import React from "react";
-import {
-  render,
-  fireEvent,
-  cleanup,
-  waitForElement
-} from "react-testing-library";
+import { render, cleanup, waitForElement } from "react-testing-library";
 import userEvent from "user-event";
 import Search, { axiosCall, getSuggestions } from "./index";
 import mockAxios from "axios";
 import { resultArray } from "./resultArray";
+import { BrowserRouter } from "react-router-dom";
 
 // helpers
-// i wanna create a data object that can be called throughout all tests
+// create a data object that can be called throughout all tests
 let data = null;
 // stores elements in data obj
 const init = elements => {
   data = elements;
 };
 
-// make api call
+// makes api call
 const apiCall = async () => {
   mockAxios.get.mockResolvedValueOnce({ data: resultArray });
   const organisations = await axiosCall();
@@ -30,110 +26,105 @@ const expectInputValue = (actualValue, expectedValue) => {
   expect(actualValue).toEqual(expectedValue);
 };
 
-// clicks input field and changes value
-const focusAndSetInputValue = value => {
-  fireEvent.click(data.input);
-  data.input.value = value;
-  fireEvent.change(data.input);
-};
-
 // simulates key press in input
 const pressKeys = key => {
+  userEvent.click(data.input);
   userEvent.type(data.input, key);
   expect(data.input.value).toBe(key);
 };
 
 // compares suggestions (stored in state)
-// i know that this only tests the function rather than the rendering
-// i'm just not sure how to get the suggestions as they don't seem to be rendered in my tests at all if I inspect the dom elements...
-const expectSuggestions = (expectedSuggestions, value, array) => {
-  const suggestions = getSuggestions(value, array).map(
-    suggestion => suggestion.name
-  );
+// tests the function rather than the rendering
 
+const expectSuggestions = (expectedSuggestions, value, array) => {
+  const suggestions = getSuggestions(value, array).map(suggestion =>
+    suggestion.isEmpty ? "empty" : suggestion.name
+  );
   expect(suggestions).toEqual(expectedSuggestions);
 };
-// i guess it should rather be like
-// const suggestions = data.autosuggestContainer.querySelectorAll(
-//   ".react-autosuggest__suggestion"
-// );
 
 // start testing
 afterEach(cleanup);
 
 // test if loading renders
 it("renders loading...", () => {
-  const { getByTestId } = render(<Search />);
+  const { getByTestId } = render(
+    <BrowserRouter>
+      <Search />
+    </BrowserRouter>
+  );
   const loadingRender = getByTestId("loading");
   expect(loadingRender.textContent).toBe("loading...");
 });
 
-// testing for api call and after
-describe("tests for successful rendering", () => {
-  beforeEach(async () => {
-    // render component
-    const { getByTestId, getByRole } = render(<Search />);
-    // get search component
-    const container = await waitForElement(() => getByTestId("searchwrapper"));
-    // get input field (react testing library didn't work here...)
-    const input = container.querySelector("input");
-    // get autosuggest container (like above needed to use DOM)
-    const autosuggestContainer = container.querySelector(
-      ".react-autosuggest__container"
-    );
-    // when user clicks on input the autosuggestcontainer class becomes 'react-autosuggest__container react-autosuggest__container--open'
-    // inside the suggestioncontainer is renderered
-    const suggestionsContainer = getByRole("listbox");
-    // however I cant get the open class to work in my tests.. so the container stays closed...
+beforeAll(async () => {
+  // render component
+  const { getByTestId, getByRole } = render(
+    <BrowserRouter>
+      <Search />
+    </BrowserRouter>
+  );
+  // get search component
+  const container = await waitForElement(() => getByTestId("searchwrapper"));
+  // get input field
+  const input = container.querySelector("input");
+  // get autosuggest container
+  const autosuggestContainer = container.querySelector(
+    ".react-autosuggest__container"
+  );
 
-    // create data object
-    init({ container, autosuggestContainer, input, suggestionsContainer });
-  });
+  // inside the suggestioncontainer is renderered
+  const suggestionsContainer = getByRole("listbox");
 
+  // create data object
+  init({ container, autosuggestContainer, input, suggestionsContainer });
+});
+
+describe("tests for running app with data ", () => {
   // test http request
-  it("calls axios", async () => {
+  it("calls axios", () => {
     apiCall().then(result => {
       expect(result.data).toEqual(resultArray);
-      expect(mockAxios.get).toHaveBeenCalledTimes(3);
     });
   });
 
-  describe("tests for running app with data ", () => {
-    it("renders headline and input ", async () => {
-      mockAxios.get.mockResolvedValueOnce({ data: resultArray });
-      const organisations = await axiosCall();
+  it("renders headline and input ", () => {
+    // test if headline renders
+    const headline = data.container.querySelector("h2");
+    expect(headline.textContent).toBe("Welcome to earwig.");
 
-      // test if headline renders
-      const headline = data.container.querySelector("h2");
-      expect(headline.textContent).toBe("Welcome to earwig.");
-      //   test if resolved container renders
-      expectInputValue(data.input.placeholder, "🔍        start typing...");
-      // test input value
-      expectInputValue(data.input.value, "");
+    //   test if resolved container renders
+    expectInputValue(data.input.placeholder, "🔍        start typing...");
+    // // test input value
+    expectInputValue(data.input.value, "");
+  });
 
-      // test if input is selected and focussed
-      focusAndSetInputValue("a");
-      expectSuggestions(
-        [
-          "A A C Mechanical & Electrical",
-          "Aspire Recruitment",
-          "Abbey Builders",
-          "Advanced Payroll Services"
-        ],
-        data.input.value,
-        organisations.data
-      );
+  it("gets expected suggestions based on user input ", async () => {
+    // test if input is selected and focussed
+    const organisations = await apiCall();
 
-      // test for key events
+    // if user presses a -> check suggestion array
+    pressKeys("a");
+    expectSuggestions(
+      [
+        "A A C Mechanical & Electrical",
+        "Aspire Recruitment",
+        "Abbey Builders",
+        "Advanced Payroll Services"
+      ],
+      data.input.value,
+      organisations.data
+    );
 
-      pressKeys("b");
+    pressKeys("b");
 
-      expectSuggestions(
-        ["Bournemouth University"],
-        data.input.value,
-        organisations.data
-      );
-      // tests are not rendering the correct container including the data from axios...
-    });
+    expectSuggestions(
+      ["Bournemouth University"],
+      data.input.value,
+      organisations.data
+    );
+
+    pressKeys("/£@");
+    expectSuggestions(["empty"], data.input.value, organisations.data);
   });
 });

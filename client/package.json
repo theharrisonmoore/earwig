@@ -40,8 +40,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "test:coverage": "react-scripts test --coverage",
+    "test": "react-scripts test --runInBand --detectOpenHandles --forceExit",
+    "test:coverage": "react-scripts test --coverage --runInBand --detectOpenHandles --forceExit",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

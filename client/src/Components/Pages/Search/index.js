@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Autosuggest from "react-autosuggest";
-
 import { API_SEARCH_URL } from "../../../apiUrls";
 import { ADD_PROFILE_URL } from "../../../constants/naviagationUrls";
 
@@ -28,7 +27,8 @@ import {
   LegendTitle,
   ReviewsFrame,
   ProfileLink,
-  AddProfileLink
+  AddProfileLink,
+  ReviewsContainer
 } from "./Search.style";
 
 import { organizationIcons } from "./../../../theme";
@@ -52,12 +52,13 @@ export const getSuggestions = (value, organisationsArray) => {
   if (suggestions.length === 0) {
     return [{ isEmpty: true }];
   }
+
   return suggestions;
 };
 
 export default class Search extends Component {
   state = {
-    loaded: false,
+    isLoading: false,
     data: null,
     value: "",
     suggestions: []
@@ -67,7 +68,7 @@ export default class Search extends Component {
     axiosCall().then(organizations => {
       this.setState({
         data: organizations.data,
-        loaded: true
+        isLoading: true
       });
     });
   }
@@ -97,30 +98,29 @@ export default class Search extends Component {
     // check if no suggestion available and return so that renderSuggestionsContainer function is still being called (gets deactivated otherwise)
     if (suggestion.isEmpty) {
       return null;
-    } else {
-      return (
-        <ProfileLink to={`/profile/${suggestion._id}`}>
-          <SuggestionBox orgType={suggestion.category}>
-            <InnerDivSuggestions>
-              <SymbolDiv>
-                {SVGCreator("mobile-search-icon")}
-                {SVGCreator(`${organizationIcons[suggestion.category].symbol}`)}
-              </SymbolDiv>
-              <OrganisationDetailsDiv>
-                <h3>{suggestion.name}</h3>
-                <ReviewDetailsDiv>
-                  {StarRateCreator(suggestion)}
-                  <p>{suggestion.totalReviews} reviews</p>
-                </ReviewDetailsDiv>
-              </OrganisationDetailsDiv>
-              <ArrowDiv>
-                {SVGCreator(`${organizationIcons[suggestion.category].arrow}`)}
-              </ArrowDiv>
-            </InnerDivSuggestions>
-          </SuggestionBox>
-        </ProfileLink>
-      );
     }
+    return (
+      <ProfileLink to={`/profile/${suggestion._id}`}>
+        <SuggestionBox orgType={suggestion.category}>
+          <InnerDivSuggestions>
+            <SymbolDiv>
+              {SVGCreator("mobile-search-icon")}
+              {SVGCreator(`${organizationIcons[suggestion.category].symbol}`)}
+            </SymbolDiv>
+            <OrganisationDetailsDiv>
+              <h3>{suggestion.name}</h3>
+              <ReviewDetailsDiv>
+                {StarRateCreator(suggestion)}
+                <p>{suggestion.totalReviews} reviews</p>
+              </ReviewDetailsDiv>
+            </OrganisationDetailsDiv>
+            <ArrowDiv>
+              {SVGCreator(`${organizationIcons[suggestion.category].arrow}`)}
+            </ArrowDiv>
+          </InnerDivSuggestions>
+        </SuggestionBox>
+      </ProfileLink>
+    );
   };
   // renders all elements and the add item footer
   renderSuggestionsContainer = ({ containerProps, children, query }) => {
@@ -130,9 +130,7 @@ export default class Search extends Component {
           {children}
           <div className="my-suggestions-container-footer" />
 
-          <AddProfileLink
-            to={{ pathname: `${ADD_PROFILE_URL}`, state: { name: `${query}` } }}
-          >
+          <AddProfileLink to={{ pathname: ``, state: { name: `${query}` } }}>
             <AddItemBox>
               <InnerDivSuggestions>
                 <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv>
@@ -144,9 +142,8 @@ export default class Search extends Component {
           </AddProfileLink>
         </div>
       );
-    } else {
-      return <div {...containerProps}>{children}</div>;
     }
+    return <div {...containerProps}>{children}</div>;
   };
   // renders last viewed organization section
   renderLastViewed = (org, key) => (
@@ -172,13 +169,13 @@ export default class Search extends Component {
   );
 
   render() {
-    const { loaded, value, suggestions, data } = this.state;
+    const { isLoading, value, suggestions, data } = this.state;
     const inputProps = {
       placeholder: "🔍        start typing...",
       value,
       onChange: this.onChange
     };
-    if (!loaded) return <p data-testid="loading">loading...</p>;
+    if (!isLoading) return <p data-testid="loading">loading...</p>;
 
     return (
       <SearchWrapper data-testid="searchwrapper">
@@ -189,27 +186,26 @@ export default class Search extends Component {
           <RowDiv>
             <ItemDiv>
               {SVGCreator("agency-icon", "40px", "70px")}
-              <LegendTitle color="#8B51FC">Agencies</LegendTitle>
+              <LegendTitle orgType="agency">Agencies</LegendTitle>
             </ItemDiv>
             <ItemDiv>
               {SVGCreator("payroll-icon", "40px", "70px")}
-              <LegendTitle color="#37B6FD">Payrolls</LegendTitle>
+              <LegendTitle orgType="payroll">Payrolls</LegendTitle>
             </ItemDiv>
           </RowDiv>
           <RowDiv>
             <ItemDiv>
               {SVGCreator("worksite-icon", "40px", "70px")}
-              <LegendTitle color="#FFA400">Worksites</LegendTitle>
+              <LegendTitle orgType="worksite">Worksites</LegendTitle>
             </ItemDiv>
             <ItemDiv>
               {SVGCreator("company-icon", "40px", "70px")}
-              <LegendTitle color="#1C0F13">Companies</LegendTitle>
+              <LegendTitle orgType="company">Companies</LegendTitle>
             </ItemDiv>
           </RowDiv>
         </SearchLegendDiv>
         <AutosuggestWrapper>
           <Autosuggest
-            data-testid="react-autosuggest__container"
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
@@ -223,11 +219,13 @@ export default class Search extends Component {
         <HeadlineDiv>
           <p>Or find out what's happening at...</p>
         </HeadlineDiv>
-        {data
-          .sort(SortArrayNewest)
-          .map((org, index) =>
-            index < 4 ? this.renderLastViewed(org, index) : ""
-          )}
+        <ReviewsContainer>
+          {data
+            .sort(SortArrayNewest)
+            .map((org, index) =>
+              index < 4 ? this.renderLastViewed(org, index) : ""
+            )}
+        </ReviewsContainer>
       </SearchWrapper>
     );
   }
