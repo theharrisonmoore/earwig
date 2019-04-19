@@ -13,3 +13,4 @@ export const EDIT_PROFILE_URL = "/edit-profile";
 export const UPLOAD_VERIFICATION_URL = "/upload-verification-photo";
 export const PRIVACY_URL = "/privacy";
 export const ADMIN = "/admin";
+export const REVIEW_URL = "/review";

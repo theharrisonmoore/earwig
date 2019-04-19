@@ -63,15 +63,18 @@ class Review extends Component {
     loaded: false,
     groups: [],
     organization: { category: "", name: "" },
-    user: { email: "level3@earwig.com" },
+    user: { email: "" },
     worksiteImage: ""
   };
   componentDidMount() {
     // set organisation state with props from add Profile Page
+    const { email } = this.props;
     const { category, name } = this.props.location.state;
     const organization = { ...this.state.organization };
+    const user = { ...this.state.user };
     organization.category = category;
     organization.name = name;
+    user.email = email;
     axios
       .get(API_GET_QUESTIONS_URL, {
         params: {
@@ -82,7 +85,8 @@ class Review extends Component {
         this.setState({
           loaded: true,
           groups: res.data,
-          organization: organization
+          organization: organization,
+          user: user
         });
       })
       .catch(err => {

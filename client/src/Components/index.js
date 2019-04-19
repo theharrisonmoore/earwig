@@ -31,7 +31,8 @@ import {
   SEARCH_URL,
   ADD_PROFILE_URL,
   ADD_PROFILE_START_REVIEW_URL,
-  ADMIN
+  ADMIN,
+  REVIEW_URL
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
@@ -40,7 +41,17 @@ export default function index(props) {
   return (
     <>
       <Switch>
-        <Route path="/review" component={Review} />
+        <Route
+          exact
+          path={REVIEW_URL}
+          render={linkProps => (
+            <Review
+              {...props}
+              {...linkProps}
+              handleChangeState={handleChangeState}
+            />
+          )}
+        />
 
         <Route
           exact

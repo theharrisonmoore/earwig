@@ -15,7 +15,6 @@ import {
 
 export default class GiveReview extends Component {
   render() {
-    console.log(this.props);
     const { category, isMobile, isTablet, state } = this.props;
 
     return (
