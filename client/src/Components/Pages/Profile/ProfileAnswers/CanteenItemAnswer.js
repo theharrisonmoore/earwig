@@ -37,8 +37,6 @@ export default class CanteenItemAnswer extends Component {
 
     const hasCanteen = this.getAverage(canteenHeader[0].answers);
 
-    console.log("Q", questions);
-
     return (
       <ListWrapper>
         {hasCanteen ? (
@@ -49,16 +47,17 @@ export default class CanteenItemAnswer extends Component {
             </SiteItem>
             {questions
               .filter(question => question.question.profileText !== "Canteen:")
-              .map(question =>
+              .map((question, index) =>
                 question.question.profileText === "heated" ? (
-                  <CanteenSubList>
+                  <CanteenSubList key={index}>
                     - {question.question.profileText}
                   </CanteenSubList>
                 ) : (
                   question.question.options.map(
-                    option =>
+                    (option, index) =>
                       option !== "I didn't check" && (
                         <CanteenSubList
+                          key={index}
                           itemAvailable={this.getSelectedItems(
                             question.answers,
                             option

@@ -29,9 +29,8 @@ export default class ReviewSection extends Component {
         question => question.question.profileType === "canteenItem"
       );
 
-    console.log("canteen", canteenQuestions);
-
-    // canteenQuestions = canteenQuestions.length > 0 ? canteenQuestions : null;
+    if (!canteenQuestions || canteenQuestions.length < 1)
+      canteenQuestions = false;
 
     return (
       // Question - Title, AggregatedAnswer, Comment Box
@@ -101,20 +100,18 @@ export default class ReviewSection extends Component {
               </QuestionWrapper>
             ))}
         {/* CANTEEN SECTION */}
-        {/* {canteenQuestions && (
+        {canteenQuestions && (
           <QuestionWrapper>
             <CanteenItemAnswer
               questions={canteenQuestions}
               toggleComments={toggleComments}
             />
           </QuestionWrapper>
-        )} */}
+        )}
         {questions &&
           questions
             .filter(question =>
-              ["list", "payrollList", "payrollSubList"].includes(
-                question.question.profileType
-              )
+              ["list", "payrollList"].includes(question.question.profileType)
             )
             .map((question, index) => (
               <QuestionWrapper key={index}>

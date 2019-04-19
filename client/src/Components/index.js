@@ -31,14 +31,7 @@ import {
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
-  const {
-    handleChangeState,
-    isMobile,
-    isTablet,
-    isLoggedIn,
-    isAdmin,
-    state
-  } = props;
+  const { handleChangeState, isMobile, isTablet, isLoggedIn, isAdmin } = props;
 
   return (
     <>
