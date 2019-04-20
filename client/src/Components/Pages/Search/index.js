@@ -24,7 +24,7 @@ import {
   ReviewsFrame,
   ProfileLink,
   ReviewsContainer,
-  SearchContainer
+  FlexContainer
 } from "./Search.style";
 
 import { organizationIcons } from "./../../../theme";
@@ -122,7 +122,7 @@ export default class Search extends Component {
             </ItemDiv>
           </RowDiv>
         </SearchLegendDiv>
-        <SearchContainer ref={this.setSearchBoxRef}>
+        <FlexContainer ref={this.setSearchBoxRef}>
           <AutosuggestComponent
             bool={() => true}
             height="4.5rem"
@@ -130,17 +130,21 @@ export default class Search extends Component {
             data={data}
             placeholderText="start typing..."
           />
-        </SearchContainer>
-        <HeadlineDiv>
-          <p>Or find out what's happening at...</p>
-        </HeadlineDiv>
-        <ReviewsContainer>
-          {data
-            .sort(SortArrayNewest)
-            .map((org, index) =>
-              index < 5 ? this.renderLastViewed(org, index) : ""
-            )}
-        </ReviewsContainer>
+        </FlexContainer>
+        {showReviews && (
+          <FlexContainer>
+            <HeadlineDiv>
+              <p>Or find out what's happening at...</p>
+            </HeadlineDiv>
+            <ReviewsContainer>
+              {data
+                .sort(SortArrayNewest)
+                .map((org, index) =>
+                  index < 5 ? this.renderLastViewed(org, index) : ""
+                )}
+            </ReviewsContainer>
+          </FlexContainer>
+        )}
       </SearchWrapper>
     );
   }

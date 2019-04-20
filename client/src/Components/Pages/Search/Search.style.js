@@ -108,10 +108,11 @@ export const SearchWrapper = styled.div`
   }
 `;
 
-export const SearchContainer = styled.div`
+export const FlexContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const SearchLegendDiv = styled.div`
