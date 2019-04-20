@@ -12,6 +12,23 @@ const { getOrgsNamesByType } = require("../queries/review");
  * 6.image: for questions the require uploading images
  */
 
+const organization = {
+  types: {
+    1: "yesno",
+    2: "dropdown",
+    3: "open",
+    4: "number",
+    5: "image",
+    6: "checklist",
+  },
+  category: {
+    1: "agency",
+    2: "payroll",
+    3: "worksite",
+    4: "company",
+  },
+};
+
 module.exports = async () => {
   let agencyNames;
   let payrollsNames;
@@ -124,6 +141,7 @@ module.exports = async () => {
       type: "open",
       text: "What's the name of the rep you dealt with at this agency?",
       hintText: "This will be seen only by the agency",
+      label: "Rep name",
       isJumping: false,
       category: "agency",
       group: {
@@ -138,6 +156,7 @@ module.exports = async () => {
       number: 9,
       type: "number",
       text: "What hourly rate were you paid?",
+      label: "per hour",
       isJumping: false,
       category: "agency",
       group: {
@@ -164,6 +183,7 @@ module.exports = async () => {
       number: 11,
       type: "dropdown",
       text: "What's the name of the payroll?",
+      label: "Select payroll",
       isJumping: false,
       options: payrollsNames,
       category: "agency",
@@ -256,6 +276,7 @@ module.exports = async () => {
       number: 18,
       type: "number",
       text: "How much were you charged?",
+      label: "per timesheet",
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
@@ -341,6 +362,7 @@ module.exports = async () => {
       number: 4,
       type: "number",
       text: "What hourly rate were you paid?",
+      label: "per hour",
       isJumping: false,
       category: "payroll",
       group: {
@@ -432,6 +454,7 @@ module.exports = async () => {
       number: 11,
       type: "number",
       text: "How much were you charged?",
+      label: "per timesheet",
       isJumping: false,
       category: "payroll",
       group: {
@@ -457,6 +480,7 @@ module.exports = async () => {
       number: 13,
       type: "dropdown",
       text: "What's the name of the agency you used?",
+      label: "Select agency",
       isJumping: false,
       options: agencyNames,
       category: "payroll",
@@ -528,6 +552,7 @@ module.exports = async () => {
       number: 4,
       type: "number",
       text: "How much did car parking cost per day?",
+      label: "per day",
       isJumping: false,
       category: "worksite",
       group: {
@@ -714,6 +739,7 @@ module.exports = async () => {
       number: 17,
       type: "open",
       text: "Is there a good shop or café near site that you would recommend to other workers?",
+      label: "Good shop or café",
       isJumping: false,
       category: "worksite",
       group: {
@@ -822,6 +848,7 @@ module.exports = async () => {
       type: "open",
       text: "What's the name of the supervisor you worked with?",
       hintText: "This will be seen only by the company",
+      label: "Supervisor name",
       isJumping: false,
       category: "company",
       group: {

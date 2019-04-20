@@ -14,6 +14,7 @@ import Thankyou from "./Pages/ThankYou";
 import Review from "./Pages/Review";
 import StaticPages from "./Pages/Static";
 import Navbar from "./Common/Navbar";
+import QuickReview from "./Pages/QuickReview";
 
 import {
   RESOURCES_URL,
@@ -29,6 +30,7 @@ export default function index(props) {
     <>
       <Switch>
         <Route path="/review" component={Review} />
+        <Route path="/review-quick" component={QuickReview} />
         <Route
           exact
           path={SIGNUP_URL}
