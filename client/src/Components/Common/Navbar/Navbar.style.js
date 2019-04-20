@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   display: flex;
   position: fixed;
   height: ${props => props.height};
-  border-bottom: 1px solid ${colors.gray2};
+  border-bottom: 1px solid ${colors.lightGray};
   padding: 0.5rem;
   justify-content: space-between;
   width: 100%;
@@ -23,8 +23,7 @@ export const WrapperH2 = styled.h2`
 export const SideDiv = styled.div`
   width: 25%;
   display: flex;
-  justify-content: ${props =>
-    props.position === "left" ? "flex-start" : "flex-end"};
+  justify-content: ${props => props.position};
   align-items: center;
 `;
 

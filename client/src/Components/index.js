@@ -4,27 +4,35 @@ import { Route, Switch } from "react-router-dom";
 import {
   SIGNUP_URL,
   LOGIN_URL,
-  THANKYOU_URL
+  THANKYOU_URL,
+  EDIT_PROFILE_URL,
+  UPLOAD_VERIFICATION_URL
 } from "./../constants/naviagationUrls";
 
 import UploadImage from "./Pages/UploadImage";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Thankyou from "./Pages/ThankYou";
+import EditProfile from "./Pages/EditProfile";
 import Review from "./Pages/Review";
 import StaticPages from "./Pages/Static";
 import Navbar from "./Common/Navbar";
 import QuickReview from "./Pages/QuickReview";
+import Profile from "./Pages/Profile";
+import Admin from "./Pages/Admin";
+import Search from "./Pages/Search";
 
 import {
   RESOURCES_URL,
   CONTACT_URL,
   FAQ_URL,
-  PRIVACY_URL
+  PRIVACY_URL,
+  SEARCH_URL,
+  ADMIN
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
-  const { handleChangeState, isMobile, isLoggedIn, state } = props;
+  const { handleChangeState, isMobile, isTablet, isLoggedIn, isAdmin } = props;
 
   return (
     <>
@@ -34,55 +42,104 @@ export default function index(props) {
         <Route
           exact
           path={SIGNUP_URL}
-          render={props => (
-            <Signup {...props} handleChangeState={handleChangeState} />
-          )}
-        />
-        {/* orgType required as state in Link for this */}
-        <Route path={THANKYOU_URL} component={Thankyou} />
-        <Route
-          exact
-          path={LOGIN_URL}
-          render={props => (
-            <>
-              <Navbar
-                {...props}
-                title="Page Not Found"
-                isMobile={isMobile}
-                search
-                isLoggedIn={isLoggedIn}
-              />
-              <Login {...props} handleChangeState={handleChangeState} />
-            </>
-          )}
-        />
-        <Route
-          exact
-          path="/upload-verification-photo"
-          render={props => (
-            <UploadImage
+          render={linkProps => (
+            <Signup
               {...props}
+              {...linkProps}
               handleChangeState={handleChangeState}
-              {...state}
             />
           )}
         />
 
+        {/* orgType required as state in Link for this */}
+        <Route path={THANKYOU_URL} {...props} component={Thankyou} />
+
+        <Route
+          exact
+          path={LOGIN_URL}
+          render={linkProps => (
+            <Login
+              {...props}
+              {...linkProps}
+              handleChangeState={handleChangeState}
+            />
+          )}
+        />
+
+        <Route
+          exact
+          path={UPLOAD_VERIFICATION_URL}
+          render={linkProps => (
+            <UploadImage
+              {...props}
+              {...linkProps}
+              handleChangeState={handleChangeState}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/profile/:profileID"
+          render={props => (
+            <>
+              <Navbar
+                {...props}
+                isMobile={isMobile}
+                search
+                isLoggedIn={isLoggedIn}
+              />
+              <Profile
+                {...props}
+                handleChangeState={handleChangeState}
+                isTablet={isTablet}
+                isMobile={isMobile}
+                isLoggedIn={isLoggedIn}
+              />
+            </>
+          )}
+        />
+        {isAdmin && (
+          <Route
+            path={ADMIN}
+            render={linkProps =>
+              isAdmin && (
+                <Admin
+                  {...props}
+                  {...linkProps}
+                  handleChangeState={handleChangeState}
+                />
+              )
+            }
+          />
+        )}
         {[FAQ_URL, RESOURCES_URL, CONTACT_URL, PRIVACY_URL].map(route => (
           <Route
             key={route}
             exact
             path={route}
-            render={props => (
+            render={linkProps => (
               <StaticPages
                 {...props}
+                {...linkProps}
                 handleChangeState={handleChangeState}
-                {...state}
               />
             )}
           />
         ))}
 
+        <Route path={SEARCH_URL} component={Search} />
+
+        <Route
+          exact
+          path={EDIT_PROFILE_URL}
+          render={linkProps => (
+            <EditProfile
+              {...props}
+              handleChangeState={handleChangeState}
+              {...linkProps}
+            />
+          )}
+        />
         {/* 404 Error Page -need to be created */}
         <Route component={PageNotFound} />
       </Switch>

@@ -25,7 +25,7 @@ describe("Test Question schema", () => {
   test("should Question schema get data correctly", async () => {
     const questions = await Question.find();
 
-    expect(questions).toHaveLength(63);
+    expect(questions).toHaveLength(64);
   });
 
   test("should Question schema store correctly", async () => {
@@ -33,7 +33,8 @@ describe("Test Question schema", () => {
       number: 1,
       type: "testType",
       text: "Did they send you written confirmation of the terms and conditions of employment?",
-      hintText: "i.e., details of pay, overtime, mileage/travel allowance, lodging provision, holiday entitlement, disciplinary procedures, benefits, etc.",
+      hintText:
+        "i.e., details of pay, overtime, mileage/travel allowance, lodging provision, holiday entitlement, disciplinary procedures, benefits, etc.",
       isJumping: true,
       jumpTo: [{ value: "yes", nextQuestion: 2 }, { value: "no", nextQuestion: 3 }],
       options: ["yes", "no"],

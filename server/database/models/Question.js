@@ -4,7 +4,6 @@ const constants = require("./../../constants");
 
 const { Schema } = mongoose;
 
-
 const questionSchema = new Schema({
   number: Number,
   type: String,
@@ -22,13 +21,20 @@ const questionSchema = new Schema({
     type: String,
     enum: constants.database.ORGANIZATIONS_TYPE,
   },
+  profileSection: {
+    type: String,
+    enum: constants.database.PROFILE_SECTIONS,
+  },
+  profileText: String,
+  profileType: String,
   group: {
     groupOrder: Number,
     name: String,
     text: String,
   },
   hasComment: Boolean,
-}, {
+},
+{
   timestamps: true,
 });
 
