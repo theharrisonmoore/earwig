@@ -23,7 +23,8 @@ import {
   LegendTitle,
   ReviewsFrame,
   ProfileLink,
-  ReviewsContainer
+  ReviewsContainer,
+  SearchContainer
 } from "./Search.style";
 
 import { organizationIcons } from "./../../../theme";
@@ -74,13 +75,14 @@ export default class Search extends Component {
       </ReviewsFrame>
     </ProfileLink>
   );
-  setWrapperRef = node => {
-    this.wrapperRef = node;
+
+  // functions to detect if user clicks outside search box
+  setSearchBoxRef = node => {
+    this.searchBoxRef = node;
   };
   handleClickOutside = event => {
-    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+    if (this.searchBoxRef && !this.searchBoxRef.contains(event.target)) {
       this.setState({ showReviews: true });
-      console.log(this.state.showReviews);
     } else {
       this.setState({ showReviews: false });
     }
@@ -120,7 +122,7 @@ export default class Search extends Component {
             </ItemDiv>
           </RowDiv>
         </SearchLegendDiv>
-        <div ref={this.setWrapperRef}>
+        <SearchContainer ref={this.setSearchBoxRef}>
           <AutosuggestComponent
             bool={() => true}
             height="4.5rem"
@@ -128,7 +130,7 @@ export default class Search extends Component {
             data={data}
             placeholderText="start typing..."
           />
-        </div>
+        </SearchContainer>
         <HeadlineDiv>
           <p>Or find out what's happening at...</p>
         </HeadlineDiv>

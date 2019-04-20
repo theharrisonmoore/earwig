@@ -109,15 +109,9 @@ export const SearchWrapper = styled.div`
 `;
 
 export const SearchContainer = styled.div`
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  align-items: center;
-  li {
-    list-style-type: none;
-  }
+  justify-content: center;
 `;
 
 export const SearchLegendDiv = styled.div`
