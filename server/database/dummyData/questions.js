@@ -57,6 +57,7 @@ module.exports = async () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
     {
       number: 2,
@@ -70,6 +71,7 @@ module.exports = async () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
     {
       number: 3,
@@ -83,6 +85,7 @@ module.exports = async () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
     {
       number: 4,
@@ -96,6 +99,7 @@ module.exports = async () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
     {
       number: 5,
@@ -109,6 +113,7 @@ module.exports = async () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
     {
       number: 6,
@@ -122,6 +127,7 @@ module.exports = async () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
     {
       number: 7,
@@ -135,23 +141,8 @@ module.exports = async () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
-    {
-      number: 8,
-      type: "open",
-      text: "What's the name of the rep you dealt with at this agency?",
-      hintText: "This will be seen only by the agency",
-      label: "Rep name",
-      isJumping: false,
-      category: "agency",
-      group: {
-        groupOrder: 0,
-        name: "general",
-        text: "General",
-      },
-    },
-
-
     {
       number: 9,
       type: "number",
@@ -164,6 +155,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
       number: 10,
@@ -178,6 +170,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
       number: 11,
@@ -192,6 +185,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: false,
     },
     {
       number: 12,
@@ -205,6 +199,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: false,
     },
     {
       number: 13,
@@ -218,6 +213,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
       number: 14,
@@ -231,6 +227,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
       number: 15,
@@ -244,6 +241,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
       number: 16,
@@ -257,6 +255,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
       number: 17,
@@ -271,6 +270,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
       number: 18,
@@ -285,6 +285,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
       number: 19,
@@ -298,6 +299,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
       number: 20,
@@ -311,6 +313,7 @@ module.exports = async () => {
         name: "overall",
         text: "Overall rating",
       },
+      hasComment: true,
     },
 
     /* =========================== questionsPayroll ==================================== */
@@ -329,6 +332,7 @@ module.exports = async () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
     {
       number: 2,
@@ -342,22 +346,8 @@ module.exports = async () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
-    {
-      number: 3,
-      type: "radio",
-      text: "What’s the name of the rep you dealt with at this payroll?",
-      hintText: "This will be seen only by the payroll",
-      isJumping: false,
-      options: ["totally inaccurate", "Not very accurate", "Mostly accurate", "Fully accurate"],
-      category: "payroll",
-      group: {
-        groupOrder: 0,
-        name: "general",
-        text: "General",
-      },
-    },
-
     {
       number: 4,
       type: "number",
@@ -370,6 +360,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: true,
     },
     {
       number: 5,
@@ -383,6 +374,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: false,
     },
     {
       number: 6,
@@ -396,6 +388,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: true,
     },
     {
       number: 7,
@@ -409,6 +402,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: true,
     },
     {
       number: 8,
@@ -422,6 +416,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: true,
     },
     {
       number: 9,
@@ -435,6 +430,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: true,
     },
     {
       number: 10,
@@ -449,6 +445,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: true,
     },
     {
       number: 11,
@@ -462,6 +459,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: true,
     },
     {
       number: 12,
@@ -475,6 +473,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: true,
     },
     {
       number: 13,
@@ -489,6 +488,7 @@ module.exports = async () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: false,
     },
 
     {
@@ -503,6 +503,7 @@ module.exports = async () => {
         name: "overall",
         text: "Overall rating",
       },
+      hasComment: true,
     },
 
     /* =============================== worksite ================================ */
@@ -519,6 +520,7 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
+      hasComment: true,
     },
     {
       number: 2,
@@ -533,6 +535,7 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
+      hasComment: true,
     },
     {
       number: 3,
@@ -547,6 +550,7 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
+      hasComment: true,
     },
     {
       number: 4,
@@ -560,6 +564,7 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
+      hasComment: true,
     },
     {
       number: 5,
@@ -574,6 +579,7 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
+      hasComment: true,
     },
 
     {
@@ -588,6 +594,7 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
+      hasComment: true,
     },
 
     {
@@ -602,6 +609,7 @@ module.exports = async () => {
         name: "onTheSite",
         text: "Working on the site",
       },
+      hasComment: true,
     },
 
     {
@@ -616,6 +624,7 @@ module.exports = async () => {
         name: "onTheSite",
         text: "Working on the site",
       },
+      hasComment: true,
     },
 
     {
@@ -629,6 +638,7 @@ module.exports = async () => {
         name: "onTheSite",
         text: "Working on the site",
       },
+      hasComment: false,
     },
     {
       number: 9,
@@ -642,6 +652,7 @@ module.exports = async () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 10,
@@ -655,6 +666,7 @@ module.exports = async () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 11,
@@ -668,6 +680,7 @@ module.exports = async () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 12,
@@ -682,6 +695,7 @@ module.exports = async () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 13,
@@ -695,6 +709,7 @@ module.exports = async () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 14,
@@ -708,6 +723,7 @@ module.exports = async () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 15,
@@ -721,6 +737,7 @@ module.exports = async () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 16,
@@ -734,6 +751,7 @@ module.exports = async () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 17,
@@ -747,6 +765,7 @@ module.exports = async () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 18,
@@ -760,6 +779,7 @@ module.exports = async () => {
         name: "overall",
         text: "Overall rating",
       },
+      hasComment: true,
     },
 
     /* ============================= company ================================== */
@@ -776,6 +796,7 @@ module.exports = async () => {
         name: "toolsAndMaterials",
         text: "Tools & materials",
       },
+      hasComment: true,
     },
     {
       number: 2,
@@ -790,6 +811,7 @@ module.exports = async () => {
         name: "toolsAndMaterials",
         text: "Tools & materials",
       },
+      hasComment: true,
     },
     {
       number: 3,
@@ -803,6 +825,7 @@ module.exports = async () => {
         name: "toolsAndMaterials",
         text: "Tools & materials",
       },
+      hasComment: true,
     },
     {
       number: 4,
@@ -816,6 +839,7 @@ module.exports = async () => {
         name: "toolsAndMaterials",
         text: "Tools & materials",
       },
+      hasComment: true,
     },
     {
       number: 5,
@@ -829,6 +853,7 @@ module.exports = async () => {
         name: "supervisorsAndEmployees",
         text: "Supervisors & employees",
       },
+      hasComment: true,
     },
     {
       number: 6,
@@ -842,6 +867,7 @@ module.exports = async () => {
         name: "supervisorsAndEmployees",
         text: "Supervisors & employees",
       },
+      hasComment: true,
     },
     {
       number: 7,
@@ -856,6 +882,7 @@ module.exports = async () => {
         name: "supervisorsAndEmployees",
         text: "Supervisors & employees",
       },
+      hasComment: true,
     },
     {
       number: 8,
@@ -869,6 +896,7 @@ module.exports = async () => {
         name: "supervisorsAndEmployees",
         text: "Supervisors & employees",
       },
+      hasComment: true,
     },
     {
       number: 9,
@@ -882,6 +910,7 @@ module.exports = async () => {
         name: "supervisorsAndEmployees",
         text: "Supervisors & employees",
       },
+      hasComment: true,
     },
     {
       number: 10,
@@ -895,6 +924,7 @@ module.exports = async () => {
         name: "`overall`",
         text: "Overall rating",
       },
+      hasComment: true,
     },
   ];
   return Question.create(questions);

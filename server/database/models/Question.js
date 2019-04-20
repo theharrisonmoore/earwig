@@ -27,6 +27,7 @@ const questionSchema = new Schema({
     name: String,
     text: String,
   },
+  hasComment: Boolean,
 }, {
   timestamps: true,
 });
