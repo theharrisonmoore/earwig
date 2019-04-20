@@ -50,15 +50,12 @@ outline: none;
 
 }
 
-input::placeholder {
 
-}
 input {
   background-image: url(${SearchIcon});
   background-position: 10px center;
   background-repeat: no-repeat;
   text-indent: 40px;
-
 }
 
 input:focus {

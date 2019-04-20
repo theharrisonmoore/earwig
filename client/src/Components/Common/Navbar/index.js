@@ -9,9 +9,6 @@ import {
   Wrapper,
   LogoIcon,
   Icon,
-  NavSearch,
-  NavInput,
-  NavSearchIcon,
   ToggleMenu,
   SideDiv,
   WrapperH2
