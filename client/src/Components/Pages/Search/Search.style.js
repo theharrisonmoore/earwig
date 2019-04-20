@@ -133,7 +133,9 @@ export const SuggestionBox = styled.div`
 `;
 
 export const AddItemBox = styled.div`
-  border: 0.2px solid ${colors.lightGray};
+  border-width: 0rem 0.2px 0.2px 0.2px;
+  border-style: solid;
+  border-color: ${colors.lightGray};
   box-shadow: ${colors.searchBoxShadow};
   color: ${colors.black};
   margin-top: -1rem;
