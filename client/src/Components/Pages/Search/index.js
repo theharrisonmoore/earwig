@@ -36,7 +36,8 @@ export const axiosCall = async () => {
 export default class Search extends Component {
   state = {
     isLoading: false,
-    data: null
+    data: null,
+    showReviews: true
   };
 
   componentDidMount() {
@@ -46,8 +47,11 @@ export default class Search extends Component {
         isLoading: true
       });
     });
+    document.addEventListener("mousedown", this.handleClickOutside);
   }
-
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
   // renders last viewed organization section
   renderLastViewed = (org, key) => (
     <ProfileLink key={key} to={`/profile/${org._id}`}>
@@ -70,9 +74,22 @@ export default class Search extends Component {
       </ReviewsFrame>
     </ProfileLink>
   );
+  setWrapperRef = node => {
+    this.wrapperRef = node;
+  };
+  handleClickOutside = event => {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.setState({ showReviews: true });
+      console.log(this.state.showReviews);
+    } else {
+      this.setState({ showReviews: false });
+    }
+  };
 
   render() {
-    const { isLoading, data } = this.state;
+    const { isLoading, data, showReviews } = this.state;
+
+    console.log(showReviews);
 
     if (!isLoading) return <p data-testid="loading">loading...</p>;
 
@@ -103,13 +120,15 @@ export default class Search extends Component {
             </ItemDiv>
           </RowDiv>
         </SearchLegendDiv>
-        <AutosuggestComponent
-          bool={() => true}
-          height="4.5rem"
-          width="80%"
-          data={data}
-          placeholderText="start typing..."
-        />
+        <div ref={this.setWrapperRef}>
+          <AutosuggestComponent
+            bool={() => true}
+            height="4.5rem"
+            width="80%"
+            data={data}
+            placeholderText="start typing..."
+          />
+        </div>
         <HeadlineDiv>
           <p>Or find out what's happening at...</p>
         </HeadlineDiv>
