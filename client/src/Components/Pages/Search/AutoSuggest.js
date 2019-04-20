@@ -124,9 +124,9 @@ export default class AutosuggestComponent extends Component {
 
   render() {
     const { value, suggestions } = this.state;
-    const { height, width, bool } = this.props;
+    const { height, width, bool, placeholderText } = this.props;
     const inputProps = {
-      placeholder: "🔍 start typing...",
+      placeholder: `${placeholderText}`,
       value,
       onChange: this.onChange
     };

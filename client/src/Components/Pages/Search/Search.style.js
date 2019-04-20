@@ -6,6 +6,10 @@ import {
   organizations,
   breakpoints
 } from "./../../../theme";
+
+import SearchIcon from "../../../assets/search-icon.svg";
+import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
+
 import { Link } from "react-router-dom";
 
 export const classNames = {
@@ -23,9 +27,7 @@ export const classNames = {
 export const AutosuggestWrapper = styled.div.attrs(classNames)`
 width: ${props => props.width};
 outline: none;
-input {
-  text-align: center;
-}
+
 
 .${classNames.container} {
   position: relative;
@@ -45,7 +47,24 @@ input {
 }
 .${classNames.containerFocussed} {
   outline: none;
+
 }
+
+input::placeholder {
+
+}
+input {
+  background-image: url(${SearchIcon});
+  background-position: 10px center;
+  background-repeat: no-repeat;
+  text-indent: 40px;
+
+}
+
+input:focus {
+  background-image: url(${PlaceholderArrow});
+}
+
 .${classNames.containerInputOpen} {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
