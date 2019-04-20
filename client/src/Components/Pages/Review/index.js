@@ -247,7 +247,7 @@ class Review extends Component {
                           {({ field, form }) => (
                             <Checkbox
                               {...field}
-                              {...form}
+                              // {...form}
                               id="agreement"
                               style={{ marginTop: "4px" }}
                             />

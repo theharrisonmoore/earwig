@@ -4,10 +4,8 @@ import { Field, FieldArray, ErrorMessage } from "formik";
 
 import { Select, Icon, Divider, Input, Rate, InputNumber } from "antd";
 
-import Modal from "../../../Common/AntdComponents/Modal";
 import ModalComment from "../../../Common/AntdComponents/ModalComment";
 import commentIcon from "../../../../assets/comment-icon.svg";
-import Rater from "../../../Common/Rater";
 
 import UploadImage from "./UploadPhoto";
 
@@ -65,34 +63,7 @@ const Question = props => {
 };
 
 class QuestionOptions extends React.Component {
-  state = {
-    name: ""
-  };
-
-  // showModal = () => {
-  //   this.setState({
-  //     visible: true
-  //   });
-  // };
-
-  // handleChange = e => {
-  //   this.setState({ name: e.target.value });
-  // };
-
-  // handleOk = () => {
-  //   this.props.setFieldValue(
-  //     `questions[${this.props.number}]`,
-  //     this.state.name
-  //   );
-  //   this.setState({ visible: false });
-  // };
-
-  // handleCancel = () => {
-  //   this.setState({ visible: false });
-  // };
-
   render() {
-    console.log(this.props);
     const { props } = this;
     if (!props && !props.options) {
       return null;
@@ -119,14 +90,14 @@ class QuestionOptions extends React.Component {
                 );
               })}
             </div>
-            {/* <ModalComment setFieldValue={props.setFieldValue} number={number} /> */}
             <ModalComment
+              title="Enter you comment here"
               setFieldValue={props.setFieldValue}
               number={number}
               comment
               render={props => {
                 return (
-                  <CommentsIcon hasValue={!!props.name}>
+                  <CommentsIcon hasValue={!!props.text}>
                     <img src={commentIcon} alt="" />
                   </CommentsIcon>
                 );
@@ -143,17 +114,11 @@ class QuestionOptions extends React.Component {
     if (type === "open") {
       return (
         <QuestionOptionsWrapper>
-          {/* <Field
-            type="text"
-            name={`questions[${number}]`}
-            id={`${number}`}
-            placeholder={label}
-          /> */}
           <Field name={`questions[${number}]`}>
             {({ field, form }) => (
               <Input
                 {...field}
-                {...form}
+                // {...form}
                 size="large"
                 placeholder={label}
                 style={{
@@ -172,17 +137,11 @@ class QuestionOptions extends React.Component {
     if (type === "number") {
       return (
         <QuestionOptionsWrapper>
-          {/* <Field
-            type="number"
-            name={`questions[${number}]`}
-            id={`${number}`}
-            placeholder={label}
-          /> */}
           <Field name={`questions[${number}]`} type="number">
             {({ field, form }) => (
               <InputNumber
                 {...field}
-                {...form}
+                // {...form}
                 onChange={value =>
                   props.setFieldValue(`questions[${number}]`, value)
                 }
@@ -213,18 +172,9 @@ class QuestionOptions extends React.Component {
             {({ field, form }) => {
               return (
                 <>
-                  {/* <Modal
-                    {...this.state}
-                    handleOk={this.handleOk}
-                    handleCancel={this.handleCancel}
-                    handleChange={this.handleChange}
-                  /> */}
-
                   <Select
                     showSearch
-                    // {...field}
                     placeholder={label}
-                    // defaultValue={`Select a person`}
                     style={{
                       border: `1px solid ${colors.dustyGray1}`
                     }}
@@ -237,11 +187,11 @@ class QuestionOptions extends React.Component {
                           {menu}
                           <Divider style={{ margin: "4px 0" }} />
                           <ModalComment
+                            title={`Add a new ${category}`}
                             setFieldValue={props.setFieldValue}
                             number={number}
                             render={renderProps => {
-                              newOptions = [...newOptions, renderProps.name];
-                              console.log("propsy", renderProps.name);
+                              newOptions = [...newOptions, renderProps.text];
                               return (
                                 <div
                                   onMouseDown={e => {
@@ -249,7 +199,6 @@ class QuestionOptions extends React.Component {
                                     return false;
                                   }}
                                   style={{ padding: "8px", cursor: "pointer" }}
-                                  // onClick={this.showModal}
                                 >
                                   <Icon type="plus" /> Add item
                                 </div>
@@ -285,7 +234,7 @@ class QuestionOptions extends React.Component {
               <Input.TextArea
                 rows={4}
                 {...field}
-                {...form}
+                // {...form}
                 style={{ border: `1px solid ${colors.inputBorder}` }}
               />
             )}
@@ -351,7 +300,7 @@ class QuestionOptions extends React.Component {
             {({ field, form }) => (
               <Rate
                 {...field}
-                {...form}
+                // {...form}
                 tooltips={options}
                 onChange={value => props.setFieldValue("review.rate", value)}
                 style={{
