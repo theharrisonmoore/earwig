@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
+import { Checkbox } from "antd";
 
 import {
   ReviewWrapper,
@@ -41,7 +42,7 @@ const STATIC_QUESTIONS = [
     number: 18,
     text: "How would you rate this agency?",
     type: "rate",
-    options: ["bad", "ok", "good", "cool", "very cool"]
+    options: ["Bad", "Poor", "Average", "Great", "Excellent"]
   },
   {
     number: 19,
@@ -90,8 +91,8 @@ class Review extends Component {
       .get("/api/agency-payroll")
       .then(res => {
         this.setState({
-          agencies: res.data[0].category,
-          payrolls: res.data[1].category
+          agencies: res.data[1].category,
+          payrolls: res.data[0].category
         });
       })
       .catch(err => {
@@ -100,6 +101,7 @@ class Review extends Component {
   };
 
   handleSubmit = (values, { setSubmitting }) => {
+    console.log("tyoeof", typeof values.questions[18]);
     const { organization } = this.state;
     const { user } = this.state;
     const review = {
@@ -124,10 +126,11 @@ class Review extends Component {
   render() {
     const initialValues = {
       questions: initQueestionsValues[this.state.organization.category],
+      comments: initQueestionsValues[this.state.organization.category],
       checklist: [],
       review: {
         workPeriod: "",
-        rate: "",
+        rate: 3,
         overallReview: "",
         voiceReview: ""
       },
@@ -183,6 +186,7 @@ class Review extends Component {
               errors,
               setFieldValue
             }) => {
+              console.log("values", values);
               return (
                 <FormWrapper>
                   <Form>
@@ -220,28 +224,36 @@ class Review extends Component {
                         handleChagne={handleChange}
                         question={STATIC_QUESTIONS[0]}
                         setFieldValue={setFieldValue}
+                        category={this.state.organization.category}
                       />
                       <Question
                         {...values}
                         handleChagne={handleChange}
                         question={STATIC_QUESTIONS[1]}
+                        category={this.state.organization.category}
                       />
                       <Question
                         {...values}
                         handleChagne={handleChange}
                         question={STATIC_QUESTIONS[2]}
+                        category={this.state.organization.category}
                       />
                     </div>
 
                     <UserAgreement>
                       <Level2Header>Submit your review</Level2Header>
                       <CheckboxWrapper>
-                        <Field
-                          type="checkbox"
-                          name={`hasAgreed`}
-                          className="agreement-checkbox"
-                          id="agreement"
-                        />
+                        <Field name={`hasAgreed`} id="agreement">
+                          {({ field, form }) => (
+                            <Checkbox
+                              {...field}
+                              {...form}
+                              id="agreement"
+                              style={{ marginTop: "4px" }}
+                            />
+                          )}
+                        </Field>
+
                         <AgreementLabel htmlFor="agreement">
                           I agree to the earwig Terms of Use. This review of my
                           experience with this current or former agency is

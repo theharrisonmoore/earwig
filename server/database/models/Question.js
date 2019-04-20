@@ -10,6 +10,7 @@ const questionSchema = new Schema({
   type: String,
   text: String,
   hintText: String,
+  label: String,
   isJumping: Boolean,
   jumpTo: [{
     value: String,

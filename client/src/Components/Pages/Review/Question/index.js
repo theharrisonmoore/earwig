@@ -1,13 +1,17 @@
 import React from "react";
+
 import { Field, FieldArray, ErrorMessage } from "formik";
 
-import { Select, Icon, Divider } from "antd";
+import { Select, Icon, Divider, Input, Rate, InputNumber } from "antd";
 
 import Modal from "../../../Common/AntdComponents/Modal";
+import ModalComment from "../../../Common/AntdComponents/ModalComment";
 import commentIcon from "../../../../assets/comment-icon.svg";
 import Rater from "../../../Common/Rater";
 
 import UploadImage from "./UploadPhoto";
+
+import { colors, organizations } from "../../../../theme";
 
 import {
   QuestionWrapper,
@@ -35,17 +39,10 @@ const Question = props => {
     number,
     type,
     category,
-    name
+    name,
+    label
   } = props.question;
-  const {
-    questions,
-    values,
-    errors,
-    setFieldValue,
-    agencies,
-    payrolls,
-    dropdownOptions
-  } = props;
+  const { questions, values, errors, setFieldValue, dropdownOptions } = props;
   return (
     <QuestionWrapper>
       <QText>{text}</QText>
@@ -54,15 +51,14 @@ const Question = props => {
         type={type}
         options={options}
         number={number}
-        category={category}
+        category={category ? category : props.category}
         name={name}
         questions={questions}
         values={values}
         errors={errors}
         setFieldValue={setFieldValue}
-        agencies={agencies}
-        payrolls={payrolls}
         dropdownOptions={dropdownOptions}
+        label={label}
       />
     </QuestionWrapper>
   );
@@ -70,38 +66,38 @@ const Question = props => {
 
 class QuestionOptions extends React.Component {
   state = {
-    loading: false,
-    visible: false,
     name: ""
   };
 
-  showModal = () => {
-    this.setState({
-      visible: true
-    });
-  };
+  // showModal = () => {
+  //   this.setState({
+  //     visible: true
+  //   });
+  // };
 
-  handleChange = e => {
-    this.setState({ name: e.target.value });
-  };
+  // handleChange = e => {
+  //   this.setState({ name: e.target.value });
+  // };
 
-  handleOk = () => {
-    this.props.setFieldValue(
-      `questions[${this.props.number}]`,
-      this.state.name
-    );
-    this.setState({ visible: false });
-  };
+  // handleOk = () => {
+  //   this.props.setFieldValue(
+  //     `questions[${this.props.number}]`,
+  //     this.state.name
+  //   );
+  //   this.setState({ visible: false });
+  // };
 
-  handleCancel = () => {
-    this.setState({ visible: false });
-  };
+  // handleCancel = () => {
+  //   this.setState({ visible: false });
+  // };
+
   render() {
+    console.log(this.props);
     const { props } = this;
     if (!props && !props.options) {
       return null;
     }
-    const { type, options, number, category } = props;
+    const { type, options, number, category, label } = props;
     if (type === "yesno" || type === "radio") {
       return (
         <QuestionOptionsWrapper>
@@ -123,9 +119,19 @@ class QuestionOptions extends React.Component {
                 );
               })}
             </div>
-            <CommentsIcon>
-              <img src={commentIcon} alt="" />
-            </CommentsIcon>
+            {/* <ModalComment setFieldValue={props.setFieldValue} number={number} /> */}
+            <ModalComment
+              setFieldValue={props.setFieldValue}
+              number={number}
+              comment
+              render={props => {
+                return (
+                  <CommentsIcon hasValue={!!props.name}>
+                    <img src={commentIcon} alt="" />
+                  </CommentsIcon>
+                );
+              }}
+            />
           </Options>
           <ErrorMessage name={`questions[${number}]`}>
             {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
@@ -137,12 +143,25 @@ class QuestionOptions extends React.Component {
     if (type === "open") {
       return (
         <QuestionOptionsWrapper>
-          <Field
+          {/* <Field
             type="text"
             name={`questions[${number}]`}
             id={`${number}`}
-            placeholder="John Doe"
-          />
+            placeholder={label}
+          /> */}
+          <Field name={`questions[${number}]`}>
+            {({ field, form }) => (
+              <Input
+                {...field}
+                {...form}
+                size="large"
+                placeholder={label}
+                style={{
+                  border: `1px solid ${colors.dustyGray1}`
+                }}
+              />
+            )}
+          </Field>
           <ErrorMessage name={`questions[${number}]`}>
             {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
           </ErrorMessage>
@@ -153,12 +172,31 @@ class QuestionOptions extends React.Component {
     if (type === "number") {
       return (
         <QuestionOptionsWrapper>
-          <Field
+          {/* <Field
             type="number"
             name={`questions[${number}]`}
             id={`${number}`}
-            placeholder="per timesheet"
-          />
+            placeholder={label}
+          /> */}
+          <Field name={`questions[${number}]`} type="number">
+            {({ field, form }) => (
+              <InputNumber
+                {...field}
+                {...form}
+                onChange={value =>
+                  props.setFieldValue(`questions[${number}]`, value)
+                }
+                style={{
+                  border: `1px solid ${colors.dustyGray1}`,
+                  width: "12rem",
+                  height: "70px",
+                  lineHeight: "70px"
+                }}
+                size="large"
+                placeholder={`£       ${label}`}
+              />
+            )}
+          </Field>
           <ErrorMessage name={`questions[${number}]`}>
             {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
           </ErrorMessage>
@@ -168,24 +206,28 @@ class QuestionOptions extends React.Component {
 
     if (type === "dropdown") {
       const { dropdownOptions } = this.props;
-      const newOptions = [...dropdownOptions, this.state.name];
+      let newOptions = [...dropdownOptions];
       return (
         <QuestionOptionsWrapper>
           <Field name={`questions[${number}]`}>
             {({ field, form }) => {
               return (
                 <>
-                  <Modal
+                  {/* <Modal
                     {...this.state}
                     handleOk={this.handleOk}
                     handleCancel={this.handleCancel}
                     handleChange={this.handleChange}
-                  />
+                  /> */}
+
                   <Select
                     showSearch
-                    {...field}
-                    defaultValue="lucy"
-                    style={{ width: "35rem" }}
+                    // {...field}
+                    placeholder={label}
+                    // defaultValue={`Select a person`}
+                    style={{
+                      border: `1px solid ${colors.dustyGray1}`
+                    }}
                     onChange={value =>
                       form.setFieldValue(`questions[${number}]`, value)
                     }
@@ -194,16 +236,26 @@ class QuestionOptions extends React.Component {
                         <div>
                           {menu}
                           <Divider style={{ margin: "4px 0" }} />
-                          <div
-                            onMouseDown={e => {
-                              e.preventDefault();
-                              return false;
+                          <ModalComment
+                            setFieldValue={props.setFieldValue}
+                            number={number}
+                            render={renderProps => {
+                              newOptions = [...newOptions, renderProps.name];
+                              console.log("propsy", renderProps.name);
+                              return (
+                                <div
+                                  onMouseDown={e => {
+                                    e.preventDefault();
+                                    return false;
+                                  }}
+                                  style={{ padding: "8px", cursor: "pointer" }}
+                                  // onClick={this.showModal}
+                                >
+                                  <Icon type="plus" /> Add item
+                                </div>
+                              );
                             }}
-                            style={{ padding: "8px", cursor: "pointer" }}
-                            onClick={this.showModal}
-                          >
-                            <Icon type="plus" /> Add item
-                          </div>
+                          />
                         </div>
                       );
                     }}
@@ -228,14 +280,16 @@ class QuestionOptions extends React.Component {
     if (type === "overallReview") {
       return (
         <QuestionOptionsWrapper>
-          <Field
-            component="textarea"
-            col="20"
-            row="30"
-            name={`review.overallReview`}
-            id={`${number}`}
-            placeholder="per timesheet"
-          />
+          <Field name={`review.overallReview`}>
+            {({ field, form }) => (
+              <Input.TextArea
+                rows={4}
+                {...field}
+                {...form}
+                style={{ border: `1px solid ${colors.inputBorder}` }}
+              />
+            )}
+          </Field>
           <ErrorMessage name={`review.overallReview`}>
             {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
           </ErrorMessage>
@@ -293,7 +347,23 @@ class QuestionOptions extends React.Component {
     if (type === "rate") {
       return (
         <QuestionOptionsWrapper>
-          <Rater setFieldValue={props.setFieldValue} />
+          <Field name="review.rate">
+            {({ field, form }) => (
+              <Rate
+                {...field}
+                {...form}
+                tooltips={options}
+                onChange={value => props.setFieldValue("review.rate", value)}
+                style={{
+                  color: `${organizations[category].primary}`,
+                  fontSize: "3rem"
+                }}
+              />
+            )}
+          </Field>
+          <ErrorMessage name="review.rate">
+            {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
+          </ErrorMessage>
         </QuestionOptionsWrapper>
       );
     }

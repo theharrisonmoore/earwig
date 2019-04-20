@@ -77,7 +77,6 @@ const postOrg = async (category, name) => {
     });
     await org.save();
   } catch (err) {
-    console.log(err);
     boom.badImplementation();
   }
 };
