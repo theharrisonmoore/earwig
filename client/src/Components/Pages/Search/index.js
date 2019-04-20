@@ -38,7 +38,7 @@ export default class Search extends Component {
   state = {
     isLoading: false,
     data: null,
-    showReviews: true
+    showOtherSections: true
   };
 
   componentDidMount() {
@@ -55,7 +55,7 @@ export default class Search extends Component {
   }
   // renders last viewed organization section
   renderLastViewed = (org, key) => (
-    <ProfileLink key={key} to={`/profile/${org._id}`}>
+    <ProfileLink key={key} href={`/profile/${org._id}`}>
       <ReviewsFrame orgType={org.category}>
         <InnerDivLastReviews orgType={org.category}>
           <SymbolDiv>
@@ -77,21 +77,20 @@ export default class Search extends Component {
   );
 
   // functions to detect if user clicks outside search box
+  // if clicked inside => don't show other sections
   setSearchBoxRef = node => {
     this.searchBoxRef = node;
   };
   handleClickOutside = event => {
     if (this.searchBoxRef && !this.searchBoxRef.contains(event.target)) {
-      this.setState({ showReviews: true });
+      this.setState({ showOtherSections: true, boxClicked: false });
     } else {
-      this.setState({ showReviews: false });
+      this.setState({ showOtherSections: false });
     }
   };
 
   render() {
-    const { isLoading, data, showReviews } = this.state;
-
-    console.log(showReviews);
+    const { isLoading, data, showOtherSections } = this.state;
 
     if (!isLoading) return <p data-testid="loading">loading...</p>;
 
@@ -100,28 +99,32 @@ export default class Search extends Component {
         <HeadlineDiv>
           <h2>Welcome to earwig.</h2> <h2>Try searching for…</h2>
         </HeadlineDiv>
-        <SearchLegendDiv>
-          <RowDiv>
-            <ItemDiv>
-              {SVGCreator("agency-icon", "40px", "70px")}
-              <LegendTitle orgType="agency">Agencies</LegendTitle>
-            </ItemDiv>
-            <ItemDiv>
-              {SVGCreator("payroll-icon", "40px", "70px")}
-              <LegendTitle orgType="payroll">Payrolls</LegendTitle>
-            </ItemDiv>
-          </RowDiv>
-          <RowDiv>
-            <ItemDiv>
-              {SVGCreator("worksite-icon", "40px", "70px")}
-              <LegendTitle orgType="worksite">Worksites</LegendTitle>
-            </ItemDiv>
-            <ItemDiv>
-              {SVGCreator("company-icon", "40px", "70px")}
-              <LegendTitle orgType="company">Companies</LegendTitle>
-            </ItemDiv>
-          </RowDiv>
-        </SearchLegendDiv>
+        {showOtherSections && (
+          <FlexContainer>
+            <SearchLegendDiv>
+              <RowDiv>
+                <ItemDiv>
+                  {SVGCreator("agency-icon", "40px", "70px")}
+                  <LegendTitle orgType="agency">Agencies</LegendTitle>
+                </ItemDiv>
+                <ItemDiv>
+                  {SVGCreator("payroll-icon", "40px", "70px")}
+                  <LegendTitle orgType="payroll">Payrolls</LegendTitle>
+                </ItemDiv>
+              </RowDiv>
+              <RowDiv>
+                <ItemDiv>
+                  {SVGCreator("worksite-icon", "40px", "70px")}
+                  <LegendTitle orgType="worksite">Worksites</LegendTitle>
+                </ItemDiv>
+                <ItemDiv>
+                  {SVGCreator("company-icon", "40px", "70px")}
+                  <LegendTitle orgType="company">Companies</LegendTitle>
+                </ItemDiv>
+              </RowDiv>
+            </SearchLegendDiv>
+          </FlexContainer>
+        )}
         <FlexContainer ref={this.setSearchBoxRef}>
           <AutosuggestComponent
             bool={() => true}
@@ -131,7 +134,7 @@ export default class Search extends Component {
             placeholderText="start typing..."
           />
         </FlexContainer>
-        {showReviews && (
+        {showOtherSections && (
           <FlexContainer>
             <HeadlineDiv>
               <p>Or find out what's happening at...</p>

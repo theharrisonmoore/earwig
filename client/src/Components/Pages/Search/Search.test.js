@@ -95,7 +95,7 @@ describe("tests for running app with data ", () => {
     expect(headline.textContent).toBe("Welcome to earwig.");
 
     //   test if resolved container renders
-    expectInputValue(data.input.placeholder, "🔍 start typing...");
+    expectInputValue(data.input.placeholder, "start typing...");
     // // test input value
     expectInputValue(data.input.value, "");
   });

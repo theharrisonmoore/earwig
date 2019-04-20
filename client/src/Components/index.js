@@ -150,6 +150,8 @@ export default function index(props) {
             <Search
               {...props}
               {...linkProps}
+              isMobile={isMobile}
+              isTablet={isTablet}
               handleChangeState={handleChangeState}
             />
           )}
