@@ -222,7 +222,7 @@ export const ReviewDetailsDiv = styled.div`
   }
 `;
 
-export const ProfileLink = styled(Link)`
+export const ProfileLink = styled.a`
   :hover {
     text-decoration: none;
   }

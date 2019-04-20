@@ -74,7 +74,7 @@ export default class AutosuggestComponent extends Component {
       return null;
     }
     return (
-      <ProfileLink to={`/profile/${suggestion._id}`}>
+      <ProfileLink href={`/profile/${suggestion._id}`}>
         <SuggestionBox orgType={suggestion.category}>
           <InnerDivSuggestions>
             <SymbolDiv>
