@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const {
-  getByOrg, postReview, addNewAgencyPayroll, getOrgsByType, getAgencesAndPayrollsNames,
+  getByOrg, postReview, addNewAgencyPayroll, getOrgsByType,
+  getAgencesAndPayrollsNames, postReviewShort,
 } = require("../controllers/review");
 const upload = require("../middlewares/uploadFileToServer");
 const toGoogle = require("./../middlewares/uploadToGoogle");
@@ -24,6 +25,8 @@ const {
 router.get(GET_QUESTIONS_URL, getByOrg);
 
 router.post(REVIEW_URL, postReview);
+router.post("/short-review", postReviewShort);
+
 // Add new payroll and agency
 router.get("/organizations", getOrgsByType);
 router.post("/organizations", addNewAgencyPayroll);
