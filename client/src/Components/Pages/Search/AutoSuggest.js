@@ -124,7 +124,7 @@ export default class AutosuggestComponent extends Component {
 
   render() {
     const { value, suggestions } = this.state;
-    const { height, width } = this.props;
+    const { height, width, bool } = this.props;
     const inputProps = {
       placeholder: "🔍 start typing...",
       value,
@@ -137,7 +137,7 @@ export default class AutosuggestComponent extends Component {
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          shouldRenderSuggestions={() => true}
+          shouldRenderSuggestions={bool}
           getSuggestionValue={getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           inputProps={inputProps}

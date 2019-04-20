@@ -103,7 +103,12 @@ export default class Search extends Component {
             </ItemDiv>
           </RowDiv>
         </SearchLegendDiv>
-        <AutosuggestComponent height="4.5rem" width="80%" data={data} />
+        <AutosuggestComponent
+          bool={() => true}
+          height="4.5rem"
+          width="80%"
+          data={data}
+        />
         <HeadlineDiv>
           <p>Or find out what's happening at...</p>
         </HeadlineDiv>
