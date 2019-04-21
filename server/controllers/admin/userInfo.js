@@ -1,6 +1,6 @@
 const boom = require("boom");
 
-const getImageLink = require("./../../helpers/getImageLink");
+const getImageLink = require("./../../helpers/getFileLink");
 const { getUserById } = require("./../../database/queries/user");
 
 module.exports = ((req, res, next) => {

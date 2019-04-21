@@ -1,8 +1,4 @@
-const env2 = require("env2");
-
-env2(".env");
 const { admin } = require("./../config");
-
 
 module.exports = fileName => new Promise(async (resolve, reject) => {
   // These options will allow temporary read access to the file
