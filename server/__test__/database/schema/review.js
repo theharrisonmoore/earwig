@@ -30,7 +30,6 @@ describe("Test Review schema", () => {
     const users = await User.find({ verified: true, isAdmin: false });
 
     const review = {
-
       organization: companies[0],
       user: users[0],
       workPeriod: {
@@ -46,21 +45,27 @@ describe("Test Review schema", () => {
             text: "I faced the same thing",
           },
         ],
-        votes: [{
-          user: users[1],
-          points: 8,
-        }],
+        votes: [
+          {
+            user: users[1],
+            points: 8,
+          },
+        ],
       },
       voiceReview: {
         audio: "audio/audio1.mp3", // to be updated when firebase storage is ready
-        replies: [{
-          user: users[1],
-          text: "you are right",
-        }],
-        votes: [{
-          user: users[1],
-          points: 5,
-        }],
+        replies: [
+          {
+            user: users[1],
+            text: "you are right",
+          },
+        ],
+        votes: [
+          {
+            user: users[1],
+            points: 5,
+          },
+        ],
       },
     };
 
@@ -68,7 +73,6 @@ describe("Test Review schema", () => {
     expect(storedReviews).toBeDefined();
     expect(storedReviews.rate).toBe(review.rate);
     expect(storedReviews.overallReview.text).toBe(review.overallReview.text);
-
 
     // default values
     expect(storedReviews.createdAt).toBeDefined();

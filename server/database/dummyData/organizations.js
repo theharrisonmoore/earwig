@@ -10,13 +10,14 @@ module.exports = async () => {
       email: "hello@aac.uk.net",
       websiteURL: "https://www.aac.uk.net/",
       lastViewed: Date.now(),
-    }, {
+    },
+    {
       name: "Abbey Builders",
       category: "company",
       phoneNumber: "07911654321",
       email: "hello@abbey-builders.com",
       websiteURL: "https://www.abbey-builders.com/",
-      lastViewed: Date.now(),
+      lastViewed: "2019-04-2",
     },
     // agecies
     {
@@ -25,12 +26,15 @@ module.exports = async () => {
       phoneNumber: "+441612454942",
       email: "info@aspirerecruitment.org.uk",
       websiteURL: "http://aspirerecruitment.org.uk/",
-    }, {
+      lastViewed: "2019-04-4",
+    },
+    {
       name: "Champion Recruitment",
       category: "agency",
       phoneNumber: "+441235844001",
       email: "abingdon@champion.co.uk",
       websiteURL: "http://www.champion.co.uk/",
+      lastViewed: "2019-06-2",
     },
     // payrolls
     {
@@ -39,12 +43,15 @@ module.exports = async () => {
       phoneNumber: "+441733895576",
       email: "admin@advancedpayroll.org",
       websiteURL: "http://www.advancedpayroll.org/",
-    }, {
+      lastViewed: "2019-03-1",
+    },
+    {
       name: "Liberty Bishop",
       category: "payroll",
       phoneNumber: "+441582461444",
       email: "info@libertybishop.co.uk",
       websiteURL: "https://www.libertybishop.co.uk/",
+      lastViewed: "2019-02-2",
     },
     // worksites
     {
@@ -61,6 +68,7 @@ module.exports = async () => {
         lat: 51.5074,
         long: 0.1278,
       },
+      lastViewed: "2019-01-2",
     },
     {
       name: "Cardiff University",
