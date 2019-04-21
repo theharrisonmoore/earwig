@@ -15,14 +15,19 @@ import {
 
 export default class GiveReview extends Component {
   render() {
-    const { category, isMobile, isTablet } = this.props;
+    const { category, isMobile, isTablet, state } = this.props;
 
     return (
       <ReviewButtonsDiv isTablet={isTablet} isMobile={isMobile}>
         <ReviewType isTablet={isTablet} isMobile={isMobile}>
           <Icon src="/icons/clock-2min.svg" margin="0 0.5rem 0 0" />
           <Time>2 mins</Time>
-          <FullLink to={"/review"}>
+          <FullLink
+            to={{
+              pathname: `/review`,
+              state: state
+            }}
+          >
             <ReviewButton category={category}>
               <h4>Give a full review</h4>
               <p>(Most helpful!)</p>

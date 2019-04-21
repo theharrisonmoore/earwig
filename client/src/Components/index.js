@@ -32,12 +32,22 @@ import {
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
-  const { handleChangeState, isMobile, isTablet, isLoggedIn, isAdmin } = props;
+  const {
+    handleChangeState,
+    isMobile,
+    isTablet,
+    isLoggedIn,
+    isAdmin,
+    email
+  } = props;
 
   return (
     <>
       <Switch>
-        <Route path="/review" component={Review} />
+        <Route
+          path="/review"
+          render={routerProps => <Review email={email} {...routerProps} />}
+        />
         <Route path="/review-quick" component={QuickReview} />
         <Route
           exact

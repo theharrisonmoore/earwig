@@ -9,6 +9,7 @@ const { findByEmail } = require("../database/queries/user");
 
 const Review = require("../database/models/Review");
 const Answer = require("../database/models/Answer");
+const Comment = require("../database/models/Comment");
 
 const getByOrg = (req, res, next) => {
   const { organization } = req.query;
@@ -56,7 +57,8 @@ const postReviewShort = async (req, res, next) => {
 };
 
 const postReview = async (req, res, next) => {
-  console.log("body", req.body);
+  console.log("body=================================================", req.body);
+
   const {
     questions: questionsAnswers,
     review: {
@@ -89,29 +91,40 @@ const postReview = async (req, res, next) => {
     const currentReview = await newReview.save();
 
     const reviewAnswers = Object.keys(questionsAnswers).sort((a, b) => a - b).map((qAnswer) => {
+      // console.log("qqqqqqqqqqqqqqqqqqq", qAnswer);
+      // console.log("ansersnerkee", questions[qAnswer - 1]);
       const answer = {
         user: userData,
         review: currentReview,
-        question: questions[qAnswer],
+        question: questions[qAnswer - 1],
         answer: questionsAnswers[qAnswer],
       };
       return answer;
     });
-    const commentsData = Object.keys(comments).sort((a, b) => a - b).map((c) => {
-      const comment = {
-        user: userData,
-        organization: organizationData,
-        question: questions[c],
-        text: questionsAnswers[c],
-      };
-      return comment;
-    });
 
-    let allAnswers = reviewAnswers;
+    // console.log("rrrrrrrrrrrrrrrrrrrrrrevie answer", reviewAnswers);
+    const commentsData = Object.keys(comments).sort((a, b) => a - b).map((c) => {
+      if (comments[c]) {
+        const comment = {
+          user: userData,
+          organization: organizationData,
+          question: questions[c - 1],
+          text: comments[c],
+        };
+        return comment;
+      }
+      return null;
+    }).filter(value => value);
+
+    let allAnswers = [...reviewAnswers];
 
     if (organization.category === "worksite") {
       const checklistQuestin = questions.filter(q => q.type === "checklist");
+      // console.log("checklistQuestinchecklistQuestin", checklistQuestin[0]);
+      // console.log("checklistQuestinchecklistQuestin", checklistQuestin[0].text);
       const image = questions.filter(q => q.type === "image");
+      // console.log("imageimageimageimage", image);
+
       if (checklistQuestin && checklistQuestin[0] && checklistQuestin[0].text) {
         const checklistAnswer = {
           user: userData,
@@ -119,7 +132,8 @@ const postReview = async (req, res, next) => {
           question: checklistQuestin[0],
           answer: checklist,
         };
-        allAnswers = [...reviewAnswers, checklistAnswer];
+        // console.log("checklistAnswer", checklistAnswer);
+        allAnswers = [...allAnswers, checklistAnswer];
       }
       if (image && image[0] && image[0].text) {
         const imageAnswer = {
@@ -128,13 +142,14 @@ const postReview = async (req, res, next) => {
           question: image[0],
           answer: worksiteImage,
         };
-        allAnswers = [...reviewAnswers, imageAnswer];
+        allAnswers = [...allAnswers, imageAnswer];
       }
     }
 
+    console.log("alllllllllllllllllllll", allAnswers);
+
     await Answer.insertMany(allAnswers);
-    const commetns = await Review.insertMany(commentsData);
-    console.log("commetns", commetns);
+    await Comment.insertMany(commentsData);
 
     res.send();
   } catch (error) {

@@ -62,22 +62,37 @@ const STATIC_QUESTIONS = [
 
 class Review extends Component {
   state = {
+    isLoading: true,
     groups: [],
-    organization: { category: "agency", name: "Bournemouth University" },
-    user: { email: "level3@earwig.com" },
+    organization: { category: "", name: "" },
+    user: { email: "" },
     worksiteImage: "",
     agencies: [],
     payrolls: []
   };
   componentDidMount() {
+    const { email } = this.props;
+    console.log("dkjfkdsjfd", this.props);
+    const { category, name } = this.props.location.state;
+    const organization = { ...this.state.organization };
+    const user = { ...this.state.user };
+    organization.category = category;
+    organization.name = name;
+    user.email = email;
     axios
       .get(API_GET_QUESTIONS_URL, {
         params: {
-          organization: this.state.organization.category
+          organization: category
         }
       })
       .then(res => {
-        this.setState({ groups: res.data });
+        this.setState({
+          groups: res.data,
+          isLoading: false,
+          organization,
+          user,
+          email
+        });
       })
       .catch(err => {
         // server error 500
@@ -101,7 +116,6 @@ class Review extends Component {
   };
 
   handleSubmit = (values, { setSubmitting }) => {
-    console.log("tyoeof", typeof values.questions[18]);
     const { organization } = this.state;
     const { user } = this.state;
     const review = {
@@ -124,12 +138,20 @@ class Review extends Component {
   };
 
   render() {
+    console.log("user", this.state.user);
+    const { isLoading } = this.state;
+    if (isLoading) return <p>loading...</p>;
+    // const { name, category } = this.state.organization;
+
     const initialValues = {
       questions: initQueestionsValues[this.state.organization.category],
       comments: initQueestionsValues[this.state.organization.category],
       checklist: [],
       review: {
-        workPeriod: "",
+        workPeriod: {
+          from: "2019-01-01",
+          to: "2019-03-31"
+        },
         rate: 3,
         overallReview: "",
         voiceReview: ""
@@ -196,26 +218,29 @@ class Review extends Component {
                     </div>
                     <div>
                       {groups.map(group => {
-                        return (
-                          <div key={group._id}>
-                            <h2>{group.group.text}</h2>
-                            {group.questions.map(question => {
-                              return (
-                                <Question
-                                  key={question._id}
-                                  values={values}
-                                  handleChagne={handleChange}
-                                  question={question}
-                                  errors={errors}
-                                  setFieldValue={setFieldValue}
-                                  agencies={agencies}
-                                  payrolls={payrolls}
-                                  dropdownOptions={dropdownOptions}
-                                />
-                              );
-                            })}
-                          </div>
-                        );
+                        if (group.group && group.group.text) {
+                          return (
+                            <div key={group._id}>
+                              <h2>{group.group.text}</h2>
+                              {group.questions.map(question => {
+                                return (
+                                  <Question
+                                    key={question._id}
+                                    values={values}
+                                    handleChagne={handleChange}
+                                    question={question}
+                                    errors={errors}
+                                    setFieldValue={setFieldValue}
+                                    agencies={agencies}
+                                    payrolls={payrolls}
+                                    dropdownOptions={dropdownOptions}
+                                  />
+                                );
+                              })}
+                            </div>
+                          );
+                        }
+                        return null;
                       })}
                     </div>
                     <div className="questions">
