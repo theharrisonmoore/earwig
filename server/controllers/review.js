@@ -57,14 +57,11 @@ const postReviewShort = async (req, res, next) => {
 };
 
 const postReview = async (req, res, next) => {
-  console.log("body=================================================", req.body);
-
   const {
     questions: questionsAnswers,
     review: {
       rate, overallReview, workPeriod, voiceReview,
     },
-    checklist,
     worksiteImage,
     comments,
   } = req.body.values;
@@ -91,8 +88,6 @@ const postReview = async (req, res, next) => {
     const currentReview = await newReview.save();
 
     const reviewAnswers = Object.keys(questionsAnswers).sort((a, b) => a - b).map((qAnswer) => {
-      // console.log("qqqqqqqqqqqqqqqqqqq", qAnswer);
-      // console.log("ansersnerkee", questions[qAnswer - 1]);
       const answer = {
         user: userData,
         review: currentReview,
@@ -102,7 +97,6 @@ const postReview = async (req, res, next) => {
       return answer;
     });
 
-    // console.log("rrrrrrrrrrrrrrrrrrrrrrevie answer", reviewAnswers);
     const commentsData = Object.keys(comments).sort((a, b) => a - b).map((c) => {
       if (comments[c]) {
         const comment = {
@@ -119,22 +113,7 @@ const postReview = async (req, res, next) => {
     let allAnswers = [...reviewAnswers];
 
     if (organization.category === "worksite") {
-      // const checklistQuestin = questions.filter(q => q.type === "checklist");
-      // console.log("checklistQuestinchecklistQuestin", checklistQuestin[0]);
-      // console.log("checklistQuestinchecklistQuestin", checklistQuestin[0].text);
       const image = questions.filter(q => q.type === "image");
-      // console.log("imageimageimageimage", image);
-
-      // if (checklistQuestin && checklistQuestin[0] && checklistQuestin[0].text) {
-      //   const checklistAnswer = {
-      //     user: userData,
-      //     review: currentReview,
-      //     question: checklistQuestin[0],
-      //     answer: checklist,
-      //   };
-      //   // console.log("checklistAnswer", checklistAnswer);
-      //   allAnswers = [...allAnswers, checklistAnswer];
-      // }
       if (image && image[0] && image[0].text) {
         const imageAnswer = {
           user: userData,
@@ -151,7 +130,7 @@ const postReview = async (req, res, next) => {
 
     res.send();
   } catch (error) {
-    console.log("errrrrrrrrrr", error);
+    console.log("review controller error", error);
     next(boom.badImplementation);
   }
 };
