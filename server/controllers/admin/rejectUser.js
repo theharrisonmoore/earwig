@@ -7,7 +7,7 @@ module.exports = ((req, res, next) => {
   const { id } = req.body;
   const updateData = {
     awaitingReview: false,
-    verified: true,
+    verified: false,
     verificationPhoto: undefined,
   };
 
