@@ -16,7 +16,7 @@ module.exports = ((req, res, next) => {
       if (!user) {
         next(boom.notFound("user not found!"));
       } else if (!user.verificationPhoto) {
-        next(boom.badRequest("the user has no verification image"));
+        next(boom.badData("the user has no verification image"));
       } else {
         // update user state
         updateUserById(id, updateData)
@@ -26,8 +26,12 @@ module.exports = ((req, res, next) => {
               .then(() => {
                 res.send();
               })
-              .catch(() => {
-                next(boom.badImplementation());
+              .catch((err) => {
+                if (err.message === "file is no longer available") {
+                  next(boom.badData(err));
+                } else {
+                  next(boom.badImplementation());
+                }
               });
           })
           .catch(() => {
