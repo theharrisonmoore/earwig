@@ -1,12 +1,21 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { Table, Modal, message, Drawer, Button } from "antd";
-import { awaitingReviewUsers } from "./UsersColumns";
+import { Drawer } from "antd";
 
+import {
+  VerificationPhoto,
+  ButtonsWrapper,
+  StyledButton,
+  InfoWrapper,
+  Header,
+  Info
+} from "./Users.style";
 export default class AllUsers extends Component {
   state = {
-    data: []
+    data: [],
+    email: "",
+    userId: ""
   };
 
   state = { visible: false };
@@ -23,20 +32,48 @@ export default class AllUsers extends Component {
     });
   };
 
+  componentDidMount() {
+    const { userId } = this.props;
+
+    axios
+      .get(`/api/admin/users/${userId}`)
+      .then(({ data }) => {
+        this.setState({
+          email: data.userInfo.email,
+          userId: data.userInfo.userId,
+          url: data.url
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render() {
     return (
       <Drawer
-        title="Basic Drawer"
         placement="bottom"
         closable={false}
         onClose={this.props.onClose}
         visible={this.props.visible}
         height="100%"
-        width="50%"
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <Header>
+          <InfoWrapper>
+            <Info>Email: {this.state.email}</Info>
+            <Info>User ID: {this.state.userId}</Info>
+          </InfoWrapper>
+          <ButtonsWrapper>
+            <StyledButton type="primary" ghost icon="check">
+              Verify
+            </StyledButton>
+
+            <StyledButton type="danger" ghost icon="close">
+              Reject
+            </StyledButton>
+          </ButtonsWrapper>
+        </Header>
+        <VerificationPhoto src={this.state.url} />
       </Drawer>
     );
   }
