@@ -2,6 +2,8 @@ const boom = require("boom");
 const jwt = require("jsonwebtoken");
 
 const { findByEmail, addNew } = require("./../database/queries/user");
+const confirmJoiningMailList = require("./../helpers/confirmJoiningMailList");
+
 const { tokenMaxAge } = require("./../constants");
 
 module.exports = (req, res, next) => {
@@ -17,7 +19,9 @@ module.exports = (req, res, next) => {
 
       // create new user
       return addNew({ email, password })
-        .then((user) => {
+        .then(async (user) => {
+          // send email to ask user to join earwig mail list
+          await confirmJoiningMailList(email, user._id);
           // data to be sent in the response
           const userInfo = {
             id: user._id,

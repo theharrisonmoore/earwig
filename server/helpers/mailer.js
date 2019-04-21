@@ -3,7 +3,7 @@
 const nodemailer = require("nodemailer");
 
 module.exports = ({
-  from, to, subject, html, user, pass,
+  from, to, subject, html, user, pass, attachments,
 }) => {
   const transporter = nodemailer.createTransport({
     service: "Office365",
@@ -27,5 +27,6 @@ module.exports = ({
     to, // list of receivers
     subject, // Subject line
     html, // html body
+    attachments,
   });
 };
