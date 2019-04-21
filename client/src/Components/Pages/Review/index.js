@@ -146,7 +146,7 @@ class Review extends Component {
     const initialValues = {
       questions: initQueestionsValues[this.state.organization.category],
       comments: initQueestionsValues[this.state.organization.category],
-      checklist: [],
+      // checklist: [],
       review: {
         workPeriod: {
           from: "2019-01-01",

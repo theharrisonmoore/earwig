@@ -38,7 +38,8 @@ const Question = props => {
     type,
     category,
     name,
-    label
+    label,
+    hasComment
   } = props.question;
   const { questions, values, errors, setFieldValue, dropdownOptions } = props;
   return (
@@ -57,6 +58,7 @@ const Question = props => {
         setFieldValue={setFieldValue}
         dropdownOptions={dropdownOptions}
         label={label}
+        hasComment={hasComment}
       />
     </QuestionWrapper>
   );
@@ -68,7 +70,7 @@ class QuestionOptions extends React.Component {
     if (!props && !props.options) {
       return null;
     }
-    const { type, options, number, category, label } = props;
+    const { type, options, number, category, label, hasComment } = props;
     if (type === "yesno" || type === "radio") {
       return (
         <QuestionOptionsWrapper>
@@ -90,19 +92,21 @@ class QuestionOptions extends React.Component {
                 );
               })}
             </div>
-            <ModalComment
-              title="Enter you comment here"
-              setFieldValue={props.setFieldValue}
-              number={number}
-              comment
-              render={props => {
-                return (
-                  <CommentsIcon hasValue={!!props.text}>
-                    <img src={commentIcon} alt="" />
-                  </CommentsIcon>
-                );
-              }}
-            />
+            {hasComment && (
+              <ModalComment
+                title="Enter you comment here"
+                setFieldValue={props.setFieldValue}
+                number={number}
+                comment
+                render={props => {
+                  return (
+                    <CommentsIcon hasValue={!!props.text}>
+                      <img src={commentIcon} alt="" />
+                    </CommentsIcon>
+                  );
+                }}
+              />
+            )}
           </Options>
           <ErrorMessage name={`questions[${number}]`}>
             {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
@@ -127,6 +131,21 @@ class QuestionOptions extends React.Component {
               />
             )}
           </Field>
+          {hasComment && (
+            <ModalComment
+              title="Enter you comment here"
+              setFieldValue={props.setFieldValue}
+              number={number}
+              comment
+              render={props => {
+                return (
+                  <CommentsIcon hasValue={!!props.text}>
+                    <img src={commentIcon} alt="" />
+                  </CommentsIcon>
+                );
+              }}
+            />
+          )}
           <ErrorMessage name={`questions[${number}]`}>
             {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
           </ErrorMessage>
@@ -156,6 +175,21 @@ class QuestionOptions extends React.Component {
               />
             )}
           </Field>
+          {hasComment && (
+            <ModalComment
+              title="Enter you comment here"
+              setFieldValue={props.setFieldValue}
+              number={number}
+              comment
+              render={props => {
+                return (
+                  <CommentsIcon hasValue={!!props.text}>
+                    <img src={commentIcon} alt="" />
+                  </CommentsIcon>
+                );
+              }}
+            />
+          )}
           <ErrorMessage name={`questions[${number}]`}>
             {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
           </ErrorMessage>
@@ -219,6 +253,21 @@ class QuestionOptions extends React.Component {
               );
             }}
           </Field>
+          {hasComment && (
+            <ModalComment
+              title="Enter you comment here"
+              setFieldValue={props.setFieldValue}
+              number={number}
+              comment
+              render={props => {
+                return (
+                  <CommentsIcon hasValue={!!props.text}>
+                    <img src={commentIcon} alt="" />
+                  </CommentsIcon>
+                );
+              }}
+            />
+          )}
           <ErrorMessage name={`questions[${number}]`}>
             {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
           </ErrorMessage>
@@ -251,7 +300,7 @@ class QuestionOptions extends React.Component {
       return (
         <QuestionOptionsWrapper>
           <FieldArray
-            name="checklist"
+            name={`questions[${number}]`}
             render={arrayHelpers => (
               <div>
                 {options &&
@@ -261,16 +310,18 @@ class QuestionOptions extends React.Component {
                       <Field
                         id={`${option}-${number}`}
                         type="checkbox"
-                        name={`checklist.${index}`}
+                        name={`questions[${number}].${index}`}
                         value={option}
                         onChange={e => {
                           if (e.target.checked) arrayHelpers.push(option);
                           else {
-                            const idx = values.checklist.indexOf(option);
+                            const idx = values.questions[number].indexOf(
+                              option
+                            );
                             arrayHelpers.remove(idx);
                           }
                         }}
-                        checked={values.checklist.includes(option)}
+                        checked={values.questions[number].includes(option)}
                       />
                       <label htmlFor={`${option}-${number}`}>{option}</label>
                     </div>
@@ -278,6 +329,21 @@ class QuestionOptions extends React.Component {
               </div>
             )}
           />
+          {hasComment && (
+            <ModalComment
+              title="Enter you comment here"
+              setFieldValue={props.setFieldValue}
+              number={number}
+              comment
+              render={props => {
+                return (
+                  <CommentsIcon hasValue={!!props.text}>
+                    <img src={commentIcon} alt="" />
+                  </CommentsIcon>
+                );
+              }}
+            />
+          )}
           <ErrorMessage name="checklist">
             {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
           </ErrorMessage>

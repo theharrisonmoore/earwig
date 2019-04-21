@@ -119,22 +119,22 @@ const postReview = async (req, res, next) => {
     let allAnswers = [...reviewAnswers];
 
     if (organization.category === "worksite") {
-      const checklistQuestin = questions.filter(q => q.type === "checklist");
+      // const checklistQuestin = questions.filter(q => q.type === "checklist");
       // console.log("checklistQuestinchecklistQuestin", checklistQuestin[0]);
       // console.log("checklistQuestinchecklistQuestin", checklistQuestin[0].text);
       const image = questions.filter(q => q.type === "image");
       // console.log("imageimageimageimage", image);
 
-      if (checklistQuestin && checklistQuestin[0] && checklistQuestin[0].text) {
-        const checklistAnswer = {
-          user: userData,
-          review: currentReview,
-          question: checklistQuestin[0],
-          answer: checklist,
-        };
-        // console.log("checklistAnswer", checklistAnswer);
-        allAnswers = [...allAnswers, checklistAnswer];
-      }
+      // if (checklistQuestin && checklistQuestin[0] && checklistQuestin[0].text) {
+      //   const checklistAnswer = {
+      //     user: userData,
+      //     review: currentReview,
+      //     question: checklistQuestin[0],
+      //     answer: checklist,
+      //   };
+      //   // console.log("checklistAnswer", checklistAnswer);
+      //   allAnswers = [...allAnswers, checklistAnswer];
+      // }
       if (image && image[0] && image[0].text) {
         const imageAnswer = {
           user: userData,
@@ -145,8 +145,6 @@ const postReview = async (req, res, next) => {
         allAnswers = [...allAnswers, imageAnswer];
       }
     }
-
-    console.log("alllllllllllllllllllll", allAnswers);
 
     await Answer.insertMany(allAnswers);
     await Comment.insertMany(commentsData);

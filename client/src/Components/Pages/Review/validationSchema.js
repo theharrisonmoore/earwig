@@ -33,7 +33,7 @@ export const validationSchema = {
       19: Yup.string().required("Required"),
       20: Yup.string().required("Required")
     }),
-    checklist: Yup.array().of(Yup.string()),
+    // checklist: Yup.array().of(Yup.string()),
     review: Yup.object({
       // workPeriod: Yup.string().required("Required"),
       // rate: Yup.string().required("Required"),
@@ -69,7 +69,7 @@ export const validationSchema = {
       13: Yup.string().required("Required"),
       14: Yup.string().required("Required")
     }),
-    checklist: Yup.array().of(Yup.string()),
+    // checklist: Yup.array().of(Yup.string()),
     review: Yup.object({
       // workPeriod: Yup.string().required("Required"),
       // rate: Yup.string().required("Required"),
@@ -105,7 +105,7 @@ export const validationSchema = {
       17: Yup.string().required("Required"),
       18: Yup.string().required("Required")
     }),
-    checklist: Yup.array().required(),
+    // checklist: Yup.array().required(),
     review: Yup.object({
       // workPeriod: Yup.string().required("Required"),
       // rate: Yup.string().required("Required"),
@@ -131,7 +131,7 @@ export const validationSchema = {
       8: Yup.string().required("Required"),
       9: Yup.string().required("Required")
     }),
-    checklist: Yup.array().of(Yup.string()),
+    // checklist: Yup.array().of(Yup.string()),
     review: Yup.object({
       // workPeriod: Yup.string().required("Required"),
       rate: Yup.number().required("Required"),
