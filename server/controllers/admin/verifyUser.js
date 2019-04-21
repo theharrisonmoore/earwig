@@ -15,6 +15,8 @@ module.exports = ((req, res, next) => {
     .then((user) => {
       if (!user) {
         next(boom.notFound("user not found!"));
+      } else if (!user.verificationPhoto) {
+        next(boom.badRequest("the user has no verification image"));
       } else {
         // update user state
         updateUserById(id, updateData)

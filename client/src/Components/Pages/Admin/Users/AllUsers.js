@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { Table, Modal, message, Button } from "antd";
+import { Table, Modal, message } from "antd";
 
 import VerifyUser from "./VerifyUser";
 
@@ -10,10 +10,9 @@ import userColumns from "./UsersColumns";
 export default class AllUsers extends Component {
   state = {
     data: [],
+    visible: false,
     id: ""
   };
-
-  state = { visible: false };
 
   showDrawer = id => {
     this.setState({
@@ -22,7 +21,7 @@ export default class AllUsers extends Component {
     });
   };
 
-  onClose = () => {
+  closeDrawer = () => {
     this.setState({
       visible: false
     });
@@ -34,7 +33,7 @@ export default class AllUsers extends Component {
       okText: "Yes",
       okType: "danger",
       cancelText: "Cancel",
-      onOk() {
+      onOk: () => {
         return new Promise((resolve, reject) => {
           axios
             .delete(`/api/admin/users`, {
@@ -42,10 +41,12 @@ export default class AllUsers extends Component {
             })
             .then(() => {
               message.success("Deleted");
+              this.fetchData();
               resolve();
             })
             .catch(() => {
               message.error("Something went wronge!");
+              this.fetchData();
               resolve();
             });
         });
@@ -84,8 +85,9 @@ export default class AllUsers extends Component {
         {this.state.visible && (
           <VerifyUser
             visible={this.state.visible}
-            onClose={this.onClose}
+            closeDrawer={this.closeDrawer}
             userId={this.state.id}
+            updateData={this.fetchData}
           />
         )}
       </>

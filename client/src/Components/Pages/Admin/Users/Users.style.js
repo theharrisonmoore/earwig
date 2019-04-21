@@ -21,7 +21,7 @@ export const InfoWrapper = styled.div``;
 
 export const Header = styled.header`
   display: flex;
-  width: 75%;
+  max-width: 55rem;
   margin: 0 auto;
   justify-content: space-between;
 `;
