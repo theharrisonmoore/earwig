@@ -1,3 +1,28 @@
+// media queries
+// so far we only decided to use 1 breakpoint, 768px (tablet)
+const size = {
+  mobileS: "320px",
+  mobileM: "375px",
+  mobileL: "425px",
+  mobileXL: "680px",
+  tablet: "768px",
+  laptop: "1024px",
+  laptopL: "1440px",
+  desktop: "2560px"
+};
+
+export const breakpoints = {
+  mobileS: `(min-width: ${size.mobileS})`,
+  mobileM: `(min-width: ${size.mobileM})`,
+  mobileL: `(min-width: ${size.mobileL})`,
+  mobileXL: `(min-width: ${size.mobileXL})`,
+  tablet: `(min-width: ${size.tablet})`,
+  laptop: `(min-width: ${size.laptop})`,
+  laptopL: `(min-width: ${size.laptopL})`,
+  desktop: `(min-width: ${size.desktop})`,
+  desktopL: `(min-width: ${size.desktop})`
+};
+
 const colorCodes = {
   // organizations
   heliotrope: "#8B51FC",
@@ -14,12 +39,18 @@ const colorCodes = {
   tundora: "#4A4A4A",
   dustyGray1: "#979797",
   dustyGray2: "#9B9B9B",
+  veryLightGray: "#CDCDCD",
+  black: "#000000",
   athens1: "#EDEFF2",
   athens2: "#F0F2F4",
   alto: "#D8D8D8",
 
   // shadows color
-  cocoaBrown: "#2A1E22"
+  cocoaBrown: "#2A1E22",
+
+  // transparent
+  ghostWhite: "rgba(255, 255, 255, 0.7)",
+  ghostGray: "rgba(28, 15, 19, 0.0514915)"
 };
 
 // Organization colors
@@ -59,7 +90,12 @@ export const colors = {
 export const shadows = {
   buttonShadow: "0px 4px 13px rgba(173, 145, 183, 0.273438)",
   activeButtonShadow: "0px 2px 9px rgba(173, 145, 183, 0.273438)",
+  sectionShadow: "0px 12px 16px -13px rgba(173,145,183,0.273438)",
   searchShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
+  commentShadow: "0px 3px 4px rgba(152, 152, 152, 0.5);",
+  headerShadow: "0px -5px 17px #9B9B9B;",
+  searchBoxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
+  autocompleteSuggestionShadow: "0px 1px 2px rgba(0, 0, 0, 0)",
   frameShadow: "0px 0px 19px 6px rgba(173,145,183,0.273438)"
 };
 
@@ -74,7 +110,7 @@ export const gradient = {
   }  35.62%, rgba(55, 182, 253, 0.353591) 50.96%, rgba(55, 182, 253, 0) 68.85%)`,
   blackFade: `linear-gradient(96.06deg, ${
     colorCodes.cocoaBrown
-  } 18.26%, rgba(42, 30, 34, 0) 68.85%)`,
+  } 18.26%, rgba(42, 30, 34, 0) 90%)`,
   multiFade: `linear-gradient(95.7deg, ${colorCodes.heliotrope} -0.49%, ${
     colorCodes.cocoaBrown
   }  16.44%, ${colorCodes.webOrange} 32.65%, ${
@@ -86,7 +122,42 @@ export const gradient = {
 };
 
 export const borders = {
-  searchBox: `1px solid ${colors.lightGray}`
+  searchBox: `1px solid ${colors.lightGray}`,
+  commentBox: `1px solid ${colors.veryLightGray}`
+};
+
+export const pieColors = {
+  agency: [
+    "#8B51FC",
+    "#7F4AE6",
+    "#7243CF",
+    "#663BB8",
+    "#5934A1",
+    "#4C2D8A",
+    "#402573",
+    "#331E5C"
+  ]
+};
+
+// icons
+
+export const organizationIcons = {
+  agency: {
+    symbol: "agency-icon",
+    arrow: "agency-arrow"
+  },
+  payroll: {
+    symbol: "payroll-icon",
+    arrow: "payroll-arrow"
+  },
+  worksite: {
+    symbol: "worksite-icon",
+    arrow: "worksite-arrow"
+  },
+  company: {
+    symbol: "company-icon",
+    arrow: "company-arrow"
+  }
 };
 
 //  font families to be added

@@ -22,7 +22,7 @@ module.exports = (req, res, next) => {
 
     // get the user  Id from token
     const { id } = decoded;
-    return getUserById(id)
+    return getUserById(id, true)
       .then((user) => {
         // put the user info in the req to be accessed in the next middlewares
         req.user = user;
