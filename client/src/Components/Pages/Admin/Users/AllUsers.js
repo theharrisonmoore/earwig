@@ -1,89 +1,96 @@
 import React, { Component } from "react";
+import axios from "axios";
 
-import { Table, Divider, Tag } from "antd";
+import { Table, Modal, message } from "antd";
 
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-    render: text => <a href={text}>{text}</a>
-  },
-  {
-    title: "Age",
-    dataIndex: "age",
-    key: "age"
-  },
-  {
-    title: "Address",
-    dataIndex: "address",
-    key: "address"
-  },
-  {
-    title: "Tags",
-    key: "tags",
-    dataIndex: "tags",
-    render: tags => (
-      <span>
-        {tags.map(tag => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "loser") {
-            color = "volcano";
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </span>
-    )
-  },
-  {
-    title: "Action",
-    key: "action",
-    render: (text, record) => (
-      <span>
-        <a href={record.name}>Invite {record.name}</a>
-        <Divider type="vertical" />
-        <a href={record.name}>Delete</a>
-      </span>
-    )
-  }
-];
+import VerifyUser from "./VerifyUser";
 
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"]
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"]
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-    tags: ["cool", "teacher"]
-  }
-];
+import userColumns from "./UsersColumns";
 
 export default class AllUsers extends Component {
+  state = {
+    data: [],
+    visible: false,
+    id: ""
+  };
+
+  showDrawer = id => {
+    this.setState({
+      visible: true,
+      id
+    });
+  };
+
+  closeDrawer = () => {
+    this.setState({
+      visible: false
+    });
+  };
+
+  showDeleteConfirm = id => {
+    Modal.confirm({
+      title: "Are you sure delete this user?",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "Cancel",
+      onOk: () => {
+        return new Promise((resolve, reject) => {
+          axios
+            .delete(`/api/admin/users`, {
+              data: { id }
+            })
+            .then(() => {
+              message.success("Deleted");
+              this.fetchData();
+              resolve();
+            })
+            .catch(() => {
+              message.error("Something went wronge!");
+              this.fetchData();
+              resolve();
+            });
+        });
+      }
+    });
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.awaitingReview !== this.props.awaitingReview) {
+      this.fetchData();
+    }
+  }
+
+  fetchData = () => {
+    const query = this.props.awaitingReview ? "?awaitingReview=true" : "";
+    axios.get(`/api/admin/users${query}`).then(res => {
+      this.setState({ data: res.data });
+    });
+  };
+
+  componentDidMount() {
+    this.fetchData();
+  }
+
   render() {
     return (
-      <Table
-        columns={columns}
-        dataSource={data}
-        style={{ backgroundColor: "#ffffff" }}
-      />
+      <>
+        <Table
+          columns={userColumns({
+            deletHandler: this.showDeleteConfirm,
+            viewHandler: this.showDrawer
+          })}
+          dataSource={this.state.data}
+          style={{ backgroundColor: "#ffffff" }}
+        />
+        {this.state.visible && (
+          <VerifyUser
+            visible={this.state.visible}
+            closeDrawer={this.closeDrawer}
+            userId={this.state.id}
+            updateData={this.fetchData}
+          />
+        )}
+      </>
     );
   }
 }

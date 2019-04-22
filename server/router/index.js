@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const adminRouter = require("./admin");
 const { getByOrg, postReview } = require("../controllers/review");
 const upload = require("../middlewares/uploadFileToServer");
 const toGoogle = require("./../middlewares/uploadToGoogle");
@@ -14,8 +15,8 @@ const userInfoController = require("../controllers/userInfo");
 const confirmJoiningEmailList = require("../controllers/confirmJoiningEmailList");
 
 const authentication = require("./../middlewares/authentication");
+const authorization = require("./../middlewares/authorization");
 const softAuthCheck = require("./../middlewares/softAuthCheck");
-const authorization = require("../middlewares/authorization");
 
 const uploadWorksiteController = require("../controllers/uploadWorksiteImage");
 const searchController = require("../controllers/search");
@@ -94,6 +95,21 @@ router.use(
   "/confirm-email",
   validation("confirmEmail"),
   confirmJoiningEmailList,
+  "/admin",
+  authentication,
+  authorization("ADMIN"),
+  adminRouter,
 );
 
+router.use(
+  "/confirm-email",
+  validation("confirmEmail"),
+  confirmJoiningEmailList,
+);
+router.use(
+  "/admin",
+  authentication,
+  authorization("ADMIN"),
+  adminRouter,
+);
 module.exports = router;

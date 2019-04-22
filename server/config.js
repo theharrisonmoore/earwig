@@ -1,9 +1,11 @@
+const admin = require("firebase-admin");
+
 const privateKey = process.env.private_key
   .replace(new RegExp("\\\\n", "g"), "\n")
   .replace("\"", "");
 
 
-module.exports.cred = {
+const cred = {
   type: process.env.type,
   project_id: process.env.project_id,
   private_key_id: process.env.private_key_id,
@@ -16,4 +18,14 @@ module.exports.cred = {
   client_x509_cert_url: process.env.client_x509_cert_url,
 };
 
-module.exports.storageBucket = process.env.storageBucket;
+module.exports.cred = cred;
+const { storageBucket } = process.env;
+
+module.exports.storageBucket = storageBucket;
+
+admin.initializeApp({
+  credential: admin.credential.cert(cred),
+  storageBucket,
+});
+
+module.exports.admin = admin;

@@ -26,6 +26,7 @@ module.exports = (req, res, next) => {
               await confirmJoiningMailList(email, user._id);
             } catch (error) {
               // the sign up proccess must be completed even if error occured in sending the email
+              // eslint-disable-next-line no-console
               console.log("error in sending the confirmation email", error);
             }
           }
