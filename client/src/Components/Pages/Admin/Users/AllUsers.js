@@ -44,10 +44,11 @@ export default class AllUsers extends Component {
               this.fetchData();
               resolve();
             })
-            .catch(() => {
-              message.error("Something went wrong!");
+            .catch(err => {
+              const error =
+                err.response && err.response.data && err.response.data.error;
+              message.error(error || "Something went wrong");
               this.fetchData();
-              resolve();
             });
         });
       }
@@ -66,7 +67,7 @@ export default class AllUsers extends Component {
       this.setState({ data: res.data }).catch(err => {
         const error =
           err.response && err.response.data && err.response.data.error;
-        message.error(error || "Something went wronge");
+        message.error(error || "Something went wrong");
       });
     });
   };

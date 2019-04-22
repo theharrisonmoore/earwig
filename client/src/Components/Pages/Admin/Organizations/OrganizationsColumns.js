@@ -57,13 +57,15 @@ export default ({ category, deletHandler, editHandler }) => {
             >
               <Icon type="edit" />
             </Button>
-            <Button
-              ghost
-              type="danger"
-              onClick={() => deletHandler(record._id)}
-            >
-              <Icon type="delete" style={{ color: "red" }} />
-            </Button>
+            {record.active && (
+              <Button
+                ghost
+                type="danger"
+                onClick={() => deletHandler(record._id)}
+              >
+                <Icon type="eye-invisible" style={{ color: "red" }} />
+              </Button>
+            )}
           </div>
         </div>
       );

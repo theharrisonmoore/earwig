@@ -35,7 +35,7 @@ export default class AllUsers extends Component {
       .catch(err => {
         const error =
           err.response && err.response.data && err.response.data.error;
-        message.error(error || "Something went wronge");
+        message.error(error || "Something went wrong");
       });
   }
 
@@ -55,7 +55,7 @@ export default class AllUsers extends Component {
       .catch(err => {
         const error =
           err.response && err.response.data && err.response.data.error;
-        message.error(error || "Something went wronge");
+        message.error(error || "Something went wrong");
         this.props.closeDrawer();
         this.props.updateData();
       });
@@ -76,7 +76,7 @@ export default class AllUsers extends Component {
       .catch(err => {
         const error =
           err.response && err.response.data && err.response.data.error;
-        message.error(error || "Something went wronge");
+        message.error(error || "Something went wrong");
         this.props.updateData();
         this.props.closeDrawer();
       });

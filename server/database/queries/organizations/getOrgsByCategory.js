@@ -4,7 +4,6 @@ module.exports = category => Organization.aggregate([
   {
     $match: {
       category,
-      active: true,
     },
   }, {
     $project: {
@@ -13,6 +12,7 @@ module.exports = category => Organization.aggregate([
       email: 1,
       websiteURL: 1,
       key: "$_id",
+      active: 1,
     },
   },
 ]);

@@ -23,7 +23,7 @@ export default class AllOrganizations extends Component {
   deletHandler = id => {
     const { category } = this.props;
     Modal.confirm({
-      title: `Are you sure delete this ${category}?`,
+      title: `Are you sure deactivate this ${category}?`,
       okText: "Yes",
       okType: "danger",
       cancelText: "Cancel",
@@ -34,7 +34,7 @@ export default class AllOrganizations extends Component {
               id
             })
             .then(() => {
-              message.success("Deleted");
+              message.success("Deactivate!");
               this.fetchData();
               resolve();
             })
@@ -56,7 +56,9 @@ export default class AllOrganizations extends Component {
         this.setState({ data });
       })
       .catch(err => {
-        message.error("Something went wrong!");
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        message.error(error || "Something went wrong");
         this.fetchData();
       });
   };
@@ -66,6 +68,11 @@ export default class AllOrganizations extends Component {
     return (
       <div>
         <Table
+          rowClassName={(record, index) => {
+            if (!record.active) {
+              return "disabled";
+            }
+          }}
           columns={OrganizationsColumns({
             category,
             deletHandler: this.deletHandler

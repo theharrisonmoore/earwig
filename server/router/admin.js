@@ -6,7 +6,7 @@ const userInfo = require("./../controllers/admin/userInfo");
 const verifyUser = require("./../controllers/admin/verifyUser");
 const rejectUser = require("./../controllers/admin/rejectUser");
 const getOrganizations = require("./../controllers/admin/getOrganizations");
-const deleteOrganization = require("./../controllers/admin/deleteOrganization");
+const deactivateOrganization = require("./../controllers/admin/deactivateOrganization");
 
 router.get(
   "/users",
@@ -40,7 +40,7 @@ router.get(
 
 router.patch(
   "/organizations",
-  deleteOrganization,
+  deactivateOrganization,
 );
 
 module.exports = router;
