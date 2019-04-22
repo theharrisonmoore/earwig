@@ -20,8 +20,15 @@ module.exports = (req, res, next) => {
       // create new user
       return addNew({ email, password })
         .then(async (user) => {
+          if (process.env.NODE_ENV === "production") {
           // send email to ask user to join earwig mail list
-          await confirmJoiningMailList(email, user._id);
+            try {
+              await confirmJoiningMailList(email, user._id);
+            } catch (error) {
+              // the sign up proccess must be completed even if error occured in sending the email
+              console.log("error in sending the confirmation email", error);
+            }
+          }
           // data to be sent in the response
           const userInfo = {
             id: user._id,

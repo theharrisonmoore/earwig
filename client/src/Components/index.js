@@ -20,6 +20,7 @@ import Navbar from "./Common/Navbar";
 import Profile from "./Pages/Profile";
 import Admin from "./Pages/Admin";
 import Search from "./Pages/Search";
+import JoinMailList from "./Pages/JoinMailList";
 
 import {
   RESOURCES_URL,
@@ -133,6 +134,18 @@ export default function index(props) {
           path={EDIT_PROFILE_URL}
           render={linkProps => (
             <EditProfile
+              {...props}
+              handleChangeState={handleChangeState}
+              {...linkProps}
+            />
+          )}
+        />
+
+        <Route
+          exact
+          path={"/confirm-email/:id"}
+          render={linkProps => (
+            <JoinMailList
               {...props}
               handleChangeState={handleChangeState}
               {...linkProps}

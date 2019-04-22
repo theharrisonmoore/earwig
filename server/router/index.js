@@ -11,6 +11,7 @@ const signupController = require("./../controllers/signup");
 const editProfile = require("./../controllers/editProfile");
 const postTradesController = require("../controllers/addTrade");
 const userInfoController = require("../controllers/userInfo");
+const confirmJoiningEmailList = require("../controllers/confirmJoiningEmailList");
 
 const authentication = require("./../middlewares/authentication");
 const softAuthCheck = require("./../middlewares/softAuthCheck");
@@ -87,6 +88,12 @@ router.post(
   toGoogle(false),
   deleteFileFromServer,
   editProfile,
+);
+
+router.use(
+  "/confirm-email",
+  validation("confirmEmail"),
+  confirmJoiningEmailList,
 );
 
 module.exports = router;
