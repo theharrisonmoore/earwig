@@ -178,7 +178,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 9,
+      number: 8,
       type: "number",
       text: "What hourly rate were you paid?",
       label: "per hour",
@@ -195,7 +195,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 10,
+      number: 9,
       type: "yesno",
       text: "Were you paid via a payroll/umbrella?",
       isJumping: true,
@@ -213,7 +213,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 11,
+      number: 10,
       type: "dropdown",
       text: "What's the name of the payroll?",
       label: "Select payroll",
@@ -231,7 +231,7 @@ module.exports = async () => {
       hasComment: false,
     },
     {
-      number: 12,
+      number: 11,
       type: "yesno",
       text: "What was the payroll type?",
       isJumping: false,
@@ -248,7 +248,7 @@ module.exports = async () => {
       hasComment: false,
     },
     {
-      number: 13,
+      number: 12,
       type: "yesno",
       text: "Were you paid within the timeframe you expected?",
       isJumping: false,
@@ -265,7 +265,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 14,
+      number: 13,
       type: "yesno",
       text: "Were you paid the amount you expected?",
       isJumping: false,
@@ -282,7 +282,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 15,
+      number: 14,
       type: "yesno",
       text: "Were your payslips easily accessible?",
       isJumping: false,
@@ -299,7 +299,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 16,
+      number: 15,
       type: "yesno",
       text: "Did the payslips show all the information you needed?",
       isJumping: false,
@@ -313,7 +313,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 17,
+      number: 16,
       type: "yesno",
       text: "Were you charged for payroll?",
       isJumping: true,
@@ -332,7 +332,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 18,
+      number: 17,
       type: "number",
       text: "How much were you charged?",
       label: "per timesheet",
@@ -347,7 +347,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 19,
+      number: 18,
       type: "yesno",
       text:
         "Were you always treated fairly by this agency over any payment issues?",
@@ -365,7 +365,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 20,
+      number: 19,
       type: "yesno",
       text: "Overall, would you be happy to use this agency again?",
       isJumping: false,
@@ -427,7 +427,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 4,
+      number: 3,
       type: "number",
       text: "What hourly rate were you paid?",
       label: "per hour",
@@ -444,7 +444,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 5,
+      number: 4,
       type: "radio",
       text: "What was the payroll type?",
       isJumping: false,
@@ -461,7 +461,7 @@ module.exports = async () => {
       hasComment: false,
     },
     {
-      number: 6,
+      number: 5,
       type: "yesno",
       text: "Were you paid within the timeframe you expected?",
       isJumping: false,
@@ -476,7 +476,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 7,
+      number: 6,
       type: "yesno",
       text: "Were you paid the amount you expected?",
       isJumping: false,
@@ -493,7 +493,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 8,
+      number: 7,
       type: "radio",
       text: "Were your payslips easily accessible?",
       isJumping: false,
@@ -510,7 +510,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 9,
+      number: 8,
       type: "radio",
       text: "Did the payslips show all the information you needed?",
       isJumping: false,
@@ -527,7 +527,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 10,
+      number: 9,
       type: "yesno",
       text: "Were you charged for payroll?",
       isJumping: true,
@@ -545,7 +545,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 11,
+      number: 10,
       type: "number",
       text: "How much were you charged?",
       label: "per timesheet",
@@ -562,7 +562,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 12,
+      number: 11,
       type: "radio",
       text:
         "Were you always treated fairly by this payroll over any payment issues?",
@@ -580,7 +580,7 @@ module.exports = async () => {
       hasComment: true,
     },
     {
-      number: 13,
+      number: 12,
       type: "dropdown",
       text: "What's the name of the agency you used?",
       label: "Select agency",
@@ -599,7 +599,7 @@ module.exports = async () => {
     },
 
     {
-      number: 14,
+      number: 13,
       type: "yesno",
       text: "Overall, would you be happy to use this payroll again?",
       isJumping: false,
