@@ -13,4 +13,4 @@ module.exports.getTradesAdmin = () => Trade.aggregate([
   },
 ]);
 
-module.exports.deleteTrade = id => Trade.deleteOne({ id });
+module.exports.deleteTrade = id => Trade.deleteOne({ _id: id });
