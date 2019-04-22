@@ -72,7 +72,6 @@ module.exports = async () => {
     },
     {
       name: "Cardiff University",
-      email: "info@cardiff-university.com",
       category: "worksite",
       phoneNumber: "+441582461411",
       websiteURL: "https://www.Cardiff.co.uk/",

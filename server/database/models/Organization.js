@@ -4,13 +4,6 @@ const constants = require("./../../constants");
 
 const { Schema } = mongoose;
 
-const uniqueStringGen = Math.random()
-  .toString(36)
-  .substring(2, 15)
-  + Math.random()
-    .toString(36)
-    .substring(2, 15);
-
 const organizationSchema = new Schema(
   {
     name: {
@@ -31,7 +24,7 @@ const organizationSchema = new Schema(
     email: {
       type: String,
       unique: true,
-      default: uniqueStringGen,
+      sparse: true,
     },
     websiteURL: String,
     loacation: {
