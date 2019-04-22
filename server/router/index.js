@@ -95,17 +95,8 @@ router.use(
   "/confirm-email",
   validation("confirmEmail"),
   confirmJoiningEmailList,
-  "/admin",
-  authentication,
-  authorization("ADMIN"),
-  adminRouter,
 );
 
-router.use(
-  "/confirm-email",
-  validation("confirmEmail"),
-  confirmJoiningEmailList,
-);
 router.use(
   "/admin",
   authentication,
