@@ -31,6 +31,10 @@ const organizationSchema = new Schema(
       logo: String,
     },
     lastViewed: Date,
+    active: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,

@@ -1,6 +1,6 @@
 const boom = require("boom");
 
-const { getOrgsByCategory } = require("./../../database/queries/organizations.js");
+const { getOrgsByCategory } = require("../../database/queries/organizations/index.js");
 
 module.exports = ((req, res, next) => {
   const { category } = req.params;

@@ -6,6 +6,7 @@ const userInfo = require("./../controllers/admin/userInfo");
 const verifyUser = require("./../controllers/admin/verifyUser");
 const rejectUser = require("./../controllers/admin/rejectUser");
 const getOrganizations = require("./../controllers/admin/getOrganizations");
+const deleteOrganization = require("./../controllers/admin/deleteOrganization");
 
 router.get(
   "/users",
@@ -35,6 +36,11 @@ router.patch(
 router.get(
   "/organizations/:category",
   getOrganizations,
+);
+
+router.patch(
+  "/organizations",
+  deleteOrganization,
 );
 
 module.exports = router;

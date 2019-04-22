@@ -4,6 +4,7 @@ module.exports = category => Organization.aggregate([
   {
     $match: {
       category,
+      active: true,
     },
   }, {
     $project: {
