@@ -6,8 +6,8 @@ import { ImgDiv } from "./Components/Pages/Search/Search.style";
 import { organizations } from "./theme";
 
 // creates SVG Divs
-export const SVGCreator = source => (
-  <ImgDiv>
+export const SVGCreator = (source, height, width) => (
+  <ImgDiv heigth={height} width={width}>
     <SVG src={`/icons/${source}.svg`} alt={`${source}`} />
   </ImgDiv>
 );

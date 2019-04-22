@@ -60,20 +60,34 @@ const STATIC_QUESTIONS = [
 
 class Review extends Component {
   state = {
+    loaded: false,
     groups: [],
-    organization: { category: "worksite", name: "Bournemouth University" },
-    user: { email: "level3@earwig.com" },
+    organization: { category: "", name: "" },
+    user: { email: "" },
     worksiteImage: ""
   };
   componentDidMount() {
+    // set organisation state with props from add Profile Page
+    const { email } = this.props;
+    const { category, name } = this.props.location.state;
+    const organization = { ...this.state.organization };
+    const user = { ...this.state.user };
+    organization.category = category;
+    organization.name = name;
+    user.email = email;
     axios
       .get(API_GET_QUESTIONS_URL, {
         params: {
-          organization: this.state.organization.category
+          organization: category
         }
       })
       .then(res => {
-        this.setState({ groups: res.data });
+        this.setState({
+          loaded: true,
+          groups: res.data,
+          organization: organization,
+          user: user
+        });
       })
       .catch(err => {
         // server error 500
@@ -104,8 +118,12 @@ class Review extends Component {
   };
 
   render() {
+    const { loaded } = this.state;
+    if (!loaded) return <p>loading...</p>;
+    const { name, category } = this.state.organization;
+
     const initialValues = {
-      questions: initQueestionsValues[this.state.organization.category],
+      questions: initQueestionsValues[category],
       checklist: [],
       review: {
         workPeriod: "",
@@ -117,13 +135,8 @@ class Review extends Component {
       worksiteImage: ""
     };
 
-    if (!this.state && !this.state.groups[0]) {
-      return null;
-    }
-    const {
-      groups,
-      organization: { name, category }
-    } = this.state;
+    const { groups } = this.state;
+
     return (
       <ReviewWrapper>
         <Header orgType={category}>
@@ -140,7 +153,6 @@ class Review extends Component {
             </Organization>
           </Content>
         </Header>
-
         <section>
           <Formik
             initialValues={initialValues}
@@ -165,23 +177,26 @@ class Review extends Component {
                     </div>
                     <div>
                       {groups.map(group => {
-                        return (
-                          <div key={group._id}>
-                            <h2>{group.group.text}</h2>
-                            {group.questions.map(question => {
-                              return (
-                                <Question
-                                  key={question._id}
-                                  values={values}
-                                  handleChagne={handleChange}
-                                  question={question}
-                                  errors={errors}
-                                  setFieldValue={setFieldValue}
-                                />
-                              );
-                            })}
-                          </div>
-                        );
+                        if (group.group && group.group.text) {
+                          return (
+                            <div key={group._id}>
+                              <h2>{group.group.text}</h2>
+                              {group.questions.map(question => {
+                                return (
+                                  <Question
+                                    key={question._id}
+                                    values={values}
+                                    handleChagne={handleChange}
+                                    question={question}
+                                    errors={errors}
+                                    setFieldValue={setFieldValue}
+                                  />
+                                );
+                              })}
+                            </div>
+                          );
+                        }
+                        return null;
                       })}
                     </div>
                     <div className="questions">
@@ -202,7 +217,6 @@ class Review extends Component {
                         question={STATIC_QUESTIONS[2]}
                       />
                     </div>
-
                     <UserAgreement>
                       <Level2Header>Submit your review</Level2Header>
                       <CheckboxWrapper>
