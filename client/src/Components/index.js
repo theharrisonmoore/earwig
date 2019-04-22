@@ -33,7 +33,8 @@ import {
   ADD_PROFILE_URL,
   ADD_PROFILE_START_REVIEW_URL,
   ADMIN,
-  REVIEW_URL
+  REVIEW_URL,
+  QUICK_REVIEW_URL
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
@@ -42,7 +43,7 @@ export default function index(props) {
   return (
     <>
       <Switch>
-        <Route path="/review-quick" component={QuickReview} />
+        <Route path={QUICK_REVIEW_URL} component={QuickReview} />
         <Route
           exact
           path={REVIEW_URL}
