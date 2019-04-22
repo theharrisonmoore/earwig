@@ -10,7 +10,9 @@ const schemas = {
     password: Joi.string().required(),
   },
   uploadVerificationImage: {
-    tradeId: Joi.string().length(24).required(),
+    tradeId: Joi.string()
+      .length(24)
+      .required(),
   },
   signup: {
     email: Joi.string()
@@ -30,11 +32,17 @@ const schemas = {
   editProfile: {
     oldPassword: Joi.string(),
     newPassword: Joi.string().min(6),
-    reNewPassword: Joi.any().valid(Joi.ref("newPassword")).options({ language: { any: { allowOnly: "must match password" } } }),
-    verificationImage: Joi.any().allow("").optional(),
+    reNewPassword: Joi.any()
+      .valid(Joi.ref("newPassword"))
+      .options({ language: { any: { allowOnly: "must match password" } } }),
+    verificationImage: Joi.any()
+      .allow("")
+      .optional(),
   },
   addTrade: {
-    trade: Joi.string().min(3).required(),
+    trade: Joi.string()
+      .min(3)
+      .required(),
   },
   agency: {
     questions: Joi.object({
@@ -71,7 +79,9 @@ const schemas = {
       overallReview: Joi.string().required(),
       // voiceReview: Joi.any()
     }),
-    hasAgreed: Joi.boolean().valid(true).error(() => "You should agree Earwig terms of user"),
+    hasAgreed: Joi.boolean()
+      .valid(true)
+      .error(() => "You should agree Earwig terms of user"),
   },
 
   payroll: {
@@ -102,7 +112,9 @@ const schemas = {
       overallReview: Joi.string().required(),
       // voiceReview: Joi.any()
     }),
-    hasAgreed: Joi.boolean().valid(true).error(() => "You should agree Earwig terms of user"),
+    hasAgreed: Joi.boolean()
+      .valid(true)
+      .error(() => "You should agree Earwig terms of user"),
   },
   worksite: {
     questions: Joi.object({
@@ -134,7 +146,9 @@ const schemas = {
       overallReview: Joi.string().required(),
       // voiceReview: Joi.any()
     }),
-    hasAgreed: Joi.boolean().valid(true).error(() => "You should agree Earwig terms of user"),
+    hasAgreed: Joi.boolean()
+      .valid(true)
+      .error(() => "You should agree Earwig terms of user"),
   },
   company: {
     questions: Joi.object({
@@ -158,7 +172,9 @@ const schemas = {
       overallReview: Joi.string().required(),
       // voiceReview: Joi.any()
     }),
-    hasAgreed: Joi.boolean().valid(true).error(() => "You should agree Earwig terms of user"),
+    hasAgreed: Joi.boolean()
+      .valid(true)
+      .error(() => "You should agree Earwig terms of user"),
   },
 };
 
