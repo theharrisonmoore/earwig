@@ -12,6 +12,7 @@ export const Wrapper = styled.div`
   width: 100%;
   align-items: center;
   background: ${colors.white};
+  z-index: 1000;
 `;
 
 export const WrapperH2 = styled.h2`
@@ -49,20 +50,6 @@ export const NavSearch = styled.div`
   height: ${props => props.height};
   position: relative;
   overflow: hidden;
-`;
-
-export const NavInput = styled.input`
-  width: 100%;
-  height: 100%;
-  padding: 0.5rem;
-  padding-left: 2.5rem;
-  border: none;
-`;
-
-export const NavSearchIcon = styled.img`
-  position: absolute;
-  left: 0.5rem;
-  top: 0.5rem;
 `;
 
 export const ToggleMenu = styled.div`

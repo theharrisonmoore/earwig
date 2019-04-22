@@ -45,7 +45,12 @@ export default class GiveReview extends Component {
           <Time>30 sec</Time>
           <QuickReviewContainer>
             <QuickReviewDots category={category} />
-            <QuickLink to={"/quick-review"}>
+            <QuickLink
+              to={{
+                pathname: `/quick-review`,
+                state: state
+              }}
+            >
               <QuickReviewButton category={category}>
                 <h4>Give a quick review</h4>
                 <Icon src="/icons/arrow-icon.svg" />

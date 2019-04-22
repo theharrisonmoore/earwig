@@ -3,6 +3,8 @@ const {
   getByOrg, postReview, addNewAgencyPayroll, getOrgsByType,
   getAgencesAndPayrollsNames, postReviewShort,
 } = require("../controllers/review");
+
+const adminRouter = require("./admin");
 const upload = require("../middlewares/uploadFileToServer");
 const toGoogle = require("./../middlewares/uploadToGoogle");
 const uploadVerificationImage = require("./../controllers/uploadVerificationImage");
@@ -16,8 +18,8 @@ const postTradesController = require("../controllers/addTrade");
 const userInfoController = require("../controllers/userInfo");
 
 const authentication = require("./../middlewares/authentication");
+const authorization = require("./../middlewares/authorization");
 const softAuthCheck = require("./../middlewares/softAuthCheck");
-const authorization = require("../middlewares/authorization");
 
 const uploadWorksiteController = require("../controllers/uploadWorksiteImage");
 const searchController = require("../controllers/search");
@@ -97,6 +99,13 @@ router.post(
   toGoogle(false),
   deleteFileFromServer,
   editProfile,
+);
+
+router.use(
+  "/admin",
+  authentication,
+  authorization("ADMIN"),
+  adminRouter,
 );
 
 module.exports = router;

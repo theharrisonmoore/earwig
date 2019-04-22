@@ -72,7 +72,9 @@ class Review extends Component {
   };
   componentDidMount() {
     const { email } = this.props;
+
     console.log("dkjfkdsjfd", this.props);
+
     const { category, name } = this.props.location.state;
     const organization = { ...this.state.organization };
     const user = { ...this.state.user };
@@ -192,7 +194,6 @@ class Review extends Component {
             </Organization>
           </Content>
         </Header>
-
         <section>
           <Formik
             initialValues={initialValues}
@@ -264,7 +265,6 @@ class Review extends Component {
                         category={this.state.organization.category}
                       />
                     </div>
-
                     <UserAgreement>
                       <Level2Header>Submit your review</Level2Header>
                       <CheckboxWrapper>
