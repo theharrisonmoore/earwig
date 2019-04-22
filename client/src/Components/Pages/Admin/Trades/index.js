@@ -209,6 +209,7 @@ class EditableTable extends React.Component {
           onClick={this.handleAdd}
           type="primary"
           style={{ marginBottom: 16 }}
+          disabled
         >
           Add a row
         </Button>
