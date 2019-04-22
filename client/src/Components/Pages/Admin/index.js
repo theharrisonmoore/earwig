@@ -5,6 +5,7 @@ import SideMenu from "./SideMenu";
 import Users from "./Users";
 import Reviews from "./Reviews";
 import Organizations from "./Organizations";
+import Trades from "./Trades";
 import { ContentWrapper, AdminWrapper } from "./Admin.style";
 
 import { routes } from "./../../../constants/adminRoutes";
@@ -32,7 +33,11 @@ export default class Admin extends Component {
             />
             <Route path={USERS} render={props => <Users {...props} />} />
             <Route path={REVIEWS} render={props => <Reviews {...props} />} />
-            <Route exact path={TRADES} render={props => <h1>Trades</h1>} />
+            <Route
+              exact
+              path={TRADES}
+              render={props => <Trades {...props} />}
+            />
             <Route path={ORGANIZATIONS} render={props => <Organizations />} />
             <Route
               render={props => (
