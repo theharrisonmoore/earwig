@@ -22,12 +22,15 @@ const searchController = require("../controllers/search");
 const profileController = require("./../controllers/profile");
 const commentsController = require("./../controllers/comments");
 
+const addOrganizationController = require("../controllers/organizations");
+
 const {
   LOGIN_URL,
   GET_QUESTIONS_URL,
   REVIEW_URL,
   UPLOAD_WORKSITE_IMAGE_URL,
   SEARCH_URL,
+  ADD_ORGANIZATION_URL,
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
@@ -90,11 +93,14 @@ router.post(
   editProfile,
 );
 
-router.use(
-  "/admin",
-  authentication,
-  authorization("ADMIN"),
-  adminRouter,
+router.post(
+  "/add-organization",
+  // authentication,
+  // authorization("LEVEL3"),
+  // validation("addOrganization"),
+  addOrganizationController,
 );
+
+router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
 
 module.exports = router;

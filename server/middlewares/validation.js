@@ -44,6 +44,11 @@ const schemas = {
       .min(3)
       .required(),
   },
+  addOrganization: {
+    name: Joi.string()
+      .min(3)
+      .required(),
+  },
   agency: {
     questions: Joi.object({
       1: Joi.string().required(),

@@ -17,6 +17,9 @@ const API_THANKYOU_URL = `${API_PREFIX}${THANKYOU_URL}`;
 
 const SEARCH_URL = "/search";
 const API_SEARCH_URL = `${API_PREFIX}${SEARCH_URL}`;
+const ADD_ORGANIZATION_URL = "/add-organization";
+
+const API_ADD_ORGANIZATION_URL = `${API_PREFIX}${ADD_ORGANIZATION_URL}`;
 module.exports = {
   // React varibles
   API_LOGIN_URL,
@@ -31,5 +34,6 @@ module.exports = {
   REVIEW_URL,
   UPLOAD_WORKSITE_IMAGE_URL,
   THANKYOU_URL,
-  SEARCH_URL
+  SEARCH_URL,
+  API_ADD_ORGANIZATION_URL
 };

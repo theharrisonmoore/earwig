@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const buildDB = require("../../../database/dummyData/index");
-const { addNew } = require("../../../database/queries/organization");
+const { addNew, findByName } = require("../../../database/queries/organization");
 
 describe("test to addNew organization query", () => {
   beforeAll(async () => {
@@ -8,6 +8,14 @@ describe("test to addNew organization query", () => {
   });
   afterAll(() => {
     mongoose.disconnect();
+  });
+
+  test("it finds an organisation that exists", (done) => {
+    findByName("Cardiff University").then((worksite) => {
+      expect(worksite).toBeDefined();
+      expect(worksite.name).toBe("Cardiff University");
+      done();
+    });
   });
 
   test("it adds organisations that don't exist", (done) => {

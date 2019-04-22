@@ -40,6 +40,7 @@ const organizationSchema = new Schema(
   {
     timestamps: true,
   },
+  { typeKey: "$type" },
 );
 
 module.exports = mongoose.model("organizations", organizationSchema);
