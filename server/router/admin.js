@@ -7,6 +7,7 @@ const verifyUser = require("./../controllers/admin/verifyUser");
 const rejectUser = require("./../controllers/admin/rejectUser");
 const getOrganizations = require("./../controllers/admin/getOrganizations");
 const activateOrganization = require("./../controllers/admin/activateOrganization");
+const validation = require("./../middlewares/validation");
 
 router.get(
   "/users",
@@ -15,6 +16,7 @@ router.get(
 
 router.delete(
   "/users",
+  validation("onlyMongoId"),
   deleteUser,
 );
 
@@ -25,11 +27,13 @@ router.get(
 
 router.patch(
   "/users/verify",
+  validation("onlyMongoId"),
   verifyUser,
 );
 
 router.patch(
   "/users/reject",
+  validation("onlyMongoId"),
   rejectUser,
 );
 
@@ -40,6 +44,7 @@ router.get(
 
 router.patch(
   "/organizations",
+  validation("activateOrganization"),
   activateOrganization,
 );
 
