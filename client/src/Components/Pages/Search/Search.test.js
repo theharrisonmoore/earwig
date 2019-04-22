@@ -1,7 +1,8 @@
 import React from "react";
 import { render, cleanup, waitForElement } from "react-testing-library";
 import userEvent from "user-event";
-import Search, { axiosCall, getSuggestions } from "./index";
+import Search, { axiosCall } from "./index";
+import { getSuggestions } from "./AutoSuggest";
 import mockAxios from "axios";
 import { resultArray } from "./resultArray";
 import { BrowserRouter } from "react-router-dom";
@@ -94,7 +95,7 @@ describe("tests for running app with data ", () => {
     expect(headline.textContent).toBe("Welcome to earwig.");
 
     //   test if resolved container renders
-    expectInputValue(data.input.placeholder, "🔍        start typing...");
+    expectInputValue(data.input.placeholder, "start typing...");
     // // test input value
     expectInputValue(data.input.value, "");
   });

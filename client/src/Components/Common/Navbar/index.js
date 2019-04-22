@@ -9,9 +9,6 @@ import {
   Wrapper,
   LogoIcon,
   Icon,
-  NavSearch,
-  NavInput,
-  NavSearchIcon,
   ToggleMenu,
   SideDiv,
   WrapperH2
@@ -22,11 +19,31 @@ import SearchIcon from "./../../../assets/search-icon.svg";
 import HamburgerIcon from "./../../../assets/hamburger-icon.svg";
 import Logo from "./../../../assets/logo.svg";
 import CloseIcon from "./../../../assets/close-icon.svg";
+import axios from "axios";
+
+import AutosuggestComponent from "../../Pages/Search/AutoSuggest";
+import { API_SEARCH_URL } from "../../../apiUrls";
+
+export const axiosCall = async () => {
+  const response = await axios.get(API_SEARCH_URL);
+  return response;
+};
 
 export default class Navbar extends Component {
   state = {
+    isLoading: false,
+    data: null,
     menuOpen: false
   };
+
+  componentDidMount() {
+    axiosCall().then(organizations => {
+      this.setState({
+        data: organizations.data,
+        isLoading: true
+      });
+    });
+  }
 
   toggleMenu = () => {
     const { menuOpen } = this.state;
@@ -35,7 +52,8 @@ export default class Navbar extends Component {
 
   render() {
     const { title, isMobile, search, isLoggedIn, isAdmin } = this.props;
-    const { menuOpen } = this.state;
+    const { menuOpen, isLoading, data } = this.state;
+    if (!isLoading) return <p data-testid="loading">loading...</p>;
 
     if (!isMobile) {
       return (
@@ -59,10 +77,12 @@ export default class Navbar extends Component {
             )}
           </SideDiv>
           {search && (
-            <NavSearch>
-              <NavInput placeholder="Try searching for agencies, payrolls, worksites, or companies..." />
-              <NavSearchIcon src={SearchIcon} alt="search" />
-            </NavSearch>
+            <AutosuggestComponent
+              height="3rem"
+              width="50%"
+              data={data}
+              placeholderText="Try searching for agencies, payrolls, worksites, or companies..."
+            />
           )}
           {menuOpen ? (
             <>
