@@ -20,10 +20,12 @@ export default class AllOrganizations extends Component {
     }
   }
 
-  deletHandler = id => {
+  deletHandler = ({ id, active }) => {
     const { category } = this.props;
     Modal.confirm({
-      title: `Are you sure deactivate this ${category}?`,
+      title: `Are you sure you want to ${
+        active ? "deactivate" : "activate"
+      } this ${category}?`,
       okText: "Yes",
       okType: "danger",
       cancelText: "Cancel",
@@ -31,10 +33,11 @@ export default class AllOrganizations extends Component {
         return new Promise((resolve, reject) => {
           axios
             .patch(`/api/admin/organizations`, {
-              id
+              id,
+              active
             })
             .then(() => {
-              message.success("Deactivate!");
+              message.success(active ? "Deactivated!" : "Activated!");
               this.fetchData();
               resolve();
             })
