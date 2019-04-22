@@ -55,7 +55,7 @@ export default ({ category, deletHandler, editHandler }) => {
               // to be added in sprint 2
               // onClick={() => editHandler(record._id)}
             >
-              Edit
+              <Icon type="edit" />
             </Button>
             <Button
               ghost

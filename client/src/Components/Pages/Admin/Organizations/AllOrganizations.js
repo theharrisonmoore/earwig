@@ -3,12 +3,13 @@ import axios from "axios";
 
 import { Table, Modal, message } from "antd";
 
-// import VerifyUser from "./VerifyUser";
-
 import OrganizationsColumns from "./OrganizationsColumns";
 
 export default class AllOrganizations extends Component {
-  state = {};
+  state = {
+    data: []
+  };
+
   componentDidMount() {
     this.fetchData();
   }
@@ -29,8 +30,8 @@ export default class AllOrganizations extends Component {
       onOk: () => {
         return new Promise((resolve, reject) => {
           axios
-            .delete(`/api/admin/organization/:id`, {
-              data: { id }
+            .patch(`/api/admin/organizations`, {
+              id
             })
             .then(() => {
               message.success("Deleted");
@@ -38,7 +39,7 @@ export default class AllOrganizations extends Component {
               resolve();
             })
             .catch(() => {
-              message.error("Something went wronge!");
+              message.error("Something went wrong!");
               this.fetchData();
               resolve();
             });
@@ -55,9 +56,11 @@ export default class AllOrganizations extends Component {
         this.setState({ data });
       })
       .catch(err => {
-        console.log(err);
+        message.error("Something went wrong!");
+        this.fetchData();
       });
   };
+
   render() {
     const { category } = this.props;
     return (
@@ -71,7 +74,6 @@ export default class AllOrganizations extends Component {
           style={{ backgroundColor: "#ffffff" }}
           bordered={true}
         />
-        <h2>{this.props.category}</h2>
       </div>
     );
   }

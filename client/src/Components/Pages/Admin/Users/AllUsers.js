@@ -45,7 +45,7 @@ export default class AllUsers extends Component {
               resolve();
             })
             .catch(() => {
-              message.error("Something went wronge!");
+              message.error("Something went wrong!");
               this.fetchData();
               resolve();
             });
@@ -63,7 +63,11 @@ export default class AllUsers extends Component {
   fetchData = () => {
     const query = this.props.awaitingReview ? "?awaitingReview=true" : "";
     axios.get(`/api/admin/users${query}`).then(res => {
-      this.setState({ data: res.data });
+      this.setState({ data: res.data }).catch(err => {
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        message.error(error || "Something went wronge");
+      });
     });
   };
 
