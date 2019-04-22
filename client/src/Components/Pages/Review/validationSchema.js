@@ -56,7 +56,7 @@ export const validationSchema = {
 
       4: Yup.string().required("Required"),
       5: Yup.string().required("Required"),
-      5: Yup.string().required("Required"),
+      6: Yup.string().required("Required"),
       7: Yup.string().required("Required"),
       8: Yup.string().required("Required"),
       9: Yup.string().required("Required"),
