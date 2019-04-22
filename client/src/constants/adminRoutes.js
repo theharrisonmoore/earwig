@@ -3,6 +3,7 @@ export const routes = {
   USERS: "/admin/users",
   USERS_ALL: "/admin/users/",
   USERS_VERIFY: "/admin/users/verify",
+  USERS_VIEW: "/admin/users/view",
   REVIEWS: "/admin/reviews",
   REVIEWS_ALL: "/admin/reviews/",
   REVIEWS_VERIFY: "/admin/reviews/verify",

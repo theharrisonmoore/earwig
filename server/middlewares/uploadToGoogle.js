@@ -1,12 +1,7 @@
-const admin = require("firebase-admin");
 const boom = require("boom");
 
-const { cred, storageBucket } = require("../config");
+const { admin } = require("../config");
 
-admin.initializeApp({
-  credential: admin.credential.cert(cred),
-  storageBucket,
-});
 
 /**
  * function returns a middleware
