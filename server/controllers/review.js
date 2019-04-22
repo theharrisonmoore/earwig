@@ -1,6 +1,10 @@
 const boom = require("boom");
 
-const { getQuetionsByOrg, getOrganization, getQuestionsByOrgCategory } = require("../database/queries/review");
+const {
+  getQuetionsByOrg,
+  getOrganization,
+  getQuestionsByOrgCategory,
+} = require("../database/queries/review");
 const { findByEmail } = require("../database/queries/user");
 
 const Review = require("../database/models/Review");
@@ -49,15 +53,17 @@ const postReview = async (req, res, next) => {
 
     const currentReview = await newReview.save();
 
-    const reviewAnswers = Object.keys(questionsAnswers).sort((a, b) => a - b).map((qAnswer) => {
-      const answer = {
-        user: userData,
-        review: currentReview,
-        question: questions[qAnswer],
-        answer: questionsAnswers[qAnswer],
-      };
-      return answer;
-    });
+    const reviewAnswers = Object.keys(questionsAnswers)
+      .sort((a, b) => a - b)
+      .map((qAnswer) => {
+        const answer = {
+          user: userData,
+          review: currentReview,
+          question: questions[qAnswer],
+          answer: questionsAnswers[qAnswer],
+        };
+        return answer;
+      });
 
     let allAnswers = reviewAnswers;
 
@@ -83,7 +89,8 @@ const postReview = async (req, res, next) => {
         allAnswers = [...reviewAnswers, imageAnswer];
       }
     }
-
+    console.log("answers", allAnswers);
+    console.log("review", currentReview);
     await Answer.insertMany(allAnswers);
 
     res.send();

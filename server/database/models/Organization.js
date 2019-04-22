@@ -16,6 +16,10 @@ const organizationSchema = new Schema(
       enum: constants.database.ORGANIZATIONS_TYPE,
       required: true,
     },
+    verified: {
+      type: Boolean,
+      default: true,
+    },
     phoneNumber: String,
     email: {
       type: String,

@@ -34,7 +34,10 @@ export default class AddProfileSelection extends Component {
                 <AddProfileLink
                   to={{
                     pathname: `${ADD_PROFILE_START_REVIEW_URL}`,
-                    state: { name: `${name}`, category: "agency" }
+                    state: {
+                      name: `${name}`,
+                      category: "agency"
+                    }
                   }}
                 >
                   {SVGCreator("agency-category", "125px", "100%")}

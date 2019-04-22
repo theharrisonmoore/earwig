@@ -62,18 +62,25 @@ class Review extends Component {
   state = {
     loaded: false,
     groups: [],
-    organization: { category: "", name: "" },
+    organization: { category: "", name: "", needsVerification: false },
     user: { email: "" },
     worksiteImage: ""
   };
   componentDidMount() {
     // set organisation state with props from add Profile Page
     const { email } = this.props;
-    const { category, name } = this.props.location.state;
+    const { category, name, needsVerification } = this.props.location.state;
+    console.log(this.props.location.state);
     const organization = { ...this.state.organization };
     const user = { ...this.state.user };
     organization.category = category;
     organization.name = name;
+    organization.needsVerification = needsVerification || false;
+    // check if user wants to add organisation or not
+    // if (needsVerification) {
+    //   return organization.needsVerification;
+    // }
+
     user.email = email;
     axios
       .get(API_GET_QUESTIONS_URL, {
@@ -118,6 +125,7 @@ class Review extends Component {
   };
 
   render() {
+    console.log(this.state.organization);
     const { loaded } = this.state;
     if (!loaded) return <p>loading...</p>;
     const { name, category } = this.state.organization;
