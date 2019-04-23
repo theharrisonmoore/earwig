@@ -1,6 +1,10 @@
 const router = require("express").Router();
+const {
+  getByOrg, postReview, addNewAgencyPayroll, getOrgsByType,
+  getAgencesAndPayrollsNames, postReviewShort,
+} = require("../controllers/review");
+
 const adminRouter = require("./admin");
-const { getByOrg, postReview } = require("../controllers/review");
 const upload = require("../middlewares/uploadFileToServer");
 const toGoogle = require("./../middlewares/uploadToGoogle");
 const uploadVerificationImage = require("./../controllers/uploadVerificationImage");
@@ -12,6 +16,7 @@ const signupController = require("./../controllers/signup");
 const editProfile = require("./../controllers/editProfile");
 const postTradesController = require("../controllers/addTrade");
 const userInfoController = require("../controllers/userInfo");
+const confirmJoiningEmailList = require("../controllers/confirmJoiningEmailList");
 
 const authentication = require("./../middlewares/authentication");
 const authorization = require("./../middlewares/authorization");
@@ -40,6 +45,13 @@ router.get("/user", authentication, userInfoController);
 router.get(GET_QUESTIONS_URL, getByOrg);
 
 router.post(REVIEW_URL, postReview);
+router.post("/short-review", postReviewShort);
+
+// Add new payroll and agency
+router.get("/organizations", getOrgsByType);
+router.post("/organizations", addNewAgencyPayroll);
+
+router.get("/agency-payroll", getAgencesAndPayrollsNames);
 
 // require all the routes in this file
 router.post(LOGIN_URL, validation("login"), loginController);
@@ -99,6 +111,17 @@ router.post(
   // authorization("LEVEL3"),
   // validation("addOrganization"),
   addOrganizationController,
+router.use(
+  "/confirm-email",
+  validation("onlyMongoId"),
+  confirmJoiningEmailList,
+);
+
+router.use(
+  "/admin",
+  authentication,
+  authorization("ADMIN"),
+  adminRouter,
 );
 
 router.use("/admin", authentication, authorization("ADMIN"), adminRouter);

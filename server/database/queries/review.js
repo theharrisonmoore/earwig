@@ -1,3 +1,5 @@
+const boom = require("boom");
+
 const Question = require("../models/Question");
 const Organization = require("../models/Organization");
 
@@ -36,4 +38,55 @@ const getOrganization = (category, name) => Organization.findOne({ category, nam
 const getQuestionsByOrgCategory = category => Question.find({ category }).sort({ number: 1 });
 
 
-module.exports = { getQuetionsByOrg, getOrganization, getQuestionsByOrgCategory };
+const getOrganizationsByType = category => Organization.find({ category });
+
+const getOrgsNamesByType = category => new Promise((resolve, reject) => {
+  Organization.aggregate([
+    {
+      $match: { category },
+    },
+    {
+      $group: { _id: "$category", category: { $push: "$$CURRENT.name" } },
+    },
+  ])
+    .then(resolve)
+    .catch(reject);
+});
+
+const getAgenciesAndPayrollsNames = () => new Promise((resolve, reject) => {
+  Organization.aggregate([
+    {
+      $match: { $or: [{ category: "agency" }, { category: "payroll" }] },
+    },
+    {
+      $group: { _id: "$category", category: { $push: "$$CURRENT.name" } },
+    },
+    {
+      $sort: { _id: 1 },
+    },
+  ])
+    .then(resolve)
+    .catch(reject);
+});
+
+const postOrg = async (category, name) => {
+  try {
+    const org = new Organization({
+      category,
+      name,
+    });
+    await org.save();
+  } catch (err) {
+    boom.badImplementation();
+  }
+};
+
+module.exports = {
+  getQuetionsByOrg,
+  getOrganization,
+  getQuestionsByOrgCategory,
+  getOrganizationsByType,
+  getOrgsNamesByType,
+  getAgenciesAndPayrollsNames,
+  postOrg,
+};
