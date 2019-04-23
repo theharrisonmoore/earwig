@@ -9,6 +9,8 @@ const getOrganizations = require("./../controllers/admin/getOrganizations");
 const activateOrganization = require("./../controllers/admin/activateOrganization");
 const validation = require("./../middlewares/validation");
 
+const { getAllTrades, deleteTradeController } = require("../controllers/admin/trades");
+
 router.get(
   "/users",
   getAllUsers,
@@ -47,5 +49,9 @@ router.patch(
   validation("activateOrganization"),
   activateOrganization,
 );
+
+router.get("/trades", getAllTrades);
+
+router.delete("/trades/:id", deleteTradeController);
 
 module.exports = router;

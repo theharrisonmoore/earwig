@@ -11,6 +11,7 @@ const comments = require("./comments");
 const jobs = require("./jobs");
 const reviews = require("./reviews");
 const users = require("./users");
+const mailList = require("./mailList");
 
 const buildDummyData = () => new Promise((resolve, reject) => {
   dbConnection()
@@ -18,13 +19,14 @@ const buildDummyData = () => new Promise((resolve, reject) => {
       // delete all documents from models
       await resetDb();
       await trades();
+      await organizations();
       await questions();
       await users();
-      await organizations();
       await reviews();
       await jobs();
       await comments();
       await answers();
+      await mailList();
     })
     .then(resolve)
     .catch(reject);

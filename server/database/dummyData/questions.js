@@ -1,5 +1,7 @@
 const Question = require("../models/Question");
 
+const { getOrgsNamesByType } = require("../queries/review");
+
 /**
  * questions types:
  * 1.open: accept any string
@@ -10,19 +12,53 @@ const Question = require("../models/Question");
  * 6.image: for questions the require uploading images
  */
 
-module.exports = () => {
+const organization = {
+  types: {
+    1: "yesno",
+    2: "dropdown",
+    3: "open",
+    4: "number",
+    5: "image",
+    6: "checklist",
+  },
+  category: {
+    1: "agency",
+    2: "payroll",
+    3: "worksite",
+    4: "company",
+  },
+};
+
+module.exports = async () => {
+  let agencyNames;
+  let payrollsNames;
+  try {
+    const agencies = await getOrgsNamesByType("agency");
+    const payrolls = await getOrgsNamesByType("payroll");
+
+    agencyNames = agencies[0].category;
+    payrollsNames = payrolls[0].category;
+  } catch (err) {
+    console.log("database query error", err);
+  }
+
   const questions = [
     {
       number: 1,
       type: "yesno",
-      text: "Did they send you written confirmation of the terms and conditions of employment?",
+      text:
+        "Did they send you written confirmation of the terms and conditions of employment?",
       hintText:
         "i.e., details of pay, overtime, mileage/travel allowance, lodging provision, holiday entitlement, disciplinary procedures, benefits, etc.",
       isJumping: true,
-      jumpTo: [{ value: "yes", nextQuestion: 2 }, { value: "no", nextQuestion: 3 }],
+      jumpTo: [
+        { value: "yes", nextQuestion: 2 },
+        { value: "no", nextQuestion: 3 },
+      ],
       options: ["yes", "no"],
       category: "agency",
-      profileText: "Sends you written confirmation of terms and conditions of employment",
+      profileText:
+        "Sends you written confirmation of terms and conditions of employment",
       profileSection: "Detailed ratings",
       profileType: "yesno",
       group: {
@@ -30,6 +66,7 @@ module.exports = () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
     {
       number: 2,
@@ -46,6 +83,7 @@ module.exports = () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
     {
       number: 3,
@@ -53,7 +91,12 @@ module.exports = () => {
       text:
         "Taking into account all the information you were given before starting work, such as pay, hours, type of work and length of job, how accurate was the description you were given about the job overall?",
       isJumping: false,
-      options: ["totally inaccurate", "Not very accurate", "Mostly accurate", "Fully accurate"],
+      options: [
+        "totally inaccurate",
+        "Not very accurate",
+        "Mostly accurate",
+        "Fully accurate",
+      ],
       category: "agency",
       profileText: "Accuracy of job descriptions given to you overall",
       profileSection: "Detailed ratings",
@@ -63,6 +106,7 @@ module.exports = () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
     {
       number: 4,
@@ -79,6 +123,7 @@ module.exports = () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
     {
       number: 5,
@@ -95,6 +140,7 @@ module.exports = () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
     {
       number: 6,
@@ -111,11 +157,13 @@ module.exports = () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
     {
       number: 7,
       type: "yesno",
-      text: "Did they give you correct information about the length of the job?",
+      text:
+        "Did they give you correct information about the length of the job?",
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
@@ -127,25 +175,13 @@ module.exports = () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
     {
       number: 8,
-      type: "open",
-      text: "What's the name of the rep you dealt with at this agency?",
-      hintText: "This will be seen only by the agency",
-      isJumping: false,
-      category: "agency",
-      group: {
-        groupOrder: 0,
-        name: "general",
-        text: "General",
-      },
-    },
-
-    {
-      number: 9,
       type: "number",
       text: "What hourly rate were you paid?",
+      label: "per hour",
       isJumping: false,
       category: "agency",
       profileText: "Hourly pay rates over time",
@@ -156,13 +192,17 @@ module.exports = () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
-      number: 10,
+      number: 9,
       type: "yesno",
       text: "Were you paid via a payroll/umbrella?",
       isJumping: true,
-      jumpTo: [{ value: "yes", nextQuestion: 18 }, { value: "no", nextQuestion: 11 }],
+      jumpTo: [
+        { value: "yes", nextQuestion: 18 },
+        { value: "no", nextQuestion: 11 },
+      ],
       options: ["yes", "no"],
       category: "agency",
       group: {
@@ -170,23 +210,15 @@ module.exports = () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
-      number: 11,
+      number: 10,
       type: "dropdown",
       text: "What's the name of the payroll?",
+      label: "Select payroll",
       isJumping: false,
-      options: [
-        "Capital Payroll Services",
-        "Champion Contractors",
-        "Churchill Knight",
-        "Cinch",
-        "Credipay",
-        "Crunch",
-        "Crystal Choice",
-        "Crystal Payroll (Payroll Services Company)",
-        "Danbro",
-      ],
+      options: payrollsNames,
       category: "agency",
       profileText: "Pays using the following payrolls",
       profileSection: "Key ratings",
@@ -196,9 +228,10 @@ module.exports = () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: false,
     },
     {
-      number: 12,
+      number: 11,
       type: "yesno",
       text: "What was the payroll type?",
       isJumping: false,
@@ -212,9 +245,10 @@ module.exports = () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: false,
     },
     {
-      number: 13,
+      number: 12,
       type: "yesno",
       text: "Were you paid within the timeframe you expected?",
       isJumping: false,
@@ -228,9 +262,10 @@ module.exports = () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
-      number: 14,
+      number: 13,
       type: "yesno",
       text: "Were you paid the amount you expected?",
       isJumping: false,
@@ -244,9 +279,10 @@ module.exports = () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
-      number: 15,
+      number: 14,
       type: "yesno",
       text: "Were your payslips easily accessible?",
       isJumping: false,
@@ -260,9 +296,10 @@ module.exports = () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
-      number: 16,
+      number: 15,
       type: "yesno",
       text: "Did the payslips show all the information you needed?",
       isJumping: false,
@@ -273,13 +310,17 @@ module.exports = () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
-      number: 17,
+      number: 16,
       type: "yesno",
       text: "Were you charged for payroll?",
       isJumping: true,
-      jumpTo: [{ value: "yes", nextQuestion: 17 }, { value: "no", nextQuestion: 18 }],
+      jumpTo: [
+        { value: "yes", nextQuestion: 17 },
+        { value: "no", nextQuestion: 18 },
+      ],
       options: ["yes", "no"],
       category: "agency",
       profileType: "yesno",
@@ -288,11 +329,13 @@ module.exports = () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
-      number: 18,
+      number: 17,
       type: "number",
       text: "How much were you charged?",
+      label: "per timesheet",
       isJumping: false,
       category: "agency",
       profileType: "payrollSubList",
@@ -301,11 +344,13 @@ module.exports = () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
-      number: 19,
+      number: 18,
       type: "yesno",
-      text: "Were you always treated fairly by this agency over any payment issues?",
+      text:
+        "Were you always treated fairly by this agency over any payment issues?",
       isJumping: false,
       options: ["yes", "no", "no issues"],
       category: "agency",
@@ -317,9 +362,10 @@ module.exports = () => {
         name: "wages",
         text: "Getting your wages",
       },
+      hasComment: true,
     },
     {
-      number: 20,
+      number: 19,
       type: "yesno",
       text: "Overall, would you be happy to use this agency again?",
       isJumping: false,
@@ -333,6 +379,7 @@ module.exports = () => {
         name: "overall",
         text: "Overall rating",
       },
+      hasComment: true,
     },
 
     /* =========================== questionsPayroll ==================================== */
@@ -340,14 +387,19 @@ module.exports = () => {
     {
       number: 1,
       type: "yesno",
-      text: "Did they send you written confirmation of the terms and conditions of employment?",
+      text:
+        "Did they send you written confirmation of the terms and conditions of employment?",
       hintText:
         "i.e., details of pay, overtime, mileage/travel allowance, lodging provision, holiday entitlement, disciplinary procedures, benefits, etc.",
       isJumping: true,
-      jumpTo: [{ value: "yes", nextQuestion: 2 }, { value: "no", nextQuestion: 3 }],
+      jumpTo: [
+        { value: "yes", nextQuestion: 2 },
+        { value: "no", nextQuestion: 3 },
+      ],
       options: ["yes", "no"],
       category: "payroll",
-      profileText: "Sends you written confirmation of terms and conditions of employment",
+      profileText:
+        "Sends you written confirmation of terms and conditions of employment",
       profileSection: "Detailed ratings",
       profileType: "yesno",
       group: {
@@ -355,6 +407,7 @@ module.exports = () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
     {
       number: 2,
@@ -371,26 +424,13 @@ module.exports = () => {
         name: "general",
         text: "General",
       },
+      hasComment: true,
     },
     {
       number: 3,
-      type: "radio",
-      text: "What’s the name of the rep you dealt with at this payroll?",
-      hintText: "This will be seen only by the payroll",
-      isJumping: false,
-      options: ["totally inaccurate", "Not very accurate", "Mostly accurate", "Fully accurate"],
-      category: "payroll",
-      group: {
-        groupOrder: 0,
-        name: "general",
-        text: "General",
-      },
-    },
-
-    {
-      number: 4,
       type: "number",
       text: "What hourly rate were you paid?",
+      label: "per hour",
       isJumping: false,
       category: "payroll",
       profileText: "Hourly pay rates over time",
@@ -401,9 +441,10 @@ module.exports = () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: true,
     },
     {
-      number: 5,
+      number: 4,
       type: "radio",
       text: "What was the payroll type?",
       isJumping: false,
@@ -417,9 +458,10 @@ module.exports = () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: false,
     },
     {
-      number: 6,
+      number: 5,
       type: "yesno",
       text: "Were you paid within the timeframe you expected?",
       isJumping: false,
@@ -431,9 +473,10 @@ module.exports = () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: true,
     },
     {
-      number: 7,
+      number: 6,
       type: "yesno",
       text: "Were you paid the amount you expected?",
       isJumping: false,
@@ -447,9 +490,10 @@ module.exports = () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: true,
     },
     {
-      number: 8,
+      number: 7,
       type: "radio",
       text: "Were your payslips easily accessible?",
       isJumping: false,
@@ -463,9 +507,10 @@ module.exports = () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: true,
     },
     {
-      number: 9,
+      number: 8,
       type: "radio",
       text: "Did the payslips show all the information you needed?",
       isJumping: false,
@@ -479,13 +524,17 @@ module.exports = () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: true,
     },
     {
-      number: 10,
+      number: 9,
       type: "yesno",
       text: "Were you charged for payroll?",
       isJumping: true,
-      jumpTo: [{ value: "yes", nextQuestion: 11 }, { value: "no", nextQuestion: 12 }],
+      jumpTo: [
+        { value: "yes", nextQuestion: 11 },
+        { value: "no", nextQuestion: 12 },
+      ],
       options: ["yes", "no"],
       category: "payroll",
       group: {
@@ -493,11 +542,13 @@ module.exports = () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: true,
     },
     {
-      number: 11,
+      number: 10,
       type: "number",
       text: "How much were you charged?",
+      label: "per timesheet",
       isJumping: false,
       category: "payroll",
       profileText: "Payroll charge",
@@ -508,11 +559,13 @@ module.exports = () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: true,
     },
     {
-      number: 12,
+      number: 11,
       type: "radio",
-      text: "Were you always treated fairly by this payroll over any payment issues?",
+      text:
+        "Were you always treated fairly by this payroll over any payment issues?",
       isJumping: false,
       options: ["yes", "no", "no issues"],
       category: "payroll",
@@ -524,32 +577,15 @@ module.exports = () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: true,
     },
     {
-      number: 13,
+      number: 12,
       type: "dropdown",
       text: "What's the name of the agency you used?",
+      label: "Select agency",
       isJumping: false,
-      options: [
-        "Acrow Recruitment",
-        "Adecco",
-        "Advanced Technical Recruitment",
-        "Ahearne Support Services (previously: Gulmanda)",
-        "Anderselite",
-        "Apex Recruitment",
-        "Approach Personnel Specialists",
-        "Artisan",
-        "Aspire Recruitment",
-        "Atlas Recruitment Group",
-        "Aztec Resources",
-        "B M S L",
-        "B M S Performance",
-        "Bally Common",
-        "Besboke Civils Solutions (B C S)",
-        "Blade Recruitment",
-        "Bluebaring Recruitment",
-        "Bluebell",
-      ],
+      options: agencyNames,
       category: "payroll",
       profileText: "Works with the following agencies",
       profileSection: "Key ratings",
@@ -559,10 +595,11 @@ module.exports = () => {
         name: "wages",
         text: "Getting yor wages",
       },
+      hasComment: false,
     },
 
     {
-      number: 14,
+      number: 13,
       type: "yesno",
       text: "Overall, would you be happy to use this payroll again?",
       isJumping: false,
@@ -576,6 +613,7 @@ module.exports = () => {
         name: "overall",
         text: "Overall rating",
       },
+      hasComment: true,
     },
 
     /* =============================== worksite ================================ */
@@ -595,6 +633,7 @@ module.exports = () => {
         name: "getToSite",
         text: "Getting on to site",
       },
+      hasComment: true,
     },
     {
       number: 2,
@@ -616,13 +655,17 @@ module.exports = () => {
         name: "getToSite",
         text: "Getting on to site",
       },
+      hasComment: true,
     },
     {
       number: 3,
       type: "yesno",
       text: "Was the car parking free?",
       isJumping: true,
-      jumpTo: [{ value: "yes", nextQuestion: 5 }, { value: "no", nextQuestion: 4 }],
+      jumpTo: [
+        { value: "yes", nextQuestion: 5 },
+        { value: "no", nextQuestion: 4 },
+      ],
       options: ["yes", "no"],
       category: "worksite",
       group: {
@@ -630,11 +673,13 @@ module.exports = () => {
         name: "getToSite",
         text: "Getting on to site",
       },
+      hasComment: true,
     },
     {
       number: 4,
       type: "number",
       text: "How much did car parking cost per day?",
+      label: "per day",
       isJumping: false,
       category: "worksite",
       group: {
@@ -642,11 +687,13 @@ module.exports = () => {
         name: "getToSite",
         text: "Getting on to site",
       },
+      hasComment: true,
     },
     {
       number: 5,
       type: "radio",
-      text: "At the site, were you offered secure storage for your personal belongings?",
+      text:
+        "At the site, were you offered secure storage for your personal belongings?",
       hintText: "E.g., Lockers, cloak room, etc.",
       isJumping: false,
       options: ["yes", "no", "yes, but I didn't need it"],
@@ -659,12 +706,14 @@ module.exports = () => {
         name: "getToSite",
         text: "Getting on to site",
       },
+      hasComment: true,
     },
 
     {
       number: 6,
       type: "yesno",
-      text: "Did you have to use fingerprint scanners or eye recognition to access the site?",
+      text:
+        "Did you have to use fingerprint scanners or eye recognition to access the site?",
       isJumping: false,
       options: ["yes", "no"],
       category: "worksite",
@@ -676,6 +725,7 @@ module.exports = () => {
         name: "getToSite",
         text: "Getting on to site",
       },
+      hasComment: true,
     },
 
     {
@@ -693,6 +743,7 @@ module.exports = () => {
         name: "onTheSite",
         text: "Working on the site",
       },
+      hasComment: true,
     },
 
     {
@@ -710,9 +761,11 @@ module.exports = () => {
         name: "onTheSite",
         text: "Working on the site",
       },
+      hasComment: true,
     },
 
     {
+      number: 100,
       type: "image",
       text: "Upload a photo of the site",
       hintText:
@@ -726,6 +779,7 @@ module.exports = () => {
         name: "onTheSite",
         text: "Working on the site",
       },
+      hasComment: false,
     },
     {
       number: 9,
@@ -742,6 +796,7 @@ module.exports = () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 10,
@@ -758,6 +813,7 @@ module.exports = () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 11,
@@ -774,6 +830,7 @@ module.exports = () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 12,
@@ -795,6 +852,7 @@ module.exports = () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 13,
@@ -811,6 +869,7 @@ module.exports = () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 14,
@@ -834,11 +893,13 @@ module.exports = () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 15,
       type: "radio",
-      text: "Were there shops to buy hot food within 10 minutes walk of this site?",
+      text:
+        "Were there shops to buy hot food within 10 minutes walk of this site?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "worksite",
@@ -850,6 +911,7 @@ module.exports = () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 16,
@@ -866,11 +928,14 @@ module.exports = () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 17,
       type: "open",
-      text: "Is there a good shop or café near site that you would recommend to other workers?",
+      text:
+        "Is there a good shop or café near site that you would recommend to other workers?",
+      label: "Good shop or café",
       isJumping: false,
       category: "worksite",
       profileText: "Recommended nearby shops and cafés",
@@ -881,6 +946,7 @@ module.exports = () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
+      hasComment: true,
     },
     {
       number: 18,
@@ -897,6 +963,7 @@ module.exports = () => {
         name: "overall",
         text: "Overall rating",
       },
+      hasComment: true,
     },
 
     /* ============================= company ================================== */
@@ -916,6 +983,7 @@ module.exports = () => {
         name: "toolsAndMaterials",
         text: "Tools & materials",
       },
+      hasComment: true,
     },
     {
       number: 2,
@@ -933,6 +1001,7 @@ module.exports = () => {
         name: "toolsAndMaterials",
         text: "Tools & materials",
       },
+      hasComment: true,
     },
     {
       number: 3,
@@ -949,6 +1018,7 @@ module.exports = () => {
         name: "toolsAndMaterials",
         text: "Tools & materials",
       },
+      hasComment: true,
     },
     {
       number: 4,
@@ -957,7 +1027,8 @@ module.exports = () => {
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "company",
-      profileText: "Offers secure storage for your tools overnight when you need it",
+      profileText:
+        "Offers secure storage for your tools overnight when you need it",
       profileSection: "Tools & materials",
       profileType: "yesno",
       group: {
@@ -965,15 +1036,18 @@ module.exports = () => {
         name: "toolsAndMaterials",
         text: "Tools & materials",
       },
+      hasComment: true,
     },
     {
       number: 5,
       type: "yesno",
-      text: "Did the supervisor share all the information you needed to do a good job?",
+      text:
+        "Did the supervisor share all the information you needed to do a good job?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "company",
-      profileText: "Supervisors share all the information you need to do a good job",
+      profileText:
+        "Supervisors share all the information you need to do a good job",
       profileSection: "Supervisors & employees",
       profileType: "yesno",
       group: {
@@ -981,6 +1055,7 @@ module.exports = () => {
         name: "supervisorsAndEmployees",
         text: "Supervisors & employees",
       },
+      hasComment: true,
     },
     {
       number: 6,
@@ -997,22 +1072,10 @@ module.exports = () => {
         name: "supervisorsAndEmployees",
         text: "Supervisors & employees",
       },
+      hasComment: true,
     },
     {
       number: 7,
-      type: "open",
-      text: "What's the name of the supervisor you worked with?",
-      hintText: "This will be seen only by the company",
-      isJumping: false,
-      category: "company",
-      group: {
-        groupOrder: 1,
-        name: "supervisorsAndEmployees",
-        text: "Supervisors & employees",
-      },
-    },
-    {
-      number: 8,
       type: "yesno",
       text: "Did the other company employees treat you with respect?",
       isJumping: false,
@@ -1026,9 +1089,10 @@ module.exports = () => {
         name: "supervisorsAndEmployees",
         text: "Supervisors & employees",
       },
+      hasComment: true,
     },
     {
-      number: 9,
+      number: 8,
       type: "yesno",
       text: "Overall, did you feel valued working with this company?",
       isJumping: false,
@@ -1037,9 +1101,15 @@ module.exports = () => {
       profileText: "Feel valued working with this company overall",
       profileSection: "Supervisors & employees",
       profileType: "yesno",
+      group: {
+        groupOrder: 1,
+        name: "supervisorsAndEmployees",
+        text: "Supervisors & employees",
+      },
+      hasComment: true,
     },
     {
-      number: 10,
+      number: 9,
       type: "yesno",
       text: "Overall, would you be happy to work for this company again?",
       isJumping: false,
@@ -1053,19 +1123,7 @@ module.exports = () => {
         name: "supervisorsAndEmployees",
         text: "Supervisors & employees",
       },
-    },
-    {
-      number: 10,
-      type: "yesno",
-      text: "Overall, would you be happy to work with this company again?",
-      isJumping: false,
-      options: ["yes", "no"],
-      category: "company",
-      group: {
-        groupOrder: 2,
-        name: "`overall`",
-        text: "Overall rating",
-      },
+      hasComment: true,
     },
   ];
   return Question.create(questions);

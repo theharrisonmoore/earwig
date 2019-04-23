@@ -13,6 +13,11 @@ import {
   FullLink
 } from "./GiveReview.style";
 
+import {
+  QUICK_REVIEW_URL,
+  REVIEW_URL
+} from "../../../constants/naviagationUrls";
+
 export default class GiveReview extends Component {
   render() {
     const { category, isMobile, isTablet, state } = this.props;
@@ -24,7 +29,7 @@ export default class GiveReview extends Component {
           <Time>2 mins</Time>
           <FullLink
             to={{
-              pathname: `/review`,
+              pathname: REVIEW_URL,
               state: state
             }}
           >
@@ -47,7 +52,7 @@ export default class GiveReview extends Component {
             <QuickReviewDots category={category} />
             <QuickLink
               to={{
-                pathname: `/quick-review`,
+                pathname: QUICK_REVIEW_URL,
                 state: state
               }}
             >
