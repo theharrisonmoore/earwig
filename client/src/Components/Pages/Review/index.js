@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
-import { Checkbox } from "antd";
+import { Checkbox, DatePicker } from "antd";
 
 import {
   ReviewWrapper,
@@ -140,19 +140,16 @@ class Review extends Component {
   };
 
   render() {
-    console.log("user", this.state.user);
     const { isLoading } = this.state;
     if (isLoading) return <p>loading...</p>;
-    // const { name, category } = this.state.organization;
 
     const initialValues = {
       questions: initQueestionsValues[this.state.organization.category],
       comments: initQueestionsValues[this.state.organization.category],
-      // checklist: [],
       review: {
         workPeriod: {
-          from: "2019-01-01",
-          to: "2019-03-31"
+          from: "",
+          to: ""
         },
         rate: 3,
         overallReview: "",
@@ -216,6 +213,16 @@ class Review extends Component {
                     <div>
                       {/* a placeholder to be edited with new picker */}
                       <p>Select the month(s) you used this agency?</p>
+                      <DatePicker.RangePicker
+                        onChange={(date, dateString) => {
+                          const [from, to] = dateString;
+                          const workPeriod = {
+                            from,
+                            to
+                          };
+                          setFieldValue("review.workPeriod", workPeriod);
+                        }}
+                      />
                     </div>
                     <div>
                       {groups.map(group => {
