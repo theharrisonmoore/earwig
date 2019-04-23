@@ -3,8 +3,10 @@ import SVG from "react-inlinesvg";
 
 import { handleLogout } from "./../../../helpers";
 
-import { Wrapper, MenuItem } from "./Menu.style.js";
-import { Icon } from "antd";
+import { Wrapper, MenuItem, MenuIcon } from "./Menu.style.js";
+import { Icon as AdminIcon } from "antd";
+
+import Icon from "./../Icon/Icon";
 
 import {
   SEARCH_URL,
@@ -31,7 +33,7 @@ export default class Menu extends PureComponent {
         )}
         {isAdmin && (
           <MenuItem to={ADMIN} onClick={toggleMenu}>
-            <Icon
+            <AdminIcon
               type="dashboard"
               style={{
                 fontSize: "24px",
@@ -65,12 +67,12 @@ export default class Menu extends PureComponent {
         </MenuItem>
         {isLoggedIn ? (
           <MenuItem to=" " onClick={handleLogout}>
-            <SVG src="/icons/log-out-icon.svg" className="menuIcon" />
+            <MenuIcon icon="logout" height="19" width="19"/>
             Log out
           </MenuItem>
         ) : (
           <MenuItem to={LOGIN_URL} onClick={toggleMenu}>
-            <SVG src="/icons/log-out-icon.svg" className="menuIcon" />
+            <MenuIcon icon="logoutLogin" height="19" width="19" />
             Log in
           </MenuItem>
         )}
