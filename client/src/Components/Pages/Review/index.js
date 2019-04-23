@@ -72,6 +72,8 @@ class Review extends Component {
   };
   componentDidMount() {
     const { email } = this.props;
+    const { category, name, needsVerification } = this.props.location.state;
+    const { organization, user } = this.state;
     organization.category = category;
     organization.name = name;
     organization.needsVerification = needsVerification || false;
@@ -203,7 +205,6 @@ class Review extends Component {
               errors,
               setFieldValue
             }) => {
-              console.log("values", values);
               return (
                 <FormWrapper>
                   <Form>

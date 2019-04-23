@@ -110,12 +110,13 @@ router.post(
   // authentication,
   // authorization("LEVEL3"),
   // validation("addOrganization"),
-  addOrganizationController,
+  addOrganizationController,)
+
 router.use(
   "/confirm-email",
   validation("onlyMongoId"),
   confirmJoiningEmailList,
-);
+)
 
 router.use(
   "/admin",

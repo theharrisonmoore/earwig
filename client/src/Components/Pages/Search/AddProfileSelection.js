@@ -1,6 +1,10 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 import { SEARCH_URL } from "../../../constants/naviagationUrls";
+import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
+import Swal from "sweetalert2";
+
 // styles
 import {
   HeadlineDiv,
@@ -19,14 +23,26 @@ import { SVGCreator } from "../../../helpers";
 import { ADD_PROFILE_START_REVIEW_URL } from "../../../constants/naviagationUrls";
 
 export default class AddProfileSelection extends Component {
-  state = {
-    name: "",
-    category: ""
-  };
-  addOrganisation = ({ name, category }) => {
-    const newOrg = { name, category, active: false };
-    this.setState(newOrg);
-    console.log(this.state);
+  addOrganisation = (orgName, orgCategory) => {
+    const newOrg = { name: orgName, category: orgCategory, active: false };
+
+    axios
+      .post(API_ADD_ORGANIZATION_URL, newOrg)
+      .then(result => {
+        Swal.fire({
+          type: "success",
+          title: `Thanks! Be the first to review ${newOrg.name}`
+        });
+      })
+      .catch(err => {
+        Swal.fire({
+          type: "error",
+          title: "Oops. Organisation seems to already exist. Please try again.",
+          text: err
+        }).then(() => {
+          this.props.history.push("/search");
+        });
+      });
   };
 
   render() {
