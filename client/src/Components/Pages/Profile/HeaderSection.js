@@ -92,7 +92,7 @@ export default class HeaderSection extends Component {
               category={category}
               isTablet={isTablet}
               isMobile={isMobile}
-              state={{ name: `${name}`, category: `${category}` }}
+              state={{ name, category }}
             />
           </GiveReviewDiv>
         )}

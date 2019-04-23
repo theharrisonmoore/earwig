@@ -22,7 +22,7 @@ export const HintText = styled.p`
 
 export const QuestionOptionsWrapper = styled.div`
   font-size: 16px;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   display: flex;
   flex-direction: column;
 `;
@@ -60,8 +60,23 @@ export const Options = styled.div`
 `;
 
 export const CommentsIcon = styled.div`
-  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 33px;
+  color: red;
   margin: 0 auto;
+  border: 1px solid
+    ${props => {
+      return props.hasValue ? colors.green : colors.dustyGray1;
+    }};
+  border-radius: 3px;
+
+  img {
+    width: 28px;
+    height: 28px;
+  }
 `;
 
 export const StyledErrorMessage = styled.div`
@@ -80,7 +95,7 @@ export const Input = styled.label`
   background-color: ${colors.white};
   box-shadow: 0 0 0 1px ${colors.lightGray};
   display: inline-block;
-  padding: 0.25rem 1rem;
+  /* padding: 0.25rem 1rem; */
   height: 100%;
 `;
 

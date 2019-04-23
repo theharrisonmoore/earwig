@@ -36,6 +36,13 @@ module.exports = async () => {
       websiteURL: "http://www.champion.co.uk/",
       lastViewed: "2019-06-2",
     },
+    {
+      name: "Ramy&brothers Recruitment",
+      category: "agency",
+      phoneNumber: "+441235844001",
+      email: "ramy@champion.co.uk",
+      websiteURL: "http://www.ramy.co.uk/",
+    },
     // payrolls
     {
       name: "Advanced Payroll Services",

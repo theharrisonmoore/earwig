@@ -17,6 +17,7 @@ import EditProfile from "./Pages/EditProfile";
 import Review from "./Pages/Review";
 import StaticPages from "./Pages/Static";
 import Navbar from "./Common/Navbar";
+import QuickReview from "./Pages/QuickReview";
 import Profile from "./Pages/Profile";
 import Admin from "./Pages/Admin";
 import Search from "./Pages/Search";
@@ -33,7 +34,8 @@ import {
   ADD_PROFILE_URL,
   ADD_PROFILE_START_REVIEW_URL,
   ADMIN,
-  REVIEW_URL
+  REVIEW_URL,
+  QUICK_REVIEW_URL
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
@@ -42,6 +44,7 @@ export default function index(props) {
   return (
     <>
       <Switch>
+        <Route path={QUICK_REVIEW_URL} component={QuickReview} />
         <Route
           exact
           path={REVIEW_URL}
@@ -53,7 +56,6 @@ export default function index(props) {
             />
           )}
         />
-
         <Route
           exact
           path={SIGNUP_URL}
@@ -65,10 +67,8 @@ export default function index(props) {
             />
           )}
         />
-
         {/* orgType required as state in Link for this */}
         <Route path={THANKYOU_URL} {...props} component={Thankyou} />
-
         <Route
           exact
           path={LOGIN_URL}
@@ -80,7 +80,6 @@ export default function index(props) {
             />
           )}
         />
-
         <Route
           exact
           path={UPLOAD_VERIFICATION_URL}
@@ -92,7 +91,6 @@ export default function index(props) {
             />
           )}
         />
-
         <Route
           exact
           path="/profile/:profileID"
@@ -144,7 +142,6 @@ export default function index(props) {
             )}
           />
         ))}
-
         <Route
           path={SEARCH_URL}
           render={linkProps => (
@@ -157,7 +154,6 @@ export default function index(props) {
             />
           )}
         />
-
         <Route
           path={ADD_PROFILE_URL}
           render={linkProps => (
@@ -168,7 +164,6 @@ export default function index(props) {
             />
           )}
         />
-
         <Route
           path={ADD_PROFILE_START_REVIEW_URL}
           render={linkProps => (
@@ -181,7 +176,6 @@ export default function index(props) {
             />
           )}
         />
-
         <Route
           exact
           path={EDIT_PROFILE_URL}
