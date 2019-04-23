@@ -47,7 +47,20 @@ export default class AddProfileSelection extends Component {
 
   render() {
     const { name } = this.props.location.state;
+
+    const linkProps = category => {
+      return {
+        pathname: `${ADD_PROFILE_START_REVIEW_URL}`,
+        state: {
+          name: `${name}`,
+          category: category,
+          needsVerification: true
+        }
+      };
+    };
+
     const categories = ["agency", "payroll", "worksite", "company"];
+
     return (
       <AddWrapper>
         <MainDiv>
@@ -58,13 +71,7 @@ export default class AddProfileSelection extends Component {
             <RowDiv>
               <ItemDiv>
                 <AddProfileLink
-                  to={{
-                    pathname: `${ADD_PROFILE_START_REVIEW_URL}`,
-                    state: {
-                      name: `${name}`,
-                      category: categories[0]
-                    }
-                  }}
+                  to={linkProps(categories[0])}
                   onClick={() => {
                     this.addOrganisation(name, categories[0]);
                   }}
@@ -74,10 +81,7 @@ export default class AddProfileSelection extends Component {
               </ItemDiv>
               <ItemDiv>
                 <AddProfileLink
-                  to={{
-                    pathname: `${ADD_PROFILE_START_REVIEW_URL}`,
-                    state: { name: `${name}`, category: categories[1] }
-                  }}
+                  to={linkProps(categories[1])}
                   onClick={() => {
                     this.addOrganisation(name, categories[1]);
                   }}
@@ -89,10 +93,7 @@ export default class AddProfileSelection extends Component {
             <RowDiv>
               <ItemDiv>
                 <AddProfileLink
-                  to={{
-                    pathname: `${ADD_PROFILE_START_REVIEW_URL}`,
-                    state: { name: `${name}`, category: categories[2] }
-                  }}
+                  to={linkProps(categories[2])}
                   onClick={() => {
                     this.addOrganisation(name, categories[2]);
                   }}
@@ -102,10 +103,7 @@ export default class AddProfileSelection extends Component {
               </ItemDiv>
               <ItemDiv>
                 <AddProfileLink
-                  to={{
-                    pathname: `${ADD_PROFILE_START_REVIEW_URL}`,
-                    state: { name: `${name}`, category: categories[3] }
-                  }}
+                  to={linkProps(categories[3])}
                   onClick={() => {
                     this.addOrganisation(name, categories[3]);
                   }}
