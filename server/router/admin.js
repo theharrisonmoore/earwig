@@ -9,6 +9,8 @@ const rejectUser = require("./../controllers/admin/rejectUser");
 const getReviews = require("./../controllers/admin/getReviews");
 const deleteReview = require("./../controllers/admin/deleteReview");
 
+const { getAllTrades, deleteTradeController } = require("../controllers/admin/trades");
+
 router.get(
   "/users",
   getAllUsers,
@@ -44,5 +46,9 @@ router.delete(
   validation("onlyMongoId"),
   deleteReview,
 );
+
+router.get("/trades", getAllTrades);
+
+router.delete("/trades/:id", deleteTradeController);
 
 module.exports = router;
