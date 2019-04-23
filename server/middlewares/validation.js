@@ -160,7 +160,11 @@ const schemas = {
     }),
     hasAgreed: Joi.boolean().valid(true).error(() => "You should agree Earwig terms of user"),
   },
-  confirmEmail: {
+  activateOrganization: {
+    id: Joi.string().length(24).required(),
+    active: Joi.boolean().required(),
+  },
+  onlyMongoId: {
     id: Joi.string().length(24).required(),
   },
 };

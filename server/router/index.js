@@ -110,8 +110,14 @@ router.post(
   editProfile,
 );
 
-router.use("/confirm-email", validation("confirmEmail"), confirmJoiningEmailList);
 
 router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
+
+router.use(
+  "/confirm-email",
+  validation("onlyMongoId"),
+  confirmJoiningEmailList,
+);
+
 
 module.exports = router;
