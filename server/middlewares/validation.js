@@ -163,9 +163,11 @@ const schemas = {
   onlyMongoId: {
     id: Joi.string().length(24).required(),
   },
-  confirmEmail: {
+  activateOrganization: {
     id: Joi.string().length(24).required(),
+    active: Joi.boolean().required(),
   },
+
 };
 
 module.exports = route => (req, res, next) => {

@@ -8,6 +8,8 @@ const verifyUser = require("./../controllers/admin/verifyUser");
 const rejectUser = require("./../controllers/admin/rejectUser");
 const getReviews = require("./../controllers/admin/getReviews");
 const deleteReview = require("./../controllers/admin/deleteReview");
+const getOrganizations = require("./../controllers/admin/getOrganizations");
+const activateOrganization = require("./../controllers/admin/activateOrganization");
 
 const { getAllTrades, deleteTradeController } = require("../controllers/admin/trades");
 
@@ -18,6 +20,7 @@ router.get(
 
 router.delete(
   "/users",
+  validation("onlyMongoId"),
   deleteUser,
 );
 
@@ -28,11 +31,13 @@ router.get(
 
 router.patch(
   "/users/verify",
+  validation("onlyMongoId"),
   verifyUser,
 );
 
 router.patch(
   "/users/reject",
+  validation("onlyMongoId"),
   rejectUser,
 );
 
@@ -45,6 +50,17 @@ router.delete(
   "/reviews",
   validation("onlyMongoId"),
   deleteReview,
+);
+
+router.get(
+  "/organizations/:category",
+  getOrganizations,
+);
+
+router.patch(
+  "/organizations",
+  validation("activateOrganization"),
+  activateOrganization,
 );
 
 router.get("/trades", getAllTrades);

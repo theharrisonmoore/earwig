@@ -104,7 +104,7 @@ router.post(
 
 router.use(
   "/confirm-email",
-  validation("confirmEmail"),
+  validation("onlyMongoId"),
   confirmJoiningEmailList,
 );
 
