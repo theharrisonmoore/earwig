@@ -20,7 +20,7 @@ export default class AllOrganizations extends Component {
     }
   }
 
-  deletHandler = ({ id, active }) => {
+  deleteHandler = ({ id, active }) => {
     const { category } = this.props;
     Modal.confirm({
       title: `Are you sure you want to ${
@@ -78,7 +78,7 @@ export default class AllOrganizations extends Component {
           }}
           columns={OrganizationsColumns({
             category,
-            deletHandler: this.deletHandler
+            deleteHandler: this.deleteHandler
           })}
           dataSource={this.state.data}
           style={{ backgroundColor: "#ffffff" }}

@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Button, Icon } from "antd";
+import { Button } from "antd";
 
-export default ({ category, deletHandler, editHandler }) => {
+export default ({ category, deleteHandler, editHandler }) => {
   const basicInfo = [
     {
       title: category,
@@ -38,7 +38,7 @@ export default ({ category, deletHandler, editHandler }) => {
   basicInfo.push({
     title: "Action",
     key: "action",
-    width: "10rem",
+    width: "13rem",
     render: (text, record) => {
       return (
         <div>
@@ -51,23 +51,29 @@ export default ({ category, deletHandler, editHandler }) => {
             <Button
               type="primary"
               ghost
+              style={{
+                paddingLeft: "0.5rem",
+                paddingRight: "0.5rem"
+              }}
 
               // to be added in sprint 2
               // onClick={() => editHandler(record._id)}
             >
-              <Icon type="edit" />
+              Edit
             </Button>
             <Button
               ghost
               type={record.active ? "danger" : "primary"}
               onClick={() =>
-                deletHandler({ id: record._id, active: !record.active })
+                deleteHandler({ id: record._id, active: !record.active })
               }
+              style={{
+                color: record.active ? "red" : "",
+                paddingLeft: "0.5rem",
+                paddingRight: "0.5rem"
+              }}
             >
-              <Icon
-                type={record.active ? "eye-invisible" : "eye"}
-                style={{ color: record.active ? "red" : "" }}
-              />
+              {record.active ? "Deactivate" : "Activate"}
             </Button>
           </div>
         </div>
