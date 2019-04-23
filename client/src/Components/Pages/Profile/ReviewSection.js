@@ -17,6 +17,7 @@ import PieAnswer from "./ProfileAnswers/PieAnswer.js";
 import ScatterAnswer from "./ProfileAnswers/ScatterAnswer";
 import SiteItemAnswer from "./ProfileAnswers/SiteItemAnswer";
 import CanteenItemAnswer from "./ProfileAnswers/CanteenItemAnswer";
+import BarChartAnswer from "./ProfileAnswers/BarChartAnswer";
 
 export default class ReviewSection extends Component {
   render() {
@@ -120,6 +121,15 @@ export default class ReviewSection extends Component {
                   question={question}
                   toggleComments={toggleComments}
                 />
+              </QuestionWrapper>
+            ))}
+        {questions &&
+          questions
+            .filter(question => question.question.profileType === "barChart")
+            .map((question, index) => (
+              <QuestionWrapper key={index}>
+                <QuestionTitle>{question.question.profileText}</QuestionTitle>
+                <BarChartAnswer category={category} question={question} />
               </QuestionWrapper>
             ))}
       </Wrapper>

@@ -3,7 +3,7 @@ import axios from "axios";
 import moment from "moment";
 
 import ReviewSection from "./ReviewSection";
-import BarAnswer from "./ProfileAnswers/BarAnswer";
+import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
 import CommentsBox from "./ProfileAnswers/CommentsBox";
 import HeaderSection from "./HeaderSection";
 
@@ -205,7 +205,7 @@ export default class Profile extends Component {
           )}
 
           {level > 0 && (
-            <BarAnswer
+            <MonthlyReviews
               category={category}
               reviewsByMonth={this.reviewsByMonth()}
             />
