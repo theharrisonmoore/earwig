@@ -16,13 +16,6 @@ import {
 import GiveReview from "../../Common/GiveReview";
 
 export default class AddProfileReviewStart extends Component {
-  state = {
-    isLoading: true
-  };
-  componentDidMount() {
-    const { name, category } = this.props.location.state;
-    console.log(name, category);
-  }
 
   render() {
     const { name, category } = this.props.location.state;
