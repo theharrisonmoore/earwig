@@ -1,6 +1,8 @@
 import React, { PureComponent } from "react";
 import SVG from "react-inlinesvg";
 
+import { handleLogout } from "./../../../helpers";
+
 import { Wrapper, MenuItem } from "./Menu.style.js";
 import { Icon } from "antd";
 
@@ -62,7 +64,7 @@ export default class Menu extends PureComponent {
           Privacy & terms
         </MenuItem>
         {isLoggedIn ? (
-          <MenuItem to={LOGOUT_URL} onClick={toggleMenu}>
+          <MenuItem to=" " onClick={handleLogout}>
             <SVG src="/icons/log-out-icon.svg" className="menuIcon" />
             Log out
           </MenuItem>
