@@ -2,8 +2,11 @@ const mongoose = require("mongoose");
 const Organization = require("./../../models/Organization");
 const Answer = require("./../../models/Answer");
 const Comment = require("./../../models/Comment");
+const getAllReviews = require("./allReviews");
 
 module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
+
+module.exports.getAllReviews = getAllReviews;
 
 module.exports.overallReview = organizationID => new Promise((resolve, reject) => {
   Organization.aggregate([
