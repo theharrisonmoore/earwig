@@ -18,9 +18,9 @@ const buildDummyData = () => new Promise((resolve, reject) => {
       // delete all documents from models
       await resetDb();
       await trades();
+      await organizations();
       await questions();
       await users();
-      await organizations();
       await reviews();
       await jobs();
       await comments();
