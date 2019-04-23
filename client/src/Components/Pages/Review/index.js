@@ -150,8 +150,7 @@ class Review extends Component {
   render() {
     const { isLoading } = this.state;
     if (isLoading) return <p>loading...</p>;
-    // const { name, category } = this.state.organization;
-    console.log(this.state);
+
     const initialValues = {
       questions: initQueestionsValues[this.state.organization.category],
       comments: initQueestionsValues[this.state.organization.category],
