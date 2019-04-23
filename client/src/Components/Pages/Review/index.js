@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
 import { Checkbox } from "antd";
+import Swal from "sweetalert2";
 
 import {
   ReviewWrapper,
@@ -125,6 +126,16 @@ class Review extends Component {
     axios
       .post(API_POST_REVIEW_URL, review)
       .then(res => {
+        if (this.state.organization.needsVerification) {
+          Swal.fire({
+            type: "success",
+            title: "Thanks! We're verifying your review as soon as possible."
+          }).then(() => {
+            this.props.history.push(THANKYOU_URL, {
+              orgType: organization.category
+            });
+          });
+        }
         this.props.history.push(THANKYOU_URL, {
           orgType: organization.category
         });
@@ -140,7 +151,7 @@ class Review extends Component {
     const { isLoading } = this.state;
     if (isLoading) return <p>loading...</p>;
     // const { name, category } = this.state.organization;
-
+    console.log(this.state);
     const initialValues = {
       questions: initQueestionsValues[this.state.organization.category],
       comments: initQueestionsValues[this.state.organization.category],

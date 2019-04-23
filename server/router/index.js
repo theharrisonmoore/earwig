@@ -1,7 +1,11 @@
 const router = require("express").Router();
 const {
-  getByOrg, postReview, addNewAgencyPayroll, getOrgsByType,
-  getAgencesAndPayrollsNames, postReviewShort,
+  getByOrg,
+  postReview,
+  addNewAgencyPayroll,
+  getOrgsByType,
+  getAgencesAndPayrollsNames,
+  postReviewShort,
 } = require("../controllers/review");
 
 const adminRouter = require("./admin");
@@ -110,20 +114,12 @@ router.post(
   // authentication,
   // authorization("LEVEL3"),
   // validation("addOrganization"),
-  addOrganizationController,)
-
-router.use(
-  "/confirm-email",
-  validation("onlyMongoId"),
-  confirmJoiningEmailList,
-)
-
-router.use(
-  "/admin",
-  authentication,
-  authorization("ADMIN"),
-  adminRouter,
+  addOrganizationController,
 );
+
+router.use("/confirm-email", validation("onlyMongoId"), confirmJoiningEmailList);
+
+router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
 
 router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
 
