@@ -22,7 +22,6 @@ describe("Tesing for get add organisation route", () => {
     const dataInvalid = {
       name: "Cardiff University",
       category: "agency",
-      isVerified: false,
     };
 
     // login with the origin password
@@ -51,7 +50,6 @@ describe("Tesing for get add organisation route", () => {
     const dataValid = {
       name: "Yalla Builders",
       category: "agency",
-      verified: false,
     };
 
     // login with the origin password

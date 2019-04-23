@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const buildDB = require("../../../database/dummyData/index");
-const { addNew, findByName } = require("../../../database/queries/organization");
+const { addNew, findByName } = require("../../../database/queries/organizations");
 
 describe("test to addNew organization query", () => {
   beforeAll(async () => {
@@ -22,7 +22,6 @@ describe("test to addNew organization query", () => {
     addNew({
       name: "Yalla Builders",
       category: "company",
-      verified: false,
     }).then((company) => {
       expect(company).toBeDefined();
       expect(company.name).toBe("Yalla Builders");

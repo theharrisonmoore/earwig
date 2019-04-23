@@ -1,6 +1,6 @@
 const boom = require("boom");
 
-const { findByName, addNew } = require("../database/queries/organization");
+const { findByName, addNew } = require("../database/queries/organizations/addOrganization");
 
 module.exports = (req, res, next) => {
   const { name, category, verified } = req.body;
