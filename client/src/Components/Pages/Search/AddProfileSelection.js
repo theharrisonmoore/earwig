@@ -19,10 +19,16 @@ import { SVGCreator } from "../../../helpers";
 import { ADD_PROFILE_START_REVIEW_URL } from "../../../constants/naviagationUrls";
 
 export default class AddProfileSelection extends Component {
-  addOrganisation = ({ name, category }) => {
-    const newOrg = { name, category, verified: false };
-    console.log(newOrg);
+  state = {
+    name: "",
+    category: ""
   };
+  addOrganisation = ({ name, category }) => {
+    const newOrg = { name, category, active: false };
+    this.setState(newOrg);
+    console.log(this.state);
+  };
+
   render() {
     const { name } = this.props.location.state;
     const categories = ["agency", "payroll", "worksite", "company"];
