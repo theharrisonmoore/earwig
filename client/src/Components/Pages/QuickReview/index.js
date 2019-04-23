@@ -19,30 +19,26 @@ import {
   FormWrapper,
   Level2Header,
   AgreementLabel
-} from "./Review.style";
+} from "../Review/Review.style";
 
-import { StyledErrorMessage } from "./Question/Question.style";
+import { StyledErrorMessage } from "../Review/Question/Question.style";
 
-import Question from "./Question/index";
+import Question from "../Review/Question/index";
 import agencyIcon from "./../../../assets/agency-icon.svg";
-import clockLong from "./../../../assets/clock-long-icon.svg";
+import clockShort from "./../../../assets/clock-short-icon.svg";
 
-import { initQueestionsValues } from "./initialQuestionsValues";
-import { validationSchema } from "./validationSchema";
+import { validationSchemaShort } from "../Review/validationSchema";
 
 import { THANKYOU_URL } from "../../../constants/naviagationUrls";
 
-const {
-  API_GET_QUESTIONS_URL,
-  API_POST_REVIEW_URL
-} = require("../../../apiUrls");
+const { API_QUICK_REVIEW_URL } = require("../../../apiUrls");
 
 const STATIC_QUESTIONS = [
   {
     number: 18,
     text: "How would you rate this agency?",
     type: "rate",
-    options: ["Bad", "Poor", "Average", "Great", "Excellent"]
+    options: ["bad", "ok", "good", "cool", "very cool"]
   },
   {
     number: 19,
@@ -62,59 +58,8 @@ const STATIC_QUESTIONS = [
 
 class Review extends Component {
   state = {
-    isLoading: true,
-    groups: [],
-    organization: { category: "", name: "" },
-    user: { email: "" },
-    worksiteImage: "",
-    agencies: [],
-    payrolls: []
-  };
-  componentDidMount() {
-    const { email } = this.props;
-
-    console.log("dkjfkdsjfd", this.props);
-
-    const { category, name } = this.props.location.state;
-    const organization = { ...this.state.organization };
-    const user = { ...this.state.user };
-    organization.category = category;
-    organization.name = name;
-    user.email = email;
-    axios
-      .get(API_GET_QUESTIONS_URL, {
-        params: {
-          organization: category
-        }
-      })
-      .then(res => {
-        this.setState({
-          groups: res.data,
-          isLoading: false,
-          organization,
-          user,
-          email
-        });
-      })
-      .catch(err => {
-        // server error 500
-        console.log("err", err);
-      });
-    this.getAgenciesAndPayrolls();
-  }
-
-  getAgenciesAndPayrolls = () => {
-    axios
-      .get("/api/agency-payroll")
-      .then(res => {
-        this.setState({
-          agencies: res.data[1].category,
-          payrolls: res.data[0].category
-        });
-      })
-      .catch(err => {
-        console.log("err", err);
-      });
+    organization: { category: "agency", name: "Aspire Recruitment" },
+    user: { email: "level3@earwig.com" }
   };
 
   handleSubmit = (values, { setSubmitting }) => {
@@ -126,7 +71,7 @@ class Review extends Component {
       user
     };
     axios
-      .post(API_POST_REVIEW_URL, review)
+      .post(API_QUICK_REVIEW_URL, review)
       .then(res => {
         this.props.history.push(THANKYOU_URL, {
           orgType: organization.category
@@ -140,44 +85,23 @@ class Review extends Component {
   };
 
   render() {
-    console.log("user", this.state.user);
-    const { isLoading } = this.state;
-    if (isLoading) return <p>loading...</p>;
-    // const { name, category } = this.state.organization;
-
     const initialValues = {
-      questions: initQueestionsValues[this.state.organization.category],
-      comments: initQueestionsValues[this.state.organization.category],
-      // checklist: [],
       review: {
-        workPeriod: {
-          from: "2019-01-01",
-          to: "2019-03-31"
-        },
+        workPeriod: "",
         rate: 3,
         overallReview: "",
         voiceReview: ""
       },
-      hasAgreed: false,
-      worksiteImage: ""
+      hasAgreed: false
     };
 
     if (!this.state && !this.state.groups[0]) {
       return null;
     }
     const {
-      groups,
-      agencies,
-      payrolls,
       organization: { name, category }
     } = this.state;
 
-    let dropdownOptions;
-    if (category === "agency") {
-      dropdownOptions = agencies;
-    } else if (category === "payroll") {
-      dropdownOptions = payrolls;
-    }
     return (
       <ReviewWrapper>
         <Header orgType={category}>
@@ -189,17 +113,18 @@ class Review extends Component {
               <Paragraph>You're reviewing:</Paragraph>
               <OrgName>{name}</OrgName>
               <ReviewTime>
-                18 questions <img src={clockLong} alt="" /> 2 mins
+                1 question <img src={clockShort} alt="" /> 30 sec
               </ReviewTime>
             </Organization>
           </Content>
         </Header>
+
         <section>
           <Formik
             initialValues={initialValues}
             onSubmit={this.handleSubmit}
             validationSchema={
-              validationSchema[this.state.organization.category]
+              validationSchemaShort[this.state.organization.category]
             }
           >
             {({
@@ -209,40 +134,12 @@ class Review extends Component {
               errors,
               setFieldValue
             }) => {
-              console.log("values", values);
               return (
                 <FormWrapper>
                   <Form>
                     <div>
                       {/* a placeholder to be edited with new picker */}
                       <p>Select the month(s) you used this agency?</p>
-                    </div>
-                    <div>
-                      {groups.map(group => {
-                        if (group.group && group.group.text) {
-                          return (
-                            <div key={group._id}>
-                              <h2>{group.group.text}</h2>
-                              {group.questions.map(question => {
-                                return (
-                                  <Question
-                                    key={question._id}
-                                    values={values}
-                                    handleChagne={handleChange}
-                                    question={question}
-                                    errors={errors}
-                                    setFieldValue={setFieldValue}
-                                    agencies={agencies}
-                                    payrolls={payrolls}
-                                    dropdownOptions={dropdownOptions}
-                                  />
-                                );
-                              })}
-                            </div>
-                          );
-                        }
-                        return null;
-                      })}
                     </div>
                     <div className="questions">
                       <Question
@@ -265,20 +162,15 @@ class Review extends Component {
                         category={this.state.organization.category}
                       />
                     </div>
+
                     <UserAgreement>
                       <Level2Header>Submit your review</Level2Header>
                       <CheckboxWrapper>
                         <Field name={`hasAgreed`} id="agreement">
                           {({ field, form }) => (
-                            <Checkbox
-                              {...field}
-                              // {...form}
-                              id="agreement"
-                              style={{ marginTop: "4px" }}
-                            />
+                            <Checkbox {...field} {...form} id="agreement" />
                           )}
                         </Field>
-
                         <AgreementLabel htmlFor="agreement">
                           I agree to the earwig Terms of Use. This review of my
                           experience with this current or former agency is

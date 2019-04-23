@@ -20,7 +20,7 @@ describe("Test User schema", () => {
 
   test("should Organization schema get data correctly", async () => {
     const organizations = await Organization.find();
-    expect(organizations).toHaveLength(8);
+    expect(organizations).toHaveLength(9);
 
     const companies = await Organization.find({ category: "company" });
     expect(companies).toHaveLength(2);
