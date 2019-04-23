@@ -1,10 +1,16 @@
 const mongoose = require("mongoose");
 const Organization = require("./../../models/Organization");
 const Answer = require("./../../models/Answer");
+const Review = require("./../../models/Review");
 const Comment = require("./../../models/Comment");
 const getAllReviews = require("./allReviews");
 
 module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
+
+module.exports.deleteReview = id => Review.deleteOne({ _id: id });
+
+module.exports.findById = id => Review.findById(id);
+
 
 module.exports.getAllReviews = getAllReviews;
 

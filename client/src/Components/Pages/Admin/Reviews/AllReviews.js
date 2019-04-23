@@ -14,14 +14,14 @@ export default class AllReviews extends Component {
 
   showDeleteConfirm = id => {
     Modal.confirm({
-      title: "Are you sure delete this review?",
+      title: "Are you sure you want to delete this review?",
       okText: "Yes",
       okType: "danger",
       cancelText: "Cancel",
       onOk: () => {
         return new Promise((resolve, reject) => {
           axios
-            .delete(`/api/admin/review`, {
+            .delete(`/api/admin/reviews`, {
               data: { id }
             })
             .then(() => {
@@ -29,10 +29,11 @@ export default class AllReviews extends Component {
               this.fetchData();
               resolve();
             })
-            .catch(() => {
-              message.error("Something went wronge!");
+            .catch(err => {
+              const error =
+                err.response && err.response.data && err.response.data.error;
+              message.error(error || "Something went wrong");
               this.fetchData();
-              resolve();
             });
         });
       }
@@ -51,10 +52,12 @@ export default class AllReviews extends Component {
       .get(`/api/admin/reviews${query}`)
       .then(res => {
         this.setState({ data: res.data });
-        console.log(res.data);
       })
       .catch(err => {
-        console.log(err);
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        message.error(error || "Something went wrong");
+        this.fetchData();
       });
   };
 
