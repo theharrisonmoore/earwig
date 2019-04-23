@@ -1,7 +1,11 @@
 import React, { Component } from "react";
-import { Bar } from "react-chartjs-2";
+import { Chart, Bar } from "react-chartjs-2";
+import "chartjs-plugin-datalabels";
 
 import { organizations } from "../../../../theme";
+
+// Globally disable datalabels
+Chart.defaults.global.plugins.datalabels.display = false;
 
 export default class BarChartAnswer extends Component {
   // createLabels = answers => {
@@ -53,14 +57,11 @@ export default class BarChartAnswer extends Component {
         yAxes: [
           {
             ticks: {
-              min: 0,
-              max: 100,
-              callback: function(value) {
-                return value + "%";
-              }
+              display: false
             },
-            scaleLabel: {
-              display: true
+            gridLines: {
+              display: false,
+              drawBorder: false
             }
           }
         ],
@@ -79,7 +80,23 @@ export default class BarChartAnswer extends Component {
       datasets: [
         {
           backgroundColor: organizations[`${category}`].primary,
-          data: Object.values(labelObject)
+          data: Object.values(labelObject),
+          datalabels: {
+            display: true,
+            color: "white",
+            anchor: "end",
+            clamp: true,
+            align: "bottom",
+            clip: true,
+            formatter: value => {
+              return value + "%";
+            },
+            font: {
+              weight: "900",
+              size: "16",
+              family: "roboto"
+            }
+          }
         }
       ]
     };
