@@ -16,6 +16,7 @@ const signupController = require("./../controllers/signup");
 const editProfile = require("./../controllers/editProfile");
 const postTradesController = require("../controllers/addTrade");
 const userInfoController = require("../controllers/userInfo");
+const confirmJoiningEmailList = require("../controllers/confirmJoiningEmailList");
 
 const authentication = require("./../middlewares/authentication");
 const authorization = require("./../middlewares/authorization");
@@ -102,10 +103,15 @@ router.post(
 );
 
 router.use(
+  "/confirm-email",
+  validation("confirmEmail"),
+  confirmJoiningEmailList,
+);
+
+router.use(
   "/admin",
   authentication,
   authorization("ADMIN"),
   adminRouter,
 );
-
 module.exports = router;

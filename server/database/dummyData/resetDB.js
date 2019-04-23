@@ -6,6 +6,7 @@ const Job = require("./../models/Job");
 const Organization = require("./../models/Organization");
 const Question = require("./../models/Question");
 const Review = require("./../models/Review");
+const MailList = require("./../models/MailList");
 
 
 const resetDB = async () => {
@@ -16,6 +17,7 @@ const resetDB = async () => {
   await Job.deleteMany();
   await Organization.deleteMany();
   await Question.deleteMany();
+  await MailList.deleteMany();
   return Review.deleteMany();
 };
 

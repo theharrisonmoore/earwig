@@ -21,6 +21,7 @@ import QuickReview from "./Pages/QuickReview";
 import Profile from "./Pages/Profile";
 import Admin from "./Pages/Admin";
 import Search from "./Pages/Search";
+import JoinMailList from "./Pages/JoinMailList";
 import AddProfileSelection from "./Pages/Search/AddProfileSelection";
 import AddProfileStartReview from "./Pages/Search/AddProfileReviewStart";
 
@@ -180,6 +181,18 @@ export default function index(props) {
           path={EDIT_PROFILE_URL}
           render={linkProps => (
             <EditProfile
+              {...props}
+              handleChangeState={handleChangeState}
+              {...linkProps}
+            />
+          )}
+        />
+
+        <Route
+          exact
+          path={"/confirm-email/:id"}
+          render={linkProps => (
+            <JoinMailList
               {...props}
               handleChangeState={handleChangeState}
               {...linkProps}
