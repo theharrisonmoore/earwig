@@ -26,23 +26,15 @@ export default class AddProfileSelection extends Component {
   addOrganisation = (orgName, orgCategory) => {
     const newOrg = { name: orgName, category: orgCategory, active: false };
 
-    axios
-      .post(API_ADD_ORGANIZATION_URL, newOrg)
-      .then(result => {
-        Swal.fire({
-          type: "success",
-          title: `Thanks! Be the first to review ${newOrg.name}`
-        });
-      })
-      .catch(err => {
-        Swal.fire({
-          type: "error",
-          title: "Oops. Organisation seems to already exist. Please try again.",
-          text: err
-        }).then(() => {
-          this.props.history.push("/search");
-        });
+    axios.post(API_ADD_ORGANIZATION_URL, newOrg).catch(err => {
+      Swal.fire({
+        type: "error",
+        title: "Oops. Organisation seems to already exist. Please try again.",
+        text: err
+      }).then(() => {
+        this.props.history.push("/search");
       });
+    });
   };
 
   render() {
