@@ -86,6 +86,7 @@ class Review extends Component {
         }
       })
       .then(res => {
+        console.log(res.data);
         this.setState({
           groups: res.data,
           isLoading: false,
@@ -215,6 +216,7 @@ class Review extends Component {
               errors,
               setFieldValue
             }) => {
+              // console.log(values);
               return (
                 <FormWrapper>
                   <Form>

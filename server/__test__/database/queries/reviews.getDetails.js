@@ -19,7 +19,7 @@ describe("Test get review details query", () => {
     getReviewDetails(review._id).then((result) => {
       expect(result).toBeDefined();
       expect(result.length).toBeDefined();
-      expect(result[0].answer).toBeDefined();
+
       done();
     });
   });

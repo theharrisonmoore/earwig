@@ -16,7 +16,7 @@ module.exports = reviewID => new Promise((resolve, reject) => {
         as: "question",
       },
     },
-    // inser comment info
+    // // inser comment info
     {
       $lookup: {
         from: "comments",
@@ -26,15 +26,28 @@ module.exports = reviewID => new Promise((resolve, reject) => {
       },
     },
     {
-      $project: {
-        question: {
-          _id: 1,
-          text: 1,
-          hintText: 1,
-          type: 1,
+      $group: {
+        _id: {
+          $arrayElemAt: ["$question.group.name", 0],
         },
-        answer: 1,
-        comment: 1,
+        answers: { $push: "$$CURRENT" },
+        group: {
+          $push: {
+            $arrayElemAt: ["$question.group", 0],
+          },
+        },
+      },
+    },
+    {
+      $addFields: {
+        group: {
+          $arrayElemAt: ["$group", 0],
+        },
+      },
+    },
+    {
+      $sort: {
+        "group.groupOrder": 1,
       },
     },
   ])

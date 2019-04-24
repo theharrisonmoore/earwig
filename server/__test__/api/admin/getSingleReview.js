@@ -42,7 +42,7 @@ describe("Tesing for get single review route", () => {
             expect(res.body).toBeDefined();
             expect(res.body[0]).toBeDefined();
             expect(res.body[0]._id).toBeDefined();
-            expect(typeof res.body[0].answer).toBe("string");
+
             done(err);
           });
       });
