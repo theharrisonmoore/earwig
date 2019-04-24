@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import Icon from "./../Icon/Icon";
 
 import { colors, shadows } from "./../../../theme";
 
@@ -44,4 +45,8 @@ export const MenuItem = styled(NavLink)`
     color: ${colors.green};
     text-decoration: none;
   }
+`;
+
+export const MenuIcon = styled(Icon)`
+  margin-right: 1rem;
 `;
