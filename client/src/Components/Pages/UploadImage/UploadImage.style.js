@@ -5,9 +5,9 @@ import { colors, shadows } from "./../../../theme";
 export const UploadImageWrapper = styled.div`
   width: 100%;
   max-width: 40rem;
-  margin: 1rem auto;
+  margin: 0 auto;
   padding: 0 1rem;
-  padding-top: 2rem;
+  padding-top: 6rem;
 `;
 
 export const ContentWrapper = styled.div`
