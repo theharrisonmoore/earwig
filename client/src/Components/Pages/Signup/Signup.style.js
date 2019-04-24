@@ -5,7 +5,7 @@ import { colors } from "../../../theme";
 
 export const SignupWrapper = styled.div.attrs({ className: "login" })`
   width: 100%;
-  max-width: 60rem;
+  max-width: 30rem;
   margin: 0 auto;
   padding: 1rem 1.5rem;
   padding-top: 4rem;
