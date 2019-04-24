@@ -18,6 +18,7 @@ import ScatterAnswer from "./ProfileAnswers/ScatterAnswer";
 import SiteItemAnswer from "./ProfileAnswers/SiteItemAnswer";
 import CanteenItemAnswer from "./ProfileAnswers/CanteenItemAnswer";
 import BarChartAnswer from "./ProfileAnswers/BarChartAnswer";
+import PayrollAnswer from "./ProfileAnswers/PayrollAnswer";
 
 export default class ReviewSection extends Component {
   render() {
@@ -32,6 +33,17 @@ export default class ReviewSection extends Component {
 
     if (!canteenQuestions || canteenQuestions.length < 1)
       canteenQuestions = false;
+
+    let payrollQuestions =
+      questions &&
+      questions.filter(question =>
+        ["payrollList", "payrollSubList"].includes(
+          question.question.profileType
+        )
+      );
+
+    if (!payrollQuestions || payrollQuestions.length < 1)
+      payrollQuestions = false;
 
     return (
       // Question - Title, AggregatedAnswer, Comment Box
@@ -109,10 +121,20 @@ export default class ReviewSection extends Component {
             />
           </QuestionWrapper>
         )}
+        {/* PAYROLL LIST */}
+        {payrollQuestions && (
+          <QuestionWrapper>
+            <QuestionTitle>Pays using the following payrolls</QuestionTitle>
+            <PayrollAnswer
+              questions={payrollQuestions}
+              toggleComments={toggleComments}
+            />
+          </QuestionWrapper>
+        )}
         {questions &&
           questions
             .filter(question =>
-              ["list", "payrollList"].includes(question.question.profileType)
+              ["list"].includes(question.question.profileType)
             )
             .map((question, index) => (
               <QuestionWrapper key={index}>

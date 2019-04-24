@@ -102,7 +102,7 @@ module.exports = async () => {
     },
     {
       question: agencyQuestions[14],
-      answer: "PAYROLL NAME",
+      answer: payrolls[0].name,
       user: users[0],
       review: reviews[0],
       organization: reviews[0].organization,
@@ -811,4 +811,3 @@ module.exports = async () => {
 
   return Answer.create(answers);
 };
-

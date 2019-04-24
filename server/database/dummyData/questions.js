@@ -46,19 +46,14 @@ module.exports = async () => {
     {
       number: 1,
       type: "yesno",
-      text:
-        "Did they send you written confirmation of the terms and conditions of employment?",
+      text: "Did they send you written confirmation of the terms and conditions of employment?",
       hintText:
         "i.e., details of pay, overtime, mileage/travel allowance, lodging provision, holiday entitlement, disciplinary procedures, benefits, etc.",
       isJumping: true,
-      jumpTo: [
-        { value: "yes", nextQuestion: 2 },
-        { value: "no", nextQuestion: 3 },
-      ],
+      jumpTo: [{ value: "yes", nextQuestion: 2 }, { value: "no", nextQuestion: 3 }],
       options: ["yes", "no"],
       category: "agency",
-      profileText:
-        "Sends you written confirmation of terms and conditions of employment",
+      profileText: "Sends you written confirmation of terms and conditions of employment",
       profileSection: "Detailed ratings",
       profileType: "yesno",
       group: {
@@ -91,12 +86,7 @@ module.exports = async () => {
       text:
         "Taking into account all the information you were given before starting work, such as pay, hours, type of work and length of job, how accurate was the description you were given about the job overall?",
       isJumping: false,
-      options: [
-        "Totally inaccurate",
-        "Not very accurate",
-        "Mostly accurate",
-        "Fully accurate",
-      ],
+      options: ["Totally inaccurate", "Not very accurate", "Mostly accurate", "Fully accurate"],
       category: "agency",
       profileText: "Accuracy of job descriptions given to you overall",
       profileSection: "Detailed ratings",
@@ -162,8 +152,7 @@ module.exports = async () => {
     {
       number: 7,
       type: "yesno",
-      text:
-        "Did they give you correct information about the length of the job?",
+      text: "Did they give you correct information about the length of the job?",
       isJumping: false,
       options: ["yes", "no"],
       category: "agency",
@@ -199,10 +188,7 @@ module.exports = async () => {
       type: "yesno",
       text: "Were you paid via a payroll/umbrella?",
       isJumping: true,
-      jumpTo: [
-        { value: "yes", nextQuestion: 15 },
-        { value: "no", nextQuestion: 10 },
-      ],
+      jumpTo: [{ value: "yes", nextQuestion: 15 }, { value: "no", nextQuestion: 10 }],
       options: ["yes", "no"],
       category: "agency",
       group: {
@@ -292,6 +278,9 @@ module.exports = async () => {
       ],
       options: ["yes", "no", "I didn't check"],
       category: "agency",
+      profileText: "Payslips show all the information you need",
+      profileSection: "Detailed ratings",
+      profileType: "yesno",
       group: {
         groupOrder: 1,
         name: "wages",
@@ -324,6 +313,7 @@ module.exports = async () => {
       label: "per timesheet",
       isJumping: false,
       category: "agency",
+      profileSection: "Key ratings",
       profileType: "payrollSubList",
       group: {
         groupOrder: 1,
@@ -335,8 +325,7 @@ module.exports = async () => {
     {
       number: 17,
       type: "yesno",
-      text:
-        "Were you always treated fairly by this agency over any payment issues?",
+      text: "Were you always treated fairly by this agency over any payment issues?",
       isJumping: false,
       options: ["yes", "no", "no issues"],
       category: "agency",
@@ -373,19 +362,14 @@ module.exports = async () => {
     {
       number: 1,
       type: "yesno",
-      text:
-        "Did they send you written confirmation of the terms and conditions of employment?",
+      text: "Did they send you written confirmation of the terms and conditions of employment?",
       hintText:
         "i.e., details of pay, overtime, mileage/travel allowance, lodging provision, holiday entitlement, disciplinary procedures, benefits, etc.",
       isJumping: true,
-      jumpTo: [
-        { value: "yes", nextQuestion: 2 },
-        { value: "no", nextQuestion: 3 },
-      ],
+      jumpTo: [{ value: "yes", nextQuestion: 2 }, { value: "no", nextQuestion: 3 }],
       options: ["yes", "no"],
       category: "payroll",
-      profileText:
-        "Sends you written confirmation of terms and conditions of employment",
+      profileText: "Sends you written confirmation of terms and conditions of employment",
       profileSection: "Detailed ratings",
       profileType: "yesno",
       group: {
@@ -532,8 +516,7 @@ module.exports = async () => {
     {
       number: 10,
       type: "radio",
-      text:
-        "Were you always treated fairly by this payroll over any payment issues?",
+      text: "Were you always treated fairly by this payroll over any payment issues?",
       isJumping: false,
       options: ["yes", "no", "no issues"],
       category: "payroll",
@@ -641,8 +624,7 @@ module.exports = async () => {
     {
       number: 4,
       type: "radio",
-      text:
-        "At the site, were you offered secure storage for your personal belongings?",
+      text: "At the site, were you offered secure storage for your personal belongings?",
       hintText: "E.g., Lockers, cloak room, etc.",
       isJumping: false,
       options: ["yes", "no"],
@@ -661,8 +643,7 @@ module.exports = async () => {
     {
       number: 5,
       type: "yesno",
-      text:
-        "Did you have to use fingerprint scanners or eye recognition to access the site?",
+      text: "Did you have to use fingerprint scanners or eye recognition to access the site?",
       isJumping: false,
       options: ["yes", "no"],
       category: "worksite",
@@ -847,8 +828,7 @@ module.exports = async () => {
     {
       number: 15,
       type: "radio",
-      text:
-        "Were there shops to buy hot food within 10 minutes walk of this site?",
+      text: "Were there shops to buy hot food within 10 minutes walk of this site?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "worksite",
@@ -882,8 +862,7 @@ module.exports = async () => {
     {
       number: 17,
       type: "open",
-      text:
-        "Is there a good shop or café near site that you would recommend to other workers?",
+      text: "Is there a good shop or café near site that you would recommend to other workers?",
       label: "Good shop or café",
       isJumping: false,
       category: "worksite",
@@ -976,8 +955,7 @@ module.exports = async () => {
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "company",
-      profileText:
-        "Offers secure storage for your tools overnight when you need it",
+      profileText: "Offers secure storage for your tools overnight when you need it",
       profileSection: "Tools & materials",
       profileType: "yesno",
       group: {
@@ -990,13 +968,11 @@ module.exports = async () => {
     {
       number: 5,
       type: "yesno",
-      text:
-        "Did the supervisor share all the information you needed to do a good job?",
+      text: "Did the supervisor share all the information you needed to do a good job?",
       isJumping: false,
       options: ["yes", "no", "i didn't check"],
       category: "company",
-      profileText:
-        "Supervisors share all the information you need to do a good job",
+      profileText: "Supervisors share all the information you need to do a good job",
       profileSection: "Supervisors & employees",
       profileType: "yesno",
       group: {
@@ -1077,4 +1053,3 @@ module.exports = async () => {
   ];
   return Question.create(questions);
 };
-

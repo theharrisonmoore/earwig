@@ -43,8 +43,6 @@ export default class BarChartAnswer extends Component {
   render() {
     const { category, question } = this.props;
 
-    console.log("Q", question);
-
     this.createDataObj(question);
 
     const labelObject = this.createDataObj(question);
