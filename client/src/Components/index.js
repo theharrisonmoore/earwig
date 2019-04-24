@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import {
   SIGNUP_URL,
@@ -15,8 +15,6 @@ import Signup from "./Pages/Signup";
 import Thankyou from "./Pages/ThankYou";
 import EditProfile from "./Pages/EditProfile";
 import Review from "./Pages/Review";
-import StaticPages from "./Pages/Static";
-import Navbar from "./Common/Navbar";
 import QuickReview from "./Pages/QuickReview";
 import Profile from "./Pages/Profile";
 import Admin from "./Pages/Admin";
@@ -24,6 +22,13 @@ import Search from "./Pages/Search";
 import JoinMailList from "./Pages/JoinMailList";
 import AddProfileSelection from "./Pages/Search/AddProfileSelection";
 import AddProfileStartReview from "./Pages/Search/AddProfileReviewStart";
+import PrivateRoute from "./Common/PrivateRoute";
+import {
+  FAQ,
+  HelpfulStuff,
+  ShapeEarwig,
+  PrivacyAndTerms
+} from "./Pages/Static";
 
 import {
   RESOURCES_URL,
@@ -44,171 +49,177 @@ export default function index(props) {
   return (
     <>
       <Switch>
-        <Route
+        <PrivateRoute
+          minimumLevel="LEVEL3"
           exact
           path={QUICK_REVIEW_URL}
-          render={linkProps => (
-            <QuickReview
-              {...props}
-              {...linkProps}
-              handleChangeState={handleChangeState}
-            />
-          )}
+          {...props}
+          Component={QuickReview}
         />
-        <Route
+        <PrivateRoute
           exact
+          minimumLevel="LEVEL3"
           path={REVIEW_URL}
-          render={linkProps => (
-            <Review
-              {...props}
-              {...linkProps}
-              handleChangeState={handleChangeState}
-            />
-          )}
+          {...props}
+          Component={Review}
+        />
+        <PrivateRoute
+          exact
+          minimumLevel="LEVEL3"
+          path={THANKYOU_URL}
+          {...props}
+          Component={Thankyou}
+        />
+        <PrivateRoute
+          exact
+          minimumLevel="LEVEL1"
+          path={UPLOAD_VERIFICATION_URL}
+          {...props}
+          Component={UploadImage}
+          navbar
+        />
+
+        <PrivateRoute
+          exact
+          minimumLevel="LEVEL1"
+          path="/profile/:profileID"
+          isTablet={isTablet}
+          isMobile={isMobile}
+          {...props}
+          Component={Profile}
+          navbar
+          search
+        />
+        <PrivateRoute
+          minimumLevel="ADMIN"
+          path={ADMIN}
+          {...props}
+          Component={Admin}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={SEARCH_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={Search}
+          navbar
+        />
+        <PrivateRoute
+          minimumLevel="LEVEL3"
+          path={ADD_PROFILE_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={AddProfileSelection}
+          navbar
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL3"
+          path={ADD_PROFILE_START_REVIEW_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={AddProfileStartReview}
+          navbar
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL3"
+          path={EDIT_PROFILE_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={EditProfile}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={"/confirm-email/:id"}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={JoinMailList}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={FAQ_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={FAQ}
+          navbar
+          title="FAQ & explainer videos"
+          search
+        />
+        <PrivateRoute
+          minimumLevel="LEVEL3"
+          path={RESOURCES_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={HelpfulStuff}
+          navbar
+          title="More helpful stuff for workers"
+          search
+        />
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={CONTACT_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={ShapeEarwig}
+          navbar
+          title="Shape earwig"
+          search
+        />
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={PRIVACY_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={PrivacyAndTerms}
+          navbar
+          title="Shape earwig"
+          search
         />
         <Route
           exact
           path={SIGNUP_URL}
-          render={linkProps => (
-            <Signup
-              {...props}
-              {...linkProps}
-              handleChangeState={handleChangeState}
-            />
-          )}
-        />
-        {/* orgType required as state in Link for this */}
-        <Route path={THANKYOU_URL} {...props} component={Thankyou} />
-        <Route
-          exact
-          path={LOGIN_URL}
-          render={linkProps => (
-            <Login
-              {...props}
-              {...linkProps}
-              handleChangeState={handleChangeState}
-            />
-          )}
-        />
-        <Route
-          exact
-          path={UPLOAD_VERIFICATION_URL}
-          render={linkProps => (
-            <UploadImage
-              {...props}
-              {...linkProps}
-              handleChangeState={handleChangeState}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/profile/:profileID"
-          render={linkProps => (
-            <>
-              <Navbar
-                {...props}
-                {...linkProps}
-                isMobile={isMobile}
-                search
-                isLoggedIn={isLoggedIn}
-              />
-              <Profile
-                {...props}
-                {...linkProps}
-                handleChangeState={handleChangeState}
-                isTablet={isTablet}
-                isMobile={isMobile}
-                isLoggedIn={isLoggedIn}
-              />
-            </>
-          )}
-        />
-        {isAdmin && (
-          <Route
-            path={ADMIN}
-            render={linkProps =>
-              isAdmin && (
-                <Admin
-                  {...props}
-                  {...linkProps}
-                  handleChangeState={handleChangeState}
-                />
-              )
-            }
-          />
-        )}
-        {[FAQ_URL, RESOURCES_URL, CONTACT_URL, PRIVACY_URL].map(route => (
-          <Route
-            key={route}
-            exact
-            path={route}
-            render={linkProps => (
-              <StaticPages
+          render={linkProps =>
+            !isLoggedIn ? (
+              <Signup
                 {...props}
                 {...linkProps}
                 handleChangeState={handleChangeState}
               />
-            )}
-          />
-        ))}
-        <Route
-          path={SEARCH_URL}
-          render={linkProps => (
-            <Search
-              {...props}
-              {...linkProps}
-              isMobile={isMobile}
-              isTablet={isTablet}
-              handleChangeState={handleChangeState}
-            />
-          )}
-        />
-        <Route
-          path={ADD_PROFILE_URL}
-          render={linkProps => (
-            <AddProfileSelection
-              {...props}
-              {...linkProps}
-              handleChangeState={handleChangeState}
-            />
-          )}
-        />
-        <Route
-          path={ADD_PROFILE_START_REVIEW_URL}
-          render={linkProps => (
-            <AddProfileStartReview
-              {...props}
-              {...linkProps}
-              isTablet={isTablet}
-              isMobile={isMobile}
-              handleChangeState={handleChangeState}
-            />
-          )}
-        />
-        <Route
-          exact
-          path={EDIT_PROFILE_URL}
-          render={linkProps => (
-            <EditProfile
-              {...props}
-              handleChangeState={handleChangeState}
-              {...linkProps}
-            />
-          )}
+            ) : (
+              <Redirect to={isAdmin ? "/admin" : "/search"} />
+            )
+          }
         />
 
         <Route
           exact
-          path={"/confirm-email/:id"}
-          render={linkProps => (
-            <JoinMailList
-              {...props}
-              handleChangeState={handleChangeState}
-              {...linkProps}
-            />
-          )}
+          path={LOGIN_URL}
+          render={linkProps =>
+            !isLoggedIn ? (
+              <Login
+                {...props}
+                {...linkProps}
+                handleChangeState={handleChangeState}
+              />
+            ) : (
+              <Redirect to={isAdmin ? "/admin" : "/search"} />
+            )
+          }
         />
+
         {/* 404 Error Page -need to be created */}
         <Route component={PageNotFound} />
       </Switch>

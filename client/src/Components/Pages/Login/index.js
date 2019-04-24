@@ -44,7 +44,8 @@ export default class Login extends Component {
       .post("/api/login", values)
       .then(({ data }) => {
         this.props.handleChangeState({ ...data, isLoggedIn: true });
-        this.props.history.push(`/search`);
+        const { isAdmin } = data;
+        this.props.history.push(isAdmin ? "/admin" : "/search");
       })
       .catch(err => {
         this.setState({ error: err.response.data.error });

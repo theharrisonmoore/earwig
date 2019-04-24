@@ -101,6 +101,7 @@ export const SearchWrapper = styled.div`
   flex-direction: column;
   height: 100%;
   padding: 0;
+  padding-top: 4rem;
   margin: 0;
   align-items: center;
   li {
@@ -305,4 +306,5 @@ export const AddWrapper = styled.div`
   padding: 0;
   margin: 0;
   align-items: center;
+  padding-top: 4rem;
 `;
