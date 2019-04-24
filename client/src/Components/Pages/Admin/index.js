@@ -4,12 +4,20 @@ import { Route, Switch } from "react-router-dom";
 import SideMenu from "./SideMenu";
 import Users from "./Users";
 import Reviews from "./Reviews";
+// import SingleReview from "./Single_Review";
 import Organizations from "./Organizations";
 import Trades from "./Trades";
 import { ContentWrapper, AdminWrapper } from "./Admin.style";
 
 import { routes } from "./../../../constants/adminRoutes";
-const { USERS, REVIEWS, ORGANIZATIONS, TRADES, DASHBOARD } = routes;
+const {
+  USERS,
+  REVIEWS,
+  ORGANIZATIONS,
+  TRADES,
+  DASHBOARD
+  // SINGLE_REVIEW
+} = routes;
 
 export default class Admin extends Component {
   state = {
@@ -33,6 +41,10 @@ export default class Admin extends Component {
             />
             <Route path={USERS} render={props => <Users {...props} />} />
             <Route path={REVIEWS} render={props => <Reviews {...props} />} />
+            {/* <Route
+              path={SINGLE_REVIEW}
+              render={props => <SingleReview {...props} />}
+            /> */}
             <Route
               exact
               path={TRADES}
