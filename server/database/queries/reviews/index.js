@@ -4,6 +4,7 @@ const Answer = require("./../../models/Answer");
 const Review = require("./../../models/Review");
 const Comment = require("./../../models/Comment");
 const getAllReviews = require("./allReviews");
+const getReviewDetails = require("./getReviewDetails");
 
 module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
 
@@ -11,8 +12,9 @@ module.exports.deleteReview = id => Review.deleteOne({ _id: id });
 
 module.exports.findById = id => Review.findById(id);
 
-
 module.exports.getAllReviews = getAllReviews;
+
+module.exports.getReviewDetails = getReviewDetails;
 
 module.exports.overallReview = organizationID => new Promise((resolve, reject) => {
   Organization.aggregate([
