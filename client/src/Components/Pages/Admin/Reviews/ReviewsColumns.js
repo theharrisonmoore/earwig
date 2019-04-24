@@ -36,7 +36,6 @@ export default ({ deletHandler, viewHandler }) => {
       title: "Action",
       key: "action",
       render: (text, record) => {
-        console.log(record.organization.category);
         return (
           <div>
             <div

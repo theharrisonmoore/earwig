@@ -389,7 +389,7 @@ class QuestionOptions extends React.Component {
   }
 }
 
-const RadioButton = ({
+export const RadioButton = ({
   field: { name, value, onChange, onBlur },
   id,
   label,
