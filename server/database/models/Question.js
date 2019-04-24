@@ -6,6 +6,8 @@ const { Schema } = mongoose;
 
 const questionSchema = new Schema({
   number: Number,
+  next: Schema.Types.Mixed,
+  isDependent: Boolean,
   type: String,
   text: String,
   hintText: String,
