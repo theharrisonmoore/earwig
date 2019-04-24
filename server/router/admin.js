@@ -8,60 +8,31 @@ const verifyUser = require("./../controllers/admin/verifyUser");
 const rejectUser = require("./../controllers/admin/rejectUser");
 const getReviews = require("./../controllers/admin/getReviews");
 const deleteReview = require("./../controllers/admin/deleteReview");
+const getSingleReview = require("./../controllers/admin/getSingleReview");
 const getOrganizations = require("./../controllers/admin/getOrganizations");
 const activateOrganization = require("./../controllers/admin/activateOrganization");
 
 const { getAllTrades, deleteTradeController } = require("../controllers/admin/trades");
 
-router.get(
-  "/users",
-  getAllUsers,
-);
+router.get("/users", getAllUsers);
 
-router.delete(
-  "/users",
-  validation("onlyMongoId"),
-  deleteUser,
-);
+router.delete("/users", validation("onlyMongoId"), deleteUser);
 
-router.get(
-  "/users/:id",
-  userInfo,
-);
+router.get("/users/:id", userInfo);
 
-router.patch(
-  "/users/verify",
-  validation("onlyMongoId"),
-  verifyUser,
-);
+router.patch("/users/verify", validation("onlyMongoId"), verifyUser);
 
-router.patch(
-  "/users/reject",
-  validation("onlyMongoId"),
-  rejectUser,
-);
+router.patch("/users/reject", validation("onlyMongoId"), rejectUser);
 
-router.get(
-  "/reviews",
-  getReviews,
-);
+router.get("/reviews", getReviews);
 
-router.delete(
-  "/reviews",
-  validation("onlyMongoId"),
-  deleteReview,
-);
+router.get("/single-review/:reviewID", getSingleReview);
 
-router.get(
-  "/organizations/:category",
-  getOrganizations,
-);
+router.delete("/reviews", validation("onlyMongoId"), deleteReview);
 
-router.patch(
-  "/organizations",
-  validation("activateOrganization"),
-  activateOrganization,
-);
+router.get("/organizations/:category", getOrganizations);
+
+router.patch("/organizations", validation("activateOrganization"), activateOrganization);
 
 router.get("/trades", getAllTrades);
 

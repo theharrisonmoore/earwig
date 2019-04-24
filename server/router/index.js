@@ -6,6 +6,7 @@ const {
   getOrgsByType,
   getAgencesAndPayrollsNames,
   postReviewShort,
+  getSingleReviewAnswers,
 } = require("../controllers/review");
 
 const adminRouter = require("./admin");
@@ -86,11 +87,7 @@ router.post(
   uploadWorksiteController,
 );
 
-router.get(
-  "/trades", authentication,
-  authorization("LEVEL1"),
-  getTradesController,
-);
+router.get("/trades", authentication, authorization("LEVEL1"), getTradesController);
 
 router.post(
   "/trades",
