@@ -19,7 +19,7 @@ export default class Intro extends Component {
             frameBorder="0"
           />
           <Link to={SEARCH_URL}>
-            <Button>Hello</Button>
+            <Button>Skip</Button>
           </Link>
         </VideoContainer>
       </IntroWrapper>

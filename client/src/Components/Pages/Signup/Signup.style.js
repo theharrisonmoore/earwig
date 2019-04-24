@@ -19,7 +19,7 @@ export const SignupWrapper = styled.div.attrs({ className: "login" })`
 
 export const StyledLink = styled(Link).attrs({})`
   display: block;
-  text-decoration: none;
+  text-decoration: underline;
   margin-bottom: 3rem;
   font-size: 1.125rem;
   color: ${colors.profileFontColor};
@@ -27,8 +27,8 @@ export const StyledLink = styled(Link).attrs({})`
 
   &:hover,
   &:active {
-    text-decoration: none;
     color: ${colors.profileFontColor};
+    text-decoration: underline;
   }
 `;
 

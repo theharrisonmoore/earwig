@@ -1,6 +1,7 @@
 // Render Prop
 import React, { Component } from "react";
 import * as Yup from "yup";
+import { Checkbox as AntCheckbox } from "antd";
 
 import {
   StyledFormik as Formik,
@@ -61,6 +62,10 @@ const initialValues = {
   rePassword: "",
   checkbox: false
 };
+
+const CustomCheckbox = ({ field, ...props }) => (
+  <AntCheckbox type="checkbox" {...field} {...props} />
+);
 
 export default class Signup extends Component {
   state = {
@@ -127,9 +132,14 @@ export default class Signup extends Component {
               </Label>
 
               <CheckboxWrapper>
-                <Checkbox id="checkbox" type="checkbox" name="checkbox" />
+                <Checkbox
+                  id="checkbox"
+                  type="checkbox"
+                  name="checkbox"
+                  component={CustomCheckbox}
+                />
                 <CheckboxLabel htmlFor="checkbox">
-                  I agree to the earwig{" "}
+                  I agree to the earwig
                   <LinkSpan to="T&C">Terms of Use.</LinkSpan>
                 </CheckboxLabel>
                 <FormikErrorMessage name="checkbox" component="div" />
