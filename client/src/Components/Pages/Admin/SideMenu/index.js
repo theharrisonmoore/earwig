@@ -111,7 +111,7 @@ export default class SideMenu extends Component {
           )}
           <Menu.Item style={{ textAlign: "left" }} onClick={handleLogout}>
             <Icon type="logout" />
-            <span>Logout</span>
+            <span>Log out</span>
           </Menu.Item>
         </Menu>
         <div id="watcher" style={{ height: "1px", widht: "100%" }} />
