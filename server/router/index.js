@@ -32,6 +32,8 @@ const profileController = require("./../controllers/profile");
 const commentsController = require("./../controllers/comments");
 const logoutController = require("./../controllers/logout");
 
+const addOrganizationController = require("../controllers/organizations");
+
 const {
   LOGIN_URL,
   GET_QUESTIONS_URL,
@@ -39,6 +41,7 @@ const {
   UPLOAD_WORKSITE_IMAGE_URL,
   SEARCH_URL,
   LOGOUT_URL,
+  ADD_ORGANIZATION_URL,
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
@@ -87,7 +90,11 @@ router.post(
   uploadWorksiteController,
 );
 
-router.get("/trades", authentication, authorization("LEVEL3"), getTradesController);
+router.get(
+  "/trades", authentication,
+  authorization("LEVEL1"),
+  getTradesController,
+);
 
 router.post(
   "/trades",
@@ -110,14 +117,17 @@ router.post(
   editProfile,
 );
 
+router.post(
+  "/add-organization",
+  // authentication,
+  // authorization("LEVEL3"),
+  // validation("addOrganization"),
+  addOrganizationController,
+);
+
+router.use("/confirm-email", validation("onlyMongoId"), confirmJoiningEmailList);
 
 router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
-
-router.use(
-  "/confirm-email",
-  validation("onlyMongoId"),
-  confirmJoiningEmailList,
-);
 
 
 module.exports = router;

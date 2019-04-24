@@ -64,7 +64,7 @@ export default class Menu extends PureComponent {
         </MenuItem>
         {isLoggedIn ? (
           <MenuItem to=" " onClick={handleLogout}>
-            <MenuIcon icon="logout" height="19" width="19"/>
+            <MenuIcon icon="logout" height="19" width="19" />
             Log out
           </MenuItem>
         ) : (

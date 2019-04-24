@@ -1,8 +1,11 @@
 const boom = require("boom");
 
 const {
-  getQuetionsByOrg, getOrganization, getQuestionsByOrgCategory,
-  postOrg, getOrgsNamesByType,
+  getQuetionsByOrg,
+  getOrganization,
+  getQuestionsByOrgCategory,
+  postOrg,
+  getOrgsNamesByType,
   getAgenciesAndPayrollsNames,
 } = require("../database/queries/review");
 const { findByEmail } = require("../database/queries/user");
@@ -57,7 +60,7 @@ const postReviewShort = async (req, res, next) => {
 };
 
 const postReview = async (req, res, next) => {
-  console.log("req.body=========================", req.body);
+  // console.log("req.body=========================", req.body);
   const {
     questions: questionsAnswers,
     review: {
@@ -88,28 +91,33 @@ const postReview = async (req, res, next) => {
 
     const currentReview = await newReview.save();
 
-    const reviewAnswers = Object.keys(questionsAnswers).sort((a, b) => a - b).map((qAnswer) => {
-      const answer = {
-        user: userData,
-        review: currentReview,
-        question: questions[qAnswer - 1],
-        answer: questionsAnswers[qAnswer],
-      };
-      return answer;
-    });
-
-    const commentsData = Object.keys(comments).sort((a, b) => a - b).map((c) => {
-      if (comments[c]) {
-        const comment = {
+    const reviewAnswers = Object.keys(questionsAnswers)
+      .sort((a, b) => a - b)
+      .map((qAnswer) => {
+        const answer = {
           user: userData,
-          organization: organizationData,
-          question: questions[c - 1],
-          text: comments[c],
+          review: currentReview,
+          question: questions[qAnswer - 1],
+          answer: questionsAnswers[qAnswer],
         };
-        return comment;
-      }
-      return null;
-    }).filter(value => value);
+        return answer;
+      });
+
+    const commentsData = Object.keys(comments)
+      .sort((a, b) => a - b)
+      .map((c) => {
+        if (comments[c]) {
+          const comment = {
+            user: userData,
+            organization: organizationData,
+            question: questions[c - 1],
+            text: comments[c],
+          };
+          return comment;
+        }
+        return null;
+      })
+      .filter(value => value);
 
     let allAnswers = [...reviewAnswers];
 
@@ -125,7 +133,8 @@ const postReview = async (req, res, next) => {
         allAnswers = [...allAnswers, imageAnswer];
       }
     }
-
+    console.log("answers", allAnswers);
+    console.log("review", currentReview);
     await Answer.insertMany(allAnswers);
     await Comment.insertMany(commentsData);
 
@@ -142,7 +151,6 @@ const addNewAgencyPayroll = async (req, res, next) => {
   await postOrg(category, name);
   res.send();
 };
-
 
 const getOrgsByType = async (req, res, next) => {
   const { category } = req.body;
