@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 import { SideMenuWrapper, StyledButton as Button } from "./SideMenu.style";
 
+import { handleLogout } from "./../../../../helpers";
+
 import { menuElements } from "../../../../constants/adminRoutes";
 
 const SubMenu = Menu.SubMenu;
@@ -107,6 +109,10 @@ export default class SideMenu extends Component {
               </Menu.Item>
             )
           )}
+          <Menu.Item style={{ textAlign: "left" }} onClick={handleLogout}>
+            <Icon type="logout" />
+            <span>Logout</span>
+          </Menu.Item>
         </Menu>
         <div id="watcher" style={{ height: "1px", widht: "100%" }} />
       </SideMenuWrapper>
