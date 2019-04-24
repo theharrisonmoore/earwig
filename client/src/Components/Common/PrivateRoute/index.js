@@ -1,7 +1,10 @@
 import React, { Fragment } from "react";
 import { Route, Redirect } from "react-router-dom";
+import { Spin } from "antd";
+
 import { authorization } from "./../../../helpers";
 import Navbar from "./../Navbar";
+import { Wrapper, SpinWrapper } from "./PrivateRoute.style";
 
 const PrivateRoute = ({
   isMounted,
@@ -14,22 +17,26 @@ const PrivateRoute = ({
   const isAuthorized = authorization({ ...rest });
 
   return isMounted ? (
-    <Route
-      path={path}
-      {...rest}
-      render={LinkProps =>
-        isAuthorized ? (
-          <>
-            {navbar && <Navbar {...LinkProps} {...rest} />}
-            <Component {...LinkProps} {...rest} />
-          </>
-        ) : (
-          <Redirect to="/login" />
-        )
-      }
-    />
+    <Wrapper>
+      <Route
+        path={path}
+        {...rest}
+        render={LinkProps =>
+          isAuthorized ? (
+            <>
+              {navbar && <Navbar {...LinkProps} {...rest} />}
+              <Component {...LinkProps} {...rest} />
+            </>
+          ) : (
+            <Redirect to="/login" />
+          )
+        }
+      />
+    </Wrapper>
   ) : (
-    <h1>spin</h1>
+    <SpinWrapper>
+      <Spin size="large" />
+    </SpinWrapper>
   );
 };
 
