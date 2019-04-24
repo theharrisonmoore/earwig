@@ -53,7 +53,7 @@ export default class Navbar extends Component {
   render() {
     const { title, isMobile, search, isLoggedIn, isAdmin } = this.props;
     const { menuOpen, isLoading, data } = this.state;
-    if (!isLoading) return <p data-testid="loading">loading...</p>;
+    if (!isLoading) return null;
 
     if (!isMobile) {
       return (

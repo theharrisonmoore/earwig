@@ -6,6 +6,7 @@ import ReviewSection from "./ReviewSection";
 import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
 import CommentsBox from "./ProfileAnswers/CommentsBox";
 import HeaderSection from "./HeaderSection";
+import Loading from "./../../Common/AntdComponents/Loading"
 
 import { ITEMS } from "./../../../constants/promoItems";
 import { SIGNUP_URL } from "./../../../constants/naviagationUrls";
@@ -127,9 +128,7 @@ export default class Profile extends Component {
 
     if (!loaded)
       return (
-        <Wrapper isMobile={isMobile}>
-          <h1>Loading...</h1>
-        </Wrapper>
+          <Loading />
       );
 
     const { category, name } = summary;
