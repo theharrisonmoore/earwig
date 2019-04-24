@@ -20,8 +20,21 @@ import {
   AgreementLabel
 } from "../../Review/Review.style";
 
-import Question from "../../Review/Question/index";
+import {
+  QuestionWrapper,
+  QuestionOptionsWrapper,
+  InputWrapper,
+  QText,
+  HintText,
+  Options,
+  CommentsIcon,
+  StyledErrorMessage,
+  Input as StyledInput
+} from "../../Review/Question/Question.style";
 
+import Question from "../../Review/Question/index";
+import agencyIcon from "../../../../assets/agency-icon.svg";
+import clockLong from "./../../../../assets/clock-long-icon.svg";
 import { initQueestionsValues } from "../../Review/initialQuestionsValues";
 
 const STATIC_QUESTIONS = [
@@ -80,12 +93,107 @@ export default class SingleReview extends Component {
     if (isLoading) {
       return <div>loading....</div>;
     }
-    console.log(this.state);
+    const initialValues = {
+      questions: initQueestionsValues[this.state.organization.category],
+      comments: initQueestionsValues[this.state.organization.category],
+      // checklist: [],
+      review: {
+        workPeriod: {
+          from: "2019-01-01",
+          to: "2019-03-31"
+        },
+        rate: 3,
+        overallReview: "",
+        voiceReview: ""
+      },
+      hasAgreed: false,
+      worksiteImage: ""
+    };
+    if (!this.state && !this.state.groups[0]) {
+      return null;
+    }
+
+    const {
+      groups,
+      organization: { name, category }
+    } = this.state;
+
+    console.log(groups);
 
     return (
-      <>
-        <h1>hey</h1>
-      </>
+      <ReviewWrapper>
+        <Header orgType={category}>
+          <Content>
+            <ImageBox className="image-box">
+              <Image src={agencyIcon} alt="" className="header-icon" />
+            </ImageBox>
+            <Organization>
+              <Paragraph>Review by XXXX for</Paragraph>
+              <OrgName>{name}</OrgName>
+              <ReviewTime>
+                18 questions <img src={clockLong} alt="" /> 2 mins
+              </ReviewTime>
+            </Organization>
+          </Content>
+        </Header>
+        <section>
+          <Formik initialValues={initialValues}>
+            {({ values }) => {
+              console.log(values);
+              return (
+                <FormWrapper>
+                  <Form>
+                    <div>
+                      {/* a placeholder to be edited with new picker */}
+                      <p>Select the month(s) you used this agency?</p>
+                    </div>
+                    <div>
+                      {groups.map(group => {
+                        if (group.group && group.group.text) {
+                          return (
+                            <div key={group._id}>
+                              <h2>{group.group.text}</h2>
+                              {group.answers.map(entry => {
+                                const question = entry.question[0];
+                                console.log(entry);
+                                // const {
+                                //   type,
+                                //   options,
+                                //   number,
+                                //   category,
+                                //   label,
+                                //   hasComment
+                                // } = question;
+                                return (
+                                  <div>
+                                    <div>
+                                      <h3>Question:</h3>
+                                      <h4>{question.text}</h4>
+                                      <p>{question.hintText}</p>
+                                    </div>
+                                    <div>
+                                      <h3>Answer: </h3>
+                                      <h4>{entry.answer}</h4>
+                                    </div>
+                                    <div>
+                                      <h3>Comments: </h3>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          );
+                        }
+                        return null;
+                      })}
+                    </div>
+                  </Form>
+                </FormWrapper>
+              );
+            }}
+          </Formik>
+        </section>
+      </ReviewWrapper>
     );
   }
 }

@@ -42,6 +42,8 @@ const Question = props => {
     hasComment
   } = props.question;
   const { questions, values, errors, setFieldValue, dropdownOptions } = props;
+
+  console.log("herrrre", values);
   return (
     <QuestionWrapper>
       <QText>{text}</QText>
