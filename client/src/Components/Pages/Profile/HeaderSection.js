@@ -11,15 +11,18 @@ import {
   OrgButton,
   GiveReviewTitle,
   GiveReviewDiv,
-  Icon,
+  SVGIcon,
   CompanyNameAndStars,
   StarWrapper,
   CompanyTitle,
   Reviews,
   VerifyPromo,
   VerifyLink,
-  InactiveButton
+  InactiveButton,
+  StyledIcon
 } from "./Profile.style";
+
+import Icon from "./../../Common/Icon/Icon";
 
 export default class HeaderSection extends Component {
   render() {
@@ -37,10 +40,7 @@ export default class HeaderSection extends Component {
       <Header isTablet={isTablet} isMobile={isMobile}>
         <CompanyDetails isTablet={isTablet} isMobile={isMobile} level={level}>
           <CompanyDiv isMobile={isMobile}>
-            <Icon
-              src={`/icons/${category}-icon-desktop.svg`}
-              margin="0 1rem 0 0"
-            />
+            <Icon icon={category} margin="0 1rem 0 0" width="59" height="57" />
             <CompanyNameAndStars>
               <CompanyTitle>{name}</CompanyTitle>
               <StarWrapper>

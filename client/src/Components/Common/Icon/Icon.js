@@ -1,10 +1,13 @@
 import React from "react";
 
 import styled, { css } from "styled-components";
+import { colors } from "./../../../theme";
 
 import Add from "./Add";
+import Agency from "./Agency";
 import AgencyThanks from "./AgencyThanks";
 import CommentsReceived from "./CommentsReceived";
+import Company from "./Company";
 import CompanyThanks from "./CompanyThanks";
 import FAQ from "./FAQ";
 import GetVerified from "./GetVerified";
@@ -14,6 +17,7 @@ import JobBoard from "./JobBoard";
 import LogoutLogin from "./LogoutLogin";
 import OrganisationalRatings from "./OrganisationalRatings";
 import ParkingSign from "./ParkingSign";
+import Payroll from "./Payroll";
 import PayrollCharges from "./PayrollCharges";
 import Payscales from "./Payscales";
 import PayslipRatings from "./PayslipRatings";
@@ -30,18 +34,22 @@ import TrustRating from "./TrustRating";
 import VoiceRecord from "./VoiceRecord";
 import WelfareSafety from "./WelfareSafety";
 import Win from "./Win";
+import Worksite from "./Worksite";
 import WorksiteThanks from "./WorksiteThanks";
 
 const iconStyles = props => css`
   width: ${props.width || "100%"};
   height: ${props.height || "100%"};
   color: ${props.color};
+  margin: ${props.margin || "0 0 0 0"};
 `;
 
 const iconMap = {
   add: Add,
+  agency: Agency,
   agencyThanks: AgencyThanks,
   commentsReceived: CommentsReceived,
+  company: Company,
   companyThanks: CompanyThanks,
   faq: FAQ,
   getVerified: GetVerified,
@@ -51,6 +59,7 @@ const iconMap = {
   logoutLogin: LogoutLogin,
   organisationalRatings: OrganisationalRatings,
   parkingSign: ParkingSign,
+  payroll: Payroll,
   payrollCharges: PayrollCharges,
   payscales: Payscales,
   payslipRatings: PayslipRatings,
@@ -67,6 +76,7 @@ const iconMap = {
   voiceRecord: VoiceRecord,
   welfareSafety: WelfareSafety,
   win: Win,
+  worksite: Worksite,
   worksiteThanks: WorksiteThanks
 };
 

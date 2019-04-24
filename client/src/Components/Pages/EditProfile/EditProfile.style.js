@@ -2,7 +2,13 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Label, Button } from "./../../Common/Formik/Formik.style";
 
+import Icon from "./../../Common/Icon/Icon";
+
 import { colors, shadows, gradient } from "./../../../theme";
+
+export const EditIcon = styled(Icon)`
+  margin-right: 0.5rem;
+`;
 
 export const EditWrapper = styled.div`
   width: 100%;
