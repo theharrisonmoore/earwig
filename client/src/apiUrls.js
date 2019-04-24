@@ -18,6 +18,9 @@ const API_QUICK_REVIEW_URL = `${API_PREFIX}${QUICK_REVIEW_URL}`;
 
 const SEARCH_URL = "/search";
 const API_SEARCH_URL = `${API_PREFIX}${SEARCH_URL}`;
+const ADD_ORGANIZATION_URL = "/add-organization";
+
+const API_ADD_ORGANIZATION_URL = `${API_PREFIX}${ADD_ORGANIZATION_URL}`;
 module.exports = {
   // React varibles
   API_LOGIN_URL,
@@ -26,6 +29,7 @@ module.exports = {
   API_QUICK_REVIEW_URL,
   API_UPLOAD_WORKSITE_IMAGE_URL,
   API_SEARCH_URL,
+  API_ADD_ORGANIZATION_URL,
   // server varibles
   LOGIN_URL,
   GET_QUESTIONS_URL,

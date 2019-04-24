@@ -44,7 +44,17 @@ export default function index(props) {
   return (
     <>
       <Switch>
-        <Route path={QUICK_REVIEW_URL} component={QuickReview} />
+        <Route
+          exact
+          path={QUICK_REVIEW_URL}
+          render={linkProps => (
+            <QuickReview
+              {...props}
+              {...linkProps}
+              handleChangeState={handleChangeState}
+            />
+          )}
+        />
         <Route
           exact
           path={REVIEW_URL}
