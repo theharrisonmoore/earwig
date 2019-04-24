@@ -16,7 +16,6 @@ import {
 import GiveReview from "../../Common/GiveReview";
 
 export default class AddProfileReviewStart extends Component {
-
   render() {
     const { name, category } = this.props.location.state;
     const { isTablet, isMobile } = this.props;

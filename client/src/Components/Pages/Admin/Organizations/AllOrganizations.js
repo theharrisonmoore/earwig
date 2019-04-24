@@ -37,7 +37,7 @@ export default class AllOrganizations extends Component {
               active
             })
             .then(() => {
-              message.success(active ? "Deactivated!" : "Activated!");
+              message.success(active ? "Activated!" : "Deactivated!");
               this.fetchData();
               resolve();
             })
