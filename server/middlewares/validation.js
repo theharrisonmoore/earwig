@@ -181,13 +181,14 @@ const schemas = {
       .valid(true)
       .error(() => "You should agree Earwig terms of user"),
   },
+  onlyMongoId: {
+    id: Joi.string().length(24).required(),
+  },
   activateOrganization: {
     id: Joi.string().length(24).required(),
     active: Joi.boolean().required(),
   },
-  onlyMongoId: {
-    id: Joi.string().length(24).required(),
-  },
+
 };
 
 module.exports = route => (req, res, next) => {

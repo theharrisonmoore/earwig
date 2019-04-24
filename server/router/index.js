@@ -86,7 +86,11 @@ router.post(
   uploadWorksiteController,
 );
 
-router.get("/trades", authentication, authorization("LEVEL3"), getTradesController);
+router.get(
+  "/trades", authentication,
+  authorization("LEVEL1"),
+  getTradesController,
+);
 
 router.post(
   "/trades",
