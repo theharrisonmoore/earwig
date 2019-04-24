@@ -6,15 +6,12 @@ import { handleLogout } from "./../../../helpers";
 import { Wrapper, MenuItem, MenuIcon } from "./Menu.style.js";
 import { Icon as AdminIcon } from "antd";
 
-import Icon from "./../Icon/Icon";
-
 import {
   SEARCH_URL,
   PROFILE_URL,
   RESOURCES_URL,
   CONTACT_URL,
   FAQ_URL,
-  LOGOUT_URL,
   LOGIN_URL,
   PRIVACY_URL,
   ADMIN
