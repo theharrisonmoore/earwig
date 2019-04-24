@@ -1,7 +1,6 @@
 import React from "react";
 
 import styled, { css } from "styled-components";
-import { colors } from "./../../../theme";
 
 import Add from "./Add";
 import Agency from "./Agency";

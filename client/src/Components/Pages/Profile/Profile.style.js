@@ -59,7 +59,7 @@ export const CompanyDiv = styled.div`
   text-align: left;
   margin-bottom: 1rem;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
 `;
 
 export const CompanyTitle = styled.h2`
@@ -226,4 +226,8 @@ export const AccountLink = styled(VerifyLink)`
 
 export const AccountItem = styled.div`
   display: flex;
+`;
+
+export const IconWrapper = styled.div`
+  min-width: 70px;
 `;
