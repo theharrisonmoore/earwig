@@ -1,9 +1,13 @@
+import axios from "axios";
 import { MOBILE_WIDTH, TABLET_WIDTH } from "./constants/screenWidths";
 import React from "react";
 import StarRatingComponent from "react-star-rating-component";
 import SVG from "react-inlinesvg";
 import { ImgDiv } from "./Components/Pages/Search/Search.style";
 import { organizations } from "./theme";
+
+import { API_LOGOUT_URL } from "./apiUrls";
+import { LOGIN_URL } from "./constants/naviagationUrls";
 
 // creates SVG Divs
 export const SVGCreator = (source, height, width) => (
@@ -65,4 +69,10 @@ export const authorization = ({
   }
 
   return userLevel >= minimumLevelValue;
+};
+
+export const handleLogout = () => {
+  axios.get(API_LOGOUT_URL).then(() => {
+    window.location = LOGIN_URL;
+  });
 };
