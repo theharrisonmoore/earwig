@@ -186,6 +186,7 @@ export default class Profile extends Component {
                   sectionDetails={section}
                   toggleComments={this.toggleComments}
                   summary={summary}
+                  isMobile={isMobile}
                 />
               )
           )}
@@ -193,23 +194,96 @@ export default class Profile extends Component {
           {/* OTHER SECTIONS */}
           {reviewDetails.map(
             (section, index) =>
-              section._id !== "Key ratings" && (
+              section._id === "Detailed ratings" && (
                 <ReviewSection
                   key={index}
                   category={category}
                   sectionDetails={section}
                   toggleComments={this.toggleComments}
                   summary={summary}
+                  isMobile={isMobile}
                 />
               )
           )}
 
+          {reviewDetails.map(
+            (section, index) =>
+              section._id === "Getting on to site" && (
+                <ReviewSection
+                  key={index}
+                  category={category}
+                  sectionDetails={section}
+                  toggleComments={this.toggleComments}
+                  summary={summary}
+                  isMobile={isMobile}
+                />
+              )
+          )}
+
+          {reviewDetails.map(
+            (section, index) =>
+              section._id === "Working on the site" && (
+                <ReviewSection
+                  key={index}
+                  category={category}
+                  sectionDetails={section}
+                  toggleComments={this.toggleComments}
+                  summary={summary}
+                  isMobile={isMobile}
+                />
+              )
+          )}
+
+          {reviewDetails.map(
+            (section, index) =>
+              section._id === "The site welfare" && (
+                <ReviewSection
+                  key={index}
+                  category={category}
+                  sectionDetails={section}
+                  toggleComments={this.toggleComments}
+                  summary={summary}
+                  isMobile={isMobile}
+                />
+              )
+          )}
+
+          {reviewDetails.map(
+            (section, index) =>
+              section._id === "Supervisors & employees" && (
+                <ReviewSection
+                  key={index}
+                  category={category}
+                  sectionDetails={section}
+                  toggleComments={this.toggleComments}
+                  summary={summary}
+                  isMobile={isMobile}
+                />
+              )
+          )}
+
+          {reviewDetails.map(
+            (section, index) =>
+              section._id === "Tools & materials" && (
+                <ReviewSection
+                  key={index}
+                  category={category}
+                  sectionDetails={section}
+                  toggleComments={this.toggleComments}
+                  summary={summary}
+                  isMobile={isMobile}
+                />
+              )
+          )}
+
+          {/* MONTHLY REVIEWS */}
           {level > 0 && (
             <MonthlyReviews
               category={category}
               reviewsByMonth={this.reviewsByMonth()}
             />
           )}
+
         </ReviewDiv>
         {/* OVERALL RATINGS SECTION */}
         {summary.reviews[0].createdAt && (

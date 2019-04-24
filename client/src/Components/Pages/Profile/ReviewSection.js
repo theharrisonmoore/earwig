@@ -22,7 +22,7 @@ import PayrollAnswer from "./ProfileAnswers/PayrollAnswer";
 
 export default class ReviewSection extends Component {
   render() {
-    const { sectionDetails, category, toggleComments, summary } = this.props;
+    const { sectionDetails, category, toggleComments, summary, isMobile } = this.props;
     const { _id: sectionTitle, questions } = sectionDetails;
 
     let canteenQuestions =
@@ -60,42 +60,32 @@ export default class ReviewSection extends Component {
 
         {questions &&
           questions
-            .filter(question => question.question.profileType === "yesno")
-            .map((question, index) => (
+            .map((question, index) => ["yesno", "pieChart", "dotChart"].includes(question.question.profileType) && (
               <QuestionWrapper key={index}>
                 <QuestionTitle>{question.question.profileText}</QuestionTitle>
-                <YesNoAnswer
+                {question.question.profileType === "yesno" && (
+                  <YesNoAnswer
                   question={question}
                   toggleComments={toggleComments}
-                />
-              </QuestionWrapper>
-            ))}
-
-        {questions &&
-          questions
-            .filter(question => question.question.profileType === "pieChart")
-            .map((question, index) => (
-              <QuestionWrapper key={index}>
-                <QuestionTitle>{question.question.profileText}</QuestionTitle>
-                <PieAnswer
+                  isMobile={isMobile}
+                  />
+                )}
+                {question.question.profileType === "pieChart" && (
+                  <PieAnswer
                   category={category}
                   question={question}
                   toggleComments={toggleComments}
-                />
-              </QuestionWrapper>
-            ))}
-
-        {questions &&
-          questions
-            .filter(question => question.question.profileType === "dotChart")
-            .map((question, index) => (
-              <QuestionWrapper key={index}>
-                <QuestionTitle>{question.question.profileText}</QuestionTitle>
-                <ScatterAnswer
+                  isMobile={isMobile}
+                  />
+                )}
+                {question.question.profileType === "dotChart" && (
+                  <ScatterAnswer
                   category={category}
                   question={question}
                   toggleComments={toggleComments}
-                />
+                  isMobile={isMobile}
+                  />
+                )}
               </QuestionWrapper>
             ))}
 
@@ -109,6 +99,7 @@ export default class ReviewSection extends Component {
                   question={question}
                   toggleComments={toggleComments}
                   profileType={question.question.profileType}
+                  isMobile={isMobile}
                 />
               </QuestionWrapper>
             ))}
@@ -118,6 +109,7 @@ export default class ReviewSection extends Component {
             <CanteenItemAnswer
               questions={canteenQuestions}
               toggleComments={toggleComments}
+              isMobile={isMobile}
             />
           </QuestionWrapper>
         )}
@@ -128,6 +120,7 @@ export default class ReviewSection extends Component {
             <PayrollAnswer
               questions={payrollQuestions}
               toggleComments={toggleComments}
+              isMobile={isMobile}
             />
           </QuestionWrapper>
         )}
@@ -142,6 +135,7 @@ export default class ReviewSection extends Component {
                 <ListAnswer
                   question={question}
                   toggleComments={toggleComments}
+                  isMobile={isMobile}
                 />
               </QuestionWrapper>
             ))}
