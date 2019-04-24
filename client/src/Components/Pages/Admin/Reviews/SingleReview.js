@@ -1,7 +1,19 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Table, Modal, message } from "antd";
+import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
+import {
+  Table,
+  Modal,
+  message,
+  Select,
+  Icon,
+  Divider,
+  Input,
+  Rate,
+  InputNumber
+} from "antd";
+import ModalComment from "../../../Common/AntdComponents/ModalComment";
+import commentIcon from "../../../../assets/comment-icon.svg";
 import {
   ReviewWrapper,
   SubmitButton,
@@ -32,10 +44,11 @@ import {
   Input as StyledInput
 } from "../../Review/Question/Question.style";
 
-import Question from "../../Review/Question/index";
+import { Question, RadioButton } from "../../Review/Question/index";
 import agencyIcon from "../../../../assets/agency-icon.svg";
 import clockLong from "./../../../../assets/clock-long-icon.svg";
 import { initQueestionsValues } from "../../Review/initialQuestionsValues";
+import { colors, organizations } from "../../../../theme";
 
 const STATIC_QUESTIONS = [
   {
@@ -88,6 +101,11 @@ export default class SingleReview extends Component {
   componentDidMount() {
     this.fetchData();
   }
+
+  checkIten = (answer, option) => {
+    return answer === option ? true : false;
+  };
+
   render() {
     const { isLoading } = this.state;
     if (isLoading) {
@@ -117,9 +135,7 @@ export default class SingleReview extends Component {
       groups,
       organization: { name, category }
     } = this.state;
-
     console.log(groups);
-
     return (
       <ReviewWrapper>
         <Header orgType={category}>
@@ -139,7 +155,6 @@ export default class SingleReview extends Component {
         <section>
           <Formik initialValues={initialValues}>
             {({ values }) => {
-              console.log(values);
               return (
                 <FormWrapper>
                   <Form>
@@ -155,31 +170,311 @@ export default class SingleReview extends Component {
                               <h2>{group.group.text}</h2>
                               {group.answers.map(entry => {
                                 const question = entry.question[0];
-                                console.log(entry);
-                                // const {
-                                //   type,
-                                //   options,
-                                //   number,
-                                //   category,
-                                //   label,
-                                //   hasComment
-                                // } = question;
-                                return (
-                                  <div>
-                                    <div>
-                                      <h3>Question:</h3>
-                                      <h4>{question.text}</h4>
-                                      <p>{question.hintText}</p>
-                                    </div>
-                                    <div>
-                                      <h3>Answer: </h3>
-                                      <h4>{entry.answer}</h4>
-                                    </div>
-                                    <div>
-                                      <h3>Comments: </h3>
-                                    </div>
-                                  </div>
-                                );
+                                const answer = entry.answer;
+
+                                const {
+                                  type,
+                                  options,
+                                  number,
+                                  category,
+                                  label,
+                                  hasComment
+                                } = question;
+
+                                if (type === "yesno" || type === "radio") {
+                                  return (
+                                    <QuestionOptionsWrapper>
+                                      <h3>{question.text}</h3>
+                                      <Options>
+                                        <div
+                                          className={`choices choices-${
+                                            options.length
+                                          }`}
+                                        >
+                                          {options.map((option, i, arr) => {
+                                            return (
+                                              <Field
+                                                key={option}
+                                                component={RadioButton}
+                                                name={`questions[${number}]`}
+                                                id={`${option}-${number}`}
+                                                className={`hide radio-input ${option}`}
+                                                checked={this.checkIten(
+                                                  answer,
+                                                  option
+                                                )}
+                                                option={option}
+                                                count={options.length}
+                                                category={category}
+                                              />
+                                            );
+                                          })}
+                                        </div>
+                                        {hasComment && (
+                                          <ModalComment
+                                            title="Enter you comment here"
+                                            number={number}
+                                            comment
+                                            render={props => {
+                                              return (
+                                                <CommentsIcon
+                                                  hasValue={!!props.text}
+                                                >
+                                                  <img
+                                                    src={commentIcon}
+                                                    alt=""
+                                                  />
+                                                </CommentsIcon>
+                                              );
+                                            }}
+                                          />
+                                        )}
+                                      </Options>
+                                    </QuestionOptionsWrapper>
+                                  );
+                                }
+
+                                if (type === "open") {
+                                  return (
+                                    <QuestionOptionsWrapper>
+                                      <h3>{question.text}</h3>
+                                      <Field name={`questions[${number}]`}>
+                                        {({ field, form }) => (
+                                          <Input
+                                            {...field}
+                                            // {...form}
+                                            size="large"
+                                            value={answer}
+                                            style={{
+                                              border: `1px solid ${
+                                                colors.dustyGray1
+                                              }`
+                                            }}
+                                          />
+                                        )}
+                                      </Field>
+                                      {hasComment && (
+                                        <ModalComment
+                                          title="Enter you comment here"
+                                          number={number}
+                                          comment
+                                          render={props => {
+                                            return (
+                                              <CommentsIcon
+                                                hasValue={!!props.text}
+                                              >
+                                                <img src={commentIcon} alt="" />
+                                              </CommentsIcon>
+                                            );
+                                          }}
+                                        />
+                                      )}
+                                    </QuestionOptionsWrapper>
+                                  );
+                                }
+
+                                if (type === "number") {
+                                  return (
+                                    <QuestionOptionsWrapper>
+                                      <h3>{question.text}</h3>
+                                      <Field
+                                        name={`questions[${number}]`}
+                                        type="number"
+                                      >
+                                        {({ field, form }) => (
+                                          <InputNumber
+                                            {...field}
+                                            // {...form}
+
+                                            style={{
+                                              border: `1px solid ${
+                                                colors.dustyGray1
+                                              }`,
+                                              width: "12rem",
+                                              height: "70px",
+                                              lineHeight: "70px"
+                                            }}
+                                            size="large"
+                                            value={answer}
+                                            placeholder={`£       ${label}`}
+                                          />
+                                        )}
+                                      </Field>
+                                      {hasComment && (
+                                        <ModalComment
+                                          title="Enter you comment here"
+                                          number={number}
+                                          comment
+                                          render={props => {
+                                            return (
+                                              <CommentsIcon
+                                                hasValue={!!props.text}
+                                              >
+                                                <img src={commentIcon} alt="" />
+                                              </CommentsIcon>
+                                            );
+                                          }}
+                                        />
+                                      )}
+                                    </QuestionOptionsWrapper>
+                                  );
+                                }
+
+                                if (type === "dropdown") {
+                                  // const { dropdownOptions } = this.props;
+                                  // let newOptions = [...dropdownOptions];
+                                  return (
+                                    <QuestionOptionsWrapper>
+                                      <h3>{question.text}</h3>
+                                      <Field name={`questions[${number}]`}>
+                                        {({ field, form }) => {
+                                          return (
+                                            <>
+                                              <Select
+                                                value={answer}
+                                                disabled
+                                                style={{
+                                                  border: `1px solid ${
+                                                    colors.dustyGray1
+                                                  }`
+                                                }}
+                                              />
+                                            </>
+                                          );
+                                        }}
+                                      </Field>
+                                      {hasComment && (
+                                        <ModalComment
+                                          title="Enter you comment here"
+                                          number={number}
+                                          comment
+                                          render={props => {
+                                            return (
+                                              <CommentsIcon
+                                                hasValue={!!props.text}
+                                              >
+                                                <img src={commentIcon} alt="" />
+                                              </CommentsIcon>
+                                            );
+                                          }}
+                                        />
+                                      )}
+                                    </QuestionOptionsWrapper>
+                                  );
+                                }
+
+                                if (type === "overallReview") {
+                                  return (
+                                    <QuestionOptionsWrapper>
+                                      <h3>{question.text}</h3>
+                                      <Field name={`review.overallReview`}>
+                                        {({ field, form }) => (
+                                          <Input.TextArea
+                                            rows={4}
+                                            {...field}
+                                            // {...form}
+                                            value={answer}
+                                            style={{
+                                              border: `1px solid ${
+                                                colors.inputBorder
+                                              }`
+                                            }}
+                                          />
+                                        )}
+                                      </Field>
+                                    </QuestionOptionsWrapper>
+                                  );
+                                }
+
+                                if (type === "checklist") {
+                                  console.log("valll", values);
+                                  console.log("answer", answer);
+                                  return (
+                                    <QuestionOptionsWrapper>
+                                      <h3>{question.text}</h3>
+                                      <FieldArray
+                                        name={`questions[${number}]`}
+                                        render={arrayHelpers => (
+                                          <div>
+                                            {options &&
+                                              options.length > 0 &&
+                                              options.map((option, index) => (
+                                                <div key={option}>
+                                                  <Field
+                                                    id={`${option}-${number}`}
+                                                    type="checkbox"
+                                                    name={`questions[${number}].${index}`}
+                                                    value={option}
+                                                    // checked={this.checkIten(
+                                                    //   answer,
+                                                    //   option
+                                                    // )}
+                                                    checked={values.questions[
+                                                      number
+                                                    ].includes(answer)}
+                                                  />
+                                                  <label
+                                                    htmlFor={`${option}-${number}`}
+                                                  >
+                                                    {option}
+                                                  </label>
+                                                </div>
+                                              ))}
+                                          </div>
+                                        )}
+                                      />
+                                      {hasComment && (
+                                        <ModalComment
+                                          title="Enter you comment here"
+                                          number={number}
+                                          comment
+                                          render={props => {
+                                            return (
+                                              <CommentsIcon
+                                                hasValue={!!props.text}
+                                              >
+                                                <img src={commentIcon} alt="" />
+                                              </CommentsIcon>
+                                            );
+                                          }}
+                                        />
+                                      )}
+                                    </QuestionOptionsWrapper>
+                                  );
+                                }
+
+                                if (type === "image") {
+                                  return (
+                                    <QuestionOptionsWrapper>
+                                      <h3>{question.text}</h3>
+                                      <p>Image</p>
+                                    </QuestionOptionsWrapper>
+                                  );
+                                }
+
+                                if (type === "rate") {
+                                  return (
+                                    <QuestionOptionsWrapper>
+                                      <h3>{question.text}</h3>
+                                      <Field name="review.rate">
+                                        {({ field, form }) => (
+                                          <Rate
+                                            {...field}
+                                            value={answer}
+                                            // {...form}
+                                            tooltips={options}
+                                            style={{
+                                              color: `${
+                                                organizations[category].primary
+                                              }`,
+                                              fontSize: "3rem"
+                                            }}
+                                          />
+                                        )}
+                                      </Field>
+                                    </QuestionOptionsWrapper>
+                                  );
+                                }
                               })}
                             </div>
                           );
