@@ -1,7 +1,11 @@
 const router = require("express").Router();
 const {
-  getByOrg, postReview, addNewAgencyPayroll, getOrgsByType,
-  getAgencesAndPayrollsNames, postReviewShort,
+  getByOrg,
+  postReview,
+  addNewAgencyPayroll,
+  getOrgsByType,
+  getAgencesAndPayrollsNames,
+  postReviewShort,
 } = require("../controllers/review");
 
 const adminRouter = require("./admin");
@@ -26,6 +30,9 @@ const uploadWorksiteController = require("../controllers/uploadWorksiteImage");
 const searchController = require("../controllers/search");
 const profileController = require("./../controllers/profile");
 const commentsController = require("./../controllers/comments");
+const logoutController = require("./../controllers/logout");
+
+const addOrganizationController = require("../controllers/organizations");
 
 const {
   LOGIN_URL,
@@ -33,6 +40,8 @@ const {
   REVIEW_URL,
   UPLOAD_WORKSITE_IMAGE_URL,
   SEARCH_URL,
+  LOGOUT_URL,
+  ADD_ORGANIZATION_URL,
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
@@ -60,6 +69,8 @@ router.post("/comments", commentsController);
 
 router.post(LOGIN_URL, validation("login"), loginController);
 
+router.use(LOGOUT_URL, logoutController);
+
 router.post(
   "/upload-verification-image",
   authentication,
@@ -79,7 +90,11 @@ router.post(
   uploadWorksiteController,
 );
 
-router.get("/trades", authentication, authorization("LEVEL3"), getTradesController);
+router.get(
+  "/trades", authentication,
+  authorization("LEVEL1"),
+  getTradesController,
+);
 
 router.post(
   "/trades",
@@ -102,16 +117,17 @@ router.post(
   editProfile,
 );
 
-router.use(
-  "/confirm-email",
-  validation("onlyMongoId"),
-  confirmJoiningEmailList,
+router.post(
+  "/add-organization",
+  // authentication,
+  // authorization("LEVEL3"),
+  // validation("addOrganization"),
+  addOrganizationController,
 );
 
-router.use(
-  "/admin",
-  authentication,
-  authorization("ADMIN"),
-  adminRouter,
-);
+router.use("/confirm-email", validation("onlyMongoId"), confirmJoiningEmailList);
+
+router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
+
+
 module.exports = router;
