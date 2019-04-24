@@ -14,7 +14,7 @@ export default class YesNoAnswer extends Component {
   };
 
   render() {
-    const { question, toggleComments, isMobile } = this.props;
+    const { question, toggleComments } = this.props;
 
     return (
       <YesNoWrapper>
