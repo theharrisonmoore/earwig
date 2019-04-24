@@ -6,7 +6,8 @@ import {
   LOGIN_URL,
   THANKYOU_URL,
   EDIT_PROFILE_URL,
-  UPLOAD_VERIFICATION_URL
+  UPLOAD_VERIFICATION_URL,
+  ORGS_PROFILE_URL
 } from "./../constants/naviagationUrls";
 
 import UploadImage from "./Pages/UploadImage";
@@ -40,7 +41,8 @@ import {
   ADD_PROFILE_START_REVIEW_URL,
   ADMIN,
   REVIEW_URL,
-  QUICK_REVIEW_URL
+  QUICK_REVIEW_URL,
+  CONFIRM_EMAIL_URL
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
@@ -82,7 +84,7 @@ export default function index(props) {
         <PrivateRoute
           exact
           minimumLevel="LEVEL1"
-          path="/profile/:profileID"
+          path={ORGS_PROFILE_URL}
           isTablet={isTablet}
           isMobile={isMobile}
           {...props}
@@ -137,7 +139,7 @@ export default function index(props) {
 
         <PrivateRoute
           minimumLevel="LEVEL0"
-          path={"/confirm-email/:id"}
+          path={CONFIRM_EMAIL_URL}
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
@@ -199,7 +201,7 @@ export default function index(props) {
                 handleChangeState={handleChangeState}
               />
             ) : (
-              <Redirect to={isAdmin ? "/admin" : "/search"} />
+              <Redirect to={isAdmin ? ADMIN : SEARCH_URL} />
             )
           }
         />
@@ -215,7 +217,7 @@ export default function index(props) {
                 handleChangeState={handleChangeState}
               />
             ) : (
-              <Redirect to={isAdmin ? "/admin" : "/search"} />
+              <Redirect to={isAdmin ? ADMIN : SEARCH_URL} />
             )
           }
         />
