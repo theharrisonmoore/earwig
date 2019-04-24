@@ -36,6 +36,7 @@ export default ({ deletHandler, viewHandler }) => {
       title: "Action",
       key: "action",
       render: (text, record) => {
+        console.log(record.organization.category);
         return (
           <div>
             <div
@@ -53,7 +54,17 @@ export default ({ deletHandler, viewHandler }) => {
                 Delete
               </Button>
               <Button type="primary" ghost>
-                <Link to={`${record._id}`}>View</Link>
+                <Link
+                  to={{
+                    pathname: `${record._id}`,
+                    state: {
+                      name: record.organization.name,
+                      category: record.organization.category
+                    }
+                  }}
+                >
+                  View
+                </Link>
               </Button>
             </div>
           </div>

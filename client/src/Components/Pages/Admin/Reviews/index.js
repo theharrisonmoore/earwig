@@ -18,7 +18,11 @@ export default class Reviews extends Component {
           path={REVIEWS_VERIFY}
           render={props => <AllReviews awaitingReview />}
         />
-        <Route exact path={SINGLE_REVIEW} render={props => <SingleReview />} />
+        <Route
+          exact
+          path={SINGLE_REVIEW}
+          render={props => <SingleReview {...props} />}
+        />
       </Switch>
     );
   }
