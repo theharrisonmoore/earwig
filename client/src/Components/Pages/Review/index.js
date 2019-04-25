@@ -3,6 +3,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
 import { Checkbox, DatePicker } from "antd";
 
+import CustomRangePicker from "../../Common/AntdComponents/DatePicker";
+
 import {
   ReviewWrapper,
   SubmitButton,
@@ -213,7 +215,7 @@ class Review extends Component {
                     <div>
                       {/* a placeholder to be edited with new picker */}
                       <p>Select the month(s) you used this agency?</p>
-                      <DatePicker.RangePicker
+                      {/* <DatePicker.RangePicker
                         onChange={(date, dateString) => {
                           const [from, to] = dateString;
                           const workPeriod = {
@@ -222,7 +224,8 @@ class Review extends Component {
                           };
                           setFieldValue("review.workPeriod", workPeriod);
                         }}
-                      />
+                      /> */}
+                      <CustomRangePicker setFieldValue={setFieldValue} />
                     </div>
                     <div>
                       {groups.map(group => {
