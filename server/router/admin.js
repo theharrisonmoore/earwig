@@ -8,6 +8,7 @@ const verifyUser = require("./../controllers/admin/verifyUser");
 const rejectUser = require("./../controllers/admin/rejectUser");
 const getReviews = require("./../controllers/admin/getReviews");
 const deleteReview = require("./../controllers/admin/deleteReview");
+const updateReview = require("./../controllers/admin/handleSingleReviewStatus");
 const getSingleReview = require("./../controllers/admin/getSingleReview");
 const getOrganizations = require("./../controllers/admin/getOrganizations");
 const activateOrganization = require("./../controllers/admin/activateOrganization");
@@ -29,6 +30,8 @@ router.get("/reviews", getReviews);
 router.get("/single-review/:reviewID", getSingleReview);
 
 router.delete("/reviews", validation("onlyMongoId"), deleteReview);
+
+router.patch("/reviews/update-status", updateReview);
 
 router.get("/organizations/:category", getOrganizations);
 

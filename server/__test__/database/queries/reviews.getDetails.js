@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const buildDB = require("../../../database/dummyData/index");
 const Review = require("../../../database/models/Review");
 
-const { getReviewDetails, approveReview } = require("../../../database/queries/reviews");
+const { getReviewDetails, approveRejectReview } = require("../../../database/queries/reviews");
 
 describe("Test get review details query", () => {
   beforeAll(async () => {
@@ -40,7 +40,7 @@ describe("Test get review details query", () => {
   test("Test approve review query", async (done) => {
     const review = await Review.findOne({ isVerified: false });
 
-    await approveReview(review._id, true).then((result) => {
+    await approveRejectReview(review._id, true).then((result) => {
       expect(result).toBeDefined();
       expect(result.isVerified).toBeTruthy();
     });
@@ -50,7 +50,7 @@ describe("Test get review details query", () => {
   test("Test approve review query", async (done) => {
     const review = await Review.findOne({ isVerified: false });
 
-    await approveReview(review._id, true).then((result) => {
+    await approveRejectReview(review._id, true).then((result) => {
       expect(result).toBeDefined();
       expect(result.isVerified).toBeTruthy();
     });
@@ -60,7 +60,7 @@ describe("Test get review details query", () => {
   test("Test reject review query", async (done) => {
     const review = await Review.findOne({ isVerified: true });
 
-    await approveReview(review._id, false).then((result) => {
+    await approveRejectReview(review._id, false).then((result) => {
       expect(result).toBeDefined();
       expect(result.isVerified).toBeFalsy();
     });
