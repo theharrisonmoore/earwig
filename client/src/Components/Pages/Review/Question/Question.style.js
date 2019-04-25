@@ -6,6 +6,9 @@ export const QuestionWrapper = styled.div.attrs({ className: "" })`
   font-size: 18px;
   margin-bottom: 1rem;
   color: ${colors.profileFontColor};
+  display: ${props => {
+    return props.hidden ? "none" : "block";
+  }};
 `;
 
 export const QText = styled.p`

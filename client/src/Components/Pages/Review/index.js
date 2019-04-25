@@ -4,6 +4,8 @@ import axios from "axios";
 import { Checkbox } from "antd";
 import Swal from "sweetalert2";
 
+import DatePicker from "../../Common/AntdComponents/DatePicker";
+
 import {
   ReviewWrapper,
   SubmitButton,
@@ -65,11 +67,15 @@ class Review extends Component {
   state = {
     isLoading: true,
     groups: [],
+    groupss: {},
     organization: { category: "", name: "", needsVerification: false },
     user: { email: "" },
     worksiteImage: "",
     agencies: [],
-    payrolls: []
+    payrolls: [],
+    startValue: null,
+    endValue: null,
+    endOpen: false
   };
   componentDidMount() {
     const { email } = this.props;
@@ -86,8 +92,16 @@ class Review extends Component {
         }
       })
       .then(res => {
+        const groupss = {};
+        res.data.forEach(group => {
+          groupss[group._id] = {
+            title: group.group.text,
+            main: group.questions.filter(question => !question.isDependent),
+            dependant: group.questions.filter(question => question.isDependent)
+          };
+        });
         this.setState({
-          groups: res.data,
+          groupss,
           isLoading: false,
           organization,
           user,
@@ -100,6 +114,45 @@ class Review extends Component {
       });
     this.getAgenciesAndPayrolls();
   }
+
+  showNextQestion = (groupId, next, other, set, num) => {
+    const newGroups = { ...this.state.groupss };
+    const group = { ...newGroups[groupId] };
+    let newMain = [...group.main];
+    let newDependant = [...group.dependant];
+    while (typeof other !== "object" && other !== null) {
+      const nextQ = newMain.find(question => question.number === other);
+      if (nextQ) {
+        newDependant.push(nextQ);
+        newMain = newMain.filter(question => question.number !== other);
+        other = nextQ.next;
+      } else {
+        other = null;
+      }
+      newDependant.map(question => {
+        set(`questions[${question.number}]`, "");
+      });
+    }
+    while (typeof next !== "object" && next !== null) {
+      const nextQ = newDependant.find(question => question.number === next);
+      if (nextQ) {
+        newMain.push(nextQ);
+        newDependant = newDependant.filter(
+          question => question.number !== next
+        );
+        next = nextQ.next;
+      } else {
+        next = null;
+      }
+      newDependant.map(question => {
+        set(`questions[${question.number}]`, "");
+      });
+    }
+    group.main = newMain.sort((a, b) => a.number - b.number);
+    group.dependant = newDependant;
+    newGroups[groupId] = group;
+    this.setState({ groupss: newGroups });
+  };
 
   getAgenciesAndPayrolls = () => {
     axios
@@ -147,7 +200,48 @@ class Review extends Component {
       });
   };
 
+  disabledStartDate = startValue => {
+    const endValue = this.state.endValue;
+    if (!startValue || !endValue) {
+      return false;
+    }
+    return startValue.valueOf() > endValue.valueOf();
+  };
+
+  disabledEndDate = endValue => {
+    const startValue = this.state.startValue;
+    if (!endValue || !startValue) {
+      return false;
+    }
+    return endValue.valueOf() <= startValue.valueOf();
+  };
+
+  onChange = (field, value) => {
+    this.setState({
+      [field]: value
+    });
+  };
+
+  onStartChange = value => {
+    this.onChange("startValue", value);
+  };
+
+  onEndChange = value => {
+    this.onChange("endValue", value);
+  };
+
+  handleStartOpenChange = open => {
+    if (!open) {
+      this.setState({ endOpen: true });
+    }
+  };
+
+  handleEndOpenChange = open => {
+    this.setState({ endOpen: open });
+  };
+
   render() {
+    console.log("state", this.state);
     const { isLoading } = this.state;
     if (isLoading) return <p>loading...</p>;
 
@@ -172,10 +266,13 @@ class Review extends Component {
       return null;
     }
     const {
-      groups,
+      groupss,
       agencies,
       payrolls,
-      organization: { name, category }
+      organization: { name, category },
+      startValue,
+      endValue,
+      endOpen
     } = this.state;
 
     let dropdownOptions;
@@ -215,23 +312,58 @@ class Review extends Component {
               errors,
               setFieldValue
             }) => {
+              console.log("values", values);
               return (
                 <FormWrapper>
                   <Form>
                     <div>
                       {/* a placeholder to be edited with new picker */}
                       <p>Select the month(s) you used this agency?</p>
+                      <Field
+                        name={`review.workPeriod`}
+                        onChange={() => {
+                          console.log("hi");
+                          const workPeriod = {};
+                          workPeriod.from = this.state.startValue.format(
+                            "YYYY-MM-DD"
+                          );
+                          workPeriod.to = this.state.endValue.format(
+                            "YYYY-MM-DD"
+                          );
+                          setFieldValue(`review.workPeriod`, workPeriod);
+                        }}
+                      >
+                        {({ field, form }) => {
+                          return (
+                            <DatePicker
+                              handleStartOpenChange={this.handleStartOpenChange}
+                              disabledStartDate={this.disabledStartDate}
+                              onStartChange={this.onStartChange}
+                              disabledEndDate={this.disabledEndDate}
+                              onEndChange={this.onEndChange}
+                              handleEndOpenChange={this.handleEndOpenChange}
+                              setFieldValue={setFieldValue}
+                              startValue={startValue}
+                              endValue={endValue}
+                              endOpen={endOpen}
+                            />
+                          );
+                        }}
+                      </Field>
                     </div>
                     <div>
-                      {groups.map(group => {
-                        if (group.group && group.group.text) {
+                      {Object.keys(groupss).map(groupId => {
+                        const group = groupss[groupId];
+                        if (group && group.title) {
                           return (
-                            <div key={group._id}>
-                              <h2>{group.group.text}</h2>
-                              {group.questions.map(question => {
+                            <div key={groupId}>
+                              <h2>{group.title}</h2>
+                              {group.main.map(question => {
                                 return (
                                   <Question
                                     key={question._id}
+                                    showNextQestion={this.showNextQestion}
+                                    groupId={groupId}
                                     values={values}
                                     handleChagne={handleChange}
                                     question={question}

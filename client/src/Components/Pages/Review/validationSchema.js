@@ -5,6 +5,11 @@ export const validationSchema = {
     questions: Yup.object({
       1: Yup.string().required("Required"),
       2: Yup.string().required("Required"),
+      // 2: Yup.string().when("1", {
+      //   is: "yes",
+      //   then: Yup.string().required(),
+      //   otherwise: Yup.mixed()
+      // }),
       3: Yup.string().required("Required"),
       4: Yup.string().required("Required"),
       5: Yup.string().required("Required"),

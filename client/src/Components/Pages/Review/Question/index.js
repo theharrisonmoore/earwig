@@ -39,9 +39,18 @@ const Question = props => {
     category,
     name,
     label,
-    hasComment
+    hasComment,
+    next
   } = props.question;
-  const { questions, values, errors, setFieldValue, dropdownOptions } = props;
+  const {
+    questions,
+    values,
+    errors,
+    setFieldValue,
+    dropdownOptions,
+    showNextQestion,
+    groupId
+  } = props;
   return (
     <QuestionWrapper>
       <QText>{text}</QText>
@@ -49,6 +58,9 @@ const Question = props => {
       <QuestionOptions
         type={type}
         options={options}
+        groupId={groupId}
+        showNextQestion={showNextQestion}
+        next={next}
         number={number}
         category={category ? category : props.category}
         name={name}
@@ -70,7 +82,18 @@ class QuestionOptions extends React.Component {
     if (!props && !props.options) {
       return null;
     }
-    const { type, options, number, category, label, hasComment } = props;
+    const {
+      type,
+      options,
+      number,
+      category,
+      label,
+      hasComment,
+      groupId,
+      next,
+      showNextQestion,
+      setFieldValue
+    } = props;
     if (type === "yesno" || type === "radio") {
       return (
         <QuestionOptionsWrapper>
@@ -88,6 +111,11 @@ class QuestionOptions extends React.Component {
                     option={option}
                     count={options.length}
                     category={category}
+                    groupId={groupId}
+                    next={next}
+                    showNextQestion={showNextQestion}
+                    setFieldValue={setFieldValue}
+                    number={number}
                   />
                 );
               })}
@@ -392,6 +420,9 @@ const RadioButton = ({
   id,
   label,
   className,
+  groupId,
+  next,
+  showNextQestion,
   ...props
 }) => {
   return (
@@ -406,7 +437,28 @@ const RadioButton = ({
         className="radio-button"
         {...props}
       />
-      <StyledInput htmlFor={id} className={`yesno options-${props.count}`}>
+      <StyledInput
+        onClick={() => {
+          if (typeof next === "object" && next !== null) {
+            let nextQ = next["no"];
+            let other = next["yes"];
+            if (props.option === "yes") {
+              nextQ = next["yes"];
+              other = next["no"];
+            }
+            // props.setFieldValue("");
+            showNextQestion(
+              groupId,
+              nextQ,
+              other,
+              props.setFieldValue,
+              props.number
+            );
+          }
+        }}
+        htmlFor={id}
+        className={`yesno options-${props.count}`}
+      >
         {props.option}
       </StyledInput>
     </InputWrapper>
