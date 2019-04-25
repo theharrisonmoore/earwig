@@ -5,7 +5,7 @@ import { colors } from "../../../theme";
 
 export const SignupWrapper = styled.div.attrs({ className: "login" })`
   width: 100%;
-  max-width: 60rem;
+  max-width: 30rem;
   margin: 0 auto;
   padding: 1rem 1.5rem;
   padding-top: 4rem;
@@ -19,7 +19,7 @@ export const SignupWrapper = styled.div.attrs({ className: "login" })`
 
 export const StyledLink = styled(Link).attrs({})`
   display: block;
-  text-decoration: none;
+  text-decoration: underline;
   margin-bottom: 3rem;
   font-size: 1.125rem;
   color: ${colors.profileFontColor};
@@ -27,8 +27,8 @@ export const StyledLink = styled(Link).attrs({})`
 
   &:hover,
   &:active {
-    text-decoration: none;
     color: ${colors.profileFontColor};
+    text-decoration: underline;
   }
 `;
 
