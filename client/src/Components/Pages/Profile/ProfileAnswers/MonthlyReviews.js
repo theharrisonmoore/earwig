@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Bar } from "react-chartjs-2";
+import { Bar as MonthlyBar } from "react-chartjs-2";
 
-import { QuestionTitle } from "./../ReviewSection.style";
+import { QuestionTitle } from "../ReviewSection.style";
 
-import { organizations } from "./../../../../theme";
+import { organizations } from "../../../../theme";
 
-export default class BarAnswer extends Component {
+export default class MonthlyReviews extends Component {
   render() {
     const { category, reviewsByMonth } = this.props;
 
@@ -44,7 +44,7 @@ export default class BarAnswer extends Component {
     return (
       <>
         <QuestionTitle>Total reviews by month</QuestionTitle>
-        <Bar data={data} options={options} />
+        <MonthlyBar data={data} options={options} />
       </>
     );
   }
