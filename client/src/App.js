@@ -45,8 +45,6 @@ class App extends Component {
         this.setState({ ...res.data, isLoggedIn: true, isMounted: true });
       })
       .catch(err => {
-        console.log(err);
-
         if (err.response.status === 401) {
           this.setState({ ...initialState, isMounted: true });
         } else {
