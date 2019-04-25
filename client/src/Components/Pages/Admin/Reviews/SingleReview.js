@@ -132,12 +132,15 @@ export default class SingleReview extends Component {
     } = this.state;
     console.log(groups);
     // get overall review details
-    const overallRating = groups[0].answers[0].review[0].rate;
-    const overallText = groups[0].answers[0].review[0].overallReview.text;
-    const workedFrom = groups[0].answers[0].review[0].workPeriod.from;
-    const workedTo = groups[0].answers[0].review[0].workPeriod.to;
-    const replies = groups[0].answers[0].review[0].overallReview.replies;
-    const votes = groups[0].answers[0].review[0].overallReview.votes;
+    let overallRating, overallText, workedFrom, workedTo, replies, votes;
+    if (groups.length && groups[0].answers.length) {
+      overallRating = groups[0].answers[0].review[0].rate;
+      overallText = groups[0].answers[0].review[0].overallReview.text;
+      workedFrom = groups[0].answers[0].review[0].workPeriod.from;
+      workedTo = groups[0].answers[0].review[0].workPeriod.to;
+      replies = groups[0].answers[0].review[0].overallReview.replies;
+      votes = groups[0].answers[0].review[0].overallReview.votes;
+    }
 
     return (
       <ReviewWrapper>
