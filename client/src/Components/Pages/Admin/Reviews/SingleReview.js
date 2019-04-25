@@ -107,10 +107,7 @@ export default class SingleReview extends Component {
   };
 
   checkBoxIten = (answers, option) => {
-    console.log(option);
-    console.log(answers);
     return answers.map(answer => (answer === option ? true : false));
-    // return answer === option ? true : false;
   };
 
   render() {
@@ -142,6 +139,7 @@ export default class SingleReview extends Component {
       groups,
       organization: { name, category }
     } = this.state;
+    console.log(groups);
     return (
       <ReviewWrapper>
         <Header orgType={category}>
@@ -393,6 +391,7 @@ export default class SingleReview extends Component {
                                 }
 
                                 if (type === "checklist") {
+                                  // console.log(answer);
                                   return (
                                     <QuestionOptionsWrapper>
                                       <h3>{question.text}</h3>
@@ -408,14 +407,9 @@ export default class SingleReview extends Component {
                                                     id={`${option}-${number}`}
                                                     type="checkbox"
                                                     name={`questions[${number}].${index}`}
-                                                    value={option}
-                                                    checked={this.checkBoxIten(
-                                                      answer,
+                                                    checked={answer.includes(
                                                       option
                                                     )}
-                                                    // checked={values.questions[
-                                                    //   number
-                                                    // ].includes(answer)}
                                                   />
                                                   <label
                                                     htmlFor={`${option}-${number}`}
