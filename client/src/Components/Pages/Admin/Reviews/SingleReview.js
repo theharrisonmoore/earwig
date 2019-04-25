@@ -16,7 +16,9 @@ import {
   OrgName,
   Paragraph,
   FormWrapper,
-  DetailsDiv
+  DetailsDiv,
+  Button,
+  ButtonDiv
 } from "../../Review/Review.style";
 
 import {
@@ -398,6 +400,22 @@ export default class SingleReview extends Component {
                         })}
                       </div>
                     )}
+                    <ButtonDiv>
+                      <Button
+                        type="submit"
+                        // disabled={isSubmitting}
+                        color={colors.red}
+                      >
+                        Reject Review
+                      </Button>
+                      <Button
+                        type="submit"
+                        // disabled={isSubmitting}
+                        color={colors.green}
+                      >
+                        Approve Review
+                      </Button>
+                    </ButtonDiv>
                   </Form>
                 </FormWrapper>
               );

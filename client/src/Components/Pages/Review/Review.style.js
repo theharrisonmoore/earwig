@@ -92,3 +92,22 @@ export const SubmitButton = styled.button`
   display: block;
   margin: 2rem auto 3rem;
 `;
+
+export const ButtonDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`;
+
+export const Button = styled.button`
+  background: ${props => props.color};
+  border: 1px solid ${colors.inputBorder};
+  box-shadow: ${colors.buttonShadow};
+  border-radius: 6px;
+  font-weight: 900;
+  font-size: 1rem;
+  color: white;
+  padding: 1rem 1rem;
+  display: block;
+  margin: 1rem auto 2rem;
+`;
