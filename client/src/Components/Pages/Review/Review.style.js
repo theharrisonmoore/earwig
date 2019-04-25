@@ -100,14 +100,21 @@ export const ButtonDiv = styled.div`
 `;
 
 export const Button = styled.button`
-  background: ${props => props.color};
-  border: 1px solid ${colors.inputBorder};
+  background: ${colors.white};
+  color: ${props => props.color};
+  border: solid 2px ${props => props.color};
+  transition: all ease-in 0.1s;
   box-shadow: ${colors.buttonShadow};
   border-radius: 6px;
   font-weight: 900;
   font-size: 1rem;
-  color: white;
   padding: 1rem 1rem;
   display: block;
   margin: 1rem auto 2rem;
+  cursor: pointer;
+
+  :hover {
+    background: ${props => props.color};
+    color: ${colors.white};
+  }
 `;

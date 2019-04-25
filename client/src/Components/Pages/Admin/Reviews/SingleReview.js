@@ -3,6 +3,7 @@ import axios from "axios";
 import { Formik, Form, Field, FieldArray } from "formik";
 import StarRatingComponent from "react-star-rating-component";
 import moment from "moment";
+import Swal from "sweetalert2";
 
 import { SVGCreator } from "../../../../helpers";
 
@@ -86,17 +87,31 @@ export default class SingleReview extends Component {
 
   changeBtnColor = bool => (bool === true ? colors.red : colors.green);
 
-  renderBtnText = bool => (bool === true ? "reject review" : "approve review");
+  renderBtnText = bool => (bool === true ? "Reject Review" : "Approve Review");
 
   updateIsVerified = ({ id, bool }) => {
-    console.log(id, bool);
     axios
-      .patch(`/api/admin/reviews/update-status`, {
+      .patch("/api/admin/reviews/update-status", {
         id,
         bool
       })
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+      .then(res => {
+        Swal.fire({
+          type: "success",
+          title: "Review status updated",
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          this.props.history.push("/admin/reviews/");
+        });
+      })
+      .catch(err => {
+        Swal.fire({
+          type: "error",
+          title: "Oops...error updating review status",
+          text: err.response.data.error
+        });
+      });
   };
 
   render() {

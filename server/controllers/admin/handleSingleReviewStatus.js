@@ -2,7 +2,6 @@ const boom = require("boom");
 const { approveRejectReview } = require("./../../database/queries/reviews");
 
 module.exports = (req, res, next) => {
-  console.log(req.body);
   const { id, bool } = req.body;
   approveRejectReview(id, bool)
     .then((result) => {
