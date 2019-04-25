@@ -43,28 +43,28 @@ export default class Menu extends PureComponent {
         )}
 
         <MenuItem to={PROFILE_URL} onClick={toggleMenu}>
-          <SVG src="/icons/profile-icon.svg" className="menuIcon" />
+          <MenuIcon icon="getVerified" height="19" width="19" />
           Your profile
         </MenuItem>
         <MenuItem to={FAQ_URL} onClick={toggleMenu}>
-          <SVG src="/icons/faq-icon.svg" className="menuIcon" />
+          <MenuIcon icon="faq" height="19" width="19" />
           FAQ & explainer videos
         </MenuItem>
         <MenuItem to={RESOURCES_URL} onClick={toggleMenu}>
-          <SVG src="/icons/links-icon.svg" className="menuIcon" />
+          <MenuIcon icon="helpfulLinks" height="19" width="19" />
           More helpful stuff for workers
         </MenuItem>
         <MenuItem to={CONTACT_URL} onClick={toggleMenu}>
-          <SVG src="/icons/contact-icon.svg" className="menuIcon" />
+          <MenuIcon icon="shapeEarwig" height="19" width="19" />
           Shape earwig
         </MenuItem>
         <MenuItem to={PRIVACY_URL} onClick={toggleMenu}>
-          <SVG src="/icons/tcs-icon.svg" className="menuIcon" />
+        <MenuIcon icon="privacyTerms" height="19" width="19" />
           Privacy & terms
         </MenuItem>
         {isLoggedIn ? (
           <MenuItem to=" " onClick={handleLogout}>
-            <MenuIcon icon="logout" height="19" width="19" />
+            <MenuIcon icon="logoutLogin" height="19" width="19" />
             Log out
           </MenuItem>
         ) : (

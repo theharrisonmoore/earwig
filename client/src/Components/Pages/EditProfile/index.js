@@ -19,7 +19,8 @@ import {
   Status,
   UnVerifiedTitle,
   Paragraph,
-  UnVerifiedButton
+  UnVerifiedButton,
+  EditIcon
 } from "./EditProfile.style";
 
 import {
@@ -208,7 +209,7 @@ export default class EditProfile extends Component {
                   <Section>
                     <Row>
                       <div className="row__image-container">
-                        <img src={cardImage} alt="card icon" />
+                        <EditIcon icon="getVerified" height="36" width="36" />
                         <Title>Verification photo</Title>
                       </div>
                       <Field

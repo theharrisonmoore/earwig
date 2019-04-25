@@ -17,10 +17,12 @@ import PieAnswer from "./ProfileAnswers/PieAnswer.js";
 import ScatterAnswer from "./ProfileAnswers/ScatterAnswer";
 import SiteItemAnswer from "./ProfileAnswers/SiteItemAnswer";
 import CanteenItemAnswer from "./ProfileAnswers/CanteenItemAnswer";
+import BarChartAnswer from "./ProfileAnswers/BarChartAnswer";
+import PayrollAnswer from "./ProfileAnswers/PayrollAnswer";
 
 export default class ReviewSection extends Component {
   render() {
-    const { sectionDetails, category, toggleComments, summary } = this.props;
+    const { sectionDetails, category, toggleComments, summary, isMobile } = this.props;
     const { _id: sectionTitle, questions } = sectionDetails;
 
     let canteenQuestions =
@@ -31,6 +33,17 @@ export default class ReviewSection extends Component {
 
     if (!canteenQuestions || canteenQuestions.length < 1)
       canteenQuestions = false;
+
+    let payrollQuestions =
+      questions &&
+      questions.filter(question =>
+        ["payrollList", "payrollSubList"].includes(
+          question.question.profileType
+        )
+      );
+
+    if (!payrollQuestions || payrollQuestions.length < 1)
+      payrollQuestions = false;
 
     return (
       // Question - Title, AggregatedAnswer, Comment Box
@@ -47,42 +60,32 @@ export default class ReviewSection extends Component {
 
         {questions &&
           questions
-            .filter(question => question.question.profileType === "yesno")
-            .map((question, index) => (
+            .map((question, index) => ["yesno", "pieChart", "dotChart"].includes(question.question.profileType) && (
               <QuestionWrapper key={index}>
                 <QuestionTitle>{question.question.profileText}</QuestionTitle>
-                <YesNoAnswer
+                {question.question.profileType === "yesno" && (
+                  <YesNoAnswer
                   question={question}
                   toggleComments={toggleComments}
-                />
-              </QuestionWrapper>
-            ))}
-
-        {questions &&
-          questions
-            .filter(question => question.question.profileType === "pieChart")
-            .map((question, index) => (
-              <QuestionWrapper key={index}>
-                <QuestionTitle>{question.question.profileText}</QuestionTitle>
-                <PieAnswer
+                  isMobile={isMobile}
+                  />
+                )}
+                {question.question.profileType === "pieChart" && (
+                  <PieAnswer
                   category={category}
                   question={question}
                   toggleComments={toggleComments}
-                />
-              </QuestionWrapper>
-            ))}
-
-        {questions &&
-          questions
-            .filter(question => question.question.profileType === "dotChart")
-            .map((question, index) => (
-              <QuestionWrapper key={index}>
-                <QuestionTitle>{question.question.profileText}</QuestionTitle>
-                <ScatterAnswer
+                  isMobile={isMobile}
+                  />
+                )}
+                {question.question.profileType === "dotChart" && (
+                  <ScatterAnswer
                   category={category}
                   question={question}
                   toggleComments={toggleComments}
-                />
+                  isMobile={isMobile}
+                  />
+                )}
               </QuestionWrapper>
             ))}
 
@@ -96,6 +99,7 @@ export default class ReviewSection extends Component {
                   question={question}
                   toggleComments={toggleComments}
                   profileType={question.question.profileType}
+                  isMobile={isMobile}
                 />
               </QuestionWrapper>
             ))}
@@ -105,13 +109,25 @@ export default class ReviewSection extends Component {
             <CanteenItemAnswer
               questions={canteenQuestions}
               toggleComments={toggleComments}
+              isMobile={isMobile}
+            />
+          </QuestionWrapper>
+        )}
+        {/* PAYROLL LIST */}
+        {payrollQuestions && (
+          <QuestionWrapper>
+            <QuestionTitle>Pays using the following payrolls</QuestionTitle>
+            <PayrollAnswer
+              questions={payrollQuestions}
+              toggleComments={toggleComments}
+              isMobile={isMobile}
             />
           </QuestionWrapper>
         )}
         {questions &&
           questions
             .filter(question =>
-              ["list", "payrollList"].includes(question.question.profileType)
+              ["list"].includes(question.question.profileType)
             )
             .map((question, index) => (
               <QuestionWrapper key={index}>
@@ -119,7 +135,17 @@ export default class ReviewSection extends Component {
                 <ListAnswer
                   question={question}
                   toggleComments={toggleComments}
+                  isMobile={isMobile}
                 />
+              </QuestionWrapper>
+            ))}
+        {questions &&
+          questions
+            .filter(question => question.question.profileType === "barChart")
+            .map((question, index) => (
+              <QuestionWrapper key={index}>
+                <QuestionTitle>{question.question.profileText}</QuestionTitle>
+                <BarChartAnswer category={category} question={question} />
               </QuestionWrapper>
             ))}
       </Wrapper>

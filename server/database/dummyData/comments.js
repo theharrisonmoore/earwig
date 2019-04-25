@@ -26,16 +26,17 @@ module.exports = async () => {
     },
     {
       organization: agencies[0],
-      question: agencyQuestions[18],
+      question: agencyQuestions[17],
       user: users[0],
       text: "Bad agency, stay away",
     },
     {
       organization: agencies[0],
-      question: agencyQuestions[18],
+      question: agencyQuestions[17],
       user: users[1],
       text: "Good agency",
     },
   ];
   return Comment.create(comments);
 };
+
