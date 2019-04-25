@@ -27,6 +27,12 @@ export const QuestionOptionsWrapper = styled.div`
   flex-direction: column;
 `;
 
+export const AnswerDiv = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;
+
 export const Options = styled.div`
   display: flex;
   flex-wrap: wrap;

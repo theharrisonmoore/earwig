@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 import { SVGCreator } from "../../../../helpers";
 
-import { message, Select, Input, InputNumber } from "antd";
+import { message, Select, Input, Modal, InputNumber } from "antd";
 import {
   ReviewWrapper,
   Header,
@@ -19,11 +19,13 @@ import {
   FormWrapper,
   DetailsDiv,
   Button,
-  ButtonDiv
+  ButtonDiv,
+  DelButton
 } from "../../Review/Review.style";
 
 import {
   QuestionOptionsWrapper,
+  AnswerDiv,
   QText,
   HintText,
   Options
@@ -112,6 +114,36 @@ export default class SingleReview extends Component {
           text: err.response.data.error
         });
       });
+  };
+
+  showDeleteConfirm = answerID => {
+    axios
+      .delete("http://localhost:8080/api/admin/review-answer/", {
+        id: answerID
+      })
+      .then(res => console.log(res));
+
+    // Modal.confirm({
+    //   title: "Are you sure you want to delete this answer?",
+    //   okText: "Yes",
+    //   okType: "danger",
+    //   cancelText: "Cancel",
+    //   onOk: () => {
+    //     return new Promise((resolve, reject) => {
+    //       axios
+    //         .delete(`/api/admin/review-answer`, { id: answerID })
+    //         .then(() => {
+    //           message.success("Deleted");
+    //           resolve();
+    //         })
+    //         .catch(err => {
+    //           const error =
+    //             err.response && err.response.data && err.response.data.error;
+    //           message.error(error || "Something went wrong");
+    //         });
+    //     });
+    //   }
+    // });
   };
 
   render() {
@@ -229,7 +261,7 @@ export default class SingleReview extends Component {
                                 {group.answers.map((entry, i) => {
                                   const question = entry.question[0];
                                   const answer = entry.answer;
-
+                                  console.log(entry._id);
                                   const {
                                     type,
                                     options,
@@ -244,11 +276,7 @@ export default class SingleReview extends Component {
                                         <QText>{question.text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <Options>
-                                          <div
-                                            className={`choices choices-${
-                                              options.length
-                                            }`}
-                                          >
+                                          <AnswerDiv>
                                             {options.map((option, i, arr) => {
                                               return (
                                                 <Field
@@ -267,7 +295,20 @@ export default class SingleReview extends Component {
                                                 />
                                               );
                                             })}
-                                          </div>
+                                            <DelButton
+                                              onClick={() =>
+                                                this.showDeleteConfirm({
+                                                  id: entry._id
+                                                })
+                                              }
+                                            >
+                                              {SVGCreator(
+                                                "delete-icon",
+                                                "25px",
+                                                "100%"
+                                              )}
+                                            </DelButton>
+                                          </AnswerDiv>
                                         </Options>
                                       </QuestionOptionsWrapper>
                                     );
@@ -278,19 +319,26 @@ export default class SingleReview extends Component {
                                       <QuestionOptionsWrapper key={i}>
                                         <QText>{question.text}</QText>
                                         <HintText>{question.hintText}</HintText>
-                                        <Field name={`questions[${number}]`}>
-                                          {() => (
-                                            <Input
-                                              size="large"
-                                              value={answer}
-                                              style={{
-                                                border: `1px solid ${
-                                                  colors.dustyGray1
-                                                }`
-                                              }}
-                                            />
+                                        <AnswerDiv>
+                                          <Field name={`questions[${number}]`}>
+                                            {() => (
+                                              <Input
+                                                size="large"
+                                                value={answer}
+                                                style={{
+                                                  border: `1px solid ${
+                                                    colors.dustyGray1
+                                                  }`
+                                                }}
+                                              />
+                                            )}
+                                          </Field>
+                                          {SVGCreator(
+                                            "delete-icon",
+                                            "25px",
+                                            "100%"
                                           )}
-                                        </Field>
+                                        </AnswerDiv>
                                       </QuestionOptionsWrapper>
                                     );
                                   }
@@ -300,26 +348,33 @@ export default class SingleReview extends Component {
                                       <QuestionOptionsWrapper key={i}>
                                         <QText>{question.text}</QText>
                                         <HintText>{question.hintText}</HintText>
-                                        <Field
-                                          name={`questions[${number}]`}
-                                          type="number"
-                                        >
-                                          {() => (
-                                            <InputNumber
-                                              style={{
-                                                border: `1px solid ${
-                                                  colors.dustyGray1
-                                                }`,
-                                                width: "12rem",
-                                                height: "70px",
-                                                lineHeight: "70px"
-                                              }}
-                                              size="large"
-                                              value={answer}
-                                              placeholder={`£       ${label}`}
-                                            />
+                                        <AnswerDiv>
+                                          <Field
+                                            name={`questions[${number}]`}
+                                            type="number"
+                                          >
+                                            {() => (
+                                              <InputNumber
+                                                style={{
+                                                  border: `1px solid ${
+                                                    colors.dustyGray1
+                                                  }`,
+                                                  width: "12rem",
+                                                  height: "70px",
+                                                  lineHeight: "70px"
+                                                }}
+                                                size="large"
+                                                value={answer}
+                                                placeholder={`£       ${label}`}
+                                              />
+                                            )}
+                                          </Field>
+                                          {SVGCreator(
+                                            "delete-icon",
+                                            "25px",
+                                            "100%"
                                           )}
-                                        </Field>
+                                        </AnswerDiv>
                                       </QuestionOptionsWrapper>
                                     );
                                   }
@@ -329,23 +384,30 @@ export default class SingleReview extends Component {
                                       <QuestionOptionsWrapper>
                                         <QText>{question.text}</QText>
                                         <HintText>{question.hintText}</HintText>
-                                        <Field name={`questions[${number}]`}>
-                                          {() => {
-                                            return (
-                                              <>
-                                                <Select
-                                                  value={answer}
-                                                  disabled
-                                                  style={{
-                                                    border: `1px solid ${
-                                                      colors.dustyGray1
-                                                    }`
-                                                  }}
-                                                />
-                                              </>
-                                            );
-                                          }}
-                                        </Field>
+                                        <AnswerDiv>
+                                          <Field name={`questions[${number}]`}>
+                                            {() => {
+                                              return (
+                                                <>
+                                                  <Select
+                                                    value={answer}
+                                                    disabled
+                                                    style={{
+                                                      border: `1px solid ${
+                                                        colors.dustyGray1
+                                                      }`
+                                                    }}
+                                                  />
+                                                </>
+                                              );
+                                            }}
+                                          </Field>
+                                          {SVGCreator(
+                                            "delete-icon",
+                                            "25px",
+                                            "100%"
+                                          )}
+                                        </AnswerDiv>
                                       </QuestionOptionsWrapper>
                                     );
                                   }
@@ -354,23 +416,28 @@ export default class SingleReview extends Component {
                                     return (
                                       <QuestionOptionsWrapper>
                                         <QText>{question.text}</QText>
-                                        <HintText>
-                                          {question.hintText}
-                                        </HintText>{" "}
-                                        <Field name={`review.overallReview`}>
-                                          {() => (
-                                            <Input.TextArea
-                                              rows={4}
-                                              // {...form}
-                                              value={answer}
-                                              style={{
-                                                border: `1px solid ${
-                                                  colors.inputBorder
-                                                }`
-                                              }}
-                                            />
+                                        <HintText>{question.hintText}</HintText>
+                                        <AnswerDiv>
+                                          <Field name={`review.overallReview`}>
+                                            {() => (
+                                              <Input.TextArea
+                                                rows={4}
+                                                // {...form}
+                                                value={answer}
+                                                style={{
+                                                  border: `1px solid ${
+                                                    colors.inputBorder
+                                                  }`
+                                                }}
+                                              />
+                                            )}
+                                          </Field>
+                                          {SVGCreator(
+                                            "delete-icon",
+                                            "25px",
+                                            "100%"
                                           )}
-                                        </Field>
+                                        </AnswerDiv>
                                       </QuestionOptionsWrapper>
                                     );
                                   }
@@ -380,32 +447,41 @@ export default class SingleReview extends Component {
                                       <QuestionOptionsWrapper key={i}>
                                         <QText>{question.text}</QText>
                                         <HintText>{question.hintText}</HintText>
-                                        <FieldArray
-                                          name={`questions[${number}]`}
-                                          render={() => (
-                                            <div>
-                                              {options &&
-                                                options.length > 0 &&
-                                                options.map((option, index) => (
-                                                  <div key={option}>
-                                                    <Field
-                                                      id={`${option}-${number}`}
-                                                      type="checkbox"
-                                                      name={`questions[${number}].${index}`}
-                                                      checked={answer.includes(
-                                                        option
-                                                      )}
-                                                    />
-                                                    <label
-                                                      htmlFor={`${option}-${number}`}
-                                                    >
-                                                      {option}
-                                                    </label>
-                                                  </div>
-                                                ))}
-                                            </div>
+                                        <AnswerDiv>
+                                          <FieldArray
+                                            name={`questions[${number}]`}
+                                            render={() => (
+                                              <div>
+                                                {options &&
+                                                  options.length > 0 &&
+                                                  options.map(
+                                                    (option, index) => (
+                                                      <div key={option}>
+                                                        <Field
+                                                          id={`${option}-${number}`}
+                                                          type="checkbox"
+                                                          name={`questions[${number}].${index}`}
+                                                          checked={answer.includes(
+                                                            option
+                                                          )}
+                                                        />
+                                                        <label
+                                                          htmlFor={`${option}-${number}`}
+                                                        >
+                                                          {option}
+                                                        </label>
+                                                      </div>
+                                                    )
+                                                  )}
+                                              </div>
+                                            )}
+                                          />
+                                          {SVGCreator(
+                                            "delete-icon",
+                                            "25px",
+                                            "100%"
                                           )}
-                                        />
+                                        </AnswerDiv>
                                       </QuestionOptionsWrapper>
                                     );
                                   }

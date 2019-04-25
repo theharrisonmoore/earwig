@@ -118,3 +118,9 @@ export const Button = styled.button`
     color: ${colors.white};
   }
 `;
+
+export const DelButton = styled.button`
+  border: none
+  display: block;
+  cursor: pointer;
+`;
