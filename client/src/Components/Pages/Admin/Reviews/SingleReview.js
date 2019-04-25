@@ -38,7 +38,7 @@ export default class SingleReview extends Component {
     groups: [],
     organization: { category: "", name: "" },
     user: { id: "", email: "" },
-    review: { revID: "", rating: "", overallRev: "" }
+    review: { isVerified: "", revID: "", rating: "", overallRev: "" }
   };
   fetchData = () => {
     const {
@@ -48,7 +48,8 @@ export default class SingleReview extends Component {
       userID,
       rating,
       overallRev,
-      revID
+      revID,
+      isVerified
     } = this.props.location.state;
     const { organization, user, review } = this.state;
     organization.category = category;
@@ -58,6 +59,7 @@ export default class SingleReview extends Component {
     review.revID = revID;
     review.rating = rating;
     review.overallRev = overallRev;
+    review.isVerified = isVerified;
 
     axios
       .get(`/api/admin/single-review/${revID}`)
@@ -82,8 +84,19 @@ export default class SingleReview extends Component {
     return answer === option ? true : false;
   };
 
-  checkBoxIten = (answers, option) => {
-    return answers.map(answer => (answer === option ? true : false));
+  changeBtnColor = bool => (bool === true ? colors.red : colors.green);
+
+  renderBtnText = bool => (bool === true ? "reject review" : "approve review");
+
+  updateIsVerified = ({ id, bool }) => {
+    console.log(id, bool);
+    axios
+      .patch(`/api/admin/reviews/update-status`, {
+        id,
+        bool
+      })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -97,7 +110,7 @@ export default class SingleReview extends Component {
       groups,
       organization: { name, category },
       user: { email, id },
-      review: { revID, rating, overallRev }
+      review: { revID, rating, overallRev, isVerified }
     } = this.state;
     // review stats
     const workedFrom = overallRev.workedFrom;
@@ -400,27 +413,24 @@ export default class SingleReview extends Component {
                         })}
                       </div>
                     )}
-                    <ButtonDiv>
-                      <Button
-                        type="submit"
-                        // disabled={isSubmitting}
-                        color={colors.red}
-                      >
-                        Reject Review
-                      </Button>
-                      <Button
-                        type="submit"
-                        // disabled={isSubmitting}
-                        color={colors.green}
-                      >
-                        Approve Review
-                      </Button>
-                    </ButtonDiv>
                   </Form>
                 </FormWrapper>
               );
             }}
           </Formik>
+          <ButtonDiv>
+            <Button
+              color={this.changeBtnColor(isVerified)}
+              onClick={() =>
+                this.updateIsVerified({
+                  id: revID,
+                  bool: !isVerified
+                })
+              }
+            >
+              {this.renderBtnText(isVerified)}
+            </Button>
+          </ButtonDiv>
         </section>
       </ReviewWrapper>
     );

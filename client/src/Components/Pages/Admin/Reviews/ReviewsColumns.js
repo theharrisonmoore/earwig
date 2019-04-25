@@ -63,7 +63,8 @@ export default ({ deletHandler, viewHandler }) => {
                       userID: record.user.userId,
                       rating: text.rate,
                       overallRev: text.overallReview,
-                      revID: text._id
+                      revID: text._id,
+                      isVerified: text.isVerified
                     }
                   }}
                 >
