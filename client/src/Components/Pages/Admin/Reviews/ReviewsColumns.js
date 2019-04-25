@@ -36,7 +36,6 @@ export default ({ deletHandler, viewHandler }) => {
       title: "Action",
       key: "action",
       render: (text, record) => {
-        console.log(record.user);
         return (
           <div>
             <div
@@ -61,7 +60,10 @@ export default ({ deletHandler, viewHandler }) => {
                       name: record.organization.name,
                       category: record.organization.category,
                       userEmail: record.user.email,
-                      userID: record.user.userId
+                      userID: record.user.userId,
+                      rating: text.rate,
+                      overallRev: text.overallReview,
+                      revID: text._id
                     }
                   }}
                 >

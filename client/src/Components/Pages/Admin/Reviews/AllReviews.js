@@ -51,6 +51,7 @@ export default class AllReviews extends Component {
     axios
       .get(`/api/admin/reviews${query}`)
       .then(res => {
+        console.log(res);
         this.setState({ data: res.data });
       })
       .catch(err => {

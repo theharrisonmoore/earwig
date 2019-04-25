@@ -20,6 +20,11 @@ export const ReviewWrapper = styled.div`
   background-color: ${colors.white};
 `;
 
+export const DetailsDiv = styled.div`
+  padding-top: 1rem;
+  border-bottom: 1px solid;
+`;
+
 export const Content = styled.div`
   display: flex;
   justify-content: space;

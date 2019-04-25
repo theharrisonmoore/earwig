@@ -1,6 +1,6 @@
 const boom = require("boom");
 
-const { getAllReviews, getReviewDetails } = require("./../../database/queries/reviews");
+const { getAllReviews } = require("./../../database/queries/reviews");
 
 module.exports = (req, res, next) => {
   const awaitingReview = req.query.awaitingReview === "true";
