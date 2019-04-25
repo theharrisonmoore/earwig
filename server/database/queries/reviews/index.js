@@ -14,6 +14,8 @@ module.exports.findById = id => Review.findById(id);
 
 module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate({ _id: id }, { isVerified: bool }, { new: true });
 
+module.exports.deleteAnswer = id => Answer.deleteOne({ _id: id });
+
 module.exports.getAllReviews = getAllReviews;
 
 module.exports.getReviewDetails = getReviewDetails;

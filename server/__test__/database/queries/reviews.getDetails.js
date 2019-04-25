@@ -1,8 +1,13 @@
+// tests for the single review page in the admin panel
 const mongoose = require("mongoose");
 const buildDB = require("../../../database/dummyData/index");
 const Review = require("../../../database/models/Review");
 
-const { getReviewDetails, approveRejectReview } = require("../../../database/queries/reviews");
+const {
+  getReviewDetails,
+  approveRejectReview,
+  deleteAnswer,
+} = require("../../../database/queries/reviews");
 
 describe("Test get review details query", () => {
   beforeAll(async () => {
@@ -19,7 +24,7 @@ describe("Test get review details query", () => {
 
   test("Test with correct review ID", async (done) => {
     const review = await Review.findOne();
-    getReviewDetails(review._id).then((result) => {
+    await getReviewDetails(review._id).then((result) => {
       expect(result).toBeDefined();
       expect(result.length).toBeDefined();
 
@@ -29,7 +34,7 @@ describe("Test get review details query", () => {
 
   test("Test with incorrect review ID", async (done) => {
     const review = "notValid";
-    getReviewDetails(review._id).then((result) => {
+    await getReviewDetails(review._id).then((result) => {
       expect(result).toBeDefined();
       expect(result.length).toBe(0);
       expect(result[0]).toBeUndefined();
@@ -63,6 +68,19 @@ describe("Test get review details query", () => {
     await approveRejectReview(review._id, false).then((result) => {
       expect(result).toBeDefined();
       expect(result.isVerified).toBeFalsy();
+    });
+    done();
+  });
+
+  test("Test delete answer query", async (done) => {
+    const review = await Review.findOne();
+
+    await getReviewDetails(review._id).then(async (reviewAnswers) => {
+      const answer = reviewAnswers[0].answers[0]._id;
+      expect(answer).toBeDefined();
+      const deletedAnswer = await deleteAnswer(answer);
+      expect(deletedAnswer).toBeDefined();
+      expect(deletedAnswer.deletedCount).toBe(1);
     });
     done();
   });
