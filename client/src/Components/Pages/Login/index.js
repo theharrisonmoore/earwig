@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import * as Yup from "yup";
+import axios from "axios";
 
+import Logo from "./../../Common/Logo";
 import {
   StyledFormik as Formik,
   StyledForm as Form,
@@ -11,8 +13,12 @@ import {
   GeneralErrorMessage
 } from "./../../Common/Formik/Formik.style";
 
-import { ADMIN, SEARCH_URL } from "./../../../constants/naviagationUrls";
-import axios from "axios";
+import {
+  ADMIN,
+  SEARCH_URL,
+  SIGNUP_URL,
+  RESET_PASSWORD_URL
+} from "./../../../constants/naviagationUrls";
 
 import {
   StyledLink as Link,
@@ -21,8 +27,6 @@ import {
   Devider,
   Circle
 } from "./Login.style";
-
-import logo from "./../../../assets/logo.svg";
 
 import { StyledField } from "./../../Common/Formik/Formik.style";
 
@@ -59,7 +63,7 @@ export default class Login extends Component {
 
     return (
       <LoginWrapper>
-        <img src={logo} alt="logo" />
+        <Logo />
         <Formik
           initialValues={initalValues}
           validationSchema={loginSchema}
@@ -81,7 +85,7 @@ export default class Login extends Component {
                   id="password"
                 />
               </Label>
-              <SmallLink to="/reset-password">Forget password?</SmallLink>
+              <SmallLink to={RESET_PASSWORD_URL}>Forget password?</SmallLink>
               {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
               <Button type="submit" disabled={isSubmitting}>
                 Log in
@@ -91,12 +95,12 @@ export default class Login extends Component {
         </Formik>
         <p className="paragraph">
           Don’t have an account?
-          <Link to="signup">Create an account</Link>
+          <Link to={SIGNUP_URL}>Create an account</Link>
         </p>
         <Devider>
           <Circle>OR</Circle>
         </Devider>
-        <Link to="/intro">Continue without an account</Link>
+        <Link to={SEARCH_URL}>Continue without an account</Link>
       </LoginWrapper>
     );
   }

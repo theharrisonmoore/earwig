@@ -59,6 +59,7 @@ export const Button = styled.button`
   text-transform: capitalize;
   margin-bottom: 1.25rem;
   color: ${colors.profileFontColor};
+  cursor: pointer;
 
   &,
   &:active,
@@ -83,7 +84,7 @@ export const CheckboxLabel = styled.label.attrs({
 })`
   font-size: 1rem;
   color: ${colors.profileFontColor};
-  padding-left: 2rem;
+  padding-left: 0.5rem;
   line-height: 3rem;
   cursor: pointer;
 

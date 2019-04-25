@@ -23,6 +23,7 @@ import Search from "./Pages/Search";
 import JoinMailList from "./Pages/JoinMailList";
 import AddProfileSelection from "./Pages/Search/AddProfileSelection";
 import AddProfileStartReview from "./Pages/Search/AddProfileReviewStart";
+import Intro from "./Pages/Intro";
 import PrivateRoute from "./Common/PrivateRoute";
 import {
   FAQ,
@@ -42,7 +43,8 @@ import {
   ADMIN,
   REVIEW_URL,
   QUICK_REVIEW_URL,
-  CONFIRM_EMAIL_URL
+  CONFIRM_EMAIL_URL,
+  INTRO_URL
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
@@ -179,6 +181,7 @@ export default function index(props) {
           title="Shape earwig"
           search
         />
+
         <PrivateRoute
           minimumLevel="LEVEL1"
           path={PRIVACY_URL}
@@ -190,6 +193,16 @@ export default function index(props) {
           title="Shape earwig"
           search
         />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={INTRO_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={Intro}
+        />
+
         <Route
           exact
           path={SIGNUP_URL}
