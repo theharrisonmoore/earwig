@@ -31,6 +31,7 @@ const uploadWorksiteController = require("../controllers/uploadWorksiteImage");
 const searchController = require("../controllers/search");
 const profileController = require("./../controllers/profile");
 const commentsController = require("./../controllers/comments");
+const logoutController = require("./../controllers/logout");
 
 const addOrganizationController = require("../controllers/organizations");
 
@@ -40,6 +41,7 @@ const {
   REVIEW_URL,
   UPLOAD_WORKSITE_IMAGE_URL,
   SEARCH_URL,
+  LOGOUT_URL,
   ADD_ORGANIZATION_URL,
 } = require("../../client/src/apiUrls");
 
@@ -67,6 +69,8 @@ router.post("/profile", softAuthCheck, profileController);
 router.post("/comments", commentsController);
 
 router.post(LOGIN_URL, validation("login"), loginController);
+
+router.use(LOGOUT_URL, logoutController);
 
 router.post(
   "/upload-verification-image",
@@ -122,6 +126,5 @@ router.use("/confirm-email", validation("onlyMongoId"), confirmJoiningEmailList)
 
 router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
 
-router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
 
 module.exports = router;

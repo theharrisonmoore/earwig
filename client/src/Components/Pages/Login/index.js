@@ -11,6 +11,7 @@ import {
   GeneralErrorMessage
 } from "./../../Common/Formik/Formik.style";
 
+import { ADMIN, SEARCH_URL } from "./../../../constants/naviagationUrls";
 import axios from "axios";
 
 import {
@@ -44,7 +45,8 @@ export default class Login extends Component {
       .post("/api/login", values)
       .then(({ data }) => {
         this.props.handleChangeState({ ...data, isLoggedIn: true });
-        this.props.history.push(`/search`);
+        const { isAdmin } = data;
+        this.props.history.push(isAdmin ? ADMIN : SEARCH_URL);
       })
       .catch(err => {
         this.setState({ error: err.response.data.error });
