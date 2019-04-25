@@ -59,11 +59,13 @@ export const CompanyDiv = styled.div`
   text-align: left;
   margin-bottom: 1rem;
   justify-content: center;
+  align-items: center;
 `;
 
 export const CompanyTitle = styled.h2`
   font-size: 2rem;
   font-weight: 600;
+  margin: 0;
 `;
 
 export const ButtonDiv = styled.div`
@@ -127,13 +129,14 @@ export const GiveReviewTitle = styled.h3`
   margin-bottom: 1.5rem;
 `;
 
-export const Icon = styled(SVG)`
+export const SVGIcon = styled(SVG)`
   margin: ${props => props.margin};
 `;
 
 export const CompanyNameAndStars = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
 `;
 
 export const CommentDiv = styled.div`
@@ -223,4 +226,8 @@ export const AccountLink = styled(VerifyLink)`
 
 export const AccountItem = styled.div`
   display: flex;
+`;
+
+export const IconWrapper = styled.div`
+  min-width: 70px;
 `;

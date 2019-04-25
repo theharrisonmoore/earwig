@@ -354,7 +354,7 @@ class QuestionOptions extends React.Component {
     if (type === "image") {
       return (
         <QuestionOptionsWrapper>
-          <UploadImage setFieldValue={props.setFieldValue} />
+          <UploadImage setFieldValue={props.setFieldValue} number={number} />
         </QuestionOptionsWrapper>
       );
     }

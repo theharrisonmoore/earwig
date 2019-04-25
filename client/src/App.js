@@ -25,17 +25,7 @@ const initialState = {
 
 class App extends Component {
   state = {
-    isLoggedIn: false,
-    isMobile: false,
-    isTablet: false,
-    id: "",
-    trade: "",
-    verified: false,
-    awaitingReview: false,
-    userId: "",
-    points: 0,
-    isAdmin: false,
-    email: "",
+    isMounted: false,
     ...initialState
   };
 
@@ -52,13 +42,13 @@ class App extends Component {
     axios
       .get("/api/user")
       .then(res => {
-        this.setState({ ...res.data, isLoggedIn: true });
+        this.setState({ ...res.data, isLoggedIn: true, isMounted: true });
       })
       .catch(err => {
         if (err.response.status === 401) {
-          this.setState({ ...initialState });
+          this.setState({ ...initialState, isMounted: true });
         } else {
-          this.setState({ error: err.response });
+          this.setState({ error: err.response, isMounted: true });
         }
       });
   };
@@ -74,7 +64,7 @@ class App extends Component {
   }
 
   handleChangeState = data => {
-    this.setState(data);
+    this.setState({ ...data, isMounted: true });
   };
 
   render() {

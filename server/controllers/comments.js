@@ -7,9 +7,7 @@ module.exports = (req, res, next) => {
 
   // console.log(req.body)
 
-  allComments(organizationID, questionID).then(comments => { 
-    // console.log(comments)
-    return res.json(comments)
-  }).catch(err => next(boom.badImplementation(err)))
-  
+  allComments(organizationID, questionID)
+    .then(comments => res.json(comments))
+    .catch(err => next(boom.badImplementation(err)));
 };

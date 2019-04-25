@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
-import { Checkbox, DatePicker } from "antd";
+import { Checkbox } from "antd";
 
 import CustomRangePicker from "../../Common/AntdComponents/DatePicker";
+import Swal from "sweetalert2";
 
 import {
   ReviewWrapper,
@@ -66,7 +67,7 @@ class Review extends Component {
   state = {
     isLoading: true,
     groups: [],
-    organization: { category: "", name: "" },
+    organization: { category: "", name: "", needsVerification: false },
     user: { email: "" },
     worksiteImage: "",
     agencies: [],
@@ -74,14 +75,11 @@ class Review extends Component {
   };
   componentDidMount() {
     const { email } = this.props;
-
-    console.log("dkjfkdsjfd", this.props);
-
-    const { category, name } = this.props.location.state;
-    const organization = { ...this.state.organization };
-    const user = { ...this.state.user };
+    const { category, name, needsVerification } = this.props.location.state;
+    const { organization, user } = this.state;
     organization.category = category;
     organization.name = name;
+    organization.needsVerification = needsVerification || false;
     user.email = email;
     axios
       .get(API_GET_QUESTIONS_URL, {
@@ -130,6 +128,16 @@ class Review extends Component {
     axios
       .post(API_POST_REVIEW_URL, review)
       .then(res => {
+        if (this.state.organization.needsVerification) {
+          Swal.fire({
+            type: "success",
+            title: "Thanks! We're verifying your review as soon as possible."
+          }).then(() => {
+            this.props.history.push(THANKYOU_URL, {
+              orgType: organization.category
+            });
+          });
+        }
         this.props.history.push(THANKYOU_URL, {
           orgType: organization.category
         });
@@ -208,7 +216,6 @@ class Review extends Component {
               errors,
               setFieldValue
             }) => {
-              console.log("values", values);
               return (
                 <FormWrapper>
                   <Form>

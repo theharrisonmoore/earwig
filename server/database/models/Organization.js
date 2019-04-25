@@ -20,6 +20,7 @@ const organizationSchema = new Schema(
     email: {
       type: String,
       unique: true,
+      sparse: true,
     },
     websiteURL: String,
     loacation: {
@@ -31,10 +32,15 @@ const organizationSchema = new Schema(
       logo: String,
     },
     lastViewed: Date,
+    active: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,
   },
+  { typeKey: "$type" },
 );
 
 module.exports = mongoose.model("organizations", organizationSchema);

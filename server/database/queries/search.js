@@ -4,6 +4,11 @@ const Organization = require("../models/Organization");
 module.exports = () => new Promise((resolve, reject) => {
   Organization.aggregate([
     {
+      $match: {
+        active: true,
+      },
+    },
+    {
       $lookup: {
         from: "reviews",
         localField: "_id",

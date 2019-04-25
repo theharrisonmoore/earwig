@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
 import { Checkbox } from "antd";
+import Swal from "sweetalert2";
 
 import {
   ReviewWrapper,
@@ -58,9 +59,23 @@ const STATIC_QUESTIONS = [
 
 class Review extends Component {
   state = {
-    organization: { category: "agency", name: "Aspire Recruitment" },
-    user: { email: "level3@earwig.com" }
+    isLoading: true,
+    organization: { category: "", name: "", needsVerification: false },
+    user: { email: "" }
   };
+
+  componentDidMount() {
+    const { email } = this.props;
+    const { category, name, needsVerification } = this.props.location.state;
+    const { organization, user } = this.state;
+    organization.category = category;
+    organization.name = name;
+    organization.needsVerification = needsVerification || false;
+    user.email = email;
+    this.setState({
+      isLoading: false
+    });
+  }
 
   handleSubmit = (values, { setSubmitting }) => {
     const { organization } = this.state;
@@ -73,6 +88,16 @@ class Review extends Component {
     axios
       .post(API_QUICK_REVIEW_URL, review)
       .then(res => {
+        if (this.state.organization.needsVerification) {
+          Swal.fire({
+            type: "success",
+            title: "Thanks! We're verifying your review as soon as possible."
+          }).then(() => {
+            this.props.history.push(THANKYOU_URL, {
+              orgType: organization.category
+            });
+          });
+        }
         this.props.history.push(THANKYOU_URL, {
           orgType: organization.category
         });
@@ -85,6 +110,9 @@ class Review extends Component {
   };
 
   render() {
+    const { isLoading } = this.state;
+    if (isLoading) return <p>loading...</p>;
+
     const initialValues = {
       review: {
         workPeriod: "",
@@ -95,9 +123,6 @@ class Review extends Component {
       hasAgreed: false
     };
 
-    if (!this.state && !this.state.groups[0]) {
-      return null;
-    }
     const {
       organization: { name, category }
     } = this.state;
