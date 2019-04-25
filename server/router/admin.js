@@ -8,6 +8,8 @@ const verifyUser = require("./../controllers/admin/verifyUser");
 const rejectUser = require("./../controllers/admin/rejectUser");
 const getReviews = require("./../controllers/admin/getReviews");
 const deleteReview = require("./../controllers/admin/deleteReview");
+const deleteReviewAnswer = require("./../controllers/admin/deleteReviewAnswer");
+
 const updateReview = require("./../controllers/admin/handleSingleReviewStatus");
 const getSingleReview = require("./../controllers/admin/getSingleReview");
 const getOrganizations = require("./../controllers/admin/getOrganizations");
@@ -30,6 +32,8 @@ router.get("/reviews", getReviews);
 router.get("/single-review/:reviewID", getSingleReview);
 
 router.delete("/reviews", validation("onlyMongoId"), deleteReview);
+
+router.delete("/review-answer", validation("onlyMongoId"), deleteReviewAnswer);
 
 router.patch("/reviews/update-status", updateReview);
 
