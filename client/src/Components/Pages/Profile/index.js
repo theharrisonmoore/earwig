@@ -3,9 +3,10 @@ import axios from "axios";
 import moment from "moment";
 
 import ReviewSection from "./ReviewSection";
-import BarAnswer from "./ProfileAnswers/BarAnswer";
+import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
 import CommentsBox from "./ProfileAnswers/CommentsBox";
 import HeaderSection from "./HeaderSection";
+import Loading from "./../../Common/AntdComponents/Loading"
 
 import { ITEMS } from "./../../../constants/promoItems";
 import { SIGNUP_URL } from "./../../../constants/naviagationUrls";
@@ -127,9 +128,7 @@ export default class Profile extends Component {
 
     if (!loaded)
       return (
-        <Wrapper isMobile={isMobile}>
-          <h1>Loading...</h1>
-        </Wrapper>
+          <Loading />
       );
 
     const { category, name } = summary;
@@ -186,6 +185,7 @@ export default class Profile extends Component {
                   sectionDetails={section}
                   toggleComments={this.toggleComments}
                   summary={summary}
+                  isMobile={isMobile}
                 />
               )
           )}
@@ -193,23 +193,96 @@ export default class Profile extends Component {
           {/* OTHER SECTIONS */}
           {reviewDetails.map(
             (section, index) =>
-              section._id !== "Key ratings" && (
+              section._id === "Detailed ratings" && (
                 <ReviewSection
                   key={index}
                   category={category}
                   sectionDetails={section}
                   toggleComments={this.toggleComments}
                   summary={summary}
+                  isMobile={isMobile}
                 />
               )
           )}
 
+          {reviewDetails.map(
+            (section, index) =>
+              section._id === "Getting on to site" && (
+                <ReviewSection
+                  key={index}
+                  category={category}
+                  sectionDetails={section}
+                  toggleComments={this.toggleComments}
+                  summary={summary}
+                  isMobile={isMobile}
+                />
+              )
+          )}
+
+          {reviewDetails.map(
+            (section, index) =>
+              section._id === "Working on the site" && (
+                <ReviewSection
+                  key={index}
+                  category={category}
+                  sectionDetails={section}
+                  toggleComments={this.toggleComments}
+                  summary={summary}
+                  isMobile={isMobile}
+                />
+              )
+          )}
+
+          {reviewDetails.map(
+            (section, index) =>
+              section._id === "The site welfare" && (
+                <ReviewSection
+                  key={index}
+                  category={category}
+                  sectionDetails={section}
+                  toggleComments={this.toggleComments}
+                  summary={summary}
+                  isMobile={isMobile}
+                />
+              )
+          )}
+
+          {reviewDetails.map(
+            (section, index) =>
+              section._id === "Supervisors & employees" && (
+                <ReviewSection
+                  key={index}
+                  category={category}
+                  sectionDetails={section}
+                  toggleComments={this.toggleComments}
+                  summary={summary}
+                  isMobile={isMobile}
+                />
+              )
+          )}
+
+          {reviewDetails.map(
+            (section, index) =>
+              section._id === "Tools & materials" && (
+                <ReviewSection
+                  key={index}
+                  category={category}
+                  sectionDetails={section}
+                  toggleComments={this.toggleComments}
+                  summary={summary}
+                  isMobile={isMobile}
+                />
+              )
+          )}
+
+          {/* MONTHLY REVIEWS */}
           {level > 0 && (
-            <BarAnswer
+            <MonthlyReviews
               category={category}
               reviewsByMonth={this.reviewsByMonth()}
             />
           )}
+
         </ReviewDiv>
         {/* OVERALL RATINGS SECTION */}
         {summary.reviews[0].createdAt && (

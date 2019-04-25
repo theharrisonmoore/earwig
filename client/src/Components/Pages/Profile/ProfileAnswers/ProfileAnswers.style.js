@@ -63,6 +63,29 @@ export const ListItem = styled.p`
       ? `${colors.profileFontColor}`
       : `${organizations[props.color].primary}`};
   font-weight: 900;
+  font-size: 1rem;
+`;
+
+export const PayrollListRow = styled.div`
+  margin: 0;
+  color: ${props =>
+    props.color === "default"
+      ? `${colors.profileFontColor}`
+      : `${organizations[props.color].primary}`};
+  font-size: 1rem;
+  display: flex;
+`;
+
+export const PayrollName = styled.p`
+  width: 50%;
+  margin: 0;
+  font-weight: 900;
+`;
+
+export const PayrollFee = styled.p`
+  width: 50%;
+  margin: 0;
+  margin-right: auto;
 `;
 
 export const Wrapper = styled.div`
