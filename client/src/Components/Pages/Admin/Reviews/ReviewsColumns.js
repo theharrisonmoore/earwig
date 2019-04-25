@@ -36,6 +36,7 @@ export default ({ deletHandler, viewHandler }) => {
       title: "Action",
       key: "action",
       render: (text, record) => {
+        console.log(record.user);
         return (
           <div>
             <div
@@ -58,7 +59,9 @@ export default ({ deletHandler, viewHandler }) => {
                     pathname: `${record._id}`,
                     state: {
                       name: record.organization.name,
-                      category: record.organization.category
+                      category: record.organization.category,
+                      userEmail: record.user.email,
+                      userID: record.user.userId
                     }
                   }}
                 >

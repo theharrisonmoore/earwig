@@ -16,15 +16,15 @@ module.exports = reviewID => new Promise((resolve, reject) => {
         as: "question",
       },
     },
-    // // inser comment info
     {
       $lookup: {
-        from: "comments",
-        localField: "comment",
+        from: "reviews",
+        localField: "review",
         foreignField: "_id",
-        as: "comment",
+        as: "review",
       },
     },
+
     {
       $group: {
         _id: {

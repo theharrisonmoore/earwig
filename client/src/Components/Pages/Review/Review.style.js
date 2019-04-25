@@ -17,6 +17,7 @@ export const ReviewWrapper = styled.div`
   max-width: 40rem;
   margin: 0 auto;
   text-align: left;
+  background-color: ${colors.white};
 `;
 
 export const Content = styled.div`

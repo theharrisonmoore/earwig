@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
+import StarRatingComponent from "react-star-rating-component";
+import moment from "moment";
+
 import {
   Table,
   Modal,
@@ -50,46 +53,32 @@ import clockLong from "./../../../../assets/clock-long-icon.svg";
 import { initQueestionsValues } from "../../Review/initialQuestionsValues";
 import { colors, organizations } from "../../../../theme";
 
-const STATIC_QUESTIONS = [
-  {
-    number: 18,
-    text: "How would you rate this agency?",
-    type: "rate",
-    options: ["Bad", "Poor", "Average", "Great", "Excellent"]
-  },
-  {
-    number: 19,
-    text: "If you’d like to write an overall review, go ahead here",
-    type: "overallReview",
-    hintText:
-      "To help other workers, please try to explain why something was or wasn't good."
-  },
-  {
-    number: 20,
-    text: "Share a voice review",
-    hintText:
-      "30 seconds max. Bear in mind that people may be able to identify you from your voice.",
-    type: "voiceReview"
-  }
-];
-
 export default class SingleReview extends Component {
   state = {
     isLoading: true,
     groups: [],
+    rate: null,
     organization: { category: "", name: "" },
-    id: ""
+    user: { id: "", email: "" },
+    reviewID: ""
   };
   fetchData = () => {
-    const { category, name } = this.props.location.state;
-    const { organization } = this.state;
+    const { category, name, userEmail, userID } = this.props.location.state;
+    const { organization, user, reviewID } = this.state;
     organization.category = category;
     organization.name = name;
-    const reviewID = window.location.href.split("/")[5];
+    user.email = userEmail;
+    user.id = userID;
+    const id = window.location.href.split("/")[5];
+
     axios
-      .get(`/api/admin/single-review/${reviewID}`)
+      .get(`/api/admin/single-review/${id}`)
       .then(res => {
-        this.setState({ groups: res.data, isLoading: false });
+        this.setState({
+          groups: res.data,
+          reviewID: id,
+          isLoading: false
+        });
       })
       .catch(err => {
         const error =
@@ -137,9 +126,19 @@ export default class SingleReview extends Component {
 
     const {
       groups,
-      organization: { name, category }
+      organization: { name, category },
+      user: { email, id },
+      reviewID
     } = this.state;
     console.log(groups);
+    // get overall review details
+    const overallRating = groups[0].answers[0].review[0].rate;
+    const overallText = groups[0].answers[0].review[0].overallReview.text;
+    const workedFrom = groups[0].answers[0].review[0].workPeriod.from;
+    const workedTo = groups[0].answers[0].review[0].workPeriod.to;
+    const replies = groups[0].answers[0].review[0].overallReview.replies;
+    const votes = groups[0].answers[0].review[0].overallReview.votes;
+
     return (
       <ReviewWrapper>
         <Header orgType={category}>
@@ -148,11 +147,16 @@ export default class SingleReview extends Component {
               <Image src={agencyIcon} alt="" className="header-icon" />
             </ImageBox>
             <Organization>
-              <Paragraph>Review by XXXX for</Paragraph>
+              <Paragraph>Review </Paragraph>
+              <Paragraph> (ID {reviewID}) </Paragraph>
               <OrgName>{name}</OrgName>
-              <ReviewTime>
-                18 questions <img src={clockLong} alt="" /> 2 mins
-              </ReviewTime>
+              <StarRatingComponent
+                name="star rating component"
+                editing={false}
+                starCount={5}
+                value={overallRating}
+                emptyStarColor={"#D3D3D3"}
+              />
             </Organization>
           </Content>
         </Header>
@@ -162,11 +166,62 @@ export default class SingleReview extends Component {
               return (
                 <FormWrapper>
                   <Form>
+                    <QuestionOptionsWrapper>
+                      <h1>User:</h1>
+                      <QText>Email:</QText>
+                      <HintText>{email}</HintText>
+                      <QText>ID:</QText>
+                      <HintText>{id}</HintText>
+                    </QuestionOptionsWrapper>
+                    <QuestionOptionsWrapper>
+                      <h1>Overall Results</h1>
+                      {workedFrom && workedTo && (
+                        <div>
+                          <QText>Work Period:</QText>
+                          <HintText>
+                            {moment(workedFrom).format("DD MMM YYYY")} to{" "}
+                            {moment(workedTo).format("DD MMM YYYY")}
+                          </HintText>
+                        </div>
+                      )}
+                      {overallText && (
+                        <div>
+                          <QText>Feedback:</QText>
+                          <HintText>{overallText}</HintText>
+                        </div>
+                      )}
+                      {replies && replies.length && (
+                        <div>
+                          <QText>Replies: </QText>
+                          {replies.map(reply => {
+                            return (
+                              <div>
+                                <HintText>
+                                  {reply.text} by UserID {reply.user}
+                                </HintText>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                      {votes && votes.length && (
+                        <div>
+                          <QText>Votes: </QText>
+                          {votes.map(vote => {
+                            return (
+                              <div>
+                                <HintText>
+                                  {vote.points} Points by UserID {vote.user}
+                                </HintText>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </QuestionOptionsWrapper>
                     <div>
-                      {/* a placeholder to be edited with new picker */}
-                      <p>Select the month(s) you used this agency?</p>
-                    </div>
-                    <div>
+                      <h1>Answers</h1>
+
                       {groups.map(group => {
                         if (group.group && group.group.text) {
                           return (
@@ -181,14 +236,14 @@ export default class SingleReview extends Component {
                                   options,
                                   number,
                                   category,
-                                  label,
-                                  hasComment
+                                  label
                                 } = question;
 
                                 if (type === "yesno" || type === "radio") {
                                   return (
                                     <QuestionOptionsWrapper>
-                                      <h3>{question.text}</h3>
+                                      <QText>{question.text}</QText>
+                                      <HintText>{question.hintText}</HintText>
                                       <Options>
                                         <div
                                           className={`choices choices-${
@@ -214,25 +269,6 @@ export default class SingleReview extends Component {
                                             );
                                           })}
                                         </div>
-                                        {hasComment && (
-                                          <ModalComment
-                                            title="Enter you comment here"
-                                            number={number}
-                                            comment
-                                            render={props => {
-                                              return (
-                                                <CommentsIcon
-                                                  hasValue={!!props.text}
-                                                >
-                                                  <img
-                                                    src={commentIcon}
-                                                    alt=""
-                                                  />
-                                                </CommentsIcon>
-                                              );
-                                            }}
-                                          />
-                                        )}
                                       </Options>
                                     </QuestionOptionsWrapper>
                                   );
@@ -241,7 +277,8 @@ export default class SingleReview extends Component {
                                 if (type === "open") {
                                   return (
                                     <QuestionOptionsWrapper>
-                                      <h3>{question.text}</h3>
+                                      <QText>{question.text}</QText>
+                                      <HintText>{question.hintText}</HintText>
                                       <Field name={`questions[${number}]`}>
                                         {({ field, form }) => (
                                           <Input
@@ -257,22 +294,6 @@ export default class SingleReview extends Component {
                                           />
                                         )}
                                       </Field>
-                                      {hasComment && (
-                                        <ModalComment
-                                          title="Enter you comment here"
-                                          number={number}
-                                          comment
-                                          render={props => {
-                                            return (
-                                              <CommentsIcon
-                                                hasValue={!!props.text}
-                                              >
-                                                <img src={commentIcon} alt="" />
-                                              </CommentsIcon>
-                                            );
-                                          }}
-                                        />
-                                      )}
                                     </QuestionOptionsWrapper>
                                   );
                                 }
@@ -280,7 +301,8 @@ export default class SingleReview extends Component {
                                 if (type === "number") {
                                   return (
                                     <QuestionOptionsWrapper>
-                                      <h3>{question.text}</h3>
+                                      <QText>{question.text}</QText>
+                                      <HintText>{question.hintText}</HintText>
                                       <Field
                                         name={`questions[${number}]`}
                                         type="number"
@@ -304,32 +326,15 @@ export default class SingleReview extends Component {
                                           />
                                         )}
                                       </Field>
-                                      {hasComment && (
-                                        <ModalComment
-                                          title="Enter you comment here"
-                                          number={number}
-                                          comment
-                                          render={props => {
-                                            return (
-                                              <CommentsIcon
-                                                hasValue={!!props.text}
-                                              >
-                                                <img src={commentIcon} alt="" />
-                                              </CommentsIcon>
-                                            );
-                                          }}
-                                        />
-                                      )}
                                     </QuestionOptionsWrapper>
                                   );
                                 }
 
                                 if (type === "dropdown") {
-                                  // const { dropdownOptions } = this.props;
-                                  // let newOptions = [...dropdownOptions];
                                   return (
                                     <QuestionOptionsWrapper>
-                                      <h3>{question.text}</h3>
+                                      <QText>{question.text}</QText>
+                                      <HintText>{question.hintText}</HintText>
                                       <Field name={`questions[${number}]`}>
                                         {({ field, form }) => {
                                           return (
@@ -347,22 +352,6 @@ export default class SingleReview extends Component {
                                           );
                                         }}
                                       </Field>
-                                      {hasComment && (
-                                        <ModalComment
-                                          title="Enter you comment here"
-                                          number={number}
-                                          comment
-                                          render={props => {
-                                            return (
-                                              <CommentsIcon
-                                                hasValue={!!props.text}
-                                              >
-                                                <img src={commentIcon} alt="" />
-                                              </CommentsIcon>
-                                            );
-                                          }}
-                                        />
-                                      )}
                                     </QuestionOptionsWrapper>
                                   );
                                 }
@@ -370,7 +359,10 @@ export default class SingleReview extends Component {
                                 if (type === "overallReview") {
                                   return (
                                     <QuestionOptionsWrapper>
-                                      <h3>{question.text}</h3>
+                                      <QText>{question.text}</QText>
+                                      <HintText>
+                                        {question.hintText}
+                                      </HintText>{" "}
                                       <Field name={`review.overallReview`}>
                                         {({ field, form }) => (
                                           <Input.TextArea
@@ -394,7 +386,8 @@ export default class SingleReview extends Component {
                                   // console.log(answer);
                                   return (
                                     <QuestionOptionsWrapper>
-                                      <h3>{question.text}</h3>
+                                      <QText>{question.text}</QText>
+                                      <HintText>{question.hintText}</HintText>
                                       <FieldArray
                                         name={`questions[${number}]`}
                                         render={arrayHelpers => (
@@ -421,22 +414,6 @@ export default class SingleReview extends Component {
                                           </div>
                                         )}
                                       />
-                                      {hasComment && (
-                                        <ModalComment
-                                          title="Enter you comment here"
-                                          number={number}
-                                          comment
-                                          render={props => {
-                                            return (
-                                              <CommentsIcon
-                                                hasValue={!!props.text}
-                                              >
-                                                <img src={commentIcon} alt="" />
-                                              </CommentsIcon>
-                                            );
-                                          }}
-                                        />
-                                      )}
                                     </QuestionOptionsWrapper>
                                   );
                                 }
@@ -444,32 +421,9 @@ export default class SingleReview extends Component {
                                 if (type === "image") {
                                   return (
                                     <QuestionOptionsWrapper>
-                                      <h3>{question.text}</h3>
+                                      <QText>{question.text}</QText>
+                                      <HintText>{question.hintText}</HintText>
                                       <p>Image</p>
-                                    </QuestionOptionsWrapper>
-                                  );
-                                }
-
-                                if (type === "rate") {
-                                  return (
-                                    <QuestionOptionsWrapper>
-                                      <h3>{question.text}</h3>
-                                      <Field name="review.rate">
-                                        {({ field, form }) => (
-                                          <Rate
-                                            {...field}
-                                            value={answer}
-                                            // {...form}
-                                            tooltips={options}
-                                            style={{
-                                              color: `${
-                                                organizations[category].primary
-                                              }`,
-                                              fontSize: "3rem"
-                                            }}
-                                          />
-                                        )}
-                                      </Field>
                                     </QuestionOptionsWrapper>
                                   );
                                 }

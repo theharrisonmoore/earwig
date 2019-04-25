@@ -43,7 +43,6 @@ const Question = props => {
   } = props.question;
   const { questions, values, errors, setFieldValue, dropdownOptions } = props;
 
-  console.log("herrrre", values);
   return (
     <QuestionWrapper>
       <QText>{text}</QText>
@@ -378,9 +377,6 @@ class QuestionOptions extends React.Component {
               />
             )}
           </Field>
-          <ErrorMessage name="review.rate">
-            {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
-          </ErrorMessage>
         </QuestionOptionsWrapper>
       );
     }
