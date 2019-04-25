@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import * as Yup from "yup";
 import { Checkbox as AntCheckbox } from "antd";
 
+import Logo from "./../../Common/Logo";
+
 import {
   StyledFormik as Formik,
   StyledForm as Form,
@@ -19,8 +21,6 @@ import {
 import axios from "axios";
 
 import { StyledLink as Link, SignupWrapper, LinkSpan } from "./Signup.style";
-
-import logo from "./../../../assets/logo.svg";
 
 import { StyledField } from "../../Common/Formik/Formik.style";
 
@@ -97,7 +97,7 @@ export default class Signup extends Component {
 
     return (
       <SignupWrapper>
-        <img src={logo} alt="logo" />
+        <Logo />
         <Formik
           initialValues={initialValues}
           validationSchema={signupSchema}

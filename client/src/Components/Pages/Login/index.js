@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import * as Yup from "yup";
 import axios from "axios";
 
+import Logo from "./../../Common/Logo";
 import {
   StyledFormik as Formik,
   StyledForm as Form,
@@ -26,8 +27,6 @@ import {
   Devider,
   Circle
 } from "./Login.style";
-
-import logo from "./../../../assets/logo.svg";
 
 import { StyledField } from "./../../Common/Formik/Formik.style";
 
@@ -64,7 +63,7 @@ export default class Login extends Component {
 
     return (
       <LoginWrapper>
-        <img src={logo} alt="logo" />
+        <Logo />
         <Formik
           initialValues={initalValues}
           validationSchema={loginSchema}
