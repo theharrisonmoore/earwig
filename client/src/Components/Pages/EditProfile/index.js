@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as Yup from "yup";
 import axios from "axios";
-import Swal from "sweetalert2";
+import { NavLink } from "react-router-dom";
 
 import {
   EditWrapper,
@@ -127,52 +127,6 @@ export default class EditProfile extends Component {
     this.setState({ displayPassword: !this.state.displayPassword });
   };
 
-  deleteUser = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonColor: colors.green,
-      cancelButtonColor: colors.red,
-      confirmButtonTest: "Yes, delete!"
-    }).then(result => {
-      if (result.value) {
-        Swal.fire({
-          title: "Deleting account..."
-        });
-        Swal.showLoading();
-
-        axios
-          .delete("/api/delete-user")
-          .then(res => {
-            setTimeout(() => {
-              Swal.fire({
-                type: "success",
-                title: "Account Deleted",
-                text:
-                  "Your user account, including any reviews and comments you made, have all been successfully deleted"
-              }).then(() => {
-                window.location.reload();
-              });
-            }, 1000);
-          })
-          .catch(err => {
-            setTimeout(() => {
-              Swal.fire({
-                type: "error",
-                title: "Transaction unsuccessful",
-                text: err.response.data.error,
-                confirmButtonText: "Close"
-              }).then(() => {
-                window.location.reload();
-              });
-            }, 1000);
-          });
-      }
-    });
-  };
-
   render() {
     const editProfileSchema = Yup.object().shape(
       this.state.displayPassword
@@ -192,7 +146,6 @@ export default class EditProfile extends Component {
 
     return (
       <EditWrapper>
-        {/* {verified ?  */}(
         <VerifiedWrapper>
           <Section>
             <Title>ID: {userId}</Title>
@@ -251,46 +204,48 @@ export default class EditProfile extends Component {
                     </PasswordWrapper>
                   )}
                 </Section>
-                <Section>
-                  <Row>
-                    <VerifiedLabelWrapper className="row__image-container">
-                      <EditIcon
-                        icon="getVerified"
-                        height="36"
-                        width="36"
-                        margin="0 0.5rem 0 0"
-                        fill={colors.veryLightGray}
-                      />
-                      <Title>Verification photo</Title>
-                    </VerifiedLabelWrapper>
-                    <Field
-                      name="verificationImage"
-                      render={({ field, form: { isSubmitting } }) => (
-                        <ImageInput
-                          {...field}
-                          type="file"
-                          placeholder="lastName"
-                          accept="image/*"
-                          id="verificationImage"
-                          onChange={this.handleImageChange}
+                {verified && (
+                  <Section>
+                    <Row>
+                      <VerifiedLabelWrapper className="row__image-container">
+                        <EditIcon
+                          icon="getVerified"
+                          height="36"
+                          width="36"
+                          margin="0 0.5rem 0 0"
+                          fill={colors.veryLightGray}
                         />
-                      )}
-                    />
-                    <FormikErrorMessage
-                      name="verificationImage"
-                      component="p"
-                    />
-                    <EditButton htmlFor="verificationImage" as="label">
-                      Edit
-                    </EditButton>
-                  </Row>
-                </Section>
+                        <Title>Verification photo</Title>
+                      </VerifiedLabelWrapper>
+                      <Field
+                        name="verificationImage"
+                        render={({ field, form: { isSubmitting } }) => (
+                          <ImageInput
+                            {...field}
+                            type="file"
+                            placeholder="lastName"
+                            accept="image/*"
+                            id="verificationImage"
+                            onChange={this.handleImageChange}
+                          />
+                        )}
+                      />
+                      <FormikErrorMessage
+                        name="verificationImage"
+                        component="p"
+                      />
+                      <EditButton htmlFor="verificationImage" as="label">
+                        Edit
+                      </EditButton>
+                    </Row>
+                  </Section>
+                )}
                 <Section>
                   <Row>
                     <Title>Delete my earwig account</Title>
-                    <DeleteButton type="button" onClick={this.deleteUser}>
-                      Delete
-                    </DeleteButton>
+                    <NavLink to="/delete-profile">
+                      <DeleteButton>Delete</DeleteButton>
+                    </NavLink>
                   </Row>
                 </Section>
                 <Button type="submit" disabled={isSubmitting}>
@@ -301,28 +256,6 @@ export default class EditProfile extends Component {
           </Formik>
           <StyledLink to="/profile">Cancel Changes</StyledLink>
         </VerifiedWrapper>
-        )
-        {/* // : (
-        //   <UnVerifiedWrapper>
-        //     <StatusWrapper>
-        //       <Status>Unverified</Status>
-        //     </StatusWrapper>
-        //     <UnVerifiedTitle>Your reviews and impact</UnVerifiedTitle>
-        //     <Paragraph>
-        //       If you want to search jobs, help other workers by giving reviews
-        //       and comment on other reviews, you need to get verified as a
-        //       genuine worker.
-        //       <br />
-        //       <br />
-        //       This protects the worker community from fake reviews and spam by
-        //       non-workers.
-        //     </Paragraph>
-        //     <UnVerifiedButton to="/upload-verification-photo">
-        //       <img src={cardImage} alt="card icon" />
-        //       <Title>Verification photo</Title>
-        //     </UnVerifiedButton>
-        //   </UnVerifiedWrapper>
-        // )} */}
       </EditWrapper>
     );
   }
