@@ -118,44 +118,29 @@ export default class SingleReview extends Component {
 
   showDeleteConfirm = answerID => {
     // delete from db and update
-    axios.delete(`/api/admin/reviews/delete-answer/${answerID}`).then(res => {
-      console.log("res", res);
-      // this.fetchTrades();
+
+    Modal.confirm({
+      title: "Are you sure you want to delete this answer?",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "Cancel",
+      onOk: () => {
+        return new Promise((resolve, reject) => {
+          axios
+            .delete(`/api/admin/reviews/delete-answer/${answerID}`)
+            .then(res => {
+              message.success("Deleted");
+              this.fetchData();
+              resolve();
+            })
+            .catch(err => {
+              const error =
+                err.response && err.response.data && err.response.data.error;
+              message.error(error || "Something went wrong");
+            });
+        });
+      }
     });
-    // const dataSource = [...this.state.dataSource];
-    // this.setState({ dataSource: dataSource.filter(item => item.key !== key) });
-
-    // axios
-    //   .post("/api/admin/reviews/delete-answer/", {
-    //     data: { id: answerID }
-    //   })
-    //   .then(res => console.log(res))
-    //   .catch(err => console.log(err));
-
-    // Modal.confirm({
-    //   title: "Are you sure you want to delete this answer?",
-    //   okText: "Yes",
-    //   okType: "danger",
-    //   cancelText: "Cancel",
-    //   onOk: () => {
-    //     return new Promise((resolve, reject) => {
-    //       axios
-    //         .post("/api/admin/reviews/delete-answer/", {
-    //           data: { id: answerID }
-    //         })
-    //         .then(() => {
-    //           message.success("Deleted");
-    //           // this.props.history.push(`/admin/reviews/${answerID}`);
-    //           resolve();
-    //         })
-    //         .catch(err => {
-    //           const error =
-    //             err.response && err.response.data && err.response.data.error;
-    //           message.error(error || "Something went wrong");
-    //         });
-    //     });
-    //   }
-    // });
   };
 
   render() {
