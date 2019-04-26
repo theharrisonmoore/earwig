@@ -8,5 +8,5 @@ module.exports = (req, res, next) => {
 
   deleteUserCompletely(user.id)
     .then(() => res.json({ success: "User successfully deleted" }))
-    .catch(() => next(boom.badImplementation()));
+    .catch(err => next(boom.badImplementation(err)));
 };
