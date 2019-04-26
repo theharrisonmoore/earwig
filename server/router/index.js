@@ -21,6 +21,7 @@ const editProfile = require("./../controllers/editProfile");
 const postTradesController = require("../controllers/addTrade");
 const userInfoController = require("../controllers/userInfo");
 const confirmJoiningEmailList = require("../controllers/confirmJoiningEmailList");
+const deleteUser = require("../controllers/deleteUser");
 
 const authentication = require("./../middlewares/authentication");
 const authorization = require("./../middlewares/authorization");
@@ -90,11 +91,7 @@ router.post(
   uploadWorksiteController,
 );
 
-router.get(
-  "/trades", authentication,
-  authorization("LEVEL1"),
-  getTradesController,
-);
+router.get("/trades", authentication, authorization("LEVEL1"), getTradesController);
 
 router.post(
   "/trades",
@@ -117,6 +114,8 @@ router.post(
   editProfile,
 );
 
+router.use("/delete-user", authentication, deleteUser);
+
 router.post(
   "/add-organization",
   // authentication,
@@ -128,6 +127,5 @@ router.post(
 router.use("/confirm-email", validation("onlyMongoId"), confirmJoiningEmailList);
 
 router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
-
 
 module.exports = router;
