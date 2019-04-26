@@ -21,7 +21,7 @@ const editProfile = require("./../controllers/editProfile");
 const postTradesController = require("../controllers/addTrade");
 const userInfoController = require("../controllers/userInfo");
 const confirmJoiningEmailList = require("../controllers/confirmJoiningEmailList");
-const deleteUser = require("../controllers/deleteUser");
+const deleteUserProfile = require("../controllers/deleteUserProfile");
 
 const authentication = require("./../middlewares/authentication");
 const authorization = require("./../middlewares/authorization");
@@ -114,7 +114,7 @@ router.post(
   editProfile,
 );
 
-router.use("/delete-user", authentication, deleteUser);
+router.use("/delete-user", authentication, deleteUserProfile);
 
 router.post(
   "/add-organization",

@@ -1,7 +1,7 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
 
-const buildDB = require("./../../database/dummyData");
+const buildDB = require("../../database/dummyData");
 const app = require("../../app");
 
 describe("Tesing for delete user", () => {
@@ -21,7 +21,7 @@ describe("Tesing for delete user", () => {
 
   test("Testing for delete profile with logged in user", async (done) => {
     const data = {
-      email: "level3@earwig.com",
+      email: "level3-2@earwig.com",
       password: "123456",
     };
 

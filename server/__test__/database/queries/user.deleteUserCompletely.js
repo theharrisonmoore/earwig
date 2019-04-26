@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const buildDB = require("../../../database/dummyData/index");
 
-const { deleteUser } = require("../../../database/queries/user");
+const { deleteUserCompletely } = require("../../../database/queries/user");
 
 const User = require("../../../database/models/User");
 const Comment = require("../../../database/models/Comment");
@@ -31,7 +31,7 @@ describe("Test for deleteUser user query", () => {
     expect(userComments.length).toBeGreaterThan(0);
     expect(userAnswers.length).toBeGreaterThan(0);
 
-    deleteUser(userId)
+    deleteUserCompletely(userId)
       .then((result) => {
         expect(result).toBeDefined();
       })
