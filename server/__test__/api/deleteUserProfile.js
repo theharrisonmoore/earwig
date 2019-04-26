@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const buildDB = require("../../database/dummyData");
 const app = require("../../app");
 
-describe("Tesing for delete user", () => {
+describe("Testing for delete user completely", () => {
   beforeAll(async () => {
     // build dummy data
     await buildDB();
@@ -36,7 +36,7 @@ describe("Tesing for delete user", () => {
 
         // update the user password
         request(app)
-          .get("/api/delete-user")
+          .delete("/api/delete-user")
           .set("Cookie", [token])
           .expect(200)
           .end(async (err, res) => {

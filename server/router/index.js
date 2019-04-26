@@ -114,7 +114,7 @@ router.post(
   editProfile,
 );
 
-router.use("/delete-user", authentication, deleteUserProfile);
+router.delete("/delete-user", authentication, deleteUserProfile);
 
 router.post(
   "/add-organization",
