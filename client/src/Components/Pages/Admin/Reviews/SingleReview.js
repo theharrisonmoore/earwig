@@ -143,6 +143,14 @@ export default class SingleReview extends Component {
     });
   };
 
+  createDeleteBtn = answerID => {
+    return (
+      <DelButton type="button" onClick={() => this.showDeleteConfirm(answerID)}>
+        {SVGCreator("delete-icon", "25px", "100%")}
+      </DelButton>
+    );
+  };
+
   render() {
     const { isLoading } = this.state;
     if (isLoading) {
@@ -258,7 +266,6 @@ export default class SingleReview extends Component {
                                 {group.answers.map((entry, i) => {
                                   const question = entry.question[0];
                                   const answer = entry.answer;
-                                  console.log(entry._id);
                                   const {
                                     type,
                                     options,
@@ -292,23 +299,7 @@ export default class SingleReview extends Component {
                                                 />
                                               );
                                             })}
-                                            <DelButton
-                                              type="button"
-                                              onClick={() =>
-                                                this.showDeleteConfirm(
-                                                  entry._id
-                                                )
-                                              }
-                                              // onClick={values =>
-                                              //   console.log("jeuuu")
-                                              // }
-                                            >
-                                              {SVGCreator(
-                                                "delete-icon",
-                                                "25px",
-                                                "100%"
-                                              )}
-                                            </DelButton>
+                                            {this.createDeleteBtn(entry._id)}
                                           </AnswerDiv>
                                         </Options>
                                       </QuestionOptionsWrapper>
@@ -334,11 +325,7 @@ export default class SingleReview extends Component {
                                               />
                                             )}
                                           </Field>
-                                          {SVGCreator(
-                                            "delete-icon",
-                                            "25px",
-                                            "100%"
-                                          )}
+                                          {this.createDeleteBtn(entry._id)}
                                         </AnswerDiv>
                                       </QuestionOptionsWrapper>
                                     );
@@ -370,11 +357,7 @@ export default class SingleReview extends Component {
                                               />
                                             )}
                                           </Field>
-                                          {SVGCreator(
-                                            "delete-icon",
-                                            "25px",
-                                            "100%"
-                                          )}
+                                          {this.createDeleteBtn(entry._id)}
                                         </AnswerDiv>
                                       </QuestionOptionsWrapper>
                                     );
@@ -382,7 +365,7 @@ export default class SingleReview extends Component {
 
                                   if (type === "dropdown") {
                                     return (
-                                      <QuestionOptionsWrapper>
+                                      <QuestionOptionsWrapper key={i}>
                                         <QText>{question.text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
@@ -403,11 +386,7 @@ export default class SingleReview extends Component {
                                               );
                                             }}
                                           </Field>
-                                          {SVGCreator(
-                                            "delete-icon",
-                                            "25px",
-                                            "100%"
-                                          )}
+                                          {this.createDeleteBtn(entry._id)}
                                         </AnswerDiv>
                                       </QuestionOptionsWrapper>
                                     );
@@ -433,11 +412,7 @@ export default class SingleReview extends Component {
                                               />
                                             )}
                                           </Field>
-                                          {SVGCreator(
-                                            "delete-icon",
-                                            "25px",
-                                            "100%"
-                                          )}
+                                          {this.createDeleteBtn(entry._id)}
                                         </AnswerDiv>
                                       </QuestionOptionsWrapper>
                                     );
@@ -477,11 +452,7 @@ export default class SingleReview extends Component {
                                               </div>
                                             )}
                                           />
-                                          {SVGCreator(
-                                            "delete-icon",
-                                            "25px",
-                                            "100%"
-                                          )}
+                                          {this.createDeleteBtn(entry._id)}
                                         </AnswerDiv>
                                       </QuestionOptionsWrapper>
                                     );

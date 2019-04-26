@@ -2,8 +2,7 @@ const boom = require("boom");
 const { deleteAnswer } = require("./../../database/queries/reviews");
 
 module.exports = (req, res, next) => {
-  console.log("hello");
-  const { id } = req.params
+  const { id } = req.params;
 
   deleteAnswer(id)
     .then(({ deletedCount }) => {

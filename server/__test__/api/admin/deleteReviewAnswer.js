@@ -37,11 +37,9 @@ describe("Tesing for delete review route", () => {
       .expect(200)
       .end(async (error, result) => {
         const token = result.headers["set-cookie"][0].split(";")[0];
-
         request(app)
-          .post("/api/admin/reviews/delete-answer")
+          .delete(`/api/admin/reviews/delete-answer/${singleAnswer._id}`)
           .set("Cookie", [token])
-          .send({ data: { id: singleAnswer._id } })
           .expect("Content-Type", /json/)
           .expect(200)
           .end(async (err, res) => {
