@@ -59,11 +59,12 @@ export const Button = styled.button`
   text-transform: capitalize;
   margin-bottom: 1.25rem;
   color: ${colors.profileFontColor};
+  cursor: pointer;
 
-  &,
   &:active,
   &:focus {
     outline: none;
+    box-shadow: none;
   }
 `;
 

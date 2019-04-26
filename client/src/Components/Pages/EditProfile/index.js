@@ -10,6 +10,7 @@ import {
   Title,
   Row,
   EditButton,
+  DeleteButton,
   PasswordWrapper,
   LightLabel as Label,
   ImageInput,
@@ -20,7 +21,8 @@ import {
   UnVerifiedTitle,
   Paragraph,
   UnVerifiedButton,
-  EditIcon
+  EditIcon,
+  VerifiedLabelWrapper
 } from "./EditProfile.style";
 
 import {
@@ -29,6 +31,8 @@ import {
   StyledField as Field,
   StyledFormikErrorMessage as FormikErrorMessage
 } from "./../../Common/Formik/Formik.style";
+
+import { colors } from "./../../../theme";
 
 import cardImage from "./../../../assets/card-hand.svg";
 
@@ -208,10 +212,16 @@ export default class EditProfile extends Component {
                   </Section>
                   <Section>
                     <Row>
-                      <div className="row__image-container">
-                        <EditIcon icon="getVerified" height="36" width="36" />
+                      <VerifiedLabelWrapper className="row__image-container">
+                        <EditIcon
+                          icon="getVerified"
+                          height="36"
+                          width="36"
+                          margin="0 0.5rem 0 0"
+                          fill={colors.veryLightGray}
+                        />
                         <Title>Verification photo</Title>
-                      </div>
+                      </VerifiedLabelWrapper>
                       <Field
                         name="verificationImage"
                         render={({ field, form: { isSubmitting } }) => (
@@ -232,6 +242,14 @@ export default class EditProfile extends Component {
                       <EditButton htmlFor="verificationImage" as="label">
                         Edit
                       </EditButton>
+                    </Row>
+                  </Section>
+                  <Section>
+                    <Row>
+                      <Title>Delete my earwig account</Title>
+                      <DeleteButton type="button" onClick={this.togglePassword}>
+                        Delete
+                      </DeleteButton>
                     </Row>
                   </Section>
                   <Button type="submit" disabled={isSubmitting}>
