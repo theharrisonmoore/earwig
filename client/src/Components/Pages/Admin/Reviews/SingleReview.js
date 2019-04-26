@@ -117,11 +117,20 @@ export default class SingleReview extends Component {
   };
 
   showDeleteConfirm = answerID => {
-    axios
-      .delete("http://localhost:8080/api/admin/review-answer/", {
-        id: answerID
-      })
-      .then(res => console.log(res));
+    // delete from db and update
+    axios.delete(`/api/admin/reviews/delete-answer/${answerID}`).then(res => {
+      console.log("res", res);
+      // this.fetchTrades();
+    });
+    // const dataSource = [...this.state.dataSource];
+    // this.setState({ dataSource: dataSource.filter(item => item.key !== key) });
+
+    // axios
+    //   .post("/api/admin/reviews/delete-answer/", {
+    //     data: { id: answerID }
+    //   })
+    //   .then(res => console.log(res))
+    //   .catch(err => console.log(err));
 
     // Modal.confirm({
     //   title: "Are you sure you want to delete this answer?",
@@ -131,9 +140,12 @@ export default class SingleReview extends Component {
     //   onOk: () => {
     //     return new Promise((resolve, reject) => {
     //       axios
-    //         .delete(`/api/admin/review-answer`, { id: answerID })
+    //         .post("/api/admin/reviews/delete-answer/", {
+    //           data: { id: answerID }
+    //         })
     //         .then(() => {
     //           message.success("Deleted");
+    //           // this.props.history.push(`/admin/reviews/${answerID}`);
     //           resolve();
     //         })
     //         .catch(err => {
@@ -296,11 +308,15 @@ export default class SingleReview extends Component {
                                               );
                                             })}
                                             <DelButton
+                                              type="button"
                                               onClick={() =>
-                                                this.showDeleteConfirm({
-                                                  id: entry._id
-                                                })
+                                                this.showDeleteConfirm(
+                                                  entry._id
+                                                )
                                               }
+                                              // onClick={values =>
+                                              //   console.log("jeuuu")
+                                              // }
                                             >
                                               {SVGCreator(
                                                 "delete-icon",

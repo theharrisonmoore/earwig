@@ -33,7 +33,7 @@ router.get("/single-review/:reviewID", getSingleReview);
 
 router.delete("/reviews", validation("onlyMongoId"), deleteReview);
 
-router.delete("/review-answer", validation("onlyMongoId"), deleteReviewAnswer);
+router.delete("/reviews/delete-answer/:id", deleteReviewAnswer);
 
 router.patch("/reviews/update-status", updateReview);
 
