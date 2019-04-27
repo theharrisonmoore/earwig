@@ -19,6 +19,11 @@ import {
 import Icon from "./../../Common/Icon/Icon";
 
 export default class index extends Component {
+  state = {
+    reviewCount: 0,
+    latestReviews: []
+  };
+
   render() {
     const { userId, verified } = this.props;
 

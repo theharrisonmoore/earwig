@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const User = require("./../../models/User");
 const Comment = require("./../../models/Comment");
 const Answer = require("./../../models/Answer");
@@ -35,3 +36,32 @@ module.exports.deleteUserCompletely = async (userId) => {
   // delete the user
   return User.findByIdAndDelete(userId);
 };
+
+module.exports.latestReviews = userId => new Promise((resolve, reject) => {
+  Review.aggregate([
+    {
+      $match: { user: mongoose.Types.ObjectId(userId) },
+    },
+    {
+      $unwind: "$organization",
+    },
+    {
+      $lookup: {
+        from: "organizations",
+        localField: "organization",
+        foreignField: "_id",
+        as: "organization",
+      },
+    },
+    {
+      $project: {
+        createdAt: 1,
+        "organization._id": 1,
+        "organization.name": 1,
+        "organization.category": 1,
+      },
+    },
+  ])
+    .then(resolve)
+    .catch(err => reject(err));
+});
