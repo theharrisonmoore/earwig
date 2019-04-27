@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, organizations } from "../../../../theme";
+import { colors, organizations, breakpoints } from "../../../../theme";
 
 export const QuestionWrapper = styled.div.attrs({ className: "" })`
   font-size: 18px;
@@ -11,6 +11,7 @@ export const QuestionWrapper = styled.div.attrs({ className: "" })`
 export const QText = styled.p`
   margin: 0;
   font-weight: 900;
+  font-size: 18px;
 `;
 
 export const HintText = styled.p`
@@ -37,6 +38,7 @@ export const Options = styled.div`
   .choices {
     width: calc(80% - 1rem);
     display: flex;
+    /* flex-wrap: nowrap; */
     justify-content: space-between;
     margin-right: 1rem;
   }
@@ -48,6 +50,7 @@ export const Options = styled.div`
 
   .choices-4 {
     width: 100%;
+    margin-right: 0;
   }
 
   .radio {
@@ -106,12 +109,28 @@ export const InputWrapper = styled.div`
     display: none;
   }
 
+  .yesno {
+    border-radius: 3px;
+  }
+
   .options-2 {
-    width: 100px;
+    width: 30px;
   }
 
   .options-3 {
     font-size: 11;
+    width: 20px;
+  }
+
+  @media (max-width: ${breakpoints.mobileS}) {
+    .options-2 {
+      width: 30px;
+    }
+
+    .options-3 {
+      font-size: 11;
+      width: 20px;
+    }
   }
 
   .radio-button:checked + .yesno {

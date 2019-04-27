@@ -73,7 +73,7 @@ class QuestionOptions extends React.Component {
     const { type, options, number, category, label, hasComment } = props;
     if (type === "yesno" || type === "radio") {
       return (
-        <QuestionOptionsWrapper>
+        <QuestionOptionsWrapper className="test">
           <Options>
             <div className={`choices choices-${options.length}`}>
               {options.map((option, i, arr) => {
@@ -118,34 +118,36 @@ class QuestionOptions extends React.Component {
     if (type === "open") {
       return (
         <QuestionOptionsWrapper>
-          <Field name={`questions[${number}]`}>
-            {({ field, form }) => (
-              <Input
-                {...field}
-                // {...form}
-                size="large"
-                placeholder={label}
-                style={{
-                  border: `1px solid ${colors.dustyGray1}`
+          <Options>
+            <Field name={`questions[${number}]`}>
+              {({ field, form }) => (
+                <Input
+                  {...field}
+                  // {...form}
+                  size="large"
+                  placeholder={label}
+                  style={{
+                    border: `1px solid ${colors.dustyGray1}`
+                  }}
+                />
+              )}
+            </Field>
+            {hasComment && (
+              <ModalComment
+                title="Enter you comment here"
+                setFieldValue={props.setFieldValue}
+                number={number}
+                comment
+                render={props => {
+                  return (
+                    <CommentsIcon hasValue={!!props.text}>
+                      <img src={commentIcon} alt="" />
+                    </CommentsIcon>
+                  );
                 }}
               />
             )}
-          </Field>
-          {hasComment && (
-            <ModalComment
-              title="Enter you comment here"
-              setFieldValue={props.setFieldValue}
-              number={number}
-              comment
-              render={props => {
-                return (
-                  <CommentsIcon hasValue={!!props.text}>
-                    <img src={commentIcon} alt="" />
-                  </CommentsIcon>
-                );
-              }}
-            />
-          )}
+          </Options>
           <ErrorMessage name={`questions[${number}]`}>
             {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
           </ErrorMessage>
@@ -156,40 +158,42 @@ class QuestionOptions extends React.Component {
     if (type === "number") {
       return (
         <QuestionOptionsWrapper>
-          <Field name={`questions[${number}]`} type="number">
-            {({ field, form }) => (
-              <InputNumber
-                {...field}
-                // {...form}
-                onChange={value =>
-                  props.setFieldValue(`questions[${number}]`, value)
-                }
-                style={{
-                  border: `1px solid ${colors.dustyGray1}`,
-                  width: "12rem",
-                  height: "70px",
-                  lineHeight: "70px"
+          <Options>
+            <Field name={`questions[${number}]`} type="number">
+              {({ field, form }) => (
+                <InputNumber
+                  {...field}
+                  // {...form}
+                  onChange={value =>
+                    props.setFieldValue(`questions[${number}]`, value)
+                  }
+                  style={{
+                    border: `1px solid ${colors.dustyGray1}`,
+                    width: "12rem",
+                    height: "70px",
+                    lineHeight: "70px"
+                  }}
+                  size="large"
+                  placeholder={`£       ${label}`}
+                />
+              )}
+            </Field>
+            {hasComment && (
+              <ModalComment
+                title="Enter you comment here"
+                setFieldValue={props.setFieldValue}
+                number={number}
+                comment
+                render={props => {
+                  return (
+                    <CommentsIcon hasValue={!!props.text}>
+                      <img src={commentIcon} alt="" />
+                    </CommentsIcon>
+                  );
                 }}
-                size="large"
-                placeholder={`£       ${label}`}
               />
             )}
-          </Field>
-          {hasComment && (
-            <ModalComment
-              title="Enter you comment here"
-              setFieldValue={props.setFieldValue}
-              number={number}
-              comment
-              render={props => {
-                return (
-                  <CommentsIcon hasValue={!!props.text}>
-                    <img src={commentIcon} alt="" />
-                  </CommentsIcon>
-                );
-              }}
-            />
-          )}
+          </Options>
           <ErrorMessage name={`questions[${number}]`}>
             {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
           </ErrorMessage>
@@ -202,72 +206,77 @@ class QuestionOptions extends React.Component {
       let newOptions = [...dropdownOptions];
       return (
         <QuestionOptionsWrapper>
-          <Field name={`questions[${number}]`}>
-            {({ field, form }) => {
-              return (
-                <>
-                  <Select
-                    showSearch
-                    placeholder={label}
-                    style={{
-                      border: `1px solid ${colors.dustyGray1}`
-                    }}
-                    onChange={value =>
-                      form.setFieldValue(`questions[${number}]`, value)
-                    }
-                    dropdownRender={menu => {
-                      return (
-                        <div>
-                          {menu}
-                          <Divider style={{ margin: "4px 0" }} />
-                          <ModalComment
-                            title={`Add a new ${category}`}
-                            setFieldValue={props.setFieldValue}
-                            number={number}
-                            render={renderProps => {
-                              newOptions = [...newOptions, renderProps.text];
-                              return (
-                                <div
-                                  onMouseDown={e => {
-                                    e.preventDefault();
-                                    return false;
-                                  }}
-                                  style={{ padding: "8px", cursor: "pointer" }}
-                                >
-                                  <Icon type="plus" /> Add item
-                                </div>
-                              );
-                            }}
-                          />
-                        </div>
-                      );
-                    }}
-                  >
-                    {newOptions.map(option => (
-                      <Option value={option} key={option}>
-                        {option}
-                      </Option>
-                    ))}
-                  </Select>
-                </>
-              );
-            }}
-          </Field>
-          {hasComment && (
-            <ModalComment
-              title="Enter you comment here"
-              setFieldValue={props.setFieldValue}
-              number={number}
-              comment
-              render={props => {
+          <Options>
+            <Field name={`questions[${number}]`}>
+              {({ field, form }) => {
                 return (
-                  <CommentsIcon hasValue={!!props.text}>
-                    <img src={commentIcon} alt="" />
-                  </CommentsIcon>
+                  <>
+                    <Select
+                      showSearch
+                      placeholder={label}
+                      style={{
+                        border: `1px solid ${colors.dustyGray1}`
+                      }}
+                      onChange={value =>
+                        form.setFieldValue(`questions[${number}]`, value)
+                      }
+                      dropdownRender={menu => {
+                        return (
+                          <div>
+                            {menu}
+                            <Divider style={{ margin: "4px 0" }} />
+                            <ModalComment
+                              title={`Add a new ${category}`}
+                              setFieldValue={props.setFieldValue}
+                              number={number}
+                              render={renderProps => {
+                                newOptions = [...newOptions, renderProps.text];
+                                return (
+                                  <div
+                                    onMouseDown={e => {
+                                      e.preventDefault();
+                                      return false;
+                                    }}
+                                    style={{
+                                      padding: "8px",
+                                      cursor: "pointer"
+                                    }}
+                                  >
+                                    <Icon type="plus" /> Add item
+                                  </div>
+                                );
+                              }}
+                            />
+                          </div>
+                        );
+                      }}
+                    >
+                      {newOptions.map(option => (
+                        <Option value={option} key={option}>
+                          {option}
+                        </Option>
+                      ))}
+                    </Select>
+                  </>
                 );
               }}
-            />
-          )}
+            </Field>
+            {hasComment && (
+              <ModalComment
+                title="Enter you comment here"
+                setFieldValue={props.setFieldValue}
+                number={number}
+                comment
+                render={props => {
+                  return (
+                    <CommentsIcon hasValue={!!props.text}>
+                      <img src={commentIcon} alt="" />
+                    </CommentsIcon>
+                  );
+                }}
+              />
+            )}
+          </Options>
           <ErrorMessage name={`questions[${number}]`}>
             {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
           </ErrorMessage>
@@ -278,16 +287,18 @@ class QuestionOptions extends React.Component {
     if (type === "overallReview") {
       return (
         <QuestionOptionsWrapper>
-          <Field name={`review.overallReview`}>
-            {({ field, form }) => (
-              <Input.TextArea
-                rows={4}
-                {...field}
-                // {...form}
-                style={{ border: `1px solid ${colors.inputBorder}` }}
-              />
-            )}
-          </Field>
+          <Options>
+            <Field name={`review.overallReview`}>
+              {({ field, form }) => (
+                <Input.TextArea
+                  rows={4}
+                  {...field}
+                  // {...form}
+                  style={{ border: `1px solid ${colors.inputBorder}` }}
+                />
+              )}
+            </Field>
+          </Options>
           <ErrorMessage name={`review.overallReview`}>
             {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
           </ErrorMessage>
@@ -299,51 +310,53 @@ class QuestionOptions extends React.Component {
       const { values } = props;
       return (
         <QuestionOptionsWrapper>
-          <FieldArray
-            name={`questions[${number}]`}
-            render={arrayHelpers => (
-              <div>
-                {options &&
-                  options.length > 0 &&
-                  options.map((option, index) => (
-                    <div key={option}>
-                      <Field
-                        id={`${option}-${number}`}
-                        type="checkbox"
-                        name={`questions[${number}].${index}`}
-                        value={option}
-                        onChange={e => {
-                          if (e.target.checked) arrayHelpers.push(option);
-                          else {
-                            const idx = values.questions[number].indexOf(
-                              option
-                            );
-                            arrayHelpers.remove(idx);
-                          }
-                        }}
-                        checked={values.questions[number].includes(option)}
-                      />
-                      <label htmlFor={`${option}-${number}`}>{option}</label>
-                    </div>
-                  ))}
-              </div>
-            )}
-          />
-          {hasComment && (
-            <ModalComment
-              title="Enter you comment here"
-              setFieldValue={props.setFieldValue}
-              number={number}
-              comment
-              render={props => {
-                return (
-                  <CommentsIcon hasValue={!!props.text}>
-                    <img src={commentIcon} alt="" />
-                  </CommentsIcon>
-                );
-              }}
+          <Options>
+            <FieldArray
+              name={`questions[${number}]`}
+              render={arrayHelpers => (
+                <div>
+                  {options &&
+                    options.length > 0 &&
+                    options.map((option, index) => (
+                      <div key={option}>
+                        <Field
+                          id={`${option}-${number}`}
+                          type="checkbox"
+                          name={`questions[${number}].${index}`}
+                          value={option}
+                          onChange={e => {
+                            if (e.target.checked) arrayHelpers.push(option);
+                            else {
+                              const idx = values.questions[number].indexOf(
+                                option
+                              );
+                              arrayHelpers.remove(idx);
+                            }
+                          }}
+                          checked={values.questions[number].includes(option)}
+                        />
+                        <label htmlFor={`${option}-${number}`}>{option}</label>
+                      </div>
+                    ))}
+                </div>
+              )}
             />
-          )}
+            {hasComment && (
+              <ModalComment
+                title="Enter you comment here"
+                setFieldValue={props.setFieldValue}
+                number={number}
+                comment
+                render={props => {
+                  return (
+                    <CommentsIcon hasValue={!!props.text}>
+                      <img src={commentIcon} alt="" />
+                    </CommentsIcon>
+                  );
+                }}
+              />
+            )}
+          </Options>
           <ErrorMessage name="checklist">
             {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
           </ErrorMessage>

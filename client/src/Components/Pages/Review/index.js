@@ -24,7 +24,11 @@ import {
   AgreementLabel
 } from "./Review.style";
 
-import { StyledErrorMessage } from "./Question/Question.style";
+import {
+  StyledErrorMessage,
+  QText,
+  QuestionWrapper
+} from "./Question/Question.style";
 
 import Question from "./Question/index";
 import agencyIcon from "./../../../assets/agency-icon.svg";
@@ -34,6 +38,8 @@ import { initQueestionsValues } from "./initialQuestionsValues";
 import { validationSchema } from "./validationSchema";
 
 import { THANKYOU_URL } from "../../../constants/naviagationUrls";
+
+import { NewSVGCreator } from "../../../helpers";
 
 const {
   API_GET_QUESTIONS_URL,
@@ -187,7 +193,7 @@ class Review extends Component {
     }
     return (
       <ReviewWrapper>
-        <Header orgType={category}>
+        <Header orgType={category} style={{ marginBottom: "3rem" }}>
           <Content>
             <ImageBox className="image-box">
               <Image src={agencyIcon} alt="" className="header-icon" />
@@ -219,21 +225,10 @@ class Review extends Component {
               return (
                 <FormWrapper>
                   <Form>
-                    <div>
-                      {/* a placeholder to be edited with new picker */}
-                      <p>Select the month(s) you used this agency?</p>
-                      {/* <DatePicker.RangePicker
-                        onChange={(date, dateString) => {
-                          const [from, to] = dateString;
-                          const workPeriod = {
-                            from,
-                            to
-                          };
-                          setFieldValue("review.workPeriod", workPeriod);
-                        }}
-                      /> */}
+                    <QuestionWrapper>
+                      <QText>Select the month(s) you used this agency?</QText>
                       <CustomRangePicker setFieldValue={setFieldValue} />
-                    </div>
+                    </QuestionWrapper>
                     <div>
                       {groups.map(group => {
                         if (group.group && group.group.text) {
