@@ -15,6 +15,11 @@ import {
 } from "./DeleteProfile.style";
 
 export default class index extends Component {
+  state = {
+    message: "",
+    errors: null
+  };
+
   deleteUser = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -61,6 +66,38 @@ export default class index extends Component {
     });
   };
 
+  handleInput = event => {
+    const { value } = event.target;
+    this.setState({ message: value });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const { message } = this.state;
+
+    if (message.length > 0) {
+      axios
+        .post("/api/thinking-of-deleting", { message })
+        .then(() => (window.location = "/delete-message-success"))
+        .catch(err =>
+          Swal.fire({
+            type: "error",
+            title: "Error sending message",
+            text: err.response.data.error,
+            confirmButtonText: "Close"
+          })
+        );
+    } else {
+      this.setState({ errors: "Message box is empty" });
+      Swal.fire({
+        type: "error",
+        title: "Message empty",
+        text: "Please write a message before sending",
+        confirmButtonText: "Close"
+      });
+    }
+  };
+
   render() {
     return (
       <Wrapper>
@@ -74,8 +111,12 @@ export default class index extends Component {
           If you think you may like to keep your account but you’re unhappy
           about something, tell us why so we can do our best to fix it.
         </Paragraph>
-        <TextArea placholder="What's wrong?" />
-        <Button>Send</Button>
+        <TextArea
+          placholder="What's wrong?"
+          onChange={this.handleInput}
+          type="textarea"
+        />
+        <Button onClick={this.handleSubmit}>Send</Button>
         <CancelLink to="/edit-profile">Cancel</CancelLink>
         <DeleteButton onClick={this.deleteUser}>
           Permanently delete account

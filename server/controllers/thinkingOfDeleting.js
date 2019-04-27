@@ -7,11 +7,11 @@ module.exports = async (req, res, next) => {
 
   const { message } = req.body;
 
-  const html = `<div style="text-align: center;">
+  const html = `<div style="text-align: left;">
   <p style="font-weight: 700;">Hi Harrison,</p>
   <p>A user has sent a message saying they are thinking of deleting their account. Here is their message:</p>
   
-  <p>${message}</p>
+  <p>"${message}"</p>
 
   <p>Here is their user information</p>
   <ul>
@@ -24,20 +24,22 @@ module.exports = async (req, res, next) => {
   <p style="margin-bottom: 0;">The earwig Bot</p>
 </div>  `;
 
-  const to = "joseph.s.friel@gmail.com";
+  const to = process.env.EMAIL;
   const adminUser = process.env.EMAIL;
   const pass = process.env.EMAIL_PASSWORD;
   const subject = "WARNING! User thinking of deleting account";
   const from = process.env.EMAIL;
 
-  await mailer({
-    from,
-    to,
-    subject,
-    html,
-    adminUser,
-    pass,
-  }).catch(err => next(boom.badImplementation(err)));
+  if (process.env.NODE_ENV === "production") {
+    await mailer({
+      from,
+      to,
+      subject,
+      html,
+      user: adminUser,
+      pass,
+    }).catch(err => next(boom.badImplementation(err)));
+  }
 
-  return res.json({ message: "sent" });
+  return res.json({ message: "Completed" });
 };
