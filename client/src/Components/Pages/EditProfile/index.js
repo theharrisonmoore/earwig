@@ -254,7 +254,7 @@ export default class EditProfile extends Component {
               </Form>
             )}
           </Formik>
-          <StyledLink to="/profile">Cancel Changes</StyledLink>
+          <StyledLink to="/my-profile">Cancel Changes</StyledLink>
         </VerifiedWrapper>
       </EditWrapper>
     );

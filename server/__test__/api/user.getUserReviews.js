@@ -36,7 +36,7 @@ describe("Testing getUserReviews route", () => {
         const token = result.headers["set-cookie"][0].split(";")[0];
 
         request(app)
-          .get("/api/latest-reviews")
+          .get("/api/user-reviews")
           .set("Cookie", [token])
           .expect(200)
           .end((err, res) => {

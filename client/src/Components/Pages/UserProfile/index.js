@@ -1,19 +1,28 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 import {
   Wrapper,
   Header,
   TopSection,
+  BottomSection,
+  StatWrapper,
+  StatTitle,
+  Stat,
   IDWrapper,
   Verified,
   EditInfo,
   IDText,
   MainSection,
-  UnVerifiedTitle,
+  VerifiedSection,
+  SectionTitle,
   Paragraph,
   UnVerifiedButton,
-  Title
+  Title,
+  ReviewDiv,
+  AgencyTitle,
+  ReviewText
 } from "./UserProfile.style";
 
 import Icon from "./../../Common/Icon/Icon";
@@ -21,11 +30,27 @@ import Icon from "./../../Common/Icon/Icon";
 export default class index extends Component {
   state = {
     reviewCount: 0,
-    latestReviews: []
+    userReviews: [],
+    loaded: false
   };
+
+  componentDidMount() {
+    axios.get("/api/user-reviews").then(res => {
+      this.setState({
+        userReviews: res.data,
+        reviewCount: res.data.length,
+        loaded: true
+      });
+      console.log("res", res);
+    });
+  }
 
   render() {
     const { userId, verified } = this.props;
+
+    const { reviewCount, userReviews, loaded } = this.state;
+
+    if (!loaded) return <h1>Loading...</h1>;
 
     return (
       <Wrapper>
@@ -53,14 +78,43 @@ export default class index extends Component {
               <EditInfo>Edit info</EditInfo>
             </NavLink>
           </TopSection>
+          <BottomSection>
+            <StatWrapper>
+              <StatTitle>Given</StatTitle>
+              <Stat>{reviewCount} reviews</Stat>
+            </StatWrapper>
+          </BottomSection>
         </Header>
         {verified ? (
-          <MainSection>
-            <div>Other stuff to go here</div>
-          </MainSection>
+          <VerifiedSection>
+            <SectionTitle>Your reviews</SectionTitle>
+            {userReviews.length > 0 ? (
+              userReviews.map((review, index) => (
+                <NavLink to={`/profile/${review.organization[0]._id}`}>
+                  <ReviewDiv key={index}>
+                    <Icon
+                      icon={review.organization[0].category}
+                      width="18"
+                      height="18"
+                      margin="0 0.5rem 0 0"
+                    />
+                    <ReviewText>
+                      You reviewed{" "}
+                      <AgencyTitle type={review.organization[0].category}>
+                        {review.organization[0].name}
+                      </AgencyTitle>
+                    </ReviewText>
+                    <ReviewText>8w</ReviewText>
+                  </ReviewDiv>
+                </NavLink>
+              ))
+            ) : (
+              <p>You have not completed any reviews yet</p>
+            )}
+          </VerifiedSection>
         ) : (
           <MainSection>
-            <UnVerifiedTitle>Your reviews and impact</UnVerifiedTitle>
+            <SectionTitle>Your reviews and impact</SectionTitle>
 
             <Paragraph>
               If you want to search jobs, help other workers by giving reviews

@@ -120,7 +120,7 @@ router.post(
 
 router.delete("/delete-user", authentication, deleteUserProfile);
 
-router.get("/latest-reviews", authentication, userReviewsController);
+router.get("/user-reviews", authentication, userReviewsController);
 
 router.post(
   "/add-organization",
