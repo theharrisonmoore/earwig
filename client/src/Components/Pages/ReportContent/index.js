@@ -69,8 +69,8 @@ export default class ReportContent extends Component {
     return (
       <Wrapper>
         <ContentWrapper>
-          {/* <SelectReason /> */}
-          {/* <GiveInformation /> */}
+          <SelectReason />
+          <GiveInformation />
           <Thanks />
         </ContentWrapper>
       </Wrapper>

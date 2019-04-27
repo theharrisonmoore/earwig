@@ -67,28 +67,16 @@ export default class Thanks extends Component {
       <>
         <PageTitle>Report this content</PageTitle>
         <MainIcon src={checkIcon} />
-        <SubTitle marginBottom>
-          Why do you want to report this content?
+        <SubTitle marginBottom center>
+          Thanks for your report
         </SubTitle>
-        <SmallParagraph left>
-          You’ll find guidance in our
-          <BoldLink to={COMMUNITY_GUIDELINES_URL}>
-            {" "}
-            Community Guidelines
-          </BoldLink>
+        <SmallParagraph center>
+          We’ll get back to you via email as soon as we can.
         </SmallParagraph>
-        <Select
-          options={options}
-          handleChange={this.handleSelect}
-          placeholder="Choose a reason"
-        />
+
         <BottomFixedDiv>
-          <ContentWrapper>
-            <Button>Next</Button>
-          </ContentWrapper>
-          <UnderlinedLink as="div">Cancel</UnderlinedLink>
+          <Button>Okay</Button>
         </BottomFixedDiv>
-        {/* <TextArea placeholder="More information" /> */}
       </>
     );
   }

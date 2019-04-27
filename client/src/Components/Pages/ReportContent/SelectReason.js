@@ -83,12 +83,9 @@ export default class SelectReason extends Component {
           placeholder="Choose a reason"
         />
         <BottomFixedDiv>
-          <ContentWrapper>
-            <Button>Next</Button>
-          </ContentWrapper>
+          <Button>Next</Button>
           <UnderlinedLink as="div">Cancel</UnderlinedLink>
         </BottomFixedDiv>
-        {/* <TextArea placeholder="More information" /> */}
       </>
     );
   }

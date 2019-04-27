@@ -84,7 +84,7 @@ export default class GiveInformation extends Component {
           <div>
             <ButtonsWrapper>
               <UnderlinedLink as="div">Back</UnderlinedLink>
-              <SmallButton>Next</SmallButton>
+              <SmallButton>Submit</SmallButton>
             </ButtonsWrapper>
             <UnderlinedLink as="div">Cancel</UnderlinedLink>
           </div>
