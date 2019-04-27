@@ -1,77 +1,52 @@
 import React, { Component } from "react";
 
-import {
-  Wrapper,
-  ContentWrapper,
-  MainIcon,
-  SubTitle,
-  SmallParagraph,
-  Iframe,
-  LargeParagraph,
-  TextArea,
-  Button,
-  PageTitle,
-  Devider,
-  BoldLink,
-  BottomFixedDiv,
-  UnderlinedLink
-} from "./../../Common/StaticPages.style";
+import { Wrapper, ContentWrapper } from "./../../Common/StaticPages.style";
 
 import SelectReason from "./SelectReason";
 import GiveInformation from "./GiveInformation";
 import Thanks from "./Thanks";
-import flagIcon from "./../../../assets/flag.svg";
 
-import { COMMUNITY_GUIDELINES_URL } from "./../../../constants/naviagationUrls";
-
-import Select from "./../../Common/Select";
-
-const options = [
-  {
-    value: "This content violates earwig's guidelines",
-    label: "This content violates earwig's guidelines"
-  },
-  {
-    value: "This content contains false information",
-    label: "This content contains false information"
-  },
-  {
-    value: "The same person has posted multiple bits of content",
-    label: "The same person has posted multiple bits of content"
-  },
-  {
-    value: "This content was posted by management or HR",
-    label: "This content was posted by management or HR"
-  },
-  {
-    value: "This content is for the wrong agency/payroll/worksite/company",
-    label: "This content is for the wrong agency/payroll/worksite/company"
-  },
-  {
-    value: "I want to comment on this content",
-    label: "I want to comment on this content"
-  },
-  {
-    value: "My reason is not listed here",
-    label: "My reason is not listed here"
-  }
-];
 export default class ReportContent extends Component {
   state = {
-    reason: ""
+    reason: "",
+    step: 0,
+    description: ""
   };
 
-  handleSelect = something => {
-    console.log(something);
+  handleSelect = reason => {
+    this.setState({ reason });
+  };
+
+  handleCancel = () => {
+    this.props.history.goBack();
+  };
+
+  handleMove = direction => {
+    this.setState({ step: this.state.step + direction });
+  };
+
+  handleTextAreaChange = ({ target }) => {
+    this.setState({ description: target.value });
+  };
+
+  handleSubmit = () => {
+    this.handleMove(1);
   };
 
   render() {
+    const Components = [SelectReason, GiveInformation, Thanks];
+    const ACtiveComponent = Components[this.state.step];
     return (
       <Wrapper>
         <ContentWrapper>
-          <SelectReason />
-          <GiveInformation />
-          <Thanks />
+          <ACtiveComponent
+            handleCancel={this.handleCancel}
+            handleSelect={this.handleSelect}
+            handleMove={this.handleMove}
+            handleSubmit={this.handleSubmit}
+            handleTextAreaChange={this.handleTextAreaChange}
+            description={this.state.description}
+          />
         </ContentWrapper>
       </Wrapper>
     );

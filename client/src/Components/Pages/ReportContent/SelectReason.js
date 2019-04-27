@@ -58,11 +58,8 @@ export default class SelectReason extends Component {
     reason: ""
   };
 
-  handleSelect = something => {
-    console.log(something);
-  };
-
   render() {
+    const { handleCancel, handleSelect, handleMove } = this.props;
     return (
       <>
         <PageTitle>Report this content</PageTitle>
@@ -79,12 +76,14 @@ export default class SelectReason extends Component {
         </SmallParagraph>
         <Select
           options={options}
-          handleChange={this.handleSelect}
+          handleChange={handleSelect}
           placeholder="Choose a reason"
         />
         <BottomFixedDiv>
-          <Button>Next</Button>
-          <UnderlinedLink as="div">Cancel</UnderlinedLink>
+          <Button onClick={() => handleMove(1)}>Next</Button>
+          <UnderlinedLink as="div" onClick={handleCancel}>
+            Cancel
+          </UnderlinedLink>
         </BottomFixedDiv>
       </>
     );

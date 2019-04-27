@@ -146,6 +146,7 @@ export const UnderlinedLink = styled(BoldLink).attrs({
   font-size: 1.125rem;
   text-align: center;
   margin: 0 auto;
+  cursor: pointer;
 
   @media (max-height: 600px) {
     margin-top: -1rem;
