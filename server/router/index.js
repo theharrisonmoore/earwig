@@ -35,6 +35,8 @@ const logoutController = require("./../controllers/logout");
 
 const addOrganizationController = require("../controllers/organizations");
 
+const thinkingofDeletingController = require("../controllers/thinkingOfDeleting");
+
 const {
   LOGIN_URL,
   GET_QUESTIONS_URL,
@@ -127,5 +129,7 @@ router.post(
 router.use("/confirm-email", validation("onlyMongoId"), confirmJoiningEmailList);
 
 router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
+
+router.post("/thinking-of-deleting", authentication, thinkingofDeletingController);
 
 module.exports = router;
