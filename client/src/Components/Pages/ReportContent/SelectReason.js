@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 
 import {
-  Wrapper,
-  ContentWrapper,
   MainIcon,
   SubTitle,
   SmallParagraph,
-  Iframe,
-  LargeParagraph,
-  TextArea,
   Button,
   PageTitle,
-  Devider,
   BoldLink,
   BottomFixedDiv,
   UnderlinedLink

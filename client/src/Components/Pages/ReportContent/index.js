@@ -35,11 +35,12 @@ export default class ReportContent extends Component {
 
   render() {
     const Components = [SelectReason, GiveInformation, Thanks];
-    const ACtiveComponent = Components[this.state.step];
+    const ActiveComponent = Components[this.state.step];
+
     return (
       <Wrapper>
         <ContentWrapper>
-          <ACtiveComponent
+          <ActiveComponent
             handleCancel={this.handleCancel}
             handleSelect={this.handleSelect}
             handleMove={this.handleMove}

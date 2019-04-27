@@ -31,6 +31,7 @@ const searchController = require("../controllers/search");
 const profileController = require("./../controllers/profile");
 const commentsController = require("./../controllers/comments");
 const logoutController = require("./../controllers/logout");
+const reportContentController = require("./../controllers/reportContent");
 
 const addOrganizationController = require("../controllers/organizations");
 
@@ -42,6 +43,7 @@ const {
   SEARCH_URL,
   LOGOUT_URL,
   ADD_ORGANIZATION_URL,
+  REPORT_CONTENT_URL,
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
@@ -125,7 +127,19 @@ router.post(
   addOrganizationController,
 );
 
-router.use("/confirm-email", validation("onlyMongoId"), confirmJoiningEmailList);
+router.use(
+  "/confirm-email",
+  validation("onlyMongoId"),
+  confirmJoiningEmailList,
+);
+
+
+router.use(
+  REPORT_CONTENT_URL,
+  validation("reportContent"),
+  reportContentController,
+);
+
 
 router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
 
