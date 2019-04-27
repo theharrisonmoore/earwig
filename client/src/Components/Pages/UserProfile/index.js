@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import moment from "moment";
+
+import Loading from "./../../Common/AntdComponents/Loading";
 
 import {
   Wrapper,
@@ -25,6 +28,8 @@ import {
   ReviewText
 } from "./UserProfile.style";
 
+import { colors } from "../../../theme";
+
 import Icon from "./../../Common/Icon/Icon";
 
 export default class index extends Component {
@@ -41,7 +46,6 @@ export default class index extends Component {
         reviewCount: res.data.length,
         loaded: true
       });
-      console.log("res", res);
     });
   }
 
@@ -50,7 +54,7 @@ export default class index extends Component {
 
     const { reviewCount, userReviews, loaded } = this.state;
 
-    if (!loaded) return <h1>Loading...</h1>;
+    if (!loaded) return <Loading />;
 
     return (
       <Wrapper>
@@ -100,6 +104,7 @@ export default class index extends Component {
                       width="18"
                       height="18"
                       margin="0 0.5rem 0 0"
+                      // fill={colors.lightGray}
                     />
                     <ReviewText>
                       You reviewed{" "}
@@ -107,7 +112,9 @@ export default class index extends Component {
                         {review.organization[0].name}
                       </AgencyTitle>
                     </ReviewText>
-                    <ReviewText>8w</ReviewText>
+                    <ReviewText>
+                      {moment().diff(review.createdAt, "weeks")}w
+                    </ReviewText>
                   </ReviewDiv>
                 </NavLink>
               ))
