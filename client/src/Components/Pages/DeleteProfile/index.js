@@ -78,7 +78,14 @@ export default class index extends Component {
     if (message.length > 0) {
       axios
         .post("/api/thinking-of-deleting", { message })
-        .then(() => (window.location = "/delete-message-success"))
+        .then(() =>
+          Swal.fire({
+            type: "success",
+            title: "Thanks for sticking with us",
+            text: "We’ll get back to you via email as soon as we can.",
+            confirmButtonText: "Okay"
+          }).then(() => (window.location = "/my-profile"))
+        )
         .catch(err =>
           Swal.fire({
             type: "error",
