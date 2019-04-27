@@ -6,7 +6,6 @@ import { NavLink } from "react-router-dom";
 import {
   EditWrapper,
   VerifiedWrapper,
-  UnVerifiedWrapper,
   Section,
   Title,
   Row,
@@ -17,11 +16,6 @@ import {
   ImageInput,
   StyledButton as Button,
   StyledLink,
-  StatusWrapper,
-  Status,
-  UnVerifiedTitle,
-  Paragraph,
-  UnVerifiedButton,
   EditIcon,
   VerifiedLabelWrapper
 } from "./EditProfile.style";
@@ -34,8 +28,6 @@ import {
 } from "./../../Common/Formik/Formik.style";
 
 import { colors } from "./../../../theme";
-
-import cardImage from "./../../../assets/card-hand.svg";
 
 const initalValues = {
   oldPassword: "",

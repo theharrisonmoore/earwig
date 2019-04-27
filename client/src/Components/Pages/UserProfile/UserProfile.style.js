@@ -63,7 +63,7 @@ export const EditInfo = styled.button`
   cursor: pointer;
   outline: none;
   border: ${borders.searchBox};
-  box-shadow: ${shadows.buttonShadow};
+  box-shadow: ${shadows.buttonShadow2};
   color: ${colors.profileFontColor};
   background: none;
   margin: 0;

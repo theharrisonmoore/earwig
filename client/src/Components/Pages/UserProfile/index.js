@@ -90,8 +90,11 @@ export default class index extends Component {
             <SectionTitle>Your reviews</SectionTitle>
             {userReviews.length > 0 ? (
               userReviews.map((review, index) => (
-                <NavLink to={`/profile/${review.organization[0]._id}`}>
-                  <ReviewDiv key={index}>
+                <NavLink
+                  to={`/profile/${review.organization[0]._id}`}
+                  key={index}
+                >
+                  <ReviewDiv>
                     <Icon
                       icon={review.organization[0].category}
                       width="18"
