@@ -23,7 +23,7 @@ const Company = props => (
       <rect width="59" height="44.7586" fill="url(#pattern1)" />
     </mask>
     <g mask="url(#mask0)">
-      <rect width="59" height="44.7586" fill="#1C0F13" />
+      <rect width="59" height="44.7586" fill={props.color} />
     </g>
     <defs>
       <pattern

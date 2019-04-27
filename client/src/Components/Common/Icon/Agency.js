@@ -23,7 +23,7 @@ const Agency = props => (
       <rect width="59" height="56.0792" fill="url(#pattern1)" />
     </mask>
     <g mask="url(#mask0)">
-      <rect width="59" height="56.0792" fill="#8B51FC" />
+      <rect width="59" height="56.0792" fill={props.color} />
     </g>
     <defs>
       <pattern

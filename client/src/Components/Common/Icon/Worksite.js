@@ -23,7 +23,7 @@ const Worksite = props => (
       <rect width="59" height="59" fill="url(#pattern1)" />
     </mask>
     <g mask="url(#mask0)">
-      <rect width="59" height="59" fill="#FFA400" />
+      <rect width="59" height="59" fill={props.color} />
     </g>
     <defs>
       <pattern

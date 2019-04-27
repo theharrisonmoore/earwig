@@ -34,28 +34,33 @@ export const Options = styled.div`
   justify-content: space-between;
   font-size: 16px;
   margin-bottom: 1rem;
-
+  justify-content: ${({ options }) =>
+    options === 4 ? "flex-end" : "space-between"};
   .choices {
-    width: calc(80% - 1rem);
+    width: calc(85% - 1rem);
     display: flex;
     /* flex-wrap: nowrap; */
     justify-content: space-between;
     margin-right: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .choices-3 div:last-child label {
     font-size: 11px;
-    padding-top: 8px;
+    padding-top: 5px;
+    /* vertical-align: center; */
   }
 
   .choices-4 {
     width: 100%;
     margin-right: 0;
+    /* justify-content: flex-end; */
   }
 
-  .radio {
+  .radio-input {
     font-size: 14px;
     margin: 0;
+    width: 100px;
   }
   .hide {
     display: none;
@@ -70,9 +75,13 @@ export const CommentsIcon = styled.div`
   height: 33px;
   color: red;
   margin: 0 auto;
-  border: 1px solid
+  box-shadow: 0 0 0 1px ${colors.dustyGray1};
+  box-shadow: ${props => {
+    return props.hasValue ? "none" : `0 0 0 1px ${colors.dustyGray1}`;
+  }};
+  border: 3px solid
     ${props => {
-      return props.hasValue ? colors.green : colors.dustyGray1;
+      return props.hasValue ? colors.green : "transparent";
     }};
   border-radius: 3px;
 
@@ -90,7 +99,7 @@ export const StyledErrorMessage = styled.div`
   margin-bottom: 0rem;
 `;
 
-export const Input = styled.label`
+export const StyledInput = styled.label`
   border: 3px solid transparent;
   background: ${colors.lightGray};
   text-align: center;
@@ -100,6 +109,8 @@ export const Input = styled.label`
   display: inline-block;
   /* padding: 0.25rem 1rem; */
   height: 100%;
+  width: 100%;
+  vertical-align: center;
 `;
 
 export const InputWrapper = styled.div`
@@ -107,22 +118,30 @@ export const InputWrapper = styled.div`
 
   .radio-button {
     display: none;
-  }
+  };
 
   .yesno {
     border-radius: 3px;
+  };
+  width: 100%;
+  margin-right: 14px;
+  margin-right: ${({ options }) => (options === 4 ? "0" : "14px")};
+  :last-child {
+    margin-right: 0;
   }
+  
+  
 
-  .options-2 {
-    width: 30px;
+  .options-4 {
+    margin-right: 0;
   }
-
+/*
   .options-3 {
     font-size: 11;
-    width: 20px;
-  }
+    width: calc(90% / 3);
+  } */
 
-  @media (max-width: ${breakpoints.mobileS}) {
+  /* @media (max-width: ${breakpoints.mobileS}) {
     .options-2 {
       width: 30px;
     }
@@ -131,9 +150,10 @@ export const InputWrapper = styled.div`
       font-size: 11;
       width: 20px;
     }
-  }
+  } */
 
   .radio-button:checked + .yesno {
+    box-shadow: none;
     border: 3px solid
       ${props => {
         if (props.option === "yes") {

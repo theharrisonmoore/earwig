@@ -1,6 +1,6 @@
 // media queries
 // so far we only decided to use 1 breakpoint, 768px (tablet)
-const size = {
+export const size = {
   mobileS: "320px",
   mobileM: "375px",
   mobileL: "425px",

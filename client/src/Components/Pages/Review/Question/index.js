@@ -2,14 +2,26 @@ import React from "react";
 
 import { Field, FieldArray, ErrorMessage } from "formik";
 
-import { Select, Icon, Divider, Input, Rate, InputNumber } from "antd";
+import {
+  Select,
+  Icon,
+  Divider,
+  Input,
+  Rate,
+  InputNumber,
+  CheckBox,
+  Row,
+  Col
+} from "antd";
 
 import ModalComment from "../../../Common/AntdComponents/ModalComment";
+import CustomRangePicker from "../../../Common/AntdComponents/DatePicker";
 import commentIcon from "../../../../assets/comment-icon.svg";
 
 import UploadImage from "./UploadPhoto";
 
 import { colors, organizations } from "../../../../theme";
+import { isMobile } from "../../../../helpers";
 
 import {
   QuestionWrapper,
@@ -20,7 +32,7 @@ import {
   Options,
   CommentsIcon,
   StyledErrorMessage,
-  Input as StyledInput
+  StyledInput
 } from "./Question.style";
 
 const Option = Select.Option;
@@ -73,8 +85,8 @@ class QuestionOptions extends React.Component {
     const { type, options, number, category, label, hasComment } = props;
     if (type === "yesno" || type === "radio") {
       return (
-        <QuestionOptionsWrapper className="test">
-          <Options>
+        <QuestionOptionsWrapper>
+          <Options options={options.length}>
             <div className={`choices choices-${options.length}`}>
               {options.map((option, i, arr) => {
                 return (
@@ -118,7 +130,7 @@ class QuestionOptions extends React.Component {
     if (type === "open") {
       return (
         <QuestionOptionsWrapper>
-          <Options>
+          <Options style={{ justifyContent: "flex-end" }}>
             <Field name={`questions[${number}]`}>
               {({ field, form }) => (
                 <Input
@@ -127,7 +139,8 @@ class QuestionOptions extends React.Component {
                   size="large"
                   placeholder={label}
                   style={{
-                    border: `1px solid ${colors.dustyGray1}`
+                    border: `1px solid ${colors.dustyGray1}`,
+                    marginBottom: "0.5rem"
                   }}
                 />
               )}
@@ -158,7 +171,7 @@ class QuestionOptions extends React.Component {
     if (type === "number") {
       return (
         <QuestionOptionsWrapper>
-          <Options>
+          <Options style={{ alignItems: "center" }}>
             <Field name={`questions[${number}]`} type="number">
               {({ field, form }) => (
                 <InputNumber
@@ -354,6 +367,7 @@ class QuestionOptions extends React.Component {
                     </CommentsIcon>
                   );
                 }}
+                style={{ alignSelf: "flex-end" }}
               />
             )}
           </Options>
@@ -368,6 +382,24 @@ class QuestionOptions extends React.Component {
       return (
         <QuestionOptionsWrapper>
           <UploadImage setFieldValue={props.setFieldValue} number={number} />
+          <ErrorMessage name={`questions[${number}]`}>
+            {msg => {
+              return <StyledErrorMessage>{msg}</StyledErrorMessage>;
+            }}
+          </ErrorMessage>
+        </QuestionOptionsWrapper>
+      );
+    }
+
+    if (type === "dateRange") {
+      return (
+        <QuestionOptionsWrapper>
+          <CustomRangePicker setFieldValue={props.setFieldValue} />
+          <ErrorMessage name="review.workPeriod">
+            {msg => {
+              return <StyledErrorMessage>{msg.from}</StyledErrorMessage>;
+            }}
+          </ErrorMessage>
         </QuestionOptionsWrapper>
       );
     }
@@ -379,12 +411,11 @@ class QuestionOptions extends React.Component {
             {({ field, form }) => (
               <Rate
                 {...field}
-                // {...form}
                 tooltips={options}
                 onChange={value => props.setFieldValue("review.rate", value)}
                 style={{
                   color: `${organizations[category].primary}`,
-                  fontSize: "3rem"
+                  fontSize: `${isMobile(window.innerWidth) ? "2rem" : "3rem"}`
                 }}
               />
             )}
@@ -408,7 +439,12 @@ const RadioButton = ({
   ...props
 }) => {
   return (
-    <InputWrapper option={props.option} orgType={props.category}>
+    <InputWrapper
+      className="test"
+      option={props.option}
+      orgType={props.category}
+      options={props.count}
+    >
       <input
         name={name}
         id={id}

@@ -59,10 +59,16 @@ class DateRange extends React.Component {
   render() {
     const { startValue, endValue, endOpen } = this.state;
     return (
-      <div style={{ textAlign: "center", margin: "1rem 0" }}>
+      <div
+        style={{
+          textAlign: "center",
+          margin: "1rem 0",
+          display: "flex",
+          justifyContent: "space-around"
+        }}
+      >
         <DatePicker.MonthPicker
           disabledDate={this.disabledStartDate}
-          // format="YYYY-MM-DD"
           value={startValue}
           placeholder="Start"
           onChange={this.onStartChange}
@@ -70,7 +76,6 @@ class DateRange extends React.Component {
         />
         <DatePicker.MonthPicker
           disabledDate={this.disabledEndDate}
-          // format="YYYY-MM-DD"
           value={endValue}
           placeholder="End"
           onChange={this.onEndChange}
