@@ -37,6 +37,8 @@ const addOrganizationController = require("../controllers/organizations");
 
 const thinkingofDeletingController = require("../controllers/thinkingOfDeleting");
 
+const userReviewsController = require("../controllers/getUserReviews");
+
 const {
   LOGIN_URL,
   GET_QUESTIONS_URL,
@@ -117,6 +119,8 @@ router.post(
 );
 
 router.delete("/delete-user", authentication, deleteUserProfile);
+
+router.get("/latest-reviews", authentication, userReviewsController);
 
 router.post(
   "/add-organization",
