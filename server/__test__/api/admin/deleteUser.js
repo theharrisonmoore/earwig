@@ -16,6 +16,11 @@ describe("Tesing for delete user route", () => {
     await mongoose.disconnect();
   });
 
+  beforeEach(async () => {
+    // build dummy data
+    await buildDB();
+  });
+
   test("test for delete user", async (done) => {
     const data = {
       email: "admin@earwig.com",

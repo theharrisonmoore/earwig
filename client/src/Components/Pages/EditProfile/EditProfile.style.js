@@ -2,7 +2,13 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Label, Button } from "./../../Common/Formik/Formik.style";
 
-import { colors, shadows, gradient } from "./../../../theme";
+import Icon from "./../../Common/Icon/Icon";
+
+import { colors, shadows, gradient, borders } from "./../../../theme";
+
+export const EditIcon = styled(Icon)`
+  margin-right: 0.5rem;
+`;
 
 export const EditWrapper = styled.div`
   width: 100%;
@@ -23,7 +29,7 @@ export const Section = styled.div`
   width: 100%;
   padding: 2.75rem 0;
   text-align: left;
-  border-bottom: 1px solid ${colors.inputBorder};
+  border-bottom: ${borders.commentBox}};
 `;
 
 export const Title = styled.h2`
@@ -59,10 +65,22 @@ export const EditButton = styled.button`
   outline: none;
   cursor: pointer;
   margin-bottom: 0;
+  text-decoration: underline;
 
   &:active,
-  &:focus {
+  &:focus,
+  &:hover {
     outline: none;
+    color: ${colors.purpleLinks};
+  }
+`;
+
+export const DeleteButton = styled(EditButton)`
+  &:active,
+  &:focus,
+  &:hover {
+    outline: none;
+    color: ${colors.red};
   }
 `;
 
@@ -171,4 +189,9 @@ export const UnVerifiedButton = styled(Link)`
     outline: none;
     text-decoration: none;
   }
+`;
+
+export const VerifiedLabelWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;

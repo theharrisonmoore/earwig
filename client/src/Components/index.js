@@ -8,7 +8,8 @@ import {
   EDIT_PROFILE_URL,
   UPLOAD_VERIFICATION_URL,
   ORGS_PROFILE_URL,
-  REPORT_CONTENT_URL
+  REPORT_CONTENT_URL,
+  DELETE_PROFILE_URL
 } from "./../constants/naviagationUrls";
 
 import ReportContent from "./Pages/ReportContent";
@@ -17,6 +18,8 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Thankyou from "./Pages/ThankYou";
 import EditProfile from "./Pages/EditProfile";
+import DeleteProfile from "./Pages/DeleteProfile";
+import UserProfile from "./Pages/UserProfile";
 import Review from "./Pages/Review";
 import QuickReview from "./Pages/QuickReview";
 import Profile from "./Pages/Profile";
@@ -25,6 +28,7 @@ import Search from "./Pages/Search";
 import JoinMailList from "./Pages/JoinMailList";
 import AddProfileSelection from "./Pages/Search/AddProfileSelection";
 import AddProfileStartReview from "./Pages/Search/AddProfileReviewStart";
+import Intro from "./Pages/Intro";
 import PrivateRoute from "./Common/PrivateRoute";
 import {
   FAQ,
@@ -44,7 +48,9 @@ import {
   ADMIN,
   REVIEW_URL,
   QUICK_REVIEW_URL,
-  CONFIRM_EMAIL_URL
+  CONFIRM_EMAIL_URL,
+  INTRO_URL,
+  USER_PROFILE_URL
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
@@ -132,12 +138,32 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL3"
+          minimumLevel="LEVEL1"
           path={EDIT_PROFILE_URL}
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
           Component={EditProfile}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={DELETE_PROFILE_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={DeleteProfile}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={USER_PROFILE_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={UserProfile}
+          navbar
+          title="Your profile"
         />
 
         <PrivateRoute
@@ -196,7 +222,6 @@ export default function index(props) {
           title="Privacy & terms"
           search
         />
-        {/* dddddddddddddddddddddddddddddddddd */}
 
         <PrivateRoute
           minimumLevel="LEVEL1"
@@ -208,6 +233,15 @@ export default function index(props) {
           navbar
           title="Report this content"
           search
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={INTRO_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={Intro}
         />
 
         <Route

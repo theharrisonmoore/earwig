@@ -21,6 +21,7 @@ const editProfile = require("./../controllers/editProfile");
 const postTradesController = require("../controllers/addTrade");
 const userInfoController = require("../controllers/userInfo");
 const confirmJoiningEmailList = require("../controllers/confirmJoiningEmailList");
+const deleteUserProfile = require("../controllers/deleteUserProfile");
 
 const authentication = require("./../middlewares/authentication");
 const authorization = require("./../middlewares/authorization");
@@ -34,6 +35,10 @@ const logoutController = require("./../controllers/logout");
 const reportContentController = require("./../controllers/reportContent");
 
 const addOrganizationController = require("../controllers/organizations");
+
+const thinkingofDeletingController = require("../controllers/thinkingOfDeleting");
+
+const userReviewsController = require("../controllers/getUserReviews");
 
 const {
   LOGIN_URL,
@@ -92,11 +97,7 @@ router.post(
   uploadWorksiteController,
 );
 
-router.get(
-  "/trades", authentication,
-  authorization("LEVEL1"),
-  getTradesController,
-);
+router.get("/trades", authentication, authorization("LEVEL1"), getTradesController);
 
 router.post(
   "/trades",
@@ -118,6 +119,10 @@ router.post(
   deleteFileFromServer,
   editProfile,
 );
+
+router.delete("/delete-user", authentication, deleteUserProfile);
+
+router.get("/user-reviews", authentication, userReviewsController);
 
 router.post(
   "/add-organization",
@@ -145,5 +150,6 @@ router.post(
 
 router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
 
+router.post("/thinking-of-deleting", authentication, thinkingofDeletingController);
 
 module.exports = router;

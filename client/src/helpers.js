@@ -9,10 +9,19 @@ import { organizations } from "./theme";
 import { API_LOGOUT_URL } from "./apiUrls";
 import { LOGIN_URL } from "./constants/naviagationUrls";
 
+import Icon from "./Components/Common/Icon/Icon";
+
 // creates SVG Divs
 export const SVGCreator = (source, height, width) => (
-  <ImgDiv heigth={height} width={width}>
+  <ImgDiv height={height} width={width}>
     <SVG src={`/icons/${source}.svg`} alt={`${source}`} />
+  </ImgDiv>
+);
+
+// creates SVG Divs
+export const NewSVGCreator = (source, height, width, color) => (
+  <ImgDiv height={height} width={width}>
+    <Icon icon={source} height={height} width={width} />
   </ImgDiv>
 );
 
