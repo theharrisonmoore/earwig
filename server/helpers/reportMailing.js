@@ -80,6 +80,7 @@ module.exports = ({
   const pass = process.env.EMAIL_PASSWORD;
   const subject = "Welcome to the earwig community";
   const from = process.env.REPORT_EMAIL;
+  const to = process.env.REPORT_RECEIVER_EMAIL;
 
   const attachments = [{
     filename: "logo.png",
@@ -88,6 +89,6 @@ module.exports = ({
   }];
 
   return mailer({
-    from, to: "ramyshurafa@hotmail.com", subject, html, user: earwig, pass, attachments,
+    from, to, subject, html, user: earwig, pass, attachments,
   });
 };
