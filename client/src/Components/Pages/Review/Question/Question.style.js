@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, organizations, breakpoints } from "../../../../theme";
+import { colors, organizations } from "../../../../theme";
 
 export const QuestionWrapper = styled.div.attrs({ className: "" })`
   font-size: 18px;
@@ -47,13 +47,11 @@ export const Options = styled.div`
   .choices-3 div:last-child label {
     font-size: 11px;
     padding-top: 5px;
-    /* vertical-align: center; */
   }
 
   .choices-4 {
     width: 100%;
     margin-right: 0;
-    /* justify-content: flex-end; */
   }
 
   .radio-input {
@@ -117,7 +115,6 @@ export const StyledInput = styled.label`
   background-color: ${colors.white};
   box-shadow: 0 0 0 1px ${colors.lightGray};
   display: inline-block;
-  /* padding: 0.25rem 1rem; */
   height: 100%;
   width: 100%;
   vertical-align: center;

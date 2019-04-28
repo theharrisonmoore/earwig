@@ -36,8 +36,6 @@ export const HeaderPhone = styled.section`
 
 export const ContentPhone = styled.div`
   display: flex;
-  /* justify-content: space; */
-  /* align-items: center; */
   flex-direction: column;
 `;
 
@@ -126,7 +124,6 @@ export const OrgName = styled.h2`
 
 export const ReviewTimePhone = styled.p`
   margin-top: 0.5rem;
-  /* text-align: center; */
   position: relative;
   left: 3rem;
 `;

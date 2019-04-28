@@ -12,7 +12,6 @@ import {
   Header,
   Content,
   ImageBox,
-  Image,
   Organization,
   OrgName,
   ReviewTime,
@@ -27,29 +26,16 @@ import {
   ReviewTimePhone
 } from "../Review/Review.style";
 
-import {
-  StyledErrorMessage,
-  QText,
-  QuestionWrapper
-} from "../Review/Question/Question.style";
-
-import CustomRangePicker from "../../Common/AntdComponents/DatePicker";
+import { StyledErrorMessage } from "../Review/Question/Question.style";
 
 import Question from "../Review/Question/index";
-import agencyIcon from "./../../../assets/agency-icon.svg";
 import clockShort from "./../../../assets/clock-short-icon.svg";
-import clockLong from "./../../../assets/clock-long-icon.svg";
 
 import { validationSchemaShort } from "../Review/validationSchema";
 
 import { THANKYOU_URL } from "../../../constants/naviagationUrls";
 
-import {
-  NewSVGCreator,
-  questionsNumber,
-  isTablet,
-  isMobile
-} from "../../../helpers";
+import { NewSVGCreator, questionsNumber, isMobile } from "../../../helpers";
 
 import { STATIC_QUESTIONS } from "../Review/staticQuestions";
 

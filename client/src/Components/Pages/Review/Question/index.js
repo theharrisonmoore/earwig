@@ -149,7 +149,6 @@ class QuestionOptions extends React.Component {
               {({ field, form }) => (
                 <Input
                   {...field}
-                  // {...form}
                   size="large"
                   placeholder={label}
                   style={{
@@ -190,7 +189,6 @@ class QuestionOptions extends React.Component {
               {({ field, form }) => (
                 <InputNumber
                   {...field}
-                  // {...form}
                   onChange={value =>
                     props.setFieldValue(`questions[${number}]`, value)
                   }
@@ -320,7 +318,6 @@ class QuestionOptions extends React.Component {
                 <Input.TextArea
                   rows={4}
                   {...field}
-                  // {...form}
                   style={{ border: `1px solid ${colors.inputBorder}` }}
                 />
               )}
@@ -403,164 +400,6 @@ class QuestionOptions extends React.Component {
         </QuestionOptionsWrapper>
       );
     }
-    // if (type === "checklist") {
-    //   const { values } = props;
-    //   return (
-    //     <QuestionOptionsWrapper>
-    //       <Options>
-    //         <FieldArray
-    //           name={`questions[${number}]`}
-    //           render={arrayHelpers => (
-    //             <div>
-    //               <Checkbox.Group
-    //                 style={{ width: "100%" }}
-    //                 onChange={checkedValues => {
-    //                   console.log(checkedValues);
-    //                   this.setState({ checklist: checkedValues });
-    //                   props.setFieldValue(
-    //                     `questions[${number}]`,
-    //                     checkedValues
-    //                   );
-    //                 }}
-    //               >
-    //                 <Row>
-    //                   {options &&
-    //                     options.length > 0 &&
-    //                     options.map(option => {
-    //                       console.log(option);
-    //                       return (
-    //                         <Col span={24}>
-    //                           <Checkbox
-    //                             value={option}
-    //                             style={{
-    //                               color: "black",
-    //                               fontSize: "20px"
-    //                             }}
-    //                             checked={true}
-    //                           >
-    //                             {option}
-    //                           </Checkbox>
-    //                         </Col>
-    //                       );
-    //                     })}
-    //                 </Row>
-    //               </Checkbox.Group>
-    //               {/* {options &&
-    //                 options.length > 0 &&
-    //                 options.map((option, index) => (
-    //                   <div key={option}>
-    //                     <Field
-    //                       id={`${option}-${number}`}
-    //                       type="checkbox"
-    //                       name={`questions[${number}].${index}`}
-    //                       value={option}
-    //                       onChange={e => {
-    //                         if (e.target.checked) arrayHelpers.push(option);
-    //                         else {
-    //                           const idx = values.questions[number].indexOf(
-    //                             option
-    //                           );
-    //                           arrayHelpers.remove(idx);
-    //                         }
-    //                       }}
-    //                       checked={values.questions[number].includes(option)}
-    //                     />
-    //                     <label htmlFor={`${option}-${number}`}>{option}</label>
-    //                   </div>
-    //                 ))} */}
-    //             </div>
-    //           )}
-    //         />
-    //         <button
-    //           type="button"
-    //           onClick={() => {
-    //             this.setState({ checklist: [], checked: false });
-    //             props.setFieldValue(`questions[${number}]`, "I didn't check");
-    //           }}
-    //         >
-    //           I didn't check
-    //         </button>
-    //         {hasComment && (
-    //           <ModalComment
-    //             title="Enter you comment here"
-    //             setFieldValue={props.setFieldValue}
-    //             number={number}
-    //             comment
-    //             render={props => {
-    //               return (
-    //                 <CommentsIcon hasValue={!!props.text}>
-    //                   <img src={commentIcon} alt="" />
-    //                 </CommentsIcon>
-    //               );
-    //             }}
-    //             style={{ alignSelf: "flex-end" }}
-    //           />
-    //         )}
-    //       </Options>
-    //       <ErrorMessage name="checklist">
-    //         {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
-    //       </ErrorMessage>
-    //     </QuestionOptionsWrapper>
-    //   );
-    // }
-    // if (type === "checklist") {
-    //   const { values } = props;
-    //   return (
-    //     <QuestionOptionsWrapper>
-    //       <Options>
-    //         <FieldArray
-    //           name={`questions[${number}]`}
-    //           render={arrayHelpers => (
-    //             <div>
-    //               {options &&
-    //                 options.length > 0 &&
-    //                 options.map((option, index) => (
-    //                   <div key={option}>
-    //                     <Field
-    //                       id={`${option}-${number}`}
-    //                       type="checkbox"
-    //                       name={`questions[${number}].${index}`}
-    //                       value={option}
-    //                       onChange={e => {
-    //                         if (e.target.checked) arrayHelpers.push(option);
-    //                         else {
-    //                           const idx = values.questions[number].indexOf(
-    //                             option
-    //                           );
-    //                           arrayHelpers.remove(idx);
-    //                         }
-    //                       }}
-    //                       checked={values.questions[number].includes(option)}
-    //                     />
-    //                     <label htmlFor={`${option}-${number}`}>{option}</label>
-    //                   </div>
-    //                 ))}
-    //             </div>
-    //           )}
-    //         />
-    //         {hasComment && (
-    //           <ModalComment
-    //             title="Enter you comment here"
-    //             setFieldValue={props.setFieldValue}
-    //             number={number}
-    //             comment
-    //             render={props => {
-    //               return (
-    //                 <CommentsIcon hasValue={!!props.text}>
-    //                   <img src={commentIcon} alt="" />
-    //                 </CommentsIcon>
-    //               );
-    //             }}
-    //             style={{ alignSelf: "flex-end" }}
-    //           />
-    //         )}
-    //       </Options>
-    //       <ErrorMessage name="checklist">
-    //         {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
-    //       </ErrorMessage>
-    //     </QuestionOptionsWrapper>
-    //   );
-    // }
 
     if (type === "image") {
       return (
