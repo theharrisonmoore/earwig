@@ -1,13 +1,18 @@
 const boom = require("boom");
 
-const { allComments } = require("./../database/queries/reviews");
+const reportMailing = require("./../helpers/reportMailing");
 
 module.exports = (req, res, next) => {
-  const { reason, description } = req.body;
-  console.log(reason, description);
+  const {
+    reason, description, target, question, organization, review, comment,
+  } = req.body;
+  const { user } = req;
 
-
-  // allComments(organizationID, questionID)
-  //   .then(comments => res.json(comments))
-  //   .catch(err => next(boom.badImplementation(err)));
+  reportMailing({
+    reason, description, target, question, organization, review, comment, user,
+  }).then(() => {
+    res.json({ message: "sent" });
+  }).catch(() => {
+    next(boom.badImplementation());
+  });
 };

@@ -134,9 +134,11 @@ router.use(
 );
 
 
-router.use(
+router.post(
   REPORT_CONTENT_URL,
-  validation("reportContent"),
+  // validation("reportContent"),
+  authentication,
+  authorization("LEVEL1"),
   reportContentController,
 );
 
