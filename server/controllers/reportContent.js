@@ -8,11 +8,15 @@ module.exports = (req, res, next) => {
   } = req.body;
   const { user } = req;
 
-  reportMailing({
-    reason, description, target, question, organization, review, comment, user,
-  }).then(() => {
-    res.json({ message: "sent" });
-  }).catch(() => {
-    next(boom.badImplementation());
-  });
+  if (process.env.NODE_ENV !== "test") {
+    reportMailing({
+      reason, description, target, question, organization, review, comment, user,
+    }).then(() => {
+      res.json({ message: "sent" });
+    }).catch(() => {
+      next(boom.badImplementation());
+    });
+  } else {
+    res.json({ message: "suppose to be sent" });
+  }
 };

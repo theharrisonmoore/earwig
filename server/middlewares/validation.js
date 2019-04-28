@@ -193,6 +193,7 @@ const schemas = {
     description: Joi.string().required(),
     target: Joi.string().required(),
     organization: Joi.object().required(),
+    question: Joi.object(),
     review: Joi.object(),
     comment: Joi.object(),
   },
