@@ -1,26 +1,23 @@
 import React, { Component } from "react";
 import * as Yup from "yup";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 import {
   EditWrapper,
   VerifiedWrapper,
-  UnVerifiedWrapper,
   Section,
   Title,
   Row,
   EditButton,
+  DeleteButton,
   PasswordWrapper,
   LightLabel as Label,
   ImageInput,
   StyledButton as Button,
   StyledLink,
-  StatusWrapper,
-  Status,
-  UnVerifiedTitle,
-  Paragraph,
-  UnVerifiedButton,
-  EditIcon
+  EditIcon,
+  VerifiedLabelWrapper
 } from "./EditProfile.style";
 
 import {
@@ -30,7 +27,7 @@ import {
   StyledFormikErrorMessage as FormikErrorMessage
 } from "./../../Common/Formik/Formik.style";
 
-import cardImage from "./../../../assets/card-hand.svg";
+import { colors } from "./../../../theme";
 
 const initalValues = {
   oldPassword: "",
@@ -141,77 +138,77 @@ export default class EditProfile extends Component {
 
     return (
       <EditWrapper>
-        {verified ? (
-          <VerifiedWrapper>
-            <Section>
-              <Title>ID: {userId}</Title>
-            </Section>
-            <Section>
-              <Title title={email}>{email}</Title>
-            </Section>
-            <Formik
-              initialValues={initalValues}
-              validationSchema={editProfileSchema}
-              onSubmit={this.handleSubmit}
-            >
-              {({ isSubmitting }) => (
-                <Form>
+        <VerifiedWrapper>
+          <Section>
+            <Title>ID: {userId}</Title>
+          </Section>
+          <Section>
+            <Title title={email}>{email}</Title>
+          </Section>
+          <Formik
+            initialValues={initalValues}
+            validationSchema={editProfileSchema}
+            onSubmit={this.handleSubmit}
+          >
+            {({ isSubmitting }) => (
+              <Form>
+                <Section>
+                  <Row>
+                    <Title>Password</Title>
+                    <EditButton type="button" onClick={this.togglePassword}>
+                      Edit
+                    </EditButton>
+                  </Row>
+                  {this.state.displayPassword && (
+                    <PasswordWrapper>
+                      <Label htmlFor="oldPassword">
+                        Old Password
+                        <Field
+                          type="password"
+                          name="oldPassword"
+                          id="oldPassword"
+                        />
+                        <FormikErrorMessage name="oldPassword" component="p" />
+                      </Label>
+
+                      <Label htmlFor="newPassword">
+                        New Password
+                        <Field
+                          type="password"
+                          name="newPassword"
+                          id="newPassword"
+                        />
+                        <FormikErrorMessage name="newPassword" component="p" />
+                      </Label>
+
+                      <Label htmlFor="reNewPassword">
+                        Re-Enter New Password
+                        <Field
+                          type="password"
+                          name="reNewPassword"
+                          id="reNewPassword"
+                        />
+                        <FormikErrorMessage
+                          name="reNewPassword"
+                          component="p"
+                        />
+                      </Label>
+                    </PasswordWrapper>
+                  )}
+                </Section>
+                {verified && (
                   <Section>
                     <Row>
-                      <Title>Password</Title>
-                      <EditButton type="button" onClick={this.togglePassword}>
-                        Edit
-                      </EditButton>
-                    </Row>
-                    {this.state.displayPassword && (
-                      <PasswordWrapper>
-                        <Label htmlFor="oldPassword">
-                          Old Password
-                          <Field
-                            type="password"
-                            name="oldPassword"
-                            id="oldPassword"
-                          />
-                          <FormikErrorMessage
-                            name="oldPassword"
-                            component="p"
-                          />
-                        </Label>
-
-                        <Label htmlFor="newPassword">
-                          New Password
-                          <Field
-                            type="password"
-                            name="newPassword"
-                            id="newPassword"
-                          />
-                          <FormikErrorMessage
-                            name="newPassword"
-                            component="p"
-                          />
-                        </Label>
-
-                        <Label htmlFor="reNewPassword">
-                          Re-Enter New Password
-                          <Field
-                            type="password"
-                            name="reNewPassword"
-                            id="reNewPassword"
-                          />
-                          <FormikErrorMessage
-                            name="reNewPassword"
-                            component="p"
-                          />
-                        </Label>
-                      </PasswordWrapper>
-                    )}
-                  </Section>
-                  <Section>
-                    <Row>
-                      <div className="row__image-container">
-                        <EditIcon icon="getVerified" height="36" width="36" />
+                      <VerifiedLabelWrapper className="row__image-container">
+                        <EditIcon
+                          icon="getVerified"
+                          height="36"
+                          width="36"
+                          margin="0 0.5rem 0 0"
+                          fill={colors.veryLightGray}
+                        />
                         <Title>Verification photo</Title>
-                      </div>
+                      </VerifiedLabelWrapper>
                       <Field
                         name="verificationImage"
                         render={({ field, form: { isSubmitting } }) => (
@@ -234,35 +231,23 @@ export default class EditProfile extends Component {
                       </EditButton>
                     </Row>
                   </Section>
-                  <Button type="submit" disabled={isSubmitting}>
-                    Save Changes
-                  </Button>
-                </Form>
-              )}
-            </Formik>
-            <StyledLink to="/profile">Cancel Changes</StyledLink>
-          </VerifiedWrapper>
-        ) : (
-          <UnVerifiedWrapper>
-            <StatusWrapper>
-              <Status>Unverified</Status>
-            </StatusWrapper>
-            <UnVerifiedTitle>Your reviews and impact</UnVerifiedTitle>
-            <Paragraph>
-              If you want to search jobs, help other workers by giving reviews
-              and comment on other reviews, you need to get verified as a
-              genuine worker.
-              <br />
-              <br />
-              This protects the worker community from fake reviews and spam by
-              non-workers.
-            </Paragraph>
-            <UnVerifiedButton to="/upload-verification-photo">
-              <img src={cardImage} alt="card icon" />
-              <Title>Verification photo</Title>
-            </UnVerifiedButton>
-          </UnVerifiedWrapper>
-        )}
+                )}
+                <Section>
+                  <Row>
+                    <Title>Delete my earwig account</Title>
+                    <NavLink to="/delete-profile">
+                      <DeleteButton>Delete</DeleteButton>
+                    </NavLink>
+                  </Row>
+                </Section>
+                <Button type="submit" disabled={isSubmitting}>
+                  Save Changes
+                </Button>
+              </Form>
+            )}
+          </Formik>
+          <StyledLink to="/my-profile">Cancel Changes</StyledLink>
+        </VerifiedWrapper>
       </EditWrapper>
     );
   }
