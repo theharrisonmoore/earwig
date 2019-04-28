@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Icon } from "antd";
+import { Link } from "react-router-dom";
 
 import {
   Wrapper,
@@ -11,6 +13,10 @@ import {
   CommentBubble
 } from "./ProfileAnswers.style";
 
+import { StyledAntIcon } from "./../Profile.style";
+
+import { REPORT_CONTENT_URL } from "./../../../../constants/naviagationUrls";
+
 import CloseIcon from "./../../../../assets/close-icon.svg";
 
 export default class CommentsBox extends Component {
@@ -20,10 +26,10 @@ export default class CommentsBox extends Component {
       toggleComments,
       comments,
       commentsLoaded,
-      isMobile
+      isMobile,
+      organization
     } = this.props;
 
-    console.log("Q", question);
     return (
       <Wrapper>
         <CommentsDiv isMobile={isMobile}>
@@ -35,9 +41,22 @@ export default class CommentsBox extends Component {
               </CommentsHeader>
               {comments &&
                 comments.map(comment => (
-                  <IndividComment>
+                  <IndividComment key={comment._id}>
                     <UserID>{comment.userId}</UserID>
                     <CommentBubble>{comment.text}</CommentBubble>
+                    <Link
+                      to={{
+                        pathname: REPORT_CONTENT_URL,
+                        state: {
+                          comment,
+                          question,
+                          organization,
+                          target: "questionComment"
+                        }
+                      }}
+                    >
+                      <StyledAntIcon type="flag" />
+                    </Link>
                   </IndividComment>
                 ))}
             </>

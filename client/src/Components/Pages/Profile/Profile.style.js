@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import SVG from "react-inlinesvg";
 import { NavLink } from "react-router-dom";
+import { Icon as AntIcon } from "antd";
 
 import { organizations, colors, shadows, borders } from "./../../../theme";
 
@@ -141,6 +142,8 @@ export const CommentDiv = styled.div`
   justify-content: flex-start;
   flex: initial;
   margin-bottom: 1rem;
+  width: 100%;
+  position: relative;
 `;
 
 export const BubbleAndDate = styled.div`
@@ -223,4 +226,13 @@ export const AccountLink = styled(VerifyLink)`
 
 export const AccountItem = styled.div`
   display: flex;
+`;
+
+export const StyledAntIcon = styled(AntIcon)`
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.5rem;
+  color: ${colors.gray};
+  cursor: pointer;
 `;

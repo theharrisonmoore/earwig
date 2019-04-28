@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import axios from "axios";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 import ReviewSection from "./ReviewSection";
 import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
 import CommentsBox from "./ProfileAnswers/CommentsBox";
 import HeaderSection from "./HeaderSection";
-import Loading from "./../../Common/AntdComponents/Loading"
+import Loading from "./../../Common/AntdComponents/Loading";
 
 import { ITEMS } from "./../../../constants/promoItems";
 import { SIGNUP_URL } from "./../../../constants/naviagationUrls";
+import { REPORT_CONTENT_URL } from "./../../../constants/naviagationUrls";
 
 import {
   Wrapper,
@@ -23,7 +25,8 @@ import {
   AccountIcon,
   AccountPromo,
   AccountLink,
-  AccountItem
+  AccountItem,
+  StyledAntIcon
 } from "./Profile.style";
 
 import { SectionTitle } from "./ReviewSection.style";
@@ -37,7 +40,8 @@ export default class Profile extends Component {
     commentsQuestion: null,
     comments: null,
     commentsLoaded: false,
-    level: 0
+    level: 0,
+    organizationID: ""
   };
 
   fetchData = () => {
@@ -126,10 +130,7 @@ export default class Profile extends Component {
 
     const { isTablet, isMobile } = this.props;
 
-    if (!loaded)
-      return (
-          <Loading />
-      );
+    if (!loaded) return <Loading />;
 
     const { category, name } = summary;
 
@@ -282,7 +283,6 @@ export default class Profile extends Component {
               reviewsByMonth={this.reviewsByMonth()}
             />
           )}
-
         </ReviewDiv>
         {/* OVERALL RATINGS SECTION */}
         {summary.reviews[0].createdAt && (
@@ -297,6 +297,18 @@ export default class Profile extends Component {
                     {moment().diff(review.createdAt, "weeks")}w
                   </CommentDate>
                 </BubbleAndDate>
+                <Link
+                  to={{
+                    pathname: REPORT_CONTENT_URL,
+                    state: {
+                      review: { overallReview: review.overallReview },
+                      organization: summary,
+                      target: "overallReview"
+                    }
+                  }}
+                >
+                  <StyledAntIcon type="flag" />
+                </Link>
               </CommentDiv>
             ))}
           </ReviewDiv>
@@ -312,6 +324,7 @@ export default class Profile extends Component {
         {/* COMMENTS BOX */}
         {commentsOpen && (
           <CommentsBox
+            organization={summary}
             question={commentsQuestion}
             comments={comments}
             commentsLoaded={commentsLoaded}

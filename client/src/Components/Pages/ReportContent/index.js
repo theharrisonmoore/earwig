@@ -13,6 +13,12 @@ export default class ReportContent extends Component {
     description: ""
   };
 
+  componentDidMount() {
+    console.log(this.props.location);
+    // overallReview
+    // questionComment
+  }
+
   handleSelect = reason => {
     this.setState({ reason });
   };
