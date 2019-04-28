@@ -23,7 +23,6 @@ import {
 import card from "./../../../assets/card.svg";
 import example from "./../../../assets/example.png";
 
-const label = "Trade";
 const placeholder = "Select your trade";
 
 export default class UploadImage extends Component {
@@ -222,15 +221,15 @@ export default class UploadImage extends Component {
     const { error, image } = this.state;
     const { ismodalVisible, confirmLoading } = this.state;
     return (
-      <UploadImageWrapper>
+      <UploadImageWrapper className="test">
         <ContentWrapper>
           <Heading>Verifying you are a worker</Heading>
           <CardIcon src={card} />
           <form onSubmit={this.handleSubmit}>
             <SelectWrapper>
+              <SubHeading>Trade</SubHeading>
               <Select
                 placeholder={placeholder}
-                label={label}
                 options={this.state.trades}
                 handleChange={this.handleChange}
                 value={this.state.tradeId}
@@ -276,6 +275,10 @@ export default class UploadImage extends Component {
                 </div>
               </div>
             </SelectWrapper>
+            <div>
+              <SubHeading>Your town or city</SubHeading>
+              <Input />
+            </div>
             <SubHeading>Photo</SubHeading>
             <Paragraph>
               Please upload a photo of your face holding your trade ID like the
