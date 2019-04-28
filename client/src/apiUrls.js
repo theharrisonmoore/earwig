@@ -15,7 +15,7 @@ const API_POST_REVIEW_URL = `${API_PREFIX}${REVIEW_URL}`;
 const UPLOAD_WORKSITE_IMAGE_URL = "/worksite-image";
 const API_UPLOAD_WORKSITE_IMAGE_URL = `${API_PREFIX}${UPLOAD_WORKSITE_IMAGE_URL}`;
 
-const REPORT_CONTENT_URL = "report-content";
+const REPORT_CONTENT_URL = "/report-content";
 const API_REPORT_CONTENT_URL = `${API_PREFIX}${REPORT_CONTENT_URL}`;
 
 // quick review section

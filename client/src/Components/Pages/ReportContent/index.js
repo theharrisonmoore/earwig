@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import axios from "axios";
+import { message } from "antd";
 
 import { Wrapper, ContentWrapper } from "./../../Common/StaticPages.style";
 
@@ -6,6 +8,7 @@ import SelectReason from "./SelectReason";
 import GiveInformation from "./GiveInformation";
 import Thanks from "./Thanks";
 
+import { API_REPORT_CONTENT_URL } from "./../../../apiUrls";
 export default class ReportContent extends Component {
   state = {
     reason: "",
@@ -14,9 +17,9 @@ export default class ReportContent extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.location);
-    // overallReview
-    // questionComment
+    if (!this.props.location || !this.props.location.state) {
+      this.props.history.goBack();
+    }
   }
 
   handleSelect = reason => {
@@ -36,7 +39,20 @@ export default class ReportContent extends Component {
   };
 
   handleSubmit = () => {
-    this.handleMove(1);
+    axios
+      .post(API_REPORT_CONTENT_URL, {
+        ...this.props.location.state,
+        description: this.state.description,
+        reason: this.state.reason
+      })
+      .then(() => {
+        this.handleMove(1);
+      })
+      .catch(err => {
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        message.error(error || "Something went wrong");
+      });
   };
 
   render() {

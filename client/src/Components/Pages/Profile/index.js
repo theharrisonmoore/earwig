@@ -301,7 +301,10 @@ export default class Profile extends Component {
                   to={{
                     pathname: REPORT_CONTENT_URL,
                     state: {
-                      review: { overallReview: review.overallReview },
+                      review: {
+                        overallReview: review.overallReview,
+                        user: review.user
+                      },
                       organization: summary,
                       target: "overallReview"
                     }
