@@ -28,8 +28,6 @@ import {
   ReviewText
 } from "./UserProfile.style";
 
-import { colors } from "../../../theme";
-
 import Icon from "./../../Common/Icon/Icon";
 
 export default class index extends Component {
