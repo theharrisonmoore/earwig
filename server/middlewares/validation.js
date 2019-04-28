@@ -188,7 +188,14 @@ const schemas = {
     id: Joi.string().length(24).required(),
     active: Joi.boolean().required(),
   },
-
+  reportContent: {
+    reason: Joi.string().required(),
+    description: Joi.string().required(),
+    target: Joi.string().required(),
+    organization: Joi.object().required(),
+    review: Joi.object(),
+    comment: Joi.object(),
+  },
 };
 
 module.exports = route => (req, res, next) => {

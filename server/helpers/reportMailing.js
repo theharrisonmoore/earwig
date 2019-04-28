@@ -14,16 +14,16 @@ module.exports = ({
           <span style="font-weight: 700;">User ID:</span> ${user.userId}
           <br />
 
-          <span style="font-weight: 700;">User Email:</span> ${user.email} 
+          <span style="font-weight: 700;">User email:</span> ${user.email} 
           <br />
 
-          <span style="display: inline-block; margin-top: 1rem;">reported a comment on a question:</span>
+          <span style="display: inline-block; margin-top: 1rem;">Reported a comment on a question:</span>
           <br />
 
           <span style="font-weight: 700;">Question: </span> <span style="font-weight: 100; padding: 0 11px; border-radius: 1000px; background: #ababab29; display: inline-block">"${question.question.profileText}"</span>
           <br />
 
-          <span style="font-weight: 700;">Comment Owner:</span> ${comment.userId}
+          <span style="font-weight: 700;">Comment owner:</span> ${comment.userId}
           <br />
 
           <span style="font-weight: 700">Comment words: </span><span style="font-weight: 100; padding: 0 11px; border-radius: 1000px; background: #ababab29; display: inline-block">"${comment.text}"</span>
@@ -34,9 +34,9 @@ module.exports = ({
 
         </p>
 
-        <span style="font-weight: 700;">reason:</span><span>${reason}</span>
+        <span style="font-weight: 700;">Reason: </span><span>${reason}</span>
         <br />
-        <span style="font-weight: 700;">description:</span><span>${description}</span>
+        <span style="font-weight: 700;">Description: </span><span>${description}</span>
       </div> 
     </div> 
   `;
@@ -53,13 +53,13 @@ module.exports = ({
           <span style="font-weight: 700;">User Email:</span> ${user.email} 
           <br />
 
-          <span style="display: inline-block; margin-top: 1rem;">reported an overall review:</span>
+          <span style="display: inline-block; margin-top: 1rem;">Reported an overall review:</span>
           <br />
 
-          <span style="font-weight: 700;">review Owner:</span> ${review.user.userId}
+          <span style="font-weight: 700;">Review owner:</span> ${review.user.userId}
           <br />
 
-          <span style="font-weight: 700">review words: </span><span style="font-weight: 100; padding: 0 11px; border-radius: 1000px; background: #ababab29; display: inline-block">"${review.overallReview.text}"</span>
+          <span style="font-weight: 700">Review words: </span><span style="font-weight: 100; padding: 0 11px; border-radius: 1000px; background: #ababab29; display: inline-block">"${review.overallReview.text}"</span>
           <br />
 
           <span style="font-weight: 700;">Organization:</span> <a href="${process.env.DOMAIN}/profile/${organization._id}">${organization.name}</a> 
@@ -67,10 +67,10 @@ module.exports = ({
 
         </p>
 
-        <span style="font-weight: 700;">reason:</span><span>${reason}</span>
+        <span style="font-weight: 700;">Reason: </span><span>${reason}</span>
         <br />
 
-        <span style="font-weight: 700;">description:</span><span>${description}</span>
+        <span style="font-weight: 700;">Description: </span><span>${description}</span>
       </div>
     </div> 
   `;
