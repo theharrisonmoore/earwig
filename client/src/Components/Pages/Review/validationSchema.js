@@ -109,7 +109,7 @@ export const validationSchema = {
       12: Yup.string().required("Required"),
       13: Yup.string().required("Required"),
       // 14 checklist question
-      14: Yup.array().required("Required"),
+      14: Yup.mixed().required("Required"),
 
       15: Yup.string().required("Required"),
       16: Yup.string().required("Required"),

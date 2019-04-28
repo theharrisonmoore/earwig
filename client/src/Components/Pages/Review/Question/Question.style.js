@@ -39,7 +39,6 @@ export const Options = styled.div`
   .choices {
     width: calc(85% - 1rem);
     display: flex;
-    /* flex-wrap: nowrap; */
     justify-content: space-between;
     margin-right: 1rem;
     margin-bottom: 0.5rem;
@@ -64,6 +63,17 @@ export const Options = styled.div`
   }
   .hide {
     display: none;
+  }
+
+  .ant-checkbox-group-item {
+    display: block;
+    color: ${colors.profileFontColor};
+    font-size: 1rem;
+  }
+
+  .ant-checkbox-wrapper-checked {
+    color: ${colors.green};
+    font-weight: 900;
   }
 `;
 
@@ -118,39 +128,21 @@ export const InputWrapper = styled.div`
 
   .radio-button {
     display: none;
-  };
+  }
 
   .yesno {
     border-radius: 3px;
-  };
+  }
   width: 100%;
   margin-right: 14px;
   margin-right: ${({ options }) => (options === 4 ? "0" : "14px")};
   :last-child {
     margin-right: 0;
   }
-  
-  
 
   .options-4 {
     margin-right: 0;
   }
-/*
-  .options-3 {
-    font-size: 11;
-    width: calc(90% / 3);
-  } */
-
-  /* @media (max-width: ${breakpoints.mobileS}) {
-    .options-2 {
-      width: 30px;
-    }
-
-    .options-3 {
-      font-size: 11;
-      width: 20px;
-    }
-  } */
 
   .radio-button:checked + .yesno {
     box-shadow: none;
@@ -163,5 +155,30 @@ export const InputWrapper = styled.div`
         }
         return organizations[props.orgType].primary;
       }};
+  }
+`;
+
+export const StyledButton = styled.button`
+  font-size: 16px;
+  border: 3px solid transparent;
+  background: ${colors.lightGray};
+  text-align: center;
+  color: ${colors.lightGray};
+  background-color: ${colors.white};
+  box-shadow: 0 0 0 1px ${colors.lightGray};
+  display: inline-block;
+  padding: 1px 1rem;
+  margin-right: 0.5rem;
+`;
+
+export const StyledCheckList = styled.div`
+  flex-direction: column;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  .icon-button {
+    display: flex;
+    align-self: flex-end;
   }
 `;

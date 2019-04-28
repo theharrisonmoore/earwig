@@ -9,9 +9,7 @@ import {
   Input,
   Rate,
   InputNumber,
-  CheckBox,
-  Row,
-  Col
+  Checkbox
 } from "antd";
 
 import ModalComment from "../../../Common/AntdComponents/ModalComment";
@@ -32,7 +30,9 @@ import {
   Options,
   CommentsIcon,
   StyledErrorMessage,
-  StyledInput
+  StyledInput,
+  StyledButton,
+  StyledCheckList
 } from "./Question.style";
 
 const Option = Select.Option;
@@ -77,6 +77,20 @@ const Question = props => {
 };
 
 class QuestionOptions extends React.Component {
+  state = { checkedList: [], clicked: false };
+
+  getStyle = () => {
+    if (this.state.clicked) {
+      return {
+        border: `3px solid ${colors.green}`
+      };
+    } else {
+      return {
+        border: "3px solid transparent"
+      };
+    }
+  };
+
   render() {
     const { props } = this;
     if (!props && !props.options) {
@@ -320,63 +334,233 @@ class QuestionOptions extends React.Component {
     }
 
     if (type === "checklist") {
-      const { values } = props;
       return (
         <QuestionOptionsWrapper>
           <Options>
-            <FieldArray
-              name={`questions[${number}]`}
-              render={arrayHelpers => (
-                <div>
-                  {options &&
-                    options.length > 0 &&
-                    options.map((option, index) => (
-                      <div key={option}>
-                        <Field
-                          id={`${option}-${number}`}
-                          type="checkbox"
-                          name={`questions[${number}].${index}`}
-                          value={option}
-                          onChange={e => {
-                            if (e.target.checked) arrayHelpers.push(option);
-                            else {
-                              const idx = values.questions[number].indexOf(
-                                option
-                              );
-                              arrayHelpers.remove(idx);
-                            }
-                          }}
-                          checked={values.questions[number].includes(option)}
-                        />
-                        <label htmlFor={`${option}-${number}`}>{option}</label>
-                      </div>
-                    ))}
-                </div>
-              )}
-            />
-            {hasComment && (
-              <ModalComment
-                title="Enter you comment here"
-                setFieldValue={props.setFieldValue}
-                number={number}
-                comment
-                render={props => {
-                  return (
-                    <CommentsIcon hasValue={!!props.text}>
-                      <img src={commentIcon} alt="" />
-                    </CommentsIcon>
-                  );
-                }}
-                style={{ alignSelf: "flex-end" }}
+            <StyledCheckList>
+              <FieldArray
+                name={`questions[${number}]`}
+                render={arrayHelpers => (
+                  <div>
+                    <Checkbox.Group
+                      className="check-group"
+                      options={options}
+                      value={this.state.checkedList}
+                      onChange={checkedList => {
+                        this.setState({
+                          checkedList,
+                          clicked: false
+                        });
+                        props.setFieldValue(
+                          `questions[${number}]`,
+                          checkedList
+                        );
+                      }}
+                    />
+                  </div>
+                )}
               />
-            )}
+              <div className="icon-button">
+                <StyledButton
+                  style={this.getStyle()}
+                  type="button"
+                  onClick={e => {
+                    e.preventDefault();
+                    this.setState({
+                      checkedList: [],
+                      clicked: true
+                    });
+                    props.setFieldValue(
+                      `questions[${number}]`,
+                      "I didn't check"
+                    );
+                  }}
+                >
+                  I didn't check
+                </StyledButton>
+                {hasComment && (
+                  <ModalComment
+                    title="Enter you comment here"
+                    setFieldValue={props.setFieldValue}
+                    number={number}
+                    comment
+                    render={props => {
+                      return (
+                        <CommentsIcon hasValue={!!props.text}>
+                          <img src={commentIcon} alt="" />
+                        </CommentsIcon>
+                      );
+                    }}
+                    style={{ alignSelf: "flex-end" }}
+                  />
+                )}
+              </div>
+            </StyledCheckList>
           </Options>
-          <ErrorMessage name="checklist">
+          <ErrorMessage name={`questions[${number}]`}>
             {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
           </ErrorMessage>
         </QuestionOptionsWrapper>
       );
     }
+    // if (type === "checklist") {
+    //   const { values } = props;
+    //   return (
+    //     <QuestionOptionsWrapper>
+    //       <Options>
+    //         <FieldArray
+    //           name={`questions[${number}]`}
+    //           render={arrayHelpers => (
+    //             <div>
+    //               <Checkbox.Group
+    //                 style={{ width: "100%" }}
+    //                 onChange={checkedValues => {
+    //                   console.log(checkedValues);
+    //                   this.setState({ checklist: checkedValues });
+    //                   props.setFieldValue(
+    //                     `questions[${number}]`,
+    //                     checkedValues
+    //                   );
+    //                 }}
+    //               >
+    //                 <Row>
+    //                   {options &&
+    //                     options.length > 0 &&
+    //                     options.map(option => {
+    //                       console.log(option);
+    //                       return (
+    //                         <Col span={24}>
+    //                           <Checkbox
+    //                             value={option}
+    //                             style={{
+    //                               color: "black",
+    //                               fontSize: "20px"
+    //                             }}
+    //                             checked={true}
+    //                           >
+    //                             {option}
+    //                           </Checkbox>
+    //                         </Col>
+    //                       );
+    //                     })}
+    //                 </Row>
+    //               </Checkbox.Group>
+    //               {/* {options &&
+    //                 options.length > 0 &&
+    //                 options.map((option, index) => (
+    //                   <div key={option}>
+    //                     <Field
+    //                       id={`${option}-${number}`}
+    //                       type="checkbox"
+    //                       name={`questions[${number}].${index}`}
+    //                       value={option}
+    //                       onChange={e => {
+    //                         if (e.target.checked) arrayHelpers.push(option);
+    //                         else {
+    //                           const idx = values.questions[number].indexOf(
+    //                             option
+    //                           );
+    //                           arrayHelpers.remove(idx);
+    //                         }
+    //                       }}
+    //                       checked={values.questions[number].includes(option)}
+    //                     />
+    //                     <label htmlFor={`${option}-${number}`}>{option}</label>
+    //                   </div>
+    //                 ))} */}
+    //             </div>
+    //           )}
+    //         />
+    //         <button
+    //           type="button"
+    //           onClick={() => {
+    //             this.setState({ checklist: [], checked: false });
+    //             props.setFieldValue(`questions[${number}]`, "I didn't check");
+    //           }}
+    //         >
+    //           I didn't check
+    //         </button>
+    //         {hasComment && (
+    //           <ModalComment
+    //             title="Enter you comment here"
+    //             setFieldValue={props.setFieldValue}
+    //             number={number}
+    //             comment
+    //             render={props => {
+    //               return (
+    //                 <CommentsIcon hasValue={!!props.text}>
+    //                   <img src={commentIcon} alt="" />
+    //                 </CommentsIcon>
+    //               );
+    //             }}
+    //             style={{ alignSelf: "flex-end" }}
+    //           />
+    //         )}
+    //       </Options>
+    //       <ErrorMessage name="checklist">
+    //         {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
+    //       </ErrorMessage>
+    //     </QuestionOptionsWrapper>
+    //   );
+    // }
+    // if (type === "checklist") {
+    //   const { values } = props;
+    //   return (
+    //     <QuestionOptionsWrapper>
+    //       <Options>
+    //         <FieldArray
+    //           name={`questions[${number}]`}
+    //           render={arrayHelpers => (
+    //             <div>
+    //               {options &&
+    //                 options.length > 0 &&
+    //                 options.map((option, index) => (
+    //                   <div key={option}>
+    //                     <Field
+    //                       id={`${option}-${number}`}
+    //                       type="checkbox"
+    //                       name={`questions[${number}].${index}`}
+    //                       value={option}
+    //                       onChange={e => {
+    //                         if (e.target.checked) arrayHelpers.push(option);
+    //                         else {
+    //                           const idx = values.questions[number].indexOf(
+    //                             option
+    //                           );
+    //                           arrayHelpers.remove(idx);
+    //                         }
+    //                       }}
+    //                       checked={values.questions[number].includes(option)}
+    //                     />
+    //                     <label htmlFor={`${option}-${number}`}>{option}</label>
+    //                   </div>
+    //                 ))}
+    //             </div>
+    //           )}
+    //         />
+    //         {hasComment && (
+    //           <ModalComment
+    //             title="Enter you comment here"
+    //             setFieldValue={props.setFieldValue}
+    //             number={number}
+    //             comment
+    //             render={props => {
+    //               return (
+    //                 <CommentsIcon hasValue={!!props.text}>
+    //                   <img src={commentIcon} alt="" />
+    //                 </CommentsIcon>
+    //               );
+    //             }}
+    //             style={{ alignSelf: "flex-end" }}
+    //           />
+    //         )}
+    //       </Options>
+    //       <ErrorMessage name="checklist">
+    //         {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
+    //       </ErrorMessage>
+    //     </QuestionOptionsWrapper>
+    //   );
+    // }
 
     if (type === "image") {
       return (
