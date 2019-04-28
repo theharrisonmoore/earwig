@@ -95,10 +95,7 @@ const Icon = props => {
     console.warn(`<Icon /> called with invalid icon prop "${props.icon}"`);
     return null;
   }
-  console.log("styledIconMap", styledIconMap);
   const StyledIcon = styledIconMap[props.icon];
-
-  console.log("styledicon", StyledIcon);
 
   return <StyledIcon {...props} />;
 };

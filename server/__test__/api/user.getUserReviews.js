@@ -1,14 +1,14 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
 
-const buildDB = require("../../../database/dummyData/index");
-const app = require("../../../app");
+const buildDB = require("./../../database/dummyData/index");
+const app = require("./../../app");
 
-const User = require("./../../../database/models/User");
+// const Review = require("./../../database/models/Review");
+// const User = require("./../../database/queries/User");
 
-describe("Tesing for delete user route", () => {
+describe("Testing getUserReviews route", () => {
   beforeAll(async () => {
-    // build dummy data
     await buildDB();
   });
 
@@ -17,39 +17,33 @@ describe("Tesing for delete user route", () => {
   });
 
   beforeEach(async () => {
-    // build dummy data
     await buildDB();
   });
 
-  test("test for delete user", async (done) => {
-    const data = {
-      email: "admin@earwig.com",
+  test("test with logged in user", async (done) => {
+    const user = {
+      email: "level3@earwig.com",
       password: "123456",
     };
-
-    const userToBeDelted = await User.findOne({ email: "level2@earwig.com" });
 
     // login with the origin password
     request(app)
       .post("/api/login")
-      .send(data)
+      .send(user)
       .expect("Content-Type", /json/)
       .expect(200)
       .end(async (error, result) => {
         const token = result.headers["set-cookie"][0].split(";")[0];
 
         request(app)
-          .delete("/api/admin/users")
+          .get("/api/user-reviews")
           .set("Cookie", [token])
-          .send({ id: userToBeDelted._id })
-          .expect("Content-Type", /json/)
           .expect(200)
-          .end(async (err, res) => {
+          .end((err, res) => {
             expect(res).toBeDefined();
             expect(res.body).toBeDefined();
-
-            const deletedUser = await User.findOne({ email: "level2@earwig.com" });
-            expect(deletedUser).toBeNull();
+            expect(res.body[0].createdAt).toBeDefined();
+            expect(res.body[0].organization.length).toBeGreaterThan(0);
             done(err);
           });
       });

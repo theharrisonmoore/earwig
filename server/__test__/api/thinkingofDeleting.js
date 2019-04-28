@@ -1,12 +1,10 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
 
-const buildDB = require("../../../database/dummyData/index");
-const app = require("../../../app");
+const buildDB = require("../../database/dummyData");
+const app = require("../../app");
 
-const User = require("./../../../database/models/User");
-
-describe("Tesing for delete user route", () => {
+describe("Testing for thinkingOfDeleting", () => {
   beforeAll(async () => {
     // build dummy data
     await buildDB();
@@ -21,13 +19,11 @@ describe("Tesing for delete user route", () => {
     await buildDB();
   });
 
-  test("test for delete user", async (done) => {
+  test("Testing with logged in user", async (done) => {
     const data = {
-      email: "admin@earwig.com",
+      email: "level3-2@earwig.com",
       password: "123456",
     };
-
-    const userToBeDelted = await User.findOne({ email: "level2@earwig.com" });
 
     // login with the origin password
     request(app)
@@ -38,18 +34,18 @@ describe("Tesing for delete user route", () => {
       .end(async (error, result) => {
         const token = result.headers["set-cookie"][0].split(";")[0];
 
+        const formData = {
+          message: "I'm thinking of leaving",
+        };
+
         request(app)
-          .delete("/api/admin/users")
+          .post("/api/thinking-of-deleting")
           .set("Cookie", [token])
-          .send({ id: userToBeDelted._id })
+          .send(formData)
           .expect("Content-Type", /json/)
           .expect(200)
           .end(async (err, res) => {
-            expect(res).toBeDefined();
             expect(res.body).toBeDefined();
-
-            const deletedUser = await User.findOne({ email: "level2@earwig.com" });
-            expect(deletedUser).toBeNull();
             done(err);
           });
       });
