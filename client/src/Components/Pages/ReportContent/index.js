@@ -31,6 +31,13 @@ export default class ReportContent extends Component {
   };
 
   handleMove = direction => {
+    const { step, reason, description } = this.state;
+    if (step === 0 && direction === 1 && !reason) {
+      return message.error("Select a reason please!");
+    }
+    if (step === 1 && direction === 1 && !description) {
+      return message.error("Fill in some information please!");
+    }
     this.setState({ step: this.state.step + direction });
   };
 
@@ -39,6 +46,10 @@ export default class ReportContent extends Component {
   };
 
   handleSubmit = () => {
+    if (!this.state.description) {
+      return message.error("Fill in some information please!");
+    }
+
     axios
       .post(API_REPORT_CONTENT_URL, {
         ...this.props.location.state,
