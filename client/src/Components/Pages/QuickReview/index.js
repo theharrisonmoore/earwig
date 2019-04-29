@@ -101,8 +101,8 @@ class Review extends Component {
       review: {
         workPeriod: {},
         rate: 3,
-        overallReview: "",
-        voiceReview: ""
+        overallReview: ""
+        // voiceReview: ""
       },
       hasAgreed: false
     };
@@ -192,12 +192,13 @@ class Review extends Component {
                         question={STATIC_QUESTIONS[2]}
                         category={category}
                       />
-                      <Question
+                      {/* voice review will be added later */}
+                      {/* <Question
                         {...values}
                         handleChagne={handleChange}
                         question={STATIC_QUESTIONS[3]}
                         category={category}
-                      />
+                      /> */}
                     </div>
 
                     <UserAgreement>
