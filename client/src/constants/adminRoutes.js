@@ -7,6 +7,7 @@ export const routes = {
   REVIEWS: "/admin/reviews",
   REVIEWS_ALL: "/admin/reviews/",
   REVIEWS_VERIFY: "/admin/reviews/verify",
+  SINGLE_REVIEW: "/admin/reviews/:id",
   TRADES: "/admin/trades",
   ORGANIZATIONS: "/admin/organizations",
   COMPANIES: "/admin/organizations/companies",

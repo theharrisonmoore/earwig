@@ -6,6 +6,7 @@ const {
   getOrgsByType,
   getAgencesAndPayrollsNames,
   postReviewShort,
+  getSingleReviewAnswers,
 } = require("../controllers/review");
 
 const adminRouter = require("./admin");
