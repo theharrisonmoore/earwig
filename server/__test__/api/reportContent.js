@@ -51,8 +51,7 @@ describe("Tesing for get report content", () => {
       });
   });
 
-
-  test("test for report content with valid data", (done) => {
+  test("test for report content with invalid data", (done) => {
     const data = {
       description: "description as string",
       target: "target as string",
