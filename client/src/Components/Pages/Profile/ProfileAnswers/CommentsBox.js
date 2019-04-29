@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Mention, Input } from "antd";
+import { Mention, Input, Button, Icon } from "antd";
+import * as yup from "yup";
 
 import {
   Wrapper,
@@ -21,7 +22,8 @@ const { toString, toContentState, getMentions } = Mention;
 export default class CommentsBox extends Component {
   state = {
     commentContentState: toContentState(""),
-    user: ""
+    user: "",
+    errors: {}
   };
 
   handleChangeUserName = ({ target }) => {
@@ -33,11 +35,41 @@ export default class CommentsBox extends Component {
     this.setState({ commentContentState: contentState });
   };
 
+  validate = () => {
+    let schema = yup.object().shape({
+      comment: yup.string().min(1, "comment is required!"),
+      user: yup.string().required("user is required!")
+    });
+
+    // return new Promise((resolve, reject) => {
+    return schema
+      .validate(
+        {
+          comment: toString(this.state.commentContentState),
+          user: this.state.user
+        },
+        { abortEarly: false }
+      )
+      .catch(err => {
+        const errors = {};
+        err.inner.forEach(element => {
+          errors[element.path] = element.message;
+        });
+        this.setState({ errors });
+      });
+  };
+
   handleFocus = e => {
     if (isMobileDevice.any()) {
       this.inputWrapper.current.style.marginBottom = "320px";
       this.fixedDiv.current.scrollIntoView(false);
     }
+  };
+
+  handleSubmit = () => {
+    this.validate().then(res => {
+      res && this.setState({ errors: {} });
+    });
   };
 
   inputWrapper = React.createRef();
@@ -78,7 +110,6 @@ export default class CommentsBox extends Component {
                     <CommentBubble>{comment.text}</CommentBubble>
                   </IndividComment>
                 ))}
-
               <div ref={this.inputWrapper}>
                 <Input
                   placeholder="Comment as"
@@ -86,6 +117,7 @@ export default class CommentsBox extends Component {
                   onChange={this.handleChangeUserName}
                   value={this.state.user}
                 />
+                {this.state.errors.user && <p>{this.state.errors.user}</p>}
                 <Mention
                   style={{ width: "100%" }}
                   onChange={this.onChange}
@@ -95,6 +127,20 @@ export default class CommentsBox extends Component {
                   multiLines
                   placeholder={"input @ to mention"}
                 />
+                {this.state.errors.comment && (
+                  <p>{this.state.errors.comment}</p>
+                )}
+
+                {/* loading={submitting}
+                  onClick={onSubmit} */}
+                <Button
+                  style={{ marginTop: "0.25rem" }}
+                  htmlType="submit"
+                  type="primary"
+                  onClick={this.handleSubmit}
+                >
+                  Add Comment
+                </Button>
               </div>
             </>
           ) : (
