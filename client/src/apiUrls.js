@@ -21,9 +21,16 @@ const API_QUICK_REVIEW_URL = `${API_PREFIX}${QUICK_REVIEW_URL}`;
 
 const SEARCH_URL = "/search";
 const API_SEARCH_URL = `${API_PREFIX}${SEARCH_URL}`;
-const ADD_ORGANIZATION_URL = "/add-organization";
 
+const ADD_ORGANIZATION_URL = "/add-organization";
 const API_ADD_ORGANIZATION_URL = `${API_PREFIX}${ADD_ORGANIZATION_URL}`;
+
+const TRADE_URL = "/trades";
+const API_TRADE_URL = `${API_PREFIX}${TRADE_URL}`;
+
+const UPLOAD_VERIFICATION_IMAGE_URL = "/upload-verification-image";
+const API_UPLOAD_VERIFICATION_IMAGE_URL = `${API_PREFIX}${UPLOAD_VERIFICATION_IMAGE_URL}`;
+
 module.exports = {
   // React varibles
   API_LOGIN_URL,
@@ -34,6 +41,8 @@ module.exports = {
   API_SEARCH_URL,
   API_LOGOUT_URL,
   API_ADD_ORGANIZATION_URL,
+  API_TRADE_URL,
+  API_UPLOAD_VERIFICATION_IMAGE_URL,
   // server varibles
   LOGIN_URL,
   LOGOUT_URL,
@@ -41,5 +50,7 @@ module.exports = {
   REVIEW_URL,
   QUICK_REVIEW_URL,
   UPLOAD_WORKSITE_IMAGE_URL,
-  SEARCH_URL
+  SEARCH_URL,
+  TRADE_URL,
+  UPLOAD_VERIFICATION_IMAGE_URL
 };

@@ -23,6 +23,13 @@ import {
 import card from "./../../../assets/card.svg";
 import example from "./../../../assets/example.png";
 
+import { PROFILE_URL } from "../../../constants/naviagationUrls";
+
+const {
+  API_TRADE_URL,
+  API_UPLOAD_VERIFICATION_IMAGE_URL
+} = require("../../../apiUrls");
+
 const placeholder = "Select your trade";
 
 export default class UploadImage extends Component {
@@ -57,7 +64,7 @@ export default class UploadImage extends Component {
         this.props.history.goBack();
       });
     } else {
-      axios.get("/api/trades").then(res => {
+      axios.get(API_TRADE_URL).then(res => {
         const { data } = res;
         const trades = data.reduce((accu, current) => {
           accu.push({ value: current._id, label: current.title });
@@ -119,7 +126,7 @@ export default class UploadImage extends Component {
 
           axios({
             method: "post",
-            url: "/api/upload-verification-image",
+            url: API_UPLOAD_VERIFICATION_IMAGE_URL,
             data: form,
             headers: {
               "content-type": `multipart/form-data; boundary=${form._boundary}`
@@ -133,7 +140,7 @@ export default class UploadImage extends Component {
                 timer: 1500
               }).then(() => {
                 this.props.handleChangeState({ awaitingReview: true });
-                this.props.history.push("/profile");
+                this.props.history.push(PROFILE_URL);
               });
             })
             .catch(err => {
@@ -162,7 +169,7 @@ export default class UploadImage extends Component {
         },
         () => {
           axios
-            .post("/api/trades", { trade: this.state.newTrade })
+            .post(API_TRADE_URL, { trade: this.state.newTrade })
             .then(res => {
               const { data } = res;
 
@@ -283,10 +290,10 @@ export default class UploadImage extends Component {
                 </div>
               </div>
             </SelectWrapper>
-            <div>
+            <SelectWrapper>
               <SubHeading>Your town or city</SubHeading>
               <Input onChange={this.addTownHandler} />
-            </div>
+            </SelectWrapper>
             <SubHeading>Photo</SubHeading>
             <Paragraph>
               Please upload a photo of your face holding your trade ID like the
