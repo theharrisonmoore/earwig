@@ -23,7 +23,13 @@ import {
 import card from "./../../../assets/card.svg";
 import example from "./../../../assets/example.png";
 
-const label = "Trade";
+import { PROFILE_URL } from "../../../constants/naviagationUrls";
+
+const {
+  API_TRADE_URL,
+  API_UPLOAD_VERIFICATION_IMAGE_URL
+} = require("../../../apiUrls");
+
 const placeholder = "Select your trade";
 
 export default class UploadImage extends Component {
@@ -36,7 +42,8 @@ export default class UploadImage extends Component {
     confirmLoading: false,
     newTradeError: "",
     newTradeSuccess: false,
-    disableSelect: false
+    disableSelect: false,
+    city: ""
   };
 
   componentDidMount() {
@@ -51,13 +58,13 @@ export default class UploadImage extends Component {
     } else if (this.props.awaitingReview) {
       Swal.fire({
         type: "warning",
-        title: "Already uploaded image",
-        text: "you are already uploaded verification image!"
+        title: "We are currently verifying your account",
+        text: "Please come back soon!"
       }).then(() => {
         this.props.history.goBack();
       });
     } else {
-      axios.get("/api/trades").then(res => {
+      axios.get(API_TRADE_URL).then(res => {
         const { data } = res;
         const trades = data.reduce((accu, current) => {
           accu.push({ value: current._id, label: current.title });
@@ -70,6 +77,10 @@ export default class UploadImage extends Component {
 
   handleChange = value => {
     this.setState({ tradeId: value });
+  };
+
+  addTownHandler = e => {
+    this.setState({ city: e.target.value });
   };
 
   handleImageChange = event => {
@@ -100,6 +111,8 @@ export default class UploadImage extends Component {
       this.setState({ error: "Please upload image" });
     } else if (!this.state.tradeId) {
       this.setState({ error: "Please select your trade" });
+    } else if (!this.state.city) {
+      this.setState({ error: "Please enter your city/town" });
     } else {
       Swal.fire({
         title: "Uploading!",
@@ -109,10 +122,11 @@ export default class UploadImage extends Component {
 
           form.append("verificationImage", this.state.imageFile);
           form.append("tradeId", this.state.tradeId);
+          form.append("city", this.state.city);
 
           axios({
             method: "post",
-            url: "/api/upload-verification-image",
+            url: API_UPLOAD_VERIFICATION_IMAGE_URL,
             data: form,
             headers: {
               "content-type": `multipart/form-data; boundary=${form._boundary}`
@@ -126,7 +140,7 @@ export default class UploadImage extends Component {
                 timer: 1500
               }).then(() => {
                 this.props.handleChangeState({ awaitingReview: true });
-                this.props.history.push("/profile");
+                this.props.history.push(PROFILE_URL);
               });
             })
             .catch(err => {
@@ -155,7 +169,7 @@ export default class UploadImage extends Component {
         },
         () => {
           axios
-            .post("/api/trades", { trade: this.state.newTrade })
+            .post(API_TRADE_URL, { trade: this.state.newTrade })
             .then(res => {
               const { data } = res;
 
@@ -222,15 +236,15 @@ export default class UploadImage extends Component {
     const { error, image } = this.state;
     const { ismodalVisible, confirmLoading } = this.state;
     return (
-      <UploadImageWrapper>
+      <UploadImageWrapper className="test">
         <ContentWrapper>
           <Heading>Verifying you are a worker</Heading>
           <CardIcon src={card} />
           <form onSubmit={this.handleSubmit}>
             <SelectWrapper>
+              <SubHeading>Trade</SubHeading>
               <Select
                 placeholder={placeholder}
-                label={label}
                 options={this.state.trades}
                 handleChange={this.handleChange}
                 value={this.state.tradeId}
@@ -275,6 +289,10 @@ export default class UploadImage extends Component {
                   </Modal>
                 </div>
               </div>
+            </SelectWrapper>
+            <SelectWrapper>
+              <SubHeading>Your town or city</SubHeading>
+              <Input onChange={this.addTownHandler} />
             </SelectWrapper>
             <SubHeading>Photo</SubHeading>
             <Paragraph>

@@ -12,7 +12,8 @@ import {
   Button,
   PageTitle,
   Devider
-} from "./Static.style";
+} from "./../../Common/StaticPages.style";
+
 export default class FAQ extends Component {
   render() {
     return (

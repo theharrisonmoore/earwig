@@ -11,7 +11,8 @@ import {
   Button,
   PageTitle,
   Devider
-} from "./Static.style";
+} from "./../../Common/StaticPages.style";
+
 export default class HelpfulStuff extends Component {
   render() {
     return (

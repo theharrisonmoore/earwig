@@ -8,7 +8,8 @@ import {
   TextArea,
   Button,
   PageTitle
-} from "./Static.style";
+} from "./../../Common/StaticPages.style";
+
 export default class ShapeEarwig extends Component {
   render() {
     return (

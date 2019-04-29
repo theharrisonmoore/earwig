@@ -7,7 +7,8 @@ import {
   SubTitle,
   SmallParagraph,
   PageTitle
-} from "./Static.style";
+} from "./../../Common/StaticPages.style";
+
 export default class PrivacyAndTerms extends Component {
   render() {
     return (
