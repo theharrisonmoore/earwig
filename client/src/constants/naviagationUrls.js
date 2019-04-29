@@ -4,6 +4,7 @@ export const ADD_PROFILE_START_REVIEW_URL = "/add-profile-start-review";
 export const USER_PROFILE_URL = "/my-profile";
 export const PROFILE_URL = "/my-profile";
 export const ORGS_PROFILE_URL = "/profile/:profileID";
+export const GENERAL_ORGS_PROFILE_URL = "/profile";
 export const RESOURCES_URL = "/resources";
 export const CONTACT_URL = "/contact";
 export const FAQ_URL = "/faq";

@@ -1,6 +1,8 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import { Button } from "antd";
+
+import { GENERAL_ORGS_PROFILE_URL } from "./../../../../constants/naviagationUrls";
 
 export default ({ category, deleteHandler, editHandler }) => {
   const basicInfo = [
@@ -8,7 +10,13 @@ export default ({ category, deleteHandler, editHandler }) => {
       title: category,
       dataIndex: "name",
       key: "name",
-      render: text => <span style={{ fontWeight: "700" }}>{text}</span>
+      render: (text, record) => {
+        return (
+          <Link to={`${GENERAL_ORGS_PROFILE_URL}/${record._id}`}>
+            <span style={{ fontWeight: "700" }}>{text}</span>;
+          </Link>
+        );
+      }
     }
   ];
 
