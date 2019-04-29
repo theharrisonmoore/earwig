@@ -21,7 +21,7 @@ import { REPORT_CONTENT_URL } from "./../../../../constants/naviagationUrls";
 
 import CloseIcon from "./../../../../assets/close-icon.svg";
 
-import { isMobileDevice } from "./../../../../helpers";
+import { isMobileDevice, highlightMentions } from "./../../../../helpers";
 import { API_ADD_COMMENT_ON_QUESTION_URL } from "./../../../../apiUrls";
 
 const { toString, toContentState } = Mention;
@@ -68,6 +68,13 @@ export default class CommentsBox extends Component {
   handleFocus = e => {
     if (isMobileDevice.any()) {
       this.inputWrapper.current.style.marginBottom = "320px";
+      this.fixedDiv.current.scrollIntoView(false);
+    }
+  };
+
+  handleBlur = () => {
+    if (isMobileDevice.any()) {
+      this.inputWrapper.current.style.marginBottom = "";
       this.fixedDiv.current.scrollIntoView(false);
     }
   };
@@ -135,26 +142,8 @@ export default class CommentsBox extends Component {
                 comments.map(comment => (
                   <IndividComment key={comment._id}>
                     <UserID>{comment.displayName || comment.userId}</UserID>
-                    <CommentBubble>
-                      <pre style={{ marginBottom: 0, whiteSpace: "pre-wrap" }}>
-                        {comment.text
-                          .split("\n")
-                          .map(line =>
-                            line
-                              .split(" ")
-                              .map(ele => (
-                                <>
-                                  {ele.startsWith("@") ? (
-                                    <span style={{ fontWeight: 900 }}>
-                                      {ele.substr(1)}
-                                    </span>
-                                  ) : (
-                                    ele
-                                  )}{" "}
-                                </>
-                              ))
-                          )}
-                      </pre>
+                    <CommentBubble as="pre">
+                      {highlightMentions(comment.text)}
                     </CommentBubble>
                     <Link
                       to={{
@@ -177,6 +166,8 @@ export default class CommentsBox extends Component {
                   style={{ margin: "0.25rem 0", width: "10rem" }}
                   onChange={this.handleChangeUserName}
                   value={this.state.user}
+                  onFocus={this.handleFocus}
+                  onBlur={this.handleBlur}
                 />
                 {this.state.errors.user && <p>{this.state.errors.user}</p>}
                 <Mention
@@ -184,6 +175,7 @@ export default class CommentsBox extends Component {
                   onChange={this.onChange}
                   defaultSuggestions={users}
                   onFocus={this.handleFocus}
+                  onBlur={this.handleBlur}
                   value={this.state.commentContentState}
                   multiLines
                   placeholder={"input @ to mention"}
@@ -191,9 +183,6 @@ export default class CommentsBox extends Component {
                 {this.state.errors.comment && (
                   <p>{this.state.errors.comment}</p>
                 )}
-
-                {/* loading={submitting}
-                  onClick={onSubmit} */}
                 <Button
                   style={{ marginTop: "0.25rem" }}
                   htmlType="submit"

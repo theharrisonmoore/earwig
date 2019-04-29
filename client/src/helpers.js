@@ -155,3 +155,21 @@ export const questionsNumber = {
     }
   }
 };
+
+export const highlightMentions = text => {
+  return text
+    .split("\n")
+    .map(line =>
+      line
+        .split(" ")
+        .map(ele => (
+          <>
+            {ele.startsWith("@") ? (
+              <span style={{ fontWeight: 900 }}>{ele.substr(1)}</span>
+            ) : (
+              ele
+            )}{" "}
+          </>
+        ))
+    );
+};

@@ -157,6 +157,8 @@ export const CommentBubble = styled.p`
   align-self: flex-start;
   justify-content: flex-start;
   padding: 0.5rem 1rem;
+  margin-bottom: 0;
+  white-space: pre-wrap;
 `;
 
 export const SiteItem = styled.div`
