@@ -20,5 +20,7 @@ export const ADMIN = "/admin";
 export const REVIEW_URL = "/review";
 export const QUICK_REVIEW_URL = "/quick-review";
 export const CONFIRM_EMAIL_URL = "/confirm-email/:id";
+export const REPORT_CONTENT_URL = "/report";
+export const COMMUNITY_GUIDELINES_URL = "/community-guidelines";
 export const INTRO_URL = "/intro";
 export const RESET_PASSWORD_URL = "/reset-password";

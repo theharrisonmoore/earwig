@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mention, Input, Button, Icon } from "antd";
 import * as yup from "yup";
+import { Link } from "react-router-dom";
 
 import {
   Wrapper,
@@ -12,6 +13,10 @@ import {
   UserID,
   CommentBubble
 } from "./ProfileAnswers.style";
+
+import { StyledAntIcon } from "./../Profile.style";
+
+import { REPORT_CONTENT_URL } from "./../../../../constants/naviagationUrls";
 
 import CloseIcon from "./../../../../assets/close-icon.svg";
 
@@ -81,7 +86,8 @@ export default class CommentsBox extends Component {
       toggleComments,
       comments,
       commentsLoaded,
-      isMobile
+      isMobile,
+      organization
     } = this.props;
 
     const users =
@@ -105,9 +111,22 @@ export default class CommentsBox extends Component {
 
               {comments &&
                 comments.map(comment => (
-                  <IndividComment>
+                  <IndividComment key={comment._id}>
                     <UserID>{comment.userId}</UserID>
                     <CommentBubble>{comment.text}</CommentBubble>
+                    <Link
+                      to={{
+                        pathname: REPORT_CONTENT_URL,
+                        state: {
+                          comment,
+                          question,
+                          organization,
+                          target: "questionComment"
+                        }
+                      }}
+                    >
+                      <StyledAntIcon type="flag" />
+                    </Link>
                   </IndividComment>
                 ))}
               <div ref={this.inputWrapper}>

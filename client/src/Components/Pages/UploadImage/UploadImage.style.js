@@ -18,7 +18,7 @@ export const ContentWrapper = styled.div`
 export const SelectWrapper = styled.div`
   width: 100%;
   margin-bottom: 2rem;
-  max-width: 24rem;
+  /* max-width: 24rem; */
 `;
 
 export const Heading = styled.h1`

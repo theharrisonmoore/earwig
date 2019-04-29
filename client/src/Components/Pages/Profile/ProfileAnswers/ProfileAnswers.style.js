@@ -141,6 +141,8 @@ export const IndividComment = styled.div`
   flex: initial;
   justify-content: flex-start;
   margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 2rem;
 `;
 
 export const UserID = styled.h3`
