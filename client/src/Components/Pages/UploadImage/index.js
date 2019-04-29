@@ -35,7 +35,8 @@ export default class UploadImage extends Component {
     confirmLoading: false,
     newTradeError: "",
     newTradeSuccess: false,
-    disableSelect: false
+    disableSelect: false,
+    city: ""
   };
 
   componentDidMount() {
@@ -71,6 +72,10 @@ export default class UploadImage extends Component {
     this.setState({ tradeId: value });
   };
 
+  addTownHandler = e => {
+    this.setState({ city: e.target.value });
+  };
+
   handleImageChange = event => {
     const image = event.target.files && event.target.files[0];
     var reader = new FileReader();
@@ -99,6 +104,8 @@ export default class UploadImage extends Component {
       this.setState({ error: "Please upload image" });
     } else if (!this.state.tradeId) {
       this.setState({ error: "Please select your trade" });
+    } else if (!this.state.city) {
+      this.setState({ error: "Please enter your city/town" });
     } else {
       Swal.fire({
         title: "Uploading!",
@@ -108,6 +115,7 @@ export default class UploadImage extends Component {
 
           form.append("verificationImage", this.state.imageFile);
           form.append("tradeId", this.state.tradeId);
+          form.append("city", this.state.city);
 
           axios({
             method: "post",
@@ -277,7 +285,7 @@ export default class UploadImage extends Component {
             </SelectWrapper>
             <div>
               <SubHeading>Your town or city</SubHeading>
-              <Input />
+              <Input onChange={this.addTownHandler} />
             </div>
             <SubHeading>Photo</SubHeading>
             <Paragraph>

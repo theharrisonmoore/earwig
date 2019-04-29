@@ -13,6 +13,7 @@ const schemas = {
     tradeId: Joi.string()
       .length(24)
       .required(),
+    city: Joi.string().required(),
   },
   signup: {
     email: Joi.string()
