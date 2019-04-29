@@ -12,50 +12,34 @@ import {
   Header,
   Content,
   ImageBox,
-  Image,
   Organization,
   OrgName,
   ReviewTime,
   Paragraph,
   FormWrapper,
   Level2Header,
-  AgreementLabel
+  AgreementLabel,
+  HeaderPhone,
+  ContentPhone,
+  ImageBoxPhone,
+  OrganizationPhone,
+  ReviewTimePhone
 } from "../Review/Review.style";
 
 import { StyledErrorMessage } from "../Review/Question/Question.style";
 
 import Question from "../Review/Question/index";
-import agencyIcon from "./../../../assets/agency-icon.svg";
 import clockShort from "./../../../assets/clock-short-icon.svg";
 
 import { validationSchemaShort } from "../Review/validationSchema";
 
 import { THANKYOU_URL } from "../../../constants/naviagationUrls";
 
-const { API_QUICK_REVIEW_URL } = require("../../../apiUrls");
+import { NewSVGCreator, questionsNumber, isMobile } from "../../../helpers";
 
-const STATIC_QUESTIONS = [
-  {
-    number: 18,
-    text: "How would you rate this agency?",
-    type: "rate",
-    options: ["bad", "ok", "good", "cool", "very cool"]
-  },
-  {
-    number: 19,
-    text: "If you’d like to write an overall review, go ahead here",
-    type: "overallReview",
-    hintText:
-      "To help other workers, please try to explain why something was or wasn't good."
-  },
-  {
-    number: 20,
-    text: "Share a voice review",
-    hintText:
-      "30 seconds max. Bear in mind that people may be able to identify you from your voice.",
-    type: "voiceReview"
-  }
-];
+import { STATIC_QUESTIONS } from "../Review/staticQuestions";
+
+const { API_QUICK_REVIEW_URL } = require("../../../apiUrls");
 
 class Review extends Component {
   state = {
@@ -115,7 +99,7 @@ class Review extends Component {
 
     const initialValues = {
       review: {
-        workPeriod: "",
+        workPeriod: {},
         rate: 3,
         overallReview: "",
         voiceReview: ""
@@ -129,28 +113,53 @@ class Review extends Component {
 
     return (
       <ReviewWrapper>
-        <Header orgType={category}>
+        <Header orgType={category} style={{ marginBottom: "3rem" }}>
           <Content>
-            <ImageBox className="image-box">
-              <Image src={agencyIcon} alt="" className="header-icon" />
+            <ImageBox>
+              {!isMobile(window.innerWidth) &&
+                NewSVGCreator(category, "4rem", "4rem", "white")}
             </ImageBox>
             <Organization>
-              <Paragraph>You're reviewing:</Paragraph>
-              <OrgName>{name}</OrgName>
+              <div>
+                <Paragraph style={{ paddingRight: ".5rem" }}>
+                  You're reviewing:{" "}
+                </Paragraph>
+                <OrgName>{name}</OrgName>
+              </div>
               <ReviewTime>
-                1 question <img src={clockShort} alt="" /> 30 sec
+                {questionsNumber[category].full.count}{" "}
+                <img src={clockShort} alt="" />{" "}
+                {questionsNumber[category].full.time}
               </ReviewTime>
             </Organization>
           </Content>
         </Header>
 
-        <section>
+        <HeaderPhone orgType={category} style={{ marginBottom: "3rem" }}>
+          <ContentPhone>
+            <OrganizationPhone>
+              <ImageBoxPhone>
+                {isMobile(window.innerWidth) &&
+                  NewSVGCreator(category, "3rem", "3rem", "white")}
+              </ImageBoxPhone>
+              <div>
+                <Paragraph>You're reviewing:</Paragraph>
+                <OrgName>{name}</OrgName>
+              </div>
+            </OrganizationPhone>
+            <ReviewTimePhone>
+              {questionsNumber[category].full.count}{" "}
+              <img src={clockShort} alt="" />{" "}
+              {questionsNumber[category].full.time}
+            </ReviewTimePhone>
+          </ContentPhone>
+        </HeaderPhone>
+
+        <section className="review-body">
           <Formik
             initialValues={initialValues}
             onSubmit={this.handleSubmit}
-            validationSchema={
-              validationSchemaShort[this.state.organization.category]
-            }
+            validationSchema={validationSchemaShort[category]}
           >
             {({
               values,
@@ -162,29 +171,32 @@ class Review extends Component {
               return (
                 <FormWrapper>
                   <Form>
-                    <div>
-                      {/* a placeholder to be edited with new picker */}
-                      <p>Select the month(s) you used this agency?</p>
-                    </div>
+                    <Question
+                      {...values}
+                      question={STATIC_QUESTIONS[0]}
+                      setFieldValue={setFieldValue}
+                      category={category}
+                      // handleChagne={handleChange}
+                    />
                     <div className="questions">
                       <Question
                         {...values}
                         handleChagne={handleChange}
-                        question={STATIC_QUESTIONS[0]}
-                        setFieldValue={setFieldValue}
-                        category={this.state.organization.category}
-                      />
-                      <Question
-                        {...values}
-                        handleChagne={handleChange}
                         question={STATIC_QUESTIONS[1]}
-                        category={this.state.organization.category}
+                        setFieldValue={setFieldValue}
+                        category={category}
                       />
                       <Question
                         {...values}
                         handleChagne={handleChange}
                         question={STATIC_QUESTIONS[2]}
-                        category={this.state.organization.category}
+                        category={category}
+                      />
+                      <Question
+                        {...values}
+                        handleChagne={handleChange}
+                        question={STATIC_QUESTIONS[3]}
+                        category={category}
                       />
                     </div>
 

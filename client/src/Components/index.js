@@ -8,9 +8,11 @@ import {
   EDIT_PROFILE_URL,
   UPLOAD_VERIFICATION_URL,
   ORGS_PROFILE_URL,
+  REPORT_CONTENT_URL,
   DELETE_PROFILE_URL
 } from "./../constants/naviagationUrls";
 
+import ReportContent from "./Pages/ReportContent";
 import UploadImage from "./Pages/UploadImage";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
@@ -114,6 +116,7 @@ export default function index(props) {
           Component={Search}
           navbar
         />
+
         <PrivateRoute
           minimumLevel="LEVEL3"
           path={ADD_PROFILE_URL}
@@ -183,6 +186,7 @@ export default function index(props) {
           title="FAQ & explainer videos"
           search
         />
+
         <PrivateRoute
           minimumLevel="LEVEL3"
           path={RESOURCES_URL}
@@ -194,6 +198,7 @@ export default function index(props) {
           title="More helpful stuff for workers"
           search
         />
+
         <PrivateRoute
           minimumLevel="LEVEL1"
           path={CONTACT_URL}
@@ -214,7 +219,19 @@ export default function index(props) {
           isTablet={isTablet}
           Component={PrivacyAndTerms}
           navbar
-          title="Shape earwig"
+          title="Privacy & terms"
+          search
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={REPORT_CONTENT_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={ReportContent}
+          navbar
+          title="Report this content"
           search
         />
 
