@@ -58,8 +58,8 @@ export default class UploadImage extends Component {
     } else if (this.props.awaitingReview) {
       Swal.fire({
         type: "warning",
-        title: "Already uploaded image",
-        text: "you are already uploaded verification image!"
+        title: "We are currently verifying your account",
+        text: "Please come back soon!"
       }).then(() => {
         this.props.history.goBack();
       });
