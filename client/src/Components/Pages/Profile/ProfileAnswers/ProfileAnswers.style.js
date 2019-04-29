@@ -90,15 +90,17 @@ export const PayrollFee = styled.p`
 
 export const Wrapper = styled.div`
   position: fixed;
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  min-width: 100vw;
   background-color: ${colors.ghostWhite};
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: auto;
 `;
 
 export const CommentsDiv = styled.div`
+  position: absolute;
   background: white;
   width: ${props => (props.isMobile ? "90%" : "60%")};
   height: auto;
@@ -109,6 +111,9 @@ export const CommentsDiv = styled.div`
   flex-direction: column;
   padding: 1.5rem;
   text-align: left;
+  top: 0;
+  margin-top: 60px;
+  margin-bottom: 100px;
 `;
 
 export const CommentsHeader = styled.div`
