@@ -18,7 +18,7 @@ export default class PieAnswer extends Component {
   };
 
   render() {
-    const { question, category } = this.props;
+    const { question, category, toggleComments } = this.props;
 
     const labelObject = this.createLabels(question.answers);
 
@@ -36,15 +36,13 @@ export default class PieAnswer extends Component {
     return (
       <div>
         <Pie data={data} legend={{ position: "bottom" }} />
-        <RightCommentWrapper>
-          <Comment
-            active={
-              question.answers.filter(answer => answer.comment).length > 0
-            }
-          >
+        {question.answers.filter(answer => answer.comment).length > 0 ? (
+          <Comment onClick={() => toggleComments(question)} active>
             Comments
           </Comment>
-        </RightCommentWrapper>
+        ) : (
+          <Comment>Comments</Comment>
+        )}
       </div>
     );
   }
