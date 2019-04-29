@@ -17,8 +17,7 @@ export const initQueestionsValues = {
     15: "",
     16: "",
     17: "",
-    18: "",
-    19: ""
+    18: ""
   },
   payroll: {
     1: "",
@@ -32,8 +31,7 @@ export const initQueestionsValues = {
     9: "",
     10: "",
     11: "",
-    12: "",
-    13: ""
+    12: ""
   },
   worksite: {
     1: "",
