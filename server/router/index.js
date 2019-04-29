@@ -22,6 +22,7 @@ const editProfile = require("./../controllers/editProfile");
 const postTradesController = require("../controllers/addTrade");
 const userInfoController = require("../controllers/userInfo");
 const confirmJoiningEmailList = require("../controllers/confirmJoiningEmailList");
+const deleteUserProfile = require("../controllers/deleteUserProfile");
 
 const authentication = require("./../middlewares/authentication");
 const authorization = require("./../middlewares/authorization");
@@ -32,8 +33,13 @@ const searchController = require("../controllers/search");
 const profileController = require("./../controllers/profile");
 const commentsController = require("./../controllers/comments");
 const logoutController = require("./../controllers/logout");
+const reportContentController = require("./../controllers/reportContent");
 
 const addOrganizationController = require("../controllers/organizations");
+
+const thinkingofDeletingController = require("../controllers/thinkingOfDeleting");
+
+const userReviewsController = require("../controllers/getUserReviews");
 
 const {
   LOGIN_URL,
@@ -43,6 +49,7 @@ const {
   SEARCH_URL,
   LOGOUT_URL,
   ADD_ORGANIZATION_URL,
+  REPORT_CONTENT_URL,
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
@@ -114,6 +121,10 @@ router.post(
   editProfile,
 );
 
+router.delete("/delete-user", authentication, deleteUserProfile);
+
+router.get("/user-reviews", authentication, userReviewsController);
+
 router.post(
   "/add-organization",
   // authentication,
@@ -122,9 +133,24 @@ router.post(
   addOrganizationController,
 );
 
-router.use("/confirm-email", validation("onlyMongoId"), confirmJoiningEmailList);
+router.use(
+  "/confirm-email",
+  validation("onlyMongoId"),
+  confirmJoiningEmailList,
+);
+
+
+router.post(
+  REPORT_CONTENT_URL,
+  validation("reportContent"),
+  authentication,
+  authorization("LEVEL1"),
+  reportContentController,
+);
+
 
 router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
 
+router.post("/thinking-of-deleting", authentication, thinkingofDeletingController);
 
 module.exports = router;

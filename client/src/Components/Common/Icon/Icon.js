@@ -5,6 +5,9 @@ import styled, { css } from "styled-components";
 import Add from "./Add";
 import Agency from "./Agency";
 import AgencyThanks from "./AgencyThanks";
+import Arrow from "./Arrow";
+import Clock30s from "./Clock30s";
+import Clock2min from "./Clock2min";
 import CommentsReceived from "./CommentsReceived";
 import Company from "./Company";
 import CompanyThanks from "./CompanyThanks";
@@ -15,6 +18,8 @@ import HelpingHand from "./HelpingHand";
 import JobBoard from "./JobBoard";
 import LogoutLogin from "./LogoutLogin";
 import OrganisationalRatings from "./OrganisationalRatings";
+import OrHorizontal from "./OrHorizontal";
+import OrVertical from "./OrVertical";
 import ParkingSign from "./ParkingSign";
 import Payroll from "./Payroll";
 import PayrollCharges from "./PayrollCharges";
@@ -47,6 +52,9 @@ const iconMap = {
   add: Add,
   agency: Agency,
   agencyThanks: AgencyThanks,
+  arrow: Arrow,
+  clock30s: Clock30s,
+  clock2min: Clock2min,
   commentsReceived: CommentsReceived,
   company: Company,
   companyThanks: CompanyThanks,
@@ -57,6 +65,8 @@ const iconMap = {
   jobBoard: JobBoard,
   logoutLogin: LogoutLogin,
   organisationalRatings: OrganisationalRatings,
+  orHorizontal: OrHorizontal,
+  orVertical: OrVertical,
   parkingSign: ParkingSign,
   payroll: Payroll,
   payrollCharges: PayrollCharges,
@@ -95,10 +105,7 @@ const Icon = props => {
     console.warn(`<Icon /> called with invalid icon prop "${props.icon}"`);
     return null;
   }
-  console.log("styledIconMap", styledIconMap);
   const StyledIcon = styledIconMap[props.icon];
-
-  console.log("styledicon", StyledIcon);
 
   return <StyledIcon {...props} />;
 };

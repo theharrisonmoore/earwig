@@ -45,11 +45,8 @@ const postReviewShort = async (req, res, next) => {
       overallReview: {
         text: overallReview,
       },
-      workPeriod: workPeriod || {
-        from: "2019-01-01", // temp until we agree on a datepicker
-        to: "2019-03-31",
-      },
-      voiceReview: voiceReview || "voice/file", // temp until we agree on a datepicker
+      workPeriod,
+      voiceReview: voiceReview || "voice/file", // temp until next sprint
     });
     await newReview.save();
     res.send();
@@ -60,7 +57,7 @@ const postReviewShort = async (req, res, next) => {
 };
 
 const postReview = async (req, res, next) => {
-  // console.log("req.body=========================", req.body);
+  console.log("req.body=========================", req.body);
   const {
     questions: questionsAnswers,
     review: {
@@ -82,11 +79,8 @@ const postReview = async (req, res, next) => {
       overallReview: {
         text: overallReview,
       },
-      workPeriod: workPeriod || {
-        from: "2019-01-01", // temp until we agree on a datepicker
-        to: "2019-03-31",
-      },
-      voiceReview: voiceReview || "voice/file", // temp until we agree on a datepicker
+      workPeriod,
+      voiceReview: voiceReview || "voice/file", // temp until we make the voice record
     });
 
     const currentReview = await newReview.save();
@@ -133,10 +127,10 @@ const postReview = async (req, res, next) => {
         allAnswers = [...allAnswers, imageAnswer];
       }
     }
-    console.log("answers", allAnswers);
-    console.log("review", currentReview);
     await Answer.insertMany(allAnswers);
+
     await Comment.insertMany(commentsData);
+
 
     res.send();
   } catch (error) {

@@ -21,6 +21,8 @@ import {
   IconWrapper
 } from "./Profile.style";
 
+import { organizations } from "./../../../theme";
+
 import Icon from "./../../Common/Icon/Icon";
 
 export default class HeaderSection extends Component {
@@ -45,6 +47,7 @@ export default class HeaderSection extends Component {
                 margin="0 1rem 0 0"
                 width="59"
                 height="57"
+                color={organizations[category].primary}
               />
             </IconWrapper>
             <CompanyNameAndStars>

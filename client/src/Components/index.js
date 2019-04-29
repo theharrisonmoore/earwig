@@ -7,14 +7,19 @@ import {
   THANKYOU_URL,
   EDIT_PROFILE_URL,
   UPLOAD_VERIFICATION_URL,
-  ORGS_PROFILE_URL
+  ORGS_PROFILE_URL,
+  REPORT_CONTENT_URL,
+  DELETE_PROFILE_URL
 } from "./../constants/naviagationUrls";
 
+import ReportContent from "./Pages/ReportContent";
 import UploadImage from "./Pages/UploadImage";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Thankyou from "./Pages/ThankYou";
 import EditProfile from "./Pages/EditProfile";
+import DeleteProfile from "./Pages/DeleteProfile";
+import UserProfile from "./Pages/UserProfile";
 import Review from "./Pages/Review";
 import QuickReview from "./Pages/QuickReview";
 import Profile from "./Pages/Profile";
@@ -44,7 +49,8 @@ import {
   REVIEW_URL,
   QUICK_REVIEW_URL,
   CONFIRM_EMAIL_URL,
-  INTRO_URL
+  INTRO_URL,
+  USER_PROFILE_URL
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
@@ -110,6 +116,7 @@ export default function index(props) {
           Component={Search}
           navbar
         />
+
         <PrivateRoute
           minimumLevel="LEVEL3"
           path={ADD_PROFILE_URL}
@@ -131,12 +138,32 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL3"
+          minimumLevel="LEVEL1"
           path={EDIT_PROFILE_URL}
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
           Component={EditProfile}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={DELETE_PROFILE_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={DeleteProfile}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={USER_PROFILE_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={UserProfile}
+          navbar
+          title="Your profile"
         />
 
         <PrivateRoute
@@ -159,6 +186,7 @@ export default function index(props) {
           title="FAQ & explainer videos"
           search
         />
+
         <PrivateRoute
           minimumLevel="LEVEL3"
           path={RESOURCES_URL}
@@ -170,6 +198,7 @@ export default function index(props) {
           title="More helpful stuff for workers"
           search
         />
+
         <PrivateRoute
           minimumLevel="LEVEL1"
           path={CONTACT_URL}
@@ -190,7 +219,19 @@ export default function index(props) {
           isTablet={isTablet}
           Component={PrivacyAndTerms}
           navbar
-          title="Shape earwig"
+          title="Privacy & terms"
+          search
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={REPORT_CONTENT_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={ReportContent}
+          navbar
+          title="Report this content"
           search
         />
 

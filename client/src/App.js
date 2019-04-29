@@ -10,9 +10,10 @@ import Routes from "./Components/";
 
 import { isMobile, isTablet } from "./helpers";
 
-const initialState = {
+export const initialState = {
   isLoggedIn: false,
   isMobile: false,
+  isTablet: false,
   id: "",
   trade: "",
   verified: false,
@@ -20,12 +21,12 @@ const initialState = {
   userId: "",
   points: 0,
   isAdmin: false,
+  isMounted: false,
   email: ""
 };
 
 class App extends Component {
   state = {
-    isMounted: false,
     ...initialState
   };
 

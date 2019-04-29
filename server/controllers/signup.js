@@ -21,7 +21,7 @@ module.exports = (req, res, next) => {
       return addNew({ email, password })
         .then(async (user) => {
           if (process.env.NODE_ENV === "production") {
-          // send email to ask user to join earwig mail list
+            // send email to ask user to join earwig mail list
             try {
               await confirmJoiningMailList(email, user._id);
             } catch (error) {
@@ -43,11 +43,9 @@ module.exports = (req, res, next) => {
           };
 
           // create token for 30 day
-          const token = jwt.sign(
-            { id: user._id },
-            process.env.SECRET,
-            { expiresIn: tokenMaxAge.string },
-          );
+          const token = jwt.sign({ id: user._id }, process.env.SECRET, {
+            expiresIn: tokenMaxAge.string,
+          });
 
           res.cookie("token", token, { maxAge: tokenMaxAge.number, httpOnly: true });
 

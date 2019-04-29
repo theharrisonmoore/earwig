@@ -18,7 +18,10 @@ module.exports = async (req, res, next) => {
             } else {
               addToMailList(user.email)
                 .then(() => {
-                  res.json({ message: "your subscription has been confirmed. You've been added to ouremail list." });
+                  res.json({
+                    message:
+                      "your subscription has been confirmed. You've been added to ouremail list.",
+                  });
                 })
                 .catch(() => {
                   next(boom.badImplementation());

@@ -61,10 +61,10 @@ export const Button = styled.button`
   color: ${colors.profileFontColor};
   cursor: pointer;
 
-  &,
   &:active,
   &:focus {
     outline: none;
+    box-shadow: none;
   }
 `;
 

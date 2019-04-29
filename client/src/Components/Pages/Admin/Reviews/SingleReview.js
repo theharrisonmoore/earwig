@@ -5,7 +5,7 @@ import StarRatingComponent from "react-star-rating-component";
 import moment from "moment";
 import Swal from "sweetalert2";
 
-import { SVGCreator } from "../../../../helpers";
+import { SVGCreator, NewSVGCreator, isMobile } from "../../../../helpers";
 
 import { message, Select, Input, Modal, InputNumber } from "antd";
 import {
@@ -20,7 +20,9 @@ import {
   DetailsDiv,
   Button,
   ButtonDiv,
-  DelButton
+  DelButton,
+  StarRating,
+  Headline
 } from "../../Review/Review.style";
 
 import {
@@ -54,7 +56,9 @@ export default class SingleReview extends Component {
       revID,
       isVerified
     } = this.props.location.state;
+
     const { organization, user, review } = this.state;
+
     organization.category = category;
     organization.name = name;
     user.email = userEmail;
@@ -79,6 +83,7 @@ export default class SingleReview extends Component {
         this.fetchData();
       });
   };
+
   componentDidMount() {
     this.fetchData();
   }
@@ -146,7 +151,7 @@ export default class SingleReview extends Component {
   createDeleteBtn = answerID => {
     return (
       <DelButton type="button" onClick={() => this.showDeleteConfirm(answerID)}>
-        {SVGCreator("delete-icon", "25px", "100%")}
+        {SVGCreator("delete-icon")}
       </DelButton>
     );
   };
@@ -173,22 +178,16 @@ export default class SingleReview extends Component {
 
     return (
       <ReviewWrapper>
-        <Header orgType={category}>
+        <Header orgType={category} style={{ marginBottom: "3rem" }}>
           <Content>
-            <ImageBox className="image-box">
-              {SVGCreator(`${category}-category`, "125px", "100%")}
+            <ImageBox>
+              {!isMobile(window.innerWidth) &&
+                NewSVGCreator(category, "4rem", "4rem", "white")}
             </ImageBox>
             <Organization>
-              <Paragraph>Review </Paragraph>
+              <Paragraph style={{ paddingRight: ".5rem" }}>Review </Paragraph>
               <Paragraph> (ID {revID}) </Paragraph>
               <OrgName>{name}</OrgName>
-              <StarRatingComponent
-                name="star rating component"
-                editing={false}
-                starCount={5}
-                value={rating}
-                emptyStarColor={"#D3D3D3"}
-              />
             </Organization>
           </Content>
         </Header>
@@ -199,7 +198,20 @@ export default class SingleReview extends Component {
                 <FormWrapper>
                   <Form>
                     <QuestionOptionsWrapper>
-                      <h1>User:</h1>
+                      <QText>Overall Rating </QText>
+                      <StarRating>
+                        {/* <h2>Overall Rating: </h2> */}
+                        <StarRatingComponent
+                          name="star rating component"
+                          editing={false}
+                          starCount={5}
+                          value={rating}
+                          emptyStarColor={"#D3D3D3"}
+                        />
+                      </StarRating>
+                    </QuestionOptionsWrapper>
+                    <QuestionOptionsWrapper>
+                      <Headline>User:</Headline>
                       <DetailsDiv>
                         <QText>Email:</QText>
                         <HintText>{email}</HintText>
@@ -210,7 +222,8 @@ export default class SingleReview extends Component {
                       </DetailsDiv>
                     </QuestionOptionsWrapper>
                     <QuestionOptionsWrapper>
-                      <h1>Overall Results</h1>
+                      <Headline>Overall Results</Headline>
+
                       {workedFrom && workedTo && (
                         <DetailsDiv>
                           <QText>Work Period:</QText>
@@ -257,7 +270,8 @@ export default class SingleReview extends Component {
                     </QuestionOptionsWrapper>
                     {groups && groups.length && (
                       <div>
-                        <h1>Full Review Answers</h1>
+                        <Headline>Full Review Answers</Headline>
+
                         {groups.map(group => {
                           if (group.group && group.group.text) {
                             return (
@@ -481,6 +495,7 @@ export default class SingleReview extends Component {
               );
             }}
           </Formik>
+
           <ButtonDiv>
             <Button
               color={this.changeBtnColor(isVerified)}

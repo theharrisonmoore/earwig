@@ -10,9 +10,13 @@ import {
   UserAgreement,
   CheckboxWrapper,
   Header,
+  HeaderPhone,
+  ContentPhone,
+  ImageBoxPhone,
+  OrganizationPhone,
+  ReviewTimePhone,
   Content,
   ImageBox,
-  Image,
   Organization,
   OrgName,
   ReviewTime,
@@ -25,41 +29,19 @@ import {
 import { StyledErrorMessage } from "./Question/Question.style";
 
 import Question from "./Question/index";
-import agencyIcon from "./../../../assets/agency-icon.svg";
 import clockLong from "./../../../assets/clock-long-icon.svg";
 
 import { initQueestionsValues } from "./initialQuestionsValues";
 import { validationSchema } from "./validationSchema";
+import { STATIC_QUESTIONS } from "./staticQuestions";
 
 import { THANKYOU_URL } from "../../../constants/naviagationUrls";
+import { NewSVGCreator, questionsNumber, isMobile } from "../../../helpers";
 
 const {
   API_GET_QUESTIONS_URL,
   API_POST_REVIEW_URL
 } = require("../../../apiUrls");
-
-const STATIC_QUESTIONS = [
-  {
-    number: 18,
-    text: "How would you rate this agency?",
-    type: "rate",
-    options: ["Bad", "Poor", "Average", "Great", "Excellent"]
-  },
-  {
-    number: 19,
-    text: "If you’d like to write an overall review, go ahead here",
-    type: "overallReview",
-    hintText:
-      "To help other workers, please try to explain why something was or wasn't good."
-  },
-  {
-    number: 20,
-    text: "Share a voice review",
-    hintText:
-      "30 seconds max. Bear in mind that people may be able to identify you from your voice.",
-    type: "voiceReview"
-  }
-];
 
 class Review extends Component {
   state = {
@@ -155,11 +137,10 @@ class Review extends Component {
     const initialValues = {
       questions: initQueestionsValues[this.state.organization.category],
       comments: initQueestionsValues[this.state.organization.category],
-      // checklist: [],
       review: {
         workPeriod: {
-          from: "2019-01-01",
-          to: "2019-03-31"
+          from: "",
+          to: ""
         },
         rate: 3,
         overallReview: "",
@@ -187,21 +168,49 @@ class Review extends Component {
     }
     return (
       <ReviewWrapper>
-        <Header orgType={category}>
+        <Header orgType={category} style={{ marginBottom: "3rem" }}>
           <Content>
-            <ImageBox className="image-box">
-              <Image src={agencyIcon} alt="" className="header-icon" />
+            <ImageBox>
+              {!isMobile(window.innerWidth) &&
+                NewSVGCreator(category, "4rem", "4rem", "white")}
             </ImageBox>
             <Organization>
-              <Paragraph>You're reviewing:</Paragraph>
-              <OrgName>{name}</OrgName>
+              <div>
+                <Paragraph style={{ paddingRight: ".5rem" }}>
+                  You're reviewing:{" "}
+                </Paragraph>
+                <OrgName>{name}</OrgName>
+              </div>
               <ReviewTime>
-                18 questions <img src={clockLong} alt="" /> 2 mins
+                {questionsNumber[category].full.count}{" "}
+                <img src={clockLong} alt="" />{" "}
+                {questionsNumber[category].full.time}
               </ReviewTime>
             </Organization>
           </Content>
         </Header>
-        <section>
+
+        <HeaderPhone orgType={category} style={{ marginBottom: "3rem" }}>
+          <ContentPhone>
+            <OrganizationPhone>
+              <ImageBoxPhone>
+                {isMobile(window.innerWidth) &&
+                  NewSVGCreator(category, "3rem", "3rem", "white")}
+              </ImageBoxPhone>
+              <div>
+                <Paragraph>You're reviewing:</Paragraph>
+                <OrgName>{name}</OrgName>
+              </div>
+            </OrganizationPhone>
+            <ReviewTimePhone>
+              {questionsNumber[category].full.count}{" "}
+              <img src={clockLong} alt="" />{" "}
+              {questionsNumber[category].full.time}
+            </ReviewTimePhone>
+          </ContentPhone>
+        </HeaderPhone>
+
+        <section className="review-body">
           <Formik
             initialValues={initialValues}
             onSubmit={this.handleSubmit}
@@ -220,16 +229,18 @@ class Review extends Component {
               return (
                 <FormWrapper>
                   <Form>
-                    <div>
-                      {/* a placeholder to be edited with new picker */}
-                      <p>Select the month(s) you used this agency?</p>
-                    </div>
+                    <Question
+                      {...values}
+                      question={STATIC_QUESTIONS[0]}
+                      setFieldValue={setFieldValue}
+                      category={this.state.organization.category}
+                    />
                     <div>
                       {groups.map(group => {
                         if (group.group && group.group.text) {
                           return (
                             <div key={group._id}>
-                              <h2>{group.group.text}</h2>
+                              <Level2Header>{group.group.text}</Level2Header>
                               {group.questions.map(question => {
                                 return (
                                   <Question
@@ -255,20 +266,20 @@ class Review extends Component {
                       <Question
                         {...values}
                         handleChagne={handleChange}
-                        question={STATIC_QUESTIONS[0]}
+                        question={STATIC_QUESTIONS[1]}
                         setFieldValue={setFieldValue}
                         category={this.state.organization.category}
                       />
                       <Question
                         {...values}
                         handleChagne={handleChange}
-                        question={STATIC_QUESTIONS[1]}
+                        question={STATIC_QUESTIONS[2]}
                         category={this.state.organization.category}
                       />
                       <Question
                         {...values}
                         handleChagne={handleChange}
-                        question={STATIC_QUESTIONS[2]}
+                        question={STATIC_QUESTIONS[3]}
                         category={this.state.organization.category}
                       />
                     </div>
@@ -279,7 +290,6 @@ class Review extends Component {
                           {({ field, form }) => (
                             <Checkbox
                               {...field}
-                              // {...form}
                               id="agreement"
                               style={{ marginTop: "4px" }}
                             />
