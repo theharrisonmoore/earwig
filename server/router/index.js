@@ -50,6 +50,7 @@ const {
   LOGOUT_URL,
   ADD_ORGANIZATION_URL,
   REPORT_CONTENT_URL,
+  ADD_COMMENT_ON_QUESTION_URL,
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
@@ -150,8 +151,9 @@ router.post(
 
 
 router.use(
-  "/question/comment",
-  validation("onlyMongoId"),
+  ADD_COMMENT_ON_QUESTION_URL,
+  authentication,
+  // validation("onlyMongoId"),
   addCommentOnQuestion,
 );
 

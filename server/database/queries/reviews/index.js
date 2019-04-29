@@ -217,6 +217,7 @@ module.exports.allComments = (organizationID, questionID) => new Promise((resolv
         userId: "$user.userId",
         organization: 1,
         text: 1,
+        displayName: 1,
       },
     },
   ])

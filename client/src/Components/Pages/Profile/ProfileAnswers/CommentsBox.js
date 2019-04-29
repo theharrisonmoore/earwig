@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Mention, Input, Button, Icon } from "antd";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import {
   Wrapper,
@@ -21,6 +22,7 @@ import { REPORT_CONTENT_URL } from "./../../../../constants/naviagationUrls";
 import CloseIcon from "./../../../../assets/close-icon.svg";
 
 import { isMobileDevice } from "./../../../../helpers";
+import { API_ADD_COMMENT_ON_QUESTION_URL } from "./../../../../apiUrls";
 
 const { toString, toContentState, getMentions } = Mention;
 
@@ -73,7 +75,24 @@ export default class CommentsBox extends Component {
 
   handleSubmit = () => {
     this.validate().then(res => {
-      res && this.setState({ errors: {} });
+      res &&
+        this.setState({ errors: {} }, () => {
+          const { organization, question } = this.props;
+          const data = {
+            text: toString(this.state.commentContentState),
+            displayName: this.state.user,
+            question: question._id,
+            organization: organization._id
+          };
+          axios
+            .post(API_ADD_COMMENT_ON_QUESTION_URL, data)
+            .then(({ data }) => {
+              console.log("----------------------");
+            })
+            .catch(err => {
+              console.log(err, "+++++++++++++++++++");
+            });
+        });
     });
   };
 
@@ -104,7 +123,7 @@ export default class CommentsBox extends Component {
         <CommentsDiv isMobile={isMobile} ref={this.fixedDiv}>
           {commentsLoaded ? (
             <>
-              <CommentsHeader id="test" ref={this.ref}>
+              <CommentsHeader>
                 <CommentsTitle>{question.question.profileText}</CommentsTitle>
                 <Close src={CloseIcon} alt="close" onClick={toggleComments} />
               </CommentsHeader>
@@ -112,8 +131,10 @@ export default class CommentsBox extends Component {
               {comments &&
                 comments.map(comment => (
                   <IndividComment key={comment._id}>
-                    <UserID>{comment.userId}</UserID>
-                    <CommentBubble>{comment.text}</CommentBubble>
+                    <UserID>{comment.displayName || comment.userId}</UserID>
+                    <CommentBubble>
+                      <pre style={{ marginBottom: 0 }}>{comment.text}</pre>
+                    </CommentBubble>
                     <Link
                       to={{
                         pathname: REPORT_CONTENT_URL,

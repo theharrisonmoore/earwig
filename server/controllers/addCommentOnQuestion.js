@@ -4,21 +4,22 @@ const { createComment } = require("./../database/queries/comments");
 
 module.exports = (req, res, next) => {
   const {
-    text, commentAs, question, organization,
+    text, displayName, question, organization,
   } = req.body;
   const { user } = req;
   const data = {
     text,
     question,
     organization,
+    user: user._id,
   };
 
   if (user.isAdmin) {
-    data.commentAs = commentAs;
+    data.displayName = displayName;
   }
 
   createComment(data)
     .then(() => {
-      console.log("1");
+      res.json({});
     }).catch(() => next(boom.badImplementation()));
 };
