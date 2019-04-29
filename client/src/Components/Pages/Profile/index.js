@@ -69,12 +69,16 @@ export default class Profile extends Component {
   }
 
   toggleComments = question => {
-    const { commentsOpen, summary } = this.state;
-    const { _id: organizationID } = summary;
-    const { _id: questionID } = question;
-
+    const { commentsOpen } = this.state;
     // reset loading state and toggle comments box
     this.setState({ commentsLoaded: false, commentsOpen: !commentsOpen });
+    this.fetchComments(question);
+  };
+
+  fetchComments = question => {
+    const { summary } = this.state;
+    const { _id: organizationID } = summary;
+    const { _id: questionID } = question;
 
     // fetch comments
     axios
@@ -333,6 +337,7 @@ export default class Profile extends Component {
             commentsLoaded={commentsLoaded}
             toggleComments={this.toggleComments}
             isMobile={isMobile}
+            fetchComments={this.fetchComments}
           />
         )}
       </Wrapper>

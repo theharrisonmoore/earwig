@@ -22,7 +22,13 @@ import PayrollAnswer from "./ProfileAnswers/PayrollAnswer";
 
 export default class ReviewSection extends Component {
   render() {
-    const { sectionDetails, category, toggleComments, summary, isMobile } = this.props;
+    const {
+      sectionDetails,
+      category,
+      toggleComments,
+      summary,
+      isMobile
+    } = this.props;
     const { _id: sectionTitle, questions } = sectionDetails;
 
     let canteenQuestions =
@@ -59,35 +65,39 @@ export default class ReviewSection extends Component {
         )}
 
         {questions &&
-          questions
-            .map((question, index) => ["yesno", "pieChart", "dotChart"].includes(question.question.profileType) && (
-              <QuestionWrapper key={index}>
-                <QuestionTitle>{question.question.profileText}</QuestionTitle>
-                {question.question.profileType === "yesno" && (
-                  <YesNoAnswer
-                  question={question}
-                  toggleComments={toggleComments}
-                  isMobile={isMobile}
-                  />
-                )}
-                {question.question.profileType === "pieChart" && (
-                  <PieAnswer
-                  category={category}
-                  question={question}
-                  toggleComments={toggleComments}
-                  isMobile={isMobile}
-                  />
-                )}
-                {question.question.profileType === "dotChart" && (
-                  <ScatterAnswer
-                  category={category}
-                  question={question}
-                  toggleComments={toggleComments}
-                  isMobile={isMobile}
-                  />
-                )}
-              </QuestionWrapper>
-            ))}
+          questions.map(
+            (question, index) =>
+              ["yesno", "pieChart", "dotChart"].includes(
+                question.question.profileType
+              ) && (
+                <QuestionWrapper key={index}>
+                  <QuestionTitle>{question.question.profileText}</QuestionTitle>
+                  {question.question.profileType === "yesno" && (
+                    <YesNoAnswer
+                      question={question}
+                      toggleComments={toggleComments}
+                      isMobile={isMobile}
+                    />
+                  )}
+                  {question.question.profileType === "pieChart" && (
+                    <PieAnswer
+                      category={category}
+                      question={question}
+                      toggleComments={toggleComments}
+                      isMobile={isMobile}
+                    />
+                  )}
+                  {question.question.profileType === "dotChart" && (
+                    <ScatterAnswer
+                      category={category}
+                      question={question}
+                      toggleComments={toggleComments}
+                      isMobile={isMobile}
+                    />
+                  )}
+                </QuestionWrapper>
+              )
+          )}
 
         {questions &&
           questions

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Mention, Input, Button, Icon } from "antd";
+import { Mention, Input, Button, Icon, message } from "antd";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -87,10 +87,16 @@ export default class CommentsBox extends Component {
           axios
             .post(API_ADD_COMMENT_ON_QUESTION_URL, data)
             .then(({ data }) => {
-              console.log("----------------------");
+              const question = {
+                ...this.props.question,
+                _id: this.props.question.question._id
+              };
+              this.props.fetchComments(question);
             })
             .catch(err => {
-              console.log(err, "+++++++++++++++++++");
+              const error =
+                err.response && err.response.data && err.response.data.error;
+              message.error(error || "Something went wrong");
             });
         });
     });

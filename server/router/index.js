@@ -150,7 +150,7 @@ router.post(
 );
 
 
-router.use(
+router.post(
   ADD_COMMENT_ON_QUESTION_URL,
   authentication,
   // validation("onlyMongoId"),
