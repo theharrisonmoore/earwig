@@ -91,7 +91,10 @@ export default class ReviewSection extends Component {
 
         {questions &&
           questions
-            .filter(question => question.question.profileType === "siteItem")
+            .filter(question => {
+              // console.log(question)
+              return question.question.profileType === "siteItem"
+            })
             .map((question, index) => (
               <QuestionWrapper key={index}>
                 <SiteItemAnswer
