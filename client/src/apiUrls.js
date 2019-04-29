@@ -15,6 +15,9 @@ const API_POST_REVIEW_URL = `${API_PREFIX}${REVIEW_URL}`;
 const UPLOAD_WORKSITE_IMAGE_URL = "/worksite-image";
 const API_UPLOAD_WORKSITE_IMAGE_URL = `${API_PREFIX}${UPLOAD_WORKSITE_IMAGE_URL}`;
 
+const REPORT_CONTENT_URL = "/report-content";
+const API_REPORT_CONTENT_URL = `${API_PREFIX}${REPORT_CONTENT_URL}`;
+
 // quick review section
 const QUICK_REVIEW_URL = "/short-review";
 const API_QUICK_REVIEW_URL = `${API_PREFIX}${QUICK_REVIEW_URL}`;
@@ -34,6 +37,7 @@ module.exports = {
   API_SEARCH_URL,
   API_LOGOUT_URL,
   API_ADD_ORGANIZATION_URL,
+  API_REPORT_CONTENT_URL,
   // server varibles
   LOGIN_URL,
   LOGOUT_URL,
@@ -41,5 +45,6 @@ module.exports = {
   REVIEW_URL,
   QUICK_REVIEW_URL,
   UPLOAD_WORKSITE_IMAGE_URL,
-  SEARCH_URL
+  SEARCH_URL,
+  REPORT_CONTENT_URL
 };
