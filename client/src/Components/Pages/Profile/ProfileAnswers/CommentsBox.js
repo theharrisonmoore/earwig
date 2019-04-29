@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Mention, Input, Button, Icon, message } from "antd";
+import { Mention, Input, Button, message } from "antd";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -24,7 +24,7 @@ import CloseIcon from "./../../../../assets/close-icon.svg";
 import { isMobileDevice } from "./../../../../helpers";
 import { API_ADD_COMMENT_ON_QUESTION_URL } from "./../../../../apiUrls";
 
-const { toString, toContentState, getMentions } = Mention;
+const { toString, toContentState } = Mention;
 
 export default class CommentsBox extends Component {
   state = {
@@ -48,7 +48,6 @@ export default class CommentsBox extends Component {
       user: yup.string().required("user is required!")
     });
 
-    // return new Promise((resolve, reject) => {
     return schema
       .validate(
         {
@@ -118,11 +117,9 @@ export default class CommentsBox extends Component {
     const users =
       comments &&
       comments.reduce((prev, curr) => {
-        prev.push(curr.userId);
+        prev.push(curr.displayName || curr.userId);
         return prev;
       }, []);
-
-    // console.log(getMentions(toContentState("@ramy shurafa @shurafa2")));
 
     return (
       <Wrapper>
@@ -139,7 +136,25 @@ export default class CommentsBox extends Component {
                   <IndividComment key={comment._id}>
                     <UserID>{comment.displayName || comment.userId}</UserID>
                     <CommentBubble>
-                      <pre style={{ marginBottom: 0 }}>{comment.text}</pre>
+                      <pre style={{ marginBottom: 0, whiteSpace: "pre-wrap" }}>
+                        {comment.text
+                          .split("\n")
+                          .map(line =>
+                            line
+                              .split(" ")
+                              .map(ele => (
+                                <>
+                                  {ele.startsWith("@") ? (
+                                    <span style={{ fontWeight: 900 }}>
+                                      {ele.substr(1)}
+                                    </span>
+                                  ) : (
+                                    ele
+                                  )}{" "}
+                                </>
+                              ))
+                          )}
+                      </pre>
                     </CommentBubble>
                     <Link
                       to={{
