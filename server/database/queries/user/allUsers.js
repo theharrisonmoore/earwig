@@ -28,6 +28,7 @@ module.exports = (awaitingReview) => {
         },
         email: 1,
         userId: 1,
+        city: 1,
         key: "$_id",
       },
     },

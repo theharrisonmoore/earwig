@@ -16,6 +16,12 @@ export default ({ deletHandler, viewHandler }) => {
       key: "email"
     },
     {
+      title: "City/town",
+      dataIndex: "city",
+      key: "city",
+      render: text => <span>{text || "N/A"}</span>
+    },
+    {
       title: "Status",
       dataIndex: "status",
       key: "status",
