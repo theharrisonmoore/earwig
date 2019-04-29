@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { ListWrapper, ListItem, Comment, RightCommentWrapper, ListComment } from "./ProfileAnswers.style";
+import { ListWrapper, ListItem, Comment, ListComment } from "./ProfileAnswers.style";
 
 export default class ListAnswer extends Component {
   decideColor = questionCategory => {
