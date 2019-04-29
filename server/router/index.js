@@ -36,6 +36,7 @@ const logoutController = require("./../controllers/logout");
 const addOrganizationController = require("../controllers/organizations");
 
 const thinkingofDeletingController = require("../controllers/thinkingOfDeleting");
+const addCommentOnQuestion = require("../controllers/addCommentOnQuestion");
 
 const userReviewsController = require("../controllers/getUserReviews");
 
@@ -131,6 +132,12 @@ router.post(
 );
 
 router.use("/confirm-email", validation("onlyMongoId"), confirmJoiningEmailList);
+
+router.use(
+  "/question/comment",
+  validation("onlyMongoId"),
+  addCommentOnQuestion,
+);
 
 router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
 
