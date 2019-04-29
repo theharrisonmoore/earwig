@@ -181,3 +181,8 @@ export const CanteenSubList = styled.p`
     props.itemAvailable ? `${colors.green}` : `${colors.red}`};
   font-weight: 900;
 `;
+
+export const Error = styled.p`
+  margin: 0;
+  color: ${colors.red};
+`;

@@ -12,7 +12,8 @@ import {
   CommentsTitle,
   IndividComment,
   UserID,
-  CommentBubble
+  CommentBubble,
+  Error
 } from "./ProfileAnswers.style";
 
 import { StyledAntIcon } from "./../Profile.style";
@@ -75,7 +76,6 @@ export default class CommentsBox extends Component {
   handleBlur = () => {
     if (isMobileDevice.any()) {
       this.inputWrapper.current.style.marginBottom = "";
-      this.fixedDiv.current.scrollIntoView(false);
     }
   };
 
@@ -163,15 +163,17 @@ export default class CommentsBox extends Component {
               <div ref={this.inputWrapper}>
                 <Input
                   placeholder="Comment as"
-                  style={{ margin: "0.25rem 0", width: "10rem" }}
+                  style={{ marginTop: "0.25rem", width: "10rem" }}
                   onChange={this.handleChangeUserName}
                   value={this.state.user}
                   onFocus={this.handleFocus}
                   onBlur={this.handleBlur}
                 />
-                {this.state.errors.user && <p>{this.state.errors.user}</p>}
+                {this.state.errors.user && (
+                  <Error>{this.state.errors.user}</Error>
+                )}
                 <Mention
-                  style={{ width: "100%" }}
+                  style={{ width: "100%", marginTop: "0.25rem" }}
                   onChange={this.onChange}
                   defaultSuggestions={users}
                   onFocus={this.handleFocus}
@@ -181,7 +183,7 @@ export default class CommentsBox extends Component {
                   placeholder={"input @ to mention"}
                 />
                 {this.state.errors.comment && (
-                  <p>{this.state.errors.comment}</p>
+                  <Error>{this.state.errors.comment}</Error>
                 )}
                 <Button
                   style={{ marginTop: "0.25rem" }}
