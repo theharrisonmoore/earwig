@@ -68,7 +68,6 @@ class Review extends Component {
         }
       })
       .then(res => {
-        console.log(res.data);
         this.setState({
           groups: res.data,
           isLoading: false,
@@ -143,8 +142,8 @@ class Review extends Component {
           to: ""
         },
         rate: 3,
-        overallReview: "",
-        voiceReview: ""
+        overallReview: ""
+        // voiceReview: ""
       },
       hasAgreed: false,
       worksiteImage: ""
@@ -276,12 +275,13 @@ class Review extends Component {
                         question={STATIC_QUESTIONS[2]}
                         category={this.state.organization.category}
                       />
-                      <Question
+                      {/* The voice questions in the next sprint */}
+                      {/* <Question
                         {...values}
                         handleChagne={handleChange}
                         question={STATIC_QUESTIONS[3]}
                         category={this.state.organization.category}
-                      />
+                      /> */}
                     </div>
                     <UserAgreement>
                       <Level2Header>Submit your review</Level2Header>
