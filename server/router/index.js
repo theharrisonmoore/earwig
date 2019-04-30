@@ -40,6 +40,7 @@ const thinkingofDeletingController = require("../controllers/thinkingOfDeleting"
 const addCommentOnQuestion = require("../controllers/addCommentOnQuestion");
 
 const userReviewsController = require("../controllers/getUserReviews");
+const getOverallReviewReplies = require("../controllers/getOverallReviewReplies");
 
 const {
   LOGIN_URL,
@@ -51,7 +52,9 @@ const {
   ADD_ORGANIZATION_URL,
   REPORT_CONTENT_URL,
   ADD_COMMENT_ON_QUESTION_URL,
+  GET_OVERALL_REVIEW_REPLIES_URL,
 } = require("../../client/src/apiUrls");
+
 
 router.get(SEARCH_URL, searchController);
 
@@ -155,6 +158,14 @@ router.post(
   authentication,
   // validation("onlyMongoId"),
   addCommentOnQuestion,
+);
+
+
+router.get(
+  `${GET_OVERALL_REVIEW_REPLIES_URL}/:id`,
+  authentication,
+  // validation("onlyMongoId"),
+  getOverallReviewReplies,
 );
 
 router.use("/admin", authentication, authorization("ADMIN"), adminRouter);

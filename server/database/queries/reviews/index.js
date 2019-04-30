@@ -4,6 +4,7 @@ const Answer = require("./../../models/Answer");
 const Review = require("./../../models/Review");
 const Comment = require("./../../models/Comment");
 const getAllReviews = require("./allReviews");
+const getOverallReplies = require("./getOverallReplies");
 
 module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
 
@@ -11,6 +12,7 @@ module.exports.deleteReview = id => Review.deleteOne({ _id: id });
 
 module.exports.findById = id => Review.findById(id);
 
+module.exports.getOverallReplies = getOverallReplies;
 
 module.exports.getAllReviews = getAllReviews;
 
