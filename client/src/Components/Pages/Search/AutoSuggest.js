@@ -66,6 +66,17 @@ export default class AutosuggestComponent extends Component {
     this.setState({ value: newValue });
   };
 
+  onKeyPress = e => {
+    const { value } = this.state;
+    const suggestions = getSuggestions(value, this.props.data);
+    if (e.key === "Enter") {
+      if (suggestions[0].isEmpty) {
+        return null;
+      }
+      return (window.location.href = `/profile/${suggestions[0]._id}`);
+    }
+  };
+
   // render functions
   // renders individual suggestions in autosuggest search section
   renderSuggestion = suggestion => {
@@ -128,7 +139,8 @@ export default class AutosuggestComponent extends Component {
     const inputProps = {
       placeholder: `${placeholderText}`,
       value,
-      onChange: this.onChange
+      onChange: this.onChange,
+      onKeyPress: this.onKeyPress
     };
 
     return (
