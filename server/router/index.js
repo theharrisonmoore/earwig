@@ -41,6 +41,7 @@ const addCommentOnQuestion = require("../controllers/addCommentOnQuestion");
 
 const userReviewsController = require("../controllers/getUserReviews");
 const getOverallReviewReplies = require("../controllers/getOverallReviewReplies");
+const addCommentOnReview = require("../controllers/addCommentOnReview");
 
 const {
   LOGIN_URL,
@@ -53,6 +54,7 @@ const {
   REPORT_CONTENT_URL,
   ADD_COMMENT_ON_QUESTION_URL,
   GET_OVERALL_REVIEW_REPLIES_URL,
+  ADD_COMMENT_ON_REVIEW_URL,
 } = require("../../client/src/apiUrls");
 
 
@@ -158,6 +160,13 @@ router.post(
   authentication,
   // validation("onlyMongoId"),
   addCommentOnQuestion,
+);
+
+router.post(
+  ADD_COMMENT_ON_REVIEW_URL,
+  authentication,
+  // validation("onlyMongoId"),
+  addCommentOnReview,
 );
 
 

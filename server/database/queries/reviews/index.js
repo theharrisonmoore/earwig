@@ -16,6 +16,12 @@ module.exports.getOverallReplies = getOverallReplies;
 
 module.exports.getAllReviews = getAllReviews;
 
+module.exports.addCommentOnOverallReview = (id, data) => Review.findByIdAndUpdate(id, {
+  $push: {
+    "overallReview.replies": data,
+  },
+});
+
 module.exports.overallReview = organizationID => new Promise((resolve, reject) => {
   Organization.aggregate([
     // get the specific organization

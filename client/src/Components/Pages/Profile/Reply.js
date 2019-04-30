@@ -21,7 +21,7 @@ import { StyledAntIcon } from "./Profile.style";
 import { REPORT_CONTENT_URL } from "../../../constants/naviagationUrls";
 import {
   API_GET_OVERALL_REVIEW_REPLIES_URL,
-  API_ADD_COMMENT_ON_OVERALL_REVIEW_URL
+  API_ADD_COMMENT_ON_REVIEW_URL
 } from "./../../../apiUrls";
 
 import { isMobileDevice, highlightMentions } from "../../../helpers";
@@ -84,7 +84,7 @@ export default class Reply extends Component {
             target
           };
           axios
-            .post(API_ADD_COMMENT_ON_OVERALL_REVIEW_URL, data)
+            .post(API_ADD_COMMENT_ON_REVIEW_URL, data)
             .then(({ data }) => {
               const question = {
                 ...this.props.question,
