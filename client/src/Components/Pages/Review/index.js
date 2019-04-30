@@ -29,7 +29,7 @@ import {
 import { StyledErrorMessage } from "./Question/Question.style";
 
 import Question from "./Question/index";
-import clockLong from "./../../../assets/clock-long-icon.svg";
+import clockLong from "./../../../assets/clock-long-icon.png";
 
 import { initQueestionsValues } from "./initialQuestionsValues";
 import { validationSchema } from "./validationSchema";
