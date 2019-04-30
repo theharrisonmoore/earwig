@@ -214,7 +214,7 @@ export default class Profile extends Component {
 
           {reviewDetails.map(
             (section, index) =>
-              section._id === "Getting on to site" && (
+              section._id === "Getting onto site" && (
                 <ReviewSection
                   key={index}
                   category={category}

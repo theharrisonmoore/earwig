@@ -11,6 +11,7 @@ export const Wrapper = styled.div`
   padding-top: ${props => (props.isMobile ? "3rem" : "4rem")};
   text-align: left;
   padding-bottom: 2rem;
+  font-size: 1rem;
 `;
 
 export const Banner = styled.div`

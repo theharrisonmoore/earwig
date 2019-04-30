@@ -169,6 +169,11 @@ export const SiteItem = styled.div`
     props.itemAvailable ? `${colors.green}` : `${colors.red}`};
   font-weight: 900;
   display: flex;
+  align-items: center;
+
+  p {
+    margin: 0;
+  }
 `;
 
 export const SiteIcon = styled(SVG)`

@@ -7,6 +7,8 @@ import {
   CanteenSubList
 } from "./ProfileAnswers.style";
 
+import Icon from "./../../../Common/Icon/Icon"
+
 export default class CanteenItemAnswer extends Component {
   getAverage = answers => {
     //start count at 1 to give benefit to yes
@@ -42,7 +44,7 @@ export default class CanteenItemAnswer extends Component {
         {hasCanteen ? (
           <>
             <SiteItem itemAvailable>
-              <SiteIcon src="/icons/tick-icon.svg" itemAvailable />
+              <Icon icon="canteen" margin="0 1rem 0 0" height="1.5rem" width="1.5rem" />
               <p>{canteenHeader[0].question.profileText}</p>
             </SiteItem>
             {questions
