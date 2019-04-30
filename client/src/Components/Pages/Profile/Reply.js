@@ -5,26 +5,18 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import {
-  // Wrapper,
-  CommentsDiv,
-  CommentsHeader,
-  Close,
-  CommentsTitle,
   UserID,
   CommentBubble,
   Error
 } from "./ProfileAnswers/ProfileAnswers.style";
 import { Wrapper, IndividComment } from "./Reply.style";
 
-import { StyledAntIcon } from "./Profile.style";
-
-import { REPORT_CONTENT_URL } from "../../../constants/naviagationUrls";
 import {
   API_GET_OVERALL_REVIEW_REPLIES_URL,
   API_ADD_COMMENT_ON_REVIEW_URL
 } from "./../../../apiUrls";
 
-import { isMobileDevice, highlightMentions } from "../../../helpers";
+import { highlightMentions } from "../../../helpers";
 
 import Loading from "./../../Common/AntdComponents/Loading";
 
@@ -86,11 +78,14 @@ export default class Reply extends Component {
           axios
             .post(API_ADD_COMMENT_ON_REVIEW_URL, data)
             .then(({ data }) => {
-              const question = {
-                ...this.props.question,
-                _id: this.props.question.question._id
-              };
-              this.props.fetchComments(question);
+              this.setState(
+                {
+                  commentContentState: toContentState(""),
+                  user: "",
+                  errors: {}
+                },
+                () => this.fetchOverallReplies(reviewId)
+              );
             })
             .catch(err => {
               const error =
@@ -135,14 +130,7 @@ export default class Reply extends Component {
   }
 
   render() {
-    const {
-      question,
-      toggleComments,
-      replies,
-      commentsLoaded,
-      isMobile,
-      organization
-    } = this.state;
+    const { replies } = this.state;
 
     const users =
       replies &&
@@ -160,7 +148,7 @@ export default class Reply extends Component {
         <>
           {replies &&
             replies.map(reply => (
-              <IndividComment key={reply._id}>
+              <IndividComment key={reply.replies._id}>
                 <UserID>{reply.replies.user[0].userId}</UserID>
                 <CommentBubble as="pre">
                   {highlightMentions(reply.replies.text)}

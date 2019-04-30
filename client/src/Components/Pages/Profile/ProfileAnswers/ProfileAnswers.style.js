@@ -174,6 +174,7 @@ export const CommentBubble = styled.p`
   padding: 0.5rem 1rem;
   margin-bottom: 0;
   white-space: pre-wrap;
+  text-align: left;
 `;
 
 export const SiteItem = styled.div`
