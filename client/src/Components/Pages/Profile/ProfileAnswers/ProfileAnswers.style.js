@@ -169,6 +169,11 @@ export const SiteItem = styled.div`
     props.itemAvailable ? `${colors.green}` : `${colors.red}`};
   font-weight: 900;
   display: flex;
+  align-items: center;
+
+  p {
+    margin: 0;
+  }
 `;
 
 export const SiteIcon = styled(SVG)`
@@ -182,4 +187,9 @@ export const CanteenSubList = styled.p`
   color: ${props =>
     props.itemAvailable ? `${colors.green}` : `${colors.red}`};
   font-weight: 900;
+`;
+
+export const CanteenItem = styled(SiteItem)`
+  margin-bottom: 1rem;
+
 `;

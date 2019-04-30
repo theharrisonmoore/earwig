@@ -33,6 +33,7 @@ const questionSchema = new Schema({
     text: String,
   },
   hasComment: Boolean,
+  icon: String,
 },
 {
   timestamps: true,

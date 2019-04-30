@@ -12,11 +12,11 @@ const OrHorizontal = props => (
     <path
       d="M1 13.5H119.795"
       stroke={props.color || "currentColor"}
-      stroke-linecap="square"
+      strokeLinecap="square"
     />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M60 1C66.6274 1 72 6.37258 72 13C72 19.6274 66.6274 25 60 25C53.3726 25 48 19.6274 48 13C48 6.37258 53.3726 1 60 1Z"
       fill="white"
       stroke={props.color || "currentColor"}

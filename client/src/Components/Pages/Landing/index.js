@@ -20,7 +20,8 @@ import {
   Award,
   AwardDiv,
   AwardsWrapper,
-  AwardTitle
+  AwardTitle,
+  LabelTitle
 } from "./Landing.style";
 
 import LogoImg from "./../../../assets/logo-white.png";
@@ -125,12 +126,12 @@ export default class index extends Component {
             {({ isSubmitting }) => (
               <Form>
                 <Label htmlFor="email">
-                  Email
+                  <LabelTitle>Email</LabelTitle>
                   <StyledField type="email" name="email" id="email" />
                   <FormikErrorMessage name="email" component="p" />
                 </Label>
                 <Label htmlFor="password">
-                  Password
+                  <LabelTitle>Password</LabelTitle>
                   <Field type="password" name="password" />
                   <FormikErrorMessage
                     name="password"
