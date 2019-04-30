@@ -15,7 +15,6 @@ export default class SiteItemAnswer extends Component {
 
   render() {
     const { question } = this.props;
-    console.log('questions', question);
     const averageResponse = this.getAverage(question.answers);
 
     return (

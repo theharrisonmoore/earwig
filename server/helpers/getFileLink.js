@@ -5,7 +5,7 @@ module.exports = fileName => new Promise(async (resolve, reject) => {
   const options = {
     version: "v4",
     action: "read",
-    expires: Date.now() + 15 * 60 * 1000, // 15 minutes
+    expires: Date.now() + 60 * 60 * 1000, // 1 hour
   };
   try {
     const bucket = admin.storage().bucket();
