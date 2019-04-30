@@ -10,8 +10,6 @@ export const validationSchema = {
       5: Yup.string().required("Required"),
       6: Yup.string().required("Required"),
       7: Yup.string().required("Required"),
-      // 8: Yup.string().required("Required"),
-
       // number input
       8: Yup.number()
         .typeError("Must be a number")
@@ -24,21 +22,26 @@ export const validationSchema = {
       13: Yup.string().required("Required"),
       14: Yup.string().required("Required"),
       15: Yup.string().required("Required"),
-      16: Yup.string().required("Required"),
       //number input
-      17: Yup.number()
+      16: Yup.number()
         .typeError("Must be a number")
         .required("Required"),
 
-      18: Yup.string().required("Required"),
-      19: Yup.string().required("Required")
+      17: Yup.string().required("Required"),
+      18: Yup.string().required("Required")
     }),
-    // checklist: Yup.array().of(Yup.string()),
     review: Yup.object({
-      // workPeriod: Yup.string().required("Required"),
-      // rate: Yup.string().required("Required"),
-      overallReview: Yup.string().required("Required")
-      // voiceReview: Yup.mixed()
+      workPeriod: Yup.object({
+        from: Yup.date()
+          .typeError("Must select the work period")
+          .required("Required"),
+        to: Yup.date()
+          .typeError("Must select the work period")
+          .required("Required")
+      }),
+      rate: Yup.string().required("Required"),
+      overallReview: Yup.string().required("Required"),
+      voiceReview: Yup.mixed()
     }),
     hasAgreed: Yup.boolean()
       .required("Required")
@@ -48,7 +51,6 @@ export const validationSchema = {
     questions: Yup.object({
       1: Yup.string().required("Required"),
       2: Yup.string().required("Required"),
-      // 3: Yup.string().required("Required"),
       // number
       3: Yup.number()
         .typeError("Must be a number")
@@ -59,22 +61,27 @@ export const validationSchema = {
       6: Yup.string().required("Required"),
       7: Yup.string().required("Required"),
       8: Yup.string().required("Required"),
-      9: Yup.string().required("Required"),
       // number
-      10: Yup.number()
+      9: Yup.number()
         .typeError("Must be a number")
         .required("Required"),
 
+      10: Yup.string().required("Required"),
       11: Yup.string().required("Required"),
-      12: Yup.string().required("Required"),
-      13: Yup.string().required("Required")
+      12: Yup.string().required("Required")
     }),
-    // checklist: Yup.array().of(Yup.string()),
     review: Yup.object({
-      // workPeriod: Yup.string().required("Required"),
-      // rate: Yup.string().required("Required"),
-      overallReview: Yup.string().required("Required")
-      // voiceReview: Yup.mixed()
+      workPeriod: Yup.object({
+        from: Yup.date()
+          .typeError("Must select the work period")
+          .required("Required"),
+        to: Yup.date()
+          .typeError("Must select the work period")
+          .required("Required")
+      }),
+      rate: Yup.string().required("Required"),
+      overallReview: Yup.string().required("Required"),
+      voiceReview: Yup.mixed()
     }),
     hasAgreed: Yup.boolean()
       .required("Required")
@@ -84,33 +91,45 @@ export const validationSchema = {
     questions: Yup.object({
       1: Yup.string().required("Required"),
       2: Yup.string().required("Required"),
-      3: Yup.string().required("Required"),
       // number
-      4: Yup.number()
+      3: Yup.number()
         .typeError("Must be a number")
         .required("Required"),
 
+      4: Yup.string().required("Required"),
       5: Yup.string().required("Required"),
       6: Yup.string().required("Required"),
       7: Yup.string().required("Required"),
-      8: Yup.string().required("Required"),
+      8: Yup.string()
+        .typeError("Must upload an image")
+        .required("Required"),
       9: Yup.string().required("Required"),
       10: Yup.string().required("Required"),
       11: Yup.string().required("Required"),
       12: Yup.string().required("Required"),
       13: Yup.string().required("Required"),
-      // 14 has his own value (checklist)
+      // 14 checklist question
+      14: Yup.mixed().required("Required"),
+
       15: Yup.string().required("Required"),
       16: Yup.string().required("Required"),
+      // 17 open name of cafe
       17: Yup.string().required("Required"),
+
       18: Yup.string().required("Required")
     }),
-    // checklist: Yup.array().required(),
     review: Yup.object({
-      // workPeriod: Yup.string().required("Required"),
-      // rate: Yup.string().required("Required"),
-      overallReview: Yup.string().required("Required")
-      // voiceReview: Yup.mixed()
+      workPeriod: Yup.object({
+        from: Yup.date()
+          .typeError("Must select the work period")
+          .required("Required"),
+        to: Yup.date()
+          .typeError("Must select the work period")
+          .required("Required")
+      }),
+      rate: Yup.string().required("Required"),
+      overallReview: Yup.string().required("Required"),
+      voiceReview: Yup.mixed()
     }),
     hasAgreed: Yup.boolean()
       .required("Required")
@@ -124,16 +143,20 @@ export const validationSchema = {
       4: Yup.string().required("Required"),
       5: Yup.string().required("Required"),
       6: Yup.string().required("Required"),
-      // name of the rep
-      // 7: Yup.string().required("Required"),
-
       7: Yup.string().required("Required"),
       8: Yup.string().required("Required"),
       9: Yup.string().required("Required")
     }),
     // checklist: Yup.array().of(Yup.string()),
     review: Yup.object({
-      // workPeriod: Yup.string().required("Required"),
+      workPeriod: Yup.object({
+        from: Yup.date()
+          .typeError("Must select the work period")
+          .required("Required"),
+        to: Yup.date()
+          .typeError("Must select the work period")
+          .required("Required")
+      }),
       rate: Yup.number().required("Required"),
       overallReview: Yup.string().required("Required")
       // voiceReview: Yup.mixed()
@@ -144,11 +167,20 @@ export const validationSchema = {
   })
 };
 
+/* ============================================================== */
+
 export const validationSchemaShort = {
   agency: Yup.object({
     review: Yup.object({
-      // workPeriod: Yup.string().required("Required"),
-      rate: Yup.string().required("Required"),
+      workPeriod: Yup.object({
+        from: Yup.date()
+          .typeError("Must select the work period")
+          .required("Required"),
+        to: Yup.date()
+          .typeError("Must select the work period")
+          .required("Required")
+      }),
+      rate: Yup.number().required("Required"),
       overallReview: Yup.string().required("Required")
       // voiceReview: Yup.mixed()
     }),
@@ -158,8 +190,15 @@ export const validationSchemaShort = {
   }),
   payroll: Yup.object({
     review: Yup.object({
-      // workPeriod: Yup.string().required("Required"),
-      rate: Yup.string().required("Required"),
+      workPeriod: Yup.object({
+        from: Yup.date()
+          .typeError("Must select the work period")
+          .required("Required"),
+        to: Yup.date()
+          .typeError("Must select the work period")
+          .required("Required")
+      }),
+      rate: Yup.number().required("Required"),
       overallReview: Yup.string().required("Required")
       // voiceReview: Yup.mixed()
     }),
@@ -169,8 +208,15 @@ export const validationSchemaShort = {
   }),
   worksite: Yup.object({
     review: Yup.object({
-      // workPeriod: Yup.string().required("Required"),
-      rate: Yup.string().required("Required"),
+      workPeriod: Yup.object({
+        from: Yup.date()
+          .typeError("Must select the work period")
+          .required("Required"),
+        to: Yup.date()
+          .typeError("Must select the work period")
+          .required("Required")
+      }),
+      rate: Yup.number().required("Required"),
       overallReview: Yup.string().required("Required")
       // voiceReview: Yup.mixed()
     }),
@@ -180,8 +226,15 @@ export const validationSchemaShort = {
   }),
   company: Yup.object({
     review: Yup.object({
-      // workPeriod: Yup.string().required("Required"),
-      // rate: Yup.string().required("Required"),
+      workPeriod: Yup.object({
+        from: Yup.date()
+          .typeError("Must select the work period")
+          .required("Required"),
+        to: Yup.date()
+          .typeError("Must select the work period")
+          .required("Required")
+      }),
+      rate: Yup.number().required("Required"),
       overallReview: Yup.string().required("Required")
       // voiceReview: Yup.mixed()
     }),

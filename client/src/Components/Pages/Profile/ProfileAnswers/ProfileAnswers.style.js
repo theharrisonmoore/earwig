@@ -64,7 +64,16 @@ export const ListItem = styled.p`
       : `${organizations[props.color].primary}`};
   font-weight: 900;
   font-size: 1rem;
+  /* width: "100%"; */
+  line-height: 2rem;
 `;
+
+export const ListComment = styled.div`
+  display: flex;
+  width: 100%;
+  height: 2rem;
+  justify-content: space-between;
+`
 
 export const PayrollListRow = styled.div`
   margin: 0;
@@ -136,6 +145,8 @@ export const IndividComment = styled.div`
   flex: initial;
   justify-content: flex-start;
   margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 2rem;
 `;
 
 export const UserID = styled.h3`

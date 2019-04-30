@@ -19,9 +19,12 @@ import HelpfulLinks from "./HelpfulLinks";
 import HelpingHand from "./HelpingHand";
 import JobBoard from "./JobBoard";
 import LogoutLogin from "./LogoutLogin";
+import MedalIcon1 from "./MedalIcon1";
+import MedalIcon2 from "./MedalIcon2";
 import OrganisationalRatings from "./OrganisationalRatings";
 import OrHorizontal from "./OrHorizontal";
 import OrVertical from "./OrVertical";
+import OrWhite from "./OrWhite";
 import ParkingSign from "./ParkingSign";
 import Payroll from "./Payroll";
 import PayrollCharges from "./PayrollCharges";
@@ -36,6 +39,8 @@ import ShapeEarwig from "./ShapeEarwig";
 import Supervisor from "./Supervisor";
 import Support from "./Support";
 import Tick from "./Tick";
+import TrophyIcon1 from "./TrophyIcon1";
+import TrophyIcon2 from "./TrophyIcon2";
 import TrustRating from "./TrustRating";
 import VoiceRecord from "./VoiceRecord";
 import WelfareSafety from "./WelfareSafety";
@@ -68,9 +73,12 @@ const iconMap = {
   helpingHand: HelpingHand,
   jobBoard: JobBoard,
   logoutLogin: LogoutLogin,
+  medalIcon1: MedalIcon1,
+  medalIcon2: MedalIcon2,
   organisationalRatings: OrganisationalRatings,
   orHorizontal: OrHorizontal,
   orVertical: OrVertical,
+  orWhite: OrWhite,
   parkingSign: ParkingSign,
   payroll: Payroll,
   payrollCharges: PayrollCharges,
@@ -85,6 +93,8 @@ const iconMap = {
   supervisor: Supervisor,
   support: Support,
   tick: Tick,
+  trophyIcon1: TrophyIcon1,
+  trophyIcon2: TrophyIcon2,
   trustRating: TrustRating,
   voiceRecord: VoiceRecord,
   welfareSafety: WelfareSafety,

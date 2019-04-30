@@ -21,18 +21,18 @@ export const SVGCreator = (source, height, width) => (
 // creates SVG Divs
 export const NewSVGCreator = (source, height, width, color) => (
   <ImgDiv height={height} width={width}>
-    <Icon icon={source} height={height} width={width} />
+    <Icon icon={source} height={height} width={width} color={color} />
   </ImgDiv>
 );
 
 // creates star rating component based on avg ratings of an organisation
-export const StarRateCreator = organisation => (
+export const StarRateCreator = (organisation, value) => (
   <StarRatingComponent
     name="star rating component"
     editing={false}
     starCount={5}
-    value={organisation.avgRatings}
-    starColor={`${organizations[organisation.category].primary}`}
+    value={organisation.avgRatings || value}
+    starColor={`${organizations[organisation.category].primary}` || "red"}
     emptyStarColor={"#D3D3D3"}
   />
 );
@@ -84,4 +84,47 @@ export const handleLogout = () => {
   axios.get(API_LOGOUT_URL).then(() => {
     window.location = LOGIN_URL;
   });
+};
+
+export const questionsNumber = {
+  agency: {
+    full: {
+      count: "17 questions",
+      time: "2 mins"
+    },
+    quick: {
+      count: "1 question",
+      time: "30 secs"
+    }
+  },
+  payroll: {
+    full: {
+      count: "14 questions",
+      time: "2 mins"
+    },
+    quick: {
+      count: "1 question",
+      time: "30 secs"
+    }
+  },
+  worksite: {
+    full: {
+      count: "19 questions",
+      time: "2 mins"
+    },
+    quick: {
+      count: "1 question",
+      time: "30 secs"
+    }
+  },
+  company: {
+    full: {
+      count: "10 questions",
+      time: "1 mins"
+    },
+    quick: {
+      count: "1 question",
+      time: "30 secs"
+    }
+  }
 };

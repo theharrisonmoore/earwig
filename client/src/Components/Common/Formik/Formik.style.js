@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
-import { colors, shadows } from "./../../../theme";
+import { colors, shadows, borders } from "./../../../theme";
 
 export const StyledFormik = styled(Formik).attrs()`
   display: flex;
@@ -52,13 +52,14 @@ export const Button = styled.button`
   padding: 0.5rem 0.75rem;
   background-color: ${colors.white};
   font-size: 1.25rem;
-  border: 1px solid ${colors.black};
+  border: ${props => props.border || borders.buttonBox};
   box-shadow: ${shadows.buttonShadow};
   outline: none;
   font-weight: 900;
   text-transform: capitalize;
   margin-bottom: 1.25rem;
-  color: ${colors.profileFontColor};
+  color: ${props => props.color || colors.profileFontColor};
+  background: ${props => props.background || "none"};
   cursor: pointer;
 
   &:active,

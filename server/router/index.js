@@ -6,6 +6,7 @@ const {
   getOrgsByType,
   getAgencesAndPayrollsNames,
   postReviewShort,
+  getSingleReviewAnswers,
 } = require("../controllers/review");
 
 const adminRouter = require("./admin");
@@ -33,6 +34,7 @@ const profileController = require("./../controllers/profile");
 const commentsController = require("./../controllers/comments");
 const logoutController = require("./../controllers/logout");
 const getWorksiteImgsController = require("./../controllers/getWorksiteImgs");
+const reportContentController = require("./../controllers/reportContent");
 
 const addOrganizationController = require("../controllers/organizations");
 
@@ -48,6 +50,7 @@ const {
   SEARCH_URL,
   LOGOUT_URL,
   ADD_ORGANIZATION_URL,
+  REPORT_CONTENT_URL,
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
@@ -132,10 +135,26 @@ router.post(
   addOrganizationController,
 );
 
-router.use("/confirm-email", validation("onlyMongoId"), confirmJoiningEmailList);
+router.use(
+  "/confirm-email",
+  validation("onlyMongoId"),
+  confirmJoiningEmailList,
+);
+
+
+router.post(
+  REPORT_CONTENT_URL,
+  validation("reportContent"),
+  authentication,
+  authorization("LEVEL1"),
+  reportContentController,
+);
+
 
 router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
 
 router.post("/thinking-of-deleting", authentication, thinkingofDeletingController);
 
 module.exports = router;
+t
+;

@@ -1,6 +1,6 @@
 // media queries
 // so far we only decided to use 1 breakpoint, 768px (tablet)
-const size = {
+export const size = {
   mobileS: "320px",
   mobileM: "375px",
   mobileL: "425px",
@@ -41,6 +41,7 @@ const colorCodes = {
   dustyGray2: "#9B9B9B",
   veryLightGray: "#CDCDCD",
   black: "#000000",
+  black2: "#363636",
   athens1: "#EDEFF2",
   athens2: "#F0F2F4",
   alto: "#D8D8D8",
@@ -124,6 +125,7 @@ export const gradient = {
 
 export const borders = {
   searchBox: `1px solid ${colors.lightGray}`,
+  buttonBox: `1px solid ${colors.black}`,
   commentBox: `1px solid ${colors.veryLightGray}`
 };
 
