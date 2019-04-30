@@ -19,12 +19,12 @@ import { Wrapper, IndividComment } from "./Reply.style";
 import { StyledAntIcon } from "./Profile.style";
 
 import { REPORT_CONTENT_URL } from "../../../constants/naviagationUrls";
-import { API_GET_OVERALL_REVIEW_REPLIES_URL } from "./../../../apiUrls";
-
-import CloseIcon from "./../../../assets/close-icon.svg";
+import {
+  API_GET_OVERALL_REVIEW_REPLIES_URL,
+  API_ADD_COMMENT_ON_OVERALL_REVIEW_URL
+} from "./../../../apiUrls";
 
 import { isMobileDevice, highlightMentions } from "../../../helpers";
-import { API_ADD_COMMENT_ON_QUESTION_URL } from "../../../apiUrls";
 
 import Loading from "./../../Common/AntdComponents/Loading";
 
@@ -71,32 +71,20 @@ export default class Reply extends Component {
       });
   };
 
-  // handleFocus = e => {
-  //   if (isMobileDevice.any()) {
-  //     this.inputWrapper.current.style.marginBottom = "320px";
-  //     this.fixedDiv.current.scrollIntoView(false);
-  //   }
-  // };
-
-  // handleBlur = () => {
-  //   if (isMobileDevice.any()) {
-  //     this.inputWrapper.current.style.marginBottom = "";
-  //   }
-  // };
-
   handleSubmit = () => {
+    const { reviewId, target } = this.props.location.state;
+
     this.validate().then(res => {
       res &&
         this.setState({ errors: {} }, () => {
-          const { organization, question } = this.props;
           const data = {
             text: toString(this.state.commentContentState),
             displayName: this.state.user,
-            question: question._id,
-            organization: organization._id
+            reviewId,
+            target
           };
           axios
-            .post(API_ADD_COMMENT_ON_QUESTION_URL, data)
+            .post(API_ADD_COMMENT_ON_OVERALL_REVIEW_URL, data)
             .then(({ data }) => {
               const question = {
                 ...this.props.question,
@@ -121,20 +109,31 @@ export default class Reply extends Component {
       ? axios
           .get(`${API_GET_OVERALL_REVIEW_REPLIES_URL}/${id}`)
           .then(({ data }) => {
-            this.setState({ replies: data, activeOverallId: id, loaded: true });
+            this.setState({
+              replies: data,
+              activeOverallId: id,
+              loaded: true,
+              reviewId: id
+            });
           })
           .catch(err => {
             console.log(err);
           })
-      : this.setState({ replies: [], activeOverallId: "", loaded: true });
+      : this.setState({
+          replies: [],
+          activeOverallId: "",
+          loaded: true,
+          reviewId: id
+        });
   };
 
   componentDidMount() {
-    const { reviewId } = this.props.location.state;
-    console.log(reviewId);
-
-    this.fetchOverallReplies(reviewId);
+    const { reviewId, target } = this.props.location.state;
+    if (target === "overall") {
+      this.fetchOverallReplies(reviewId);
+    }
   }
+
   render() {
     const {
       question,
@@ -145,14 +144,14 @@ export default class Reply extends Component {
       organization
     } = this.state;
 
-    // const users =
-    //   comments &&
-    //   comments.reduce((prev, curr) => {
-    //     prev.push(curr.displayName || curr.userId);
-    //     return prev;
-    //   }, []);
+    const users =
+      replies &&
+      replies.reduce((prev, curr) => {
+        prev.push(curr.replies.displayName || curr.replies.user[0].userId);
+        return prev;
+      }, []);
 
-    const users = [];
+    // const users = [];
     if (!this.state.loaded) {
       return <Loading />;
     }

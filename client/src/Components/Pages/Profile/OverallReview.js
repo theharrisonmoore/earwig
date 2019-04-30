@@ -110,7 +110,7 @@ export default class OverallReview extends Component {
                     <Link
                       to={{
                         pathname: REPLY_URL,
-                        state: { reviewId: review._id }
+                        state: { reviewId: review._id, target: "overall" }
                       }}
                     >
                       Reply
