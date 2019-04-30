@@ -92,7 +92,7 @@ export default class Profile extends Component {
   };
 
   reviewsByMonth = () => {
-    const { reviews } = this.state.summary;
+    const { reviews, totalReviews } = this.state.summary;
 
     const reviewMonths = reviews.map(review =>
       moment(review.createdAt).format("MMM")
@@ -113,9 +113,9 @@ export default class Profile extends Component {
       Dec: 0
     };
 
-    reviewMonths.map(month => (reviewMonthsCount[month] += 1));
+    if (totalReviews === 0) return reviewMonthsCount
 
-    console.log("REv", reviewMonthsCount)
+    reviewMonths.map(month => (reviewMonthsCount[month] += 1));
 
     return reviewMonthsCount;
   };
