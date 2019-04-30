@@ -26,20 +26,22 @@ module.exports = async (req, res, next) => {
   
   </div>`;
 
-  const to = "joseph.s.friel@gmail.com";
+  const to = process.env.EMAIL;
   const adminUser = process.env.EMAIL;
   const pass = process.env.EMAIL_PASSWORD;
   const subject = "Feedback Message from User";
   const from = process.env.EMAIL;
 
-  await mailer({
-    from,
-    to,
-    subject,
-    html,
-    user: adminUser,
-    pass,
-  }).catch(err => next(boom.badImplementation(err)));
+  if (process.env.NODE_ENV === "production") {
+    await mailer({
+      from,
+      to,
+      subject,
+      html,
+      user: adminUser,
+      pass,
+    }).catch(err => next(boom.badImplementation(err)));
+  }
 
   return res.json({ message: "Message sent" });
 };
