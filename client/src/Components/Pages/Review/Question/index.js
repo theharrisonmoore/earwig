@@ -54,6 +54,7 @@ const Question = props => {
     hasComment
   } = props.question;
   const { questions, values, errors, setFieldValue, dropdownOptions } = props;
+
   return (
     <QuestionWrapper>
       <QText>{text}</QText>
@@ -443,9 +444,6 @@ class QuestionOptions extends React.Component {
               />
             )}
           </Field>
-          <ErrorMessage name="review.rate">
-            {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
-          </ErrorMessage>
         </QuestionOptionsWrapper>
       );
     }
@@ -454,7 +452,7 @@ class QuestionOptions extends React.Component {
   }
 }
 
-const RadioButton = ({
+export const RadioButton = ({
   field: { name, value, onChange, onBlur },
   id,
   label,

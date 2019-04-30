@@ -4,7 +4,9 @@ import { Route, Switch } from "react-router-dom";
 import { routes } from "./../../../../constants/adminRoutes";
 
 import AllReviews from "./AllReviews";
-const { REVIEWS_ALL, REVIEWS_VERIFY } = routes;
+import SingleReview from "./SingleReview";
+
+const { REVIEWS_ALL, REVIEWS_VERIFY, SINGLE_REVIEW } = routes;
 
 export default class Reviews extends Component {
   render() {
@@ -15,6 +17,11 @@ export default class Reviews extends Component {
           exact
           path={REVIEWS_VERIFY}
           render={props => <AllReviews awaitingReview />}
+        />
+        <Route
+          exact
+          path={SINGLE_REVIEW}
+          render={props => <SingleReview {...props} />}
         />
       </Switch>
     );
