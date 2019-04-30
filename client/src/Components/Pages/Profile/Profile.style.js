@@ -11,6 +11,7 @@ export const Wrapper = styled.div`
   padding-top: ${props => (props.isMobile ? "3rem" : "4rem")};
   text-align: left;
   padding-bottom: 2rem;
+  font-size: 1rem;
 `;
 
 export const Banner = styled.div`
@@ -229,6 +230,8 @@ export const AccountLink = styled(VerifyLink)`
 
 export const AccountItem = styled.div`
   display: flex;
+  align-items: center;
+  margin: 1.25rem 0;
 `;
 
 export const StyledAntIcon = styled(AntIcon)`

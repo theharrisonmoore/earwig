@@ -22,14 +22,13 @@ export const Wrapper = styled.div`
 
 export const Logo = styled.img`
   width: 11rem;
-  margin: ${props => props.isMobile ? "0 0 2rem 0" : "2rem 0 4rem 0"};
-
+  margin: ${props => (props.isMobile ? "0 0 2rem 0" : "2rem 0 4rem 0")};
 `;
 
 export const TopWrapper = styled.div`
   display: flex;
   flex-direction: ${props => props.direction || "column"};
-  margin-bottom: ${props => props.isMobile ? "0" : "2rem"};
+  margin-bottom: ${props => (props.isMobile ? "0" : "2rem")};
 `;
 
 export const HalfDiv = styled.div`
@@ -87,17 +86,16 @@ export const SmallLink = styled(StyledLink)`
 export const FormWrapper = styled.div`
   width: 100%;
   max-width: 30rem;
-  color: ${colors.white};
   padding: 1rem;
 `;
 
 export const Video = styled.iframe`
   position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 `;
 
 export const VideoWrapper = styled.div`
@@ -131,12 +129,12 @@ export const PromiseParagraph = styled.p`
 `;
 
 export const Award = styled.div`
-  width: ${props => props.isMobile ? "100%" : "50%"};
-`
+  width: ${props => (props.isMobile ? "100%" : "50%")};
+`;
 
 export const AwardsWrapper = styled.div`
   padding: 3rem 0 0 0;
-`
+`;
 
 export const AwardTitle = styled.h3`
   margin: 0;
@@ -150,5 +148,10 @@ export const AwardTitle = styled.h3`
 export const AwardDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding-top: ${props => props.isMobile ? "0" : "1rem"}
-  `;
+  padding-top: ${props => (props.isMobile ? "0" : "1rem")};
+`;
+
+export const LabelTitle = styled.p`
+  color: ${colors.white};
+  margin: 0;
+`;

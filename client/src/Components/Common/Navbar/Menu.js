@@ -52,14 +52,14 @@ export default class Menu extends PureComponent {
         </MenuItem>
         <MenuItem to={RESOURCES_URL} onClick={toggleMenu}>
           <MenuIcon icon="helpfulLinks" height="19" width="19" />
-          More helpful stuff for workers
+          Stuff you might find helpful
         </MenuItem>
         <MenuItem to={CONTACT_URL} onClick={toggleMenu}>
           <MenuIcon icon="shapeEarwig" height="19" width="19" />
           Shape earwig
         </MenuItem>
         <MenuItem to={PRIVACY_URL} onClick={toggleMenu}>
-        <MenuIcon icon="privacyTerms" height="19" width="19" />
+          <MenuIcon icon="privacyTerms" height="19" width="19" />
           Privacy & terms
         </MenuItem>
         {isLoggedIn ? (

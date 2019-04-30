@@ -8,10 +8,10 @@ const OrWhite = props => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M.5 29h278.52" stroke="#fff" stroke-linecap="square" />
+    <path d="M.5 29h278.52" stroke="#fff" strokeLinecap="square" />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M138.5 57c15.464 0 28-12.536 28-28s-12.536-28-28-28-28 12.536-28 28 12.536 28 28 28z"
       fill="#fff"
       stroke="#fff"

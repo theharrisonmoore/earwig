@@ -39,6 +39,7 @@ const reportContentController = require("./../controllers/reportContent");
 const addOrganizationController = require("../controllers/organizations");
 
 const thinkingofDeletingController = require("../controllers/thinkingOfDeleting");
+const feedbackController = require("../controllers/feedback");
 
 const userReviewsController = require("../controllers/getUserReviews");
 
@@ -135,12 +136,7 @@ router.post(
   addOrganizationController,
 );
 
-router.use(
-  "/confirm-email",
-  validation("onlyMongoId"),
-  confirmJoiningEmailList,
-);
-
+router.use("/confirm-email", validation("onlyMongoId"), confirmJoiningEmailList);
 
 router.post(
   REPORT_CONTENT_URL,
@@ -150,9 +146,10 @@ router.post(
   reportContentController,
 );
 
-
 router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
 
 router.post("/thinking-of-deleting", authentication, thinkingofDeletingController);
+
+router.post("/give-feedback", authentication, feedbackController);
 
 module.exports = router;
