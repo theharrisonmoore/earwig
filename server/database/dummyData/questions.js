@@ -584,6 +584,7 @@ module.exports = async () => {
         text: "Getting on to site",
       },
       hasComment: true,
+      icon: "bus",
     },
     {
       number: 2,
@@ -606,6 +607,7 @@ module.exports = async () => {
         text: "Getting on to site",
       },
       hasComment: true,
+      icon: "parkingSign",
     },
     {
       number: 3,
@@ -631,13 +633,14 @@ module.exports = async () => {
       category: "worksite",
       profileText: "Secure storage for your personal belongings",
       profileSection: "Getting onto site",
-      profileType: "yesno",
+      profileType: "siteItem",
       group: {
         groupOrder: 0,
         name: "getToSite",
         text: "Getting on to site",
       },
       hasComment: true,
+      icon: "lockers",
     },
 
     {
@@ -656,6 +659,7 @@ module.exports = async () => {
         text: "Getting on to site",
       },
       hasComment: true,
+      icon: "fingerprint",
     },
 
     {
@@ -744,6 +748,7 @@ module.exports = async () => {
         text: "The site welfare",
       },
       hasComment: true,
+      icon: "water",
     },
     {
       number: 11,
@@ -761,6 +766,7 @@ module.exports = async () => {
         text: "The site welfare",
       },
       hasComment: true,
+      icon: "prayerRoom"
     },
     {
       number: 12,
@@ -807,9 +813,9 @@ module.exports = async () => {
       text: "What amenities did the canteen have?",
       isJumping: false,
       options: [
-        "Hot foot served",
+        "Hot food served",
         "Vending machines",
-        "Tables and charis",
+        "Tables and chairs",
         "Microwave",
         "Kettle/boiling water",
         "Fridge",
@@ -840,6 +846,7 @@ module.exports = async () => {
         text: "The site welfare",
       },
       hasComment: true,
+      icon: "hotFood",
     },
     {
       number: 16,
@@ -857,6 +864,7 @@ module.exports = async () => {
         text: "The site welfare",
       },
       hasComment: true,
+      icon: "cheapFood",
     },
     {
       number: 17,

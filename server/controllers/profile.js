@@ -31,11 +31,15 @@ module.exports = async (req, res, next) => {
   } else {
     summary = await basicReview(organizationID).catch(err => next(boom.badImplementation(err)));
 
+    if (summary[0].reviews.length === 0) summary[0].reviews = [{}]
+
     reviewDetails = [];
 
     level = 0;
   }
 
+  console.log("SUMM", summary)
+  console.log("reviews", reviewDetails)
   // console.log("SUM", summary);
   // console.log("REV", summary[0].reviews[0]);
 

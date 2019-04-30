@@ -92,7 +92,7 @@ export default function index(props) {
 
         <PrivateRoute
           exact
-          minimumLevel="LEVEL1"
+          minimumLevel="LEVEL0"
           path={ORGS_PROFILE_URL}
           isTablet={isTablet}
           isMobile={isMobile}
@@ -190,19 +190,19 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL3"
+          minimumLevel="LEVEL0"
           path={RESOURCES_URL}
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
           Component={HelpfulStuff}
           navbar
-          title="More helpful stuff for workers"
+          title="Stuff you might find helpful"
           search
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL1"
+          minimumLevel="LEVEL0"
           path={CONTACT_URL}
           {...props}
           isMobile={isMobile}
@@ -214,7 +214,7 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL1"
+          minimumLevel="LEVEL0"
           path={PRIVACY_URL}
           {...props}
           isMobile={isMobile}

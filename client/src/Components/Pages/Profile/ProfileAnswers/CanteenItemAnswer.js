@@ -2,10 +2,11 @@ import React, { Component } from "react";
 
 import {
   ListWrapper,
-  SiteItem,
-  SiteIcon,
+  CanteenItem,
   CanteenSubList
 } from "./ProfileAnswers.style";
+
+import Icon from "./../../../Common/Icon/Icon"
 
 export default class CanteenItemAnswer extends Component {
   getAverage = answers => {
@@ -41,10 +42,10 @@ export default class CanteenItemAnswer extends Component {
       <ListWrapper>
         {hasCanteen ? (
           <>
-            <SiteItem itemAvailable>
-              <SiteIcon src="/icons/tick-icon.svg" itemAvailable />
+            <CanteenItem itemAvailable>
+              <Icon icon="canteen" margin="0 1rem 0 0" height="1.5rem" width="1.5rem" />
               <p>{canteenHeader[0].question.profileText}</p>
-            </SiteItem>
+            </CanteenItem>
             {questions
               .filter(question => question.question.profileText !== "Canteen:")
               .map((question, index) =>
@@ -71,10 +72,10 @@ export default class CanteenItemAnswer extends Component {
               )}
           </>
         ) : (
-          <SiteItem>
-            <SiteIcon src="/icons/not-tick-icon.svg" />
+          <CanteenItem>
+            <Icon icon="canteen" margin="0 1rem 0 0" height="1.5rem" width="1.5rem" />
             <p>Canteen</p>
-          </SiteItem>
+          </CanteenItem>
         )}
       </ListWrapper>
     );
