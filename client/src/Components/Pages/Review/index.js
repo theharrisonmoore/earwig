@@ -68,7 +68,6 @@ class Review extends Component {
         }
       })
       .then(res => {
-        console.log(res.data);
         this.setState({
           groups: res.data,
           isLoading: false,
