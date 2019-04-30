@@ -51,7 +51,6 @@ const postReviewShort = async (req, res, next) => {
     await newReview.save();
     res.send();
   } catch (error) {
-    console.log("error", error);
     next(boom.badImplementation);
   }
 };
@@ -69,6 +68,13 @@ const postReview = async (req, res, next) => {
     const organizationData = await getOrganization(organization.category, organization.name);
     const userData = await findByEmail(user.email);
     const questions = await getQuestionsByOrgCategory(organization.category);
+
+    const questionsObject = {};
+    questions.forEach((q) => {
+      if (!questionsObject[q.number]) {
+        questionsObject[q.number] = q;
+      }
+    });
 
     const newReview = new Review({
       rate,
@@ -90,7 +96,7 @@ const postReview = async (req, res, next) => {
           const comment = {
             user: userData,
             organization: organizationData,
-            question: questions[c - 1],
+            question: questionsObject[c],
             text: comments[c],
           };
           return comment;
@@ -99,8 +105,8 @@ const postReview = async (req, res, next) => {
       })
       .filter(value => value);
 
-    const commentssss = await Comment.insertMany(commentsData);
-    const commentedQuestions = commentssss.map(comment => ({ id: comment.question.number, comment }));
+    const insertedComments = await Comment.insertMany(commentsData);
+    const commentedQuestions = insertedComments.map(comment => ({ id: comment.question.number, comment }));
 
     const reviewAnswers = Object.keys(questionsAnswers)
       .sort((a, b) => a - b)
@@ -108,7 +114,7 @@ const postReview = async (req, res, next) => {
         const answer = {
           user: userData,
           review: currentReview,
-          question: questions[qAnswer - 1],
+          question: questionsObject[qAnswer],
           answer: questionsAnswers[qAnswer],
           organization: organizationData,
         };
@@ -122,13 +128,11 @@ const postReview = async (req, res, next) => {
 
         return answer;
       });
-
     const allAnswers = [...reviewAnswers];
     await Answer.insertMany(allAnswers);
 
     res.send();
   } catch (error) {
-    console.log("review controller error", error);
     next(boom.badImplementation);
   }
 };
@@ -147,7 +151,6 @@ const getOrgsByType = async (req, res, next) => {
     const names = organization[0].category;
     res.send({ names });
   } catch (err) {
-    console.log("database query error", err);
     next(boom.badImplementation());
   }
 };
@@ -157,7 +160,6 @@ const getAgencesAndPayrollsNames = async (req, res, next) => {
     const agencyAndPayrolls = await getAgenciesAndPayrollsNames();
     res.send(agencyAndPayrolls);
   } catch (err) {
-    console.log("database query error", err);
     next(boom.badImplementation());
   }
 };
