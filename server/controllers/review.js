@@ -93,6 +93,7 @@ const postReview = async (req, res, next) => {
           review: currentReview,
           question: questions[qAnswer - 1],
           answer: questionsAnswers[qAnswer],
+          organization: organizationData,
         };
         return answer;
       });

@@ -156,5 +156,3 @@ router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
 router.post("/thinking-of-deleting", authentication, thinkingofDeletingController);
 
 module.exports = router;
-t
-;

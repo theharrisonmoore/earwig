@@ -1,7 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { Carousel } from "antd";
-import "./Slider.css";
+import { withRouter } from "react-router-dom";
+
+import { SliderWrapper, ImgWrapper, Image } from "./ProfileAnswers.style";
 
 import { ReactComponent as LeftArrow } from "../../../../assets/leftarrowicon.svg";
 
@@ -11,7 +13,7 @@ class Slider extends React.Component {
   constructor(props) {
     super(props);
     this.carousel = React.createRef();
-    this.state = { images: [] };
+    this.state = { images: [], errors: { image: "" } };
   }
 
   componentDidMount() {
@@ -19,11 +21,12 @@ class Slider extends React.Component {
     axios
       .post("/api/wroksite-images", images)
       .then(res => {
-        console.log("res", res.data.images);
         this.setState({ images: res.data.images });
       })
       .catch(err => {
-        console.log("err", err);
+        this.setState({
+          errors: { ...this.state.errors, image: "image error" }
+        });
       });
   }
 
@@ -35,62 +38,44 @@ class Slider extends React.Component {
     this.carousel.prev();
   };
   render() {
-    const { question } = this.props;
-
-    // const images = question.answers.map(item => item.answer);
-    console.log("images", this.state.images);
-    const images = this.state.images;
+    const { images } = this.state;
     return (
-      <div
-        style={{
-          background: "grey",
-          position: "relative",
-          width: "70%",
-          margin: "0 auto"
-        }}
-      >
-        <LeftArrow
-          fill="white"
-          height="2rem"
-          width="2rem"
-          onClick={this.previous}
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "0",
-            zIndex: "10000",
-            transform: "translateY(-50%)"
-          }}
-        />
-
-        <Carousel
-          effect="scrollx"
-          dots={false}
-          ref={node => (this.carousel = node)}
-        >
-          {images &&
-            images.map(img => (
-              <div>
-                <img src={img} alt="" />
-              </div>
-            ))}
-        </Carousel>
-        <RightArrow
-          height="2rem"
-          width="2rem"
-          fill="white"
-          onClick={this.previous}
-          style={{
-            position: "absolute",
-            top: "50%",
-            right: "0",
-            zIndex: "10000",
-            transform: "translateY(-50%)"
-          }}
-        />
-      </div>
+      <>
+        {this.state.errors && !this.state.errors.image ? (
+          <SliderWrapper>
+            <LeftArrow
+              fill="white"
+              height="2rem"
+              width="2rem"
+              onClick={this.next}
+              className="left-arrow"
+            />
+            <Carousel
+              effect="scrollx"
+              dots={false}
+              ref={node => (this.carousel = node)}
+            >
+              {images &&
+                images.map(img => (
+                  <ImgWrapper>
+                    <Image src={img} alt="" />
+                  </ImgWrapper>
+                ))}
+            </Carousel>
+            <RightArrow
+              height="2rem"
+              width="2rem"
+              fill="white"
+              onClick={this.previous}
+              className="right-arrow"
+            />
+          </SliderWrapper>
+        ) : (
+          <div>Something went wrong try to refresh the page</div>
+        )}
+      </>
     );
   }
 }
 
-export default Slider;
+export default withRouter(Slider);
