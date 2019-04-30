@@ -708,6 +708,7 @@ module.exports = async () => {
       category: "worksite",
       profileText: "Site images",
       profileSection: "Working on the site",
+      profileType: "image",
       group: {
         groupOrder: 1,
         name: "onTheSite",

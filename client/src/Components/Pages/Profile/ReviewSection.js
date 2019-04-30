@@ -19,10 +19,17 @@ import SiteItemAnswer from "./ProfileAnswers/SiteItemAnswer";
 import CanteenItemAnswer from "./ProfileAnswers/CanteenItemAnswer";
 import BarChartAnswer from "./ProfileAnswers/BarChartAnswer";
 import PayrollAnswer from "./ProfileAnswers/PayrollAnswer";
+import ImageSlider from "./ProfileAnswers/ImageSlider";
 
 export default class ReviewSection extends Component {
   render() {
-    const { sectionDetails, category, toggleComments, summary, isMobile } = this.props;
+    const {
+      sectionDetails,
+      category,
+      toggleComments,
+      summary,
+      isMobile
+    } = this.props;
     const { _id: sectionTitle, questions } = sectionDetails;
 
     let canteenQuestions =
@@ -59,39 +66,45 @@ export default class ReviewSection extends Component {
         )}
 
         {questions &&
-          questions
-            .map((question, index) => ["yesno", "pieChart", "dotChart"].includes(question.question.profileType) && (
-              <QuestionWrapper key={index}>
-                <QuestionTitle>{question.question.profileText}</QuestionTitle>
-                {question.question.profileType === "yesno" && (
-                  <YesNoAnswer
-                  question={question}
-                  toggleComments={toggleComments}
-                  isMobile={isMobile}
-                  />
-                )}
-                {question.question.profileType === "pieChart" && (
-                  <PieAnswer
-                  category={category}
-                  question={question}
-                  toggleComments={toggleComments}
-                  isMobile={isMobile}
-                  />
-                )}
-                {question.question.profileType === "dotChart" && (
-                  <ScatterAnswer
-                  category={category}
-                  question={question}
-                  toggleComments={toggleComments}
-                  isMobile={isMobile}
-                  />
-                )}
-              </QuestionWrapper>
-            ))}
+          questions.map(
+            (question, index) =>
+              ["yesno", "pieChart", "dotChart"].includes(
+                question.question.profileType
+              ) && (
+                <QuestionWrapper key={index}>
+                  <QuestionTitle>{question.question.profileText}</QuestionTitle>
+                  {question.question.profileType === "yesno" && (
+                    <YesNoAnswer
+                      question={question}
+                      toggleComments={toggleComments}
+                      isMobile={isMobile}
+                    />
+                  )}
+                  {question.question.profileType === "pieChart" && (
+                    <PieAnswer
+                      category={category}
+                      question={question}
+                      toggleComments={toggleComments}
+                      isMobile={isMobile}
+                    />
+                  )}
+                  {question.question.profileType === "dotChart" && (
+                    <ScatterAnswer
+                      category={category}
+                      question={question}
+                      toggleComments={toggleComments}
+                      isMobile={isMobile}
+                    />
+                  )}
+                </QuestionWrapper>
+              )
+          )}
 
         {questions &&
           questions
-            .filter(question => question.question.profileType === "siteItem")
+            .filter(question => {
+              return question.question.profileType === "siteItem";
+            })
             .map((question, index) => (
               <QuestionWrapper key={index}>
                 <SiteItemAnswer
@@ -148,6 +161,18 @@ export default class ReviewSection extends Component {
                 <BarChartAnswer category={category} question={question} />
               </QuestionWrapper>
             ))}
+        {/* site images */}
+        {questions &&
+          questions
+            .filter(question => question.question.type === "image")
+            .map((question, index) => {
+              return (
+                <QuestionWrapper key={question._id}>
+                  <QuestionTitle>{question.question.profileText}</QuestionTitle>
+                  <ImageSlider category={category} question={question} />
+                </QuestionWrapper>
+              );
+            })}
       </Wrapper>
     );
   }

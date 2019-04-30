@@ -33,6 +33,7 @@ const searchController = require("../controllers/search");
 const profileController = require("./../controllers/profile");
 const commentsController = require("./../controllers/comments");
 const logoutController = require("./../controllers/logout");
+const getWorksiteImgsController = require("./../controllers/getWorksiteImgs");
 const reportContentController = require("./../controllers/reportContent");
 
 const addOrganizationController = require("../controllers/organizations");
@@ -54,19 +55,16 @@ const {
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
-
 router.get("/user", authentication, userInfoController);
 
-router.get(GET_QUESTIONS_URL, getByOrg);
-
-router.post(REVIEW_URL, postReview);
-router.post("/short-review", postReviewShort);
+router.get(GET_QUESTIONS_URL, authentication, authorization("LEVEL3"), getByOrg);
+router.post(REVIEW_URL, authentication, authorization("LEVEL3"), postReview);
+router.post("/short-review", authentication, authorization("LEVEL3"), postReviewShort);
 
 // Add new payroll and agency
-router.get("/organizations", getOrgsByType);
-router.post("/organizations", addNewAgencyPayroll);
-
-router.get("/agency-payroll", getAgencesAndPayrollsNames);
+router.get("/organizations", authentication, authorization("LEVEL3"), getOrgsByType);
+router.post("/organizations", authentication, authorization("LEVEL3"), addNewAgencyPayroll);
+router.get("/agency-payroll", authentication, authorization("LEVEL3"), getAgencesAndPayrollsNames);
 
 // require all the routes in this file
 router.post(LOGIN_URL, validation("login"), loginController);
@@ -79,6 +77,10 @@ router.post("/comments", commentsController);
 router.post(LOGIN_URL, validation("login"), loginController);
 
 router.use(LOGOUT_URL, logoutController);
+
+// get worksite images route
+
+router.post("/wroksite-images", authentication, authorization("LEVEL3"), getWorksiteImgsController);
 
 router.post(
   "/upload-verification-image",

@@ -3,6 +3,8 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 import Add from "./Add";
+import LeftArrow from "./LeftArrow";
+import RightArrow from "./RightArrow";
 import Agency from "./Agency";
 import AgencyThanks from "./AgencyThanks";
 import Arrow from "./Arrow";
@@ -62,6 +64,8 @@ const iconStyles = props => css`
 `;
 
 const iconMap = {
+  right: RightArrow,
+  left: LeftArrow,
   add: Add,
   agency: Agency,
   agencyThanks: AgencyThanks,
