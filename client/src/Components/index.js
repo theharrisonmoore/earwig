@@ -189,7 +189,7 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL3"
+          minimumLevel="LEVEL0"
           path={RESOURCES_URL}
           {...props}
           isMobile={isMobile}
@@ -201,7 +201,7 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL1"
+          minimumLevel="LEVEL0"
           path={CONTACT_URL}
           {...props}
           isMobile={isMobile}
@@ -213,7 +213,7 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL1"
+          minimumLevel="LEVEL0"
           path={PRIVACY_URL}
           {...props}
           isMobile={isMobile}

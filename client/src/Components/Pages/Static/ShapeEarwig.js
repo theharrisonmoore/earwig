@@ -5,13 +5,17 @@ import {
   ContentWrapper,
   MainIcon,
   LargeParagraph,
-  TextArea,
-  Button,
   PageTitle
 } from "./../../Common/StaticPages.style";
 
+import CommentSection from "./../../Common/CommentSection";
+
+import { CONTACT_URL } from "./../../../constants/naviagationUrls.js";
+
 export default class ShapeEarwig extends Component {
   render() {
+    const { isLoggedIn } = this.props;
+
     return (
       <Wrapper>
         <ContentWrapper>
@@ -20,12 +24,12 @@ export default class ShapeEarwig extends Component {
           <LargeParagraph>
             Have you got an idea for a new earwig feature or review question?
           </LargeParagraph>
-
-          <LargeParagraph>
-            Help shape earwig so it’s more helpful for you and other workers.
-          </LargeParagraph>
-          <TextArea />
-          <Button>Send</Button>
+          <CommentSection
+            title="Help shape earwig so it’s more helpful for you
+            and other workers."
+            section={CONTACT_URL}
+            isLoggedIn={isLoggedIn}
+          />
         </ContentWrapper>
       </Wrapper>
     );

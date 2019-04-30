@@ -85,6 +85,7 @@ export const LargeParagraph = styled.p`
   color: ${colors.profileFontColor};
   text-align: center;
   margin-top: 3rem;
+  font-style: italic;
 `;
 
 export const TextArea = styled.textarea`

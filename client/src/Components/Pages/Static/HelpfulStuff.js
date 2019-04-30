@@ -6,15 +6,16 @@ import {
   MainIcon,
   SubTitle,
   SmallParagraph,
-  LargeParagraph,
-  TextArea,
-  Button,
-  PageTitle,
-  Devider
+  PageTitle
 } from "./../../Common/StaticPages.style";
+
+import CommentSection from "./../../Common/CommentSection";
+
+import { RESOURCES_URL } from "./../../../constants/naviagationUrls.js";
 
 export default class HelpfulStuff extends Component {
   render() {
+    const { isLoggedIn } = this.props;
     return (
       <Wrapper>
         <ContentWrapper>
@@ -41,12 +42,11 @@ export default class HelpfulStuff extends Component {
             tritani quaerendum mea, eos omnium accusamus et. Fuisset eligendi no
             cum. Porro delectus oportere has no.
           </SmallParagraph>
-          <Devider />
-          <LargeParagraph>
-            Still got a question? Ask us and we’ll get back to you shortly.
-          </LargeParagraph>
-          <TextArea />
-          <Button>Send</Button>
+          <CommentSection
+            title="Wanna recommend something useful to help other workers? Let us know so we can add it here."
+            section={RESOURCES_URL}
+            isLoggedIn={isLoggedIn}
+          />
         </ContentWrapper>
       </Wrapper>
     );

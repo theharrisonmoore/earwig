@@ -7,15 +7,17 @@ import {
   SubTitle,
   SmallParagraph,
   Iframe,
-  LargeParagraph,
-  TextArea,
-  Button,
-  PageTitle,
-  Devider
+  PageTitle
 } from "./../../Common/StaticPages.style";
+
+import CommentSection from "./../../Common/CommentSection";
+
+import { FAQ_URL } from "./../../../constants/naviagationUrls.js";
 
 export default class FAQ extends Component {
   render() {
+    const { isLoggedIn } = this.props;
+
     return (
       <Wrapper>
         <ContentWrapper>
@@ -52,12 +54,11 @@ export default class FAQ extends Component {
             src="https://www.youtube.com/embed/OCWj5xgu5Ng"
             frameBorder="0"
           />
-          <Devider />
-          <LargeParagraph>
-            Still got a question? Ask us and we’ll get back to you shortly.
-          </LargeParagraph>
-          <TextArea />
-          <Button>Send</Button>
+          <CommentSection
+            title="Still got a question? Ask us and we'll get back to you shortly"
+            section={FAQ_URL}
+            isLoggedIn={isLoggedIn}
+          />
         </ContentWrapper>
       </Wrapper>
     );
