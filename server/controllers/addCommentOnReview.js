@@ -22,8 +22,6 @@ module.exports = async (req, res, next) => {
       res.json();
     }
   } catch (error) {
-    console.log(error);
-
-    next(boom.badImplementation());
+    next(boom.badImplementation(error));
   }
 };

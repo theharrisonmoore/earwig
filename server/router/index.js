@@ -157,14 +157,16 @@ router.post(
 router.post(
   ADD_COMMENT_ON_QUESTION_URL,
   authentication,
-  // validation("onlyMongoId"),
+  authorization("LEVEL1"),
+  validation("addCommentOnQuestion"),
   addCommentOnQuestion,
 );
 
 router.post(
   ADD_COMMENT_ON_REVIEW_URL,
   authentication,
-  // validation("onlyMongoId"),
+  authorization("LEVEL3"),
+  validation("addCommentOnReview"),
   addCommentOnReview,
 );
 
@@ -172,7 +174,7 @@ router.post(
 router.get(
   `${GET_OVERALL_REVIEW_REPLIES_URL}/:id`,
   authentication,
-  // validation("onlyMongoId"),
+  authorization("LEVEL1"),
   getOverallReviewReplies,
 );
 
