@@ -12,8 +12,6 @@ import {
 
 import CommentSection from "./../../Common/CommentSection";
 
-import { FAQ_URL } from "./../../../constants/naviagationUrls.js";
-
 export default class FAQ extends Component {
   render() {
     const { isLoggedIn } = this.props;
@@ -56,7 +54,6 @@ export default class FAQ extends Component {
           />
           <CommentSection
             title="Still got a question? Ask us and we'll get back to you shortly"
-            section={FAQ_URL}
             isLoggedIn={isLoggedIn}
           />
         </ContentWrapper>

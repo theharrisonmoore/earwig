@@ -11,8 +11,6 @@ import {
 
 import CommentSection from "./../../Common/CommentSection";
 
-import { RESOURCES_URL } from "./../../../constants/naviagationUrls.js";
-
 export default class HelpfulStuff extends Component {
   render() {
     const { isLoggedIn } = this.props;
@@ -44,7 +42,6 @@ export default class HelpfulStuff extends Component {
           </SmallParagraph>
           <CommentSection
             title="Wanna recommend something useful to help other workers? Let us know so we can add it here."
-            section={RESOURCES_URL}
             isLoggedIn={isLoggedIn}
           />
         </ContentWrapper>

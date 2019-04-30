@@ -10,8 +10,6 @@ import {
 
 import CommentSection from "./../../Common/CommentSection";
 
-import { CONTACT_URL } from "./../../../constants/naviagationUrls.js";
-
 export default class ShapeEarwig extends Component {
   render() {
     const { isLoggedIn } = this.props;
@@ -27,7 +25,6 @@ export default class ShapeEarwig extends Component {
           <CommentSection
             title="Help shape earwig so it’s more helpful for you
             and other workers."
-            section={CONTACT_URL}
             isLoggedIn={isLoggedIn}
           />
         </ContentWrapper>
