@@ -105,11 +105,11 @@ export default class AddProfileSelection extends Component {
               </ItemDiv>
             </RowDiv>
           </LogosContainer>
-          <ProfileLink to={SEARCH_URL}>
+          <AddProfileLink to={SEARCH_URL}>
             <FooterDiv>
               <H3>Cancel and return to Search</H3>
             </FooterDiv>
-          </ProfileLink>
+          </AddProfileLink>
         </MainDiv>
       </AddWrapper>
     );
