@@ -53,7 +53,23 @@ export default ({ deletHandler, viewHandler }) => {
                 Delete
               </Button>
               <Button type="primary" ghost>
-                <Link to={`${record._id}`}>View</Link>
+                <Link
+                  to={{
+                    pathname: `${record._id}`,
+                    state: {
+                      name: record.organization.name,
+                      category: record.organization.category,
+                      userEmail: record.user.email,
+                      userID: record.user.userId,
+                      rating: text.rate,
+                      overallRev: text.overallReview,
+                      revID: text._id,
+                      isVerified: text.isVerified
+                    }
+                  }}
+                >
+                  View
+                </Link>
               </Button>
             </div>
           </div>

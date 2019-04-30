@@ -17,7 +17,8 @@ module.exports = (awaitingReview) => {
         foreignField: "_id",
         as: "organization",
       },
-    }, {
+    },
+    {
       $project: {
         user: {
           $arrayElemAt: ["$user", 0],
@@ -27,6 +28,7 @@ module.exports = (awaitingReview) => {
         },
         isVerified: 1,
         rate: 1,
+        overallReview: 1,
       },
     },
   ];
