@@ -57,13 +57,11 @@ const postReviewShort = async (req, res, next) => {
 };
 
 const postReview = async (req, res, next) => {
-  console.log("req.body=========================", req.body);
   const {
     questions: questionsAnswers,
     review: {
       rate, overallReview, workPeriod, voiceReview,
     },
-    worksiteImage,
     comments,
   } = req.body.values;
   const { user, organization } = req.body;
@@ -85,19 +83,6 @@ const postReview = async (req, res, next) => {
 
     const currentReview = await newReview.save();
 
-    const reviewAnswers = Object.keys(questionsAnswers)
-      .sort((a, b) => a - b)
-      .map((qAnswer) => {
-        const answer = {
-          user: userData,
-          review: currentReview,
-          question: questions[qAnswer - 1],
-          answer: questionsAnswers[qAnswer],
-          organization: organizationData,
-        };
-        return answer;
-      });
-
     const commentsData = Object.keys(comments)
       .sort((a, b) => a - b)
       .map((c) => {
@@ -114,24 +99,32 @@ const postReview = async (req, res, next) => {
       })
       .filter(value => value);
 
-    let allAnswers = [...reviewAnswers];
+    const commentssss = await Comment.insertMany(commentsData);
+    const commentedQuestions = commentssss.map(comment => ({ id: comment.question.number, comment }));
 
-    if (organization.category === "worksite") {
-      const image = questions.filter(q => q.type === "image");
-      if (image && image[0] && image[0].text) {
-        const imageAnswer = {
+    const reviewAnswers = Object.keys(questionsAnswers)
+      .sort((a, b) => a - b)
+      .map((qAnswer) => {
+        const answer = {
           user: userData,
           review: currentReview,
-          question: image[0],
-          answer: worksiteImage,
+          question: questions[qAnswer - 1],
+          answer: questionsAnswers[qAnswer],
+          organization: organizationData,
         };
-        allAnswers = [...allAnswers, imageAnswer];
-      }
-    }
+
+        commentedQuestions.map((item) => {
+          // eslint-disable-next-line eqeqeq
+          if (item.id == qAnswer) {
+            answer.comment = item.comment;
+          }
+        });
+
+        return answer;
+      });
+
+    const allAnswers = [...reviewAnswers];
     await Answer.insertMany(allAnswers);
-
-    await Comment.insertMany(commentsData);
-
 
     res.send();
   } catch (error) {
