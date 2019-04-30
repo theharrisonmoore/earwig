@@ -30,6 +30,8 @@ import AddProfileSelection from "./Pages/Search/AddProfileSelection";
 import AddProfileStartReview from "./Pages/Search/AddProfileReviewStart";
 import Intro from "./Pages/Intro";
 import PrivateRoute from "./Common/PrivateRoute";
+import Reply from "./Pages/Profile/Reply";
+
 import {
   FAQ,
   HelpfulStuff,
@@ -50,7 +52,8 @@ import {
   QUICK_REVIEW_URL,
   CONFIRM_EMAIL_URL,
   INTRO_URL,
-  USER_PROFILE_URL
+  USER_PROFILE_URL,
+  REPLY_URL
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
@@ -232,6 +235,17 @@ export default function index(props) {
           Component={ReportContent}
           navbar
           title="Report this content"
+          search
+        />
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={REPLY_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={Reply}
+          navbar
+          title="Replying"
           search
         />
 

@@ -3,8 +3,13 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import { Button, Collapse, Icon } from "antd";
 
+import RepliesBox from "./Reply";
+
 import { organizations } from "./../../../theme";
-import { REPORT_CONTENT_URL } from "./../../../constants/naviagationUrls";
+import {
+  REPORT_CONTENT_URL,
+  REPLY_URL
+} from "./../../../constants/naviagationUrls";
 
 import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
@@ -23,6 +28,17 @@ import { SectionTitle } from "./ReviewSection.style";
 const Panel = Collapse.Panel;
 
 export default class OverallReview extends Component {
+  stat = {
+    commentsOpen: false,
+    activeReview: "",
+    activeReplies: [],
+    repliesLoaded: false
+  };
+
+  toggleOverallReplies = () => {
+    console.log("toggle");
+  };
+
   render() {
     const {
       summary,
@@ -91,7 +107,14 @@ export default class OverallReview extends Component {
                       height: "auto"
                     }}
                   >
-                    Reply
+                    <Link
+                      to={{
+                        pathname: REPLY_URL,
+                        state: { reviewId: review._id }
+                      }}
+                    >
+                      Reply
+                    </Link>
                   </Button>
                 </div>
                 <Link
@@ -176,6 +199,17 @@ export default class OverallReview extends Component {
               </Collapse>
             </CommentDiv>
           ))}
+          {/* {this.state.commentsOpen && (
+            <RepliesBox
+              organization={summary}
+              review={this.state.activeReview}
+              replies={this.state.activeReplies}
+              repliesLoaded={this.state.repliesLoaded}
+              toggleOverallReplies={this.toggleOverallReplies}
+              isMobile={isMobile}
+              fetchComments={this.fetchComments}
+            />
+          )} */}
         </ReviewDiv>
       )
     );
