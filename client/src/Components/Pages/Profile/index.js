@@ -95,7 +95,7 @@ export default class Profile extends Component {
       });
   };
 
-  fetchOverallReplies = ([id] = "") => {
+  fetchOverallReplies = id => {
     id
       ? axios
           .get(`${API_GET_OVERALL_REVIEW_REPLIES_URL}/${id}`)

@@ -30,11 +30,19 @@ import { SectionTitle } from "./ReviewSection.style";
 const Panel = Collapse.Panel;
 
 export default class OverallReview extends Component {
-  stat = {
+  state = {
     commentsOpen: false,
     activeReview: "",
     activeReplies: [],
     repliesLoaded: false
+  };
+
+  togglePanel = id => {
+    id
+      ? this.setState({ activeReview: id }, () => {
+          this.props.fetchOverallReplies(id);
+        })
+      : this.setState({ activeReview: "" });
   };
 
   render() {
@@ -44,14 +52,15 @@ export default class OverallReview extends Component {
       isMobile,
       category,
       overallReplies,
-      fetchOverallReplies,
       activeOverallId
     } = this.props;
+    const { activeReview } = this.state;
+
     return summary.reviews[0].createdAt ? (
       <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
         <SectionTitle>Overall ratings</SectionTitle>
         {summary.reviews.map((review, index) => (
-          <CommentDiv key={review._id}>
+          <CommentDiv key={review._id + "comment"}>
             <UserID>{review.user && review.user.userId}</UserID>
             <BubbleAndDate>
               <CommentBubble color={organizations[category].secondary}>
@@ -109,13 +118,15 @@ export default class OverallReview extends Component {
             <Collapse
               bordered={false}
               data-id={review._id}
-              onChange={fetchOverallReplies}
+              onChange={this.togglePanel}
+              accordion
+              activeKey={this.state.activeReview}
             >
               <Panel
                 showArrow={false}
                 header={
                   <>
-                    {activeOverallId === review._id ? (
+                    {activeReview && activeOverallId === review._id ? (
                       <Icon
                         fontWeight={700}
                         type="up"
@@ -142,7 +153,7 @@ export default class OverallReview extends Component {
                         color: organizations[category].primary
                       }}
                     >
-                      {activeOverallId === review._id
+                      {activeReview && activeOverallId === review._id
                         ? "Hide Replies"
                         : "Read Replies"}
                     </span>
@@ -151,8 +162,11 @@ export default class OverallReview extends Component {
                 key={review._id}
               >
                 {overallReplies.map(reply => (
-                  <div key={reply._id}>
-                    <UserID>{reply.replies.user[0].userId}</UserID>
+                  <div key={reply.replies._id}>
+                    <UserID>
+                      {reply.replies.displayName ||
+                        reply.replies.user[0].userId}
+                    </UserID>
                     <BubbleAndDate>
                       <CommentBubble color={organizations[category].secondary}>
                         {reply.replies.text}

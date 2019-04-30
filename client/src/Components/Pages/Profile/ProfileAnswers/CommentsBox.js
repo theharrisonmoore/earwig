@@ -48,9 +48,10 @@ export default class CommentsBox extends Component {
   };
 
   validate = () => {
+    const { isAdmin } = this.props;
     let schema = yup.object().shape({
       comment: yup.string().min(1, "comment is required!"),
-      user: yup.string().required("user is required!")
+      user: isAdmin ? yup.string().required("user is required!") : null
     });
 
     return schema
@@ -129,7 +130,8 @@ export default class CommentsBox extends Component {
       commentsLoaded,
       isMobile,
       organization,
-      category
+      category,
+      isAdmin
     } = this.props;
 
     const users =
@@ -178,14 +180,16 @@ export default class CommentsBox extends Component {
                   </IndividComment>
                 ))}
               <div ref={this.inputWrapper}>
-                <Input
-                  placeholder="Comment as"
-                  style={{ marginTop: "0.25rem", width: "10rem" }}
-                  onChange={this.handleChangeUserName}
-                  value={this.state.user}
-                  onFocus={this.handleFocus}
-                  onBlur={this.handleBlur}
-                />
+                {isAdmin && (
+                  <Input
+                    placeholder="Comment as"
+                    style={{ marginTop: "0.25rem", width: "10rem" }}
+                    onChange={this.handleChangeUserName}
+                    value={this.state.user}
+                    onFocus={this.handleFocus}
+                    onBlur={this.handleBlur}
+                  />
+                )}
                 {this.state.errors.user && (
                   <Error>{this.state.errors.user}</Error>
                 )}
