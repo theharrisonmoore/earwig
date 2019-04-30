@@ -44,28 +44,7 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
     {
       $unwind: { path: "$reviews", preserveNullAndEmptyArrays: true },
     },
-    // get the replies owner
-    {
-      $lookup: {
-        from: "users",
-        localField: "reviews.overallReview.replies.user",
-        foreignField: "_id",
-        as: "reviews.overallReview.replies.user",
-      },
-    },
-    // delete replies unnecessary fields
-    {
-      $project: {
-        "reviews.overallReview.replies.user.password": 0,
-        "reviews.overallReview.replies.user.email": 0,
-        "reviews.overallReview.replies.user.trade": 0,
-        "reviews.overallReview.replies.user.createdAt": 0,
-        "reviews.overallReview.replies.user.updatedAt": 0,
-        "reviews.overallReview.replies.user.verified": 0,
-        "reviews.overallReview.replies.user.awaitingReview": 0,
-        "reviews.overallReview.replies.user.points": 0,
-      },
-    },
+
 
     // {
     //   $project: {
