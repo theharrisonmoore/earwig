@@ -14,7 +14,7 @@ module.exports = id => Review.aggregate([
     },
   },
   {
-    $unwind: { path: "$replies", preserveNullAndEmptyArrays: true },
+    $unwind: { path: "$replies" },
   },
   {
     $lookup: {

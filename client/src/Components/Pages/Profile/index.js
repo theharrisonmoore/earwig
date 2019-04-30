@@ -8,6 +8,7 @@ import ReviewSection from "./ReviewSection";
 import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
 import CommentsBox from "./ProfileAnswers/CommentsBox";
 import HeaderSection from "./HeaderSection";
+import OverallReview from "./OverallReview";
 import Loading from "./../../Common/AntdComponents/Loading";
 import { organizations } from "./../../../theme";
 
@@ -46,7 +47,9 @@ export default class Profile extends Component {
     comments: null,
     commentsLoaded: false,
     level: 0,
-    organizationID: ""
+    organizationID: "",
+    overallReplies: [],
+    activeOverallId: ""
   };
 
   fetchData = () => {
@@ -98,16 +101,17 @@ export default class Profile extends Component {
       .catch(err => console.log(err));
   };
 
-  fetchOverallReplies = id => {
-    id &&
-      axios
-        .get(`${API_GET_OVERALL_REVIEW_REPLIES_URL}/${id}`)
-        .then(({ data }) => {
-          console.log(data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+  fetchOverallReplies = ([id] = "") => {
+    id
+      ? axios
+          .get(`${API_GET_OVERALL_REVIEW_REPLIES_URL}/${id}`)
+          .then(({ data }) => {
+            this.setState({ overallReplies: data, activeOverallId: id });
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      : this.setState({ overallReplies: [], activeOverallId: "" });
   };
 
   reviewsByMonth = () => {
@@ -306,94 +310,16 @@ export default class Profile extends Component {
           )}
         </ReviewDiv>
         {/* OVERALL RATINGS SECTION */}
-        {summary.reviews[0].createdAt && (
-          <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-            <SectionTitle>Overall ratings</SectionTitle>
-            {summary.reviews.map((review, index) => (
-              <CommentDiv key={index}>
-                <UserID>{review.user && review.user.userId}</UserID>
-                <BubbleAndDate>
-                  <CommentBubble>{review.overallReview.text}</CommentBubble>
-                  <CommentDate>
-                    {moment().diff(review.createdAt, "weeks")}w
-                  </CommentDate>
-                </BubbleAndDate>
-                {/* FLAG ICON */}
-                {/*  BUTTONS SECTION */}
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-around",
-                    alignItems: "center",
-                    maxWidth: "25rem",
-                    margin: "0 auto"
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-around",
-                      alignItems: "center",
-                      width: "90%"
-                    }}
-                  >
-                    <Button
-                      type="primary"
-                      style={{
-                        background: organizations[category].primary,
-                        border: "none",
-                        fontWeight: "700",
-                        fontSize: "1rem",
-                        padding: "0.5rem 1rem",
-                        height: "auto"
-                      }}
-                    >
-                      Helpful
-                    </Button>
-                    <Button
-                      type="primary"
-                      style={{
-                        background: organizations[category].primary,
-                        border: "none",
-                        fontWeight: "700",
-                        fontSize: "1rem",
-                        padding: "0.5rem 1rem",
-                        height: "auto"
-                      }}
-                    >
-                      Reply
-                    </Button>
-                  </div>
-                  <Link
-                    style={{ right: 0, width: "10%" }}
-                    to={{
-                      pathname: REPORT_CONTENT_URL,
-                      state: {
-                        review: {
-                          overallReview: review.overallReview,
-                          user: review.user
-                        },
-                        organization: summary,
-                        target: "overallReview"
-                      }
-                    }}
-                  >
-                    <StyledAntIcon type="flag" />
-                  </Link>
-                </div>
-                <Collapse
-                  bordered={false}
-                  data-id={review._id}
-                  onChange={this.fetchOverallReplies}
-                >
-                  <Panel header="Replies" key={review._id}>
-                    text
-                  </Panel>
-                </Collapse>
-              </CommentDiv>
-            ))}
-          </ReviewDiv>
-        )}
+        <OverallReview
+          summary={summary}
+          isTablet={isTablet}
+          isMobile={isMobile}
+          category={category}
+          activeOverallId={this.state.activeOverallId}
+          overallReplies={this.state.overallReplies}
+          fetchOverallReplies={this.fetchOverallReplies}
+        />
+        {/* ------------------- */}
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
           <AccountPromo>
             <p>Create an account to see all reviews</p>
