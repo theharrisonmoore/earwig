@@ -12,6 +12,7 @@ import {
   DELETE_PROFILE_URL
 } from "./../constants/naviagationUrls";
 
+import Landing from "./Pages/Landing";
 import ReportContent from "./Pages/ReportContent";
 import UploadImage from "./Pages/UploadImage";
 import Login from "./Pages/Login";
@@ -242,6 +243,22 @@ export default function index(props) {
           isMobile={isMobile}
           isTablet={isTablet}
           Component={Intro}
+        />
+
+        <Route
+          exact
+          path="/"
+          render={linkProps =>
+            !isLoggedIn ? (
+              <Landing
+                {...props}
+                {...linkProps}
+                handleChangeState={handleChangeState}
+              />
+            ) : (
+              <Redirect to={isAdmin ? ADMIN : SEARCH_URL} />
+            )
+          }
         />
 
         <Route

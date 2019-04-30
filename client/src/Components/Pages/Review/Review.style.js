@@ -34,6 +34,11 @@ export const HeaderPhone = styled.section`
   }
 `;
 
+export const DetailsDiv = styled.div`
+  padding-top: 1rem;
+  border-bottom: 1px solid;
+`;
+
 export const ContentPhone = styled.div`
   display: flex;
   flex-direction: column;
@@ -94,6 +99,14 @@ export const Organization = styled.div`
     display: flex;
     align-items: center;
   }
+`;
+export const StarRating = styled.div`
+  display: flex;
+  font-size: 2rem;
+`;
+
+export const Headline = styled.h1`
+  margin-top: 1.5rem;
 `;
 
 export const Paragraph = styled.p`
@@ -167,4 +180,37 @@ export const SubmitButton = styled.button`
   padding: 1rem 3rem;
   display: block;
   margin: 2rem auto 3rem;
+`;
+
+export const ButtonDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`;
+
+export const Button = styled.button`
+  background: ${colors.white};
+  color: ${props => props.color};
+  border: solid 2px ${props => props.color};
+  transition: all ease-in 0.1s;
+  box-shadow: ${colors.buttonShadow};
+  border-radius: 6px;
+  font-weight: 900;
+  font-size: 1rem;
+  padding: 1rem 1rem;
+  display: block;
+  margin: 1rem auto 2rem;
+  cursor: pointer;
+
+  :hover {
+    background: ${props => props.color};
+    color: ${colors.white};
+  }
+`;
+
+export const DelButton = styled.button`
+  border: none;
+  background: none;
+  display: block;
+  cursor: pointer;
 `;
