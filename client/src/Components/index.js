@@ -196,7 +196,7 @@ export default function index(props) {
           isTablet={isTablet}
           Component={HelpfulStuff}
           navbar
-          title="More helpful stuff for workers"
+          title="Stuff you might find helpful"
           search
         />
 
