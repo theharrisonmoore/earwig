@@ -298,9 +298,9 @@ export default class Profile extends Component {
               <CommentDiv key={index}>
                 <UserID>{review.user && review.user.userId}</UserID>
                 <BubbleAndDate>
-                  <CommentBubble>{review.overallReview.text}</CommentBubble>
+                  <CommentBubble>{review.overallReview && review.overallReview.text}</CommentBubble>
                   <CommentDate>
-                    {moment().diff(review.createdAt, "weeks")}w
+                    {review.createdAt && moment().diff(review.createdAt, "weeks")}w
                   </CommentDate>
                 </BubbleAndDate>
                 <Link
