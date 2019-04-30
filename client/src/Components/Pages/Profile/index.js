@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import axios from "axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import { Button } from "antd";
 
 import ReviewSection from "./ReviewSection";
 import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
 import CommentsBox from "./ProfileAnswers/CommentsBox";
 import HeaderSection from "./HeaderSection";
 import Loading from "./../../Common/AntdComponents/Loading";
+import { organizations } from "./../../../theme";
 
 import { ITEMS } from "./../../../constants/promoItems";
 import { SIGNUP_URL } from "./../../../constants/naviagationUrls";
@@ -301,21 +303,67 @@ export default class Profile extends Component {
                     {moment().diff(review.createdAt, "weeks")}w
                   </CommentDate>
                 </BubbleAndDate>
-                <Link
-                  to={{
-                    pathname: REPORT_CONTENT_URL,
-                    state: {
-                      review: {
-                        overallReview: review.overallReview,
-                        user: review.user
-                      },
-                      organization: summary,
-                      target: "overallReview"
-                    }
+                {/* FLAG ICON */}
+                {/*  BUTTONS SECTION */}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-around",
+                    alignItems: "center"
                   }}
                 >
-                  <StyledAntIcon type="flag" />
-                </Link>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-around",
+                      alignItems: "center",
+                      width: "90%"
+                    }}
+                  >
+                    <Button
+                      type="primary"
+                      style={{
+                        background: organizations[category].primary,
+                        border: "none",
+                        fontWeight: "700",
+                        fontSize: "1rem",
+                        padding: "0.5rem 1rem",
+                        height: "auto"
+                      }}
+                    >
+                      Helpful
+                    </Button>
+                    <Button
+                      type="primary"
+                      style={{
+                        background: organizations[category].primary,
+                        border: "none",
+                        fontWeight: "700",
+                        fontSize: "1rem",
+                        padding: "0.5rem 1rem",
+                        height: "auto"
+                      }}
+                    >
+                      Reply
+                    </Button>
+                  </div>
+                  <Link
+                    style={{ right: 0, width: "10%" }}
+                    to={{
+                      pathname: REPORT_CONTENT_URL,
+                      state: {
+                        review: {
+                          overallReview: review.overallReview,
+                          user: review.user
+                        },
+                        organization: summary,
+                        target: "overallReview"
+                      }
+                    }}
+                  >
+                    <StyledAntIcon type="flag" />
+                  </Link>
+                </div>
               </CommentDiv>
             ))}
           </ReviewDiv>

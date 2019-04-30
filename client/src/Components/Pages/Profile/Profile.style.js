@@ -232,9 +232,6 @@ export const AccountItem = styled.div`
 `;
 
 export const StyledAntIcon = styled(AntIcon)`
-  position: absolute;
-  bottom: 0.5rem;
-  right: 0.5rem;
   font-size: 1.5rem;
   color: ${colors.gray};
   cursor: pointer;
