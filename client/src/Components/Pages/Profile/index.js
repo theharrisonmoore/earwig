@@ -115,6 +115,8 @@ export default class Profile extends Component {
 
     reviewMonths.map(month => (reviewMonthsCount[month] += 1));
 
+    console.log("REv", reviewMonthsCount)
+
     return reviewMonthsCount;
   };
 
