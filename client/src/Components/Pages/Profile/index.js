@@ -13,6 +13,8 @@ import { ITEMS } from "./../../../constants/promoItems";
 import { SIGNUP_URL } from "./../../../constants/naviagationUrls";
 import { REPORT_CONTENT_URL } from "./../../../constants/naviagationUrls";
 
+import Icon from "./../../Common/Icon/Icon"
+
 import {
   Wrapper,
   Banner,
@@ -161,11 +163,13 @@ export default class Profile extends Component {
                 {ITEMS[category] &&
                   ITEMS[category].map((item, index) => (
                     <AccountItem key={index}>
-                      <AccountIcon
-                        src="/icons/tick-icon.svg"
+                      <Icon
+                        icon={item.img}
                         margin="0 1rem 0 0"
+                        height="2rem"
+                        width="2rem"
                       />
-                      <p>{item}</p>
+                      {item.text}
                     </AccountItem>
                   ))}
               </div>

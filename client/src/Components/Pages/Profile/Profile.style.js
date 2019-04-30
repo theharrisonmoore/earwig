@@ -229,6 +229,8 @@ export const AccountLink = styled(VerifyLink)`
 
 export const AccountItem = styled.div`
   display: flex;
+  align-items: center;
+  margin: 1.25rem 0;
 `;
 
 export const StyledAntIcon = styled(AntIcon)`

@@ -92,7 +92,7 @@ export default function index(props) {
 
         <PrivateRoute
           exact
-          minimumLevel="LEVEL1"
+          minimumLevel="LEVEL0"
           path={ORGS_PROFILE_URL}
           isTablet={isTablet}
           isMobile={isMobile}
