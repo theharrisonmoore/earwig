@@ -9,9 +9,11 @@ const replySchema = new Schema({
     ref: "users",
   },
   text: String,
+  displayName: String,
 }, {
   timestamps: true,
 });
+
 const voteSchema = new Schema({
   user: {
     type: ObjectId,

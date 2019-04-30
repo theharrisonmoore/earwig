@@ -245,9 +245,6 @@ export default function index(props) {
           isMobile={isMobile}
           isTablet={isTablet}
           Component={Reply}
-          navbar
-          title="Replying"
-          search
         />
 
         <PrivateRoute

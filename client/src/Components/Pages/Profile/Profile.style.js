@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import SVG from "react-inlinesvg";
 import { NavLink } from "react-router-dom";
-import { Icon as AntIcon } from "antd";
+import { Icon as AntIcon, Button } from "antd";
 
 import { organizations, colors, shadows, borders } from "./../../../theme";
+import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -161,6 +162,10 @@ export const UserID = styled.h3`
   color: ${colors.profileFontColor};
 `;
 
+export const LightTitle = styled(UserID)`
+  opacity: 0.5;
+`;
+
 export const CommentBubble = styled.p`
   background: ${({ color }) => color || colors.ghostGray};
   border-radius: 1.125rem;
@@ -242,4 +247,50 @@ export const StyledAntIcon = styled(AntIcon)`
 
 export const IconWrapper = styled.div`
   min-width: 70px;
+`;
+
+export const StyledReplyIcon = styled(ReplyIcon)`
+  margin-right: 0.5rem;
+  position: absolute;
+  right: 0;
+  top: 60%;
+  transform: translateY(-50%) rotate(180deg);
+  height: 100%;
+  cursor: pointer;
+`;
+
+export const BannerTitle = styled.p`
+  font-size: 1.125rem;
+  font-weight: 900;
+`;
+
+export const Cancel = styled.p`
+  font-size: 1.125rem;
+  font-weight: 700;
+  position: absolute;
+  left: 7px;
+  cursor: pointer;
+`;
+
+export const ActionsDiv = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 25rem;
+  margin: 0 auto;
+`;
+
+export const ButtonsWrapper = styled(ActionsDiv)`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 90%;
+`;
+export const ActionsButton = styled(Button)`
+  background: ${({ BGColor }) => BGColor};
+  border: none;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  height: auto;
 `;

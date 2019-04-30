@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { Mention, Input, Button, message } from "antd";
+import { Mention, Input, message } from "antd";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import axios from "axios";
+
+import Loading from "./../../../Common/AntdComponents/Loading";
 
 import {
   Wrapper,
@@ -16,7 +18,9 @@ import {
   Error
 } from "./ProfileAnswers.style";
 
-import { StyledAntIcon } from "./../Profile.style";
+import { organizations } from "./../../../../theme";
+
+import { StyledAntIcon, StyledReplyIcon } from "./../Profile.style";
 
 import { REPORT_CONTENT_URL } from "./../../../../constants/naviagationUrls";
 
@@ -97,7 +101,13 @@ export default class CommentsBox extends Component {
                 ...this.props.question,
                 _id: this.props.question.question._id
               };
-              this.props.fetchComments(question);
+              this.setState(
+                {
+                  commentContentState: toContentState(""),
+                  errors: {}
+                },
+                () => this.props.fetchComments(question)
+              );
             })
             .catch(err => {
               const error =
@@ -118,7 +128,8 @@ export default class CommentsBox extends Component {
       comments,
       commentsLoaded,
       isMobile,
-      organization
+      organization,
+      category
     } = this.props;
 
     const users =
@@ -146,6 +157,12 @@ export default class CommentsBox extends Component {
                       {highlightMentions(comment.text)}
                     </CommentBubble>
                     <Link
+                      style={{
+                        right: 0,
+                        position: "absolute",
+                        border: 0,
+                        bottom: "-0.5rem"
+                      }}
                       to={{
                         pathname: REPORT_CONTENT_URL,
                         state: {
@@ -172,31 +189,30 @@ export default class CommentsBox extends Component {
                 {this.state.errors.user && (
                   <Error>{this.state.errors.user}</Error>
                 )}
-                <Mention
-                  style={{ width: "100%", marginTop: "0.25rem" }}
-                  onChange={this.onChange}
-                  defaultSuggestions={users}
-                  onFocus={this.handleFocus}
-                  onBlur={this.handleBlur}
-                  value={this.state.commentContentState}
-                  multiLines
-                  placeholder={"input @ to mention"}
-                />
+                <div style={{ position: "relative" }}>
+                  <Mention
+                    style={{ width: "100%", marginTop: "0.25rem" }}
+                    onChange={this.onChange}
+                    defaultSuggestions={users}
+                    onFocus={this.handleFocus}
+                    onBlur={this.handleBlur}
+                    value={this.state.commentContentState}
+                    multiLines
+                    placeholder={"Add a reply… use @ to mention"}
+                  />
+                  <StyledReplyIcon
+                    width="20px"
+                    fill={organizations[category].primary}
+                    onClick={this.handleSubmit}
+                  />
+                </div>
                 {this.state.errors.comment && (
                   <Error>{this.state.errors.comment}</Error>
                 )}
-                <Button
-                  style={{ marginTop: "0.25rem" }}
-                  htmlType="submit"
-                  type="primary"
-                  onClick={this.handleSubmit}
-                >
-                  Add Comment
-                </Button>
               </div>
             </>
           ) : (
-            <h2>Loading...</h2>
+            <Loading />
           )}
         </CommentsDiv>
       </Wrapper>

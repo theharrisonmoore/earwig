@@ -167,7 +167,7 @@ export const UserID = styled.h3`
 `;
 
 export const CommentBubble = styled.p`
-  background: ${colors.ghostGray};
+  background: ${({ color }) => color || colors.ghostGray};
   border-radius: 1.125rem;
   align-self: flex-start;
   justify-content: flex-start;

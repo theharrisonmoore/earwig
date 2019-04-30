@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Mention, Input, Button, message } from "antd";
+import { Mention, Input, message } from "antd";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -9,7 +8,11 @@ import {
   CommentBubble,
   Error
 } from "./ProfileAnswers/ProfileAnswers.style";
+
 import { Wrapper, IndividComment } from "./Reply.style";
+import { Banner, StyledReplyIcon, Cancel, BannerTitle } from "./Profile.style";
+
+import { organizations } from "./../../../theme";
 
 import {
   API_GET_OVERALL_REVIEW_REPLIES_URL,
@@ -41,9 +44,11 @@ export default class Reply extends Component {
   };
 
   validate = () => {
+    const { isAdmin } = this.props;
+
     let schema = yup.object().shape({
       comment: yup.string().min(1, "comment is required!"),
-      user: yup.string().required("user is required!")
+      user: isAdmin ? yup.string().required("user is required!") : null
     });
 
     return schema
@@ -81,7 +86,6 @@ export default class Reply extends Component {
               this.setState(
                 {
                   commentContentState: toContentState(""),
-                  user: "",
                   errors: {}
                 },
                 () => this.fetchOverallReplies(reviewId)
@@ -112,7 +116,9 @@ export default class Reply extends Component {
             });
           })
           .catch(err => {
-            console.log(err);
+            const error =
+              err.response && err.response.data && err.response.data.error;
+            message.error(error || "Something went wrong");
           })
       : this.setState({
           replies: [],
@@ -129,9 +135,14 @@ export default class Reply extends Component {
     }
   }
 
-  render() {
-    const { replies } = this.state;
+  goBack = () => {
+    this.props.history.goBack();
+  };
 
+  render() {
+    const { replies, loaded } = this.state;
+    const { isAdmin } = this.props;
+    const { category } = this.props.location.state;
     const users =
       replies &&
       replies.reduce((prev, curr) => {
@@ -139,72 +150,71 @@ export default class Reply extends Component {
         return prev;
       }, []);
 
-    // const users = [];
-    if (!this.state.loaded) {
+    if (!loaded) {
       return <Loading />;
     }
     return (
-      <Wrapper>
-        <>
-          {replies &&
-            replies.map(reply => (
-              <IndividComment key={reply.replies._id}>
-                <UserID>{reply.replies.user[0].userId}</UserID>
-                <CommentBubble as="pre">
-                  {highlightMentions(reply.replies.text)}
-                </CommentBubble>
-                {/* <Link
-                  to={{
-                    pathname: REPORT_CONTENT_URL,
-                    state: {
-                      comment,
-                      question,
-                      organization,
-                      target: "questionComment"
-                    }
-                  }}
-                >
-                  <StyledAntIcon type="flag" />
-                </Link> */}
-              </IndividComment>
-            ))}
+      <>
+        <Banner category={category}>
+          <BannerTitle>Replying</BannerTitle>
+          <Cancel onClick={this.goBack}>Cancel</Cancel>
+        </Banner>
+        <Wrapper>
+          <>
+            {replies &&
+              replies.map(reply => (
+                <IndividComment key={reply.replies._id}>
+                  <UserID>
+                    {reply.replies.displayName || reply.replies.user[0].userId}
+                  </UserID>
+                  <CommentBubble
+                    as="pre"
+                    color={organizations[category].secondary}
+                  >
+                    {highlightMentions(reply.replies.text)}
+                  </CommentBubble>
+                </IndividComment>
+              ))}
 
-          <div ref={this.inputWrapper} style={{ textAlign: "left" }}>
-            <Input
-              placeholder="Comment as"
-              style={{ marginTop: "0.25rem", width: "10rem" }}
-              onChange={this.handleChangeUserName}
-              value={this.state.user}
-              onFocus={this.handleFocus}
-              onBlur={this.handleBlur}
-            />
-            {this.state.errors.user && <Error>{this.state.errors.user}</Error>}
-            <Mention
-              style={{ width: "100%", marginTop: "0.25rem" }}
-              onChange={this.onChange}
-              defaultSuggestions={users}
-              onFocus={this.handleFocus}
-              onBlur={this.handleBlur}
-              value={this.state.commentContentState}
-              multiLines
-              placeholder={"input @ to mention"}
-            />
+            <div ref={this.inputWrapper} style={{ textAlign: "left" }}>
+              {isAdmin && (
+                <Input
+                  placeholder="Comment as"
+                  style={{ marginTop: "0.25rem", width: "10rem" }}
+                  onChange={this.handleChangeUserName}
+                  value={this.state.user}
+                  onFocus={this.handleFocus}
+                  onBlur={this.handleBlur}
+                />
+              )}
+              {this.state.errors.user && (
+                <Error>{this.state.errors.user}</Error>
+              )}
+              <div style={{ position: "relative" }}>
+                <Mention
+                  style={{ width: "100%", marginTop: "0.25rem" }}
+                  onChange={this.onChange}
+                  defaultSuggestions={users}
+                  onFocus={this.handleFocus}
+                  onBlur={this.handleBlur}
+                  value={this.state.commentContentState}
+                  multiLines
+                  placeholder={"Add a reply… use @ to mention"}
+                />
+                <StyledReplyIcon
+                  width="20px"
+                  fill={organizations[category].primary}
+                  onClick={this.handleSubmit}
+                />
+              </div>
 
-            {this.state.errors.comment && (
-              <Error>{this.state.errors.comment}</Error>
-            )}
-
-            <Button
-              style={{ marginTop: "0.25rem" }}
-              htmlType="submit"
-              type="primary"
-              onClick={this.handleSubmit}
-            >
-              Add Comment
-            </Button>
-          </div>
-        </>
-      </Wrapper>
+              {this.state.errors.comment && (
+                <Error>{this.state.errors.comment}</Error>
+              )}
+            </div>
+          </>
+        </Wrapper>
+      </>
     );
   }
 }

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import moment from "moment";
-import { Link } from "react-router-dom";
-import { Button, Collapse } from "antd";
+import { message } from "antd";
 
 import ReviewSection from "./ReviewSection";
 import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
@@ -10,11 +9,9 @@ import CommentsBox from "./ProfileAnswers/CommentsBox";
 import HeaderSection from "./HeaderSection";
 import OverallReview from "./OverallReview";
 import Loading from "./../../Common/AntdComponents/Loading";
-import { organizations } from "./../../../theme";
 
 import { ITEMS } from "./../../../constants/promoItems";
 import { SIGNUP_URL } from "./../../../constants/naviagationUrls";
-import { REPORT_CONTENT_URL } from "./../../../constants/naviagationUrls";
 import { API_GET_OVERALL_REVIEW_REPLIES_URL } from "./../../../apiUrls";
 
 import Icon from "./../../Common/Icon/Icon";
@@ -22,21 +19,11 @@ import Icon from "./../../Common/Icon/Icon";
 import {
   Wrapper,
   Banner,
-  CommentDiv,
-  UserID,
-  CommentBubble,
-  CommentDate,
-  BubbleAndDate,
   ReviewDiv,
   AccountPromo,
   AccountLink,
-  AccountItem,
-  StyledAntIcon
+  AccountItem
 } from "./Profile.style";
-
-import { SectionTitle } from "./ReviewSection.style";
-
-const Panel = Collapse.Panel;
 
 export default class Profile extends Component {
   state = {
@@ -69,7 +56,9 @@ export default class Profile extends Component {
         });
       })
       .catch(err => {
-        console.log(err);
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        message.error(error || "Something went wrong");
       });
   };
 
@@ -99,7 +88,11 @@ export default class Profile extends Component {
           commentsQuestion: question
         });
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        message.error(error || "Something went wrong");
+      });
   };
 
   fetchOverallReplies = ([id] = "") => {
@@ -110,7 +103,9 @@ export default class Profile extends Component {
             this.setState({ overallReplies: data, activeOverallId: id });
           })
           .catch(err => {
-            console.log(err);
+            const error =
+              err.response && err.response.data && err.response.data.error;
+            message.error(error || "Something went wrong");
           })
       : this.setState({ overallReplies: [], activeOverallId: "" });
   };
@@ -342,6 +337,7 @@ export default class Profile extends Component {
             toggleComments={this.toggleComments}
             isMobile={isMobile}
             fetchComments={this.fetchComments}
+            category={category}
           />
         )}
       </Wrapper>
