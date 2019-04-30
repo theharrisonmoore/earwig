@@ -188,3 +188,8 @@ export const CanteenSubList = styled.p`
     props.itemAvailable ? `${colors.green}` : `${colors.red}`};
   font-weight: 900;
 `;
+
+export const CanteenItem = styled(SiteItem)`
+  margin-bottom: 1rem;
+
+`;
