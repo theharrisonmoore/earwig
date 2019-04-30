@@ -42,7 +42,6 @@ describe("Testing for feedback", () => {
           .end(async (err, res) => {
             expect(res.body).toBeDefined();
             expect(res.body.message).toBe("Message sent");
-            expect(res.body.page).toBeDefined();
             done(err);
           });
       });
