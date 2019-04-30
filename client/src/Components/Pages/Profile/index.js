@@ -24,7 +24,6 @@ import {
   CommentDate,
   BubbleAndDate,
   ReviewDiv,
-  AccountIcon,
   AccountPromo,
   AccountLink,
   AccountItem,

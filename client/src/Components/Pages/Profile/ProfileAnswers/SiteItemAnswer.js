@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { ListWrapper, SiteItem, SiteIcon } from "./ProfileAnswers.style";
+import { ListWrapper, SiteItem } from "./ProfileAnswers.style";
 
 import Icon from "./../../../Common/Icon/Icon"
 

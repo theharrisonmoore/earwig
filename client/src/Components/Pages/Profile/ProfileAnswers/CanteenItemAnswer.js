@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import {
   ListWrapper,
   CanteenItem,
-  SiteIcon,
   CanteenSubList
 } from "./ProfileAnswers.style";
 
