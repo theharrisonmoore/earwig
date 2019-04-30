@@ -80,43 +80,41 @@ export default class index extends Component {
 
     const { isMobile, isTablet } = this.props;
 
-    console.log(isTablet)
-
     return (
       <Wrapper>
         <Logo src={LogoImg} alt="logo" isMobile={isMobile} />
         {isMobile || isTablet ? (
-        <TopWrapper>
-          <Title>Every voice counts</Title>
-          <Paragraph>
-            earwig is a reviews platform giving a voice to construction workers.
-            They can show which agencies, payrolls, worksites, and companies to
-            trust and why. Join the community of verified workers shaping
-            construction and making work more secure.
-          </Paragraph>
-        </TopWrapper>
+          <TopWrapper>
+            <Title>Every voice counts</Title>
+            <Paragraph>
+              earwig is a reviews platform giving a voice to construction
+              workers. They can show which agencies, payrolls, worksites, and
+              companies to trust and why. Join the community of verified workers
+              shaping construction and making work more secure.
+            </Paragraph>
+          </TopWrapper>
         ) : (
           <TopWrapper direction="row" isMobile={isMobile}>
             <HalfDiv>
               <Title>Every voice counts</Title>
               <Paragraph>
-                earwig is a reviews platform giving a voice to construction workers.
-                They can show which agencies, payrolls, worksites, and companies to
-                trust and why. Join the community of verified workers shaping
-                construction and making work more secure.
+                earwig is a reviews platform giving a voice to construction
+                workers. They can show which agencies, payrolls, worksites, and
+                companies to trust and why. Join the community of verified
+                workers shaping construction and making work more secure.
               </Paragraph>
             </HalfDiv>
             <HalfDiv>
-            <VideoWrapper>
-              <Video
-                src="https://www.youtube.com/embed/9eBzZOwaTpw?controls=0"
-                frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              />
-            </VideoWrapper>
+              <VideoWrapper>
+                <Video
+                  src="https://www.youtube.com/embed/9eBzZOwaTpw?controls=0"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                />
+              </VideoWrapper>
             </HalfDiv>
-        </TopWrapper>
+          </TopWrapper>
         )}
         <FormWrapper>
           <Formik
@@ -162,15 +160,17 @@ export default class index extends Component {
         <Icon icon="orWhite" margin="2rem 0 2rem 0" width="280" height="58" />
         <Link to={SEARCH_URL}>Continue without an account</Link>
         {isMobile || isTablet ? (
-        <VideoWrapper>
-          <Video
-            src="https://www.youtube.com/embed/9eBzZOwaTpw?controls=0"
-            frameborder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          />
-        </VideoWrapper>
-        ) : (<></>)}
+          <VideoWrapper>
+            <Video
+              src="https://www.youtube.com/embed/9eBzZOwaTpw?controls=0"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            />
+          </VideoWrapper>
+        ) : (
+          <></>
+        )}
         <WhiteWrapper>
           <SectionTitle>earwig's promises</SectionTitle>
           <PromiseParagraph>
@@ -182,22 +182,48 @@ export default class index extends Component {
         <AwardsWrapper>
           <SectionTitle color={colors.white}>earwig's awards</SectionTitle>
           <AwardDiv isMobile={isMobile}>
-          <Award isMobile={isMobile}>
-            <Icon icon="medalIcon1" color={colors.white} height="50" width="50" margin="1rem 0 0.5rem 0" />
-            <AwardTitle>Our Place in the World: Future of Work 2017</AwardTitle>
-          </Award>
-          <Award isMobile={isMobile}>
-            <Icon icon="trophyIcon1" color={colors.white} height="50" width="50" margin="1rem 0 0.5rem 0" />
-            <AwardTitle>UnLtd Do It Award 2017</AwardTitle>
-          </Award>
-          <Award isMobile={isMobile}>
-            <Icon icon="medalIcon2" color={colors.white} height="50" width="50" margin="1rem 0 0.5rem 0" />
-            <AwardTitle>RSA Economic Security Accelerator 2019</AwardTitle>
-          </Award>
-          <Award isMobile={isMobile}>
-            <Icon icon="trophyIcon2" color={colors.white} height="50" width="50" margin="1rem 0 0.5rem 0" />
-            <AwardTitle>BGV Worker Tech for Good 2019</AwardTitle>
-          </Award>
+            <Award isMobile={isMobile}>
+              <Icon
+                icon="medalIcon1"
+                color={colors.white}
+                height="50"
+                width="50"
+                margin="1rem 0 0.5rem 0"
+              />
+              <AwardTitle>
+                Our Place in the World: Future of Work 2017
+              </AwardTitle>
+            </Award>
+            <Award isMobile={isMobile}>
+              <Icon
+                icon="trophyIcon1"
+                color={colors.white}
+                height="50"
+                width="50"
+                margin="1rem 0 0.5rem 0"
+              />
+              <AwardTitle>UnLtd Do It Award 2017</AwardTitle>
+            </Award>
+            <Award isMobile={isMobile}>
+              <Icon
+                icon="medalIcon2"
+                color={colors.white}
+                height="50"
+                width="50"
+                margin="1rem 0 0.5rem 0"
+              />
+              <AwardTitle>RSA Economic Security Accelerator 2019</AwardTitle>
+            </Award>
+            <Award isMobile={isMobile}>
+              <Icon
+                icon="trophyIcon2"
+                color={colors.white}
+                height="50"
+                width="50"
+                margin="1rem 0 0.5rem 0"
+              />
+              <AwardTitle>BGV Worker Tech for Good 2019</AwardTitle>
+            </Award>
           </AwardDiv>
         </AwardsWrapper>
         <WhiteWrapper>
