@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import { Button } from "antd";
+import { Button, Collapse } from "antd";
 
 import ReviewSection from "./ReviewSection";
 import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
@@ -14,6 +14,7 @@ import { organizations } from "./../../../theme";
 import { ITEMS } from "./../../../constants/promoItems";
 import { SIGNUP_URL } from "./../../../constants/naviagationUrls";
 import { REPORT_CONTENT_URL } from "./../../../constants/naviagationUrls";
+import { API_GET_OVERALL_REVIEW_REPLIES_URL } from "./../../../apiUrls";
 
 import {
   Wrapper,
@@ -32,6 +33,8 @@ import {
 } from "./Profile.style";
 
 import { SectionTitle } from "./ReviewSection.style";
+
+const Panel = Collapse.Panel;
 
 export default class Profile extends Component {
   state = {
@@ -93,6 +96,18 @@ export default class Profile extends Component {
         });
       })
       .catch(err => console.log(err));
+  };
+
+  fetchOverallReplies = id => {
+    id &&
+      axios
+        .get(`${API_GET_OVERALL_REVIEW_REPLIES_URL}/${id}`)
+        .then(({ data }) => {
+          console.log(data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
   };
 
   reviewsByMonth = () => {
@@ -309,7 +324,9 @@ export default class Profile extends Component {
                   style={{
                     display: "flex",
                     justifyContent: "space-around",
-                    alignItems: "center"
+                    alignItems: "center",
+                    maxWidth: "25rem",
+                    margin: "0 auto"
                   }}
                 >
                   <div
@@ -364,6 +381,15 @@ export default class Profile extends Component {
                     <StyledAntIcon type="flag" />
                   </Link>
                 </div>
+                <Collapse
+                  bordered={false}
+                  data-id={review._id}
+                  onChange={this.fetchOverallReplies}
+                >
+                  <Panel header="Replies" key={review._id}>
+                    text
+                  </Panel>
+                </Collapse>
               </CommentDiv>
             ))}
           </ReviewDiv>
