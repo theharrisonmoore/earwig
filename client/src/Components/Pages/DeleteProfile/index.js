@@ -28,7 +28,7 @@ export default class index extends Component {
       showCancelButton: true,
       confirmButtonColor: colors.green,
       cancelButtonColor: colors.red,
-      confirmButtonTest: "Yes, delete!"
+      confirmButtonText: "Yes, delete!"
     }).then(result => {
       if (result.value) {
         Swal.fire({
@@ -119,7 +119,7 @@ export default class index extends Component {
           about something, tell us why so we can do our best to fix it.
         </Paragraph>
         <TextArea
-          placholder="What's wrong?"
+          placeholder="What's wrong?"
           onChange={this.handleInput}
           type="textarea"
         />
