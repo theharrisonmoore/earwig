@@ -16,7 +16,6 @@ import {
   H3,
   MainDiv,
   AddWrapper,
-  ProfileLink,
   AddProfileLink
 } from "./Search.style";
 import { SVGCreator } from "../../../helpers";
