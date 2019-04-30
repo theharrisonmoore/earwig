@@ -29,7 +29,7 @@ import {
 import { StyledErrorMessage } from "./Question/Question.style";
 
 import Question from "./Question/index";
-import clockLong from "./../../../assets/clock-long-icon.svg";
+import clockLong from "./../../../assets/clock-long-icon.png";
 
 import { initQueestionsValues } from "./initialQuestionsValues";
 import { validationSchema } from "./validationSchema";
@@ -142,8 +142,8 @@ class Review extends Component {
           to: ""
         },
         rate: 3,
-        overallReview: "",
-        voiceReview: ""
+        overallReview: ""
+        // voiceReview: ""
       },
       hasAgreed: false,
       worksiteImage: ""
@@ -224,6 +224,7 @@ class Review extends Component {
               errors,
               setFieldValue
             }) => {
+              // console.log(values);
               return (
                 <FormWrapper>
                   <Form>
@@ -274,12 +275,13 @@ class Review extends Component {
                         question={STATIC_QUESTIONS[2]}
                         category={this.state.organization.category}
                       />
-                      <Question
+                      {/* The voice questions in the next sprint */}
+                      {/* <Question
                         {...values}
                         handleChagne={handleChange}
                         question={STATIC_QUESTIONS[3]}
                         category={this.state.organization.category}
-                      />
+                      /> */}
                     </div>
                     <UserAgreement>
                       <Level2Header>Submit your review</Level2Header>

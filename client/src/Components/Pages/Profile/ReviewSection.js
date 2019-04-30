@@ -19,6 +19,7 @@ import SiteItemAnswer from "./ProfileAnswers/SiteItemAnswer";
 import CanteenItemAnswer from "./ProfileAnswers/CanteenItemAnswer";
 import BarChartAnswer from "./ProfileAnswers/BarChartAnswer";
 import PayrollAnswer from "./ProfileAnswers/PayrollAnswer";
+import ImageSlider from "./ProfileAnswers/ImageSlider";
 
 export default class ReviewSection extends Component {
   render() {
@@ -101,7 +102,9 @@ export default class ReviewSection extends Component {
 
         {questions &&
           questions
-            .filter(question => question.question.profileType === "siteItem")
+            .filter(question => {
+              return question.question.profileType === "siteItem";
+            })
             .map((question, index) => (
               <QuestionWrapper key={index}>
                 <SiteItemAnswer
@@ -158,6 +161,18 @@ export default class ReviewSection extends Component {
                 <BarChartAnswer category={category} question={question} />
               </QuestionWrapper>
             ))}
+        {/* site images */}
+        {questions &&
+          questions
+            .filter(question => question.question.type === "image")
+            .map((question, index) => {
+              return (
+                <QuestionWrapper key={question._id}>
+                  <QuestionTitle>{question.question.profileText}</QuestionTitle>
+                  <ImageSlider category={category} question={question} />
+                </QuestionWrapper>
+              );
+            })}
       </Wrapper>
     );
   }

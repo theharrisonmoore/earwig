@@ -1,11 +1,11 @@
 export const ITEMS = {
-  agency: ["Payroll relationships", "Trust ratings", "Pay scales"],
+  agency: [{text: "Payroll relationships", img: "payroll"}, {text: "Trust ratings", img: "trustRating"}, {text: "Pay scales", img: "payscales"}],
 
-  payroll: ["Payroll charges", "Trust ratings", "Payslip ratings"],
-  worksite: ["Access and storage", "Welfare and safety", "Site photos"],
+  payroll: [{text: "Payroll charges", img: "payrollCharges"}, {text:"Trust ratings", img: "trustRating"}, {text:"Payslip ratings", img: "payslipRatings"}],
+  worksite: [{text:"Access and storage", img: "parkingSign"}, {text:"Welfare and safety", img: "welfareSafety"}, {text:"Site photos", img: "photoCamera"}],
   company: [
-    "Supervisor ratings",
-    "Support and wellbeing",
-    "Organisational ratings"
+    {text:"Supervisor ratings", img: "supervisor"},
+    {text:"Support and wellbeing", img: "support"},
+    {text: "Organisational ratings", img: "organisationalRatings"}
   ]
 };

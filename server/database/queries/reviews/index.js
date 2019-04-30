@@ -5,6 +5,7 @@ const Review = require("./../../models/Review");
 const Comment = require("./../../models/Comment");
 const getAllReviews = require("./allReviews");
 const getOverallReplies = require("./getOverallReplies");
+const getReviewDetails = require("./getReviewDetails");
 
 module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
 
@@ -21,6 +22,13 @@ module.exports.addCommentOnOverallReview = (id, data) => Review.findByIdAndUpdat
     "overallReview.replies": data,
   },
 });
+module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate({ _id: id }, { isVerified: bool }, { new: true });
+
+module.exports.deleteAnswer = id => Answer.deleteOne({ _id: id });
+
+module.exports.getAllReviews = getAllReviews;
+
+module.exports.getReviewDetails = getReviewDetails;
 
 module.exports.overallReview = organizationID => new Promise((resolve, reject) => {
   Organization.aggregate([

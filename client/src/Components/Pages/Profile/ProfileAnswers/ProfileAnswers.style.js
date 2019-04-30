@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import SVG from "react-inlinesvg";
 
-import { colors, organizations, shadows, borders } from "./../../../../theme";
+import {
+  colors,
+  organizations,
+  shadows,
+  borders,
+  size
+} from "./../../../../theme";
 
 export const YesNoWrapper = styled.div`
   width: 100%;
@@ -64,6 +70,15 @@ export const ListItem = styled.p`
       : `${organizations[props.color].primary}`};
   font-weight: 900;
   font-size: 1rem;
+  /* width: "100%"; */
+  line-height: 2rem;
+`;
+
+export const ListComment = styled.div`
+  display: flex;
+  width: 100%;
+  height: 2rem;
+  justify-content: space-between;
 `;
 
 export const PayrollListRow = styled.div`
@@ -167,6 +182,11 @@ export const SiteItem = styled.div`
     props.itemAvailable ? `${colors.green}` : `${colors.red}`};
   font-weight: 900;
   display: flex;
+  align-items: center;
+
+  p {
+    margin: 0;
+  }
 `;
 
 export const SiteIcon = styled(SVG)`
@@ -185,4 +205,54 @@ export const CanteenSubList = styled.p`
 export const Error = styled.p`
   margin: 0;
   color: ${colors.red};
+`;
+
+export const SliderWrapper = styled.div`
+  background: grey;
+  position: relative;
+  width: 300px;
+  margin: 0 auto;
+  height: 200px;
+
+  @media (min-width: ${size.tablet}) {
+    width: 500px;
+  }
+  .right-arrow {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    /* z-index: 100; */
+    transform: translateY(-50%);
+  }
+
+  .left-arrow {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 1;
+    transform: translateY(-50%);
+  }
+
+  .ant-carousel .slick-slide {
+    text-align: center;
+    height: 200px;
+    background: #364d79;
+    overflow: hidden;
+  }
+
+  .ant-carousel .slick-slide h3 {
+    color: #fff;
+  }
+`;
+
+export const Image = styled.img`
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+`;
+
+export const ImgWrapper = styled.div``;
+
+export const CanteenItem = styled(SiteItem)`
+  margin-bottom: 1rem;
 `;

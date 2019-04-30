@@ -26,13 +26,13 @@ export const NewSVGCreator = (source, height, width, color) => (
 );
 
 // creates star rating component based on avg ratings of an organisation
-export const StarRateCreator = organisation => (
+export const StarRateCreator = (organisation, value) => (
   <StarRatingComponent
     name="star rating component"
     editing={false}
     starCount={5}
-    value={organisation.avgRatings}
-    starColor={`${organizations[organisation.category].primary}`}
+    value={organisation.avgRatings || value}
+    starColor={`${organizations[organisation.category].primary}` || "red"}
     emptyStarColor={"#D3D3D3"}
   />
 );

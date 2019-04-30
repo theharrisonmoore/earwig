@@ -3,23 +3,34 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 import Add from "./Add";
+import LeftArrow from "./LeftArrow";
+import RightArrow from "./RightArrow";
 import Agency from "./Agency";
 import AgencyThanks from "./AgencyThanks";
 import Arrow from "./Arrow";
+import Bus from "./Bus";
+import Canteen from "./Canteen"
+import CheapFood from "./CheapFood"
 import Clock30s from "./Clock30s";
 import Clock2min from "./Clock2min";
 import CommentsReceived from "./CommentsReceived";
 import Company from "./Company";
 import CompanyThanks from "./CompanyThanks";
 import FAQ from "./FAQ";
+import Fingerprint from "./Fingerprint"
 import GetVerified from "./GetVerified";
 import HelpfulLinks from "./HelpfulLinks";
 import HelpingHand from "./HelpingHand";
+import HotFood from "./HotFood"
 import JobBoard from "./JobBoard";
+import Lockers from "./Lockers"
 import LogoutLogin from "./LogoutLogin";
+import MedalIcon1 from "./MedalIcon1";
+import MedalIcon2 from "./MedalIcon2";
 import OrganisationalRatings from "./OrganisationalRatings";
 import OrHorizontal from "./OrHorizontal";
 import OrVertical from "./OrVertical";
+import OrWhite from "./OrWhite";
 import ParkingSign from "./ParkingSign";
 import Payroll from "./Payroll";
 import PayrollCharges from "./PayrollCharges";
@@ -27,6 +38,7 @@ import Payscales from "./Payscales";
 import PayslipRatings from "./PayslipRatings";
 import PhotoCamera from "./PhotoCamera";
 import PointsEarned from "./PointsEarned";
+import PrayerRoom from "./PrayerRoom"
 import PrivacyTerms from "./PrivacyTerms";
 import ReportFlag from "./ReportFlag";
 import Search from "./Search";
@@ -34,8 +46,11 @@ import ShapeEarwig from "./ShapeEarwig";
 import Supervisor from "./Supervisor";
 import Support from "./Support";
 import Tick from "./Tick";
+import TrophyIcon1 from "./TrophyIcon1";
+import TrophyIcon2 from "./TrophyIcon2";
 import TrustRating from "./TrustRating";
 import VoiceRecord from "./VoiceRecord";
+import Water from "./Water"
 import WelfareSafety from "./WelfareSafety";
 import Win from "./Win";
 import Worksite from "./Worksite";
@@ -49,24 +64,35 @@ const iconStyles = props => css`
 `;
 
 const iconMap = {
+  right: RightArrow,
+  left: LeftArrow,
   add: Add,
   agency: Agency,
   agencyThanks: AgencyThanks,
   arrow: Arrow,
+  bus: Bus,
+  canteen: Canteen,
+  cheapFood: CheapFood,
   clock30s: Clock30s,
   clock2min: Clock2min,
   commentsReceived: CommentsReceived,
   company: Company,
   companyThanks: CompanyThanks,
   faq: FAQ,
+  fingerprint: Fingerprint,
   getVerified: GetVerified,
+  hotFood: HotFood,
   helpfulLinks: HelpfulLinks,
   helpingHand: HelpingHand,
   jobBoard: JobBoard,
+  lockers: Lockers,
   logoutLogin: LogoutLogin,
+  medalIcon1: MedalIcon1,
+  medalIcon2: MedalIcon2,
   organisationalRatings: OrganisationalRatings,
   orHorizontal: OrHorizontal,
   orVertical: OrVertical,
+  orWhite: OrWhite,
   parkingSign: ParkingSign,
   payroll: Payroll,
   payrollCharges: PayrollCharges,
@@ -74,6 +100,7 @@ const iconMap = {
   payslipRatings: PayslipRatings,
   photoCamera: PhotoCamera,
   pointsEarned: PointsEarned,
+  prayerRoom: PrayerRoom,
   privacyTerms: PrivacyTerms,
   reportFlag: ReportFlag,
   search: Search,
@@ -81,8 +108,11 @@ const iconMap = {
   supervisor: Supervisor,
   support: Support,
   tick: Tick,
+  trophyIcon1: TrophyIcon1,
+  trophyIcon2: TrophyIcon2,
   trustRating: TrustRating,
   voiceRecord: VoiceRecord,
+  water: Water,
   welfareSafety: WelfareSafety,
   win: Win,
   worksite: Worksite,

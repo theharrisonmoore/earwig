@@ -19,7 +19,7 @@ export default class ScatterAnswer extends Component {
   };
 
   render() {
-    const { category, question } = this.props;
+    const { category, question, toggleComments } = this.props;
 
     const minDate = Number(
       moment(question.answers[0].createdAt)
@@ -76,13 +76,13 @@ export default class ScatterAnswer extends Component {
       <div>
         <Scatter data={data} options={options} />
         <RightCommentWrapper>
-          <Comment
-            active={
-              question.answers.filter(answer => answer.comment).length > 0
-            }
-          >
+          {question.answers.filter(answer => answer.comment).length > 0 ? (
+          <Comment onClick={() => toggleComments(question)} active>
             Comments
           </Comment>
+        ) : (
+          <Comment>Comments</Comment>
+        )}
         </RightCommentWrapper>
       </div>
     );

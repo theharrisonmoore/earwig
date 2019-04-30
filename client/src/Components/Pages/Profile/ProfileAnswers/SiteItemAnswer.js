@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 
-import { ListWrapper, SiteItem, SiteIcon } from "./ProfileAnswers.style";
+import { ListWrapper, SiteItem } from "./ProfileAnswers.style";
+
+import Icon from "./../../../Common/Icon/Icon"
 
 export default class SiteItemAnswer extends Component {
   getAverage = answers => {
@@ -20,11 +22,12 @@ export default class SiteItemAnswer extends Component {
     return (
       <ListWrapper>
         <SiteItem itemAvailable={averageResponse}>
-          {averageResponse ? (
+        <Icon icon={question.question.icon} margin="0 1rem 0 0" height="1.5rem" width="1.5rem" />
+          {/* {averageResponse ? (
             <SiteIcon src="/icons/tick-icon.svg" itemAvailable />
           ) : (
             <SiteIcon src="/icons/not-tick-icon.svg" />
-          )}
+          )} */}
           <p>{question.question.profileText}</p>
         </SiteItem>
       </ListWrapper>

@@ -421,7 +421,7 @@ module.exports = async () => {
 
     {
       question: worksiteQuestions[0],
-      answer: "yes",
+      answer: "no",
       user: users[0],
       review: reviews[4],
       organization: reviews[4].organization,
@@ -470,7 +470,7 @@ module.exports = async () => {
     },
     {
       question: worksiteQuestions[7],
-      answer: "image/link",
+      answer: "ww_1215_worksite1-1556598904800.jpg",
       user: users[0],
       review: reviews[4],
       organization: reviews[4].organization,
@@ -512,7 +512,7 @@ module.exports = async () => {
     },
     {
       question: worksiteQuestions[13],
-      answer: ["hot foot served"],
+      answer: ["Hot food served"],
       user: users[0],
       review: reviews[4],
       organization: reviews[4].organization,
@@ -600,7 +600,7 @@ module.exports = async () => {
     },
     {
       question: worksiteQuestions[7],
-      answer: "image/link",
+      answer: "ww_1215_worksite1-1556598904800.jpg",
       user: users[1],
       review: reviews[5],
       organization: reviews[5].organization,
@@ -642,7 +642,7 @@ module.exports = async () => {
     },
     {
       question: worksiteQuestions[13],
-      answer: ["hot foot served", "vending machines", "microwave"],
+      answer: ["Hot food served", "Vending machines", "Microwave"],
       user: users[1],
       review: reviews[5],
       organization: reviews[5].organization,

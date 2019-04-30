@@ -17,6 +17,8 @@ import { SIGNUP_URL } from "./../../../constants/naviagationUrls";
 import { REPORT_CONTENT_URL } from "./../../../constants/naviagationUrls";
 import { API_GET_OVERALL_REVIEW_REPLIES_URL } from "./../../../apiUrls";
 
+import Icon from "./../../Common/Icon/Icon";
+
 import {
   Wrapper,
   Banner,
@@ -26,7 +28,6 @@ import {
   CommentDate,
   BubbleAndDate,
   ReviewDiv,
-  AccountIcon,
   AccountPromo,
   AccountLink,
   AccountItem,
@@ -115,7 +116,7 @@ export default class Profile extends Component {
   };
 
   reviewsByMonth = () => {
-    const { reviews } = this.state.summary;
+    const { reviews, totalReviews } = this.state.summary;
 
     const reviewMonths = reviews.map(review =>
       moment(review.createdAt).format("MMM")
@@ -135,6 +136,8 @@ export default class Profile extends Component {
       Nov: 0,
       Dec: 0
     };
+
+    if (totalReviews === 0) return reviewMonthsCount;
 
     reviewMonths.map(month => (reviewMonthsCount[month] += 1));
 
@@ -186,11 +189,13 @@ export default class Profile extends Component {
                 {ITEMS[category] &&
                   ITEMS[category].map((item, index) => (
                     <AccountItem key={index}>
-                      <AccountIcon
-                        src="/icons/tick-icon.svg"
+                      <Icon
+                        icon={item.img}
                         margin="0 1rem 0 0"
+                        height="2rem"
+                        width="2rem"
                       />
-                      <p>{item}</p>
+                      {item.text}
                     </AccountItem>
                   ))}
               </div>
@@ -233,7 +238,7 @@ export default class Profile extends Component {
 
           {reviewDetails.map(
             (section, index) =>
-              section._id === "Getting on to site" && (
+              section._id === "Getting onto site" && (
                 <ReviewSection
                   key={index}
                   category={category}
@@ -319,7 +324,6 @@ export default class Profile extends Component {
           overallReplies={this.state.overallReplies}
           fetchOverallReplies={this.fetchOverallReplies}
         />
-        {/* ------------------- */}
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
           <AccountPromo>
             <p>Create an account to see all reviews</p>
