@@ -76,9 +76,11 @@ export default class index extends Component {
                 </Verified>
               )}
             </IDWrapper>
-            <NavLink to="/edit-profile">
-              <EditInfo>Edit info</EditInfo>
-            </NavLink>
+            {verified && (
+              <NavLink to="/edit-profile">
+                <EditInfo>Edit info</EditInfo>
+              </NavLink>
+            )}
           </TopSection>
           <BottomSection>
             <StatWrapper>

@@ -143,7 +143,7 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL1"
+          minimumLevel="LEVEL3"
           path={EDIT_PROFILE_URL}
           {...props}
           isMobile={isMobile}

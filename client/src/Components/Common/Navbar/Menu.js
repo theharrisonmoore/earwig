@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import SVG from "react-inlinesvg";
 
-import { handleLogout } from "./../../../helpers";
+import { handleLogout, authorization } from "./../../../helpers";
 
 import { Wrapper, MenuItem, MenuIcon } from "./Menu.style.js";
 import { Icon as AdminIcon } from "antd";
@@ -19,7 +19,21 @@ import {
 
 export default class Menu extends PureComponent {
   render() {
-    const { isMobile, isLoggedIn, toggleMenu, isAdmin } = this.props;
+    const {
+      isMobile,
+      isLoggedIn,
+      toggleMenu,
+      isAdmin,
+      awaitingReview,
+      verified
+    } = this.props;
+    const data = {
+      isAdmin,
+      awaitingReview,
+      verified,
+      isLoggedIn
+    };
+
     return (
       <Wrapper isMobile={isMobile}>
         {isMobile && (
@@ -28,7 +42,8 @@ export default class Menu extends PureComponent {
             Search
           </MenuItem>
         )}
-        {isAdmin && (
+
+        {authorization({ ...data, minimumLevel: "ADMIN" }) && (
           <MenuItem to={ADMIN} onClick={toggleMenu}>
             <AdminIcon
               type="dashboard"
@@ -46,22 +61,29 @@ export default class Menu extends PureComponent {
           <MenuIcon icon="getVerified" height="19" width="19" />
           Your profile
         </MenuItem>
-        <MenuItem to={FAQ_URL} onClick={toggleMenu}>
-          <MenuIcon icon="faq" height="19" width="19" />
-          FAQ & explainer videos
-        </MenuItem>
+
+        {authorization({ ...data, minimumLevel: "LEVEL0" }) && (
+          <MenuItem to={FAQ_URL} onClick={toggleMenu}>
+            <MenuIcon icon="faq" height="19" width="19" />
+            FAQ & explainer videos
+          </MenuItem>
+        )}
         <MenuItem to={RESOURCES_URL} onClick={toggleMenu}>
           <MenuIcon icon="helpfulLinks" height="19" width="19" />
           Stuff you might find helpful
         </MenuItem>
-        <MenuItem to={CONTACT_URL} onClick={toggleMenu}>
-          <MenuIcon icon="shapeEarwig" height="19" width="19" />
-          Shape earwig
-        </MenuItem>
-        <MenuItem to={PRIVACY_URL} onClick={toggleMenu}>
-          <MenuIcon icon="privacyTerms" height="19" width="19" />
-          Privacy & terms
-        </MenuItem>
+        {authorization({ ...data, minimumLevel: "LEVEL2" }) && (
+          <MenuItem to={CONTACT_URL} onClick={toggleMenu}>
+            <MenuIcon icon="shapeEarwig" height="19" width="19" />
+            Shape earwig
+          </MenuItem>
+        )}
+        {authorization({ ...data, minimumLevel: "LEVEL2" }) && (
+          <MenuItem to={PRIVACY_URL} onClick={toggleMenu}>
+            <MenuIcon icon="privacyTerms" height="19" width="19" />
+            Privacy & terms
+          </MenuItem>
+        )}
         {isLoggedIn ? (
           <MenuItem to=" " onClick={handleLogout}>
             <MenuIcon icon="logoutLogin" height="19" width="19" />
