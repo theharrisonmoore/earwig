@@ -130,7 +130,6 @@ export const LastReviewsContainer = styled.div`
 
 export const ItemDiv = styled.div`
   display: flex;
-  width: 200px;
   margin-bottom: 1.5rem;
 `;
 

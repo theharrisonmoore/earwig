@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { Button, Icon as AntIcon } from "antd";
 
 import { SEARCH_URL, ADMIN } from "./../../../constants/naviagationUrls";
@@ -114,7 +114,9 @@ export default class Navbar extends Component {
       return (
         <Wrapper height="3rem">
           <SideDiv position="flex-start">
-            <Icon src={SearchIcon} alt="search" />
+            <Link to={SEARCH_URL}>
+              <Icon src={SearchIcon} alt="search" />
+            </Link>
           </SideDiv>
           <WrapperH2>{title && title}</WrapperH2>
           {menuOpen ? (
