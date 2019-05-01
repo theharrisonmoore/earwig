@@ -120,7 +120,9 @@ export const SearchLegendDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 1rem;
+  padding: 0 2rem 1rem 2rem;
+  width: 100%;
+  max-width: 600px;
 `;
 
 export const LastReviewsContainer = styled.div`
@@ -130,13 +132,18 @@ export const LastReviewsContainer = styled.div`
 
 export const ItemDiv = styled.div`
   display: flex;
-  width: 200px;
+  align-items: center;
+  width: 50%;
+  padding: ${props => props.notMobile ? "0 2rem" : "0 1rem"};
   margin-bottom: 1.5rem;
+  margin-left: auto;
+  justify-content: ${props => props.notMobile && props.left ? "flex-end" : "flex-start"};
 `;
 
 export const LegendTitle = styled.h2`
   color: ${props => organizations[props.orgType].primary};
   font-size: 1rem;
+  margin: 0;
 `;
 
 export const SuggestionBox = styled.div`
@@ -290,7 +297,7 @@ export const LogosContainer = styled.div`
 
 export const RowDiv = styled.div`
   display: flex;
-  width: auto;
+  width: 100%;
 `;
 
 export const FooterDiv = styled.footer`
