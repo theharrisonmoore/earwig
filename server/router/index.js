@@ -39,9 +39,12 @@ const reportContentController = require("./../controllers/reportContent");
 const addOrganizationController = require("../controllers/organizations");
 
 const thinkingofDeletingController = require("../controllers/thinkingOfDeleting");
+const addCommentOnQuestion = require("../controllers/addCommentOnQuestion");
 const feedbackController = require("../controllers/feedback");
 
 const userReviewsController = require("../controllers/getUserReviews");
+const getOverallReviewReplies = require("../controllers/getOverallReviewReplies");
+const addCommentOnReview = require("../controllers/addCommentOnReview");
 
 const {
   LOGIN_URL,
@@ -52,7 +55,11 @@ const {
   LOGOUT_URL,
   ADD_ORGANIZATION_URL,
   REPORT_CONTENT_URL,
+  ADD_COMMENT_ON_QUESTION_URL,
+  GET_OVERALL_REVIEW_REPLIES_URL,
+  ADD_COMMENT_ON_REVIEW_URL,
 } = require("../../client/src/apiUrls");
+
 
 router.get(SEARCH_URL, searchController);
 router.get("/user", authentication, userInfoController);
@@ -144,6 +151,31 @@ router.post(
   authentication,
   authorization("LEVEL1"),
   reportContentController,
+);
+
+
+router.post(
+  ADD_COMMENT_ON_QUESTION_URL,
+  authentication,
+  authorization("LEVEL1"),
+  validation("addCommentOnQuestion"),
+  addCommentOnQuestion,
+);
+
+router.post(
+  ADD_COMMENT_ON_REVIEW_URL,
+  authentication,
+  authorization("LEVEL3"),
+  validation("addCommentOnReview"),
+  addCommentOnReview,
+);
+
+
+router.get(
+  `${GET_OVERALL_REVIEW_REPLIES_URL}/:id`,
+  authentication,
+  authorization("LEVEL1"),
+  getOverallReviewReplies,
 );
 
 router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
