@@ -49,7 +49,7 @@ const postReviewShort = async (req, res, next) => {
       voiceReview: voiceReview || "voice/file", // temp until next sprint
     });
     await newReview.save();
-    res.send();
+    res.send(organizationData._id);
   } catch (error) {
     console.log("error", error);
     next(boom.badImplementation);
@@ -126,7 +126,7 @@ const postReview = async (req, res, next) => {
     const allAnswers = [...reviewAnswers];
     await Answer.insertMany(allAnswers);
 
-    res.send();
+    res.send(organizationData._id);
   } catch (error) {
     console.log("review controller error", error);
     next(boom.badImplementation);

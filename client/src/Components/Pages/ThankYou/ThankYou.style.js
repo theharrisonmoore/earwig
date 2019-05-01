@@ -1,7 +1,35 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { EmailShareButton, WhatsappShareButton, TelegramShareButton} from "react-share";
 
-import { colors, shadows, organizations } from "./../../../theme";
+import { colors, organizations } from "./../../../theme";
+
+export const EmailShare = styled(EmailShareButton)`
+  cursor: pointer;
+  opacity: 0.7;
+
+  :hover, :active, :focus {
+    opacity: 1;
+  }
+`;
+
+export const WhatsappShare = styled(WhatsappShareButton)`
+  cursor: pointer;
+  opacity: 0.7;
+
+  :hover, :active, :focus {
+    opacity: 1;
+  }
+`;
+
+export const TelegramShare = styled(TelegramShareButton)`
+  cursor: pointer;
+  opacity: 0.7;
+
+  :hover, :active, :focus {
+    opacity: 1;
+  }
+`;
 
 export const ThankYouWrapper = styled.div`
   width: 100%;
@@ -77,28 +105,18 @@ export const Icon = styled.i`
   }
 `;
 
-export const Button = styled.button`
-  display: block;
+export const SharePromo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 3.5rem;
-  box-shadow: ${shadows.buttonShadow};
   border-radius: 6px;
   background-color: ${props => organizations[props.orgType].primary};
   color: ${colors.white};
-  border: none;
   margin-bottom: 2.5rem;
   font-size: 1.25rem;
   font-weight: 700;
-  transition: all 0.2s;
-
-  &:focus {
-    outline: none;
-  }
-  &:active {
-    padding-top: 1px;
-    box-shadow: ${shadows.activeButtonShadow};
-    transform: translateY(2px);
-  }
 `;
 
 export const StyledLink = styled(Link)`

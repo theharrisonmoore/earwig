@@ -78,12 +78,16 @@ class Review extends Component {
             title: "Thanks! We're verifying your review as soon as possible."
           }).then(() => {
             this.props.history.push(THANKYOU_URL, {
-              orgType: organization.category
+              orgType: organization.category,
+              orgId: res.data,
+              orgName: organization.name
             });
           });
         }
         this.props.history.push(THANKYOU_URL, {
-          orgType: organization.category
+          orgType: organization.category,
+          orgId: res.data,
+          orgName: organization.name
         });
       })
       .catch(err => {
