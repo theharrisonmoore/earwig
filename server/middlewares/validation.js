@@ -198,6 +198,18 @@ const schemas = {
     review: Joi.object(),
     comment: Joi.object(),
   },
+  addCommentOnQuestion: {
+    text: Joi.string().required(),
+    displayName: Joi.string().allow("").optional(),
+    question: Joi.string().length(24).required(),
+    organization: Joi.string().length(24).required(),
+  },
+  addCommentOnReview: {
+    text: Joi.string().required(),
+    displayName: Joi.string().allow("").optional(),
+    reviewId: Joi.string().length(24).required(),
+    target: Joi.string().required(),
+  },
 };
 
 module.exports = route => (req, res, next) => {

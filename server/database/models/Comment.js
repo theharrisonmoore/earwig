@@ -20,6 +20,7 @@ const commentSchema = new Schema({
     type: String,
     required: true,
   },
+  displayName: String,
 }, {
   timestamps: true,
 });

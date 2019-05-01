@@ -86,6 +86,33 @@ export const handleLogout = () => {
   });
 };
 
+export const isMobileDevice = {
+  Android: function() {
+    return navigator.userAgent.match(/Android/i);
+  },
+  BlackBerry: function() {
+    return navigator.userAgent.match(/BlackBerry/i);
+  },
+  iOS: function() {
+    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+  },
+  Opera: function() {
+    return navigator.userAgent.match(/Opera Mini/i);
+  },
+  Windows: function() {
+    return navigator.userAgent.match(/IEMobile/i);
+  },
+  any: function() {
+    return (
+      isMobileDevice.Android() ||
+      isMobileDevice.BlackBerry() ||
+      isMobileDevice.iOS() ||
+      isMobileDevice.Opera() ||
+      isMobileDevice.Windows()
+    );
+  }
+};
+
 export const questionsNumber = {
   agency: {
     full: {
@@ -127,4 +154,21 @@ export const questionsNumber = {
       time: "30 secs"
     }
   }
+};
+
+export const highlightMentions = text => {
+  return text.split("\n").map(line => (
+    <>
+      {line.split(" ").map((ele, index) => (
+        <>
+          {ele.startsWith("@") ? (
+            <span style={{ fontWeight: 900 }}>{ele.substr(1)}</span>
+          ) : (
+            ele
+          )}{" "}
+          {line.split(" ").length === index + 1 && "\n"}
+        </>
+      ))}
+    </>
+  ));
 };

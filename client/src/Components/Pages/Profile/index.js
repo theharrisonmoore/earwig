@@ -1,36 +1,29 @@
 import React, { Component } from "react";
 import axios from "axios";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import { message } from "antd";
 
 import ReviewSection from "./ReviewSection";
 import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
 import CommentsBox from "./ProfileAnswers/CommentsBox";
 import HeaderSection from "./HeaderSection";
+import OverallReview from "./OverallReview";
 import Loading from "./../../Common/AntdComponents/Loading";
 
 import { ITEMS } from "./../../../constants/promoItems";
 import { SIGNUP_URL } from "./../../../constants/naviagationUrls";
-import { REPORT_CONTENT_URL } from "./../../../constants/naviagationUrls";
+import { API_GET_OVERALL_REVIEW_REPLIES_URL } from "./../../../apiUrls";
 
-import Icon from "./../../Common/Icon/Icon"
+import Icon from "./../../Common/Icon/Icon";
 
 import {
   Wrapper,
   Banner,
-  CommentDiv,
-  UserID,
-  CommentBubble,
-  CommentDate,
-  BubbleAndDate,
   ReviewDiv,
   AccountPromo,
   AccountLink,
-  AccountItem,
-  StyledAntIcon
+  AccountItem
 } from "./Profile.style";
-
-import { SectionTitle } from "./ReviewSection.style";
 
 export default class Profile extends Component {
   state = {
@@ -42,7 +35,9 @@ export default class Profile extends Component {
     comments: null,
     commentsLoaded: false,
     level: 0,
-    organizationID: ""
+    organizationID: "",
+    overallReplies: [],
+    activeOverallId: ""
   };
 
   fetchData = () => {
@@ -61,7 +56,9 @@ export default class Profile extends Component {
         });
       })
       .catch(err => {
-        console.log(err);
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        message.error(error || "Something went wrong");
       });
   };
 
@@ -70,12 +67,16 @@ export default class Profile extends Component {
   }
 
   toggleComments = question => {
-    const { commentsOpen, summary } = this.state;
-    const { _id: organizationID } = summary;
-    const { _id: questionID } = question;
-
+    const { commentsOpen } = this.state;
     // reset loading state and toggle comments box
     this.setState({ commentsLoaded: false, commentsOpen: !commentsOpen });
+    this.fetchComments(question);
+  };
+
+  fetchComments = question => {
+    const { summary } = this.state;
+    const { _id: organizationID } = summary;
+    const { _id: questionID } = question;
 
     // fetch comments
     axios
@@ -87,7 +88,26 @@ export default class Profile extends Component {
           commentsQuestion: question
         });
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        message.error(error || "Something went wrong");
+      });
+  };
+
+  fetchOverallReplies = id => {
+    id
+      ? axios
+          .get(`${API_GET_OVERALL_REVIEW_REPLIES_URL}/${id}`)
+          .then(({ data }) => {
+            this.setState({ overallReplies: data, activeOverallId: id });
+          })
+          .catch(err => {
+            const error =
+              err.response && err.response.data && err.response.data.error;
+            message.error(error || "Something went wrong");
+          })
+      : this.setState({ overallReplies: [], activeOverallId: "" });
   };
 
   reviewsByMonth = () => {
@@ -112,7 +132,7 @@ export default class Profile extends Component {
       Dec: 0
     };
 
-    if (totalReviews === 0) return reviewMonthsCount
+    if (totalReviews === 0) return reviewMonthsCount;
 
     reviewMonths.map(month => (reviewMonthsCount[month] += 1));
 
@@ -290,37 +310,15 @@ export default class Profile extends Component {
           )}
         </ReviewDiv>
         {/* OVERALL RATINGS SECTION */}
-        {summary.reviews[0].createdAt && (
-          <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-            <SectionTitle>Overall ratings</SectionTitle>
-            {summary.reviews.map((review, index) => (
-              <CommentDiv key={index}>
-                <UserID>{review.user && review.user.userId}</UserID>
-                <BubbleAndDate>
-                  <CommentBubble>{review.overallReview && review.overallReview.text}</CommentBubble>
-                  <CommentDate>
-                    {review.createdAt && moment().diff(review.createdAt, "weeks")}w
-                  </CommentDate>
-                </BubbleAndDate>
-                <Link
-                  to={{
-                    pathname: REPORT_CONTENT_URL,
-                    state: {
-                      review: {
-                        overallReview: review.overallReview,
-                        user: review.user
-                      },
-                      organization: summary,
-                      target: "overallReview"
-                    }
-                  }}
-                >
-                  <StyledAntIcon type="flag" />
-                </Link>
-              </CommentDiv>
-            ))}
-          </ReviewDiv>
-        )}
+        <OverallReview
+          summary={summary}
+          isTablet={isTablet}
+          isMobile={isMobile}
+          category={category}
+          activeOverallId={this.state.activeOverallId}
+          overallReplies={this.state.overallReplies}
+          fetchOverallReplies={this.fetchOverallReplies}
+        />
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
           <AccountPromo>
             <p>Create an account to see all reviews</p>
@@ -338,6 +336,8 @@ export default class Profile extends Component {
             commentsLoaded={commentsLoaded}
             toggleComments={this.toggleComments}
             isMobile={isMobile}
+            fetchComments={this.fetchComments}
+            category={category}
           />
         )}
       </Wrapper>
