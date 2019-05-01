@@ -167,16 +167,54 @@ export default class OverallReview extends Component {
                       {reply.replies.displayName ||
                         reply.replies.user[0].userId}
                     </UserID>
-                    <BubbleAndDate>
-                      <CommentBubble color={organizations[category].secondary}>
-                        {reply.replies.text}
-                      </CommentBubble>
-                      <CommentDate>
-                        {reply.replies.createdAt &&
-                          moment().diff(reply.replies.createdAt, "weeks")}
-                        w
-                      </CommentDate>
-                    </BubbleAndDate>
+                    <div style={{ position: "relative", marginBottom: "2rem" }}>
+                      <BubbleAndDate
+                        style={{
+                          display: "inline-block",
+                          position: "relative"
+                        }}
+                      >
+                        <CommentBubble
+                          style={{ maxWidth: "86%" }}
+                          color={organizations[category].secondary}
+                        >
+                          {reply.replies.text}
+                        </CommentBubble>
+                        <CommentDate
+                          style={{
+                            position: "absolute",
+                            left: "81%"
+                          }}
+                        >
+                          {reply.replies.createdAt &&
+                            moment().diff(reply.replies.createdAt, "weeks") +
+                              "w"}
+                        </CommentDate>
+                      </BubbleAndDate>
+                      <Link
+                        style={{
+                          right: 0,
+                          width: "10%",
+                          position: "absolute",
+                          top: "50%",
+                          transform: "translateY(-50%)"
+                        }}
+                        to={{
+                          pathname: REPORT_CONTENT_URL,
+                          state: {
+                            review: {
+                              overallReview: review.overallReview,
+                              user: review.user
+                            },
+                            organization: summary,
+                            reply: reply.replies,
+                            target: "overallReply"
+                          }
+                        }}
+                      >
+                        <StyledAntIcon type="flag" />
+                      </Link>
+                    </div>
                   </div>
                 ))}
               </Panel>

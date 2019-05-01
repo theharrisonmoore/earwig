@@ -30,6 +30,7 @@ export default class ReviewSection extends Component {
       summary,
       isMobile
     } = this.props;
+
     const { _id: sectionTitle, questions } = sectionDetails;
 
     let canteenQuestions =
@@ -169,7 +170,11 @@ export default class ReviewSection extends Component {
               return (
                 <QuestionWrapper key={question._id}>
                   <QuestionTitle>{question.question.profileText}</QuestionTitle>
-                  <ImageSlider category={category} question={question} />
+                  <ImageSlider
+                    category={category}
+                    question={question}
+                    organization={summary}
+                  />
                 </QuestionWrapper>
               );
             })}

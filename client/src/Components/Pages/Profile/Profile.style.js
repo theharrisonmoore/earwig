@@ -169,10 +169,12 @@ export const LightTitle = styled(UserID)`
 export const CommentBubble = styled.p`
   background: ${({ color }) => color || colors.ghostGray};
   border-radius: 1.125rem;
+  align-self: flex-start;
+  justify-content: flex-start;
   padding: 0.5rem 1rem;
-  position: relative;
-  margin-right: 0.5rem;
   margin-bottom: 0;
+  white-space: pre-wrap;
+  text-align: left;
 `;
 
 export const CommentDate = styled.p`
