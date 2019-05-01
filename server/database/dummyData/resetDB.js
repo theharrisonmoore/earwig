@@ -20,5 +20,18 @@ const resetDB = async () => {
   await MailList.deleteMany();
   return Review.deleteMany();
 };
+const resetDBProd = async () => {
+  await User.deleteMany();
+  // await Answer.deleteMany();
+  await Trade.deleteMany();
+  // await Comment.deleteMany();
+  await Job.deleteMany();
+  await Organization.deleteMany();
+  await Question.deleteMany();
+  return MailList.deleteMany();
+  // return Review.deleteMany();
+};
+
+module.exports = { resetDBProd };
 
 module.exports = resetDB;
