@@ -8,19 +8,6 @@ import { organizations } from "../../../../theme";
 Chart.defaults.global.plugins.datalabels.display = false;
 
 export default class BarChartAnswer extends Component {
-  // createLabels = answers => {
-  //   const labels = answers.map(answer => answer.answer);
-
-  //   const labelAndCount = labels.reduce
-  //   uce((acc, label) => {
-  //     acc[label] = acc[label] ? acc[label] + 1 : 1;
-  //     return acc;
-  //   }, Object.create(null));
-
-  //   console.log("ANSWERS", labelAndCount);
-
-  //   return labelAndCount;
-  // };
 
   createDataObj = question => {
     // create object
@@ -87,7 +74,7 @@ export default class BarChartAnswer extends Component {
             align: "bottom",
             clip: true,
             formatter: value => {
-              return value + "%";
+              return Math.floor(value) + "%";
             },
             font: {
               weight: "900",
