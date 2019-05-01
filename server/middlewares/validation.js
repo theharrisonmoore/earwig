@@ -197,6 +197,7 @@ const schemas = {
     question: Joi.object(),
     review: Joi.object(),
     comment: Joi.object(),
+    reply: Joi.object(),
   },
   addCommentOnQuestion: {
     text: Joi.string().required(),
