@@ -105,15 +105,17 @@ export const PayrollFee = styled.p`
 
 export const Wrapper = styled.div`
   position: fixed;
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  min-width: 100vw;
   background-color: ${colors.ghostWhite};
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: auto;
 `;
 
 export const CommentsDiv = styled.div`
+  position: absolute;
   background: white;
   width: ${props => (props.isMobile ? "90%" : "60%")};
   height: auto;
@@ -124,6 +126,9 @@ export const CommentsDiv = styled.div`
   flex-direction: column;
   padding: 1.5rem;
   text-align: left;
+  top: 0;
+  margin-top: 60px;
+  margin-bottom: 100px;
 `;
 
 export const CommentsHeader = styled.div`
@@ -162,11 +167,14 @@ export const UserID = styled.h3`
 `;
 
 export const CommentBubble = styled.p`
-  background: ${colors.ghostGray};
+  background: ${({ color }) => color || colors.ghostGray};
   border-radius: 1.125rem;
   align-self: flex-start;
   justify-content: flex-start;
   padding: 0.5rem 1rem;
+  margin-bottom: 0;
+  white-space: pre-wrap;
+  text-align: left;
 `;
 
 export const SiteItem = styled.div`
@@ -193,6 +201,11 @@ export const CanteenSubList = styled.p`
   color: ${props =>
     props.itemAvailable ? `${colors.green}` : `${colors.red}`};
   font-weight: 900;
+`;
+
+export const Error = styled.p`
+  margin: 0;
+  color: ${colors.red};
 `;
 
 export const SliderWrapper = styled.div`

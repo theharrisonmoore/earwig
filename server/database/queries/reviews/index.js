@@ -4,6 +4,7 @@ const Answer = require("./../../models/Answer");
 const Review = require("./../../models/Review");
 const Comment = require("./../../models/Comment");
 const getAllReviews = require("./allReviews");
+const getOverallReplies = require("./getOverallReplies");
 const getReviewDetails = require("./getReviewDetails");
 
 module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
@@ -12,6 +13,15 @@ module.exports.deleteReview = id => Review.deleteOne({ _id: id });
 
 module.exports.findById = id => Review.findById(id);
 
+module.exports.getOverallReplies = getOverallReplies;
+
+module.exports.getAllReviews = getAllReviews;
+
+module.exports.addCommentOnOverallReview = (id, data) => Review.findByIdAndUpdate(id, {
+  $push: {
+    "overallReview.replies": data,
+  },
+});
 module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate({ _id: id }, { isVerified: bool }, { new: true });
 
 module.exports.deleteAnswer = id => Answer.deleteOne({ _id: id });
@@ -50,6 +60,8 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
     {
       $unwind: { path: "$reviews", preserveNullAndEmptyArrays: true },
     },
+
+
     // {
     //   $project: {
     //     reviews: { $ifNull: ["$reviews", { user: "unspecified" }] },
@@ -223,6 +235,7 @@ module.exports.allComments = (organizationID, questionID) => new Promise((resolv
         userId: "$user.userId",
         organization: 1,
         text: 1,
+        displayName: 1,
       },
     },
   ])
