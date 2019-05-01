@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Autosuggest from "react-autosuggest";
+import { withRouter } from "react-router-dom";
 import { ADD_PROFILE_URL } from "../../../constants/naviagationUrls";
 // styles
 import {
@@ -41,7 +42,7 @@ export const getSuggestions = (value, organisationsArray) => {
   return suggestions;
 };
 
-export default class AutosuggestComponent extends Component {
+class AutosuggestComponent extends Component {
   state = {
     value: "",
     suggestions: []
@@ -74,7 +75,7 @@ export default class AutosuggestComponent extends Component {
       if (suggestions[0].isEmpty) {
         return null;
       }
-      return (window.location.href = `/profile/${suggestions[0]._id}`);
+      return this.props.history.push(`/profile/${suggestions[0]._id}`);
     }
     return null;
   };
@@ -87,7 +88,7 @@ export default class AutosuggestComponent extends Component {
       return null;
     }
     return (
-      <ProfileLink href={`/profile/${suggestion._id}`}>
+      <ProfileLink to={`/profile/${suggestion._id}`}>
         <SuggestionBox orgType={suggestion.category}>
           <InnerDivSuggestions>
             <SymbolDiv>
@@ -177,3 +178,5 @@ export default class AutosuggestComponent extends Component {
     );
   }
 }
+
+export default withRouter(AutosuggestComponent);
