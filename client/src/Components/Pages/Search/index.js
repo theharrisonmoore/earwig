@@ -61,7 +61,8 @@ export default class Search extends Component {
       <ReviewsFrame orgType={org.category}>
         <InnerDivLastReviews orgType={org.category}>
           <SymbolDiv>
-            {SVGCreator(`${organizationIcons[org.category].symbol}`)}
+            {/* {SVGCreator(`${organizationIcons[org.category].symbol}`)} */}
+            <Icon icon={org.category} height="1.5rem" width="1.5rem" margin="0 1rem 0 0" />
           </SymbolDiv>
           <OrganisationDetailsDiv>
             <h3>{org.name}</h3>
@@ -110,7 +111,7 @@ export default class Search extends Component {
                   <Icon icon="agency" color={organizations.agency.primary} width="2rem" height="2rem" margin="0 1rem 0 0" />
                   <LegendTitle orgType="agency">Agencies</LegendTitle>
                 </ItemDiv>
-                <ItemDiv>
+                <ItemDiv notMobile={!isMobile}>
                   {/* {SVGCreator("payroll-icon", "40px", "70px")} */}
                   <Icon icon="payroll" color={organizations.payroll.primary} width="2rem" height="2rem" margin="0 1rem 0 0" />
                   <LegendTitle orgType="payroll">Payrolls</LegendTitle>
@@ -122,7 +123,7 @@ export default class Search extends Component {
                   <Icon icon="worksite" color={organizations.worksite.primary} width="2rem" height="2rem" margin="0 1rem 0 0" />
                   <LegendTitle orgType="worksite">Worksites</LegendTitle>
                 </ItemDiv>
-                <ItemDiv>
+                <ItemDiv notMobile={!isMobile}>
                   {/* {SVGCreator("company-icon", "40px", "70px")} */}
                   <Icon icon="company" color={organizations.company.primary} width="2rem" height="2rem" margin="0 1rem 0 0" />
                   <LegendTitle orgType="company">Companies</LegendTitle>
