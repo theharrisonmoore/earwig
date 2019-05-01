@@ -91,7 +91,7 @@ export default class Search extends Component {
 
   render() {
     const { isLoading, data, showOtherSections } = this.state;
-
+    const { isMobile } = this.props;
     if (!isLoading) return <p data-testid="loading">loading...</p>;
 
     return (
@@ -127,10 +127,10 @@ export default class Search extends Component {
         )}
         <FlexContainer ref={this.setSearchBoxRef}>
           <AutosuggestComponent
-            bool={() => true}
             height="4.5rem"
             width="80%"
             data={data}
+            isMobile={isMobile}
             placeholderText="start typing..."
           />
         </FlexContainer>

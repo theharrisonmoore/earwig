@@ -137,7 +137,8 @@ export default class AutosuggestComponent extends Component {
 
   render() {
     const { value, suggestions } = this.state;
-    const { height, width, bool, placeholderText } = this.props;
+    const { height, width, bool, placeholderText, isMobile } = this.props;
+
     const inputProps = {
       placeholder: `${placeholderText}`,
       value,
@@ -145,13 +146,28 @@ export default class AutosuggestComponent extends Component {
       onKeyPress: this.onKeyPress
     };
 
+    if (isMobile) {
+      return (
+        <AutosuggestWrapper height={height} width={width}>
+          <Autosuggest
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={this.renderSuggestion}
+            inputProps={inputProps}
+            renderSuggestionsContainer={this.renderSuggestionsContainer}
+          />
+        </AutosuggestWrapper>
+      );
+    }
     return (
       <AutosuggestWrapper height={height} width={width}>
         <Autosuggest
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          shouldRenderSuggestions={bool}
+          shouldRenderSuggestions={() => true}
           getSuggestionValue={getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           inputProps={inputProps}
