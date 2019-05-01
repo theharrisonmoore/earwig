@@ -118,7 +118,7 @@ export default class Navbar extends Component {
               <Icon src={SearchIcon} alt="search" />
             </Link>
           </SideDiv>
-          <WrapperH2>{title && title}</WrapperH2>
+          <WrapperH2 style={{ fontWeight: "900" }}>{title && title}</WrapperH2>
           {menuOpen ? (
             <>
               <ToggleMenu onClick={this.toggleMenu}>

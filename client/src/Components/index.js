@@ -90,7 +90,6 @@ export default function index(props) {
           path={UPLOAD_VERIFICATION_URL}
           {...props}
           Component={UploadImage}
-          navbar
         />
 
         <PrivateRoute
@@ -120,6 +119,7 @@ export default function index(props) {
           isTablet={isTablet}
           Component={Search}
           navbar
+          title="Search"
         />
 
         <PrivateRoute
