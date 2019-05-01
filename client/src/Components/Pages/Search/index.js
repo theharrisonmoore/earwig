@@ -91,7 +91,7 @@ export default class Search extends Component {
 
   render() {
     const { isLoading, data, showOtherSections } = this.state;
-
+    const { isMobile } = this.props;
     if (!isLoading) return <p data-testid="loading">loading...</p>;
 
     return (
@@ -132,6 +132,7 @@ export default class Search extends Component {
             width="80%"
             data={data}
             placeholderText="start typing..."
+            isMobile={isMobile}
           />
         </FlexContainer>
         {showOtherSections && (
