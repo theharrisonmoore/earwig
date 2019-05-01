@@ -131,6 +131,7 @@ export const LastReviewsContainer = styled.div`
 export const ItemDiv = styled.div`
   display: flex;
   width: 200px;
+  margin-bottom: 1.5rem;
 `;
 
 export const LegendTitle = styled.h2`
@@ -241,6 +242,7 @@ export const ProfileLink = styled.a`
     text-decoration: none;
   }
 `;
+
 export const AddProfileLink = styled(Link)`
   :hover {
     text-decoration: none;
@@ -273,6 +275,7 @@ export const H3 = styled.h3`
   letter-spacing: 0.3px;
   font-weight: 900;
 `;
+
 export const P = styled.p`
   font-size: 1rem;
   font-style: italic;

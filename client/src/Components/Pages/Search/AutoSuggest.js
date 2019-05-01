@@ -63,7 +63,20 @@ export default class AutosuggestComponent extends Component {
   };
 
   onChange = (event, { newValue }) => {
-    this.setState({ value: newValue });
+    this.setState({ value: typeof newValue !== "undefined" ? newValue : "" });
+  };
+
+  onKeyPress = e => {
+    const { value } = this.state;
+    const suggestions = getSuggestions(value, this.props.data);
+
+    if (e.key === "Enter") {
+      if (suggestions[0].isEmpty) {
+        return null;
+      }
+      return (window.location.href = `/profile/${suggestions[0]._id}`);
+    }
+    return null;
   };
 
   // render functions
@@ -128,7 +141,8 @@ export default class AutosuggestComponent extends Component {
     const inputProps = {
       placeholder: `${placeholderText}`,
       value,
-      onChange: this.onChange
+      onChange: this.onChange,
+      onKeyPress: this.onKeyPress
     };
 
     return (

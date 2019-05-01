@@ -110,6 +110,7 @@ export default function index(props) {
         />
 
         <PrivateRoute
+          exact
           minimumLevel="LEVEL0"
           path={SEARCH_URL}
           {...props}
