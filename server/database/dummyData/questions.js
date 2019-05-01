@@ -767,7 +767,7 @@ module.exports = async () => {
         text: "The site welfare",
       },
       hasComment: true,
-      icon: "prayerRoom"
+      icon: "prayerRoom",
     },
     {
       number: 12,
@@ -909,7 +909,7 @@ module.exports = async () => {
       type: "yesno",
       text: "Was their materials store well organised?",
       isJumping: false,
-      options: ["Yes", "No", "I didn't check"],
+      options: ["Yes", "No", "I didn't check", "They didn't have a materials store"],
       category: "company",
       profileText: "Materials stores are well organised",
       profileSection: "Tools & materials",
