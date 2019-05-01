@@ -45,6 +45,10 @@ module.exports = async () => {
   const questions = [
     {
       number: 1,
+      next: {
+        yes: 2,
+        no: 3,
+      },
       type: "yesno",
       text: "Did they send you written confirmation of the terms and conditions of employment?",
       hintText:
@@ -65,6 +69,8 @@ module.exports = async () => {
     },
     {
       number: 2,
+      next: 3,
+      isDependent: true,
       type: "yesno",
       text: "Did they send you this information before your work began?",
       isJumping: false,
@@ -82,6 +88,7 @@ module.exports = async () => {
     },
     {
       number: 3,
+      next: 4,
       type: "radio",
       text:
         "Taking into account all the information you were given before starting work, such as pay, hours, type of work and length of job, how accurate was the description you were given about the job overall?",
@@ -100,6 +107,7 @@ module.exports = async () => {
     },
     {
       number: 4,
+      next: 5,
       type: "yesno",
       text: "Did they give you correct information about the pay?",
       isJumping: false,
@@ -117,6 +125,7 @@ module.exports = async () => {
     },
     {
       number: 5,
+      next: 6,
       type: "yesno",
       text: "Did they give you correct information about the hours?",
       isJumping: false,
@@ -134,6 +143,7 @@ module.exports = async () => {
     },
     {
       number: 6,
+      next: 7,
       type: "yesno",
       text: "Did they give you correct information about the type of work?",
       isJumping: false,
@@ -151,6 +161,7 @@ module.exports = async () => {
     },
     {
       number: 7,
+      next: 8,
       type: "yesno",
       text: "Did they give you correct information about the length of the job?",
       isJumping: false,
@@ -168,6 +179,7 @@ module.exports = async () => {
     },
     {
       number: 8,
+      next: 9,
       type: "number",
       text: "What hourly rate were you paid?",
       label: "per hour",
@@ -185,6 +197,10 @@ module.exports = async () => {
     },
     {
       number: 9,
+      next: {
+        yes: 15,
+        no: 10,
+      },
       type: "yesno",
       text: "Were you paid via a payroll/umbrella?",
       isJumping: true,
@@ -200,6 +216,8 @@ module.exports = async () => {
     },
     {
       number: 10,
+      isDependent: true,
+      next: 11,
       type: "yesno",
       text: "What was the payroll type?",
       isJumping: false,
@@ -217,6 +235,8 @@ module.exports = async () => {
     },
     {
       number: 11,
+      isDependent: true,
+      next: 12,
       type: "yesno",
       text: "Were you paid within the timeframe you expected?",
       isJumping: false,
@@ -234,6 +254,8 @@ module.exports = async () => {
     },
     {
       number: 12,
+      isDependent: true,
+      next: 13,
       type: "yesno",
       text: "Were you paid the amount you expected?",
       isJumping: false,
@@ -251,6 +273,8 @@ module.exports = async () => {
     },
     {
       number: 13,
+      isDependent: true,
+      next: 14,
       type: "yesno",
       text: "Were your payslips easily accessible?",
       isJumping: false,
@@ -268,6 +292,8 @@ module.exports = async () => {
     },
     {
       number: 14,
+      isDependent: true,
+      next: 17,
       type: "yesno",
       text: "Did the payslips show all the information you needed?",
       isJumping: true,
@@ -290,6 +316,8 @@ module.exports = async () => {
     },
     {
       number: 15,
+      isDependent: true,
+      next: 16,
       type: "dropdown",
       text: "What's the name of the payroll?",
       label: "Select payroll",
@@ -308,6 +336,8 @@ module.exports = async () => {
     },
     {
       number: 16,
+      isDependent: true,
+      next: 17,
       type: "number",
       text: "How much were you charged?",
       label: "per timesheet",
@@ -767,7 +797,7 @@ module.exports = async () => {
         text: "The site welfare",
       },
       hasComment: true,
-      icon: "prayerRoom"
+      icon: "prayerRoom",
     },
     {
       number: 12,
