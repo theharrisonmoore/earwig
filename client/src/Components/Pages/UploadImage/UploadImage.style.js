@@ -13,6 +13,7 @@ export const UploadImageWrapper = styled.div`
 export const ContentWrapper = styled.div`
   width: 85%;
   margin: 0 auto;
+  padding-bottom: 2rem;
 `;
 
 export const SelectWrapper = styled.div`
@@ -51,7 +52,7 @@ export const Example = styled.img`
 export const Label = styled.label``;
 
 export const Paragraph = styled.p`
-  font-weight: 900;
+  font-style: italic;
   font-size: 1rem;
   text-align: left;
   color: ${colors.dustyGray};
@@ -91,6 +92,10 @@ export const Link = styled.a`
   font-size: 1.125rem;
 
   color: ${colors.profileFontColor};
+
+  :hover {
+    color: ${colors.red}
+  }
 `;
 
 export const ImageInput = styled.input`
