@@ -78,7 +78,7 @@ export default class ReportContent extends Component {
 
     return (
       <Wrapper>
-        {"this.state.loading" ? (
+        {this.state.loading ? (
           <Loading />
         ) : (
           <ContentWrapper>

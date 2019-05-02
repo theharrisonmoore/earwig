@@ -4,7 +4,10 @@ export const validationSchema = {
   agency: Yup.object({
     questions: Yup.object({
       1: Yup.string().required("Required"),
-      2: Yup.string().required("Required"),
+      2: Yup.string().when("1", {
+        is: "yes",
+        then: Yup.string().required("Required")
+      }),
       3: Yup.string().required("Required"),
       4: Yup.string().required("Required"),
       5: Yup.string().required("Required"),
@@ -16,16 +19,41 @@ export const validationSchema = {
         .required("Required"),
 
       9: Yup.string().required("Required"),
-      10: Yup.string().required("Required"),
-      11: Yup.string().required("Required"),
-      12: Yup.string().required("Required"),
-      13: Yup.string().required("Required"),
-      14: Yup.string().required("Required"),
-      15: Yup.string().required("Required"),
+      //9 => yes 15, 16 required
+      // 9 => no 10 - 14
+      10: Yup.string().when("9", {
+        is: "no",
+        then: Yup.string().required("Required")
+      }),
+      11: Yup.string().when("9", {
+        is: "no",
+        then: Yup.string().required("Required")
+      }),
+      12: Yup.string().when("9", {
+        is: "no",
+        then: Yup.string().required("Required")
+      }),
+      13: Yup.string().when("9", {
+        is: "no",
+        then: Yup.string().required("Required")
+      }),
+      14: Yup.string().when("9", {
+        is: "no",
+        then: Yup.string().required("Required")
+      }),
+
+      // 15, 16 if yes
+      15: Yup.string().when("9", {
+        is: "yes",
+        then: Yup.string().required("Required")
+      }),
       //number input
-      16: Yup.number()
-        .typeError("Must be a number")
-        .required("Required"),
+      16: Yup.number().when("9", {
+        is: "yes",
+        then: Yup.number()
+          .typeError("Must be a number")
+          .required("Required")
+      }),
 
       17: Yup.string().required("Required"),
       18: Yup.string().required("Required")
@@ -50,11 +78,10 @@ export const validationSchema = {
   payroll: Yup.object({
     questions: Yup.object({
       1: Yup.string().required("Required"),
-      2: Yup.string().required("Required"),
-      // number
-      // 3: Yup.number()
-      //   .typeError("Must be a number")
-      //   .required("Required"),
+      2: Yup.string().when("1", {
+        is: "yes",
+        then: Yup.string().required("Required")
+      }),
 
       4: Yup.string().required("Required"),
       5: Yup.string().required("Required"),
@@ -92,24 +119,31 @@ export const validationSchema = {
       1: Yup.string().required("Required"),
       2: Yup.string().required("Required"),
       // number
-      3: Yup.number()
-        .typeError("Must be a number")
-        .required("Required"),
+      3: Yup.number().when("2", {
+        is: "yes",
+        then: Yup.number()
+          .typeError("Must be a number")
+          .required("Required")
+      }),
 
       4: Yup.string().required("Required"),
       5: Yup.string().required("Required"),
       6: Yup.string().required("Required"),
       7: Yup.string().required("Required"),
-      8: Yup.string()
-        .typeError("Must upload an image")
-        .required("Required"),
+      8: Yup.string(),
       9: Yup.string().required("Required"),
       10: Yup.string().required("Required"),
       11: Yup.string().required("Required"),
       12: Yup.string().required("Required"),
-      13: Yup.string().required("Required"),
+      13: Yup.string().when("12", {
+        is: "yes",
+        then: Yup.string().required("Required")
+      }),
       // 14 checklist question
-      14: Yup.mixed().required("Required"),
+      14: Yup.mixed().when("12", {
+        is: "yes",
+        then: Yup.mixed().required("Required")
+      }),
 
       15: Yup.string().required("Required"),
       16: Yup.string().required("Required"),

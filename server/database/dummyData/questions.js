@@ -45,6 +45,10 @@ module.exports = async () => {
   const questions = [
     {
       number: 1,
+      next: {
+        yes: 2,
+        no: 3,
+      },
       type: "yesno",
       text: "Did they send you written confirmation of the terms and conditions of employment?",
       hintText:
@@ -65,6 +69,8 @@ module.exports = async () => {
     },
     {
       number: 2,
+      next: 3,
+      isDependent: true,
       type: "yesno",
       text: "Did they send you this information before your work began?",
       isJumping: false,
@@ -82,6 +88,7 @@ module.exports = async () => {
     },
     {
       number: 3,
+      next: 4,
       type: "radio",
       text:
         "Taking into account all the information you were given before starting work, such as pay, hours, type of work and length of job, how accurate was the description you were given about the job overall?",
@@ -100,6 +107,7 @@ module.exports = async () => {
     },
     {
       number: 4,
+      next: 5,
       type: "yesno",
       text: "Did they give you correct information about the pay?",
       isJumping: false,
@@ -117,6 +125,7 @@ module.exports = async () => {
     },
     {
       number: 5,
+      next: 6,
       type: "yesno",
       text: "Did they give you correct information about the hours?",
       isJumping: false,
@@ -134,6 +143,7 @@ module.exports = async () => {
     },
     {
       number: 6,
+      next: 7,
       type: "yesno",
       text: "Did they give you correct information about the type of work?",
       isJumping: false,
@@ -151,6 +161,7 @@ module.exports = async () => {
     },
     {
       number: 7,
+      next: 8,
       type: "yesno",
       text: "Did they give you correct information about the length of the job?",
       isJumping: false,
@@ -168,6 +179,7 @@ module.exports = async () => {
     },
     {
       number: 8,
+      next: 9,
       type: "number",
       text: "What hourly rate were you paid?",
       label: "per hour",
@@ -185,6 +197,10 @@ module.exports = async () => {
     },
     {
       number: 9,
+      next: {
+        yes: 15,
+        no: 10,
+      },
       type: "yesno",
       text: "Were you paid via a payroll/umbrella?",
       isJumping: true,
@@ -200,6 +216,8 @@ module.exports = async () => {
     },
     {
       number: 10,
+      isDependent: true,
+      next: 11,
       type: "yesno",
       text: "What was the payroll type?",
       isJumping: false,
@@ -217,6 +235,8 @@ module.exports = async () => {
     },
     {
       number: 11,
+      isDependent: true,
+      next: 12,
       type: "yesno",
       text: "Were you paid within the timeframe you expected?",
       isJumping: false,
@@ -234,6 +254,8 @@ module.exports = async () => {
     },
     {
       number: 12,
+      isDependent: true,
+      next: 13,
       type: "yesno",
       text: "Were you paid the amount you expected?",
       isJumping: false,
@@ -251,6 +273,8 @@ module.exports = async () => {
     },
     {
       number: 13,
+      isDependent: true,
+      next: 14,
       type: "yesno",
       text: "Were your payslips easily accessible?",
       isJumping: false,
@@ -268,6 +292,8 @@ module.exports = async () => {
     },
     {
       number: 14,
+      isDependent: true,
+      next: 17,
       type: "yesno",
       text: "Did the payslips show all the information you needed?",
       isJumping: true,
@@ -290,6 +316,8 @@ module.exports = async () => {
     },
     {
       number: 15,
+      isDependent: true,
+      next: 16,
       type: "dropdown",
       text: "What's the name of the payroll?",
       label: "Select payroll",
@@ -308,6 +336,8 @@ module.exports = async () => {
     },
     {
       number: 16,
+      isDependent: true,
+      next: 17,
       type: "number",
       text: "How much were you charged?",
       label: "per timesheet",
@@ -324,6 +354,7 @@ module.exports = async () => {
     },
     {
       number: 17,
+      next: 18,
       type: "yesno",
       text: "Were you always treated fairly by this agency over any payment issues?",
       isJumping: false,
@@ -361,6 +392,10 @@ module.exports = async () => {
 
     {
       number: 1,
+      next: {
+        yes: 2,
+        no: 4,
+      },
       type: "yesno",
       text: "Did they send you written confirmation of the terms and conditions of employment?",
       hintText:
@@ -381,6 +416,8 @@ module.exports = async () => {
     },
     {
       number: 2,
+      isDependent: true,
+      next: 4,
       type: "yesno",
       text: "Did they send you this information before your work began?",
       isJumping: false,
@@ -398,6 +435,7 @@ module.exports = async () => {
     },
     // {
     //   number: 3,
+    //   next: 4,
     //   type: "number",
     //   text: "What hourly rate were you paid?",
     //   label: "per hour",
@@ -415,6 +453,7 @@ module.exports = async () => {
     // },
     {
       number: 4,
+      next: 5,
       type: "radio",
       text: "What was the payroll type?",
       isJumping: false,
@@ -432,6 +471,7 @@ module.exports = async () => {
     },
     {
       number: 5,
+      next: 6,
       type: "yesno",
       text: "Were you paid within the timeframe you expected?",
       isJumping: false,
@@ -447,6 +487,7 @@ module.exports = async () => {
     },
     {
       number: 6,
+      next: 7,
       type: "yesno",
       text: "Were you paid the amount you expected?",
       isJumping: false,
@@ -464,6 +505,7 @@ module.exports = async () => {
     },
     {
       number: 7,
+      next: 8,
       type: "radio",
       text: "Were your payslips easily accessible?",
       isJumping: false,
@@ -481,6 +523,7 @@ module.exports = async () => {
     },
     {
       number: 8,
+      next: 9,
       type: "radio",
       text: "Did the payslips show all the information you needed?",
       isJumping: false,
@@ -498,6 +541,7 @@ module.exports = async () => {
     },
     {
       number: 9,
+      next: 10,
       type: "number",
       text: "How much were you charged for payroll?",
       label: "per timesheet",
@@ -515,6 +559,7 @@ module.exports = async () => {
     },
     {
       number: 10,
+      next: 11,
       type: "radio",
       text: "Were you always treated fairly by this payroll over any payment issues?",
       isJumping: false,
@@ -532,6 +577,7 @@ module.exports = async () => {
     },
     {
       number: 11,
+      next: 12,
       type: "dropdown",
       text: "What's the name of the agency you used?",
       label: "Select agency",
@@ -566,7 +612,7 @@ module.exports = async () => {
       hasComment: true,
     },
 
-    /* =============================== worksite ================================ */
+    /* =============================== worksite =============================== */
     {
       number: 1,
       type: "radio",
@@ -589,6 +635,11 @@ module.exports = async () => {
     {
       number: 2,
       type: "radio",
+      next: {
+        yes: 3,
+        no: 4,
+        idk: 4,
+      },
       text: "Was there car parking within 10 minutes walk of site?",
       isJumping: true,
       jumpTo: [
@@ -611,6 +662,8 @@ module.exports = async () => {
     },
     {
       number: 3,
+      isDependent: true,
+      next: 4,
       type: "number",
       text: "How much did car parking cost per day?",
       label: "per day",
@@ -625,6 +678,7 @@ module.exports = async () => {
     },
     {
       number: 4,
+      next: 5,
       type: "radio",
       text: "At the site, were you offered secure storage for your personal belongings?",
       hintText: "E.g., Lockers, cloak room, etc.",
@@ -645,6 +699,7 @@ module.exports = async () => {
 
     {
       number: 5,
+      next: 6,
       type: "yesno",
       text: "Did you have to use fingerprint scanners or eye recognition to access the site?",
       isJumping: false,
@@ -664,6 +719,7 @@ module.exports = async () => {
 
     {
       number: 6,
+      next: 7,
       type: "yesno",
       text: "Were the work areas tidy?",
       isJumping: false,
@@ -682,6 +738,7 @@ module.exports = async () => {
 
     {
       number: 7,
+      next: 8,
       type: "yesno",
       text: "Did you feel this site was safe to work on?",
       isJumping: false,
@@ -700,6 +757,7 @@ module.exports = async () => {
 
     {
       number: 8,
+      next: 9,
       type: "image",
       text: "Upload a photo of the site",
       hintText:
@@ -718,6 +776,7 @@ module.exports = async () => {
     },
     {
       number: 9,
+      next: 10,
       type: "yesno",
       text: "Were the toilets well maintained?",
       isJumping: false,
@@ -735,6 +794,7 @@ module.exports = async () => {
     },
     {
       number: 10,
+      next: 11,
       type: "yesno",
       text: "Was there free drinking water available?",
       isJumping: false,
@@ -753,6 +813,7 @@ module.exports = async () => {
     },
     {
       number: 11,
+      next: 12,
       type: "yesno",
       text: "Did this site have a prayer room?",
       isJumping: false,
@@ -771,6 +832,11 @@ module.exports = async () => {
     },
     {
       number: 12,
+      next: {
+        yes: 13,
+        no: 15,
+        idk: 15,
+      },
       type: "radio",
       text: "Was there a canteen or space to take a break?",
       isJumping: true,
@@ -793,6 +859,8 @@ module.exports = async () => {
     },
     {
       number: 13,
+      isDependent: true,
+      next: 14,
       type: "radio",
       text: "Was the canteen heated?",
       isJumping: false,
@@ -810,6 +878,8 @@ module.exports = async () => {
     },
     {
       number: 14,
+      isDependent: true,
+      next: 15,
       type: "checklist",
       text: "What amenities did the canteen have?",
       isJumping: false,
@@ -833,6 +903,7 @@ module.exports = async () => {
     },
     {
       number: 15,
+      next: 16,
       type: "radio",
       text: "Were there shops to buy hot food within 10 minutes walk of this site?",
       isJumping: false,
@@ -851,6 +922,7 @@ module.exports = async () => {
     },
     {
       number: 16,
+      next: 17,
       type: "radio",
       text: "Could you buy hot food and a drink for less than £5?",
       isJumping: false,
@@ -869,6 +941,7 @@ module.exports = async () => {
     },
     {
       number: 17,
+      next: 18,
       type: "open",
       text: "Is there a good shop or café near site that you would recommend to other workers?",
       label: "Good shop or café",

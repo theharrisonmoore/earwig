@@ -47,6 +47,7 @@ class Review extends Component {
   state = {
     isLoading: true,
     groups: [],
+    groupss: {},
     organization: { category: "", name: "", needsVerification: false },
     user: { email: "" },
     worksiteImage: "",
@@ -68,8 +69,17 @@ class Review extends Component {
         }
       })
       .then(res => {
+        const groupss = {};
+        res.data.forEach(group => {
+          groupss[group._id] = {
+            title: group.group.text,
+            main: group.questions.filter(question => !question.isDependent),
+            dependant: group.questions.filter(question => question.isDependent)
+          };
+        });
         this.setState({
           groups: res.data,
+          groupss,
           isLoading: false,
           organization,
           user,
@@ -82,6 +92,53 @@ class Review extends Component {
       });
     this.getAgenciesAndPayrolls();
   }
+
+  showNextQestion = (groupId, next, other, set, num) => {
+    const newGroups = { ...this.state.groupss };
+    const group = { ...newGroups[groupId] };
+    let newMain = [...group.main];
+    let newDependant = [...group.dependant];
+
+    // hide the quesions when the option change
+    while (typeof other !== "object" && other !== null) {
+      // eslint-disable-next-line no-loop-func
+      const nextQ = newMain.find(question => question.number === other);
+      if (nextQ) {
+        newDependant.push(nextQ);
+        // eslint-disable-next-line no-loop-func
+        newMain = newMain.filter(question => question.number !== other);
+        other = nextQ.next;
+      } else {
+        other = null;
+      }
+      // eslint-disable-next-line array-callback-return
+      newDependant.map(question => {
+        set(`questions[${question.number}]`, "");
+      });
+    }
+    while (typeof next !== "object" && next !== null) {
+      // eslint-disable-next-line no-loop-func
+      const nextQ = newDependant.find(question => question.number === next);
+      if (nextQ) {
+        newMain.push(nextQ);
+        newDependant = newDependant.filter(
+          // eslint-disable-next-line no-loop-func
+          question => question.number !== next
+        );
+        next = nextQ.next;
+      } else {
+        next = null;
+      }
+      // eslint-disable-next-line array-callback-return
+      newDependant.map(question => {
+        set(`questions[${question.number}]`, "");
+      });
+    }
+    group.main = newMain.sort((a, b) => a.number - b.number);
+    group.dependant = newDependant;
+    newGroups[groupId] = group;
+    this.setState({ groupss: newGroups });
+  };
 
   getAgenciesAndPayrolls = () => {
     axios
@@ -130,6 +187,13 @@ class Review extends Component {
   };
 
   render() {
+    const {
+      groupss,
+      agencies,
+      payrolls,
+      organization: { name, category }
+    } = this.state;
+
     const { isLoading } = this.state;
     if (isLoading) return <p>loading...</p>;
 
@@ -152,12 +216,6 @@ class Review extends Component {
     if (!this.state && !this.state.groups[0]) {
       return null;
     }
-    const {
-      groups,
-      agencies,
-      payrolls,
-      organization: { name, category }
-    } = this.state;
 
     let dropdownOptions;
     if (category === "agency") {
@@ -224,7 +282,6 @@ class Review extends Component {
               errors,
               setFieldValue
             }) => {
-              // console.log(values);
               return (
                 <FormWrapper>
                   <Form>
@@ -235,15 +292,18 @@ class Review extends Component {
                       category={this.state.organization.category}
                     />
                     <div>
-                      {groups.map(group => {
-                        if (group.group && group.group.text) {
+                      {Object.keys(groupss).map(groupId => {
+                        const group = groupss[groupId];
+                        if (group && group.title) {
                           return (
-                            <div key={group._id}>
-                              <Level2Header>{group.group.text}</Level2Header>
-                              {group.questions.map(question => {
+                            <div key={groupId}>
+                              <h2>{group.title}</h2>
+                              {group.main.map(question => {
                                 return (
                                   <Question
                                     key={question._id}
+                                    showNextQestion={this.showNextQestion}
+                                    groupId={groupId}
                                     values={values}
                                     handleChagne={handleChange}
                                     question={question}
