@@ -27,7 +27,9 @@ import {
   FlexContainer
 } from "./Search.style";
 
-import { organizationIcons } from "./../../../theme";
+import { organizationIcons, organizations } from "./../../../theme";
+
+import Icon from "./../../Common/Icon/Icon"
 
 export const axiosCall = async () => {
   const response = await axios.get(API_SEARCH_URL);
@@ -59,7 +61,8 @@ export default class Search extends Component {
       <ReviewsFrame orgType={org.category}>
         <InnerDivLastReviews orgType={org.category}>
           <SymbolDiv>
-            {SVGCreator(`${organizationIcons[org.category].symbol}`)}
+            {/* {SVGCreator(`${organizationIcons[org.category].symbol}`)} */}
+            <Icon icon={org.category} height="1.5rem" width="1.5rem" margin="0 1rem 0 0" />
           </SymbolDiv>
           <OrganisationDetailsDiv>
             <h3>{org.name}</h3>
@@ -103,22 +106,26 @@ export default class Search extends Component {
           <FlexContainer>
             <SearchLegendDiv>
               <RowDiv>
-                <ItemDiv>
-                  {SVGCreator("agency-icon", "40px", "70px")}
+                <ItemDiv notMobile={!isMobile} left>
+                  {/* {SVGCreator("agency-icon", "40px", "70px")} */}
+                  <Icon icon="agency" color={organizations.agency.primary} width="2rem" height="2rem" margin="0 1rem 0 0" />
                   <LegendTitle orgType="agency">Agencies</LegendTitle>
                 </ItemDiv>
-                <ItemDiv>
-                  {SVGCreator("payroll-icon", "40px", "70px")}
+                <ItemDiv notMobile={!isMobile}>
+                  {/* {SVGCreator("payroll-icon", "40px", "70px")} */}
+                  <Icon icon="payroll" color={organizations.payroll.primary} width="2rem" height="2rem" margin="0 1rem 0 0" />
                   <LegendTitle orgType="payroll">Payrolls</LegendTitle>
                 </ItemDiv>
               </RowDiv>
               <RowDiv>
-                <ItemDiv>
-                  {SVGCreator("worksite-icon", "40px", "70px")}
+                <ItemDiv notMobile={!isMobile} left>
+                  {/* {SVGCreator("worksite-icon", "40px", "70px")} */}
+                  <Icon icon="worksite" color={organizations.worksite.primary} width="2rem" height="2rem" margin="0 1rem 0 0" />
                   <LegendTitle orgType="worksite">Worksites</LegendTitle>
                 </ItemDiv>
-                <ItemDiv>
-                  {SVGCreator("company-icon", "40px", "70px")}
+                <ItemDiv notMobile={!isMobile}>
+                  {/* {SVGCreator("company-icon", "40px", "70px")} */}
+                  <Icon icon="company" color={organizations.company.primary} width="2rem" height="2rem" margin="0 1rem 0 0" />
                   <LegendTitle orgType="company">Companies</LegendTitle>
                 </ItemDiv>
               </RowDiv>

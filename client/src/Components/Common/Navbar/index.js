@@ -3,20 +3,21 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { Button, Icon as AntIcon } from "antd";
 
+import Icon from "./../Icon/Icon"
+
 import { SEARCH_URL, ADMIN } from "./../../../constants/naviagationUrls";
+
+import { colors } from "./../../../theme"
 
 import {
   Wrapper,
   LogoIcon,
-  Icon,
   ToggleMenu,
   SideDiv,
   WrapperH2
 } from "./Navbar.style";
 import Menu from "./Menu.js";
 
-import SearchIcon from "./../../../assets/search-icon.svg";
-import HamburgerIcon from "./../../../assets/hamburger-icon.svg";
 import Logo from "./../../../assets/logo.svg";
 import CloseIcon from "./../../../assets/close-icon.svg";
 import axios from "axios";
@@ -103,7 +104,7 @@ export default class Navbar extends Component {
             <SideDiv position="flex-end">
               <ToggleMenu onClick={this.toggleMenu}>
                 <WrapperH2>MENU</WrapperH2>
-                <Icon src={HamburgerIcon} alt="hamburger" />
+                <Icon icon="hamburger" width="1.5rem" height="1.5rem" />
               </ToggleMenu>
             </SideDiv>
           )}
@@ -114,7 +115,7 @@ export default class Navbar extends Component {
       return (
         <Wrapper height="3rem">
           <SideDiv position="flex-start">
-            <Icon src={SearchIcon} alt="search" />
+            <NavLink to={SEARCH_URL}><Icon icon="search" width="1.5rem" height="1.5rem" color={colors.profileFontColor} /></NavLink>
           </SideDiv>
           <WrapperH2>{title && title}</WrapperH2>
           {menuOpen ? (
@@ -132,7 +133,7 @@ export default class Navbar extends Component {
           ) : (
             <SideDiv position="flex-end">
               <ToggleMenu onClick={this.toggleMenu}>
-                <Icon src={HamburgerIcon} alt="hamburger" />
+                <Icon icon="hamburger" width="1.5rem" height="1.5rem" />
               </ToggleMenu>
             </SideDiv>
           )}

@@ -19,11 +19,13 @@ import CompanyThanks from "./CompanyThanks";
 import FAQ from "./FAQ";
 import Fingerprint from "./Fingerprint"
 import GetVerified from "./GetVerified";
+import Hamburger from "./Hamburger"
 import HelpfulLinks from "./HelpfulLinks";
 import HelpingHand from "./HelpingHand";
 import HotFood from "./HotFood"
 import JobBoard from "./JobBoard";
 import Lockers from "./Lockers"
+import Logo from "./Logo"
 import LogoutLogin from "./LogoutLogin";
 import MedalIcon1 from "./MedalIcon1";
 import MedalIcon2 from "./MedalIcon2";
@@ -81,11 +83,13 @@ const iconMap = {
   faq: FAQ,
   fingerprint: Fingerprint,
   getVerified: GetVerified,
+  hamburger: Hamburger,
   hotFood: HotFood,
   helpfulLinks: HelpfulLinks,
   helpingHand: HelpingHand,
   jobBoard: JobBoard,
   lockers: Lockers,
+  logo: Logo,
   logoutLogin: LogoutLogin,
   medalIcon1: MedalIcon1,
   medalIcon2: MedalIcon2,
