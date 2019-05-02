@@ -1,5 +1,5 @@
 const boom = require("boom");
-const { deleteReview, findById } = require("./../../database/queries/reviews");
+const { deleteReview, deleteReviewAnswers, findById } = require("./../../database/queries/reviews");
 
 module.exports = ((req, res, next) => {
   const { id } = req.body;
@@ -10,7 +10,12 @@ module.exports = ((req, res, next) => {
       deleteReview(id)
         .then(({ deletedCount }) => {
           if (deletedCount > 0) {
-            res.json();
+            deleteReviewAnswers(id)
+              .then(() => {
+                res.json();
+              }).catch(() => {
+                next(boom.badImplementation());
+              });
           } else {
             next(boom.methodNotAllowed("can not be deleted!"));
           }
