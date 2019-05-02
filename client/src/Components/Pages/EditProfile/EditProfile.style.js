@@ -112,7 +112,7 @@ export const StyledLink = styled(Link)`
   &:active,
   &:hover {
     text-decoration: none;
-    color: ${colors.profileFontColor};
+    color: ${colors.red};
     outline: none;
   }
 `;

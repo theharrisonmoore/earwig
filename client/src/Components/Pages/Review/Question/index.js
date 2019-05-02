@@ -4,7 +4,7 @@ import { Field, FieldArray, ErrorMessage } from "formik";
 
 import {
   Select,
-  Icon,
+  Icon as AntdIcon,
   Divider,
   Input,
   Rate,
@@ -14,12 +14,13 @@ import {
 
 import ModalComment from "../../../Common/AntdComponents/ModalComment";
 import CustomRangePicker from "../../../Common/AntdComponents/DatePicker";
-import commentIcon from "../../../../assets/comment-icon.svg";
 
 import UploadImage from "./UploadPhoto";
 
 import { colors, organizations } from "../../../../theme";
 import { isMobile } from "../../../../helpers";
+
+import Icon from "./../../../Common/Icon/Icon"
 
 import {
   QuestionWrapper,
@@ -156,7 +157,7 @@ class QuestionOptions extends React.Component {
                 render={props => {
                   return (
                     <CommentsIcon hasValue={!!props.text}>
-                      <img src={commentIcon} alt="" />
+                      <Icon icon="addComment" />
                     </CommentsIcon>
                   );
                 }}
@@ -196,7 +197,7 @@ class QuestionOptions extends React.Component {
                 render={props => {
                   return (
                     <CommentsIcon hasValue={!!props.text}>
-                      <img src={commentIcon} alt="" />
+                      <Icon icon="addComment" />
                     </CommentsIcon>
                   );
                 }}
@@ -242,7 +243,7 @@ class QuestionOptions extends React.Component {
                 render={props => {
                   return (
                     <CommentsIcon hasValue={!!props.text}>
-                      <img src={commentIcon} alt="" />
+                      <Icon icon="addComment" />
                     </CommentsIcon>
                   );
                 }}
@@ -297,7 +298,7 @@ class QuestionOptions extends React.Component {
                                       cursor: "pointer"
                                     }}
                                   >
-                                    <Icon type="plus" /> Add item
+                                    <AntdIcon type="plus" /> Add item
                                   </div>
                                 );
                               }}
@@ -325,7 +326,7 @@ class QuestionOptions extends React.Component {
                 render={props => {
                   return (
                     <CommentsIcon hasValue={!!props.text}>
-                      <img src={commentIcon} alt="" />
+                      <Icon icon="addComment" />
                     </CommentsIcon>
                   );
                 }}
@@ -414,7 +415,7 @@ class QuestionOptions extends React.Component {
                     render={props => {
                       return (
                         <CommentsIcon hasValue={!!props.text}>
-                          <img src={commentIcon} alt="" />
+                          <Icon icon="addComment" />
                         </CommentsIcon>
                       );
                     }}

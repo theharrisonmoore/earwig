@@ -88,7 +88,7 @@ export default class BarChartAnswer extends Component {
 
     return (
       <>
-        <Bar data={data} options={options} />
+        <Bar data={data} options={options} aspectRatio={6} />
       </>
     );
   }

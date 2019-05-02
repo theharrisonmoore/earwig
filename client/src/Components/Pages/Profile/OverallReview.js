@@ -168,24 +168,14 @@ export default class OverallReview extends Component {
                         reply.replies.user[0].userId}
                     </UserID>
                     <div style={{ position: "relative", marginBottom: "2rem" }}>
-                      <BubbleAndDate
-                        style={{
-                          display: "inline-block",
-                          position: "relative"
-                        }}
-                      >
+                      <BubbleAndDate>
                         <CommentBubble
-                          style={{ maxWidth: "86%" }}
+                          style={{ maxWidth: "100%" }}
                           color={organizations[category].secondary}
                         >
                           {reply.replies.text}
                         </CommentBubble>
-                        <CommentDate
-                          style={{
-                            position: "absolute",
-                            left: "81%"
-                          }}
-                        >
+                        <CommentDate>
                           {reply.replies.createdAt &&
                             moment().diff(reply.replies.createdAt, "weeks") +
                               "w"}

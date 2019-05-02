@@ -26,6 +26,8 @@ module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate({ _id
 
 module.exports.deleteAnswer = id => Answer.deleteOne({ _id: id });
 
+module.exports.deleteReviewAnswers = id => Answer.deleteMany({ review: id });
+
 module.exports.getAllReviews = getAllReviews;
 
 module.exports.getReviewDetails = getReviewDetails;
