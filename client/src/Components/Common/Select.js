@@ -51,11 +51,13 @@ class CustomizedSelects extends React.Component {
                   e.preventDefault();
                   return false;
                 }}
-                onClick={addHandler}
               >
                 {menu}
                 <Divider style={{ margin: "4px 0" }} />
-                <div style={{ padding: "8px", cursor: "pointer" }}>
+                <div
+                  style={{ padding: "8px", cursor: "pointer" }}
+                  onClick={addHandler}
+                >
                   <Icon type="plus" /> Add item
                 </div>
               </div>

@@ -302,7 +302,7 @@ export default class UploadImage extends Component {
               <br />
               <br />
               Once we’ve verified you, we’ll delete your photo to protect your
-              identity.
+              anonymity.
             </Paragraph>
             <Example src={image ? image : example} />
             <Button as="label" htmlFor="image-input">
@@ -321,7 +321,7 @@ export default class UploadImage extends Component {
               anonymity - everybody has a right to speak and be heard without
               fear of blacklisting. To protect you, we’ll randomly assign you an
               earwig ID, which is the only thing that will be shown beside your
-              reviews and replies.
+              reviews and activity.
             </Paragraph>
             {error && <Error>{error}</Error>}
             <Button marginTop={true} type="submit" error={error}>
