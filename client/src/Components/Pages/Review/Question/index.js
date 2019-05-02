@@ -198,7 +198,7 @@ class QuestionOptions extends React.Component {
                 render={props => {
                   return (
                     <CommentsIcon hasValue={!!props.text}>
-                      <img src={commentIcon} alt="" />
+                      <Icon icon="addComment" />
                     </CommentsIcon>
                   );
                 }}
@@ -243,7 +243,7 @@ class QuestionOptions extends React.Component {
                 render={props => {
                   return (
                     <CommentsIcon hasValue={!!props.text}>
-                      <img src={commentIcon} alt="" />
+                      <Icon icon="addComment" />
                     </CommentsIcon>
                   );
                 }}
@@ -326,7 +326,7 @@ class QuestionOptions extends React.Component {
                 render={props => {
                   return (
                     <CommentsIcon hasValue={!!props.text}>
-                      <img src={commentIcon} alt="" />
+                      <Icon icon="addComment" />
                     </CommentsIcon>
                   );
                 }}
@@ -415,7 +415,7 @@ class QuestionOptions extends React.Component {
                     render={props => {
                       return (
                         <CommentsIcon hasValue={!!props.text}>
-                          <img src={commentIcon} alt="" />
+                          <Icon icon="addComment" />
                         </CommentsIcon>
                       );
                     }}

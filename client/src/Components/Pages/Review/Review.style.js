@@ -10,6 +10,11 @@ export const ReviewWrapper = styled.div`
     max-width: 40rem;
     margin: 0 auto;
     padding-top: 10rem;
+    
+
+    h2 {
+      color: ${colors.profileFontColor};
+    }
   }
 `;
 
