@@ -4,10 +4,12 @@ import { Formik, Form, Field, FieldArray } from "formik";
 import StarRatingComponent from "react-star-rating-component";
 import moment from "moment";
 import Swal from "sweetalert2";
+import { message, Select, Input, Modal, InputNumber } from "antd";
+
+import Loading from "./../../../Common/AntdComponents/Loading";
 
 import { SVGCreator, NewSVGCreator, isMobile } from "../../../../helpers";
 
-import { message, Select, Input, Modal, InputNumber } from "antd";
 import {
   ReviewWrapper,
   Header,
@@ -159,7 +161,7 @@ export default class SingleReview extends Component {
   render() {
     const { isLoading } = this.state;
     if (isLoading) {
-      return <div>loading....</div>;
+      return <Loading />;
     }
 
     // state

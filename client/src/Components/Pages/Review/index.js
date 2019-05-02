@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
 import { Checkbox } from "antd";
 import Swal from "sweetalert2";
+import Loading from "./../../Common/AntdComponents/Loading";
 
 import {
   ReviewWrapper,
@@ -166,7 +167,7 @@ class Review extends Component {
       .post(API_POST_REVIEW_URL, review)
       .then(res => {
         if (this.state.organization.needsVerification) {
-          this.setState({ organization: {id: res.data} })
+          this.setState({ organization: { id: res.data } });
           Swal.fire({
             type: "success",
             title: "Thanks! We're verifying your review as soon as possible."
@@ -200,7 +201,7 @@ class Review extends Component {
     } = this.state;
 
     const { isLoading } = this.state;
-    if (isLoading) return <p>loading...</p>;
+    if (isLoading) return <Loading />;
 
     const initialValues = {
       questions: initQueestionsValues[this.state.organization.category],

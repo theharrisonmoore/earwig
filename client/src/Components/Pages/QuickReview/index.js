@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
 import { Checkbox } from "antd";
 import Swal from "sweetalert2";
+import Loading from "./../../Common/AntdComponents/Loading";
 
 import {
   ReviewWrapper,
@@ -99,7 +100,7 @@ class Review extends Component {
 
   render() {
     const { isLoading } = this.state;
-    if (isLoading) return <p>loading...</p>;
+    if (isLoading) return <Loading />;
 
     const initialValues = {
       review: {
