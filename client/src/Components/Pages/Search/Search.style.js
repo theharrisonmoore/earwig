@@ -38,7 +38,7 @@ outline: none;
 .${classNames.containerOpen} {
   border: ${borders.searchBox};
   box-shadow: ${shadows.searchShadow};
-  border-radius: 5px;
+  border-radius: 10px;
   height: ${props => props.height};
   padding: 10px 20px;
   font-weight: 300;
