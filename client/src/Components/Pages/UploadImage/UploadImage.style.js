@@ -7,7 +7,7 @@ export const UploadImageWrapper = styled.div`
   max-width: 40rem;
   margin: 0 auto;
   padding: 0 1rem;
-  padding-top: 6rem;
+  padding-top: 3rem;
 `;
 
 export const ContentWrapper = styled.div`

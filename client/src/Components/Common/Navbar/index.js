@@ -115,9 +115,9 @@ export default class Navbar extends Component {
       return (
         <Wrapper height="3rem">
           <SideDiv position="flex-start">
-            <NavLink to={SEARCH_URL}><Icon icon="search" width="1.5rem" height="1.5rem" color={colors.profileFontColor} /></NavLink>
+            <NavLink to={SEARCH_URL}><Icon icon="search" width="1.5rem" height="1.5rem" color={colors.profileFontColor} margin="3px 0 0 0" /></NavLink>
           </SideDiv>
-          <WrapperH2>{title && title}</WrapperH2>
+          <WrapperH2 style={{ fontWeight: "900" }}>{title && title}</WrapperH2>
           {menuOpen ? (
             <>
               <ToggleMenu onClick={this.toggleMenu}>

@@ -142,6 +142,7 @@ export const LastReviewsContainer = styled.div`
 
 export const ItemDiv = styled.div`
   display: flex;
+  /* width: 200px; */
   align-items: center;
   width: 50%;
   padding: ${props => props.notMobile ? "0 2rem" : "0 1rem"};

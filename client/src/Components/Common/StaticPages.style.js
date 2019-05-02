@@ -48,6 +48,7 @@ export const SubTitle = styled.h4`
   margin-top: ${props => (props.list ? "0" : "1.5rem")};
   @media (min-width: ${MOBILE_WIDTH}px) {
     font-size: 1.5rem;
+    padding-top: 3rem;
   }
 `;
 

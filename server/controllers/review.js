@@ -111,23 +111,26 @@ const postReview = async (req, res, next) => {
     const reviewAnswers = Object.keys(questionsAnswers)
       .sort((a, b) => a - b)
       .map((qAnswer) => {
-        const answer = {
-          user: userData,
-          review: currentReview,
-          question: questionsObject[qAnswer],
-          answer: questionsAnswers[qAnswer],
-          organization: organizationData,
-        };
+        if (questionsAnswers[qAnswer]) {
+          const answer = {
+            user: userData,
+            review: currentReview,
+            question: questionsObject[qAnswer],
+            answer: questionsAnswers[qAnswer],
+            organization: organizationData,
+          };
+          commentedQuestions.map((item) => {
+            // eslint-disable-next-line eqeqeq
+            if (item.id == qAnswer) {
+              answer.comment = item.comment;
+            }
+          });
 
-        commentedQuestions.map((item) => {
-          // eslint-disable-next-line eqeqeq
-          if (item.id == qAnswer) {
-            answer.comment = item.comment;
-          }
-        });
-
-        return answer;
+          return answer;
+        }
+        return null;
       });
+
     const allAnswers = [...reviewAnswers];
     await Answer.insertMany(allAnswers);
 

@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { EmailShareButton, WhatsappShareButton, TelegramShareButton} from "react-share";
+import {
+  EmailShareButton,
+  WhatsappShareButton,
+  TelegramShareButton
+} from "react-share";
 
 import { colors, organizations } from "./../../../theme";
 
@@ -8,7 +12,9 @@ export const EmailShare = styled(EmailShareButton)`
   cursor: pointer;
   opacity: 0.7;
 
-  :hover, :active, :focus {
+  :hover,
+  :active,
+  :focus {
     opacity: 1;
   }
 `;
@@ -17,7 +23,9 @@ export const WhatsappShare = styled(WhatsappShareButton)`
   cursor: pointer;
   opacity: 0.7;
 
-  :hover, :active, :focus {
+  :hover,
+  :active,
+  :focus {
     opacity: 1;
   }
 `;
@@ -26,7 +34,9 @@ export const TelegramShare = styled(TelegramShareButton)`
   cursor: pointer;
   opacity: 0.7;
 
-  :hover, :active, :focus {
+  :hover,
+  :active,
+  :focus {
     opacity: 1;
   }
 `;
@@ -36,7 +46,7 @@ export const ThankYouWrapper = styled.div`
   max-width: 40rem;
   margin: 0 auto;
   padding: 0 1rem;
-  padding-top: 3rem;
+  padding-top: 6rem;
 `;
 
 export const ContentWrapper = styled.div`
