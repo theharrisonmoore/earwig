@@ -510,13 +510,16 @@ export const RadioButton = ({
       <StyledInput
         onClick={() => {
           if (typeof next === "object" && next !== null) {
-            let nextQ = next["no"];
-            let other = next["yes"];
-            if (props.option === "yes") {
-              nextQ = next["yes"];
-              other = next["no"];
+            let nextQ = next["yes"];
+            let other = next["no"];
+            if (
+              props.option === "no" ||
+              props.option.includes("know") ||
+              props.option.includes("check")
+            ) {
+              nextQ = next["no"];
+              other = next["yes"];
             }
-            // props.setFieldValue("");
             showNextQestion(
               groupId,
               nextQ,

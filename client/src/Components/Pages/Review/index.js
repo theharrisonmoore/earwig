@@ -78,6 +78,7 @@ class Review extends Component {
           };
         });
         this.setState({
+          groups: res.data,
           groupss,
           isLoading: false,
           organization,
@@ -97,6 +98,8 @@ class Review extends Component {
     const group = { ...newGroups[groupId] };
     let newMain = [...group.main];
     let newDependant = [...group.dependant];
+
+    // hide the quesions when the option change
     while (typeof other !== "object" && other !== null) {
       // eslint-disable-next-line no-loop-func
       const nextQ = newMain.find(question => question.number === other);
@@ -108,6 +111,7 @@ class Review extends Component {
       } else {
         other = null;
       }
+      // eslint-disable-next-line array-callback-return
       newDependant.map(question => {
         set(`questions[${question.number}]`, "");
       });
@@ -125,6 +129,7 @@ class Review extends Component {
       } else {
         next = null;
       }
+      // eslint-disable-next-line array-callback-return
       newDependant.map(question => {
         set(`questions[${question.number}]`, "");
       });
@@ -182,6 +187,13 @@ class Review extends Component {
   };
 
   render() {
+    const {
+      groupss,
+      agencies,
+      payrolls,
+      organization: { name, category }
+    } = this.state;
+
     const { isLoading } = this.state;
     if (isLoading) return <p>loading...</p>;
 
@@ -204,13 +216,6 @@ class Review extends Component {
     if (!this.state && !this.state.groups[0]) {
       return null;
     }
-    const {
-      groups,
-      groupss,
-      agencies,
-      payrolls,
-      organization: { name, category }
-    } = this.state;
 
     let dropdownOptions;
     if (category === "agency") {
@@ -277,7 +282,6 @@ class Review extends Component {
               errors,
               setFieldValue
             }) => {
-              // console.log(values);
               return (
                 <FormWrapper>
                   <Form>
