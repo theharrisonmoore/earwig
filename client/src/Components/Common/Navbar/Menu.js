@@ -1,5 +1,4 @@
 import React, { PureComponent } from "react";
-import SVG from "react-inlinesvg";
 
 import { handleLogout, authorization } from "./../../../helpers";
 
