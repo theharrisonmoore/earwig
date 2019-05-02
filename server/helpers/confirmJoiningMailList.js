@@ -34,8 +34,6 @@ module.exports = (to, id) => {
     },
   ];
 
-  console.log("TO", to);
-
   return mailer({
     from,
     to,

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { Table, Input, Button, Popconfirm, Form, Icon } from "antd";
+import { Table, Input, Button, Popconfirm, Form, Icon, message } from "antd";
 
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
@@ -138,7 +138,9 @@ class EditableTable extends Component {
         this.setState({ dataSource: res.data });
       })
       .catch(err => {
-        console.log("err", err);
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        message.error(error || "Something went wrong");
       });
   };
 

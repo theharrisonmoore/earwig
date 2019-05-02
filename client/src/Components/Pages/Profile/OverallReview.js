@@ -76,13 +76,13 @@ export default class OverallReview extends Component {
               <ButtonsWrapper>
                 <ActionsButton
                   type="primary"
-                  BGColor={organizations[category].primary}
+                  bgcolor={organizations[category].primary}
                 >
                   Helpful
                 </ActionsButton>
                 <ActionsButton
                   type="primary"
-                  BGColor={organizations[category].primary}
+                  bgcolor={organizations[category].primary}
                 >
                   <Link
                     to={{

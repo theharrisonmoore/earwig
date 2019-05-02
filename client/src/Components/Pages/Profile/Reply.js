@@ -108,12 +108,17 @@ export default class Reply extends Component {
       ? axios
           .get(`${API_GET_OVERALL_REVIEW_REPLIES_URL}/${id}`)
           .then(({ data }) => {
-            this.setState({
-              replies: data,
-              activeOverallId: id,
-              loaded: true,
-              reviewId: id
-            });
+            this.setState(
+              {
+                replies: data,
+                activeOverallId: id,
+                loaded: true,
+                reviewId: id
+              },
+              () => {
+                window.scrollTo(0, window.innerHeight);
+              }
+            );
           })
           .catch(err => {
             const error =
@@ -159,7 +164,13 @@ export default class Reply extends Component {
           <BannerTitle>Replying</BannerTitle>
           <Cancel onClick={this.goBack}>Cancel</Cancel>
         </Banner>
-        <Wrapper>
+        <Wrapper
+          style={{
+            position: "relative",
+            minHeight: "100vh",
+            paddingBottom: "9rem"
+          }}
+        >
           <>
             {replies &&
               replies.map(reply => (
@@ -176,7 +187,19 @@ export default class Reply extends Component {
                 </IndividComment>
               ))}
 
-            <div ref={this.inputWrapper} style={{ textAlign: "left" }}>
+            <div
+              ref={this.inputWrapper}
+              style={{
+                textAlign: "left",
+                position: "fixed",
+                width: "100%",
+                bottom: "0",
+                background: "white",
+                paddingBottom: "2rem",
+                maxWidth: "30rem",
+                margin: "0 auto"
+              }}
+            >
               {isAdmin && (
                 <Input
                   placeholder="Comment as"
@@ -192,6 +215,7 @@ export default class Reply extends Component {
               )}
               <div style={{ position: "relative" }}>
                 <Mention
+                  autoFocus
                   style={{ width: "100%", marginTop: "0.25rem" }}
                   onChange={this.onChange}
                   defaultSuggestions={users}

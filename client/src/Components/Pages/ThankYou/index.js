@@ -48,6 +48,9 @@ export default class ThankYou extends Component {
     const orgName = state && state.orgName ? state.orgName : "an organization";
 
     const img = require(`./../../../assets/thank-you-${orgType}.svg`);
+    const otherOrgs = ["agency", "worksite", "payroll", "company"].filter(
+      org => org !== orgType
+    );
 
     return (
       <ThankYouWrapper>
@@ -55,8 +58,8 @@ export default class ThankYou extends Component {
           <Image src={img} />
           <Heading>You did it!</Heading>
           <BoldPargraph>
-            Your review will be seen by this company and other workers who rely
-            on reviews like yours
+            Your review will be seen by this {orgType} and other workers who
+            rely on reviews like yours
           </BoldPargraph>
           <SubHeading>Each time you give a review, you</SubHeading>
           <List>
@@ -103,7 +106,7 @@ export default class ThankYou extends Component {
             Share privately with friends
           </SharePromo>
           <StyledLink to="search" orgType={orgType}>
-            Now review an agency, payroll or worksite
+            Now review an {otherOrgs[0]}, {otherOrgs[1]} or {otherOrgs[2]}
           </StyledLink>
         </ContentWrapper>
       </ThankYouWrapper>

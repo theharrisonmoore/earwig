@@ -77,12 +77,12 @@ export default class ScatterAnswer extends Component {
         <Scatter data={data} options={options} />
         <RightCommentWrapper>
           {question.answers.filter(answer => answer.comment).length > 0 ? (
-          <Comment onClick={() => toggleComments(question)} active>
-            Comments
-          </Comment>
-        ) : (
-          <Comment>Comments</Comment>
-        )}
+            <Comment onClick={() => toggleComments(question)} active>
+              Comments
+            </Comment>
+          ) : (
+            <Comment>Comments</Comment>
+          )}
         </RightCommentWrapper>
       </div>
     );

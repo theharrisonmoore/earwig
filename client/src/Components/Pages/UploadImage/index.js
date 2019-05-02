@@ -282,6 +282,7 @@ export default class UploadImage extends Component {
                       </>
                     )}
                     <Input
+                      autoFocus
                       placeholder="Add your trade..."
                       allowClear
                       onChange={this.addNewTradeHandler}
@@ -300,7 +301,8 @@ export default class UploadImage extends Component {
               example below. Please no glare or blur!
               <br />
               <br />
-              Once we’ve verified you, we’ll delete your photo to protect your anonymity.
+              Once we’ve verified you, we’ll delete your photo to protect your
+              anonymity.
             </Paragraph>
             <Example src={image ? image : example} />
             <Button as="label" htmlFor="image-input">
@@ -315,7 +317,11 @@ export default class UploadImage extends Component {
             />
             <SubHeading>Protecting you from blacklisting</SubHeading>
             <Paragraph>
-            We believe that every voice counts and should be protected by anonymity - everybody has a right to speak and be heard without fear of blacklisting. To protect you, we’ll randomly assign you an earwig ID, which is the only thing that will be shown beside your reviews and activity.
+              We believe that every voice counts and should be protected by
+              anonymity - everybody has a right to speak and be heard without
+              fear of blacklisting. To protect you, we’ll randomly assign you an
+              earwig ID, which is the only thing that will be shown beside your
+              reviews and activity.
             </Paragraph>
             {error && <Error>{error}</Error>}
             <Button marginTop={true} type="submit" error={error}>

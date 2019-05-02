@@ -4,12 +4,13 @@ import { YesNoWrapper, YesHalf, NoHalf, Comment } from "./ProfileAnswers.style";
 
 export default class YesNoAnswer extends Component {
   countYesNo = (yesOrNo, answers) => {
-    const yesPercentage =
-      Math.floor((answers.filter(answer => answer.answer === "yes").length /
+    const yesPercentage = Math.floor(
+      (answers.filter(answer => answer.answer === "Yes").length /
         answers.length) *
-      100);
+        100
+    );
 
-    if (yesOrNo === "yes") return `${yesPercentage}%`;
+    if (yesOrNo === "Yes") return `${yesPercentage}%`;
     else return `${100 - yesPercentage}%`;
   };
 
@@ -18,11 +19,11 @@ export default class YesNoAnswer extends Component {
 
     return (
       <YesNoWrapper>
-        <YesHalf width={this.countYesNo("yes", question.answers)}>
-          {this.countYesNo("yes", question.answers)}
+        <YesHalf width={this.countYesNo("Yes", question.answers)}>
+          {this.countYesNo("Yes", question.answers)}
         </YesHalf>
-        <NoHalf width={this.countYesNo("no", question.answers)}>
-          {this.countYesNo("no", question.answers)}
+        <NoHalf width={this.countYesNo("No", question.answers)}>
+          {this.countYesNo("No", question.answers)}
         </NoHalf>
         {question.answers.filter(answer => answer.comment).length > 0 ? (
           <Comment onClick={() => toggleComments(question)} active>

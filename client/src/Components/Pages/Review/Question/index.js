@@ -218,6 +218,7 @@ class QuestionOptions extends React.Component {
             <Field name={`questions[${number}]`} type="number">
               {({ field, form }) => (
                 <InputNumber
+                  min={0}
                   {...field}
                   onChange={value =>
                     props.setFieldValue(`questions[${number}]`, value)
