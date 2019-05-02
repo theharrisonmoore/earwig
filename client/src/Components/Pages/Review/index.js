@@ -166,7 +166,7 @@ class Review extends Component {
       .post(API_POST_REVIEW_URL, review)
       .then(res => {
         if (this.state.organization.needsVerification) {
-          this.setState({ organization: {id: res.data} })
+          this.setState({ organization: { id: res.data } });
           Swal.fire({
             type: "success",
             title: "Thanks! We're verifying your review as soon as possible."

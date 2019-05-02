@@ -83,6 +83,8 @@ export default function index(props) {
           path={THANKYOU_URL}
           {...props}
           Component={Thankyou}
+          navbar
+          search
         />
         <PrivateRoute
           exact

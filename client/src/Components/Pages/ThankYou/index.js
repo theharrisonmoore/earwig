@@ -9,11 +9,11 @@
  *
  * */
 
-import React, { Component } from "react"
+import React, { Component } from "react";
 
-import { EmailIcon, WhatsappIcon, TelegramIcon } from "react-share"
+import { EmailIcon, WhatsappIcon, TelegramIcon } from "react-share";
 
-import { organizations } from "./../../../theme"
+import { organizations } from "./../../../theme";
 
 import {
   ThankYouWrapper,
@@ -33,23 +33,19 @@ import {
 
 export default class ThankYou extends Component {
   render() {
-    
-    const { state } = this.props.history.location
-    
-    const orgType =
-      state &&
-      this.props.history.location.state.orgType;
+    const { state } = this.props.history.location;
+
+    const orgType = state && this.props.history.location.state.orgType;
     if (!orgType) {
       return this.props.history.goBack();
     }
 
-    const orgURL = state && state.orgId ? `${window.location.hostname}/profile/${state.orgId}` : `${window.location.hostname}`
+    const orgURL =
+      state && state.orgId
+        ? `${window.location.hostname}/profile/${state.orgId}`
+        : `${window.location.hostname}`;
 
     const orgName = state && state.orgName ? state.orgName : "an organization";
-
-
-    console.log("HOWDY", state)
-    console.log("ORG", orgName)
 
     const img = require(`./../../../assets/thank-you-${orgType}.svg`);
 
@@ -71,17 +67,41 @@ export default class ThankYou extends Component {
             <li>Help workers feel secure</li>
           </List>
           <IconWrapper>
-            <EmailShare url={orgURL} subject={`I've reviewed ${orgName} on earwig`}>
-              <EmailIcon size={40} round iconBgStyle={{fill: organizations[orgType].primary}}/>
+            <EmailShare
+              url={orgURL}
+              subject={`I've reviewed ${orgName} on earwig`}
+            >
+              <EmailIcon
+                size={40}
+                round
+                iconBgStyle={{ fill: organizations[orgType].primary }}
+              />
             </EmailShare>
-            <WhatsappShare url={orgURL} title={`I've reviewed ${orgName} on earwig`} separator=": ">
-              <WhatsappIcon size={40} round  iconBgStyle={{fill: organizations[orgType].primary}}/>
+            <WhatsappShare
+              url={orgURL}
+              title={`I've reviewed ${orgName} on earwig`}
+              separator=": "
+            >
+              <WhatsappIcon
+                size={40}
+                round
+                iconBgStyle={{ fill: organizations[orgType].primary }}
+              />
             </WhatsappShare>
-            <TelegramShare url={orgURL} title={`I've reviewed ${orgName} on earwig`}>
-              <TelegramIcon size={40} round iconBgStyle={{fill: organizations[orgType].primary}}/>
+            <TelegramShare
+              url={orgURL}
+              title={`I've reviewed ${orgName} on earwig`}
+            >
+              <TelegramIcon
+                size={40}
+                round
+                iconBgStyle={{ fill: organizations[orgType].primary }}
+              />
             </TelegramShare>
           </IconWrapper>
-          <SharePromo orgType={orgType}>Share privately with friends</SharePromo>
+          <SharePromo orgType={orgType}>
+            Share privately with friends
+          </SharePromo>
           <StyledLink to="search" orgType={orgType}>
             Now review an agency, payroll or worksite
           </StyledLink>
