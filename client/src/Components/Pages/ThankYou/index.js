@@ -9,7 +9,11 @@
  *
  * */
 
-import React, { Component } from "react";
+import React, { Component } from "react"
+
+import { EmailIcon, WhatsappIcon, TelegramIcon } from "react-share"
+
+import { organizations } from "./../../../theme"
 
 import {
   ThankYouWrapper,
@@ -20,19 +24,33 @@ import {
   SubHeading,
   List,
   IconWrapper,
-  Icon,
-  Button,
-  StyledLink
+  SharePromo,
+  StyledLink,
+  EmailShare,
+  WhatsappShare,
+  TelegramShare
 } from "./ThankYou.style";
 
 export default class ThankYou extends Component {
   render() {
+    
+    const { state } = this.props.history.location
+    
     const orgType =
-      this.props.history.location.state &&
+      state &&
       this.props.history.location.state.orgType;
     if (!orgType) {
       return this.props.history.goBack();
     }
+
+    const orgURL = state && state.orgId ? `${window.location.hostname}/profile/${state.orgId}` : `${window.location.hostname}`
+
+    const orgName = state && state.orgName ? state.orgName : "an organization";
+
+
+    console.log("HOWDY", state)
+    console.log("ORG", orgName)
+
     const img = require(`./../../../assets/thank-you-${orgType}.svg`);
 
     return (
@@ -53,14 +71,17 @@ export default class ThankYou extends Component {
             <li>Help workers feel secure</li>
           </List>
           <IconWrapper>
-            <Icon className="fab fa-twitter-square" color="1c9cec" />
-            <Icon className="fab fa-linkedin" color="0f72a3" />
-            <Icon className="fab fa-facebook-square" color="3a5695" />
-            <Icon className="fas fa-share-alt" color="00c0ff" />
-            <Icon className="fab fa-whatsapp" color="4dc959" />
-            <Icon className="fab fa-instagram" color="d13e72" />
+            <EmailShare url={orgURL} subject={`I've reviewed ${orgName} on earwig`}>
+              <EmailIcon size={40} round iconBgStyle={{fill: organizations[orgType].primary}}/>
+            </EmailShare>
+            <WhatsappShare url={orgURL} title={`I've reviewed ${orgName} on earwig`} separator=": ">
+              <WhatsappIcon size={40} round  iconBgStyle={{fill: organizations[orgType].primary}}/>
+            </WhatsappShare>
+            <TelegramShare url={orgURL} title={`I've reviewed ${orgName} on earwig`}>
+              <TelegramIcon size={40} round iconBgStyle={{fill: organizations[orgType].primary}}/>
+            </TelegramShare>
           </IconWrapper>
-          <Button orgType={orgType}>Share this news on social</Button>
+          <SharePromo orgType={orgType}>Share privately with friends</SharePromo>
           <StyledLink to="search" orgType={orgType}>
             Now review an agency, payroll or worksite
           </StyledLink>
