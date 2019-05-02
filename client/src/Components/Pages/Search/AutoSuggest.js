@@ -17,6 +17,9 @@ import {
   AddProfileLink
 } from "./Search.style";
 
+import Icon from "./../../Common/Icon/Icon"
+
+
 // UI helper functions
 import { SVGCreator, StarRateCreator } from "../../../helpers";
 
@@ -92,8 +95,10 @@ class AutosuggestComponent extends Component {
         <SuggestionBox orgType={suggestion.category}>
           <InnerDivSuggestions>
             <SymbolDiv>
-              {SVGCreator("mobile-search-icon")}
-              {SVGCreator(`${organizationIcons[suggestion.category].symbol}`)}
+              {/* {SVGCreator("mobile-search-icon")}
+              {SVGCreator(`${organizationIcons[suggestion.category].symbol}`)} */}
+              <Icon icon="search" height="1.5rem" width="1.5rem" margin="0 1rem 0 0" />
+              <Icon icon={suggestion.category} height="1.5rem" width="1.5rem" margin="0 1rem 0 0" />
             </SymbolDiv>
             <OrganisationDetailsDiv>
               <h3>{suggestion.name}</h3>

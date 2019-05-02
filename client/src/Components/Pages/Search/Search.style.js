@@ -83,11 +83,21 @@ input:focus {
 }
 .${classNames.suggestions} {
   box-shadow: ${shadows.autocompleteSuggestionShadow};
-  opacity: 0.8;
+  opacity: 0.75;
+  transition: all ease 0.2s;
+
+  :hover, :active, :focus {
+    opacity: 1;
+  }
 }
 .${classNames.suggestionHighlighted} {
   box-shadow: ${shadows.autocompleteSuggestionShadow};
-  opacity: 0.8;
+  opacity: 0.75;
+  transition: all ease 0.2s;
+
+  :hover, :active, :focus {
+    opacity: 1;
+  }
 }
 @media ${breakpoints.tablet} {
 
@@ -120,7 +130,9 @@ export const SearchLegendDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 1rem;
+  padding: 0 2rem 1rem 2rem;
+  width: 100%;
+  max-width: 600px;
 `;
 
 export const LastReviewsContainer = styled.div`
@@ -130,12 +142,19 @@ export const LastReviewsContainer = styled.div`
 
 export const ItemDiv = styled.div`
   display: flex;
+  /* width: 200px; */
+  align-items: center;
+  width: 50%;
+  padding: ${props => props.notMobile ? "0 2rem" : "0 1rem"};
   margin-bottom: 1.5rem;
+  margin-left: auto;
+  justify-content: ${props => props.notMobile && props.left ? "flex-end" : "flex-start"};
 `;
 
 export const LegendTitle = styled.h2`
   color: ${props => organizations[props.orgType].primary};
   font-size: 1rem;
+  margin: 0;
 `;
 
 export const SuggestionBox = styled.div`
@@ -172,8 +191,10 @@ export const ReviewsContainer = styled.div`
 
 export const InnerDivLastReviews = styled.div`
   text-align: left;
-  width: 90%;
+  width: 100%;
   display: flex;
+  align-items: center;
+  padding: 1rem 0;
   @media ${breakpoints.tablet} {
     border-bottom: 2px solid ${props => organizations[props.orgType].secondary};
   }
@@ -181,15 +202,15 @@ export const InnerDivLastReviews = styled.div`
 
 export const InnerDivSuggestions = styled.div`
   text-align: left;
-  padding-left: 0.75rem;
-  padding-top: 0.75rem;
+  padding: 1rem 0 1rem 0.75rem;
   width: 100%;
   display: flex;
+  align-items: center;
 `;
 
 export const SymbolDiv = styled.div`
   display: flex;
-  float: left;
+  align-items: center;
   svg {
     margin-right: 1rem;
   }
@@ -199,9 +220,10 @@ export const ArrowDiv = styled.div`
   display: flex;
   margin-left: auto;
   align-items: center;
-  svg {
+  padding-right: 0.5rem;
+  /* svg {
     margin-right: 1rem;
-  }
+  } */
 `;
 
 export const ImgDiv = styled.div`
@@ -212,6 +234,7 @@ export const ImgDiv = styled.div`
 export const OrganisationDetailsDiv = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   h3 {
     font-weight: 700;
     font-size: 1rem;
@@ -233,6 +256,7 @@ export const ReviewDetailsDiv = styled.div`
   font-size: 0.75rem;
   p {
     margin-left: 1rem;
+    margin-bottom: 0;
   }
 `;
 
@@ -253,7 +277,6 @@ export const HeadlineDiv = styled.div`
   flex-direction: column;
   text-align: center;
   padding-top: 2rem;
-  padding-bottom: 0.7rem;
   color: ${colors.profileFontColor};
   h2 {
     font-size: 2rem;
@@ -261,6 +284,7 @@ export const HeadlineDiv = styled.div`
   }
   p {
     font-style: italic;
+    font-size: 1rem;
   }
 `;
 
@@ -289,7 +313,7 @@ export const LogosContainer = styled.div`
 
 export const RowDiv = styled.div`
   display: flex;
-  width: auto;
+  width: 100%;
 `;
 
 export const FooterDiv = styled.footer`

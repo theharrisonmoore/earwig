@@ -30,6 +30,8 @@ export const SideDiv = styled.div`
   display: flex;
   justify-content: ${props => props.position};
   align-items: center;
+  margin: 0;
+  cursor: pointer;
 `;
 
 export const Icon = styled.img`
