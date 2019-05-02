@@ -242,7 +242,7 @@ export default class UploadImage extends Component {
           <CardIcon src={card} />
           <form onSubmit={this.handleSubmit}>
             <SelectWrapper>
-              <SubHeading>Trade</SubHeading>
+              <SubHeading>Your trade</SubHeading>
               <Select
                 placeholder={placeholder}
                 options={this.state.trades}
@@ -295,7 +295,7 @@ export default class UploadImage extends Component {
               <SubHeading>Your town or city</SubHeading>
               <Input onChange={this.addTownHandler} />
             </SelectWrapper>
-            <SubHeading>Photo</SubHeading>
+            <SubHeading>Verification Photo</SubHeading>
             <Paragraph>
               Please upload a photo of your face holding your trade ID like the
               example below. Please no glare or blur!

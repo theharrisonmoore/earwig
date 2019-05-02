@@ -107,7 +107,9 @@ export default class Search extends Component {
     return (
       <SearchWrapper data-testid="searchwrapper">
         <HeadlineDiv>
-          <h2>Welcome to earwig.</h2> <h2>Try searching for…</h2>
+          {isMobile ? (<h2>Welcome to earwig. <br /> Try searching for…</h2>) : (
+            <h2>Welcome to earwig. Try searching for…</h2>
+          )}  
         </HeadlineDiv>
         {showOtherSections && (
           <FlexContainer>
@@ -169,7 +171,7 @@ export default class Search extends Component {
             height="4.5rem"
             width="80%"
             data={data}
-            placeholderText="start typing..."
+            placeholderText="Start typing..."
             isMobile={isMobile}
           />
         </FlexContainer>

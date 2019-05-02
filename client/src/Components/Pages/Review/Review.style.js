@@ -9,6 +9,12 @@ export const ReviewWrapper = styled.div`
   .review-body {
     max-width: 40rem;
     margin: 0 auto;
+    padding-top: 10rem;
+    
+
+    h2 {
+      color: ${colors.profileFontColor};
+    }
   }
 `;
 
@@ -22,6 +28,8 @@ export const HeaderPhone = styled.section`
   padding: 1rem 2rem;
   padding-left: 3rem;
   overflow: hidden;
+  position: fixed;
+  z-index: 100;
 
   @media (max-width: ${size.mobileL}) {
     font-size: 1rem;
@@ -65,6 +73,8 @@ export const Header = styled.section`
   padding: 1rem 2rem 0;
   padding-left: 3rem;
   overflow: hidden;
+  position: fixed;
+  z-index: 100;
 
   @media (max-width: ${size.mobileL}) {
     font-size: 1rem;
@@ -155,10 +165,11 @@ export const UserAgreement = styled.div``;
 export const Level2Header = styled.h2`
   border-bottom: 1px solid ${colors.lightGray};
   display: inline-block;
+  color: ${colors.profileFontColor};
 `;
 
 export const AgreementLabel = styled.label`
-  font-size: 15px;
+  font-size: 14px;
   color: ${colors.profileFontColor};
   width: 90%;
 `;
