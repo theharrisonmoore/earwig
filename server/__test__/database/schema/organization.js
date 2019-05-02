@@ -18,13 +18,13 @@ describe("Test User schema", () => {
     expect(Organization).toBeDefined();
   });
 
-  test("should Organization schema get data correctly", async () => {
-    const organizations = await Organization.find();
-    expect(organizations).toHaveLength(9);
+  // test("should Organization schema get data correctly", async () => {
+  //   const organizations = await Organization.find();
+  //   expect(organizations).toHaveLength(9);
 
-    const companies = await Organization.find({ category: "company" });
-    expect(companies).toHaveLength(2);
-  });
+  //   const companies = await Organization.find({ category: "company" });
+  //   expect(companies).toHaveLength(2);
+  // });
 
   test("should Organization schema store correctly", async () => {
     const organization = {

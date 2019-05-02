@@ -135,7 +135,6 @@ class EditableTable extends Component {
     axios
       .get("/api/admin/trades")
       .then(res => {
-        console.log(res.data);
         this.setState({ dataSource: res.data });
       })
       .catch(err => {
@@ -146,7 +145,6 @@ class EditableTable extends Component {
   handleDelete = key => {
     // delete from db and update
     axios.delete(`/api/admin/trades/${key}`).then(res => {
-      console.log("res", res);
       this.fetchTrades();
     });
     // const dataSource = [...this.state.dataSource];

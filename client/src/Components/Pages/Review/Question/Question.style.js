@@ -145,6 +145,9 @@ export const InputWrapper = styled.div`
 
   .options-4 {
     margin-right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .radio-button:checked + .yesno {

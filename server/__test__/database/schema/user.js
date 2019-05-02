@@ -20,13 +20,13 @@ describe("Test User schema", () => {
     expect(User).toBeDefined();
   });
 
-  test("should User schema get data correctly", async () => {
-    const users = await User.find();
-    expect(users).toHaveLength(5);
+  // test("should User schema get data correctly", async () => {
+  //   const users = await User.find();
+  //   expect(users).toHaveLength(5);
 
-    const admins = await User.find({ isAdmin: true });
-    expect(admins).toHaveLength(1);
-  });
+  //   const admins = await User.find({ isAdmin: true });
+  //   expect(admins).toHaveLength(1);
+  // });
 
   test("should User schema store correctly", async (done) => {
     const trade = await Trade.findOne();
