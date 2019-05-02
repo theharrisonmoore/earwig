@@ -20,7 +20,7 @@ import UploadImage from "./UploadPhoto";
 import { colors, organizations } from "../../../../theme";
 import { isMobile } from "../../../../helpers";
 
-import Icon from "./../../../Common/Icon/Icon"
+import Icon from "./../../../Common/Icon/Icon";
 
 import {
   QuestionWrapper,

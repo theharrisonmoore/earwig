@@ -88,8 +88,8 @@ export const CommentsIcon = styled.div`
   width: 40px;
   height: 33px;
   color: ${props => {
-      return props.hasValue ? colors.green : colors.profileFontColor;
-    }};
+    return props.hasValue ? colors.green : colors.profileFontColor;
+  }};
   margin: 0 auto;
   box-shadow: 0 0 0 1px ${colors.dustyGray1};
   box-shadow: ${props => {
