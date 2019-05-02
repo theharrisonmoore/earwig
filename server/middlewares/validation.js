@@ -59,31 +59,26 @@ const schemas = {
       5: Joi.string().required(),
       6: Joi.string().required(),
       7: Joi.string().required(),
-      8: Joi.string().required(),
-
-      // number input
+      8: Joi.number().required(),
       9: Joi.string().required(),
-
       10: Joi.string().required(),
-      11: Joi.array().required(),
+      11: Joi.string().required(),
       12: Joi.string().required(),
       13: Joi.string().required(),
       14: Joi.string().required(),
       15: Joi.string().required(),
-      16: Joi.string().required(),
+      16: Joi.number().required(),
       17: Joi.string().required(),
-      // number input
       18: Joi.string().required(),
-
-      19: Joi.string().required(),
-      20: Joi.string().required(),
     }),
-    checklist: Joi.array(),
     review: Joi.object({
-      // workPeriod: Joi.string().required(),
-      // rate: Joi.string().required(),
+      workPeriod: Joi.object({
+        from: Joi.date().required(),
+        to: Joi.date().required(),
+      }),
+      rate: Joi.number().required(),
       overallReview: Joi.string().required(),
-      // voiceReview: Joi.any()
+      voiceReview: Joi.any(),
     }),
     hasAgreed: Joi.boolean()
       .valid(true)
@@ -94,29 +89,25 @@ const schemas = {
     questions: Joi.object({
       1: Joi.string().required(),
       2: Joi.string().required(),
-      3: Joi.string().required(),
-      // number
+      // 3: Joi.number().required(),
       4: Joi.string().required(),
-
       5: Joi.string().required(),
       6: Joi.string().required(),
       7: Joi.string().required(),
       8: Joi.string().required(),
-      9: Joi.string().required(),
+      9: Joi.number().required(),
       10: Joi.string().required(),
-      // number
       11: Joi.string().required(),
-
       12: Joi.string().required(),
-      13: Joi.string().required(),
-      14: Joi.string().required(),
     }),
-    checklist: Joi.array(),
     review: Joi.object({
-      // workPeriod: Joi.string().required(),
-      // rate: Joi.string().required(),
+      workPeriod: Joi.object({
+        from: Joi.date().required(),
+        to: Joi.date().required(),
+      }),
+      rate: Joi.number().required(),
       overallReview: Joi.string().required(),
-      // voiceReview: Joi.any()
+      voiceReview: Joi.any(),
     }),
     hasAgreed: Joi.boolean()
       .valid(true)
@@ -126,8 +117,7 @@ const schemas = {
     questions: Joi.object({
       1: Joi.string().required(),
       2: Joi.string().required(),
-      3: Joi.string().required(),
-      // number
+      3: Joi.number().required(),
       4: Joi.string().required(),
 
       5: Joi.string().required(),
@@ -139,18 +129,20 @@ const schemas = {
       11: Joi.string().required(),
       12: Joi.string().required(),
       13: Joi.string().required(),
-      // 14 has his own value (checklist)
+      14: Joi.any().required(),
       15: Joi.string().required(),
       16: Joi.string().required(),
       17: Joi.string().required(),
       18: Joi.string().required(),
     }),
-    checklist: Joi.array(),
     review: Joi.object({
-      // workPeriod: Joi.string().required(),
-      // rate: Joi.string().required(),
+      workPeriod: Joi.object({
+        from: Joi.date().required(),
+        to: Joi.date().required(),
+      }),
+      rate: Joi.number().required(),
       overallReview: Joi.string().required(),
-      // voiceReview: Joi.any()
+      voiceReview: Joi.any(),
     }),
     hasAgreed: Joi.boolean()
       .valid(true)
@@ -164,19 +156,18 @@ const schemas = {
       4: Joi.string().required(),
       5: Joi.string().required(),
       6: Joi.string().required(),
-      // name of the rep
       7: Joi.string().required(),
-
       8: Joi.string().required(),
       9: Joi.string().required(),
-      10: Joi.string().required(),
     }),
-    checklist: Joi.array(),
     review: Joi.object({
-      // workPeriod: Joi.string().required(),
-      // rate: Joi.string().required(),
+      workPeriod: Joi.object({
+        from: Joi.date().required(),
+        to: Joi.date().required(),
+      }),
+      rate: Joi.number().required(),
       overallReview: Joi.string().required(),
-      // voiceReview: Joi.any()
+      voiceReview: Joi.any(),
     }),
     hasAgreed: Joi.boolean()
       .valid(true)
