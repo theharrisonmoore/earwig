@@ -111,9 +111,15 @@ class Review extends Component {
       } else {
         other = null;
       }
+
       // eslint-disable-next-line array-callback-return
       newDependant.map(question => {
-        set(`questions[${question.number}]`, "");
+        console.log("Q", question)
+        if (question.type === "number") {
+          console.log("reached", question.type)
+          set(`questions[${question.number}]`, null) 
+        }
+        else set(`questions[${question.number}]`, "");
       });
     }
     while (typeof next !== "object" && next !== null) {
@@ -131,7 +137,11 @@ class Review extends Component {
       }
       // eslint-disable-next-line array-callback-return
       newDependant.map(question => {
-        set(`questions[${question.number}]`, "");
+        if (question.type === "number") {
+          console.log("reached2", question.type)
+          set(`questions[${question.number}]`, null) 
+        }
+        else set(`questions[${question.number}]`, "");
       });
     }
     group.main = newMain.sort((a, b) => a.number - b.number);
@@ -289,6 +299,7 @@ class Review extends Component {
             }) => {
               return (
                 <FormWrapper>
+                  {console.log(values)}
                   <Form>
                     <Question
                       {...values}
