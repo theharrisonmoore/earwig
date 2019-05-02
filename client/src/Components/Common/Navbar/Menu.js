@@ -36,12 +36,12 @@ export default class Menu extends PureComponent {
 
     return (
       <Wrapper isMobile={isMobile}>
-        {isMobile && (
+        
           <MenuItem to={SEARCH_URL} onClick={toggleMenu}>
-            <SVG src="/icons/mobile-search-icon.svg" className="menuIcon" />
+            <MenuIcon icon="search" height="19" width="19" />
             Search
           </MenuItem>
-        )}
+        
 
         {authorization({ ...data, minimumLevel: "ADMIN" }) && (
           <MenuItem to={ADMIN} onClick={toggleMenu}>
@@ -61,7 +61,6 @@ export default class Menu extends PureComponent {
           <MenuIcon icon="getVerified" height="19" width="19" />
           Your profile
         </MenuItem>
-
         {authorization({ ...data, minimumLevel: "LEVEL0" }) && (
           <MenuItem to={FAQ_URL} onClick={toggleMenu}>
             <MenuIcon icon="faq" height="19" width="19" />
@@ -72,18 +71,16 @@ export default class Menu extends PureComponent {
           <MenuIcon icon="helpfulLinks" height="19" width="19" />
           Stuff you might find helpful
         </MenuItem>
-        {authorization({ ...data, minimumLevel: "LEVEL2" }) && (
+        {authorization({ ...data, minimumLevel: "LEVEL1" }) && (
           <MenuItem to={CONTACT_URL} onClick={toggleMenu}>
             <MenuIcon icon="shapeEarwig" height="19" width="19" />
             Shape earwig
           </MenuItem>
         )}
-        {authorization({ ...data, minimumLevel: "LEVEL2" }) && (
           <MenuItem to={PRIVACY_URL} onClick={toggleMenu}>
             <MenuIcon icon="privacyTerms" height="19" width="19" />
             Privacy & terms
           </MenuItem>
-        )}
         {isLoggedIn ? (
           <MenuItem to=" " onClick={handleLogout}>
             <MenuIcon icon="logoutLogin" height="19" width="19" />
