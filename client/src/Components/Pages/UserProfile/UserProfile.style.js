@@ -134,12 +134,13 @@ export const UnVerifiedButton = styled(Link)`
   justify-content: center;
   align-items: center;
   max-width: 20rem;
+  transition: all ease 0.2s;
 
-  &,
   &:active,
-  &:focus {
+  &:focus, &:hover {
     outline: none;
     text-decoration: none;
+    color: ${colors.heliotrope};
   }
 `;
 
@@ -148,6 +149,14 @@ export const Title = styled.h2`
   font-size: 1.125rem;
   color: ${colors.profileFontColor};
   margin: 0;
+  transition: all ease 0.2s;
+
+  &:active,
+  &:focus, &:hover {
+    outline: none;
+    text-decoration: none;
+    color: ${colors.heliotrope};
+  }
 `;
 
 export const ReviewDiv = styled.div`
