@@ -84,7 +84,7 @@ export default function index(props) {
           {...props}
           Component={Thankyou}
           navbar
-          search
+          search={!isMobile}
         />
         <PrivateRoute
           exact
@@ -103,7 +103,7 @@ export default function index(props) {
           {...props}
           Component={Profile}
           navbar
-          search
+          search={!isMobile}
         />
         <PrivateRoute
           minimumLevel="ADMIN"
@@ -191,7 +191,7 @@ export default function index(props) {
           Component={FAQ}
           navbar
           title="FAQ & explainer videos"
-          search
+          search={!isMobile}
         />
 
         <PrivateRoute
@@ -202,8 +202,8 @@ export default function index(props) {
           isTablet={isTablet}
           Component={HelpfulStuff}
           navbar
-          title="Stuff you might find helpful"
-          search
+          title="Helpful stuff"
+          search={!isMobile}
         />
 
         <PrivateRoute
@@ -215,7 +215,7 @@ export default function index(props) {
           Component={ShapeEarwig}
           navbar
           title="Shape earwig"
-          search
+          search={!isMobile}
         />
 
         <PrivateRoute
@@ -227,7 +227,7 @@ export default function index(props) {
           Component={PrivacyAndTerms}
           navbar
           title="Privacy & terms"
-          search
+          search={!isMobile}
         />
 
         <PrivateRoute
@@ -239,7 +239,7 @@ export default function index(props) {
           Component={ReportContent}
           navbar
           title="Report this content"
-          search
+          search={!isMobile}
         />
         <PrivateRoute
           minimumLevel="LEVEL1"
