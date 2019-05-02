@@ -242,7 +242,7 @@ export default class UploadImage extends Component {
           <CardIcon src={card} />
           <form onSubmit={this.handleSubmit}>
             <SelectWrapper>
-              <SubHeading>Trade</SubHeading>
+              <SubHeading>Your trade</SubHeading>
               <Select
                 placeholder={placeholder}
                 options={this.state.trades}
@@ -294,14 +294,13 @@ export default class UploadImage extends Component {
               <SubHeading>Your town or city</SubHeading>
               <Input onChange={this.addTownHandler} />
             </SelectWrapper>
-            <SubHeading>Photo</SubHeading>
+            <SubHeading>Verification Photo</SubHeading>
             <Paragraph>
               Please upload a photo of your face holding your trade ID like the
               example below. Please no glare or blur!
               <br />
               <br />
-              Once we’ve verified you, we’ll delete your photo to protect your
-              identity.
+              Once we’ve verified you, we’ll delete your photo to protect your anonymity.
             </Paragraph>
             <Example src={image ? image : example} />
             <Button as="label" htmlFor="image-input">
@@ -316,11 +315,7 @@ export default class UploadImage extends Component {
             />
             <SubHeading>Protecting you from blacklisting</SubHeading>
             <Paragraph>
-              We believe that every voice counts and should be protected by
-              anonymity - everybody has a right to speak and be heard without
-              fear of blacklisting. To protect you, we’ll randomly assign you an
-              earwig ID, which is the only thing that will be shown beside your
-              reviews and replies.
+            We believe that every voice counts and should be protected by anonymity - everybody has a right to speak and be heard without fear of blacklisting. To protect you, we’ll randomly assign you an earwig ID, which is the only thing that will be shown beside your reviews and activity.
             </Paragraph>
             {error && <Error>{error}</Error>}
             <Button marginTop={true} type="submit" error={error}>
