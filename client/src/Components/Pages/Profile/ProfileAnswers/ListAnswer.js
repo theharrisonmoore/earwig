@@ -20,7 +20,7 @@ export default class ListAnswer extends Component {
   render() {
     const { question, toggleComments } = this.props;
 
-    if (question.question.profileText === "Payroll charge")
+    if (question.question.profileText === "Payroll charge") {
       return (
         <ListWrapper>
           {question.question.profileText === "Payroll charge" ? (
@@ -52,5 +52,8 @@ export default class ListAnswer extends Component {
           )}
         </ListWrapper>
       );
+    } else {
+      return null;
+    }
   }
 }
