@@ -175,6 +175,7 @@ export const CommentBubble = styled.p`
   margin-bottom: 0;
   white-space: pre-wrap;
   text-align: left;
+  margin-right: 0.5rem;
 `;
 
 export const CommentDate = styled.p`
