@@ -111,7 +111,7 @@ export default class HeaderSection extends Component {
               Get verified as a worker to give reviews, comment on other reviews
               and search jobs
             </p>
-            <VerifyLink to={"/verify"} category={category}>
+            <VerifyLink to={"/upload-verification-photo"} category={category}>
               Get verified now >
             </VerifyLink>
           </VerifyPromo>
