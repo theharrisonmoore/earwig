@@ -513,7 +513,7 @@ export const RadioButton = ({
             let nextQ = next["yes"];
             let other = next["no"];
             if (
-              props.option === "no" ||
+              props.option === "No" ||
               props.option.includes("know") ||
               props.option.includes("check")
             ) {
