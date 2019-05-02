@@ -289,7 +289,7 @@ export const ButtonsWrapper = styled(ActionsDiv)`
   width: 90%;
 `;
 export const ActionsButton = styled(Button)`
-  background: ${({ BGColor }) => BGColor};
+  background: ${({ bgcolor }) => bgcolor};
   border: none;
   font-weight: 700;
   font-size: 1rem;
