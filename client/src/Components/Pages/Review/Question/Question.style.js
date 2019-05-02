@@ -87,13 +87,15 @@ export const CommentsIcon = styled.div`
   align-items: center;
   width: 40px;
   height: 33px;
-  color: red;
+  color: ${props => {
+      return props.hasValue ? colors.green : colors.profileFontColor;
+    }};
   margin: 0 auto;
   box-shadow: 0 0 0 1px ${colors.dustyGray1};
   box-shadow: ${props => {
     return props.hasValue ? "none" : `0 0 0 1px ${colors.dustyGray1}`;
   }};
-  border: 3px solid
+  border: 1px solid
     ${props => {
       return props.hasValue ? colors.green : "transparent";
     }};
