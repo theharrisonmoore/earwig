@@ -282,6 +282,7 @@ export default class UploadImage extends Component {
                       </>
                     )}
                     <Input
+                      autoFocus
                       placeholder="Add your trade..."
                       allowClear
                       onChange={this.addNewTradeHandler}

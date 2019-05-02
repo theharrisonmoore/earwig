@@ -61,7 +61,12 @@ class App extends React.Component {
             </Button>
           ]}
         >
-          <Input value={text} onChange={this.handleChange} allowClear />
+          <Input
+            value={text}
+            onChange={this.handleChange}
+            allowClear
+            autoFocus
+          />
         </Modal>
       </>
     );
