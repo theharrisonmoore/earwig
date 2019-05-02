@@ -7,6 +7,8 @@ import { MOBILE_WIDTH } from "./../../../constants/screenWidths";
 
 export const Wrapper = styled.div`
   padding: 2rem;
+  max-width: 45rem;
+  margin: 0 auto;
 `;
 
 export const Title = styled.h1`
@@ -14,6 +16,11 @@ export const Title = styled.h1`
   font-weight: 900;
   color: ${colors.profileFontColor};
   margin-bottom: 1rem;
+
+  @media (min-width: ${MOBILE_WIDTH}px) {
+    font-size: 2.75rem;
+    padding-top: 3rem;
+  }
 `;
 
 export const Paragraph = styled.p`
@@ -22,6 +29,10 @@ export const Paragraph = styled.p`
   color: ${colors.lightGray};
   margin-bottom: 2rem;
   font-size: 1rem;
+
+  @media (min-width: ${MOBILE_WIDTH}px) {
+    margin: 4rem auto;
+  }
 `;
 
 export const Button = styled.button`

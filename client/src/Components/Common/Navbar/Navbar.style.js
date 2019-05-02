@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, borders, shadows } from "./../../../theme";
+import { colors, borders, shadows, breakpoints } from "./../../../theme";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -13,6 +13,10 @@ export const Wrapper = styled.div`
   align-items: center;
   background: ${colors.white};
   z-index: 1000;
+
+  @media ${breakpoints.tablet} {
+    border-bottom: none;
+  }
 `;
 
 export const WrapperH2 = styled.h2`
@@ -26,6 +30,8 @@ export const SideDiv = styled.div`
   display: flex;
   justify-content: ${props => props.position};
   align-items: center;
+  margin: 0;
+  cursor: pointer;
 `;
 
 export const Icon = styled.img`
