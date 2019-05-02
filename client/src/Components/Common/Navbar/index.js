@@ -12,15 +12,12 @@ import { colors } from "./../../../theme"
 import {
   Wrapper,
   LogoIcon,
-  // Icon,
   ToggleMenu,
   SideDiv,
   WrapperH2
 } from "./Navbar.style";
 import Menu from "./Menu.js";
 
-import SearchIcon from "./../../../assets/search-icon.svg";
-import HamburgerIcon from "./../../../assets/hamburger-icon.svg";
 import Logo from "./../../../assets/logo.svg";
 import CloseIcon from "./../../../assets/close-icon.svg";
 import axios from "axios";

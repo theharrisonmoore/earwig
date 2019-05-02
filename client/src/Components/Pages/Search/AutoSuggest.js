@@ -23,7 +23,7 @@ import Icon from "./../../Common/Icon/Icon"
 // UI helper functions
 import { SVGCreator, StarRateCreator } from "../../../helpers";
 
-import { organizationIcons, organizations } from "./../../../theme";
+import { organizationIcons } from "./../../../theme";
 
 // functions
 
