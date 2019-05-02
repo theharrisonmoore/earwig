@@ -14,7 +14,6 @@ import {
 
 import ModalComment from "../../../Common/AntdComponents/ModalComment";
 import CustomRangePicker from "../../../Common/AntdComponents/DatePicker";
-import commentIcon from "../../../../assets/comment-icon.svg";
 
 import UploadImage from "./UploadPhoto";
 
