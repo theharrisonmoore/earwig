@@ -4,6 +4,7 @@ import { message } from "antd";
 
 import { Wrapper, ContentWrapper } from "./../../Common/StaticPages.style";
 
+import Loading from "./../../Common/AntdComponents/Loading.js";
 import SelectReason from "./SelectReason";
 import GiveInformation from "./GiveInformation";
 import Thanks from "./Thanks";
@@ -49,21 +50,26 @@ export default class ReportContent extends Component {
     if (!this.state.description) {
       return message.error("Please fill in some information!");
     }
-
-    axios
-      .post(API_REPORT_CONTENT_URL, {
-        ...this.props.location.state,
-        description: this.state.description,
-        reason: this.state.reason
-      })
-      .then(() => {
-        this.handleMove(1);
-      })
-      .catch(err => {
-        const error =
-          err.response && err.response.data && err.response.data.error;
-        message.error(error || "Something went wrong");
-      });
+    this.setState({ loading: true }, () => {
+      axios
+        .post(API_REPORT_CONTENT_URL, {
+          ...this.props.location.state,
+          description: this.state.description,
+          reason: this.state.reason
+        })
+        .then(() => {
+          this.setState({ loading: false }, () => {
+            this.handleMove(1);
+          });
+        })
+        .catch(err => {
+          this.setState({ loading: true }, () => {
+            const error =
+              err.response && err.response.data && err.response.data.error;
+            message.error(error || "Something went wrong");
+          });
+        });
+    });
   };
 
   render() {
@@ -72,16 +78,20 @@ export default class ReportContent extends Component {
 
     return (
       <Wrapper>
-        <ContentWrapper>
-          <ActiveComponent
-            handleCancel={this.handleCancel}
-            handleSelect={this.handleSelect}
-            handleMove={this.handleMove}
-            handleSubmit={this.handleSubmit}
-            handleTextAreaChange={this.handleTextAreaChange}
-            description={this.state.description}
-          />
-        </ContentWrapper>
+        {this.state.loading ? (
+          <Loading />
+        ) : (
+          <ContentWrapper>
+            <ActiveComponent
+              handleCancel={this.handleCancel}
+              handleSelect={this.handleSelect}
+              handleMove={this.handleMove}
+              handleSubmit={this.handleSubmit}
+              handleTextAreaChange={this.handleTextAreaChange}
+              description={this.state.description}
+            />
+          </ContentWrapper>
+        )}
       </Wrapper>
     );
   }

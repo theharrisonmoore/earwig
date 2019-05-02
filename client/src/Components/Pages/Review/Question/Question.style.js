@@ -145,15 +145,18 @@ export const InputWrapper = styled.div`
 
   .options-4 {
     margin-right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .radio-button:checked + .yesno {
     box-shadow: none;
     border: 3px solid
       ${props => {
-        if (props.option === "yes") {
+        if (props.option.toLowerCase() === "yes") {
           return colors.green;
-        } else if (props.option === "no") {
+        } else if (props.option.toLowerCase() === "no") {
           return colors.red;
         }
         return organizations[props.orgType].primary;

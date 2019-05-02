@@ -34,6 +34,34 @@ module.exports = async () => {
       verified: true,
       awaitingReview: false,
     },
+    {
+      email: "ramy@gmail.com",
+      password: "123456",
+      trade: trades[2],
+      verified: true,
+      awaitingReview: false,
+    },
+    {
+      email: "joe@gmail.com",
+      password: "123456",
+      trade: trades[3],
+      verified: true,
+      awaitingReview: false,
+    },
+    {
+      email: "abdalsamad.y.m@gmail.com",
+      password: "123456",
+      trade: trades[3],
+      verified: true,
+      awaitingReview: false,
+    },
+    {
+      email: "simon@gmail.com",
+      password: "123456",
+      trade: trades[3],
+      verified: true,
+      awaitingReview: false,
+    },
     // Admin
     {
       email: "admin@earwig.com",

@@ -5,9 +5,9 @@ import { YesNoWrapper, YesHalf, NoHalf, Comment } from "./ProfileAnswers.style";
 export default class YesNoAnswer extends Component {
   countYesNo = (yesOrNo, answers) => {
     const yesPercentage =
-      (answers.filter(answer => answer.answer === "yes").length /
+      Math.floor((answers.filter(answer => answer.answer === "yes").length /
         answers.length) *
-      100;
+      100);
 
     if (yesOrNo === "yes") return `${yesPercentage}%`;
     else return `${100 - yesPercentage}%`;
