@@ -117,9 +117,7 @@ class Review extends Component {
 
       // eslint-disable-next-line array-callback-return
       newDependant.map(question => {
-        console.log("Q", question)
         if (question.type === "number") {
-          console.log("reached", question.type)
           set(`questions[${question.number}]`, null) 
         }
         else set(`questions[${question.number}]`, "");
@@ -141,7 +139,6 @@ class Review extends Component {
       // eslint-disable-next-line array-callback-return
       newDependant.map(question => {
         if (question.type === "number") {
-          console.log("reached2", question.type)
           set(`questions[${question.number}]`, null) 
         }
         else set(`questions[${question.number}]`, "");
@@ -306,7 +303,6 @@ class Review extends Component {
             }) => {
               return (
                 <FormWrapper>
-                  {console.log(values)}
                   <Form>
                     <Question
                       {...values}

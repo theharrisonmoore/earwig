@@ -116,7 +116,6 @@ const postReview = async (req, res, next) => {
       .sort((a, b) => a - b)
       .map((qAnswer) => {
         if (questionsAnswers[qAnswer]) {
-          console.log("answer", questionsAnswers[qAnswer]);
           const answer = {
             user: userData,
             review: currentReview,
@@ -137,7 +136,6 @@ const postReview = async (req, res, next) => {
       });
 
     const allAnswers = [...reviewAnswers].filter(answer => answer !== null);
-    console.log("all", allAnswers);
     await Answer.insertMany(allAnswers);
 
     res.send(organizationData._id);
