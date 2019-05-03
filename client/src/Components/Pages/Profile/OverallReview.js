@@ -60,7 +60,11 @@ export default class OverallReview extends Component {
       <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
         <SectionTitle>Overall ratings</SectionTitle>
         {summary.reviews.map((review, index) => (
-          <CommentDiv key={review._id + "comment"}>
+          <CommentDiv
+            key={review._id + "comment"}
+            noReview={review.overallReview.text.length < 1}
+          >
+            {console.log("review", review.overallReview.text.length)}
             <UserID>{review.user && review.user.userId}</UserID>
             <BubbleAndDate>
               <CommentBubble color={organizations[category].secondary}>
