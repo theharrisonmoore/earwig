@@ -20,7 +20,7 @@ import UploadImage from "./UploadPhoto";
 import { colors, organizations } from "../../../../theme";
 import { isMobile } from "../../../../helpers";
 
-import Icon from "./../../../Common/Icon/Icon"
+import Icon from "./../../../Common/Icon/Icon";
 
 import {
   QuestionWrapper,
@@ -218,6 +218,7 @@ class QuestionOptions extends React.Component {
             <Field name={`questions[${number}]`} type="number">
               {({ field, form }) => (
                 <InputNumber
+                  min={0}
                   {...field}
                   onChange={value =>
                     props.setFieldValue(`questions[${number}]`, value)

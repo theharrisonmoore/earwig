@@ -14,7 +14,10 @@ export const validationSchema = {
       6: Yup.string(),
       7: Yup.string(),
       // number input
-      8: Yup.number().nullable().typeError("Must be a number"),
+      8: Yup.number()
+        .nullable()
+        .typeError("Must be a number")
+        .positive("Must be greater than zero"),
       9: Yup.string(),
       //9 => yes 15, 16 required
       // 9 => no 10 - 14
@@ -45,7 +48,9 @@ export const validationSchema = {
         then: Yup.string()
       }),
       //number input
-      16: Yup.number().nullable().typeError("Must be a number"),
+      16: Yup.number()
+        .nullable()
+        .typeError("Must be a number"),
 
       17: Yup.string(),
       18: Yup.string()
@@ -81,10 +86,9 @@ export const validationSchema = {
       7: Yup.string(),
       8: Yup.string(),
       // number
-      9: Yup.number().nullable()
-        .typeError("Must be a number")
-        ,
-
+      9: Yup.number()
+        .nullable()
+        .typeError("Must be a number"),
       10: Yup.string(),
       11: Yup.string(),
       12: Yup.string()
@@ -111,12 +115,14 @@ export const validationSchema = {
       1: Yup.string(),
       2: Yup.string(),
       // number
-      3: Yup.number().nullable().when("2", {
-        is: "yes",
-        then: Yup.number().nullable()
-          .typeError("Must be a number")
-          
-      }),
+      3: Yup.number()
+        .nullable()
+        .when("2", {
+          is: "yes",
+          then: Yup.number()
+            .nullable()
+            .typeError("Must be a number")
+        }),
 
       4: Yup.string(),
       5: Yup.string(),

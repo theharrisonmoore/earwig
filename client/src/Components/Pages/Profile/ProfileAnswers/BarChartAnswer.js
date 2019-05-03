@@ -8,7 +8,6 @@ import { organizations } from "../../../../theme";
 Chart.defaults.global.plugins.datalabels.display = false;
 
 export default class BarChartAnswer extends Component {
-
   createDataObj = question => {
     // create object
 
@@ -74,7 +73,7 @@ export default class BarChartAnswer extends Component {
             align: "bottom",
             clip: true,
             formatter: value => {
-              return Math.floor(value) + "%";
+              return value + "%";
             },
             font: {
               weight: "900",

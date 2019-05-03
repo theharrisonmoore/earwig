@@ -6,14 +6,14 @@ import {
   CanteenSubList
 } from "./ProfileAnswers.style";
 
-import Icon from "./../../../Common/Icon/Icon"
+import Icon from "./../../../Common/Icon/Icon";
 
 export default class CanteenItemAnswer extends Component {
   getAverage = answers => {
     //start count at 1 to give benefit to yes
     let count = 1;
     answers.map(answer =>
-      answer.answer === "yes" ? (count += 1) : (count -= 1)
+      answer.answer === "Yes" ? (count += 1) : (count -= 1)
     );
 
     return count > 0;
@@ -43,7 +43,12 @@ export default class CanteenItemAnswer extends Component {
         {hasCanteen ? (
           <>
             <CanteenItem itemAvailable>
-              <Icon icon="canteen" margin="0 1rem 0 0" height="1.5rem" width="1.5rem" />
+              <Icon
+                icon="canteen"
+                margin="0 1rem 0 0"
+                height="1.5rem"
+                width="1.5rem"
+              />
               <p>{canteenHeader[0].question.profileText}</p>
             </CanteenItem>
             {questions
@@ -73,7 +78,12 @@ export default class CanteenItemAnswer extends Component {
           </>
         ) : (
           <CanteenItem>
-            <Icon icon="canteen" margin="0 1rem 0 0" height="1.5rem" width="1.5rem" />
+            <Icon
+              icon="canteen"
+              margin="0 1rem 0 0"
+              height="1.5rem"
+              width="1.5rem"
+            />
             <p>Canteen</p>
           </CanteenItem>
         )}
