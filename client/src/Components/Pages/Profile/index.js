@@ -157,8 +157,7 @@ export default class Profile extends Component {
       commentsQuestion,
       comments,
       commentsLoaded,
-      level,
-      organizationID
+      level
     } = this.state;
 
     const { isTablet, isMobile } = this.props;
