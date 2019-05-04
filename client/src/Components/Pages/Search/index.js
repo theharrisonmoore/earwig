@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import Loading from "./../../Common/AntdComponents/Loading";
-
 import { API_SEARCH_URL } from "../../../apiUrls";
 
 import AutosuggestComponent from "./AutoSuggest";
@@ -29,9 +27,7 @@ import {
   FlexContainer
 } from "./Search.style";
 
-import { organizationIcons, organizations } from "./../../../theme";
-
-import Icon from "./../../Common/Icon/Icon";
+import { organizationIcons } from "./../../../theme";
 
 export const axiosCall = async () => {
   const response = await axios.get(API_SEARCH_URL);
@@ -63,13 +59,7 @@ export default class Search extends Component {
       <ReviewsFrame orgType={org.category}>
         <InnerDivLastReviews orgType={org.category}>
           <SymbolDiv>
-            {/* {SVGCreator(`${organizationIcons[org.category].symbol}`)} */}
-            <Icon
-              icon={org.category}
-              height="1.5rem"
-              width="1.5rem"
-              margin="0 1rem 0 0"
-            />
+            {SVGCreator(`${organizationIcons[org.category].symbol}`)}
           </SymbolDiv>
           <OrganisationDetailsDiv>
             <h3>{org.name}</h3>
@@ -102,63 +92,33 @@ export default class Search extends Component {
   render() {
     const { isLoading, data, showOtherSections } = this.state;
     const { isMobile } = this.props;
-    if (!isLoading) return <Loading />;
+    if (!isLoading) return <p data-testid="loading">loading...</p>;
 
     return (
       <SearchWrapper data-testid="searchwrapper">
         <HeadlineDiv>
-          {isMobile ? (<h2>Welcome to earwig. <br /> Try searching for…</h2>) : (
-            <h2>Welcome to earwig. Try searching for…</h2>
-          )}  
+          <h2>Welcome to earwig.</h2> <h2>Try searching for…</h2>
         </HeadlineDiv>
         {showOtherSections && (
           <FlexContainer>
             <SearchLegendDiv>
               <RowDiv>
-                <ItemDiv notMobile={!isMobile} left>
-                  {/* {SVGCreator("agency-icon", "40px", "70px")} */}
-                  <Icon
-                    icon="agency"
-                    color={organizations.agency.primary}
-                    width="2rem"
-                    height="2rem"
-                    margin="0 1rem 0 0"
-                  />
+                <ItemDiv>
+                  {SVGCreator("agency-icon", "40px", "70px")}
                   <LegendTitle orgType="agency">Agencies</LegendTitle>
                 </ItemDiv>
-                <ItemDiv notMobile={!isMobile}>
-                  {/* {SVGCreator("payroll-icon", "40px", "70px")} */}
-                  <Icon
-                    icon="payroll"
-                    color={organizations.payroll.primary}
-                    width="2rem"
-                    height="2rem"
-                    margin="0 1rem 0 0"
-                  />
+                <ItemDiv>
+                  {SVGCreator("payroll-icon", "40px", "70px")}
                   <LegendTitle orgType="payroll">Payrolls</LegendTitle>
                 </ItemDiv>
               </RowDiv>
               <RowDiv>
-                <ItemDiv notMobile={!isMobile} left>
-                  {/* {SVGCreator("worksite-icon", "40px", "70px")} */}
-                  <Icon
-                    icon="worksite"
-                    color={organizations.worksite.primary}
-                    width="2rem"
-                    height="2rem"
-                    margin="0 1rem 0 0"
-                  />
+                <ItemDiv>
+                  {SVGCreator("worksite-icon", "40px", "70px")}
                   <LegendTitle orgType="worksite">Worksites</LegendTitle>
                 </ItemDiv>
-                <ItemDiv notMobile={!isMobile}>
-                  {/* {SVGCreator("company-icon", "40px", "70px")} */}
-                  <Icon
-                    icon="company"
-                    color={organizations.company.primary}
-                    width="2rem"
-                    height="2rem"
-                    margin="0 1rem 0 0"
-                  />
+                <ItemDiv>
+                  {SVGCreator("company-icon", "40px", "70px")}
                   <LegendTitle orgType="company">Companies</LegendTitle>
                 </ItemDiv>
               </RowDiv>
@@ -171,7 +131,7 @@ export default class Search extends Component {
             height="4.5rem"
             width="80%"
             data={data}
-            placeholderText="Start typing..."
+            placeholderText="start typing..."
             isMobile={isMobile}
           />
         </FlexContainer>

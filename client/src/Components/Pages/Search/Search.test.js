@@ -47,16 +47,16 @@ const expectSuggestions = (expectedSuggestions, value, array) => {
 // start testing
 afterEach(cleanup);
 
-// // test if loading renders
-// it("renders loading...", () => {
-//   const { getByTestId } = render(
-//     <BrowserRouter>
-//       <Search />
-//     </BrowserRouter>
-//   );
-//   const loadingRender = getByTestId(Loading);
-//   expect(loadingRender.textContent).toBe("loading...");
-// });
+// test if loading renders
+it("renders loading...", () => {
+  const { getByTestId } = render(
+    <BrowserRouter>
+      <Search />
+    </BrowserRouter>
+  );
+  const loadingRender = getByTestId("loading");
+  expect(loadingRender.textContent).toBe("loading...");
+});
 
 beforeAll(async () => {
   // render component
@@ -95,7 +95,7 @@ describe("tests for running app with data ", () => {
     // expect(headline.textContent).toBe("Welcome to earwig.");
 
     //   test if resolved container renders
-    expectInputValue(data.input.placeholder, "Start typing...");
+    expectInputValue(data.input.placeholder, "start typing...");
     // // test input value
     expectInputValue(data.input.value, "");
   });

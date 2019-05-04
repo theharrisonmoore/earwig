@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Autosuggest from "react-autosuggest";
-import { withRouter } from "react-router-dom";
 import { ADD_PROFILE_URL } from "../../../constants/naviagationUrls";
 // styles
 import {
@@ -16,9 +15,6 @@ import {
   ProfileLink,
   AddProfileLink
 } from "./Search.style";
-
-import Icon from "./../../Common/Icon/Icon"
-
 
 // UI helper functions
 import { SVGCreator, StarRateCreator } from "../../../helpers";
@@ -45,7 +41,7 @@ export const getSuggestions = (value, organisationsArray) => {
   return suggestions;
 };
 
-class AutosuggestComponent extends Component {
+export default class AutosuggestComponent extends Component {
   state = {
     value: "",
     suggestions: []
@@ -78,7 +74,7 @@ class AutosuggestComponent extends Component {
       if (suggestions[0].isEmpty) {
         return null;
       }
-      return this.props.history.push(`/profile/${suggestions[0]._id}`);
+      return (window.location.href = `/profile/${suggestions[0]._id}`);
     }
     return null;
   };
@@ -91,14 +87,12 @@ class AutosuggestComponent extends Component {
       return null;
     }
     return (
-      <ProfileLink to={`/profile/${suggestion._id}`}>
+      <ProfileLink href={`/profile/${suggestion._id}`}>
         <SuggestionBox orgType={suggestion.category}>
           <InnerDivSuggestions>
             <SymbolDiv>
-              {/* {SVGCreator("mobile-search-icon")}
-              {SVGCreator(`${organizationIcons[suggestion.category].symbol}`)} */}
-              <Icon icon="search" height="1.5rem" width="1.5rem" margin="0 1rem 0 0" />
-              <Icon icon={suggestion.category} height="1.5rem" width="1.5rem" margin="0 1rem 0 0" />
+              {SVGCreator("mobile-search-icon")}
+              {SVGCreator(`${organizationIcons[suggestion.category].symbol}`)}
             </SymbolDiv>
             <OrganisationDetailsDiv>
               <h3>{suggestion.name}</h3>
@@ -183,5 +177,3 @@ class AutosuggestComponent extends Component {
     );
   }
 }
-
-export default withRouter(AutosuggestComponent);
