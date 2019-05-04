@@ -15,7 +15,6 @@ import {
   AddItemBox,
   ProfileLink,
   AddProfileLink,
-  InputContainer,
   IconDiv
 } from "./Search.style";
 
@@ -164,10 +163,8 @@ class AutosuggestComponent extends Component {
       width,
       placeholderText,
       isMobile,
-      isTablet,
       bool,
-      iconTop,
-      IconBgr
+      iconTop
     } = this.props;
 
     const inputProps = {
