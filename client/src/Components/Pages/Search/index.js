@@ -171,6 +171,7 @@ export default class Search extends Component {
         )}
         <FlexContainer ref={this.setSearchBoxRef}>
           <AutosuggestComponent
+            iconTop="27px"
             bool={() => true}
             height="4.5rem"
             width="80%"

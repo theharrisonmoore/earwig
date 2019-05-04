@@ -14,10 +14,14 @@ import {
   SuggestionBox,
   AddItemBox,
   ProfileLink,
-  AddProfileLink
+  AddProfileLink,
+  InputContainer,
+  IconDiv
 } from "./Search.style";
 
 import Icon from "./../../Common/Icon/Icon";
+import SearchIcon from "../../../assets/search-icon.svg";
+import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
 
 // UI helper functions
 import { SVGCreator, StarRateCreator } from "../../../helpers";
@@ -82,6 +86,11 @@ class AutosuggestComponent extends Component {
     return null;
   };
 
+  selectIconBgr = value => (value.length > 0 ? PlaceholderArrow : SearchIcon);
+
+  delSearchInput = value => {
+    this.setState({ value: "" });
+  };
   // render functions
   // renders individual suggestions in autosuggest search section
   renderSuggestion = suggestion => {
@@ -152,7 +161,15 @@ class AutosuggestComponent extends Component {
 
   render() {
     const { value, suggestions } = this.state;
-    const { height, width, placeholderText, isMobile, bool } = this.props;
+    const {
+      height,
+      width,
+      placeholderText,
+      isMobile,
+      bool,
+      iconTop,
+      IconBgr
+    } = this.props;
 
     const inputProps = {
       placeholder: `${placeholderText}`,
@@ -161,28 +178,17 @@ class AutosuggestComponent extends Component {
       onKeyPress: this.onKeyPress
     };
 
-    if (isMobile) {
-      return (
-        <AutosuggestWrapper height={height} width={width}>
-          <Autosuggest
-            suggestions={suggestions}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            getSuggestionValue={getSuggestionValue}
-            renderSuggestion={this.renderSuggestion}
-            inputProps={inputProps}
-            renderSuggestionsContainer={this.renderSuggestionsContainer}
-          />
-        </AutosuggestWrapper>
-      );
-    }
     return (
       <AutosuggestWrapper height={height} width={width}>
+        <IconDiv
+          iconTop={iconTop}
+          bgr={this.selectIconBgr(value)}
+          onClick={this.delSearchInput}
+        />
         <Autosuggest
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          shouldRenderSuggestions={bool}
           getSuggestionValue={getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
           inputProps={inputProps}
