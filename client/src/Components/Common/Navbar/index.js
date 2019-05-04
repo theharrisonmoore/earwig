@@ -81,6 +81,7 @@ export default class Navbar extends Component {
             <AutosuggestComponent
               iconTop="13px"
               height="3rem"
+              bool={() => true}
               width="50%"
               data={data}
               placeholderText="Try searching for agencies, payrolls, worksites, or companies..."
