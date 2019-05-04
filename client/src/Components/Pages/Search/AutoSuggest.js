@@ -88,9 +88,7 @@ class AutosuggestComponent extends Component {
 
   selectIconBgr = value => (value.length > 0 ? PlaceholderArrow : SearchIcon);
 
-  delSearchInput = value => {
-    this.setState({ value: "" });
-  };
+  delSearchInput = () => this.setState({ value: "" });
   // render functions
   // renders individual suggestions in autosuggest search section
   renderSuggestion = suggestion => {
@@ -166,6 +164,7 @@ class AutosuggestComponent extends Component {
       width,
       placeholderText,
       isMobile,
+      isTablet,
       bool,
       iconTop,
       IconBgr
@@ -185,15 +184,29 @@ class AutosuggestComponent extends Component {
           bgr={this.selectIconBgr(value)}
           onClick={this.delSearchInput}
         />
+        {/* {isMobile && (
+          <Autosuggest
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={this.renderSuggestion}
+            inputProps={inputProps}
+            renderSuggestionsContainer={this.renderSuggestionsContainer}
+          />
+        )} */}
+        {/* {isTablet && ( */}
         <Autosuggest
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           getSuggestionValue={getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
+          shouldRenderSuggestions={() => bool}
           inputProps={inputProps}
           renderSuggestionsContainer={this.renderSuggestionsContainer}
         />
+        {/* )} */}
       </AutosuggestWrapper>
     );
   }
