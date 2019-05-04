@@ -145,10 +145,11 @@ export const ItemDiv = styled.div`
   /* width: 200px; */
   align-items: center;
   width: 50%;
-  padding: ${props => props.notMobile ? "0 2rem" : "0 1rem"};
+  padding: ${props => (props.notMobile ? "0 2rem" : "0 1rem")};
   margin-bottom: 1.5rem;
   margin-left: auto;
-  justify-content: ${props => props.notMobile && props.left ? "flex-end" : "flex-start"};
+  justify-content: ${props =>
+    props.notMobile && props.left ? "flex-end" : "flex-start"};
 `;
 
 export const LegendTitle = styled.h2`
@@ -260,7 +261,7 @@ export const ReviewDetailsDiv = styled.div`
   }
 `;
 
-export const ProfileLink = styled.a`
+export const ProfileLink = styled(Link)`
   :hover {
     text-decoration: none;
   }

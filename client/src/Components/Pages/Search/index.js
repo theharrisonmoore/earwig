@@ -59,7 +59,7 @@ export default class Search extends Component {
   }
   // renders last viewed organization section
   renderLastViewed = (org, key) => (
-    <ProfileLink key={key} href={`/profile/${org._id}`}>
+    <ProfileLink key={key} to={`/profile/${org._id}`}>
       <ReviewsFrame orgType={org.category}>
         <InnerDivLastReviews orgType={org.category}>
           <SymbolDiv>
@@ -107,9 +107,13 @@ export default class Search extends Component {
     return (
       <SearchWrapper data-testid="searchwrapper">
         <HeadlineDiv>
-          {isMobile ? (<h2>Welcome to earwig. <br /> Try searching for…</h2>) : (
+          {isMobile ? (
+            <h2>
+              Welcome to earwig. <br /> Try searching for…
+            </h2>
+          ) : (
             <h2>Welcome to earwig. Try searching for…</h2>
-          )}  
+          )}
         </HeadlineDiv>
         {showOtherSections && (
           <FlexContainer>
