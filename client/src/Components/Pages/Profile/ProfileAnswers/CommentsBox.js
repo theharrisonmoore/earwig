@@ -131,7 +131,8 @@ export default class CommentsBox extends Component {
       isMobile,
       organization,
       category,
-      isAdmin
+      isAdmin,
+      verified
     } = this.props;
 
     const users =
@@ -179,41 +180,43 @@ export default class CommentsBox extends Component {
                     </Link>
                   </IndividComment>
                 ))}
-              <div ref={this.inputWrapper}>
-                {isAdmin && (
-                  <Input
-                    placeholder="Comment as"
-                    style={{ marginTop: "0.25rem", width: "10rem" }}
-                    onChange={this.handleChangeUserName}
-                    value={this.state.user}
-                    onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
-                  />
-                )}
-                {this.state.errors.user && (
-                  <Error>{this.state.errors.user}</Error>
-                )}
-                <div style={{ position: "relative" }}>
-                  <Mention
-                    style={{ width: "100%", marginTop: "0.25rem" }}
-                    onChange={this.onChange}
-                    defaultSuggestions={users}
-                    onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
-                    value={this.state.commentContentState}
-                    multiLines
-                    placeholder={"Add a reply… use @ to mention"}
-                  />
-                  <StyledReplyIcon
-                    width="20px"
-                    fill={organizations[category].primary}
-                    onClick={this.handleSubmit}
-                  />
+              {verified && (
+                <div ref={this.inputWrapper}>
+                  {isAdmin && (
+                    <Input
+                      placeholder="Comment as"
+                      style={{ marginTop: "0.25rem", width: "10rem" }}
+                      onChange={this.handleChangeUserName}
+                      value={this.state.user}
+                      onFocus={this.handleFocus}
+                      onBlur={this.handleBlur}
+                    />
+                  )}
+                  {this.state.errors.user && (
+                    <Error>{this.state.errors.user}</Error>
+                  )}
+                  <div style={{ position: "relative" }}>
+                    <Mention
+                      style={{ width: "100%", marginTop: "0.25rem" }}
+                      onChange={this.onChange}
+                      defaultSuggestions={users}
+                      onFocus={this.handleFocus}
+                      onBlur={this.handleBlur}
+                      value={this.state.commentContentState}
+                      multiLines
+                      placeholder={"Add a reply… use @ to mention"}
+                    />
+                    <StyledReplyIcon
+                      width="20px"
+                      fill={organizations[category].primary}
+                      onClick={this.handleSubmit}
+                    />
+                  </div>
+                  {this.state.errors.comment && (
+                    <Error>{this.state.errors.comment}</Error>
+                  )}
                 </div>
-                {this.state.errors.comment && (
-                  <Error>{this.state.errors.comment}</Error>
-                )}
-              </div>
+              )}
             </>
           ) : (
             <Loading />
