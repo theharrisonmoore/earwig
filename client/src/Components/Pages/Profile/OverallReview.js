@@ -77,12 +77,8 @@ export default class OverallReview extends Component {
               <ButtonsWrapper>
                 <ActionsButton
                   type="primary"
-                  bgcolor={
-                    verified
-                      ? organizations[category].primary
-                      : organizations[category].secondary
-                  }
-                  disabled={!verified}
+                  bgcolor={organizations[category].secondary}
+                  disabled
                 >
                   Helpful
                 </ActionsButton>
