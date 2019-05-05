@@ -52,7 +52,8 @@ export default class Profile extends Component {
           summary: summary[0],
           reviewDetails,
           level,
-          loaded: true
+          loaded: true,
+          organizationID
         });
       })
       .catch(err => {
@@ -64,6 +65,14 @@ export default class Profile extends Component {
 
   componentDidMount() {
     this.fetchData();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const organizationID = window.location.href.split("/")[4];
+
+    if (organizationID !== this.state.organizationID) {
+      this.fetchData();
+    }
   }
 
   toggleComments = question => {
