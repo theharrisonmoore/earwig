@@ -64,6 +64,7 @@ const postReview = async (req, res, next) => {
     comments,
   } = req.body.values;
   const { user, organization } = req.body;
+
   try {
     const organizationData = await getOrganization(organization.category, organization.name);
     const userData = await findByEmail(user.email);
@@ -106,7 +107,10 @@ const postReview = async (req, res, next) => {
       .filter(value => value);
 
     const insertedComments = await Comment.insertMany(commentsData);
-    const commentedQuestions = insertedComments.map(comment => ({ id: comment.question.number, comment }));
+    const commentedQuestions = insertedComments.map(comment => ({
+      id: comment.question.number,
+      comment,
+    }));
 
     const reviewAnswers = Object.keys(questionsAnswers)
       .sort((a, b) => a - b)
@@ -131,7 +135,7 @@ const postReview = async (req, res, next) => {
         return null;
       });
 
-    const allAnswers = [...reviewAnswers];
+    const allAnswers = [...reviewAnswers].filter(answer => answer !== null);
     await Answer.insertMany(allAnswers);
 
     res.send(organizationData._id);

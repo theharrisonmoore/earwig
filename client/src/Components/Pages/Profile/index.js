@@ -209,6 +209,15 @@ export default class Profile extends Component {
             </AccountPromo>
           </ReviewDiv>
         )}
+        {reviewDetails.length < 1 && (
+          <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
+          <ReviewSection
+            category={category}
+            sectionDetails={{ _id: "Key ratings" }}
+            summary={summary}
+          />
+          </ReviewDiv>
+        )}
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
           {/* KEY RATINGS SECTION */}
           {reviewDetails.map(
@@ -328,6 +337,7 @@ export default class Profile extends Component {
           overallReplies={this.state.overallReplies}
           fetchOverallReplies={this.fetchOverallReplies}
         />
+        {level < 1 && (
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
           <AccountPromo>
             <p>Create an account to see all reviews</p>
@@ -335,7 +345,7 @@ export default class Profile extends Component {
               Create an account now >
             </AccountLink>
           </AccountPromo>
-        </ReviewDiv>
+        </ReviewDiv>)}
         {/* COMMENTS BOX */}
         {commentsOpen && (
           <CommentsBox
