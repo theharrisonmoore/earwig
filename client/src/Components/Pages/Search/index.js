@@ -107,9 +107,13 @@ export default class Search extends Component {
     return (
       <SearchWrapper data-testid="searchwrapper">
         <HeadlineDiv>
-          {isMobile ? (<h2>Welcome to earwig. <br /> Try searching for…</h2>) : (
+          {isMobile ? (
+            <h2>
+              Welcome to earwig. <br /> Try searching for…
+            </h2>
+          ) : (
             <h2>Welcome to earwig. Try searching for…</h2>
-          )}  
+          )}
         </HeadlineDiv>
         {showOtherSections && (
           <FlexContainer>

@@ -17,8 +17,7 @@ import {
   AddProfileLink
 } from "./Search.style";
 
-import Icon from "./../../Common/Icon/Icon"
-
+import Icon from "./../../Common/Icon/Icon";
 
 // UI helper functions
 import { SVGCreator, StarRateCreator } from "../../../helpers";
@@ -97,8 +96,18 @@ class AutosuggestComponent extends Component {
             <SymbolDiv>
               {/* {SVGCreator("mobile-search-icon")}
               {SVGCreator(`${organizationIcons[suggestion.category].symbol}`)} */}
-              <Icon icon="search" height="1.5rem" width="1.5rem" margin="0 1rem 0 0" />
-              <Icon icon={suggestion.category} height="1.5rem" width="1.5rem" margin="0 1rem 0 0" />
+              <Icon
+                icon="search"
+                height="1.5rem"
+                width="1.5rem"
+                margin="0 1rem 0 0"
+              />
+              <Icon
+                icon={suggestion.category}
+                height="1.5rem"
+                width="1.5rem"
+                margin="0 1rem 0 0"
+              />
             </SymbolDiv>
             <OrganisationDetailsDiv>
               <h3>{suggestion.name}</h3>
@@ -122,7 +131,6 @@ class AutosuggestComponent extends Component {
         <div {...containerProps}>
           {children}
           <div className="my-suggestions-container-footer" />
-
           <AddProfileLink
             to={{ pathname: `${ADD_PROFILE_URL}`, state: { name: `${query}` } }}
           >
@@ -152,11 +160,13 @@ class AutosuggestComponent extends Component {
       onKeyPress: this.onKeyPress
     };
 
+    const filteredSuggestions = suggestions.slice(0, 10);
+
     if (isMobile) {
       return (
         <AutosuggestWrapper height={height} width={width}>
           <Autosuggest
-            suggestions={suggestions}
+            suggestions={filteredSuggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
             getSuggestionValue={getSuggestionValue}
@@ -170,7 +180,7 @@ class AutosuggestComponent extends Component {
     return (
       <AutosuggestWrapper height={height} width={width}>
         <Autosuggest
-          suggestions={suggestions}
+          suggestions={filteredSuggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           shouldRenderSuggestions={bool}
