@@ -3,11 +3,11 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { Button, Icon as AntIcon } from "antd";
 
-import Icon from "./../Icon/Icon"
+import Icon from "./../Icon/Icon";
 
 import { SEARCH_URL, ADMIN } from "./../../../constants/naviagationUrls";
 
-import { colors } from "./../../../theme"
+import { colors } from "./../../../theme";
 
 import {
   Wrapper,
@@ -79,7 +79,9 @@ export default class Navbar extends Component {
           </SideDiv>
           {search && (
             <AutosuggestComponent
+              iconTop="13px"
               height="3rem"
+              bool={() => true}
               width="50%"
               data={data}
               placeholderText="Try searching for agencies, payrolls, worksites, or companies..."
@@ -115,7 +117,15 @@ export default class Navbar extends Component {
       return (
         <Wrapper height="3rem">
           <SideDiv position="flex-start">
-            <NavLink to={SEARCH_URL}><Icon icon="search" width="1.5rem" height="1.5rem" color={colors.profileFontColor} margin="3px 0 0 0" /></NavLink>
+            <NavLink to={SEARCH_URL}>
+              <Icon
+                icon="search"
+                width="1.5rem"
+                height="1.5rem"
+                color={colors.profileFontColor}
+                margin="3px 0 0 0"
+              />
+            </NavLink>
           </SideDiv>
           <WrapperH2 style={{ fontWeight: "900" }}>{title && title}</WrapperH2>
           {menuOpen ? (
