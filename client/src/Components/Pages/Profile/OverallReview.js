@@ -64,7 +64,6 @@ export default class OverallReview extends Component {
             key={review._id + "comment"}
             noReview={review.overallReview.text.length < 1}
           >
-            {console.log("review", review.overallReview.text.length)}
             <UserID>{review.user && review.user.userId}</UserID>
             <BubbleAndDate>
               <CommentBubble color={organizations[category].secondary}>
