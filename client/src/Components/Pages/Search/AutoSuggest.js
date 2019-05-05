@@ -14,11 +14,13 @@ import {
   SuggestionBox,
   AddItemBox,
   ProfileLink,
-  AddProfileLink
+  AddProfileLink,
+  IconDiv
 } from "./Search.style";
 
-import Icon from "./../../Common/Icon/Icon"
-
+import Icon from "./../../Common/Icon/Icon";
+import SearchIcon from "../../../assets/search-icon.svg";
+import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
 
 // UI helper functions
 import { SVGCreator, StarRateCreator } from "../../../helpers";
@@ -83,6 +85,9 @@ class AutosuggestComponent extends Component {
     return null;
   };
 
+  selectIconBgr = value => (value.length > 0 ? PlaceholderArrow : SearchIcon);
+
+  delSearchInput = () => this.setState({ value: "" });
   // render functions
   // renders individual suggestions in autosuggest search section
   renderSuggestion = suggestion => {
@@ -97,8 +102,18 @@ class AutosuggestComponent extends Component {
             <SymbolDiv>
               {/* {SVGCreator("mobile-search-icon")}
               {SVGCreator(`${organizationIcons[suggestion.category].symbol}`)} */}
-              <Icon icon="search" height="1.5rem" width="1.5rem" margin="0 1rem 0 0" />
-              <Icon icon={suggestion.category} height="1.5rem" width="1.5rem" margin="0 1rem 0 0" />
+              <Icon
+                icon="search"
+                height="1.5rem"
+                width="1.5rem"
+                margin="0 1rem 0 0"
+              />
+              <Icon
+                icon={suggestion.category}
+                height="1.5rem"
+                width="1.5rem"
+                margin="0 1rem 0 0"
+              />
             </SymbolDiv>
             <OrganisationDetailsDiv>
               <h3>{suggestion.name}</h3>
@@ -143,7 +158,14 @@ class AutosuggestComponent extends Component {
 
   render() {
     const { value, suggestions } = this.state;
-    const { height, width, placeholderText, isMobile, bool } = this.props;
+    const {
+      height,
+      width,
+      placeholderText,
+      isMobile,
+      bool,
+      iconTop
+    } = this.props;
 
     const inputProps = {
       placeholder: `${placeholderText}`,
@@ -152,9 +174,14 @@ class AutosuggestComponent extends Component {
       onKeyPress: this.onKeyPress
     };
 
-    if (isMobile) {
-      return (
-        <AutosuggestWrapper height={height} width={width}>
+    return (
+      <AutosuggestWrapper height={height} width={width}>
+        <IconDiv
+          iconTop={iconTop}
+          bgr={this.selectIconBgr(value)}
+          onClick={this.delSearchInput}
+        />
+        {isMobile ? (
           <Autosuggest
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -164,21 +191,18 @@ class AutosuggestComponent extends Component {
             inputProps={inputProps}
             renderSuggestionsContainer={this.renderSuggestionsContainer}
           />
-        </AutosuggestWrapper>
-      );
-    }
-    return (
-      <AutosuggestWrapper height={height} width={width}>
-        <Autosuggest
-          suggestions={suggestions}
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          shouldRenderSuggestions={bool}
-          getSuggestionValue={getSuggestionValue}
-          renderSuggestion={this.renderSuggestion}
-          inputProps={inputProps}
-          renderSuggestionsContainer={this.renderSuggestionsContainer}
-        />
+        ) : (
+          <Autosuggest
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={this.renderSuggestion}
+            shouldRenderSuggestions={() => bool}
+            inputProps={inputProps}
+            renderSuggestionsContainer={this.renderSuggestionsContainer}
+          />
+        )}
       </AutosuggestWrapper>
     );
   }
