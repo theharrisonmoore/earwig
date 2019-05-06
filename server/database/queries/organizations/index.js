@@ -10,6 +10,8 @@ module.exports.getOrganizationById = id => Organization.findById(id);
 
 module.exports.updateOrgsById = (id, data) => Organization.findByIdAndUpdate(id, { $set: data });
 
+module.exports.updateLastViewed = id => Organization.findByIdAndUpdate(id, { lastViewed: Date.now()})
+
 module.exports.addNew = addNew;
 
 module.exports.findByName = findByName;
