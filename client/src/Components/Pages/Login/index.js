@@ -86,7 +86,7 @@ export default class Login extends Component {
                 />
               </Label>
               <SmallLink to={RESET_PASSWORD_URL} disabled>
-                Forget password?
+                Forgot password?
               </SmallLink>
               {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
               <Button type="submit" disabled={isSubmitting}>
