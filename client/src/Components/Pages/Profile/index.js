@@ -160,7 +160,7 @@ export default class Profile extends Component {
       level
     } = this.state;
 
-    const { isTablet, isMobile } = this.props;
+    const { isTablet, isMobile, verified } = this.props;
 
     if (!loaded) return <Loading />;
 
@@ -336,6 +336,7 @@ export default class Profile extends Component {
           activeOverallId={this.state.activeOverallId}
           overallReplies={this.state.overallReplies}
           fetchOverallReplies={this.fetchOverallReplies}
+          verified={verified}
         />
         {level < 1 && (
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
@@ -357,6 +358,7 @@ export default class Profile extends Component {
             isMobile={isMobile}
             fetchComments={this.fetchComments}
             category={category}
+            verified={verified}
           />
         )}
       </Wrapper>
