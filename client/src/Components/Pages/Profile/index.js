@@ -63,8 +63,19 @@ export default class Profile extends Component {
       });
   };
 
+  updateLastViewed = () => {
+    const organizationID = window.location.href.split("/")[4];
+
+    axios.post("/api/update-last-viewed", { id: organizationID }).catch(err => {
+      const error =
+        err.response && err.response.data && err.response.data.error;
+      message.error(error || "Something went wrong");
+    })
+  }
+
   componentDidMount() {
     this.fetchData();
+    this.updateLastViewed();
   }
 
   componentDidUpdate(prevProps, prevState) {
