@@ -149,6 +149,7 @@ export const CommentDiv = styled.div`
   margin-bottom: 1rem;
   width: 100%;
   position: relative;
+  display: ${props => props.noReview && "none"};
 `;
 
 export const BubbleAndDate = styled.div`
