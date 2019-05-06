@@ -7,9 +7,6 @@ import {
   breakpoints
 } from "./../../../theme";
 
-import SearchIcon from "../../../assets/search-icon.svg";
-import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
-
 import { Link } from "react-router-dom";
 
 export const classNames = {
@@ -25,6 +22,7 @@ export const classNames = {
 };
 
 export const AutosuggestWrapper = styled.div.attrs(classNames)`
+position: relative;
 width: ${props => props.width};
 outline: none;
 
@@ -47,19 +45,10 @@ outline: none;
 }
 .${classNames.containerFocussed} {
   outline: none;
-
 }
-
 
 input {
-  background-image: url(${SearchIcon});
-  background-position: 10px center;
-  background-repeat: no-repeat;
-  text-indent: 40px;
-}
-
-input:focus {
-  background-image: url(${PlaceholderArrow});
+  text-indent: 45px;
 }
 
 .${classNames.containerInputOpen} {
@@ -106,6 +95,18 @@ input:focus {
   }
 `;
 
+export const IconDiv = styled.div`
+  width: 22px;
+  height: 22px;
+  background: url(${props => props.bgr}) no-repeat;
+  object-fit: fill;
+  position: absolute;
+  top: ${props => props.iconTop};
+  margin-left: 20px;
+  cursor: pointer;
+  z-index: 1;
+`;
+
 export const SearchWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -145,10 +146,11 @@ export const ItemDiv = styled.div`
   /* width: 200px; */
   align-items: center;
   width: 50%;
-  padding: ${props => props.notMobile ? "0 2rem" : "0 1rem"};
+  padding: ${props => (props.notMobile ? "0 2rem" : "0 1rem")};
   margin-bottom: 1.5rem;
   margin-left: auto;
-  justify-content: ${props => props.notMobile && props.left ? "flex-end" : "flex-start"};
+  justify-content: ${props =>
+    props.notMobile && props.left ? "flex-end" : "flex-start"};
 `;
 
 export const LegendTitle = styled.h2`
@@ -260,7 +262,7 @@ export const ReviewDetailsDiv = styled.div`
   }
 `;
 
-export const ProfileLink = styled.a`
+export const ProfileLink = styled(Link)`
   :hover {
     text-decoration: none;
   }

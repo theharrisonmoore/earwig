@@ -52,7 +52,8 @@ export default class OverallReview extends Component {
       isMobile,
       category,
       overallReplies,
-      activeOverallId
+      activeOverallId,
+      verified
     } = this.props;
     const { activeReview } = this.state;
 
@@ -64,7 +65,6 @@ export default class OverallReview extends Component {
             key={review._id + "comment"}
             noReview={review.overallReview.text.length < 1}
           >
-            {console.log("review", review.overallReview.text.length)}
             <UserID>{review.user && review.user.userId}</UserID>
             <BubbleAndDate>
               <CommentBubble color={organizations[category].secondary}>
@@ -80,13 +80,19 @@ export default class OverallReview extends Component {
               <ButtonsWrapper>
                 <ActionsButton
                   type="primary"
-                  bgcolor={organizations[category].primary}
+                  bgcolor={organizations[category].secondary}
+                  disabled
                 >
                   Helpful
                 </ActionsButton>
                 <ActionsButton
                   type="primary"
-                  bgcolor={organizations[category].primary}
+                  bgcolor={
+                    verified
+                      ? organizations[category].primary
+                      : organizations[category].secondary
+                  }
+                  disabled={!verified}
                 >
                   <Link
                     to={{

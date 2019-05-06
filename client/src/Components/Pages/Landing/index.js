@@ -139,7 +139,9 @@ export default class index extends Component {
                     id="password"
                   />
                 </Label>
-                <SmallLink to={RESET_PASSWORD_URL}>Forget password?</SmallLink>
+                <SmallLink to={RESET_PASSWORD_URL} disabled>
+                  Forgot password?
+                </SmallLink>
                 {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
                 <Button
                   type="submit"

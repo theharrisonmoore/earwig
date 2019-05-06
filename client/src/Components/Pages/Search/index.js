@@ -59,7 +59,7 @@ export default class Search extends Component {
   }
   // renders last viewed organization section
   renderLastViewed = (org, key) => (
-    <ProfileLink key={key} href={`/profile/${org._id}`}>
+    <ProfileLink key={key} to={`/profile/${org._id}`}>
       <ReviewsFrame orgType={org.category}>
         <InnerDivLastReviews orgType={org.category}>
           <SymbolDiv>
@@ -101,7 +101,7 @@ export default class Search extends Component {
 
   render() {
     const { isLoading, data, showOtherSections } = this.state;
-    const { isMobile } = this.props;
+    const { isMobile, isTablet } = this.props;
     if (!isLoading) return <Loading />;
 
     return (
@@ -171,12 +171,14 @@ export default class Search extends Component {
         )}
         <FlexContainer ref={this.setSearchBoxRef}>
           <AutosuggestComponent
+            iconTop="27px"
             bool={() => true}
             height="4.5rem"
             width="80%"
             data={data}
             placeholderText="Start typing..."
             isMobile={isMobile}
+            isTablet={isTablet}
           />
         </FlexContainer>
         {showOtherSections && (

@@ -52,7 +52,8 @@ export default class Profile extends Component {
           summary: summary[0],
           reviewDetails,
           level,
-          loaded: true
+          loaded: true,
+          organizationID
         });
       })
       .catch(err => {
@@ -64,6 +65,14 @@ export default class Profile extends Component {
 
   componentDidMount() {
     this.fetchData();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const organizationID = window.location.href.split("/")[4];
+
+    if (organizationID !== this.state.organizationID) {
+      this.fetchData();
+    }
   }
 
   toggleComments = question => {
@@ -151,7 +160,7 @@ export default class Profile extends Component {
       level
     } = this.state;
 
-    const { isTablet, isMobile } = this.props;
+    const { isTablet, isMobile, verified } = this.props;
 
     if (!loaded) return <Loading />;
 
@@ -327,6 +336,7 @@ export default class Profile extends Component {
           activeOverallId={this.state.activeOverallId}
           overallReplies={this.state.overallReplies}
           fetchOverallReplies={this.fetchOverallReplies}
+          verified={verified}
         />
         {level < 1 && (
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
@@ -348,6 +358,7 @@ export default class Profile extends Component {
             isMobile={isMobile}
             fetchComments={this.fetchComments}
             category={category}
+            verified={verified}
           />
         )}
       </Wrapper>

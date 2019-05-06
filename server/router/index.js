@@ -157,7 +157,7 @@ router.post(
 router.post(
   ADD_COMMENT_ON_QUESTION_URL,
   authentication,
-  authorization("LEVEL1"),
+  authorization("LEVEL3"),
   validation("addCommentOnQuestion"),
   addCommentOnQuestion,
 );
