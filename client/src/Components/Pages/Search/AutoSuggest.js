@@ -18,7 +18,7 @@ import {
   IconDiv
 } from "./Search.style";
 
-import Icon from "./../../Common/Icon/Icon";
+import Icon from "./../../Common/Icon/Icon"
 import SearchIcon from "../../../assets/search-icon.svg";
 import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
 
@@ -137,7 +137,6 @@ class AutosuggestComponent extends Component {
         <div {...containerProps}>
           {children}
           <div className="my-suggestions-container-footer" />
-
           <AddProfileLink
             to={{ pathname: `${ADD_PROFILE_URL}`, state: { name: `${query}` } }}
           >
@@ -174,6 +173,8 @@ class AutosuggestComponent extends Component {
       onKeyPress: this.onKeyPress
     };
 
+    const filteredSuggestions = suggestions.slice(0, 10);
+
     return (
       <AutosuggestWrapper height={height} width={width}>
         <IconDiv
@@ -183,7 +184,7 @@ class AutosuggestComponent extends Component {
         />
         {isMobile ? (
           <Autosuggest
-            suggestions={suggestions}
+            suggestions={filteredSuggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
             getSuggestionValue={getSuggestionValue}
@@ -193,7 +194,7 @@ class AutosuggestComponent extends Component {
           />
         ) : (
           <Autosuggest
-            suggestions={suggestions}
+            suggestions={filteredSuggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
             getSuggestionValue={getSuggestionValue}

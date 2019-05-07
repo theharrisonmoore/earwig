@@ -18,7 +18,8 @@ import {
   VerifyPromo,
   VerifyLink,
   InactiveButton,
-  IconWrapper
+  IconWrapper,
+  OrgLink
 } from "./Profile.style";
 
 import { organizations } from "./../../../theme";
@@ -37,6 +38,7 @@ export default class HeaderSection extends Component {
       websiteURL
     } = summary;
 
+    console.log(phoneNumber);
     return (
       <Header isTablet={isTablet} isMobile={isMobile}>
         <CompanyDetails isTablet={isTablet} isMobile={isMobile} level={level}>
@@ -59,36 +61,61 @@ export default class HeaderSection extends Component {
             </CompanyNameAndStars>
           </CompanyDiv>
           {level > 1 ? (
-            <ButtonDiv isTablet={isTablet} isMobile={isMobile}>
-              <a href={`tel:${phoneNumber}`}>
-                <OrgButton category={category} isMobile={isMobile}>
+            <ButtonDiv
+              isTablet={isTablet}
+              isMobile={isMobile}
+              organization={category}
+            >
+              <OrgLink href={`tel:${phoneNumber}`} hasDetails={phoneNumber}>
+                <OrgButton
+                  category={category}
+                  isMobile={isMobile}
+                  hasDetails={phoneNumber}
+                >
                   Call
                 </OrgButton>
-              </a>
-              <a href={`mailto:${email}`}>
+              </OrgLink>
+              <OrgLink href={`mailto:${email}`} hasDetails={email}>
                 <OrgButton category={category} isMobile={isMobile}>
                   Email
                 </OrgButton>
-              </a>
-              <a
+              </OrgLink>
+              <OrgLink
                 href={`${websiteURL}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                hasDetails={websiteURL}
               >
                 <OrgButton category={category} isMobile={isMobile}>
                   Website
                 </OrgButton>
-              </a>
+              </OrgLink>
             </ButtonDiv>
           ) : (
-            <ButtonDiv isTablet={isTablet} isMobile={isMobile}>
-              <InactiveButton category={category} isMobile={isMobile}>
+            <ButtonDiv
+              isTablet={isTablet}
+              isMobile={isMobile}
+              organization={category}
+            >
+              <InactiveButton
+                category={category}
+                isMobile={isMobile}
+                hasDetails={phoneNumber}
+              >
                 Call
               </InactiveButton>
-              <InactiveButton category={category} isMobile={isMobile}>
+              <InactiveButton
+                category={category}
+                isMobile={isMobile}
+                hasDetails={email}
+              >
                 Email
               </InactiveButton>
-              <InactiveButton category={category} isMobile={isMobile}>
+              <InactiveButton
+                category={category}
+                isMobile={isMobile}
+                hasDetails={websiteURL}
+              >
                 Website
               </InactiveButton>
             </ButtonDiv>

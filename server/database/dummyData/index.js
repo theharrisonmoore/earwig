@@ -14,6 +14,10 @@ const reviews = require("./reviews");
 const users = require("./users");
 const mailList = require("./mailList");
 
+// production databases
+const realOrganizations = require("./../productionData/organizations")
+const realTrades = require("./../productionData/trades")
+
 const buildDummyData = () => new Promise((resolve, reject) => {
   dbConnection()
     .then(async () => {
@@ -37,8 +41,8 @@ const buildProdctionData = () => new Promise((resolve, reject) => {
     .then(async () => {
       // delete all documents from models
       await resetDBProd();
-      await trades();
-      await organizations();
+      await realTrades();
+      await realOrganizations();
       await questions();
       await users();
       // await reviews();
@@ -59,14 +63,14 @@ const buildProdctionData = () => new Promise((resolve, reject) => {
 if (process.env.NODE_ENV === "prod") {
   buildProdctionData().then(() => {
     // eslint-disable-next-line no-console
-    console.log("Done!: DB has been built successfully");
+    console.log("Done!: Production DB has been built successfully");
     // close the connection after build
     mongoose.disconnect();
   });
 } else if (process.env.NODE_ENV !== "test") {
   buildDummyData().then(() => {
     // eslint-disable-next-line no-console
-    console.log("Done!: DB has been built successfully");
+    console.log("Done!: Dev DB has been built successfully");
     // close the connection after build
     mongoose.disconnect();
   });
