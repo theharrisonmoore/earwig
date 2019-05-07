@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 
 import { colors } from "./../../../theme";
 
+import { EDIT_PROFILE_URL } from "./../../../constants/naviagationUrls";
+
 import {
   Wrapper,
   Title,
@@ -124,7 +126,7 @@ export default class index extends Component {
           type="textarea"
         />
         <Button onClick={this.handleSubmit}>Send</Button>
-        <CancelLink to="/edit-profile">Cancel</CancelLink>
+        <CancelLink to={EDIT_PROFILE_URL}>Cancel</CancelLink>
         <DeleteButton onClick={this.deleteUser}>
           Permanently delete account
         </DeleteButton>

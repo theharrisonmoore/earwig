@@ -5,7 +5,8 @@ import axios from "axios";
 import { Spin, Button, Icon } from "antd";
 
 import { Wrapper, Content, Heading, Paragraph } from "./JoinMailList.style";
-
+import { API_CONFIRM_EMAIL } from "./../../../apiUrls";
+import { LOGIN_URL } from "./../../../constants/naviagationUrls";
 export default class JoinEmailList extends Component {
   state = {
     loading: true,
@@ -16,7 +17,7 @@ export default class JoinEmailList extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     axios
-      .post("/api/confirm-email", { id })
+      .post(API_CONFIRM_EMAIL, { id })
       .then(({ data }) => {
         this.setState(
           {
@@ -27,7 +28,7 @@ export default class JoinEmailList extends Component {
           },
           () => {
             setTimeout(() => {
-              this.props.history.push("/login");
+              this.props.history.push(LOGIN_URL);
             }, 2000);
           }
         );

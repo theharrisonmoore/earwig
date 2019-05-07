@@ -58,6 +58,13 @@ const {
   ADD_COMMENT_ON_QUESTION_URL,
   GET_OVERALL_REVIEW_REPLIES_URL,
   ADD_COMMENT_ON_REVIEW_URL,
+  ADMIN,
+  CONFIRM_EMAIL,
+  EDIT_PROFILE,
+  SIGN_UP,
+  UPLOAD_VERIFICATION_IMAGE_URL,
+  TRADE_URL,
+  USERS,
 } = require("../../client/src/apiUrls");
 
 
@@ -65,7 +72,7 @@ router.get(SEARCH_URL, searchController);
 
 // get user info from the cookies and send it to fron-end
 router.get(
-  "/user",
+  USERS,
   authentication,
   userInfoController,
 );
@@ -99,7 +106,7 @@ router.post("/wroksite-images", authentication, authorization("LEVEL3"), getWork
 
 // update user info (verification image, city and trade)
 router.post(
-  "/upload-verification-image",
+  UPLOAD_VERIFICATION_IMAGE_URL,
   authentication,
   authorization("LEVEL1"),
   upload("verificationImage"),
@@ -119,7 +126,7 @@ router.post(
 
 // get all trades
 router.get(
-  "/trades",
+  TRADE_URL,
   authentication,
   authorization("LEVEL1"),
   getTradesController,
@@ -127,7 +134,7 @@ router.get(
 
 // add new trade
 router.post(
-  "/trades",
+  TRADE_URL,
   authentication,
   authorization("LEVEL1"),
   validation("addTrade"),
@@ -136,7 +143,7 @@ router.post(
 
 // sign up
 router.post(
-  "/signup",
+  SIGN_UP,
   validation("signup"),
   signupController,
 );
@@ -144,7 +151,7 @@ router.post(
 // edit profile route
 // user can update password or/and the verification image
 router.post(
-  "/edit-profile",
+  EDIT_PROFILE,
   authentication,
   authorization("LEVEL3"),
   upload("verificationImage"),
@@ -168,7 +175,7 @@ router.post(
 
 // confirm adding the user mail to the mail list
 router.use(
-  "/confirm-email",
+  CONFIRM_EMAIL,
   validation("onlyMongoId"),
   confirmJoiningEmailList,
 );
@@ -213,7 +220,7 @@ router.get(
 
 // admin handler
 router.use(
-  "/admin",
+  ADMIN,
   authentication,
   authorization("ADMIN"),
   adminRouter,

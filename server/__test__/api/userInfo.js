@@ -30,7 +30,7 @@ describe("Tesing for get user info route", () => {
         const token = result.headers["set-cookie"][0].split(";")[0];
 
         request(app)
-          .get("/api/user")
+          .get("/api/users")
           .set("Cookie", [token])
           .expect("Content-Type", /json/)
           .expect(200)

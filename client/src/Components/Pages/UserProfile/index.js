@@ -3,6 +3,11 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 
+import {
+  EDIT_PROFILE_URL,
+  UPLOAD_VERIFICATION_URL
+} from "./../../../constants/naviagationUrls";
+
 import Loading from "./../../Common/AntdComponents/Loading";
 
 import {
@@ -77,7 +82,7 @@ export default class index extends Component {
               )}
             </IDWrapper>
             {verified && (
-              <NavLink to="/edit-profile">
+              <NavLink to={EDIT_PROFILE_URL}>
                 <EditInfo>Edit info</EditInfo>
               </NavLink>
             )}
@@ -135,7 +140,7 @@ export default class index extends Component {
               non-workers.
             </Paragraph>
 
-            <UnVerifiedButton to="/upload-verification-photo">
+            <UnVerifiedButton to={UPLOAD_VERIFICATION_URL}>
               <Icon
                 icon="getVerified"
                 width="24"
