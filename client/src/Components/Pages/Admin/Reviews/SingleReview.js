@@ -1,3 +1,8 @@
+// renders a single review and shows all the answers
+// admin can change isVerified status
+// admin can delete individual answers
+// uses its own formik component but the styles from Review.style
+
 import React, { Component } from "react";
 import axios from "axios";
 import { Formik, Form, Field, FieldArray } from "formik";
@@ -47,6 +52,8 @@ export default class SingleReview extends Component {
     user: { id: "", email: "" },
     review: { isVerified: "", revID: "", rating: "", overallRev: "" }
   };
+
+  // fetches all data relevant to user, organisation and review
   fetchData = () => {
     const {
       category,
@@ -90,14 +97,18 @@ export default class SingleReview extends Component {
     this.fetchData();
   }
 
+  // checks boxes according to answers given
   checkIten = (answer, option) => {
     return answer === option ? true : false;
   };
 
+  // changes color of isVerified updater button
   changeBtnColor = bool => (bool === true ? colors.red : colors.green);
 
+  // renders btn text
   renderBtnText = bool => (bool === true ? "Reject Review" : "Approve Review");
 
+  // updates isVerified status and notifies admin
   updateIsVerified = ({ id, bool }) => {
     axios
       .patch("/api/admin/reviews/update-status", {
@@ -123,6 +134,7 @@ export default class SingleReview extends Component {
       });
   };
 
+  // asks admin if sure to delete answer
   showDeleteConfirm = answerID => {
     // delete from db and update
 
@@ -150,6 +162,7 @@ export default class SingleReview extends Component {
     });
   };
 
+  // renders delete btn next to answer
   createDeleteBtn = answerID => {
     return (
       <DelButton type="button" onClick={() => this.showDeleteConfirm(answerID)}>
@@ -171,6 +184,7 @@ export default class SingleReview extends Component {
       user: { email, id },
       review: { revID, rating, overallRev, isVerified }
     } = this.state;
+
     // review stats
     const workedFrom = overallRev.workedFrom;
     const workedTo = overallRev.workedTo;
@@ -202,7 +216,6 @@ export default class SingleReview extends Component {
                     <QuestionOptionsWrapper>
                       <QText>Overall Rating </QText>
                       <StarRating>
-                        {/* <h2>Overall Rating: </h2> */}
                         <StarRatingComponent
                           name="star rating component"
                           editing={false}
