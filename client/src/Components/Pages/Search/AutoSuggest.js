@@ -31,7 +31,6 @@ import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
 import { SVGCreator, StarRateCreator } from "../../../helpers";
 
 import { organizationIcons } from "./../../../theme";
-z;
 
 // functions
 
