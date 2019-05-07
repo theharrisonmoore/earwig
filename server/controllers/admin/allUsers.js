@@ -1,3 +1,8 @@
+/**
+ * get all workers info
+ * to be rendered in a table for the admin
+ */
+
 const boom = require("boom");
 
 const { getAllUsers } = require("./../../database/queries/user");

@@ -1,3 +1,8 @@
+/**
+ * get all replies on an overall review
+ * @param {id} reviewId
+ */
+
 const boom = require("boom");
 
 const { getOverallReplies } = require("../database/queries/reviews");

@@ -1,3 +1,14 @@
+/**
+ * add comment on review
+ * can be on overall or voice depends on the 'target'
+ * @param {target} - string - "overall" or "voice"
+ * @param {text} -string - comment words
+ * @param {displayName} - string - the name to be displayed {for admin only}
+ * @param {reviewId} - mongoID - review id
+ *
+ * @todo add condition to check for voice target - sprint 2 -
+ */
+
 const boom = require("boom");
 
 const { addCommentOnOverallReview } = require("./../database/queries/reviews");

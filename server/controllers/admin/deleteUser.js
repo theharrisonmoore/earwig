@@ -1,3 +1,8 @@
+/**
+ * allow admin to delete user by id
+ * @param {id} mongoID - user id
+ */
+
 const boom = require("boom");
 const { deleteUser } = require("./../../database/queries/user");
 

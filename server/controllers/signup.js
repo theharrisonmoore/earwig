@@ -1,3 +1,10 @@
+/**
+ * sign up controller
+ * @param {email} -string- user email
+ * @param {password} -string- user plain password
+ * response with the user onfo and create new token
+ */
+
 const boom = require("boom");
 const jwt = require("jsonwebtoken");
 

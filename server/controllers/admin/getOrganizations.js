@@ -1,3 +1,8 @@
+/**
+ * get all organizations by category
+ * @param {category} - string -  organization category
+ */
+
 const boom = require("boom");
 
 const { getOrgsByCategory } = require("../../database/queries/organizations/index.js");

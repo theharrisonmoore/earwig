@@ -1,3 +1,13 @@
+/**
+ * login controller
+ * @param {email} - string - the user email
+ * @param {password} - string - plain password
+ * @param {password} - string - plain password
+ *
+ * response with the user info and create new token
+ *
+ */
+
 const jwt = require("jsonwebtoken");
 const boom = require("boom");
 const { compare } = require("bcryptjs");
