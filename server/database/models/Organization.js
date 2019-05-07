@@ -17,11 +17,7 @@ const organizationSchema = new Schema(
       required: true,
     },
     phoneNumber: String,
-    email: {
-      type: String,
-      unique: true,
-      sparse: true,
-    },
+    email: String,
     websiteURL: String,
     loacation: {
       lat: Number,

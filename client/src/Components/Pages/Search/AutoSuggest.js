@@ -31,6 +31,7 @@ import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
 import { SVGCreator, StarRateCreator } from "../../../helpers";
 
 import { organizationIcons } from "./../../../theme";
+z;
 
 // functions
 
@@ -183,6 +184,7 @@ class AutosuggestComponent extends Component {
     };
 
     // limits suggestions to 10 results
+
     const filteredSuggestions = suggestions.slice(0, 10);
 
     return (
