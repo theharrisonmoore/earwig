@@ -1,3 +1,8 @@
+// this component enables the autcomplete search functionality
+// it uses react-autosuggest and renders each item including details such as name and average ratings as links
+// it is used in the following components Pages/Search/index.js Common/Navbar
+// it takes various props which are mandatory in case you wanted to reuse the component
+
 import React, { Component } from "react";
 import Autosuggest from "react-autosuggest";
 import { withRouter } from "react-router-dom";
@@ -18,7 +23,7 @@ import {
   IconDiv
 } from "./Search.style";
 
-import Icon from "./../../Common/Icon/Icon";
+import Icon from "./../../Common/Icon/Icon"
 import SearchIcon from "../../../assets/search-icon.svg";
 import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
 
@@ -29,9 +34,10 @@ import { organizationIcons } from "./../../../theme";
 
 // functions
 
-// gets called when suggestions gets clicked
+// gets called when a suggestion gets clicked
 export const getSuggestionValue = suggestion => suggestion.name;
 
+// compares the user's input value and the entries (organisations) and filters the data array accordingly
 export const getSuggestions = (value, organisationsArray) => {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
@@ -39,7 +45,7 @@ export const getSuggestions = (value, organisationsArray) => {
     org => org.name.toLowerCase().slice(0, inputLength) === inputValue
   );
 
-  // in case there are no suggestions still return a value enabling the 'add' box to be rendered
+  // in case there are no suggestions still return a value -> enables the 'add' box to be rendered
   if (suggestions.length === 0) {
     return [{ isEmpty: true }];
   }
@@ -54,7 +60,6 @@ class AutosuggestComponent extends Component {
   };
 
   // functions for autosuggest component
-  // create suggestions array based on user input
 
   // Autosuggest will call this function every time suggestions are updated
   onSuggestionsFetchRequested = ({ value }) => {
@@ -137,7 +142,6 @@ class AutosuggestComponent extends Component {
         <div {...containerProps}>
           {children}
           <div className="my-suggestions-container-footer" />
-
           <AddProfileLink
             to={{ pathname: `${ADD_PROFILE_URL}`, state: { name: `${query}` } }}
           >
@@ -174,6 +178,8 @@ class AutosuggestComponent extends Component {
       onKeyPress: this.onKeyPress
     };
 
+    const filteredSuggestions = suggestions.slice(0, 10);
+
     return (
       <AutosuggestWrapper height={height} width={width}>
         <IconDiv
@@ -183,7 +189,7 @@ class AutosuggestComponent extends Component {
         />
         {isMobile ? (
           <Autosuggest
-            suggestions={suggestions}
+            suggestions={filteredSuggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
             getSuggestionValue={getSuggestionValue}
@@ -193,7 +199,7 @@ class AutosuggestComponent extends Component {
           />
         ) : (
           <Autosuggest
-            suggestions={suggestions}
+            suggestions={filteredSuggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
             getSuggestionValue={getSuggestionValue}
