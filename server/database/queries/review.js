@@ -7,11 +7,11 @@ const Organization = require("../models/Organization");
 // return the questions grouped by Org. category
 const getQuetionsByOrg = org => new Promise((resolve, reject) => {
   Question.aggregate([
+    // match by org type
     {
       $match: {
         category: org,
       },
-
     },
     {
       $sort: { number: 1 },
@@ -19,7 +19,9 @@ const getQuetionsByOrg = org => new Promise((resolve, reject) => {
     {
       $group: {
         _id: "$group.name",
+        // get the first one each similar group.
         group: { $first: "$group" },
+        // push all the group questions to array.
         questions: { $push: "$$CURRENT" },
       },
     },
@@ -40,6 +42,7 @@ const getQuestionsByOrgCategory = category => Question.find({ category }).sort({
 
 const getOrganizationsByType = category => Organization.find({ category });
 
+// get an array of the organizaions names by category
 const getOrgsNamesByType = category => new Promise((resolve, reject) => {
   Organization.aggregate([
     {
@@ -53,6 +56,9 @@ const getOrgsNamesByType = category => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// get the names for agencies and payrolls to render the dropdown list.
+// agency: [name1, name2, name3],
+// payroll: [name1, name2, name3]
 const getAgenciesAndPayrollsNames = () => new Promise((resolve, reject) => {
   Organization.aggregate([
     {
@@ -69,6 +75,7 @@ const getAgenciesAndPayrollsNames = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// save an org the db
 const postOrg = async (category, name) => {
   try {
     const org = new Organization({

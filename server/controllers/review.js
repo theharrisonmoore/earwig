@@ -14,6 +14,7 @@ const Review = require("../database/models/Review");
 const Answer = require("../database/models/Answer");
 const Comment = require("../database/models/Comment");
 
+// get a list of quesions grouped by questions controller
 const getByOrg = (req, res, next) => {
   const { organization } = req.query;
 
@@ -26,6 +27,7 @@ const getByOrg = (req, res, next) => {
     });
 };
 
+// post a short review controller
 const postReviewShort = async (req, res, next) => {
   const {
     review: {
@@ -35,9 +37,11 @@ const postReviewShort = async (req, res, next) => {
   const { user, organization } = req.body;
 
   try {
+    // fetch the reviewed org. data.
     const organizationData = await getOrganization(organization.category, organization.name);
+    // fetch the user data
     const userData = await findByEmail(user.email);
-
+    // create new quick review
     const newReview = new Review({
       rate,
       organization: organizationData,
@@ -55,6 +59,7 @@ const postReviewShort = async (req, res, next) => {
   }
 };
 
+// controller for full review
 const postReview = async (req, res, next) => {
   const {
     questions: questionsAnswers,
@@ -70,6 +75,7 @@ const postReview = async (req, res, next) => {
     const userData = await findByEmail(user.email);
     const questions = await getQuestionsByOrgCategory(organization.category);
 
+    // map each number from the review to its question object.
     const questionsObject = {};
     questions.forEach((q) => {
       if (!questionsObject[q.number]) {
@@ -77,6 +83,7 @@ const postReview = async (req, res, next) => {
       }
     });
 
+    // create new review
     const newReview = new Review({
       rate,
       organization: organizationData,
@@ -90,6 +97,8 @@ const postReview = async (req, res, next) => {
 
     const currentReview = await newReview.save();
 
+    // extract the comments from the req and
+    // insert each comment to the db
     const commentsData = Object.keys(comments)
       .sort((a, b) => a - b)
       .map((c) => {
@@ -107,6 +116,7 @@ const postReview = async (req, res, next) => {
       .filter(value => value);
 
     const insertedComments = await Comment.insertMany(commentsData);
+    // list of the questions with comments
     const commentedQuestions = insertedComments.map(comment => ({
       id: comment.question.number,
       comment,
@@ -123,6 +133,9 @@ const postReview = async (req, res, next) => {
             answer: questionsAnswers[qAnswer],
             organization: organizationData,
           };
+
+          // if the question has a comment add a reference to that comment
+          // in the related answer.
           commentedQuestions.map((item) => {
             // eslint-disable-next-line eqeqeq
             if (item.id == qAnswer) {

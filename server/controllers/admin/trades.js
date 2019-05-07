@@ -2,6 +2,7 @@ const boom = require("boom");
 
 const { getTradesAdmin, deleteTrade } = require("./../../database/queries");
 
+// get a list of all the trades to show in the admin panel
 const getAllTrades = (async (req, res, next) => {
   try {
     const trades = await getTradesAdmin();
