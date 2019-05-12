@@ -38,7 +38,6 @@ export default class HeaderSection extends Component {
       websiteURL
     } = summary;
 
-    console.log(phoneNumber);
     return (
       <Header isTablet={isTablet} isMobile={isMobile}>
         <CompanyDetails isTablet={isTablet} isMobile={isMobile} level={level}>
