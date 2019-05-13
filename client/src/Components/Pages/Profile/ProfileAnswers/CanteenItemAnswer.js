@@ -22,15 +22,29 @@ export default class CanteenItemAnswer extends Component {
   getSelectedItems = (answers, option) => {
     let totalAnswers = [];
 
-    answers.map(userAnswers =>
-      userAnswers.answer.map(individAnswer => totalAnswers.push(individAnswer))
-    );
+    answers.map(userAnswers => {
+      if (userAnswers.answer === "I didn't check") {
+        totalAnswers.push(userAnswers.answer);
+      } else {
+        userAnswers.answer.map(individAnswer =>
+          totalAnswers.push(individAnswer)
+        );
+      }
+    });
 
     return totalAnswers.includes(option);
   };
 
+  onlyNeutralAnswers = answers => {
+    const yesOrNo = answers.filter(
+      answer => answer.answer !== "I didn't check"
+    );
+
+    return yesOrNo.length === 0;
+  };
+
   render() {
-    const { questions } = this.props;
+    const { questions, isMobile } = this.props;
 
     const canteenHeader = questions.filter(
       question => question.question.profileText === "Canteen:"
@@ -46,16 +60,19 @@ export default class CanteenItemAnswer extends Component {
               <Icon
                 icon="canteen"
                 margin="0 1rem 0 0"
-                height="1.5rem"
-                width="1.5rem"
+                height={isMobile ? "50" : "2rem"}
+                width={isMobile ? "50" : "2rem"}
               />
-              <p>{canteenHeader[0].question.profileText}</p>
+              <p>Canteen</p>
             </CanteenItem>
             {questions
               .filter(question => question.question.profileText !== "Canteen:")
               .map((question, index) =>
                 question.question.profileText === "heated" ? (
-                  <CanteenSubList key={index}>
+                  <CanteenSubList
+                    key={index}
+                    hide={this.onlyNeutralAnswers(question.answers)}
+                  >
                     - {question.question.profileText}
                   </CanteenSubList>
                 ) : (
@@ -68,6 +85,7 @@ export default class CanteenItemAnswer extends Component {
                             question.answers,
                             option
                           )}
+                          hide={this.onlyNeutralAnswers(question.answers)}
                         >
                           - {option}{" "}
                         </CanteenSubList>

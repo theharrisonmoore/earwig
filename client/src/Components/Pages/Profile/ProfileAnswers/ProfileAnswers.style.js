@@ -47,6 +47,8 @@ export const Comment = styled.button`
   padding: 0 0.5rem;
   box-shadow: ${shadows.buttonShadow};
   border-radius: 0.25rem;
+  margin-right: auto;
+  justify-self: flex-end;
   cursor: ${props => (props.active ? "pointer" : "not-allowed !important")};
 `;
 
@@ -55,6 +57,7 @@ export const RightCommentWrapper = styled.div`
   justify-content: flex-end;
   margin-top: 0.5rem;
   height: 2rem;
+  justify-self: flex-end;
 `;
 
 export const ListWrapper = styled.div`
@@ -184,6 +187,16 @@ export const SiteItem = styled.div`
   font-weight: 900;
   display: flex;
   align-items: center;
+`;
+
+export const SiteAnswer = styled.div`
+  margin: 0;
+  color: ${props =>
+    props.itemAvailable ? `${colors.green}` : `${colors.red}`};
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  width: 100%;
 
   p {
     margin: 0;
@@ -201,6 +214,7 @@ export const CanteenSubList = styled.p`
   color: ${props =>
     props.itemAvailable ? `${colors.green}` : `${colors.red}`};
   font-weight: 900;
+  display: ${props => (props.hide ? "none" : "block")};
 `;
 
 export const Error = styled.p`
