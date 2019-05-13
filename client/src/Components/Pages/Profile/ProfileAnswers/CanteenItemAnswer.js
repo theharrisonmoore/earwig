@@ -22,13 +22,12 @@ export default class CanteenItemAnswer extends Component {
   getSelectedItems = (answers, option) => {
     let totalAnswers = [];
 
-    answers.map(userAnswers => 
-      userAnswers.answer === "I didn't check" ? 
-        totalAnswers.push(userAnswers.answer) :
-        userAnswers.answer.map(individAnswer =>
-          totalAnswers.push(individAnswer)
-        )
-      
+    answers.map(userAnswers =>
+      userAnswers.answer === "I didn't check"
+        ? totalAnswers.push(userAnswers.answer)
+        : userAnswers.answer.map(individAnswer =>
+            totalAnswers.push(individAnswer)
+          )
     );
 
     return totalAnswers.includes(option);

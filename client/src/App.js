@@ -22,8 +22,7 @@ export const initialState = {
   points: 0,
   isAdmin: false,
   isMounted: false,
-  email: "",
-  loaded: false
+  email: ""
 };
 
 class App extends Component {
@@ -37,7 +36,6 @@ class App extends Component {
     this.setState({
       isMobile: isMobile(window.innerWidth),
       isTablet: isTablet(window.innerWidth),
-      loaded: true
     });
   }
 
