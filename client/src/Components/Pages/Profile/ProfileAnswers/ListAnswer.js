@@ -19,7 +19,7 @@ export default class ListAnswer extends Component {
 
   render() {
     const { question, toggleComments } = this.props;
-    
+
     if (question.question.profileText === "Payroll charge") {
       return (
         <ListWrapper>
@@ -58,7 +58,15 @@ export default class ListAnswer extends Component {
           <ListComment>
             {" "}
             {question.answers.map((answer, index) => (
-              <ListItem color={question.question.profileText === "Works with the following agencies" ? "agency" : question.question.category} key={index}>
+              <ListItem
+                color={
+                  question.question.profileText ===
+                  "Works with the following agencies"
+                    ? "agency"
+                    : question.question.category
+                }
+                key={index}
+              >
                 {answer.answer}
               </ListItem>
             ))}

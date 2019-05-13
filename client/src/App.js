@@ -22,7 +22,8 @@ export const initialState = {
   points: 0,
   isAdmin: false,
   isMounted: false,
-  email: ""
+  email: "",
+  loaded: false
 };
 
 class App extends Component {
@@ -35,7 +36,8 @@ class App extends Component {
   updateWindowDimensions() {
     this.setState({
       isMobile: isMobile(window.innerWidth),
-      isTablet: isTablet(window.innerWidth)
+      isTablet: isTablet(window.innerWidth),
+      loaded: true
     });
   }
 
@@ -44,10 +46,12 @@ class App extends Component {
       .get("/api/user")
       .then(res => {
         this.setState({ ...res.data, isLoggedIn: true, isMounted: true });
+        this.updateWindowDimensions();
       })
       .catch(err => {
         if (err.response.status === 401) {
           this.setState({ ...initialState, isMounted: true });
+          this.updateWindowDimensions();
         } else {
           this.setState({ error: err.response, isMounted: true });
         }
@@ -58,6 +62,7 @@ class App extends Component {
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);
     this.getUserInfo();
+    window.scrollTo(0, 0);
   }
 
   componentWillUnmount() {
