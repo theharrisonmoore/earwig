@@ -269,5 +269,9 @@ export const Image = styled.img`
 export const ImgWrapper = styled.div``;
 
 export const CanteenItem = styled(SiteItem)`
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+
+  p {
+    margin: 0;
+  }
 `;
