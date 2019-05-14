@@ -106,7 +106,6 @@ export default class OverallReview extends Component {
                         : organizations[category].secondary
                     }
                     disabled={!verified}
-                    onClick={() => this.test(REPLY_URL)}
                   >
                     Reply
                   </ActionsButton>

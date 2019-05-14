@@ -80,7 +80,7 @@ export default class CommentsBox extends Component {
 
   handleBlur = () => {
     if (isMobileDevice.any()) {
-      this.inputWrapper.current.style.marginBottom = "";
+      this.inputWrapper.current.style.marginBottom = "2rem";
     }
   };
 
@@ -195,7 +195,7 @@ export default class CommentsBox extends Component {
                   {this.state.errors.user && (
                     <Error>{this.state.errors.user}</Error>
                   )}
-                  <div style={{ position: "relative" }}>
+                  <div style={{ position: "relative", marginBottom: "2rem" }}>
                     <Mention
                       style={{ width: "100%", marginTop: "0.25rem" }}
                       onChange={this.onChange}
@@ -207,13 +207,15 @@ export default class CommentsBox extends Component {
                       placeholder={"Add a reply… use @ to mention"}
                     />
                     <StyledReplyIcon
-                      width="20px"
+                      width="40px"
                       fill={organizations[category].primary}
                       onClick={this.handleSubmit}
                     />
                   </div>
                   {this.state.errors.comment && (
-                    <Error>{this.state.errors.comment}</Error>
+                    <Error style={{ marginTop: "-2rem" }}>
+                      {this.state.errors.comment}
+                    </Error>
                   )}
                 </div>
               )}
