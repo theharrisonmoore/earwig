@@ -25,6 +25,8 @@ export default class SiteItemAnswer extends Component {
     const { question, toggleComments, isMobile, carParkingPrice } = this.props;
     const averageResponse = this.getAverage(question.answers);
 
+    console.log("Q", question);
+
     return (
       <ListWrapper>
         <SiteItem itemAvailable={averageResponse}>
