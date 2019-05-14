@@ -63,6 +63,29 @@ export default class Profile extends Component {
       });
   };
 
+  getCarCost = () => {
+    const { reviewDetails } = this.state;
+
+    // get the car parking cost question
+    const carSection = reviewDetails
+      .filter(section => section._id === null)
+      .map(item =>
+        item.questions.filter(
+          question =>
+            question.question.text === "How much did car parking cost per day?"
+        )
+      );
+
+    if (!carSection || carSection.length < 1) return;
+
+    // work out the average cost from the answers
+    const average = carSection[0][0].answers
+      .map(answer => answer.answer)
+      .reduce((accum, curr) => (accum + curr) / 2);
+
+    return average > 0 ? average : "Free";
+  };
+
   updateLastViewed = () => {
     const organizationID = window.location.href.split("/")[4];
 
@@ -177,6 +200,8 @@ export default class Profile extends Component {
 
     const { category, name } = summary;
 
+    this.getCarCost();
+
     return (
       <Wrapper isMobile={isMobile}>
         <Banner category={category}>
@@ -270,6 +295,7 @@ export default class Profile extends Component {
                   toggleComments={this.toggleComments}
                   summary={summary}
                   isMobile={isMobile}
+                  carParkingPrice={this.getCarCost}
                 />
               )
           )}

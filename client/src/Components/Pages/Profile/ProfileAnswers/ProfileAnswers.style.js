@@ -191,8 +191,8 @@ export const SiteItem = styled.div`
 
 export const SiteAnswer = styled.div`
   margin: 0;
-  color: ${props =>
-    props.itemAvailable ? `${colors.green}` : `${colors.red}`};
+  /* color: ${props =>
+    props.itemAvailable ? `${colors.green}` : `${colors.red}`}; */
   font-weight: 900;
   display: flex;
   align-items: center;

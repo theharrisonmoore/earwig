@@ -22,26 +22,40 @@ export default class SiteItemAnswer extends Component {
   };
 
   render() {
-    const { question, toggleComments, isMobile } = this.props;
+    const { question, toggleComments, isMobile, carParkingPrice } = this.props;
     const averageResponse = this.getAverage(question.answers);
 
     return (
       <ListWrapper>
         <SiteItem itemAvailable={averageResponse}>
-          <SiteAnswer>
-            <Icon
-              icon={question.question.icon}
-              margin="0 1rem 0 0"
-              height={isMobile ? "50" : "2rem"}
-              width={isMobile ? "50" : "2rem"}
-            />
-            {/* {averageResponse ? (
-            <SiteIcon src="/icons/tick-icon.svg" itemAvailable />
+          {question.question.profileText ===
+          "Car parking within 10 mins walk of site" ? (
+            <SiteAnswer>
+              <Icon
+                icon={question.question.icon}
+                margin="0 1rem 0 0"
+                height={isMobile ? "50" : "2rem"}
+                width={isMobile ? "50" : "2rem"}
+              />
+              {averageResponse ? (
+                <p>
+                  {question.question.profileText} (£{carParkingPrice()}){" "}
+                </p>
+              ) : (
+                <p>{question.question.profileText}</p>
+              )}
+            </SiteAnswer>
           ) : (
-            <SiteIcon src="/icons/not-tick-icon.svg" />
-          )} */}
-            <p>{question.question.profileText}</p>
-          </SiteAnswer>
+            <SiteAnswer>
+              <Icon
+                icon={question.question.icon}
+                margin="0 1rem 0 0"
+                height={isMobile ? "50" : "2rem"}
+                width={isMobile ? "50" : "2rem"}
+              />
+              <p>{question.question.profileText}</p>
+            </SiteAnswer>
+          )}
           <RightCommentWrapper>
             {question.answers.filter(answer => answer.comment).length > 0 ? (
               <Comment onClick={() => toggleComments(question)} active>

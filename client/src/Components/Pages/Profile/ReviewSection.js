@@ -36,7 +36,8 @@ export default class ReviewSection extends Component {
       category,
       toggleComments,
       summary,
-      isMobile
+      isMobile,
+      carParkingPrice
     } = this.props;
 
     const { _id: sectionTitle, questions } = sectionDetails;
@@ -133,6 +134,7 @@ export default class ReviewSection extends Component {
                   toggleComments={toggleComments}
                   profileType={question.question.profileType}
                   isMobile={isMobile}
+                  carParkingPrice={carParkingPrice}
                 />
               </QuestionWrapper>
             ))}
