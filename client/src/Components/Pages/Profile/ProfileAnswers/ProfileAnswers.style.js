@@ -77,6 +77,10 @@ export const ListItem = styled.p`
   line-height: 2rem;
 `;
 
+export const PayrollItem = styled(ListItem)`
+  width: 100%;
+`
+
 export const ListComment = styled.div`
   display: flex;
   width: 100%;
