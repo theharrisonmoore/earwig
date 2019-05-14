@@ -250,6 +250,7 @@ export default class UploadImage extends Component {
                 value={this.state.tradeId}
                 disabled={this.state.disableSelect}
                 isCreateNew
+                showSearch
                 addHandler={this.showModal}
               />
               <div>
