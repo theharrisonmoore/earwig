@@ -134,9 +134,13 @@ export default class Reply extends Component {
   };
 
   componentDidMount() {
-    const { reviewId, target } = this.props.location.state;
-    if (target === "overall") {
-      this.fetchOverallReplies(reviewId);
+    if (this.props.location && this.props.location.state) {
+      const { reviewId, target } = this.props.location.state;
+      if (target === "overall") {
+        this.fetchOverallReplies(reviewId);
+      }
+    } else {
+      this.goBack();
     }
   }
 
@@ -145,6 +149,9 @@ export default class Reply extends Component {
   };
 
   render() {
+    if (!this.props.location || !this.props.location.state) {
+      return this.props.history.goBack();
+    }
     const { replies, loaded } = this.state;
     const { isAdmin } = this.props;
     const { category } = this.props.location.state;
@@ -197,7 +204,9 @@ export default class Reply extends Component {
                 background: "white",
                 paddingBottom: "2rem",
                 maxWidth: "30rem",
-                margin: "0 auto"
+                margin: "0 auto",
+                left: 0,
+                right: 0
               }}
             >
               {isAdmin && (
