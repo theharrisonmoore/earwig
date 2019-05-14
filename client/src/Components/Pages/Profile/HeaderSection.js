@@ -35,10 +35,9 @@ export default class HeaderSection extends Component {
       email,
       phoneNumber,
       totalReviews,
-      websiteURL
+      websiteUrl
     } = summary;
 
-    console.log(phoneNumber);
     return (
       <Header isTablet={isTablet} isMobile={isMobile}>
         <CompanyDetails isTablet={isTablet} isMobile={isMobile} level={level}>
@@ -81,10 +80,10 @@ export default class HeaderSection extends Component {
                 </OrgButton>
               </OrgLink>
               <OrgLink
-                href={`${websiteURL}`}
+                href={`${websiteUrl}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                hasDetails={websiteURL}
+                hasDetails={websiteUrl}
               >
                 <OrgButton category={category} isMobile={isMobile}>
                   Website
@@ -114,7 +113,7 @@ export default class HeaderSection extends Component {
               <InactiveButton
                 category={category}
                 isMobile={isMobile}
-                hasDetails={websiteURL}
+                hasDetails={websiteUrl}
               >
                 Website
               </InactiveButton>

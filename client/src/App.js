@@ -46,10 +46,12 @@ class App extends Component {
       .get(API_USERS)
       .then(res => {
         this.setState({ ...res.data, isLoggedIn: true, isMounted: true });
+        this.updateWindowDimensions();
       })
       .catch(err => {
         if (err.response.status === 401) {
           this.setState({ ...initialState, isMounted: true });
+          this.updateWindowDimensions();
         } else {
           this.setState({ error: err.response, isMounted: true });
         }
@@ -60,6 +62,7 @@ class App extends Component {
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);
     this.getUserInfo();
+    window.scrollTo(0, 0);
   }
 
   componentWillUnmount() {

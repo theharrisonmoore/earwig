@@ -63,6 +63,29 @@ export default class Profile extends Component {
       });
   };
 
+  getCarCost = () => {
+    const { reviewDetails } = this.state;
+
+    // get the car parking cost question
+    const carSection = reviewDetails
+      .filter(section => section._id === null)
+      .map(item =>
+        item.questions.filter(
+          question =>
+            question.question.text === "How much did car parking cost per day?"
+        )
+      );
+
+    if (!carSection || carSection.length < 1) return;
+
+    // work out the average cost from the answers
+    const average = carSection[0][0].answers
+      .map(answer => answer.answer)
+      .reduce((accum, curr) => (accum + curr) / 2);
+
+    return average > 0 ? average : "Free";
+  };
+
   updateLastViewed = () => {
     const organizationID = window.location.href.split("/")[4];
 
@@ -70,8 +93,8 @@ export default class Profile extends Component {
       const error =
         err.response && err.response.data && err.response.data.error;
       message.error(error || "Something went wrong");
-    })
-  }
+    });
+  };
 
   componentDidMount() {
     this.fetchData();
@@ -222,11 +245,11 @@ export default class Profile extends Component {
         )}
         {reviewDetails.length < 1 && (
           <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-          <ReviewSection
-            category={category}
-            sectionDetails={{ _id: "Key ratings" }}
-            summary={summary}
-          />
+            <ReviewSection
+              category={category}
+              sectionDetails={{ _id: "Key ratings" }}
+              summary={summary}
+            />
           </ReviewDiv>
         )}
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
@@ -270,6 +293,7 @@ export default class Profile extends Component {
                   toggleComments={this.toggleComments}
                   summary={summary}
                   isMobile={isMobile}
+                  carParkingPrice={this.getCarCost}
                 />
               )
           )}
@@ -348,16 +372,18 @@ export default class Profile extends Component {
           overallReplies={this.state.overallReplies}
           fetchOverallReplies={this.fetchOverallReplies}
           verified={verified}
+          level={level}
         />
         {level < 1 && (
-        <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-          <AccountPromo>
-            <p>Create an account to see all reviews</p>
-            <AccountLink to={SIGNUP_URL} category={category}>
-              Create an account now >
-            </AccountLink>
-          </AccountPromo>
-        </ReviewDiv>)}
+          <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
+            <AccountPromo>
+              <p>Create an account to see all reviews</p>
+              <AccountLink to={SIGNUP_URL} category={category}>
+                Create an account now >
+              </AccountLink>
+            </AccountPromo>
+          </ReviewDiv>
+        )}
         {/* COMMENTS BOX */}
         {commentsOpen && (
           <CommentsBox

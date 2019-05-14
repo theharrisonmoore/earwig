@@ -19,7 +19,7 @@ export const SectionTitle = styled.h2`
 `;
 
 export const QuestionWrapper = styled.div`
-  display: flex;
+  display: ${props => (props.hide ? "none" : "flex")};
   flex-direction: column;
   padding: 1.125rem 0;
 `;

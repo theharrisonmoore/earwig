@@ -22,13 +22,22 @@ import PayrollAnswer from "./ProfileAnswers/PayrollAnswer";
 import ImageSlider from "./ProfileAnswers/ImageSlider";
 
 export default class ReviewSection extends Component {
+  onlyNeutralAnswers = answers => {
+    const yesOrNo = answers.filter(
+      answer => answer.answer === "Yes" || answer.answer === "No"
+    );
+
+    return yesOrNo.length === 0;
+  };
+
   render() {
     const {
       sectionDetails,
       category,
       toggleComments,
       summary,
-      isMobile
+      isMobile,
+      carParkingPrice
     } = this.props;
 
     const { _id: sectionTitle, questions } = sectionDetails;
@@ -41,6 +50,11 @@ export default class ReviewSection extends Component {
 
     if (!canteenQuestions || canteenQuestions.length < 1)
       canteenQuestions = false;
+
+    // if (canteenQuestions && canteenQuestions.length === 1) {
+    //   const onlyNeutral = this.onlyNeutralAnswers(canteenQuestions[0].answers);
+    //   canteenQuestions = !onlyNeutral;
+    // }
 
     let payrollQuestions =
       questions &&
@@ -72,7 +86,10 @@ export default class ReviewSection extends Component {
               ["yesno", "pieChart", "dotChart"].includes(
                 question.question.profileType
               ) && (
-                <QuestionWrapper key={index}>
+                <QuestionWrapper
+                  key={index}
+                  hide={this.onlyNeutralAnswers(question.answers)}
+                >
                   <QuestionTitle>{question.question.profileText}</QuestionTitle>
                   {question.question.profileType === "yesno" && (
                     <YesNoAnswer
@@ -107,19 +124,24 @@ export default class ReviewSection extends Component {
               return question.question.profileType === "siteItem";
             })
             .map((question, index) => (
-              <QuestionWrapper key={index}>
+              <QuestionWrapper
+                key={index}
+                hide={this.onlyNeutralAnswers(question.answers)}
+              >
                 <SiteItemAnswer
                   category={category}
                   question={question}
                   toggleComments={toggleComments}
                   profileType={question.question.profileType}
                   isMobile={isMobile}
+                  carParkingPrice={carParkingPrice}
                 />
               </QuestionWrapper>
             ))}
         {/* CANTEEN SECTION */}
         {canteenQuestions && (
           <QuestionWrapper>
+            {/* {console.log(canteenQuestions)} */}
             <CanteenItemAnswer
               questions={canteenQuestions}
               toggleComments={toggleComments}
