@@ -1,3 +1,12 @@
+/**
+ * update user info and upload verification image
+ * update the user state to awaiting review
+ * @param {tradeId} - mongoID - selectedtrade id
+ * @param {city} - string - user's city
+ * @param {uploadedFileName} -string - uploaded image name to be stored in the DB
+ *
+ */
+
 const boom = require("boom");
 
 const { updateUserById } = require("./../database/queries/user");

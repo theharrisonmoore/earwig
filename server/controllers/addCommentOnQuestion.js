@@ -1,3 +1,11 @@
+/**
+ * add comment on an organization question
+ * @param {text} -string - comment words
+ * @param {displayName} - string - the name to be displayed {for admin only}
+ * @param {question} - mongoID - question id
+ * @param {organization} - mongoID - organization id
+ */
+
 const boom = require("boom");
 
 const { createComment } = require("./../database/queries/comments");

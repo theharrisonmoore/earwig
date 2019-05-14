@@ -1,3 +1,8 @@
+/**
+ * confirm subscription to mail list
+ * @param {id} - mongoID - user id
+ */
+
 const boom = require("boom");
 const { getUserById } = require("./../database/queries/user");
 const { addToMailList, findOne } = require("./../database/queries/mailList");
@@ -20,7 +25,7 @@ module.exports = async (req, res, next) => {
                 .then(() => {
                   res.json({
                     message:
-                      "your subscription has been confirmed. You've been added to ouremail list.",
+                      "your subscription has been confirmed. You've been added to our email list.",
                   });
                 })
                 .catch(() => {

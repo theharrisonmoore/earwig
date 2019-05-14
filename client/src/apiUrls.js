@@ -43,6 +43,20 @@ const API_GET_OVERALL_REVIEW_REPLIES_URL = `${API_PREFIX}${GET_OVERALL_REVIEW_RE
 const ADD_COMMENT_ON_REVIEW_URL = "/reviews/overall/replies";
 const API_ADD_COMMENT_ON_REVIEW_URL = `${API_PREFIX}${ADD_COMMENT_ON_REVIEW_URL}`;
 
+const CONFIRM_EMAIL = "/confirm-email";
+const API_CONFIRM_EMAIL = `${API_PREFIX}${CONFIRM_EMAIL}`;
+
+const EDIT_PROFILE = "/edit-profile";
+const API_EDIT_PROFILE = `${API_PREFIX}${EDIT_PROFILE}`;
+
+const SIGN_UP = "/signup";
+const API_SIGN_UP = `${API_PREFIX}${SIGN_UP}`;
+
+const USERS = "/users";
+const API_USERS = `${API_PREFIX}${USERS}`;
+
+const ADMIN = "/admin";
+
 module.exports = {
   // React variables
   API_LOGIN_URL,
@@ -59,6 +73,10 @@ module.exports = {
   API_ADD_COMMENT_ON_QUESTION_URL,
   API_GET_OVERALL_REVIEW_REPLIES_URL,
   API_ADD_COMMENT_ON_REVIEW_URL,
+  API_CONFIRM_EMAIL,
+  API_EDIT_PROFILE,
+  API_SIGN_UP,
+  API_USERS,
 
   // server variables
   LOGIN_URL,
@@ -74,5 +92,10 @@ module.exports = {
   REPORT_CONTENT_URL,
   ADD_COMMENT_ON_QUESTION_URL,
   GET_OVERALL_REVIEW_REPLIES_URL,
-  ADD_COMMENT_ON_REVIEW_URL
+  ADD_COMMENT_ON_REVIEW_URL,
+  ADMIN,
+  CONFIRM_EMAIL,
+  EDIT_PROFILE,
+  SIGN_UP,
+  USERS
 };

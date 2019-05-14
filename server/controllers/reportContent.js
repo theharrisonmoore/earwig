@@ -1,3 +1,18 @@
+/**
+ * report piece of content can be (worksite image, reply, comment, overall review)
+ * this send an email to the admin, that contains the reported content
+ * @param {reason} - string - the selected reason
+ * @param {description} -string - the more info field
+ * @param {target} - string - ["questionComment", "overallReview", "overallReply", "worksiteImage"]
+ * @param {question} -object - the question that contain the reported comment
+ * @param {organization} -object - the organization that contain the reported comment /overallreview
+ * @param {review} -object- the target review
+ * @param {comment} -object- the target comment
+ * @param {reply} -object- the target reply
+ * @param {image} -object- the worksite image
+ */
+
+
 const boom = require("boom");
 
 const reportMailing = require("./../helpers/reportMailing");

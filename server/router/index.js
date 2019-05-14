@@ -60,11 +60,24 @@ const {
   ADD_COMMENT_ON_QUESTION_URL,
   GET_OVERALL_REVIEW_REPLIES_URL,
   ADD_COMMENT_ON_REVIEW_URL,
+  ADMIN,
+  CONFIRM_EMAIL,
+  EDIT_PROFILE,
+  SIGN_UP,
+  UPLOAD_VERIFICATION_IMAGE_URL,
+  TRADE_URL,
+  USERS,
 } = require("../../client/src/apiUrls");
 
 
 router.get(SEARCH_URL, searchController);
-router.get("/user", authentication, userInfoController);
+
+// get user info from the cookies and send it to fron-end
+router.get(
+  USERS,
+  authentication,
+  userInfoController,
+);
 
 router.get(GET_QUESTIONS_URL, authentication, authorization("LEVEL3"), getByOrg);
 router.post(REVIEW_URL, authentication, authorization("LEVEL3"), postReview);
@@ -76,14 +89,16 @@ router.post("/organizations", authentication, authorization("LEVEL3"), addNewAge
 router.get("/agency-payroll", authentication, authorization("LEVEL3"), getAgencesAndPayrollsNames);
 
 // require all the routes in this file
-router.post(LOGIN_URL, validation("login"), loginController);
-
-// require all the routes in this file
 router.post("/profile", softAuthCheck, profileController);
 
 router.post("/comments", commentsController);
 
-router.post(LOGIN_URL, validation("login"), loginController);
+// login route
+router.post(
+  LOGIN_URL,
+  validation("login"),
+  loginController,
+);
 
 router.use(LOGOUT_URL, logoutController);
 
@@ -91,8 +106,9 @@ router.use(LOGOUT_URL, logoutController);
 
 router.post("/wroksite-images", authentication, authorization("LEVEL3"), getWorksiteImgsController);
 
+// update user info (verification image, city and trade)
 router.post(
-  "/upload-verification-image",
+  UPLOAD_VERIFICATION_IMAGE_URL,
   authentication,
   authorization("LEVEL1"),
   upload("verificationImage"),
@@ -110,20 +126,34 @@ router.post(
   uploadWorksiteController,
 );
 
-router.get("/trades", authentication, authorization("LEVEL1"), getTradesController);
+// get all trades
+router.get(
+  TRADE_URL,
+  authentication,
+  authorization("LEVEL1"),
+  getTradesController,
+);
 
+// add new trade
 router.post(
-  "/trades",
+  TRADE_URL,
   authentication,
   authorization("LEVEL1"),
   validation("addTrade"),
   postTradesController,
 );
 
-router.post("/signup", validation("signup"), signupController);
-
+// sign up
 router.post(
-  "/edit-profile",
+  SIGN_UP,
+  validation("signup"),
+  signupController,
+);
+
+// edit profile route
+// user can update password or/and the verification image
+router.post(
+  EDIT_PROFILE,
   authentication,
   authorization("LEVEL3"),
   upload("verificationImage"),
@@ -145,8 +175,16 @@ router.post(
   addOrganizationController,
 );
 
-router.use("/confirm-email", validation("onlyMongoId"), confirmJoiningEmailList);
+// confirm adding the user mail to the mail list
+router.use(
+  CONFIRM_EMAIL,
+  validation("onlyMongoId"),
+  confirmJoiningEmailList,
+);
 
+// report for a piece of content
+// can be (overall review, comment, worksite image, reply)
+// depends on target param
 router.post(
   REPORT_CONTENT_URL,
   validation("reportContent"),
@@ -155,7 +193,7 @@ router.post(
   reportContentController,
 );
 
-
+// add reply on an organization's question
 router.post(
   ADD_COMMENT_ON_QUESTION_URL,
   authentication,
@@ -164,6 +202,8 @@ router.post(
   addCommentOnQuestion,
 );
 
+// add comment on review includes
+// can be (overall or voice -for sprint 2 -) depends on "target" param
 router.post(
   ADD_COMMENT_ON_REVIEW_URL,
   authentication,
@@ -172,7 +212,7 @@ router.post(
   addCommentOnReview,
 );
 
-
+// get all replies on specific overall review
 router.get(
   `${GET_OVERALL_REVIEW_REPLIES_URL}/:id`,
   authentication,
@@ -180,7 +220,13 @@ router.get(
   getOverallReviewReplies,
 );
 
-router.use("/admin", authentication, authorization("ADMIN"), adminRouter);
+// admin handler
+router.use(
+  ADMIN,
+  authentication,
+  authorization("ADMIN"),
+  adminRouter,
+);
 
 router.post("/thinking-of-deleting", authentication, thinkingofDeletingController);
 

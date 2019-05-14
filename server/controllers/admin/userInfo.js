@@ -1,3 +1,9 @@
+/**
+ * get user info to be id
+ * this for awaiting review users
+ * @param {id} mongoID - user id
+ */
+
 const boom = require("boom");
 
 const getImageLink = require("./../../helpers/getFileLink");
