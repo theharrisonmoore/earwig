@@ -1,3 +1,5 @@
+// mocks api call to backend and tests search functionality
+
 import React from "react";
 import { render, cleanup, waitForElement } from "react-testing-library";
 import userEvent from "user-event";

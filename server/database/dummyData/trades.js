@@ -27,3 +27,4 @@ module.exports = async () => {
 
   return Trade.create(trades);
 };
+

@@ -1,3 +1,8 @@
+// this component enables the autcomplete search functionality
+// it uses react-autosuggest and renders each item including details such as name and average ratings as links
+// it is used in the following components Pages/Search/index.js Common/Navbar
+// it takes various props which are mandatory in case you wanted to reuse the component
+
 import React, { Component } from "react";
 import Autosuggest from "react-autosuggest";
 import { withRouter } from "react-router-dom";
@@ -29,9 +34,10 @@ import { organizationIcons } from "./../../../theme";
 
 // functions
 
-// gets called when suggestions gets clicked
+// gets called when a suggestion gets clicked
 export const getSuggestionValue = suggestion => suggestion.name;
 
+// compares the user's input value and the entries (organisations) and filters the data array accordingly
 export const getSuggestions = (value, organisationsArray) => {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
@@ -39,7 +45,7 @@ export const getSuggestions = (value, organisationsArray) => {
     org => org.name.toLowerCase().slice(0, inputLength) === inputValue
   );
 
-  // in case there are no suggestions still return a value enabling the 'add' box to be rendered
+  // in case there are no suggestions still return a value -> enables the 'add' box to be rendered
   if (suggestions.length === 0) {
     return [{ isEmpty: true }];
   }
@@ -54,24 +60,26 @@ class AutosuggestComponent extends Component {
   };
 
   // functions for autosuggest component
-  // create suggestions array based on user input
 
-  // Autosuggest will call this function every time suggestions are updated
+  // gets called every time suggestions are updated based on a users input
+  // you need to feed in data as a prop which acts as array of entries
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
       suggestions: getSuggestions(value, this.props.data)
     });
   };
 
-  // Autosuggest will call this function every time you need to clear suggestions.
+  //  gets called every time you need to clear suggestions.
   onSuggestionsClearRequested = () => {
     this.setState({ suggestions: [] });
   };
 
+  // the onChange handler sets the users input and prevents that the value is undefined
   onChange = (event, { newValue }) => {
     this.setState({ value: typeof newValue !== "undefined" ? newValue : "" });
   };
 
+  // handles the enter key being pressed by user
   onKeyPress = e => {
     const { value } = this.state;
     const suggestions = getSuggestions(value, this.props.data);
@@ -85,13 +93,15 @@ class AutosuggestComponent extends Component {
     return null;
   };
 
+  // selects the icon appearing next to the user's input text
   selectIconBgr = value => (value.length > 0 ? PlaceholderArrow : SearchIcon);
 
+  // when users clicks on back arrow icon it deletes the input
   delSearchInput = () => this.setState({ value: "" });
-  // render functions
-  // renders individual suggestions in autosuggest search section
+
+  // renders individual suggestions
   renderSuggestion = suggestion => {
-    // check if no suggestion available and return so that renderSuggestionsContainer function is still being called (gets deactivated otherwise)
+    // check if no suggestion is available and returns so that renderSuggestionsContainer function is still being called (gets deactivated otherwise)
     if (suggestion.isEmpty) {
       return null;
     }
@@ -100,8 +110,6 @@ class AutosuggestComponent extends Component {
         <SuggestionBox orgType={suggestion.category}>
           <InnerDivSuggestions>
             <SymbolDiv>
-              {/* {SVGCreator("mobile-search-icon")}
-              {SVGCreator(`${organizationIcons[suggestion.category].symbol}`)} */}
               <Icon
                 icon="search"
                 height="1.5rem"
@@ -130,6 +138,7 @@ class AutosuggestComponent extends Component {
       </ProfileLink>
     );
   };
+
   // renders all elements and the add item footer
   renderSuggestionsContainer = ({ containerProps, children, query }) => {
     if (query && query.length > 0) {
@@ -137,7 +146,6 @@ class AutosuggestComponent extends Component {
         <div {...containerProps}>
           {children}
           <div className="my-suggestions-container-footer" />
-
           <AddProfileLink
             to={{ pathname: `${ADD_PROFILE_URL}`, state: { name: `${query}` } }}
           >
@@ -174,6 +182,10 @@ class AutosuggestComponent extends Component {
       onKeyPress: this.onKeyPress
     };
 
+    // limits suggestions to 10 results
+
+    const filteredSuggestions = suggestions.slice(0, 10);
+
     return (
       <AutosuggestWrapper height={height} width={width}>
         <IconDiv
@@ -181,9 +193,10 @@ class AutosuggestComponent extends Component {
           bgr={this.selectIconBgr(value)}
           onClick={this.delSearchInput}
         />
+        {/* on mobile disable shouldRenderSuggestions as we don't want automatic suggestion rendering as it hides most of the screen */}
         {isMobile ? (
           <Autosuggest
-            suggestions={suggestions}
+            suggestions={filteredSuggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
             getSuggestionValue={getSuggestionValue}
@@ -193,7 +206,7 @@ class AutosuggestComponent extends Component {
           />
         ) : (
           <Autosuggest
-            suggestions={suggestions}
+            suggestions={filteredSuggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
             getSuggestionValue={getSuggestionValue}

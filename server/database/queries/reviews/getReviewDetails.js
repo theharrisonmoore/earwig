@@ -1,3 +1,6 @@
+// gets review by id and gets all answers/ questions related to that review
+// used in admin panel to show review answers
+
 const mongoose = require("mongoose");
 const Answer = require("./../../models/Answer");
 

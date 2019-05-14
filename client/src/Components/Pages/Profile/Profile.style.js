@@ -73,9 +73,13 @@ export const CompanyTitle = styled.h2`
 
 export const ButtonDiv = styled.div`
   min-width: ${props => (props.isTablet || props.isMobile ? "100%" : "50%")};
-  display: flex;
+  display: ${props => (props.organization === "worksite" ? "none" : "flex")};
   justify-content: center;
   align-items: center;
+`;
+
+export const OrgLink = styled.a`
+  display: ${props => props.hasDetails === null && "none"};
 `;
 
 export const OrgButton = styled.button`
@@ -102,6 +106,7 @@ export const InactiveButton = styled(OrgButton)`
   opacity: 0.3;
   outline: none;
   box-shadow: none;
+  display: ${props => props.hasDetails === undefined && "none"};
 
   :hover {
     background: ${colors.white};

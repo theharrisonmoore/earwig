@@ -76,7 +76,6 @@ class App extends Component {
       <Router>
         <div className="App">
           <Routes
-            exact
             handleChangeState={this.handleChangeState}
             isMobile={isMobile}
             isTablet={isTablet}

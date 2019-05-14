@@ -33,6 +33,7 @@ import { organizationIcons, organizations } from "./../../../theme";
 
 import Icon from "./../../Common/Icon/Icon";
 
+// gets all organisations from db
 export const axiosCall = async () => {
   const response = await axios.get(API_SEARCH_URL);
   return response;
@@ -57,13 +58,13 @@ export default class Search extends Component {
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
   }
+
   // renders last viewed organization section
   renderLastViewed = (org, key) => (
     <ProfileLink key={key} to={`/profile/${org._id}`}>
       <ReviewsFrame orgType={org.category}>
         <InnerDivLastReviews orgType={org.category}>
           <SymbolDiv>
-            {/* {SVGCreator(`${organizationIcons[org.category].symbol}`)} */}
             <Icon
               icon={org.category}
               height="1.5rem"
@@ -120,7 +121,6 @@ export default class Search extends Component {
             <SearchLegendDiv>
               <RowDiv>
                 <ItemDiv notMobile={!isMobile} left>
-                  {/* {SVGCreator("agency-icon", "40px", "70px")} */}
                   <Icon
                     icon="agency"
                     color={organizations.agency.primary}
@@ -131,7 +131,6 @@ export default class Search extends Component {
                   <LegendTitle orgType="agency">Agencies</LegendTitle>
                 </ItemDiv>
                 <ItemDiv notMobile={!isMobile}>
-                  {/* {SVGCreator("payroll-icon", "40px", "70px")} */}
                   <Icon
                     icon="payroll"
                     color={organizations.payroll.primary}
@@ -144,7 +143,6 @@ export default class Search extends Component {
               </RowDiv>
               <RowDiv>
                 <ItemDiv notMobile={!isMobile} left>
-                  {/* {SVGCreator("worksite-icon", "40px", "70px")} */}
                   <Icon
                     icon="worksite"
                     color={organizations.worksite.primary}
@@ -155,7 +153,6 @@ export default class Search extends Component {
                   <LegendTitle orgType="worksite">Worksites</LegendTitle>
                 </ItemDiv>
                 <ItemDiv notMobile={!isMobile}>
-                  {/* {SVGCreator("company-icon", "40px", "70px")} */}
                   <Icon
                     icon="company"
                     color={organizations.company.primary}

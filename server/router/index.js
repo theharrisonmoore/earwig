@@ -46,6 +46,8 @@ const userReviewsController = require("../controllers/getUserReviews");
 const getOverallReviewReplies = require("../controllers/getOverallReviewReplies");
 const addCommentOnReview = require("../controllers/addCommentOnReview");
 
+const updateLastViewedOrg = require("../controllers/updateLastViewedOrg")
+
 const {
   LOGIN_URL,
   GET_QUESTIONS_URL,
@@ -229,5 +231,7 @@ router.use(
 router.post("/thinking-of-deleting", authentication, thinkingofDeletingController);
 
 router.post("/give-feedback", authentication, feedbackController);
+
+router.post("/update-last-viewed", updateLastViewedOrg)
 
 module.exports = router;
