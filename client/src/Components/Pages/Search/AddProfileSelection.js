@@ -28,7 +28,7 @@ export default class AddProfileSelection extends Component {
     axios.post(API_ADD_ORGANIZATION_URL, newOrg).catch(err => {
       Swal.fire({
         type: "error",
-        title: "Oops. Organisation seems to already exist. Please try again.",
+        title: "Error adding Organisation. Please try again.",
         text: err
       }).then(() => {
         this.props.history.push("/search");
