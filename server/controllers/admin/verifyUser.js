@@ -1,3 +1,10 @@
+/**
+ * update the user state to be verified
+ * remove the verificcation image from DB
+ * @todo delete verification image from google storage
+ * @param {id} mongoID - user id
+ */
+
 const boom = require("boom");
 
 const { updateUserById, getUserById } = require("./../../database/queries/user");

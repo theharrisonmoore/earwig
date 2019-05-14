@@ -10,6 +10,8 @@ import Routes from "./Components/";
 
 import { isMobile, isTablet } from "./helpers";
 
+import { API_USERS } from "./apiUrls";
+
 export const initialState = {
   isLoggedIn: false,
   isMobile: false,
@@ -41,7 +43,7 @@ class App extends Component {
 
   getUserInfo = () => {
     axios
-      .get("/api/user")
+      .get(API_USERS)
       .then(res => {
         this.setState({ ...res.data, isLoggedIn: true, isMounted: true });
         this.updateWindowDimensions();

@@ -1,3 +1,9 @@
+/**
+ * get all reviews to be rendered for the admin
+ * can get all reviews or the awaiting review only
+ * @param {awaitingReview} - optional - if exists then return the awaiting review only
+ */
+
 const boom = require("boom");
 
 const { getAllReviews } = require("./../../database/queries/reviews");

@@ -24,6 +24,8 @@ import { StyledLink as Link, SignupWrapper, LinkSpan } from "./Signup.style";
 
 import { StyledField } from "../../Common/Formik/Formik.style";
 
+import { API_SIGN_UP } from "./../../../apiUrls";
+
 // create custom function
 function equalTo(ref, msg) {
   return this.test({
@@ -78,7 +80,7 @@ export default class Signup extends Component {
       setSubmitting(true);
 
       axios
-        .post("/api/signup", values)
+        .post(API_SIGN_UP, values)
         .then(({ data }) => {
           this.props.handleChangeState({ ...data, isLoggedIn: true });
           this.props.history.push(`/intro`);

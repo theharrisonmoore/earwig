@@ -1,3 +1,13 @@
+/**
+ * edit profile contoller
+ * allow the user to change the password or/and update the verification image
+ *
+ * @param {oldPassword} -string- plain old password
+ * @param {newPassword} -string- plain new password
+ * if image uploaded then store it in the DB
+ *
+ */
+
 const boom = require("boom");
 const { compare, hash } = require("bcryptjs");
 

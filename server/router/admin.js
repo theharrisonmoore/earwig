@@ -17,29 +17,71 @@ const activateOrganization = require("./../controllers/admin/activateOrganizatio
 
 const { getAllTrades, deleteTradeController } = require("../controllers/admin/trades");
 
-router.get("/users", getAllUsers);
+// get all workers info
+router.get(
+  "/users",
+  getAllUsers,
+);
 
-router.delete("/users", validation("onlyMongoId"), deleteUser);
+// delete worker by id
+router.delete(
+  "/users",
+  validation("onlyMongoId"),
+  deleteUser,
+);
 
-router.get("/users/:id", userInfo);
+// get user info (including the verification image)
+// for awaiting review users
+router.get(
+  "/users/:id",
+  userInfo,
+);
 
-router.patch("/users/verify", validation("onlyMongoId"), verifyUser);
+// verify user by id
+router.patch(
+  "/users/verify",
+  validation("onlyMongoId"),
+  verifyUser,
+);
 
-router.patch("/users/reject", validation("onlyMongoId"), rejectUser);
+// reject user by id
+router.patch(
+  "/users/reject",
+  validation("onlyMongoId"),
+  rejectUser,
+);
 
-router.get("/reviews", getReviews);
+// get all reviews details to be rendered for the admin
+router.get(
+  "/reviews",
+  getReviews,
+);
 
 router.get("/single-review/:reviewID", getSingleReview);
 
-router.delete("/reviews", validation("onlyMongoId"), deleteReview);
+// delete specific review by id
+router.delete(
+  "/reviews",
+  validation("onlyMongoId"),
+  deleteReview,
+);
 
 router.delete("/reviews/delete-answer/:id", deleteReviewAnswer);
 
 router.patch("/reviews/update-status", updateReview);
 
-router.get("/organizations/:category", getOrganizations);
+// get all organizations by category
+router.get(
+  "/organizations/:category",
+  getOrganizations,
+);
 
-router.patch("/organizations", validation("activateOrganization"), activateOrganization);
+// update organization state (activate/ deactivate)
+router.patch(
+  "/organizations",
+  validation("activateOrganization"),
+  activateOrganization,
+);
 
 router.get("/trades", getAllTrades);
 

@@ -1,3 +1,8 @@
+/**
+ * delete review and it's answers
+ * @param {id} - mongoID - review id
+ */
+
 const boom = require("boom");
 const { deleteReview, deleteReviewAnswers, findById } = require("./../../database/queries/reviews");
 

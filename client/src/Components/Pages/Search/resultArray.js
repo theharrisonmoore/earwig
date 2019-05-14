@@ -1,3 +1,5 @@
+// for testing of the autosuggest component
+
 export const resultArray = [
   {
     _id: "5cb1dc0a961c57c777cf8c39",
