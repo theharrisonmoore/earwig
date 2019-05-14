@@ -35,7 +35,7 @@ class App extends Component {
   updateWindowDimensions() {
     this.setState({
       isMobile: isMobile(window.innerWidth),
-      isTablet: isTablet(window.innerWidth),
+      isTablet: isTablet(window.innerWidth)
     });
   }
 
