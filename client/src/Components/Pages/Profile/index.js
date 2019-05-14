@@ -200,8 +200,6 @@ export default class Profile extends Component {
 
     const { category, name } = summary;
 
-    this.getCarCost();
-
     return (
       <Wrapper isMobile={isMobile}>
         <Banner category={category}>

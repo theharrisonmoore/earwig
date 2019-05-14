@@ -55,22 +55,19 @@ export default class ListAnswer extends Component {
     } else {
       return (
         <ListWrapper>
-          <ListComment>
-            {" "}
-            {question.answers.map((answer, index) => (
-              <ListItem
-                color={
-                  question.question.profileText ===
-                  "Works with the following agencies"
-                    ? "agency"
-                    : question.question.category
-                }
-                key={index}
-              >
-                {answer.answer}
-              </ListItem>
-            ))}
-          </ListComment>
+          {question.answers.map((answer, index) => (
+            <ListItem
+              color={
+                question.question.profileText ===
+                "Works with the following agencies"
+                  ? "agency"
+                  : question.question.category
+              }
+              key={index}
+            >
+              {answer.answer}
+            </ListItem>
+          ))}
         </ListWrapper>
       );
     }
