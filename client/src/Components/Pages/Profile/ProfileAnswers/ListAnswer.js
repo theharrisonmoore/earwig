@@ -22,7 +22,6 @@ export default class ListAnswer extends Component {
     const { question, toggleComments } = this.props;
 
     if (question.question.profileText === "Payroll charge") {
-      console.log("reached");
       return (
         <ListWrapper>
           <ListComment>
