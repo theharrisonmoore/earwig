@@ -1,6 +1,21 @@
 # earwig
 earwig is a reviews platform for construction workers. It shows which agencies and workplaces can be trusted.
 
+## Tech Stack
+Some of the tech stack we've used: 
+
+| Core | Testing/Other | Other |
+| - | -------- | -------- |
+|Node|jest|babel
+|Express|supertest| 
+|React|eslint|axios
+|MongoDB|react-testing-library|serve-favicon|
+|HTML|nodemon|env2|
+|CSS|travis|react-select|
+|Styled-Components|codecov|bcryptjs|
+|ChartJS|prettier|concurrently
+|Firestore|sweetalert||
+
 ## Getting Started
 How to get a copy of the project up and running on your local machine.
 
