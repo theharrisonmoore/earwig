@@ -22,8 +22,11 @@ module.exports.addCommentOnOverallReview = (id, data) => Review.findByIdAndUpdat
     "overallReview.replies": data,
   },
 });
+
+// used in admin panel to change isVerified status of review
 module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate({ _id: id }, { isVerified: bool }, { new: true });
 
+// used in admin panel to delete an answer of a review
 module.exports.deleteAnswer = id => Answer.deleteOne({ _id: id });
 
 module.exports.deleteReviewAnswers = id => Answer.deleteMany({ review: id });
@@ -62,7 +65,6 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
     {
       $unwind: { path: "$reviews", preserveNullAndEmptyArrays: true },
     },
-
 
     // {
     //   $project: {

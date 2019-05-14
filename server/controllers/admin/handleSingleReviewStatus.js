@@ -1,3 +1,5 @@
+// updates isVerified status of review
+
 const boom = require("boom");
 const { approveRejectReview } = require("./../../database/queries/reviews");
 
