@@ -79,7 +79,7 @@ export const ListItem = styled.p`
 
 export const PayrollItem = styled(ListItem)`
   width: 100%;
-`
+`;
 
 export const ListComment = styled.div`
   display: flex;
@@ -119,6 +119,8 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   overflow: auto;
+  backface-visibility: hidden;
+  z-index: 1000;
 `;
 
 export const CommentsDiv = styled.div`

@@ -88,28 +88,28 @@ export default class OverallReview extends Component {
                 >
                   Helpful
                 </ActionsButton>
-                <ActionsButton
-                  type="primary"
-                  bgcolor={
-                    verified
-                      ? organizations[category].primary
-                      : organizations[category].secondary
-                  }
-                  disabled={!verified}
+                <Link
+                  to={{
+                    pathname: REPLY_URL,
+                    state: {
+                      reviewId: review._id,
+                      target: "overall",
+                      category
+                    }
+                  }}
                 >
-                  <Link
-                    to={{
-                      pathname: REPLY_URL,
-                      state: {
-                        reviewId: review._id,
-                        target: "overall",
-                        category
-                      }
-                    }}
+                  <ActionsButton
+                    type="primary"
+                    bgcolor={
+                      verified
+                        ? organizations[category].primary
+                        : organizations[category].secondary
+                    }
+                    disabled={!verified}
                   >
                     Reply
-                  </Link>
-                </ActionsButton>
+                  </ActionsButton>
+                </Link>
               </ButtonsWrapper>
               <Link
                 style={{ right: 0, width: "10%" }}
