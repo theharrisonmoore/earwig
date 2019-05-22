@@ -47,6 +47,31 @@ export const MenuItem = styled(NavLink)`
   }
 `;
 
+export const LogoutButton = styled.div`
+  display: flex;
+  text-decoration: none;
+  border-bottom: ${colors.lightGray} 1px solid;
+  color: ${props =>
+    props.activeClassName === "active"
+      ? colors.green
+      : colors.profileFontColor};
+  padding: 0.5rem;
+  transition: all ease-in 0.2s;
+  height: 4.5rem;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+
+  .menuIcon {
+    margin-right: 1rem;
+  }
+
+  :hover {
+    color: ${colors.green};
+    text-decoration: none;
+  }
+`;
+
 export const MenuIcon = styled(Icon)`
   margin-right: 1rem;
 `;

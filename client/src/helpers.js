@@ -80,9 +80,11 @@ export const authorization = ({
   return userLevel >= minimumLevelValue;
 };
 
-export const handleLogout = () => {
+export const handleLogout = (history, handleChangeState) => {
   axios.get(API_LOGOUT_URL).then(() => {
-    window.location = LOGIN_URL;
+    // window.location = LOGIN_URL;
+    handleChangeState({ isLoggedIn: false });
+    history.push(LOGIN_URL);
   });
 };
 
