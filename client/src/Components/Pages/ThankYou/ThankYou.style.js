@@ -122,8 +122,8 @@ export const SharePromo = styled.div`
   width: 100%;
   height: 3.5rem;
   border-radius: 6px;
-  background-color: ${props => organizations[props.orgType].primary};
-  color: ${colors.white};
+  color: ${colors.profileFontColor};
+  /* background-color: ${props => organizations[props.orgType].primary}; */
   margin-bottom: 2.5rem;
   font-size: 1.25rem;
   font-weight: 700;
