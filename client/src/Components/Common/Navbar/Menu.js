@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 
 import { handleLogout, authorization } from "./../../../helpers";
 
-import { Wrapper, MenuItem, MenuIcon } from "./Menu.style.js";
+import { Wrapper, MenuItem, MenuIcon, LogoutButton } from "./Menu.style.js";
 import { Icon as AdminIcon } from "antd";
 
 import {
@@ -24,7 +24,9 @@ export default class Menu extends PureComponent {
       toggleMenu,
       isAdmin,
       awaitingReview,
-      verified
+      verified,
+      history,
+      handleChangeState
     } = this.props;
     const data = {
       isAdmin,
@@ -35,12 +37,10 @@ export default class Menu extends PureComponent {
 
     return (
       <Wrapper isMobile={isMobile}>
-        
-          <MenuItem to={SEARCH_URL} onClick={toggleMenu}>
-            <MenuIcon icon="search" height="19" width="19" />
-            Search
-          </MenuItem>
-        
+        <MenuItem to={SEARCH_URL} onClick={toggleMenu}>
+          <MenuIcon icon="search" height="19" width="19" />
+          Search
+        </MenuItem>
 
         {authorization({ ...data, minimumLevel: "ADMIN" }) && (
           <MenuItem to={ADMIN} onClick={toggleMenu}>
@@ -76,15 +76,17 @@ export default class Menu extends PureComponent {
             Shape earwig
           </MenuItem>
         )}
-          <MenuItem to={PRIVACY_URL} onClick={toggleMenu}>
-            <MenuIcon icon="privacyTerms" height="19" width="19" />
-            Privacy & terms
-          </MenuItem>
+        <MenuItem to={PRIVACY_URL} onClick={toggleMenu}>
+          <MenuIcon icon="privacyTerms" height="19" width="19" />
+          Privacy & terms
+        </MenuItem>
         {isLoggedIn ? (
-          <MenuItem to=" " onClick={handleLogout}>
+          <LogoutButton
+            onClick={() => handleLogout(history, handleChangeState)}
+          >
             <MenuIcon icon="logoutLogin" height="19" width="19" />
             Log out
-          </MenuItem>
+          </LogoutButton>
         ) : (
           <MenuItem to={LOGIN_URL} onClick={toggleMenu}>
             <MenuIcon icon="logoutLogin" height="19" width="19" />

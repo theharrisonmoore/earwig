@@ -52,7 +52,15 @@ export default class Navbar extends Component {
   };
 
   render() {
-    const { title, isMobile, search, isLoggedIn, isAdmin } = this.props;
+    const {
+      title,
+      isMobile,
+      search,
+      isLoggedIn,
+      isAdmin,
+      history,
+      handleChangeState
+    } = this.props;
     const { menuOpen, isLoading, data } = this.state;
     if (!isLoading) return null;
 
@@ -100,6 +108,8 @@ export default class Navbar extends Component {
                 isLoggedIn={isLoggedIn}
                 toggleMenu={this.toggleMenu}
                 isAdmin={isAdmin}
+                history={history}
+                handleChangeState={handleChangeState}
               />
             </>
           ) : (
@@ -138,6 +148,8 @@ export default class Navbar extends Component {
                 isLoggedIn={isLoggedIn}
                 toggleMenu={this.toggleMenu}
                 isAdmin={isAdmin}
+                history={history}
+                handleChangeState={handleChangeState}
               />
             </>
           ) : (

@@ -53,6 +53,7 @@ export default class SideMenu extends Component {
 
   render() {
     const { pathname } = this.props.location;
+    const { handleChangeState, history } = this.props;
     return (
       <SideMenuWrapper style={{ height: "100%" }}>
         <Button
@@ -109,7 +110,10 @@ export default class SideMenu extends Component {
               </Menu.Item>
             )
           )}
-          <Menu.Item style={{ textAlign: "left" }} onClick={handleLogout}>
+          <Menu.Item
+            style={{ textAlign: "left" }}
+            onClick={() => handleLogout(history, handleChangeState)}
+          >
             <Icon type="logout" />
             <span>Log out</span>
           </Menu.Item>
