@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { colors, shadows } from "./../../../theme";
+import Icon from "./../../Common/Icon/Icon";
 
 export const UploadImageWrapper = styled.div`
   width: 100%;
@@ -8,6 +9,13 @@ export const UploadImageWrapper = styled.div`
   margin: 0 auto;
   padding: 0 1rem;
   padding-top: 3rem;
+`;
+export const EditIcon = styled(Icon)`
+  width: 15vw;
+  height: 15vw;
+  max-width: 62rem;
+  max-height: 62rem;
+  margin-bottom: 1rem;
 `;
 
 export const ContentWrapper = styled.div`
@@ -34,14 +42,6 @@ export const SubHeading = styled.h2`
   color: ${colors.mineShaft2};
   text-align: left;
   margin-bottom: 0;
-`;
-
-export const CardIcon = styled.img`
-  width: 15vw;
-  height: 15vw;
-  max-width: 62rem;
-  max-height: 62rem;
-  margin-bottom: 1rem;
 `;
 
 export const Example = styled.img`
@@ -94,7 +94,7 @@ export const Link = styled.a`
   color: ${colors.profileFontColor};
 
   :hover {
-    color: ${colors.red}
+    color: ${colors.red};
   }
 `;
 
