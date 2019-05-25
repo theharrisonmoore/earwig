@@ -141,7 +141,7 @@ export default class Signup extends Component {
                   component={CustomCheckbox}
                 />
                 <CheckboxLabel htmlFor="checkbox">
-                  I agree to the earwig
+                  I agree to the earwig{" "}
                   <LinkSpan to="T&C">Terms of Use.</LinkSpan>
                 </CheckboxLabel>
                 <FormikErrorMessage name="checkbox" component="div" />
