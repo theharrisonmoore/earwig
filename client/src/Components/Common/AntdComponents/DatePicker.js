@@ -39,7 +39,7 @@ class DateRange extends React.Component {
     this.onChange("startValue", value);
     this.props.setFieldValue(
       "review.workPeriod.from",
-      value.format("YYYY-MM-DD")
+      value && value.format("YYYY-MM-DD")
     );
   };
 
@@ -47,7 +47,7 @@ class DateRange extends React.Component {
     this.onChange("endValue", value);
     this.props.setFieldValue(
       "review.workPeriod.to",
-      value.format("YYYY-MM-DD")
+      value && value.format("YYYY-MM-DD")
     );
   };
 
