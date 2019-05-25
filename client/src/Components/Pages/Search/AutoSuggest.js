@@ -30,7 +30,7 @@ import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
 // UI helper functions
 import { SVGCreator, StarRateCreator } from "../../../helpers";
 
-import { organizationIcons } from "./../../../theme";
+import { organizationIcons, organizations } from "./../../../theme";
 
 // functions
 
@@ -124,7 +124,9 @@ class AutosuggestComponent extends Component {
               />
             </SymbolDiv>
             <OrganisationDetailsDiv>
-              <h3>{suggestion.name}</h3>
+              <h3 style={{ color: organizations[suggestion.category].primary }}>
+                {suggestion.name}
+              </h3>
               <ReviewDetailsDiv>
                 {StarRateCreator(suggestion)}
                 <p>{suggestion.totalReviews} reviews</p>

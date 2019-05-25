@@ -73,7 +73,9 @@ export default class Search extends Component {
             />
           </SymbolDiv>
           <OrganisationDetailsDiv>
-            <h3>{org.name}</h3>
+            <h3 style={{ color: organizations[org.category].primary }}>
+              {org.name}
+            </h3>
             <ReviewDetailsDiv>
               {StarRateCreator(org)}
               <p>{org.totalReviews} reviews</p>
