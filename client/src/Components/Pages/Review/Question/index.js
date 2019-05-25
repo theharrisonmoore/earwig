@@ -91,7 +91,7 @@ const Question = props => {
 };
 
 class QuestionOptions extends React.Component {
-  state = { checkedList: [], clicked: false };
+  state = { checkedList: [], clicked: false, rate: 3, hoverRate: undefined };
 
   getStyle = () => {
     if (this.state.clicked) {
@@ -105,11 +105,22 @@ class QuestionOptions extends React.Component {
     }
   };
 
+  setRateValue = value => {
+    this.setState({ rate: value });
+    this.props.setFieldValue("review.rate", value);
+  };
+
+  handleHoverRate = value => {
+    this.setState({ hoverRate: value });
+  };
+
   render() {
     const { props } = this;
     if (!props && !props.options) {
       return null;
     }
+
+    const { rate, hoverRate } = this.state;
     const {
       type,
       options,
@@ -122,6 +133,9 @@ class QuestionOptions extends React.Component {
       showNextQestion,
       setFieldValue
     } = props;
+
+    const rateValue = hoverRate || rate;
+
     if (type === "yesno" || type === "radio") {
       return (
         <QuestionOptionsWrapper>
@@ -463,15 +477,46 @@ class QuestionOptions extends React.Component {
         <QuestionOptionsWrapper>
           <Field name="review.rate">
             {({ field, form }) => (
-              <Rate
-                {...field}
-                tooltips={options}
-                onChange={value => props.setFieldValue("review.rate", value)}
-                style={{
-                  color: `${organizations[category].primary}`,
-                  fontSize: `${isMobile(window.innerWidth) ? "2rem" : "3rem"}`
-                }}
-              />
+              <>
+                <Rate
+                  disabled
+                  {...field}
+                  tooltips={options}
+                  onChange={value => this.setRateValue(value)}
+                  style={{
+                    color: `${organizations[category].primary}`,
+                    fontSize: `${isMobile(window.innerWidth) ? "2rem" : "3rem"}`
+                  }}
+                  onHoverChange={this.handleHoverRate}
+                />
+                <div style={{ dispay: "inline-block" }}>
+                  {options.map((option, index) => (
+                    <span
+                      style={{
+                        color: `${
+                          index < rateValue
+                            ? organizations[category].primary
+                            : "#e8e8e8"
+                        }`,
+                        fontWeight: `${
+                          index === rateValue - 1 ? "900" : "500"
+                        }`,
+                        fontSize: `${
+                          isMobile(window.innerWidth) ? "0.6rem" : "0.7rem"
+                        }`,
+                        width: `${
+                          isMobile(window.innerWidth) ? "32px" : "48px"
+                        }`,
+                        display: "inline-block",
+                        textAlign: "center",
+                        marginRight: "8px"
+                      }}
+                    >
+                      {option}
+                    </span>
+                  ))}
+                </div>
+              </>
             )}
           </Field>
         </QuestionOptionsWrapper>

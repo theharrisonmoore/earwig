@@ -1,13 +1,13 @@
 import React, { Component } from "react";
+import { Rate } from "antd";
 
-import { StarRateCreator } from "./../../../helpers";
+import { organizations } from "./../../../theme";
 
 import {
   Wrapper,
   SectionTitle,
   QuestionWrapper,
   QuestionTitle,
-  StarWrapper,
   CategoryTitle
 } from "./ReviewSection.style";
 
@@ -76,7 +76,42 @@ export default class ReviewSection extends Component {
             <QuestionTitle>
               <CategoryTitle>{category}</CategoryTitle> overall rating
             </QuestionTitle>
-            <StarWrapper>{StarRateCreator(summary)}</StarWrapper>
+            <>
+              <Rate
+                disabled
+                tooltips={["Bad", "Poor", "Average", "Great", "Excellent"]}
+                value={summary.avgRatings || summary.value}
+                style={{
+                  color: `${organizations[summary.category].primary}`,
+                  fontSize: `${isMobile ? "2rem" : "3rem"}`
+                }}
+              />
+              <div style={{ dispay: "inline-block" }}>
+                {["Bad", "Poor", "Average", "Great", "Excellent"].map(
+                  (option, index) => (
+                    <span
+                      style={{
+                        color: `${
+                          index === summary.avgRatings - 1
+                            ? organizations[summary.category].primary
+                            : "#e8e8e8"
+                        }`,
+                        fontWeight: `${
+                          index === summary.avgRatings - 1 ? "900" : "500"
+                        }`,
+                        fontSize: `${isMobile ? "0.6rem" : "0.7rem"}`,
+                        width: `${isMobile ? "32px" : "48px"}`,
+                        display: "inline-block",
+                        textAlign: "center",
+                        marginRight: "8px"
+                      }}
+                    >
+                      {option}
+                    </span>
+                  )
+                )}
+              </div>
+            </>
           </QuestionWrapper>
         )}
 
