@@ -30,7 +30,7 @@ import {
 import { StyledErrorMessage } from "../Review/Question/Question.style";
 
 import Question from "../Review/Question/index";
-import clockShort from "./../../../assets/clock-short-icon.svg";
+import clockShort from "./../../../assets/clock-short-icon.png";
 
 import { validationSchemaShort } from "../Review/validationSchema";
 
@@ -106,8 +106,11 @@ class Review extends Component {
 
     const initialValues = {
       review: {
-        workPeriod: {},
-        rate: 3,
+        workPeriod: {
+          from: "",
+          to: ""
+        },
+        rate: 0,
         overallReview: ""
         // voiceReview: ""
       },

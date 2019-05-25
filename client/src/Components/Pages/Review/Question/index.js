@@ -474,6 +474,11 @@ class QuestionOptions extends React.Component {
               />
             )}
           </Field>
+          <ErrorMessage name="review.rate">
+            {msg => {
+              return <StyledErrorMessage>{msg}</StyledErrorMessage>;
+            }}
+          </ErrorMessage>
         </QuestionOptionsWrapper>
       );
     }

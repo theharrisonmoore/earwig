@@ -222,12 +222,11 @@ class Review extends Component {
           from: "",
           to: ""
         },
-        rate: 3,
+        rate: 0,
         overallReview: ""
         // voiceReview: ""
       },
-      hasAgreed: false,
-      worksiteImage: ""
+      hasAgreed: false
     };
 
     if (!this.state && !this.state.groups[0]) {
