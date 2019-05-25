@@ -10,7 +10,6 @@ export const ReviewWrapper = styled.div`
     max-width: 40rem;
     margin: 0 auto;
     padding-top: 10rem;
-    
 
     h2 {
       color: ${colors.profileFontColor};
@@ -25,11 +24,12 @@ export const HeaderPhone = styled.section`
   color: ${colors.white};
   font-size: 1.25rem;
   font-weight: 400;
-  padding: 1rem 2rem;
+  padding: 0.5rem 2rem;
   padding-left: 3rem;
   overflow: hidden;
   position: fixed;
   z-index: 100;
+  max-height: 6.5rem;
 
   @media (max-width: ${size.mobileL}) {
     font-size: 1rem;
