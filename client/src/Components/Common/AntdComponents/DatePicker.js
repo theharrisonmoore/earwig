@@ -1,5 +1,6 @@
 import React from "react";
 import { DatePicker } from "antd";
+import moment from "moment";
 
 class DateRange extends React.Component {
   state = {
@@ -10,8 +11,9 @@ class DateRange extends React.Component {
 
   disabledStartDate = startValue => {
     const endValue = this.state.endValue;
+
     if (!startValue || !endValue) {
-      return false;
+      return startValue.valueOf() > moment().valueOf();
     }
     return startValue.valueOf() > endValue.valueOf();
   };
@@ -19,9 +21,12 @@ class DateRange extends React.Component {
   disabledEndDate = endValue => {
     const startValue = this.state.startValue;
     if (!endValue || !startValue) {
-      return false;
+      return endValue.valueOf() > moment().valueOf();
     }
-    return endValue.valueOf() <= startValue.valueOf();
+    return (
+      endValue.valueOf() <= startValue.valueOf() ||
+      endValue.valueOf() > moment().valueOf()
+    );
   };
 
   onChange = (field, value) => {
