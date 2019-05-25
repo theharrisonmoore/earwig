@@ -191,7 +191,7 @@ export default class Search extends Component {
         {showOtherSections && (
           <FlexContainer>
             <HeadlineDiv>
-              <p>Or find out what's happening at...</p>
+              <p>Most recent reviews:</p>
             </HeadlineDiv>
             <ReviewsContainer>
               {data
