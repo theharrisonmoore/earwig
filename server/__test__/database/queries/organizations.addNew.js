@@ -20,10 +20,10 @@ describe("test to addNew organization query", () => {
       done();
     });
   });
+
   test("Test it allows duplicates", (done) => {
-    addNew({ name: "Cardiff University", category: "agency" }).then((company) => {
-      expect(company).toBeDefined();
-      expect(company.name).toBe("Cardiff University");
+    addNew({ name: "Cardiff University", category: "agency" }).catch((err) => {
+      expect(err).toBeDefined();
       done();
     });
   });

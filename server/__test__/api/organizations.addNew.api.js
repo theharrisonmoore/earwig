@@ -71,7 +71,7 @@ describe("Tesing for get add organisation route", () => {
           .send(dataInvalid)
           .set("Cookie", [token])
           .expect("Content-Type", /json/)
-          .expect(400)
+          .expect(409)
           .end((err, res) => {
             expect(res).toBeDefined();
             expect(res.error).toBeDefined();
