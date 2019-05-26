@@ -5,12 +5,6 @@ export const STATIC_QUESTIONS = [
     type: "dateRange"
   },
   {
-    number: 19,
-    text: "How would you rate this agency?",
-    type: "rate",
-    options: ["Bad", "Poor", "Average", "Great", "Excellent"]
-  },
-  {
     number: 20,
     text: "If you’d like to write an overall review, go ahead here",
     type: "overallReview",

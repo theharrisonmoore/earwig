@@ -51,6 +51,8 @@ const {
   API_POST_REVIEW_URL
 } = require("../../../apiUrls");
 
+let rateQ = {};
+
 class Review extends Component {
   state = {
     isLoading: true,
@@ -66,6 +68,18 @@ class Review extends Component {
     const { email } = this.props;
     const { category, name, needsVerification } = this.props.location.state;
     const { organization, user } = this.state;
+
+    // update the static questions to reflect the orgType
+    rateQ = {
+      number: 19,
+      text: "How would you rate this",
+      type: "rate",
+      options: ["Bad", "Poor", "Average", "Great", "Excellent"]
+    };
+    const text = rateQ.text;
+    const newText = `${text} ${category}?`;
+    rateQ.text = newText;
+
     organization.category = category;
     organization.name = name;
     organization.needsVerification = needsVerification || false;
@@ -350,14 +364,14 @@ class Review extends Component {
                       <Question
                         {...values}
                         handleChagne={handleChange}
-                        question={STATIC_QUESTIONS[1]}
+                        question={rateQ ? rateQ : ""}
                         setFieldValue={setFieldValue}
                         category={this.state.organization.category}
                       />
                       <Question
                         {...values}
                         handleChagne={handleChange}
-                        question={STATIC_QUESTIONS[2]}
+                        question={STATIC_QUESTIONS[1]}
                         category={this.state.organization.category}
                       />
                       {/* The voice questions in the next sprint */}
