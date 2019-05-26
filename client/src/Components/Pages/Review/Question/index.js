@@ -283,13 +283,19 @@ class QuestionOptions extends React.Component {
                   <>
                     <Select
                       showSearch
-                      placeholder={label}
+                      placeholder={this.state.placeholder || label}
                       style={{
                         border: `1px solid ${colors.dustyGray1}`
                       }}
-                      onChange={value =>
-                        form.setFieldValue(`questions[${number}]`, value)
-                      }
+                      onChange={value => {
+                        form.setFieldValue(`questions[${number}]`, value);
+                      }}
+                      onSearch={value => {
+                        if (value) {
+                          this.setState({ placeholder: value });
+                          form.setFieldValue(`questions[${number}]`, value);
+                        }
+                      }}
                       dropdownRender={menu => {
                         return (
                           <div>
@@ -297,7 +303,10 @@ class QuestionOptions extends React.Component {
                             <Divider style={{ margin: "4px 0" }} />
                             <ModalComment
                               title={`Add a new ${category}`}
-                              setFieldValue={props.setFieldValue}
+                              setFieldValue={(field, value) => {
+                                this.setState({ placeholder: value });
+                                props.setFieldValue(field, value);
+                              }}
                               number={number}
                               render={renderProps => {
                                 newOptions = [...newOptions, renderProps.text];
