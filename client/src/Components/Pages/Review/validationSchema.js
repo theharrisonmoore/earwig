@@ -1,5 +1,26 @@
 import * as Yup from "yup";
 
+const generalSectionSchema = {
+  review: Yup.object({
+    workPeriod: Yup.object({
+      from: Yup.date()
+        .typeError("Must select the work period")
+        .required("Required"),
+      to: Yup.date()
+        .typeError("Must select the work period")
+        .required("Required")
+    }),
+    rate: Yup.number()
+      .min(1, "Must pick a rate")
+      .required("Required"),
+    overallReview: Yup.string()
+    // voiceReview: Yup.mixed()
+  }),
+  hasAgreed: Yup.boolean()
+    .required("Required")
+    .oneOf([true], "Must Accept Terms and Conditions")
+};
+
 export const validationSchema = {
   agency: Yup.object({
     questions: Yup.object({
@@ -55,22 +76,7 @@ export const validationSchema = {
       17: Yup.string(),
       18: Yup.string()
     }),
-    review: Yup.object({
-      workPeriod: Yup.object({
-        from: Yup.date()
-          .typeError("Must select the work period")
-          .required("Required"),
-        to: Yup.date()
-          .typeError("Must select the work period")
-          .required("Required")
-      }),
-      rate: Yup.string().required("Required"),
-      overallReview: Yup.string(),
-      voiceReview: Yup.mixed()
-    }),
-    hasAgreed: Yup.boolean()
-      .required("Required")
-      .oneOf([true], "Must Accept Terms and Conditions")
+    ...generalSectionSchema
   }),
   payroll: Yup.object({
     questions: Yup.object({
@@ -93,22 +99,7 @@ export const validationSchema = {
       11: Yup.string(),
       12: Yup.string()
     }),
-    review: Yup.object({
-      workPeriod: Yup.object({
-        from: Yup.date()
-          .typeError("Must select the work period")
-          .required("Required"),
-        to: Yup.date()
-          .typeError("Must select the work period")
-          .required("Required")
-      }),
-      rate: Yup.string().required("Required"),
-      overallReview: Yup.string(),
-      voiceReview: Yup.mixed()
-    }),
-    hasAgreed: Yup.boolean()
-      .required("Required")
-      .oneOf([true], "Must Accept Terms and Conditions")
+    ...generalSectionSchema
   }),
   worksite: Yup.object({
     questions: Yup.object({
@@ -150,22 +141,7 @@ export const validationSchema = {
 
       18: Yup.string()
     }),
-    review: Yup.object({
-      workPeriod: Yup.object({
-        from: Yup.date()
-          .typeError("Must select the work period")
-          .required("Required"),
-        to: Yup.date()
-          .typeError("Must select the work period")
-          .required("Required")
-      }),
-      rate: Yup.number().required("Required"),
-      overallReview: Yup.string(),
-      voiceReview: Yup.mixed()
-    }),
-    hasAgreed: Yup.boolean()
-      .required("Required")
-      .oneOf([true], "Must Accept Terms and Conditions")
+    ...generalSectionSchema
   }),
   company: Yup.object({
     questions: Yup.object({
@@ -179,98 +155,19 @@ export const validationSchema = {
       8: Yup.string(),
       9: Yup.string()
     }),
-    review: Yup.object({
-      workPeriod: Yup.object({
-        from: Yup.date()
-          .typeError("Must select the work period")
-          .required("Required"),
-        to: Yup.date()
-          .typeError("Must select the work period")
-          .required("Required")
-      }),
-      rate: Yup.number().required("Required"),
-      overallReview: Yup.string(),
-      voiceReview: Yup.mixed()
-    }),
-    hasAgreed: Yup.boolean()
-      .required("Required")
-      .oneOf([true], "Must Accept Terms and Conditions")
+    ...generalSectionSchema
   })
 };
 
 /* ============================================================== */
 
+const quickReview = {
+  general: Yup.object({ ...generalSectionSchema })
+};
+
 export const validationSchemaShort = {
-  agency: Yup.object({
-    review: Yup.object({
-      workPeriod: Yup.object({
-        from: Yup.date()
-          .typeError("Must select the work period")
-          .required("Required"),
-        to: Yup.date()
-          .typeError("Must select the work period")
-          .required("Required")
-      }),
-      rate: Yup.number().required("Required"),
-      overallReview: Yup.string()
-      // voiceReview: Yup.mixed()
-    }),
-    hasAgreed: Yup.boolean()
-      .required("Required")
-      .oneOf([true], "Must Accept Terms and Conditions")
-  }),
-  payroll: Yup.object({
-    review: Yup.object({
-      workPeriod: Yup.object({
-        from: Yup.date()
-          .typeError("Must select the work period")
-          .required("Required"),
-        to: Yup.date()
-          .typeError("Must select the work period")
-          .required("Required")
-      }),
-      rate: Yup.number().required("Required"),
-      overallReview: Yup.string()
-      // voiceReview: Yup.mixed()
-    }),
-    hasAgreed: Yup.boolean()
-      .required("Required")
-      .oneOf([true], "Must Accept Terms and Conditions")
-  }),
-  worksite: Yup.object({
-    review: Yup.object({
-      workPeriod: Yup.object({
-        from: Yup.date()
-          .typeError("Must select the work period")
-          .required("Required"),
-        to: Yup.date()
-          .typeError("Must select the work period")
-          .required("Required")
-      }),
-      rate: Yup.number().required("Required"),
-      overallReview: Yup.string()
-      // voiceReview: Yup.mixed()
-    }),
-    hasAgreed: Yup.boolean()
-      .required("Required")
-      .oneOf([true], "Must Accept Terms and Conditions")
-  }),
-  company: Yup.object({
-    review: Yup.object({
-      workPeriod: Yup.object({
-        from: Yup.date()
-          .typeError("Must select the work period")
-          .required("Required"),
-        to: Yup.date()
-          .typeError("Must select the work period")
-          .required("Required")
-      }),
-      rate: Yup.number().required("Required"),
-      overallReview: Yup.string()
-      // voiceReview: Yup.mixed()
-    }),
-    hasAgreed: Yup.boolean()
-      .required("Required")
-      .oneOf([true], "Must Accept Terms and Conditions")
-  })
+  agency: quickReview.general,
+  payroll: quickReview.general,
+  worksite: quickReview.general,
+  company: quickReview.general
 };

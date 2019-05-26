@@ -163,7 +163,7 @@ export default class index extends Component {
         <Icon icon="orWhite" margin="2rem 0 2rem 0" width="280" height="58" />
         <Link to={SEARCH_URL}>Continue without an account</Link>
         {isMobile || isTablet ? (
-          <VideoWrapper>
+          <VideoWrapper style={{ marginTop: "3rem" }}>
             <Video
               src="https://www.youtube.com/embed/9eBzZOwaTpw?controls=0"
               frameborder="0"
