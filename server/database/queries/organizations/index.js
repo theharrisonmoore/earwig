@@ -4,7 +4,11 @@ const { addNew, findByName } = require("./addOrganization");
 
 module.exports.getOrgsByCategory = getOrgsByCategory;
 
-module.exports.deleteOrganization = id => Organization.deleteOne({ _id: id });
+module.exports.deleteOrganization = async (name) => {
+  console.log(name);
+  const deletedOrg = await Organization.deleteOne({ name });
+  return deletedOrg;
+};
 
 module.exports.getOrganizationById = id => Organization.findById(id);
 

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 import { SEARCH_URL } from "../../../constants/naviagationUrls";
 // styles
@@ -16,6 +17,13 @@ import {
 import GiveReview from "../../Common/GiveReview";
 
 export default class AddProfileReviewStart extends Component {
+  deleteOrg = name => {
+    axios
+      .delete(`/api/delete-organization/${name}`)
+      .then(() => this.props.history.push("/search"))
+      .catch(err => console.log(err));
+  };
+
   render() {
     const { name, category } = this.props.location.state;
     const { isTablet, isMobile } = this.props;
@@ -42,11 +50,13 @@ export default class AddProfileReviewStart extends Component {
               }}
             />
           </div>
-          <ProfileLink to={SEARCH_URL}>
-            <FooterDiv>
-              <H3>Cancel and return to Search</H3>
-            </FooterDiv>
-          </ProfileLink>
+          {/* <ProfileLink to={SEARCH_URL}> */}
+          <FooterDiv>
+            <button onClick={() => this.deleteOrg(name)}>
+              Cancel and return to Search
+            </button>
+          </FooterDiv>
+          {/* </ProfileLink> */}
         </MainDiv>
       </AddWrapper>
     );

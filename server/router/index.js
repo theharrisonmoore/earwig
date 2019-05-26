@@ -159,7 +159,7 @@ router.post(
   addOrganizationController,
 );
 
-router.delete("/delete-organization", authentication, deleteOrgController);
+router.delete("/delete-organization/:id", authentication, deleteOrgController);
 
 // confirm adding the user mail to the mail list
 router.use(CONFIRM_EMAIL, validation("onlyMongoId"), confirmJoiningEmailList);

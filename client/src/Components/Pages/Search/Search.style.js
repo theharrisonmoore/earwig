@@ -336,3 +336,9 @@ export const AddWrapper = styled.div`
   align-items: center;
   padding-top: 4rem;
 `;
+
+export const CancelBtn = styled.button`
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  font-weight: 900;
+`;
