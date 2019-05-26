@@ -105,6 +105,10 @@ class QuestionOptions extends React.Component {
     }
   };
 
+  addOrgType = category => {
+    return category === "agency" ? "payroll" : "agency";
+  };
+
   render() {
     const { props } = this;
     if (!props && !props.options) {
@@ -282,7 +286,7 @@ class QuestionOptions extends React.Component {
                             {menu}
                             <Divider style={{ margin: "4px 0" }} />
                             <ModalComment
-                              title={`Add a new ${category}`}
+                              title={`Add a new ${this.addOrgType(category)}`}
                               setFieldValue={props.setFieldValue}
                               number={number}
                               render={renderProps => {

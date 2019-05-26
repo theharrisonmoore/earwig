@@ -103,7 +103,7 @@ export default class ThankYou extends Component {
             </TelegramShare>
           </IconWrapper>
           <SharePromo orgType={orgType}>
-            Share privately with friends
+            Click one of the icons above to share privately with your friends
           </SharePromo>
           <StyledLink to="search" orgType={orgType}>
             Now review an {otherOrgs[0]}, {otherOrgs[1]} or {otherOrgs[2]}
