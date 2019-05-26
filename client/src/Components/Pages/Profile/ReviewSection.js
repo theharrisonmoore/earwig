@@ -92,12 +92,14 @@ export default class ReviewSection extends Component {
                     <span
                       style={{
                         color: `${
-                          index === summary.avgRatings - 1
+                          index === Math.floor(summary.avgRatings) - 1
                             ? organizations[summary.category].primary
                             : "#e8e8e8"
                         }`,
                         fontWeight: `${
-                          index === summary.avgRatings - 1 ? "900" : "500"
+                          index === Math.floor(summary.avgRatings) - 1
+                            ? "900"
+                            : "500"
                         }`,
                         fontSize: `${isMobile ? "0.6rem" : "0.7rem"}`,
                         width: `${isMobile ? "32px" : "48px"}`,

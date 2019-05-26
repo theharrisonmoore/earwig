@@ -479,7 +479,6 @@ class QuestionOptions extends React.Component {
             {({ field, form }) => (
               <>
                 <Rate
-                  disabled
                   {...field}
                   tooltips={options}
                   onChange={value => this.setRateValue(value)}
