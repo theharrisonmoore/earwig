@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   position: fixed;
   height: ${props => props.height};
   border-bottom: 1px solid ${colors.lightGray};
-  padding: 0.5rem;
+  padding: 0.5rem 1.25rem;
   justify-content: space-between;
   width: 100%;
   align-items: center;
