@@ -10,7 +10,6 @@ export const ReviewWrapper = styled.div`
     max-width: 40rem;
     margin: 0 auto;
     padding-top: 10rem;
-    
 
     h2 {
       color: ${colors.profileFontColor};
@@ -191,6 +190,7 @@ export const SubmitButton = styled.button`
   padding: 1rem 3rem;
   display: block;
   margin: 2rem auto 3rem;
+  height: auto;
 `;
 
 export const ButtonDiv = styled.div`

@@ -5,6 +5,8 @@ import { Checkbox, message } from "antd";
 import Swal from "sweetalert2";
 import Loading from "./../../Common/AntdComponents/Loading";
 
+import { Spin, Icon } from "antd";
+
 import {
   ReviewWrapper,
   SubmitButton,
@@ -38,6 +40,11 @@ import { STATIC_QUESTIONS } from "./staticQuestions";
 
 import { THANKYOU_URL } from "../../../constants/naviagationUrls";
 import { NewSVGCreator, questionsNumber, isMobile } from "../../../helpers";
+
+// antd spinner for the submit button
+const antIcon = (
+  <Icon type="loading" style={{ fontSize: 24, color: "white" }} spin />
+);
 
 const {
   API_GET_QUESTIONS_URL,
@@ -386,9 +393,16 @@ class Review extends Component {
                     </UserAgreement>
                     <SubmitButton
                       type="submit"
+                      size="large"
                       disabled={isSubmitting}
                       orgType={category}
                     >
+                      {isSubmitting && (
+                        <Spin
+                          indicator={antIcon}
+                          style={{ marginRight: ".5rem" }}
+                        />
+                      )}
                       Submit your review
                     </SubmitButton>
                   </Form>
