@@ -1,13 +1,13 @@
 import React, { Component } from "react";
+import { Rate } from "antd";
 
-import { StarRateCreator } from "./../../../helpers";
+import { organizations } from "./../../../theme";
 
 import {
   Wrapper,
   SectionTitle,
   QuestionWrapper,
   QuestionTitle,
-  StarWrapper,
   CategoryTitle
 } from "./ReviewSection.style";
 
@@ -22,13 +22,22 @@ import PayrollAnswer from "./ProfileAnswers/PayrollAnswer";
 import ImageSlider from "./ProfileAnswers/ImageSlider";
 
 export default class ReviewSection extends Component {
+  onlyNeutralAnswers = answers => {
+    const yesOrNo = answers.filter(
+      answer => answer.answer === "Yes" || answer.answer === "No"
+    );
+
+    return yesOrNo.length === 0;
+  };
+
   render() {
     const {
       sectionDetails,
       category,
       toggleComments,
       summary,
-      isMobile
+      isMobile,
+      carParkingPrice
     } = this.props;
 
     const { _id: sectionTitle, questions } = sectionDetails;
@@ -41,6 +50,11 @@ export default class ReviewSection extends Component {
 
     if (!canteenQuestions || canteenQuestions.length < 1)
       canteenQuestions = false;
+
+    // if (canteenQuestions && canteenQuestions.length === 1) {
+    //   const onlyNeutral = this.onlyNeutralAnswers(canteenQuestions[0].answers);
+    //   canteenQuestions = !onlyNeutral;
+    // }
 
     let payrollQuestions =
       questions &&
@@ -62,7 +76,44 @@ export default class ReviewSection extends Component {
             <QuestionTitle>
               <CategoryTitle>{category}</CategoryTitle> overall rating
             </QuestionTitle>
-            <StarWrapper>{StarRateCreator(summary)}</StarWrapper>
+            <>
+              <Rate
+                disabled
+                tooltips={["Bad", "Poor", "Average", "Great", "Excellent"]}
+                value={summary.avgRatings || summary.value}
+                style={{
+                  color: `${organizations[summary.category].primary}`,
+                  fontSize: `${isMobile ? "2rem" : "3rem"}`
+                }}
+              />
+              <div style={{ dispay: "inline-block" }}>
+                {["Bad", "Poor", "Average", "Great", "Excellent"].map(
+                  (option, index) => (
+                    <span
+                      style={{
+                        color: `${
+                          index === Math.floor(summary.avgRatings) - 1
+                            ? organizations[summary.category].primary
+                            : "#e8e8e8"
+                        }`,
+                        fontWeight: `${
+                          index === Math.floor(summary.avgRatings) - 1
+                            ? "900"
+                            : "500"
+                        }`,
+                        fontSize: `${isMobile ? "0.6rem" : "0.7rem"}`,
+                        width: `${isMobile ? "32px" : "48px"}`,
+                        display: "inline-block",
+                        textAlign: "center",
+                        marginRight: "8px"
+                      }}
+                    >
+                      {option}
+                    </span>
+                  )
+                )}
+              </div>
+            </>
           </QuestionWrapper>
         )}
 
@@ -72,7 +123,10 @@ export default class ReviewSection extends Component {
               ["yesno", "pieChart", "dotChart"].includes(
                 question.question.profileType
               ) && (
-                <QuestionWrapper key={index}>
+                <QuestionWrapper
+                  key={index}
+                  hide={this.onlyNeutralAnswers(question.answers)}
+                >
                   <QuestionTitle>{question.question.profileText}</QuestionTitle>
                   {question.question.profileType === "yesno" && (
                     <YesNoAnswer
@@ -107,19 +161,24 @@ export default class ReviewSection extends Component {
               return question.question.profileType === "siteItem";
             })
             .map((question, index) => (
-              <QuestionWrapper key={index}>
+              <QuestionWrapper
+                key={index}
+                hide={this.onlyNeutralAnswers(question.answers)}
+              >
                 <SiteItemAnswer
                   category={category}
                   question={question}
                   toggleComments={toggleComments}
                   profileType={question.question.profileType}
                   isMobile={isMobile}
+                  carParkingPrice={carParkingPrice}
                 />
               </QuestionWrapper>
             ))}
         {/* CANTEEN SECTION */}
         {canteenQuestions && (
           <QuestionWrapper>
+            {/* {console.log(canteenQuestions)} */}
             <CanteenItemAnswer
               questions={canteenQuestions}
               toggleComments={toggleComments}

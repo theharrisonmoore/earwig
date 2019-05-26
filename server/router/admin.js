@@ -14,6 +14,7 @@ const updateReview = require("./../controllers/admin/handleSingleReviewStatus");
 const getSingleReview = require("./../controllers/admin/getSingleReview");
 const getOrganizations = require("./../controllers/admin/getOrganizations");
 const activateOrganization = require("./../controllers/admin/activateOrganization");
+const getImageLink = require("./../controllers/admin/getImageLink");
 
 const { getAllTrades, deleteTradeController } = require("../controllers/admin/trades");
 
@@ -86,5 +87,8 @@ router.patch(
 router.get("/trades", getAllTrades);
 
 router.delete("/trades/:id", deleteTradeController);
+
+// get image url
+router.get("/images/:name", getImageLink);
 
 module.exports = router;

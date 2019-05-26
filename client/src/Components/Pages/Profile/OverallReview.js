@@ -22,7 +22,9 @@ import {
   StyledAntIcon,
   ActionsDiv,
   ButtonsWrapper,
-  ActionsButton
+  ActionsButton,
+  VerifyPromo,
+  VerifyLink
 } from "./Profile.style";
 
 import { SectionTitle } from "./ReviewSection.style";
@@ -53,7 +55,8 @@ export default class OverallReview extends Component {
       category,
       overallReplies,
       activeOverallId,
-      verified
+      verified,
+      level
     } = this.props;
     const { activeReview } = this.state;
 
@@ -85,28 +88,28 @@ export default class OverallReview extends Component {
                 >
                   Helpful
                 </ActionsButton>
-                <ActionsButton
-                  type="primary"
-                  bgcolor={
-                    verified
-                      ? organizations[category].primary
-                      : organizations[category].secondary
-                  }
-                  disabled={!verified}
+                <Link
+                  to={{
+                    pathname: REPLY_URL,
+                    state: {
+                      reviewId: review._id,
+                      target: "overall",
+                      category
+                    }
+                  }}
                 >
-                  <Link
-                    to={{
-                      pathname: REPLY_URL,
-                      state: {
-                        reviewId: review._id,
-                        target: "overall",
-                        category
-                      }
-                    }}
+                  <ActionsButton
+                    type="primary"
+                    bgcolor={
+                      verified
+                        ? organizations[category].primary
+                        : organizations[category].secondary
+                    }
+                    disabled={!verified}
                   >
                     Reply
-                  </Link>
-                </ActionsButton>
+                  </ActionsButton>
+                </Link>
               </ButtonsWrapper>
               <Link
                 style={{ right: 0, width: "10%" }}
@@ -221,12 +224,34 @@ export default class OverallReview extends Component {
             </Collapse>
           </CommentDiv>
         ))}
+        {level === 1 && (
+          <VerifyPromo>
+            <p>
+              Get verified as a worker to give reviews, comment on other reviews
+              and search jobs
+            </p>
+            <VerifyLink to={"/upload-verification-photo"} category={category}>
+              Get verified now >
+            </VerifyLink>
+          </VerifyPromo>
+        )}
       </ReviewDiv>
     ) : (
       <>
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
           <SectionTitle>Overall ratings</SectionTitle>
           <LightTitle>No reviews yet. Be the first…</LightTitle>
+          {level === 1 && (
+            <VerifyPromo>
+              <p>
+                Get verified as a worker to give reviews, comment on other
+                reviews and search jobs
+              </p>
+              <VerifyLink to={"/upload-verification-photo"} category={category}>
+                Get verified now >
+              </VerifyLink>
+            </VerifyPromo>
+          )}
         </ReviewDiv>
       </>
     );

@@ -266,6 +266,8 @@ export const StyledReplyIcon = styled(ReplyIcon)`
   transform: translateY(-50%) rotate(180deg);
   height: 100%;
   cursor: pointer;
+  z-index: 1000;
+  padding: 0 10px;
 `;
 
 export const BannerTitle = styled.p`

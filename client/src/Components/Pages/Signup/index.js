@@ -76,6 +76,10 @@ export default class Signup extends Component {
   };
 
   handleSubmit = (values, { setSubmitting }) => {
+    let { from } = this.props.location.state || {
+      from: { pathname: "/intro" }
+    };
+
     if (values.checkbox) {
       setSubmitting(true);
 
@@ -83,7 +87,7 @@ export default class Signup extends Component {
         .post(API_SIGN_UP, values)
         .then(({ data }) => {
           this.props.handleChangeState({ ...data, isLoggedIn: true });
-          this.props.history.push(`/intro`);
+          this.props.history.push(from.pathname);
         })
         .catch(err => {
           this.setState({ error: err.response.data.error });
@@ -141,7 +145,7 @@ export default class Signup extends Component {
                   component={CustomCheckbox}
                 />
                 <CheckboxLabel htmlFor="checkbox">
-                  I agree to the earwig
+                  I agree to the earwig{" "}
                   <LinkSpan to="T&C">Terms of Use.</LinkSpan>
                 </CheckboxLabel>
                 <FormikErrorMessage name="checkbox" component="div" />

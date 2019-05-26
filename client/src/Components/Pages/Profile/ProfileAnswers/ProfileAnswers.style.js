@@ -47,6 +47,8 @@ export const Comment = styled.button`
   padding: 0 0.5rem;
   box-shadow: ${shadows.buttonShadow};
   border-radius: 0.25rem;
+  margin-right: auto;
+  justify-self: flex-end;
   cursor: ${props => (props.active ? "pointer" : "not-allowed !important")};
 `;
 
@@ -55,6 +57,7 @@ export const RightCommentWrapper = styled.div`
   justify-content: flex-end;
   margin-top: 0.5rem;
   height: 2rem;
+  justify-self: flex-end;
 `;
 
 export const ListWrapper = styled.div`
@@ -72,6 +75,10 @@ export const ListItem = styled.p`
   font-size: 1rem;
   /* width: "100%"; */
   line-height: 2rem;
+`;
+
+export const PayrollItem = styled(ListItem)`
+  width: 100%;
 `;
 
 export const ListComment = styled.div`
@@ -112,6 +119,8 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   overflow: auto;
+  backface-visibility: hidden;
+  z-index: 1000;
 `;
 
 export const CommentsDiv = styled.div`
@@ -184,6 +193,16 @@ export const SiteItem = styled.div`
   font-weight: 900;
   display: flex;
   align-items: center;
+`;
+
+export const SiteAnswer = styled.div`
+  margin: 0;
+  /* color: ${props =>
+    props.itemAvailable ? `${colors.green}` : `${colors.red}`}; */
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  width: 100%;
 
   p {
     margin: 0;
@@ -201,6 +220,7 @@ export const CanteenSubList = styled.p`
   color: ${props =>
     props.itemAvailable ? `${colors.green}` : `${colors.red}`};
   font-weight: 900;
+  display: ${props => (props.hide ? "none" : "block")};
 `;
 
 export const Error = styled.p`
@@ -255,5 +275,9 @@ export const Image = styled.img`
 export const ImgWrapper = styled.div``;
 
 export const CanteenItem = styled(SiteItem)`
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+
+  p {
+    margin: 0;
+  }
 `;
