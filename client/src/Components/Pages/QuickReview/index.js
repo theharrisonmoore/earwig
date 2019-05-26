@@ -24,7 +24,8 @@ import {
   ContentPhone,
   ImageBoxPhone,
   OrganizationPhone,
-  ReviewTimePhone
+  ReviewTimePhone,
+  LinkSpan
 } from "../Review/Review.style";
 
 import { StyledErrorMessage } from "../Review/Question/Question.style";
@@ -34,7 +35,7 @@ import clockShort from "./../../../assets/clock-short-icon.png";
 
 import { validationSchemaShort } from "../Review/validationSchema";
 
-import { THANKYOU_URL } from "../../../constants/naviagationUrls";
+import { THANKYOU_URL, PRIVACY_URL } from "../../../constants/naviagationUrls";
 
 import { NewSVGCreator, questionsNumber, isMobile } from "../../../helpers";
 
@@ -225,9 +226,12 @@ class Review extends Component {
                           )}
                         </Field>
                         <AgreementLabel htmlFor="agreement">
-                          I agree to the earwig Terms of Use. This review of my
-                          experience with this current or former agency is
-                          truthful.
+                          I agree to the earwig{" "}
+                          <LinkSpan target="_blank" to={PRIVACY_URL}>
+                            Terms of Use.
+                          </LinkSpan>{" "}
+                          This review of my experience with this current or
+                          former agency is truthful.
                         </AgreementLabel>
                         <ErrorMessage name={`hasAgreed`}>
                           {msg => (

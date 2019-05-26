@@ -26,7 +26,8 @@ import {
   Paragraph,
   FormWrapper,
   Level2Header,
-  AgreementLabel
+  AgreementLabel,
+  LinkSpan
 } from "./Review.style";
 
 import { StyledErrorMessage } from "./Question/Question.style";
@@ -38,7 +39,7 @@ import { initQueestionsValues } from "./initialQuestionsValues";
 import { validationSchema } from "./validationSchema";
 import { STATIC_QUESTIONS } from "./staticQuestions";
 
-import { THANKYOU_URL } from "../../../constants/naviagationUrls";
+import { THANKYOU_URL, PRIVACY_URL } from "../../../constants/naviagationUrls";
 import { NewSVGCreator, questionsNumber, isMobile } from "../../../helpers";
 
 // antd spinner for the submit button
@@ -382,9 +383,12 @@ class Review extends Component {
                         </Field>
 
                         <AgreementLabel htmlFor="agreement">
-                          I agree to the earwig Terms of Use. This review of my
-                          experience with this current or former agency is
-                          truthful.
+                          I agree to the earwig{" "}
+                          <LinkSpan target="_blank" to={PRIVACY_URL}>
+                            Terms of Use.
+                          </LinkSpan>{" "}
+                          This review of my experience with this current or
+                          former agency is truthful.
                         </AgreementLabel>
                         <ErrorMessage name={`hasAgreed`}>
                           {msg => (
