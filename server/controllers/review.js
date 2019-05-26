@@ -51,7 +51,7 @@ const postReviewShort = async (req, res, next) => {
     await newReview.save();
     res.send(organizationData._id);
   } catch (error) {
-    next(boom.badImplementation);
+    next(boom.badImplementation());
   }
 };
 

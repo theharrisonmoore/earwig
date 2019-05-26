@@ -3,6 +3,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { Modal, Input, Alert } from "antd";
 
+import { colors } from "./../../../theme";
+
 import Select from "./../../Common/Select";
 
 import {
@@ -10,17 +12,17 @@ import {
   ContentWrapper,
   Heading,
   SubHeading,
-  CardIcon,
   ImageInput,
   Paragraph,
   Example,
   Button,
-  Link,
+  StyledLink,
   SelectWrapper,
   Error,
-  RightIcon
+  RightIcon,
+  EditIcon
 } from "./UploadImage.style";
-import card from "./../../../assets/card.svg";
+
 import example from "./../../../assets/example.png";
 
 import { PROFILE_URL } from "../../../constants/naviagationUrls";
@@ -239,7 +241,13 @@ export default class UploadImage extends Component {
       <UploadImageWrapper className="test">
         <ContentWrapper>
           <Heading>Verifying you are a worker</Heading>
-          <CardIcon src={card} />
+          <EditIcon
+            icon="getVerified"
+            height="36"
+            width="36"
+            margin="0 0.5rem 0 0"
+            fill={colors.veryLightGray}
+          />
           <form onSubmit={this.handleSubmit}>
             <SelectWrapper>
               <SubHeading>Your trade</SubHeading>
@@ -328,7 +336,9 @@ export default class UploadImage extends Component {
             <Button marginTop={true} type="submit" error={error}>
               Finish verification
             </Button>
-            <Link>Cancel and return to your profile</Link>
+            <StyledLink to={PROFILE_URL}>
+              Cancel and return to your profile
+            </StyledLink>
           </form>
         </ContentWrapper>
       </UploadImageWrapper>
