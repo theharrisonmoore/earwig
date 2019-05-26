@@ -237,7 +237,13 @@ export default class Profile extends Component {
                     </AccountItem>
                   ))}
               </div>
-              <AccountLink to={SIGNUP_URL} category={category}>
+              <AccountLink
+                to={{
+                  pathname: SIGNUP_URL,
+                  state: { from: this.props.location }
+                }}
+                category={category}
+              >
                 Create an account now >
               </AccountLink>
             </AccountPromo>
@@ -378,7 +384,13 @@ export default class Profile extends Component {
           <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
             <AccountPromo>
               <p>Create an account to see all reviews</p>
-              <AccountLink to={SIGNUP_URL} category={category}>
+              <AccountLink
+                to={{
+                  pathname: SIGNUP_URL,
+                  state: { from: this.props.location }
+                }}
+                category={category}
+              >
                 Create an account now >
               </AccountLink>
             </AccountPromo>
