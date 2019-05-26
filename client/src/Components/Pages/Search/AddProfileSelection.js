@@ -21,6 +21,17 @@ import { SVGCreator } from "../../../helpers";
 import { ADD_PROFILE_START_REVIEW_URL } from "../../../constants/naviagationUrls";
 
 export default class AddProfileSelection extends Component {
+  deleteOrg = name => {
+    axios
+      .delete(`/api/delete-organization/${name}`)
+      .then(() => {
+        // need to trigger a hard refresh here as organisation was still shown in search bar after deletion
+        window.location.reload();
+        this.props.history.push("/search");
+      })
+      .catch(err => console.log(err));
+  };
+
   addOrganisation = (orgName, orgCategory) => {
     const newOrg = { name: orgName, category: orgCategory };
 
@@ -99,7 +110,9 @@ export default class AddProfileSelection extends Component {
           </LogosContainer>
           <AddProfileLink to={SEARCH_URL}>
             <FooterDiv>
-              <H3>Cancel and return to Search</H3>
+              <H3 onClick={() => this.deleteOrg(name)}>
+                Cancel and return to Search
+              </H3>
             </FooterDiv>
           </AddProfileLink>
         </MainDiv>

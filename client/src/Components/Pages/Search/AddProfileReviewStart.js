@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { SEARCH_URL } from "../../../constants/naviagationUrls";
 // styles
 import {
   HeadlineDiv,
@@ -10,8 +9,7 @@ import {
   H3,
   P,
   MainDiv,
-  AddWrapper,
-  ProfileLink
+  AddWrapper
 } from "./Search.style";
 
 import GiveReview from "../../Common/GiveReview";
