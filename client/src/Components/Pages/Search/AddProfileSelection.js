@@ -3,7 +3,6 @@ import axios from "axios";
 
 import { SEARCH_URL } from "../../../constants/naviagationUrls";
 import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
-import Swal from "sweetalert2";
 
 // styles
 import {
@@ -23,16 +22,10 @@ import { ADD_PROFILE_START_REVIEW_URL } from "../../../constants/naviagationUrls
 
 export default class AddProfileSelection extends Component {
   addOrganisation = (orgName, orgCategory) => {
-    const newOrg = { name: orgName, category: orgCategory, active: false };
+    const newOrg = { name: orgName, category: orgCategory };
 
     axios.post(API_ADD_ORGANIZATION_URL, newOrg).catch(err => {
-      Swal.fire({
-        type: "error",
-        title: "Error adding Organisation. Please try again.",
-        text: err
-      }).then(() => {
-        this.props.history.push("/search");
-      });
+      console.log(err);
     });
   };
 

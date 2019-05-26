@@ -1,5 +1,6 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
+const Organization = require("../../database/models/Organization");
 
 const buildDB = require("../../database/dummyData/index");
 const app = require("../../app");
@@ -43,6 +44,37 @@ describe("Tesing for get add organisation route", () => {
             expect(res).toBeDefined();
             expect(res.body).toBeDefined();
             expect(res.body.name).toBe("Yalla Builders");
+            done(err);
+          });
+      });
+  });
+
+  test("test to create duplicate organisation", async (done) => {
+    const organization = await Organization.findOne();
+
+    const dataInvalid = {
+      name: organization.name,
+      category: "agency",
+    };
+
+    // login with the origin password
+    request(app)
+      .post("/api/login")
+      .send(user)
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .end(async (error, result) => {
+        const token = result.headers["set-cookie"][0].split(";")[0];
+
+        request(app)
+          .post("/api/add-organization")
+          .send(dataInvalid)
+          .set("Cookie", [token])
+          .expect("Content-Type", /json/)
+          .expect(400)
+          .end((err, res) => {
+            expect(res).toBeDefined();
+            expect(res.error).toBeDefined();
             done(err);
           });
       });
