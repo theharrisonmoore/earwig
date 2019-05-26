@@ -996,6 +996,10 @@ module.exports = async () => {
     },
     {
       number: 2,
+      next: {
+        yes: 3,
+        no: 4,
+      },
       type: "yesno",
       text: "Were you offered access equipment when you needed it?",
       hintText: "E.g., stepladders, harnesses, lifters, etc.",
@@ -1014,6 +1018,8 @@ module.exports = async () => {
     },
     {
       number: 3,
+      next: 4,
+      isDependent: true,
       type: "radio",
       text: "Was the access equipment in safe condition?",
       isJumping: false,
@@ -1031,6 +1037,7 @@ module.exports = async () => {
     },
     {
       number: 4,
+      next: 5,
       type: "radio",
       text: "Were you offered secure storage for your tools overnight?",
       isJumping: false,
@@ -1048,6 +1055,7 @@ module.exports = async () => {
     },
     {
       number: 5,
+      next: 6,
       type: "yesno",
       text: "Did the supervisor share all the information you needed to do a good job?",
       isJumping: false,
@@ -1065,6 +1073,7 @@ module.exports = async () => {
     },
     {
       number: 6,
+      next: 7,
       type: "yesno",
       text: "Did the supervisor treat you with respect?",
       isJumping: false,
@@ -1082,6 +1091,7 @@ module.exports = async () => {
     },
     {
       number: 7,
+      next: 8,
       type: "yesno",
       text: "Did the other company employees treat you with respect?",
       isJumping: false,
@@ -1099,6 +1109,7 @@ module.exports = async () => {
     },
     {
       number: 8,
+      next: 9,
       type: "yesno",
       text: "Overall, did you feel valued working with this company?",
       isJumping: false,

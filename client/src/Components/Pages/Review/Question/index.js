@@ -91,7 +91,7 @@ const Question = props => {
 };
 
 class QuestionOptions extends React.Component {
-  state = { checkedList: [], clicked: false, rate: 3, hoverRate: undefined };
+  state = { checkedList: [], clicked: false, rate: 0, hoverRate: undefined };
 
   getStyle = () => {
     if (this.state.clicked) {
@@ -112,6 +112,9 @@ class QuestionOptions extends React.Component {
 
   handleHoverRate = value => {
     this.setState({ hoverRate: value });
+  };
+  addOrgType = category => {
+    return category === "agency" ? "payroll" : "agency";
   };
 
   render() {
@@ -302,7 +305,7 @@ class QuestionOptions extends React.Component {
                             {menu}
                             <Divider style={{ margin: "4px 0" }} />
                             <ModalComment
-                              title={`Add a new ${category}`}
+                              title={`Add a new ${this.addOrgType(category)}`}
                               setFieldValue={(field, value) => {
                                 this.setState({ placeholder: value });
                                 props.setFieldValue(field, value);
@@ -527,6 +530,11 @@ class QuestionOptions extends React.Component {
               </>
             )}
           </Field>
+          <ErrorMessage name="review.rate">
+            {msg => {
+              return <StyledErrorMessage>{msg}</StyledErrorMessage>;
+            }}
+          </ErrorMessage>
         </QuestionOptionsWrapper>
       );
     }
@@ -570,6 +578,7 @@ export const RadioButton = ({
             if (
               props.option === "No" ||
               props.option.includes("know") ||
+              props.option.includes("need") ||
               props.option.includes("check")
             ) {
               nextQ = next["no"];

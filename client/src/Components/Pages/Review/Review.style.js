@@ -191,6 +191,7 @@ export const SubmitButton = styled.button`
   padding: 1rem 3rem;
   display: block;
   margin: 2rem auto 3rem;
+  height: auto;
 `;
 
 export const ButtonDiv = styled.div`
