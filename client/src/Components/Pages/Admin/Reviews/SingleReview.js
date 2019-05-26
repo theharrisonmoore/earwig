@@ -50,7 +50,17 @@ export default class SingleReview extends Component {
     groups: [],
     organization: { category: "", name: "" },
     user: { id: "", email: "" },
-    review: { isVerified: "", revID: "", rating: "", overallRev: "" }
+    review: { isVerified: "", revID: "", rating: "", overallRev: "" },
+    images: {}
+  };
+
+  // get the image url using the image name
+  fetchImage = answer => {
+    if (!this.state.images[answer]) {
+      axios.get(`/api/admin/images/${answer}`).then(({ data }) => {
+        this.setState({ images: { ...this.state.images, [answer]: data.url } });
+      });
+    }
   };
 
   // fetches all data relevant to user, organisation and review
@@ -488,11 +498,31 @@ export default class SingleReview extends Component {
                                   }
 
                                   if (type === "image") {
+                                    this.fetchImage(answer);
                                     return (
                                       <QuestionOptionsWrapper key={i}>
                                         <QText>{question.text}</QText>
                                         <HintText>{question.hintText}</HintText>
-                                        <p>Image</p>
+                                        {this.state.images[answer] ? (
+                                          <div style={{ position: "relative" }}>
+                                            <img
+                                              style={{ width: "90%" }}
+                                              src={this.state.images[answer]}
+                                              alt={answer}
+                                            />
+                                            <div
+                                              style={{
+                                                position: "absolute",
+                                                right: 0,
+                                                top: 0
+                                              }}
+                                            >
+                                              {this.createDeleteBtn(entry._id)}
+                                            </div>
+                                          </div>
+                                        ) : (
+                                          <p>image Not Found</p>
+                                        )}
                                       </QuestionOptionsWrapper>
                                     );
                                   }
