@@ -46,7 +46,9 @@ const userReviewsController = require("../controllers/getUserReviews");
 const getOverallReviewReplies = require("../controllers/getOverallReviewReplies");
 const addCommentOnReview = require("../controllers/addCommentOnReview");
 
-const updateLastViewedOrg = require("../controllers/updateLastViewedOrg")
+const updateLastViewedOrg = require("../controllers/updateLastViewedOrg");
+
+const deleteOrgController = require("../controllers/deleteOrganization");
 
 const {
   LOGIN_URL,
@@ -69,15 +71,10 @@ const {
   USERS,
 } = require("../../client/src/apiUrls");
 
-
 router.get(SEARCH_URL, searchController);
 
 // get user info from the cookies and send it to fron-end
-router.get(
-  USERS,
-  authentication,
-  userInfoController,
-);
+router.get(USERS, authentication, userInfoController);
 
 router.get(GET_QUESTIONS_URL, authentication, authorization("LEVEL3"), getByOrg);
 router.post(REVIEW_URL, authentication, authorization("LEVEL3"), postReview);
@@ -94,11 +91,7 @@ router.post("/profile", softAuthCheck, profileController);
 router.post("/comments", commentsController);
 
 // login route
-router.post(
-  LOGIN_URL,
-  validation("login"),
-  loginController,
-);
+router.post(LOGIN_URL, validation("login"), loginController);
 
 router.use(LOGOUT_URL, logoutController);
 
@@ -127,12 +120,7 @@ router.post(
 );
 
 // get all trades
-router.get(
-  TRADE_URL,
-  authentication,
-  authorization("LEVEL1"),
-  getTradesController,
-);
+router.get(TRADE_URL, authentication, authorization("LEVEL1"), getTradesController);
 
 // add new trade
 router.post(
@@ -144,11 +132,7 @@ router.post(
 );
 
 // sign up
-router.post(
-  SIGN_UP,
-  validation("signup"),
-  signupController,
-);
+router.post(SIGN_UP, validation("signup"), signupController);
 
 // edit profile route
 // user can update password or/and the verification image
@@ -175,12 +159,10 @@ router.post(
   addOrganizationController,
 );
 
+router.delete("/delete-organization", authentication, deleteOrgController);
+
 // confirm adding the user mail to the mail list
-router.use(
-  CONFIRM_EMAIL,
-  validation("onlyMongoId"),
-  confirmJoiningEmailList,
-);
+router.use(CONFIRM_EMAIL, validation("onlyMongoId"), confirmJoiningEmailList);
 
 // report for a piece of content
 // can be (overall review, comment, worksite image, reply)
@@ -221,17 +203,12 @@ router.get(
 );
 
 // admin handler
-router.use(
-  ADMIN,
-  authentication,
-  authorization("ADMIN"),
-  adminRouter,
-);
+router.use(ADMIN, authentication, authorization("ADMIN"), adminRouter);
 
 router.post("/thinking-of-deleting", authentication, thinkingofDeletingController);
 
 router.post("/give-feedback", authentication, feedbackController);
 
-router.post("/update-last-viewed", updateLastViewedOrg)
+router.post("/update-last-viewed", updateLastViewedOrg);
 
 module.exports = router;
