@@ -52,6 +52,7 @@ export const ThankYouWrapper = styled.div`
 export const ContentWrapper = styled.div`
   width: 80%;
   margin: 0 auto;
+  padding-bottom: 3rem;
 `;
 
 export const Image = styled.img`
