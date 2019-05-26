@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
 import { Checkbox, message, Spin, Icon } from "antd";
-import Swal from "sweetalert2";
 import Loading from "./../../Common/AntdComponents/Loading";
 
 import {
