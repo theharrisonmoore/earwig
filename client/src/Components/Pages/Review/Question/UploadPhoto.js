@@ -76,6 +76,7 @@ export default class UploadImage extends Component {
           type="file"
           name="image"
           id="siteImage"
+          accept="image/*"
           onChange={this.handleImageChange}
         />
         <IconWrapper>
