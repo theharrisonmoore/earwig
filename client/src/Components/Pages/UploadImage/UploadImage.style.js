@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import { colors, shadows } from "./../../../theme";
 import Icon from "./../../Common/Icon/Icon";
@@ -87,7 +88,7 @@ export const Button = styled.button`
   }
 `;
 
-export const Link = styled.a`
+export const StyledLink = styled(Link)`
   font-weight: 900;
   font-size: 1.125rem;
 

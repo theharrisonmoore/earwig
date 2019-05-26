@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Modal, Input, Alert } from "antd";
+
 import { colors } from "./../../../theme";
 
 import Select from "./../../Common/Select";
@@ -15,7 +16,7 @@ import {
   Paragraph,
   Example,
   Button,
-  Link,
+  StyledLink,
   SelectWrapper,
   Error,
   RightIcon,
@@ -335,7 +336,9 @@ export default class UploadImage extends Component {
             <Button marginTop={true} type="submit" error={error}>
               Finish verification
             </Button>
-            <Link>Cancel and return to your profile</Link>
+            <StyledLink to={PROFILE_URL}>
+              Cancel and return to your profile
+            </StyledLink>
           </form>
         </ContentWrapper>
       </UploadImageWrapper>
