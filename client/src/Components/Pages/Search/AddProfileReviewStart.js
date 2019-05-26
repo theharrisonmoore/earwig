@@ -52,9 +52,9 @@ export default class AddProfileReviewStart extends Component {
           </div>
           {/* <ProfileLink to={SEARCH_URL}> */}
           <FooterDiv>
-            <button onClick={() => this.deleteOrg(name)}>
+            <H3 onClick={() => this.deleteOrg(name)}>
               Cancel and return to Search
-            </button>
+            </H3>
           </FooterDiv>
           {/* </ProfileLink> */}
         </MainDiv>
