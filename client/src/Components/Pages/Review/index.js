@@ -182,21 +182,6 @@ class Review extends Component {
     axios
       .post(API_POST_REVIEW_URL, review)
       .then(res => {
-        if (this.state.organization.needsVerification) {
-          this.setState({
-            organization: { ...this.state.organization, id: res.data }
-          });
-          Swal.fire({
-            type: "success",
-            title: "Thanks! We're verifying your review as soon as possible."
-          }).then(() => {
-            this.props.history.push(THANKYOU_URL, {
-              orgType: organization.category,
-              orgId: res.data,
-              orgName: organization.name
-            });
-          });
-        }
         this.props.history.push(THANKYOU_URL, {
           orgType: organization.category,
           orgId: res.data,

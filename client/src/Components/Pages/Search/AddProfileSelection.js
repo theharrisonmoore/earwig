@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import swal from "sweetalert2";
 
 import { SEARCH_URL } from "../../../constants/naviagationUrls";
 import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
@@ -29,7 +30,7 @@ export default class AddProfileSelection extends Component {
         window.location.reload();
         this.props.history.push("/search");
       })
-      .catch(err => console.log(err));
+      .catch(err => swal.fire(err));
   };
 
   addOrganisation = (orgName, orgCategory) => {
