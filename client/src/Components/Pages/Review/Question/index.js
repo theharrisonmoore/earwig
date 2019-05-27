@@ -493,7 +493,6 @@ class QuestionOptions extends React.Component {
               <>
                 <Rate
                   {...field}
-                  tooltips={options}
                   onChange={value => this.setRateValue(value)}
                   style={{
                     color: `${organizations[category].primary}`,

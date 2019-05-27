@@ -213,8 +213,9 @@ export const InnerDivSuggestions = styled.div`
 export const SymbolDiv = styled.div`
   display: flex;
   align-items: center;
-  svg {
+  img {
     margin-right: 1rem;
+    margin-bottom: 8px;
   }
 `;
 
