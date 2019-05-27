@@ -24,7 +24,11 @@ module.exports.addCommentOnOverallReview = (id, data) => Review.findByIdAndUpdat
 });
 
 // used in admin panel to change isVerified status of review
-module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate({ _id: id }, { isVerified: bool }, { new: true });
+module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate(
+  { _id: id },
+  { isVerified: bool },
+  { new: true },
+);
 
 // used in admin panel to delete an answer of a review
 module.exports.deleteAnswer = id => Answer.deleteOne({ _id: id });

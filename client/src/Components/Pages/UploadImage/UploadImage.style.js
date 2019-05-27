@@ -109,10 +109,3 @@ export const Error = styled.p`
   color: red;
   font-size: 1rem;
 `;
-export const RightIcon = styled.i`
-  color: green;
-  font-size: 1.5rem;
-  /* padding-left: 2rem; */
-  position: absolute;
-  right: 13px;
-`;

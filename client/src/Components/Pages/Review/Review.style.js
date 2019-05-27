@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import { colors, organizations, size } from "../../../theme";
 
@@ -225,4 +226,17 @@ export const DelButton = styled.button`
   background: none;
   display: block;
   cursor: pointer;
+`;
+
+export const LinkSpan = styled(Link)`
+  color: ${colors.purpleLinks};
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+
+  &:hover,
+  &:active {
+    text-decoration: none;
+    color: ${colors.profileFontColor};
+  }
 `;
