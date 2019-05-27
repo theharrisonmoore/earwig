@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as Yup from "yup";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 import {
   EditWrapper,
@@ -209,25 +209,9 @@ export default class EditProfile extends Component {
                         />
                         <Title>Verification photo</Title>
                       </VerifiedLabelWrapper>
-                      <Field
-                        name="verificationImage"
-                        render={({ field, form: { isSubmitting } }) => (
-                          <ImageInput
-                            {...field}
-                            type="file"
-                            placeholder="lastName"
-                            accept="image/*"
-                            id="verificationImage"
-                            onChange={this.handleImageChange}
-                          />
-                        )}
-                      />
-                      <FormikErrorMessage
-                        name="verificationImage"
-                        component="p"
-                      />
+
                       <EditButton htmlFor="verificationImage" as="label">
-                        Edit
+                        <Link to="/upload-verification-photo">Edit</Link>
                       </EditButton>
                     </Row>
                   </Section>

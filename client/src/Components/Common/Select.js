@@ -29,7 +29,8 @@ class CustomizedSelects extends React.Component {
       disabled,
       addHandler,
       isCreateNew,
-      showSearch
+      showSearch,
+      defaultValue
     } = this.props;
     return (
       <>
@@ -38,6 +39,7 @@ class CustomizedSelects extends React.Component {
           placeholder={disabled ? options[0] && options[0].label : placeholder}
           onSelect={handleChange}
           open={this.state.open}
+          defaultValue={defaultValue}
           onDropdownVisibleChange={this.handleOpen}
           disabled={disabled}
           showSearch={showSearch}

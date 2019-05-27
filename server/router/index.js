@@ -29,6 +29,8 @@ const authorization = require("./../middlewares/authorization");
 const softAuthCheck = require("./../middlewares/softAuthCheck");
 
 const uploadWorksiteController = require("../controllers/uploadWorksiteImage");
+const updateVerificationImage = require("../controllers/updateVerificationImage");
+
 const searchController = require("../controllers/search");
 const profileController = require("./../controllers/profile");
 const commentsController = require("./../controllers/comments");
@@ -69,6 +71,7 @@ const {
   UPLOAD_VERIFICATION_IMAGE_URL,
   TRADE_URL,
   USERS,
+  UPDATE_VERIFICATION_IMAGE_URL,
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
@@ -110,6 +113,18 @@ router.post(
   deleteFileFromServer,
   uploadVerificationImage,
 );
+
+// update user info (verification image, city and trade)
+router.post(
+  UPDATE_VERIFICATION_IMAGE_URL,
+  authentication,
+  authorization("LEVEL1"),
+  upload("verificationImage"),
+  toGoogle(false),
+  deleteFileFromServer,
+  updateVerificationImage,
+);
+
 
 router.post(
   UPLOAD_WORKSITE_IMAGE_URL,

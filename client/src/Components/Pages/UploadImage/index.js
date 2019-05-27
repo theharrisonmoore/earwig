@@ -28,7 +28,8 @@ import { PROFILE_URL } from "../../../constants/naviagationUrls";
 
 const {
   API_TRADE_URL,
-  API_UPLOAD_VERIFICATION_IMAGE_URL
+  API_UPLOAD_VERIFICATION_IMAGE_URL,
+  API_UPDATE_VERIFICATION_IMAGE_URL
 } = require("../../../apiUrls");
 
 const placeholder = "Select your trade";
@@ -48,32 +49,20 @@ export default class UploadImage extends Component {
   };
 
   componentDidMount() {
-    if (this.props.verified) {
-      Swal.fire({
-        type: "warning",
-        title: "Already verified",
-        text: "you are already verified!"
-      }).then(() => {
-        this.props.history.goBack();
-      });
-    } else if (this.props.awaitingReview) {
-      Swal.fire({
-        type: "warning",
-        title: "We are currently verifying your account",
-        text: "Please come back soon!"
-      }).then(() => {
-        this.props.history.goBack();
-      });
-    } else {
-      axios.get(API_TRADE_URL).then(res => {
-        const { data } = res;
-        const trades = data.reduce((accu, current) => {
-          accu.push({ value: current._id, label: current.title });
-          return accu;
-        }, []);
-        this.setState({ trades });
-      });
-    }
+    console.log(this.props);
+    this.setState({
+      verified: this.props.verified,
+      awaitingReview: this.props.awaitingReview
+    });
+
+    axios.get(API_TRADE_URL).then(res => {
+      const { data } = res;
+      const trades = data.reduce((accu, current) => {
+        accu.push({ value: current._id, label: current.title });
+        return accu;
+      }, []);
+      this.setState({ trades });
+    });
   }
 
   handleChange = value => {
@@ -106,13 +95,20 @@ export default class UploadImage extends Component {
   };
 
   handleSubmit = event => {
+    const { verified, awaitingReview } = this.state;
+    const allowedToUploadPartialData = verified || awaitingReview;
+
+    const url = !allowedToUploadPartialData
+      ? API_UPLOAD_VERIFICATION_IMAGE_URL
+      : API_UPDATE_VERIFICATION_IMAGE_URL;
+
     event.preventDefault();
     const form = new FormData();
-    if (!this.state.imageFile) {
+    if (!allowedToUploadPartialData && !this.state.imageFile) {
       this.setState({ error: "Please upload image" });
-    } else if (!this.state.tradeId) {
+    } else if (!allowedToUploadPartialData && !this.state.tradeId) {
       this.setState({ error: "Please select your trade" });
-    } else if (!this.state.city) {
+    } else if (!allowedToUploadPartialData && !this.state.city) {
       this.setState({ error: "Please enter your city/town" });
     } else {
       Swal.fire({
@@ -127,7 +123,7 @@ export default class UploadImage extends Component {
 
           axios({
             method: "post",
-            url: API_UPLOAD_VERIFICATION_IMAGE_URL,
+            url: url,
             data: form,
             headers: {
               "content-type": `multipart/form-data; boundary=${form._boundary}`
@@ -140,7 +136,10 @@ export default class UploadImage extends Component {
                 showConfirmButton: false,
                 timer: 1500
               }).then(() => {
-                this.props.handleChangeState({ awaitingReview: true });
+                this.props.handleChangeState({
+                  awaitingReview: true,
+                  trade: this.state.tradeId || this.props.trade
+                });
                 this.props.history.push(PROFILE_URL);
               });
             })
@@ -256,6 +255,7 @@ export default class UploadImage extends Component {
                 handleChange={this.handleChange}
                 value={this.state.tradeId}
                 disabled={this.state.disableSelect}
+                defaultValue={this.props.trade}
                 isCreateNew
                 showSearch
                 addHandler={this.showModal}
