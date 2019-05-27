@@ -28,5 +28,5 @@ module.exports = (req, res, next) => {
         req.user = user;
         next();
       }).catch(() => next(boom.badImplementation()));
-  }).catch(() => next(boom.badImplementation()));
+  });
 };

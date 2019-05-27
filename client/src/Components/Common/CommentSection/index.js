@@ -8,7 +8,7 @@ import {
   Wrapper,
   CommentTitle,
   CommentBox,
-  Button,
+  StyledButton,
   LogInPrompt
 } from "./CommentBox.style";
 
@@ -16,7 +16,8 @@ import { LOGIN_URL } from "./../../../constants/naviagationUrls";
 
 export default class index extends Component {
   state = {
-    message: ""
+    message: "",
+    loading: null
   };
 
   handleInput = event => {
@@ -29,9 +30,11 @@ export default class index extends Component {
     const { message } = this.state;
 
     if (message.length > 0) {
+      this.setState({ loading: true });
       axios
         .post("/api/give-feedback", { message, page: window.location.href })
-        .then(() =>
+        .then(() => {
+          this.setState({ loading: false });
           Swal.fire({
             type: "success",
             title: "Message sent",
@@ -39,9 +42,11 @@ export default class index extends Component {
               "Thanks for getting in touch. If required, we'll get back to you via email as soon as we can.",
             confirmButtonText: "Okay",
             confirmButtonColor: colors.heliotrope
-          }).then(() => window.location.reload())
-        )
-        .catch(err =>
+          }).then(() => window.location.reload());
+        })
+        .catch(err => {
+          this.setState({ loading: false });
+
           Swal.fire({
             type: "error",
             title: "Error sending message",
@@ -50,8 +55,8 @@ export default class index extends Component {
                 ? "Only logged in users are authorized to send messages. Please log in first."
                 : err.response.data.error,
             confirmButtonText: "Close"
-          })
-        );
+          });
+        });
     } else {
       Swal.fire({
         type: "error",
@@ -73,7 +78,12 @@ export default class index extends Component {
               placeholder="Enter your comments here..."
               onChange={this.handleInput}
             />
-            <Button onClick={this.handleSubmit}>Send</Button>
+            <StyledButton
+              loading={this.state.loading}
+              onClick={this.handleSubmit}
+            >
+              Send
+            </StyledButton>
           </>
         ) : (
           <LogInPrompt to={LOGIN_URL}>

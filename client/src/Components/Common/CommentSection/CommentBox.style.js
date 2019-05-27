@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { Button } from "antd";
 
 import { colors, shadows } from "../../../theme";
 import { MOBILE_WIDTH } from "../../../constants/screenWidths";
@@ -26,7 +27,7 @@ export const CommentBox = styled.textarea`
   box-shadow: ${shadows.buttonShadow};
 `;
 
-export const Button = styled.button`
+export const StyledButton = styled(Button)`
   background: ${colors.white};
   border: 1px solid ${props => (props.error ? colors.red : colors.mineShaft2)};
   box-shadow: ${shadows.buttonShadow};
@@ -41,6 +42,7 @@ export const Button = styled.button`
   padding: 0.75rem 0;
   cursor: pointer;
   margin: 2rem auto;
+  height: 3.75rem;
 
   &:active,
   &:focus {

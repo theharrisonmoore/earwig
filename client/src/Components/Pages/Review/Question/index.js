@@ -173,7 +173,7 @@ class QuestionOptions extends React.Component {
                 comment
                 render={props => {
                   return (
-                    <CommentsIcon hasValue={!!props.text}>
+                    <CommentsIcon hasValue={!!props.submittedText}>
                       <Icon icon="addComment" />
                     </CommentsIcon>
                   );
@@ -213,7 +213,7 @@ class QuestionOptions extends React.Component {
                 comment
                 render={props => {
                   return (
-                    <CommentsIcon hasValue={!!props.text}>
+                    <CommentsIcon hasValue={!!props.submittedText}>
                       <Icon icon="addComment" />
                     </CommentsIcon>
                   );
@@ -259,7 +259,7 @@ class QuestionOptions extends React.Component {
                 comment
                 render={props => {
                   return (
-                    <CommentsIcon hasValue={!!props.text}>
+                    <CommentsIcon hasValue={!!props.submittedText}>
                       <Icon icon="addComment" />
                     </CommentsIcon>
                   );
@@ -288,7 +288,8 @@ class QuestionOptions extends React.Component {
                       showSearch
                       placeholder={this.state.placeholder || label}
                       style={{
-                        border: `1px solid ${colors.dustyGray1}`
+                        border: `1px solid ${colors.dustyGray1}`,
+                        borderRadius: "4px"
                       }}
                       onChange={value => {
                         form.setFieldValue(`questions[${number}]`, value);
@@ -351,7 +352,7 @@ class QuestionOptions extends React.Component {
                 comment
                 render={props => {
                   return (
-                    <CommentsIcon hasValue={!!props.text}>
+                    <CommentsIcon hasValue={!!props.submittedText}>
                       <Icon icon="addComment" />
                     </CommentsIcon>
                   );
@@ -440,7 +441,7 @@ class QuestionOptions extends React.Component {
                     comment
                     render={props => {
                       return (
-                        <CommentsIcon hasValue={!!props.text}>
+                        <CommentsIcon hasValue={!!props.submittedText}>
                           <Icon icon="addComment" />
                         </CommentsIcon>
                       );

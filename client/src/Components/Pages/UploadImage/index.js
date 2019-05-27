@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Modal, Input, Alert } from "antd";
+import { Modal, Input, Alert, Icon } from "antd";
 
 import { colors } from "./../../../theme";
 
@@ -19,7 +19,6 @@ import {
   StyledLink,
   SelectWrapper,
   Error,
-  RightIcon,
   EditIcon
 } from "./UploadImage.style";
 
@@ -316,7 +315,12 @@ export default class UploadImage extends Component {
             <Example src={image ? image : example} />
             <Button as="label" htmlFor="image-input">
               Upload photo for verification{" "}
-              {image && <RightIcon className="fas fa-check" />}
+              {image && (
+                <Icon
+                  type="check"
+                  style={{ color: "green", fontSize: "23px" }}
+                />
+              )}
             </Button>
             <ImageInput
               id="image-input"
