@@ -13,7 +13,6 @@ import {
   DeleteButton,
   PasswordWrapper,
   LightLabel as Label,
-  ImageInput,
   StyledButton as Button,
   StyledLink,
   EditIcon,
