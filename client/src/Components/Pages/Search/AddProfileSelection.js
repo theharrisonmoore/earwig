@@ -18,8 +18,12 @@ import {
   AddWrapper,
   AddProfileLink
 } from "./Search.style";
-import { SVGCreator } from "../../../helpers";
 import { ADD_PROFILE_START_REVIEW_URL } from "../../../constants/naviagationUrls";
+
+import agencyCategory from "../../../assets/agency-category.svg";
+import companyCategory from "../../../assets/company-category.svg";
+import worksiteCategory from "../../../assets/worksite-category.svg";
+import payrollCategory from "../../../assets/payroll-category.svg";
 
 export default class AddProfileSelection extends Component {
   deleteOrg = name => {
@@ -72,7 +76,7 @@ export default class AddProfileSelection extends Component {
                     this.addOrganisation(name, categories[0]);
                   }}
                 >
-                  {SVGCreator("agency-category", "125px", "100%")}
+                  <img src={agencyCategory} alt="" />
                 </AddProfileLink>
               </ItemDiv>
               <ItemDiv>
@@ -82,7 +86,7 @@ export default class AddProfileSelection extends Component {
                     this.addOrganisation(name, categories[1]);
                   }}
                 >
-                  {SVGCreator("payroll-category", "125px", "100%")}
+                  <img src={payrollCategory} alt="" />
                 </AddProfileLink>
               </ItemDiv>
             </RowDiv>
@@ -94,7 +98,7 @@ export default class AddProfileSelection extends Component {
                     this.addOrganisation(name, categories[2]);
                   }}
                 >
-                  {SVGCreator("worksite-category", "125px", "100%")}
+                  <img src={worksiteCategory} alt="" />
                 </AddProfileLink>
               </ItemDiv>
               <ItemDiv>
@@ -104,7 +108,7 @@ export default class AddProfileSelection extends Component {
                     this.addOrganisation(name, categories[3]);
                   }}
                 >
-                  {SVGCreator("company-category", "125px", "100%")}
+                  <img src={companyCategory} alt="" />
                 </AddProfileLink>
               </ItemDiv>
             </RowDiv>
