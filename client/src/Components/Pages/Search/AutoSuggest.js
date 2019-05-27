@@ -41,9 +41,9 @@ export const getSuggestionValue = suggestion => suggestion.name;
 // compares the user's input value and the entries (organisations) and filters the data array accordingly
 export const getSuggestions = (value, organisationsArray) => {
   const inputValue = value.trim().toLowerCase();
-  const inputLength = inputValue.length;
-  const suggestions = organisationsArray.filter(
-    org => org.name.toLowerCase().slice(0, inputLength) === inputValue
+
+  const suggestions = organisationsArray.filter(org =>
+    org.name.toLowerCase().includes(inputValue)
   );
 
   // in case there are no suggestions still return a value -> enables the 'add' box to be rendered
