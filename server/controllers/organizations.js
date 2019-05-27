@@ -1,16 +1,17 @@
 const boom = require("boom");
 
-const { findByName, addNew } = require("../database/queries/organizations/addOrganization");
+const { addNew, getOrganizationByName } = require("../database/queries/organizations/");
 
-module.exports = (req, res, next) => {
-  const { name, category, verified } = req.body;
-  findByName(name)
-    .then((org) => {
-      if (org) {
-        next(boom.badImplementation("organisation already exists"));
-      } else {
-        return addNew({ name, category, verified }).then(addedOrg => res.json(addedOrg));
-      }
-    })
-    .catch(err => next(boom.badImplementation()));
+module.exports = async (req, res, next) => {
+  const { name, category } = req.body;
+  const foundOrg = await getOrganizationByName(name);
+  if (foundOrg.length > 0) {
+    console.log("add found");
+    next(boom.conflict("organisation exists already"));
+  } else {
+    console.log("add not found");
+    addNew({ name, category })
+      .then(addedOrg => res.json(addedOrg))
+      .catch(err => next(boom.badImplementation()));
+  }
 };

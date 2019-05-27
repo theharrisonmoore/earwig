@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
+import swal from "sweetalert2";
 
 import { SEARCH_URL } from "../../../constants/naviagationUrls";
 import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
-import Swal from "sweetalert2";
 
 // styles
 import {
@@ -22,17 +22,22 @@ import { SVGCreator } from "../../../helpers";
 import { ADD_PROFILE_START_REVIEW_URL } from "../../../constants/naviagationUrls";
 
 export default class AddProfileSelection extends Component {
+  deleteOrg = name => {
+    axios
+      .delete(`/api/delete-organization/${name}`)
+      .then(() => {
+        // need to trigger a hard refresh here as organisation was still shown in search bar after deletion
+        window.location.reload();
+        this.props.history.push("/search");
+      })
+      .catch(err => swal.fire(err));
+  };
+
   addOrganisation = (orgName, orgCategory) => {
-    const newOrg = { name: orgName, category: orgCategory, active: false };
+    const newOrg = { name: orgName, category: orgCategory };
 
     axios.post(API_ADD_ORGANIZATION_URL, newOrg).catch(err => {
-      Swal.fire({
-        type: "error",
-        title: "Oops. Organisation seems to already exist. Please try again.",
-        text: err
-      }).then(() => {
-        this.props.history.push("/search");
-      });
+      console.log(err);
     });
   };
 
@@ -106,7 +111,9 @@ export default class AddProfileSelection extends Component {
           </LogosContainer>
           <AddProfileLink to={SEARCH_URL}>
             <FooterDiv>
-              <H3>Cancel and return to Search</H3>
+              <H3 onClick={() => this.deleteOrg(name)}>
+                Cancel and return to Search
+              </H3>
             </FooterDiv>
           </AddProfileLink>
         </MainDiv>

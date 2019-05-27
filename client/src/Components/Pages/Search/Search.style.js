@@ -299,6 +299,7 @@ export const H3 = styled.h3`
   font-size: 1rem;
   letter-spacing: 0.3px;
   font-weight: 900;
+  cursor: pointer;
 `;
 
 export const P = styled.p`
