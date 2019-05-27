@@ -148,18 +148,23 @@ class AutosuggestComponent extends Component {
         <div {...containerProps}>
           {children}
           <div className="my-suggestions-container-footer" />
-          <AddProfileLink
-            to={{ pathname: `${ADD_PROFILE_URL}`, state: { name: `${query}` } }}
-          >
-            <AddItemBox>
-              <InnerDivSuggestions>
-                <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv>
-                <AddItemDetails>
-                  <h3>Add {query}</h3>
-                </AddItemDetails>
-              </InnerDivSuggestions>
-            </AddItemBox>
-          </AddProfileLink>
+          {children && children.props.items[0].isEmpty && (
+            <AddProfileLink
+              to={{
+                pathname: `${ADD_PROFILE_URL}`,
+                state: { name: `${query}` }
+              }}
+            >
+              <AddItemBox>
+                <InnerDivSuggestions>
+                  <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv>
+                  <AddItemDetails>
+                    <h3>Add {query}</h3>
+                  </AddItemDetails>
+                </InnerDivSuggestions>
+              </AddItemBox>
+            </AddProfileLink>
+          )}
         </div>
       );
     }
