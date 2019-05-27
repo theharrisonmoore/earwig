@@ -26,6 +26,7 @@ import {
 import Icon from "./../../Common/Icon/Icon";
 import SearchIcon from "../../../assets/search-icon.svg";
 import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
+import addItemIcon from "../../../assets/add-item-icon.svg";
 
 // UI helper functions
 import { SVGCreator, StarRateCreator } from "../../../helpers";
@@ -157,7 +158,10 @@ class AutosuggestComponent extends Component {
             >
               <AddItemBox>
                 <InnerDivSuggestions>
-                  <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv>
+                  {/* <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv> */}
+                  <SymbolDiv>
+                    <img src={addItemIcon} alt="" />
+                  </SymbolDiv>
                   <AddItemDetails>
                     <h3>Add {query}</h3>
                   </AddItemDetails>

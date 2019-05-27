@@ -8,7 +8,7 @@ import { API_SEARCH_URL } from "../../../apiUrls";
 import AutosuggestComponent from "./AutoSuggest";
 
 // UI helper functions
-import { SVGCreator, StarRateCreator, SortArrayNewest } from "../../../helpers";
+import { StarRateCreator, SortArrayNewest } from "../../../helpers";
 
 // styles
 import {
@@ -29,9 +29,21 @@ import {
   FlexContainer
 } from "./Search.style";
 
-import { organizationIcons, organizations } from "./../../../theme";
+import { organizations } from "./../../../theme";
 
 import Icon from "./../../Common/Icon/Icon";
+
+import agencyArrow from "../../../assets/agency-arrow.svg";
+import payrollArrow from "../../../assets/payroll-arrow.svg";
+import worksiteArrow from "../../../assets/worksite-arrow.svg";
+import companyArrow from "../../../assets/company-arrow.svg";
+
+const orgArrowIcon = {
+  agency: agencyArrow,
+  payroll: payrollArrow,
+  worksite: worksiteArrow,
+  company: companyArrow
+};
 
 // gets all organisations from db
 export const axiosCall = async () => {
@@ -82,7 +94,7 @@ export default class Search extends Component {
             </ReviewDetailsDiv>
           </OrganisationDetailsDiv>
           <ArrowDiv>
-            {SVGCreator(`${organizationIcons[org.category].arrow}`)}
+            <img src={orgArrowIcon[org.category]} alt="" />
           </ArrowDiv>
         </InnerDivLastReviews>
       </ReviewsFrame>
