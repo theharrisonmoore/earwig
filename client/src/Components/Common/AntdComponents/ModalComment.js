@@ -1,21 +1,24 @@
 import React from "react";
 import { Modal, Button, Input } from "antd";
 
-class App extends React.Component {
+class ModalComment extends React.Component {
   state = {
     loading: false,
     visible: false,
-    text: ""
+    text: "",
+    submittedText: ""
   };
 
   showModal = () => {
     this.setState({
-      visible: true
+      visible: true,
+      text: this.state.submittedText
     });
   };
 
   handleChange = e => {
-    this.setState({ text: e.target.value });
+    const { value } = e.target;
+    this.setState({ text: value });
   };
 
   handleOk = () => {
@@ -30,11 +33,15 @@ class App extends React.Component {
         this.state.text
       );
     }
-    this.setState({ visible: false });
+    this.setState({
+      visible: false,
+      submittedText: this.state.text,
+      text: ""
+    });
   };
 
   handleCancel = () => {
-    this.setState({ visible: false, text: "" });
+    this.setState({ visible: false, text: this.state.submittedText });
   };
 
   render() {
@@ -73,4 +80,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default ModalComment;
