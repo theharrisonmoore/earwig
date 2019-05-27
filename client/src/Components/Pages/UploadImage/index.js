@@ -49,7 +49,6 @@ export default class UploadImage extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
     this.setState({
       verified: this.props.verified,
       awaitingReview: this.props.awaitingReview
