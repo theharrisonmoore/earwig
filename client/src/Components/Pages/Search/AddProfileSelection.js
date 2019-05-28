@@ -34,15 +34,30 @@ export default class AddProfileSelection extends Component {
         window.location.reload();
         this.props.history.push("/search");
       })
-      .catch(err => swal.fire(err));
+      .catch(err =>
+        swal.fire({
+          type: "error",
+          title: "Oops...",
+          text: `${err}`,
+          footer: '<a href="/contact">Contact</a>'
+        })
+      )
+      .then(() => this.props.history.push(SEARCH_URL));
   };
 
   addOrganisation = (orgName, orgCategory) => {
     const newOrg = { name: orgName, category: orgCategory };
 
-    axios.post(API_ADD_ORGANIZATION_URL, newOrg).catch(err => {
-      console.log(err);
-    });
+    axios.post(API_ADD_ORGANIZATION_URL, newOrg).catch(err =>
+      swal
+        .fire({
+          type: "error",
+          title: "Oops...",
+          text: `${orgName} already exists. Please contact us directly with your request.`,
+          footer: '<a href="/contact">Contact</a>'
+        })
+        .then(() => this.props.history.push(SEARCH_URL))
+    );
   };
 
   render() {
