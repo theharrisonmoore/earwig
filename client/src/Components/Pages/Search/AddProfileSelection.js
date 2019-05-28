@@ -27,22 +27,11 @@ import payrollCategory from "../../../assets/payroll-category.svg";
 
 export default class AddProfileSelection extends Component {
   deleteOrg = name => {
-    axios
-      .delete(`/api/delete-organization/${name}`)
-      .then(() => {
-        // need to trigger a hard refresh here as organisation was still shown in search bar after deletion
-        window.location.reload();
-        this.props.history.push("/search");
-      })
-      .catch(err =>
-        swal.fire({
-          type: "error",
-          title: "Oops...",
-          text: `${err}`,
-          footer: '<a href="/contact">Contact</a>'
-        })
-      )
-      .then(() => this.props.history.push(SEARCH_URL));
+    axios.delete(`/api/delete-organization/${name}`).then(() => {
+      // need to trigger a hard refresh here as organisation was still shown in search bar after deletion
+      window.location.reload();
+      this.props.history.push("/search");
+    });
   };
 
   addOrganisation = (orgName, orgCategory) => {
