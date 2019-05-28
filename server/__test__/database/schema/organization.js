@@ -36,8 +36,6 @@ describe("Test User schema", () => {
     };
     const StoredOrganization = await Organization.create(organization);
     expect(StoredOrganization).toBeDefined();
-
-    expect(StoredOrganization.name).toBe(organization.name);
     expect(StoredOrganization.category).toBe(organization.category);
     expect(StoredOrganization.phoneNumber).toBe(organization.phoneNumber);
     expect(StoredOrganization.email).toBe(organization.email);
