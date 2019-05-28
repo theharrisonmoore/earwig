@@ -34,13 +34,13 @@ export const StyledLink = styled(Link).attrs({})`
 
 export const LinkSpan = styled(Link)`
   color: ${colors.purpleLinks};
-  text-decoration: none;
   font-size: 1rem;
   font-weight: 700;
+  text-decoration: underline;
 
   &:hover,
   &:active {
-    text-decoration: none;
     color: ${colors.profileFontColor};
+    text-decoration: underline;
   }
 `;

@@ -19,14 +19,13 @@ export const LoginWrapper = styled.div.attrs({ className: "login" })`
 
 export const StyledLink = styled(Link).attrs({})`
   display: block;
-  text-decoration: none;
   font-size: 1.25rem;
   color: ${colors.purpleLinks};
   font-weight: 900;
+  text-decoration: underline;
 
   &:hover,
   &:active {
-    text-decoration: none;
     color: ${colors.purpleLinks};
   }
 `;
