@@ -96,6 +96,10 @@ export const LightLabel = styled(Label)`
 export const StyledButton = styled(Button)`
   margin-top: 4rem;
   margin-bottom: 4rem;
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 4rem auto;
 `;
 
 export const ImageInput = styled.input`
@@ -194,4 +198,13 @@ export const UnVerifiedButton = styled(Link)`
 export const VerifiedLabelWrapper = styled.div`
   display: flex;
   align-items: center;
+`;
+
+export const Error = styled.p`
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 3rem;
+  left: 50%;
+  color: #ff4d4f;
+  font-size: 16px;
 `;
