@@ -125,7 +125,12 @@ class AutosuggestComponent extends Component {
               />
             </SymbolDiv>
             <OrganisationDetailsDiv>
-              <h3 style={{ color: organizations[suggestion.category].primary }}>
+              <h3
+                style={{
+                  color: organizations[suggestion.category].primary,
+                  textTransform: "capitalize"
+                }}
+              >
                 {suggestion.name}
               </h3>
               <ReviewDetailsDiv>
