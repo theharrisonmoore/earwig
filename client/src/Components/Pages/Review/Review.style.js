@@ -135,6 +135,7 @@ export const OrgName = styled.h2`
   font-weight: 900;
   font-size: 1.375rem;
   color: ${colors.white};
+  text-transform: capitalize;
 
   @media (max-width: ${size.mobileL}) {
     font-size: 1.1rem;

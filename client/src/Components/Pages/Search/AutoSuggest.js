@@ -41,9 +41,9 @@ export const getSuggestionValue = suggestion => suggestion.name;
 // compares the user's input value and the entries (organisations) and filters the data array accordingly
 export const getSuggestions = (value, organisationsArray) => {
   const inputValue = value.trim().toLowerCase();
-  const inputLength = inputValue.length;
-  const suggestions = organisationsArray.filter(
-    org => org.name.toLowerCase().slice(0, inputLength) === inputValue
+
+  const suggestions = organisationsArray.filter(org =>
+    org.name.toLowerCase().includes(inputValue)
   );
 
   // in case there are no suggestions still return a value -> enables the 'add' box to be rendered
@@ -125,7 +125,12 @@ class AutosuggestComponent extends Component {
               />
             </SymbolDiv>
             <OrganisationDetailsDiv>
-              <h3 style={{ color: organizations[suggestion.category].primary }}>
+              <h3
+                style={{
+                  color: organizations[suggestion.category].primary,
+                  textTransform: "capitalize"
+                }}
+              >
                 {suggestion.name}
               </h3>
               <ReviewDetailsDiv>
@@ -149,26 +154,26 @@ class AutosuggestComponent extends Component {
         <div {...containerProps}>
           {children}
           <div className="my-suggestions-container-footer" />
-          {children && children.props.items[0].isEmpty && (
-            <AddProfileLink
-              to={{
-                pathname: `${ADD_PROFILE_URL}`,
-                state: { name: `${query}` }
-              }}
-            >
-              <AddItemBox>
-                <InnerDivSuggestions>
-                  {/* <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv> */}
-                  <SymbolDiv>
-                    <img src={addItemIcon} alt="" />
-                  </SymbolDiv>
-                  <AddItemDetails>
-                    <h3>Add {query}</h3>
-                  </AddItemDetails>
-                </InnerDivSuggestions>
-              </AddItemBox>
-            </AddProfileLink>
-          )}
+          {/* {children && children.props.items[0].isEmpty && ( */}
+          <AddProfileLink
+            to={{
+              pathname: `${ADD_PROFILE_URL}`,
+              state: { name: `${query}` }
+            }}
+          >
+            <AddItemBox>
+              <InnerDivSuggestions>
+                {/* <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv> */}
+                <SymbolDiv>
+                  <img src={addItemIcon} alt="" />
+                </SymbolDiv>
+                <AddItemDetails>
+                  <h3>Add {query}</h3>
+                </AddItemDetails>
+              </InnerDivSuggestions>
+            </AddItemBox>
+          </AddProfileLink>
+          {/* )} */}
         </div>
       );
     }

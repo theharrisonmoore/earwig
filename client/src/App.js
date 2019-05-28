@@ -8,6 +8,8 @@ import "./App.css";
 
 import Routes from "./Components/";
 
+import ScrollToTop from "./Components/Common/ScrollToTop";
+
 import { isMobile, isTablet } from "./helpers";
 
 import { API_USERS } from "./apiUrls";
@@ -77,15 +79,17 @@ class App extends Component {
     const { isLoggedIn, isMobile, isTablet } = this.state;
     return (
       <Router>
-        <div className="App">
-          <Routes
-            handleChangeState={this.handleChangeState}
-            isMobile={isMobile}
-            isTablet={isTablet}
-            isLoggedIn={isLoggedIn}
-            {...this.state}
-          />
-        </div>
+        <ScrollToTop>
+          <div className="App">
+            <Routes
+              handleChangeState={this.handleChangeState}
+              isMobile={isMobile}
+              isTablet={isTablet}
+              isLoggedIn={isLoggedIn}
+              {...this.state}
+            />
+          </div>
+        </ScrollToTop>
       </Router>
     );
   }

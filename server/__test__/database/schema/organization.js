@@ -31,13 +31,11 @@ describe("Test User schema", () => {
       name: "Recruitment Champion",
       category: "agency",
       phoneNumber: "+441235844101",
-      email: "abingdon@Recruitment.co.uk",
+      email: "abingdon@recruitment.co.uk",
       websiteURL: "http://www.Recruitment.co.uk/",
     };
     const StoredOrganization = await Organization.create(organization);
     expect(StoredOrganization).toBeDefined();
-
-    expect(StoredOrganization.name).toBe(organization.name);
     expect(StoredOrganization.category).toBe(organization.category);
     expect(StoredOrganization.phoneNumber).toBe(organization.phoneNumber);
     expect(StoredOrganization.email).toBe(organization.email);

@@ -69,6 +69,7 @@ export const CompanyTitle = styled.h2`
   font-size: 2rem;
   font-weight: 600;
   margin: 0;
+  text-transform: capitalize;
 `;
 
 export const ButtonDiv = styled.div`

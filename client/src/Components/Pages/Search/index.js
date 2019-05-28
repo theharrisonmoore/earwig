@@ -85,7 +85,12 @@ export default class Search extends Component {
             />
           </SymbolDiv>
           <OrganisationDetailsDiv>
-            <h3 style={{ color: organizations[org.category].primary }}>
+            <h3
+              style={{
+                color: organizations[org.category].primary,
+                textTransform: "capitalize"
+              }}
+            >
               {org.name}
             </h3>
             <ReviewDetailsDiv>

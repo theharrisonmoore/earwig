@@ -10,6 +10,7 @@ const organizationSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      lowercase: true,
     },
     category: {
       type: String,
@@ -17,7 +18,10 @@ const organizationSchema = new Schema(
       required: true,
     },
     phoneNumber: String,
-    email: String,
+    email: {
+      type: String,
+      lowercase: true,
+    },
     websiteURL: String,
     loacation: {
       lat: Number,

@@ -15,8 +15,8 @@ const users = require("./users");
 const mailList = require("./mailList");
 
 // production databases
-const realOrganizations = require("./../productionData/organizations")
-const realTrades = require("./../productionData/trades")
+const realOrganizations = require("./../productionData/organizations");
+const realTrades = require("./../productionData/trades");
 
 const buildDummyData = () => new Promise((resolve, reject) => {
   dbConnection()

@@ -110,11 +110,14 @@ describe("tests for running app with data ", () => {
     pressKeys("a");
     expectSuggestions(
       [
+        "Champion Recruitment",
         "A A C Mechanical & Electrical",
         "Aspire Recruitment",
         "Abbey Builders",
-        "Advanced Payroll Services"
+        "Advanced Payroll Services",
+        "Cardiff University"
       ],
+
       data.input.value,
       organisations.data
     );
@@ -122,7 +125,7 @@ describe("tests for running app with data ", () => {
     pressKeys("b");
 
     expectSuggestions(
-      ["Bournemouth University"],
+      ["Abbey Builders", "Liberty Bishop", "Bournemouth University"],
       data.input.value,
       organisations.data
     );

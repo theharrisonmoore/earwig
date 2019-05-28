@@ -16,7 +16,7 @@ describe("test to addNew organization query", () => {
       category: "company",
     }).then((company) => {
       expect(company).toBeDefined();
-      expect(company.name).toBe("Yalla Builders");
+      expect(company.name).toBe("yalla builders");
       done();
     });
   });

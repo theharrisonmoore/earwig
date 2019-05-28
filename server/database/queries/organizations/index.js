@@ -9,7 +9,7 @@ module.exports.deleteOrganization = async (name) => {
   return deletedOrg;
 };
 
-module.exports.getOrganizationByName = name => Organization.find({ name });
+module.exports.getOrganizationByName = name => Organization.find({ name: name.toLowerCase() });
 
 module.exports.getOrganizationById = id => Organization.findById(id);
 
