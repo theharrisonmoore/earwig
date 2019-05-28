@@ -31,7 +31,7 @@ describe("Test User schema", () => {
       name: "Recruitment Champion",
       category: "agency",
       phoneNumber: "+441235844101",
-      email: "abingdon@Recruitment.co.uk",
+      email: "abingdon@recruitment.co.uk",
       websiteURL: "http://www.Recruitment.co.uk/",
     };
     const StoredOrganization = await Organization.create(organization);
