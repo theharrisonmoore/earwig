@@ -13,7 +13,7 @@ export default ({ category, deleteHandler, editHandler }) => {
       render: (text, record) => {
         return (
           <Link to={`${GENERAL_ORGS_PROFILE_URL}/${record._id}`}>
-            <span style={{ fontWeight: "700" }}>{text}</span>;
+            <span style={{ fontWeight: "700" }}>{text}</span>
           </Link>
         );
       }

@@ -107,13 +107,13 @@ export const StyledLink = styled(Link)`
   font-size: 1.125rem;
   color: ${colors.profileFontColor};
   margin: 0;
-  text-decoration: none;
+  text-decoration: underline;
 
   &:active,
   &:hover {
-    text-decoration: none;
     color: ${colors.red};
     outline: none;
+    text-decoration: underline;
   }
 `;
 
