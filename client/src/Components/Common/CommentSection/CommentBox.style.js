@@ -58,10 +58,12 @@ export const LogInPrompt = styled(Link)`
   color: ${colors.heliotrope};
   cursor: pointer;
   font-weight: 900;
+  text-decoration: underline;
 
   &:hover,
   &:active,
   &:focus {
     color: ${colors.heliotrope};
+    text-decoration: underline;
   }
 `;
