@@ -13,11 +13,9 @@ import {
   DeleteButton,
   PasswordWrapper,
   LightLabel as Label,
-  ImageInput,
   StyledButton as Button,
   StyledLink,
-  EditIcon,
-  VerifiedLabelWrapper
+  Error
 } from "./EditProfile.style";
 
 import {
@@ -26,8 +24,6 @@ import {
   StyledField as Field,
   StyledFormikErrorMessage as FormikErrorMessage
 } from "./../../Common/Formik/Formik.style";
-
-import { colors } from "./../../../theme";
 
 const initalValues = {
   oldPassword: "",
@@ -103,7 +99,7 @@ export default class EditProfile extends Component {
       })
         .then(({ data }) => {
           this.props.handleChangeState({ ...data, isLoggedIn: true });
-          this.props.history.push(`/profile`);
+          this.props.history.push("/my-profile");
         })
         .catch(err => {
           this.setState({ error: err.response.data.error });
@@ -134,7 +130,7 @@ export default class EditProfile extends Component {
         : null
     );
 
-    const { userId, email, verified } = this.props;
+    const { userId, email } = this.props;
 
     return (
       <EditWrapper>
@@ -196,42 +192,7 @@ export default class EditProfile extends Component {
                     </PasswordWrapper>
                   )}
                 </Section>
-                {verified && (
-                  <Section>
-                    <Row>
-                      <VerifiedLabelWrapper className="row__image-container">
-                        <EditIcon
-                          icon="getVerified"
-                          height="36"
-                          width="36"
-                          margin="0 0.5rem 0 0"
-                          fill={colors.veryLightGray}
-                        />
-                        <Title>Verification photo</Title>
-                      </VerifiedLabelWrapper>
-                      <Field
-                        name="verificationImage"
-                        render={({ field, form: { isSubmitting } }) => (
-                          <ImageInput
-                            {...field}
-                            type="file"
-                            placeholder="lastName"
-                            accept="image/*"
-                            id="verificationImage"
-                            onChange={this.handleImageChange}
-                          />
-                        )}
-                      />
-                      <FormikErrorMessage
-                        name="verificationImage"
-                        component="p"
-                      />
-                      <EditButton htmlFor="verificationImage" as="label">
-                        Edit
-                      </EditButton>
-                    </Row>
-                  </Section>
-                )}
+
                 <Section>
                   <Row>
                     <Title>Delete my earwig account</Title>
@@ -240,9 +201,12 @@ export default class EditProfile extends Component {
                     </NavLink>
                   </Row>
                 </Section>
-                <Button type="submit" disabled={isSubmitting}>
-                  Save Changes
-                </Button>
+                <div style={{ position: "relative" }}>
+                  <Button type="submit" disabled={isSubmitting}>
+                    Save Changes
+                  </Button>
+                  <Error>{this.state.error}</Error>
+                </div>
               </Form>
             )}
           </Formik>

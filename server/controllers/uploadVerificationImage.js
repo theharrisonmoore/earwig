@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
   const { tradeId, city } = req.body;
   const { uploadedFileName } = req.file;
   updateUserById(user._id, {
-    tradeId,
+    trade: tradeId,
     awaitingReview: true,
     verificationPhoto: uploadedFileName,
     city,

@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: hidden;
 
   & .paragraph {
     color: red;
@@ -58,28 +59,28 @@ export const Paragraph = styled.p`
 
 export const StyledLink = styled(Link).attrs({})`
   display: block;
-  text-decoration: none;
   font-size: 1.25rem;
   color: ${colors.white};
   font-weight: 900;
+  text-decoration: underline;
 
   &:hover,
   &:active {
-    text-decoration: none;
     color: ${colors.white};
+    text-decoration: underline;
   }
 `;
 
 export const SmallLink = styled(StyledLink)`
   font-size: 1rem;
   text-align: right;
-  font-weight: initial;
   margin: 0;
   color: ${colors.white};
 
   &:hover,
   &:active {
     color: ${colors.white};
+    text-decoration: underline;
   }
 `;
 
@@ -141,7 +142,7 @@ export const AwardTitle = styled.h3`
   margin-bottom: 1rem;
   font-weight: 900;
   font-size: 1rem;
-  color: ${colors.white}
+  color: ${colors.white};
   width: 100%;
 `;
 
