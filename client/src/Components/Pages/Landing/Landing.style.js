@@ -67,6 +67,7 @@ export const StyledLink = styled(Link).attrs({})`
   &:hover,
   &:active {
     color: ${colors.white};
+    text-decoration: underline;
   }
 `;
 
@@ -79,6 +80,7 @@ export const SmallLink = styled(StyledLink)`
   &:hover,
   &:active {
     color: ${colors.white};
+    text-decoration: underline;
   }
 `;
 

@@ -27,6 +27,7 @@ export const StyledLink = styled(Link).attrs({})`
   &:hover,
   &:active {
     color: ${colors.purpleLinks};
+    text-decoration: underline;
   }
 `;
 
@@ -36,10 +37,12 @@ export const SmallLink = styled(StyledLink)`
   font-weight: initial;
   margin-bottom: 0.25rem;
   color: ${colors.profileFontColor};
+  text-decoration: underline;
 
   &:hover,
   &:active {
     color: ${colors.profileFontColor};
+    text-decoration: underline;
   }
 `;
 
