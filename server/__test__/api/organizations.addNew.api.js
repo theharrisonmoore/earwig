@@ -43,7 +43,7 @@ describe("Tesing for get add organisation route", () => {
           .end((err, res) => {
             expect(res).toBeDefined();
             expect(res.body).toBeDefined();
-            expect(res.body.name).toBe("yalla builders");
+            expect(res.body.name).toBe("Yalla Builders");
             done(err);
           });
       });

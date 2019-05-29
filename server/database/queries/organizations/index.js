@@ -9,12 +9,16 @@ module.exports.deleteOrganization = async (name) => {
   return deletedOrg;
 };
 
-module.exports.getOrganizationByName = name => Organization.find({ name: name.toLowerCase() });
+module.exports.getOrganizationByName = (name) => {
+  const regex = new RegExp(["^", name, "$"].join(""), "i");
+  return Organization.find({ name: regex });
+};
 
 module.exports.getOrganizationById = id => Organization.findById(id);
 
 module.exports.updateOrgsById = (id, data) => Organization.findByIdAndUpdate(id, { $set: data });
 
-module.exports.updateLastViewed = id => Organization.findByIdAndUpdate(id, { lastViewed: Date.now() });
+module.exports.updateLastViewed = id => Organization.findByIdAndUpdate(id,
+  { lastViewed: Date.now() });
 
 module.exports.addNew = addNew;
