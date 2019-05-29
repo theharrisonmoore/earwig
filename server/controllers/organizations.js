@@ -10,6 +10,6 @@ module.exports = async (req, res, next) => {
   } else {
     addNew({ name, category })
       .then(addedOrg => res.json(addedOrg))
-      .catch(err => next(boom.badImplementation()));
+      .catch(() => next(boom.badImplementation()));
   }
 };
