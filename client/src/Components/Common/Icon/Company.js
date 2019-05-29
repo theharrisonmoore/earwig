@@ -20,7 +20,7 @@ const Company = props => (
       width="59"
       height="45"
     >
-      <rect width="59" height="44.7586" fill="url(#pattern1)" />
+      <rect width="59" height="44.7586" fill="url(#patternCompany1)" />
     </mask>
     <g mask="url(#maskCompany0)">
       <rect width="59" height="44.7586" fill={props.color || "currentColor"} />
@@ -38,7 +38,7 @@ const Company = props => (
         />
       </pattern>
       <pattern
-        id="pattern1"
+        id="companyPattern1"
         patternContentUnits="objectBoundingBox"
         width="1"
         height="1"
