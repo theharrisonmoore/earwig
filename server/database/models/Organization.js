@@ -10,7 +10,6 @@ const organizationSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      lowercase: true,
     },
     category: {
       type: String,
