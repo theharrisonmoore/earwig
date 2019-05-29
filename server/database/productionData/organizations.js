@@ -5559,6 +5559,1411 @@ module.exports = async () => {
       category: "payroll",
       lastViewed: Date.now(),
     },
+    {
+      name: "Aberdeen Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Abertay University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Aberystwyth University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Anglia Ruskin University, Cambridge",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Aston University, Birmingham",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Bangor University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Bath Spa University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Battersea Power Station",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Belfast City Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Belfast International Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Birkbeck, University of London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Birmingham Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Birmingham City University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Bishop Grosseteste University, Lincoln",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Bournemouth University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "BPP University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Bristol Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Brunel University, London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Brunel University, Uxbridge",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Buckinghamshire New University, High Wycombe",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Cardiff Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Cardiff Metropolitan University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Cardiff University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "City, University of London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Courtauld Institute of Art",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Coventry University, Coventry",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Coventry University, London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Coventry University, Scarborough",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Cranfield University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Abbey Wood",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Acton Main Line",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Bond Street",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Brentwood",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Burnham",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Canary Wharf",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Chadwell Heath",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Custom House",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Ealing Broadway",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Farringdon",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Forest Gate",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Gidea Park",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Goodmayes",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Hanwell",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Harold Wood",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Hayes and Harlington",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Heathrow Central",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Heathrow Terminal 4",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Heathrow Terminal 5",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Ilford",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Iver",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Langley",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Liverpool Street",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Maidenhead",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Manor Park",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Maryland",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Paddington",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Reading",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Romford",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Seven Kings",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Shenfield",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Slough",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Southall",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Stratford",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Taplow",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Tottenham Court Road",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Twyford",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail West Drayton",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail West Ealing",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Whitechapel",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Crossrail Woolwich",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "De Montfort University, Leicester",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Doncaster Sheffield Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Durham University, Durham",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Durham University, Stockton-on-Tees",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "East Midlands Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Edge Hill University, Ormskirk",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Edinburgh Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Edinburgh Napier University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Falmouth University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Gatwick Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Glasgow Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Glasgow Caledonian University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Goldsmiths, University of London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Harper Adams University, Newport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Heathrow Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Heriot-Watt University, Edinburgh",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Heriot-Watt University, Galashiels",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Birmingham Curzon",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Carlisle",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Carstairs",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Chesterfield",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Crewe",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Darlington",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Durham",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Edinburgh",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Glasgow",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Lancaster",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Leeds",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Liverpool",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Lockerbie",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 London Euston",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Manchester Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Manchester Piccadilly",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Newcastle",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Old Oak Common",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Oxenholme",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Penrith",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Preston",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Runcorn",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Sheffield",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Stafford",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Toton",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 Wigan",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "HS2 York",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Imperial College London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Institute of Cancer Research",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Keele University, Staffordshire",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "King's College London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Kingston University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Lancaster University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Leeds Arts University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Leeds Beckett University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Leeds Bradford Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Leeds Trinity University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Liverpool Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Liverpool Hope University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Liverpool John Moores University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "London Business School",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "London City Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "London Metropolitan University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "London School of Economics and Political Science (LSE)",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "London School of Hygiene and Tropical Medicine",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "London South Bank University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Loughborough University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Luton Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Manchester Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Manchester Metropolitan University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Manchester Water Treatment",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Middlesex University, London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Newcastle Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Newcastle University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Newman University, Birmingham",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Nine Elms",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Northumbria University, Newcastle upon Tyne",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Norwich University of the Arts",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Nottingham Trent University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Oxford Brookes University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Plymouth Marjon University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Queen Margaret University, Edinburgh",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Queen Mary, University of London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Queen's University Belfast",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Ravensbourne University London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Regent's University London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Roehampton University, London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Royal Academy of Music",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Royal Agricultural University, Cirencester",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Royal Central School of Speech and Drama",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Royal Holloway, University of London, Egham",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Royal Veterinary College",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "School of Oriental and African Studies (SOAS)",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Sheffield Hallam University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Solent University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Southampton Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "St George's, University of London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "St Mary's University, Twickenham",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Staffordshire University, Lichfield",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Staffordshire University, Stafford",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Staffordshire University, Stoke-on-Trent",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Stansted Airport",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Swansea University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Teesside University, Darlington",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Teesside University, Middlesbrough",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "The Arts University Bournemouth",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "The Robert Gordon University, Aberdeen",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Tottenham Hotspur (Spurs) Stadium",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Ulster University, Belfast",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Ulster University, Coleraine",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Ulster University, Jordanstown",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Ulster University, Magee",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University College Birmingham",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University College London (UCL)",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University for the Creative Arts, Canterbury",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University for the Creative Arts, Epsom",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University for the Creative Arts, Farnham",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University for the Creative Arts, Maidstone",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University for the Creative Arts, Rochester",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Aberdeen",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Bath",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Bedfordshire, Bedford",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Bedfordshire, Luton",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Birmingham",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Bolton",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Bradford",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Brighton",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Bristol",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Buckingham",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Cambridge",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Central Lancashire, Burnley",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Central Lancashire, Preston",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Chester, Chester",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Chester, Warrington",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Chichester",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Cumbria, Ambleside",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Cumbria, Carlisle",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Cumbria, London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Cumbria, Penrith",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Derby",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Dundee",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of East Anglia, Norwich",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of East London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Edinburgh",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Essex, Colchester",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Essex, Southend-on-Sea",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Exeter",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Glasgow",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Gloucestershire, Cheltenham",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Gloucestershire, Gloucester",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Gloucestershire, London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Greenwich",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Hertfordshire, Hatfield",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Huddersfield, Barnsley",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Huddersfield, Huddersfield",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Hull",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Kent, Canterbury",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Kent, Medway",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Law",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Leeds",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Leicester",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Lincoln, Holbeach",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Lincoln, Lincoln",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Lincoln, Riseholme",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Liverpool",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Manchester",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Northampton",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Nottingham",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Oxford",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Plymouth",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Portsmouth",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Reading",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Salford",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Sheffield",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of South Wales",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Southampton",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of St Andrews",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Stirling, Bridge of Allan",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Strathclyde",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Strathclyde, Glasgow",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Suffolk, Bury St Edmunds",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Suffolk, Great Yarmouth",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Suffolk, Ipswich",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Suffolk, Lowestoft",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Sunderland",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Surrey, Guildford",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Sussex, Brighton",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Sussex, Falmer",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of the Arts London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of the Highlands & Islands, Elgin",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of the Highlands & Islands, Inverness",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of the Highlands & Islands, Perth",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of the West of England, Bristol",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of the West of Scotland, Ayr",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of the West of Scotland, Dumfries",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of the West of Scotland, Hamilton",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of the West of Scotland, Paisley",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Ulster, Belfast",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Wales, Carmarthen",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Wales, Lampeter",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Wales, Swansea",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Wales, Trinity Saint David (UWTSD)",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Warwick, Coventry",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of West London, Brentford",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of West London, Ealing",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Westminster, London",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Winchester",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Wolverhampton",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of Worcester",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "University of York",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Waste Water Treatment Works, Wigton",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "Wrexham Glyndŵr University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
+    {
+      name: "York St John University",
+      category: "worksite",
+      lastViewed: Date.now(),
+    },
   ];
   return Organization.create(organizations);
 };
