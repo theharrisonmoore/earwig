@@ -200,6 +200,7 @@ export const SiteAnswer = styled.div`
   /* color: ${props =>
     props.itemAvailable ? `${colors.green}` : `${colors.red}`}; */
   font-weight: 900;
+  text-decoration: ${props => !props.itemAvailable && "line-through"};
   display: flex;
   align-items: center;
   width: 100%;
@@ -221,6 +222,7 @@ export const CanteenSubList = styled.p`
     props.itemAvailable ? `${colors.green}` : `${colors.red}`};
   font-weight: 900;
   display: ${props => (props.hide ? "none" : "block")};
+  text-decoration: ${props => !props.itemAvailable && "line-through"};
 `;
 
 export const Error = styled.p`
@@ -276,6 +278,7 @@ export const ImgWrapper = styled.div``;
 
 export const CanteenItem = styled(SiteItem)`
   margin-bottom: 0.5rem;
+  text-decoration: ${props => !props.itemAvailable && "line-through"};
 
   p {
     margin: 0;

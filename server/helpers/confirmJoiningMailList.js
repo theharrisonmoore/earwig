@@ -5,7 +5,7 @@ module.exports = (to, id) => {
   <div style="text-align: center;">
     <img src="cid:earwig-logo" style="background: white;"/>
     <p style="font-weight: 700;">Welcome to the earwig community,</p>
-    <p>We need you to confirm your email address so we know you’re reachable at this address. Your email address will always stay hidden on earwig.</p>
+    <p>We need you to confirm your email address so we know you're not a robot. We'll never spam you.</p>
     
     <a href="${
   process.env.DOMAIN
