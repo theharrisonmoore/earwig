@@ -179,7 +179,7 @@ export default class index extends Component {
           <PromiseParagraph>
             You’ll only see verified worker-led information <br />
             Your reviews will always be seen by industry <br />
-            You’ll always be protected by anonymity
+            Your reviews will never be edited
           </PromiseParagraph>
         </WhiteWrapper>
         <AwardsWrapper>
