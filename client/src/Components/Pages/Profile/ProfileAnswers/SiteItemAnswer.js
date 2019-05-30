@@ -30,7 +30,7 @@ export default class SiteItemAnswer extends Component {
         <SiteItem itemAvailable={averageResponse}>
           {question.question.profileText ===
           "Car parking within 10 mins walk of site" ? (
-            <SiteAnswer>
+            <SiteAnswer itemAvailable={averageResponse}>
               <Icon
                 icon={question.question.icon}
                 margin="0 1rem 0 0"
@@ -46,7 +46,7 @@ export default class SiteItemAnswer extends Component {
               )}
             </SiteAnswer>
           ) : (
-            <SiteAnswer>
+            <SiteAnswer itemAvailable={averageResponse}>
               <Icon
                 icon={question.question.icon}
                 margin="0 1rem 0 0"
