@@ -8,7 +8,7 @@
  *
  */
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 const { compare, hash } = require("bcryptjs");
 
 const { getUserById, updateUserById } = require("./../database/queries/user");

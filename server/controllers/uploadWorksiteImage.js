@@ -1,4 +1,4 @@
-const boom = require("boom");
+const boom = require("@hapi/boom");
 
 module.exports = async (req, res, next) => {
   if (!req.file && !req.file.uploadedFileName) {

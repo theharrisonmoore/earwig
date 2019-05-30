@@ -3,7 +3,7 @@
  * @param {category} - string -  organization category
  */
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 
 const { getOrgsByCategory } = require("../../database/queries/organizations/index.js");
 

@@ -1,5 +1,5 @@
 const multer = require("multer");
-const boom = require("boom");
+const boom = require("@hapi/boom");
 
 /**
  * upload function that return a multer middleware

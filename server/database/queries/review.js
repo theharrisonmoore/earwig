@@ -1,4 +1,4 @@
-const boom = require("boom");
+const boom = require("@hapi/boom");
 
 const Question = require("../models/Question");
 const Organization = require("../models/Organization");

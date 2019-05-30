@@ -1,6 +1,6 @@
 //  gets all answers and questions of a review by id
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 
 const { getReviewDetails } = require("./../../database/queries/reviews");
 

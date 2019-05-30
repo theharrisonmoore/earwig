@@ -3,7 +3,7 @@
  * @param {id} reviewId
  */
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 
 const { getOverallReplies } = require("../database/queries/reviews");
 

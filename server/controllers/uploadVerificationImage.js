@@ -7,7 +7,7 @@
  *
  */
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 
 const { updateUserById } = require("./../database/queries/user");
 

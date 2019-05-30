@@ -1,6 +1,6 @@
 // updates isVerified status of review
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 const { approveRejectReview } = require("./../../database/queries/reviews");
 
 module.exports = (req, res, next) => {

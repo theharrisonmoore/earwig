@@ -3,7 +3,7 @@
  * @param {trade} -string- the trade tilte
  */
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 const { addTrade, findTradeByTitle } = require("./../database/queries");
 
 module.exports = async (req, res, next) => {

@@ -4,7 +4,7 @@
  * @param {awaitingReview} - optional - if exists then return the awaiting review only
  */
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 
 const { getAllReviews } = require("./../../database/queries/reviews");
 

@@ -5,7 +5,7 @@
  * @param {id} mongoID - user id
  */
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 
 const { updateUserById, getUserById } = require("./../../database/queries/user");
 const deleteFile = require("./../../helpers/deleteFile");

@@ -1,5 +1,5 @@
 const { verify } = require("jsonwebtoken");
-const boom = require("boom");
+const boom = require("@hapi/boom");
 
 const { getUserById } = require("../database/queries/user");
 

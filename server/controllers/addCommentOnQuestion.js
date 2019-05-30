@@ -6,7 +6,7 @@
  * @param {organization} - mongoID - organization id
  */
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 
 const { createComment } = require("./../database/queries/comments");
 

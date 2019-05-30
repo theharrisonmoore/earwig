@@ -1,5 +1,5 @@
-const Joi = require("joi");
-const boom = require("boom");
+const Joi = require("@hapi/joi");
+const boom = require("@hapi/boom");
 
 // define all routes schema here
 const schemas = {

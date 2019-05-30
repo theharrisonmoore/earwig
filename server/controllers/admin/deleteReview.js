@@ -3,7 +3,7 @@
  * @param {id} - mongoID - review id
  */
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 const { deleteReview, deleteReviewAnswers, findById } = require("./../../database/queries/reviews");
 
 module.exports = ((req, res, next) => {

@@ -5,7 +5,7 @@
  * response with the user onfo and create new token
  */
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 const jwt = require("jsonwebtoken");
 
 const { findByEmail, addNew } = require("./../database/queries/user");

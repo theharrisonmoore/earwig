@@ -3,7 +3,7 @@
  * to be rendered in a table for the admin
  */
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 
 const { getAllUsers } = require("./../../database/queries/user");
 

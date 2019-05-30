@@ -9,7 +9,7 @@
  */
 
 const jwt = require("jsonwebtoken");
-const boom = require("boom");
+const boom = require("@hapi/boom");
 const { compare } = require("bcryptjs");
 const { tokenMaxAge } = require("./../constants");
 

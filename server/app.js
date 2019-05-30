@@ -1,5 +1,5 @@
 // test comment
-const boom = require("boom");
+const boom = require("@hapi/boom");
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");

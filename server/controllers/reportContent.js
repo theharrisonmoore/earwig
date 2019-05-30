@@ -13,7 +13,7 @@
  */
 
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 
 const reportMailing = require("./../helpers/reportMailing");
 

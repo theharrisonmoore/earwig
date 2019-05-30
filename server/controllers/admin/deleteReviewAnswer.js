@@ -1,4 +1,4 @@
-const boom = require("boom");
+const boom = require("@hapi/boom");
 const { deleteAnswer } = require("./../../database/queries/reviews");
 
 module.exports = (req, res, next) => {

@@ -3,7 +3,7 @@
  * @param {id} mongoID - user id
  */
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 const { deleteUserCompletely } = require("./../../database/queries/user");
 
 module.exports = (req, res, next) => {

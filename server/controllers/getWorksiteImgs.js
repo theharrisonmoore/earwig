@@ -1,4 +1,4 @@
-const boom = require("boom");
+const boom = require("@hapi/boom");
 const getImageLink = require("../helpers/getFileLink");
 
 const worksiteImgs = async (req, res, next) => {

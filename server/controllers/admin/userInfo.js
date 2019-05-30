@@ -4,7 +4,7 @@
  * @param {id} mongoID - user id
  */
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 
 const getImageLink = require("./../../helpers/getFileLink");
 const { getUserById } = require("./../../database/queries/user");

@@ -9,7 +9,7 @@
  * @todo add condition to check for voice target - sprint 2 -
  */
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 
 const { addCommentOnOverallReview } = require("./../database/queries/reviews");
 

@@ -4,7 +4,7 @@
  * @param {active} - boolean - true => activate, false => deactivate
  */
 
-const boom = require("boom");
+const boom = require("@hapi/boom");
 const { updateOrgsById, getOrganizationById } = require("./../../database/queries/organizations");
 
 module.exports = ((req, res, next) => {
