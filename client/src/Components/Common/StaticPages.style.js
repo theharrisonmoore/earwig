@@ -207,6 +207,7 @@ export const Ol = styled.ol`
   font-size: 16px;
   line-height: 36px;
   margin-bottom: 20px;
+  font-weight: normal;
 
   @media (max-width: ${MOBILE_WIDTH}px) {
     font-size: 14px;
@@ -223,14 +224,13 @@ export const Ol = styled.ol`
     display: table-cell;
     padding-right: 0.3em;
     ${({ showFirstNumber }) =>
-      showFirstNumber &&
-      `
-    content: counters(item, ".") ". ";
-    `}
+      showFirstNumber && `content: counters(item, ".") ". ";`}
   }
 `;
 
 export const Li = styled.li`
+  font-weight: normal;
+
   ol > li {
     margin: 0;
   }

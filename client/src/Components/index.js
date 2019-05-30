@@ -10,7 +10,8 @@ import {
   ORGS_PROFILE_URL,
   REPORT_CONTENT_URL,
   DELETE_PROFILE_URL,
-  COMMUNITY_GUIDELINES_URL
+  COMMUNITY_GUIDELINES_URL,
+  TERMS_OF_USE_URL
 } from "./../constants/naviagationUrls";
 
 import Landing from "./Pages/Landing";
@@ -39,7 +40,8 @@ import {
   HelpfulStuff,
   ShapeEarwig,
   PrivacyAndTerms,
-  CommunityGuidlines
+  CommunityGuidlines,
+  TermsOfUse
 } from "./Pages/Static";
 
 import {
@@ -241,6 +243,18 @@ export default function index(props) {
           Component={CommunityGuidlines}
           navbar
           title="Community Guidlines"
+          search={!isMobile}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={TERMS_OF_USE_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={TermsOfUse}
+          navbar
+          title="Terms Of Use"
           search={!isMobile}
         />
 

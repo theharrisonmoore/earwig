@@ -4,12 +4,8 @@ import {
   Wrapper,
   ContentWrapper,
   MainIcon,
-  SubTitle,
-  SmallParagraph,
   PageTitle,
-  LargeLink,
-  Ol,
-  Li
+  LargeLink
 } from "./../../Common/StaticPages.style";
 
 import {

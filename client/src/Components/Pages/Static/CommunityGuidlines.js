@@ -10,12 +10,9 @@ import {
 } from "./../../Common/StaticPages.style";
 
 import { TERMS_OF_USE_URL } from "./../../../constants/naviagationUrls";
-import CommentSection from "./../../Common/CommentSection";
 
 export default class CommunityGuidlines extends Component {
   render() {
-    const { isLoggedIn } = this.props;
-
     return (
       <Wrapper>
         <ContentWrapper>
