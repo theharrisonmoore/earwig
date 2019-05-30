@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { colors, shadows } from "./../../theme";
+import { colors, shadows, breakpoints } from "./../../theme";
 import { MOBILE_WIDTH } from "./../../constants/screenWidths";
 
 export const Wrapper = styled.div`
@@ -18,13 +18,16 @@ export const ContentWrapper = styled.div`
   width: calc(85% + 2rem);
   margin: 3rem auto;
   margin-bottom: 3rem;
+  text-align: left;
 `;
 
 export const MainIcon = styled.img`
   min-width: 2.5rem;
   max-width: 3.75rem;
   width: 10%;
-  margin-bottom: 0.5rem;
+  text-align: center;
+  margin: 0 auto 0.5rem;
+  display: block;
 `;
 
 export const PageTitle = styled.h1`
@@ -136,7 +139,6 @@ export const Devider = styled.div`
   }
 `;
 
-// /* position: absolute; */
 export const BottomFixedDiv = styled.div`
   margin: 10vh auto 0rem;
 `;
@@ -173,4 +175,53 @@ export const ButtonsWrapper = styled.div`
 export const SmallButton = styled(Button)`
   width: 50%;
   margin: 0;
+`;
+
+export const LargeLink = styled(Link)`
+  font-family: Roboto;
+  font-weight: 900;
+  font-size: 18px;
+  color: #4a4a4a;
+  text-decoration: underline;
+  text-align: left;
+  font-size: 1.125rem;
+  display: block;
+  margin-bottom: 20px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  @media ${breakpoints.tablet} {
+    font-size: 1.5rem;
+  }
+`;
+
+export const Ol = styled.ol`
+  list-style-type: none;
+  counter-reset: item;
+  margin: 0;
+  padding: 0;
+
+  & > li {
+    display: table;
+    counter-increment: item;
+    margin-bottom: 0.6em;
+  }
+
+  & > li:before {
+    content: counters(item, ".") ". ";
+    display: table-cell;
+    padding-right: 0.6em;
+  }
+`;
+
+export const Li = styled.li`
+  ol > li {
+    margin: 0;
+  }
+
+  ol > li:before {
+    content: counters(item, ".") " ";
+  }
 `;

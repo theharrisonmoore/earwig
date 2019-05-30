@@ -5,7 +5,7 @@ import { Checkbox as AntCheckbox } from "antd";
 
 import Logo from "./../../Common/Logo";
 
-import { PRIVACY_URL } from "./../../../constants/naviagationUrls";
+import { TERMS_OF_USE_URL } from "./../../../constants/naviagationUrls";
 import {
   StyledFormik as Formik,
   StyledForm as Form,
@@ -147,7 +147,7 @@ export default class Signup extends Component {
                 />
                 <CheckboxLabel htmlFor="checkbox">
                   I agree to the earwig{" "}
-                  <LinkSpan target="_blank" to={PRIVACY_URL}>
+                  <LinkSpan target="_blank" to={TERMS_OF_USE_URL}>
                     Terms of Use.
                   </LinkSpan>
                 </CheckboxLabel>

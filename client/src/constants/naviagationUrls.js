@@ -25,3 +25,6 @@ export const COMMUNITY_GUIDELINES_URL = "/community-guidelines";
 export const INTRO_URL = "/intro";
 export const RESET_PASSWORD_URL = "/reset-password";
 export const REPLY_URL = "/reply";
+export const TERMS_OF_USE_URL = "/terms-of-use";
+export const COOKIES_POLICY_URL = "/cookies-policy";
+export const PRIVACY_AND_TERMS_URL = "/privacy-and-terms";

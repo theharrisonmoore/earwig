@@ -44,7 +44,7 @@ import {
   RESOURCES_URL,
   CONTACT_URL,
   FAQ_URL,
-  PRIVACY_URL,
+  PRIVACY_AND_TERMS_URL,
   SEARCH_URL,
   ADD_PROFILE_URL,
   ADD_PROFILE_START_REVIEW_URL,
@@ -220,7 +220,7 @@ export default function index(props) {
 
         <PrivateRoute
           minimumLevel="LEVEL0"
-          path={PRIVACY_URL}
+          path={PRIVACY_AND_TERMS_URL}
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
