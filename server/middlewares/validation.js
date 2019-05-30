@@ -5,7 +5,7 @@ const boom = require("@hapi/boom");
 const schemas = {
   login: {
     email: Joi.string()
-      .email({ minDomainAtoms: 2 })
+      .email({ minDomainSegments: 2 })
       .required(),
     password: Joi.string().required(),
   },
@@ -17,7 +17,7 @@ const schemas = {
   },
   signup: {
     email: Joi.string()
-      .email({ minDomainAtoms: 2 })
+      .email({ minDomainSegments: 2 })
       .required(),
     password: Joi.string()
       .min(6)
