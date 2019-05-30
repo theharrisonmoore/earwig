@@ -49,6 +49,7 @@ export const SubTitle = styled.h4`
   text-align: ${({ center }) => (center ? "center" : "left")};
   margin-bottom: ${({ marginBottom }) => (marginBottom ? "1.5rem" : "0")};
   margin-top: ${props => (props.list ? "0" : "1.5rem")};
+
   @media (min-width: ${MOBILE_WIDTH}px) {
     font-size: 1.5rem;
     padding-top: 3rem;
@@ -87,7 +88,7 @@ export const Iframe = styled.iframe`
 export const LargeParagraph = styled.p`
   font-size: 1.5rem;
   color: ${colors.profileFontColor};
-  text-align: center;
+  text-align: ${({ left }) => (left ? "left" : "center")};
   margin-top: 3rem;
   font-style: italic;
 `;
@@ -202,6 +203,15 @@ export const Ol = styled.ol`
   counter-reset: item;
   margin: 0;
   padding: 0;
+  color: ${colors.profileFontColor};
+  font-size: 16px;
+  line-height: 36px;
+  margin-bottom: 20px;
+
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    font-size: 14px;
+    line-height: 30px;
+  }
 
   & > li {
     display: table;
@@ -210,9 +220,13 @@ export const Ol = styled.ol`
   }
 
   & > li:before {
-    content: counters(item, ".") ". ";
     display: table-cell;
-    padding-right: 0.6em;
+    padding-right: 0.3em;
+    ${({ showFirstNumber }) =>
+      showFirstNumber &&
+      `
+    content: counters(item, ".") ". ";
+    `}
   }
 `;
 
@@ -223,5 +237,17 @@ export const Li = styled.li`
 
   ol > li:before {
     content: counters(item, ".") " ";
+  }
+`;
+
+export const SmallTitle = styled.h4`
+  font-weight: 900;
+  font-size: 1.125rem;
+  color: ${colors.profileFontColor};
+  text-align: center;
+
+  @media (min-width: ${MOBILE_WIDTH}px) {
+    font-size: 1.5rem;
+    padding-top: 1rem;
   }
 `;

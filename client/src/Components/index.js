@@ -9,7 +9,8 @@ import {
   UPLOAD_VERIFICATION_URL,
   ORGS_PROFILE_URL,
   REPORT_CONTENT_URL,
-  DELETE_PROFILE_URL
+  DELETE_PROFILE_URL,
+  COMMUNITY_GUIDELINES_URL
 } from "./../constants/naviagationUrls";
 
 import Landing from "./Pages/Landing";
@@ -37,7 +38,8 @@ import {
   FAQ,
   HelpfulStuff,
   ShapeEarwig,
-  PrivacyAndTerms
+  PrivacyAndTerms,
+  CommunityGuidlines
 } from "./Pages/Static";
 
 import {
@@ -227,6 +229,18 @@ export default function index(props) {
           Component={PrivacyAndTerms}
           navbar
           title="Privacy & terms"
+          search={!isMobile}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={COMMUNITY_GUIDELINES_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={CommunityGuidlines}
+          navbar
+          title="Community Guidlines"
           search={!isMobile}
         />
 
