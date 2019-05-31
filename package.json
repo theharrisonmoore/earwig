@@ -49,7 +49,6 @@
     "nodemon": "^1.18.10"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "boom": "^7.3.0",
