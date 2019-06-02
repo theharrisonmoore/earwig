@@ -43,7 +43,8 @@ import {
   PrivacyAndTerms,
   CommunityGuidlines,
   TermsOfUse,
-  CookiesPolicy
+  CookiesPolicy,
+  PrivacyPolicy
 } from "./Pages/Static";
 
 import {
@@ -60,7 +61,8 @@ import {
   CONFIRM_EMAIL_URL,
   INTRO_URL,
   USER_PROFILE_URL,
-  REPLY_URL
+  REPLY_URL,
+  PRIVACY_URL
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
@@ -233,6 +235,18 @@ export default function index(props) {
           Component={PrivacyAndTerms}
           navbar
           title="Privacy & terms"
+          search={!isMobile}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={PRIVACY_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={PrivacyPolicy}
+          navbar
+          title="Privacy Policy"
           search={!isMobile}
         />
 
