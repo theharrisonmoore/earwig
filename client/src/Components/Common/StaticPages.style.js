@@ -19,6 +19,30 @@ export const ContentWrapper = styled.div`
   margin: 3rem auto;
   margin-bottom: 3rem;
   text-align: left;
+
+  .table {
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 14px;
+    }
+
+    td,
+    th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+      min-width: 155px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd2e;
+    }
+    th {
+      font-weight: 700;
+    }
+  }
 `;
 
 export const MainIcon = styled.img`
