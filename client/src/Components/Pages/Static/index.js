@@ -4,6 +4,7 @@ import ShapeEarwig from "./ShapeEarwig";
 import PrivacyAndTerms from "./PrivacyAndTerms";
 import CommunityGuidlines from "./CommunityGuidlines";
 import TermsOfUse from "./TermsOfUse";
+import CookiesPolicy from "./CookiesPolicy";
 
 export {
   FAQ,
@@ -11,5 +12,6 @@ export {
   ShapeEarwig,
   PrivacyAndTerms,
   CommunityGuidlines,
-  TermsOfUse
+  TermsOfUse,
+  CookiesPolicy
 };

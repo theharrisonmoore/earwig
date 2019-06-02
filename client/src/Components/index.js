@@ -11,7 +11,8 @@ import {
   REPORT_CONTENT_URL,
   DELETE_PROFILE_URL,
   COMMUNITY_GUIDELINES_URL,
-  TERMS_OF_USE_URL
+  TERMS_OF_USE_URL,
+  COOKIES_POLICY_URL
 } from "./../constants/naviagationUrls";
 
 import Landing from "./Pages/Landing";
@@ -41,7 +42,8 @@ import {
   ShapeEarwig,
   PrivacyAndTerms,
   CommunityGuidlines,
-  TermsOfUse
+  TermsOfUse,
+  CookiesPolicy
 } from "./Pages/Static";
 
 import {
@@ -255,6 +257,18 @@ export default function index(props) {
           Component={TermsOfUse}
           navbar
           title="Terms Of Use"
+          search={!isMobile}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={COOKIES_POLICY_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={CookiesPolicy}
+          navbar
+          title="Privacy Policy"
           search={!isMobile}
         />
 
