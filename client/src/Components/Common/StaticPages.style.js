@@ -33,7 +33,7 @@ export const ContentWrapper = styled.div`
       border: 1px solid #dddddd;
       text-align: left;
       padding: 8px;
-      min-width: 155px;
+      min-width: 70px;
     }
 
     tr:nth-child(even) {

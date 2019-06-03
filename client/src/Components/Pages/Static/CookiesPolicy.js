@@ -253,9 +253,75 @@ export default class CookiesPolicy extends Component {
             <strong>DATE PUBLISHED: 1 MAY 2019</strong>
           </p>
           <SmallTitle>Cookie Details</SmallTitle>
-          <SmallTitle>COOKIEMain Cookies used on our Site</SmallTitle>
+          <SmallTitle>Cookies used on our Site</SmallTitle>
+          <div className="table">
+            <table>
+              <tr>
+                <th>Cookie </th>
+                <th>Name</th>
+                <th>Type and Expiry</th>
+                <th>Category and Purpose</th>
+              </tr>
+              <tr>
+                <td>PHP SESSION</td>
+                <td>PHPSESSID</td>
+                <td>First party cookie Session cookie</td>
+                <td>
+                  <strong>Strictly necessary</strong>: This cookie is essential
+                  as it stores technical information needed to make the Site
+                  function correctly during browsing.
+                </td>
+              </tr>
+              <tr>
+                <td>JSON Web Token </td>
+                <td>JWT</td>
+                <td>First party cookie Authentication cookie</td>
+                <td>
+                  <strong>Strictly necessary</strong>: This cookie is essential
+                  as it validates Site users’ login credentials.
+                </td>
+              </tr>
 
-          <SmallTitle>COOKIEMain Cookies used on our Site</SmallTitle>
+              <tr>
+                <td>Banner cookie </td>
+                <td>JWT</td>
+                <td>First party cookie Persistent cookie: 6 months</td>
+                <td>
+                  <strong>Strictly necessary</strong>: This cookie is essential
+                  as we use it to remember whether you have acknowledged the
+                  cookie notice we present to you.
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <SmallTitle>Third Party Cookies used on our Site</SmallTitle>
+          <div className="table">
+            <table>
+              <tr>
+                <th>Cookie </th>
+                <th>Name</th>
+                <th>Category and Purpose</th>
+                <th>Further information</th>
+              </tr>
+              <tr>
+                <td>Google Analytics </td>
+                <td>
+                  _utma <br /> _utmb <br />
+                  _utmc
+                  <br /> _utmz
+                </td>
+                <td>First party cookie Session cookie</td>
+                <td>
+                  <strong>Analytical:</strong> These cookies enable the Google
+                  Analytics service we use to function. Google Analytics helps
+                  us take and analyse visitor information such as browser usage
+                  and new visitor number, which assists us to improve our Site
+                  and your user experience.
+                </td>
+              </tr>
+            </table>
+          </div>
         </ContentWrapper>
       </Wrapper>
     );
