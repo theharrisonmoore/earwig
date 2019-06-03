@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   Wrapper,
   ContentWrapper,
-  SubTitle,
   SmallTitle,
   Ol,
   Li,
@@ -11,11 +10,7 @@ import {
 
 import {
   TERMS_OF_USE_URL,
-  COMMUNITY_GUIDELINES_URL,
-  PRIVACY_URL,
-  COOKIES_POLICY_URL,
-  SIGNUP_URL,
-  SEARCH_URL
+  PRIVACY_URL
 } from "../../../constants/naviagationUrls";
 
 export default class CookiesPolicy extends Component {
@@ -31,7 +26,7 @@ export default class CookiesPolicy extends Component {
               <Ol>
                 <Li>
                   Welcome to earwig. This website, located at{" "}
-                  <UnderlinedLink to={TERMS_OF_USE_URL}>
+                  <UnderlinedLink to="www.earwig.work">
                     www.earwig.work (Site)
                   </UnderlinedLink>
                   {"  "}
@@ -52,10 +47,7 @@ export default class CookiesPolicy extends Component {
                 Terms of Use
               </UnderlinedLink>{" "}
               and our{" "}
-              <UnderlinedLink to={TERMS_OF_USE_URL}>
-                Privacy Policy
-              </UnderlinedLink>
-              .
+              <UnderlinedLink to={PRIVACY_URL}>Privacy Policy</UnderlinedLink>.
             </p>
             <Li style={{ fontWeight: "900" }}>
               YOUR CONSENT TO USE COOKIES
@@ -67,7 +59,7 @@ export default class CookiesPolicy extends Component {
                   use of cookies. We had to use a cookie to remember that we
                   have presented this notice to you (you can see details of this
                   cookie in the{" "}
-                  <UnderlinedLink to={TERMS_OF_USE_URL}>
+                  <UnderlinedLink to="#cookieDetails">
                     Cookie Details
                   </UnderlinedLink>
                   &nbsp; section below).
@@ -138,7 +130,7 @@ export default class CookiesPolicy extends Component {
                 </Li>
                 <Li>
                   Alternatively, you may wish to visit &nbsp;
-                  <UnderlinedLink to={TERMS_OF_USE_URL}>
+                  <UnderlinedLink to="http://www.allaboutcookies.org/">
                     http://www.allaboutcookies.org/
                   </UnderlinedLink>
                   &nbsp; which contains comprehensive information on how to do
@@ -162,7 +154,7 @@ export default class CookiesPolicy extends Component {
                   A list of the main cookies used by us on this Site together
                   with details about what each is used for can be found in the
                   &nbsp;
-                  <UnderlinedLink to={TERMS_OF_USE_URL}>
+                  <UnderlinedLink to="#cookieDetails">
                     Cookie Details
                   </UnderlinedLink>
                   &nbsp; section below.
@@ -183,7 +175,7 @@ export default class CookiesPolicy extends Component {
                 <Li>
                   A list of the third party cookies used in connection with the
                   Site can be found under the relevant section in the &nbsp;
-                  <UnderlinedLink to={COMMUNITY_GUIDELINES_URL}>
+                  <UnderlinedLink to="#cookieDetails">
                     Cookie Details
                   </UnderlinedLink>
                   &nbsp; section below.
@@ -252,7 +244,7 @@ export default class CookiesPolicy extends Component {
           <p>
             <strong>DATE PUBLISHED: 1 MAY 2019</strong>
           </p>
-          <SmallTitle>Cookie Details</SmallTitle>
+          <SmallTitle id="cookieDetails">Cookie Details</SmallTitle>
           <SmallTitle>Cookies used on our Site</SmallTitle>
           <div className="table">
             <table>
