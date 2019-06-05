@@ -38,7 +38,10 @@ import { initQueestionsValues } from "./initialQuestionsValues";
 import { validationSchema } from "./validationSchema";
 import { STATIC_QUESTIONS } from "./staticQuestions";
 
-import { THANKYOU_URL, PRIVACY_URL } from "../../../constants/naviagationUrls";
+import {
+  THANKYOU_URL,
+  TERMS_OF_USE_URL
+} from "../../../constants/naviagationUrls";
 import { NewSVGCreator, questionsNumber, isMobile } from "../../../helpers";
 
 // antd spinner for the submit button
@@ -382,7 +385,7 @@ class Review extends Component {
 
                         <AgreementLabel htmlFor="agreement">
                           I agree to the earwig{" "}
-                          <LinkSpan target="_blank" to={PRIVACY_URL}>
+                          <LinkSpan target="_blank" to={TERMS_OF_USE_URL}>
                             Terms of Use.
                           </LinkSpan>{" "}
                           This review of my experience with this current or
