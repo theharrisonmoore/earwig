@@ -123,16 +123,14 @@ export default class ReviewSection extends Component {
               ["yesno", "pieChart", "dotChart"].includes(
                 question.question.profileType
               ) && (
-                <QuestionWrapper
-                  key={index}
-                  hide={this.onlyNeutralAnswers(question.answers)}
-                >
+                <QuestionWrapper key={index}>
                   <QuestionTitle>{question.question.profileText}</QuestionTitle>
                   {question.question.profileType === "yesno" && (
                     <YesNoAnswer
                       question={question}
                       toggleComments={toggleComments}
                       isMobile={isMobile}
+                      hide={this.onlyNeutralAnswers(question.answers)}
                     />
                   )}
                   {question.question.profileType === "pieChart" && (
