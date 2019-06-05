@@ -4,10 +4,16 @@ import {
   Wrapper,
   ContentWrapper,
   MainIcon,
-  SubTitle,
-  SmallParagraph,
-  PageTitle
+  PageTitle,
+  LargeLink
 } from "./../../Common/StaticPages.style";
+
+import {
+  COMMUNITY_GUIDELINES_URL,
+  TERMS_OF_USE_URL,
+  PRIVACY_URL,
+  COOKIES_POLICY_URL
+} from "../../../constants/naviagationUrls";
 
 export default class PrivacyAndTerms extends Component {
   render() {
@@ -16,27 +22,15 @@ export default class PrivacyAndTerms extends Component {
         <ContentWrapper>
           <PageTitle>Privacy & terms</PageTitle>
           <MainIcon src={paperIcon} />
-          <SubTitle>Heading</SubTitle>
-          <SmallParagraph>
-            Lorem ipsum dolor sit amet, possim ocurreret cum id, ei prima
-            tritani quaerendum mea, eos omnium accusamus et. Fuisset eligendi no
-            cum. Porro delectus oportere has no, tota insolens recteque ex sea.
-            Natum noster causae te quo. Prompta singulis ex nec, ad mei falli
-            iisque dolores.
-          </SmallParagraph>
-          <SubTitle>Heading</SubTitle>
-          <SmallParagraph>
-            Lorem ipsum dolor sit amet, possim ocurreret cum id, ei prima
-            tritani quaerendum mea, eos omnium accusamus et. Fuisset eligendi no
-            cum. Porro delectus oportere has no, tota insolens recteque ex sea.
-            Natum noster causae te quo.
-          </SmallParagraph>
-          <SubTitle>Heading</SubTitle>
-          <SmallParagraph>
-            Lorem ipsum dolor sit amet, possim ocurreret cum id, ei prima
-            tritani quaerendum mea, eos omnium accusamus et. Fuisset eligendi no
-            cum. Porro delectus oportere has no.
-          </SmallParagraph>
+          <LargeLink
+            to={COMMUNITY_GUIDELINES_URL}
+            style={{ marginTop: "40px" }}
+          >
+            earwig Community Guidelines
+          </LargeLink>
+          <LargeLink to={TERMS_OF_USE_URL}>Terms of Use</LargeLink>
+          <LargeLink to={PRIVACY_URL}>Privacy Policy</LargeLink>
+          <LargeLink to={COOKIES_POLICY_URL}>Cookies Policy</LargeLink>
         </ContentWrapper>
       </Wrapper>
     );

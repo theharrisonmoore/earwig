@@ -34,7 +34,10 @@ import clockShort from "./../../../assets/clock-short-icon.png";
 
 import { validationSchemaShort } from "../Review/validationSchema";
 
-import { THANKYOU_URL, PRIVACY_URL } from "../../../constants/naviagationUrls";
+import {
+  THANKYOU_URL,
+  TERMS_OF_USE_URL
+} from "../../../constants/naviagationUrls";
 
 import { NewSVGCreator, questionsNumber, isMobile } from "../../../helpers";
 
@@ -228,7 +231,7 @@ class Review extends Component {
                         </Field>
                         <AgreementLabel htmlFor="agreement">
                           I agree to the earwig{" "}
-                          <LinkSpan target="_blank" to={PRIVACY_URL}>
+                          <LinkSpan target="_blank" to={TERMS_OF_USE_URL}>
                             Terms of Use.
                           </LinkSpan>{" "}
                           This review of my experience with this current or

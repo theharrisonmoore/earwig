@@ -12,7 +12,7 @@ import {
   CONTACT_URL,
   FAQ_URL,
   LOGIN_URL,
-  PRIVACY_URL,
+  PRIVACY_AND_TERMS_URL,
   ADMIN
 } from "./../../../constants/naviagationUrls";
 
@@ -76,7 +76,7 @@ export default class Menu extends PureComponent {
             Shape earwig
           </MenuItem>
         )}
-        <MenuItem to={PRIVACY_URL} onClick={toggleMenu}>
+        <MenuItem to={PRIVACY_AND_TERMS_URL} onClick={toggleMenu}>
           <MenuIcon icon="privacyTerms" height="19" width="19" />
           Privacy & terms
         </MenuItem>

@@ -9,7 +9,10 @@ import {
   UPLOAD_VERIFICATION_URL,
   ORGS_PROFILE_URL,
   REPORT_CONTENT_URL,
-  DELETE_PROFILE_URL
+  DELETE_PROFILE_URL,
+  COMMUNITY_GUIDELINES_URL,
+  TERMS_OF_USE_URL,
+  COOKIES_POLICY_URL
 } from "./../constants/naviagationUrls";
 
 import Landing from "./Pages/Landing";
@@ -37,14 +40,18 @@ import {
   FAQ,
   HelpfulStuff,
   ShapeEarwig,
-  PrivacyAndTerms
+  PrivacyAndTerms,
+  CommunityGuidlines,
+  TermsOfUse,
+  CookiesPolicy,
+  PrivacyPolicy
 } from "./Pages/Static";
 
 import {
   RESOURCES_URL,
   CONTACT_URL,
   FAQ_URL,
-  PRIVACY_URL,
+  PRIVACY_AND_TERMS_URL,
   SEARCH_URL,
   ADD_PROFILE_URL,
   ADD_PROFILE_START_REVIEW_URL,
@@ -54,7 +61,8 @@ import {
   CONFIRM_EMAIL_URL,
   INTRO_URL,
   USER_PROFILE_URL,
-  REPLY_URL
+  REPLY_URL,
+  PRIVACY_URL
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
@@ -220,13 +228,61 @@ export default function index(props) {
 
         <PrivateRoute
           minimumLevel="LEVEL0"
-          path={PRIVACY_URL}
+          path={PRIVACY_AND_TERMS_URL}
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
           Component={PrivacyAndTerms}
           navbar
           title="Privacy & terms"
+          search={!isMobile}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={PRIVACY_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={PrivacyPolicy}
+          navbar
+          title="Privacy Policy"
+          search={!isMobile}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={COMMUNITY_GUIDELINES_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={CommunityGuidlines}
+          navbar
+          title="Community Guidlines"
+          search={!isMobile}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={TERMS_OF_USE_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={TermsOfUse}
+          navbar
+          title="Terms Of Use"
+          search={!isMobile}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={COOKIES_POLICY_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={CookiesPolicy}
+          navbar
+          title="Privacy Policy"
           search={!isMobile}
         />
 
