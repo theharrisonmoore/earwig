@@ -215,6 +215,7 @@ export const LargeLink = styled(Link)`
 
   &:hover {
     text-decoration: underline;
+    color: ${colors.purpleLinks};
   }
 
   @media ${breakpoints.tablet} {
