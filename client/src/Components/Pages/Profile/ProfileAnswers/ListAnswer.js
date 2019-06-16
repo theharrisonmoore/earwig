@@ -17,8 +17,20 @@ export default class ListAnswer extends Component {
     else return questionCategory;
   };
 
-  getAverage = answers =>
-    answers.map(answer => answer.answer).reduce((accum, curr) => accum + curr);
+  getAverage = answers => {
+    let count = 0;
+    const total = answers
+      .map(answer => answer.answer)
+      .reduce((accum, curr) => {
+        if (typeof curr === "number") {
+          count++;
+          return accum + curr;
+        }
+        return accum;
+      }, 0);
+    const avg = total / count;
+    return Math.round(avg * 100) / 100;
+  };
 
   render() {
     const { question, toggleComments, category } = this.props;
