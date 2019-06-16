@@ -235,7 +235,7 @@ export const SliderWrapper = styled.div`
   position: relative;
   width: 300px;
   margin: 0 auto;
-  height: 200px;
+  height: 400px;
 
   @media (min-width: ${size.tablet}) {
     width: 500px;
@@ -258,7 +258,7 @@ export const SliderWrapper = styled.div`
 
   .ant-carousel .slick-slide {
     text-align: center;
-    height: 200px;
+    height: 400px;
     background: #364d79;
     overflow: hidden;
   }
@@ -269,9 +269,11 @@ export const SliderWrapper = styled.div`
 `;
 
 export const Image = styled.img`
-  height: 200px;
-  object-fit: cover;
-  width: 100%;
+  height: 400px;
+  object-fit: contain;
+  margin: 0 auto;
+  cursor: pointer;
+  max-width: 100%;
 `;
 
 export const ImgWrapper = styled.div``;
