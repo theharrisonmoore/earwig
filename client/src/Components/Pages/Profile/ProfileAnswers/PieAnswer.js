@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { Pie } from "react-chartjs-2";
 
-import { pieColors } from "./../../../../theme";
+import { pieColors, organizations } from "./../../../../theme";
 
 import { Comment, RightCommentWrapper } from "./ProfileAnswers.style";
-import { organizations } from "./../../../../theme";
 
 export default class PieAnswer extends Component {
   createLabels = answers => {

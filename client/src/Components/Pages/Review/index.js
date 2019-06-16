@@ -33,6 +33,7 @@ import { StyledErrorMessage } from "./Question/Question.style";
 
 import Question from "./Question/index";
 import clockLong from "./../../../assets/clock-long-icon.png";
+import { organizations } from "./../../../theme";
 
 import { initQueestionsValues } from "./initialQuestionsValues";
 import { validationSchema } from "./validationSchema";
@@ -386,7 +387,11 @@ class Review extends Component {
 
                         <AgreementLabel htmlFor="agreement">
                           I agree to the earwig{" "}
-                          <LinkSpan target="_blank" to={TERMS_OF_USE_URL}>
+                          <LinkSpan
+                            target="_blank"
+                            to={TERMS_OF_USE_URL}
+                            color={organizations[category].primary}
+                          >
                             Terms of Use.
                           </LinkSpan>{" "}
                           This review of my experience with this current or
