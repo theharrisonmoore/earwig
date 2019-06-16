@@ -80,7 +80,7 @@ export default class AddProfileSelection extends Component {
                     this.addOrganisation(name, categories[0]);
                   }}
                 >
-                  <img src={agencyCategory} alt="" />
+                  <img src={agencyCategory} alt="" style={{ width: "100%" }} />
                 </AddProfileLink>
               </ItemDiv>
               <ItemDiv>
@@ -90,7 +90,7 @@ export default class AddProfileSelection extends Component {
                     this.addOrganisation(name, categories[1]);
                   }}
                 >
-                  <img src={payrollCategory} alt="" />
+                  <img src={payrollCategory} alt="" style={{ width: "100%" }} />
                 </AddProfileLink>
               </ItemDiv>
             </RowDiv>
@@ -102,7 +102,11 @@ export default class AddProfileSelection extends Component {
                     this.addOrganisation(name, categories[2]);
                   }}
                 >
-                  <img src={worksiteCategory} alt="" />
+                  <img
+                    src={worksiteCategory}
+                    alt=""
+                    style={{ width: "100%" }}
+                  />
                 </AddProfileLink>
               </ItemDiv>
               <ItemDiv>
@@ -112,12 +116,20 @@ export default class AddProfileSelection extends Component {
                     this.addOrganisation(name, categories[3]);
                   }}
                 >
-                  <img src={companyCategory} alt="" />
+                  <img src={companyCategory} alt="" style={{ width: "100%" }} />
                 </AddProfileLink>
               </ItemDiv>
             </RowDiv>
           </LogosContainer>
-          <AddProfileLink to={SEARCH_URL}>
+          <AddProfileLink
+            to={SEARCH_URL}
+            style={{
+              position: "fixed",
+              bottom: "3rem",
+              left: "50%",
+              transform: "translateX(-50%)"
+            }}
+          >
             <FooterDiv>
               <H3 onClick={() => this.deleteOrg(name)}>
                 Cancel and return to Search
