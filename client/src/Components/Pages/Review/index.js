@@ -221,6 +221,7 @@ class Review extends Component {
       payrolls,
       organization: { name, category }
     } = this.state;
+    const staticQuestion = STATIC_QUESTIONS(category);
 
     const { isLoading } = this.state;
     if (isLoading) return <Loading />;
@@ -314,7 +315,7 @@ class Review extends Component {
                   <Form>
                     <Question
                       {...values}
-                      question={STATIC_QUESTIONS[0]}
+                      question={staticQuestion[0]}
                       setFieldValue={setFieldValue}
                       category={this.state.organization.category}
                     />
@@ -359,14 +360,14 @@ class Review extends Component {
                       <Question
                         {...values}
                         handleChagne={handleChange}
-                        question={STATIC_QUESTIONS[1]}
+                        question={staticQuestion[1]}
                         category={this.state.organization.category}
                       />
                       {/* The voice questions in the next sprint */}
                       {/* <Question
                         {...values}
                         handleChagne={handleChange}
-                        question={STATIC_QUESTIONS[3]}
+                        question={staticQuestion[3]}
                         category={this.state.organization.category}
                       /> */}
                     </div>
