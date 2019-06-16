@@ -8,6 +8,8 @@ import {
   PayrollItem
 } from "./ProfileAnswers.style";
 
+import { organizations } from "./../../../../theme";
+
 export default class ListAnswer extends Component {
   decideColor = questionCategory => {
     if (questionCategory === "agency") return "payroll";
@@ -19,7 +21,7 @@ export default class ListAnswer extends Component {
     answers.map(answer => answer.answer).reduce((accum, curr) => accum + curr);
 
   render() {
-    const { question, toggleComments } = this.props;
+    const { question, toggleComments, category } = this.props;
 
     if (question.question.profileText === "Payroll charge") {
       return (
@@ -29,7 +31,11 @@ export default class ListAnswer extends Component {
               £{this.getAverage(question.answers)} per timesheet
             </PayrollItem>
             {question.answers.filter(answer => answer.comment).length > 0 ? (
-              <Comment onClick={() => toggleComments(question)} active>
+              <Comment
+                onClick={() => toggleComments(question)}
+                active
+                color={organizations[category].primary}
+              >
                 Comments
               </Comment>
             ) : (

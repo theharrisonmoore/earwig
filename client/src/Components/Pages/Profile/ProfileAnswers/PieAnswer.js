@@ -4,6 +4,7 @@ import { Pie } from "react-chartjs-2";
 import { pieColors } from "./../../../../theme";
 
 import { Comment, RightCommentWrapper } from "./ProfileAnswers.style";
+import { organizations } from "./../../../../theme";
 
 export default class PieAnswer extends Component {
   createLabels = answers => {
@@ -38,7 +39,11 @@ export default class PieAnswer extends Component {
         <Pie data={data} legend={{ position: "bottom" }} />
         <RightCommentWrapper>
           {question.answers.filter(answer => answer.comment).length > 0 ? (
-            <Comment onClick={() => toggleComments(question)} active>
+            <Comment
+              onClick={() => toggleComments(question)}
+              active
+              color={organizations[category].primary}
+            >
               Comments
             </Comment>
           ) : (
