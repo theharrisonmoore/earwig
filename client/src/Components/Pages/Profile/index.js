@@ -203,7 +203,7 @@ export default class Profile extends Component {
     return (
       <Wrapper isMobile={isMobile}>
         <Banner category={category}>
-          <p>
+          <p style={{ padding: "10px 5px", textAlign: "center" }}>
             <span>{category}:</span> {name}
           </p>
         </Banner>
