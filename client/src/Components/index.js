@@ -12,7 +12,8 @@ import {
   DELETE_PROFILE_URL,
   COMMUNITY_GUIDELINES_URL,
   TERMS_OF_USE_URL,
-  COOKIES_POLICY_URL
+  COOKIES_POLICY_URL,
+  RESET_PASSWORD_URL
 } from "./../constants/naviagationUrls";
 
 import Landing from "./Pages/Landing";
@@ -35,6 +36,7 @@ import AddProfileStartReview from "./Pages/Search/AddProfileReviewStart";
 import Intro from "./Pages/Intro";
 import PrivateRoute from "./Common/PrivateRoute";
 import Reply from "./Pages/Profile/Reply";
+import ResetPassword from "./Pages/ResetPassword";
 
 import {
   FAQ,
@@ -353,6 +355,22 @@ export default function index(props) {
           render={linkProps =>
             !isLoggedIn ? (
               <Login
+                {...props}
+                {...linkProps}
+                handleChangeState={handleChangeState}
+              />
+            ) : (
+              <Redirect to={isAdmin ? ADMIN : SEARCH_URL} />
+            )
+          }
+        />
+
+        <Route
+          exact
+          path={RESET_PASSWORD_URL}
+          render={linkProps =>
+            !isLoggedIn ? (
+              <ResetPassword
                 {...props}
                 {...linkProps}
                 handleChangeState={handleChangeState}

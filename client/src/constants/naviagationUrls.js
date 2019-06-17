@@ -24,6 +24,7 @@ export const REPORT_CONTENT_URL = "/report";
 export const COMMUNITY_GUIDELINES_URL = "/community-guidelines";
 export const INTRO_URL = "/intro";
 export const RESET_PASSWORD_URL = "/reset-password";
+export const SET_PASSWORD_URL = "/set-password";
 export const REPLY_URL = "/reply";
 export const TERMS_OF_USE_URL = "/terms-of-use";
 export const COOKIES_POLICY_URL = "/cookies-policy";
