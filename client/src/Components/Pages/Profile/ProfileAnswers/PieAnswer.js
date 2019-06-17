@@ -28,14 +28,39 @@ export default class PieAnswer extends Component {
         {
           data: Object.values(labelObject),
           backgroundColor: pieColors[`${category}`],
+          datalabels: {
+            display: "auto",
+            color: "white",
+            anchor: "center",
+            rotation: "3",
+            clamp: true,
+            align: "top",
+            clip: true,
+            formatter: (value, ctx) => {
+              const lable = Object.keys(labelObject)[ctx.dataIndex];
+              return `${lable}: ${value}`;
+            },
+            font: {
+              weight: "700",
+              size: "12",
+              family: "roboto"
+            }
+          },
           hoverBackgroundColor: pieColors[`${category}`]
         }
       ]
     };
 
+    const options = {
+      responsive: 1,
+      legend: {
+        display: false
+      }
+    };
+
     return (
       <div>
-        <Pie data={data} legend={{ position: "bottom" }} />
+        <Pie data={data} options={options} />
         <RightCommentWrapper>
           {question.answers.filter(answer => answer.comment).length > 0 ? (
             <Comment onClick={() => toggleComments(question)} active>
