@@ -2,7 +2,7 @@ const boom = require("boom");
 const crypto = require("crypto");
 const { findByEmail, updateUserById } = require("./../database/queries/user");
 const { resetTokenMaxAge } = require("./../constants");
-
+const resetPasswordMailing = require("../helpers/resetPasswordMailing");
 
 module.exports = async (req, res, next) => {
   const { email } = req.body;
@@ -31,11 +31,12 @@ module.exports = async (req, res, next) => {
         const link = `${domain}/set-password/${token}`;
 
         // send the link via email
-
+        return resetPasswordMailing(email, link);
+      }).then(() => {
         //  send success message
-      }).catch((a) => {
-        console.log(a);
-
+        res.json({ success: true });
+      })
+      .catch(() => {
         next(boom.badImplementation());
       });
   });
