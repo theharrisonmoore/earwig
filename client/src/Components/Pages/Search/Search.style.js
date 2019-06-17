@@ -143,12 +143,13 @@ export const LastReviewsContainer = styled.div`
 
 export const ItemDiv = styled.div`
   display: flex;
-  /* width: 200px; */
+  max-width: 200px;
   align-items: center;
-  width: 50%;
+  width: 45%;
   padding: ${props => (props.notMobile ? "0 2rem" : "0 1rem")};
   margin-bottom: 1.5rem;
   margin-left: auto;
+  margin-right: auto;
   justify-content: ${props =>
     props.notMobile && props.left ? "flex-end" : "flex-start"};
 `;
@@ -270,6 +271,8 @@ export const ProfileLink = styled(Link)`
 `;
 
 export const AddProfileLink = styled(Link)`
+  width: 100%;
+
   :hover {
     text-decoration: none;
   }
@@ -312,21 +315,23 @@ export const LogosContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-  padding-left: 1rem;
 `;
 
 export const RowDiv = styled.div`
   display: flex;
   width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
 `;
 
 export const FooterDiv = styled.footer`
   flex-shrink: 0;
-  margin-top: 70%;
 `;
+
 export const MainDiv = styled.div`
   flex-grow: 1;
   flex-shrink: 0;
+  width: 90%;
 `;
 
 export const AddWrapper = styled.div`

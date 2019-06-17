@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Carousel } from "antd";
 import { withRouter, Link } from "react-router-dom";
+import Lightbox from "lightbox-react";
 
 import { SliderWrapper, ImgWrapper, Image } from "./ProfileAnswers.style";
 
@@ -13,6 +14,8 @@ import { ReactComponent as LeftArrow } from "../../../../assets/leftarrowicon.sv
 
 import { ReactComponent as RightArrow } from "../../../../assets/right-arrow.icon.svg";
 
+import "lightbox-react/style.css";
+
 class Slider extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +24,8 @@ class Slider extends React.Component {
       images: [],
       errors: { image: "" },
       answers: [],
-      activeIndex: 0
+      activeIndex: 0,
+      isOpen: false
     };
   }
 
@@ -53,15 +57,52 @@ class Slider extends React.Component {
     this.setState({ activeIndex: index });
   };
 
+  handleOpenLightBox = () => {
+    this.setState({ isOpen: true });
+  };
+
+  onCloseRequest = () => {
+    this.setState({ isOpen: false });
+  };
+
+  onMovePrevRequest = () => {
+    const { activeIndex, images } = this.state;
+    this.setState({
+      activeIndex: (activeIndex + images.length - 1) % images.length
+    });
+  };
+
+  onMoveNextRequest = () => {
+    const { activeIndex, images } = this.state;
+    this.setState({
+      activeIndex: (activeIndex + 1) % images.length
+    });
+  };
+
   render() {
-    const { images, activeIndex } = this.state;
+    const { images, activeIndex, isOpen } = this.state;
     const { organization } = this.props;
     const [activeReview] = organization.reviews.filter(
       item => item._id === this.state.answers[this.state.activeIndex]
     );
 
+    const arrowStyle = CSS.supports("( mix-blend-mode: difference )")
+      ? { mixBlendMode: "difference", cursor: "pointer" }
+      : { background: "#364d79", cursor: "pointer" };
+
     return (
       <>
+        {isOpen && (
+          <Lightbox
+            mainSrc={images[activeIndex]}
+            nextSrc={images[(activeIndex + 1) % images.length]}
+            prevSrc={images[(activeIndex + images.length - 1) % images.length]}
+            onCloseRequest={this.onCloseRequest}
+            onMovePrevRequest={this.onMovePrevRequest}
+            onMoveNextRequest={this.onMoveNextRequest}
+          />
+        )}
+
         {this.state.errors && !this.state.errors.image ? (
           <div
             style={{
@@ -77,19 +118,25 @@ class Slider extends React.Component {
                 width="2rem"
                 onClick={this.next}
                 className="left-arrow"
+                style={arrowStyle}
               />
               <Carousel
                 effect="scrollx"
                 dots={false}
                 ref={node => (this.carousel = node)}
                 afterChange={this.afterChange}
+                style={{ cursor: "pointer" }}
               >
                 {images &&
                   images.map(img => (
-                    <ImgWrapper style={{ position: "relative" }}>
-                      <Image src={img} alt="" />
-                      <h1 style={{ position: "absolute" }}>hello</h1>
-                    </ImgWrapper>
+                    <div style={{ cursor: "pointer" }}>
+                      <ImgWrapper
+                        style={{ cursor: "pointer", position: "relative" }}
+                        onClick={this.handleOpenLightBox}
+                      >
+                        <Image src={img} alt="" />
+                      </ImgWrapper>
+                    </div>
                   ))}
               </Carousel>
               <RightArrow
@@ -98,6 +145,7 @@ class Slider extends React.Component {
                 fill="white"
                 onClick={this.previous}
                 className="right-arrow"
+                style={arrowStyle}
               />
             </SliderWrapper>
             <Link

@@ -188,7 +188,7 @@ module.exports = ({
 
   const earwig = process.env.EMAIL;
   const pass = process.env.EMAIL_PASSWORD;
-  const subject = "Welcome to the earwig community";
+  const subject = "Content reported on earwig";
   const from = process.env.REPORT_EMAIL;
   const to = process.env.REPORT_RECEIVER_EMAIL;
 

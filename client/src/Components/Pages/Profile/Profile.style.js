@@ -17,7 +17,6 @@ export const Wrapper = styled.div`
 
 export const Banner = styled.div`
   background: ${props => organizations[`${props.category}`].primary};
-  height: 2.75rem;
   width: 100%;
   color: ${colors.white};
   display: flex;
