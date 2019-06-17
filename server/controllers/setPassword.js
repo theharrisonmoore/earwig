@@ -1,19 +1,25 @@
 const boom = require("boom");
+const { hash } = require("bcryptjs");
+
 const { findUserByToken, updateUserById } = require("./../database/queries/user");
 
-
 module.exports = async (req, res, next) => {
-  const { token, newPassword } = req.body;
+  const { token, password } = req.body;
+
   // check if the token is valid
   findUserByToken(token)
-    .then((user) => {
+    .then(async (user) => {
       if (!user) {
-        next(boom.badRequest("Your token has been expired reset the password again"));
+        const error = new Error("Your token is unvalid or has been expired, reset the password again please");
+        error.status = 401;
+        throw error;
       }
+
+      const hashedPassword = await hash(password, 8);
 
       // update the user's new password and delete the token
       const updateData = {
-        password: newPassword,
+        password: hashedPassword,
         resetToken: {
           value: undefined,
           expiresIn: undefined,
@@ -24,7 +30,10 @@ module.exports = async (req, res, next) => {
       // send success response
       res.json({ success: true });
     })
-    .catch(() => {
-      next(boom.badImplementation());
+    .catch((error) => {
+      if (error.status === 401) {
+        return next(boom.unauthorized(error.message));
+      }
+      return next(boom.badImplementation());
     });
 };

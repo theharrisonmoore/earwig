@@ -50,6 +50,7 @@ const updateLastViewedOrg = require("../controllers/updateLastViewedOrg");
 
 const deleteOrgController = require("../controllers/deleteOrganization");
 const resetPassword = require("../controllers/resetPassword");
+const setPassword = require("../controllers/setPassword");
 
 const {
   LOGIN_URL,
@@ -71,6 +72,7 @@ const {
   TRADE_URL,
   USERS,
   RESET_PASSWORD,
+  SET_PASSWORD,
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
@@ -214,5 +216,6 @@ router.post("/give-feedback", authentication, feedbackController);
 router.post("/update-last-viewed", updateLastViewedOrg);
 
 router.post(RESET_PASSWORD, resetPassword);
+router.post(SET_PASSWORD, setPassword);
 
 module.exports = router;
