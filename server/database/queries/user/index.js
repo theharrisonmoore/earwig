@@ -65,3 +65,8 @@ module.exports.latestReviews = userId => new Promise((resolve, reject) => {
     .then(resolve)
     .catch(err => reject(err));
 });
+
+module.exports.findUserByToken = token => User.findOne({
+  "resetToken.value": token,
+  "resetToken.expiresIn": { $gt: Date.now() },
+});

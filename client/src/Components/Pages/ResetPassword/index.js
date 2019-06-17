@@ -17,6 +17,7 @@ import {
 } from "../../Common/Formik/Formik.style";
 
 import { SIGNUP_URL } from "../../../constants/naviagationUrls";
+import { API_RESET_PASSWORD } from "./../../../apiUrls";
 
 import { StyledLink as Link, Wrapper } from "./ResetPassword.style";
 
@@ -33,7 +34,7 @@ export default class ResetPassword extends Component {
 
   handleSubmit = (values, { setSubmitting }) => {
     axios
-      .post("/api/reset-password", values)
+      .post(API_RESET_PASSWORD, values)
       .then(({ data }) => {
         Modal.success({
           title: "Done!",
