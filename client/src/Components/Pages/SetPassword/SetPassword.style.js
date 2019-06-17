@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { colors } from "../../../theme";
@@ -13,5 +14,19 @@ export const Wrapper = styled.div`
     display: block;
     color: ${colors.profileFontColor};
     font-size: 1.25rem;
+  }
+`;
+
+export const StyledLink = styled(Link).attrs({})`
+  display: block;
+  font-size: 1.25rem;
+  color: ${colors.purpleLinks};
+  font-weight: 900;
+  text-decoration: underline;
+
+  &:hover,
+  &:active {
+    color: ${colors.purpleLinks};
+    text-decoration: underline;
   }
 `;

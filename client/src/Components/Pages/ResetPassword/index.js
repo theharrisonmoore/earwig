@@ -16,10 +16,9 @@ import {
   GeneralErrorMessage
 } from "../../Common/Formik/Formik.style";
 
-import { SIGNUP_URL } from "../../../constants/naviagationUrls";
 import { API_RESET_PASSWORD } from "./../../../apiUrls";
 
-import { StyledLink as Link, Wrapper } from "./ResetPassword.style";
+import { Wrapper } from "./ResetPassword.style";
 
 const resetSchema = Yup.object().shape({
   email: Yup.string()
@@ -71,15 +70,11 @@ export default class ResetPassword extends Component {
 
               {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
               <Button type="submit" disabled={isSubmitting}>
-                Reset password
+                Reset Password
               </Button>
             </Form>
           )}
         </Formik>
-        <p className="paragraph">
-          Don’t have an account?
-          <Link to={SIGNUP_URL}>Create an account</Link>
-        </p>
       </Wrapper>
     );
   }

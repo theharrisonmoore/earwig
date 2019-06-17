@@ -58,6 +58,9 @@ const API_USERS = `${API_PREFIX}${USERS}`;
 const RESET_PASSWORD = "/reset-password";
 const API_RESET_PASSWORD = `${API_PREFIX}${RESET_PASSWORD}`;
 
+const SET_PASSWORD = "/set-password";
+const API_SET_PASSWORD = `${API_PREFIX}${SET_PASSWORD}`;
+
 const ADMIN = "/admin";
 
 module.exports = {
@@ -81,6 +84,7 @@ module.exports = {
   API_SIGN_UP,
   API_USERS,
   API_RESET_PASSWORD,
+  API_SET_PASSWORD,
 
   // server variables
   LOGIN_URL,
@@ -102,5 +106,6 @@ module.exports = {
   EDIT_PROFILE,
   SIGN_UP,
   USERS,
-  RESET_PASSWORD
+  RESET_PASSWORD,
+  SET_PASSWORD
 };

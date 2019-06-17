@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import * as Yup from "yup";
 import axios from "axios";
+import { Alert } from "antd";
 
 import Logo from "./../../Common/Logo";
 import {
@@ -60,6 +61,8 @@ export default class Login extends Component {
 
   render() {
     const { error } = this.state;
+    const resetSuccess =
+      this.props.location.state && this.props.location.state.resetSuccess;
 
     return (
       <LoginWrapper>
@@ -71,6 +74,13 @@ export default class Login extends Component {
         >
           {({ isSubmitting }) => (
             <Form>
+              {resetSuccess && (
+                <Alert
+                  message="Your password has been changed"
+                  type="success"
+                  style={{ marginBottom: "20px" }}
+                />
+              )}
               <Label htmlFor="email">
                 Email
                 <StyledField type="email" name="email" id="email" />
