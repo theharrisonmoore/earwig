@@ -154,7 +154,8 @@ export default class AllUsers extends Component {
           columns={userColumns({
             deletHandler: this.showDeleteConfirm,
             viewHandler: this.showDrawer,
-            getColumnSearchProps: this.getColumnSearchProps
+            getColumnSearchProps: this.getColumnSearchProps,
+            searchText: this.state.searchText
           })}
           dataSource={this.state.data}
           style={{ backgroundColor: "#ffffff" }}
