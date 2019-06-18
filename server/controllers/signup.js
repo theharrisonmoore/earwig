@@ -29,7 +29,7 @@ module.exports = (req, res, next) => {
       // create new user
       return addNew({ email, password })
         .then(async (user) => {
-          if (process.env.NODE_ENV !== "production") {
+          if (process.env.NODE_ENV !== "test") {
             // send email to ask user to join earwig mail list
             try {
               // await confirmJoiningMailList(email, user._id);
