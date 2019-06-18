@@ -28,7 +28,7 @@ module.exports = (awaitingReview) => {
         },
         email: 1,
         userId: 1,
-        city: 1,
+        city: { $ifNull: ["$city", "N/A"] },
         key: "$_id",
       },
     },

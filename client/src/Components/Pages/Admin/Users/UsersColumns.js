@@ -2,24 +2,27 @@ import React from "react";
 
 import { Tag, Button, Icon } from "antd";
 
-export default ({ deletHandler, viewHandler }) => {
+export default ({ deletHandler, viewHandler, getColumnSearchProps }) => {
   return [
     {
       title: "User Id",
       dataIndex: "userId",
       key: "userId",
-      render: text => <span style={{ fontWeight: "700" }}>{text}</span>
+      render: text => <span style={{ fontWeight: "700" }}>{text}</span>,
+      ...getColumnSearchProps("userId")
     },
     {
       title: "Email",
       dataIndex: "email",
-      key: "email"
+      key: "email",
+      ...getColumnSearchProps("email")
     },
     {
       title: "City/town",
       dataIndex: "city",
       key: "city",
-      render: text => <span>{text || "N/A"}</span>
+      render: text => <span>{text}</span>,
+      ...getColumnSearchProps("city")
     },
     {
       title: "Status",
