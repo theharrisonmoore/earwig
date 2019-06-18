@@ -12,7 +12,7 @@ module.exports = async (req, res, next) => {
       next(boom.conflict("organisation already exists"));
     } else {
       const addedOrg = await addNew({ name, category });
-      if (user.role !== "admin") {
+      if (user.role !== "admin" && process.env.NODE_ENV !== "test") {
         await emailAdminTheNewProfile(user, addedOrg);
       }
       res.json(addedOrg);
