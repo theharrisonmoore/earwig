@@ -11,7 +11,7 @@ const jwt = require("jsonwebtoken");
 const { findByEmail, addNew } = require("./../database/queries/user");
 // const confirmJoiningMailList = require("./../helpers/confirmJoiningMailList");
 
-const addToNewsletter = require("../helpers/3dParty/mailchimp");
+const addToMailchimpList = require("../helpers/3dParty/mailchimp");
 
 const { tokenMaxAge } = require("./../constants");
 
@@ -30,14 +30,10 @@ module.exports = (req, res, next) => {
       return addNew({ email, password })
         .then(async (user) => {
           if (process.env.NODE_ENV !== "test") {
-            // send email to ask user to join earwig mail list
             try {
-              // await confirmJoiningMailList(email, user._id);
-              await addToNewsletter(email);
-            } catch (error) {
-              // the sign up proccess must be completed even if error occured in sending the email
-              // eslint-disable-next-line no-console
-              console.log("error in sending the confirmation email", error);
+              await addToMailchimpList(email);
+            } catch (err) {
+              return next(boom.badImplementation());
             }
           }
           // data to be sent in the response

@@ -17,7 +17,6 @@ const addToMailchimp = email => new Promise(async (reslove, reject) => {
     method: "POST",
     headers: {
       Authorization: `apikey ${process.env.MAILCHIMP_LIST_APIKEY}`,
-
     },
     data,
   };
