@@ -1,7 +1,8 @@
-const axios = require("axios");
-const boom = require("boom");
+/* eslint-disable global-require */
 
 const addToMailchimp = email => new Promise(async (reslove, reject) => {
+  const axios = require("axios");
+  const boom = require("boom");
   const data = {
     members: [
       {
