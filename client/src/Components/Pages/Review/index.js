@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
-import { Checkbox, message } from "antd";
+import { Checkbox, message, Spin, Icon } from "antd";
 import Loading from "./../../Common/AntdComponents/Loading";
-
-import { Spin, Icon } from "antd";
 
 import {
   ReviewWrapper,
@@ -55,6 +53,7 @@ const {
   API_POST_REVIEW_URL
 } = require("../../../apiUrls");
 
+// For rate question to add the Org. category
 let rateQ = {};
 
 class Review extends Component {
@@ -88,6 +87,7 @@ class Review extends Component {
     organization.name = name;
     organization.needsVerification = needsVerification || false;
     user.email = email;
+
     axios
       .get(API_GET_QUESTIONS_URL, {
         params: {
@@ -118,7 +118,11 @@ class Review extends Component {
           err.response && err.response.data && err.response.data.error;
         message.error(error || "Something went wrong");
       });
-    this.getAgenciesAndPayrolls();
+
+    // Should only work on (payroll and agency)
+    if (category === "agency" || category === "payroll") {
+      this.getAgenciesAndPayrolls();
+    }
   }
 
   showNextQestion = (groupId, next, other, set, num) => {
@@ -246,7 +250,7 @@ class Review extends Component {
       return null;
     }
 
-    let dropdownOptions;
+    let dropdownOptions = [];
     if (category === "agency") {
       dropdownOptions = agencies;
     } else if (category === "payroll") {
