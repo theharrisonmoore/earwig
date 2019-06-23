@@ -4,6 +4,7 @@ module.exports = (awaitingReview) => {
   const match = {
     isAdmin: false,
   };
+
   if (awaitingReview === true) {
     match.awaitingReview = true;
   }
@@ -11,6 +12,13 @@ module.exports = (awaitingReview) => {
   return User.aggregate([
     {
       $match: match,
+    }, {
+      $lookup: {
+        from: "trades",
+        localField: "trade",
+        foreignField: "_id",
+        as: "trade",
+      },
     }, {
       $project: {
         status: {
@@ -30,6 +38,11 @@ module.exports = (awaitingReview) => {
         userId: 1,
         city: { $ifNull: ["$city", "N/A"] },
         key: "$_id",
+        trade: { $arrayElemAt: ["$trade", 0] },
+      },
+    }, {
+      $addFields: {
+        trade: { $ifNull: ["$trade.title", "N/A"] },
       },
     },
   ]);

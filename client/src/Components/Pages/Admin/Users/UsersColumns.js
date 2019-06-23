@@ -55,6 +55,20 @@ export default ({
       ...getColumnSearchProps("city")
     },
     {
+      title: "Trade",
+      dataIndex: "trade",
+      key: "trade",
+      render: text => (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text.toString()}
+        />
+      ),
+      ...getColumnSearchProps("trade")
+    },
+    {
       title: "Status",
       dataIndex: "status",
       key: "status",
