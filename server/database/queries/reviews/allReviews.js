@@ -30,6 +30,13 @@ module.exports = (awaitingReview) => {
         rate: 1,
         overallReview: 1,
       },
+    }, {
+      $addFields: {
+        organization: "$organization.name",
+        orgType: "$organization.category",
+        userId: "$user.userId",
+        orgId: "$organization._id",
+      },
     },
   ];
 
