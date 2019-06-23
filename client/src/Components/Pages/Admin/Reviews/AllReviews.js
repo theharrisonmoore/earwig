@@ -143,6 +143,7 @@ export default class AllReviews extends Component {
           })}
           dataSource={this.state.data}
           style={{ backgroundColor: "#ffffff" }}
+          bordered
         />
       </>
     );

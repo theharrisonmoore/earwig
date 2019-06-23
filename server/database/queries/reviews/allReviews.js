@@ -29,6 +29,7 @@ module.exports = (awaitingReview) => {
         isVerified: 1,
         rate: 1,
         overallReview: 1,
+        date: "$createdAt",
       },
     }, {
       $addFields: {

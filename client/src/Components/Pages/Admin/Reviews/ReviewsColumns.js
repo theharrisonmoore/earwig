@@ -1,5 +1,5 @@
 import React from "react";
-
+import moment from "moment";
 import { Link } from "react-router-dom";
 
 import { Tag, Button } from "antd";
@@ -101,8 +101,17 @@ export default ({
       onFilter: (value, record) => record["isVerified"] === value
     },
     {
+      title: "Date",
+      dataIndex: "date",
+      key: "date",
+      render: value => <span>{moment(value).format("DD MMM YYYY")}</span>,
+      sorter: (a, b) => moment(a.date) - moment(b.date),
+      sortDirections: ["descend", "ascend"]
+    },
+    {
       title: "Action",
       key: "action",
+      width: "180px",
       render: (text, record) => {
         return (
           <div>
