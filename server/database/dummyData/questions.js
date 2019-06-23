@@ -218,7 +218,7 @@ module.exports = async () => {
     {
       number: 10,
       next: {
-        yes: 15,
+        yes: 16,
         no: 11,
       },
       type: "yesno",
