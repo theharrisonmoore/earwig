@@ -21,6 +21,7 @@ class ErrorBoundary extends Component {
       //render fallback UI
       return (
         <a
+          href="##"
           onClick={() =>
             Sentry.showReportDialog({ eventId: this.state.eventId })
           }
