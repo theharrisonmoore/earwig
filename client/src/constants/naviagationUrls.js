@@ -18,7 +18,6 @@ export const UPLOAD_VERIFICATION_URL = "/upload-verification-photo";
 export const PRIVACY_URL = "/privacy-policy";
 export const ADMIN = "/admin";
 export const REVIEW_URL = "/review";
-export const QUICK_REVIEW_URL = "/quick-review";
 export const CONFIRM_EMAIL_URL = "/confirm-email/:id";
 export const REPORT_CONTENT_URL = "/report";
 export const COMMUNITY_GUIDELINES_URL = "/community-guidelines";
