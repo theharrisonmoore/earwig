@@ -7,12 +7,12 @@ module.exports = category => Organization.aggregate([
     },
   }, {
     $project: {
-      name: 1,
-      phoneNumber: 1,
-      email: 1,
-      websiteURL: 1,
+      name: { $ifNull: ["$name", "N/A"] },
+      phoneNumber: { $ifNull: ["$phoneNumber", "N/A"] },
+      email: { $ifNull: ["$email", "N/A"] },
+      websiteURL: { $ifNull: ["$websiteURL", "N/A"] },
       key: "$_id",
-      active: 1,
+      active: { $ifNull: ["$active", "N/A"] },
     },
   },
 ]);

@@ -18,7 +18,8 @@ describe("Test for search query", () => {
     searchQuery().then((result) => {
       expect(result).toBeDefined();
       expect(result.length).toBeDefined();
-      expect(result[0].avgRatings).toBeDefined();
+      expect(result[0].searchData).toBeDefined();
+      expect(result[0].searchData[0].avgRatings).toBeDefined();
       done();
     });
   });

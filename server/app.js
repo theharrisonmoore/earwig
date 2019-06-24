@@ -4,11 +4,18 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const Sentry = require("@sentry/node");
+
 
 const router = require("./router");
 const dbConnection = require("./database/dbConnection");
 
 const app = express();
+
+Sentry.init({ dsn: process.env.SENTRY_DSN });
+
+// The request handler must be the first middleware on the app
+app.use(Sentry.Handlers.requestHandler());
 
 // connect to DB
 dbConnection();
@@ -35,6 +42,9 @@ if (process.env.NODE_ENV === "production") {
 app.use((req, res, next) => {
   next(boom.notFound("Not Found"));
 });
+
+// this must be before any error handling middlewares
+app.use(Sentry.Handlers.errorHandler());
 
 
 // error handler
