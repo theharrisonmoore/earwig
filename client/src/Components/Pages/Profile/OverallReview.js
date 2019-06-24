@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import { Collapse, Icon } from "antd";
+import axios from "axios";
 
 import { organizations } from "./../../../theme";
 import {
@@ -27,6 +28,8 @@ import {
   VerifyLink
 } from "./Profile.style";
 
+import { authorization } from "./../../../helpers";
+
 import HelpfulBubble from "./../../Common/HelpfulBubble";
 
 import { SectionTitle } from "./ReviewSection.style";
@@ -39,61 +42,121 @@ export default class OverallReview extends Component {
     activeReview: "",
     activeReplies: [],
     repliesLoaded: false,
-    timerID: undefined,
-    counter: 0,
-    scaleValue: 1,
+    counters: {},
     isMouseDown: false
   };
 
   timer = null;
 
   pressingDown = e => {
-    const { counter } = this.state;
+    const { counters } = this.state;
+    const { id } = e.target;
+
+    const item = counters[id];
+    const counter = item ? item.counter : 0;
+    const sentNumber = item ? item.sentNumber : 0;
+
+    const updateCounter = counter >= 10 ? 0 : counter + 1;
 
     this.setState(
       {
-        counter: counter >= 10 ? 0 : counter + 1,
-        isMouseDown: true,
-        scaleValue: 1
+        counters: {
+          ...counters,
+          [id]: {
+            counter: updateCounter,
+            sentNumber: sentNumber,
+            scaleValue: 1 + counter / 100
+          }
+        },
+        isMouseDown: true
       },
       () => {
         setTimeout(index => {
           const { isMouseDown } = this.state;
           if (isMouseDown) {
-            this.hold();
+            this.hold(id);
           }
         }, 500);
       }
     );
   };
 
-  hold = () => {
-    const { counter, isMouseDown } = this.state;
+  hold = id => {
+    const { counters, isMouseDown } = this.state;
+    const item = counters[id];
+    const counter = item ? item.counter : 0;
 
-    if (counter >= 10 || !isMouseDown) {
+    if ((item && counter >= 10) || !isMouseDown) {
       return this.setState({ isMouseDown: false });
     }
+
     clearInterval(this.timer);
 
     this.timer = setInterval(() => {
-      const { counter, isMouseDown } = this.state;
+      const { counters, isMouseDown } = this.state;
+      const item = counters[id];
+      const counter = item ? item.counter : 0;
+      const sentNumber = item ? item.sentNumber : 0;
 
-      if (counter >= 10 || !isMouseDown) {
+      if ((item && counter >= 10) || !isMouseDown) {
         clearInterval(this.timer);
         return this.setState({ isMouseDown: false });
       }
 
       this.setState({
-        counter: counter + 1,
-        isMouseDown: true,
-        scaleValue: 1 + counter / 100
+        counters: {
+          ...counters,
+          [id]: {
+            counter: counter + 1,
+            sentNumber: sentNumber,
+            scaleValue: 1 + counter / 100
+          }
+        },
+        isMouseDown: true
       });
     }, 300);
   };
 
   notPressingDown = e => {
+    const reviewId = e.target.id;
+    const { counters } = this.state;
+
+    const item = counters[reviewId];
+    const counter = item ? item.counter : 0;
+    const sentNumber = item ? item.sentNumber : 0;
+
     clearInterval(this.timer);
-    this.setState({ isMouseDown: false, scaleValue: 1 });
+    if (item && counter !== sentNumber) {
+      this.setState(
+        {
+          counters: {
+            ...counters,
+            [reviewId]: {
+              counter: counter,
+              sentNumber: counter,
+              scaleValue: 1
+            }
+          },
+          isMouseDown: false
+        },
+        () => {
+          this.postHelpfulPoints(counter, reviewId);
+        }
+      );
+    } else {
+      this.setState({ isMouseDown: false });
+    }
+  };
+
+  postHelpfulPoints = (points, reviewId) => {
+    axios
+      .patch(`/api/review/${reviewId}/overall/helpful-points`, { points })
+      .then(({ data }) => {
+        console.log(data, "------------------");
+      })
+      .catch(err => {
+        console.log(err, "        :        ", points);
+      });
   };
 
   togglePanel = id => {
@@ -113,9 +176,16 @@ export default class OverallReview extends Component {
       overallReplies,
       activeOverallId,
       verified,
-      level
+      level,
+      isAdmin
     } = this.props;
     const { activeReview } = this.state;
+
+    const isAuthorized = authorization({
+      isAdmin,
+      verified,
+      minimumLevel: "LEVEL3"
+    });
 
     return summary.reviews[0].createdAt ? (
       <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
@@ -140,22 +210,30 @@ export default class OverallReview extends Component {
               <ButtonsWrapper>
                 <div style={{ position: "relative" }}>
                   <HelpfulBubble
-                    number={this.state.counter}
+                    number={
+                      this.state.counters[review._id] &&
+                      this.state.counters[review._id].counter
+                    }
                     color={organizations[category].primary}
                   />
                   <ActionsButton
                     type="primary"
                     bgcolor={
-                      verified
+                      isAuthorized
                         ? organizations[category].primary
                         : organizations[category].secondary
                     }
-                    onMouseDown={this.pressingDown}
-                    onTouchStart={this.pressingDown}
-                    onMouseUp={this.notPressingDown}
-                    onMouseLeave={this.notPressingDown}
-                    onTouchEnd={this.notPressingDown}
-                    scale={this.state.scaleValue}
+                    id={review._id}
+                    onMouseDown={isAuthorized && this.pressingDown}
+                    onTouchStart={isAuthorized && this.pressingDown}
+                    onMouseUp={isAuthorized && this.notPressingDown}
+                    onMouseLeave={isAuthorized && this.notPressingDown}
+                    onTouchEnd={isAuthorized && this.notPressingDown}
+                    scale={
+                      this.state.counters[review._id]
+                        ? this.state.counters[review._id].scaleValue
+                        : 1
+                    }
                   >
                     This is helpful
                   </ActionsButton>
