@@ -161,13 +161,13 @@ export const validationSchema = {
 
 /* ============================================================== */
 
-const quickReview = {
-  general: Yup.object({ ...generalSectionSchema })
-};
+// const quickReview = {
+//   general: Yup.object({ ...generalSectionSchema })
+// };
 
-export const validationSchemaShort = {
-  agency: quickReview.general,
-  payroll: quickReview.general,
-  worksite: quickReview.general,
-  company: quickReview.general
-};
+// export const validationSchemaShort = {
+//   agency: quickReview.general,
+//   payroll: quickReview.general,
+//   worksite: quickReview.general,
+//   company: quickReview.general
+// };

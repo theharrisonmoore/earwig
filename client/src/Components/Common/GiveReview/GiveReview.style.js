@@ -62,45 +62,6 @@ export const FullLink = styled(NavLink)`
   margin-left: 0.5rem;
 `;
 
-export const QuickReviewContainer = styled.div`
-  width: 18rem;
-  margin-left: 0.5rem;
-  height: 3rem;
-  display: flex;
-`;
-
-export const QuickReviewDots = styled.div`
-  border: 2px ${props => organizations[`${props.category}`].primary} dashed;
-  width: 40%;
-  border-right: 0;
-`;
-
-export const QuickLink = styled(NavLink)`
-  display: flex;
-  width: 60%;
-`;
-
-export const QuickReviewButton = styled(ReviewButton)`
-  margin-left: 0;
-  width: 100%;
-  /* margin-left: 30%; */
-
-  h4 {
-    width: 100%;
-  }
-
-  /* :after {
-    content: "";
-    border: 2px ${props => organizations[`${props.category}`].primary} dashed;
-    position: absolute;
-    left: -75%;
-    height: 100%;
-    width: 80%;
-    z-index: -1;
-    border-radius: 0.25rem;
-  } */
-`;
-
 export const Icon = styled(SVG)`
   margin: ${props => props.margin};
 `;
