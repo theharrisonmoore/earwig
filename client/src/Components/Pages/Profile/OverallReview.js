@@ -189,7 +189,8 @@ export default class OverallReview extends Component {
                         {reply.replies.displayName || reply.replies.user.userId}
                       </UserID>
                       <UserTrade>
-                        {review.user.trade[0] && review.user.trade[0].title}
+                        {reply.replies.user.trade[0] &&
+                          reply.replies.user.trade[0].title}
                       </UserTrade>
                     </UserDiv>
                     <div style={{ position: "relative", marginBottom: "2rem" }}>
