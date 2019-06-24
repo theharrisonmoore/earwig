@@ -204,6 +204,7 @@ module.exports = async () => {
       type: "yesno",
       text: "Were you happy with the amount you were paid?",
       isJumping: false,
+      options: ["Yes", "No"],
       category: "agency",
       profileText: "Happy with the amount you were paid",
       profileSection: "Detailed ratings",
