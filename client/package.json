@@ -5,10 +5,12 @@
   "dependencies": {
     "@sentry/browser": "^5.4.0",
     "antd": "^3.16.3",
+    "autosuggest-trie": "^2.1.1",
     "axios": "^0.19.0",
     "chart.js": "^2.8.0",
     "chartjs-plugin-datalabels": "^0.6.0",
     "classnames": "^2.2.6",
+    "fast-levenshtein": "^2.0.6",
     "formik": "^1.5.2",
     "http-proxy-middleware": "^0.19.1",
     "lightbox-react": "^0.3.7",
