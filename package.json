@@ -49,6 +49,7 @@
     "nodemon": "^1.18.10"
   },
   "dependencies": {
+    "@sentry/node": "^5.4.0",
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
