@@ -304,4 +304,16 @@ export const ActionsButton = styled(Button)`
   font-size: 1rem;
   padding: 0.5rem 1rem;
   height: auto;
+  transform: scale3d(
+    ${({ scale }) => scale || 1},
+    ${({ scale }) => scale || 1},
+    1
+  );
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    background-color: ${({ bgcolor }) => bgcolor};
+    border-color: ${({ bgcolor }) => bgcolor};
+  }
 `;

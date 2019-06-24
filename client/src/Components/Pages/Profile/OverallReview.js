@@ -27,6 +27,8 @@ import {
   VerifyLink
 } from "./Profile.style";
 
+import HelpfulBubble from "./../../Common/HelpfulBubble";
+
 import { SectionTitle } from "./ReviewSection.style";
 
 const Panel = Collapse.Panel;
@@ -36,7 +38,62 @@ export default class OverallReview extends Component {
     commentsOpen: false,
     activeReview: "",
     activeReplies: [],
-    repliesLoaded: false
+    repliesLoaded: false,
+    timerID: undefined,
+    counter: 0,
+    scaleValue: 1,
+    isMouseDown: false
+  };
+
+  timer = null;
+
+  pressingDown = e => {
+    const { counter } = this.state;
+
+    this.setState(
+      {
+        counter: counter >= 10 ? 0 : counter + 1,
+        isMouseDown: true,
+        scaleValue: 1
+      },
+      () => {
+        setTimeout(index => {
+          const { isMouseDown } = this.state;
+          if (isMouseDown) {
+            this.hold();
+          }
+        }, 500);
+      }
+    );
+  };
+
+  hold = () => {
+    const { counter, isMouseDown } = this.state;
+
+    if (counter >= 10 || !isMouseDown) {
+      return this.setState({ isMouseDown: false });
+    }
+    clearInterval(this.timer);
+
+    this.timer = setInterval(() => {
+      const { counter, isMouseDown } = this.state;
+
+      if (counter >= 10 || !isMouseDown) {
+        clearInterval(this.timer);
+        return this.setState({ isMouseDown: false });
+      }
+
+      this.setState({
+        counter: counter + 1,
+        isMouseDown: true,
+        scaleValue: 1 + counter / 100
+      });
+    }, 300);
+  };
+
+  notPressingDown = e => {
+    clearInterval(this.timer);
+    this.setState({ isMouseDown: false, scaleValue: 1 });
   };
 
   togglePanel = id => {
@@ -81,13 +138,28 @@ export default class OverallReview extends Component {
             {/*  BUTTONS SECTION */}
             <ActionsDiv>
               <ButtonsWrapper>
-                <ActionsButton
-                  type="primary"
-                  bgcolor={organizations[category].secondary}
-                  disabled
-                >
-                  Helpful
-                </ActionsButton>
+                <div style={{ position: "relative" }}>
+                  <HelpfulBubble
+                    number={this.state.counter}
+                    color={organizations[category].primary}
+                  />
+                  <ActionsButton
+                    type="primary"
+                    bgcolor={
+                      verified
+                        ? organizations[category].primary
+                        : organizations[category].secondary
+                    }
+                    onMouseDown={this.pressingDown}
+                    onTouchStart={this.pressingDown}
+                    onMouseUp={this.notPressingDown}
+                    onMouseLeave={this.notPressingDown}
+                    onTouchEnd={this.notPressingDown}
+                    scale={this.state.scaleValue}
+                  >
+                    This is helpful
+                  </ActionsButton>
+                </div>
                 <Link
                   to={{
                     pathname: REPLY_URL,
