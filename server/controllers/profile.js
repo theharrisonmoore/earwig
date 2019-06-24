@@ -12,8 +12,7 @@ module.exports = async (req, res, next) => {
   const { user } = req;
 
   // check organisation exists
-  const organization = await checkOrgExists(organizationID)
-    .catch(err => next(boom.badImplementation(err)));
+  const organization = await checkOrgExists(organizationID).catch(err => next(boom.badImplementation(err)));
 
   if (!organization) return next(boom.notFound("Cannot find the organization you're looking for"));
 
@@ -22,16 +21,13 @@ module.exports = async (req, res, next) => {
   let level;
 
   if (user) {
-    summary = await overallReview(organizationID)
-      .catch(err => next(boom.badImplementation(err)));
+    summary = await overallReview(organizationID).catch(err => next(boom.badImplementation(err)));
 
-    reviewDetails = await allAnswers(organizationID)
-      .catch(err => next(boom.badImplementation(err)));
+    reviewDetails = await allAnswers(organizationID).catch(err => next(boom.badImplementation(err)));
 
     level = user.verified ? 2 : 1;
   } else {
-    summary = await basicReview(organizationID)
-      .catch(err => next(boom.badImplementation(err)));
+    summary = await basicReview(organizationID).catch(err => next(boom.badImplementation(err)));
 
     if (summary[0].reviews.length === 0) summary[0].reviews = [{}];
 
@@ -40,7 +36,6 @@ module.exports = async (req, res, next) => {
     level = 0;
   }
 
-  // console.log("SUM", summary);
   // console.log("REV", summary[0].reviews[0]);
 
   // overallReview(organizationID)

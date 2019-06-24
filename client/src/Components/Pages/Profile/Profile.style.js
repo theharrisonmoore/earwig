@@ -305,3 +305,12 @@ export const ActionsButton = styled(Button)`
   padding: 0.5rem 1rem;
   height: auto;
 `;
+
+export const UserTrade = styled.p`
+  font-style: italic;
+  margin-left: 10px;
+`;
+
+export const UserDiv = styled.div`
+  display: flex;
+`;

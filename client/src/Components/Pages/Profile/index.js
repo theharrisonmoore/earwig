@@ -200,6 +200,10 @@ export default class Profile extends Component {
 
     const { category, name } = summary;
 
+    // activeOverallId={this.state.activeOverallId}
+    //       overallReplies={this.state.overallReplies}
+    //       fetchOverallReplies={this.fetchOverallReplies}
+
     return (
       <Wrapper isMobile={isMobile}>
         <Banner category={category}>

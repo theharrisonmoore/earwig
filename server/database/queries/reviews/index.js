@@ -24,11 +24,7 @@ module.exports.addCommentOnOverallReview = (id, data) => Review.findByIdAndUpdat
 });
 
 // used in admin panel to change isVerified status of review
-module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate(
-  { _id: id },
-  { isVerified: bool },
-  { new: true },
-);
+module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate({ _id: id }, { isVerified: bool }, { new: true });
 
 // used in admin panel to delete an answer of a review
 module.exports.deleteAnswer = id => Answer.deleteOne({ _id: id });
@@ -95,15 +91,23 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
       $unwind: { path: "$reviews.user", preserveNullAndEmptyArrays: true },
     },
     {
+      $lookup: {
+        from: "trades",
+        localField: "reviews.user.trade",
+        foreignField: "_id",
+        as: "reviews.user.trade",
+      },
+    },
+    {
       $project: {
         "reviews.user.email": 0,
         "reviews.user.isAdmin": 0,
         "reviews.user.password": 0,
-        "reviews.user.trade": 0,
         "reviews.user.createdAt": 0,
         "reviews.user.updatedAt": 0,
       },
     },
+
     {
       $group: {
         _id: "$_id",

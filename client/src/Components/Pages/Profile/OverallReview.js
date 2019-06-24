@@ -24,7 +24,9 @@ import {
   ButtonsWrapper,
   ActionsButton,
   VerifyPromo,
-  VerifyLink
+  VerifyLink,
+  UserTrade,
+  UserDiv
 } from "./Profile.style";
 
 import { SectionTitle } from "./ReviewSection.style";
@@ -48,6 +50,8 @@ export default class OverallReview extends Component {
   };
 
   render() {
+    console.log(this.props);
+
     const {
       summary,
       isTablet,
@@ -68,7 +72,10 @@ export default class OverallReview extends Component {
             key={review._id + "comment"}
             noReview={review.overallReview.text.length < 1}
           >
-            <UserID>{review.user && review.user.userId}</UserID>
+            <UserDiv>
+              <UserID>{review.user && review.user.userId}</UserID>
+              <UserTrade>{review.user && review.user.trade[0].title}</UserTrade>
+            </UserDiv>
             <BubbleAndDate>
               <CommentBubble color={organizations[category].secondary}>
                 {review.overallReview.text}
@@ -176,10 +183,15 @@ export default class OverallReview extends Component {
               >
                 {overallReplies.map(reply => (
                   <div key={reply.replies._id}>
-                    <UserID>
-                      {reply.replies.displayName ||
-                        reply.replies.user[0].userId}
-                    </UserID>
+                    <UserDiv>
+                      <UserID>
+                        {" "}
+                        {reply.replies.displayName || reply.replies.user.userId}
+                      </UserID>
+                      <UserTrade>
+                        {review.user.trade[0] && review.user.trade[0].title}
+                      </UserTrade>
+                    </UserDiv>
                     <div style={{ position: "relative", marginBottom: "2rem" }}>
                       <BubbleAndDate>
                         <CommentBubble
