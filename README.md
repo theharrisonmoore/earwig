@@ -1,6 +1,9 @@
 # earwig
 earwig is a reviews platform for construction workers. It shows which agencies and workplaces can be trusted.
 
+Production version: https://earwig-work.herokuapp.com/
+Dev version: https://earwig-app.herokuapp.com/
+
 ## Tech Stack
 Some of the tech stack we've used: 
 
