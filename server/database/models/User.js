@@ -4,52 +4,52 @@ const shortid = require("shortid");
 
 const constants = require("./../../constants");
 
-
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
 shortid.characters(constants.database.SHORT_ID_CHARACTERS);
 
-const userSchema = new Schema({
-  email: {
-    type: String,
-    unique: true,
+const userSchema = new Schema(
+  {
+    email: {
+      type: String,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    trade: {
+      type: ObjectId,
+      ref: "trades",
+    },
+    verificationPhoto: String,
+    verified: {
+      type: Boolean,
+      default: false,
+    },
+    awaitingReview: {
+      type: Boolean,
+      default: false,
+    },
+    userId: {
+      type: String,
+      default: shortid.generate,
+      required: true,
+    },
+    points: {
+      type: Number,
+      default: 0,
+      required: true,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    city: String,
   },
-  password: {
-    type: String,
-    required: true,
-  },
-  trade: {
-    type: ObjectId,
-    ref: "trades",
-  },
-  verificationPhoto: String,
-  verified: {
-    type: Boolean,
-    default: false,
-  },
-  awaitingReview: {
-    type: Boolean,
-    default: false,
-  },
-  userId: {
-    type: String,
-    default: shortid.generate,
-    required: true,
-  },
-  points: {
-    type: Number,
-    default: 0,
-    required: true,
-  },
-  isAdmin: {
-    type: Boolean,
-    default: false,
-  },
-  city: String,
-},
-{ timestamps: true });
-
+  { timestamps: true },
+);
 
 function hashPassword(next) {
   // get the plain password that user input

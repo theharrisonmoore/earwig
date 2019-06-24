@@ -26,7 +26,8 @@ import {
   VerifyPromo,
   VerifyLink,
   UserTrade,
-  UserDiv
+  UserDiv,
+  UserAdditionalDetails
 } from "./Profile.style";
 
 import { SectionTitle } from "./ReviewSection.style";
@@ -76,6 +77,9 @@ export default class OverallReview extends Component {
               <UserID>{review.user && review.user.userId}</UserID>
               <UserTrade>{review.user && review.user.trade[0].title}</UserTrade>
             </UserDiv>
+            <UserAdditionalDetails>
+              <p>Helped 22 · Points {review.user.points}</p>
+            </UserAdditionalDetails>
             <BubbleAndDate>
               <CommentBubble color={organizations[category].secondary}>
                 {review.overallReview.text}
@@ -193,6 +197,9 @@ export default class OverallReview extends Component {
                           reply.replies.user.trade[0].title}
                       </UserTrade>
                     </UserDiv>
+                    <UserAdditionalDetails>
+                      <p>Helped 22 · Points {reply.replies.user.points}</p>
+                    </UserAdditionalDetails>
                     <div style={{ position: "relative", marginBottom: "2rem" }}>
                       <BubbleAndDate>
                         <CommentBubble

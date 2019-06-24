@@ -314,3 +314,12 @@ export const UserTrade = styled.p`
 export const UserDiv = styled.div`
   display: flex;
 `;
+
+export const UserAdditionalDetails = styled.div`
+  margin-top: -15px;
+
+  p {
+    font-size: 0.8rem;
+    colors: ${colors.dustyGray2};
+  }
+`;
