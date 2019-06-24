@@ -14,16 +14,34 @@ const Review = require("../database/models/Review");
 const Answer = require("../database/models/Answer");
 const Comment = require("../database/models/Comment");
 
-const getByOrg = (req, res, next) => {
-  const { organization } = req.query;
+const getByOrg = async (req, res, next) => {
+  const { organization: category } = req.query;
 
-  getQuetionsByOrg(organization)
-    .then((groups) => {
-      res.json(groups);
-    })
-    .catch(() => {
-      next(boom.badImplementation());
-    });
+  console.log("org", category);
+
+  try {
+    let dropDownListData;
+    if (category === "agency") {
+      dropDownListData = await getOrgsNamesByType("payroll");
+    } else if (category === "payroll") {
+      dropDownListData = await getOrgsNamesByType("agency");
+    } else if (category === "worksite") {
+      dropDownListData = await getOrgsNamesByType("worksite");
+    }
+
+    const groups = await getQuetionsByOrg(category);
+    console.log("group", groups);
+    res.json({ groups, dropDownListData });
+  } catch (err) {
+    console.log("err", err);
+    next(boom.badImplementation());
+  }
+
+  // getQuetionsByOrg(category)
+  //   .then((groups) => {
+  //   })
+  //   .catch(() => {
+  //   });
 };
 
 const postReviewShort = async (req, res, next) => {

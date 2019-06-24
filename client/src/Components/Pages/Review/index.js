@@ -65,7 +65,8 @@ class Review extends Component {
     user: { email: "" },
     worksiteImage: "",
     agencies: [],
-    payrolls: []
+    payrolls: [],
+    dropdownList: []
   };
   componentDidMount() {
     const { email } = this.props;
@@ -95,8 +96,9 @@ class Review extends Component {
         }
       })
       .then(res => {
+        console.log("ressssssss", res);
         const groupss = {};
-        res.data.forEach(group => {
+        res.data.groups.forEach(group => {
           groupss[group._id] = {
             title: group.group.text,
             main: group.questions.filter(question => !question.isDependent),
@@ -109,7 +111,8 @@ class Review extends Component {
           isLoading: false,
           organization,
           user,
-          email
+          email,
+          dropdownOptions: res.data.dropDownListData[0].category
         });
       })
       .catch(err => {
@@ -344,7 +347,7 @@ class Review extends Component {
                                     setFieldValue={setFieldValue}
                                     agencies={agencies}
                                     payrolls={payrolls}
-                                    dropdownOptions={dropdownOptions}
+                                    dropdownOptions={this.state.dropdownOptions}
                                   />
                                 );
                               })}
