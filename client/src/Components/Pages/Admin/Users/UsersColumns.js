@@ -1,25 +1,72 @@
 import React from "react";
 
 import { Tag, Button, Icon } from "antd";
+import Highlighter from "react-highlight-words";
 
-export default ({ deletHandler, viewHandler }) => {
+export default ({
+  deletHandler,
+  viewHandler,
+  getColumnSearchProps,
+  searchText
+}) => {
   return [
     {
       title: "User Id",
       dataIndex: "userId",
       key: "userId",
-      render: text => <span style={{ fontWeight: "700" }}>{text}</span>
+      render: text => (
+        <span style={{ fontWeight: "700" }}>
+          <Highlighter
+            highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+            searchWords={[searchText]}
+            autoEscape
+            textToHighlight={text.toString()}
+          />
+        </span>
+      ),
+      ...getColumnSearchProps("userId")
     },
     {
       title: "Email",
       dataIndex: "email",
-      key: "email"
+      key: "email",
+      render: text => (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text.toString()}
+        />
+      ),
+      ...getColumnSearchProps("email")
     },
     {
       title: "City/town",
       dataIndex: "city",
       key: "city",
-      render: text => <span>{text || "N/A"}</span>
+      render: text => (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text.toString()}
+        />
+      ),
+      ...getColumnSearchProps("city")
+    },
+    {
+      title: "Trade",
+      dataIndex: "trade",
+      key: "trade",
+      render: text => (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text.toString()}
+        />
+      ),
+      ...getColumnSearchProps("trade")
     },
     {
       title: "Status",

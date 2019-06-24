@@ -199,3 +199,70 @@ export const PopoverLink = styled.p`
   font-style: italic;
   cursor: pointer;
 `;
+
+export const SliderWrapper = styled.div`
+  width: calc(85% - 1rem);
+  display: flex;
+  justify-content: space-between;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+
+  .ant-slider-with-marks {
+    margin-top: 45px;
+    margin-bottom: 0;
+  }
+
+  .ant-slider-handle {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    margin-top: -11px;
+  }
+  .ant-slider-track {
+    background-color: ${({ color }) => color};
+  }
+
+  .ant-slider:hover .ant-slider-track {
+    background-color: ${({ color }) => color}88;
+  }
+
+  .ant-slider:hover .ant-slider-rail {
+    background-color: #b6b6b6;
+  }
+
+  .ant-slider-rail::after {
+    content: "";
+    width: 100%;
+    height: 1px;
+    z-index: 1;
+    background: #cfced3;
+    position: absolute;
+    bottom: 25px;
+  }
+
+  .ant-slider-rail::before {
+    content: "";
+    width: 100%;
+    height: 1px;
+    z-index: 1;
+    background: #cfced3;
+    position: absolute;
+    top: 25px;
+  }
+
+  p {
+    font-family: ArialMT;
+    font-size: 18px;
+    line-height: 21px;
+    /* identical to box height */
+
+    text-align: center;
+    letter-spacing: 0.375px;
+
+    color: #4a4a4a;
+    opacity: 0.8;
+    width: 100%;
+    visibility: ${({ visibility }) => (visibility ? "intial" : "hidden")};
+  }
+`;

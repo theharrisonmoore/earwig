@@ -6,6 +6,8 @@
 import React, { Component } from "react";
 import Autosuggest from "react-autosuggest";
 import { withRouter } from "react-router-dom";
+import createTrie from "autosuggest-trie";
+
 import { ADD_PROFILE_URL } from "../../../constants/naviagationUrls";
 // styles
 import {
@@ -39,19 +41,32 @@ import { organizationIcons, organizations } from "./../../../theme";
 export const getSuggestionValue = suggestion => suggestion.name;
 
 // compares the user's input value and the entries (organisations) and filters the data array accordingly
+
 export const getSuggestions = (value, organisationsArray) => {
-  const inputValue = value.trim().toLowerCase();
+  const inputValue = value.toLowerCase();
+
+  const inputValueChained = inputValue.replace(/\s/g, "");
+
+  const trie = createTrie(organisationsArray, "name");
 
   const suggestions = organisationsArray.filter(org =>
-    org.name.toLowerCase().includes(inputValue)
+    org.name
+      .toLowerCase()
+      .replace(/\s/g, "")
+      .includes(inputValueChained)
   );
 
+  // creates trie from value in data array
+  const trieMatches = trie.getMatches(`${value}`);
+
+  const suggestionsTogether = [...new Set(trieMatches.concat(suggestions))];
+
   // in case there are no suggestions still return a value -> enables the 'add' box to be rendered
-  if (suggestions.length === 0) {
+  if (suggestionsTogether.length === 0) {
     return [{ isEmpty: true }];
   }
 
-  return suggestions;
+  return suggestionsTogether;
 };
 
 class AutosuggestComponent extends Component {
@@ -201,7 +216,7 @@ class AutosuggestComponent extends Component {
     // limits suggestions to 10 results
 
     const filteredSuggestions = suggestions.slice(0, 10);
-
+    // console.log(suggestions);
     return (
       <AutosuggestWrapper height={height} width={width}>
         <IconDiv

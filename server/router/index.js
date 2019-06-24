@@ -152,10 +152,10 @@ router.delete("/delete-user", authentication, deleteUserProfile);
 router.get("/user-reviews", authentication, userReviewsController);
 
 router.post(
-  "/add-organization",
-  // authentication,
-  // authorization("LEVEL3"),
-  // validation("addOrganization"),
+  ADD_ORGANIZATION_URL,
+  authentication,
+  authorization("LEVEL2"),
+  validation("addOrganization"),
   addOrganizationController,
 );
 
