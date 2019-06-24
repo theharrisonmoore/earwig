@@ -36,7 +36,10 @@ import {
   StyledButton,
   StyledCheckList,
   PopoverLink,
-  SliderWrapper
+  SliderWrapper,
+  PopoverDiv,
+  PopoverText,
+  PopoverBtn
 } from "./Question.style";
 
 const marksStyle = {
@@ -66,6 +69,7 @@ const Question = props => {
     hasComment,
     next
   } = props.question;
+
   const {
     questions,
     values,
@@ -76,28 +80,11 @@ const Question = props => {
     groupId
   } = props;
 
-  const popoverText = <span>What hourly rate were you paid?</span>;
-
-  const popoverContent = (
-    <div>
-      <p>Content</p>
-      <p>Content</p>
-    </div>
-  );
   return (
     <QuestionWrapper>
       <QText>{text}</QText>
       <HintText>{hintText}</HintText>
-      {text === "What hourly rate were you paid?" && (
-        <Popover
-          placement="top"
-          title={popoverText}
-          content={popoverContent}
-          trigger="click"
-        >
-          <PopoverLink>Why are we asking this?</PopoverLink>
-        </Popover>
-      )}
+      {text === "What hourly rate were you paid?" && <PopoverComponent />}
       <QuestionOptions
         type={type}
         options={options}
@@ -119,8 +106,52 @@ const Question = props => {
   );
 };
 
+class PopoverComponent extends React.Component {
+  state = {
+    popoverVisible: false
+  };
+
+  hide = () => {
+    this.setState({
+      popoverVisible: false
+    });
+  };
+
+  handleVisibleChange = popoverVisible => {
+    this.setState({ popoverVisible });
+  };
+
+  render() {
+    return (
+      <Popover
+        placement="top"
+        content={
+          <PopoverDiv>
+            <PopoverText>
+              We’re asking this because it will be useful to track over time how
+              much agencies are paying workers
+            </PopoverText>
+            <PopoverBtn onClick={this.hide}>Got it!</PopoverBtn>
+          </PopoverDiv>
+        }
+        trigger="click"
+        visible={this.state.popoverVisible}
+        onVisibleChange={this.handleVisibleChange}
+      >
+        <PopoverLink>Why are we asking this?</PopoverLink>
+      </Popover>
+    );
+  }
+}
+
 class QuestionOptions extends React.Component {
-  state = { checkedList: [], clicked: false, rate: 0, hoverRate: undefined };
+  state = {
+    checkedList: [],
+    clicked: false,
+    rate: 0,
+    hoverRate: undefined,
+    popoverVisible: false
+  };
 
   getStyle = () => {
     if (this.state.clicked) {

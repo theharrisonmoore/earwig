@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, organizations } from "../../../../theme";
+import { colors, organizations, butt } from "../../../../theme";
 
 export const QuestionWrapper = styled.div.attrs({ className: "" })`
   font-size: 18px;
@@ -198,6 +198,25 @@ export const PopoverLink = styled.p`
   color: ${organizations.agency.primary};
   font-style: italic;
   cursor: pointer;
+`;
+
+export const PopoverDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+`;
+
+export const PopoverText = styled.p`
+  text-align: center;
+  padding-bottom: 10px;
+`;
+
+export const PopoverBtn = styled(StyledButton)`
+  background: ${organizations.agency.primary};
+  color: ${colors.white};
+  width: 40%;
 `;
 
 export const SliderWrapper = styled.div`
