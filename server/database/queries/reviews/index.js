@@ -3,9 +3,13 @@ const Organization = require("./../../models/Organization");
 const Answer = require("./../../models/Answer");
 const Review = require("./../../models/Review");
 const Comment = require("./../../models/Comment");
+
 const getAllReviews = require("./allReviews");
 const getOverallReplies = require("./getOverallReplies");
 const getReviewDetails = require("./getReviewDetails");
+const updateOverallHelpfullPoints = require("./updateOverallHelpfullPoints");
+
+module.exports.updateOverallHelpfullPoints = updateOverallHelpfullPoints;
 
 module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
 

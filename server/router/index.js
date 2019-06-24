@@ -49,6 +49,8 @@ const addCommentOnReview = require("../controllers/addCommentOnReview");
 const updateLastViewedOrg = require("../controllers/updateLastViewedOrg");
 
 const deleteOrgController = require("../controllers/deleteOrganization");
+const updateOverallHelpfulPoints = require("../controllers/updateOverallHelpfulPoints");
+
 
 const {
   LOGIN_URL,
@@ -210,5 +212,8 @@ router.post("/thinking-of-deleting", authentication, thinkingofDeletingControlle
 router.post("/give-feedback", authentication, feedbackController);
 
 router.post("/update-last-viewed", updateLastViewedOrg);
+
+
+router.patch("/review/:reviewId/overall/helpful-points", authentication, updateOverallHelpfulPoints);
 
 module.exports = router;
