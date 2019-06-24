@@ -190,3 +190,12 @@ export const StyledCheckList = styled.div`
     align-self: flex-end;
   }
 `;
+export const PopoverLink = styled.p`
+  margin: 0;
+  font-weight: 900;
+  font-size: 18px;
+  text-decoration: underline;
+  color: ${organizations.agency.primary};
+  font-style: italic;
+  cursor: pointer;
+`;

@@ -9,7 +9,8 @@ import {
   Input,
   Rate,
   InputNumber,
-  Checkbox
+  Checkbox,
+  Popover
 } from "antd";
 
 import ModalComment from "../../../Common/AntdComponents/ModalComment";
@@ -33,7 +34,8 @@ import {
   StyledErrorMessage,
   StyledInput,
   StyledButton,
-  StyledCheckList
+  StyledCheckList,
+  PopoverLink
 } from "./Question.style";
 
 const Option = Select.Option;
@@ -65,10 +67,28 @@ const Question = props => {
     groupId
   } = props;
 
+  const popoverText = <span>What hourly rate were you paid?</span>;
+
+  const popoverContent = (
+    <div>
+      <p>Content</p>
+      <p>Content</p>
+    </div>
+  );
   return (
     <QuestionWrapper>
       <QText>{text}</QText>
       <HintText>{hintText}</HintText>
+      {text === "What hourly rate were you paid?" && (
+        <Popover
+          placement="top"
+          title={popoverText}
+          content={popoverContent}
+          trigger="click"
+        >
+          <PopoverLink>Why are we asking this?</PopoverLink>
+        </Popover>
+      )}
       <QuestionOptions
         type={type}
         options={options}
