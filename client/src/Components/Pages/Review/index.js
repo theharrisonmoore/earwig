@@ -96,7 +96,6 @@ class Review extends Component {
         }
       })
       .then(res => {
-        console.log("ressssssss", res);
         const groupss = {};
         res.data.groups.forEach(group => {
           groupss[group._id] = {
@@ -112,7 +111,8 @@ class Review extends Component {
           organization,
           user,
           email,
-          dropdownOptions: res.data.dropDownListData[0].category
+          dropdownOptions:
+            res.data.dropDownListData && res.data.dropDownListData[0].category
         });
       })
       .catch(err => {
@@ -121,11 +121,6 @@ class Review extends Component {
           err.response && err.response.data && err.response.data.error;
         message.error(error || "Something went wrong");
       });
-
-    // Should only work on (payroll and agency)
-    if (category === "agency" || category === "payroll") {
-      this.getAgenciesAndPayrolls();
-    }
   }
 
   showNextQestion = (groupId, next, other, set, num) => {
@@ -178,22 +173,6 @@ class Review extends Component {
     group.dependant = newDependant;
     newGroups[groupId] = group;
     this.setState({ groupss: newGroups });
-  };
-
-  getAgenciesAndPayrolls = () => {
-    axios
-      .get("/api/agency-payroll")
-      .then(res => {
-        this.setState({
-          agencies: res.data[1].category,
-          payrolls: res.data[0].category
-        });
-      })
-      .catch(err => {
-        const error =
-          err.response && err.response.data && err.response.data.error;
-        message.error(error || "Something went wrong");
-      });
   };
 
   handleSubmit = (values, { setSubmitting }) => {
@@ -253,12 +232,6 @@ class Review extends Component {
       return null;
     }
 
-    let dropdownOptions = [];
-    if (category === "agency") {
-      dropdownOptions = agencies;
-    } else if (category === "payroll") {
-      dropdownOptions = payrolls;
-    }
     return (
       <ReviewWrapper>
         <Header orgType={category} style={{ marginBottom: "3rem" }}>

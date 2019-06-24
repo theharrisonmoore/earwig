@@ -17,8 +17,6 @@ const Comment = require("../database/models/Comment");
 const getByOrg = async (req, res, next) => {
   const { organization: category } = req.query;
 
-  console.log("org", category);
-
   try {
     let dropDownListData;
     if (category === "agency") {
@@ -30,18 +28,10 @@ const getByOrg = async (req, res, next) => {
     }
 
     const groups = await getQuetionsByOrg(category);
-    console.log("group", groups);
     res.json({ groups, dropDownListData });
   } catch (err) {
-    console.log("err", err);
     next(boom.badImplementation());
   }
-
-  // getQuetionsByOrg(category)
-  //   .then((groups) => {
-  //   })
-  //   .catch(() => {
-  //   });
 };
 
 const postReviewShort = async (req, res, next) => {
@@ -158,15 +148,19 @@ const postReview = async (req, res, next) => {
 
     res.send(organizationData._id);
   } catch (error) {
-    next(boom.badImplementation);
+    next(boom.badImplementation());
   }
 };
 
 /* not used now */
-const addNewAgencyPayroll = async (req, res, next) => {
+const addNewOrg = async (req, res, next) => {
   const { name, category } = req.body;
-  await postOrg(category, name);
-  res.send();
+  try {
+    await postOrg(category, name);
+    res.send();
+  } catch (err) {
+    next(boom.badImplementation());
+  }
 };
 
 const getOrgsByType = async (req, res, next) => {
@@ -192,7 +186,7 @@ const getAgencesAndPayrollsNames = async (req, res, next) => {
 module.exports = {
   getByOrg,
   postReview,
-  addNewAgencyPayroll,
+  addNewOrg,
   getOrgsByType,
   getAgencesAndPayrollsNames,
   postReviewShort,
