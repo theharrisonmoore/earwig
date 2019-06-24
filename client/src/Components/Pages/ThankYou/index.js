@@ -105,8 +105,8 @@ export default class ThankYou extends Component {
           <SharePromo orgType={orgType}>
             Click one of the icons above to share privately with your colleagues
           </SharePromo>
-          <StyledLink to="search" orgType={orgType}>
-            Now review an {otherOrgs[0]}, {otherOrgs[1]} or {otherOrgs[2]}
+          <StyledLink to={`/profile/${state.orgId}`} orgType={orgType}>
+            Go to the company's profile
           </StyledLink>
         </ContentWrapper>
       </ThankYouWrapper>
