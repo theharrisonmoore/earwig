@@ -25,6 +25,7 @@ import {
 } from "./Landing.style";
 
 import LogoImg from "./../../../assets/logo-white.png";
+import LogoBetaWhite from "./../../../assets/logo-beta-white.svg"
 
 import { colors } from "./../../../theme";
 
@@ -83,7 +84,7 @@ export default class index extends Component {
 
     return (
       <Wrapper>
-        <Logo src={LogoImg} alt="logo" isMobile={isMobile} />
+        <Logo src={LogoBetaWhite} alt="logo" isMobile={isMobile} />
         {isMobile || isTablet ? (
           <TopWrapper>
             <Title>Every voice counts</Title>
