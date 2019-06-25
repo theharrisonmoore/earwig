@@ -97,7 +97,7 @@ module.exports = async () => {
       category: "agency",
       profileText: "Accuracy of job descriptions given to you overall",
       profileSection: "Detailed ratings",
-      profileType: "pieChart",
+      profileType: "barChart",
       group: {
         groupOrder: 0,
         name: "general",
