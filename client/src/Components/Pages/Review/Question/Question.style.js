@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, organizations, butt } from "../../../../theme";
+import { colors, organizations } from "../../../../theme";
 
 export const QuestionWrapper = styled.div.attrs({ className: "" })`
   font-size: 18px;

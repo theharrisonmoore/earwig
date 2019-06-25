@@ -8,7 +8,6 @@ import {
   Divider,
   Input,
   Rate,
-  InputNumber,
   Checkbox,
   Popover,
   Slider
