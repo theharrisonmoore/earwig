@@ -63,7 +63,6 @@ export default class Navbar extends Component {
     } = this.props;
     const { menuOpen, isLoading, data } = this.state;
     if (!isLoading) return null;
-
     if (!isMobile) {
       return (
         <Wrapper height="4rem">
@@ -91,7 +90,7 @@ export default class Navbar extends Component {
               height="3rem"
               bool={() => true}
               width="50%"
-              data={data}
+              data={data[0].searchData}
               placeholderText="Try searching for agencies, payrolls, worksites, or companies..."
             />
           )}
