@@ -1,37 +1,32 @@
-const boom = require("boom");
-
 const Question = require("../models/Question");
 const Organization = require("../models/Organization");
 
 
 // return the questions grouped by Org. category
-const getQuetionsByOrg = org => new Promise((resolve, reject) => {
-  Question.aggregate([
-    {
-      $match: {
-        category: org,
-      },
+const getQuetionsByOrg = org => Question.aggregate([
+  {
+    $match: {
+      category: org,
+    },
 
+  },
+  {
+    $sort: { number: 1 },
+  },
+  {
+    $group: {
+      _id: "$group.name",
+      group: { $first: "$group" },
+      questions: { $push: "$$CURRENT" },
     },
-    {
-      $sort: { number: 1 },
+  },
+  {
+    $sort: {
+      "group.groupOrder": 1,
     },
-    {
-      $group: {
-        _id: "$group.name",
-        group: { $first: "$group" },
-        questions: { $push: "$$CURRENT" },
-      },
-    },
-    {
-      $sort: {
-        "group.groupOrder": 1,
-      },
-    },
-  ])
-    .then(resolve)
-    .catch(reject);
-});
+  },
+]);
+
 
 const getOrganization = (category, name) => Organization.findOne({ category, name });
 
@@ -40,45 +35,36 @@ const getQuestionsByOrgCategory = category => Question.find({ category }).sort({
 
 const getOrganizationsByType = category => Organization.find({ category });
 
-const getOrgsNamesByType = category => new Promise((resolve, reject) => {
-  Organization.aggregate([
-    {
-      $match: { category },
-    },
-    {
-      $group: { _id: "$category", category: { $push: "$$CURRENT.name" } },
-    },
-  ])
-    .then(resolve)
-    .catch(reject);
-});
+const getOrgsNamesByType = category => Organization.aggregate([
+  {
+    $match: { category },
+  },
+  {
+    $group: { _id: "$category", category: { $push: "$$CURRENT.name" } },
+  },
+]);
 
-const getAgenciesAndPayrollsNames = () => new Promise((resolve, reject) => {
-  Organization.aggregate([
-    {
-      $match: { $or: [{ category: "agency" }, { category: "payroll" }] },
-    },
-    {
-      $group: { _id: "$category", category: { $push: "$$CURRENT.name" } },
-    },
-    {
-      $sort: { _id: 1 },
-    },
-  ])
-    .then(resolve)
-    .catch(reject);
-});
 
-const postOrg = async (category, name) => {
-  try {
-    const org = new Organization({
-      category,
-      name,
-    });
-    await org.save();
-  } catch (err) {
-    boom.badImplementation();
-  }
+const getAgenciesAndPayrollsNames = () => Organization.aggregate([
+  {
+    $match: { $or: [{ category: "agency" }, { category: "payroll" }] },
+  },
+  {
+    $group: { _id: "$category", category: { $push: "$$CURRENT.name" } },
+  },
+  {
+    $sort: { _id: 1 },
+  },
+]);
+
+
+const postOrg = (category, name) => {
+  const org = new Organization({
+    category,
+    name,
+    active: false,
+  });
+  return org.save();
 };
 
 module.exports = {

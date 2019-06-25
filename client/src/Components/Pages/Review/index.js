@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
-import { Checkbox, message } from "antd";
+import { Checkbox, message, Spin, Icon } from "antd";
 import Loading from "./../../Common/AntdComponents/Loading";
-
-import { Spin, Icon } from "antd";
 
 import {
   ReviewWrapper,
@@ -55,6 +53,7 @@ const {
   API_POST_REVIEW_URL
 } = require("../../../apiUrls");
 
+// For rate question to add the Org. category
 let rateQ = {};
 
 class Review extends Component {
@@ -66,7 +65,8 @@ class Review extends Component {
     user: { email: "" },
     worksiteImage: "",
     agencies: [],
-    payrolls: []
+    payrolls: [],
+    dropdownList: []
   };
   componentDidMount() {
     const { email } = this.props;
@@ -88,6 +88,7 @@ class Review extends Component {
     organization.name = name;
     organization.needsVerification = needsVerification || false;
     user.email = email;
+
     axios
       .get(API_GET_QUESTIONS_URL, {
         params: {
@@ -96,7 +97,7 @@ class Review extends Component {
       })
       .then(res => {
         const groupss = {};
-        res.data.forEach(group => {
+        res.data.groups.forEach(group => {
           groupss[group._id] = {
             title: group.group.text,
             main: group.questions.filter(question => !question.isDependent),
@@ -109,7 +110,9 @@ class Review extends Component {
           isLoading: false,
           organization,
           user,
-          email
+          email,
+          dropdownOptions:
+            res.data.dropDownListData && res.data.dropDownListData[0].category
         });
       })
       .catch(err => {
@@ -118,7 +121,6 @@ class Review extends Component {
           err.response && err.response.data && err.response.data.error;
         message.error(error || "Something went wrong");
       });
-    this.getAgenciesAndPayrolls();
   }
 
   showNextQestion = (groupId, next, other, set, num) => {
@@ -171,22 +173,6 @@ class Review extends Component {
     group.dependant = newDependant;
     newGroups[groupId] = group;
     this.setState({ groupss: newGroups });
-  };
-
-  getAgenciesAndPayrolls = () => {
-    axios
-      .get("/api/agency-payroll")
-      .then(res => {
-        this.setState({
-          agencies: res.data[1].category,
-          payrolls: res.data[0].category
-        });
-      })
-      .catch(err => {
-        const error =
-          err.response && err.response.data && err.response.data.error;
-        message.error(error || "Something went wrong");
-      });
   };
 
   handleSubmit = (values, { setSubmitting }) => {
@@ -246,12 +232,6 @@ class Review extends Component {
       return null;
     }
 
-    let dropdownOptions = [];
-    if (category === "agency") {
-      dropdownOptions = agencies;
-    } else if (category === "payroll") {
-      dropdownOptions = payrolls;
-    }
     return (
       <ReviewWrapper>
         <Header orgType={category} style={{ marginBottom: "3rem" }}>
@@ -340,7 +320,7 @@ class Review extends Component {
                                     setFieldValue={setFieldValue}
                                     agencies={agencies}
                                     payrolls={payrolls}
-                                    dropdownOptions={dropdownOptions}
+                                    dropdownOptions={this.state.dropdownOptions}
                                   />
                                 );
                               })}

@@ -2,11 +2,10 @@ const router = require("express").Router();
 const {
   getByOrg,
   postReview,
-  addNewAgencyPayroll,
   getOrgsByType,
   getAgencesAndPayrollsNames,
   postReviewShort,
-  getSingleReviewAnswers,
+  addNewOrg,
 } = require("../controllers/review");
 
 const adminRouter = require("./admin");
@@ -74,6 +73,7 @@ const {
   ADD_HELPFUL_OVERALL_POINTS,
 } = require("../../client/src/apiUrls");
 
+
 router.get(SEARCH_URL, searchController);
 
 // get user info from the cookies and send it to fron-end
@@ -85,7 +85,7 @@ router.post("/short-review", authentication, authorization("LEVEL3"), postReview
 
 // Add new payroll and agency
 router.get("/organizations", authentication, authorization("LEVEL3"), getOrgsByType);
-router.post("/organizations", authentication, authorization("LEVEL3"), addNewAgencyPayroll);
+router.post("/organizations", authentication, authorization("LEVEL3"), addNewOrg);
 router.get("/agency-payroll", authentication, authorization("LEVEL3"), getAgencesAndPayrollsNames);
 
 // require all the routes in this file
