@@ -24,8 +24,7 @@ import {
   LabelTitle
 } from "./Landing.style";
 
-import LogoImg from "./../../../assets/logo-white.png";
-import LogoBetaWhite from "./../../../assets/logo-beta-white.svg"
+import LogoBetaWhite from "./../../../assets/logo-beta-white.svg";
 
 import { colors } from "./../../../theme";
 
