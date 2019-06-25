@@ -21,7 +21,11 @@ export default class BarChartAnswer extends Component {
     // get the total for the number of answers
     const totalCount = totalAnswers.length;
 
-    totalAnswers.map(answer => (optionsObj[answer] += (1 / totalCount) * 100));
+    totalAnswers.map(answer => {
+      optionsObj[answer] += (1 / totalCount) * 100;
+      const roundedNum = Math.round(optionsObj[answer]);
+      return (optionsObj[answer] = roundedNum);
+    });
 
     return optionsObj;
   };

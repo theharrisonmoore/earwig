@@ -22,14 +22,14 @@ module.exports = (req, res, next) => {
     .then((user) => {
       if (!user) {
         // no user founded
-        return next(boom.unauthorized("login failed, email and password not match"));
+        return next(boom.unauthorized("Whoops! Either you typed something wrong or you're not registered."));
       }
 
       // validate password
       return compare(plainPassword, user.password)
         .then((matched) => {
           if (!matched) {
-            return next(boom.unauthorized("login failed, email and password not match"));
+            return next(boom.unauthorized("Whoops! Either you typed something wrong or you're not registered."));
           }
 
           // data to be sent in the response

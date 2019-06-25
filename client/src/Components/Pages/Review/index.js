@@ -375,7 +375,7 @@ class Review extends Component {
                             Terms of Use.
                           </LinkSpan>{" "}
                           This review of my experience with this current or
-                          former agency is truthful.
+                          former {category} is truthful.
                         </AgreementLabel>
                         <ErrorMessage name={`hasAgreed`}>
                           {msg => (
