@@ -4,32 +4,55 @@ import { YesNoWrapper, YesHalf, NoHalf, Comment } from "./ProfileAnswers.style";
 import { organizations } from "./../../../../theme";
 
 export default class YesNoAnswer extends Component {
-  countYesNo = (yesOrNo, answers) => {
+  countYesNo = (answers) => {
     // get only yes or no answers
-    const cleanAnswers = answers.filter(answer =>
-      ["Yes", "No"].includes(answer.answer)
-    );
+    // const cleanAnswers = answers.filter(answer =>
+    //   ["Yes", "No"].includes(answer.answer)
+    // );
 
-    const yesPercentage = Math.floor(
-      (cleanAnswers.filter(cleanAnswer => cleanAnswer.answer === "Yes").length /
-        cleanAnswers.length) *
-        100
-    );
+    // const yesPercentage = Math.floor(
+    //   (cleanAnswers.filter(cleanAnswer => cleanAnswer.answer === "Yes").length /
+    //     cleanAnswers.length) *
+    //     100
+    // );
 
-    if (yesOrNo === "Yes") return `${yesPercentage}%`;
-    else return `${100 - yesPercentage}%`;
+    // if (yesOrNo === "Yes") return `${yesPercentage}%`;
+    // else return `${100 - yesPercentage}%`;
+
+    console.log(answers)
+
+
+    const yesAnswers = answers ? answers.filter(answer => answer.answer === "Yes").length : 0
+    const noAnswers = answers ? answers.filter(answer => answer.answer === "No").length : 0
+    const noPerc = noAnswers / (yesAnswers + noAnswers) * 100;
+
+    const answerObj = {
+      yesCount: yesAnswers,
+      noCount: noAnswers,
+      yesPercentage: Math.ceil((yesAnswers / (yesAnswers + noAnswers) * 100)),
+      noPercentage: noPerc
+    }
+    console.log('y', answerObj.yesPercentage)
+    console.log('n', answerObj.noPercentage)
+     return answerObj;
   };
 
   render() {
     const { question, toggleComments, category } = this.props;
 
+    console.log(question)
+
+    const answerObj = this.countYesNo(question.answers)
+
+    console.log(answerObj.yesPercentage)
+
     return (
       <YesNoWrapper>
-        <YesHalf width={this.countYesNo("Yes", question.answers)}>
-          {this.countYesNo("Yes", question.answers)}
+        <YesHalf width={answerObj.yesPercentage}>
+          <p>Yes ({answerObj.yesCount})</p>
         </YesHalf>
-        <NoHalf width={this.countYesNo("No", question.answers)}>
-          {this.countYesNo("No", question.answers)}
+        <NoHalf width={answerObj.noPercentage}>
+          <p>No ({answerObj.noCount})</p>
         </NoHalf>
         {question.answers.filter(answer => answer.comment).length > 0 ? (
           <Comment
