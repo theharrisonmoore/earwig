@@ -14,7 +14,6 @@ import {
 } from "./../../Common/Formik/Formik.style";
 
 import {
-  ADMIN,
   SEARCH_URL,
   SIGNUP_URL,
   RESET_PASSWORD_URL
@@ -49,8 +48,7 @@ export default class Login extends Component {
       .post("/api/login", values)
       .then(({ data }) => {
         this.props.handleChangeState({ ...data, isLoggedIn: true });
-        const { isAdmin } = data;
-        this.props.history.push(isAdmin ? ADMIN : SEARCH_URL);
+        this.props.history.push(SEARCH_URL);
       })
       .catch(err => {
         this.setState({ error: err.response.data.error });
