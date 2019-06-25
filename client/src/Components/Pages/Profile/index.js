@@ -38,7 +38,7 @@ export default class Profile extends Component {
     organizationID: "",
     overallReplies: [],
     activeOverallId: "",
-    reviewNotAllowed: []
+    reviewsLast30Days: []
   };
 
   fetchData = () => {
@@ -47,7 +47,7 @@ export default class Profile extends Component {
     axios
       .post("/api/profile", { organizationID })
       .then(res => {
-        const { summary, reviewDetails, level, reviewNotAllowed } = res.data;
+        const { summary, reviewDetails, level, reviewsLast30Days } = res.data;
 
         this.setState({
           summary: summary[0],
@@ -55,7 +55,7 @@ export default class Profile extends Component {
           level,
           loaded: true,
           organizationID,
-          reviewNotAllowed
+          reviewsLast30Days
         });
       })
       .catch(err => {
@@ -194,7 +194,7 @@ export default class Profile extends Component {
       comments,
       commentsLoaded,
       level,
-      reviewNotAllowed
+      reviewsLast30Days
     } = this.state;
 
     const { isTablet, isMobile, verified } = this.props;
@@ -215,7 +215,7 @@ export default class Profile extends Component {
           isMobile={isMobile}
           summary={summary}
           level={level}
-          reviewNotAllowed={reviewNotAllowed}
+          reviewsLast30Days={reviewsLast30Days}
         />
         {/* BASIC VIEW FOR LOGGED OUT USERS */}
         {level < 1 && (

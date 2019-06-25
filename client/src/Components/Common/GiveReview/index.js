@@ -8,7 +8,7 @@ import {
   FullLink
 } from "./GiveReview.style";
 
-import { Popover } from "antd";
+import PopoverComponent from "../Popover/index";
 
 import Icon from "./../Icon/Icon";
 
@@ -26,6 +26,12 @@ export default class GiveReview extends Component {
       reviewNotAllowed
     } = this.props;
 
+    const popoverOptions = {
+      text:
+        "It seems that you've already reviewed this organisation in the last 30 days. You can review each organisation once a month.",
+      linkText: "Why can't I give a review?"
+    };
+
     return (
       <ReviewButtonsDiv isTablet={isTablet} isMobile={isMobile}>
         <ReviewType isTablet={isTablet} isMobile={isMobile}>
@@ -42,35 +48,16 @@ export default class GiveReview extends Component {
               pathname: REVIEW_URL,
               state: state
             }}
-            disabled={reviewNotAllowed.length > 0}
+            disabled={reviewNotAllowed}
           >
-            <ReviewButton
-              grayOut={reviewNotAllowed.length > 0}
-              category={category}
-            >
+            <ReviewButton grayOut={reviewNotAllowed} category={category}>
               <h4>Give a review</h4>
               <Icon icon="arrow" width="16" height="16" color="white" />
             </ReviewButton>
           </FullLink>
         </ReviewType>
-        {reviewNotAllowed.length > 0 && (
-          <Popover
-            title="Why can't I give a review?"
-            text={<span>Why can't I give a review?</span>}
-            placement="top"
-            content={
-              <div>
-                <p>
-                  It seems that you've already reviewed this organisation in the
-                  last 30 days. You can only give 1 review per month.
-                </p>
-              </div>
-            }
-            trigger="click"
-          >
-            <button>Why can't I give a review?</button>
-            {/* <PopoverLink>Why are we asking this?</PopoverLink> */}
-          </Popover>
+        {reviewNotAllowed && (
+          <PopoverComponent popoverOptions={popoverOptions} />
         )}
       </ReviewButtonsDiv>
     );

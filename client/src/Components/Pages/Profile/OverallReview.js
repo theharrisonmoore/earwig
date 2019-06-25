@@ -51,8 +51,6 @@ export default class OverallReview extends Component {
   };
 
   render() {
-    // console.log(this.props);
-
     const {
       summary,
       isTablet,

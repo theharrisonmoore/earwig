@@ -25,14 +25,15 @@ class PopoverComponent extends React.Component {
   };
 
   render() {
+    const { popoverOptions } = this.props;
+    const { text, linkText } = popoverOptions;
+
     return (
       <Popover
         placement="top"
         content={
           <PopoverDiv>
-            <PopoverText>
-              {text}
-            </PopoverText>
+            <PopoverText>{text}</PopoverText>
             <PopoverBtn onClick={this.hide}>Got it!</PopoverBtn>
           </PopoverDiv>
         }

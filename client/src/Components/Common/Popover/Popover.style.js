@@ -18,6 +18,7 @@ export const PopoverDiv = styled.div`
   justify-content: center;
   align-items: center;
   width: 250px;
+  margin-top: 10px;
 `;
 
 export const PopoverText = styled.p`

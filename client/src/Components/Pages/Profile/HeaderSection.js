@@ -28,7 +28,13 @@ import Icon from "./../../Common/Icon/Icon";
 
 export default class HeaderSection extends Component {
   render() {
-    const { isTablet, isMobile, summary, level, reviewNotAllowed } = this.props;
+    const {
+      isTablet,
+      isMobile,
+      summary,
+      level,
+      reviewsLast30Days
+    } = this.props;
     const {
       category,
       name,
@@ -37,6 +43,8 @@ export default class HeaderSection extends Component {
       totalReviews,
       websiteUrl
     } = summary;
+    // if there are reviews less dating before 1 month user not allowed
+    const reviewNotAllowed = reviewsLast30Days.length > 0;
 
     return (
       <Header isTablet={isTablet} isMobile={isMobile}>

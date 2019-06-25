@@ -10,6 +10,7 @@ const {
 
 module.exports = async (req, res, next) => {
   const { organizationID } = req.body;
+
   const { user } = req;
 
   // check organisation exists
@@ -20,7 +21,7 @@ module.exports = async (req, res, next) => {
   let summary;
   let reviewDetails;
   let level;
-  let reviewNotAllowed = [];
+  let reviewsLast30Days = [];
 
   if (user) {
     summary = await overallReview(organizationID).catch(err => next(boom.badImplementation(err)));
@@ -29,7 +30,7 @@ module.exports = async (req, res, next) => {
     const userReviews = await checkUsersLatestReview(organizationID, user._id);
 
     if (userReviews.length > 0) {
-      reviewNotAllowed = userReviews.filter(review => review.older_30_days === true);
+      reviewsLast30Days = userReviews.filter(review => review.older_30_days === false);
     }
 
     reviewDetails = await allAnswers(organizationID).catch(err => next(boom.badImplementation(err)));
@@ -57,6 +58,6 @@ module.exports = async (req, res, next) => {
     summary,
     reviewDetails,
     level,
-    reviewNotAllowed,
+    reviewsLast30Days,
   });
 };

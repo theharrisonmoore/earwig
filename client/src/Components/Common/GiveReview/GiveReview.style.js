@@ -6,8 +6,7 @@ import { organizations, colors, shadows } from "./../../../theme";
 
 export const ReviewButtonsDiv = styled.div`
   display: flex;
-  flex-direction: ${props =>
-    props.isMobile || props.isTablet ? "column" : "row"};
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 `;
