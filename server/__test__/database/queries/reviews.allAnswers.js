@@ -25,6 +25,7 @@ describe("Test overallReview query", () => {
       expect(result[0].questions[0].answers[0].question).toEqual(
         result[0].questions[0].question._id,
       );
+      expect(result).toBe("hello");
       done();
     });
   });

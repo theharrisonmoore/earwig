@@ -60,6 +60,7 @@ module.exports = async () => {
       profileText: "Sends you written confirmation of terms and conditions of employment",
       profileSection: "Detailed ratings",
       profileType: "yesno",
+      profileOrder: 1,
       group: {
         groupOrder: 0,
         name: "general",
@@ -79,6 +80,7 @@ module.exports = async () => {
       profileText: "Sends you terms and conditions before your work begins",
       profileSection: "Detailed ratings",
       profileType: "yesno",
+      profileOrder: 2,
       group: {
         groupOrder: 0,
         name: "general",
@@ -98,6 +100,7 @@ module.exports = async () => {
       profileText: "Accuracy of job descriptions given to you overall",
       profileSection: "Detailed ratings",
       profileType: "pieChart",
+      profileOrder: 3,
       group: {
         groupOrder: 0,
         name: "general",
@@ -116,6 +119,7 @@ module.exports = async () => {
       profileText: "Gives you correct information about the pay",
       profileSection: "Detailed ratings",
       profileType: "yesno",
+      profileOrder: 4,
       group: {
         groupOrder: 0,
         name: "general",
@@ -134,6 +138,7 @@ module.exports = async () => {
       profileText: "Gives you correct information about the hours",
       profileSection: "Detailed ratings",
       profileType: "yesno",
+      profileOrder: 5,
       group: {
         groupOrder: 0,
         name: "general",
@@ -152,6 +157,7 @@ module.exports = async () => {
       profileText: "Gives you correct information about the type of work",
       profileSection: "Detailed ratings",
       profileType: "yesno",
+      profileOrder: 6,
       group: {
         groupOrder: 0,
         name: "general",
@@ -170,6 +176,7 @@ module.exports = async () => {
       profileText: "Gives you correct information about the length of the job",
       profileSection: "Detailed ratings",
       profileType: "yesno",
+      profileOrder: 7,
       group: {
         groupOrder: 0,
         name: "general",
@@ -188,6 +195,7 @@ module.exports = async () => {
       profileText: "Hourly pay rates over time",
       profileSection: "Detailed ratings",
       profileType: "dotChart",
+      profileOrder: 8,
       group: {
         groupOrder: 1,
         name: "wages",
@@ -226,6 +234,7 @@ module.exports = async () => {
       profileText: "Pays using the following payroll types",
       profileSection: "Key ratings",
       profileType: "barChart",
+      profileOrder: 3,
       group: {
         groupOrder: 1,
         name: "wages",
@@ -245,6 +254,7 @@ module.exports = async () => {
       profileText: "Pays you within the timeframe you expect",
       profileSection: "Key ratings",
       profileType: "yesno",
+      profileOrder: 4,
       group: {
         groupOrder: 1,
         name: "wages",
@@ -264,6 +274,7 @@ module.exports = async () => {
       profileText: "Pays you the amount you expect",
       profileSection: "Key ratings",
       profileType: "yesno",
+      profileOrder: 5,
       group: {
         groupOrder: 1,
         name: "wages",
@@ -283,6 +294,7 @@ module.exports = async () => {
       profileText: "Payslips are easily accessible",
       profileSection: "Detailed ratings",
       profileType: "yesno",
+      profileOrder: 9,
       group: {
         groupOrder: 1,
         name: "wages",
@@ -307,6 +319,7 @@ module.exports = async () => {
       profileText: "Payslips show all the information you need",
       profileSection: "Detailed ratings",
       profileType: "yesno",
+      profileOrder: 10,
       group: {
         groupOrder: 1,
         name: "wages",
@@ -327,6 +340,7 @@ module.exports = async () => {
       profileText: "Pays using the following payrolls",
       profileSection: "Key ratings",
       profileType: "payrollList",
+      profileOrder: 2,
       group: {
         groupOrder: 1,
         name: "wages",
@@ -363,6 +377,7 @@ module.exports = async () => {
       profileText: "Treated fairly by this agency over any payment issues",
       profileSection: "Detailed ratings",
       profileType: "yesno",
+      profileOrder: 11,
       group: {
         groupOrder: 1,
         name: "wages",
@@ -380,6 +395,7 @@ module.exports = async () => {
       profileText: "Happy to use this agency again overall",
       profileSection: "Key ratings",
       profileType: "yesno",
+      profileOrder: 1,
       group: {
         groupOrder: 2,
         name: "overall",
@@ -407,6 +423,7 @@ module.exports = async () => {
       profileText: "Sends you written confirmation of terms and conditions of employment",
       profileSection: "Detailed ratings",
       profileType: "yesno",
+      profileOrder: 1,
       group: {
         groupOrder: 0,
         name: "general",
@@ -426,6 +443,7 @@ module.exports = async () => {
       profileText: "Sends you terms and conditions before your work begins",
       profileSection: "Detailed ratings",
       profileType: "yesno",
+      profileOrder: 2,
       group: {
         groupOrder: 0,
         name: "general",
@@ -462,6 +480,7 @@ module.exports = async () => {
       profileText: "Pays using the following payroll types",
       profileSection: "Key ratings",
       profileType: "barChart",
+      profileOrder: 2,
       group: {
         groupOrder: 1,
         name: "wages",
@@ -478,6 +497,7 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "payroll",
       profileType: "yesno",
+      profileOrder: 5,
       group: {
         groupOrder: 1,
         name: "wages",
@@ -496,6 +516,7 @@ module.exports = async () => {
       profileText: "Pays you within the timeframe you expect",
       profileSection: "Key ratings",
       profileType: "yesno",
+      profileOrder: 5,
       group: {
         groupOrder: 1,
         name: "wages",

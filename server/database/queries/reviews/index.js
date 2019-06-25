@@ -201,6 +201,11 @@ module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
     {
       $unwind: "$question",
     },
+    {
+      $sort: {
+        "question.number": 1
+      },
+    },
     // group by profile sections
     {
       $group: {
@@ -208,6 +213,11 @@ module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
         questions: { $push: "$$ROOT" },
       },
     },
+    {
+      $sort: {
+        "_id": 1,
+      }
+    }
   ])
     .then(resolve)
     .catch(err => reject(err));

@@ -123,9 +123,10 @@ export default class ReviewSection extends Component {
               ["yesno", "pieChart", "dotChart"].includes(
                 question.question.profileType
               ) && (
-                <QuestionWrapper key={index}>
-                  <QuestionTitle>{question.question.profileText}</QuestionTitle>
+                <>
                   {question.question.profileType === "yesno" && (
+                    <QuestionWrapper key={index}>
+                    <QuestionTitle>{question.question.profileText}</QuestionTitle>
                     <YesNoAnswer
                       category={category}
                       question={question}
@@ -133,24 +134,31 @@ export default class ReviewSection extends Component {
                       isMobile={isMobile}
                       hide={this.onlyNeutralAnswers(question.answers)}
                     />
+                    </QuestionWrapper>
                   )}
                   {question.question.profileType === "pieChart" && (
+                    <QuestionWrapper key={index}>
+                    <QuestionTitle>{question.question.profileText}</QuestionTitle>
                     <PieAnswer
                       category={category}
                       question={question}
                       toggleComments={toggleComments}
                       isMobile={isMobile}
                     />
+                    </QuestionWrapper>
                   )}
                   {question.question.profileType === "dotChart" && (
+                    <QuestionWrapper key={index}>
+                    <QuestionTitle>{question.question.profileText}</QuestionTitle>
                     <ScatterAnswer
                       category={category}
                       question={question}
                       toggleComments={toggleComments}
                       isMobile={isMobile}
                     />
+                    </QuestionWrapper>
                   )}
-                </QuestionWrapper>
+                </>
               )
           )}
 
