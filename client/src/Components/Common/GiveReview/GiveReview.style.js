@@ -26,7 +26,10 @@ export const Time = styled.p`
 `;
 
 export const ReviewButton = styled.button`
-  background: ${props => organizations[`${props.category}`].primary};
+  background: ${props =>
+    props.grayOut
+      ? `${colors.dustyGray2}`
+      : organizations[`${props.category}`].primary};
   color: ${colors.white};
   display: flex;
   justify-content: space-between;

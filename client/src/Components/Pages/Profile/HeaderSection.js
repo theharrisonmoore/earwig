@@ -28,7 +28,7 @@ import Icon from "./../../Common/Icon/Icon";
 
 export default class HeaderSection extends Component {
   render() {
-    const { isTablet, isMobile, summary, level } = this.props;
+    const { isTablet, isMobile, summary, level, reviewNotAllowed } = this.props;
     const {
       category,
       name,
@@ -127,6 +127,7 @@ export default class HeaderSection extends Component {
               category={category}
               isTablet={isTablet}
               isMobile={isMobile}
+              reviewNotAllowed={reviewNotAllowed}
               state={{ name, category }}
             />
           </GiveReviewDiv>

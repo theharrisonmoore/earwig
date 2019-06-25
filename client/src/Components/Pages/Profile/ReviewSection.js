@@ -107,6 +107,7 @@ export default class ReviewSection extends Component {
                         textAlign: "center",
                         marginRight: "8px"
                       }}
+                      key={index}
                     >
                       {option}
                     </span>
