@@ -92,9 +92,13 @@ export default class index extends Component {
           style={CookieStyles.general}
           buttonStyle={CookieStyles.button}
           expires={150}
+          acceptOnScroll={true}
         >
           This website uses cookies to enhance the user experience.{" "}
-          <a href=""> Find out more about our Cookie Policy</a>{" "}
+          <a style={CookieStyles.link} href="">
+            {" "}
+            Find out more about our Cookie Policy
+          </a>{" "}
         </CookieConsent>
         <Logo src={LogoImg} alt="logo" isMobile={isMobile} />
         {isMobile || isTablet ? (

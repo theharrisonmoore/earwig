@@ -9,22 +9,21 @@ export const CookieStyles = {
     color: `${colors.white}`,
     display: "flex",
     justifyContent: "center",
-    border: `1px ${colors.white}`,
     fontSize: "16px",
-    fontWeight: "600",
-    fontFamily: "Roboto"
+    fontWeight: "500",
+    fontFamily: "Roboto",
+    maxHeight: 155
   },
   button: {
     background: `${colors.white}`,
     color: `${colors.black}`,
     fontSize: "16px",
     borderRadius: 4,
-    border: `1px ${colors.white}`
+    border: `1px ${colors.white}`,
+    marginTop: -8
   },
   link: {
-    fontSize: "16px",
-    textDecoration: "none",
-    fontWeight: "bold"
+    textDecoration: "none"
   }
 };
 
