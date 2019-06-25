@@ -42,10 +42,10 @@ export default class GiveReview extends Component {
               pathname: REVIEW_URL,
               state: state
             }}
-            disabled={reviewNotAllowed.length === 0}
+            disabled={reviewNotAllowed.length > 0}
           >
             <ReviewButton
-              grayOut={reviewNotAllowed.length === 0}
+              grayOut={reviewNotAllowed.length > 0}
               category={category}
             >
               <h4>Give a review</h4>
@@ -53,7 +53,7 @@ export default class GiveReview extends Component {
             </ReviewButton>
           </FullLink>
         </ReviewType>
-        {reviewNotAllowed.length === 0 && (
+        {reviewNotAllowed.length > 0 && (
           <Popover
             title="Why can't I give a review?"
             text={<span>Why can't I give a review?</span>}
@@ -61,14 +61,12 @@ export default class GiveReview extends Component {
             content={
               <div>
                 <p>
-                  We’re asking this because it will be useful to track over time
-                  how much agencies are paying workers
+                  It seems that you've already reviewed this organisation in the
+                  last 30 days. You can only give 1 review per month.
                 </p>
               </div>
             }
             trigger="click"
-            // visible={this.state.popoverVisible}
-            // onVisibleChange={this.handleVisibleChange}
           >
             <button>Why can't I give a review?</button>
             {/* <PopoverLink>Why are we asking this?</PopoverLink> */}

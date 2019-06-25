@@ -190,34 +190,6 @@ export const StyledCheckList = styled.div`
     align-self: flex-end;
   }
 `;
-export const PopoverLink = styled.p`
-  margin: 0;
-  font-weight: 900;
-  font-size: 18px;
-  text-decoration: underline;
-  color: ${organizations.agency.primary};
-  font-style: italic;
-  cursor: pointer;
-`;
-
-export const PopoverDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 250px;
-`;
-
-export const PopoverText = styled.p`
-  text-align: center;
-  padding-bottom: 10px;
-`;
-
-export const PopoverBtn = styled(StyledButton)`
-  background: ${organizations.agency.primary};
-  color: ${colors.white};
-  width: 40%;
-`;
 
 export const SliderWrapper = styled.div`
   width: calc(85% - 1rem);
