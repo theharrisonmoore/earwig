@@ -25,7 +25,10 @@ export const validationSchema = {
   agency: Yup.object({
     questions: Yup.object({
       1: Yup.string(),
-      2: Yup.string(),
+      2: Yup.string().when("1", {
+        is: "Yes",
+        then: Yup.string()
+      }),
       3: Yup.string(),
       4: Yup.string(),
       5: Yup.string(),
@@ -37,17 +40,34 @@ export const validationSchema = {
         .typeError("Must be a number")
         .positive("Must be greater than zero"),
       9: Yup.string(),
-      //9 => yes 15, 16 required
-      // 9 => no 10 - 14
+      //10 => yes 16, 17 required
+      //10 => no 11 - 15
       10: Yup.string(),
-      11: Yup.string(),
-      12: Yup.string(),
-      13: Yup.string(),
-      14: Yup.string(),
-
-      15: Yup.string(),
+      11: Yup.string().when("10", {
+        is: "No",
+        then: Yup.string()
+      }),
+      12: Yup.string().when("10", {
+        is: "No",
+        then: Yup.string()
+      }),
+      13: Yup.string().when("10", {
+        is: "No",
+        then: Yup.string()
+      }),
+      14: Yup.string().when("10", {
+        is: "No",
+        then: Yup.string()
+      }),
+      15: Yup.string().when("10", {
+        is: "No",
+        then: Yup.string()
+      }),
       // 16, 17 if yes
-      16: Yup.string(),
+      16: Yup.string().when("10", {
+        is: "No",
+        then: Yup.string()
+      }),
       //number input
       17: Yup.number()
         .nullable()
@@ -61,7 +81,10 @@ export const validationSchema = {
   payroll: Yup.object({
     questions: Yup.object({
       1: Yup.string(),
-      2: Yup.string(),
+      2: Yup.string().when("1", {
+        is: "Yes",
+        then: Yup.string()
+      }),
       3: Yup.string(),
       4: Yup.string(),
       5: Yup.string(),
@@ -99,7 +122,10 @@ export const validationSchema = {
       14: Yup.string(),
       15: Yup.string(),
       // 16 checklist question
-      16: Yup.mixed(),
+      16: Yup.mixed().when("1", {
+        is: "Yes",
+        then: Yup.mixed()
+      }),
 
       17: Yup.string(),
       18: Yup.string(),
@@ -114,7 +140,10 @@ export const validationSchema = {
     questions: Yup.object({
       1: Yup.string(),
       2: Yup.string(),
-      3: Yup.string(),
+      3: Yup.string().when("2", {
+        is: "Yes",
+        then: Yup.string()
+      }),
       4: Yup.string(),
       5: Yup.string(),
       6: Yup.string(),
