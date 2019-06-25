@@ -301,14 +301,48 @@ export const ButtonsWrapper = styled(ActionsDiv)`
   align-items: center;
   width: 90%;
 `;
+
+export const HelpfulButtonWrapper = styled.div`
+  position: relative;
+  margin-right: ${props => (props.isMobile ? "0.5rem" : "2rem")};
+
+  &::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    mix-blend-mode: exclusion;
+    height: ${({ number }) => number + "0%"};
+    left: 0;
+    z-index: 2;
+    bottom: 0;
+    background: ${({ color }) => color};
+    pointer-events: none;
+    transition: 0.5s all ease;
+  }
+`;
+
 export const ActionsButton = styled(Button)`
   background: ${({ bgcolor }) => bgcolor};
   border: none;
   font-weight: 700;
   font-size: 1rem;
+  width: 100%;
   padding: 0.5rem 1rem;
   height: auto;
-  margin-right: ${props => props.isMobile ? "0.5rem" : "2rem"};
+  margin-right: ${props => (props.isMobile ? "0.5rem" : "2rem")};
+
+  transform: scale3d(
+    ${({ scale }) => scale || 1},
+    ${({ scale }) => scale || 1},
+    1
+  );
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    background-color: ${({ bgcolor }) => bgcolor};
+    border-color: ${({ bgcolor }) => bgcolor};
+  }
 `;
 
 export const ReplyButton = styled.p`

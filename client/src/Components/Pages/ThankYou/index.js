@@ -48,9 +48,9 @@ export default class ThankYou extends Component {
     const orgName = state && state.orgName ? state.orgName : "an organization";
 
     const img = require(`./../../../assets/thank-you-${orgType}.svg`);
-    const otherOrgs = ["agency", "worksite", "payroll", "company"].filter(
-      org => org !== orgType
-    );
+    // const otherOrgs = ["agency", "worksite", "payroll", "company"].filter(
+    //   org => org !== orgType
+    // );
 
     return (
       <ThankYouWrapper>
@@ -105,8 +105,8 @@ export default class ThankYou extends Component {
           <SharePromo orgType={orgType}>
             Click one of the icons above to share privately with your colleagues
           </SharePromo>
-          <StyledLink to="search" orgType={orgType}>
-            Now review an {otherOrgs[0]}, {otherOrgs[1]} or {otherOrgs[2]}
+          <StyledLink to={`/profile/${state.orgId}`} orgType={orgType}>
+            Go to the {orgType}'s profile
           </StyledLink>
         </ContentWrapper>
       </ThankYouWrapper>
