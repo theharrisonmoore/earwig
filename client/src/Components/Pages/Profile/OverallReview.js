@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Collapse, Icon } from "antd";
 import axios from "axios";
 
+import { message } from "antd";
 import { organizations } from "./../../../theme";
 import {
   REPORT_CONTENT_URL,
@@ -25,7 +26,8 @@ import {
   ButtonsWrapper,
   ActionsButton,
   VerifyPromo,
-  VerifyLink
+  VerifyLink,
+  HelpfulButtonWrapper
 } from "./Profile.style";
 
 import { authorization } from "./../../../helpers";
@@ -65,7 +67,8 @@ export default class OverallReview extends Component {
           [id]: {
             counter: updateCounter,
             sentNumber: sentNumber,
-            scaleValue: 1 + counter / 100
+            scaleValue: 1 + counter / 100,
+            byUser: true
           }
         },
         isMouseDown: true
@@ -109,7 +112,8 @@ export default class OverallReview extends Component {
           [id]: {
             counter: counter + 1,
             sentNumber: sentNumber,
-            scaleValue: 1 + counter / 100
+            scaleValue: 1 + counter / 100,
+            byUser: true
           }
         },
         isMouseDown: true
@@ -135,7 +139,8 @@ export default class OverallReview extends Component {
             [reviewId]: {
               counter: counter,
               sentNumber: counter,
-              scaleValue: 1
+              scaleValue: 1,
+              byUser: true
             }
           },
           isMouseDown: false
@@ -157,10 +162,25 @@ export default class OverallReview extends Component {
         userId
       })
       .then(({ data }) => {
-        console.log(data, "------------------");
+        const { counters } = this.state;
+
+        this.setState({
+          counters: {
+            ...counters,
+            [reviewId]: {
+              counter: points,
+              sentNumber: points,
+              scaleValue: 1,
+              byUser: false
+            }
+          },
+          isMouseDown: false
+        });
       })
       .catch(err => {
-        console.log(err, "        :        ", points);
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        message.error(error || "Something went wrong");
       });
   };
 
@@ -171,6 +191,37 @@ export default class OverallReview extends Component {
         })
       : this.setState({ activeReview: "" });
   };
+
+  componentDidMount() {
+    const { id, summary } = this.props;
+    const { counters } = this.state;
+
+    const newCounters =
+      summary &&
+      summary.reviews.reduce((prev, currReview) => {
+        const { overallReview } = currReview;
+
+        overallReview &&
+          overallReview.votes.forEach(vote => {
+            if (vote && vote.user === id) {
+              prev[currReview._id] = {
+                counter: vote.points,
+                sentNumber: vote.points,
+                scaleValue: 1,
+                byUser: false
+              };
+            }
+          });
+        return prev;
+      }, {});
+
+    this.setState({
+      counters: {
+        ...counters,
+        ...newCounters
+      }
+    });
+  }
 
   render() {
     const {
@@ -184,7 +235,8 @@ export default class OverallReview extends Component {
       level,
       isAdmin
     } = this.props;
-    const { activeReview } = this.state;
+
+    const { activeReview, counters } = this.state;
 
     const isAuthorized = authorization({
       isAdmin,
@@ -213,11 +265,21 @@ export default class OverallReview extends Component {
             {/*  BUTTONS SECTION */}
             <ActionsDiv>
               <ButtonsWrapper>
-                <div style={{ position: "relative" }}>
+                <HelpfulButtonWrapper
+                  number={
+                    counters[review._id] ? counters[review._id].counter : 0
+                  }
+                  color={
+                    category !== "company"
+                      ? organizations[category].secondary
+                      : "#424242"
+                  }
+                >
                   <HelpfulBubble
                     number={
-                      this.state.counters[review._id] &&
-                      this.state.counters[review._id].counter
+                      counters[review._id] && counters[review._id].byUser
+                        ? counters[review._id].counter
+                        : undefined
                     }
                     color={organizations[category].primary}
                   />
@@ -235,15 +297,15 @@ export default class OverallReview extends Component {
                     onMouseUp={isAuthorized && this.notPressingDown}
                     onMouseLeave={isAuthorized && this.notPressingDown}
                     onTouchEnd={isAuthorized && this.notPressingDown}
-                    scale={
-                      this.state.counters[review._id]
-                        ? this.state.counters[review._id].scaleValue
-                        : 1
-                    }
+                    scale={1}
+                    //   this.state.counters[review._id]
+                    //     ? this.state.counters[review._id].scaleValue
+                    //     : 1
+                    // }
                   >
                     This is helpful
                   </ActionsButton>
-                </div>
+                </HelpfulButtonWrapper>
                 <Link
                   to={{
                     pathname: REPLY_URL,

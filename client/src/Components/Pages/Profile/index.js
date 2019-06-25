@@ -194,7 +194,7 @@ export default class Profile extends Component {
       level
     } = this.state;
 
-    const { isTablet, isMobile, verified, isAdmin } = this.props;
+    const { isTablet, isMobile, verified, isAdmin, id } = this.props;
 
     if (!loaded) return <Loading />;
 
@@ -380,6 +380,7 @@ export default class Profile extends Component {
           verified={verified}
           level={level}
           isAdmin={isAdmin}
+          id={id}
         />
         {level < 1 && (
           <ReviewDiv isTablet={isTablet} isMobile={isMobile}>

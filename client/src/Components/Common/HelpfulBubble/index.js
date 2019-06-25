@@ -13,7 +13,7 @@ class HelpfulBubble extends Component {
     const { number } = this.props;
     const { numbers } = this.state;
 
-    if (prevNumber !== number) {
+    if ((number === 0 || number) && prevNumber !== number) {
       this.setState({ numbers: [...numbers, number] }, () => {
         setTimeout(() => {
           const updatedState = this.state;

@@ -297,6 +297,25 @@ export const ButtonsWrapper = styled(ActionsDiv)`
   align-items: center;
   width: 90%;
 `;
+
+export const HelpfulButtonWrapper = styled.div`
+  position: relative;
+
+  &::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    mix-blend-mode: exclusion;
+    height: ${({ number }) => number + "0%"};
+    left: 0;
+    z-index: 2;
+    bottom: 0;
+    background: ${({ color }) => color};
+    pointer-events: none;
+    transition: 0.5s all ease;
+  }
+`;
+
 export const ActionsButton = styled(Button)`
   background: ${({ bgcolor }) => bgcolor};
   border: none;
