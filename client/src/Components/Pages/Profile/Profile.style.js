@@ -195,6 +195,7 @@ export const StarWrapper = styled.div`
   text-align: left;
   flex-direction: row;
   justify-content: flex-start;
+  cursor: pointer;
 `;
 
 export const Reviews = styled.p`

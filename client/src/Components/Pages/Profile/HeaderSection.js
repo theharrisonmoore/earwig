@@ -28,7 +28,7 @@ import Icon from "./../../Common/Icon/Icon";
 
 export default class HeaderSection extends Component {
   render() {
-    const { isTablet, isMobile, summary, level } = this.props;
+    const { isTablet, isMobile, summary, level, handleScroll } = this.props;
     const {
       category,
       name,
@@ -53,7 +53,7 @@ export default class HeaderSection extends Component {
             </IconWrapper>
             <CompanyNameAndStars>
               <CompanyTitle>{name}</CompanyTitle>
-              <StarWrapper>
+              <StarWrapper onClick={handleScroll}>
                 {StarRateCreator(summary)}
                 <Reviews>{totalReviews} reviews</Reviews>
               </StarWrapper>
