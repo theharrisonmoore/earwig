@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import * as Yup from "yup";
 import axios from "axios";
+import CookieConsent from "react-cookie-consent";
 
 import {
   Wrapper,
@@ -21,7 +22,8 @@ import {
   AwardDiv,
   AwardsWrapper,
   AwardTitle,
-  LabelTitle
+  LabelTitle,
+  CookieStyles
 } from "./Landing.style";
 
 import LogoImg from "./../../../assets/logo-white.png";
@@ -83,6 +85,17 @@ export default class index extends Component {
 
     return (
       <Wrapper>
+        <CookieConsent
+          location="bottom"
+          buttonText="Got it!"
+          cookieName="myAwesomeCookieName2"
+          style={CookieStyles.general}
+          buttonStyle={CookieStyles.button}
+          expires={150}
+        >
+          This website uses cookies to enhance the user experience.{" "}
+          <a href=""> Find out more about our Cookie Policy</a>{" "}
+        </CookieConsent>
         <Logo src={LogoImg} alt="logo" isMobile={isMobile} />
         {isMobile || isTablet ? (
           <TopWrapper>
