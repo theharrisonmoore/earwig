@@ -60,7 +60,7 @@ describe("Tesing for update profile", () => {
               .expect("Content-Type", /json/)
               .expect(401)
               .end(async (error2, result2) => {
-                expect(result2.body.error).toMatch("login failed, email and password not match");
+                expect(result2.body.error).toMatch("Whoops! Either you typed something wrong or you're not registered.");
                 done(error2);
               });
           });

@@ -53,7 +53,7 @@ describe("Tesing for login route", () => {
       .expect("Content-Type", /json/)
       .expect(401)
       .end((err, res) => {
-        expect(res.body.error).toMatch("login failed, email and password not match");
+        expect(res.body.error).toMatch("Whoops! Either you typed something wrong or you're not registered.");
         done(err);
       });
   });
@@ -69,7 +69,7 @@ describe("Tesing for login route", () => {
       .expect("Content-Type", /json/)
       .expect(401)
       .end((err, res) => {
-        expect(res.body.error).toMatch("login failed, email and password not match");
+        expect(res.body.error).toMatch("Whoops! Either you typed something wrong or you're not registered.");
         done(err);
       });
   });

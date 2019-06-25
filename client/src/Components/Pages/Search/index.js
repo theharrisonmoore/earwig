@@ -8,7 +8,7 @@ import { API_SEARCH_URL } from "../../../apiUrls";
 import AutosuggestComponent from "./AutoSuggest";
 
 // UI helper functions
-import { StarRateCreator, SortArrayNewest } from "../../../helpers";
+import { StarRateCreator } from "../../../helpers";
 
 // styles
 import {
@@ -199,7 +199,7 @@ export default class Search extends Component {
             bool={() => true}
             height="4.5rem"
             width="80%"
-            data={data}
+            data={data[0].searchData}
             placeholderText="Start typing..."
             isMobile={isMobile}
             isTablet={isTablet}
@@ -211,11 +211,9 @@ export default class Search extends Component {
               <p>Most recent reviews:</p>
             </HeadlineDiv>
             <ReviewsContainer>
-              {data
-                .sort(SortArrayNewest)
-                .map((org, index) =>
-                  index < 5 ? this.renderLastViewed(org, index) : ""
-                )}
+              {data[0].lastReviwed.map(org =>
+                this.renderLastViewed(org.lastReviwed, org._id)
+              )}
             </ReviewsContainer>
           </FlexContainer>
         )}

@@ -49,6 +49,8 @@
     "nodemon": "^1.18.10"
   },
   "dependencies": {
+    "@sentry/node": "^5.4.0",
+    "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "boom": "^7.3.0",
@@ -64,6 +66,7 @@
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "nodemailer": "^6.1.0",
+    "request": "^2.88.0",
     "shortid": "^2.2.14",
     "supertest": "^4.0.2"
   }

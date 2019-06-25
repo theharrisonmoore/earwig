@@ -31,7 +31,7 @@ export const StarRateCreator = (organisation, value) => (
     name="star rating component"
     editing={false}
     starCount={5}
-    value={organisation.avgRatings || value}
+    value={organisation.avgRatings || value || 0}
     starColor={`${organizations[organisation.category].primary}` || "red"}
     emptyStarColor={"#D3D3D3"}
   />

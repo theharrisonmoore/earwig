@@ -33,6 +33,7 @@ import { StyledErrorMessage } from "./Question/Question.style";
 
 import Question from "./Question/index";
 import clockLong from "./../../../assets/clock-long-icon.png";
+import { organizations } from "./../../../theme";
 
 import { initQueestionsValues } from "./initialQuestionsValues";
 import { validationSchema } from "./validationSchema";
@@ -221,6 +222,7 @@ class Review extends Component {
       payrolls,
       organization: { name, category }
     } = this.state;
+    const staticQuestion = STATIC_QUESTIONS(category);
 
     const { isLoading } = this.state;
     if (isLoading) return <Loading />;
@@ -244,7 +246,7 @@ class Review extends Component {
       return null;
     }
 
-    let dropdownOptions;
+    let dropdownOptions = [];
     if (category === "agency") {
       dropdownOptions = agencies;
     } else if (category === "payroll") {
@@ -314,7 +316,7 @@ class Review extends Component {
                   <Form>
                     <Question
                       {...values}
-                      question={STATIC_QUESTIONS[0]}
+                      question={staticQuestion[0]}
                       setFieldValue={setFieldValue}
                       category={this.state.organization.category}
                     />
@@ -359,14 +361,14 @@ class Review extends Component {
                       <Question
                         {...values}
                         handleChagne={handleChange}
-                        question={STATIC_QUESTIONS[1]}
+                        question={staticQuestion[1]}
                         category={this.state.organization.category}
                       />
                       {/* The voice questions in the next sprint */}
                       {/* <Question
                         {...values}
                         handleChagne={handleChange}
-                        question={STATIC_QUESTIONS[3]}
+                        question={staticQuestion[3]}
                         category={this.state.organization.category}
                       /> */}
                     </div>
@@ -385,11 +387,15 @@ class Review extends Component {
 
                         <AgreementLabel htmlFor="agreement">
                           I agree to the earwig{" "}
-                          <LinkSpan target="_blank" to={TERMS_OF_USE_URL}>
+                          <LinkSpan
+                            target="_blank"
+                            to={TERMS_OF_USE_URL}
+                            color={organizations[category].primary}
+                          >
                             Terms of Use.
                           </LinkSpan>{" "}
                           This review of my experience with this current or
-                          former agency is truthful.
+                          former {category} is truthful.
                         </AgreementLabel>
                         <ErrorMessage name={`hasAgreed`}>
                           {msg => (

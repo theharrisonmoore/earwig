@@ -32,6 +32,8 @@ import { StyledErrorMessage } from "../Review/Question/Question.style";
 import Question from "../Review/Question/index";
 import clockShort from "./../../../assets/clock-short-icon.png";
 
+import { organizations } from "./../../../theme";
+
 import { validationSchemaShort } from "../Review/validationSchema";
 
 import {
@@ -131,6 +133,8 @@ class Review extends Component {
       organization: { name, category }
     } = this.state;
 
+    const staticQuestion = STATIC_QUESTIONS(category);
+
     return (
       <ReviewWrapper>
         <Header orgType={category} style={{ marginBottom: "3rem" }}>
@@ -193,7 +197,7 @@ class Review extends Component {
                   <Form>
                     <Question
                       {...values}
-                      question={STATIC_QUESTIONS[0]}
+                      question={staticQuestion[0]}
                       setFieldValue={setFieldValue}
                       category={category}
                       // handleChagne={handleChange}
@@ -209,14 +213,14 @@ class Review extends Component {
                       <Question
                         {...values}
                         handleChagne={handleChange}
-                        question={STATIC_QUESTIONS[1]}
+                        question={staticQuestion[1]}
                         category={category}
                       />
                       {/* voice review will be added later */}
                       {/* <Question
                         {...values}
                         handleChagne={handleChange}
-                        question={STATIC_QUESTIONS[3]}
+                        question={staticQuestion[3]}
                         category={category}
                       /> */}
                     </div>
@@ -231,7 +235,11 @@ class Review extends Component {
                         </Field>
                         <AgreementLabel htmlFor="agreement">
                           I agree to the earwig{" "}
-                          <LinkSpan target="_blank" to={TERMS_OF_USE_URL}>
+                          <LinkSpan
+                            target="_blank"
+                            to={TERMS_OF_USE_URL}
+                            color={organizations[category].primary}
+                          >
                             Terms of Use.
                           </LinkSpan>{" "}
                           This review of my experience with this current or

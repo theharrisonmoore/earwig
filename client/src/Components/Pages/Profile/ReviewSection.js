@@ -127,6 +127,7 @@ export default class ReviewSection extends Component {
                   <QuestionTitle>{question.question.profileText}</QuestionTitle>
                   {question.question.profileType === "yesno" && (
                     <YesNoAnswer
+                      category={category}
                       question={question}
                       toggleComments={toggleComments}
                       isMobile={isMobile}
@@ -204,6 +205,7 @@ export default class ReviewSection extends Component {
               <QuestionWrapper key={index}>
                 <QuestionTitle>{question.question.profileText}</QuestionTitle>
                 <ListAnswer
+                  category={category}
                   question={question}
                   toggleComments={toggleComments}
                   isMobile={isMobile}

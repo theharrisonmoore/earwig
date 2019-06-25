@@ -15,8 +15,10 @@ export default class Intro extends Component {
         <img src={logo} alt="logo" />
         <VideoContainer>
           <Iframe
-            src="https://www.youtube.com/embed/OCWj5xgu5Ng"
+            src="https://www.youtube.com/embed/9eBzZOwaTpw?controls=0"
             frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
           />
           <Link to={SEARCH_URL}>
             <Button>Skip</Button>

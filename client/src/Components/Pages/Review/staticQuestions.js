@@ -1,7 +1,7 @@
-export const STATIC_QUESTIONS = [
+export const STATIC_QUESTIONS = category => [
   {
     number: 18,
-    text: "Select the month(s) you used this agency?",
+    text: `Select the month(s) you used this ${category}?`,
     type: "dateRange"
   },
   {

@@ -9,6 +9,7 @@ import {
 } from "./ProfileAnswers.style";
 
 import Icon from "./../../../Common/Icon/Icon";
+import { organizations } from "./../../../../theme";
 
 export default class SiteItemAnswer extends Component {
   getAverage = answers => {
@@ -22,7 +23,13 @@ export default class SiteItemAnswer extends Component {
   };
 
   render() {
-    const { question, toggleComments, isMobile, carParkingPrice } = this.props;
+    const {
+      question,
+      toggleComments,
+      isMobile,
+      carParkingPrice,
+      category
+    } = this.props;
     const averageResponse = this.getAverage(question.answers);
 
     return (
@@ -58,7 +65,11 @@ export default class SiteItemAnswer extends Component {
           )}
           <RightCommentWrapper>
             {question.answers.filter(answer => answer.comment).length > 0 ? (
-              <Comment onClick={() => toggleComments(question)} active>
+              <Comment
+                onClick={() => toggleComments(question)}
+                active
+                color={organizations[category].primary}
+              >
                 Comments
               </Comment>
             ) : (

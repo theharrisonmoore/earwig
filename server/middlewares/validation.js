@@ -49,6 +49,9 @@ const schemas = {
     name: Joi.string()
       .min(3)
       .required(),
+    category: Joi.string()
+      .valid("payroll", "company", "worksite", "agency")
+      .required(),
   },
   agency: {
     questions: Joi.object({
