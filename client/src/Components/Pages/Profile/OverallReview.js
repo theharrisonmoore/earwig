@@ -120,6 +120,7 @@ export default class OverallReview extends Component {
   notPressingDown = e => {
     const reviewId = e.target.id;
     const { counters } = this.state;
+    const { userId } = e.target.dataset;
 
     const item = counters[reviewId];
     const counter = item ? item.counter : 0;
@@ -140,7 +141,7 @@ export default class OverallReview extends Component {
           isMouseDown: false
         },
         () => {
-          this.postHelpfulPoints(counter, reviewId);
+          this.postHelpfulPoints(counter, sentNumber, reviewId, userId);
         }
       );
     } else {
@@ -148,9 +149,13 @@ export default class OverallReview extends Component {
     }
   };
 
-  postHelpfulPoints = (points, reviewId) => {
+  postHelpfulPoints = (points, prevPoints, reviewId, userId) => {
     axios
-      .patch(`/api/review/${reviewId}/overall/helpful-points`, { points })
+      .patch(`/api/review/${reviewId}/overall/helpful-points`, {
+        points,
+        prevPoints,
+        userId
+      })
       .then(({ data }) => {
         console.log(data, "------------------");
       })
@@ -217,6 +222,7 @@ export default class OverallReview extends Component {
                     color={organizations[category].primary}
                   />
                   <ActionsButton
+                    data-user-id={review.user._id}
                     type="primary"
                     bgcolor={
                       isAuthorized
