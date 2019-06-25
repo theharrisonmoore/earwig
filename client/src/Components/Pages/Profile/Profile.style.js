@@ -150,7 +150,9 @@ export const CompanyNameAndStars = styled.div`
 export const CommentDiv = styled.div`
   align-self: flex-start;
   justify-content: flex-start;
-  flex: initial;
+  display: flex;
+  flex-direction: column;
+  /* flex: initial; */
   margin-bottom: 1rem;
   width: 100%;
   position: relative;
@@ -286,15 +288,16 @@ export const Cancel = styled.p`
 
 export const ActionsDiv = styled.div`
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
-  max-width: 25rem;
+  width: 100%;
   margin: 0 auto;
+  margin-bottom: 1rem;
 `;
 
 export const ButtonsWrapper = styled(ActionsDiv)`
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
   width: 90%;
 `;
@@ -305,4 +308,16 @@ export const ActionsButton = styled(Button)`
   font-size: 1rem;
   padding: 0.5rem 1rem;
   height: auto;
+  margin-right: ${props => props.isMobile ? "0.5rem" : "2rem"};
+`;
+
+export const ReplyButton = styled.p`
+  text-decoration: underline;
+  border: none;
+  background: none;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  color: ${({ color }) => color};
+  margin: 0.5rem;
 `;

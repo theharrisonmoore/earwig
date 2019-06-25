@@ -23,6 +23,7 @@ import {
   ActionsDiv,
   ButtonsWrapper,
   ActionsButton,
+  ReplyButton,
   VerifyPromo,
   VerifyLink
 } from "./Profile.style";
@@ -83,10 +84,15 @@ export default class OverallReview extends Component {
               <ButtonsWrapper>
                 <ActionsButton
                   type="primary"
-                  bgcolor={organizations[category].secondary}
-                  disabled
+                  bgcolor={
+                    verified
+                      ? organizations[category].primary
+                      : organizations[category].secondary
+                  }
+                  disabled={!verified}
+                  isMobile={isMobile}
                 >
-                  Helpful
+                  This is helpful
                 </ActionsButton>
                 <Link
                   to={{
@@ -98,9 +104,9 @@ export default class OverallReview extends Component {
                     }
                   }}
                 >
-                  <ActionsButton
+                  <ReplyButton
                     type="primary"
-                    bgcolor={
+                    color={
                       verified
                         ? organizations[category].primary
                         : organizations[category].secondary
@@ -108,7 +114,7 @@ export default class OverallReview extends Component {
                     disabled={!verified}
                   >
                     Reply
-                  </ActionsButton>
+                  </ReplyButton>
                 </Link>
               </ButtonsWrapper>
               <Link
@@ -163,7 +169,8 @@ export default class OverallReview extends Component {
                     <span
                       style={{
                         fontWeight: 700,
-                        color: organizations[category].primary
+                        color: organizations[category].primary,
+                        marginBottom: "1rem"
                       }}
                     >
                       {activeReview && activeOverallId === review._id
