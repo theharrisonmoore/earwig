@@ -44,8 +44,10 @@ export default class ReviewSection extends Component {
 
     let canteenQuestions =
       questions &&
-      questions.filter(
-        question => question.question.profileType === "canteenItem"
+      questions.filter(question =>
+        ["canteenItem", "canteenSubItem"].includes(
+          question.question.profileType
+        )
       );
 
     if (!canteenQuestions || canteenQuestions.length < 1)
@@ -120,9 +122,16 @@ export default class ReviewSection extends Component {
         {questions &&
           questions.map(
             (question, index) =>
-              ["yesno", "pieChart", "dotChart"].includes(
-                question.question.profileType
-              ) && (
+              [
+                "yesno",
+                "pieChart",
+                "dotChart",
+                "barChart",
+                "siteItem",
+                "canteenItem",
+                "payrollList",
+                "list"
+              ].includes(question.question.profileType) && (
                 <>
                   {question.question.profileType === "yesno" && (
                     <QuestionWrapper
@@ -167,77 +176,78 @@ export default class ReviewSection extends Component {
                       />
                     </QuestionWrapper>
                   )}
+                  {question.question.profileType === "barChart" && (
+                    <QuestionWrapper key={index}>
+                      <QuestionTitle>
+                        {question.question.profileText}
+                      </QuestionTitle>
+                      <BarChartAnswer category={category} question={question} />
+                    </QuestionWrapper>
+                  )}
+                  {question.question.profileType === "siteItem" && (
+                    <QuestionWrapper
+                      key={index}
+                      hide={this.onlyNeutralAnswers(question.answers)}
+                    >
+                      <SiteItemAnswer
+                        category={category}
+                        question={question}
+                        toggleComments={toggleComments}
+                        profileType={question.question.profileType}
+                        isMobile={isMobile}
+                        carParkingPrice={carParkingPrice}
+                      />
+                    </QuestionWrapper>
+                  )}
+                  {question.question.profileType === "canteenItem" && (
+                    <>
+                      {/* CANTEEN SECTION */}
+                      {canteenQuestions && (
+                        <QuestionWrapper>
+                          {/* {console.log(canteenQuestions)} */}
+                          <CanteenItemAnswer
+                            questions={canteenQuestions}
+                            toggleComments={toggleComments}
+                            isMobile={isMobile}
+                          />
+                        </QuestionWrapper>
+                      )}
+                    </>
+                  )}
+                  {question.question.profileType === "payrollList" && (
+                    <>
+                      {/* PAYROLL LIST */}
+                      {payrollQuestions && (
+                        <QuestionWrapper>
+                          <QuestionTitle>
+                            Pays using the following payrolls
+                          </QuestionTitle>
+                          <PayrollAnswer
+                            questions={payrollQuestions}
+                            toggleComments={toggleComments}
+                            isMobile={isMobile}
+                          />
+                        </QuestionWrapper>
+                      )}
+                    </>
+                  )}
+                  {question.question.profileType === "list" && (
+                    <QuestionWrapper key={index}>
+                      <QuestionTitle>
+                        {question.question.profileText}
+                      </QuestionTitle>
+                      <ListAnswer
+                        category={category}
+                        question={question}
+                        toggleComments={toggleComments}
+                        isMobile={isMobile}
+                      />
+                    </QuestionWrapper>
+                  )}
                 </>
               )
           )}
 
-        {questions &&
-          questions
-            .filter(question => {
-              return question.question.profileType === "siteItem";
-            })
-            .map((question, index) => (
-              <QuestionWrapper
-                key={index}
-                hide={this.onlyNeutralAnswers(question.answers)}
-              >
-                <SiteItemAnswer
-                  category={category}
-                  question={question}
-                  toggleComments={toggleComments}
-                  profileType={question.question.profileType}
-                  isMobile={isMobile}
-                  carParkingPrice={carParkingPrice}
-                />
-              </QuestionWrapper>
-            ))}
-        {/* CANTEEN SECTION */}
-        {canteenQuestions && (
-          <QuestionWrapper>
-            {/* {console.log(canteenQuestions)} */}
-            <CanteenItemAnswer
-              questions={canteenQuestions}
-              toggleComments={toggleComments}
-              isMobile={isMobile}
-            />
-          </QuestionWrapper>
-        )}
-        {/* PAYROLL LIST */}
-        {payrollQuestions && (
-          <QuestionWrapper>
-            <QuestionTitle>Pays using the following payrolls</QuestionTitle>
-            <PayrollAnswer
-              questions={payrollQuestions}
-              toggleComments={toggleComments}
-              isMobile={isMobile}
-            />
-          </QuestionWrapper>
-        )}
-        {questions &&
-          questions
-            .filter(question =>
-              ["list"].includes(question.question.profileType)
-            )
-            .map((question, index) => (
-              <QuestionWrapper key={index}>
-                <QuestionTitle>{question.question.profileText}</QuestionTitle>
-                <ListAnswer
-                  category={category}
-                  question={question}
-                  toggleComments={toggleComments}
-                  isMobile={isMobile}
-                />
-              </QuestionWrapper>
-            ))}
-        {questions &&
-          questions
-            .filter(question => question.question.profileType === "barChart")
-            .map((question, index) => (
-              <QuestionWrapper key={index}>
-                <QuestionTitle>{question.question.profileText}</QuestionTitle>
-                <BarChartAnswer category={category} question={question} />
-              </QuestionWrapper>
-            ))}
         {/* site images */}
         {questions &&
           questions

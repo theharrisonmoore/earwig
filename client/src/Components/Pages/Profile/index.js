@@ -58,6 +58,7 @@ export default class Profile extends Component {
       .post("/api/profile", { organizationID })
       .then(res => {
         const { summary, reviewDetails, level } = res.data;
+        console.log("REV", reviewDetails)
 
         this.setState({
           summary: summary[0],

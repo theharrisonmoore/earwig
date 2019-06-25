@@ -19,6 +19,7 @@ import Company from "./Company";
 import CompanyThanks from "./CompanyThanks";
 import FAQ from "./FAQ";
 import Fingerprint from "./Fingerprint";
+import Gasmask from "./Gasmask";
 import GetVerified from "./GetVerified";
 import Hamburger from "./Hamburger";
 import HelpfulLinks from "./HelpfulLinks";
@@ -85,6 +86,7 @@ const iconMap = {
   companyThanks: CompanyThanks,
   faq: FAQ,
   fingerprint: Fingerprint,
+  gasmask: Gasmask,
   getVerified: GetVerified,
   hamburger: Hamburger,
   hotFood: HotFood,

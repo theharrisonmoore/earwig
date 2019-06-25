@@ -28,11 +28,7 @@ module.exports.addCommentOnOverallReview = (id, data) => Review.findByIdAndUpdat
 });
 
 // used in admin panel to change isVerified status of review
-module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate(
-  { _id: id },
-  { isVerified: bool },
-  { new: true },
-);
+module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate({ _id: id }, { isVerified: bool }, { new: true });
 
 // used in admin panel to delete an answer of a review
 module.exports.deleteAnswer = id => Answer.deleteOne({ _id: id });
@@ -207,7 +203,7 @@ module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
     },
     {
       $sort: {
-        "question.number": 1
+        "question.profileOrder": 1,
       },
     },
     // group by profile sections
@@ -217,11 +213,11 @@ module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
         questions: { $push: "$$ROOT" },
       },
     },
-    {
-      $sort: {
-        "_id": 1,
-      }
-    }
+    // {
+    //   $sort: {
+    //     "_id": 1,
+    //   },
+    // },
   ])
     .then(resolve)
     .catch(err => reject(err));
