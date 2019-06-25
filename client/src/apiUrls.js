@@ -55,6 +55,8 @@ const API_SIGN_UP = `${API_PREFIX}${SIGN_UP}`;
 const USERS = "/users";
 const API_USERS = `${API_PREFIX}${USERS}`;
 
+const ADD_HELPFUL_OVERALL_POINTS = "/review/:reviewId/overall/helpful-points";
+
 const ADMIN = "/admin";
 
 module.exports = {
@@ -97,5 +99,6 @@ module.exports = {
   CONFIRM_EMAIL,
   EDIT_PROFILE,
   SIGN_UP,
-  USERS
+  USERS,
+  ADD_HELPFUL_OVERALL_POINTS
 };

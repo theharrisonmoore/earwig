@@ -71,6 +71,7 @@ const {
   UPLOAD_VERIFICATION_IMAGE_URL,
   TRADE_URL,
   USERS,
+  ADD_HELPFUL_OVERALL_POINTS,
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
@@ -214,6 +215,6 @@ router.post("/give-feedback", authentication, feedbackController);
 router.post("/update-last-viewed", updateLastViewedOrg);
 
 
-router.patch("/review/:reviewId/overall/helpful-points", authentication, updateOverallHelpfulPoints);
+router.patch(ADD_HELPFUL_OVERALL_POINTS, authentication, updateOverallHelpfulPoints);
 
 module.exports = router;
