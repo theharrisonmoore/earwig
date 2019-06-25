@@ -85,6 +85,7 @@ export default class index extends Component {
 
     return (
       <Wrapper>
+        {/* cookie policy page to be inserted */}
         <CookieConsent
           location="bottom"
           buttonText="Got it!"
@@ -95,7 +96,7 @@ export default class index extends Component {
           acceptOnScroll={true}
         >
           This website uses cookies to enhance the user experience.{" "}
-          <a style={CookieStyles.link} href="">
+          <a style={CookieStyles.link} href={`/`}>
             {" "}
             Find out more about our Cookie Policy
           </a>{" "}
