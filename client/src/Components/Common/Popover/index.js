@@ -31,8 +31,7 @@ class PopoverComponent extends React.Component {
         content={
           <PopoverDiv>
             <PopoverText>
-              We’re asking this because it will be useful to track over time how
-              much agencies are paying workers
+              {text}
             </PopoverText>
             <PopoverBtn onClick={this.hide}>Got it!</PopoverBtn>
           </PopoverDiv>
@@ -41,7 +40,7 @@ class PopoverComponent extends React.Component {
         visible={this.state.popoverVisible}
         onVisibleChange={this.handleVisibleChange}
       >
-        <PopoverLink>Why are we asking this?</PopoverLink>
+        <PopoverLink>{linkText}</PopoverLink>
       </Popover>
     );
   }

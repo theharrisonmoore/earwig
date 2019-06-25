@@ -5,6 +5,7 @@ const {
   basicReview,
   allAnswers,
   checkOrgExists,
+  checkUsersLatestReview,
 } = require("./../database/queries/reviews");
 
 module.exports = async (req, res, next) => {
@@ -19,9 +20,17 @@ module.exports = async (req, res, next) => {
   let summary;
   let reviewDetails;
   let level;
+  let reviewNotAllowed = [];
 
   if (user) {
     summary = await overallReview(organizationID).catch(err => next(boom.badImplementation(err)));
+
+    // check if user has already given reviews less old than 4 weeks
+    const userReviews = await checkUsersLatestReview(organizationID, user._id);
+
+    if (userReviews.length > 0) {
+      reviewNotAllowed = userReviews.filter(review => review.older_30_days === true);
+    }
 
     reviewDetails = await allAnswers(organizationID).catch(err => next(boom.badImplementation(err)));
 
@@ -44,5 +53,10 @@ module.exports = async (req, res, next) => {
 
   // checkOrgExists(organizationID).then(result => res.json(result));
 
-  return res.json({ summary, reviewDetails, level });
+  return res.json({
+    summary,
+    reviewDetails,
+    level,
+    reviewNotAllowed,
+  });
 };

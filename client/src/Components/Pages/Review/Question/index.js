@@ -76,15 +76,19 @@ const Question = props => {
     groupId
   } = props;
 
-const PopoverOptions = {
-  text: "We’re asking this because it will be useful to track over time how much agencies are paying workers", linkText: 'Why are we asking this?'
-};
+  const PopoverOptions = {
+    text:
+      "We’re asking this because it will be useful to track over time how much agencies are paying workers",
+    linkText: "Why are we asking this?"
+  };
 
   return (
     <QuestionWrapper>
       <QText>{text}</QText>
       <HintText>{hintText}</HintText>
-      {text === "What hourly rate were you paid?" && <PopoverComponent PopoverOptions={PopoverOptions}/>}
+      {text === "What hourly rate were you paid?" && (
+        <PopoverComponent PopoverOptions={PopoverOptions} />
+      )}
       <QuestionOptions
         type={type}
         options={options}

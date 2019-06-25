@@ -256,3 +256,46 @@ module.exports.allComments = (organizationID, questionID) => new Promise((resolv
     })
     .catch(err => reject(err));
 });
+
+// gets all reviews given by 1 user for 1 organisation and sets a flag depending
+// returns true if review is less than 1 month old
+
+module.exports.checkUsersLatestReview = (organization, user) => new Promise((resolve, reject) => {
+  Review.aggregate([
+    // get all reviews for 1 user
+    {
+      $match: {
+        $and: [
+          {
+            organization: mongoose.Types.ObjectId(organization),
+          },
+          {
+            user: mongoose.Types.ObjectId(user),
+          },
+        ],
+      },
+    },
+
+    {
+      $project: {
+        _id: 0,
+        date: "$createdAt",
+        // get number of days between creation of review and today
+        // first step mil seconds, second step days
+        diff_days: {
+          $divide: [
+            {
+              $subtract: [new Date(), "$createdAt"],
+            },
+            1000 * 60 * 60 * 24,
+          ],
+        },
+        older_30_days: {
+          $lte: [30, "$diff_days"],
+        },
+      },
+    },
+  ])
+    .then(result => resolve(result))
+    .catch(err => reject(err));
+});
