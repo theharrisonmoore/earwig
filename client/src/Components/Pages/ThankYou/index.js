@@ -48,9 +48,9 @@ export default class ThankYou extends Component {
     const orgName = state && state.orgName ? state.orgName : "an organization";
 
     const img = require(`./../../../assets/thank-you-${orgType}.svg`);
-    const otherOrgs = ["agency", "worksite", "payroll", "company"].filter(
-      org => org !== orgType
-    );
+    // const otherOrgs = ["agency", "worksite", "payroll", "company"].filter(
+    //   org => org !== orgType
+    // );
 
     return (
       <ThankYouWrapper>
