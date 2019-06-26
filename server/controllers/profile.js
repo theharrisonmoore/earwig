@@ -8,6 +8,8 @@ const {
   checkUsersLatestReview,
 } = require("./../database/queries/reviews");
 
+const { getHelpedPoints } = require("./../database/queries/user/index");
+
 module.exports = async (req, res, next) => {
   const { organizationID } = req.body;
 
@@ -22,9 +24,12 @@ module.exports = async (req, res, next) => {
   let reviewDetails;
   let level;
   let reviewsLast30Days = [];
+  let helpedPoints;
 
   if (user) {
     summary = await overallReview(organizationID).catch(err => next(boom.badImplementation(err)));
+
+    helpedPoints = await getHelpedPoints("5d1372fb6f4a8726cd637b31").catch(err => next(boom.badImplementation(err)));
 
     // check if user has already given reviews less old than 4 weeks
     const userReviews = await checkUsersLatestReview(organizationID, user._id);
@@ -59,5 +64,6 @@ module.exports = async (req, res, next) => {
     reviewDetails,
     level,
     reviewsLast30Days,
+    helpedPoints,
   });
 };

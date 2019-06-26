@@ -249,7 +249,7 @@ export default class Reply extends Component {
                   placeholder={"Add a reply… use @ to mention"}
                 />
                 <StyledReplyIcon
-                  width="20px"
+                  width="40px"
                   fill={organizations[category].primary}
                   onClick={this.handleSubmit}
                 />

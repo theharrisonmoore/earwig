@@ -6,6 +6,13 @@ const Review = require("./../../models/Review");
 
 const getAllUsers = require("./allUsers");
 
+module.exports.updateUserPoints = (userId, diffPoints) => User.findOneAndUpdate(
+  { _id: userId },
+  {
+    $inc: { points: diffPoints },
+  },
+);
+
 module.exports.updateUserById = (userId, data) => User.findByIdAndUpdate(userId, { $set: data });
 module.exports.findByEmail = email => User.findOne({ email: email.toLowerCase() });
 
@@ -65,3 +72,62 @@ module.exports.latestReviews = userId => new Promise((resolve, reject) => {
     .then(resolve)
     .catch(err => reject(err));
 });
+
+// calculates helped points for a user
+
+// get user's reviews, project votes and count those
+
+module.exports.getHelpedPoints = async (userID) => {
+  // matches userID in user table as referral and returns length
+  const referralPoints = User.aggregate([
+    {
+      $match: { referral: mongoose.Types.ObjectId(userID) },
+    },
+
+    {
+      $count: "refPoints",
+    },
+  ]);
+  // counts all votes for user's reviews (text and voice) and adds times where user's ref code was used by other users
+
+  const votingPoints = await Review.aggregate([
+    {
+      $match: { user: mongoose.Types.ObjectId(userID) },
+    },
+    {
+      $project: {
+        _id: 0,
+        overAll: "$overallReview.votes",
+        voice: "$voiceReview.votes",
+      },
+    },
+    {
+      $unwind: "$overAll",
+    },
+    {
+      $unwind: "$voice",
+    },
+  ]);
+
+  let counter = 0;
+
+  const userRefPoints = await referralPoints;
+  if (referralPoints.refPoints) {
+    counter += userRefPoints[0].refPoints;
+  }
+
+  await votingPoints.map((e) => {
+    if (e.overAll) {
+      e.overAll = 1;
+      counter += e.overAll;
+    }
+    if (e.voice) {
+      e.voice = 1;
+      counter += e.voice;
+    }
+
+    return counter;
+  });
+
+  return counter;
+};

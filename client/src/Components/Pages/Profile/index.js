@@ -197,7 +197,7 @@ export default class Profile extends Component {
       reviewsLast30Days
     } = this.state;
 
-    const { isTablet, isMobile, verified } = this.props;
+    const { isTablet, isMobile, verified, isAdmin, id } = this.props;
 
     if (!loaded) return <Loading />;
 
@@ -383,6 +383,8 @@ export default class Profile extends Component {
           fetchOverallReplies={this.fetchOverallReplies}
           verified={verified}
           level={level}
+          isAdmin={isAdmin}
+          id={id}
         />
         {level < 1 && (
           <ReviewDiv isTablet={isTablet} isMobile={isMobile}>

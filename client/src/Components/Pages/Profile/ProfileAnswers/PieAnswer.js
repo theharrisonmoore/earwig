@@ -22,20 +22,58 @@ export default class PieAnswer extends Component {
 
     const labelObject = this.createLabels(question.answers);
 
+    const totalLables = Object.entries(labelObject)
+    const labelArray = totalLables.map(label => `${label[0]} (${label[1]})`)
+
     const data = {
-      labels: Object.keys(labelObject),
+      labels: labelArray,
       datasets: [
         {
           data: Object.values(labelObject),
           backgroundColor: pieColors[`${category}`],
+          datalabels: {
+            align: "start",
+            formatter: (value, ctx) => {
+              const lable = Object.keys(labelObject)[ctx.dataIndex];
+              return `${lable}`;
+            },
+            font: {
+              weight: "700",
+              size: "12",
+              family: "roboto"
+            }
+          },
           hoverBackgroundColor: pieColors[`${category}`]
         }
       ]
     };
 
+    const options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      height: "100px", 
+      legend: {
+        display: true,
+        position: "top",
+        fullWidth: false,
+        align: 'start',
+        labels : {
+          align: 'start',
+        },
+        onClick: (e) => {}
+      },
+      tooltips: { 
+        callbacks: { 
+          label: (tooltipItems, data) => {
+            return data.labels[tooltipItems.index]
+          }
+      } 
+    }
+    };
+
     return (
-      <div>
-        <Pie data={data} legend={{ position: "bottom" }} />
+      <div style={{position: "relative", height: "50vh", paddingBottom: "32px"}}>
+        <Pie data={data} options={options} />
         <RightCommentWrapper>
           {question.answers.filter(answer => answer.comment).length > 0 ? (
             <Comment

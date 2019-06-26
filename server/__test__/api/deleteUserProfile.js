@@ -51,7 +51,7 @@ describe("Testing for delete user completely", () => {
               .expect("Content-Type", /json/)
               .expect(401)
               .end(async (error2, result2) => {
-                expect(result2.body.error).toBe("login failed, email and password not match");
+                expect(result2.body.error).toBe("Whoops! Either you typed something wrong or you're not registered.");
                 done(error2);
               });
           });

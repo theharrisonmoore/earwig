@@ -124,34 +124,51 @@ export default class ReviewSection extends Component {
               ["yesno", "pieChart", "dotChart"].includes(
                 question.question.profileType
               ) && (
-                <QuestionWrapper key={index}>
-                  <QuestionTitle>{question.question.profileText}</QuestionTitle>
+                <>
                   {question.question.profileType === "yesno" && (
-                    <YesNoAnswer
-                      category={category}
-                      question={question}
-                      toggleComments={toggleComments}
-                      isMobile={isMobile}
+                    <QuestionWrapper
+                      key={index}
                       hide={this.onlyNeutralAnswers(question.answers)}
-                    />
+                    >
+                      <QuestionTitle>
+                        {question.question.profileText}
+                      </QuestionTitle>
+                      <YesNoAnswer
+                        category={category}
+                        question={question}
+                        toggleComments={toggleComments}
+                        isMobile={isMobile}
+                        hide={this.onlyNeutralAnswers(question.answers)}
+                      />
+                    </QuestionWrapper>
                   )}
                   {question.question.profileType === "pieChart" && (
-                    <PieAnswer
-                      category={category}
-                      question={question}
-                      toggleComments={toggleComments}
-                      isMobile={isMobile}
-                    />
+                    <QuestionWrapper key={index}>
+                      <QuestionTitle>
+                        {question.question.profileText}
+                      </QuestionTitle>
+                      <PieAnswer
+                        category={category}
+                        question={question}
+                        toggleComments={toggleComments}
+                        isMobile={isMobile}
+                      />
+                    </QuestionWrapper>
                   )}
                   {question.question.profileType === "dotChart" && (
-                    <ScatterAnswer
-                      category={category}
-                      question={question}
-                      toggleComments={toggleComments}
-                      isMobile={isMobile}
-                    />
+                    <QuestionWrapper key={index}>
+                      <QuestionTitle>
+                        {question.question.profileText}
+                      </QuestionTitle>
+                      <ScatterAnswer
+                        category={category}
+                        question={question}
+                        toggleComments={toggleComments}
+                        isMobile={isMobile}
+                      />
+                    </QuestionWrapper>
                   )}
-                </QuestionWrapper>
+                </>
               )
           )}
 

@@ -14,16 +14,24 @@ const Review = require("../database/models/Review");
 const Answer = require("../database/models/Answer");
 const Comment = require("../database/models/Comment");
 
-const getByOrg = (req, res, next) => {
-  const { organization } = req.query;
+const getByOrg = async (req, res, next) => {
+  const { organization: category } = req.query;
 
-  getQuetionsByOrg(organization)
-    .then((groups) => {
-      res.json(groups);
-    })
-    .catch(() => {
-      next(boom.badImplementation());
-    });
+  try {
+    let dropDownListData;
+    if (category === "agency") {
+      dropDownListData = await getOrgsNamesByType("payroll");
+    } else if (category === "payroll") {
+      dropDownListData = await getOrgsNamesByType("agency");
+    } else if (category === "worksite") {
+      dropDownListData = await getOrgsNamesByType("worksite");
+    }
+
+    const groups = await getQuetionsByOrg(category);
+    res.json({ groups, dropDownListData });
+  } catch (err) {
+    next(boom.badImplementation());
+  }
 };
 
 const postReviewShort = async (req, res, next) => {
@@ -140,15 +148,19 @@ const postReview = async (req, res, next) => {
 
     res.send(organizationData._id);
   } catch (error) {
-    next(boom.badImplementation);
+    next(boom.badImplementation());
   }
 };
 
 /* not used now */
-const addNewAgencyPayroll = async (req, res, next) => {
+const addNewOrg = async (req, res, next) => {
   const { name, category } = req.body;
-  await postOrg(category, name);
-  res.send();
+  try {
+    await postOrg(category, name);
+    res.send();
+  } catch (err) {
+    next(boom.badImplementation());
+  }
 };
 
 const getOrgsByType = async (req, res, next) => {
@@ -174,7 +186,7 @@ const getAgencesAndPayrollsNames = async (req, res, next) => {
 module.exports = {
   getByOrg,
   postReview,
-  addNewAgencyPayroll,
+  addNewOrg,
   getOrgsByType,
   getAgencesAndPayrollsNames,
   postReviewShort,
