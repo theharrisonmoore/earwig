@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { Table, Input, Button, Popconfirm, Form, Icon, message } from "antd";
+import { Table, Input, Button, Popconfirm, Form, Icon, message, Select } from "antd";
+
+
+// styles 
+import { AddTradeWrapper, AddTradeTitle } from "./Trades.style.js"
 
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
@@ -122,7 +126,8 @@ class EditableTable extends Component {
 
     this.state = {
       dataSource: [],
-      count: 2
+      count: 2,
+      newTrades: []
     };
   }
   // end of constuctor
@@ -153,20 +158,29 @@ class EditableTable extends Component {
     // this.setState({ dataSource: dataSource.filter(item => item.key !== key) });
   };
 
+  handleAddInput = value => {
+    this.setState({newTrades: value})
+  }
+
   handleAdd = () => {
     // save to database then update the table
-    // key the trade id
-    // Modal
-    // axios.post("/api/admin/trades", trade);
-    const { count, dataSource } = this.state;
-    const newData = {
-      key: count,
-      trade: `Edward King ${count}`
-    };
-    this.setState({
-      dataSource: [...dataSource, newData],
-      count: count + 1
-    });
+    const { newTrades } = this.state;
+
+    const tradesList = Object.values(newTrades)
+    const trades = tradesList.map(trade => {
+      const cleanedTrade = trade.toLowerCase().charAt(0).toUpperCase() + trade.slice(1)
+      return { title: cleanedTrade }
+    })
+
+    axios.post("/api/admin/trades/add", { trades }).then(() => {
+      this.fetchTrades()
+      this.setState({ newTrades: [] })
+      message.success('Trades succesfully added');
+    }).catch(err => { 
+      const error =
+      err.response && err.response.data && err.response.data.error;
+    message.error(error || "Something went wrong") 
+  })
   };
 
   handleSave = row => {
@@ -181,7 +195,7 @@ class EditableTable extends Component {
   };
 
   render() {
-    const { dataSource } = this.state;
+    const { dataSource, adding, newTrades } = this.state;
     const components = {
       body: {
         row: EditableFormRow,
@@ -205,14 +219,11 @@ class EditableTable extends Component {
     });
     return (
       <div>
-        <Button
-          onClick={this.handleAdd}
-          type="primary"
-          style={{ marginBottom: 16 }}
-          disabled
-        >
-          Add a row
-        </Button>
+        <AddTradeWrapper>
+          <AddTradeTitle>Add new trades:</AddTradeTitle>
+          <Select style={{ width: '100%', marginRight: '16px' }} mode="tags" placeholder="Hit enter for each trade" onChange={this.handleAddInput} value={newTrades} /> 
+          <Button onClick={this.handleAdd} type="primary">Submit</Button>
+        </AddTradeWrapper>
         <Table
           components={components}
           rowClassName={() => "editable-row"}
