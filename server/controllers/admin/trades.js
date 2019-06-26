@@ -1,6 +1,6 @@
 const boom = require("boom");
 
-const { getTradesAdmin, deleteTrade, addTrade } = require("./../../database/queries");
+const { getTradesAdmin, deleteTrade, addTrade, editTrade } = require("./../../database/queries");
 
 const getAllTrades = (async (req, res, next) => {
   try {
@@ -32,4 +32,14 @@ const addTradeController = (async (req, res, next) => {
   }
 })
 
-module.exports = { getAllTrades, deleteTradeController, addTradeController };
+const editTradeController = (async (req, res, next) => {
+  const { oldName, newName } = req.body
+  try {
+    await editTrade(oldName, newName);
+    res.send()
+  } catch (error) {
+    next(boom.badImplementatino())
+  }
+})
+
+module.exports = { getAllTrades, deleteTradeController, addTradeController, editTradeController };

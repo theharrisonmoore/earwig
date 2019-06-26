@@ -16,7 +16,7 @@ const getOrganizations = require("./../controllers/admin/getOrganizations");
 const activateOrganization = require("./../controllers/admin/activateOrganization");
 const getImageLink = require("./../controllers/admin/getImageLink");
 
-const { getAllTrades, deleteTradeController, addTradeController } = require("../controllers/admin/trades");
+const { getAllTrades, deleteTradeController, addTradeController , editTradeController } = require("../controllers/admin/trades");
 
 // get all workers info
 router.get(
@@ -89,6 +89,8 @@ router.get("/trades", getAllTrades);
 router.delete("/trades/:id", deleteTradeController);
 
 router.post("/trades/add", addTradeController);
+
+router.post("/trades/edit", editTradeController);
 
 // get image url
 router.get("/images/:name", getImageLink);

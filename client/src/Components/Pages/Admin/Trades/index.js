@@ -33,13 +33,19 @@ class EditableCell extends Component {
   };
 
   save = e => {
-    const { record, handleSave } = this.props;
+    const { record, handleEditSave } = this.props;
     this.form.validateFields((error, values) => {
       if (error && error[e.currentTarget.id]) {
         return;
       }
+      const oldName = record.trade
+      const newName = values.trade
+      const cleanNewName = newName.toLowerCase().charAt(0).toUpperCase() + newName.slice(1)
+
       this.toggleEdit();
-      handleSave({ ...record, ...values });
+      if(oldName !== cleanNewName) {
+        handleEditSave(oldName, cleanNewName);
+      }
     });
   };
 
@@ -51,7 +57,7 @@ class EditableCell extends Component {
       title,
       record,
       index,
-      handleSave,
+      handleEditSave,
       ...restProps
     } = this.props;
     return (
@@ -183,19 +189,28 @@ class EditableTable extends Component {
   })
   };
 
-  handleSave = row => {
-    const newData = [...this.state.dataSource];
-    const index = newData.findIndex(item => row.key === item.key);
-    const item = newData[index];
-    newData.splice(index, 1, {
-      ...item,
-      ...row
-    });
-    this.setState({ dataSource: newData });
+  handleEditSave = (oldName, newName) => {
+    // const newData = [...this.state.dataSource];
+    // const index = newData.findIndex(item => row.key === item.key);
+    // const item = newData[index];
+    // newData.splice(index, 1, {
+    //   ...item,
+    //   ...row
+    // });
+    // this.setState({ dataSource: newData });
+
+    axios.post("/api/admin/trades/edit", { oldName, newName }).then(() => {
+      this.fetchTrades()
+      message.success("Trade successfully edited")
+    }).catch(err => {
+      const error =
+      err.response && err.response.data && err.response.data.error;
+    message.error(error || "Something went wrong") 
+    })
   };
 
   render() {
-    const { dataSource, adding, newTrades } = this.state;
+    const { dataSource, newTrades } = this.state;
     const components = {
       body: {
         row: EditableFormRow,
@@ -213,7 +228,7 @@ class EditableTable extends Component {
           editable: col.editable,
           dataIndex: col.dataIndex,
           title: col.title,
-          handleSave: this.handleSave
+          handleEditSave: this.handleEditSave
         })
       };
     });
