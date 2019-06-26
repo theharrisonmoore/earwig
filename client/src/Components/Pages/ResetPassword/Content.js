@@ -164,7 +164,7 @@ export const PasswordSDone = ({ history }) => {
             })
           }
         >
-          Will Do
+          Will do
         </Button>
       </ContentWrapper>
     </Wrapper>

@@ -63,8 +63,8 @@ export const Cancel = styled.p`
 `;
 
 export const Description = styled.p`
-  font-family: Lato;
-  font-size: 24px;
+  /* font-family: Lato; */
+  font-size: 20px;
   text-align: left;
   color: #4a4a4a;
 
