@@ -6,6 +6,7 @@ const resetPasswordMailing = require("../helpers/resetPasswordMailing");
 
 module.exports = async (req, res, next) => {
   const { email } = req.body;
+  let userId;
   crypto.randomBytes(32, (err, buffer) => {
     if (err) {
       return next(boom.badImplementation());
@@ -16,6 +17,8 @@ module.exports = async (req, res, next) => {
         if (!user) {
           return next(boom.notFound("No account with that email found."));
         }
+        // eslint-disable-next-line prefer-destructuring
+        userId = user.userId;
 
         const updateData = {
           resetToken: {
@@ -26,12 +29,8 @@ module.exports = async (req, res, next) => {
         return updateUserById(user._id, updateData);
       })
       .then(() => {
-        // generate set password link
-        const domain = process.env.DOMAIN;
-        const link = `${domain}/set-password/${token}`;
-
-        // send the link via email
-        return resetPasswordMailing(email, link);
+        // send the token via email
+        resetPasswordMailing(email, token, userId);
       }).then(() => {
         //  send success message
         res.json({ success: true });
