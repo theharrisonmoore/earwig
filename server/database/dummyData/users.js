@@ -27,7 +27,13 @@ module.exports = async () => {
       trade: trades[2],
       verified: true,
       awaitingReview: false,
-    }, {
+    },
+  ];
+
+  const storedUsers = await User.create(users);
+
+  const secondUserGroup = [
+    {
       email: "level3-2@earwig.com",
       password: "123456",
       trade: trades[3],
@@ -38,8 +44,9 @@ module.exports = async () => {
       email: "ramy@gmail.com",
       password: "123456",
       trade: trades[2],
-      verified: true,
-      awaitingReview: false,
+      verified: false,
+      awaitingReview: true,
+      referral: storedUsers[2],
     },
     {
       email: "joe@gmail.com",
@@ -72,5 +79,6 @@ module.exports = async () => {
     },
   ];
 
-  return User.create(users);
+
+  return User.create(secondUserGroup);
 };
