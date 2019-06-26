@@ -1,81 +1,144 @@
 import React, { Component } from "react";
-import * as Yup from "yup";
 import axios from "axios";
+import { Route, Switch } from "react-router-dom";
 
 import { Modal } from "antd";
 
-import Logo from "../../Common/Logo";
+import {
+  Banner,
+  Cancel,
+  ContentWrapper,
+  Wrapper,
+  BlankDiv
+} from "./ResetPassword.style";
 
 import {
-  StyledFormik as Formik,
-  StyledForm as Form,
-  StyledField,
-  StyledFormikErrorMessage as FormikErrorMessage,
-  Label,
-  Button,
-  GeneralErrorMessage
-} from "../../Common/Formik/Formik.style";
+  ResetPassword as ResetPasswordContent,
+  SetPassword,
+  PasswordSent,
+  PasswordSDone
+} from "./Content";
 
-import { API_RESET_PASSWORD } from "./../../../apiUrls";
+import {
+  RESET_PASSWORD_URL,
+  SET_PASSWORD_URL,
+  PASSWORD_SENT_URL,
+  PASSWORD_DONE_URL
+} from "./../../../constants/naviagationUrls";
 
-import { Wrapper } from "./ResetPassword.style";
-
-const resetSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Invalid email")
-    .required("Required")
-});
+import { API_RESET_PASSWORD, API_SET_PASSWORD } from "./../../../apiUrls";
 
 export default class ResetPassword extends Component {
   state = {
-    error: ""
+    error: "",
+    loading: false
   };
 
-  handleSubmit = (values, { setSubmitting }) => {
-    axios
-      .post(API_RESET_PASSWORD, values)
-      .then(({ data }) => {
-        Modal.success({
-          title: "Done!",
-          content: "Instructions to reset your password have been sent to the email address provided",
-          onOk: () => {
-            this.props.history.push("/");
-          }
+  handleSubmitSet = (values, { setSubmitting }, token) => {
+    this.setState({ loading: true }, () => {
+      axios
+        .post(API_SET_PASSWORD, { ...values, token })
+        .then(({ data }) => {
+          this.setState({ loading: false }, () => {
+            Modal.success({
+              title: "Done!",
+              content: "You successfully updated your password",
+              onOk: () => {
+                this.props.history.push(PASSWORD_DONE_URL);
+              }
+            });
+          });
+        })
+        .catch(err => {
+          this.setState({ error: err.response.data.error, loading: false });
+          setSubmitting(false);
         });
-      })
-      .catch(err => {
-        this.setState({ error: err.response.data.error });
-        setSubmitting(false);
-      });
+    });
+  };
+
+  handleSubmitReset = (values, { setSubmitting }) => {
+    this.setState({ loading: true }, () => {
+      axios
+        .post(API_RESET_PASSWORD, values)
+        .then(({ data }) => {
+          this.setState({ loading: false }, () => {
+            Modal.success({
+              title: "Done!",
+              content:
+                "Instructions to reset your password have been sent to the email address provided",
+              onOk: () => {
+                this.props.history.push(PASSWORD_SENT_URL);
+              }
+            });
+          });
+        })
+        .catch(err => {
+          this.setState({ error: err.response.data.error, loading: false });
+          setSubmitting(false);
+        });
+    });
   };
 
   render() {
-    const { error } = this.state;
+    const { error, loading } = this.state;
+    const { history } = this.props;
 
     return (
-      <Wrapper>
-        <Logo />
-        <Formik
-          initialValues={{ email: "" }}
-          validationSchema={resetSchema}
-          onSubmit={this.handleSubmit}
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              <Label htmlFor="email">
-                Enter Your Email
-                <StyledField type="email" name="email" id="email" />
-                <FormikErrorMessage name="email" component="p" />
-              </Label>
-
-              {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
-              <Button type="submit" disabled={isSubmitting}>
-                Reset Password
-              </Button>
-            </Form>
-          )}
-        </Formik>
-      </Wrapper>
+      <>
+        <Wrapper>
+          <Banner>
+            <Cancel onClick={history.goBack}>Cancel</Cancel>
+          </Banner>
+          <BlankDiv />
+          <ContentWrapper>
+            <Switch>
+              <Route
+                path={RESET_PASSWORD_URL}
+                exact
+                render={props => (
+                  <ResetPasswordContent
+                    handleSubmitReset={this.handleSubmitReset}
+                    error={error}
+                    {...props}
+                    loading={loading}
+                  />
+                )}
+              />
+              <Route
+                path={SET_PASSWORD_URL}
+                render={props => (
+                  <SetPassword
+                    handleSubmitSet={this.handleSubmitSet}
+                    error={error}
+                    {...props}
+                    loading={loading}
+                  />
+                )}
+              />
+              <Route
+                path={PASSWORD_SENT_URL}
+                render={props => (
+                  <PasswordSent
+                    handleSubmitSet={this.handleSubmitSet}
+                    error={error}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                path={PASSWORD_DONE_URL}
+                render={props => (
+                  <PasswordSDone
+                    handleSubmitSet={this.handleSubmitSet}
+                    error={error}
+                    {...props}
+                  />
+                )}
+              />
+            </Switch>
+          </ContentWrapper>
+        </Wrapper>
+      </>
     );
   }
 }

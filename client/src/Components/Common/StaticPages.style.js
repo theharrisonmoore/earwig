@@ -96,6 +96,7 @@ export const BoldLink = styled(Link)`
   color: ${colors.profileFontColor};
   text-align: left;
   font-weight: 900;
+  text-decoration: underline;
 
   @media (min-width: ${MOBILE_WIDTH}px) {
     font-size: 1.125rem;

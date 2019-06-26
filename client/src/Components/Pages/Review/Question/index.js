@@ -8,10 +8,9 @@ import {
   Divider,
   Input,
   Rate,
-  InputNumber,
+  Slider,
   Checkbox
 } from "antd";
-
 import ModalComment from "../../../Common/AntdComponents/ModalComment";
 import CustomRangePicker from "../../../Common/AntdComponents/DatePicker";
 
@@ -33,8 +32,17 @@ import {
   StyledErrorMessage,
   StyledInput,
   StyledButton,
-  StyledCheckList
+  StyledCheckList,
+  SliderWrapper
 } from "./Question.style";
+
+const marksStyle = {
+  position: "absolute",
+  top: "-60px",
+  fontSize: "14px",
+  color: "#4A4A4A",
+  opacity: "0.8"
+};
 
 const Option = Select.Option;
 
@@ -114,7 +122,14 @@ class QuestionOptions extends React.Component {
     this.setState({ hoverRate: value });
   };
   addOrgType = category => {
-    return category === "agency" ? "payroll" : "agency";
+    switch (category) {
+      case "agency":
+        return "payroll";
+      case "payroll":
+        return "agency";
+      default:
+        return category;
+    }
   };
 
   render() {
@@ -134,7 +149,8 @@ class QuestionOptions extends React.Component {
       groupId,
       next,
       showNextQestion,
-      setFieldValue
+      setFieldValue,
+      values
     } = props;
 
     const rateValue = hoverRate || rate;
@@ -234,21 +250,49 @@ class QuestionOptions extends React.Component {
           <Options style={{ alignItems: "center" }}>
             <Field name={`questions[${number}]`} type="number">
               {({ field, form }) => (
-                <InputNumber
-                  min={0}
-                  {...field}
-                  onChange={value =>
-                    props.setFieldValue(`questions[${number}]`, value)
-                  }
-                  style={{
-                    border: `1px solid ${colors.dustyGray1}`,
-                    width: "12rem",
-                    height: "70px",
-                    lineHeight: "70px"
-                  }}
-                  size="large"
-                  placeholder={`£       ${label}`}
-                />
+                <SliderWrapper
+                  visibility={values["questions"][number]}
+                  color={organizations[category].primary}
+                >
+                  <p>
+                    £{values["questions"][number]} {label}
+                  </p>
+
+                  <Slider
+                    tooltipVisible={false}
+                    onChange={v =>
+                      props.setFieldValue(`questions[${number}]`, v)
+                    }
+                    style={{ width: "100%" }}
+                    marks={{
+                      0: {
+                        style: marksStyle,
+                        label: <strong>£0</strong>
+                      },
+                      10: {
+                        style: marksStyle,
+                        label: <strong>£10</strong>
+                      },
+                      20: {
+                        style: marksStyle,
+                        label: <strong>£20</strong>
+                      },
+                      30: {
+                        style: marksStyle,
+                        label: <strong>£30</strong>
+                      },
+                      40: {
+                        style: marksStyle,
+                        label: <strong>£40</strong>
+                      },
+                      50: {
+                        style: marksStyle,
+                        label: <strong>£50+</strong>
+                      }
+                    }}
+                    max={50}
+                  />
+                </SliderWrapper>
               )}
             </Field>
             {hasComment && (
@@ -312,6 +356,7 @@ class QuestionOptions extends React.Component {
                                 props.setFieldValue(field, value);
                               }}
                               number={number}
+                              category={category}
                               render={renderProps => {
                                 newOptions = [...newOptions, renderProps.text];
                                 return (

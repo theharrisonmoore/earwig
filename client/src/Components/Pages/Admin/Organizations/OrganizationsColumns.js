@@ -1,20 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
+import Highlighter from "react-highlight-words";
 
 import { GENERAL_ORGS_PROFILE_URL } from "./../../../../constants/naviagationUrls";
 
-export default ({ category, deleteHandler, editHandler }) => {
+export default ({
+  category,
+  deleteHandler,
+  editHandler,
+  getColumnSearchProps,
+  searchText
+}) => {
   const basicInfo = [
     {
       title: category,
       dataIndex: "name",
       key: "name",
+      ...getColumnSearchProps("name"),
       render: (text, record) => {
         return (
           <Link to={`${GENERAL_ORGS_PROFILE_URL}/${record._id}`}>
             <span style={{ fontWeight: "700", textTransform: "capitalize" }}>
-              {text}
+              <Highlighter
+                highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+                searchWords={[searchText]}
+                autoEscape
+                textToHighlight={text.toString()}
+              />
             </span>
           </Link>
         );
@@ -26,7 +39,22 @@ export default ({ category, deleteHandler, editHandler }) => {
     basicInfo.push({
       title: "Website",
       dataIndex: "websiteURL",
-      key: "websiteURL"
+      key: "websiteURL",
+      ...getColumnSearchProps("websiteURL"),
+      render: (text, record) => {
+        return (
+          <Link to={`${GENERAL_ORGS_PROFILE_URL}/${record._id}`}>
+            <span style={{ fontWeight: "700", textTransform: "capitalize" }}>
+              <Highlighter
+                highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+                searchWords={[searchText]}
+                autoEscape
+                textToHighlight={text.toString()}
+              />
+            </span>
+          </Link>
+        );
+      }
     });
   }
 
@@ -40,7 +68,22 @@ export default ({ category, deleteHandler, editHandler }) => {
       {
         title: "Phone",
         dataIndex: "phoneNumber",
-        key: "phoneNumber"
+        key: "phoneNumber",
+        ...getColumnSearchProps("phoneNumber"),
+        render: (text, record) => {
+          return (
+            <Link to={`${GENERAL_ORGS_PROFILE_URL}/${record._id}`}>
+              <span style={{ fontWeight: "700", textTransform: "capitalize" }}>
+                <Highlighter
+                  highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+                  searchWords={[searchText]}
+                  autoEscape
+                  textToHighlight={text.toString()}
+                />
+              </span>
+            </Link>
+          );
+        }
       }
     );
   }

@@ -17,7 +17,6 @@ export const Wrapper = styled.div`
 
 export const Banner = styled.div`
   background: ${props => organizations[`${props.category}`].primary};
-  height: 2.75rem;
   width: 100%;
   color: ${colors.white};
   display: flex;
@@ -298,6 +297,25 @@ export const ButtonsWrapper = styled(ActionsDiv)`
   align-items: center;
   width: 90%;
 `;
+
+export const HelpfulButtonWrapper = styled.div`
+  position: relative;
+
+  &::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    mix-blend-mode: exclusion;
+    height: ${({ number }) => number + "0%"};
+    left: 0;
+    z-index: 2;
+    bottom: 0;
+    background: ${({ color }) => color};
+    pointer-events: none;
+    transition: 0.5s all ease;
+  }
+`;
+
 export const ActionsButton = styled(Button)`
   background: ${({ bgcolor }) => bgcolor};
   border: none;
@@ -305,4 +323,16 @@ export const ActionsButton = styled(Button)`
   font-size: 1rem;
   padding: 0.5rem 1rem;
   height: auto;
+  transform: scale3d(
+    ${({ scale }) => scale || 1},
+    ${({ scale }) => scale || 1},
+    1
+  );
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    background-color: ${({ bgcolor }) => bgcolor};
+    border-color: ${({ bgcolor }) => bgcolor};
+  }
 `;

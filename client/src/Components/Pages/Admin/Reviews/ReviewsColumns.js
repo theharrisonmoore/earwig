@@ -1,26 +1,83 @@
 import React from "react";
-
+import moment from "moment";
 import { Link } from "react-router-dom";
 
 import { Tag, Button } from "antd";
+import Highlighter from "react-highlight-words";
 
-export default ({ deletHandler, viewHandler }) => {
+import { GENERAL_ORGS_PROFILE_URL } from "./../../../../constants/naviagationUrls";
+
+export default ({
+  deletHandler,
+  viewHandler,
+  getColumnSearchProps,
+  searchText
+}) => {
   return [
     {
       title: "User Id",
-      dataIndex: "user.userId",
+      dataIndex: "userId",
       key: "user.userIduserId",
-      render: text => <span style={{ fontWeight: "700" }}>{text}</span>
+      render: text => (
+        <span style={{ fontWeight: "700" }}>
+          <Highlighter
+            highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+            searchWords={[searchText]}
+            autoEscape
+            textToHighlight={text.toString()}
+          />
+        </span>
+      ),
+      ...getColumnSearchProps("userId")
     },
     {
       title: "Organization",
-      dataIndex: "organization.name",
-      key: "organization.name"
+      dataIndex: "organization",
+      key: "organization",
+      render: (text, record) => (
+        <Link to={`${GENERAL_ORGS_PROFILE_URL}/${record.orgId}`}>
+          <span style={{ fontWeight: "700", textTransform: "capitalize" }}>
+            <Highlighter
+              highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+              searchWords={[searchText]}
+              autoEscape
+              textToHighlight={text.toString()}
+            />
+          </span>
+        </Link>
+      ),
+      ...getColumnSearchProps("organization")
+    },
+    {
+      title: "Org. type",
+      dataIndex: "orgType",
+      key: "orgType",
+      filters: [
+        {
+          text: "Agency",
+          value: "agency"
+        },
+        {
+          text: "Worksite",
+          value: "worksite"
+        },
+        {
+          text: "Company",
+          value: "company"
+        },
+        {
+          text: "Payroll",
+          value: "payroll"
+        }
+      ],
+      onFilter: (value, record) => record["orgType"].indexOf(value) === 0
     },
     {
       title: "Rate",
       dataIndex: "rate",
-      key: "rate"
+      key: "rate",
+      sorter: (a, b) => a.rate - b.rate,
+      sortDirections: ["descend", "ascend"]
     },
     {
       title: "Status",
@@ -30,11 +87,31 @@ export default ({ deletHandler, viewHandler }) => {
         const color = text === true ? "green" : "gold";
         const status = text === true ? "Verified" : "Unverified";
         return <Tag color={color}>{status}</Tag>;
-      }
+      },
+      filters: [
+        {
+          text: "Verified",
+          value: true
+        },
+        {
+          text: "Unverified",
+          value: false
+        }
+      ],
+      onFilter: (value, record) => record["isVerified"] === value
+    },
+    {
+      title: "Date",
+      dataIndex: "date",
+      key: "date",
+      render: value => <span>{moment(value).format("DD MMM YYYY")}</span>,
+      sorter: (a, b) => moment(a.date) - moment(b.date),
+      sortDirections: ["descend", "ascend"]
     },
     {
       title: "Action",
       key: "action",
+      width: "180px",
       render: (text, record) => {
         return (
           <div>
@@ -57,8 +134,8 @@ export default ({ deletHandler, viewHandler }) => {
                   to={{
                     pathname: `${record._id}`,
                     state: {
-                      name: record.organization.name,
-                      category: record.organization.category,
+                      name: record.organization,
+                      category: record.orgType,
                       userEmail: record.user.email,
                       userID: record.user.userId,
                       rating: text.rate,
@@ -78,35 +155,3 @@ export default ({ deletHandler, viewHandler }) => {
     }
   ];
 };
-
-// isVerified: false
-// organization:
-// active: false
-// category: "worksite"
-// contractor: {name: "MACE", logo: "contractors/contractor1.png"}
-// createdAt: "2019-04-22T11:53:50.274Z"
-// lastViewed: "2019-01-01T22:00:00.000Z"
-// loacation: {lat: 51.5074, long: 0.1278}
-// name: "Bournemouth University"
-// phoneNumber: "+441582461422"
-// updatedAt: "2019-04-22T12:57:59.073Z"
-// websiteURL: "https://www.Bournemouth.co.uk/"
-// __v: 0
-// _id: "5cbdab4ebaf3710a63093edd"
-// __proto__: Object
-// rate: 1
-// user:
-// awaitingReview: false
-// createdAt: "2019-04-22T11:53:50.122Z"
-// email: "level3-2@earwig.com"
-// isAdmin: false
-// password: "$2a$08$usnG5LGh/Aeo3bHPpfvWNutwPph8ss3NvE7IKg4zIsr7776d8XO5O"
-// points: 0
-// trade: "5cbdab4dbaf3710a63093e8b"
-// updatedAt: "2019-04-22T11:53:50.122Z"
-// userId: "ccQo1iQRgO"
-// verified: true
-// __v: 0
-// _id: "5cbdab4ebaf3710a63093ed5"
-// __proto__: Object
-// _id: "5cbdab4ebaf3710a63093ef0"

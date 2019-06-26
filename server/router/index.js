@@ -2,11 +2,10 @@ const router = require("express").Router();
 const {
   getByOrg,
   postReview,
-  addNewAgencyPayroll,
   getOrgsByType,
   getAgencesAndPayrollsNames,
   postReviewShort,
-  getSingleReviewAnswers,
+  addNewOrg,
 } = require("../controllers/review");
 
 const adminRouter = require("./admin");
@@ -51,6 +50,8 @@ const updateLastViewedOrg = require("../controllers/updateLastViewedOrg");
 const deleteOrgController = require("../controllers/deleteOrganization");
 const resetPassword = require("../controllers/resetPassword");
 const setPassword = require("../controllers/setPassword");
+const updateOverallHelpfulPoints = require("../controllers/updateOverallHelpfulPoints");
+
 
 const {
   LOGIN_URL,
@@ -73,7 +74,9 @@ const {
   USERS,
   RESET_PASSWORD,
   SET_PASSWORD,
+  ADD_HELPFUL_OVERALL_POINTS,
 } = require("../../client/src/apiUrls");
+
 
 router.get(SEARCH_URL, searchController);
 
@@ -86,7 +89,7 @@ router.post("/short-review", authentication, authorization("LEVEL3"), postReview
 
 // Add new payroll and agency
 router.get("/organizations", authentication, authorization("LEVEL3"), getOrgsByType);
-router.post("/organizations", authentication, authorization("LEVEL3"), addNewAgencyPayroll);
+router.post("/organizations", authentication, authorization("LEVEL3"), addNewOrg);
 router.get("/agency-payroll", authentication, authorization("LEVEL3"), getAgencesAndPayrollsNames);
 
 // require all the routes in this file
@@ -156,10 +159,10 @@ router.delete("/delete-user", authentication, deleteUserProfile);
 router.get("/user-reviews", authentication, userReviewsController);
 
 router.post(
-  "/add-organization",
-  // authentication,
-  // authorization("LEVEL3"),
-  // validation("addOrganization"),
+  ADD_ORGANIZATION_URL,
+  authentication,
+  authorization("LEVEL2"),
+  validation("addOrganization"),
   addOrganizationController,
 );
 
@@ -217,5 +220,7 @@ router.post("/update-last-viewed", updateLastViewedOrg);
 
 router.post(RESET_PASSWORD, resetPassword);
 router.post(SET_PASSWORD, setPassword);
+
+router.patch(ADD_HELPFUL_OVERALL_POINTS, authentication, updateOverallHelpfulPoints);
 
 module.exports = router;

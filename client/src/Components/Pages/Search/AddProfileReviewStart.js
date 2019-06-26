@@ -49,7 +49,14 @@ export default class AddProfileReviewStart extends Component {
             />
           </div>
           {/* <ProfileLink to={SEARCH_URL}> */}
-          <FooterDiv>
+          <FooterDiv
+            style={{
+              position: "fixed",
+              bottom: "3rem",
+              left: "50%",
+              transform: "translateX(-50%)"
+            }}
+          >
             <H3 onClick={() => this.deleteOrg(name)}>
               Cancel and return to Search
             </H3>

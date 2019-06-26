@@ -230,7 +230,7 @@ export const DelButton = styled.button`
 `;
 
 export const LinkSpan = styled(Link)`
-  color: ${colors.purpleLinks};
+  color: ${({ color }) => color};
   font-size: 1rem;
   font-weight: 700;
   text-decoration: underline;

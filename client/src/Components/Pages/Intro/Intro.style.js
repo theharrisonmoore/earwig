@@ -21,8 +21,8 @@ export const IntroWrapper = styled.div.attrs({ className: "login" })`
 export const Iframe = styled.iframe`
   width: 100%;
   height: 85vw;
-  margin-top: 15vw;
-  max-height: 35rem;
+  margin-top: 3rem;
+  max-height: 25rem;
   max-width: 45rem;
   box-shadow: ${shadows.frameShadow};
 `;
