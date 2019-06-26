@@ -61,6 +61,8 @@ const API_RESET_PASSWORD = `${API_PREFIX}${RESET_PASSWORD}`;
 const SET_PASSWORD = "/set-password";
 const API_SET_PASSWORD = `${API_PREFIX}${SET_PASSWORD}`;
 
+const ADD_HELPFUL_OVERALL_POINTS = "/review/:reviewId/overall/helpful-points";
+
 const ADMIN = "/admin";
 
 module.exports = {
@@ -107,5 +109,6 @@ module.exports = {
   SIGN_UP,
   USERS,
   RESET_PASSWORD,
-  SET_PASSWORD
+  SET_PASSWORD,
+  ADD_HELPFUL_OVERALL_POINTS
 };

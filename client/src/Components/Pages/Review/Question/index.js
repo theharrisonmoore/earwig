@@ -122,7 +122,14 @@ class QuestionOptions extends React.Component {
     this.setState({ hoverRate: value });
   };
   addOrgType = category => {
-    return category === "agency" ? "payroll" : "agency";
+    switch (category) {
+      case "agency":
+        return "payroll";
+      case "payroll":
+        return "agency";
+      default:
+        return category;
+    }
   };
 
   render() {
@@ -349,6 +356,7 @@ class QuestionOptions extends React.Component {
                                 props.setFieldValue(field, value);
                               }}
                               number={number}
+                              category={category}
                               render={renderProps => {
                                 newOptions = [...newOptions, renderProps.text];
                                 return (

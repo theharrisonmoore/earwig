@@ -1,9 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import * as Yup from "yup";
-import axios from "axios";
-import { Route, Switch, Link } from "react-router-dom";
 
-import { Modal, Spin, Icon } from "antd";
+import { Spin, Icon } from "antd";
 
 import {
   Description,
@@ -21,12 +19,7 @@ import {
   GeneralErrorMessage
 } from "../../Common/Formik/Formik.style";
 
-import {
-  LOGIN_URL,
-  RESET_PASSWORD_URL,
-  SET_PASSWORD_URL,
-  EMAIL_SENT_URL
-} from "./../../../constants/naviagationUrls";
+import { LOGIN_URL } from "./../../../constants/naviagationUrls";
 
 import Logo from "../../Common/Logo";
 

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import * as Yup from "yup";
 import axios from "axios";
 import { Route, Switch } from "react-router-dom";
 
@@ -8,21 +7,10 @@ import { Modal } from "antd";
 import {
   Banner,
   Cancel,
-  Description,
   ContentWrapper,
   Wrapper,
-  BlankDiv,
-  Button
+  BlankDiv
 } from "./ResetPassword.style";
-
-import {
-  StyledFormik as Formik,
-  StyledForm as Form,
-  StyledField,
-  StyledFormikErrorMessage as FormikErrorMessage,
-  Label,
-  GeneralErrorMessage
-} from "../../Common/Formik/Formik.style";
 
 import {
   ResetPassword as ResetPasswordContent,
@@ -69,8 +57,6 @@ export default class ResetPassword extends Component {
   };
 
   handleSubmitReset = (values, { setSubmitting }) => {
-    console.log(11111);
-
     this.setState({ loading: true }, () => {
       axios
         .post(API_RESET_PASSWORD, values)

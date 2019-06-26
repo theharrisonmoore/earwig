@@ -37,7 +37,6 @@ import Intro from "./Pages/Intro";
 import PrivateRoute from "./Common/PrivateRoute";
 import Reply from "./Pages/Profile/Reply";
 import ResetPassword from "./Pages/ResetPassword";
-import SetPassword from "./Pages/SetPassword";
 
 import {
   FAQ,

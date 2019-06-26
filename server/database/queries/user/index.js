@@ -6,6 +6,10 @@ const Review = require("./../../models/Review");
 
 const getAllUsers = require("./allUsers");
 
+module.exports.updateUserPoints = (userId, diffPoints) => User.findOneAndUpdate({ _id: userId }, {
+  $inc: { points: diffPoints },
+});
+
 module.exports.updateUserById = (userId, data) => User.findByIdAndUpdate(userId, { $set: data });
 module.exports.findByEmail = email => User.findOne({ email: email.toLowerCase() });
 
@@ -20,7 +24,8 @@ module.exports.deleteUser = id => User.deleteOne({ _id: id });
 
 module.exports.getUserById = (id, withoutPassword) => (withoutPassword
   ? User.findById(id, { password: 0 })
-  : User.findById(id));
+  : User.findById(id)
+);
 
 module.exports.deleteUserCompletely = async (userId) => {
   // delete the users' comments
