@@ -47,6 +47,7 @@ module.exports = async () => {
       verified: false,
       awaitingReview: true,
       referral: storedUsers[2],
+      verificationPhoto: "users/fake_name.png",
     },
     {
       email: "joe@gmail.com",

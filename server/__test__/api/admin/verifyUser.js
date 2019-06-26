@@ -79,7 +79,6 @@ describe("Tesing for verify user", () => {
             expect(referralUserAfter.points).toBe(20);
             expect(res).toBeDefined();
             expect(res.body).toBeDefined();
-            expect(res.body.error).toMatch("file is no longer available");
             done(err);
           });
       });
