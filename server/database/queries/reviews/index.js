@@ -3,6 +3,7 @@ const Organization = require("./../../models/Organization");
 const Answer = require("./../../models/Answer");
 const Review = require("./../../models/Review");
 const Comment = require("./../../models/Comment");
+const Question = require("./../../models/Question")
 
 const getAllReviews = require("./allReviews");
 const getOverallReplies = require("./getOverallReplies");
@@ -222,6 +223,57 @@ module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
     .then(resolve)
     .catch(err => reject(err));
 });
+
+module.exports.allQsAndAs = (orgType, orgId) => new Promise((resolve, reject) => {
+  Question.aggregate([
+    // get all the questions for that organization type
+    {
+      $match: { category: orgType }
+    },
+    {
+      $lookup: {
+        from: "answers",
+        localField: "_id",
+        foreignField: "question",
+        as: "answers"
+      }
+    },
+    {
+      $project: {
+        _id: 1,
+        category: 1,
+        type: 1,
+        profileSection: 1,
+        profileText: 1, 
+        profileType: 1, 
+        profileOrder: 1, 
+        group: 1,
+        hasComment: 1,
+        icon: 1,
+        options: 1, 
+        answers: {
+          $filter: {
+            input: "$answers",
+            as: "answer",
+            cond: { $eq: ["$$answer.organization", orgId]}
+          }
+        }
+      }
+    },
+    {
+      $sort: {
+        profileOrder: 1,
+      },
+    },
+    // group by profile sections
+    {
+      $group: {
+        _id: "$profileSection",
+        questions: { $push: "$$ROOT" },
+      },
+    },
+  ]).then(resolve).catch(err => reject(err))
+})
 
 module.exports.allComments = (organizationID, questionID) => new Promise((resolve, reject) => {
   Comment.aggregate([

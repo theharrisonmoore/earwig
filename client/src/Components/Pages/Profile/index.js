@@ -57,8 +57,9 @@ export default class Profile extends Component {
     axios
       .post("/api/profile", { organizationID })
       .then(res => {
-        const { summary, reviewDetails, level } = res.data;
+        const { summary, reviewDetails, level, newReviewDetails} = res.data;
         console.log("REV", reviewDetails)
+        console.log("NEW", newReviewDetails )
 
         this.setState({
           summary: summary[0],

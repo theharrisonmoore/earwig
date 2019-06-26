@@ -4,6 +4,7 @@ const {
   overallReview,
   basicReview,
   allAnswers,
+  allQsAndAs,
   checkOrgExists,
 } = require("./../database/queries/reviews");
 
@@ -20,6 +21,7 @@ module.exports = async (req, res, next) => {
   let summary;
   let reviewDetails;
   let level;
+  let newReviewDetails;
 
   if (user) {
     summary = await overallReview(organizationID)
@@ -27,6 +29,8 @@ module.exports = async (req, res, next) => {
 
     reviewDetails = await allAnswers(organizationID)
       .catch(err => next(boom.badImplementation(err)));
+
+    newReviewDetails = await allQsAndAs(organization.category, organizationID).catch(err => next(boom.badImplementation(err)))
 
     level = user.verified ? 2 : 1;
   } else {
@@ -49,5 +53,5 @@ module.exports = async (req, res, next) => {
 
   // checkOrgExists(organizationID).then(result => res.json(result));
 
-  return res.json({ summary, reviewDetails, level });
+  return res.json({ summary, reviewDetails, level, newReviewDetails });
 };
