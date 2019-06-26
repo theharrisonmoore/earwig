@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
   findUserByToken(token)
     .then(async (user) => {
       if (!user) {
-        const error = new Error("Your token is unvalid or has been expired, reset the password again please");
+        const error = new Error("Your token is invalid or has expired, reset the password again please");
         error.status = 401;
         throw error;
       }

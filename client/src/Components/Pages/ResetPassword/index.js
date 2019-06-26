@@ -37,7 +37,7 @@ export default class ResetPassword extends Component {
       .then(({ data }) => {
         Modal.success({
           title: "Done!",
-          content: "An email just sent to your email to reset your password",
+          content: "Instructions to reset your password have been sent to the email address provided",
           onOk: () => {
             this.props.history.push("/");
           }
