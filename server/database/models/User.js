@@ -42,6 +42,10 @@ const userSchema = new Schema(
       default: 0,
       required: true,
     },
+    referral: {
+      type: ObjectId,
+      ref: "users",
+    },
     isAdmin: {
       type: Boolean,
       default: false,
