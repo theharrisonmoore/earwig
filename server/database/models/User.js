@@ -42,6 +42,10 @@ const userSchema = new Schema(
       default: 0,
       required: true,
     },
+    helpedPoints: {
+      type: Number,
+      default: 0,
+    },
     referral: {
       type: ObjectId,
       ref: "users",

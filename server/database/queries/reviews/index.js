@@ -9,6 +9,8 @@ const getOverallReplies = require("./getOverallReplies");
 const getReviewDetails = require("./getReviewDetails");
 const updateOverallHelpfullPoints = require("./updateOverallHelpfullPoints");
 
+const { getHelpedPoints } = require("../user/index");
+
 module.exports.updateOverallHelpfullPoints = updateOverallHelpfullPoints;
 
 module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
@@ -102,6 +104,7 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
         as: "reviews.user.trade",
       },
     },
+
     {
       $project: {
         "reviews.user.email": 0,
@@ -134,8 +137,13 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
       },
     },
   ])
-    .then((result) => {
-      // console.log("RES!!!!!", result);
+    .then(async (result) => {
+      const reviewUsers = result[0].reviews.map(e => e.user);
+      await Promise.all(
+        reviewUsers.map(e => getHelpedPoints(e._id).then((points) => {
+          e.helpedPoints = points;
+        })),
+      );
       resolve(result);
     })
     .catch(err => reject(err));
