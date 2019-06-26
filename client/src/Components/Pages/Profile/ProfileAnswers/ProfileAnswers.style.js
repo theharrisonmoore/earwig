@@ -259,7 +259,7 @@ export const SliderWrapper = styled.div`
   .ant-carousel .slick-slide {
     text-align: center;
     height: 400px;
-    background: #364d79;
+    background-color: ${colors.gondola};
     overflow: hidden;
   }
 
