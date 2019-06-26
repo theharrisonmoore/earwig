@@ -55,7 +55,7 @@ export default class HeaderSection extends Component {
               <CompanyTitle>{name}</CompanyTitle>
               <StarWrapper onClick={handleScroll}>
                 {StarRateCreator(summary)}
-                <Reviews>{totalReviews} reviews</Reviews>
+                <Reviews>{totalReviews === 0 ? "No reviews yet" : `${totalReviews} reviews`}</Reviews>
               </StarWrapper>
             </CompanyNameAndStars>
           </CompanyDiv>
