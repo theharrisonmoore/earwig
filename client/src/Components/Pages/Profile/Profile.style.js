@@ -329,7 +329,7 @@ export const ActionsButton = styled(Button)`
   width: 100%;
   padding: 0.5rem 1rem;
   height: auto;
-  margin-right: ${props => (props.isMobile ? "0.5rem" : "2rem")};
+  margin-right: ${props => (props.ismobile ? "0.5rem" : "2rem")};
 
   transform: scale3d(
     ${({ scale }) => scale || 1},

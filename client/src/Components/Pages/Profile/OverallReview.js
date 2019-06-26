@@ -224,6 +224,13 @@ export default class OverallReview extends Component {
     });
   }
 
+  checkWrittenComments = reviews => {
+    
+    const writtenReviews = reviews.filter(review => review.overallReview.text.length > 0)
+
+    return writtenReviews.length > 0;
+  }
+
   render() {
     const {
       summary,
@@ -248,6 +255,8 @@ export default class OverallReview extends Component {
     return summary.reviews[0].createdAt ? (
       <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
         <SectionTitle>Overall ratings</SectionTitle>
+        {/* check if any written comments */}
+        {this.checkWrittenComments(summary.reviews) === false && <LightTitle>No written reviews yet. Be the first...</LightTitle>}
         {summary.reviews.map((review, index) => (
           <CommentDiv
             key={review._id + "comment"}

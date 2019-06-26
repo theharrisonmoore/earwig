@@ -11,7 +11,7 @@ export default class BarChartAnswer extends Component {
   createDataObj = question => {
     // create object
 
-    let optionsObj = question.question.options.reduce((acc, option) => {
+    let optionsObj = question.options.reduce((acc, option) => {
       acc[option] = 0;
       return acc;
     }, Object.create(null));
@@ -64,7 +64,7 @@ export default class BarChartAnswer extends Component {
     };
 
     const data = {
-      labels: question.question.options,
+      labels: question.options,
       datasets: [
         {
           backgroundColor: organizations[`${category}`].primary,

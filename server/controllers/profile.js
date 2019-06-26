@@ -44,14 +44,5 @@ module.exports = async (req, res, next) => {
     level = 0;
   }
 
-  // console.log("SUM", summary);
-  // console.log("REV", summary[0].reviews[0]);
-
-  // overallReview(organizationID)
-  //   .then(result => res.json({ summary: result, id: organizationID }))
-  //   .catch(err => console.error(err));
-
-  // checkOrgExists(organizationID).then(result => res.json(result));
-
   return res.json({ summary, reviewDetails, level });
 };

@@ -29,7 +29,6 @@ export default class ReviewSection extends Component {
     const yesOrNo = answers.filter(
       answer => answer.answer === "Yes" || answer.answer === "No"
     );
-
     return yesOrNo.length === 0;
   };
 
@@ -94,7 +93,8 @@ export default class ReviewSection extends Component {
               <div style={{ dispay: "inline-block" }}>
                 {["Bad", "Poor", "Average", "Great", "Excellent"].map(
                   (option, index) => (
-                    <span
+                    <span 
+                      key={index}
                       style={{
                         color: `${
                           index === Math.floor(summary.avgRatings) - 1
@@ -135,7 +135,7 @@ export default class ReviewSection extends Component {
                 "payrollList",
                 "list"
               ].includes(question.profileType) && (
-                <>
+                <div key={index}>
                   {question.profileType === "yesno" && (
                     <QuestionWrapper
                       key={index}
@@ -144,12 +144,11 @@ export default class ReviewSection extends Component {
                       <QuestionTitle>
                         {question.profileText}
                       </QuestionTitle>
-                      {question.answers.length > 0 ? <YesNoAnswer
+                      {this.onlyNeutralAnswers(question.answers) === false ? <YesNoAnswer
                         category={category}
                         question={question}
                         toggleComments={toggleComments}
                         isMobile={isMobile}
-                        hide={this.onlyNeutralAnswers(question.answers)}
                       /> : <LightTitle><p>No answers yet</p></LightTitle>}
                       
                     </QuestionWrapper>
@@ -204,7 +203,7 @@ export default class ReviewSection extends Component {
                     </QuestionWrapper>
                   )}
                   {question.profileType === "canteenItem" && (
-                    <>
+                    <div key={index}>
                       {/* CANTEEN SECTION */}
                       {canteenQuestions && (
                         <>
@@ -221,13 +220,13 @@ export default class ReviewSection extends Component {
                         
                         
                       )}
-                    </>
+                    </div>
                   )}
                   {question.profileType === "payrollList" && (
-                    <>
+                    <div key={index}>
                       {/* PAYROLL LIST */}
                       {payrollQuestions && (
-                        <QuestionWrapper>
+                        <QuestionWrapper >
                           <QuestionTitle>
                             Pays using the following payrolls
                           </QuestionTitle>
@@ -238,7 +237,7 @@ export default class ReviewSection extends Component {
                           /> : <LightTitle><p>No answers yet</p></LightTitle>}
                         </QuestionWrapper>
                       )}
-                    </>
+                    </div>
                   )}
                   {question.profileType === "list" && (
                     <QuestionWrapper key={index}>
@@ -253,7 +252,7 @@ export default class ReviewSection extends Component {
                       /> : <LightTitle><p>No answers yet</p></LightTitle>}
                     </QuestionWrapper>
                   )}
-                </>
+                </div>
               )
           )}
 
@@ -269,7 +268,7 @@ export default class ReviewSection extends Component {
                     category={category}
                     question={question}
                     organization={summary}
-                  /> : <LightTitle><p>No answers yet</p></LightTitle>}
+                  /> : <LightTitle><p>No images yet</p></LightTitle>}
                 </QuestionWrapper>
               );
             })}

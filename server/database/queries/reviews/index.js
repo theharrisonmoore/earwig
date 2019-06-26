@@ -256,7 +256,7 @@ module.exports.allQsAndAs = (orgType, orgId) => new Promise((resolve, reject) =>
           $filter: {
             input: "$answers",
             as: "answer",
-            cond: { $eq: ["$$answer.organization", orgId]}
+            cond: { $eq: ["$$answer.organization", mongoose.Types.ObjectId(orgId)]}
           }
         }
       }
