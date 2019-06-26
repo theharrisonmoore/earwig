@@ -73,24 +73,19 @@ export const Header = styled.section`
   font-weight: 400;
   padding: 1rem 2rem 0;
   padding-left: 3rem;
-  overflow: hidden;
   position: fixed;
   z-index: 100;
 
   @media (max-width: ${size.mobileL}) {
     font-size: 1rem;
-    padding-left: 3rem;
-  }
-
-  @media (max-width: ${size.tablet}) {
-    display: none;
-    text-align: center;
+    padding: 1rem;
   }
 `;
 
 export const Content = styled.div`
   display: flex;
-  justify-content: center;
+  padding: 1rem;
+  margin: 0 auto;
 `;
 
 export const ImageBox = styled.div`
@@ -106,6 +101,8 @@ export const Image = styled.img`
 export const Organization = styled.div`
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
+
   div {
     display: flex;
     align-items: center;
@@ -124,13 +121,17 @@ export const Paragraph = styled.p`
   margin-bottom: 0;
   font-size: 14px;
   font-weight: 400;
-
+  ${({ cancel }) => (cancel ? "cursor: pointer;" : "")}
+  ${({ cancel }) => (cancel ? "text-decoration: underline" : "")}
+  font-weight:${({ bold }) => (bold ? "700" : "normal")};
+  text-transform:${({ capitalized }) => (capitalized ? "capitalize" : "none")};
+  
   @media (min-width: ${size.tablet}) {
     font-size: 16px;
   }
 `;
 
-export const OrgName = styled.h2`
+export const OrgName = styled.p`
   margin-bottom: 0;
   font-weight: 900;
   font-size: 1.375rem;
