@@ -59,7 +59,6 @@ export default class Profile extends Component {
       .then(res => {
         const { summary, reviewDetails, level, newReviewDetails} = res.data;
         console.log("REV", reviewDetails)
-        console.log("NEW", newReviewDetails )
 
         this.setState({
           summary: summary[0],
@@ -85,7 +84,7 @@ export default class Profile extends Component {
       .map(item =>
         item.questions.filter(
           question =>
-            question.question.text === "How much did car parking cost per day?"
+            question.text === "How much did car parking cost per day?"
         )
       );
 

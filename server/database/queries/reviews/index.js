@@ -250,6 +250,7 @@ module.exports.allQsAndAs = (orgType, orgId) => new Promise((resolve, reject) =>
         group: 1,
         hasComment: 1,
         icon: 1,
+        text: 1,
         options: 1, 
         answers: {
           $filter: {
