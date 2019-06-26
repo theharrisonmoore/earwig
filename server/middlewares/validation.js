@@ -29,6 +29,7 @@ const schemas = {
     checkbox: Joi.boolean()
       .valid(true)
       .error(() => "You should agree Earwig terms of user"),
+    referral: Joi.string().length(24),
   },
   editProfile: {
     oldPassword: Joi.string(),

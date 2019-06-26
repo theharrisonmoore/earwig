@@ -16,7 +16,16 @@ const addToMailchimpList = require("../helpers/3dParty/mailchimp");
 const { tokenMaxAge } = require("./../constants");
 
 module.exports = (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, referral } = req.body;
+
+  const newUserData = {
+    email,
+    password,
+  };
+
+  if (referral) {
+    newUserData.referral = referral;
+  }
 
   // check if the email is already exist
   findByEmail(email)
@@ -27,7 +36,7 @@ module.exports = (req, res, next) => {
       }
 
       // create new user
-      return addNew({ email, password })
+      return addNew(newUserData)
         .then(async (user) => {
           if (process.env.NODE_ENV !== "test") {
             try {
@@ -47,6 +56,7 @@ module.exports = (req, res, next) => {
             isAdmin: user.isAdmin,
             email: user.email,
           };
+
 
           // create token for 30 day
           const token = jwt.sign({ id: user._id }, process.env.SECRET, {
