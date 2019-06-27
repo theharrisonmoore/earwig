@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { Table, Modal, message, Input, Icon, Button, Select } from "antd";
+import { message, Input, Button, Select } from "antd";
 
 // styling
 import {
@@ -30,6 +30,12 @@ export default class AddEditOrg extends Component {
     const { record } = location.state;
 
     if (purpose === "edit" && record) {
+      // remove any values that are simply N/A
+      const cleanRecord = record;
+      const dataArr = Object.entries(cleanRecord);
+      for (const [key, value] of dataArr) {
+        if (value === "N/A") delete cleanRecord[key];
+      }
       this.setState({ fields: record });
     }
   }
@@ -49,10 +55,9 @@ export default class AddEditOrg extends Component {
           .toUpperCase() + fields.name.slice(1);
       fields.name = cleanedName;
 
-      const newOrgs = fields;
-
       // DECIDE IF EDITING OR ADDING NEW
       if (purpose === "add") {
+        const newOrgs = fields;
         axios
           .post("/api/admin/organizations/add", { newOrgs })
           .then(() => {
@@ -65,7 +70,17 @@ export default class AddEditOrg extends Component {
             message.error(error || "Something went wrong");
           });
       } else if (purpose === "edit") {
-        console.log("EDIT");
+        const newOrgData = fields;
+        axios
+          .post("/api/admin/organizations/edit", { newOrgData })
+          .then(() => {
+            message.success("Organization successfully edited");
+          })
+          .catch(err => {
+            const error =
+              err.response && err.response.data && err.response.data.error;
+            message.error(error || "Something went wrong");
+          });
       }
     }
   };
@@ -112,10 +127,8 @@ export default class AddEditOrg extends Component {
     const { nameError, categoryError } = errors;
     const { name, phoneNumber, email, websiteURL } = fields;
     const { Option } = Select;
-    const { purpose, location } = this.props;
-    const { record } = location.state;
+    const { purpose } = this.props;
 
-    console.log("REC", record);
     return (
       <AddOrgWrapper>
         <AddHeader>
@@ -189,7 +202,7 @@ export default class AddEditOrg extends Component {
               Cancel changes
             </Button>
             <Button onClick={this.handleSubmit} type="primary">
-              Add Organization
+              {purpose === "add" ? "Add Organization" : "Save changes"}
             </Button>
           </AddHeader>
 
