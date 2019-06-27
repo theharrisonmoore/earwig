@@ -13,6 +13,7 @@ export const YesNoWrapper = styled.div`
   width: 100%;
   display: flex;
   height: ${props => (props.large ? "4rem" : "2rem")};
+  font-weight: 500;
 `;
 
 export const YesHalf = styled.div`
