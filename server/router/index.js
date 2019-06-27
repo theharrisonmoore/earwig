@@ -48,6 +48,8 @@ const addCommentOnReview = require("../controllers/addCommentOnReview");
 const updateLastViewedOrg = require("../controllers/updateLastViewedOrg");
 
 const deleteOrgController = require("../controllers/deleteOrganization");
+const resetPassword = require("../controllers/resetPassword");
+const setPassword = require("../controllers/setPassword");
 const updateOverallHelpfulPoints = require("../controllers/updateOverallHelpfulPoints");
 
 
@@ -70,6 +72,8 @@ const {
   UPLOAD_VERIFICATION_IMAGE_URL,
   TRADE_URL,
   USERS,
+  RESET_PASSWORD,
+  SET_PASSWORD,
   ADD_HELPFUL_OVERALL_POINTS,
 } = require("../../client/src/apiUrls");
 
@@ -214,6 +218,8 @@ router.post("/give-feedback", authentication, feedbackController);
 
 router.post("/update-last-viewed", updateLastViewedOrg);
 
+router.post(RESET_PASSWORD, resetPassword);
+router.post(SET_PASSWORD, setPassword);
 
 router.patch(ADD_HELPFUL_OVERALL_POINTS, authentication, updateOverallHelpfulPoints);
 

@@ -12,7 +12,8 @@ import {
   DELETE_PROFILE_URL,
   COMMUNITY_GUIDELINES_URL,
   TERMS_OF_USE_URL,
-  COOKIES_POLICY_URL
+  COOKIES_POLICY_URL,
+  RESET_PASSWORD_URL
 } from "./../constants/naviagationUrls";
 
 import Landing from "./Pages/Landing";
@@ -34,6 +35,7 @@ import AddProfileStartReview from "./Pages/Search/AddProfileReviewStart";
 import Intro from "./Pages/Intro";
 import PrivateRoute from "./Common/PrivateRoute";
 import Reply from "./Pages/Profile/Reply";
+import ResetPassword from "./Pages/ResetPassword";
 
 import {
   FAQ,
@@ -83,7 +85,6 @@ export default function index(props) {
           {...props}
           Component={Thankyou}
           navbar
-          search={!isMobile}
         />
         <PrivateRoute
           exact
@@ -102,7 +103,6 @@ export default function index(props) {
           {...props}
           Component={Profile}
           navbar
-          search={!isMobile}
         />
         <PrivateRoute
           minimumLevel="ADMIN"
@@ -120,7 +120,7 @@ export default function index(props) {
           isTablet={isTablet}
           Component={Search}
           navbar
-          title="Search"
+          title="Read reviews & ratings"
         />
 
         <PrivateRoute
@@ -190,7 +190,6 @@ export default function index(props) {
           Component={FAQ}
           navbar
           title="FAQ & explainer videos"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -202,7 +201,6 @@ export default function index(props) {
           Component={HelpfulStuff}
           navbar
           title="Helpful stuff"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -214,7 +212,6 @@ export default function index(props) {
           Component={ShapeEarwig}
           navbar
           title="Shape earwig"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -226,7 +223,6 @@ export default function index(props) {
           Component={PrivacyAndTerms}
           navbar
           title="Privacy & terms"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -238,7 +234,6 @@ export default function index(props) {
           Component={PrivacyPolicy}
           navbar
           title="Privacy Policy"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -250,7 +245,6 @@ export default function index(props) {
           Component={CommunityGuidlines}
           navbar
           title="Community Guidlines"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -262,7 +256,6 @@ export default function index(props) {
           Component={TermsOfUse}
           navbar
           title="Terms Of Use"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -274,7 +267,6 @@ export default function index(props) {
           Component={CookiesPolicy}
           navbar
           title="Privacy Policy"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -286,7 +278,6 @@ export default function index(props) {
           Component={ReportContent}
           navbar
           title="Report this content"
-          search={!isMobile}
         />
         <PrivateRoute
           minimumLevel="LEVEL1"
@@ -324,7 +315,7 @@ export default function index(props) {
 
         <Route
           exact
-          path={SIGNUP_URL}
+          path={`${SIGNUP_URL}/:referral?`}
           render={linkProps =>
             !isLoggedIn ? (
               <Signup
@@ -344,6 +335,21 @@ export default function index(props) {
           render={linkProps =>
             !isLoggedIn ? (
               <Login
+                {...props}
+                {...linkProps}
+                handleChangeState={handleChangeState}
+              />
+            ) : (
+              <Redirect to={isAdmin ? ADMIN : SEARCH_URL} />
+            )
+          }
+        />
+
+        <Route
+          path={RESET_PASSWORD_URL}
+          render={linkProps =>
+            !isLoggedIn ? (
+              <ResetPassword
                 {...props}
                 {...linkProps}
                 handleChangeState={handleChangeState}

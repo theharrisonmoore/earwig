@@ -4,6 +4,7 @@ const {
   overallReview,
   basicReview,
   allAnswers,
+  allQsAndAs,
   checkOrgExists,
   checkUsersLatestReview,
 } = require("./../database/queries/reviews");
@@ -22,6 +23,7 @@ module.exports = async (req, res, next) => {
   let reviewDetails;
   let level;
   let reviewsLast30Days = [];
+  // let newReviewDetails;
 
   if (user) {
     summary = await overallReview(organizationID).catch(err => next(boom.badImplementation(err)));
@@ -34,6 +36,10 @@ module.exports = async (req, res, next) => {
     }
 
     reviewDetails = await allAnswers(organizationID).catch(err => next(boom.badImplementation(err)));
+    // reviewDetails = await allAnswers(organizationID)
+    //   .catch(err => next(boom.badImplementation(err)));
+
+    reviewDetails = await allQsAndAs(organization.category, organizationID).catch(err => next(boom.badImplementation(err)));
 
     level = user.verified ? 2 : 1;
   } else {

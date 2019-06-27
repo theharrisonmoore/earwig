@@ -12,8 +12,8 @@ export const Wrapper = styled.div`
   padding: 1rem;
   flex-direction: column;
   top: 0;
-  right: 0rem;
-  width: ${props => (props.isMobile ? `100%` : "25%")};
+  left: 0;
+  width: ${props => (props.isMobile ? `100%` : "33%")};
   padding-top: 4rem;
   z-index: 3;
   box-shadow: ${shadows.buttonShadow};

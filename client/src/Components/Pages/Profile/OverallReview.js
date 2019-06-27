@@ -25,6 +25,7 @@ import {
   ActionsDiv,
   ButtonsWrapper,
   ActionsButton,
+  ReplyButton,
   VerifyPromo,
   VerifyLink,
   UserTrade,
@@ -226,6 +227,14 @@ export default class OverallReview extends Component {
     });
   }
 
+  checkWrittenComments = reviews => {
+    const writtenReviews = reviews.filter(
+      review => review.overallReview.text.length > 0
+    );
+
+    return writtenReviews.length > 0;
+  };
+
   render() {
     const {
       summary,
@@ -250,6 +259,10 @@ export default class OverallReview extends Component {
     return summary.reviews[0].createdAt ? (
       <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
         <SectionTitle>Overall ratings</SectionTitle>
+        {/* check if any written comments */}
+        {this.checkWrittenComments(summary.reviews) === false && (
+          <LightTitle>No written reviews yet. Be the first...</LightTitle>
+        )}
         {summary.reviews.map((review, index) => (
           <CommentDiv
             key={review._id + "comment"}
@@ -290,6 +303,7 @@ export default class OverallReview extends Component {
                       ? organizations[category].secondary
                       : "#424242"
                   }
+                  isMobile={isMobile}
                 >
                   <HelpfulBubble
                     number={
@@ -314,6 +328,12 @@ export default class OverallReview extends Component {
                     onMouseLeave={isAuthorized && this.notPressingDown}
                     onTouchEnd={isAuthorized && this.notPressingDown}
                     scale={1}
+                    disabled={!verified}
+                    isMobile={isMobile}
+                    //   this.state.counters[review._id]
+                    //     ? this.state.counters[review._id].scaleValue
+                    //     : 1
+                    // }
                   >
                     This is helpful
                   </ActionsButton>
@@ -328,9 +348,9 @@ export default class OverallReview extends Component {
                     }
                   }}
                 >
-                  <ActionsButton
+                  <ReplyButton
                     type="primary"
-                    bgcolor={
+                    color={
                       verified
                         ? organizations[category].primary
                         : organizations[category].secondary
@@ -338,7 +358,7 @@ export default class OverallReview extends Component {
                     disabled={!verified}
                   >
                     Reply
-                  </ActionsButton>
+                  </ReplyButton>
                 </Link>
               </ButtonsWrapper>
               <Link
@@ -393,7 +413,8 @@ export default class OverallReview extends Component {
                     <span
                       style={{
                         fontWeight: 700,
-                        color: organizations[category].primary
+                        color: organizations[category].primary,
+                        marginBottom: "1rem"
                       }}
                     >
                       {activeReview && activeOverallId === review._id

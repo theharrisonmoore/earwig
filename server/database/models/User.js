@@ -55,23 +55,26 @@ const userSchema = new Schema(
       default: false,
     },
     city: String,
+    resetToken: {
+      value: String,
+      expiresIn: Date,
+    },
   },
   { timestamps: true },
 );
 
-function hashPassword(next) {
-  // get the plain password that user input
-  const plainPassword = this.password;
-  // only hash the password if it has been modified (or is new)
-  if (!this.isModified("password")) return next();
-  return bcrypt
-    .hash(plainPassword, 8)
-    .then((hash) => {
-      // store the hashed password
-      this.password = hash;
-      next();
-    })
-    .catch(next);
+async function hashPassword() {
+  if (this.isNew || this.isModified("password")) {
+    const document = this;
+    try {
+      const hashedPassword = await bcrypt.hash(document.password, 8);
+      document.password = hashedPassword;
+    } catch (err) {
+      throw new Error("Something bad happend");
+    }
+  } else {
+    throw new Error("Invalid data");
+  }
 }
 
 // create a pre hook to hash user's password before store it in the DB

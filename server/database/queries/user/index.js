@@ -13,12 +13,15 @@ module.exports.updateUserPoints = (userId, diffPoints) => User.findOneAndUpdate(
   },
 );
 
+module.exports.checkValidReferral = id => User.findOne({ _id: id, verified: true }, { password: 0 });
+
 module.exports.updateUserById = (userId, data) => User.findByIdAndUpdate(userId, { $set: data });
 module.exports.findByEmail = email => User.findOne({ email: email.toLowerCase() });
 
-module.exports.addNew = ({ email, password }) => User.create({
+module.exports.addNew = ({ email, password, referral }) => User.create({
   email: email.toLowerCase(),
   password,
+  referral,
 });
 
 module.exports.getAllUsers = getAllUsers;
@@ -71,4 +74,9 @@ module.exports.latestReviews = userId => new Promise((resolve, reject) => {
   ])
     .then(resolve)
     .catch(err => reject(err));
+});
+
+module.exports.findUserByToken = token => User.findOne({
+  "resetToken.value": token,
+  "resetToken.expiresIn": { $gt: Date.now() },
 });
