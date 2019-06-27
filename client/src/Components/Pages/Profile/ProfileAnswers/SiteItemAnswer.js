@@ -35,32 +35,32 @@ export default class SiteItemAnswer extends Component {
     return (
       <ListWrapper>
         <SiteItem itemAvailable={averageResponse}>
-          {question.question.profileText ===
+          {question.profileText ===
           "Car parking within 10 mins walk of site" ? (
             <SiteAnswer itemAvailable={averageResponse}>
               <Icon
-                icon={question.question.icon}
+                icon={question.icon}
                 margin="0 1rem 0 0"
                 height={isMobile ? "50" : "2rem"}
                 width={isMobile ? "50" : "2rem"}
               />
               {averageResponse ? (
                 <p>
-                  {question.question.profileText} (£{carParkingPrice()}){" "}
+                  {question.profileText} (£{carParkingPrice()}){" "}
                 </p>
               ) : (
-                <p>{question.question.profileText}</p>
+                <p>{question.profileText}</p>
               )}
             </SiteAnswer>
           ) : (
             <SiteAnswer itemAvailable={averageResponse}>
               <Icon
-                icon={question.question.icon}
+                icon={question.icon}
                 margin="0 1rem 0 0"
                 height={isMobile ? "50" : "2rem"}
                 width={isMobile ? "50" : "2rem"}
               />
-              <p>{question.question.profileText}</p>
+              <p>{question.profileText}</p>
             </SiteAnswer>
           )}
           <RightCommentWrapper>

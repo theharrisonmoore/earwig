@@ -12,28 +12,43 @@ import {
 export const YesNoWrapper = styled.div`
   width: 100%;
   display: flex;
-  height: 2rem;
+  height: ${props => (props.large ? "4rem" : "2rem")};
+  font-weight: 500;
 `;
 
 export const YesHalf = styled.div`
-  width: ${props => props.width};
-  border: 1px ${colors.green} solid;
+  width: ${props => `${props.width}%`};
+  background-color: ${props => (props.width === 0 ? colors.red : colors.green)};
   border-right: none;
-  color: ${colors.green};
-  padding: 0 0.5rem;
+  color: ${colors.white};
+  padding: 0;
+  padding-left: 0.5rem;
   display: flex;
   align-items: center;
+  font-size: 15px;
+
+  p {
+    margin: 0;
+    position: absolute;
+  }
 `;
 
 export const NoHalf = styled.div`
-  width: ${props => props.width};
-  border: 1px ${colors.red} solid;
+  width: ${props => `${props.width}%`};
+  background-color: ${props => (props.width === 0 ? colors.green : colors.red)};
   border-left: none;
-  color: ${colors.red};
-  padding: 0 0.5rem;
+  color: ${colors.white};
+  padding: 0;
+  padding-right: 0.5rem;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  font-size: 15px;
+
+  p {
+    margin: 0;
+    position: absolute;
+  }
 `;
 
 export const Comment = styled.button`

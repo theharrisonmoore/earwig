@@ -40,6 +40,17 @@ export default class Profile extends Component {
     activeOverallId: ""
   };
 
+  myDivToFocus = React.createRef();
+
+  handleScroll = event => {
+    if (this.myDivToFocus.current) {
+      this.myDivToFocus.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  };
+
   fetchData = () => {
     const organizationID = window.location.href.split("/")[4];
 
@@ -72,7 +83,7 @@ export default class Profile extends Component {
       .map(item =>
         item.questions.filter(
           question =>
-            question.question.text === "How much did car parking cost per day?"
+            question.text === "How much did car parking cost per day?"
         )
       );
 
@@ -212,6 +223,7 @@ export default class Profile extends Component {
           isMobile={isMobile}
           summary={summary}
           level={level}
+          handleScroll={this.handleScroll}
         />
         {/* BASIC VIEW FOR LOGGED OUT USERS */}
         {level < 1 && (
@@ -369,6 +381,8 @@ export default class Profile extends Component {
           )}
         </ReviewDiv>
         {/* OVERALL RATINGS SECTION */}
+        {/* HIDDEN DIV TO SCROLL SECTION INTO VIEW */}
+        <div ref={this.myDivToFocus} />
         <OverallReview
           summary={summary}
           isTablet={isTablet}
