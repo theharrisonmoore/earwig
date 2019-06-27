@@ -324,7 +324,7 @@ export default function index(props) {
 
         <Route
           exact
-          path={SIGNUP_URL}
+          path={`${SIGNUP_URL}/:referral?`}
           render={linkProps =>
             !isLoggedIn ? (
               <Signup
