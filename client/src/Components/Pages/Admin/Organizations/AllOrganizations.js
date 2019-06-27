@@ -1,14 +1,30 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { Table, Modal, message, Input, Icon, Button } from "antd";
+import { Table, Modal, message, Input, Icon, Button, Select } from "antd";
 
 import OrganizationsColumns from "./OrganizationsColumns";
+
+// styling
+import {
+  AddOrgTitle,
+  AddHeader,
+  AddOrgWrapper,
+  AddOrgForm,
+  InputLabel,
+  InputDiv,
+  ErrorMsg
+} from "./Organizations.style";
 
 export default class AllOrganizations extends Component {
   state = {
     data: [],
-    searchText: ""
+    searchText: "",
+    addingOrg: false,
+    newOrgs: [],
+    fields: {},
+    msg: null,
+    errors: {}
   };
 
   getColumnSearchProps = dataIndex => ({
@@ -119,6 +135,80 @@ export default class AllOrganizations extends Component {
     });
   };
 
+  handleSubmit = e => {
+    const { fields } = this.state;
+    e.preventDefault();
+    const isValid = this.handleValidation();
+
+    if (isValid) {
+      // tidy organisation name
+      const cleanedName =
+        fields.name
+          .toLowerCase()
+          .charAt(0)
+          .toUpperCase() + fields.name.slice(1);
+      fields.name = cleanedName;
+
+      const newOrgs = fields;
+
+      axios
+        .post("/api/admin/organizations/add", { newOrgs })
+        .then(() => {
+          this.fetchData();
+          this.setState({ fields: {} });
+          message.success("Organization successfully added");
+        })
+        .catch(err => {
+          const error =
+            err.response && err.response.data && err.response.data.error;
+          message.error(error || "Something went wrong");
+        });
+    }
+
+  };
+
+  handleInput = e => {
+    const { fields } = this.state;
+    fields[e.target.name] = e.target.value;
+    this.setState({
+      fields
+    });
+  };
+
+  handleSelect = (name, value) => {
+    const { fields } = this.state;
+    fields[name] = value;
+    this.setState({
+      fields
+    });
+  };
+
+  handleValidation = () => {
+    const { fields } = this.state;
+    const errors = {};
+    let formIsValid = true;
+
+    if (!fields.name) {
+      formIsValid = false;
+      errors.nameError = "* Organization name is required";
+    }
+
+    if (!fields.category) {
+      formIsValid = false;
+      errors.categoryError = "* Category is required";
+    }
+
+    this.setState({
+      errors
+    });
+    return formIsValid;
+  };
+
+  toggleAddOrgForm = () => {
+    const { addingOrg } = this.state;
+    this.setState({ addingOrg: !addingOrg, newOrgs: [] });
+  };
+
   fetchData = () => {
     const { category } = this.props;
     axios
@@ -136,8 +226,91 @@ export default class AllOrganizations extends Component {
 
   render() {
     const { category } = this.props;
+    const { addingOrg, fields, errors, msg } = this.state;
+    const { nameError, categoryError } = errors;
+    const { name, phoneNumber, email, websiteURL } = fields;
+    const { Option } = Select;
+
     return (
       <div>
+        <AddOrgWrapper>
+          <AddHeader>
+            <Button
+              onClick={this.toggleAddOrgForm}
+              type={addingOrg ? "danger" : "primary"}
+            >
+              {addingOrg ? "Cancel changes" : "Add organization"}
+            </Button>
+          </AddHeader>
+          {addingOrg && (
+            <AddOrgForm>
+              <InputDiv>
+                <InputLabel>Name:*</InputLabel>
+                <Input
+                  placeholder="Name"
+                  style={{ width: "70%" }}
+                  name="name"
+                  value={name}
+                  onChange={this.handleInput}
+                />
+              </InputDiv>
+              {nameError && <ErrorMsg>{nameError}</ErrorMsg>}
+              <InputDiv>
+                <InputLabel>Category:*</InputLabel>
+                <Select
+                  placeholder="Category"
+                  style={{ width: "70%" }}
+                  value={fields.category}
+                  onChange={value => this.handleSelect("category", value)}
+                >
+                  <Option value="agency">Agency</Option>
+                  <Option value="company">Company</Option>
+                  <Option value="worksite">Worksite</Option>
+                  <Option value="payroll">Payroll</Option>
+                </Select>
+              </InputDiv>
+              {categoryError && <ErrorMsg>{categoryError}</ErrorMsg>}
+              <InputDiv>
+                <InputLabel>Phone:</InputLabel>
+                <Input
+                  placeholder="Phone Number"
+                  style={{ width: "70%" }}
+                  name="phoneNumber"
+                  value={phoneNumber}
+                  onChange={this.handleInput}
+                />
+              </InputDiv>
+              <InputDiv>
+                <InputLabel>E-mail:</InputLabel>
+                <Input
+                  placeholder="E-mail"
+                  style={{ width: "70%" }}
+                  name="email"
+                  value={email}
+                  onChange={this.handleInput}
+                />
+              </InputDiv>
+              <InputDiv>
+                <InputLabel>Website:</InputLabel>
+                <Input
+                  placeholder="Enter full Url (incl. https:// )"
+                  style={{ width: "70%" }}
+                  name="websiteURL"
+                  value={websiteURL}
+                  onChange={this.handleInput}
+                />
+              </InputDiv>
+              <Button
+                onClick={this.handleSubmit}
+                type="primary"
+                style={{ marginTop: "1rem" }}
+              >
+                Add Organization
+              </Button>
+              <ErrorMsg>{msg}</ErrorMsg>
+            </AddOrgForm>
+          )}
+        </AddOrgWrapper>
         <Table
           rowClassName={(record, index) => {
             if (!record.active) {
