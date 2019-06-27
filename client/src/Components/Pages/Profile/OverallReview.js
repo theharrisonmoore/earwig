@@ -30,7 +30,6 @@ import {
   UserTrade,
   UserDiv,
   UserAdditionalDetails,
-
   HelpfulButtonWrapper
 } from "./Profile.style";
 
@@ -261,7 +260,9 @@ export default class OverallReview extends Component {
               <UserTrade>{review.user && review.user.trade[0].title}</UserTrade>
             </UserDiv>
             <UserAdditionalDetails>
-              <p>Helped 22 · Points {review.user.points}</p>
+              <p>
+                Helped {review.user.helpedPoints} · Points {review.user.points}
+              </p>
             </UserAdditionalDetails>
             <BubbleAndDate>
               <CommentBubble color={organizations[category].secondary}>
@@ -415,7 +416,10 @@ export default class OverallReview extends Component {
                       </UserTrade>
                     </UserDiv>
                     <UserAdditionalDetails>
-                      <p>Helped 22 · Points {reply.replies.user.points}</p>
+                      <p>
+                        Helped {reply.replies.user.helpedPoints} · Points{" "}
+                        {reply.replies.user.points}
+                      </p>
                     </UserAdditionalDetails>
                     <div style={{ position: "relative", marginBottom: "2rem" }}>
                       <BubbleAndDate>

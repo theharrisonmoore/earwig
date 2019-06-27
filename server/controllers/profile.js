@@ -22,16 +22,9 @@ module.exports = async (req, res, next) => {
   let reviewDetails;
   let level;
   let reviewsLast30Days = [];
-  let helpedPoints;
 
   if (user) {
     summary = await overallReview(organizationID).catch(err => next(boom.badImplementation(err)));
-    console.log(summary[0].reviews.map(e => e.user));
-    // const reviewUsers = summary.map(e => e.reviews[0].user);
-    // const reviewUserIDs = await Promise.all(reviewUsers.map(e => getHelpedPoints(e._id)));
-    // .catch(err => next(boom.badImplementation(err)));
-
-    // helpedPoints = await getHelpedPoints("5d1372fb6f4a8726cd637b31").catch(err => next(boom.badImplementation(err)));
 
     // check if user has already given reviews less old than 4 weeks
     const userReviews = await checkUsersLatestReview(organizationID, user._id);
@@ -53,19 +46,10 @@ module.exports = async (req, res, next) => {
     level = 0;
   }
 
-  // console.log("REV", summary[0].reviews[0]);
-
-  // overallReview(organizationID)
-  //   .then(result => res.json({ summary: result, id: organizationID }))
-  //   .catch(err => console.error(err));
-
-  // checkOrgExists(organizationID).then(result => res.json(result));
-
   return res.json({
     summary,
     reviewDetails,
     level,
     reviewsLast30Days,
-    helpedPoints,
   });
 };

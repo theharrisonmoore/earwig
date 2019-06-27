@@ -1,4 +1,5 @@
 const Review = require("../../models/Review");
+const User = require("../../models/User");
 
 module.exports = ({ userId, reviewId, points }) => new Promise(async (resolve, reject) => {
   try {
@@ -30,7 +31,7 @@ module.exports = ({ userId, reviewId, points }) => new Promise(async (resolve, r
       );
 
       // if no document updated that means that the user is making new vote
-      // then we need to add new vote into the votes array
+      // then we need to add new vote into the votes array and give the review author 1 helped point
       if (updateResult.nModified === 0) {
         await Review.updateOne(
           { _id: reviewId },
@@ -41,6 +42,16 @@ module.exports = ({ userId, reviewId, points }) => new Promise(async (resolve, r
                 points,
               },
             },
+          },
+        );
+
+        // give review author 1 helped point
+        const reviewDetails = await Review.findOne({ _id: reviewId });
+
+        await User.findOneAndUpdate(
+          { _id: reviewDetails.user._id },
+          {
+            $inc: { helpedPoints: 1 },
           },
         );
       }

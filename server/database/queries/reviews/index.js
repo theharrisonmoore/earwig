@@ -137,15 +137,7 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
       },
     },
   ])
-    .then(async (result) => {
-      const reviewUsers = result[0].reviews.map(e => e.user);
-      await Promise.all(
-        reviewUsers.map(e => getHelpedPoints(e._id).then((points) => {
-          e.helpedPoints = points;
-        })),
-      );
-      resolve(result);
-    })
+    .then(result => resolve(result))
     .catch(err => reject(err));
 });
 
