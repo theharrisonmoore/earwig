@@ -37,7 +37,8 @@ export default class Profile extends Component {
     level: 0,
     organizationID: "",
     overallReplies: [],
-    activeOverallId: ""
+    activeOverallId: "",
+    contractorAnswers: []
   };
 
   myDivToFocus = React.createRef();
@@ -59,12 +60,28 @@ export default class Profile extends Component {
       .then(res => {
         const { summary, reviewDetails, level } = res.data;
 
+        let contractorAnswers = [];
+        if (summary[0].category === "worksite" && reviewDetails.length) {
+          const [worksiteQuestionsGroup] = reviewDetails.filter(
+            group => group._id === "Working on the site"
+          );
+          const [contractorQuestion] = worksiteQuestionsGroup.questions.filter(
+            question => question.text === "Who is the main contractor on site?"
+          );
+          const orderedAnswers = contractorQuestion.answers.sort(
+            (a, b) =>
+              moment(a.updatedAt).valueOf() - moment(b.updatedAt).valueOf()
+          );
+          contractorAnswers = orderedAnswers.map(item => item.answer);
+        }
+
         this.setState({
           summary: summary[0],
           reviewDetails,
           level,
           loaded: true,
-          organizationID
+          organizationID,
+          contractorAnswers
         });
       })
       .catch(err => {
@@ -82,8 +99,7 @@ export default class Profile extends Component {
       .filter(section => section._id === null)
       .map(item =>
         item.questions.filter(
-          question =>
-            question.text === "How much did car parking cost per day?"
+          question => question.text === "How much did car parking cost per day?"
         )
       );
 
@@ -202,7 +218,8 @@ export default class Profile extends Component {
       commentsQuestion,
       comments,
       commentsLoaded,
-      level
+      level,
+      contractorAnswers
     } = this.state;
 
     const { isTablet, isMobile, verified, isAdmin, id } = this.props;
@@ -224,6 +241,7 @@ export default class Profile extends Component {
           summary={summary}
           level={level}
           handleScroll={this.handleScroll}
+          contractorAnswers={contractorAnswers}
         />
         {/* BASIC VIEW FOR LOGGED OUT USERS */}
         {level < 1 && (

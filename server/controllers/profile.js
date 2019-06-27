@@ -30,7 +30,7 @@ module.exports = async (req, res, next) => {
     // reviewDetails = await allAnswers(organizationID)
     //   .catch(err => next(boom.badImplementation(err)));
 
-    reviewDetails = await allQsAndAs(organization.category, organizationID).catch(err => next(boom.badImplementation(err)))
+    reviewDetails = await allQsAndAs(organization.category, organizationID).catch(err => next(boom.badImplementation(err)));
 
     level = user.verified ? 2 : 1;
   } else {
@@ -38,8 +38,12 @@ module.exports = async (req, res, next) => {
       .catch(err => next(boom.badImplementation(err)));
 
     if (summary[0].reviews.length === 0) summary[0].reviews = [{}];
-
-    reviewDetails = [];
+    if (organization.category === "worksite") {
+      const justContractor = true;
+      reviewDetails = await allQsAndAs(organization.category, organizationID, justContractor).catch(err => next(boom.badImplementation(err)));
+    } else {
+      reviewDetails = [];
+    }
 
     level = 0;
   }
