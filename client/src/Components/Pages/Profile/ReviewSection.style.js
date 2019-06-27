@@ -40,3 +40,15 @@ export const StarWrapper = styled(QuestionTitle)`
 export const CategoryTitle = styled.span`
   text-transform: capitalize;
 `;
+
+
+export const LightTitle = styled.div`
+  opacity: 0.5;
+  font-weight: 500;
+  font-size: 1rem;
+  color: ${colors.profileFontColor};
+
+  p {
+    margin-bottom: 0;
+  }
+`;
