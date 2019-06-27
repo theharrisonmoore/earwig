@@ -16,6 +16,7 @@ const getOrganizations = require("./../controllers/admin/getOrganizations");
 const activateOrganization = require("./../controllers/admin/activateOrganization");
 const getImageLink = require("./../controllers/admin/getImageLink");
 const addOrganizations = require("./../controllers/admin/addOrganizations");
+const editOrganization = require("./../controllers/admin/editOrganization");
 
 const {
   getAllTrades,
@@ -67,6 +68,8 @@ router.post("/trades/add", addTradeController);
 router.post("/trades/edit", editTradeController);
 
 router.post("/organizations/add", addOrganizations);
+
+router.post("/organizations/edit", editOrganization);
 
 // get image url
 router.get("/images/:name", getImageLink);
