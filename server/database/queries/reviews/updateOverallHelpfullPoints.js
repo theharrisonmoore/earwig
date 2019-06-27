@@ -6,12 +6,19 @@ module.exports = ({ userId, reviewId, points }) => new Promise(async (resolve, r
     if (points === 0) {
       const review = await Review.findById(reviewId);
 
+      // remove helped point
+      await User.findOneAndUpdate(
+        { _id: review.user._id },
+        {
+          $inc: { helpedPoints: -1 },
+        },
+      );
+
       review.overallReview.votes.forEach((vote, index) => {
         if (vote.user.toString() === userId.toString()) {
           review.overallReview.votes[index].remove();
         }
       });
-
       await review.save();
     } else {
       const updateResult = await Review.updateOne(

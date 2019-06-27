@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { colors, organizations } from "../../../theme";
 
 export const PopoverLink = styled.p`
-  margin: 0;
+  margin-top: 10px;
   font-weight: 900;
   font-size: 18px;
   text-decoration: underline;
@@ -18,6 +18,7 @@ export const PopoverDiv = styled.div`
   justify-content: center;
   align-items: center;
   width: 250px;
+
   margin-top: 10px;
 `;
 

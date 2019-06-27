@@ -257,7 +257,12 @@ export default class OverallReview extends Component {
           >
             <UserDiv>
               <UserID>{review.user && review.user.userId}</UserID>
-              <UserTrade>{review.user && review.user.trade[0].title}</UserTrade>
+              <UserTrade>
+                {review.user &&
+                  review.user.trade &&
+                  review.user.trade.length > 0 &&
+                  review.user.trade[0].title}
+              </UserTrade>
             </UserDiv>
             <UserAdditionalDetails>
               <p>
@@ -309,10 +314,6 @@ export default class OverallReview extends Component {
                     onMouseLeave={isAuthorized && this.notPressingDown}
                     onTouchEnd={isAuthorized && this.notPressingDown}
                     scale={1}
-                    //   this.state.counters[review._id]
-                    //     ? this.state.counters[review._id].scaleValue
-                    //     : 1
-                    // }
                   >
                     This is helpful
                   </ActionsButton>
@@ -403,64 +404,69 @@ export default class OverallReview extends Component {
                 }
                 key={review._id}
               >
-                {overallReplies.map(reply => (
-                  <div key={reply.replies._id}>
-                    <UserDiv>
-                      <UserID>
-                        {" "}
-                        {reply.replies.displayName || reply.replies.user.userId}
-                      </UserID>
-                      <UserTrade>
-                        {reply.replies.user.trade[0] &&
-                          reply.replies.user.trade[0].title}
-                      </UserTrade>
-                    </UserDiv>
-                    <UserAdditionalDetails>
-                      <p>
-                        Helped {reply.replies.user.helpedPoints} · Points{" "}
-                        {reply.replies.user.points}
-                      </p>
-                    </UserAdditionalDetails>
-                    <div style={{ position: "relative", marginBottom: "2rem" }}>
-                      <BubbleAndDate>
-                        <CommentBubble
-                          style={{ maxWidth: "100%" }}
-                          color={organizations[category].secondary}
-                        >
-                          {reply.replies.text}
-                        </CommentBubble>
-                        <CommentDate>
-                          {reply.replies.createdAt &&
-                            moment().diff(reply.replies.createdAt, "weeks") +
-                              "w"}
-                        </CommentDate>
-                      </BubbleAndDate>
-                      <Link
-                        style={{
-                          right: 0,
-                          width: "10%",
-                          position: "absolute",
-                          top: "50%",
-                          transform: "translateY(-50%)"
-                        }}
-                        to={{
-                          pathname: REPORT_CONTENT_URL,
-                          state: {
-                            review: {
-                              overallReview: review.overallReview,
-                              user: review.user
-                            },
-                            organization: summary,
-                            reply: reply.replies,
-                            target: "overallReply"
-                          }
-                        }}
+                {overallReplies.map(reply => {
+                  return (
+                    <div key={reply.replies._id}>
+                      <UserDiv>
+                        <UserID>
+                          {" "}
+                          {reply.replies.displayName ||
+                            reply.replies.user.userId}
+                        </UserID>
+                        <UserTrade>
+                          {reply.replies.user.trade[0] &&
+                            reply.replies.user.trade[0].title}
+                        </UserTrade>
+                      </UserDiv>
+                      <UserAdditionalDetails>
+                        <p>
+                          Helped {reply.replies.user.helpedPoints} · Points{" "}
+                          {reply.replies.user.points}
+                        </p>
+                      </UserAdditionalDetails>
+                      <div
+                        style={{ position: "relative", marginBottom: "2rem" }}
                       >
-                        <StyledAntIcon type="flag" />
-                      </Link>
+                        <BubbleAndDate>
+                          <CommentBubble
+                            style={{ maxWidth: "100%" }}
+                            color={organizations[category].secondary}
+                          >
+                            {reply.replies.text}
+                          </CommentBubble>
+                          <CommentDate>
+                            {reply.replies.createdAt &&
+                              moment().diff(reply.replies.createdAt, "weeks") +
+                                "w"}
+                          </CommentDate>
+                        </BubbleAndDate>
+                        <Link
+                          style={{
+                            right: 0,
+                            width: "10%",
+                            position: "absolute",
+                            top: "50%",
+                            transform: "translateY(-50%)"
+                          }}
+                          to={{
+                            pathname: REPORT_CONTENT_URL,
+                            state: {
+                              review: {
+                                overallReview: review.overallReview,
+                                user: review.user
+                              },
+                              organization: summary,
+                              reply: reply.replies,
+                              target: "overallReply"
+                            }
+                          }}
+                        >
+                          <StyledAntIcon type="flag" />
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </Panel>
             </Collapse>
           </CommentDiv>

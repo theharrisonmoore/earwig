@@ -136,6 +136,7 @@ export default class HeaderSection extends Component {
               isTablet={isTablet}
               isMobile={isMobile}
               reviewNotAllowed={reviewNotAllowed}
+              reviewsLast30Days={reviewsLast30Days}
               state={{ name, category }}
             />
           </GiveReviewDiv>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import moment from "moment";
 import {
   ReviewButtonsDiv,
   ReviewType,
@@ -23,14 +23,9 @@ export default class GiveReview extends Component {
       isMobile,
       isTablet,
       state,
-      reviewNotAllowed
+      reviewNotAllowed,
+      reviewsLast30Days
     } = this.props;
-
-    const popoverOptions = {
-      text:
-        "It seems that you've already reviewed this organisation in the last 30 days. You can review each organisation once a month.",
-      linkText: "Why can't I give a review?"
-    };
 
     return (
       <ReviewButtonsDiv isTablet={isTablet} isMobile={isMobile}>
@@ -56,8 +51,15 @@ export default class GiveReview extends Component {
             </ReviewButton>
           </FullLink>
         </ReviewType>
-        {reviewNotAllowed && (
-          <PopoverComponent popoverOptions={popoverOptions} />
+        {reviewNotAllowed && reviewsLast30Days.length > 0 && (
+          <PopoverComponent
+            popoverOptions={{
+              text: `It seems that you've already reviewed this organisation in the last 30 days. You can review each organisation once a month. Date of last review: ${moment(
+                reviewsLast30Days[0].date
+              ).format("DD.MM.YYYY")}`,
+              linkText: "Why can't I give a review?"
+            }}
+          />
         )}
       </ReviewButtonsDiv>
     );

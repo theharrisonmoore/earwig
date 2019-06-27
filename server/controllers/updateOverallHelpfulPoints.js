@@ -9,7 +9,6 @@ module.exports = async (req, res, next) => {
   const { user } = req;
 
   const diffPoints = points - prevPoints;
-
   const promises = [
     updateOverallHelpfullPoints({ reviewId, userId: user._id, points }),
     updateUserPoints(userId, diffPoints),
