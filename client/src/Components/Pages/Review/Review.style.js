@@ -177,9 +177,20 @@ export const AgreementLabel = styled.label`
 `;
 
 export const CheckboxWrapper = styled.div`
-  display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  .ant-checkbox-wrapper {
+    display: flex;
+  }
+
+  .ant-checkbox {
+    margin-top: 6px;
+  }
+
+  .ant-checkbox-wrapper + span,
+  .ant-checkbox + span {
+    margin-left: 10px;
+  }
 `;
 
 export const SubmitButton = styled.button`

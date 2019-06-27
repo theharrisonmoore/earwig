@@ -1,5 +1,7 @@
+const { Types: { ObjectId } } = require("mongoose");
 const Question = require("../models/Question");
 const Organization = require("../models/Organization");
+const Review = require("../models/Review");
 
 
 // return the questions grouped by Org. category
@@ -67,6 +69,56 @@ const postOrg = (category, name) => {
   return org.save();
 };
 
+// YourSchema.find()
+// .populate(`{
+// path: 'map_data',
+// populate: {path: 'location' }
+// }`).exec(...)
+
+
+// const getReviewDetails = (org, user) => Review.find({ organization: ObjectId(org), user: ObjectId(user) }).populate({
+//   path: "organization",
+//   populate: {
+//     path: "question",
+//   },
+// });
+
+const getReviewDetails = (org, user) => Review.aggregate([
+  {
+    $match: { organization: ObjectId(org), user: ObjectId(user) },
+  },
+  {
+    $sort: { createdAt: -1 },
+  },
+  {
+    $limit: 1,
+  },
+  {
+    $lookup: {
+      from: "answers",
+      let: { reviewId: "$_id" },
+      pipeline: [
+        {
+          $match:
+          {
+            $expr: { $eq: ["$review", "$$reviewId"] },
+          },
+        },
+        {
+          $lookup: {
+            from: "questions",
+            localField: "question",
+            foreignField: "_id",
+            as: "question",
+          },
+        },
+      ],
+      as: "answers",
+    },
+  },
+]);
+
+
 module.exports = {
   getQuetionsByOrg,
   getOrganization,
@@ -75,4 +127,5 @@ module.exports = {
   getOrgsNamesByType,
   getAgenciesAndPayrollsNames,
   postOrg,
+  getReviewDetails,
 };

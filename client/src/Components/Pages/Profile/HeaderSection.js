@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { Component } from "react";
 
 import { StarRateCreator } from "./../../../helpers";
@@ -127,7 +128,7 @@ export default class HeaderSection extends Component {
               category={category}
               isTablet={isTablet}
               isMobile={isMobile}
-              state={{ name, category }}
+              state={{ name, category, orgId: summary._id }}
             />
           </GiveReviewDiv>
         )}

@@ -7,6 +7,7 @@ const {
   postOrg,
   getOrgsNamesByType,
   getAgenciesAndPayrollsNames,
+  getReviewDetails,
 } = require("../database/queries/review");
 const { findByEmail } = require("../database/queries/user");
 
@@ -15,7 +16,11 @@ const Answer = require("../database/models/Answer");
 const Comment = require("../database/models/Comment");
 
 const getByOrg = async (req, res, next) => {
+  console.log("req.body", req.user);
+  console.log("params", req.params);
   const { organization: category } = req.query;
+  const { _id: userId } = req.user;
+  const { id: orgId } = req.params;
 
   try {
     let dropDownListData;
@@ -27,9 +32,12 @@ const getByOrg = async (req, res, next) => {
       dropDownListData = await getOrgsNamesByType("worksite");
     }
 
+    const getReviewAnswers = await getReviewDetails(orgId, userId);
+
     const groups = await getQuetionsByOrg(category);
-    res.json({ groups, dropDownListData });
+    res.json({ groups, dropDownListData, getReviewAnswers });
   } catch (err) {
+    console.log("err", err);
     next(boom.badImplementation());
   }
 };
@@ -41,6 +49,7 @@ const postReviewShort = async (req, res, next) => {
     },
   } = req.body.values;
   const { user, organization } = req.body;
+
 
   try {
     const organizationData = await getOrganization(organization.category, organization.name);

@@ -38,7 +38,7 @@ export default class GiveReview extends Component {
           <Time>2 mins</Time>
           <FullLink
             to={{
-              pathname: REVIEW_URL,
+              pathname: "/test",
               state: state
             }}
           >

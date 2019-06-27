@@ -36,6 +36,8 @@ import Intro from "./Pages/Intro";
 import PrivateRoute from "./Common/PrivateRoute";
 import Reply from "./Pages/Profile/Reply";
 
+import Test from "./Pages/Review/test";
+
 import {
   FAQ,
   HelpfulStuff,
@@ -71,6 +73,7 @@ export default function index(props) {
   return (
     <>
       <Switch>
+        <Route path="/test" component={Test} />
         <PrivateRoute
           minimumLevel="LEVEL3"
           exact
