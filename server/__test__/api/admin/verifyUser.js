@@ -38,11 +38,47 @@ describe("Tesing for verify user", () => {
           .send({ id: awaitingReviewUser._id })
           .set("Cookie", [token])
           .expect("Content-Type", /json/)
-          .expect(422)
+          .expect(200)
           .end(async (err, res) => {
             expect(res).toBeDefined();
             expect(res.body).toBeDefined();
-            expect(res.body.error).toMatch("file is no longer available");
+            done(err);
+          });
+      });
+  });
+
+
+  test("Tesing for verify user with referral", async (done) => {
+    const data = {
+      email: "admin@earwig.com",
+      password: "123456",
+    };
+
+    const userWithReferral = await User.findOne({ email: "ramy@gmail.com" });
+
+    const referralUserBefore = await User.findById(userWithReferral.referral);
+    expect(referralUserBefore.points).toBe(0);
+
+    // login with the origin password
+    request(app)
+      .post("/api/login")
+      .send(data)
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .end(async (error, result) => {
+        const token = result.headers["set-cookie"][0].split(";")[0];
+
+        request(app)
+          .patch("/api/admin/users/verify")
+          .send({ id: userWithReferral._id })
+          .set("Cookie", [token])
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .end(async (err, res) => {
+            const referralUserAfter = await User.findById(userWithReferral.referral);
+            expect(referralUserAfter.points).toBe(20);
+            expect(res).toBeDefined();
+            expect(res.body).toBeDefined();
             done(err);
           });
       });

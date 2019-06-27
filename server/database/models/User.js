@@ -47,6 +47,10 @@ const userSchema = new Schema({
     default: false,
   },
   city: String,
+  referral: {
+    type: Schema.Types.ObjectId,
+    ref: "users",
+  },
   resetToken: {
     value: String,
     expiresIn: Date,
