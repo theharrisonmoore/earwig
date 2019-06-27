@@ -11,6 +11,16 @@ module.exports.updateUserPoints = (userId, diffPoints) => User.findOneAndUpdate(
   {
     $inc: { points: diffPoints },
   },
+  {
+    $inc: { helpedPoints: 1 },
+  },
+);
+
+module.exports.updateUserHelpedPoints = userId => User.findOneAndUpdate(
+  { _id: userId },
+  {
+    $inc: { helpedPoints: 1 },
+  },
 );
 
 module.exports.checkValidReferral = id => User.findOne({ _id: id, verified: true }, { password: 0 });
