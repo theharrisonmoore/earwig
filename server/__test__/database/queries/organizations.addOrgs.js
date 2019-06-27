@@ -18,22 +18,22 @@ describe("test to addOrgs organization query", () => {
       {
         name: "Yalla Builders",
         category: "company",
-        phonenumber: 44777777777,
-        webisiteURL: "https://companytest.com",
+        phoneNumber: 44777777777,
+        websiteURL: "https://companytest.com",
         email: "companytest@test.com",
       },
       {
         name: "Yalla Agency",
         category: "agency",
-        phonenumber: 44777777777,
-        webisiteURL: "https://agencytest.com",
+        phoneNumber: 44777777777,
+        websiteURL: "https://agencytest.com",
         email: "agencytest@test.com",
       },
       {
         name: "Yalla Payroll",
         category: "payroll",
-        phonenumber: 44777777777,
-        webisiteURL: "https://payrolltest.com",
+        phoneNumber: 44777777777,
+        websiteURL: "https://payrolltest.com",
         email: "payrolltest@test.com",
       },
     ]).then(async () => {
