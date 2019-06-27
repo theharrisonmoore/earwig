@@ -13,7 +13,9 @@ export const routes = {
   COMPANIES: "/admin/organizations/companies",
   AGENCIES: "/admin/organizations/agencies",
   PAYROLLS: "/admin/organizations/payrolls",
-  WORKSITES: "/admin/organizations/worksites"
+  WORKSITES: "/admin/organizations/worksites",
+  ADDORG: "/admin/organizations/add",
+  EDITORG: "/admin/organizations/edit"
 };
 
 export const menuElements = [

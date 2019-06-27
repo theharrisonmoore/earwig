@@ -23,6 +23,7 @@ export const AddHeader = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 2rem;
+  margin-top: 1rem;
 `;
 
 export const AddOrgForm = styled.form`
