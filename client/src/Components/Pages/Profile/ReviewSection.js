@@ -93,7 +93,7 @@ export default class ReviewSection extends Component {
               <div style={{ dispay: "inline-block" }}>
                 {["Bad", "Poor", "Average", "Great", "Excellent"].map(
                   (option, index) => (
-                    <span 
+                    <span
                       key={index}
                       style={{
                         color: `${
@@ -112,7 +112,6 @@ export default class ReviewSection extends Component {
                         textAlign: "center",
                         marginRight: "8px"
                       }}
-                      key={index}
                     >
                       {option}
                     </span>
@@ -151,7 +150,7 @@ export default class ReviewSection extends Component {
                         toggleComments={toggleComments}
                         isMobile={isMobile}
                       /> : <LightTitle><p>No answers yet</p></LightTitle>}
-                      
+
                     </QuestionWrapper>
                   )}
                   {question.profileType === "pieChart" && (
@@ -214,12 +213,12 @@ export default class ReviewSection extends Component {
                             questions={canteenQuestions}
                             toggleComments={toggleComments}
                             isMobile={isMobile}
-                          /> 
+                          />
                           </QuestionWrapper>
                           }
                         </>
-                        
-                        
+
+
                       )}
                     </div>
                   )}
