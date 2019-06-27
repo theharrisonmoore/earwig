@@ -19,6 +19,7 @@ import Company from "./Company";
 import CompanyThanks from "./CompanyThanks";
 import FAQ from "./FAQ";
 import Fingerprint from "./Fingerprint";
+import Gasmask from "./Gasmask";
 import GetVerified from "./GetVerified";
 import Hamburger from "./Hamburger";
 import HelpfulLinks from "./HelpfulLinks";
@@ -27,6 +28,7 @@ import HotFood from "./HotFood";
 import JobBoard from "./JobBoard";
 import Lockers from "./Lockers";
 import Logo from "./Logo";
+import LogoBeta from "./LogoBeta";
 import LogoutLogin from "./LogoutLogin";
 import MedalIcon1 from "./MedalIcon1";
 import MedalIcon2 from "./MedalIcon2";
@@ -84,6 +86,7 @@ const iconMap = {
   companyThanks: CompanyThanks,
   faq: FAQ,
   fingerprint: Fingerprint,
+  gasmask: Gasmask,
   getVerified: GetVerified,
   hamburger: Hamburger,
   hotFood: HotFood,
@@ -92,6 +95,7 @@ const iconMap = {
   jobBoard: JobBoard,
   lockers: Lockers,
   logo: Logo,
+  logoBeta: LogoBeta,
   logoutLogin: LogoutLogin,
   medalIcon1: MedalIcon1,
   medalIcon2: MedalIcon2,

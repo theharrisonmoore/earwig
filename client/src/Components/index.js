@@ -94,7 +94,6 @@ export default function index(props) {
           {...props}
           Component={Thankyou}
           navbar
-          search={!isMobile}
         />
         <PrivateRoute
           exact
@@ -113,7 +112,6 @@ export default function index(props) {
           {...props}
           Component={Profile}
           navbar
-          search={!isMobile}
         />
         <PrivateRoute
           minimumLevel="ADMIN"
@@ -131,7 +129,7 @@ export default function index(props) {
           isTablet={isTablet}
           Component={Search}
           navbar
-          title="Search"
+          title="Read reviews & ratings"
         />
 
         <PrivateRoute
@@ -201,7 +199,6 @@ export default function index(props) {
           Component={FAQ}
           navbar
           title="FAQ & explainer videos"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -213,7 +210,6 @@ export default function index(props) {
           Component={HelpfulStuff}
           navbar
           title="Helpful stuff"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -225,7 +221,6 @@ export default function index(props) {
           Component={ShapeEarwig}
           navbar
           title="Shape earwig"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -237,7 +232,6 @@ export default function index(props) {
           Component={PrivacyAndTerms}
           navbar
           title="Privacy & terms"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -249,7 +243,6 @@ export default function index(props) {
           Component={PrivacyPolicy}
           navbar
           title="Privacy Policy"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -261,7 +254,6 @@ export default function index(props) {
           Component={CommunityGuidlines}
           navbar
           title="Community Guidlines"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -273,7 +265,6 @@ export default function index(props) {
           Component={TermsOfUse}
           navbar
           title="Terms Of Use"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -285,7 +276,6 @@ export default function index(props) {
           Component={CookiesPolicy}
           navbar
           title="Privacy Policy"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -297,7 +287,6 @@ export default function index(props) {
           Component={ReportContent}
           navbar
           title="Report this content"
-          search={!isMobile}
         />
         <PrivateRoute
           minimumLevel="LEVEL1"
