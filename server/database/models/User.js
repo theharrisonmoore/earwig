@@ -41,10 +41,12 @@ const userSchema = new Schema(
       type: Number,
       default: 0,
       required: true,
+      min: 0,
     },
     helpedPoints: {
       type: Number,
       default: 0,
+      min: 0,
     },
     referral: {
       type: ObjectId,

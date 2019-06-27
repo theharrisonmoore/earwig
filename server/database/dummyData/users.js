@@ -12,7 +12,7 @@ module.exports = async () => {
       trade: trades[2],
       verified: true,
       awaitingReview: false,
-      points: 200,
+      points: 0,
     },
 
     {
