@@ -16,4 +16,5 @@ module.exports = {
     string: "30d",
     number: 2592000000,
   },
+  resetTokenMaxAge: 3600000,
 };
