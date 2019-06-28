@@ -10,10 +10,16 @@ const { getOverallReplies } = require("../database/queries/reviews");
 module.exports = (req, res, next) => {
   const { id } = req.params;
 
+  console.log("REACHED", id);
+
   getOverallReplies(id)
     .then((replies) => {
-      console.log(replies[0].replies.user.trade[0].title);
+      console.log(replies);
+      // console.log(replies[0].replies.user.trade[0].title);
       res.json(replies);
     })
-    .catch(() => next(boom.badImplementation()));
+    .catch((err) => {
+      console.log(err);
+      return next(boom.badImplementation());
+    });
 };

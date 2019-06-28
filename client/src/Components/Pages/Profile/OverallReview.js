@@ -245,7 +245,8 @@ export default class OverallReview extends Component {
       activeOverallId,
       verified,
       level,
-      isAdmin
+      isAdmin,
+      orgId
     } = this.props;
 
     const { activeReview, counters } = this.state;
@@ -344,7 +345,8 @@ export default class OverallReview extends Component {
                     state: {
                       reviewId: review._id,
                       target: "overall",
-                      category
+                      category,
+                      orgId
                     }
                   }}
                 >
