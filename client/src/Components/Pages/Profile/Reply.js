@@ -10,7 +10,15 @@ import {
 } from "./ProfileAnswers/ProfileAnswers.style";
 
 import { Wrapper, IndividComment } from "./Reply.style";
-import { Banner, StyledReplyIcon, Cancel, BannerTitle } from "./Profile.style";
+import {
+  Banner,
+  StyledReplyIcon,
+  Cancel,
+  BannerTitle,
+  UserDiv,
+  UserTrade,
+  UserAdditionalDetails
+} from "./Profile.style";
 
 import { organizations } from "./../../../theme";
 
@@ -158,7 +166,7 @@ export default class Reply extends Component {
     const users =
       replies &&
       replies.reduce((prev, curr) => {
-        prev.push(curr.replies.displayName || curr.replies.user[0].userId);
+        prev.push(curr.replies.displayName || curr.replies.user.userId);
         return prev;
       }, []);
 
@@ -182,9 +190,22 @@ export default class Reply extends Component {
             {replies &&
               replies.map(reply => (
                 <IndividComment key={reply.replies._id}>
-                  <UserID>
-                    {reply.replies.displayName || reply.replies.user[0].userId}
-                  </UserID>
+                  <UserDiv>
+                    <UserID>
+                      {" "}
+                      {reply.replies.displayName || reply.replies.user.userId}
+                    </UserID>
+                    <UserTrade>
+                      {reply.replies.user.trade[0] &&
+                        reply.replies.user.trade[0].title}
+                    </UserTrade>
+                  </UserDiv>
+                  <UserAdditionalDetails>
+                    <p>
+                      Helped {reply.replies.user.helpedPoints} · Points{" "}
+                      {reply.replies.user.points}
+                    </p>
+                  </UserAdditionalDetails>
                   <CommentBubble
                     as="pre"
                     color={organizations[category].secondary}

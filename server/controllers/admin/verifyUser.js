@@ -7,13 +7,18 @@
 
 const boom = require("boom");
 
-const { updateUserById, getUserById, updateUserPoints } = require("./../../database/queries/user");
+const {
+  updateUserById,
+  getUserById,
+  updateUserPoints,
+  updateUserHelpedPoints,
+} = require("./../../database/queries/user");
 
 const deleteFile = require("./../../helpers/deleteFile");
 
 const { referralPoints } = require("./../../constants");
 
-module.exports = (async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const { id } = req.body;
   const updateData = {
     awaitingReview: false,
@@ -26,7 +31,8 @@ module.exports = (async (req, res, next) => {
 
     if (!user) {
       return next(boom.notFound("user not found!"));
-    } if (!user.verificationPhoto) {
+    }
+    if (!user.verificationPhoto) {
       return next(boom.badData("the user has no verification image"));
     }
     // update user state
@@ -46,9 +52,10 @@ module.exports = (async (req, res, next) => {
 
     if (user.referral) {
       await updateUserPoints(user.referral, referralPoints);
+      await updateUserHelpedPoints(user.referral);
     }
     return res.json({});
   } catch (error) {
     return next(boom.badImplementation());
   }
-});
+};

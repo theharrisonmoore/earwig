@@ -47,7 +47,6 @@ describe("Tesing for verify user", () => {
       });
   });
 
-
   test("Tesing for verify user with referral", async (done) => {
     const data = {
       email: "admin@earwig.com",
@@ -77,6 +76,7 @@ describe("Tesing for verify user", () => {
           .end(async (err, res) => {
             const referralUserAfter = await User.findById(userWithReferral.referral);
             expect(referralUserAfter.points).toBe(20);
+            expect(referralUserAfter.helpedPoints).toBe(1);
             expect(res).toBeDefined();
             expect(res.body).toBeDefined();
             done(err);

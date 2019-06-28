@@ -34,7 +34,7 @@ export default class AddProfileReviewStart extends Component {
             <P>
               To finish adding <strong>{name}</strong>,
             </P>
-            <P>please give a full or quick review </P>
+            <P>please give a review</P>
           </HeadlineDiv>
           <div>
             <GiveReview

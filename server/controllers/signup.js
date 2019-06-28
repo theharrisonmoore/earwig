@@ -33,19 +33,19 @@ module.exports = async (req, res, next) => {
       }
     }
 
-
     // check if the email is already exist
     const storedUser = await findByEmail(email);
 
     if (storedUser) {
-    // email already exist
+      // email already exist
       return next(boom.conflict("Email already taken"));
     }
 
     // create new user
     const user = await addNew(newUserData);
 
-    if (process.env.NODE_ENV !== "test") {
+    // if in production add email to list
+    if (process.env.NODE_ENV === "prod") {
       try {
         await addToMailchimpList(email);
       } catch (err) {
@@ -64,7 +64,6 @@ module.exports = async (req, res, next) => {
       isAdmin: user.isAdmin,
       email: user.email,
     };
-
 
     // create token for 30 day
     const token = jwt.sign({ id: user._id }, process.env.SECRET, {

@@ -10,6 +10,8 @@ const getOverallReplies = require("./getOverallReplies");
 const getReviewDetails = require("./getReviewDetails");
 const updateOverallHelpfullPoints = require("./updateOverallHelpfullPoints");
 
+const { getHelpedPoints } = require("../user/index");
+
 module.exports.updateOverallHelpfullPoints = updateOverallHelpfullPoints;
 
 module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
@@ -96,15 +98,24 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
       $unwind: { path: "$reviews.user", preserveNullAndEmptyArrays: true },
     },
     {
+      $lookup: {
+        from: "trades",
+        localField: "reviews.user.trade",
+        foreignField: "_id",
+        as: "reviews.user.trade",
+      },
+    },
+
+    {
       $project: {
         "reviews.user.email": 0,
         "reviews.user.isAdmin": 0,
         "reviews.user.password": 0,
-        "reviews.user.trade": 0,
         "reviews.user.createdAt": 0,
         "reviews.user.updatedAt": 0,
       },
     },
+
     {
       $group: {
         _id: "$_id",
@@ -127,10 +138,7 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
       },
     },
   ])
-    .then((result) => {
-      // console.log("RES!!!!!", result);
-      resolve(result);
-    })
+    .then(result => resolve(result))
     .catch(err => reject(err));
 });
 
@@ -313,5 +321,48 @@ module.exports.allComments = (organizationID, questionID) => new Promise((resolv
     .then((result) => {
       resolve(result);
     })
+    .catch(err => reject(err));
+});
+
+// gets all reviews given by 1 user for 1 organisation and sets a flag depending
+// returns true if review is less than 1 month old
+
+module.exports.checkUsersLatestReview = (organization, user) => new Promise((resolve, reject) => {
+  Review.aggregate([
+    // get all reviews for 1 user
+    {
+      $match: {
+        $and: [
+          {
+            organization: mongoose.Types.ObjectId(organization),
+          },
+          {
+            user: mongoose.Types.ObjectId(user),
+          },
+        ],
+      },
+    },
+
+    {
+      $project: {
+        _id: 0,
+        date: "$createdAt",
+        // get number of days between creation of review and today
+        // first step mil seconds, second step days
+        diff_days: {
+          $divide: [
+            {
+              $subtract: [new Date(), "$createdAt"],
+            },
+            1000 * 60 * 60 * 24,
+          ],
+        },
+        older_30_days: {
+          $lte: [30, "$diff_days"],
+        },
+      },
+    },
+  ])
+    .then(result => resolve(result))
     .catch(err => reject(err));
 });
