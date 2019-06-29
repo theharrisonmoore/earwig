@@ -120,40 +120,24 @@ export const questionsNumber = {
     full: {
       count: "17 questions",
       time: "2 mins"
-    },
-    quick: {
-      count: "1 question",
-      time: "30 secs"
     }
   },
   payroll: {
     full: {
       count: "14 questions",
       time: "2 mins"
-    },
-    quick: {
-      count: "1 question",
-      time: "30 secs"
     }
   },
   worksite: {
     full: {
       count: "19 questions",
       time: "2 mins"
-    },
-    quick: {
-      count: "1 question",
-      time: "30 secs"
     }
   },
   company: {
     full: {
       count: "10 questions",
       time: "1 mins"
-    },
-    quick: {
-      count: "1 question",
-      time: "30 secs"
     }
   }
 };

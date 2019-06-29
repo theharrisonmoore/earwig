@@ -52,7 +52,6 @@ export default class Navbar extends Component {
     } = this.props;
     const { menuOpen, isLoading } = this.state;
     if (!isLoading) return null;
-
     if (!isMobile) {
       return (
         <Wrapper height="4rem">
@@ -96,7 +95,6 @@ export default class Navbar extends Component {
               </NavLink>
             )}
           </SideDiv>
-
           {/* MOBILE VERSION */}
         </Wrapper>
       );

@@ -31,7 +31,8 @@ module.exports = (awaitingReview) => {
         overallReview: 1,
         date: "$createdAt",
       },
-    }, {
+    },
+    {
       $addFields: {
         organization: "$organization.name",
         orgType: "$organization.category",
