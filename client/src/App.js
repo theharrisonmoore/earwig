@@ -10,12 +10,13 @@ import Routes from "./Components/";
 
 import ScrollToTop from "./Components/Common/ScrollToTop";
 
-import { isMobile, isTablet } from "./helpers";
+import { isSMobile, isMobile, isTablet } from "./helpers";
 
 import { API_USERS } from "./apiUrls";
 
 export const initialState = {
   isLoggedIn: false,
+  isSMobile: false,
   isMobile: false,
   isTablet: false,
   id: "",
@@ -24,6 +25,7 @@ export const initialState = {
   awaitingReview: false,
   userId: "",
   points: 0,
+  helpedPoints: 0,
   isAdmin: false,
   isMounted: false,
   email: ""
@@ -38,6 +40,7 @@ class App extends Component {
 
   updateWindowDimensions() {
     this.setState({
+      isSMobile: isSMobile(window.innerWidth),
       isMobile: isMobile(window.innerWidth),
       isTablet: isTablet(window.innerWidth)
     });
