@@ -28,7 +28,14 @@ import Icon from "./../../Common/Icon/Icon";
 
 export default class HeaderSection extends Component {
   render() {
-    const { isTablet, isMobile, summary, level, handleScroll } = this.props;
+    const {
+      isTablet,
+      isMobile,
+      summary,
+      level,
+      reviewsLast30Days,
+      handleScroll
+    } = this.props;
     const {
       category,
       name,
@@ -37,6 +44,8 @@ export default class HeaderSection extends Component {
       totalReviews,
       websiteUrl
     } = summary;
+    // if there are reviews less dating before 1 month user not allowed
+    const reviewNotAllowed = reviewsLast30Days.length > 0;
 
     return (
       <Header isTablet={isTablet} isMobile={isMobile}>
@@ -55,7 +64,11 @@ export default class HeaderSection extends Component {
               <CompanyTitle>{name}</CompanyTitle>
               <StarWrapper onClick={handleScroll}>
                 {StarRateCreator(summary)}
-                <Reviews>{totalReviews === 0 ? "No reviews yet" : `${totalReviews} reviews`}</Reviews>
+                <Reviews>
+                  {totalReviews === 0
+                    ? "No reviews yet"
+                    : `${totalReviews} reviews`}
+                </Reviews>
               </StarWrapper>
             </CompanyNameAndStars>
           </CompanyDiv>
@@ -127,6 +140,8 @@ export default class HeaderSection extends Component {
               category={category}
               isTablet={isTablet}
               isMobile={isMobile}
+              reviewNotAllowed={reviewNotAllowed}
+              reviewsLast30Days={reviewsLast30Days}
               state={{ name, category }}
             />
           </GiveReviewDiv>

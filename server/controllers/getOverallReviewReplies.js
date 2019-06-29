@@ -12,6 +12,7 @@ module.exports = (req, res, next) => {
 
   getOverallReplies(id)
     .then((replies) => {
+      console.log(replies[0].replies.user.trade[0].title);
       res.json(replies);
     })
     .catch(() => next(boom.badImplementation()));
