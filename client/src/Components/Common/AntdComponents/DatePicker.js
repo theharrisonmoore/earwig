@@ -37,18 +37,12 @@ class DateRange extends React.Component {
 
   onStartChange = value => {
     this.onChange("startValue", value);
-    this.props.setFieldValue(
-      "review.workPeriod.from",
-      value && value.format("YYYY-MM-DD")
-    );
+    this.props.handleChange("from", value && value.format("YYYY-MM-DD"));
   };
 
   onEndChange = value => {
     this.onChange("endValue", value);
-    this.props.setFieldValue(
-      "review.workPeriod.to",
-      value && value.format("YYYY-MM-DD")
-    );
+    this.props.handleChange("to", value && value.format("YYYY-MM-DD"));
   };
 
   handleStartOpenChange = open => {

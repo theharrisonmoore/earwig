@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { ErrorMessage } from "formik";
 import axios from "axios";
 import { Checkbox, message, Spin, Icon } from "antd";
 import Loading from "./../../Common/AntdComponents/Loading";
@@ -27,33 +27,21 @@ import {
   LinkSpan
 } from "./Review.style";
 
-import {
-  StyledErrorMessage,
-  QuestionWrapper,
-  QuestionOptionsWrapper,
-  InputWrapper,
-  QText,
-  HintText,
-  Options,
-  CommentsIcon,
-  StyledInput,
-  StyledButton,
-  StyledCheckList,
-  SliderWrapper
-} from "./Question/Question.style";
+import { StyledErrorMessage } from "./Question/Question.style";
 
 import Question from "./Question/index";
 import clockLong from "./../../../assets/clock-long-icon.png";
 import { organizations } from "./../../../theme";
 
-import { initQueestionsValues } from "./initialQuestionsValues";
-import { validationSchema } from "./validationSchema";
+// import { initQueestionsValues } from "./initialQuestionsValues";
+// import { validationSchema } from "./validationSchema";
 import { STATIC_QUESTIONS } from "./staticQuestions";
 
 import {
-  THANKYOU_URL,
+  // THANKYOU_URL,
   TERMS_OF_USE_URL
 } from "../../../constants/naviagationUrls";
+
 import { NewSVGCreator, questionsNumber, isMobile } from "../../../helpers";
 
 // antd spinner for the submit button
@@ -61,13 +49,10 @@ const antIcon = (
   <Icon type="loading" style={{ fontSize: 24, color: "white" }} spin />
 );
 
-const {
-  API_GET_QUESTIONS_URL,
-  API_POST_REVIEW_URL
-} = require("../../../apiUrls");
-
-// For rate question to add the Org. category
-let rateQ = {};
+// const {
+//   API_GET_QUESTIONS_URL,
+//   API_POST_REVIEW_URL
+// } = require("../../../apiUrls");
 
 class Test extends Component {
   state = {
@@ -76,7 +61,6 @@ class Test extends Component {
     groupss: {},
     organization: { category: "agency", name: "", needsVerification: false },
     user: { email: "" },
-    worksiteImage: "",
     dropdownList: [],
     answers: {},
     comments: {},
@@ -102,17 +86,6 @@ class Test extends Component {
       orgId
     } = this.props.location.state;
     const { organization, user } = this.state;
-
-    // update the static questions to reflect the orgType
-    rateQ = {
-      number: 19,
-      text: "How would you rate this",
-      type: "rate",
-      options: ["Bad", "Poor", "Average", "Great", "Excellent"]
-    };
-    const text = rateQ.text;
-    const newText = `${text} ${category}?`;
-    rateQ.text = newText;
 
     organization.category = category;
     organization.name = name;
@@ -181,18 +154,50 @@ class Test extends Component {
       answers: { ...answers, [name]: value }
     });
   };
-  handleCheckBox = e => {
+
+  handleCheckBox = () => {
     const { hasAgreed } = this.state;
     this.setState({
       hasAgreed: !hasAgreed
     });
   };
 
-  // handleInputChange = e => {
-  //   this.setState({
-  //     answers: { ...answers: []}
-  //   });
-  // };
+  handleReviewChange = e => {
+    const { review } = this.state;
+    const { value } = e.target;
+    this.setState({
+      review: { ...review, overallReview: value }
+    });
+  };
+
+  handleSliderChange = (value, number) => {
+    const { answers } = this.state;
+    this.setState({
+      answers: { ...answers, [number]: value }
+    });
+  };
+
+  handleImageUpload = (value, number) => {
+    const { answers } = this.state;
+    this.setState({
+      answers: { ...answers, [number]: value }
+    });
+  };
+
+  handleRateChage = value => {
+    const { review } = this.state;
+    this.setState({
+      review: { ...review, rate: value }
+    });
+  };
+
+  handleDateChage = (fromOrTo, value) => {
+    const { review } = this.state;
+    const { workPeriod } = review;
+    this.setState({
+      review: { ...review, workPeriod: { ...workPeriod, [fromOrTo]: value } }
+    });
+  };
 
   showNextQestion = (groupId, next, other, set, num) => {
     const newGroups = { ...this.state.groupss };
@@ -226,6 +231,7 @@ class Test extends Component {
         }
       });
     }
+
     while (typeof next !== "object" && next !== null) {
       // eslint-disable-next-line no-loop-func
       const nextQ = newDependant.find(question => question.number === next);
@@ -259,10 +265,8 @@ class Test extends Component {
   };
 
   render() {
-    console.log("anss", this.state.answers);
     const {
       groupss,
-
       organization: { name, category }
     } = this.state;
     const staticQuestion = STATIC_QUESTIONS(category);
@@ -323,6 +327,8 @@ class Test extends Component {
               <Question
                 question={staticQuestion[0]}
                 category={this.state.organization.category}
+                handleChange={this.handleDateChage}
+                state={this.state}
               />
               <div>
                 {Object.keys(groupss).map(groupId => {
@@ -341,6 +347,7 @@ class Test extends Component {
                               dropdownOptions={this.state.dropdownOptions}
                               handleChange={this.handleChange}
                               state={this.state}
+                              handleSliderChange={this.handleSliderChange}
                             />
                           );
                         })}
@@ -352,12 +359,16 @@ class Test extends Component {
               </div>
               <div className="questions">
                 <Question
-                  question={rateQ ? rateQ : ""}
+                  question={staticQuestion[2]}
                   category={this.state.organization.category}
+                  handleChange={this.handleRateChage}
+                  state={this.state}
                 />
                 <Question
                   question={staticQuestion[1]}
                   category={this.state.organization.category}
+                  handleChange={this.handleReviewChange}
+                  state={this.state}
                 />
                 {/* The voice questions in the next sprint */}
                 {/* <Question

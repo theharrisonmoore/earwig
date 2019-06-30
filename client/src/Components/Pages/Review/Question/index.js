@@ -29,7 +29,8 @@ const Question = props => {
     dropdownOptions,
     showNextQestion,
     groupId,
-    handleChange
+    handleChange,
+    handleSliderChange
   } = props;
 
   return (
@@ -43,7 +44,7 @@ const Question = props => {
         showNextQestion={showNextQestion}
         next={next}
         number={number}
-        category={category ? category : props.category}
+        category={category}
         name={name}
         questions={questions}
         values={values}
@@ -53,6 +54,7 @@ const Question = props => {
         label={label}
         hasComment={hasComment}
         handleChange={handleChange}
+        handleSliderChange={handleSliderChange}
         question={props.question}
         state={props.state}
       />
