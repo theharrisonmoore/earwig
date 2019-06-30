@@ -13,19 +13,42 @@ class DateRange extends React.Component {
     const endValue = this.state.endValue;
 
     if (!startValue || !endValue) {
-      return startValue.valueOf() > moment().valueOf();
+      return (
+        startValue.valueOf() > moment().valueOf() ||
+        startValue.valueOf() <
+          moment()
+            .subtract(12, "months")
+            .valueOf()
+      );
     }
-    return startValue.valueOf() > endValue.valueOf();
+    return (
+      startValue.valueOf() > endValue.valueOf() ||
+      startValue.valueOf() <
+        moment()
+          .subtract(12, "months")
+          .valueOf()
+    );
   };
 
   disabledEndDate = endValue => {
     const startValue = this.state.startValue;
     if (!endValue || !startValue) {
-      return endValue.valueOf() > moment().valueOf();
+      return (
+        endValue.valueOf() > moment().valueOf() ||
+        endValue.valueOf() <
+          moment()
+            .subtract(12, "months")
+            .valueOf()
+      );
     }
     return (
       endValue.valueOf() <= startValue.valueOf() ||
-      endValue.valueOf() > moment().valueOf()
+      endValue.valueOf() > moment().valueOf() ||
+      endValue.valueOf() < moment().subtract(12, "months") ||
+      endValue.valueOf() <
+        moment()
+          .subtract(12, "months")
+          .valueOf()
     );
   };
 
