@@ -72,21 +72,41 @@ class DateRange extends React.Component {
           justifyContent: "space-around"
         }}
       >
-        <DatePicker.MonthPicker
-          disabledDate={this.disabledStartDate}
-          value={startValue}
-          placeholder="Start"
-          onChange={this.onStartChange}
-          onOpenChange={this.handleStartOpenChange}
-        />
-        <DatePicker.MonthPicker
-          disabledDate={this.disabledEndDate}
-          value={endValue}
-          placeholder="End"
-          onChange={this.onEndChange}
-          open={endOpen}
-          onOpenChange={this.handleEndOpenChange}
-        />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            fontWeight: "500"
+          }}
+        >
+          <label htmlFor="start">From</label>
+          <DatePicker.MonthPicker
+            disabledDate={this.disabledStartDate}
+            value={startValue}
+            placeholder="Start"
+            onChange={this.onStartChange}
+            onOpenChange={this.handleStartOpenChange}
+            id="start"
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            fontWeight: "500"
+          }}
+        >
+          <label htmlFor="end">To</label>
+          <DatePicker.MonthPicker
+            disabledDate={this.disabledEndDate}
+            value={endValue}
+            placeholder="End"
+            onChange={this.onEndChange}
+            open={endOpen}
+            onOpenChange={this.handleEndOpenChange}
+            id="end"
+          />
+        </div>
       </div>
     );
   }
