@@ -231,7 +231,7 @@ class Review extends Component {
         <Header orgType={category} style={{ marginBottom: "3rem" }}>
           <Content>
             <Paragraph
-              style={{ paddingRight: ".5rem" }}
+              style={{ paddingRight: "1.5rem" }}
               cancel
               bold
               onClick={() => history.goBack()}
