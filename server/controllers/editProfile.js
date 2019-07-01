@@ -1,9 +1,12 @@
 /**
  * edit profile contoller
- * allow the user to change the password or/and update the verification image
+ * allow the user to change the password
+ * or/and update the verification image
+ * or/and update username
  *
  * @param {oldPassword} -string- plain old password
  * @param {newPassword} -string- plain new password
+ * @param {newUsername} -string- plain new username
  * if image uploaded then store it in the DB
  *
  */
@@ -15,7 +18,7 @@ const { getUserById, updateUserById } = require("./../database/queries/user");
 
 // eslint-disable-next-line consistent-return
 module.exports = async (req, res, next) => {
-  const { oldPassword, newPassword } = req.body;
+  const { oldPassword, newPassword, newUsername } = req.body;
   const { user } = req;
   const updateData = {};
 
@@ -34,7 +37,8 @@ module.exports = async (req, res, next) => {
 
     if (uploadedFileName) {
       updateData.verificationPhoto = uploadedFileName;
-    } if (oldPassword && newPassword) {
+    }
+    if (oldPassword && newPassword) {
       // hash password
       const matched = await compare(oldPassword, userInfo.password);
       if (!matched) {
@@ -43,6 +47,10 @@ module.exports = async (req, res, next) => {
 
       const hashedPassword = await hash(newPassword, 8);
       updateData.password = hashedPassword;
+    }
+    if (newUsername) {
+      // update userId/name
+      updateData.userId = "test12345";
     }
 
     await updateUserById(userInfo.id, updateData);

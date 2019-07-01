@@ -40,6 +40,7 @@ const schemas = {
     verificationImage: Joi.any()
       .allow("")
       .optional(),
+    newUsername: Joi.string().max(15),
   },
   addTrade: {
     trade: Joi.string()
@@ -178,10 +179,14 @@ const schemas = {
       .error(() => "You should agree Earwig terms of user"),
   },
   onlyMongoId: {
-    id: Joi.string().length(24).required(),
+    id: Joi.string()
+      .length(24)
+      .required(),
   },
   activateOrganization: {
-    id: Joi.string().length(24).required(),
+    id: Joi.string()
+      .length(24)
+      .required(),
     active: Joi.boolean().required(),
   },
   reportContent: {
@@ -197,14 +202,24 @@ const schemas = {
   },
   addCommentOnQuestion: {
     text: Joi.string().required(),
-    displayName: Joi.string().allow("").optional(),
-    question: Joi.string().length(24).required(),
-    organization: Joi.string().length(24).required(),
+    displayName: Joi.string()
+      .allow("")
+      .optional(),
+    question: Joi.string()
+      .length(24)
+      .required(),
+    organization: Joi.string()
+      .length(24)
+      .required(),
   },
   addCommentOnReview: {
     text: Joi.string().required(),
-    displayName: Joi.string().allow("").optional(),
-    reviewId: Joi.string().length(24).required(),
+    displayName: Joi.string()
+      .allow("")
+      .optional(),
+    reviewId: Joi.string()
+      .length(24)
+      .required(),
     target: Joi.string().required(),
   },
 };
