@@ -246,7 +246,8 @@ export default class OverallReview extends Component {
       verified,
       level,
       isAdmin,
-      awaitingReview
+      awaitingReview,
+      FilteredReviewMonths
     } = this.props;
 
     const { activeReview, counters } = this.state;
@@ -257,7 +258,7 @@ export default class OverallReview extends Component {
       minimumLevel: "LEVEL3"
     });
 
-    return summary.reviews[0].createdAt ? (
+    return FilteredReviewMonths[0] && FilteredReviewMonths[0].createdAt ? (
       <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
         <SectionTitle>Overall ratings</SectionTitle>
         {/* check if any written comments */}
