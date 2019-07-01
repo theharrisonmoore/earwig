@@ -3,30 +3,6 @@ import { Link } from "react-router-dom";
 
 import { colors } from "./../../../theme";
 
-export const CookieStyles = {
-  general: {
-    background: `${colors.dodgerBlue}`,
-    color: `${colors.white}`,
-    display: "flex",
-    justifyContent: "center",
-    fontSize: "16px",
-    fontWeight: "500",
-    fontFamily: "Roboto",
-    maxHeight: 155
-  },
-  button: {
-    background: `${colors.white}`,
-    color: `${colors.black}`,
-    fontSize: "16px",
-    borderRadius: 4,
-    border: `1px ${colors.white}`,
-    marginTop: -8
-  },
-  link: {
-    textDecoration: "none"
-  }
-};
-
 export const Wrapper = styled.div`
   background: ${colors.heliotrope};
   padding: 2rem 1rem 0 1rem;

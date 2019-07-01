@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import * as Yup from "yup";
 import axios from "axios";
-import CookieConsent from "react-cookie-consent";
 
 import {
   Wrapper,
@@ -22,8 +21,7 @@ import {
   AwardDiv,
   AwardsWrapper,
   AwardTitle,
-  LabelTitle,
-  CookieStyles
+  LabelTitle
 } from "./Landing.style";
 
 import LogoBetaWhite from "./../../../assets/logo-beta-white.svg";
@@ -83,22 +81,6 @@ export default class index extends Component {
 
     return (
       <Wrapper>
-        {/* cookie policy page to be inserted */}
-        <CookieConsent
-          location="bottom"
-          buttonText="Got it!"
-          cookieName="myAwesomeCookieName2"
-          style={CookieStyles.general}
-          buttonStyle={CookieStyles.button}
-          expires={150}
-          acceptOnScroll={true}
-        >
-          This website uses cookies to enhance the user experience.{" "}
-          <a style={CookieStyles.link} href={`/`}>
-            {" "}
-            Find out more about our Cookie Policy
-          </a>{" "}
-        </CookieConsent>
         <Logo src={LogoBetaWhite} alt="logo" isMobile={isMobile} />
         {isMobile || isTablet ? (
           <TopWrapper>
