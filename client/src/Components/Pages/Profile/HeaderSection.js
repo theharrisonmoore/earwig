@@ -196,6 +196,7 @@ export default class HeaderSection extends Component {
             {reviewNotAllowed && reviewsLast30Days.length > 0 && (
               <div style={{ textAlign: "center" }}>
                 <PopoverComponent
+                  category={category}
                   popoverOptions={{
                     text: `It seems that you've already reviewed this organisation in the last 30 days. You can review each organisation once a month. Date of last review: ${moment(
                       reviewsLast30Days[0].date
