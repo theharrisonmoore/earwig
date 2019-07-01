@@ -42,10 +42,7 @@ import example from "./../../../assets/example.png";
 
 import { API_SIGN_UP } from "./../../../apiUrls";
 
-const {
-  API_TRADE_URL,
-  API_UPLOAD_VERIFICATION_IMAGE_URL
-} = require("../../../apiUrls");
+const { API_TRADE_URL } = require("../../../apiUrls");
 
 // create custom function
 function equalTo(ref, msg) {
@@ -194,8 +191,6 @@ export default class Signup extends Component {
     if (referral) {
       values.referral = referral;
     }
-
-    console.log(values, "-=-=-=-=-=-=-");
 
     if (values.checkbox) {
       setSubmitting(true);
