@@ -154,16 +154,3 @@ export const validationSchema = {
     ...generalSectionSchema
   })
 };
-
-/* ============================================================== */
-
-const quickReview = {
-  general: Yup.object({ ...generalSectionSchema })
-};
-
-export const validationSchemaShort = {
-  agency: quickReview.general,
-  payroll: quickReview.general,
-  worksite: quickReview.general,
-  company: quickReview.general
-};

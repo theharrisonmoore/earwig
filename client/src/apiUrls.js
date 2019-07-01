@@ -18,10 +18,6 @@ const API_UPLOAD_WORKSITE_IMAGE_URL = `${API_PREFIX}${UPLOAD_WORKSITE_IMAGE_URL}
 const REPORT_CONTENT_URL = "/report-content";
 const API_REPORT_CONTENT_URL = `${API_PREFIX}${REPORT_CONTENT_URL}`;
 
-// quick review section
-const QUICK_REVIEW_URL = "/short-review";
-const API_QUICK_REVIEW_URL = `${API_PREFIX}${QUICK_REVIEW_URL}`;
-
 const SEARCH_URL = "/search";
 const API_SEARCH_URL = `${API_PREFIX}${SEARCH_URL}`;
 
@@ -55,6 +51,12 @@ const API_SIGN_UP = `${API_PREFIX}${SIGN_UP}`;
 const USERS = "/users";
 const API_USERS = `${API_PREFIX}${USERS}`;
 
+const RESET_PASSWORD = "/reset-password";
+const API_RESET_PASSWORD = `${API_PREFIX}${RESET_PASSWORD}`;
+
+const SET_PASSWORD = "/set-password";
+const API_SET_PASSWORD = `${API_PREFIX}${SET_PASSWORD}`;
+
 const ADD_HELPFUL_OVERALL_POINTS = "/review/:reviewId/overall/helpful-points";
 
 const ADMIN = "/admin";
@@ -64,7 +66,6 @@ module.exports = {
   API_LOGIN_URL,
   API_GET_QUESTIONS_URL,
   API_POST_REVIEW_URL,
-  API_QUICK_REVIEW_URL,
   API_UPLOAD_WORKSITE_IMAGE_URL,
   API_SEARCH_URL,
   API_LOGOUT_URL,
@@ -79,6 +80,8 @@ module.exports = {
   API_EDIT_PROFILE,
   API_SIGN_UP,
   API_USERS,
+  API_RESET_PASSWORD,
+  API_SET_PASSWORD,
 
   // server variables
   LOGIN_URL,
@@ -86,7 +89,6 @@ module.exports = {
   GET_QUESTIONS_URL,
   ADD_ORGANIZATION_URL,
   REVIEW_URL,
-  QUICK_REVIEW_URL,
   UPLOAD_WORKSITE_IMAGE_URL,
   TRADE_URL,
   UPLOAD_VERIFICATION_IMAGE_URL,
@@ -100,5 +102,7 @@ module.exports = {
   EDIT_PROFILE,
   SIGN_UP,
   USERS,
+  RESET_PASSWORD,
+  SET_PASSWORD,
   ADD_HELPFUL_OVERALL_POINTS
 };

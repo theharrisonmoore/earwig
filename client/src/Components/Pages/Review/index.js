@@ -10,16 +10,9 @@ import {
   UserAgreement,
   CheckboxWrapper,
   Header,
-  HeaderPhone,
-  ContentPhone,
-  ImageBoxPhone,
-  OrganizationPhone,
-  ReviewTimePhone,
   Content,
-  ImageBox,
   Organization,
   OrgName,
-  ReviewTime,
   Paragraph,
   FormWrapper,
   Level2Header,
@@ -30,7 +23,6 @@ import {
 import { StyledErrorMessage } from "./Question/Question.style";
 
 import Question from "./Question/index";
-import clockLong from "./../../../assets/clock-long-icon.png";
 import { organizations } from "./../../../theme";
 
 import { initQueestionsValues } from "./initialQuestionsValues";
@@ -41,7 +33,6 @@ import {
   THANKYOU_URL,
   TERMS_OF_USE_URL
 } from "../../../constants/naviagationUrls";
-import { NewSVGCreator, questionsNumber, isMobile } from "../../../helpers";
 
 // antd spinner for the submit button
 const antIcon = (
@@ -229,6 +220,9 @@ class Review extends Component {
 
       organization: { name, category }
     } = this.state;
+
+    const { history } = this.props;
+
     const staticQuestion = STATIC_QUESTIONS(category);
 
     const { isLoading } = this.state;
@@ -257,45 +251,27 @@ class Review extends Component {
       <ReviewWrapper>
         <Header orgType={category} style={{ marginBottom: "3rem" }}>
           <Content>
-            <ImageBox>
-              {!isMobile(window.innerWidth) &&
-                NewSVGCreator(category, "4rem", "4rem", "white")}
-            </ImageBox>
+            <Paragraph
+              style={{ paddingRight: ".5rem" }}
+              cancel
+              bold
+              onClick={() => history.goBack()}
+            >
+              Cancel
+            </Paragraph>
             <Organization>
               <div>
                 <Paragraph style={{ paddingRight: ".5rem" }}>
-                  You're reviewing:{" "}
+                  You’re giving a review about
                 </Paragraph>
-                <OrgName>{name}</OrgName>
               </div>
-              <ReviewTime>
-                {questionsNumber[category].full.count}{" "}
-                <img src={clockLong} alt="" />{" "}
-                {questionsNumber[category].full.time}
-              </ReviewTime>
+              <div>
+                <Paragraph capitalized>{category}: &nbsp;</Paragraph>
+                <OrgName> {name}</OrgName>
+              </div>
             </Organization>
           </Content>
         </Header>
-
-        <HeaderPhone orgType={category} style={{ marginBottom: "3rem" }}>
-          <ContentPhone>
-            <OrganizationPhone>
-              <ImageBoxPhone>
-                {isMobile(window.innerWidth) &&
-                  NewSVGCreator(category, "3rem", "3rem", "white")}
-              </ImageBoxPhone>
-              <div>
-                <Paragraph>You're reviewing:</Paragraph>
-                <OrgName>{name}</OrgName>
-              </div>
-            </OrganizationPhone>
-            <ReviewTimePhone>
-              {questionsNumber[category].full.count}{" "}
-              <img src={clockLong} alt="" />{" "}
-              {questionsNumber[category].full.time}
-            </ReviewTimePhone>
-          </ContentPhone>
-        </HeaderPhone>
 
         <section className="review-body">
           <Formik

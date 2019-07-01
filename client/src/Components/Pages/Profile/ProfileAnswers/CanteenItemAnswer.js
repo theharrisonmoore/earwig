@@ -45,7 +45,7 @@ export default class CanteenItemAnswer extends Component {
     const { questions, isMobile } = this.props;
 
     const canteenHeader = questions.filter(
-      question => question.question.profileText === "Canteen:"
+      question => question.profileText === "Canteen:"
     );
 
     const hasCanteen = this.getAverage(canteenHeader[0].answers);
@@ -64,17 +64,17 @@ export default class CanteenItemAnswer extends Component {
               <p>Canteen</p>
             </CanteenItem>
             {questions
-              .filter(question => question.question.profileText !== "Canteen:")
+              .filter(question => question.profileText !== "Canteen:")
               .map((question, index) =>
-                question.question.profileText === "heated" ? (
+                question.profileText === "heated" ? (
                   <CanteenSubList
                     key={index}
                     hide={this.onlyNeutralAnswers(question.answers)}
                   >
-                    - {question.question.profileText}
+                    - {question.profileText}
                   </CanteenSubList>
                 ) : (
-                  question.question.options.map(
+                  question.options.map(
                     (option, index) =>
                       option !== "I didn't check" && (
                         <CanteenSubList

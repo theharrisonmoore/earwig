@@ -5,14 +5,19 @@ module.exports = category => Organization.aggregate([
     $match: {
       category,
     },
-  }, {
+  },
+  {
     $project: {
       name: { $ifNull: ["$name", "N/A"] },
       phoneNumber: { $ifNull: ["$phoneNumber", "N/A"] },
       email: { $ifNull: ["$email", "N/A"] },
       websiteURL: { $ifNull: ["$websiteURL", "N/A"] },
+      category: 1,
       key: "$_id",
       active: { $ifNull: ["$active", "N/A"] },
     },
+  },
+  {
+    $sort: { name: 1 },
   },
 ]);

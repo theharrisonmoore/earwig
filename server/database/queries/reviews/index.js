@@ -3,11 +3,14 @@ const Organization = require("./../../models/Organization");
 const Answer = require("./../../models/Answer");
 const Review = require("./../../models/Review");
 const Comment = require("./../../models/Comment");
+const Question = require("./../../models/Question")
 
 const getAllReviews = require("./allReviews");
 const getOverallReplies = require("./getOverallReplies");
 const getReviewDetails = require("./getReviewDetails");
 const updateOverallHelpfullPoints = require("./updateOverallHelpfullPoints");
+
+const { getHelpedPoints } = require("../user/index");
 
 module.exports.updateOverallHelpfullPoints = updateOverallHelpfullPoints;
 
@@ -28,11 +31,7 @@ module.exports.addCommentOnOverallReview = (id, data) => Review.findByIdAndUpdat
 });
 
 // used in admin panel to change isVerified status of review
-module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate(
-  { _id: id },
-  { isVerified: bool },
-  { new: true },
-);
+module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate({ _id: id }, { isVerified: bool }, { new: true });
 
 // used in admin panel to delete an answer of a review
 module.exports.deleteAnswer = id => Answer.deleteOne({ _id: id });
@@ -99,15 +98,24 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
       $unwind: { path: "$reviews.user", preserveNullAndEmptyArrays: true },
     },
     {
+      $lookup: {
+        from: "trades",
+        localField: "reviews.user.trade",
+        foreignField: "_id",
+        as: "reviews.user.trade",
+      },
+    },
+
+    {
       $project: {
         "reviews.user.email": 0,
         "reviews.user.isAdmin": 0,
         "reviews.user.password": 0,
-        "reviews.user.trade": 0,
         "reviews.user.createdAt": 0,
         "reviews.user.updatedAt": 0,
       },
     },
+
     {
       $group: {
         _id: "$_id",
@@ -130,10 +138,7 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
       },
     },
   ])
-    .then((result) => {
-      // console.log("RES!!!!!", result);
-      resolve(result);
-    })
+    .then(result => resolve(result))
     .catch(err => reject(err));
 });
 
@@ -205,6 +210,11 @@ module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
     {
       $unwind: "$question",
     },
+    {
+      $sort: {
+        "question.profileOrder": 1,
+      },
+    },
     // group by profile sections
     {
       $group: {
@@ -212,10 +222,67 @@ module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
         questions: { $push: "$$ROOT" },
       },
     },
+    // {
+    //   $sort: {
+    //     "_id": 1,
+    //   },
+    // },
   ])
     .then(resolve)
     .catch(err => reject(err));
 });
+
+module.exports.allQsAndAs = (orgType, orgId) => new Promise((resolve, reject) => {
+  Question.aggregate([
+    // get all the questions for that organization type
+    {
+      $match: { category: orgType }
+    },
+    {
+      $lookup: {
+        from: "answers",
+        localField: "_id",
+        foreignField: "question",
+        as: "answers"
+      }
+    },
+    {
+      $project: {
+        _id: 1,
+        category: 1,
+        type: 1,
+        profileSection: 1,
+        profileText: 1, 
+        profileType: 1, 
+        profileOrder: 1, 
+        group: 1,
+        hasComment: 1,
+        icon: 1,
+        text: 1,
+        options: 1, 
+        answers: {
+          $filter: {
+            input: "$answers",
+            as: "answer",
+            cond: { $eq: ["$$answer.organization", mongoose.Types.ObjectId(orgId)]}
+          }
+        }
+      }
+    },
+    {
+      $sort: {
+        profileOrder: 1,
+      },
+    },
+    // group by profile sections
+    {
+      $group: {
+        _id: "$profileSection",
+        questions: { $push: "$$ROOT" },
+      },
+    },
+  ]).then(resolve).catch(err => reject(err))
+})
 
 module.exports.allComments = (organizationID, questionID) => new Promise((resolve, reject) => {
   Comment.aggregate([
@@ -254,5 +321,48 @@ module.exports.allComments = (organizationID, questionID) => new Promise((resolv
     .then((result) => {
       resolve(result);
     })
+    .catch(err => reject(err));
+});
+
+// gets all reviews given by 1 user for 1 organisation and sets a flag depending
+// returns true if review is less than 1 month old
+
+module.exports.checkUsersLatestReview = (organization, user) => new Promise((resolve, reject) => {
+  Review.aggregate([
+    // get all reviews for 1 user
+    {
+      $match: {
+        $and: [
+          {
+            organization: mongoose.Types.ObjectId(organization),
+          },
+          {
+            user: mongoose.Types.ObjectId(user),
+          },
+        ],
+      },
+    },
+
+    {
+      $project: {
+        _id: 0,
+        date: "$createdAt",
+        // get number of days between creation of review and today
+        // first step mil seconds, second step days
+        diff_days: {
+          $divide: [
+            {
+              $subtract: [new Date(), "$createdAt"],
+            },
+            1000 * 60 * 60 * 24,
+          ],
+        },
+        older_30_days: {
+          $lte: [30, "$diff_days"],
+        },
+      },
+    },
+  ])
+    .then(result => resolve(result))
     .catch(err => reject(err));
 });

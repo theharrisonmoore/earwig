@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import * as Yup from "yup";
 import axios from "axios";
+import { Alert } from "antd";
 
 import Logo from "./../../Common/Logo";
+
 import {
   StyledFormik as Formik,
   StyledForm as Form,
@@ -14,7 +16,6 @@ import {
 } from "./../../Common/Formik/Formik.style";
 
 import {
-  ADMIN,
   SEARCH_URL,
   SIGNUP_URL,
   RESET_PASSWORD_URL
@@ -49,8 +50,7 @@ export default class Login extends Component {
       .post("/api/login", values)
       .then(({ data }) => {
         this.props.handleChangeState({ ...data, isLoggedIn: true });
-        const { isAdmin } = data;
-        this.props.history.push(isAdmin ? ADMIN : SEARCH_URL);
+        this.props.history.push(SEARCH_URL);
       })
       .catch(err => {
         this.setState({ error: err.response.data.error });
@@ -60,6 +60,8 @@ export default class Login extends Component {
 
   render() {
     const { error } = this.state;
+    const resetSuccess =
+      this.props.location.state && this.props.location.state.resetSuccess;
 
     return (
       <LoginWrapper>
@@ -71,6 +73,13 @@ export default class Login extends Component {
         >
           {({ isSubmitting }) => (
             <Form>
+              {resetSuccess && (
+                <Alert
+                  message="Your password has been changed"
+                  type="success"
+                  style={{ marginBottom: "20px" }}
+                />
+              )}
               <Label htmlFor="email">
                 Email
                 <StyledField type="email" name="email" id="email" />
@@ -85,9 +94,7 @@ export default class Login extends Component {
                   id="password"
                 />
               </Label>
-              <SmallLink to={RESET_PASSWORD_URL} disabled>
-                Forgot password?
-              </SmallLink>
+              <SmallLink to={RESET_PASSWORD_URL}>Forgot password?</SmallLink>
               {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
               <Button type="submit" disabled={isSubmitting}>
                 Log in

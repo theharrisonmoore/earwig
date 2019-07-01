@@ -19,6 +19,4 @@ module.exports = fileName => new Promise(async (resolve, reject) => {
   } catch (error) {
     return reject(error);
   }
-
-  // [END storage_generate_signed_url_v4]
 });

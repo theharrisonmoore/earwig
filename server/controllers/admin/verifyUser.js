@@ -7,10 +7,18 @@
 
 const boom = require("boom");
 
-const { updateUserById, getUserById } = require("./../../database/queries/user");
+const {
+  updateUserById,
+  getUserById,
+  updateUserPoints,
+  updateUserHelpedPoints,
+} = require("./../../database/queries/user");
+
 const deleteFile = require("./../../helpers/deleteFile");
 
-module.exports = ((req, res, next) => {
+const { referralPoints } = require("./../../constants");
+
+module.exports = async (req, res, next) => {
   const { id } = req.body;
   const updateData = {
     awaitingReview: false,
@@ -18,32 +26,36 @@ module.exports = ((req, res, next) => {
     verificationPhoto: undefined,
   };
 
-  getUserById(id)
-    .then((user) => {
-      if (!user) {
-        next(boom.notFound("user not found!"));
-      } else if (!user.verificationPhoto) {
-        next(boom.badData("the user has no verification image"));
-      } else {
-        // update user state
-        updateUserById(id, updateData)
-          .then(() => {
-            // delete verification photo from google storage
-            deleteFile(user.verificationPhoto)
-              .then(() => {
-                res.send();
-              })
-              .catch((err) => {
-                if (err.message === "file is no longer available") {
-                  next(boom.badData(err));
-                } else {
-                  next(boom.badImplementation());
-                }
-              });
-          })
-          .catch(() => {
-            next(boom.badImplementation());
-          });
+  try {
+    const user = await getUserById(id);
+
+    if (!user) {
+      return next(boom.notFound("user not found!"));
+    }
+    if (!user.verificationPhoto) {
+      return next(boom.badData("the user has no verification image"));
+    }
+    // update user state
+    await updateUserById(id, updateData);
+
+    try {
+      // delete verification photo from google storage
+      if (process.env.NODE_ENV !== "test") {
+        await deleteFile(user.verificationPhoto);
       }
-    });
-});
+    } catch (error) {
+      if (error.message === "file is no longer available") {
+        return next(boom.badData(error));
+      }
+      return next(boom.badImplementation());
+    }
+
+    if (user.referral) {
+      await updateUserPoints(user.referral, referralPoints);
+      await updateUserHelpedPoints(user.referral);
+    }
+    return res.json({});
+  } catch (error) {
+    return next(boom.badImplementation());
+  }
+};

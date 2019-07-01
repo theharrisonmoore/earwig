@@ -14,19 +14,20 @@ export const Wrapper = styled.div`
   background: ${colors.white};
   z-index: 1000;
 
-  @media ${breakpoints.tablet} {
+  /* @media ${breakpoints.tablet} {
     border-bottom: none;
-  }
+  } */
 `;
 
 export const WrapperH2 = styled.h2`
   margin: 0;
   font-size: 1rem;
   margin-right: 0.5rem;
+  width: 40%;
 `;
 
 export const SideDiv = styled.div`
-  width: 25%;
+  width: 30%;
   display: flex;
   justify-content: ${props => props.position};
   align-items: center;
@@ -37,11 +38,6 @@ export const SideDiv = styled.div`
 export const Icon = styled.img`
   cursor: pointer;
   height: 1.5rem;
-`;
-
-export const LogoIcon = styled.img`
-  cursor: pointer;
-  height: 2rem;
 `;
 
 export const NavSearch = styled.div`
@@ -64,5 +60,6 @@ export const ToggleMenu = styled.div`
   align-items: center;
   z-index: 4;
   min-width: 5.25rem;
-  justify-content: flex-end;
+  width: 100%;
+  justify-content: ${props => props.position};
 `;

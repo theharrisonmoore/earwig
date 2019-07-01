@@ -4,7 +4,6 @@ import { Checkbox, message, Spin, Icon } from "antd";
 import Loading from "./../../Common/AntdComponents/Loading";
 
 import {
-  ReviewWrapper,
   SubmitButton,
   UserAgreement,
   CheckboxWrapper,
@@ -23,7 +22,8 @@ import {
   FormWrapper,
   Level2Header,
   AgreementLabel,
-  LinkSpan
+  LinkSpan,
+  ReviewWrapper
 } from "./Review.style";
 
 import { StyledErrorMessage } from "./Question/Question.style";
@@ -416,6 +416,7 @@ class Test extends Component {
       errors,
       isSubmitting
     } = this.state;
+    const { history } = this.props;
     const staticQuestion = STATIC_QUESTIONS(category);
 
     const { isLoading } = this.state;
@@ -429,45 +430,28 @@ class Test extends Component {
       <ReviewWrapper>
         <Header orgType={category} style={{ marginBottom: "3rem" }}>
           <Content>
-            <ImageBox>
-              {!isMobile(window.innerWidth) &&
-                NewSVGCreator(category, "4rem", "4rem", "white")}
-            </ImageBox>
+            <Paragraph
+              style={{ paddingRight: ".5rem" }}
+              cancel
+              bold
+              onClick={() => history.goBack()}
+            >
+              Cancel
+            </Paragraph>
             <Organization>
               <div>
                 <Paragraph style={{ paddingRight: ".5rem" }}>
-                  You're reviewing:{" "}
+                  You’re giving a review about
                 </Paragraph>
-                <OrgName>{name}</OrgName>
               </div>
-              <ReviewTime>
-                {questionsNumber[category].full.count}{" "}
-                <img src={clockLong} alt="" />{" "}
-                {questionsNumber[category].full.time}
-              </ReviewTime>
+              <div>
+                <Paragraph capitalized>{category}: &nbsp;</Paragraph>
+                <OrgName> {name}</OrgName>
+              </div>
             </Organization>
           </Content>
         </Header>
 
-        <HeaderPhone orgType={category} style={{ marginBottom: "3rem" }}>
-          <ContentPhone>
-            <OrganizationPhone>
-              <ImageBoxPhone>
-                {isMobile(window.innerWidth) &&
-                  NewSVGCreator(category, "3rem", "3rem", "white")}
-              </ImageBoxPhone>
-              <div>
-                <Paragraph>You're reviewing:</Paragraph>
-                <OrgName>{name}</OrgName>
-              </div>
-            </OrganizationPhone>
-            <ReviewTimePhone>
-              {questionsNumber[category].full.count}{" "}
-              <img src={clockLong} alt="" />{" "}
-              {questionsNumber[category].full.time}
-            </ReviewTimePhone>
-          </ContentPhone>
-        </HeaderPhone>
         <section className="review-body">
           <form onSubmit={this.handleSubmit}>
             <FormWrapper>

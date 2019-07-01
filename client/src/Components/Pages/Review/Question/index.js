@@ -1,8 +1,8 @@
 import React from "react";
 
-import { QuestionWrapper, QText, HintText } from "./Question.style";
-
 import QuestionOptions from "./Options";
+import PopoverComponent from "./../../../Common/Popover";
+import { QuestionWrapper, QText, HintText } from "./Question.style";
 
 const Question = props => {
   if (!props) {
@@ -21,6 +21,7 @@ const Question = props => {
     hasComment,
     next
   } = props.question;
+
   const {
     questions,
     values,
@@ -33,10 +34,19 @@ const Question = props => {
     handleSliderChange
   } = props;
 
+  const popoverOptions = {
+    text:
+      "We’re asking this because it will be useful to track over time how much agencies are paying workers",
+    linkText: "Why are we asking this?"
+  };
+
   return (
     <QuestionWrapper>
       <QText>{text}</QText>
       <HintText>{hintText}</HintText>
+      {text === "What hourly rate were you paid?" && (
+        <PopoverComponent popoverOptions={popoverOptions} />
+      )}
       <QuestionOptions
         type={type}
         options={options}
