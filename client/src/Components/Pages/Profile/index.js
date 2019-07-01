@@ -222,10 +222,11 @@ export default class Profile extends Component {
       commentsLoaded,
       level,
       contractorAnswers,
-      reviewsLast30Days
+      reviewsLast30Days,
+      organizationID
     } = this.state;
 
-    const { isTablet, isMobile, verified, isAdmin, id } = this.props;
+    const { isTablet, isMobile, verified, isAdmin } = this.props;
 
     if (!loaded) return <Loading />;
 
@@ -416,7 +417,7 @@ export default class Profile extends Component {
           verified={verified}
           level={level}
           isAdmin={isAdmin}
-          id={id}
+          orgId={organizationID}
         />
         {level < 1 && (
           <ReviewDiv isTablet={isTablet} isMobile={isMobile}>

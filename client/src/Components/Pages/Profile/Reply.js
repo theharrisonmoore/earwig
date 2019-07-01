@@ -9,11 +9,17 @@ import {
   Error
 } from "./ProfileAnswers/ProfileAnswers.style";
 
-import { Wrapper, IndividComment } from "./Reply.style";
 import {
+  Wrapper,
+  IndividComment,
+  ReplyWrapper,
+  StyledButton,
+  CommentsWrapper,
   Banner,
+  Cancel
+} from "./Reply.style";
+import {
   StyledReplyIcon,
-  Cancel,
   BannerTitle,
   UserDiv,
   UserTrade,
@@ -39,7 +45,8 @@ export default class Reply extends Component {
     replies: [],
     user: "",
     errors: {},
-    loaded: false
+    loaded: false,
+    submitting: false
   };
 
   handleChangeUserName = ({ target }) => {
@@ -77,11 +84,11 @@ export default class Reply extends Component {
   };
 
   handleSubmit = () => {
-    const { reviewId, target } = this.props.location.state;
+    const { reviewId, target, orgId } = this.props.location.state;
 
     this.validate().then(res => {
       res &&
-        this.setState({ errors: {} }, () => {
+        this.setState({ errors: {}, submitting: true }, () => {
           const data = {
             text: toString(this.state.commentContentState),
             displayName: this.state.user,
@@ -94,12 +101,16 @@ export default class Reply extends Component {
               this.setState(
                 {
                   commentContentState: toContentState(""),
-                  errors: {}
+                  errors: {},
+                  submitting: false
                 },
                 () => this.fetchOverallReplies(reviewId)
               );
+              // UNCOMMENT IF YOU WANT TO SEND BACK TO PROFILE AFTER SUBMITTING COMMENT
+              // this.props.history.push(`/profile/${orgId}`);
             })
             .catch(err => {
+              this.setState({ submitting: false });
               const error =
                 err.response && err.response.data && err.response.data.error;
               message.error(error || "Something went wrong");
@@ -160,7 +171,7 @@ export default class Reply extends Component {
     if (!this.props.location || !this.props.location.state) {
       return this.props.history.goBack();
     }
-    const { replies, loaded } = this.state;
+    const { replies, loaded, submitting } = this.state;
     const { isAdmin } = this.props;
     const { category } = this.props.location.state;
     const users =
@@ -186,7 +197,7 @@ export default class Reply extends Component {
             paddingBottom: "9rem"
           }}
         >
-          <>
+          <CommentsWrapper>
             {replies &&
               replies.map(reply => (
                 <IndividComment key={reply.replies._id}>
@@ -214,20 +225,20 @@ export default class Reply extends Component {
                   </CommentBubble>
                 </IndividComment>
               ))}
+          </CommentsWrapper>
 
+          <ReplyWrapper>
             <div
               ref={this.inputWrapper}
               style={{
                 textAlign: "left",
-                position: "fixed",
                 width: "100%",
-                bottom: "0",
                 background: "white",
                 paddingBottom: "2rem",
-                maxWidth: "30rem",
-                margin: "0 auto",
-                left: 0,
-                right: 0
+                maxWidth: "30rem"
+                // margin: "0 auto",
+                // left: 0,
+                // right: 0
               }}
             >
               {isAdmin && (
@@ -246,27 +257,38 @@ export default class Reply extends Component {
               <div style={{ position: "relative" }}>
                 <Mention
                   autoFocus
-                  style={{ width: "100%", marginTop: "0.25rem" }}
+                  style={{
+                    width: "100%",
+                    marginTop: "0.25rem",
+                    minHeight: "6rem"
+                  }}
                   onChange={this.onChange}
                   defaultSuggestions={users}
                   onFocus={this.handleFocus}
                   onBlur={this.handleBlur}
                   value={this.state.commentContentState}
                   multiLines
-                  placeholder={"Add a reply… use @ to mention"}
+                  placeholder={"Write your reply…"}
                 />
-                <StyledReplyIcon
-                  width="40px"
-                  fill={organizations[category].primary}
-                  onClick={this.handleSubmit}
-                />
+                {/* <StyledReplyIcon
+                    width="40px"
+                    fill={organizations[category].primary}
+                    onClick={this.handleSubmit}
+                  /> */}
               </div>
-
-              {this.state.errors.comment && (
-                <Error>{this.state.errors.comment}</Error>
-              )}
             </div>
-          </>
+            <StyledButton
+              category={category}
+              loading={submitting}
+              onClick={this.handleSubmit}
+            >
+              Post reply
+            </StyledButton>
+
+            {this.state.errors.comment && (
+              <Error>{this.state.errors.comment}</Error>
+            )}
+          </ReplyWrapper>
         </Wrapper>
       </>
     );
