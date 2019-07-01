@@ -3,6 +3,8 @@ import axios from "axios";
 
 import { BrowserRouter as Router } from "react-router-dom";
 
+import CookieConsent from "react-cookie-consent";
+
 import "antd/dist/antd.css";
 import "./App.css";
 
@@ -13,6 +15,8 @@ import ScrollToTop from "./Components/Common/ScrollToTop";
 import { isSMobile, isMobile, isTablet } from "./helpers";
 
 import { API_USERS } from "./apiUrls";
+
+import { cookieStyles } from "./theme";
 
 export const initialState = {
   isLoggedIn: false,
@@ -84,6 +88,22 @@ class App extends Component {
       <Router>
         <ScrollToTop>
           <div className="App">
+            {/* cookie policy page to be inserted */}
+            <CookieConsent
+              location="bottom"
+              buttonText="Got it!"
+              cookieName="myAwesomeCookieName2"
+              style={cookieStyles.general}
+              buttonStyle={cookieStyles.button}
+              expires={150}
+              acceptOnScroll={true}
+            >
+              This website uses cookies to enhance the user experience.{" "}
+              <a style={cookieStyles.link} href={`/`}>
+                {" "}
+                Find out more about our Cookie Policy
+              </a>{" "}
+            </CookieConsent>
             <Routes
               handleChangeState={this.handleChangeState}
               isMobile={isMobile}
