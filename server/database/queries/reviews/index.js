@@ -378,15 +378,6 @@ module.exports.allQsAndAs = (orgType, orgId, justContractor) => new Promise((res
         as: "answers",
       },
     },
-
-    // {
-    //   $lookup: {
-    //     from: "answers",
-    //     localField: "_id",
-    //     foreignField: "question",
-    //     as: "answers",
-    //   },
-    // },
     {
       $project: {
         _id: 1,
