@@ -112,10 +112,12 @@ const signupSchema = Yup.object().shape({
     }
     return true;
   }),
-  image: Yup.mixed().test("image", "Required", function(image) {
+  verificationImage: Yup.mixed().test("verificationImage", "Required", function(
+    verificationImage
+  ) {
     const isWorker = this.resolve(Yup.ref("isWorker"));
 
-    if (isWorker === "yes" && !image) {
+    if (isWorker === "yes" && !verificationImage) {
       return false;
     }
     return true;
@@ -132,7 +134,7 @@ const initialValues = {
   otherOrg: "",
   trade: "",
   city: "",
-  image: undefined
+  verificationImage: undefined
 };
 
 const RadioButton = ({
@@ -192,6 +194,8 @@ export default class Signup extends Component {
     if (referral) {
       values.referral = referral;
     }
+
+    console.log(values, "-=-=-=-=-=-=-");
 
     if (values.checkbox) {
       setSubmitting(true);
@@ -324,21 +328,26 @@ export default class Signup extends Component {
   };
 
   handleImageChange = event => {
-    const image = event.target.files && event.target.files[0];
+    const verificationImage = event.target.files && event.target.files[0];
     var reader = new FileReader();
 
     reader.onload = () => {
       var dataURL = reader.result;
       this.setState({
-        image: dataURL
+        verificationImage: dataURL
       });
     };
 
-    image && reader.readAsDataURL(image);
+    verificationImage && reader.readAsDataURL(verificationImage);
   };
 
   render() {
-    const { error, ismodalVisible, confirmLoading, image } = this.state;
+    const {
+      error,
+      ismodalVisible,
+      confirmLoading,
+      verificationImage
+    } = this.state;
 
     return (
       <SignupWrapper>
@@ -592,13 +601,17 @@ export default class Signup extends Component {
                       protect your anonymity.
                     </Paragraph>
 
-                    <Field name="image">
+                    <Field name="verificationImage">
                       {({ field, form, onChange }) => (
                         <>
-                          <Example src={image ? image : example} />
-                          <Button as="label" htmlFor="image">
+                          <Example
+                            src={
+                              verificationImage ? verificationImage : example
+                            }
+                          />
+                          <Button as="label" htmlFor="verificationImage">
                             Upload photo for verification{" "}
-                            {image && (
+                            {verificationImage && (
                               <Icon
                                 type="check"
                                 style={{ color: "green", fontSize: "23px" }}
@@ -606,11 +619,11 @@ export default class Signup extends Component {
                             )}
                           </Button>
                           <ImageInput
-                            id="image"
+                            id="verificationImage"
                             type="file"
                             onChange={event => {
                               form.setFieldValue(
-                                "image",
+                                "verificationImage",
                                 event.currentTarget.files[0]
                               );
                               this.handleImageChange(event);
@@ -622,9 +635,9 @@ export default class Signup extends Component {
                     </Field>
 
                     <FormikErrorMessage
-                      name="image"
+                      name="verificationImage"
                       component="span"
-                      id="image"
+                      id="verificationImage"
                     />
                     <SubHeading>Protecting you from blacklisting</SubHeading>
                     <Paragraph>

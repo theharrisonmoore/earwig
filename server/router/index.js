@@ -140,10 +140,10 @@ router.post(
 router.post(
   SIGN_UP,
   upload("verificationImage"),
-  toGoogle(),
-  deleteFileFromServer,
   validation("signup"),
+  toGoogle(false),
   signupController,
+  deleteFileFromServer,
 );
 
 // edit profile route
