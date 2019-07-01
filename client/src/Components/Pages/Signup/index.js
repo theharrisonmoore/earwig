@@ -73,7 +73,7 @@ const signupSchema = Yup.object().shape({
     .equalTo(Yup.ref("password")),
   checkbox: Yup.boolean()
     .required("Required")
-    .oneOf([true], "Must Accept Terms and Conditions"),
+    .oneOf([true], "Must accept Terms and Conditions"),
   isWorker: Yup.string()
     .required("Required")
     .oneOf(["yes", "no"], "Must select an option"),
@@ -81,11 +81,11 @@ const signupSchema = Yup.object().shape({
     .required("Required")
     .oneOf(
       ["agency", "payroll", "company", "mainContractor", "other"],
-      "invalid organisation type"
+      "Invalid organisation type"
     ),
   otherOrg: Yup.string().test(
     "otherOrg",
-    "enter the organisation you are working for",
+    "Enter the organisation you are working for",
     function(otherOrg) {
       const orgType = this.resolve(Yup.ref("orgType"));
       if (orgType === "other" && !otherOrg) {
@@ -304,7 +304,7 @@ export default class Signup extends Component {
       );
     } else if (this.state.newTrade.length < 3) {
       this.setState({
-        newTradeError: "Trade must be 3 charachters length at least"
+        newTradeError: "Trade must be at least 3 characters long"
       });
     }
   };
