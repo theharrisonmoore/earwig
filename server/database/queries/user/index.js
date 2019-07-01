@@ -23,7 +23,10 @@ module.exports.updateUserHelpedPoints = userId => User.findOneAndUpdate(
   },
 );
 
-module.exports.checkValidReferral = id => User.findOne({ _id: id, verified: true }, { password: 0 });
+module.exports.checkValidReferral = id => User.findOne(
+  { _id: id, verified: true },
+  { password: 0 },
+);
 
 module.exports.updateUserById = (userId, data) => User.findByIdAndUpdate(userId, { $set: data });
 module.exports.findByEmail = email => User.findOne({ email: email.toLowerCase() });
@@ -38,7 +41,9 @@ module.exports.getAllUsers = getAllUsers;
 
 module.exports.deleteUser = id => User.deleteOne({ _id: id });
 
-module.exports.getUserById = (id, withoutPassword) => (withoutPassword ? User.findById(id, { password: 0 }) : User.findById(id));
+module.exports.getUserById = (id, withoutPassword) => (withoutPassword
+  ? User.findById(id, { password: 0 })
+  : User.findById(id));
 
 module.exports.deleteUserCompletely = async (userId) => {
   // delete the users' comments

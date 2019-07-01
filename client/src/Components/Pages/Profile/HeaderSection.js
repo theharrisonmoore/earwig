@@ -1,7 +1,11 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import moment from "moment";
 
 import { StarRateCreator } from "./../../../helpers";
-import GiveReview from "./../../Common/GiveReview";
+import { Icon as AntdIcon, Popover } from "antd";
+
+import { REVIEW_URL } from "../../../constants/naviagationUrls";
 
 import {
   Header,
@@ -9,8 +13,7 @@ import {
   CompanyDiv,
   ButtonDiv,
   OrgButton,
-  GiveReviewTitle,
-  GiveReviewDiv,
+  ActionButtonsDiv,
   CompanyNameAndStars,
   StarWrapper,
   CompanyTitle,
@@ -19,12 +22,25 @@ import {
   VerifyLink,
   InactiveButton,
   IconWrapper,
-  OrgLink
+  OrgLink,
+  ActionButton,
+  ContractorDiv,
+  ContractorText,
+  ContractorListLink
 } from "./Profile.style";
 
 import { organizations } from "./../../../theme";
 
 import Icon from "./../../Common/Icon/Icon";
+import PopoverComponent from "./../../Common/Popover";
+
+const content = contractorAnswers => (
+  <div style={{ maxHeight: "150px", overflow: "auto" }}>
+    {contractorAnswers.map(item => (
+      <p>{item}</p>
+    ))}
+  </div>
+);
 
 export default class HeaderSection extends Component {
   render() {
@@ -33,8 +49,9 @@ export default class HeaderSection extends Component {
       isMobile,
       summary,
       level,
-      reviewsLast30Days,
-      handleScroll
+      handleScroll,
+      contractorAnswers,
+      reviewsLast30Days
     } = this.props;
     const {
       category,
@@ -132,19 +149,64 @@ export default class HeaderSection extends Component {
               </InactiveButton>
             </ButtonDiv>
           )}
+          {/* contractor section */}
+          {category === "worksite" && (
+            <ContractorDiv>
+              <ContractorText>
+                Main Contractor:{" "}
+                <span className="contactor-name">
+                  {contractorAnswers[0] || "No data!!"}
+                </span>
+              </ContractorText>
+              {contractorAnswers[0] && (
+                <Popover
+                  placement="bottom"
+                  title={"Contractors List"}
+                  content={content(contractorAnswers)}
+                  trigger="click"
+                >
+                  <ContractorListLink>View the full list</ContractorListLink>
+                  <AntdIcon style={{ color: "#1890ff" }} type="caret-down" />
+                </Popover>
+              )}
+            </ContractorDiv>
+          )}
         </CompanyDetails>
         {level === 2 && (
-          <GiveReviewDiv>
-            <GiveReviewTitle>Give a review about {name}</GiveReviewTitle>
-            <GiveReview
-              category={category}
-              isTablet={isTablet}
-              isMobile={isMobile}
-              reviewNotAllowed={reviewNotAllowed}
-              reviewsLast30Days={reviewsLast30Days}
-              state={{ name, category }}
-            />
-          </GiveReviewDiv>
+          <>
+            <ActionButtonsDiv>
+              <Link
+                to={{
+                  pathname: REVIEW_URL,
+                  state: { name, category }
+                }}
+              >
+                <ActionButton
+                  color={organizations[category].primary}
+                  disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
+                >
+                  Give a review about this {category}
+                </ActionButton>
+              </Link>
+              <ActionButton color={organizations[category].primary}>
+                Ask workers a question about this {category}
+              </ActionButton>
+            </ActionButtonsDiv>
+
+            {reviewNotAllowed && reviewsLast30Days.length > 0 && (
+              <div style={{ textAlign: "center" }}>
+                <PopoverComponent
+                  category={category}
+                  popoverOptions={{
+                    text: `It seems that you've already reviewed this organisation in the last 30 days. You can review each organisation once a month. Date of last review: ${moment(
+                      reviewsLast30Days[0].date
+                    ).format("DD.MM.YYYY")}`,
+                    linkText: "Why can't I give a review?"
+                  }}
+                />
+              </div>
+            )}
+          </>
         )}
         {level === 1 && (
           <VerifyPromo>

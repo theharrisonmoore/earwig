@@ -3,7 +3,7 @@ const Organization = require("./../../models/Organization");
 const Answer = require("./../../models/Answer");
 const Review = require("./../../models/Review");
 const Comment = require("./../../models/Comment");
-const Question = require("./../../models/Question")
+const Question = require("./../../models/Question");
 
 const getAllReviews = require("./allReviews");
 const getOverallReplies = require("./getOverallReplies");
@@ -232,19 +232,27 @@ module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
-module.exports.allQsAndAs = (orgType, orgId) => new Promise((resolve, reject) => {
+module.exports.allQsAndAs = (orgType, orgId, justContractor) => new Promise((resolve, reject) => {
+  let match = {
+    $match: { category: orgType },
+  };
+
+  if (orgType === "worksite" && justContractor) {
+    match = {
+      $match: { category: orgType, text: "Who is the main contractor on site?" },
+    };
+  }
+
   Question.aggregate([
     // get all the questions for that organization type
-    {
-      $match: { category: orgType }
-    },
+    match,
     {
       $lookup: {
         from: "answers",
         localField: "_id",
         foreignField: "question",
-        as: "answers"
-      }
+        as: "answers",
+      },
     },
     {
       $project: {
@@ -252,22 +260,22 @@ module.exports.allQsAndAs = (orgType, orgId) => new Promise((resolve, reject) =>
         category: 1,
         type: 1,
         profileSection: 1,
-        profileText: 1, 
-        profileType: 1, 
-        profileOrder: 1, 
+        profileText: 1,
+        profileType: 1,
+        profileOrder: 1,
         group: 1,
         hasComment: 1,
         icon: 1,
         text: 1,
-        options: 1, 
+        options: 1,
         answers: {
           $filter: {
             input: "$answers",
             as: "answer",
-            cond: { $eq: ["$$answer.organization", mongoose.Types.ObjectId(orgId)]}
-          }
-        }
-      }
+            cond: { $eq: ["$$answer.organization", mongoose.Types.ObjectId(orgId)] },
+          },
+        },
+      },
     },
     {
       $sort: {
@@ -281,8 +289,8 @@ module.exports.allQsAndAs = (orgType, orgId) => new Promise((resolve, reject) =>
         questions: { $push: "$$ROOT" },
       },
     },
-  ]).then(resolve).catch(err => reject(err))
-})
+  ]).then(resolve).catch(err => reject(err));
+});
 
 module.exports.allComments = (organizationID, questionID) => new Promise((resolve, reject) => {
   Comment.aggregate([

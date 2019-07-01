@@ -25,7 +25,7 @@ class PopoverComponent extends React.Component {
   };
 
   render() {
-    const { popoverOptions } = this.props;
+    const { popoverOptions, category } = this.props;
     const { text, linkText } = popoverOptions;
 
     return (
@@ -34,14 +34,16 @@ class PopoverComponent extends React.Component {
         content={
           <PopoverDiv>
             <PopoverText>{text}</PopoverText>
-            <PopoverBtn onClick={this.hide}>Got it!</PopoverBtn>
+            <PopoverBtn onClick={this.hide} category={category}>
+              Got it!
+            </PopoverBtn>
           </PopoverDiv>
         }
         trigger="click"
         visible={this.state.popoverVisible}
         onVisibleChange={this.handleVisibleChange}
       >
-        <PopoverLink>{linkText}</PopoverLink>
+        <PopoverLink category={category}>{linkText}</PopoverLink>
       </Popover>
     );
   }
