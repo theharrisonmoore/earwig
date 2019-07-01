@@ -7,6 +7,7 @@ module.exports = (req, res) => {
     awaitingReview: user.awaitingReview,
     userId: user.userId,
     points: user.points,
+    helpedPoints: user.helpedPoints,
     isAdmin: user.isAdmin,
     email: user.email,
   };

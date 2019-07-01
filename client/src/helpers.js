@@ -1,5 +1,9 @@
 import axios from "axios";
-import { MOBILE_WIDTH, TABLET_WIDTH } from "./constants/screenWidths";
+import {
+  S_MOBILE_WIDTH,
+  MOBILE_WIDTH,
+  TABLET_WIDTH
+} from "./constants/screenWidths";
 import React from "react";
 import StarRatingComponent from "react-star-rating-component";
 import SVG from "react-inlinesvg";
@@ -41,6 +45,7 @@ export const StarRateCreator = (organisation, value) => (
 export const SortArrayNewest = (a, b) => {
   return a.lastViewed > b.lastViewed ? -1 : b.lastViewed > a.lastViewed ? 1 : 0;
 };
+export const isSMobile = width => width <= S_MOBILE_WIDTH;
 
 export const isMobile = width => width <= MOBILE_WIDTH;
 
