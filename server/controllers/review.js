@@ -74,7 +74,7 @@ const postReviewShort = async (req, res, next) => {
 
 const postReview = async (req, res, next) => {
   const {
-    questions: questionsAnswers,
+    answers: questionsAnswers,
     review: {
       rate, overallReview, workPeriod, voiceReview,
     },

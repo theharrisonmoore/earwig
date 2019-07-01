@@ -9,12 +9,12 @@ import { isMobile } from "../../../../../helpers";
 
 class CustomRate extends Component {
   state = { rate: 0, hoverRate: undefined };
-  shouldComponentUpdate(nextProps, nextState) {
-    if (Map(this.props.state.review).equals(Map(nextProps.state.review))) {
-      return false;
-    }
-    return true;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (Map(this.props.state.review).equals(Map(nextProps.state.review))) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
   setRateValue = value => {
     this.setState({ rate: value });
@@ -30,7 +30,7 @@ class CustomRate extends Component {
     const {
       options,
       category,
-      state: { review }
+      state: { review, errors }
     } = this.props;
 
     const rateValue = hoverRate || rate;
@@ -45,6 +45,7 @@ class CustomRate extends Component {
           }}
           onHoverChange={this.handleHoverRate}
           value={review.rate}
+          onBlur={this.props.runValidation}
         />
         <div style={{ dispay: "inline-block" }}>
           {options.map((option, index) => (
@@ -69,11 +70,9 @@ class CustomRate extends Component {
             </span>
           ))}
         </div>
-        <ErrorMessage name="review.rate">
-          {msg => {
-            return <StyledErrorMessage>{msg}</StyledErrorMessage>;
-          }}
-        </ErrorMessage>
+        {errors && errors.review && errors.review.workPeriod.from && (
+          <StyledErrorMessage>{errors.review.rate}</StyledErrorMessage>
+        )}
       </QuestionOptionsWrapper>
     );
   }

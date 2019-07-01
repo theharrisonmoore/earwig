@@ -57,6 +57,7 @@ const Question = props => {
         handleSliderChange={handleSliderChange}
         question={props.question}
         state={props.state}
+        runValidation={props.runValidation}
       />
     </QuestionWrapper>
   );

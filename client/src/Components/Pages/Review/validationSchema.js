@@ -23,7 +23,7 @@ const generalSectionSchema = {
 
 export const validationSchema = {
   agency: Yup.object({
-    questions: Yup.object({
+    answers: Yup.object({
       1: Yup.string(),
       2: Yup.string().when("1", {
         is: "Yes",
@@ -79,7 +79,7 @@ export const validationSchema = {
     ...generalSectionSchema
   }),
   payroll: Yup.object({
-    questions: Yup.object({
+    answers: Yup.object({
       1: Yup.string(),
       2: Yup.string().when("1", {
         is: "Yes",
@@ -101,7 +101,7 @@ export const validationSchema = {
     ...generalSectionSchema
   }),
   worksite: Yup.object({
-    questions: Yup.object({
+    answers: Yup.object({
       1: Yup.string(),
       2: Yup.string(),
       // number
@@ -137,7 +137,7 @@ export const validationSchema = {
     ...generalSectionSchema
   }),
   company: Yup.object({
-    questions: Yup.object({
+    answers: Yup.object({
       1: Yup.string(),
       2: Yup.string(),
       3: Yup.string().when("2", {

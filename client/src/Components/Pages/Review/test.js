@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { ErrorMessage } from "formik";
 import axios from "axios";
 import { Checkbox, message, Spin, Icon } from "antd";
 import Loading from "./../../Common/AntdComponents/Loading";
@@ -33,12 +32,12 @@ import Question from "./Question/index";
 import clockLong from "./../../../assets/clock-long-icon.png";
 import { organizations } from "./../../../theme";
 
-// import { initQueestionsValues } from "./initialQuestionsValues";
-// import { validationSchema } from "./validationSchema";
+import { initQueestionsValues } from "./initialQuestionsValues";
+import { validationSchema } from "./validationSchema";
 import { STATIC_QUESTIONS } from "./staticQuestions";
 
 import {
-  // THANKYOU_URL,
+  THANKYOU_URL,
   TERMS_OF_USE_URL
 } from "../../../constants/naviagationUrls";
 
@@ -49,10 +48,7 @@ const antIcon = (
   <Icon type="loading" style={{ fontSize: 24, color: "white" }} spin />
 );
 
-// const {
-//   API_GET_QUESTIONS_URL,
-//   API_POST_REVIEW_URL
-// } = require("../../../apiUrls");
+const { API_POST_REVIEW_URL } = require("../../../apiUrls");
 
 class Test extends Component {
   state = {
@@ -62,8 +58,8 @@ class Test extends Component {
     organization: { category: "agency", name: "", needsVerification: false },
     user: { email: "" },
     dropdownList: [],
-    answers: {},
     comments: {},
+    answers: {},
     review: {
       workPeriod: {
         from: "",
@@ -74,7 +70,9 @@ class Test extends Component {
       // voiceReview: ""
     },
     hasAgreed: false,
-    questions: []
+    questions: [],
+    errors: {},
+    isSubmitting: false
   };
 
   componentDidMount() {
@@ -87,10 +85,14 @@ class Test extends Component {
     } = this.props.location.state;
     const { organization, user } = this.state;
 
-    organization.category = category;
-    organization.name = name;
-    organization.needsVerification = needsVerification || false;
-    user.email = email;
+    this.setState({
+      organization: {
+        category,
+        name,
+        needsVerification: needsVerification || false
+      },
+      user: { email }
+    });
 
     axios
       .get(`/api/questions/${orgId}`, {
@@ -101,7 +103,7 @@ class Test extends Component {
       .then(res => {
         // make a conditon to check if editing or not(query param?!!)
         const answers = {};
-        const edit = true;
+        const edit = false;
         if (edit) {
           const { getReviewAnswers: reviewDetails } = res.data;
           reviewDetails[0].answers.map(answer => {
@@ -112,7 +114,6 @@ class Test extends Component {
             const number = question.number;
             if (answers[number]) {
               // think about this again;
-              console.log("this should never run");
               answers[number] = ans;
             } else {
               answers[number] = ans;
@@ -157,9 +158,14 @@ class Test extends Component {
 
   handleCheckBox = () => {
     const { hasAgreed } = this.state;
-    this.setState({
-      hasAgreed: !hasAgreed
-    });
+    this.setState(
+      {
+        hasAgreed: !hasAgreed
+      },
+      () => {
+        this.runValidation2();
+      }
+    );
   };
 
   handleReviewChange = e => {
@@ -186,17 +192,27 @@ class Test extends Component {
 
   handleRateChage = value => {
     const { review } = this.state;
-    this.setState({
-      review: { ...review, rate: value }
-    });
+    this.setState(
+      {
+        review: { ...review, rate: value }
+      },
+      () => {
+        this.runValidation2();
+      }
+    );
   };
 
   handleDateChage = (fromOrTo, value) => {
     const { review } = this.state;
     const { workPeriod } = review;
-    this.setState({
-      review: { ...review, workPeriod: { ...workPeriod, [fromOrTo]: value } }
-    });
+    this.setState(
+      {
+        review: { ...review, workPeriod: { ...workPeriod, [fromOrTo]: value } }
+      },
+      () => {
+        this.runValidation2();
+      }
+    );
   };
 
   showNextQestion = (groupId, next, other, set, num) => {
@@ -264,10 +280,141 @@ class Test extends Component {
     this.setState({ groupss: newGroups });
   };
 
+  runValidation2 = () => {
+    const { organization } = this.state;
+    const values = {
+      answers: this.state.answers,
+      comments: this.state.comments,
+      review: this.state.review,
+      hasAgreed: this.state.hasAgreed
+    };
+    validationSchema[organization.category]
+      .validate(values, { abortEarly: false })
+      .catch(errors => {
+        const errs = {
+          answers: {},
+          review: {
+            workPeriod: {
+              from: "",
+              to: ""
+            },
+            rate: "",
+            overallReview: ""
+            // voiceReview: ""
+          },
+          hasAgreed: false
+        };
+        errors.inner.map(err => {
+          if (err.path.includes("answers")) {
+            const num = err.path.split(".")[1];
+            errs.answers[num] = err.message;
+          } else if (err.path.includes("workPeriod")) {
+            const key = err.path.split(".")[2];
+            errs.review.workPeriod[key] = err.message;
+          } else if (err.path.includes("rate")) {
+            errs.review.rate = err.message;
+          } else {
+            errs.hasAgreed = err.message;
+          }
+        });
+        this.setState({ errors: errs });
+      });
+  };
+
+  runValidation = () =>
+    new Promise((resolve, reject) => {
+      const { organization } = this.state;
+      const { user } = this.state;
+      const values = {
+        answers: this.state.answers,
+        comments: this.state.comments,
+        review: this.state.review,
+        hasAgreed: this.state.hasAgreed
+      };
+      validationSchema[organization.category]
+        .validate(values, { abortEarly: false })
+        .then(values => {
+          resolve(values);
+        })
+        .catch(errors => {
+          const errs = {
+            answers: {},
+            review: {
+              workPeriod: {
+                from: "",
+                to: ""
+              },
+              rate: "",
+              overallReview: ""
+              // voiceReview: ""
+            },
+            hasAgreed: false
+          };
+          errors.inner.map(err => {
+            if (err.path.includes("answers")) {
+              const num = err.path.split(".")[1];
+              errs.answers[num] = err.message;
+            } else if (err.path.includes("workPeriod")) {
+              const key = err.path.split(".")[2];
+              errs.review.workPeriod[key] = err.message;
+            } else if (err.path.includes("rate")) {
+              errs.review.rate = err.message;
+            } else {
+              errs.hasAgreed = err.message;
+            }
+          });
+          reject(errs);
+        });
+    });
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.setState({ isSubmitting: true });
+    const { organization } = this.state;
+    const { user } = this.state;
+    const values = {
+      answers: this.state.answers,
+      comments: this.state.comments,
+      review: this.state.review,
+      hasAgreed: this.state.hasAgreed
+    };
+
+    this.runValidation(organization.category, values)
+      .then(vals => {
+        const review = {
+          vals,
+          organization,
+          user
+        };
+        axios
+          .post(API_POST_REVIEW_URL, review)
+          .then(res => {
+            this.setState({ isSubmitting: false });
+            this.props.history.push(THANKYOU_URL, {
+              orgType: organization.category,
+              orgId: res.data,
+              orgName: organization.name
+            });
+          })
+          .catch(err => {
+            const error =
+              err.response && err.response.data && err.response.data.error;
+            message.error(error || "Something went wrong");
+            // server error 500, maybe redirect to 500.error page??!!
+            this.setState({ isSubmitting: false });
+          });
+      })
+      .catch(err => {
+        this.setState({ errors: err });
+      });
+  };
+
   render() {
     const {
       groupss,
-      organization: { name, category }
+      organization: { name, category },
+      errors,
+      isSubmitting
     } = this.state;
     const staticQuestion = STATIC_QUESTIONS(category);
 
@@ -322,13 +469,14 @@ class Test extends Component {
           </ContentPhone>
         </HeaderPhone>
         <section className="review-body">
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <FormWrapper>
               <Question
                 question={staticQuestion[0]}
                 category={this.state.organization.category}
                 handleChange={this.handleDateChage}
                 state={this.state}
+                onBlur={this.runValidation2}
               />
               <div>
                 {Object.keys(groupss).map(groupId => {
@@ -363,6 +511,7 @@ class Test extends Component {
                   category={this.state.organization.category}
                   handleChange={this.handleRateChage}
                   state={this.state}
+                  runValidation={this.runValidation2}
                 />
                 <Question
                   question={staticQuestion[1]}
@@ -401,18 +550,18 @@ class Test extends Component {
                     </AgreementLabel>
                   </Checkbox>
 
-                  <ErrorMessage name={`hasAgreed`}>
-                    {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
-                  </ErrorMessage>
+                  {errors && errors.hasAgreed && (
+                    <StyledErrorMessage>{errors.hasAgreed}</StyledErrorMessage>
+                  )}
                 </CheckboxWrapper>
               </UserAgreement>
               <SubmitButton
                 type="submit"
                 size="large"
-                // disabled={isSubmitting}
+                disabled={isSubmitting}
                 orgType={category}
               >
-                {true && (
+                {isSubmitting && (
                   <Spin indicator={antIcon} style={{ marginRight: ".5rem" }} />
                 )}
                 Submit your review
