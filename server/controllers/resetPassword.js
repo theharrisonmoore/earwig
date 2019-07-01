@@ -2,7 +2,7 @@ const boom = require("boom");
 const crypto = require("crypto");
 const { findByEmail, updateUserById } = require("./../database/queries/user");
 const { resetTokenMaxAge } = require("./../constants");
-const resetPasswordMailing = require("../helpers/resetPasswordMailing");
+const resetPasswordMailing = require("../helpers/emails/resetPasswordMailing");
 
 module.exports = async (req, res, next) => {
   const { email } = req.body;

@@ -1,7 +1,7 @@
 const boom = require("boom");
 
 const { addNew, getOrganizationByName } = require("../database/queries/organizations/");
-const emailAdminTheNewProfile = require("./../helpers/emailAdminTheNewProfile");
+const emailAdminTheNewProfile = require("./../helpers/emails/emailAdminTheNewProfile");
 
 module.exports = async (req, res, next) => {
   const { user } = req;
