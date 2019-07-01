@@ -16,13 +16,35 @@ const addToMailchimpList = require("../helpers/3dParty/mailchimp");
 const { tokenMaxAge } = require("./../constants");
 
 module.exports = async (req, res, next) => {
-  const { email, password, referral } = req.body;
-
-  const newUserData = {
-    email,
-    password,
-  };
   try {
+    const {
+      email,
+      password,
+      referral,
+      isWorker,
+      orgType,
+      trade,
+      city,
+      otherOrg,
+    } = req.body;
+    const uploadedFileName = req.file && req.file.uploadedFileName;
+
+
+    const newUserData = {
+      email,
+      password,
+    };
+
+    if (isWorker === "yes") {
+      newUserData.trade = trade;
+      newUserData.city = city;
+      newUserData.awaitingReview = true;
+      newUserData.uploadedFileName = uploadedFileName;
+    } else {
+      const worksFor = orgType !== "other" ? orgType : otherOrg;
+      newUserData.worksFor = worksFor;
+      newUserData.awaitingReview = false;
+    }
     // check if the referral is valid
     if (referral) {
       const referralUser = await checkValidReferral(referral);

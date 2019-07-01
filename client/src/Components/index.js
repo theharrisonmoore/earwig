@@ -73,14 +73,14 @@ export default function index(props) {
       <Switch>
         <PrivateRoute
           exact
-          minimumLevel="LEVEL3"
+          minimumLevel="LEVEL2"
           path={REVIEW_URL}
           {...props}
           Component={Review}
         />
         <PrivateRoute
           exact
-          minimumLevel="LEVEL3"
+          minimumLevel="LEVEL2"
           path={THANKYOU_URL}
           {...props}
           Component={Thankyou}

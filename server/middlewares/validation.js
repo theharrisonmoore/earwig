@@ -1,6 +1,7 @@
 const Joi = require("joi");
 const boom = require("boom");
 
+
 // define all routes schema here
 const schemas = {
   login: {
@@ -30,6 +31,31 @@ const schemas = {
       .valid(true)
       .error(() => "You should agree Earwig terms of user"),
     referral: Joi.string().length(24),
+    isWorker: Joi.string()
+      .valid(["yes", "no"], "Must select an option")
+      .required("Required"),
+    city: Joi.string().when("isWorker", {
+      is: true,
+      then: Joi.string().required("city is required"),
+      otherwise: Joi.allow("").optional(),
+    }),
+    trade: Joi.string()
+      .when("isWorker", { is: "no", then: Joi.allow("").optional() })
+      .when("isWorker", { is: "yes", then: Joi.required("trade is required") }),
+    orgType: Joi.string().when("isWorker", {
+      is: "no",
+      then: Joi.string()
+        .valid(["agency", "payroll", "company", "mainContractor", "other"],
+          "invalid organisation type").required(),
+      otherwise: Joi.allow("").optional(),
+    }),
+    otherOrg: Joi.string()
+      .when("orgType", {
+        is: "other",
+        then: Joi.string().min(3).error(() => "enter valid organisation you work for")
+          .required("enter valid organisation you work for"),
+        otherwise: Joi.allow("").optional(),
+      }),
   },
   editProfile: {
     oldPassword: Joi.string(),
