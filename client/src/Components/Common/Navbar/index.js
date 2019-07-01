@@ -5,24 +5,14 @@ import { Button, Icon as AntIcon } from "antd";
 
 import Icon from "./../Icon/Icon";
 
-import { SEARCH_URL, ADMIN } from "./../../../constants/naviagationUrls";
+import { ADMIN } from "./../../../constants/naviagationUrls";
 
-import { colors } from "./../../../theme";
-
-import {
-  Wrapper,
-  LogoIcon,
-  ToggleMenu,
-  SideDiv,
-  WrapperH2
-} from "./Navbar.style";
+import { Wrapper, ToggleMenu, SideDiv, WrapperH2 } from "./Navbar.style";
 import Menu from "./Menu.js";
 
-import Logo from "./../../../assets/logo.svg";
 import CloseIcon from "./../../../assets/close-icon.svg";
 import axios from "axios";
 
-import AutosuggestComponent from "../../Pages/Search/AutoSuggest";
 import { API_SEARCH_URL } from "../../../apiUrls";
 
 export const axiosCall = async () => {
@@ -55,22 +45,42 @@ export default class Navbar extends Component {
     const {
       title,
       isMobile,
-      search,
       isLoggedIn,
       isAdmin,
       history,
       handleChangeState
     } = this.props;
-    const { menuOpen, isLoading, data } = this.state;
+    const { menuOpen, isLoading } = this.state;
     if (!isLoading) return null;
-
     if (!isMobile) {
       return (
         <Wrapper height="4rem">
-          <SideDiv position={isAdmin ? "space-between" : "flex-start"}>
-            <NavLink to={SEARCH_URL}>
-              <LogoIcon src={Logo} alt="logo" />
-            </NavLink>
+          <SideDiv position="flex-start">
+            {menuOpen ? (
+              <>
+                <ToggleMenu onClick={this.toggleMenu} position="flex-end">
+                  <img src={CloseIcon} alt="close" />
+                </ToggleMenu>
+
+                <Menu
+                  isMobile={isMobile}
+                  isLoggedIn={isLoggedIn}
+                  toggleMenu={this.toggleMenu}
+                  isAdmin={isAdmin}
+                  history={history}
+                  handleChangeState={handleChangeState}
+                />
+              </>
+            ) : (
+              <>
+                <ToggleMenu onClick={this.toggleMenu}>
+                  <Icon icon="hamburger" width="1.5rem" height="1.5rem" />
+                </ToggleMenu>
+              </>
+            )}
+          </SideDiv>
+          <WrapperH2 style={{ fontWeight: "900" }}>{title && title}</WrapperH2>
+          <SideDiv position="flex-end" isDesktop={!isMobile}>
             {isAdmin && (
               <NavLink to={ADMIN}>
                 <Button type="primary" style={{ marginRight: "25px" }}>
@@ -85,62 +95,15 @@ export default class Navbar extends Component {
               </NavLink>
             )}
           </SideDiv>
-          {search && (
-            <AutosuggestComponent
-              iconTop="13px"
-              height="3rem"
-              bool={() => true}
-              width="50%"
-              data={data}
-              placeholderText="Try searching for agencies, payrolls, worksites, or companies..."
-            />
-          )}
-          {menuOpen ? (
-            <>
-              <SideDiv position="flex-end">
-                <ToggleMenu onClick={this.toggleMenu}>
-                  <WrapperH2>CLOSE</WrapperH2>
-                  <img src={CloseIcon} alt="close" />
-                </ToggleMenu>
-              </SideDiv>
-              <Menu
-                isMobile={isMobile}
-                isLoggedIn={isLoggedIn}
-                toggleMenu={this.toggleMenu}
-                isAdmin={isAdmin}
-                history={history}
-                handleChangeState={handleChangeState}
-              />
-            </>
-          ) : (
-            <SideDiv position="flex-end">
-              <ToggleMenu onClick={this.toggleMenu}>
-                <WrapperH2>MENU</WrapperH2>
-                <Icon icon="hamburger" width="1.5rem" height="1.5rem" />
-              </ToggleMenu>
-            </SideDiv>
-          )}
           {/* MOBILE VERSION */}
         </Wrapper>
       );
     } else {
       return (
         <Wrapper height="3rem">
-          <SideDiv position="flex-start">
-            <NavLink to={SEARCH_URL}>
-              <Icon
-                icon="search"
-                width="1.5rem"
-                height="1.5rem"
-                color={colors.profileFontColor}
-                margin="3px 0 0 0"
-              />
-            </NavLink>
-          </SideDiv>
-          <WrapperH2 style={{ fontWeight: "900" }}>{title && title}</WrapperH2>
           {menuOpen ? (
             <>
-              <ToggleMenu onClick={this.toggleMenu}>
+              <ToggleMenu onClick={this.toggleMenu} position="flex-start">
                 <img src={CloseIcon} alt="close" />
               </ToggleMenu>
               <Menu
@@ -153,13 +116,14 @@ export default class Navbar extends Component {
               />
             </>
           ) : (
-            <SideDiv position="flex-end">
+            <SideDiv position="flex-start">
               <ToggleMenu onClick={this.toggleMenu}>
                 <Icon icon="hamburger" width="1.5rem" height="1.5rem" />
               </ToggleMenu>
             </SideDiv>
           )}
-          {/* MOBILE VERSION */}
+          <WrapperH2 style={{ fontWeight: "900" }}>{title && title}</WrapperH2>
+          <SideDiv position="flex-end" />
         </Wrapper>
       );
     }

@@ -2,11 +2,10 @@ const router = require("express").Router();
 const {
   getByOrg,
   postReview,
-  addNewAgencyPayroll,
   getOrgsByType,
   getAgencesAndPayrollsNames,
   postReviewShort,
-  getSingleReviewAnswers,
+  addNewOrg,
 } = require("../controllers/review");
 
 const adminRouter = require("./admin");
@@ -49,6 +48,10 @@ const addCommentOnReview = require("../controllers/addCommentOnReview");
 const updateLastViewedOrg = require("../controllers/updateLastViewedOrg");
 
 const deleteOrgController = require("../controllers/deleteOrganization");
+const resetPassword = require("../controllers/resetPassword");
+const setPassword = require("../controllers/setPassword");
+const updateOverallHelpfulPoints = require("../controllers/updateOverallHelpfulPoints");
+
 
 const {
   LOGIN_URL,
@@ -69,7 +72,11 @@ const {
   UPLOAD_VERIFICATION_IMAGE_URL,
   TRADE_URL,
   USERS,
+  RESET_PASSWORD,
+  SET_PASSWORD,
+  ADD_HELPFUL_OVERALL_POINTS,
 } = require("../../client/src/apiUrls");
+
 
 router.get(SEARCH_URL, searchController);
 
@@ -82,7 +89,7 @@ router.post("/short-review", authentication, authorization("LEVEL3"), postReview
 
 // Add new payroll and agency
 router.get("/organizations", authentication, authorization("LEVEL3"), getOrgsByType);
-router.post("/organizations", authentication, authorization("LEVEL3"), addNewAgencyPayroll);
+router.post("/organizations", authentication, authorization("LEVEL3"), addNewOrg);
 router.get("/agency-payroll", authentication, authorization("LEVEL3"), getAgencesAndPayrollsNames);
 
 // require all the routes in this file
@@ -210,5 +217,10 @@ router.post("/thinking-of-deleting", authentication, thinkingofDeletingControlle
 router.post("/give-feedback", authentication, feedbackController);
 
 router.post("/update-last-viewed", updateLastViewedOrg);
+
+router.post(RESET_PASSWORD, resetPassword);
+router.post(SET_PASSWORD, setPassword);
+
+router.patch(ADD_HELPFUL_OVERALL_POINTS, authentication, updateOverallHelpfulPoints);
 
 module.exports = router;

@@ -37,7 +37,20 @@ export default class Profile extends Component {
     level: 0,
     organizationID: "",
     overallReplies: [],
-    activeOverallId: ""
+    activeOverallId: "",
+    contractorAnswers: [],
+    reviewsLast30Days: []
+  };
+
+  myDivToFocus = React.createRef();
+
+  handleScroll = event => {
+    if (this.myDivToFocus.current) {
+      this.myDivToFocus.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
   };
 
   fetchData = () => {
@@ -46,14 +59,31 @@ export default class Profile extends Component {
     axios
       .post("/api/profile", { organizationID })
       .then(res => {
-        const { summary, reviewDetails, level } = res.data;
+        const { summary, reviewDetails, level, reviewsLast30Days } = res.data;
+
+        let contractorAnswers = [];
+        if (summary[0].category === "worksite" && reviewDetails.length) {
+          const [worksiteQuestionsGroup] = reviewDetails.filter(
+            group => group._id === "Working on the site"
+          );
+          const [contractorQuestion] = worksiteQuestionsGroup.questions.filter(
+            question => question.text === "Who is the main contractor on site?"
+          );
+          const orderedAnswers = contractorQuestion.answers.sort(
+            (a, b) =>
+              moment(a.updatedAt).valueOf() - moment(b.updatedAt).valueOf()
+          );
+          contractorAnswers = orderedAnswers.map(item => item.answer);
+        }
 
         this.setState({
           summary: summary[0],
           reviewDetails,
           level,
           loaded: true,
-          organizationID
+          organizationID,
+          contractorAnswers,
+          reviewsLast30Days
         });
       })
       .catch(err => {
@@ -71,8 +101,7 @@ export default class Profile extends Component {
       .filter(section => section._id === null)
       .map(item =>
         item.questions.filter(
-          question =>
-            question.question.text === "How much did car parking cost per day?"
+          question => question.text === "How much did car parking cost per day?"
         )
       );
 
@@ -191,10 +220,12 @@ export default class Profile extends Component {
       commentsQuestion,
       comments,
       commentsLoaded,
-      level
+      level,
+      contractorAnswers,
+      reviewsLast30Days
     } = this.state;
 
-    const { isTablet, isMobile, verified } = this.props;
+    const { isTablet, isMobile, verified, isAdmin, id } = this.props;
 
     if (!loaded) return <Loading />;
 
@@ -212,6 +243,9 @@ export default class Profile extends Component {
           isMobile={isMobile}
           summary={summary}
           level={level}
+          reviewsLast30Days={reviewsLast30Days}
+          handleScroll={this.handleScroll}
+          contractorAnswers={contractorAnswers}
         />
         {/* BASIC VIEW FOR LOGGED OUT USERS */}
         {level < 1 && (
@@ -369,6 +403,8 @@ export default class Profile extends Component {
           )}
         </ReviewDiv>
         {/* OVERALL RATINGS SECTION */}
+        {/* HIDDEN DIV TO SCROLL SECTION INTO VIEW */}
+        <div ref={this.myDivToFocus} />
         <OverallReview
           summary={summary}
           isTablet={isTablet}
@@ -379,6 +415,8 @@ export default class Profile extends Component {
           fetchOverallReplies={this.fetchOverallReplies}
           verified={verified}
           level={level}
+          isAdmin={isAdmin}
+          id={id}
         />
         {level < 1 && (
           <ReviewDiv isTablet={isTablet} isMobile={isMobile}>

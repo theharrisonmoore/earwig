@@ -17,3 +17,14 @@ module.exports.getTradesAdmin = () => Trade.aggregate([
 ]);
 
 module.exports.deleteTrade = id => Trade.deleteOne({ _id: id });
+
+module.exports.editTrade = (oldName, newName) => Trade.updateOne(
+  {
+    title: oldName
+  },
+  {
+    $set: {
+      "title": newName
+    }
+  }
+)

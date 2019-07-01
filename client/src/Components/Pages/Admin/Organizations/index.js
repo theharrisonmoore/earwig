@@ -3,8 +3,9 @@ import { Route, Switch } from "react-router-dom";
 
 import { routes } from "./../../../../constants/adminRoutes";
 import AllOrganizations from "./AllOrganizations";
+import AddEditOrg from "./AddEditOrg";
 
-const { COMPANIES, AGENCIES, PAYROLLS, WORKSITES } = routes;
+const { COMPANIES, AGENCIES, PAYROLLS, WORKSITES, ADDORG, EDITORG } = routes;
 export default class Organizations extends Component {
   render() {
     return (
@@ -28,6 +29,16 @@ export default class Organizations extends Component {
           exact
           path={WORKSITES}
           render={props => <AllOrganizations category="worksite" {...props} />}
+        />
+        <Route
+          exact
+          path={ADDORG}
+          render={props => <AddEditOrg purpose="add" {...props} />}
+        />
+        <Route
+          exact
+          path={EDITORG}
+          render={props => <AddEditOrg purpose="edit" {...props} />}
         />
       </Switch>
     );

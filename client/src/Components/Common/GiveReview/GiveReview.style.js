@@ -6,8 +6,7 @@ import { organizations, colors, shadows } from "./../../../theme";
 
 export const ReviewButtonsDiv = styled.div`
   display: flex;
-  flex-direction: ${props =>
-    props.isMobile || props.isTablet ? "column" : "row"};
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 `;
@@ -26,7 +25,10 @@ export const Time = styled.p`
 `;
 
 export const ReviewButton = styled.button`
-  background: ${props => organizations[`${props.category}`].primary};
+  background: ${props =>
+    props.grayOut
+      ? `${colors.dustyGray2}`
+      : organizations[`${props.category}`].primary};
   color: ${colors.white};
   display: flex;
   justify-content: space-between;

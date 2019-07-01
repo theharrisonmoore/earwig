@@ -22,7 +22,7 @@ export default class PayrollAnswer extends Component {
     let payrolls = [];
 
     questions
-      .filter(question => question.question.profileType === "payrollList")
+      .filter(question => question.profileType === "payrollList")
       .map(question =>
         question.answers.map(answer =>
           payrolls.push([answer.review, answer.answer])
@@ -39,7 +39,7 @@ export default class PayrollAnswer extends Component {
     let payrollFees = [];
 
     questions
-      .filter(question => question.question.profileType === "payrollSubList")
+      .filter(question => question.profileType === "payrollSubList")
       .map(question =>
         question.answers.map(answer =>
           payrollFees.push([answer.review, answer.answer])

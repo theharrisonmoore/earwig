@@ -8,6 +8,8 @@ import { handleLogout } from "./../../../../helpers";
 
 import { menuElements } from "../../../../constants/adminRoutes";
 
+import { SEARCH_URL } from "./../../../../constants/naviagationUrls";
+
 const SubMenu = Menu.SubMenu;
 
 const rootSubmenuKeys = menuElements.reduce((accu, current) => {
@@ -110,6 +112,12 @@ export default class SideMenu extends Component {
               </Menu.Item>
             )
           )}
+          <Menu.Item style={{ textAlign: "left" }}>
+            <Link to={SEARCH_URL}>
+              <Icon type="search" />
+              <span>Vist Website</span>
+            </Link>
+          </Menu.Item>
           <Menu.Item
             style={{ textAlign: "left" }}
             onClick={() => handleLogout(history, handleChangeState)}

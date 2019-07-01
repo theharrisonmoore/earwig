@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import moment from "moment";
 import {
   ReviewButtonsDiv,
   ReviewType,
@@ -7,6 +7,8 @@ import {
   ReviewButton,
   FullLink
 } from "./GiveReview.style";
+
+import PopoverComponent from "../Popover/index";
 
 import Icon from "./../Icon/Icon";
 
@@ -16,7 +18,14 @@ import { REVIEW_URL } from "../../../constants/naviagationUrls";
 
 export default class GiveReview extends Component {
   render() {
-    const { category, isMobile, isTablet, state } = this.props;
+    const {
+      category,
+      isMobile,
+      isTablet,
+      state,
+      reviewNotAllowed,
+      reviewsLast30Days
+    } = this.props;
 
     return (
       <ReviewButtonsDiv isTablet={isTablet} isMobile={isMobile}>
@@ -34,13 +43,25 @@ export default class GiveReview extends Component {
               pathname: REVIEW_URL,
               state: state
             }}
+            disabled={reviewNotAllowed}
           >
-            <ReviewButton category={category}>
+            <ReviewButton grayOut={reviewNotAllowed} category={category}>
               <h4>Give a review</h4>
               <Icon icon="arrow" width="16" height="16" color="white" />
             </ReviewButton>
           </FullLink>
         </ReviewType>
+        {reviewNotAllowed && reviewsLast30Days.length > 0 && (
+          <PopoverComponent
+            category={category}
+            popoverOptions={{
+              text: `It seems that you've already reviewed this organisation in the last 30 days. You can review each organisation once a month. Date of last review: ${moment(
+                reviewsLast30Days[0].date
+              ).format("DD.MM.YYYY")}`,
+              linkText: "Why can't I give a review?"
+            }}
+          />
+        )}
       </ReviewButtonsDiv>
     );
   }

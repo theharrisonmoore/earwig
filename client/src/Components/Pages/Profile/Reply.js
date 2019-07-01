@@ -16,7 +16,8 @@ import {
   Cancel,
   BannerTitle,
   UserDiv,
-  UserTrade
+  UserTrade,
+  UserAdditionalDetails
 } from "./Profile.style";
 
 import { organizations } from "./../../../theme";
@@ -199,6 +200,12 @@ export default class Reply extends Component {
                         reply.replies.user.trade[0].title}
                     </UserTrade>
                   </UserDiv>
+                  <UserAdditionalDetails>
+                    <p>
+                      Helped {reply.replies.user.helpedPoints} · Points{" "}
+                      {reply.replies.user.points}
+                    </p>
+                  </UserAdditionalDetails>
                   <CommentBubble
                     as="pre"
                     color={organizations[category].secondary}

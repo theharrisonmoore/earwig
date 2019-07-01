@@ -1,14 +1,27 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 import { Table, Modal, message, Input, Icon, Button } from "antd";
 
 import OrganizationsColumns from "./OrganizationsColumns";
 
+import { routes } from "./../../../../constants/adminRoutes";
+
+// styling
+import { AddHeader, AddOrgWrapper } from "./Organizations.style";
+
+const { ADDORG } = routes;
+
 export default class AllOrganizations extends Component {
   state = {
     data: [],
-    searchText: ""
+    searchText: "",
+    addingOrg: false,
+    newOrgs: [],
+    fields: {},
+    msg: null,
+    errors: {}
   };
 
   getColumnSearchProps = dataIndex => ({
@@ -119,6 +132,11 @@ export default class AllOrganizations extends Component {
     });
   };
 
+  toggleAddOrgForm = () => {
+    const { addingOrg } = this.state;
+    this.setState({ addingOrg: !addingOrg, newOrgs: [] });
+  };
+
   fetchData = () => {
     const { category } = this.props;
     axios
@@ -136,8 +154,23 @@ export default class AllOrganizations extends Component {
 
   render() {
     const { category } = this.props;
+
     return (
       <div>
+        <AddOrgWrapper>
+          <AddHeader>
+            <Link
+              to={{
+                pathname: ADDORG,
+                state: {
+                  category
+                }
+              }}
+            >
+              <Button type="primary">Add organization</Button>
+            </Link>
+          </AddHeader>
+        </AddOrgWrapper>
         <Table
           rowClassName={(record, index) => {
             if (!record.active) {

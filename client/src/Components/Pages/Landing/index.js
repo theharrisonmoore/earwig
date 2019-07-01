@@ -26,7 +26,7 @@ import {
   CookieStyles
 } from "./Landing.style";
 
-import LogoImg from "./../../../assets/logo-white.png";
+import LogoBetaWhite from "./../../../assets/logo-beta-white.svg";
 
 import { colors } from "./../../../theme";
 
@@ -44,7 +44,6 @@ import {
 } from "./../../Common/Formik/Formik.style";
 
 import {
-  ADMIN,
   SEARCH_URL,
   SIGNUP_URL,
   RESET_PASSWORD_URL
@@ -69,8 +68,7 @@ export default class index extends Component {
       .post("/api/login", values)
       .then(({ data }) => {
         this.props.handleChangeState({ ...data, isLoggedIn: true });
-        const { isAdmin } = data;
-        this.props.history.push(isAdmin ? ADMIN : SEARCH_URL);
+        this.props.history.push(SEARCH_URL);
       })
       .catch(err => {
         this.setState({ error: err.response.data.error });
@@ -101,7 +99,7 @@ export default class index extends Component {
             Find out more about our Cookie Policy
           </a>{" "}
         </CookieConsent>
-        <Logo src={LogoImg} alt="logo" isMobile={isMobile} />
+        <Logo src={LogoBetaWhite} alt="logo" isMobile={isMobile} />
         {isMobile || isTablet ? (
           <TopWrapper>
             <Title>Every voice counts</Title>
@@ -157,9 +155,7 @@ export default class index extends Component {
                     id="password"
                   />
                 </Label>
-                <SmallLink to={RESET_PASSWORD_URL} disabled>
-                  Forgot password?
-                </SmallLink>
+                <SmallLink to={RESET_PASSWORD_URL}>Forgot password?</SmallLink>
                 {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
                 <Button
                   type="submit"

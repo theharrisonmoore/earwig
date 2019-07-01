@@ -9,7 +9,6 @@ import {
   Input,
   Rate,
   Checkbox,
-  Popover,
   Slider
 } from "antd";
 import ModalComment from "../../../Common/AntdComponents/ModalComment";
@@ -21,6 +20,8 @@ import { colors, organizations } from "../../../../theme";
 import { isMobile } from "../../../../helpers";
 
 import Icon from "./../../../Common/Icon/Icon";
+
+import PopoverComponent from "./../../../Common/Popover";
 
 import {
   QuestionWrapper,
@@ -34,11 +35,7 @@ import {
   StyledInput,
   StyledButton,
   StyledCheckList,
-  PopoverLink,
-  SliderWrapper,
-  PopoverDiv,
-  PopoverText,
-  PopoverBtn
+  SliderWrapper
 } from "./Question.style";
 
 const marksStyle = {
@@ -79,11 +76,19 @@ const Question = props => {
     groupId
   } = props;
 
+  const popoverOptions = {
+    text:
+      "We’re asking this because it will be useful to track over time how much agencies are paying workers",
+    linkText: "Why are we asking this?"
+  };
+
   return (
     <QuestionWrapper>
       <QText>{text}</QText>
       <HintText>{hintText}</HintText>
-      {text === "What hourly rate were you paid?" && <PopoverComponent />}
+      {text === "What hourly rate were you paid?" && (
+        <PopoverComponent category={category} popoverOptions={popoverOptions} />
+      )}
       <QuestionOptions
         type={type}
         options={options}
@@ -105,43 +110,43 @@ const Question = props => {
   );
 };
 
-class PopoverComponent extends React.Component {
-  state = {
-    popoverVisible: false
-  };
+// class PopoverComponent extends React.Component {
+//   state = {
+//     popoverVisible: false
+//   };
 
-  hide = () => {
-    this.setState({
-      popoverVisible: false
-    });
-  };
+//   hide = () => {
+//     this.setState({
+//       popoverVisible: false
+//     });
+//   };
 
-  handleVisibleChange = popoverVisible => {
-    this.setState({ popoverVisible });
-  };
+//   handleVisibleChange = popoverVisible => {
+//     this.setState({ popoverVisible });
+//   };
 
-  render() {
-    return (
-      <Popover
-        placement="top"
-        content={
-          <PopoverDiv>
-            <PopoverText>
-              We’re asking this because it will be useful to track over time how
-              much agencies are paying workers
-            </PopoverText>
-            <PopoverBtn onClick={this.hide}>Got it!</PopoverBtn>
-          </PopoverDiv>
-        }
-        trigger="click"
-        visible={this.state.popoverVisible}
-        onVisibleChange={this.handleVisibleChange}
-      >
-        <PopoverLink>Why are we asking this?</PopoverLink>
-      </Popover>
-    );
-  }
-}
+//   render() {
+//     return (
+//       <Popover
+//         placement="top"
+//         content={
+//           <PopoverDiv>
+//             <PopoverText>
+//               We’re asking this because it will be useful to track over time how
+//               much agencies are paying workers
+//             </PopoverText>
+//             <PopoverBtn onClick={this.hide}>Got it!</PopoverBtn>
+//           </PopoverDiv>
+//         }
+//         trigger="click"
+//         visible={this.state.popoverVisible}
+//         onVisibleChange={this.handleVisibleChange}
+//       >
+//         <PopoverLink>Why are we asking this?</PopoverLink>
+//       </Popover>
+//     );
+//   }
+// }
 
 class QuestionOptions extends React.Component {
   state = {
@@ -173,7 +178,14 @@ class QuestionOptions extends React.Component {
     this.setState({ hoverRate: value });
   };
   addOrgType = category => {
-    return category === "agency" ? "payroll" : "agency";
+    switch (category) {
+      case "agency":
+        return "payroll";
+      case "payroll":
+        return "agency";
+      default:
+        return category;
+    }
   };
 
   render() {
@@ -400,6 +412,7 @@ class QuestionOptions extends React.Component {
                                 props.setFieldValue(field, value);
                               }}
                               number={number}
+                              category={category}
                               render={renderProps => {
                                 newOptions = [...newOptions, renderProps.text];
                                 return (

@@ -22,7 +22,7 @@ describe("Testing getUserReviews route", () => {
 
   test("test with logged in user", async (done) => {
     const user = {
-      email: "level3@earwig.com",
+      email: "ref1@earwig.com",
       password: "123456",
     };
 

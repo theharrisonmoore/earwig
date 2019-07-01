@@ -77,9 +77,15 @@ export default class Signup extends Component {
   };
 
   handleSubmit = (values, { setSubmitting }) => {
+    const { referral } = this.props.match.params;
+
     let { from } = this.props.location.state || {
       from: { pathname: "/intro" }
     };
+
+    if (referral) {
+      values.referral = referral;
+    }
 
     if (values.checkbox) {
       setSubmitting(true);
