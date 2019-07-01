@@ -9,6 +9,8 @@ import { routes } from "./../../../../constants/adminRoutes";
 
 const { EDITORG } = routes;
 
+export const modifyOrg = { record1: null, record2: null };
+
 export default ({
   category,
   deleteHandler,
@@ -91,6 +93,48 @@ export default ({
       }
     );
   }
+
+  // if (category === "all") {
+  //   basicInfo.push({
+  //     title: "Select",
+  //     key: "action",
+  //     width: "13rem",
+  //     render: (text, record) => {
+  //       return (
+  //         <div>
+  //           <div
+  //             style={{
+  //               display: "flex",
+  //               justifyContent: "space-between"
+  //             }}
+  //           >
+  //             {/* <Link
+  //               to={{
+  //                 pathname: "/modify-org",
+  //                 state: {
+  //                   record
+  //                 }
+  //               }}
+  //             > */}
+  //             <Button
+  //               onClick={handleClick}
+  //               type="primary"
+  //               ghost
+  //               style={{
+  //                 paddingLeft: "0.5rem",
+  //                 paddingRight: "0.5rem"
+  //               }}
+  //             >
+  //               Select
+  //             </Button>
+  //             {/* </Link> */}
+  //           </div>
+  //         </div>
+  //       );
+  //     }
+  //   });
+  //   return basicInfo;
+  // }
 
   basicInfo.push({
     title: "Action",

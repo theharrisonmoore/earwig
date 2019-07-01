@@ -10,6 +10,7 @@ export const routes = {
   SINGLE_REVIEW: "/admin/reviews/:id",
   TRADES: "/admin/trades",
   ORGANIZATIONS: "/admin/organizations",
+  MODIFY_PROFILES: "/admin/organizations/modify",
   COMPANIES: "/admin/organizations/companies",
   AGENCIES: "/admin/organizations/agencies",
   PAYROLLS: "/admin/organizations/payrolls",
@@ -88,6 +89,11 @@ export const menuElements = [
         title: "Payrolls",
         icon: "pay-circle",
         route: "/payrolls"
+      },
+      {
+        title: "Modify",
+        icon: "tool",
+        route: "/modify"
       }
     ]
   }
