@@ -53,10 +53,8 @@ export default class index extends Component {
   }
 
   render() {
-    const { userId, verified } = this.props;
-
+    const { userId, verified, points, helpedPoints, isSMobile } = this.props;
     const { reviewCount, userReviews, loaded } = this.state;
-
     if (!loaded) return <Loading />;
 
     return (
@@ -87,10 +85,18 @@ export default class index extends Component {
               </NavLink>
             )}
           </TopSection>
-          <BottomSection>
+          <BottomSection isSMobile={isSMobile}>
             <StatWrapper>
-              <StatTitle>Given</StatTitle>
+              <StatTitle isSMobile={isSMobile}>Given</StatTitle>
               <Stat>{reviewCount} reviews</Stat>
+            </StatWrapper>
+            <StatWrapper>
+              <StatTitle>Helped</StatTitle>
+              <Stat>{helpedPoints} workers</Stat>
+            </StatWrapper>
+            <StatWrapper>
+              <StatTitle>Earned</StatTitle>
+              <Stat>{points} points</Stat>
             </StatWrapper>
           </BottomSection>
         </Header>

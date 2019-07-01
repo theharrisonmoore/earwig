@@ -27,7 +27,8 @@ export const TopSection = styled.div`
 
 export const BottomSection = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  flex-direction: ${props => (props.isSMobile ? "column" : "row")};
 `;
 
 export const StatWrapper = styled.div`
@@ -37,6 +38,7 @@ export const StatWrapper = styled.div`
 `;
 
 export const StatTitle = styled.p`
+  margin-top: ${props => (props.isSMobile ? "20px" : "0px")};
   margin: 0;
   color: ${colors.veryLightGray};
 `;
@@ -137,7 +139,8 @@ export const UnVerifiedButton = styled(Link)`
   transition: all ease 0.2s;
 
   &:active,
-  &:focus, &:hover {
+  &:focus,
+  &:hover {
     outline: none;
     text-decoration: none;
     color: ${colors.heliotrope};
@@ -152,7 +155,8 @@ export const Title = styled.h2`
   transition: all ease 0.2s;
 
   &:active,
-  &:focus, &:hover {
+  &:focus,
+  &:hover {
     outline: none;
     text-decoration: none;
     color: ${colors.heliotrope};
