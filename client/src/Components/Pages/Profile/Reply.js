@@ -19,7 +19,6 @@ import {
   Cancel
 } from "./Reply.style";
 import {
-  StyledReplyIcon,
   BannerTitle,
   UserDiv,
   UserTrade,
@@ -84,7 +83,7 @@ export default class Reply extends Component {
   };
 
   handleSubmit = () => {
-    const { reviewId, target, orgId } = this.props.location.state;
+    const { reviewId, target } = this.props.location.state;
 
     this.validate().then(res => {
       res &&
