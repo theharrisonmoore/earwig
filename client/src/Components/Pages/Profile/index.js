@@ -225,7 +225,14 @@ export default class Profile extends Component {
       reviewsLast30Days
     } = this.state;
 
-    const { isTablet, isMobile, verified, isAdmin, id } = this.props;
+    const {
+      isTablet,
+      isMobile,
+      verified,
+      isAdmin,
+      id,
+      awaitingReview
+    } = this.props;
 
     if (!loaded) return <Loading />;
 
@@ -246,6 +253,7 @@ export default class Profile extends Component {
           reviewsLast30Days={reviewsLast30Days}
           handleScroll={this.handleScroll}
           contractorAnswers={contractorAnswers}
+          awaitingReview={awaitingReview}
         />
         {/* BASIC VIEW FOR LOGGED OUT USERS */}
         {level < 1 && (
@@ -417,6 +425,7 @@ export default class Profile extends Component {
           level={level}
           isAdmin={isAdmin}
           id={id}
+          awaitingReview={awaitingReview}
         />
         {level < 1 && (
           <ReviewDiv isTablet={isTablet} isMobile={isMobile}>

@@ -83,8 +83,8 @@ router.get(SEARCH_URL, searchController);
 // get user info from the cookies and send it to fron-end
 router.get(USERS, authentication, userInfoController);
 
-router.get(GET_QUESTIONS_URL, authentication, authorization("LEVEL3"), getByOrg);
-router.post(REVIEW_URL, authentication, authorization("LEVEL3"), postReview);
+router.get(GET_QUESTIONS_URL, authentication, authorization("LEVEL2"), getByOrg);
+router.post(REVIEW_URL, authentication, authorization("LEVEL2"), postReview);
 router.post("/short-review", authentication, authorization("LEVEL3"), postReviewShort);
 
 // Add new payroll and agency

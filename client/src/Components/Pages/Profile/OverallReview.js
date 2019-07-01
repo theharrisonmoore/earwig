@@ -245,7 +245,8 @@ export default class OverallReview extends Component {
       activeOverallId,
       verified,
       level,
-      isAdmin
+      isAdmin,
+      awaitingReview
     } = this.props;
 
     const { activeReview, counters } = this.state;
@@ -492,7 +493,7 @@ export default class OverallReview extends Component {
             </Collapse>
           </CommentDiv>
         ))}
-        {level === 1 && (
+        {level === 1 && !awaitingReview && (
           <VerifyPromo>
             <p>
               Get verified as a worker to give reviews, comment on other reviews

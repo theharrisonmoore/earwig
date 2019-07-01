@@ -59,6 +59,7 @@ class Review extends Component {
     payrolls: [],
     dropdownList: []
   };
+
   componentDidMount() {
     const { email } = this.props;
     const { category, name, needsVerification } = this.props.location.state;
@@ -71,6 +72,7 @@ class Review extends Component {
       type: "rate",
       options: ["Bad", "Poor", "Average", "Great", "Excellent"]
     };
+
     const text = rateQ.text;
     const newText = `${text} ${category}?`;
     rateQ.text = newText;
