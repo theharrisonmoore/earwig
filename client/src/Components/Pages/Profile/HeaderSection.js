@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 import { StarRateCreator } from "./../../../helpers";
 import { Icon as AntdIcon, Popover } from "antd";
@@ -31,6 +32,7 @@ import {
 import { organizations } from "./../../../theme";
 
 import Icon from "./../../Common/Icon/Icon";
+import PopoverComponent from "./../../Common/Popover";
 
 const content = contractorAnswers => (
   <div style={{ maxHeight: "150px", overflow: "auto" }}>
@@ -147,6 +149,7 @@ export default class HeaderSection extends Component {
               </InactiveButton>
             </ButtonDiv>
           )}
+          {/* contractor section */}
           {category === "worksite" && (
             <ContractorDiv>
               <ContractorText>
@@ -170,21 +173,39 @@ export default class HeaderSection extends Component {
           )}
         </CompanyDetails>
         {level === 2 && (
-          <ActionButtonsDiv>
-            <Link
-              to={{
-                pathname: REVIEW_URL,
-                state: { name, category }
-              }}
-            >
+          <>
+            <ActionButtonsDiv>
+              <Link
+                to={{
+                  pathname: REVIEW_URL,
+                  state: { name, category }
+                }}
+              >
+                <ActionButton
+                  color={organizations[category].primary}
+                  disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
+                >
+                  Give a review about this {category}
+                </ActionButton>
+              </Link>
               <ActionButton color={organizations[category].primary}>
-                Give a review about this {category}
+                Ask workers a question about this {category}
               </ActionButton>
-            </Link>
-            <ActionButton color={organizations[category].primary}>
-              Ask workers a question about this {category}
-            </ActionButton>
-          </ActionButtonsDiv>
+            </ActionButtonsDiv>
+
+            {reviewNotAllowed && reviewsLast30Days.length > 0 && (
+              <div style={{ textAlign: "center" }}>
+                <PopoverComponent
+                  popoverOptions={{
+                    text: `It seems that you've already reviewed this organisation in the last 30 days. You can review each organisation once a month. Date of last review: ${moment(
+                      reviewsLast30Days[0].date
+                    ).format("DD.MM.YYYY")}`,
+                    linkText: "Why can't I give a review?"
+                  }}
+                />
+              </div>
+            )}
+          </>
         )}
         {level === 1 && (
           <VerifyPromo>

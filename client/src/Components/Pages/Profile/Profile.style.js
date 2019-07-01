@@ -366,7 +366,7 @@ export const UserAdditionalDetails = styled.div`
 
   p {
     font-size: 0.8rem;
-    colors: ${colors.dustyGray2};
+    color: ${colors.dustyGray2};
   }
 `;
 
@@ -388,7 +388,7 @@ export const ActionButton = styled.button`
   border: none;
   padding: 1rem 0rem;
   max-width: 8.25rem;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   font-family: Arial;
   font-size: 11px;
   line-height: 13px;
