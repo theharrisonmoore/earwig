@@ -4,56 +4,66 @@ const shortid = require("shortid");
 
 const constants = require("./../../constants");
 
-
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
 shortid.characters(constants.database.SHORT_ID_CHARACTERS);
 
-const userSchema = new Schema({
-  email: {
-    type: String,
-    unique: true,
+const userSchema = new Schema(
+  {
+    email: {
+      type: String,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    trade: {
+      type: ObjectId,
+      ref: "trades",
+    },
+    verificationPhoto: String,
+    verified: {
+      type: Boolean,
+      default: false,
+    },
+    awaitingReview: {
+      type: Boolean,
+      default: false,
+    },
+    userId: {
+      type: String,
+      default: shortid.generate,
+      required: true,
+    },
+    points: {
+      type: Number,
+      default: 0,
+      required: true,
+      min: 0,
+    },
+    helpedPoints: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+    referral: {
+      type: ObjectId,
+      ref: "users",
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    city: String,
+    resetToken: {
+      value: String,
+      expiresIn: Date,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-  trade: {
-    type: ObjectId,
-    ref: "trades",
-  },
-  verificationPhoto: String,
-  verified: {
-    type: Boolean,
-    default: false,
-  },
-  awaitingReview: {
-    type: Boolean,
-    default: false,
-  },
-  userId: {
-    type: String,
-    default: shortid.generate,
-    required: true,
-  },
-  points: {
-    type: Number,
-    default: 0,
-    required: true,
-  },
-  isAdmin: {
-    type: Boolean,
-    default: false,
-  },
-  city: String,
-  resetToken: {
-    value: String,
-    expiresIn: Date,
-  },
-},
-{ timestamps: true });
-
+  { timestamps: true },
+);
 
 async function hashPassword() {
   if (this.isNew || this.isModified("password")) {

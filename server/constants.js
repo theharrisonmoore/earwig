@@ -16,5 +16,6 @@ module.exports = {
     string: "30d",
     number: 2592000000,
   },
+  referralPoints: 20,
   resetTokenMaxAge: 3600000,
 };

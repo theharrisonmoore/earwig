@@ -38,7 +38,8 @@ export default class Profile extends Component {
     organizationID: "",
     overallReplies: [],
     activeOverallId: "",
-    contractorAnswers: []
+    contractorAnswers: [],
+    reviewsLast30Days: []
   };
 
   myDivToFocus = React.createRef();
@@ -58,7 +59,7 @@ export default class Profile extends Component {
     axios
       .post("/api/profile", { organizationID })
       .then(res => {
-        const { summary, reviewDetails, level } = res.data;
+        const { summary, reviewDetails, level, reviewsLast30Days } = res.data;
 
         let contractorAnswers = [];
         if (summary[0].category === "worksite" && reviewDetails.length) {
@@ -81,7 +82,8 @@ export default class Profile extends Component {
           level,
           loaded: true,
           organizationID,
-          contractorAnswers
+          contractorAnswers,
+          reviewsLast30Days
         });
       })
       .catch(err => {
@@ -219,7 +221,8 @@ export default class Profile extends Component {
       comments,
       commentsLoaded,
       level,
-      contractorAnswers
+      contractorAnswers,
+      reviewsLast30Days
     } = this.state;
 
     const { isTablet, isMobile, verified, isAdmin, id } = this.props;
@@ -240,6 +243,7 @@ export default class Profile extends Component {
           isMobile={isMobile}
           summary={summary}
           level={level}
+          reviewsLast30Days={reviewsLast30Days}
           handleScroll={this.handleScroll}
           contractorAnswers={contractorAnswers}
         />

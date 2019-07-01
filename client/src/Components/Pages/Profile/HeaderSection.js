@@ -48,7 +48,8 @@ export default class HeaderSection extends Component {
       summary,
       level,
       handleScroll,
-      contractorAnswers
+      contractorAnswers,
+      reviewsLast30Days
     } = this.props;
     const {
       category,
@@ -58,6 +59,8 @@ export default class HeaderSection extends Component {
       totalReviews,
       websiteUrl
     } = summary;
+    // if there are reviews less dating before 1 month user not allowed
+    const reviewNotAllowed = reviewsLast30Days.length > 0;
 
     return (
       <Header isTablet={isTablet} isMobile={isMobile}>

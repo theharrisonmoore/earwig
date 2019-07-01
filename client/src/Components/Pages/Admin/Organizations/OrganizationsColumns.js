@@ -5,6 +5,10 @@ import Highlighter from "react-highlight-words";
 
 import { GENERAL_ORGS_PROFILE_URL } from "./../../../../constants/naviagationUrls";
 
+import { routes } from "./../../../../constants/adminRoutes";
+
+const { EDITORG } = routes;
+
 export default ({
   category,
   deleteHandler,
@@ -101,19 +105,25 @@ export default ({
               justifyContent: "space-between"
             }}
           >
-            <Button
-              type="primary"
-              ghost
-              style={{
-                paddingLeft: "0.5rem",
-                paddingRight: "0.5rem"
+            <Link
+              to={{
+                pathname: EDITORG,
+                state: {
+                  record
+                }
               }}
-
-              // to be added in sprint 2
-              // onClick={() => editHandler(record._id)}
             >
-              Edit
-            </Button>
+              <Button
+                type="primary"
+                ghost
+                style={{
+                  paddingLeft: "0.5rem",
+                  paddingRight: "0.5rem"
+                }}
+              >
+                Edit
+              </Button>
+            </Link>
             <Button
               ghost
               type={record.active ? "danger" : "primary"}

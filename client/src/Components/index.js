@@ -26,7 +26,6 @@ import EditProfile from "./Pages/EditProfile";
 import DeleteProfile from "./Pages/DeleteProfile";
 import UserProfile from "./Pages/UserProfile";
 import Review from "./Pages/Review";
-import QuickReview from "./Pages/QuickReview";
 import Profile from "./Pages/Profile";
 import Admin from "./Pages/Admin";
 import Search from "./Pages/Search";
@@ -59,7 +58,6 @@ import {
   ADD_PROFILE_START_REVIEW_URL,
   ADMIN,
   REVIEW_URL,
-  QUICK_REVIEW_URL,
   CONFIRM_EMAIL_URL,
   INTRO_URL,
   USER_PROFILE_URL,
@@ -73,13 +71,6 @@ export default function index(props) {
   return (
     <>
       <Switch>
-        <PrivateRoute
-          minimumLevel="LEVEL3"
-          exact
-          path={QUICK_REVIEW_URL}
-          {...props}
-          Component={QuickReview}
-        />
         <PrivateRoute
           exact
           minimumLevel="LEVEL3"
@@ -324,7 +315,7 @@ export default function index(props) {
 
         <Route
           exact
-          path={SIGNUP_URL}
+          path={`${SIGNUP_URL}/:referral?`}
           render={linkProps =>
             !isLoggedIn ? (
               <Signup

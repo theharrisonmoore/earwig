@@ -352,6 +352,24 @@ export const ActionsButton = styled(Button)`
   }
 `;
 
+export const UserTrade = styled.p`
+  font-style: italic;
+  margin-left: 10px;
+`;
+
+export const UserDiv = styled.div`
+  display: flex;
+`;
+
+export const UserAdditionalDetails = styled.div`
+  margin-top: -15px;
+
+  p {
+    font-size: 0.8rem;
+    colors: ${colors.dustyGray2};
+  }
+`;
+
 export const ReplyButton = styled.p`
   text-decoration: underline;
   border: none;

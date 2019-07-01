@@ -6,29 +6,35 @@ const Review = require("./../../models/Review");
 
 const getAllUsers = require("./allUsers");
 
-module.exports.updateUserPoints = (userId, diffPoints, points) => {
-  // the default value
-  let helpedPoints = 0;
-  //  user canceled the points he added before
-  if (points === 0 && diffPoints < 0) {
-    // decrease the helped points
-    helpedPoints = -1;
-  } else if (diffPoints === points) {
-    // if the diffPoint equal the points that mean the prev points was 0 and he added new points
-    helpedPoints = 1;
-  }
+module.exports.updateUserPoints = (userId, diffPoints) => User.findOneAndUpdate(
+  { _id: userId },
+  {
+    $inc: { points: diffPoints },
+  },
+  {
+    $inc: { helpedPoints: 1 },
+  },
+);
 
-  return User.findOneAndUpdate({ _id: userId }, {
-    $inc: { points: diffPoints, helped: helpedPoints },
-  });
-};
+module.exports.updateUserHelpedPoints = userId => User.findOneAndUpdate(
+  { _id: userId },
+  {
+    $inc: { helpedPoints: 1 },
+  },
+);
+
+module.exports.checkValidReferral = id => User.findOne(
+  { _id: id, verified: true },
+  { password: 0 },
+);
 
 module.exports.updateUserById = (userId, data) => User.findByIdAndUpdate(userId, { $set: data });
 module.exports.findByEmail = email => User.findOne({ email: email.toLowerCase() });
 
-module.exports.addNew = ({ email, password }) => User.create({
+module.exports.addNew = ({ email, password, referral }) => User.create({
   email: email.toLowerCase(),
   password,
+  referral,
 });
 
 module.exports.getAllUsers = getAllUsers;
@@ -37,8 +43,7 @@ module.exports.deleteUser = id => User.deleteOne({ _id: id });
 
 module.exports.getUserById = (id, withoutPassword) => (withoutPassword
   ? User.findById(id, { password: 0 })
-  : User.findById(id)
-);
+  : User.findById(id));
 
 module.exports.deleteUserCompletely = async (userId) => {
   // delete the users' comments
