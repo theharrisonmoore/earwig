@@ -81,7 +81,11 @@ export default class EditProfile extends Component {
     const form = new FormData();
 
     // const arrays = Object.keys(values);
-    if (this.state.displayPassword || this.state.imageFile) {
+    if (
+      this.state.displayPassword ||
+      this.state.imageFile ||
+      this.state.displayUsername
+    ) {
       if (this.state.displayPassword) {
         form.append("oldPassword", values.oldPassword);
         form.append("newPassword", values.newPassword);
@@ -89,6 +93,9 @@ export default class EditProfile extends Component {
       }
       if (this.state.imageFile) {
         form.append("verificationImage", this.state.imageFile);
+      }
+      if (this.state.displayUsername) {
+        form.append("newUsername", values.newUsername);
       }
 
       axios({
@@ -122,7 +129,6 @@ export default class EditProfile extends Component {
   };
 
   render() {
-
     let editProfileSchema;
 
     if (this.state.displayPassword && this.state.displayUsername) {

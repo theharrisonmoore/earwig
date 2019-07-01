@@ -14,7 +14,7 @@
 const boom = require("boom");
 const { compare, hash } = require("bcryptjs");
 
-const { getUserById, updateUserById } = require("./../database/queries/user");
+const { getUserById, updateUserById, getUserByUsername } = require("./../database/queries/user");
 
 // eslint-disable-next-line consistent-return
 module.exports = async (req, res, next) => {
@@ -42,7 +42,7 @@ module.exports = async (req, res, next) => {
       // hash password
       const matched = await compare(oldPassword, userInfo.password);
       if (!matched) {
-        return next(boom.unauthorized("Wronge password"));
+        return next(boom.unauthorized("Incorrect password"));
       }
 
       const hashedPassword = await hash(newPassword, 8);
@@ -50,12 +50,19 @@ module.exports = async (req, res, next) => {
     }
     if (newUsername) {
       // update userId/name
-      updateData.userId = "test12345";
+
+      // check if username already exists
+      const usernameExists = await getUserByUsername(newUsername);
+      if (usernameExists) {
+        return next(boom.notAcceptable("Username already taken"));
+      }
+      updateData.userId = newUsername;
     }
 
     await updateUserById(userInfo.id, updateData);
+    const updatedUser = await getUserById(userInfo.id);
 
-    return res.send();
+    return res.json(updatedUser);
   } catch (error) {
     next(boom.badImplementation());
   }
