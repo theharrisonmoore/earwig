@@ -38,6 +38,7 @@ export default class Profile extends Component {
     organizationID: "",
     overallReplies: [],
     activeOverallId: "",
+    contractorAnswers: [],
     reviewsLast30Days: []
   };
 
@@ -60,12 +61,28 @@ export default class Profile extends Component {
       .then(res => {
         const { summary, reviewDetails, level, reviewsLast30Days } = res.data;
 
+        let contractorAnswers = [];
+        if (summary[0].category === "worksite" && reviewDetails.length) {
+          const [worksiteQuestionsGroup] = reviewDetails.filter(
+            group => group._id === "Working on the site"
+          );
+          const [contractorQuestion] = worksiteQuestionsGroup.questions.filter(
+            question => question.text === "Who is the main contractor on site?"
+          );
+          const orderedAnswers = contractorQuestion.answers.sort(
+            (a, b) =>
+              moment(a.updatedAt).valueOf() - moment(b.updatedAt).valueOf()
+          );
+          contractorAnswers = orderedAnswers.map(item => item.answer);
+        }
+
         this.setState({
           summary: summary[0],
           reviewDetails,
           level,
           loaded: true,
           organizationID,
+          contractorAnswers,
           reviewsLast30Days
         });
       })
@@ -204,6 +221,7 @@ export default class Profile extends Component {
       comments,
       commentsLoaded,
       level,
+      contractorAnswers,
       reviewsLast30Days
     } = this.state;
 
@@ -227,6 +245,7 @@ export default class Profile extends Component {
           level={level}
           reviewsLast30Days={reviewsLast30Days}
           handleScroll={this.handleScroll}
+          contractorAnswers={contractorAnswers}
         />
         {/* BASIC VIEW FOR LOGGED OUT USERS */}
         {level < 1 && (

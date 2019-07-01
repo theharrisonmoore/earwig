@@ -3,7 +3,13 @@ import SVG from "react-inlinesvg";
 import { NavLink } from "react-router-dom";
 import { Icon as AntIcon, Button } from "antd";
 
-import { organizations, colors, shadows, borders } from "./../../../theme";
+import {
+  organizations,
+  colors,
+  shadows,
+  borders,
+  breakpoints
+} from "./../../../theme";
 import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
 export const Wrapper = styled.div`
@@ -45,8 +51,8 @@ export const Header = styled.div`
 `;
 
 export const CompanyDetails = styled.div`
-  border-bottom: ${props =>
-    props.level > 0 ? `${borders.commentBox}` : "none"};
+  /* border-bottom: ${props =>
+    props.level > 0 ? `${borders.commentBox}` : "none"}; */
   display: flex;
   flex-direction: ${props =>
     props.isTablet || props.isMobile ? "column" : "row"};
@@ -114,11 +120,12 @@ export const InactiveButton = styled(OrgButton)`
   }
 `;
 
-export const GiveReviewDiv = styled.div`
+export const ActionButtonsDiv = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding: 2rem 0;
   text-align: center;
+  justify-content: space-around;
 `;
 
 export const ReviewDiv = styled.div`
@@ -359,7 +366,7 @@ export const UserAdditionalDetails = styled.div`
 
   p {
     font-size: 0.8rem;
-    colors: ${colors.dustyGray2};
+    color: ${colors.dustyGray2};
   }
 `;
 
@@ -372,4 +379,58 @@ export const ReplyButton = styled.p`
   padding: 0.5rem 1rem;
   color: ${({ color }) => color};
   margin: 0.5rem;
+`;
+
+export const ActionButton = styled.button`
+  background: ${({ color }) => color};
+  box-shadow: 0px 4px 13px rgba(173, 145, 183, 0.273438);
+  border-radius: 3px;
+  border: none;
+  padding: 1rem 0rem;
+  max-width: 8.25rem;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  font-family: Arial;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+  color: ${colors.white};
+  box-shadow: ${shadows.buttonShadow};
+
+  @media ${breakpoints.mobileM} {
+    font-size: 14px;
+    max-width: 10rem;
+  }
+
+  @media ${breakpoints.mobileL} {
+    max-width: 11rem;
+    padding: 1rem 0.5rem;
+  }
+
+  @media ${breakpoints.tablet} {
+    max-width: 12rem;
+  }
+`;
+
+export const ContractorDiv = styled.div`
+  width: 100%;
+`;
+
+export const ContractorText = styled.p`
+  font-family: ArialMT;
+  font-size: 18px;
+
+  letter-spacing: 0.3px;
+
+  color: ${colors.profileFontColor};
+
+  .contactor-name {
+    font-weight: 700;
+  }
+`;
+
+export const ContractorListLink = styled.span`
+  color: #1890ff;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
 `;

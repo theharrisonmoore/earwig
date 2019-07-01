@@ -37,7 +37,9 @@ module.exports.getAllUsers = getAllUsers;
 
 module.exports.deleteUser = id => User.deleteOne({ _id: id });
 
-module.exports.getUserById = (id, withoutPassword) => (withoutPassword ? User.findById(id, { password: 0 }) : User.findById(id));
+module.exports.getUserById = (id, withoutPassword) => (withoutPassword
+  ? User.findById(id, { password: 0 })
+  : User.findById(id));
 
 module.exports.deleteUserCompletely = async (userId) => {
   // delete the users' comments

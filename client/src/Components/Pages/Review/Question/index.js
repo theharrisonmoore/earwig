@@ -87,7 +87,7 @@ const Question = props => {
       <QText>{text}</QText>
       <HintText>{hintText}</HintText>
       {text === "What hourly rate were you paid?" && (
-        <PopoverComponent popoverOptions={popoverOptions} />
+        <PopoverComponent category={category} popoverOptions={popoverOptions} />
       )}
       <QuestionOptions
         type={type}

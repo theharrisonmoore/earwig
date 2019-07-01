@@ -7,7 +7,7 @@ export const PopoverLink = styled.p`
   font-weight: 900;
   font-size: 18px;
   text-decoration: underline;
-  color: ${organizations.agency.primary};
+  color: ${({ category }) => organizations[category].primary};
   font-style: italic;
   cursor: pointer;
 `;
@@ -41,7 +41,7 @@ export const StyledButton = styled.button`
 `;
 
 export const PopoverBtn = styled(StyledButton)`
-  background: ${organizations.agency.primary};
+  background: ${({ category }) => organizations[category].primary};
   color: ${colors.white};
   width: 40%;
 `;
