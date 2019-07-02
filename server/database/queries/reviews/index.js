@@ -289,7 +289,9 @@ module.exports.allQsAndAs = (orgType, orgId, justContractor) => new Promise((res
         questions: { $push: "$$ROOT" },
       },
     },
-  ]).then(resolve).catch(err => reject(err));
+  ])
+    .then(resolve)
+    .catch(err => reject(err));
 });
 
 module.exports.allComments = (organizationID, questionID) => new Promise((resolve, reject) => {
@@ -368,6 +370,19 @@ module.exports.checkUsersLatestReview = (organization, user) => new Promise((res
         older_30_days: {
           $lte: [30, "$diff_days"],
         },
+      },
+    },
+  ])
+    .then(result => resolve(result))
+    .catch(err => reject(err));
+});
+
+module.exports.getOrgReviews = orgId => new Promise((resolve, reject) => {
+  // get all reviews for 1 org
+  Review.aggregate([
+    {
+      $match: {
+        organization: mongoose.Types.ObjectId(orgId),
       },
     },
   ])
