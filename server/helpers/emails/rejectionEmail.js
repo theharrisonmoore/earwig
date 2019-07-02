@@ -1,8 +1,8 @@
 const mailer = require("./mailer");
-const { UPLOAD_VERIFICATION_URL } = require("../../../client/src/constants/naviagationUrls");
 
 module.exports = (to) => {
   const domain = process.env.DOMAIN;
+  const link = `${domain}/upload-verification-photo`;
 
   const html = `
   <div style="text-align: center;">
@@ -12,9 +12,7 @@ module.exports = (to) => {
       <p>Maybe the photo was blurred or contained glare? Or maybe there was a technical glitch? If so, I’m really sorry about this. Give it another go!</p>
       
       <div style="text-align: center;">
-        <a href="${
-  domain
-}${UPLOAD_VERIFICATION_URL}" style="display: inline-block; padding: 0.5rem 1rem; background: #8c6bfc; color: white; font-size: 20px; font-weight: 900; border-radius: 10px; box-shadow: 0px 5px 11px 1px #9e9e9e7d; text-decoration: none;">Upload a new photo</a>
+        <a href="${link}" style="display: inline-block; padding: 0.5rem 1rem; background: #8c6bfc; color: white; font-size: 20px; font-weight: 900; border-radius: 10px; box-shadow: 0px 5px 11px 1px #9e9e9e7d; text-decoration: none;">Upload a new photo</a>
       </div>  
 
       <p style="font-weight: 700;">Thanks for choosing to be part of the earwig worker community.</p>
@@ -34,7 +32,7 @@ module.exports = (to) => {
   const attachments = [
     {
       filename: "logo.png",
-      path: `${__dirname}/../assets/logo.png`,
+      path: `${__dirname}/../../assets/logo.png`,
       cid: "earwig-logo",
     },
   ];

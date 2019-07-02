@@ -1,8 +1,9 @@
 const mailer = require("./mailer");
-const { SEARCH_URL } = require("../../../client/src/constants/naviagationUrls");
 
 module.exports = (to) => {
   const domain = process.env.DOMAIN;
+  const giveReviewLink = `${domain}/search?give-review=true`;
+  const viewProfileLink = `${domain}/search`;
 
   const html = `
   <div style="text-align: center;">
@@ -24,10 +25,10 @@ module.exports = (to) => {
 
       
       <div style="text-align: center;">
-        <a href="${domain}${SEARCH_URL}" style="display: inline-block; padding: 0.5rem 1rem; background: #8c6bfc; color: white; font-size: 20px; font-weight: 900; border-radius: 10px; box-shadow: 0px 5px 11px 1px #9e9e9e7d; text-decoration: none;">Give a review</a>
+        <a href="${giveReviewLink}" style="display: inline-block; padding: 0.5rem 1rem; background: #8c6bfc; color: white; font-size: 20px; font-weight: 900; border-radius: 10px; box-shadow: 0px 5px 11px 1px #9e9e9e7d; text-decoration: none;">Give a review</a>
       </div>  
 
-      <p>Or, why not <a href="${domain}${SEARCH_URL}"read reviews and ratings</a> others have already given.</p>
+      <p>Or, why not <a href="${viewProfileLink}">read reviews and ratings</a> others have already given.</p>
       </br>
       </br>
       <p style="font-weight: 700;">Thanks for choosing to be part of the earwig worker community.</p>
@@ -48,7 +49,7 @@ module.exports = (to) => {
   const attachments = [
     {
       filename: "logo.png",
-      path: `${__dirname}/../assets/logo.png`,
+      path: `${__dirname}/../../assets/logo.png`,
       cid: "earwig-logo",
     },
   ];
