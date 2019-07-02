@@ -59,8 +59,7 @@ module.exports = async (req, res, next) => {
       updateData.userId = newUsername;
     }
 
-    await updateUserById(userInfo.id, updateData);
-    const updatedUser = await getUserById(userInfo.id);
+    const updatedUser = await updateUserById(userInfo.id, updateData);
 
     return res.json(updatedUser);
   } catch (error) {
