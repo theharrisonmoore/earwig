@@ -20,10 +20,9 @@ export default class AllOrganizations extends Component {
     value: [],
     fetching: false,
     dropDownSelection: [],
-    targetKeys: [],
-    orgSelection: [],
-    reviewsOrgSelection: [],
     reviewsTargetKeys: [],
+    reviewsSelection: [],
+    reviewsData: [],
     selectedKeys: []
   };
 
@@ -80,43 +79,45 @@ export default class AllOrganizations extends Component {
     });
   };
 
-  handleClick = () => {
-    const apiCall1 = () =>
-      axios.get(
-        `/api/admin/organizations/reviews/${
-          this.state.dropDownSelection[0].key
-        }`
-      );
-    const apiCall2 = () =>
-      axios.get(
-        `/api/admin/organizations/reviews/${
-          this.state.dropDownSelection[1].key
-        }`
-      );
+  handleClick = async () => {
+    const orgID1 = this.state.dropDownSelection[0].key;
+    const orgID2 = this.state.dropDownSelection[1].key;
 
+    // get reviews
+    const apiCall1 = () =>
+      axios.get(`/api/admin/organizations/reviews/${orgID1}`);
+    const apiCall2 = () =>
+      axios.get(`/api/admin/organizations/reviews/${orgID2}`);
+    const allReviews = [];
+
+    // update review state
     axios
       .all([apiCall1(), apiCall2()])
       .then(result => {
-        console.log("heyy", result);
-        // this.setState({
-        //   reviewsOrgSelection: result[0].data,
-        //   reviewsTargetKeys: result[1].data
-        // });
+        for (let i = 0; i < result.length; i++) {
+          allReviews.push(result[i].data);
+        }
+
+        const reviewsTargetKeys = [];
+
+        const reviewsSelection = [];
+
+        for (let i = 0; i < allReviews.length; i++) {
+          const reviewsObj = {
+            key: i,
+            content: allReviews[i]
+          };
+
+          if (i === 0) {
+            reviewsTargetKeys.push(reviewsObj.key);
+          }
+          reviewsSelection.push(reviewsObj);
+        }
+        this.setState({ reviewsSelection, reviewsTargetKeys });
       })
       .catch(err => console.log(err));
 
-    const targetKeys = [];
-
-    const orgSelection = [];
-
-    for (let i = 0; i < this.state.dropDownSelection.length; i++) {
-      const data = this.state.dropDownSelection[i];
-      if (i === 0) {
-        targetKeys.push(data.key);
-      }
-      orgSelection.push(data);
-    }
-    this.setState({ orgSelection, targetKeys });
+    // set reviews as transfer elements
 
     // const oriTargetKeys = orgSelection.map(e => e);
     // console.log(oriTargetKeys);
@@ -129,11 +130,19 @@ export default class AllOrganizations extends Component {
     this.setState({ targetKeys });
   };
 
-  renderItem = item => {
-    const customLabel = <span className="custom-item">{item.org.name}</span>;
+  renderReview = item => {
+    console.log(item);
+    const customLabel = item.content.map(e => (
+      <span className="custom-item">
+        <li>
+          {e.rate}, {e.overallReview.text}
+        </li>
+      </span>
+    ));
+
     return {
-      label: customLabel,
-      value: item.org.name
+      label: customLabel
+      // value: item.content
     };
   };
 
@@ -141,7 +150,7 @@ export default class AllOrganizations extends Component {
     // const { category } = this.props;
     const { data } = this.state;
 
-    console.log(this.state);
+    // console.log(this.state);
 
     return (
       <div>
@@ -151,20 +160,20 @@ export default class AllOrganizations extends Component {
         {this.renderSelectField("select second option", data)}
 
         <Button onClick={this.handleClick}>click</Button>
-
-        {this.state.targetKeys.length > 0 && (
+        {/* review transfer section */}
+        {this.state.reviewsTargetKeys.length > 0 && (
           <Transfer
-            dataSource={this.state.orgSelection}
-            targetKeys={this.state.targetKeys}
-            titles={[
-              `${this.state.orgSelection[0].org.name}`,
-              `${this.state.orgSelection[1].org.name}`
-            ]}
+            dataSource={this.state.reviewsSelection}
+            targetKeys={this.state.reviewsTargetKeys}
+            // titles={[
+            //   `${this.state.orgSelection[0].org.name}`,
+            //   `${this.state.orgSelection[1].org.name}`
+            // ]}
             listStyle={{
               width: 300,
               height: 300
             }}
-            render={this.renderItem}
+            render={this.renderReview}
             // rowKey={record => record.uid}
           />
         )}
