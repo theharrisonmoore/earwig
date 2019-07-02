@@ -276,8 +276,6 @@ export default function index(props) {
           isMobile={isMobile}
           isTablet={isTablet}
           Component={ReportContent}
-          navbar
-          title="Report this content"
         />
         <PrivateRoute
           minimumLevel="LEVEL1"

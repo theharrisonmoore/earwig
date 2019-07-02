@@ -6,6 +6,7 @@ import { Checkbox as AntCheckbox, Modal, Alert, Input, Icon } from "antd";
 
 import Logo from "./../../Common/Logo";
 import Select from "./../../Common/Select";
+import { ButtonSpinner } from "./../../Common/AntdComponents/Loading";
 
 import { TERMS_OF_USE_URL } from "./../../../constants/naviagationUrls";
 import {
@@ -605,7 +606,8 @@ export default class Signup extends Component {
                             }
                           />
                           <Button as="label" htmlFor="verificationImage">
-                            Upload photo for verification{" "}
+                            {isSubmitting && <ButtonSpinner />}
+                            Upload photo for verification
                             {verificationImage && (
                               <Icon
                                 type="check"

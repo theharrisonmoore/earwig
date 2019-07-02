@@ -5,10 +5,9 @@ import {
   SubTitle,
   SmallParagraph,
   Button,
-  PageTitle,
   BoldLink,
-  BottomFixedDiv,
-  UnderlinedLink
+  SelectWrapper,
+  TextArea
 } from "./../../Common/StaticPages.style";
 
 import flagIcon from "./../../../assets/flag.svg";
@@ -53,33 +52,46 @@ export default class SelectReason extends Component {
   };
 
   render() {
-    const { handleCancel, handleSelect, handleMove } = this.props;
+    const {
+      handleSelect,
+      handleTextAreaChange,
+      description,
+      handleSubmit
+    } = this.props;
     return (
-      <>
-        <PageTitle>Report this content</PageTitle>
+      <div style={{ paddingTop: "60px" }}>
         <MainIcon src={flagIcon} />
-        <SubTitle marginBottom>
-          Why do you want to report this content?
+        <SubTitle
+          marginBottom
+          style={{ fontSize: "1.75rem", paddingTop: "2rem" }}
+        >
+          Why do you want to report this piece of content?
         </SubTitle>
         <SmallParagraph left>
           You’ll find guidance in our
           <BoldLink to={COMMUNITY_GUIDELINES_URL}>
             {" "}
-            Community Guidelines
+            Community&nbsp;Guidelines
           </BoldLink>
         </SmallParagraph>
-        <Select
-          options={options}
-          handleChange={handleSelect}
-          placeholder="Choose a reason"
+        <SelectWrapper>
+          <Select
+            options={options}
+            handleChange={handleSelect}
+            placeholder="Choose a reason"
+          />
+        </SelectWrapper>
+        <SubTitle marginBottom style={{ fontSize: "1rem", paddingTop: "0" }}>
+          Please give us more information, telling us exactly why you think this
+          content needs reporting.
+        </SubTitle>
+        <TextArea
+          placeholder="More information"
+          onChange={handleTextAreaChange}
+          value={description}
         />
-        <BottomFixedDiv>
-          <Button onClick={() => handleMove(1)}>Next</Button>
-          <UnderlinedLink as="div" onClick={handleCancel}>
-            Cancel
-          </UnderlinedLink>
-        </BottomFixedDiv>
-      </>
+        <Button onClick={handleSubmit}>Send report</Button>
+      </div>
     );
   }
 }

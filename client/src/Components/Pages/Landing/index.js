@@ -29,6 +29,7 @@ import LogoBetaWhite from "./../../../assets/logo-beta-white.svg";
 import { colors } from "./../../../theme";
 
 import Icon from "./../../Common/Icon/Icon";
+import { ButtonSpinner } from "./../../Common/AntdComponents/Loading";
 
 import {
   StyledFormik as Formik,
@@ -146,6 +147,7 @@ export default class index extends Component {
                   background={colors.dodgerBlue}
                   border="none"
                 >
+                  {isSubmitting && <ButtonSpinner />}
                   Log in
                 </Button>
               </Form>
@@ -167,9 +169,7 @@ export default class index extends Component {
               allowfullscreen
             />
           </VideoWrapper>
-        ) : (
-          <></>
-        )}
+        ) : null}
         <WhiteWrapper>
           <SectionTitle>earwig's promises</SectionTitle>
           <PromiseParagraph>
