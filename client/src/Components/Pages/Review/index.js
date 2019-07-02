@@ -59,6 +59,7 @@ class Review extends Component {
     payrolls: [],
     dropdownList: []
   };
+
   componentDidMount() {
     const { email } = this.props;
     const { category, name, needsVerification } = this.props.location.state;
@@ -71,6 +72,7 @@ class Review extends Component {
       type: "rate",
       options: ["Bad", "Poor", "Average", "Great", "Excellent"]
     };
+
     const text = rateQ.text;
     const newText = `${text} ${category}?`;
     rateQ.text = newText;
@@ -231,7 +233,7 @@ class Review extends Component {
         <Header orgType={category} style={{ marginBottom: "3rem" }}>
           <Content>
             <Paragraph
-              style={{ paddingRight: ".5rem" }}
+              style={{ paddingRight: "1.5rem" }}
               cancel
               bold
               onClick={() => history.goBack()}
