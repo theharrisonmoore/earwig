@@ -29,7 +29,7 @@ module.exports = (to, id) => {
   const attachments = [
     {
       filename: "logo.png",
-      path: `${__dirname}/../assets/logo.png`,
+      path: `${__dirname}/../../assets/logo.png`,
       cid: "earwig-logo",
     },
   ];

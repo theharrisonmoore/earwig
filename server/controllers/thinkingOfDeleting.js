@@ -1,6 +1,6 @@
 const boom = require("boom");
 
-const mailer = require("./../helpers/mailer");
+const mailer = require("./../helpers/emails/mailer");
 
 module.exports = async (req, res, next) => {
   const { user } = req;

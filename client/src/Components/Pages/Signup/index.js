@@ -14,7 +14,6 @@ import {
   StyledField as Field,
   StyledFormikErrorMessage as FormikErrorMessage,
   Label,
-  Button,
   GeneralErrorMessage,
   CheckboxWrapper,
   Checkbox,
@@ -35,7 +34,8 @@ import {
   SubHeading,
   Paragraph,
   Example,
-  ImageInput
+  ImageInput,
+  Button
 } from "./Signup.style";
 
 import example from "./../../../assets/example.png";
@@ -503,16 +503,6 @@ export default class Signup extends Component {
                     <SelectWrapper>
                       <Label htmlFor="trade">
                         Trade
-                        {/* <Select
-                          placeholder={"Select your trade"}
-                          options={this.state.trades}
-                          handleChange={this.handleChange}
-                          value={this.state.tradeId}
-                          disabled={this.state.disableSelect}
-                          isCreateNew
-                          showSearch
-                          addHandler={this.showModal}
-                        /> */}
                         <Field name="trade">
                           {({ field, form, onChange }) => (
                             <>
@@ -604,8 +594,12 @@ export default class Signup extends Component {
                               verificationImage ? verificationImage : example
                             }
                           />
-                          <Button as="label" htmlFor="verificationImage">
-                            Upload photo for verification{" "}
+                          <Button
+                            as="label"
+                            htmlFor="verificationImage"
+                            style={{ width: "70%", margin: "0 auto 1.25rem" }}
+                          >
+                            Upload photo
                             {verificationImage && (
                               <Icon
                                 type="check"
@@ -661,7 +655,7 @@ export default class Signup extends Component {
 
                 {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
                 <Button type="submit" disabled={isSubmitting}>
-                  Finish account setup
+                  Create account
                 </Button>
               </Form>
             )}

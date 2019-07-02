@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { colors, breakpoints, organizations } from "../../../theme";
+import { colors, breakpoints, organizations, shadows } from "../../../theme";
 
 export const SignupWrapper = styled.div`
   display: flex;
@@ -12,12 +12,12 @@ export const StyledLink = styled(Link).attrs({})`
   text-decoration: underline;
   margin-bottom: 3rem;
   font-size: 1.125rem;
-  color: ${colors.profileFontColor};
+  color: ${colors.heliotrope};
   font-weight: 900;
 
   &:hover,
   &:active {
-    color: ${colors.profileFontColor};
+    color: ${colors.heliotrope};
     text-decoration: underline;
   }
 `;
@@ -111,8 +111,14 @@ export const ButtonsWrapper = styled.div`
 
 export const SelectWrapper = styled.div`
   width: 100%;
-  /* margin-bottom: 2rem; */
-  /* max-width: 24rem; */
+
+  .ant-select-lg .ant-select-selection--single {
+    height: 48px;
+  }
+
+  .ant-select-lg .ant-select-selection__rendered {
+    line-height: 48px;
+  }
 `;
 
 export const SubHeading = styled.h2`
@@ -132,10 +138,31 @@ export const Paragraph = styled.p`
 `;
 
 export const Example = styled.img`
-  max-width: 70%;
+  width: 70%;
   margin: 1rem auto;
 `;
 
 export const ImageInput = styled.input`
   display: none;
+`;
+
+export const Button = styled.button`
+  border-radius: 5px;
+  padding: 0.5rem 0.75rem;
+  background-color: ${colors.heliotrope};
+  color: ${colors.white};
+  font-size: 1.25rem;
+  border: none;
+  box-shadow: ${shadows.buttonShadow};
+  outline: none;
+  font-weight: 900;
+  text-transform: capitalize;
+  margin-bottom: 1.25rem;
+  cursor: pointer;
+
+  &:active,
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
 `;
