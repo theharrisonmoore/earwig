@@ -204,7 +204,8 @@ export default class Profile extends Component {
       comments,
       commentsLoaded,
       level,
-      reviewsLast30Days
+      reviewsLast30Days,
+      organizationID
     } = this.state;
 
     const { isTablet, isMobile, verified, isAdmin, id } = this.props;
@@ -227,6 +228,7 @@ export default class Profile extends Component {
           level={level}
           reviewsLast30Days={reviewsLast30Days}
           handleScroll={this.handleScroll}
+          orgId={organizationID}
         />
         {/* BASIC VIEW FOR LOGGED OUT USERS */}
         {level < 1 && (

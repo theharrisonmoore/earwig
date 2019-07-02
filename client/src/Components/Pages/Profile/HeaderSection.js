@@ -35,7 +35,8 @@ export default class HeaderSection extends Component {
       summary,
       level,
       reviewsLast30Days,
-      handleScroll
+      handleScroll,
+      orgId
     } = this.props;
     const {
       category,
@@ -139,6 +140,7 @@ export default class HeaderSection extends Component {
             <GiveReviewTitle>Give a review about {name}</GiveReviewTitle>
             <GiveReview
               category={category}
+              orgId={orgId}
               isTablet={isTablet}
               isMobile={isMobile}
               state={{ name, category, orgId: summary._id }}

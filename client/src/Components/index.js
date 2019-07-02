@@ -73,7 +73,8 @@ export default function index(props) {
   return (
     <>
       <Switch>
-        <Route path="/test" component={Test} />
+        <Route exact path="/organization/:orgId/review" component={Test} />
+        <Route exact path="/review/:reviewId/edit" component={Test} />
         <PrivateRoute
           exact
           minimumLevel="LEVEL3"
