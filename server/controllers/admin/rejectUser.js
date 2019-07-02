@@ -6,7 +6,7 @@
  */
 
 const boom = require("boom");
-const rejectedUserEmail = require("./../../helpers/emails/rejectedUserEmail");
+const rejectionEmail = require("./../../helpers/emails/rejectionEmail");
 
 const { updateUserById, getUserById } = require("./../../database/queries/user");
 const deleteFile = require("./../../helpers/deleteFile");
@@ -33,7 +33,7 @@ module.exports = ((req, res, next) => {
             deleteFile(user.verificationPhoto)
               .then(() => {
                 // send rejection email
-                rejectedUserEmail(user.email)
+                rejectionEmail(user.email)
                   .then(() => {
                     res.send();
                   }).catch(() => {

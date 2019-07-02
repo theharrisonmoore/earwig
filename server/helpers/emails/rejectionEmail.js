@@ -7,8 +7,8 @@ module.exports = (to) => {
   const html = `
   <div style="text-align: center;">
     <img src="cid:earwig-logo" style="background: white;"/>
-    <p style="font-weight: 700; font-size: 20px;">We couldn’t verify you using the photo you uploaded</p>
-      <div style="text-align: left;">
+      <p style="font-weight: 700; font-size: 20px;">We couldn’t verify you using the photo you uploaded</p>
+    <div style="text-align: left;">
       <p>Maybe the photo was blurred or contained glare? Or maybe there was a technical glitch? If so, I’m really sorry about this. Give it another go!</p>
       
       <div style="text-align: center;">
@@ -16,7 +16,7 @@ module.exports = (to) => {
       </div>  
 
       <p style="font-weight: 700;">Thanks for choosing to be part of the earwig worker community.</p>
-
+      </br>
       <p style="margin-bottom: 0;">Have a good day,</p>
       <p style="margin-bottom: 0;">Harrison</p>
       <p style="margin-bottom: 0;">Sparky and founder</p>

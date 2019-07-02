@@ -55,14 +55,18 @@ export default class Search extends Component {
   state = {
     isLoading: false,
     data: null,
-    showOtherSections: true
+    showOtherSections: true,
+    target: "profile"
   };
 
   componentDidMount() {
+    const { target } = this.props.match.params;
+
     axiosCall().then(organizations => {
       this.setState({
         data: organizations.data,
-        isLoading: true
+        isLoading: true,
+        target
       });
     });
     document.addEventListener("mousedown", this.handleClickOutside);
@@ -73,6 +77,9 @@ export default class Search extends Component {
 
   // renders last viewed organization section
   renderLastViewed = (org, key) => (
+    /**
+     * @todo change the link to get target from the state
+     */
     <ProfileLink key={key} to={`/profile/${org._id}`}>
       <ReviewsFrame orgType={org.category}>
         <InnerDivLastReviews orgType={org.category}>

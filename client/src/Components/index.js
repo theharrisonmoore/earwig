@@ -111,10 +111,11 @@ export default function index(props) {
           Component={Admin}
         />
 
+        {/* target could be 'profile' or `review` */}
         <PrivateRoute
           exact
           minimumLevel="LEVEL0"
-          path={SEARCH_URL}
+          path={`${SEARCH_URL}/:target?`}
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}

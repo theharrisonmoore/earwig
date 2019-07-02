@@ -2,8 +2,8 @@ const mailer = require("./mailer");
 
 module.exports = (to) => {
   const domain = process.env.DOMAIN;
-  const giveReviewLink = `${domain}/search?give-review=true`;
-  const viewProfileLink = `${domain}/search`;
+  const giveReviewLink = `${domain}/search/review`;
+  const viewProfileLink = `${domain}/search/profile`;
 
   const html = `
   <div style="text-align: center;">
@@ -30,9 +30,7 @@ module.exports = (to) => {
 
       <p>Or, why not <a href="${viewProfileLink}">read reviews and ratings</a> others have already given.</p>
       </br>
-      </br>
       <p style="font-weight: 700;">Thanks for choosing to be part of the earwig worker community.</p>
-      </br>
       </br>
       <p style="margin-bottom: 0;">Have a good day,</p>
       <p style="margin-bottom: 0;">Harrison</p>
