@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Map } from "immutable";
-import { ErrorMessage } from "formik";
 
 import { QuestionOptionsWrapper, StyledErrorMessage } from "../Question.style";
 import CustomRangePicker from "../../../../Common/AntdComponents/DatePicker";
@@ -21,7 +20,7 @@ class DateRange extends Component {
 
     return (
       <QuestionOptionsWrapper>
-        <CustomRangePicker handleChange={handleChange} />
+        <CustomRangePicker handleChange={handleChange} {...this.props.state} />
         {errors && errors.review && errors.review.workPeriod.from && (
           <StyledErrorMessage>
             {errors.review.workPeriod.from}

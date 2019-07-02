@@ -6,6 +6,7 @@ const {
   getAgencesAndPayrollsNames,
   postReviewShort,
   addNewOrg,
+  updateReview,
 } = require("../controllers/review");
 
 const adminRouter = require("./admin");
@@ -51,6 +52,7 @@ const deleteOrgController = require("../controllers/deleteOrganization");
 const resetPassword = require("../controllers/resetPassword");
 const setPassword = require("../controllers/setPassword");
 const updateOverallHelpfulPoints = require("../controllers/updateOverallHelpfulPoints");
+const checkIfEditReview = require("../controllers/checkIfCanEdit");
 
 
 const {
@@ -83,8 +85,11 @@ router.get(SEARCH_URL, searchController);
 // get user info from the cookies and send it to fron-end
 router.get(USERS, authentication, userInfoController);
 
+router.get("/review/:id/is-edatable", checkIfEditReview);
+
 router.get("/questions/:id", authentication, authorization("LEVEL3"), getByOrg);
 router.post(REVIEW_URL, authentication, authorization("LEVEL3"), postReview);
+router.put("/review/:id", authentication, authorization("LEVEL3"), updateReview);
 router.post("/short-review", authentication, authorization("LEVEL3"), postReviewShort);
 
 // Add new payroll and agency

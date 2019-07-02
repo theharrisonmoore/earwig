@@ -31,6 +31,7 @@ const getQuetionsByOrg = org => Question.aggregate([
 
 
 const getOrganization = (category, name) => Organization.findOne({ category, name });
+const getOrganizationById = orgId => Organization.findById(orgId);
 
 const getQuestionsByOrgCategory = category => Question.find({ category }).sort({ number: 1 });
 
@@ -69,19 +70,6 @@ const postOrg = (category, name) => {
   return org.save();
 };
 
-// YourSchema.find()
-// .populate(`{
-// path: 'map_data',
-// populate: {path: 'location' }
-// }`).exec(...)
-
-
-// const getReviewDetails = (org, user) => Review.find({ organization: ObjectId(org), user: ObjectId(user) }).populate({
-//   path: "organization",
-//   populate: {
-//     path: "question",
-//   },
-// });
 
 const getReviewDetails = (org, user) => Review.aggregate([
   {
@@ -119,8 +107,12 @@ const getReviewDetails = (org, user) => Review.aggregate([
 ]);
 
 
+const findReviewById = reviewId => Review.findOne({ _id: reviewId });
+const findReviewByIdAndUpdate = (reviewId, { rate, text, workPeriod }) => Review.findOneAndUpdate({ _id: reviewId }, { rate, workPeriod, "overallReview.text": text }, { new: true });
+
 module.exports = {
   getQuetionsByOrg,
+  getOrganizationById,
   getOrganization,
   getQuestionsByOrgCategory,
   getOrganizationsByType,
@@ -128,4 +120,6 @@ module.exports = {
   getAgenciesAndPayrollsNames,
   postOrg,
   getReviewDetails,
+  findReviewById,
+  findReviewByIdAndUpdate,
 };

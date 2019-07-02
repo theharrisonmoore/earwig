@@ -68,14 +68,14 @@ class DateRange extends React.Component {
       >
         <DatePicker.MonthPicker
           disabledDate={this.disabledStartDate}
-          value={startValue}
+          value={startValue || this.props.review.workPeriod.from}
           placeholder="Start"
           onChange={this.onStartChange}
           onOpenChange={this.handleStartOpenChange}
         />
         <DatePicker.MonthPicker
           disabledDate={this.disabledEndDate}
-          value={endValue}
+          value={endValue || this.props.review.workPeriod.to}
           placeholder="End"
           onChange={this.onEndChange}
           open={endOpen}
