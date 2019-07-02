@@ -57,8 +57,11 @@ module.exports = async (req, res, next) => {
       await updateUserHelpedPoints(user.referral);
     }
 
-    // send aprroval email
-    await approvalEmail(user.email);
+
+    if (process.env.NODE_ENV !== "test") {
+      // send aprroval email
+      await approvalEmail(user.email);
+    }
 
     return res.json({});
   } catch (error) {

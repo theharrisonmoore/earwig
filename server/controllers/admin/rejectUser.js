@@ -32,13 +32,17 @@ module.exports = ((req, res, next) => {
             // delete verification photo from google storage
             deleteFile(user.verificationPhoto)
               .then(() => {
-                // send rejection email
-                rejectionEmail(user.email)
-                  .then(() => {
-                    res.send();
-                  }).catch(() => {
-                    next(boom.badImplementation());
-                  });
+                if (process.env.NODE_ENV !== "test") {
+                  // send rejection email
+                  rejectionEmail(user.email)
+                    .then(() => {
+                      res.send();
+                    }).catch(() => {
+                      next(boom.badImplementation());
+                    });
+                } else {
+                  res.send();
+                }
               })
               .catch((err) => {
                 if (err.message === "file is no longer available") {
