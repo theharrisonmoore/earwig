@@ -27,8 +27,8 @@ module.exports = async (req, res, next) => {
   const to = process.env.EMAIL;
   const adminUser = process.env.EMAIL;
   const pass = process.env.EMAIL_PASSWORD;
-  const subject = "WARNING! User thinking of deleting account";
-  const from = process.env.EMAIL;
+  const subject = "earwig user deleting account";
+  const from = process.env.DELETE_EMAIL;
 
   if (process.env.NODE_ENV === "production") {
     await mailer({
