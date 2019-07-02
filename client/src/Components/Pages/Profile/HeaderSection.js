@@ -5,7 +5,10 @@ import moment from "moment";
 import { StarRateCreator } from "./../../../helpers";
 import { Icon as AntdIcon, Popover } from "antd";
 
-import { REVIEW_URL } from "../../../constants/naviagationUrls";
+import {
+  REVIEW_URL,
+  USER_PROFILE_URL
+} from "../../../constants/naviagationUrls";
 
 import {
   Header,
@@ -51,7 +54,8 @@ export default class HeaderSection extends Component {
       level,
       handleScroll,
       contractorAnswers,
-      reviewsLast30Days
+      reviewsLast30Days,
+      awaitingReview
     } = this.props;
     const {
       category,
@@ -172,12 +176,15 @@ export default class HeaderSection extends Component {
             </ContractorDiv>
           )}
         </CompanyDetails>
-        {level === 2 && (
+        {(level === 2 || level === 1) && (
           <>
             <ActionButtonsDiv>
               <Link
                 to={{
-                  pathname: REVIEW_URL,
+                  pathname:
+                    level === 1 && !awaitingReview
+                      ? USER_PROFILE_URL
+                      : REVIEW_URL,
                   state: { name, category }
                 }}
               >
@@ -208,7 +215,7 @@ export default class HeaderSection extends Component {
             )}
           </>
         )}
-        {level === 1 && (
+        {level === 1 && !awaitingReview && (
           <VerifyPromo>
             <p>
               Get verified as a worker to give reviews, comment on other reviews

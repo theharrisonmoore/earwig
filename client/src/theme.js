@@ -163,4 +163,27 @@ export const organizationIcons = {
   }
 };
 
+export const cookieStyles = {
+  general: {
+    background: `${colors.dodgerBlue}`,
+    color: `${colors.white}`,
+    display: "flex",
+    justifyContent: "center",
+    fontSize: "16px",
+    fontWeight: "500",
+    fontFamily: "Roboto",
+    maxHeight: 155
+  },
+  button: {
+    background: `${colors.white}`,
+    color: `${colors.black}`,
+    fontSize: "16px",
+    borderRadius: 4,
+    border: `1px ${colors.white}`,
+    marginTop: -8
+  },
+  link: {
+    textDecoration: "none"
+  }
+};
 //  font families to be added

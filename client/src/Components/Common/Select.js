@@ -29,7 +29,8 @@ class CustomizedSelects extends React.Component {
       disabled,
       addHandler,
       isCreateNew,
-      showSearch
+      showSearch,
+      ...rest
     } = this.props;
     return (
       <>
@@ -66,14 +67,15 @@ class CustomizedSelects extends React.Component {
               menu
             )
           }
+          {...rest}
         >
-          {options.map(item => (
-            <Option value={item.value} key={item.value}>
-              {item.label}
-            </Option>
-          ))}
+          {options &&
+            options.map(item => (
+              <Option value={item.value} key={item.value}>
+                {item.label}
+              </Option>
+            ))}
         </Select>
-        ,
       </>
     );
   }

@@ -246,7 +246,9 @@ export default class OverallReview extends Component {
       verified,
       level,
       isAdmin,
-      orgId
+      orgId,
+      awaitingReview,
+      FilteredReviewMonths
     } = this.props;
 
     const { activeReview, counters } = this.state;
@@ -257,7 +259,7 @@ export default class OverallReview extends Component {
       minimumLevel: "LEVEL3"
     });
 
-    return summary.reviews[0].createdAt ? (
+    return FilteredReviewMonths[0] && FilteredReviewMonths[0].createdAt ? (
       <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
         <SectionTitle>Overall ratings</SectionTitle>
         {/* check if any written comments */}
@@ -494,7 +496,7 @@ export default class OverallReview extends Component {
             </Collapse>
           </CommentDiv>
         ))}
-        {level === 1 && (
+        {level === 1 && !awaitingReview && (
           <VerifyPromo>
             <p>
               Get verified as a worker to give reviews, comment on other reviews
