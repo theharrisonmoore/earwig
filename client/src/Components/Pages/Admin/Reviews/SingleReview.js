@@ -356,6 +356,7 @@ export default class SingleReview extends Component {
                                                 </InputWrapper>
                                               );
                                             })}
+                                            {this.createDeleteBtn(entry._id)}
                                           </div>
                                         </Options>
                                       </QuestionOptionsWrapper>

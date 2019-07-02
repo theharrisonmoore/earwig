@@ -133,7 +133,6 @@ export default class AllReviews extends Component {
   }
 
   render() {
-    console.log("data", this.state.data);
     return (
       <>
         <Table

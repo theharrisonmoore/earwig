@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
 import { Checkbox, message, Spin, Icon } from "antd";
-import Loading from "./../../Common/AntdComponents/Loading";
+import Loading from "../../Common/AntdComponents/Loading";
 
 import {
   ReviewWrapper,
@@ -23,7 +23,7 @@ import {
 import { StyledErrorMessage } from "./Question/Question.style";
 
 import Question from "./Question/index";
-import { organizations } from "./../../../theme";
+import { organizations } from "../../../theme";
 
 import { initQueestionsValues } from "./initialQuestionsValues";
 import { validationSchema } from "./validationSchema";
