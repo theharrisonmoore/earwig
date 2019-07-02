@@ -30,7 +30,8 @@ const initalValues = {
   newPassword: "",
   reNewPassword: "",
   verificationImage: "",
-  imageFile: ""
+  imageFile: "",
+  newUsername: ""
 };
 
 // create custom function
@@ -52,7 +53,8 @@ Yup.addMethod(Yup.string, "equalTo", equalTo);
 
 export default class EditProfile extends Component {
   state = {
-    displayPassword: false
+    displayPassword: false,
+    displayUsername: false
   };
 
   handleImageChange = event => {
@@ -79,7 +81,11 @@ export default class EditProfile extends Component {
     const form = new FormData();
 
     // const arrays = Object.keys(values);
-    if (this.state.displayPassword || this.state.imageFile) {
+    if (
+      this.state.displayPassword ||
+      this.state.imageFile ||
+      this.state.displayUsername
+    ) {
       if (this.state.displayPassword) {
         form.append("oldPassword", values.oldPassword);
         form.append("newPassword", values.newPassword);
@@ -87,6 +93,9 @@ export default class EditProfile extends Component {
       }
       if (this.state.imageFile) {
         form.append("verificationImage", this.state.imageFile);
+      }
+      if (this.state.displayUsername) {
+        form.append("newUsername", values.newUsername);
       }
 
       axios({
@@ -115,29 +124,51 @@ export default class EditProfile extends Component {
     this.setState({ displayPassword: !this.state.displayPassword });
   };
 
+  toggleUsername = () => {
+    this.setState({ displayUsername: !this.state.displayUsername });
+  };
+
   render() {
-    const editProfileSchema = Yup.object().shape(
-      this.state.displayPassword
-        ? {
-            oldPassword: Yup.string().required("Required"),
-            newPassword: Yup.string()
-              .min(6)
-              .required("Required"),
-            reNewPassword: Yup.string()
-              .required("Required")
-              .equalTo(Yup.ref("newPassword"))
-          }
-        : null
-    );
+    let editProfileSchema;
+
+    if (this.state.displayPassword && this.state.displayUsername) {
+      editProfileSchema = Yup.object().shape({
+        oldPassword: Yup.string().required("Required"),
+        newPassword: Yup.string()
+          .min(6, "Password must be at least 6 characters long")
+          .required("Required"),
+        reNewPassword: Yup.string()
+          .required("Required")
+          .equalTo(Yup.ref("newPassword")),
+        newUsername: Yup.string()
+          .min(6, "Username must be between 6 and 15 characters long")
+          .max(15, "Username must be between 6 and 15 characters long")
+      });
+    } else if (this.state.displayPassword) {
+      editProfileSchema = Yup.object().shape({
+        oldPassword: Yup.string().required("Required"),
+        newPassword: Yup.string()
+          .min(6, "Password must be at least 6 characters long")
+          .required("Required"),
+        reNewPassword: Yup.string()
+          .required("Required")
+          .equalTo(Yup.ref("newPassword"))
+      });
+    } else if (this.state.displayUsername) {
+      editProfileSchema = Yup.object().shape({
+        newUsername: Yup.string()
+          .min(6, "Username must be between 6 and 15 characters long")
+          .max(15, "Username must be between 6 and 15 characters long")
+      });
+    } else {
+      editProfileSchema = null;
+    }
 
     const { userId, email } = this.props;
 
     return (
       <EditWrapper>
         <VerifiedWrapper>
-          <Section>
-            <Title>ID: {userId}</Title>
-          </Section>
           <Section>
             <Title title={email}>{email}</Title>
           </Section>
@@ -148,6 +179,27 @@ export default class EditProfile extends Component {
           >
             {({ isSubmitting }) => (
               <Form>
+                <Section>
+                  <Row>
+                    <Title>ID: {userId}</Title>
+                    <EditButton type="button" onClick={this.toggleUsername}>
+                      Edit
+                    </EditButton>
+                  </Row>
+                  {this.state.displayUsername && (
+                    <PasswordWrapper>
+                      <Label htmlFor="newUsername">
+                        New Username
+                        <Field
+                          type="text"
+                          name="newUsername"
+                          id="newUsername"
+                        />
+                        <FormikErrorMessage name="newUsername" component="p" />
+                      </Label>
+                    </PasswordWrapper>
+                  )}
+                </Section>
                 <Section>
                   <Row>
                     <Title>Password</Title>

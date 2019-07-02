@@ -246,6 +246,7 @@ export default class OverallReview extends Component {
       verified,
       level,
       isAdmin,
+      orgId,
       awaitingReview,
       FilteredReviewMonths
     } = this.props;
@@ -346,7 +347,8 @@ export default class OverallReview extends Component {
                     state: {
                       reviewId: review._id,
                       target: "overall",
-                      category
+                      category,
+                      orgId
                     }
                   }}
                 >
