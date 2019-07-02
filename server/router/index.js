@@ -57,7 +57,6 @@ const checkIfEditReview = require("../controllers/checkIfCanEdit");
 
 const {
   LOGIN_URL,
-  GET_QUESTIONS_URL,
   REVIEW_URL,
   UPLOAD_WORKSITE_IMAGE_URL,
   SEARCH_URL,
@@ -85,7 +84,7 @@ router.get(SEARCH_URL, searchController);
 // get user info from the cookies and send it to fron-end
 router.get(USERS, authentication, userInfoController);
 
-router.get("/review/:id/is-edatable", checkIfEditReview);
+router.get("/review/:id/is-edatable", authentication, authorization("LEVEL3"), checkIfEditReview);
 
 router.get("/questions/:id", authentication, authorization("LEVEL3"), getByOrg);
 router.post(REVIEW_URL, authentication, authorization("LEVEL3"), postReview);
