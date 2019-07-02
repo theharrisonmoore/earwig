@@ -13,19 +13,42 @@ class DateRange extends React.Component {
     const endValue = this.state.endValue;
 
     if (!startValue || !endValue) {
-      return startValue.valueOf() > moment().valueOf();
+      return (
+        startValue.valueOf() > moment().valueOf() ||
+        startValue.valueOf() <
+          moment()
+            .subtract(12, "months")
+            .valueOf()
+      );
     }
-    return startValue.valueOf() > endValue.valueOf();
+    return (
+      startValue.valueOf() > endValue.valueOf() ||
+      startValue.valueOf() <
+        moment()
+          .subtract(12, "months")
+          .valueOf()
+    );
   };
 
   disabledEndDate = endValue => {
     const startValue = this.state.startValue;
     if (!endValue || !startValue) {
-      return endValue.valueOf() > moment().valueOf();
+      return (
+        endValue.valueOf() > moment().valueOf() ||
+        endValue.valueOf() <
+          moment()
+            .subtract(12, "months")
+            .valueOf()
+      );
     }
     return (
       endValue.valueOf() <= startValue.valueOf() ||
-      endValue.valueOf() > moment().valueOf()
+      endValue.valueOf() > moment().valueOf() ||
+      endValue.valueOf() < moment().subtract(12, "months") ||
+      endValue.valueOf() <
+        moment()
+          .subtract(12, "months")
+          .valueOf()
     );
   };
 
@@ -66,7 +89,7 @@ class DateRange extends React.Component {
           justifyContent: "space-around"
         }}
       >
-        <DatePicker.MonthPicker
+        {/* <DatePicker.MonthPicker
           disabledDate={this.disabledStartDate}
           value={startValue || this.props.review.workPeriod.from}
           placeholder="Start"
@@ -80,7 +103,42 @@ class DateRange extends React.Component {
           onChange={this.onEndChange}
           open={endOpen}
           onOpenChange={this.handleEndOpenChange}
-        />
+        /> */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            fontWeight: "500"
+          }}
+        >
+          <label htmlFor="start">From</label>
+          <DatePicker.MonthPicker
+            disabledDate={this.disabledStartDate}
+            value={startValue || this.props.review.workPeriod.from}
+            placeholder="Start"
+            onChange={this.onStartChange}
+            onOpenChange={this.handleStartOpenChange}
+            id="start"
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            fontWeight: "500"
+          }}
+        >
+          <label htmlFor="end">To</label>
+          <DatePicker.MonthPicker
+            disabledDate={this.disabledEndDate}
+            value={endValue || this.props.review.workPeriod.to}
+            placeholder="End"
+            onChange={this.onEndChange}
+            open={endOpen}
+            onOpenChange={this.handleEndOpenChange}
+            id="end"
+          />
+        </div>
       </div>
     );
   }

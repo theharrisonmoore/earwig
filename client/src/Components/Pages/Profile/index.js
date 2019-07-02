@@ -38,7 +38,10 @@ export default class Profile extends Component {
     organizationID: "",
     overallReplies: [],
     activeOverallId: "",
-    reviewsLast30Days: []
+    contractorAnswers: [],
+    reviewsLast30Days: [],
+    FilteredReviewMonths: [],
+    avgRatings: null
   };
 
   myDivToFocus = React.createRef();
@@ -60,13 +63,37 @@ export default class Profile extends Component {
       .then(res => {
         const { summary, reviewDetails, level, reviewsLast30Days } = res.data;
 
+        const { reviews } = summary[0];
+
+        // filter the reviews on user state
+        const FilteredReviewMonths = reviews.filter(review => {
+          return review.user && review.user.verified;
+        });
+
+        let contractorAnswers = [];
+        if (summary[0].category === "worksite" && reviewDetails.length) {
+          const [worksiteQuestionsGroup] = reviewDetails.filter(
+            group => group._id === "Working on the site"
+          );
+          const [contractorQuestion] = worksiteQuestionsGroup.questions.filter(
+            question => question.text === "Who is the main contractor on site?"
+          );
+          const orderedAnswers = contractorQuestion.answers.sort(
+            (a, b) =>
+              moment(a.updatedAt).valueOf() - moment(b.updatedAt).valueOf()
+          );
+          contractorAnswers = orderedAnswers.map(item => item.answer);
+        }
+
         this.setState({
           summary: summary[0],
           reviewDetails,
           level,
           loaded: true,
           organizationID,
-          reviewsLast30Days
+          contractorAnswers,
+          reviewsLast30Days,
+          FilteredReviewMonths
         });
       })
       .catch(err => {
@@ -166,11 +193,11 @@ export default class Profile extends Component {
   };
 
   reviewsByMonth = () => {
-    const { reviews, totalReviews } = this.state.summary;
+    const { FilteredReviewMonths } = this.state;
 
-    const reviewMonths = reviews.map(review =>
-      moment(review.createdAt).format("MMM")
-    );
+    const reviewMonths = FilteredReviewMonths.map(review => {
+      return moment(review.createdAt).format("MMM");
+    });
 
     let reviewMonthsCount = {
       Jan: 0,
@@ -187,7 +214,7 @@ export default class Profile extends Component {
       Dec: 0
     };
 
-    if (totalReviews === 0) return reviewMonthsCount;
+    if (FilteredReviewMonths.length === 0) return reviewMonthsCount;
 
     reviewMonths.map(month => (reviewMonthsCount[month] += 1));
 
@@ -205,10 +232,19 @@ export default class Profile extends Component {
       commentsLoaded,
       level,
       reviewsLast30Days,
+      contractorAnswers,
+      FilteredReviewMonths,
       organizationID
     } = this.state;
 
-    const { isTablet, isMobile, verified, isAdmin, id } = this.props;
+    const {
+      isTablet,
+      isMobile,
+      verified,
+      isAdmin,
+      id,
+      awaitingReview
+    } = this.props;
 
     if (!loaded) return <Loading />;
 
@@ -229,6 +265,9 @@ export default class Profile extends Component {
           reviewsLast30Days={reviewsLast30Days}
           handleScroll={this.handleScroll}
           orgId={organizationID}
+          contractorAnswers={contractorAnswers}
+          awaitingReview={awaitingReview}
+          FilteredReviewMonths={FilteredReviewMonths}
         />
         {/* BASIC VIEW FOR LOGGED OUT USERS */}
         {level < 1 && (
@@ -399,7 +438,10 @@ export default class Profile extends Component {
           verified={verified}
           level={level}
           isAdmin={isAdmin}
+          orgId={organizationID}
           id={id}
+          awaitingReview={awaitingReview}
+          FilteredReviewMonths={FilteredReviewMonths}
         />
         {level < 1 && (
           <ReviewDiv isTablet={isTablet} isMobile={isMobile}>

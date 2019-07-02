@@ -131,19 +131,24 @@ router.post(
 );
 
 // get all trades
-router.get(TRADE_URL, authentication, authorization("LEVEL1"), getTradesController);
+router.get(TRADE_URL, getTradesController);
 
 // add new trade
 router.post(
   TRADE_URL,
-  authentication,
-  authorization("LEVEL1"),
   validation("addTrade"),
   postTradesController,
 );
 
 // sign up
-router.post(SIGN_UP, validation("signup"), signupController);
+router.post(
+  SIGN_UP,
+  upload("verificationImage"),
+  validation("signup"),
+  toGoogle(false),
+  signupController,
+  deleteFileFromServer,
+);
 
 // edit profile route
 // user can update password or/and the verification image

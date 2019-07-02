@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
     const hasVotes = !!review.overallReview.votes.length;
     const hasVoiceVotes = !!review.voiceReview.votes.length;
 
-    if (!hasVotes && !hasVoiceVotes && createdLTMonthAgo && review.user === req.user._id) {
+    if (!hasVotes && !hasVoiceVotes && createdLTMonthAgo && review.user.toString() === req.user._id.toString()) {
       return res.send({ orgId: review.organization });
     }
     return next(boom.unauthorized());

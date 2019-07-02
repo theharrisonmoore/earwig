@@ -15,7 +15,7 @@
 
 const boom = require("boom");
 
-const reportMailing = require("./../helpers/reportMailing");
+const reportMailing = require("./../helpers/emails/reportMailing");
 
 module.exports = (req, res, next) => {
   const {

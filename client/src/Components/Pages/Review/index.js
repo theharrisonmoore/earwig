@@ -166,26 +166,26 @@ class Review extends Component {
         .get(`/api/questions/${orgId}`)
         .then(res => {
           // make a conditon to check if editing or not(query param?!!)
-          const answers = {};
-          const edit = this.props.edit;
-          if (edit) {
-            // check the conditions ( 4 weeks + no helpful + no company response)
-            // send "seperate" request to get his answers (refactor)
-            const { getReviewAnswers: reviewDetails } = res.data;
-            reviewDetails[0].answers.map(answer => {
-              const {
-                answer: ans,
-                question: [question]
-              } = answer;
-              const number = question.number;
-              if (answers[number]) {
-                // think about this again;
-                answers[number] = ans;
-              } else {
-                answers[number] = ans;
-              }
-            });
-          }
+          // const answers = {};
+          // const edit = this.props.edit;
+          // if (edit) {
+          //   // check the conditions ( 4 weeks + no helpful + no company response)
+          //   // send "seperate" request to get his answers (refactor)
+          //   const { getReviewAnswers: reviewDetails } = res.data;
+          //   reviewDetails[0].answers.map(answer => {
+          //     const {
+          //       answer: ans,
+          //       question: [question]
+          //     } = answer;
+          //     const number = question.number;
+          //     if (answers[number]) {
+          //       // think about this again;
+          //       answers[number] = ans;
+          //     } else {
+          //       answers[number] = ans;
+          //     }
+          //   });
+          // }
           const groupss = {};
           res.data.groups.forEach(group => {
             groupss[group._id] = {
@@ -202,7 +202,7 @@ class Review extends Component {
             isLoading: false,
             organization: res.data.organization,
             email,
-            answers,
+            // answers,
             dropdownOptions:
               res.data.dropDownListData && res.data.dropDownListData[0].category
           });
@@ -520,7 +520,7 @@ class Review extends Component {
         <Header orgType={category} style={{ marginBottom: "3rem" }}>
           <Content>
             <Paragraph
-              style={{ paddingRight: ".5rem" }}
+              style={{ paddingRight: "1.5rem" }}
               cancel
               bold
               onClick={() => history.goBack()}
