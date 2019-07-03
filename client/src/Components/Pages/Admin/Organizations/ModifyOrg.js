@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-
+import moment from "moment";
 // import { Table, Modal, message, Input, Icon, Button } from "antd";
 
-import { Select, message, Button, Transfer, Tree } from "antd";
+import { Select, message, Button, Transfer, Tree, Alert } from "antd";
 
 const { Option } = Select;
 const { TreeNode } = Tree;
@@ -82,25 +82,16 @@ const TreeTransfer = ({ dataSource, targetKeys, ...restProps }) => {
 export default class AllOrganizations extends Component {
   state = {
     data: [],
-
     fetching: false,
-    dropDownSelection: [],
-    reviewsTargetKeys: [],
+    dropDownOrg1: null,
+    dropDownOrg2: null,
     reviewsSelection: [],
-    reviewsData: [],
-
     treeData: [],
     targetKeys: []
   };
 
   componentDidMount() {
     this.fetchData();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.category !== this.props.category) {
-      this.fetchData();
-    }
   }
 
   // gets all organisations
@@ -120,13 +111,13 @@ export default class AllOrganizations extends Component {
   };
 
   // renders input dropdowns
-  renderSelectField = (placeholder, orgArray) => (
+  renderSelectField = (placeholder, orgArray, setOrgFn) => (
     <Select
       showSearch
       style={{ width: 400 }}
       placeholder={`${placeholder}`}
       optionFilterProp="children"
-      onChange={this.setOrgs}
+      onChange={setOrgFn}
       filterOption={(input, option) =>
         option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
       }
@@ -140,33 +131,24 @@ export default class AllOrganizations extends Component {
   );
 
   // puts selected organisations into state
-  setOrgs = e => {
-    // const orgDetails = {
-    //   key: this.state.data[e]._id,
-    //   title: `${this.state.data[e].name} - ${this.state.data[e].category} - ${this.state.data[e]._id}`
-    // };
-
-    // !! need to not concat it but exchange it every time or re-select
+  setOrg1 = e => {
     this.setState({
-      dropDownSelection: [...this.state.dropDownSelection, this.state.data[e]]
+      dropDownOrg1: this.state.data[e]
     });
   };
 
-  // fills transfer data (reviews, comments)
-  handleClick = async () => {
-    // const { dropDownSelection } = this.state;
-    // if (dropDownSelection.length === 2) {
-    //   this.setState({
-    //     targetKeys: [
-    //       ...this.state.targetKeys,
-    //       this.state.dropDownSelection[this.state.dropDownSelection.length - 1]
-    //         .key
-    //     ]
-    //   });
-    // }
+  setOrg2 = e => {
+    this.setState({
+      dropDownOrg2: this.state.data[e]
+    });
+  };
 
-    const orgID1 = this.state.dropDownSelection[0]._id;
-    const orgID2 = this.state.dropDownSelection[1]._id;
+  // fills transfer data (so far only reviews)
+  handleClick = async () => {
+    const { dropDownOrg1, dropDownOrg2 } = this.state;
+
+    const orgID1 = dropDownOrg1._id;
+    const orgID2 = dropDownOrg2._id;
 
     // get reviews
     const apiCall1 = () =>
@@ -184,33 +166,36 @@ export default class AllOrganizations extends Component {
         }
 
         // edit reviews state
-        const reviewsTargetKeys = [];
-
         const reviewsSelection = [];
-        const reviewChildren = [];
+        const reviewChildren1 = [];
+        const reviewChildren2 = [];
 
-        // length = 2
         for (let i = 0; i < allReviews.length; i++) {
-          console.log("i", i);
-          console.log("allReviews[i", allReviews[i]);
-          console.log("allReviews[i].length", allReviews[i].length);
+          const setTitle = number =>
+            number === 0
+              ? `Reviews: ${dropDownOrg1.name}`
+              : `Reviews: ${dropDownOrg2.name}`;
 
-          // check if there are reviews for that company
+          const setChildren = number =>
+            number === 0 ? reviewChildren1 : reviewChildren2;
+
+          // check if there are reviews for that organisation
           if (allReviews[i].length > 0) {
             const reviews = {
               key: i,
-              title: `reviews ${this.state.dropDownSelection[0]._id}`,
-              children: reviewChildren
+              title: setTitle(i),
+              children: setChildren(i)
             };
-            console.log("full reviews", reviews);
+
             // fill childrens array with single reviews
             for (let j = 0; j < allReviews[i].length; j++) {
               const singleReview = {
                 key: allReviews[i][j]._id,
-                title: allReviews[i][j]._id
+                title: `Rating: ${allReviews[i][j].rate}, Created: ${moment(
+                  allReviews[i][j].createdAt
+                ).format("DD-MM-YYYY")}`
               };
-              console.log("singleReview", singleReview);
-              reviewChildren.push(singleReview);
+              setChildren(i).push(singleReview);
             }
             reviewsSelection.push(reviews);
           }
@@ -219,19 +204,20 @@ export default class AllOrganizations extends Component {
               key: i,
               title: "no reviews yet"
             };
-            console.log("no review", noReviews);
+
             reviewsSelection.push(noReviews);
           }
-          console.log("reviews", reviewsSelection);
-          // return reviewsSelection;
         }
         // set state
         this.setState({
           treeData: reviewsSelection
-          // targetKeys: [...this.state.targetKeys, reviewsTargetKeys]
         });
       })
       .catch(err => console.log(err));
+  };
+
+  deleteSelection = () => {
+    window.location.reload();
   };
 
   handleChange = (targetKeys, direction, moveKeys) => {
@@ -239,61 +225,50 @@ export default class AllOrganizations extends Component {
     this.setState({ targetKeys });
   };
 
-  renderReview = item => {
-    console.log(item);
-    const customLabel = item.content.map(e => (
-      <span className="custom-item">
-        <li>
-          {e.rate}, {e.overallReview.text}
-        </li>
-      </span>
-    ));
-
-    return {
-      label: customLabel
-      // value: item.content
-    };
-  };
   onChange = targetKeys => {
     console.log("Target Keys:", targetKeys);
     this.setState({ targetKeys });
   };
+
   render() {
     // const { category } = this.props;
-    const { data } = this.state;
-
-    console.log("treeData", this.state.treeData);
+    const {
+      data,
+      dropDownOrg1,
+      dropDownOrg2,
+      treeData,
+      targetKeys
+    } = this.state;
 
     return (
       <div>
-        <h3>Source</h3>
-        {this.renderSelectField("select first option", data)}
-        <h3>Target</h3>
-        {this.renderSelectField("select second option", data)}
-
-        <Button onClick={this.handleClick}>click</Button>
-        {/* review transfer section */}
-        {this.state.treeData.length > 0 && (
-          <TreeTransfer
-            dataSource={this.state.treeData}
-            targetKeys={this.state.targetKeys}
-            onChange={this.onChange}
-          />
-          // <Transfer
-          //   dataSource={this.state.reviewsSelection}
-          //   targetKeys={this.state.reviewsTargetKeys}
-          //   // titles={[
-          //   //   `${this.state.orgSelection[0].org.name}`,
-          //   //   `${this.state.orgSelection[1].org.name}`
-          //   // ]}
-          //   listStyle={{
-          //     width: 300,
-          //     height: 300
-          //   }}
-          //   render={this.renderReview}
-          //   // rowKey={record => record.uid}
-          // />
+        <h3>Select First Organisation</h3>
+        {this.renderSelectField("select first option", data, this.setOrg1)}
+        <h3>Select Second Organisation</h3>
+        {this.renderSelectField("select second option", data, this.setOrg2)}
+        <h3>Reload Data</h3>
+        <Button onClick={this.deleteSelection}>Reset</Button>
+        {dropDownOrg1 && dropDownOrg2 && treeData.length === 0 && (
+          <Button onClick={this.handleClick}>Load Data</Button>
         )}
+        {dropDownOrg1 && dropDownOrg2 && dropDownOrg1 === dropDownOrg2 && (
+          <Alert
+            type="error"
+            description="Can't load same organisations. Please Reload"
+          />
+        )}
+        {/* review transfer section */}
+        {treeData.length > 0 &&
+          dropDownOrg1 &&
+          dropDownOrg2 &&
+          dropDownOrg1 !== dropDownOrg2 && (
+            <TreeTransfer
+              dataSource={treeData}
+              targetKeys={targetKeys}
+              onChange={this.onChange}
+              titles={["Source", "Target"]}
+            />
+          )}
       </div>
     );
   }
