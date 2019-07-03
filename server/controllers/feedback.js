@@ -1,6 +1,6 @@
 const boom = require("boom");
 
-const mailer = require("./../helpers/mailer");
+const mailer = require("./../helpers/emails/mailer");
 
 module.exports = async (req, res, next) => {
   const { user } = req;
@@ -29,8 +29,8 @@ module.exports = async (req, res, next) => {
   const to = process.env.EMAIL;
   const adminUser = process.env.EMAIL;
   const pass = process.env.EMAIL_PASSWORD;
-  const subject = "Feedback Message from User";
-  const from = process.env.EMAIL;
+  const subject = "earwig user wants to connect";
+  const from = process.env.HELP_EMAIL;
 
   if (process.env.NODE_ENV === "production") {
     await mailer({

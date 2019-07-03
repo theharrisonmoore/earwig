@@ -39,7 +39,7 @@ module.exports = async (req, res, next) => {
       newUserData.trade = trade;
       newUserData.city = city;
       newUserData.awaitingReview = true;
-      newUserData.uploadedFileName = uploadedFileName;
+      newUserData.verificationPhoto = uploadedFileName;
     } else {
       const worksFor = orgType !== "other" ? orgType : otherOrg;
       newUserData.worksFor = worksFor;

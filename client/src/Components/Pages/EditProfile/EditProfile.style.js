@@ -203,7 +203,7 @@ export const VerifiedLabelWrapper = styled.div`
 export const Error = styled.p`
   position: absolute;
   transform: translate(-50%, -50%);
-  top: 3rem;
+  top: 2rem;
   left: 50%;
   color: #ff4d4f;
   font-size: 16px;

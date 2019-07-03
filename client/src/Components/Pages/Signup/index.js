@@ -503,16 +503,6 @@ export default class Signup extends Component {
                     <SelectWrapper>
                       <Label htmlFor="trade">
                         Trade
-                        {/* <Select
-                          placeholder={"Select your trade"}
-                          options={this.state.trades}
-                          handleChange={this.handleChange}
-                          value={this.state.tradeId}
-                          disabled={this.state.disableSelect}
-                          isCreateNew
-                          showSearch
-                          addHandler={this.showModal}
-                        /> */}
                         <Field name="trade">
                           {({ field, form, onChange }) => (
                             <>
@@ -604,12 +594,16 @@ export default class Signup extends Component {
                               verificationImage ? verificationImage : example
                             }
                           />
-                          <Button as="label" htmlFor="verificationImage">
-                            Upload photo for verification
+                          <Button
+                            as="label"
+                            htmlFor="verificationImage"
+                            style={{ width: "70%", margin: "0 auto 1.25rem" }}
+                          >
+                            Upload photo
                             {verificationImage && (
                               <Icon
                                 type="check"
-                                style={{ color: "green", fontSize: "23px" }}
+                                style={{ color: "white", fontSize: "23px" }}
                               />
                             )}
                           </Button>
@@ -665,7 +659,7 @@ export default class Signup extends Component {
                   disabled={isSubmitting}
                   loading={isSubmitting}
                 >
-                  Finish account setup
+                  Create account
                 </Button>
               </Form>
             )}

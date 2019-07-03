@@ -233,7 +233,8 @@ export default class Profile extends Component {
       level,
       contractorAnswers,
       reviewsLast30Days,
-      FilteredReviewMonths
+      FilteredReviewMonths,
+      organizationID
     } = this.state;
 
     const {
@@ -436,6 +437,7 @@ export default class Profile extends Component {
           verified={verified}
           level={level}
           isAdmin={isAdmin}
+          orgId={organizationID}
           id={id}
           awaitingReview={awaitingReview}
           FilteredReviewMonths={FilteredReviewMonths}
