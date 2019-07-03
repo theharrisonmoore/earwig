@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { colors, breakpoints, organizations, shadows } from "../../../theme";
+import { colors, breakpoints, organizations } from "../../../theme";
 
 export const SignupWrapper = styled.div`
   display: flex;
