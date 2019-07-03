@@ -2,8 +2,6 @@ const mongoose = require("mongoose");
 const buildDB = require("../../../database/dummyData/index");
 const allReviewsIncAnswers = require("../../../database/queries/reviews/allReviewsIncAnswers");
 
-const Organization = require("../../../database/models/Organization");
-
 describe("Test getAllReviewsIncAnswers query", () => {
   beforeAll(async (done) => {
     await buildDB();
