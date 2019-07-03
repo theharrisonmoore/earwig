@@ -9,14 +9,14 @@ import {
   Cancel,
   ContentWrapper,
   Wrapper,
-  BlankDiv
+  PurpleDiv
 } from "./ResetPassword.style";
 
 import {
   ResetPassword as ResetPasswordContent,
   SetPassword,
   PasswordSent,
-  PasswordSDone
+  PasswordDone
 } from "./Content";
 
 import {
@@ -89,7 +89,7 @@ export default class ResetPassword extends Component {
           <Banner>
             <Cancel onClick={history.goBack}>Cancel</Cancel>
           </Banner>
-          <BlankDiv />
+          <PurpleDiv />
           <ContentWrapper>
             <Switch>
               <Route
@@ -128,7 +128,7 @@ export default class ResetPassword extends Component {
               <Route
                 path={PASSWORD_DONE_URL}
                 render={props => (
-                  <PasswordSDone
+                  <PasswordDone
                     handleSubmitSet={this.handleSubmitSet}
                     error={error}
                     {...props}

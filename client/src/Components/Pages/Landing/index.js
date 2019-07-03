@@ -29,6 +29,7 @@ import LogoBetaWhite from "./../../../assets/logo-beta-white.svg";
 import { colors } from "./../../../theme";
 
 import Icon from "./../../Common/Icon/Icon";
+import Button from "./../../Common/Button";
 
 import {
   StyledFormik as Formik,
@@ -36,7 +37,6 @@ import {
   StyledField as Field,
   StyledFormikErrorMessage as FormikErrorMessage,
   Label,
-  Button,
   GeneralErrorMessage,
   StyledField
 } from "./../../Common/Formik/Formik.style";
@@ -143,8 +143,9 @@ export default class index extends Component {
                   type="submit"
                   disabled={isSubmitting}
                   color={colors.white}
-                  background={colors.dodgerBlue}
+                  backgroundColor={colors.dodgerBlue}
                   border="none"
+                  loading={isSubmitting}
                 >
                   Log in
                 </Button>
@@ -167,9 +168,7 @@ export default class index extends Component {
               allowfullscreen
             />
           </VideoWrapper>
-        ) : (
-          <></>
-        )}
+        ) : null}
         <WhiteWrapper>
           <SectionTitle>earwig's promises</SectionTitle>
           <PromiseParagraph>

@@ -3,12 +3,12 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 import { colors } from "./../../../theme";
+import Button from "./../Button";
 
 import {
   Wrapper,
   CommentTitle,
   CommentBox,
-  StyledButton,
   LogInPrompt
 } from "./CommentBox.style";
 
@@ -69,6 +69,7 @@ export default class index extends Component {
 
   render() {
     const { title, isLoggedIn } = this.props;
+    const { loading } = this.state;
     return (
       <Wrapper>
         <CommentTitle>{title}</CommentTitle>
@@ -78,12 +79,9 @@ export default class index extends Component {
               placeholder="Enter your comments here..."
               onChange={this.handleInput}
             />
-            <StyledButton
-              loading={this.state.loading}
-              onClick={this.handleSubmit}
-            >
+            <Button loading={loading} onClick={this.handleSubmit}>
               Send
-            </StyledButton>
+            </Button>
           </>
         ) : (
           <LogInPrompt to={LOGIN_URL}>

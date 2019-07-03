@@ -5,7 +5,9 @@ import {
   ContentWrapper,
   MainIcon,
   LargeParagraph,
-  PageTitle
+  PageTitle,
+  BlueDiv,
+  PurpleDiv
 } from "./../../Common/StaticPages.style";
 
 import CommentSection from "./../../Common/CommentSection";
@@ -16,7 +18,10 @@ export default class ShapeEarwig extends Component {
 
     return (
       <Wrapper>
-        <ContentWrapper>
+        <ContentWrapper
+          width="50%"
+          style={{ maxWidth: "32rem", margin: "0 auto", paddingTop: "6rem" }}
+        >
           <PageTitle>Shape earwig</PageTitle>
           <MainIcon src={lampIcon} />
           <LargeParagraph>
@@ -28,6 +33,8 @@ export default class ShapeEarwig extends Component {
             isLoggedIn={isLoggedIn}
           />
         </ContentWrapper>
+        <PurpleDiv width="25%" />
+        <BlueDiv width="25%" />
       </Wrapper>
     );
   }

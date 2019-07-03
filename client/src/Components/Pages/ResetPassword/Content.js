@@ -1,14 +1,7 @@
 import React from "react";
 import * as Yup from "yup";
 
-import { Spin, Icon } from "antd";
-
-import {
-  Description,
-  ContentWrapper,
-  Wrapper,
-  Button
-} from "./ResetPassword.style";
+import { Description, ContentWrapper, Wrapper } from "./ResetPassword.style";
 
 import {
   StyledFormik as Formik,
@@ -23,9 +16,7 @@ import { LOGIN_URL } from "./../../../constants/naviagationUrls";
 
 import Logo from "../../Common/Logo";
 
-const antIcon = (
-  <Icon type="loading" style={{ fontSize: 24, color: "white" }} spin />
-);
+import Button from "./../../Common/Button";
 
 export const ResetPassword = ({
   error,
@@ -63,12 +54,9 @@ export const ResetPassword = ({
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                loading={true}
                 as="button"
+                loading={isSubmitting}
               >
-                {loading && (
-                  <Spin indicator={antIcon} style={{ marginRight: ".5rem" }} />
-                )}
                 Send link to my email
               </Button>
             </Form>
@@ -122,9 +110,6 @@ export const SetPassword = ({ error, handleSubmitSet, match, loading }) => {
 
             {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
             <Button type="submit" disabled={isSubmitting} as="button">
-              {loading && (
-                <Spin indicator={antIcon} style={{ marginRight: ".5rem" }} />
-              )}
               Save Password
             </Button>
           </Form>
@@ -147,7 +132,7 @@ export const PasswordSent = ({ history }) => {
   );
 };
 
-export const PasswordSDone = ({ history }) => {
+export const PasswordDone = ({ history }) => {
   return (
     <Wrapper>
       <ContentWrapper>
