@@ -4,7 +4,18 @@ import { SEARCH_URL } from "./../../../constants/naviagationUrls";
 
 import { Link } from "react-router-dom";
 
-import { IntroWrapper, Iframe, Button, VideoContainer } from "./Intro.style";
+import {
+  IntroWrapper,
+  Iframe,
+  Button,
+  VideoContainer,
+  YellowDiv,
+  BlackDiv,
+  PurpleDiv,
+  BlueDiv,
+  Title,
+  Logo
+} from "./Intro.style";
 
 import logo from "./../../../assets/logo.svg";
 
@@ -12,8 +23,9 @@ export default class Intro extends Component {
   render() {
     return (
       <IntroWrapper>
-        <img src={logo} alt="logo" />
         <VideoContainer>
+          <Logo src={logo} alt="logo" />
+          <Title>An important message for workers</Title>
           <Iframe
             src="https://www.youtube.com/embed/9eBzZOwaTpw?controls=0"
             frameBorder="0"
@@ -21,9 +33,13 @@ export default class Intro extends Component {
             allowfullscreen
           />
           <Link to={SEARCH_URL}>
-            <Button>Skip</Button>
+            <Button>Got it</Button>
           </Link>
         </VideoContainer>
+        <YellowDiv backgroundColor="yellow" />
+        <PurpleDiv backgroundColor="red" />
+        <BlackDiv backgroundColor="black" />
+        <BlueDiv backgroundColor="blue" />
       </IntroWrapper>
     );
   }
