@@ -1,15 +1,46 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { CSVLink } from "react-csv";
+import styled from "styled-components";
 
 import { Table, Modal, message, Input, Icon, Button } from "antd";
 
+import { colors } from "./../../../../theme";
+
 import ReviewsColumns from "./ReviewsColumns";
+
+// styling
+
+const Wrapper = styled.div`
+  padding-top: 2rem;
+`;
+
+const StyledCSVLink = styled(CSVLink)`
+  padding: 1rem;
+  border-radius: 3px;
+  background-color: ${colors.heliotrope};
+  margin: 2rem;
+  color: ${colors.white};
+  font-weight: 500;
+
+  :hover,
+  :focus {
+    background-color: ${colors.heliotrope};
+    color: ${colors.white};
+    text-decoration: underline;
+  }
+
+  :active {
+    cursor: none;
+  }
+`;
 
 export default class AllReviews extends Component {
   state = {
     data: [],
     visible: false,
-    id: ""
+    id: "",
+    exportData: ""
   };
 
   getColumnSearchProps = dataIndex => ({
@@ -134,7 +165,25 @@ export default class AllReviews extends Component {
 
   render() {
     return (
-      <>
+      <Wrapper>
+        <StyledCSVLink
+          data={this.state.exportData}
+          asyncOnClick={true}
+          onClick={(event, done) => {
+            axios
+              .get("/api/admin/export-all-reviews")
+              .then(({ data }) => {
+                this.setState({ exportData: data }, () => done());
+              })
+              .catch(err => {
+                const error =
+                  err.response && err.response.data && err.response.data.error;
+                message.error(error || "Something went wrong");
+              });
+          }}
+        >
+          Export all reviews
+        </StyledCSVLink>
         <Table
           columns={ReviewsColumns({
             deletHandler: this.showDeleteConfirm,
@@ -142,10 +191,10 @@ export default class AllReviews extends Component {
             searchText: this.state.searchText
           })}
           dataSource={this.state.data}
-          style={{ backgroundColor: "#ffffff" }}
+          style={{ backgroundColor: "#ffffff", marginTop: "3rem" }}
           bordered
         />
-      </>
+      </Wrapper>
     );
   }
 }
