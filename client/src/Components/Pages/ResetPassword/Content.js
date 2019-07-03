@@ -1,8 +1,6 @@
 import React from "react";
 import * as Yup from "yup";
 
-import { Spin, Icon } from "antd";
-
 import {
   Description,
   ContentWrapper,
@@ -22,10 +20,7 @@ import {
 import { LOGIN_URL } from "./../../../constants/naviagationUrls";
 
 import Logo from "../../Common/Logo";
-
-const antIcon = (
-  <Icon type="loading" style={{ fontSize: 24, color: "white" }} spin />
-);
+import { ButtonSpinner } from "./../../Common/AntdComponents/Loading";
 
 export const ResetPassword = ({
   error,
@@ -66,9 +61,7 @@ export const ResetPassword = ({
                 loading={true}
                 as="button"
               >
-                {loading && (
-                  <Spin indicator={antIcon} style={{ marginRight: ".5rem" }} />
-                )}
+                {loading && <ButtonSpinner />}
                 Send link to my email
               </Button>
             </Form>
@@ -122,9 +115,7 @@ export const SetPassword = ({ error, handleSubmitSet, match, loading }) => {
 
             {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
             <Button type="submit" disabled={isSubmitting} as="button">
-              {loading && (
-                <Spin indicator={antIcon} style={{ marginRight: ".5rem" }} />
-              )}
+              {loading && <ButtonSpinner />}
               Save Password
             </Button>
           </Form>

@@ -3,8 +3,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 import { colors } from "./../../../theme";
+import CancelNavbar from "./../../Common/CancelNavbar";
 
-import { EDIT_PROFILE_URL } from "./../../../constants/naviagationUrls";
+import { ButtonSpinner } from "./../../Common/AntdComponents/Loading";
 
 import {
   Wrapper,
@@ -12,14 +13,16 @@ import {
   Paragraph,
   TextArea,
   Button,
-  CancelLink,
-  DeleteButton
+  DeleteButton,
+  BorderedWrapper
 } from "./DeleteProfile.style";
 
 export default class index extends Component {
   state = {
     message: "",
-    errors: null
+    errors: null,
+    isSubmitting: false,
+    isDeleting: false
   };
 
   deleteUser = () => {
@@ -33,37 +36,38 @@ export default class index extends Component {
       confirmButtonText: "Yes, delete!"
     }).then(result => {
       if (result.value) {
-        Swal.fire({
-          title: "Deleting account..."
-        });
-        Swal.showLoading();
-
-        axios
-          .delete("/api/delete-user")
-          .then(res => {
-            setTimeout(() => {
-              Swal.fire({
-                type: "success",
-                title: "Account Deleted",
-                text:
-                  "Your user account, including any reviews and comments you made, have all been successfully deleted"
-              }).then(() => {
-                window.location.reload();
-              });
-            }, 1000);
-          })
-          .catch(err => {
-            setTimeout(() => {
-              Swal.fire({
-                type: "error",
-                title: "Transaction unsuccessful",
-                text: err.response.data.error,
-                confirmButtonText: "Close"
-              }).then(() => {
-                window.location.reload();
-              });
-            }, 1000);
-          });
+        this.setState({ isDeleting: true }, () =>
+          axios
+            .delete("/api/delete-user")
+            .then(res => {
+              this.setState({ isDeleting: false }, () =>
+                setTimeout(() => {
+                  Swal.fire({
+                    type: "success",
+                    title: "Account Deleted",
+                    text:
+                      "Your user account, including any reviews and comments you made, have all been successfully deleted"
+                  }).then(() => {
+                    window.location.reload();
+                  });
+                }, 1000)
+              );
+            })
+            .catch(err => {
+              this.setState({ isDeleting: false }, () =>
+                setTimeout(() => {
+                  Swal.fire({
+                    type: "error",
+                    title: "Transaction unsuccessful",
+                    text: err.response.data.error,
+                    confirmButtonText: "Close"
+                  }).then(() => {
+                    window.location.reload();
+                  });
+                }, 1000)
+              );
+            })
+        );
       }
     });
   };
@@ -78,24 +82,30 @@ export default class index extends Component {
     const { message } = this.state;
 
     if (message.length > 0) {
-      axios
-        .post("/api/thinking-of-deleting", { message })
-        .then(() =>
-          Swal.fire({
-            type: "success",
-            title: "Thanks for sticking with us",
-            text: "We’ll get back to you via email as soon as we can.",
-            confirmButtonText: "Okay"
-          }).then(() => (window.location = "/my-profile"))
-        )
-        .catch(err =>
-          Swal.fire({
-            type: "error",
-            title: "Error sending message",
-            text: err.response.data.error,
-            confirmButtonText: "Close"
-          })
-        );
+      this.setState({ isSubmitting: true }, () =>
+        axios
+          .post("/api/thinking-of-deleting", { message })
+          .then(() =>
+            this.setState({ isSubmitting: false }, () =>
+              Swal.fire({
+                type: "success",
+                title: "Thanks for sticking with us",
+                text: "We’ll get back to you via email as soon as we can.",
+                confirmButtonText: "Okay"
+              }).then(() => (window.location = "/my-profile"))
+            )
+          )
+          .catch(err =>
+            this.setState({ isSubmitting: false }, () =>
+              Swal.fire({
+                type: "error",
+                title: "Error sending message",
+                text: err.response.data.error,
+                confirmButtonText: "Close"
+              })
+            )
+          )
+      );
     } else {
       this.setState({ errors: "Message box is empty" });
       Swal.fire({
@@ -108,29 +118,39 @@ export default class index extends Component {
   };
 
   render() {
+    const { history } = this.props;
+    const { isSubmitting, isDeleting } = this.state;
+
     return (
-      <Wrapper>
-        <Title>Delete my earwig account</Title>
-        <Paragraph>
-          If you want to permanently delete your earwig account, let us know.
-          Once the deletion process begins, you won’t be able to reactivate your
-          account or access any of the content you’ve given or the points you’ve
-          earned. <br />
-          <br />
-          If you think you may like to keep your account but you’re unhappy
-          about something, tell us why so we can do our best to fix it.
-        </Paragraph>
-        <TextArea
-          placeholder="What's wrong?"
-          onChange={this.handleInput}
-          type="textarea"
-        />
-        <Button onClick={this.handleSubmit}>Send</Button>
-        <CancelLink to={EDIT_PROFILE_URL}>Cancel</CancelLink>
-        <DeleteButton onClick={this.deleteUser}>
-          Permanently delete account
-        </DeleteButton>
-      </Wrapper>
+      <>
+        <CancelNavbar history={history} CancelText="Back" />
+        <Wrapper>
+          <BorderedWrapper>
+            <div>
+              <Title>You’re about to delete your earwig account</Title>
+              <Paragraph>
+                If you want to permanently delete your earwig account, let us
+                know. <br />
+                <br />
+                If you think you may like to keep your account but you’re
+                unhappy about something, tell us what’s wrong so we can do our
+                best to fix it.
+              </Paragraph>
+              <TextArea
+                placeholder="What's wrong?"
+                onChange={this.handleInput}
+                type="textarea"
+              />
+              <Button onClick={this.handleSubmit} disabled={isSubmitting}>
+                {isSubmitting && <ButtonSpinner />}Send
+              </Button>
+              <DeleteButton onClick={this.deleteUser} disabled={isDeleting}>
+                {isDeleting && <ButtonSpinner />}Permanently delete account
+              </DeleteButton>
+            </div>
+          </BorderedWrapper>
+        </Wrapper>
+      </>
     );
   }
 }

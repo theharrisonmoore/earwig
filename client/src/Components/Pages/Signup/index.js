@@ -606,7 +606,6 @@ export default class Signup extends Component {
                             }
                           />
                           <Button as="label" htmlFor="verificationImage">
-                            {isSubmitting && <ButtonSpinner />}
                             Upload photo for verification
                             {verificationImage && (
                               <Icon
@@ -663,7 +662,7 @@ export default class Signup extends Component {
 
                 {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
                 <Button type="submit" disabled={isSubmitting}>
-                  Finish account setup
+                  {isSubmitting && <ButtonSpinner />} Finish account setup
                 </Button>
               </Form>
             )}

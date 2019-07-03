@@ -12,7 +12,8 @@ const NavbarWrapper = styled.div`
   text-transform: capitalize;
   position: fixed;
   z-index: 2;
-  background-color: ${colors.white};
+  background-color: ${({ backgroundColor }) =>
+    backgroundColor ? backgroundColor : colors.white};
   box-shadow: ${shadows.headerShadow};
   border-bottom: 1px solid ${colors.lightGray};
   width: 100%;
@@ -39,11 +40,15 @@ const NavbarTitle = styled.p`
 `;
 
 const Cancel = styled.p`
+  line-height: 1;
   font-size: 1.125rem;
   font-weight: 700;
   position: absolute;
   left: 7px;
   cursor: pointer;
+  text-decoration: none;
+  border-bottom: 2px solid
+    ${({ cancelColor }) => (cancelColor ? cancelColor : colors.heliotrope)};
 
   color: ${({ cancelColor }) =>
     cancelColor ? cancelColor : colors.heliotrope};
@@ -54,14 +59,15 @@ const CancelNavbar = ({
   backgroundColor,
   title,
   titleColor,
-  cancelColor
+  cancelColor,
+  CancelText
 }) => {
   return (
-    <NavbarWrapper>
+    <NavbarWrapper backgroundColor={backgroundColor}>
       <Cancel onClick={history.goBack} cancelColor={cancelColor}>
-        Cancel
+        {CancelText || "Cancel"}
       </Cancel>
-      <NavbarTitle titleColor={titleColor}>{title}</NavbarTitle>
+      {title && <NavbarTitle titleColor={titleColor}>{title}</NavbarTitle>}
     </NavbarWrapper>
   );
 };

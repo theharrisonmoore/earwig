@@ -20,12 +20,15 @@ const Loading = props => {
 
 export default Loading;
 
-// antd spinner for the submit button
-const antIcon = (
-  <Icon type="loading" style={{ fontSize: 24, color: "white" }} spin />
-);
-
-const ButtonSpinner = () => {
+const ButtonSpinner = ({ color }) => {
+  // antd spinner for the submit button
+  const antIcon = (
+    <Icon
+      type="loading"
+      style={{ fontSize: 24, color: color || "white" }}
+      spin
+    />
+  );
   return <Spin indicator={antIcon} style={{ marginRight: ".5rem" }} />;
 };
 
