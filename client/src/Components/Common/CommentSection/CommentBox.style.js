@@ -25,32 +25,6 @@ export const CommentBox = styled.textarea`
   box-shadow: ${shadows.buttonShadow};
 `;
 
-export const Button = styled.button`
-  color: ${colors.white};
-  border: none;
-  box-shadow: ${shadows.buttonShadow};
-  border-radius: 3px;
-  width: 100%;
-
-  font-weight: 900;
-  font-size: 1.125rem;
-  background-color: ${colors.heliotrope};
-  outline: none;
-  display: block;
-  padding: 0.75rem 0;
-  cursor: pointer;
-  margin: 2rem auto;
-
-  &:active {
-    box-shadow: none;
-  }
-
-  &:active,
-  &:focus {
-    outline: none;
-  }
-`;
-
 export const LogInPrompt = styled(Link)`
   font-size: 1.25rem;
   color: ${colors.heliotrope};

@@ -4,11 +4,12 @@ import {
   MainIcon,
   SubTitle,
   SmallParagraph,
-  Button,
   BoldLink,
   SelectWrapper,
   TextArea
 } from "./../../Common/StaticPages.style";
+
+import Button from "./../../Common/Button";
 
 import flagIcon from "./../../../assets/flag.svg";
 
@@ -56,7 +57,8 @@ export default class SelectReason extends Component {
       handleSelect,
       handleTextAreaChange,
       description,
-      handleSubmit
+      handleSubmit,
+      loading
     } = this.props;
     return (
       <div style={{ paddingTop: "60px" }}>
@@ -90,7 +92,9 @@ export default class SelectReason extends Component {
           onChange={handleTextAreaChange}
           value={description}
         />
-        <Button onClick={handleSubmit}>Send report</Button>
+        <Button onClick={handleSubmit} loading={loading}>
+          Send report
+        </Button>
       </div>
     );
   }

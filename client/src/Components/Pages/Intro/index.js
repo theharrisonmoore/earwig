@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import {
   IntroWrapper,
   Iframe,
-  Button,
   VideoContainer,
   YellowDiv,
   BlackDiv,
@@ -18,6 +17,7 @@ import {
 } from "./Intro.style";
 
 import logo from "./../../../assets/logo.svg";
+import Button from "./../../Common/Button";
 
 export default class Intro extends Component {
   render() {

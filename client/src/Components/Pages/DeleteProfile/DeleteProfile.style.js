@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, shadows, breakpoints } from "./../../../theme";
+import { colors, breakpoints } from "./../../../theme";
 
 import { MOBILE_WIDTH } from "./../../../constants/screenWidths";
 
@@ -44,32 +44,6 @@ export const Paragraph = styled.p`
   }
 `;
 
-export const Button = styled.button`
-  color: ${colors.white};
-  border: none;
-  box-shadow: ${shadows.buttonShadow};
-  border-radius: 3px;
-  width: 100%;
-
-  font-weight: 900;
-  font-size: 1.125rem;
-  background-color: ${colors.heliotrope};
-  outline: none;
-  display: block;
-  padding: 0.75rem 0;
-  cursor: pointer;
-  margin: 2rem auto;
-
-  &:active {
-    box-shadow: none;
-  }
-
-  &:active,
-  &:focus {
-    outline: none;
-  }
-`;
-
 export const TextArea = styled.textarea`
   width: 100%;
   max-width: 40rem;
@@ -78,13 +52,4 @@ export const TextArea = styled.textarea`
   border-radius: 5px;
   outline: none;
   padding: 1rem;
-`;
-
-export const DeleteButton = styled(Button)`
-  margin: 0rem auto;
-
-  :hover,
-  :active {
-    color: ${colors.red};
-  }
 `;

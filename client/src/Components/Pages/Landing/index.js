@@ -29,7 +29,7 @@ import LogoBetaWhite from "./../../../assets/logo-beta-white.svg";
 import { colors } from "./../../../theme";
 
 import Icon from "./../../Common/Icon/Icon";
-import { ButtonSpinner } from "./../../Common/AntdComponents/Loading";
+import Button from "./../../Common/Button";
 
 import {
   StyledFormik as Formik,
@@ -37,7 +37,6 @@ import {
   StyledField as Field,
   StyledFormikErrorMessage as FormikErrorMessage,
   Label,
-  Button,
   GeneralErrorMessage,
   StyledField
 } from "./../../Common/Formik/Formik.style";
@@ -144,10 +143,10 @@ export default class index extends Component {
                   type="submit"
                   disabled={isSubmitting}
                   color={colors.white}
-                  background={colors.dodgerBlue}
+                  backgroundColor={colors.dodgerBlue}
                   border="none"
+                  loading={isSubmitting}
                 >
-                  {isSubmitting && <ButtonSpinner />}
                   Log in
                 </Button>
               </Form>

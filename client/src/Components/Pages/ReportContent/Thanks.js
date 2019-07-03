@@ -3,9 +3,10 @@ import React, { Component } from "react";
 import {
   MainIcon,
   SubTitle,
-  SmallParagraph,
-  Button
+  SmallParagraph
 } from "./../../Common/StaticPages.style";
+
+import Button from "./../../Common/Button";
 
 import checkIcon from "./../../../assets/check-icon.svg";
 

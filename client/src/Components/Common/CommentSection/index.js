@@ -3,17 +3,16 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 import { colors } from "./../../../theme";
+import Button from "./../Button";
 
 import {
   Wrapper,
   CommentTitle,
   CommentBox,
-  Button,
   LogInPrompt
 } from "./CommentBox.style";
 
 import { LOGIN_URL } from "./../../../constants/naviagationUrls";
-import { ButtonSpinner } from "./../AntdComponents/Loading";
 
 export default class index extends Component {
   state = {
@@ -81,7 +80,7 @@ export default class index extends Component {
               onChange={this.handleInput}
             />
             <Button loading={loading} onClick={this.handleSubmit}>
-              {loading && <ButtonSpinner />}Send
+              Send
             </Button>
           </>
         ) : (

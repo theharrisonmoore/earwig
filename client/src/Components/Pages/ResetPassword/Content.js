@@ -1,12 +1,7 @@
 import React from "react";
 import * as Yup from "yup";
 
-import {
-  Description,
-  ContentWrapper,
-  Wrapper,
-  Button
-} from "./ResetPassword.style";
+import { Description, ContentWrapper, Wrapper } from "./ResetPassword.style";
 
 import {
   StyledFormik as Formik,
@@ -20,7 +15,8 @@ import {
 import { LOGIN_URL } from "./../../../constants/naviagationUrls";
 
 import Logo from "../../Common/Logo";
-import { ButtonSpinner } from "./../../Common/AntdComponents/Loading";
+
+import Button from "./../../Common/Button";
 
 export const ResetPassword = ({
   error,
@@ -58,10 +54,9 @@ export const ResetPassword = ({
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                loading={true}
                 as="button"
+                loading={isSubmitting}
               >
-                {loading && <ButtonSpinner />}
                 Send link to my email
               </Button>
             </Form>
@@ -115,7 +110,6 @@ export const SetPassword = ({ error, handleSubmitSet, match, loading }) => {
 
             {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
             <Button type="submit" disabled={isSubmitting} as="button">
-              {loading && <ButtonSpinner />}
               Save Password
             </Button>
           </Form>
@@ -138,7 +132,7 @@ export const PasswordSent = ({ history }) => {
   );
 };
 
-export const PasswordSDone = ({ history }) => {
+export const PasswordDone = ({ history }) => {
   return (
     <Wrapper>
       <ContentWrapper>

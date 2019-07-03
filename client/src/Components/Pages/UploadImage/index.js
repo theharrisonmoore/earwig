@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Modal, Input, Alert, Icon } from "antd";
+import { Modal, Input, Alert, Icon, Divider } from "antd";
 
 import { colors } from "./../../../theme";
 
 import Select from "./../../Common/Select";
+import Button from "./../../Common/Button";
 
 import {
   UploadImageWrapper,
@@ -15,11 +16,10 @@ import {
   ImageInput,
   Paragraph,
   Example,
-  Button,
-  StyledLink,
   SelectWrapper,
   Error,
-  EditIcon
+  EditIcon,
+  PurpleDiv
 } from "./UploadImage.style";
 
 import example from "./../../../assets/example.png";
@@ -44,7 +44,8 @@ export default class UploadImage extends Component {
     newTradeError: "",
     newTradeSuccess: false,
     disableSelect: false,
-    city: ""
+    city: "",
+    loading: false
   };
 
   componentDidMount() {
@@ -119,7 +120,7 @@ export default class UploadImage extends Component {
         title: "Uploading!",
         onBeforeOpen: () => {
           Swal.showLoading();
-          this.setState({ error: "" });
+          this.setState({ error: "", loading: true });
 
           form.append("verificationImage", this.state.imageFile);
           form.append("tradeId", this.state.tradeId);
@@ -134,21 +135,25 @@ export default class UploadImage extends Component {
             }
           })
             .then(res => {
-              Swal.fire({
-                type: "success",
-                title: "Done!",
-                showConfirmButton: false,
-                timer: 1500
-              }).then(() => {
-                this.props.handleChangeState({ awaitingReview: true });
-                this.props.history.push(PROFILE_URL);
+              this.setState({ loading: false }, () => {
+                Swal.fire({
+                  type: "success",
+                  title: "Done!",
+                  showConfirmButton: false,
+                  timer: 1500
+                }).then(() => {
+                  this.props.handleChangeState({ awaitingReview: true });
+                  this.props.history.push(PROFILE_URL);
+                });
               });
             })
             .catch(err => {
-              Swal.fire({
-                type: "error",
-                title: "Oops...",
-                text: err.response.data.error
+              this.setState({ loading: false }, () => {
+                Swal.fire({
+                  type: "error",
+                  title: "Oops...",
+                  text: err.response.data.error
+                });
               });
             });
         }
@@ -234,19 +239,25 @@ export default class UploadImage extends Component {
   };
 
   render() {
-    const { error, image } = this.state;
-    const { ismodalVisible, confirmLoading } = this.state;
+    const {
+      ismodalVisible,
+      confirmLoading,
+      error,
+      image,
+      loading
+    } = this.state;
     return (
       <UploadImageWrapper className="test">
+        <PurpleDiv width="50%" />
         <ContentWrapper>
-          <Heading>Verifying you are a worker</Heading>
           <EditIcon
             icon="getVerified"
-            height="36"
-            width="36"
+            height="25"
+            width="25"
             margin="0 0.5rem 0 0"
             fill={colors.veryLightGray}
           />
+          <Heading>Verificaion</Heading>
           <form onSubmit={this.handleSubmit}>
             <SelectWrapper>
               <SubHeading>Your trade</SubHeading>
@@ -301,7 +312,7 @@ export default class UploadImage extends Component {
             </SelectWrapper>
             <SelectWrapper>
               <SubHeading>Your town or city</SubHeading>
-              <Input onChange={this.addTownHandler} />
+              <Input onChange={this.addTownHandler} size="large" />
             </SelectWrapper>
             <SubHeading>Verification Photo</SubHeading>
             <Paragraph>
@@ -312,22 +323,28 @@ export default class UploadImage extends Component {
               Once we’ve verified you, we’ll delete your photo to protect your
               anonymity.
             </Paragraph>
-            <Example src={image ? image : example} />
-            <Button as="label" htmlFor="image-input">
-              Upload photo for verification{" "}
-              {image && (
-                <Icon
-                  type="check"
-                  style={{ color: "green", fontSize: "23px" }}
-                />
-              )}
-            </Button>
-            <ImageInput
-              id="image-input"
-              type="file"
-              onChange={this.handleImageChange}
-              accept="image/*"
-            />
+            <div style={{ width: "60%", margin: "0 auto" }}>
+              <Example src={image ? image : example} />
+              <Button
+                as="label"
+                htmlFor="image-input"
+                style={{ marginTop: "1rem" }}
+              >
+                Upload photo
+                {image && (
+                  <Icon
+                    type="check"
+                    style={{ color: "white", fontSize: "23px" }}
+                  />
+                )}
+              </Button>
+              <ImageInput
+                id="image-input"
+                type="file"
+                onChange={this.handleImageChange}
+                accept="image/*"
+              />
+            </div>
             <SubHeading>Protecting you from blacklisting</SubHeading>
             <Paragraph>
               We believe that every voice counts and should be protected by
@@ -336,13 +353,16 @@ export default class UploadImage extends Component {
               earwig ID, which is the only thing that will be shown beside your
               reviews and activity.
             </Paragraph>
+            <Divider style={{ margin: "3rem auto" }} />
             {error && <Error>{error}</Error>}
-            <Button marginTop={true} type="submit" error={error}>
+            <Button
+              marginTop={true}
+              type="submit"
+              error={error}
+              loading={loading}
+            >
               Finish verification
             </Button>
-            <StyledLink to={PROFILE_URL}>
-              Cancel and return to your profile
-            </StyledLink>
           </form>
         </ContentWrapper>
       </UploadImageWrapper>

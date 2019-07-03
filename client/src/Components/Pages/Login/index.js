@@ -4,7 +4,7 @@ import axios from "axios";
 import { Alert } from "antd";
 
 import Logo from "./../../Common/Logo";
-import { ButtonSpinner } from "./../../Common/AntdComponents/Loading";
+import Button from "./../../Common/Button";
 
 import {
   StyledFormik as Formik,
@@ -12,7 +12,6 @@ import {
   StyledField as Field,
   StyledFormikErrorMessage as FormikErrorMessage,
   Label,
-  Button,
   GeneralErrorMessage
 } from "./../../Common/Formik/Formik.style";
 
@@ -97,8 +96,12 @@ export default class Login extends Component {
               </Label>
               <SmallLink to={RESET_PASSWORD_URL}>Forgot password?</SmallLink>
               {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
-              <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting && <ButtonSpinner color="blue" />}Log in
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                loading={isSubmitting}
+              >
+                Log in
               </Button>
             </Form>
           )}

@@ -5,15 +5,13 @@ import Swal from "sweetalert2";
 import { colors } from "./../../../theme";
 import CancelNavbar from "./../../Common/CancelNavbar";
 
-import { ButtonSpinner } from "./../../Common/AntdComponents/Loading";
+import Button from "./../../Common/Button";
 
 import {
   Wrapper,
   Title,
   Paragraph,
   TextArea,
-  Button,
-  DeleteButton,
   BorderedWrapper
 } from "./DeleteProfile.style";
 
@@ -141,12 +139,21 @@ export default class index extends Component {
                 onChange={this.handleInput}
                 type="textarea"
               />
-              <Button onClick={this.handleSubmit} disabled={isSubmitting}>
-                {isSubmitting && <ButtonSpinner />}Send
+              <Button
+                onClick={this.handleSubmit}
+                disabled={isSubmitting}
+                loading={isSubmitting}
+              >
+                Send
               </Button>
-              <DeleteButton onClick={this.deleteUser} disabled={isDeleting}>
-                {isDeleting && <ButtonSpinner />}Permanently delete account
-              </DeleteButton>
+              <Button
+                danger
+                onClick={this.deleteUser}
+                disabled={isDeleting}
+                loading={isDeleting}
+              >
+                Permanently delete account
+              </Button>
             </div>
           </BorderedWrapper>
         </Wrapper>

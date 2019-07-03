@@ -19,7 +19,8 @@ export default class ReportContent extends Component {
   state = {
     reason: "",
     description: "",
-    activePage: "selectReason"
+    activePage: "selectReason",
+    loading: false
   };
 
   componentDidMount() {
@@ -51,7 +52,7 @@ export default class ReportContent extends Component {
           this.setState({ loading: false, activePage: "thanks" });
         })
         .catch(err => {
-          this.setState({ loading: true }, () => {
+          this.setState({ loading: false }, () => {
             const error =
               err.response && err.response.data && err.response.data.error;
             message.error(error || "Something went wrong");
@@ -61,7 +62,7 @@ export default class ReportContent extends Component {
   };
 
   render() {
-    const { activePage } = this.state;
+    const { activePage, loading } = this.state;
     const { history } = this.props;
     return (
       <>
@@ -85,6 +86,7 @@ export default class ReportContent extends Component {
                       handleSubmit={this.handleSubmit}
                       handleTextAreaChange={this.handleTextAreaChange}
                       description={this.state.description}
+                      loading={loading}
                     />
                   ) : (
                     <Thanks history={history} />

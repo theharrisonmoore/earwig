@@ -25,34 +25,6 @@ export const Iframe = styled.iframe`
   box-shadow: ${shadows.frameShadow};
 `;
 
-export const Button = styled.button`
-  color: ${colors.white};
-  border: none;
-  box-shadow: ${shadows.buttonShadow};
-  border-radius: 3px;
-
-  font-weight: 900;
-  font-size: 1.125rem;
-  background-color: ${colors.heliotrope};
-  outline: none;
-  display: block;
-  cursor: pointer;
-
-  width: auto;
-  padding: 0.5rem 2rem;
-  margin-left: auto;
-  margin-top: 2rem;
-
-  &:active {
-    box-shadow: none;
-  }
-
-  &:active,
-  &:focus {
-    outline: none;
-  }
-`;
-
 export const VideoContainer = styled.div`
   margin: 0 auto;
   width: 100%;

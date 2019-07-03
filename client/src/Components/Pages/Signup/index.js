@@ -6,7 +6,7 @@ import { Checkbox as AntCheckbox, Modal, Alert, Input, Icon } from "antd";
 
 import Logo from "./../../Common/Logo";
 import Select from "./../../Common/Select";
-import { ButtonSpinner } from "./../../Common/AntdComponents/Loading";
+import Button from "./../../Common/Button";
 
 import { TERMS_OF_USE_URL } from "./../../../constants/naviagationUrls";
 import {
@@ -15,7 +15,6 @@ import {
   StyledField as Field,
   StyledFormikErrorMessage as FormikErrorMessage,
   Label,
-  Button,
   GeneralErrorMessage,
   CheckboxWrapper,
   Checkbox,
@@ -661,8 +660,12 @@ export default class Signup extends Component {
                 </CheckboxWrapper>
 
                 {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
-                <Button type="submit" disabled={isSubmitting}>
-                  {isSubmitting && <ButtonSpinner />} Finish account setup
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  loading={isSubmitting}
+                >
+                  Finish account setup
                 </Button>
               </Form>
             )}
