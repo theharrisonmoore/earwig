@@ -123,9 +123,11 @@ export const InactiveButton = styled(OrgButton)`
 export const ActionButtonsDiv = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 2rem 0;
-  text-align: center;
-  justify-content: space-around;
+  justify-content: space-between;
+
+  @media ${breakpoints.mobileL} {
+    justify-content: center;
+  }
 `;
 
 export const ReviewDiv = styled.div`
@@ -386,28 +388,35 @@ export const ActionButton = styled.button`
   box-shadow: 0px 4px 13px rgba(173, 145, 183, 0.273438);
   border-radius: 3px;
   border: none;
-  padding: 1rem 0rem;
-  max-width: 8.25rem;
+  padding: 0.5rem 0.5rem;
+  /* width: 96%; */
+  /* width: 10rem; */
+  width: 8.5rem;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-  font-family: Arial;
-  font-size: 11px;
-  line-height: 13px;
-  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: ${props => props.isMobile ? "center" : "left"};
   color: ${colors.white};
   box-shadow: ${shadows.buttonShadow};
+  display: flex;
+  align-items: center;
+  height: 5.5rem;
 
   @media ${breakpoints.mobileM} {
     font-size: 14px;
-    max-width: 10rem;
+    width: 10rem;
   }
 
   @media ${breakpoints.mobileL} {
-    max-width: 11rem;
+    width: 11rem;
     padding: 1rem 0.5rem;
+    margin: 0 1rem;
   }
 
   @media ${breakpoints.tablet} {
-    max-width: 12rem;
+    width: 18rem;
+    height: 4.5rem;
+    padding: 0.5rem 1rem;
   }
 `;
 

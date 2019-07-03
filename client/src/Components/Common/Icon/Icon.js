@@ -17,6 +17,7 @@ import Clock2min from "./Clock2min";
 import CommentsReceived from "./CommentsReceived";
 import Company from "./Company";
 import CompanyThanks from "./CompanyThanks";
+import Email from "./Email";
 import FAQ from "./FAQ";
 import Fingerprint from "./Fingerprint";
 import Gasmask from "./Gasmask";
@@ -32,6 +33,7 @@ import LogoBeta from "./LogoBeta";
 import LogoutLogin from "./LogoutLogin";
 import MedalIcon1 from "./MedalIcon1";
 import MedalIcon2 from "./MedalIcon2";
+import NumberOne from "./NumberOne";
 import OrganisationalRatings from "./OrganisationalRatings";
 import OrHorizontal from "./OrHorizontal";
 import OrVertical from "./OrVertical";
@@ -45,15 +47,18 @@ import PhotoCamera from "./PhotoCamera";
 import PointsEarned from "./PointsEarned";
 import PrayerRoom from "./PrayerRoom";
 import PrivacyTerms from "./PrivacyTerms";
+import RaiseHand from "./RaiseHand";
 import ReportFlag from "./ReportFlag";
 import Search from "./Search";
 import ShapeEarwig from "./ShapeEarwig";
+import StarComment from "./StarComment";
 import Supervisor from "./Supervisor";
 import Support from "./Support";
 import Tick from "./Tick";
 import TrophyIcon1 from "./TrophyIcon1";
 import TrophyIcon2 from "./TrophyIcon2";
 import TrustRating from "./TrustRating";
+import User from "./User";
 import VoiceRecord from "./VoiceRecord";
 import Water from "./Water";
 import WelfareSafety from "./WelfareSafety";
@@ -84,6 +89,7 @@ const iconMap = {
   commentsReceived: CommentsReceived,
   company: Company,
   companyThanks: CompanyThanks,
+  email: Email,
   faq: FAQ,
   fingerprint: Fingerprint,
   gasmask: Gasmask,
@@ -99,6 +105,7 @@ const iconMap = {
   logoutLogin: LogoutLogin,
   medalIcon1: MedalIcon1,
   medalIcon2: MedalIcon2,
+  numberOne: NumberOne,
   organisationalRatings: OrganisationalRatings,
   orHorizontal: OrHorizontal,
   orVertical: OrVertical,
@@ -112,15 +119,18 @@ const iconMap = {
   pointsEarned: PointsEarned,
   prayerRoom: PrayerRoom,
   privacyTerms: PrivacyTerms,
+  raiseHand: RaiseHand,
   reportFlag: ReportFlag,
   search: Search,
   shapeEarwig: ShapeEarwig,
+  starComment: StarComment,
   supervisor: Supervisor,
   support: Support,
   tick: Tick,
   trophyIcon1: TrophyIcon1,
   trophyIcon2: TrophyIcon2,
   trustRating: TrustRating,
+  user: User,
   voiceRecord: VoiceRecord,
   water: Water,
   welfareSafety: WelfareSafety,
