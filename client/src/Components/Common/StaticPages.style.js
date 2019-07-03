@@ -222,7 +222,7 @@ export const LargeLink = styled(Link)`
   font-family: Roboto;
   font-weight: 900;
   font-size: 18px;
-  color: #4a4a4a;
+  color: ${({ purpleLinks }) => (purpleLinks ? colors.purpleLinks : "#4a4a4a")};
   text-decoration: underline;
   text-align: left;
   font-size: 1.125rem;
