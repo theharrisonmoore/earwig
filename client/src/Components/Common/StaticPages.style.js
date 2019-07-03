@@ -12,10 +12,13 @@ export const Wrapper = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
-  width: 50%;
   padding: 2rem;
   margin-bottom: 3rem;
-  text-align: left;
+  width: 100%;
+
+  @media ${breakpoints.tablet} {
+    width: ${({ width }) => width || "100%"};
+  }
 
   .table {
     table {
@@ -42,12 +45,21 @@ export const ContentWrapper = styled.div`
   }
 `;
 
-export const BlankDiv = styled.div`
+export const PurpleDiv = styled.div`
   width: 0%;
   background-color: ${colors.heliotrope};
 
   @media ${breakpoints.tablet} {
-    width: 50%;
+    width: ${({ width }) => width || "50%"};
+  }
+`;
+
+export const BlueDiv = styled.div`
+  width: 0%;
+  background-color: ${colors.dodgerBlue};
+
+  @media ${breakpoints.tablet} {
+    width: ${({ width }) => width || "50%"};
   }
 `;
 
@@ -111,9 +123,14 @@ export const BoldLink = styled(Link)`
 
 export const Iframe = styled.iframe`
   width: 100%;
-  height: 85vw;
+  height: 49vw;
   max-height: 35rem;
   box-shadow: ${shadows.frameShadow};
+  max-width: 480px;
+
+  @media ${breakpoints.tablet} {
+    height: 27vw;
+  }
 `;
 
 export const LargeParagraph = styled.p`

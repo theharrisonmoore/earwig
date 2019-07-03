@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Button } from "antd";
 
 import { colors, shadows } from "../../../theme";
-import { MOBILE_WIDTH } from "../../../constants/screenWidths";
 
 export const Wrapper = styled.div`
   padding-top: 3rem;
@@ -27,29 +25,29 @@ export const CommentBox = styled.textarea`
   box-shadow: ${shadows.buttonShadow};
 `;
 
-export const StyledButton = styled(Button)`
-  background: ${colors.white};
-  border: 1px solid ${props => (props.error ? colors.red : colors.mineShaft2)};
+export const Button = styled.button`
+  color: ${colors.white};
+  border: none;
   box-shadow: ${shadows.buttonShadow};
   border-radius: 3px;
   width: 100%;
 
   font-weight: 900;
   font-size: 1.125rem;
-  color: ${colors.profileFontColor};
+  background-color: ${colors.heliotrope};
   outline: none;
   display: block;
   padding: 0.75rem 0;
   cursor: pointer;
   margin: 2rem auto;
-  height: 3.75rem;
+
+  &:active {
+    box-shadow: none;
+  }
 
   &:active,
   &:focus {
     outline: none;
-  }
-  @media (min-width: ${MOBILE_WIDTH}px) {
-    max-width: 14rem;
   }
 `;
 

@@ -9,7 +9,7 @@ import {
   Cancel,
   ContentWrapper,
   Wrapper,
-  BlankDiv
+  PurpleDiv
 } from "./ResetPassword.style";
 
 import {
@@ -89,7 +89,7 @@ export default class ResetPassword extends Component {
           <Banner>
             <Cancel onClick={history.goBack}>Cancel</Cancel>
           </Banner>
-          <BlankDiv />
+          <PurpleDiv />
           <ContentWrapper>
             <Switch>
               <Route

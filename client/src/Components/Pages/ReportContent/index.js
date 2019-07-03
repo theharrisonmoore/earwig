@@ -5,7 +5,7 @@ import { message } from "antd";
 import {
   Wrapper,
   ContentWrapper,
-  BlankDiv
+  PurpleDiv
 } from "./../../Common/StaticPages.style";
 
 import Loading from "./../../Common/AntdComponents/Loading.js";
@@ -75,7 +75,7 @@ export default class ReportContent extends Component {
             <Loading />
           ) : (
             <>
-              <BlankDiv />
+              <PurpleDiv width="50%" />
               <ContentWrapper>
                 <div style={{ maxWidth: "300px", margin: "0 auto" }}>
                   {activePage === "selectReason" ? (

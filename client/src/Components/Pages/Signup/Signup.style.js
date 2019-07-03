@@ -53,7 +53,7 @@ export const ContentWrapper = styled.div`
   }
 `;
 
-export const BlankDiv = styled.div`
+export const PurpleDiv = styled.div`
   width: 0%;
   background-color: ${colors.heliotrope};
 

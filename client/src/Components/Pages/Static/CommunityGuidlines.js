@@ -14,7 +14,7 @@ import { TERMS_OF_USE_URL } from "./../../../constants/naviagationUrls";
 export default class CommunityGuidlines extends Component {
   render() {
     return (
-      <Wrapper>
+      <Wrapper style={{ paddingTop: "3rem" }}>
         <ContentWrapper>
           <SmallTitle>EARWIG</SmallTitle>
           <SmallTitle>COMMUNITY GUIDELINES</SmallTitle>

@@ -28,7 +28,7 @@ import {
   SignupWrapper,
   LinkSpan,
   ContentWrapper,
-  BlankDiv,
+  PurpleDiv,
   OptionsWrapper,
   StyledInput,
   ButtonsWrapper,
@@ -347,7 +347,7 @@ export default class Signup extends Component {
 
     return (
       <SignupWrapper>
-        <BlankDiv />
+        <PurpleDiv />
         <ContentWrapper>
           <Logo />
           <Formik

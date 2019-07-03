@@ -8,11 +8,12 @@ import {
   Wrapper,
   CommentTitle,
   CommentBox,
-  StyledButton,
+  Button,
   LogInPrompt
 } from "./CommentBox.style";
 
 import { LOGIN_URL } from "./../../../constants/naviagationUrls";
+import { ButtonSpinner } from "./../AntdComponents/Loading";
 
 export default class index extends Component {
   state = {
@@ -69,6 +70,7 @@ export default class index extends Component {
 
   render() {
     const { title, isLoggedIn } = this.props;
+    const { loading } = this.state;
     return (
       <Wrapper>
         <CommentTitle>{title}</CommentTitle>
@@ -78,12 +80,9 @@ export default class index extends Component {
               placeholder="Enter your comments here..."
               onChange={this.handleInput}
             />
-            <StyledButton
-              loading={this.state.loading}
-              onClick={this.handleSubmit}
-            >
-              Send
-            </StyledButton>
+            <Button loading={loading} onClick={this.handleSubmit}>
+              {loading && <ButtonSpinner />}Send
+            </Button>
           </>
         ) : (
           <LogInPrompt to={LOGIN_URL}>
