@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Map } from "immutable";
-import { ErrorMessage } from "formik";
+// import { Map } from "immutable";
 import { Rate } from "antd";
 
 import { QuestionOptionsWrapper, StyledErrorMessage } from "../Question.style";
@@ -9,6 +8,7 @@ import { isMobile } from "../../../../../helpers";
 
 class CustomRate extends Component {
   state = { rate: 0, hoverRate: undefined };
+  // Plase leave this commented code for now.
   // shouldComponentUpdate(nextProps, nextState) {
   //   if (Map(this.props.state.review).equals(Map(nextProps.state.review))) {
   //     return false;

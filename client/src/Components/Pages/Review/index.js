@@ -25,7 +25,6 @@ import { StyledErrorMessage } from "./Question/Question.style";
 import Question from "./Question/index";
 import { organizations } from "../../../theme";
 
-import { initQueestionsValues } from "./initialQuestionsValues";
 import { validationSchema } from "./validationSchema";
 import { STATIC_QUESTIONS } from "./staticQuestions";
 
@@ -104,7 +103,7 @@ class Review extends Component {
                 // voiceReview: ""
               };
 
-              reviewDetails[0].answers.map(answer => {
+              reviewDetails[0].answers.forEach(answer => {
                 const {
                   answer: ans,
                   question: [question]
@@ -165,27 +164,6 @@ class Review extends Component {
       axios
         .get(`/api/questions/${orgId}`)
         .then(res => {
-          // make a conditon to check if editing or not(query param?!!)
-          // const answers = {};
-          // const edit = this.props.edit;
-          // if (edit) {
-          //   // check the conditions ( 4 weeks + no helpful + no company response)
-          //   // send "seperate" request to get his answers (refactor)
-          //   const { getReviewAnswers: reviewDetails } = res.data;
-          //   reviewDetails[0].answers.map(answer => {
-          //     const {
-          //       answer: ans,
-          //       question: [question]
-          //     } = answer;
-          //     const number = question.number;
-          //     if (answers[number]) {
-          //       // think about this again;
-          //       answers[number] = ans;
-          //     } else {
-          //       answers[number] = ans;
-          //     }
-          //   });
-          // }
           const groupss = {};
           res.data.groups.forEach(group => {
             groupss[group._id] = {
@@ -231,7 +209,7 @@ class Review extends Component {
         hasAgreed: !hasAgreed
       },
       () => {
-        this.runValidation2();
+        this.runValidation();
       }
     );
   };
@@ -265,7 +243,7 @@ class Review extends Component {
         review: { ...review, rate: value }
       },
       () => {
-        this.runValidation2();
+        this.runValidation();
       }
     );
   };
@@ -278,7 +256,7 @@ class Review extends Component {
         review: { ...review, workPeriod: { ...workPeriod, [fromOrTo]: value } }
       },
       () => {
-        this.runValidation2();
+        this.runValidation();
       }
     );
   };
@@ -348,7 +326,7 @@ class Review extends Component {
     this.setState({ groupss: newGroups });
   };
 
-  runValidation2 = () => {
+  runValidation = () => {
     const { organization } = this.state;
     const values = {
       answers: this.state.answers,
@@ -356,7 +334,7 @@ class Review extends Component {
       review: this.state.review,
       hasAgreed: this.state.hasAgreed
     };
-    validationSchema[organization.category]
+    return validationSchema[organization.category]
       .validate(values, { abortEarly: false })
       .catch(errors => {
         const errs = {
@@ -372,7 +350,8 @@ class Review extends Component {
           },
           hasAgreed: false
         };
-        errors.inner.map(err => {
+
+        errors.inner.forEach(err => {
           if (err.path.includes("answers")) {
             const num = err.path.split(".")[1];
             errs.answers[num] = err.message;
@@ -385,57 +364,11 @@ class Review extends Component {
             errs.hasAgreed = err.message;
           }
         });
-        this.setState({ errors: errs });
+        this.setState({ errors: errs, hasError: true });
       });
   };
 
-  runValidation = () =>
-    new Promise((resolve, reject) => {
-      const { organization } = this.state;
-      const { user } = this.state;
-      const values = {
-        answers: this.state.answers,
-        comments: this.state.comments,
-        review: this.state.review,
-        hasAgreed: this.state.hasAgreed
-      };
-      validationSchema[organization.category]
-        .validate(values, { abortEarly: false })
-        .then(values => {
-          resolve(values);
-        })
-        .catch(errors => {
-          const errs = {
-            answers: {},
-            review: {
-              workPeriod: {
-                from: "",
-                to: ""
-              },
-              rate: "",
-              overallReview: ""
-              // voiceReview: ""
-            },
-            hasAgreed: false
-          };
-          errors.inner.map(err => {
-            if (err.path.includes("answers")) {
-              const num = err.path.split(".")[1];
-              errs.answers[num] = err.message;
-            } else if (err.path.includes("workPeriod")) {
-              const key = err.path.split(".")[2];
-              errs.review.workPeriod[key] = err.message;
-            } else if (err.path.includes("rate")) {
-              errs.review.rate = err.message;
-            } else {
-              errs.hasAgreed = err.message;
-            }
-          });
-          reject(errs);
-        });
-    });
-
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
     this.setState({ isSubmitting: true });
     const { organization } = this.state;
@@ -447,8 +380,8 @@ class Review extends Component {
       hasAgreed: this.state.hasAgreed
     };
 
-    this.runValidation(organization.category, values)
-      .then(vals => {
+    this.runValidation().then(resp => {
+      if (resp) {
         const review = {
           values,
           organization,
@@ -474,6 +407,7 @@ class Review extends Component {
               this.setState({ isSubmitting: false });
             });
         } else {
+          // add new review
           axios
             .post(API_POST_REVIEW_URL, review)
             .then(res => {
@@ -492,10 +426,10 @@ class Review extends Component {
               this.setState({ isSubmitting: false });
             });
         }
-      })
-      .catch(err => {
-        this.setState({ errors: err });
-      });
+      } else {
+        this.setState({ isSubmitting: false });
+      }
+    });
   };
 
   render() {
@@ -549,7 +483,6 @@ class Review extends Component {
                 category={this.state.organization.category}
                 handleChange={this.handleDateChage}
                 state={this.state}
-                onBlur={this.runValidation2}
               />
               <div>
                 {Object.keys(groupss).map(groupId => {
@@ -584,7 +517,7 @@ class Review extends Component {
                   category={this.state.organization.category}
                   handleChange={this.handleRateChage}
                   state={this.state}
-                  runValidation={this.runValidation2}
+                  runValidation={this.runValidation}
                 />
                 <Question
                   question={staticQuestion[1]}

@@ -6,10 +6,7 @@ import moment from "moment";
 import { StarRateCreator } from "./../../../helpers";
 import { Icon as AntdIcon, Popover } from "antd";
 
-import {
-  REVIEW_URL,
-  USER_PROFILE_URL
-} from "../../../constants/naviagationUrls";
+import { USER_PROFILE_URL } from "../../../constants/naviagationUrls";
 
 import {
   Header,

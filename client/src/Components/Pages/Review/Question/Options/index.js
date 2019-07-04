@@ -12,11 +12,6 @@ import CustomRate from "./Rate";
 
 class QuestionOptions extends React.Component {
   render() {
-    // const { props } = this;
-    // if (!props && !props.options) {
-    //   return null;
-    // }
-
     const { type, category } = this.props;
 
     switch (type) {
