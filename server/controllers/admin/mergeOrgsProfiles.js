@@ -25,7 +25,7 @@ module.exports = async (req, res, next) => {
     ];
 
     await Promise.all(promises);
-    return res.send();
+    return res.json();
   } catch (error) {
     return next(boom.badImplementation());
   }
