@@ -22,8 +22,7 @@ import {
   ReviewDiv,
   AccountPromo,
   AccountLink,
-  AccountItem,
-  BorderedWrapper
+  AccountItem
 } from "./Profile.style";
 
 export default class Profile extends Component {
