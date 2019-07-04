@@ -4,8 +4,6 @@ import { Label, Button } from "./../../Common/Formik/Formik.style";
 
 import Icon from "./../../Common/Icon/Icon";
 
-import { MOBILE_WIDTH } from "./../../../constants/screenWidths";
-
 import {
   colors,
   shadows,
@@ -94,7 +92,8 @@ export const ErrorMessage = styled.p.attrs()`
   color: ${colors.red};
   font-weight: 100;
   font-size: 1rem;
-  text-align: left;
+  text-align: center;
+  width: 100%;
 `;
 
 export const CurrentValue = styled.p`

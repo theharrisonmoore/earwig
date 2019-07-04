@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import * as Yup from "yup";
 import axios from "axios";
 import { Modal, Alert } from "antd";
 
@@ -23,24 +22,6 @@ import {
   InputDiv
 } from "./EditProfile.style";
 
-// SET UP VALIDATION SCHEMAS
-
-const passwordSchema = Yup.object().shape({
-  oldPassword: Yup.string().required("Required"),
-  newPassword: Yup.string()
-    .min(6, "Password must be at least 6 characters long")
-    .required("Required"),
-  reNewPassword: Yup.string()
-    .required("Required")
-    .equalTo(Yup.ref("newPassword"))
-});
-
-const newUsernameSchema = Yup.object().shape({
-  newUsername: Yup.string()
-    .min(6, "Username must be between 6 and 15 characters long")
-    .max(15, "Username must be between 6 and 15 characters long")
-});
-
 // API ROUTES
 const { API_TRADE_URL, API_USERS_TRADE } = require("../../../apiUrls");
 
@@ -58,14 +39,17 @@ export default class EditProfileSection extends Component {
     newCity: "",
     isSubmitting: false,
     errors: {},
-    errorMsg: "",
+    serverError: "",
     fields: {},
     ismodalVisible: false,
     currentTradeName: "",
+    section: null,
   };
 
   componentDidMount() {
     const { section } = this.props;
+
+    this.setState({ section })
 
     if (section === "trade") {
       axios.get(API_TRADE_URL).then(res => {
@@ -171,36 +155,44 @@ export default class EditProfileSection extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const { fields } = this.state;
+    const { fields, section } = this.state;
 
-    this.setState({ isSubmitting: true });
+    // this.setState({ isSubmitting: true });
 
-    axios
-      .post("/api/edit-profile", fields)
-      .then(({ data }) => {
-        this.props.handleChangeState({ ...data, isLoggedIn: true });
-        this.props.history.push("/my-profile");
-        this.setState({ isSubmitting: false });
-      })
-      .catch(err => {
-        this.setState({ error: err.response.data.error, isSubmitting: false });
-      });
+    const isValid = this.submitValidation(section)
+
+    if(isValid) {
+      axios
+        .post("/api/edit-profile", fields)
+        .then(({ data }) => {
+          this.props.handleChangeState({ ...data, isLoggedIn: true });
+          this.props.history.push("/my-profile");
+          this.setState({ isSubmitting: false });
+        })
+        .catch(err => {
+          this.setState({ serverError: err.response.data.error, isSubmitting: false });
+        });
+    }
+
   };
 
-  passwordOnBlurValidation = event => {
+  onBlurValidation = event => {
     const { name, value } = event.target;
-    let { errors, fields } = this.state;
+    let { errors } = this.state;
 
-    errors = {};
+    // remove that field from errors if already there
+    if (errors[name]) delete errors[name]
 
-    // USERNAME VALIDATION
-    if (name === "newUsername") {
-      if (!value) {
-        errors[name] = "Required";
-      } else if (value.length < 6 || value.length > 15) {
-        errors[name] = "Username must be between 6 and 15 characters long";
-      }
-    }
+    // VALIDATION
+    const newError = this.fieldValidation(name, value)
+    errors = {...errors, ...newError}
+
+    this.setState({ errors });
+  };
+
+  fieldValidation = (name, value) => {
+    const errors = {};
+    const { fields } = this.state;
 
     // PASSWORD VALIDATION
     if (name === "oldPassword") {
@@ -218,20 +210,72 @@ export default class EditProfileSection extends Component {
         errors[name] = "New password must be different to old password";
       }
     } else if (name === "reNewPassword") {
-      if (value !== fields.newPassword) {
+      if (!value) {
+        errors[name] = "Required";
+      } else if (value !== fields.newPassword) {
         errors[name] = "Passwords do not match";
       }
     }
 
-    this.setState({ errors });
-  };
+    // USERNAME VALIDATION
+    if (name === "newUsername") {
+      if (!value) {
+        errors[name] = "Required";
+      } else if (value.length < 6 || value.length > 15) {
+        errors[name] = "Username must be between 6 and 15 characters long";
+      }
+    }
+
+    return errors;
+  }
+
+  submitValidation = (type) => {
+    let { errors, fields } = this.state;
+    errors = {};
+    let requiredFields;
+
+    if (type === "earwigId") {
+        requiredFields = ["newUsername"]
+    }
+
+    if (type === "password") {
+      requiredFields = ["oldPassword", "newPassword", "reNewPassword"]
+    }
+
+    if (type === "trade") {
+      requiredFields = ["newTrade"]
+    }
+
+    if (type === "city") {
+      requiredFields = ["newCity"]
+    }
+
+      // check if any required fields haven't been filled in
+      const fieldNames = Object.keys(fields)
+      requiredFields.map(type => {
+        if (fieldNames.includes(type) === false) {
+          return errors[type] = "Required"
+        } else return null;
+       })
+      
+      // check for any other errors with the fields submitted
+      const fieldArr = Object.entries(fields);
+      fieldArr.map(field => {
+        const newError = this.fieldValidation(field[0], field[1])
+        return errors = {...errors, ...newError}
+    })
+    
+
+    this.setState({ errors })
+    return Object.entries(errors).length > 0 ? false : true;
+  }
 
   render() {
-    const { history, section, currentValue, userId, trade, city } = this.props;
+    const { history, section, userId, city } = this.props;
     const {
       isSubmitting,
       errors,
-      errorMsg,
+      serverError,
       ismodalVisible,
       confirmLoading,
       currentTradeName,
@@ -254,15 +298,17 @@ export default class EditProfileSection extends Component {
                   your reviews and activity, it is publicly visible
                 </Paragraph>
                 <CurrentValue>Current eawig ID: {userId}</CurrentValue>
-                <InputLabel htmlFor="newUsername">New earwig ID</InputLabel>
-                <Input
-                  type="text"
-                  name="newUsername"
-                  id="newUsername"
-                  onChange={this.handleInput}
-                  onBlur={this.passwordOnBlurValidation}
-                />
-                <FieldError>{errors.newUsername}</FieldError>
+                <InputDiv>
+                  <InputLabel htmlFor="newUsername">New earwig ID</InputLabel>
+                  <Input
+                    type="text"
+                    name="newUsername"
+                    id="newUsername"
+                    onChange={this.handleInput}
+                    onBlur={this.onBlurValidation}
+                  />
+                  <FieldError>{errors.newUsername}</FieldError>
+                </InputDiv>
               </div>
             )}
             {section === "password" && (
@@ -274,7 +320,7 @@ export default class EditProfileSection extends Component {
                     name="oldPassword"
                     id="oldPassword"
                     onChange={this.handleInput}
-                    onBlur={this.passwordOnBlurValidation}
+                    onBlur={this.onBlurValidation}
                   />
                   <FieldError>{errors.oldPassword}</FieldError>
                 </InputDiv>
@@ -285,7 +331,7 @@ export default class EditProfileSection extends Component {
                     name="newPassword"
                     id="newPassword"
                     onChange={this.handleInput}
-                    onBlur={this.passwordOnBlurValidation}
+                    onBlur={this.onBlurValidation}
                   />
                   <FieldError>{errors.newPassword}</FieldError>
                 </InputDiv>
@@ -298,7 +344,7 @@ export default class EditProfileSection extends Component {
                     name="reNewPassword"
                     id="reNewPassword"
                     onChange={this.handleInput}
-                    onBlur={this.passwordOnBlurValidation}
+                    onBlur={this.onBlurValidation}
                   />
                   <FieldError>{errors.reNewPassword}</FieldError>
                 </InputDiv>
@@ -323,7 +369,7 @@ export default class EditProfileSection extends Component {
                     showSearch
                     addHandler={this.showModal}
                   />
-                  <FieldError>{errors.oldPassword}</FieldError>
+                  <FieldError>{errors.newTrade}</FieldError>
                 </InputDiv>
                 <div>
                   <div>
@@ -374,13 +420,13 @@ export default class EditProfileSection extends Component {
                   name="newCity"
                   id="newCity"
                   onChange={this.handleInput}
-                  onBlur={this.passwordOnBlurValidation}
+                  onBlur={this.onBlurValidation}
                 />
                 <FieldError>{errors.newCity}</FieldError>
               </div>
             )}
             <div>
-              <ErrorMessage>{errorMsg}</ErrorMessage>
+              <ErrorMessage>{serverError}</ErrorMessage>
               <Button
                 onClick={this.handleSubmit}
                 disabled={isSubmitting}
