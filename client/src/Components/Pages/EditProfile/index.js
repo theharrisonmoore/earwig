@@ -5,6 +5,14 @@ import { NavLink } from "react-router-dom";
 
 import CancelNavbar from "./../../Common/CancelNavbar";
 
+// nagivation routes
+import {
+  EDIT_TRADE_URL,
+  EDIT_CITY_URL,
+  EDIT_ID_URL,
+  EDIT_PASSWORD_URL
+} from "./../../../constants/naviagationUrls";
+
 import {
   EditWrapper,
   BorderedWrapper,
@@ -19,7 +27,8 @@ import {
   LightLabel as Label,
   StyledButton as Button,
   StyledLink,
-  Error
+  Error,
+  Option
 } from "./EditProfile.style";
 
 import {
@@ -189,10 +198,15 @@ export default class EditProfile extends Component {
                   <Form>
                     <TopSection>
                       <Row>
-                        <Title>earwig ID: {userId}</Title>
-                        <EditButton type="button" onClick={this.toggleUsername}>
-                          Change
-                        </EditButton>
+                        <Option>earwig ID: {userId}</Option>
+                        <NavLink to={EDIT_ID_URL}>
+                          <EditButton
+                            type="button"
+                            // onClick={this.toggleUsername}
+                          >
+                            Change
+                          </EditButton>
+                        </NavLink>
                       </Row>
                       {this.state.displayUsername && (
                         <PasswordWrapper>
@@ -213,7 +227,7 @@ export default class EditProfile extends Component {
                     </TopSection>
                     <Section>
                       <Row>
-                        <Title>Password</Title>
+                        <Option>Password</Option>
                         <EditButton type="button" onClick={this.togglePassword}>
                           Change
                         </EditButton>
@@ -263,7 +277,7 @@ export default class EditProfile extends Component {
                     </Section>
                     <Section>
                       <Row>
-                        <Title>Trade</Title>
+                        <Option>Trade</Option>
                         <NavLink to="/delete-profile">
                           <EditButton type="button">Change</EditButton>
                         </NavLink>
@@ -271,7 +285,7 @@ export default class EditProfile extends Component {
                     </Section>
                     <Section>
                       <Row>
-                        <Title>Town or City</Title>
+                        <Option>Town or City</Option>
                         <NavLink to="/delete-profile">
                           <EditButton type="button">Change</EditButton>
                         </NavLink>
@@ -279,7 +293,7 @@ export default class EditProfile extends Component {
                     </Section>
                     <Section>
                       <Row>
-                        <Title>Delete my account</Title>
+                        <Option>Delete my account</Option>
                         <NavLink to="/delete-profile">
                           <DeleteButton>Delete</DeleteButton>
                         </NavLink>

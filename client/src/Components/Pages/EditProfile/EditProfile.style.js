@@ -4,6 +4,8 @@ import { Label, Button } from "./../../Common/Formik/Formik.style";
 
 import Icon from "./../../Common/Icon/Icon";
 
+import { MOBILE_WIDTH } from "./../../../constants/screenWidths";
+
 import {
   colors,
   shadows,
@@ -33,6 +35,7 @@ export const BorderedWrapper = styled.div`
   margin: 0 auto;
   padding: 5rem 0;
   border: none;
+  min-height: calc(100vh - 5.5rem);
 
   & > div {
     max-width: 400px;
@@ -60,11 +63,63 @@ export const TopSection = styled(Section)`
   border-top: ${borders.commentBox}};
 `;
 
-export const Title = styled.h2`
-  font-weight: 400;
-  font-size: 1.125rem;
+export const Title = styled.h1`
+  font-size: 2.125rem;
+  font-weight: 500;
   color: ${colors.profileFontColor};
+  margin-bottom: 2rem;
+`;
+
+export const Option = styled.p`
+  font-size: 1.125rem;
   margin: 0;
+`;
+
+export const SubTitle = styled.h2`
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: ${colors.profileFontColor};
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 1.5rem;
+`;
+
+export const Paragraph = styled.p`
+  color: ${colors.profileFontColor};
+  margin-bottom: 3rem;
+  font-size: 1rem;
+`;
+
+export const ErrorMessage = styled.p.attrs()`
+  color: ${colors.red};
+  font-weight: 100;
+  font-size: 1rem;
+  text-align: left;
+`;
+
+export const CurrentValue = styled.p`
+  text-align: left;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+`;
+
+export const Input = styled.input`
+  background: ${colors.white};
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 0.5rem 0.75rem;
+  display: block;
+  width: 100%;
+  border: 1px solid ${colors.inputBorder};
+  outline: none;
+  margin-bottom: 2rem;
+`;
+
+export const InputLabel = styled.label`
+  font-weight: 700;
+  text-align: left;
+  width: 100%;
+  display: block;
 `;
 
 export const Row = styled.div`
@@ -188,13 +243,13 @@ export const UnVerifiedTitle = styled.h1`
   }
 `;
 
-export const Paragraph = styled.p`
-  font-weight: 500;
-  font-size: 1rem;
-  text-align: left;
-  color: ${colors.gray};
-  margin-top: 1rem;
-`;
+// export const Paragraph = styled.p`
+//   font-weight: 500;
+//   font-size: 1rem;
+//   text-align: left;
+//   color: ${colors.gray};
+//   margin-top: 1rem;
+// `;
 
 export const UnVerifiedButton = styled(Link)`
   border-radius: 5px;

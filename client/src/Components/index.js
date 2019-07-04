@@ -13,7 +13,11 @@ import {
   COMMUNITY_GUIDELINES_URL,
   TERMS_OF_USE_URL,
   COOKIES_POLICY_URL,
-  RESET_PASSWORD_URL
+  RESET_PASSWORD_URL,
+  EDIT_CITY_URL,
+  EDIT_PASSWORD_URL,
+  EDIT_ID_URL,
+  EDIT_TRADE_URL
 } from "./../constants/naviagationUrls";
 
 import Landing from "./Pages/Landing";
@@ -36,6 +40,7 @@ import Intro from "./Pages/Intro";
 import PrivateRoute from "./Common/PrivateRoute";
 import Reply from "./Pages/Profile/Reply";
 import ResetPassword from "./Pages/ResetPassword";
+import EditProfileSection from "./Pages/EditProfile/EditProfileSection";
 
 import {
   FAQ,
@@ -147,10 +152,24 @@ export default function index(props) {
         <PrivateRoute
           minimumLevel="LEVEL3"
           path={EDIT_PROFILE_URL}
+          exact
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
           Component={EditProfile}
+        />
+
+        {/* SUB EDIT PROFILE SECTIONS */}
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={EDIT_ID_URL}
+          exact
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={EditProfileSection}
+          section="earwigId"
         />
 
         <PrivateRoute
@@ -161,6 +180,8 @@ export default function index(props) {
           isTablet={isTablet}
           Component={DeleteProfile}
         />
+
+        {/* END OF SUB EDIT PROFILE SECTIONS */}
 
         <PrivateRoute
           minimumLevel="LEVEL1"
