@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { colors, breakpoints, organizations, shadows } from "../../../theme";
+import { colors, breakpoints, organizations } from "../../../theme";
 
 export const SignupWrapper = styled.div`
   display: flex;
@@ -53,7 +53,7 @@ export const ContentWrapper = styled.div`
   }
 `;
 
-export const BlankDiv = styled.div`
+export const PurpleDiv = styled.div`
   width: 0%;
   background-color: ${colors.heliotrope};
 
@@ -144,25 +144,4 @@ export const Example = styled.img`
 
 export const ImageInput = styled.input`
   display: none;
-`;
-
-export const Button = styled.button`
-  border-radius: 5px;
-  padding: 0.5rem 0.75rem;
-  background-color: ${colors.heliotrope};
-  color: ${colors.white};
-  font-size: 1.25rem;
-  border: none;
-  box-shadow: ${shadows.buttonShadow};
-  outline: none;
-  font-weight: 900;
-  text-transform: capitalize;
-  margin-bottom: 1.25rem;
-  cursor: pointer;
-
-  &:active,
-  &:focus {
-    outline: none;
-    box-shadow: none;
-  }
 `;

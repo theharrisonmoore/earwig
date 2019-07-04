@@ -78,7 +78,7 @@ export const Wrapper = styled.div`
   display: flex;
 `;
 
-export const BlankDiv = styled.div`
+export const PurpleDiv = styled.div`
   width: 0%;
   background-color: ${colors.heliotrope};
 

@@ -21,7 +21,7 @@ import {
 export default class TermsOfUse extends Component {
   render() {
     return (
-      <Wrapper>
+      <Wrapper style={{ textAlign: "left", paddingTop: "3rem" }}>
         <ContentWrapper>
           <SmallTitle>EARWIG</SmallTitle>
           <SmallTitle>TERMS OF USE</SmallTitle>
