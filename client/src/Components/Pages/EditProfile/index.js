@@ -228,9 +228,14 @@ export default class EditProfile extends Component {
                     <Section>
                       <Row>
                         <Option>Password</Option>
-                        <EditButton type="button" onClick={this.togglePassword}>
-                          Change
-                        </EditButton>
+                        <NavLink to={EDIT_PASSWORD_URL}>
+                          <EditButton
+                            type="button"
+                            // onClick={this.togglePassword}
+                          >
+                            Change
+                          </EditButton>
+                        </NavLink>
                       </Row>
                       {this.state.displayPassword && (
                         <PasswordWrapper>
@@ -278,7 +283,7 @@ export default class EditProfile extends Component {
                     <Section>
                       <Row>
                         <Option>Trade</Option>
-                        <NavLink to="/delete-profile">
+                        <NavLink to={EDIT_TRADE_URL}>
                           <EditButton type="button">Change</EditButton>
                         </NavLink>
                       </Row>

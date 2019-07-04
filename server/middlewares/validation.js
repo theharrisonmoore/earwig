@@ -67,6 +67,7 @@ const schemas = {
       .allow("")
       .optional(),
     newUsername: Joi.string().max(15),
+    newTrade: Joi.any(),
   },
   addTrade: {
     trade: Joi.string()

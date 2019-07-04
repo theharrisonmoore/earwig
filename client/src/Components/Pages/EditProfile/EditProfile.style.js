@@ -112,7 +112,6 @@ export const Input = styled.input`
   width: 100%;
   border: 1px solid ${colors.inputBorder};
   outline: none;
-  margin-bottom: 2rem;
 `;
 
 export const InputLabel = styled.label`
@@ -291,3 +290,13 @@ export const Error = styled.p`
   color: #ff4d4f;
   font-size: 16px;
 `;
+
+export const FieldError = styled.p`
+  margin: 0;
+  text-align: left;
+  color: ${colors.red};
+`
+
+export const InputDiv = styled.div`
+  margin-bottom: 2rem;
+`

@@ -3,17 +3,17 @@ import {
   S_MOBILE_WIDTH,
   MOBILE_WIDTH,
   TABLET_WIDTH
-} from "./constants/screenWidths";
+} from "../constants/screenWidths";
 import React from "react";
 import StarRatingComponent from "react-star-rating-component";
 import SVG from "react-inlinesvg";
-import { ImgDiv } from "./Components/Pages/Search/Search.style";
-import { organizations } from "./theme";
+import { ImgDiv } from "../Components/Pages/Search/Search.style";
+import { organizations } from "../theme";
 
-import { API_LOGOUT_URL } from "./apiUrls";
-import { LOGIN_URL } from "./constants/naviagationUrls";
+import { API_LOGOUT_URL } from "../apiUrls";
+import { LOGIN_URL } from "../constants/naviagationUrls";
 
-import Icon from "./Components/Common/Icon/Icon";
+import Icon from "../Components/Common/Icon/Icon";
 
 // creates SVG Divs
 export const SVGCreator = (source, height, width) => (
