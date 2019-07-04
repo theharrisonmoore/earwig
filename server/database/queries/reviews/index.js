@@ -10,8 +10,6 @@ const getOverallReplies = require("./getOverallReplies");
 const getReviewDetails = require("./getReviewDetails");
 const updateOverallHelpfullPoints = require("./updateOverallHelpfullPoints");
 
-const { getHelpedPoints } = require("../user/index");
-
 module.exports.updateOverallHelpfullPoints = updateOverallHelpfullPoints;
 
 module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
@@ -31,7 +29,9 @@ module.exports.addCommentOnOverallReview = (id, data) => Review.findByIdAndUpdat
 });
 
 // used in admin panel to change isVerified status of review
-module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate({ _id: id }, { isVerified: bool }, { new: true });
+module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate(
+  { _id: id }, { isVerified: bool }, { new: true },
+);
 
 // used in admin panel to delete an answer of a review
 module.exports.deleteAnswer = id => Answer.deleteOne({ _id: id });
@@ -370,19 +370,6 @@ module.exports.checkUsersLatestReview = (organization, user) => new Promise((res
         older_30_days: {
           $lte: [30, "$diff_days"],
         },
-      },
-    },
-  ])
-    .then(result => resolve(result))
-    .catch(err => reject(err));
-});
-
-module.exports.getOrgReviews = orgId => new Promise((resolve, reject) => {
-  // get all reviews for 1 org
-  Review.aggregate([
-    {
-      $match: {
-        organization: mongoose.Types.ObjectId(orgId),
       },
     },
   ])

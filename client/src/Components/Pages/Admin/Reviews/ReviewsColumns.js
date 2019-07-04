@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import { Tag, Button } from "antd";
 import Highlighter from "react-highlight-words";
+import { routes } from "./../../../../constants/adminRoutes";
 
 import { GENERAL_ORGS_PROFILE_URL } from "./../../../../constants/naviagationUrls";
 
@@ -132,7 +133,7 @@ export default ({
               <Button type="primary" ghost>
                 <Link
                   to={{
-                    pathname: `${record._id}`,
+                    pathname: `${routes.REVIEWS_ALL}/${record._id}`,
                     state: {
                       name: record.organization,
                       category: record.orgType,

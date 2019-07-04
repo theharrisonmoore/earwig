@@ -21,7 +21,7 @@ describe("Testing profile route", () => {
 
   test("test with correct organization id and level 2 user", async (done) => {
     const review = await Review.findOne();
-    const data = { organizationID: review.organization };
+    const organizationID = review.organization;
 
     const user = {
       email: "level3@earwig.com",
@@ -38,9 +38,8 @@ describe("Testing profile route", () => {
         const token = result.headers["set-cookie"][0].split(";")[0];
 
         request(app)
-          .post("/api/profile")
+          .get(`/api/profile/${organizationID}`)
           .set("Cookie", [token])
-          .send(data)
           .expect("Content-Type", /json/)
           .expect(200)
           .end((err, res) => {
@@ -56,11 +55,10 @@ describe("Testing profile route", () => {
 
   test("test with correct organization id and logged out user", async (done) => {
     const review = await Review.findOne();
-    const data = { organizationID: review.organization };
+    const organizationID = review.organization;
 
     request(app)
-      .post("/api/profile")
-      .send(data)
+      .get(`/api/profile/${organizationID}`)
       .expect("Content-Type", /json/)
       .expect(200)
       .end((err, res) => {

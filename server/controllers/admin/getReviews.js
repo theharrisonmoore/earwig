@@ -9,9 +9,14 @@ const boom = require("boom");
 const { getAllReviews } = require("./../../database/queries/reviews");
 
 module.exports = (req, res, next) => {
-  const awaitingReview = req.query.awaitingReview === "true";
+  const { organisation, awaitingReview } = req.query;
 
-  getAllReviews(awaitingReview)
+  const filters = {
+    awaitingReview: awaitingReview === "true",
+    organisation,
+  };
+
+  getAllReviews(filters)
     .then((reviews) => {
       res.json(reviews);
     })

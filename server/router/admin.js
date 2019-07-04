@@ -17,7 +17,7 @@ const activateOrganization = require("./../controllers/admin/activateOrganizatio
 const getImageLink = require("./../controllers/admin/getImageLink");
 const addOrganizations = require("./../controllers/admin/addOrganizations");
 const editOrganization = require("./../controllers/admin/editOrganization");
-const getOrgReviews = require("./../controllers/admin/getOrgReviews");
+const mergeOrgsProfiles = require("./../controllers/admin/mergeOrgsProfiles");
 
 const {
   getAllTrades,
@@ -72,9 +72,9 @@ router.post("/organizations/add", addOrganizations);
 
 router.post("/organizations/edit", editOrganization);
 
-router.get("/organizations/reviews/:id", getOrgReviews);
-
 // get image url
 router.get("/images/:name", getImageLink);
+
+router.put("/organisations/merge", mergeOrgsProfiles);
 
 module.exports = router;

@@ -93,7 +93,7 @@ router.post("/organizations", authentication, authorization("LEVEL3"), addNewOrg
 router.get("/agency-payroll", authentication, authorization("LEVEL3"), getAgencesAndPayrollsNames);
 
 // require all the routes in this file
-router.post("/profile", softAuthCheck, profileController);
+router.get("/profile/:organizationID", softAuthCheck, profileController);
 
 router.post("/comments", commentsController);
 
