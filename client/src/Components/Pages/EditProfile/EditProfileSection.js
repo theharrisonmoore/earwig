@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 // COMMON
 import CancelNavbar from "./../../Common/CancelNavbar";
@@ -31,7 +32,33 @@ export default class EditProfileSection extends Component {
     newCity: "",
     isSubmitting: false,
     errors: {},
-    errorMsg: ""
+    errorMsg: "",
+    fields: {}
+  };
+
+  handleInput = event => {
+    const { name, value } = event.target;
+    const { fields } = this.state;
+    fields[name] = value;
+    this.setState({ fields });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const { fields } = this.state;
+
+    this.setState({ isSubmitting: true });
+
+    axios
+      .post("/api/edit-profile", fields)
+      .then(({ data }) => {
+        this.props.handleChangeState({ ...data, isLoggedIn: true });
+        this.props.history.push("/my-profile");
+        this.setState({ isSubmitting: false });
+      })
+      .catch(err => {
+        this.setState({ error: err.response.data.error, isSubmitting: false });
+      });
   };
 
   render() {
@@ -54,8 +81,13 @@ export default class EditProfileSection extends Component {
                   your reviews and activity, it is publicly visible
                 </Paragraph>
                 <CurrentValue>Current eawig ID: {userId}</CurrentValue>
-                <InputLabel htmlFor="earwigID">New earwig ID</InputLabel>
-                <Input type="text" name="earwigID" id="earwigID" />
+                <InputLabel htmlFor="newUsername">New earwig ID</InputLabel>
+                <Input
+                  type="text"
+                  name="newUsername"
+                  id="newUsername"
+                  onChange={this.handleInput}
+                />
               </div>
             )}
             <div>
