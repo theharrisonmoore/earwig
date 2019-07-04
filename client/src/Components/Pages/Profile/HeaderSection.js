@@ -5,7 +5,10 @@ import moment from "moment";
 import { StarRateCreator } from "./../../../helpers";
 import { Icon as AntdIcon, Popover } from "antd";
 
-import { REVIEW_URL } from "../../../constants/naviagationUrls";
+import {
+  REVIEW_URL,
+  USER_PROFILE_URL
+} from "../../../constants/naviagationUrls";
 
 import {
   Header,
@@ -29,7 +32,7 @@ import {
   ContractorListLink
 } from "./Profile.style";
 
-import { organizations } from "./../../../theme";
+import { organizations, colors } from "./../../../theme";
 
 import Icon from "./../../Common/Icon/Icon";
 import PopoverComponent from "./../../Common/Popover";
@@ -51,7 +54,8 @@ export default class HeaderSection extends Component {
       level,
       handleScroll,
       contractorAnswers,
-      reviewsLast30Days
+      reviewsLast30Days,
+      awaitingReview
     } = this.props;
     const {
       category,
@@ -172,23 +176,29 @@ export default class HeaderSection extends Component {
             </ContractorDiv>
           )}
         </CompanyDetails>
-        {level === 2 && (
+        {(level === 2 || level === 1) && (
           <>
             <ActionButtonsDiv>
               <Link
                 to={{
-                  pathname: REVIEW_URL,
+                  pathname:
+                    level === 1 && !awaitingReview
+                      ? USER_PROFILE_URL
+                      : REVIEW_URL,
                   state: { name, category }
                 }}
               >
                 <ActionButton
                   color={organizations[category].primary}
                   disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
+                  isMobile={isMobile}
                 >
+                  {!isMobile && <Icon icon="starComment" margin="0 1rem 0 0" width="38" height="38" color={colors.white} />}
                   Give a review about this {category}
                 </ActionButton>
               </Link>
-              <ActionButton color={organizations[category].primary}>
+              <ActionButton color={organizations[category].primary} isMobile={isMobile}>
+              {!isMobile && <Icon icon="raiseHand" margin="0 1rem 0 0" width="38" height="38" color={colors.white} />}
                 Ask workers a question about this {category}
               </ActionButton>
             </ActionButtonsDiv>
@@ -208,7 +218,7 @@ export default class HeaderSection extends Component {
             )}
           </>
         )}
-        {level === 1 && (
+        {level === 1 && !awaitingReview && (
           <VerifyPromo>
             <p>
               Get verified as a worker to give reviews, comment on other reviews

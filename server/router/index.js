@@ -83,8 +83,8 @@ router.get(SEARCH_URL, searchController);
 // get user info from the cookies and send it to fron-end
 router.get(USERS, authentication, userInfoController);
 
-router.get(GET_QUESTIONS_URL, authentication, authorization("LEVEL3"), getByOrg);
-router.post(REVIEW_URL, authentication, authorization("LEVEL3"), postReview);
+router.get(GET_QUESTIONS_URL, authentication, authorization("LEVEL2"), getByOrg);
+router.post(REVIEW_URL, authentication, authorization("LEVEL2"), postReview);
 router.post("/short-review", authentication, authorization("LEVEL3"), postReviewShort);
 
 // Add new payroll and agency
@@ -127,19 +127,24 @@ router.post(
 );
 
 // get all trades
-router.get(TRADE_URL, authentication, authorization("LEVEL1"), getTradesController);
+router.get(TRADE_URL, getTradesController);
 
 // add new trade
 router.post(
   TRADE_URL,
-  authentication,
-  authorization("LEVEL1"),
   validation("addTrade"),
   postTradesController,
 );
 
 // sign up
-router.post(SIGN_UP, validation("signup"), signupController);
+router.post(
+  SIGN_UP,
+  upload("verificationImage"),
+  validation("signup"),
+  toGoogle(false),
+  signupController,
+  deleteFileFromServer,
+);
 
 // edit profile route
 // user can update password or/and the verification image

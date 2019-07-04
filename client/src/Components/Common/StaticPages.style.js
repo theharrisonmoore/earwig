@@ -6,19 +6,19 @@ import { MOBILE_WIDTH } from "./../../constants/screenWidths";
 
 export const Wrapper = styled.div`
   width: 100%;
-  max-width: 44rem;
-  margin: 0 auto;
-  padding: 0 1rem;
-  padding-top: 2rem;
   min-height: 100vh;
   position: relative;
+  display: flex;
 `;
 
 export const ContentWrapper = styled.div`
-  width: calc(85% + 2rem);
-  margin: 3rem auto;
+  padding: 2rem;
   margin-bottom: 3rem;
-  text-align: left;
+  width: 100%;
+
+  @media ${breakpoints.tablet} {
+    width: ${({ width }) => width || "100%"};
+  }
 
   .table {
     table {
@@ -42,6 +42,24 @@ export const ContentWrapper = styled.div`
     th {
       font-weight: 700;
     }
+  }
+`;
+
+export const PurpleDiv = styled.div`
+  width: 0%;
+  background-color: ${colors.heliotrope};
+
+  @media ${breakpoints.tablet} {
+    width: ${({ width }) => width || "50%"};
+  }
+`;
+
+export const BlueDiv = styled.div`
+  width: 0%;
+  background-color: ${colors.dodgerBlue};
+
+  @media ${breakpoints.tablet} {
+    width: ${({ width }) => width || "50%"};
   }
 `;
 
@@ -105,9 +123,14 @@ export const BoldLink = styled(Link)`
 
 export const Iframe = styled.iframe`
   width: 100%;
-  height: 85vw;
+  height: 49vw;
   max-height: 35rem;
   box-shadow: ${shadows.frameShadow};
+  max-width: 480px;
+
+  @media ${breakpoints.tablet} {
+    height: 27vw;
+  }
 `;
 
 export const LargeParagraph = styled.p`
@@ -130,27 +153,28 @@ export const TextArea = styled.textarea`
 `;
 
 export const Button = styled.button`
-  background: ${colors.white};
-  border: 1px solid ${props => (props.error ? colors.red : colors.mineShaft2)};
+  color: ${colors.white};
+  border: none;
   box-shadow: ${shadows.buttonShadow};
   border-radius: 3px;
   width: 100%;
 
   font-weight: 900;
   font-size: 1.125rem;
-  color: ${colors.profileFontColor};
+  background-color: ${colors.heliotrope};
   outline: none;
   display: block;
   padding: 0.75rem 0;
   cursor: pointer;
   margin: 2rem auto;
 
+  &:active {
+    box-shadow: none;
+  }
+
   &:active,
   &:focus {
     outline: none;
-  }
-  @media (min-width: ${MOBILE_WIDTH}px) {
-    max-width: 14rem;
   }
 `;
 
@@ -163,10 +187,6 @@ export const Devider = styled.div`
   @media (max-width: ${MOBILE_WIDTH}px) {
     display: none;
   }
-`;
-
-export const BottomFixedDiv = styled.div`
-  margin: 10vh auto 0rem;
 `;
 
 export const UnderlinedLink = styled(BoldLink).attrs({
@@ -198,16 +218,11 @@ export const ButtonsWrapper = styled.div`
   }
 `;
 
-export const SmallButton = styled(Button)`
-  width: 50%;
-  margin: 0;
-`;
-
 export const LargeLink = styled(Link)`
   font-family: Roboto;
   font-weight: 900;
   font-size: 18px;
-  color: #4a4a4a;
+  color: ${({ purpleLinks }) => (purpleLinks ? colors.purpleLinks : "#4a4a4a")};
   text-decoration: underline;
   text-align: left;
   font-size: 1.125rem;
@@ -275,5 +290,15 @@ export const SmallTitle = styled.h4`
   @media (min-width: ${MOBILE_WIDTH}px) {
     font-size: 1.5rem;
     padding-top: 1rem;
+  }
+`;
+
+export const SelectWrapper = styled.div`
+  width: 100%;
+  .ant-select-lg .ant-select-selection--single {
+    height: 48px;
+  }
+  .ant-select-lg .ant-select-selection__rendered {
+    line-height: 48px;
   }
 `;

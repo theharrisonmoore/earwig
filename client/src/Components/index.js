@@ -73,14 +73,14 @@ export default function index(props) {
       <Switch>
         <PrivateRoute
           exact
-          minimumLevel="LEVEL3"
+          minimumLevel="LEVEL2"
           path={REVIEW_URL}
           {...props}
           Component={Review}
         />
         <PrivateRoute
           exact
-          minimumLevel="LEVEL3"
+          minimumLevel="LEVEL2"
           path={THANKYOU_URL}
           {...props}
           Component={Thankyou}
@@ -111,10 +111,11 @@ export default function index(props) {
           Component={Admin}
         />
 
+        {/* target could be 'profile' or `review` */}
         <PrivateRoute
           exact
           minimumLevel="LEVEL0"
-          path={SEARCH_URL}
+          path={`${SEARCH_URL}/:target?`}
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
@@ -276,8 +277,6 @@ export default function index(props) {
           isMobile={isMobile}
           isTablet={isTablet}
           Component={ReportContent}
-          navbar
-          title="Report this content"
         />
         <PrivateRoute
           minimumLevel="LEVEL1"

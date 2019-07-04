@@ -1,9 +1,9 @@
 const boom = require("boom");
 
-module.exports = async (req, res, next) => {
+module.exports = async (req, res) => {
   if (!req.file && !req.file.uploadedFileName) {
     return boom.badImplementation();
   }
   const { uploadedFileName } = req.file;
-  res.send({ image: uploadedFileName });
+  return res.send({ image: uploadedFileName });
 };

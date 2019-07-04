@@ -49,23 +49,93 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
       $match: { _id: mongoose.Types.ObjectId(organizationID) },
     },
     // get all the reviews that organization has
+
     {
       $lookup: {
         from: "reviews",
-        localField: "_id",
-        foreignField: "organization",
+        let: { organization: "$_id" },
+        pipeline: [
+          {
+            $match:
+             {
+               $expr:
+                {
+                  $and:
+                   [
+                     { $eq: ["$organization", "$$organization"] },
+                   ],
+                },
+             },
+          },
+          {
+            $lookup: {
+              from: "users",
+              let: { user: "$user" },
+              pipeline: [
+                {
+                  $match:
+                   {
+                     $expr:
+                      {
+                        $and:
+                         [
+                           { $eq: ["$_id", "$$user"] },
+                         ],
+                      },
+                   },
+                },
+              ],
+              as: "user",
+            },
+          },
+          {
+            $addFields: {
+              user: { $arrayElemAt: ["$user", 0] },
+            },
+          },
+        ],
         as: "reviews",
       },
     },
     {
       $addFields: {
-        // store the total number of reviews
-        totalReviews: {
-          $size: "$reviews",
-        },
         // work out the organization's average rating
         avgRatings: {
-          $avg: "$reviews.rate",
+          $reduce: {
+            input: "$reviews",
+            initialValue: { avg: 0, count: 0, size: 0 },
+            in: {
+              count: {
+                $cond:
+                {
+                  if: { $eq: ["$$this.user.verified", true] },
+                  then: { $add: ["$$value.count", "$$this.rate"] },
+                  else: "$$value.count",
+                }
+                ,
+              },
+              size: {
+                $cond:
+                {
+                  if: { $eq: ["$$this.user.verified", true] },
+                  then: { $add: [1, "$$value.size"] },
+                  else: "$$value.size",
+                },
+              },
+            },
+          },
+        },
+      },
+    }, {
+      $addFields: {
+        // store the total number of reviews
+        totalReviews: "$avgRatings.size",
+        avgRatings: {
+          $cond: {
+            if: { $gt: ["$avgRatings.size", 0] },
+            then: { $divide: ["$avgRatings.count", "$avgRatings.size"] },
+            else: 0,
+          },
         },
       },
     },
@@ -86,14 +156,6 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
     //     lastViewed: 1,
     //   },
     // },
-    {
-      $lookup: {
-        from: "users",
-        localField: "reviews.user",
-        foreignField: "_id",
-        as: "reviews.user",
-      },
-    },
     {
       $unwind: { path: "$reviews.user", preserveNullAndEmptyArrays: true },
     },
@@ -190,6 +252,31 @@ module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
     {
       $match: { organization: mongoose.Types.ObjectId(organizationID) },
     },
+    {
+      $lookup: {
+        from: "users",
+        let: { user: "$user" },
+        pipeline: [
+          {
+            $match:
+             {
+               $expr:
+                {
+                  $and:
+                   [
+                     { $eq: ["$_id", "$$user"] },
+                     { $eq: ["$verified", true] },
+                   ],
+                },
+             },
+          },
+        ],
+        as: "user",
+      },
+    },
+    {
+      $match: { user: { $not: { $size: 0 } } },
+    },
     // group the answers by the question
     // each question now has an array of the answers
     {
@@ -249,8 +336,43 @@ module.exports.allQsAndAs = (orgType, orgId, justContractor) => new Promise((res
     {
       $lookup: {
         from: "answers",
-        localField: "_id",
-        foreignField: "question",
+        let: { question: "$_id" },
+        pipeline: [
+          {
+            $match:
+             {
+               $expr:
+                {
+                  $and:
+                   [
+                     { $eq: ["$question", "$$question"] },
+                   ],
+                },
+             },
+          }, {
+            $lookup: {
+              from: "users",
+              let: { user: "$user" },
+              pipeline: [
+                {
+                  $match:
+                   {
+                     $expr:
+                      {
+                        $and:
+                         [
+                           { $eq: ["$_id", "$$user"] },
+                           { $eq: ["$verified", true] },
+                         ],
+                      },
+                   },
+                },
+              ],
+              as: "user",
+            },
+          },
+          { $match: { user: { $not: { $size: 0 } } } },
+        ],
         as: "answers",
       },
     },

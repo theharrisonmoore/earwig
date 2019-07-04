@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
-import { Checkbox, message, Spin, Icon } from "antd";
-import Loading from "./../../Common/AntdComponents/Loading";
+import { Checkbox, message } from "antd";
+import Loading, { ButtonSpinner } from "./../../Common/AntdComponents/Loading";
 
 import {
   ReviewWrapper,
@@ -34,11 +34,6 @@ import {
   TERMS_OF_USE_URL
 } from "../../../constants/naviagationUrls";
 
-// antd spinner for the submit button
-const antIcon = (
-  <Icon type="loading" style={{ fontSize: 24, color: "white" }} spin />
-);
-
 const {
   API_GET_QUESTIONS_URL,
   API_POST_REVIEW_URL
@@ -59,6 +54,7 @@ class Review extends Component {
     payrolls: [],
     dropdownList: []
   };
+
   componentDidMount() {
     const { email } = this.props;
     const { category, name, needsVerification } = this.props.location.state;
@@ -71,6 +67,7 @@ class Review extends Component {
       type: "rate",
       options: ["Bad", "Poor", "Average", "Great", "Excellent"]
     };
+
     const text = rateQ.text;
     const newText = `${text} ${category}?`;
     rateQ.text = newText;
@@ -231,7 +228,7 @@ class Review extends Component {
         <Header orgType={category} style={{ marginBottom: "3rem" }}>
           <Content>
             <Paragraph
-              style={{ paddingRight: ".5rem" }}
+              style={{ paddingRight: "1.5rem" }}
               cancel
               bold
               onClick={() => history.goBack()}
@@ -366,12 +363,7 @@ class Review extends Component {
                       disabled={isSubmitting}
                       orgType={category}
                     >
-                      {isSubmitting && (
-                        <Spin
-                          indicator={antIcon}
-                          style={{ marginRight: ".5rem" }}
-                        />
-                      )}
+                      {isSubmitting && <ButtonSpinner />}
                       Submit your review
                     </SubmitButton>
                   </Form>

@@ -16,7 +16,7 @@ import {
 export default class CookiesPolicy extends Component {
   render() {
     return (
-      <Wrapper>
+      <Wrapper style={{ textAlign: "left", paddingTop: "3rem" }}>
         <ContentWrapper>
           <SmallTitle>EARWIG</SmallTitle>
           <SmallTitle>COOKIES POLICY</SmallTitle>

@@ -2,8 +2,10 @@ import React, { PureComponent } from "react";
 
 import { handleLogout, authorization } from "./../../../helpers";
 
-import { Wrapper, MenuItem, MenuIcon, LogoutButton } from "./Menu.style.js";
+import { Wrapper, MenuItem, MenuIcon, LogoutButton, PriorityMenuItem, ComingSoon, PriorityIcon } from "./Menu.style.js";
 import { Icon as AdminIcon } from "antd";
+
+import { colors } from "./../../../theme";
 
 import {
   SEARCH_URL,
@@ -13,7 +15,12 @@ import {
   FAQ_URL,
   LOGIN_URL,
   PRIVACY_AND_TERMS_URL,
-  ADMIN
+  ADMIN,
+  MY_REVIEWS_URL,
+  GIVE_REVIEW_URL,
+  JOBS_URL,
+  INVITE_WORKERS_URL,
+  ASK_QUESTION_URL
 } from "./../../../constants/naviagationUrls";
 
 export default class Menu extends PureComponent {
@@ -37,28 +44,53 @@ export default class Menu extends PureComponent {
 
     return (
       <Wrapper isMobile={isMobile}>
-        <MenuItem to={SEARCH_URL} onClick={toggleMenu}>
-          <MenuIcon icon="search" height="19" width="19" />
-          Search
-        </MenuItem>
+        
 
         {authorization({ ...data, minimumLevel: "ADMIN" }) && (
-          <MenuItem to={ADMIN} onClick={toggleMenu}>
+          <PriorityMenuItem to={ADMIN} onClick={toggleMenu}>
             <AdminIcon
               type="dashboard"
               style={{
-                fontSize: "24px",
-                color: "#4a4a4a",
+                fontSize: "19px",
+                color: colors.white,
                 marginRight: "16px"
               }}
             />
             Admin Dashboard
-          </MenuItem>
+          </PriorityMenuItem>
         )}
 
+        <PriorityMenuItem to={GIVE_REVIEW_URL} onClick={toggleMenu}>
+          <PriorityIcon icon="starComment" height="19" width="19" />
+          Give a review
+        </PriorityMenuItem>        
+<PriorityMenuItem to={SEARCH_URL} onClick={toggleMenu}>
+          <PriorityIcon icon="search" height="19" width="19" />
+          Read reviews & ratings
+        </PriorityMenuItem>
+        <PriorityMenuItem disabled to={ASK_QUESTION_URL} onClick={toggleMenu}>
+          <PriorityIcon disabled icon="raiseHand" height="19" width="19" />
+          <ComingSoon><p>Ask workers a question</p> <span>(coming soon)</span></ComingSoon>
+        </PriorityMenuItem>
+        <PriorityMenuItem  disabled to={JOBS_URL} onClick={toggleMenu}>
+          <PriorityIcon disabled icon="jobBoard" height="19" width="19" />
+          <ComingSoon><p>Find a job</p> <span>(coming soon)</span></ComingSoon>
+        </PriorityMenuItem>
+        <PriorityMenuItem to={INVITE_WORKERS_URL} onClick={toggleMenu}>
+          <PriorityIcon icon="win" height="19" width="19" />
+          Invite workers to earwig
+        </PriorityMenuItem>
         <MenuItem to={PROFILE_URL} onClick={toggleMenu}>
           <MenuIcon icon="getVerified" height="19" width="19" />
           Your profile
+        </MenuItem>
+        <MenuItem disabled to={PROFILE_URL} onClick={toggleMenu}>
+          <MenuIcon disabled icon="email" height="19" width="19" />
+          <ComingSoon purple><p>Your inbox</p> <span>(coming soon)</span></ComingSoon>
+        </MenuItem>
+        <MenuItem to={MY_REVIEWS_URL} onClick={toggleMenu}>
+          <MenuIcon icon="starComment" height="19" width="19" />
+          Reviews you've given
         </MenuItem>
         {authorization({ ...data, minimumLevel: "LEVEL0" }) && (
           <MenuItem to={FAQ_URL} onClick={toggleMenu}>

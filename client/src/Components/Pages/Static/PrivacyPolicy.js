@@ -13,7 +13,7 @@ import { COOKIES_POLICY_URL } from "./../../../constants/naviagationUrls";
 export default class PrivacyPolicy extends Component {
   render() {
     return (
-      <Wrapper>
+      <Wrapper style={{ textAlign: "left", paddingTop: "3rem" }}>
         <ContentWrapper>
           <SmallTitle>EARWIG</SmallTitle>
           <SmallTitle>PRIVACY POLICY</SmallTitle>

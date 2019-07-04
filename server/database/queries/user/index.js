@@ -24,26 +24,28 @@ module.exports.updateUserHelpedPoints = userId => User.findOneAndUpdate(
 );
 
 module.exports.checkValidReferral = id => User.findOne(
-  { _id: id, verified: true },
-  { password: 0 },
+  { _id: id, verified: true }, { password: 0 },
 );
 
-module.exports.updateUserById = (userId, data) => User.findByIdAndUpdate(userId, { $set: data });
+module.exports.updateUserById = (userId, data) => User.findByIdAndUpdate(
+  userId,
+  { $set: data },
+  // return the updated document
+  { new: true },
+);
 module.exports.findByEmail = email => User.findOne({ email: email.toLowerCase() });
 
-module.exports.addNew = ({ email, password, referral }) => User.create({
-  email: email.toLowerCase(),
-  password,
-  referral,
-});
+module.exports.addNew = userData => User.create(userData);
 
 module.exports.getAllUsers = getAllUsers;
 
 module.exports.deleteUser = id => User.deleteOne({ _id: id });
 
-module.exports.getUserById = (id, withoutPassword) => (withoutPassword
-  ? User.findById(id, { password: 0 })
-  : User.findById(id));
+module.exports.getUserById = (id, withoutPassword) => (
+  withoutPassword
+    ? User.findById(id, { password: 0 })
+    : User.findById(id)
+);
 
 module.exports.deleteUserCompletely = async (userId) => {
   // delete the users' comments
@@ -95,3 +97,5 @@ module.exports.findUserByToken = token => User.findOne({
   "resetToken.value": token,
   "resetToken.expiresIn": { $gt: Date.now() },
 });
+
+module.exports.getUserByUsername = username => User.findOne({ userId: username });
