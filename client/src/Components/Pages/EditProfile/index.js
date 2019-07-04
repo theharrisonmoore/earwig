@@ -3,10 +3,14 @@ import * as Yup from "yup";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 
+import CancelNavbar from "./../../Common/CancelNavbar";
+
 import {
   EditWrapper,
+  BorderedWrapper,
   VerifiedWrapper,
   Section,
+  TopSection,
   Title,
   Row,
   EditButton,
@@ -164,110 +168,140 @@ export default class EditProfile extends Component {
       editProfileSchema = null;
     }
 
-    const { userId, email } = this.props;
+    const { userId, email, history } = this.props;
 
     return (
-      <EditWrapper>
-        <VerifiedWrapper>
-          <Section>
-            <Title title={email}>{email}</Title>
-          </Section>
-          <Formik
-            initialValues={initalValues}
-            validationSchema={editProfileSchema}
-            onSubmit={this.handleSubmit}
-          >
-            {({ isSubmitting }) => (
-              <Form>
-                <Section>
-                  <Row>
-                    <Title>ID: {userId}</Title>
-                    <EditButton type="button" onClick={this.toggleUsername}>
-                      Edit
-                    </EditButton>
-                  </Row>
-                  {this.state.displayUsername && (
-                    <PasswordWrapper>
-                      <Label htmlFor="newUsername">
-                        New Username
-                        <Field
-                          type="text"
-                          name="newUsername"
-                          id="newUsername"
-                        />
-                        <FormikErrorMessage name="newUsername" component="p" />
-                      </Label>
-                    </PasswordWrapper>
-                  )}
-                </Section>
-                <Section>
-                  <Row>
-                    <Title>Password</Title>
-                    <EditButton type="button" onClick={this.togglePassword}>
-                      Edit
-                    </EditButton>
-                  </Row>
-                  {this.state.displayPassword && (
-                    <PasswordWrapper>
-                      <Label htmlFor="oldPassword">
-                        Old Password
-                        <Field
-                          type="password"
-                          name="oldPassword"
-                          id="oldPassword"
-                        />
-                        <FormikErrorMessage name="oldPassword" component="p" />
-                      </Label>
+      <>
+        <CancelNavbar
+          history={history}
+          CancelText="Back"
+          title="Edit your profile"
+        />
+        <EditWrapper>
+          <BorderedWrapper>
+            <VerifiedWrapper>
+              <Formik
+                initialValues={initalValues}
+                validationSchema={editProfileSchema}
+                onSubmit={this.handleSubmit}
+              >
+                {({ isSubmitting }) => (
+                  <Form>
+                    <TopSection>
+                      <Row>
+                        <Title>earwig ID: {userId}</Title>
+                        <EditButton type="button" onClick={this.toggleUsername}>
+                          Change
+                        </EditButton>
+                      </Row>
+                      {this.state.displayUsername && (
+                        <PasswordWrapper>
+                          <Label htmlFor="newUsername">
+                            New Username
+                            <Field
+                              type="text"
+                              name="newUsername"
+                              id="newUsername"
+                            />
+                            <FormikErrorMessage
+                              name="newUsername"
+                              component="p"
+                            />
+                          </Label>
+                        </PasswordWrapper>
+                      )}
+                    </TopSection>
+                    <Section>
+                      <Row>
+                        <Title>Password</Title>
+                        <EditButton type="button" onClick={this.togglePassword}>
+                          Change
+                        </EditButton>
+                      </Row>
+                      {this.state.displayPassword && (
+                        <PasswordWrapper>
+                          <Label htmlFor="oldPassword">
+                            Old Password
+                            <Field
+                              type="password"
+                              name="oldPassword"
+                              id="oldPassword"
+                            />
+                            <FormikErrorMessage
+                              name="oldPassword"
+                              component="p"
+                            />
+                          </Label>
 
-                      <Label htmlFor="newPassword">
-                        New Password
-                        <Field
-                          type="password"
-                          name="newPassword"
-                          id="newPassword"
-                        />
-                        <FormikErrorMessage name="newPassword" component="p" />
-                      </Label>
+                          <Label htmlFor="newPassword">
+                            New Password
+                            <Field
+                              type="password"
+                              name="newPassword"
+                              id="newPassword"
+                            />
+                            <FormikErrorMessage
+                              name="newPassword"
+                              component="p"
+                            />
+                          </Label>
 
-                      <Label htmlFor="reNewPassword">
-                        Re-Enter New Password
-                        <Field
-                          type="password"
-                          name="reNewPassword"
-                          id="reNewPassword"
-                        />
-                        <FormikErrorMessage
-                          name="reNewPassword"
-                          component="p"
-                        />
-                      </Label>
-                    </PasswordWrapper>
-                  )}
-                </Section>
-
-                <Section>
-                  <Row>
-                    <Title>Delete my earwig account</Title>
-                    <NavLink to="/delete-profile">
-                      <DeleteButton>Delete</DeleteButton>
-                    </NavLink>
-                  </Row>
-                </Section>
-                <div style={{ position: "relative" }}>
-                  {/**
-                   * @note not adding the new button here sincie this page need refactor and changing the style
-                   */}
-                  <Button type="submit" disabled={isSubmitting}>
-                    Save Changes
-                  </Button>
-                  <Error>{this.state.error}</Error>
-                </div>
-              </Form>
-            )}
-          </Formik>
-          <StyledLink to="/my-profile">Cancel Changes</StyledLink>
-        </VerifiedWrapper>
-      </EditWrapper>
+                          <Label htmlFor="reNewPassword">
+                            Re-Enter New Password
+                            <Field
+                              type="password"
+                              name="reNewPassword"
+                              id="reNewPassword"
+                            />
+                            <FormikErrorMessage
+                              name="reNewPassword"
+                              component="p"
+                            />
+                          </Label>
+                        </PasswordWrapper>
+                      )}
+                    </Section>
+                    <Section>
+                      <Row>
+                        <Title>Trade</Title>
+                        <NavLink to="/delete-profile">
+                          <EditButton type="button">Change</EditButton>
+                        </NavLink>
+                      </Row>
+                    </Section>
+                    <Section>
+                      <Row>
+                        <Title>Town or City</Title>
+                        <NavLink to="/delete-profile">
+                          <EditButton type="button">Change</EditButton>
+                        </NavLink>
+                      </Row>
+                    </Section>
+                    <Section>
+                      <Row>
+                        <Title>Delete my account</Title>
+                        <NavLink to="/delete-profile">
+                          <DeleteButton>Delete</DeleteButton>
+                        </NavLink>
+                      </Row>
+                    </Section>
+                    <div style={{ position: "relative" }}>
+                      {/**
+                       * @note not adding the new button here sincie this page need refactor and changing the style
+                       */}
+                      <Button type="submit" disabled={isSubmitting}>
+                        Save Changes
+                      </Button>
+                      <Error>{this.state.error}</Error>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+              <StyledLink to="/my-profile">Cancel Changes</StyledLink>
+            </VerifiedWrapper>
+          </BorderedWrapper>
+        </EditWrapper>
+      </>
     );
   }
 }

@@ -4,14 +4,20 @@ import { Label, Button } from "./../../Common/Formik/Formik.style";
 
 import Icon from "./../../Common/Icon/Icon";
 
-import { colors, shadows, gradient, borders } from "./../../../theme";
+import {
+  colors,
+  shadows,
+  gradient,
+  borders,
+  breakpoints
+} from "./../../../theme";
 
 export const EditIcon = styled(Icon)`
   margin-right: 0.5rem;
 `;
 
 export const EditWrapper = styled.div`
-  width: 100%;
+  /* width: 100%;
   max-width: 60rem;
   margin: 0 auto;
   padding: 1.5rem;
@@ -19,6 +25,24 @@ export const EditWrapper = styled.div`
 
   & > div:first-child {
     padding-top: 0;
+  } */
+`;
+
+export const BorderedWrapper = styled.div`
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 5rem 0;
+  border: none;
+
+  & > div {
+    max-width: 400px;
+    margin: 0 auto;
+    width: 80%;
+  }
+
+  @media ${breakpoints.tablet} {
+    border-left: 3px solid ${colors.heliotrope};
+    border-right: 3px solid ${colors.heliotrope};
   }
 `;
 
@@ -32,8 +56,12 @@ export const Section = styled.div`
   border-bottom: ${borders.commentBox}};
 `;
 
+export const TopSection = styled(Section)`
+  border-top: ${borders.commentBox}};
+`;
+
 export const Title = styled.h2`
-  font-weight: 900;
+  font-weight: 400;
   font-size: 1.125rem;
   color: ${colors.profileFontColor};
   margin: 0;
@@ -59,13 +87,13 @@ export const Row = styled.div`
 export const EditButton = styled.button`
   font-weight: 900;
   font-size: 1rem;
-  color: ${colors.profileFontColor};
+  color: ${colors.purpleLinks};
   background: none;
   border: none;
   outline: none;
   cursor: pointer;
   margin-bottom: 0;
-  text-decoration: underline;
+  text-decoration: none;
 
   &:active,
   &:focus,

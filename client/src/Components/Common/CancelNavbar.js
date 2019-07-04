@@ -14,7 +14,7 @@ const NavbarWrapper = styled.div`
   z-index: 2;
   background-color: ${({ backgroundColor }) =>
     backgroundColor ? backgroundColor : colors.white};
-  box-shadow: ${shadows.headerShadow};
+  /* box-shadow: ${shadows.headerShadow}; */
   border-bottom: 1px solid ${colors.lightGray};
   width: 100%;
   height: 11vh;
