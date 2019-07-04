@@ -20,12 +20,11 @@ const { getUserById, updateUserById, getUserByUsername } = require("./../databas
 // eslint-disable-next-line consistent-return
 module.exports = async (req, res, next) => {
   const {
-    oldPassword, newPassword, newUsername, newTrade,
+    oldPassword, newPassword, newUsername, newTrade, newCity
   } = req.body;
   const { user } = req;
   const updateData = {};
 
-  console.log(newTrade);
   // if the user uploaded photo add the new photo to the data object to be updated
   let uploadedFileName;
   if (req.file) {
@@ -65,7 +64,10 @@ module.exports = async (req, res, next) => {
     if (newTrade) {
       updateData.trade = newTrade;
     }
-    console.log("update", updateData);
+    if (newCity) {
+      updateData.city = newCity;
+    }
+    
     const updatedUser = await updateUserById(userInfo.id, updateData);
 
     return res.json(updatedUser);

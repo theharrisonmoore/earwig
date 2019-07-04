@@ -68,6 +68,7 @@ const schemas = {
       .optional(),
     newUsername: Joi.string().max(15),
     newTrade: Joi.any(),
+    newCity: Joi.string(),
   },
   addTrade: {
     trade: Joi.string()

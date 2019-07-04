@@ -291,7 +291,7 @@ export default class EditProfile extends Component {
                     <Section>
                       <Row>
                         <Option>Town or City</Option>
-                        <NavLink to="/delete-profile">
+                        <NavLink to={EDIT_CITY_URL}>
                           <EditButton type="button">Change</EditButton>
                         </NavLink>
                       </Row>

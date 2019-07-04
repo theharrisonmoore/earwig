@@ -42,7 +42,7 @@ const newUsernameSchema = Yup.object().shape({
 });
 
 // API ROUTES
-const { API_TRADE_URL } = require("../../../apiUrls");
+const { API_TRADE_URL, API_USERS_TRADE } = require("../../../apiUrls");
 
 export default class EditProfileSection extends Component {
   // EDIT TRADE
@@ -60,7 +60,8 @@ export default class EditProfileSection extends Component {
     errors: {},
     errorMsg: "",
     fields: {},
-    ismodalVisible: false
+    ismodalVisible: false,
+    currentTradeName: "",
   };
 
   componentDidMount() {
@@ -75,6 +76,10 @@ export default class EditProfileSection extends Component {
         }, []);
         this.setState({ trades });
       });
+
+      axios.get(API_USERS_TRADE).then(({data}) => {
+        this.setState({ currentTradeName: data.title}) 
+      })
     }
   }
 
@@ -222,13 +227,14 @@ export default class EditProfileSection extends Component {
   };
 
   render() {
-    const { history, section, currentValue, userId, trade } = this.props;
+    const { history, section, currentValue, userId, trade, city } = this.props;
     const {
       isSubmitting,
       errors,
       errorMsg,
       ismodalVisible,
-      confirmLoading
+      confirmLoading,
+      currentTradeName,
     } = this.state;
 
     return (
@@ -301,7 +307,7 @@ export default class EditProfileSection extends Component {
             {section === "trade" && (
               <div>
                 <InputDiv>
-                <CurrentValue>Current trade: {trade}</CurrentValue>
+                <CurrentValue>Current trade: {currentTradeName}</CurrentValue>
                   <InputLabel htmlFor="newTrade">New trade</InputLabel>
                   <Select
                     id="newTrade"
@@ -359,6 +365,20 @@ export default class EditProfileSection extends Component {
                 </div>
               </div>
             )}
+            {section === "city" && (
+              <div>
+                <CurrentValue>Current town or city: {city}</CurrentValue>
+                <InputLabel htmlFor="newCity">New town or city</InputLabel>
+                <Input
+                  type="text"
+                  name="newCity"
+                  id="newCity"
+                  onChange={this.handleInput}
+                  onBlur={this.passwordOnBlurValidation}
+                />
+                <FieldError>{errors.newCity}</FieldError>
+              </div>
+            )}
             <div>
               <ErrorMessage>{errorMsg}</ErrorMessage>
               <Button
@@ -366,7 +386,10 @@ export default class EditProfileSection extends Component {
                 disabled={isSubmitting}
                 loading={isSubmitting}
               >
-                Save new ID
+                {section === "earwigId" && "Save new ID"}
+                {section === "password" && "Save new password"}
+                {section === "trade" && "Save new trade"}
+                {section === "city" && "Save new town or city"}
               </Button>
             </div>
           </BorderedWrapper>

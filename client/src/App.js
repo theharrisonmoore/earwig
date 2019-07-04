@@ -32,7 +32,8 @@ export const initialState = {
   helpedPoints: 0,
   isAdmin: false,
   isMounted: false,
-  email: ""
+  email: "",
+  city: ""
 };
 
 class App extends Component {

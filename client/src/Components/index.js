@@ -183,7 +183,7 @@ export default function index(props) {
           section="password"
         />
 
-<PrivateRoute
+        <PrivateRoute
           minimumLevel="LEVEL1"
           path={EDIT_TRADE_URL}
           exact
@@ -192,6 +192,17 @@ export default function index(props) {
           isTablet={isTablet}
           Component={EditProfileSection}
           section="trade"
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={EDIT_CITY_URL}
+          exact
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={EditProfileSection}
+          section="city"
         />
 
         <PrivateRoute

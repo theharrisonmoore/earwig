@@ -3,6 +3,7 @@ const User = require("./../../models/User");
 const Comment = require("./../../models/Comment");
 const Answer = require("./../../models/Answer");
 const Review = require("./../../models/Review");
+const Trade = require("./../../models/Trade");
 
 const getAllUsers = require("./allUsers");
 
@@ -99,3 +100,5 @@ module.exports.findUserByToken = token => User.findOne({
 });
 
 module.exports.getUserByUsername = username => User.findOne({ userId: username });
+
+module.exports.getUsersTrade = tradeId => Trade.findById(tradeId)

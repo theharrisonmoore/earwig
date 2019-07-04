@@ -52,6 +52,8 @@ const resetPassword = require("../controllers/resetPassword");
 const setPassword = require("../controllers/setPassword");
 const updateOverallHelpfulPoints = require("../controllers/updateOverallHelpfulPoints");
 
+const getUsersTrade = require("../controllers/getUsersTrade")
+
 
 const {
   LOGIN_URL,
@@ -75,6 +77,7 @@ const {
   RESET_PASSWORD,
   SET_PASSWORD,
   ADD_HELPFUL_OVERALL_POINTS,
+  USERS_TRADE
 } = require("../../client/src/apiUrls");
 
 
@@ -227,5 +230,7 @@ router.post(RESET_PASSWORD, resetPassword);
 router.post(SET_PASSWORD, setPassword);
 
 router.patch(ADD_HELPFUL_OVERALL_POINTS, authentication, updateOverallHelpfulPoints);
+
+router.get(USERS_TRADE, authentication, getUsersTrade)
 
 module.exports = router;
