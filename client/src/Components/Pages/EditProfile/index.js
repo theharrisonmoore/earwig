@@ -25,7 +25,9 @@ import {
 
 export default class EditProfile extends Component {
   render() {
-    const { userId, history } = this.props;
+    const { userId, history, verified, awaitingReview } = this.props;
+
+    const isWorker = awaitingReview || verified 
 
     return (
       <>
@@ -34,6 +36,8 @@ export default class EditProfile extends Component {
           CancelText="Back"
           title="Edit your profile"
         />
+
+        {isWorker ? (
         <EditWrapper>
           <BorderedWrapper>
             <VerifiedWrapper>
@@ -80,6 +84,30 @@ export default class EditProfile extends Component {
             </VerifiedWrapper>
           </BorderedWrapper>
         </EditWrapper>
+        ) : (
+          <EditWrapper>
+            <BorderedWrapper>
+            <VerifiedWrapper>
+              <TopSection>
+                <Row>
+                  <Option>Password</Option>
+                  <NavLink to={EDIT_PASSWORD_URL}>
+                    <EditButton type="button">Change</EditButton>
+                  </NavLink>
+                </Row>
+              </TopSection>
+              <Section>
+                <Row>
+                  <Option>Delete my account</Option>
+                  <NavLink to="/delete-profile">
+                    <DeleteButton>Delete</DeleteButton>
+                  </NavLink>
+                </Row>
+              </Section>
+            </VerifiedWrapper>
+          </BorderedWrapper>
+          </EditWrapper>
+        )}
       </>
     );
   }

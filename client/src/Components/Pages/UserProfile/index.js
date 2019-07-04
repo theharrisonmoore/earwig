@@ -9,6 +9,7 @@ import {
 } from "./../../../constants/naviagationUrls";
 
 import Loading from "./../../Common/AntdComponents/Loading";
+import Button from "./../../Common/Button";
 
 import {
   Wrapper,
@@ -30,7 +31,12 @@ import {
   Title,
   ReviewDiv,
   AgencyTitle,
-  ReviewText
+  ReviewText,
+  BorderedWrapper,
+  MiniHeader,
+  VerifyTitle,
+  VerifyParagraph,
+  VerifySection,
 } from "./UserProfile.style";
 
 import Icon from "./../../Common/Icon/Icon";
@@ -57,7 +63,10 @@ export default class index extends Component {
     const { reviewCount, userReviews, loaded } = this.state;
     if (!loaded) return <Loading />;
 
-    return (
+    const isWorker = verified || awaitingReview;
+
+    if (isWorker) 
+    { return (
       <Wrapper>
         <Header>
           <TopSection>
@@ -158,6 +167,37 @@ export default class index extends Component {
           </MainSection>
         )}
       </Wrapper>
-    );
+    )} else {
+      // BASIC VIEW FOR NON-WORKERS
+      return (
+        <Wrapper>
+        <BorderedWrapper>
+          <div>
+            <MiniHeader>
+              <NavLink to={EDIT_PROFILE_URL}>Edit Profile</NavLink>
+            </MiniHeader>
+            <VerifySection>
+            <VerifyTitle>
+              You're not a verified worker
+            </VerifyTitle>
+              <VerifyParagraph>
+                If you want to give reviews, ask questions and find jobs, you first need to get verified as a genuine worker.
+                <br />
+                <br />
+                This protects the worker community from fake reviews and spam by non-workers.
+              </VerifyParagraph>
+              <NavLink to={UPLOAD_VERIFICATION_URL}>
+                <Button
+                  type="button"
+                >
+                  Get verified as a worker
+                </Button>
+              </NavLink>
+            </VerifySection>
+          </div>
+        </BorderedWrapper>
+      </Wrapper>
+      )
+    }
   }
 }

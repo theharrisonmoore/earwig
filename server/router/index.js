@@ -154,7 +154,7 @@ router.post(
 router.post(
   EDIT_PROFILE,
   authentication,
-  authorization("LEVEL3"),
+  authorization("LEVEL1"),
   upload("verificationImage"),
   validation("editProfile"),
   toGoogle(false),

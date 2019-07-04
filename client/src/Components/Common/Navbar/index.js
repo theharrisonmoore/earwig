@@ -48,7 +48,9 @@ export default class Navbar extends Component {
       isLoggedIn,
       isAdmin,
       history,
-      handleChangeState
+      handleChangeState,
+      verified,
+      awaitingReview
     } = this.props;
     const { menuOpen, isLoading } = this.state;
     if (!isLoading) return null;
@@ -69,6 +71,8 @@ export default class Navbar extends Component {
                   isAdmin={isAdmin}
                   history={history}
                   handleChangeState={handleChangeState}
+                  verified={verified}
+                  awaitingReview={awaitingReview}
                 />
               </>
             ) : (

@@ -150,7 +150,7 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL3"
+          minimumLevel="LEVEL1"
           path={EDIT_PROFILE_URL}
           exact
           {...props}

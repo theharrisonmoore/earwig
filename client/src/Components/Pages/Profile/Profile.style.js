@@ -443,3 +443,23 @@ export const ContractorListLink = styled.span`
   background-color: transparent;
   cursor: pointer;
 `;
+
+
+export const BorderedWrapper = styled.div`
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 5rem 0;
+  border: none;
+  min-height: calc(100vh - 5.5rem);
+
+  & > div {
+    max-width: 400px;
+    margin: 0 auto;
+    width: 80%;
+  }
+
+  @media ${breakpoints.tablet} {
+    border-left: 3px solid ${colors.heliotrope};
+    border-right: 3px solid ${colors.heliotrope};
+  }
+`;
