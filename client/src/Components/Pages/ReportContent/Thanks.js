@@ -3,20 +3,18 @@ import React, { Component } from "react";
 import {
   MainIcon,
   SubTitle,
-  SmallParagraph,
-  Button,
-  PageTitle,
-  BottomFixedDiv
+  SmallParagraph
 } from "./../../Common/StaticPages.style";
+
+import Button from "./../../Common/Button";
 
 import checkIcon from "./../../../assets/check-icon.svg";
 
 export default class Thanks extends Component {
   render() {
-    const { handleCancel } = this.props;
+    const { history } = this.props;
     return (
-      <>
-        <PageTitle>Report this content</PageTitle>
+      <div style={{ paddingTop: "60px" }}>
         <MainIcon src={checkIcon} />
         <SubTitle marginBottom center>
           Thanks for your report
@@ -25,10 +23,8 @@ export default class Thanks extends Component {
           We’ll get back to you via email as soon as we can.
         </SmallParagraph>
 
-        <BottomFixedDiv>
-          <Button onClick={handleCancel}>Okay</Button>
-        </BottomFixedDiv>
-      </>
+        <Button onClick={history.goBack}>Okay</Button>
+      </div>
     );
   }
 }

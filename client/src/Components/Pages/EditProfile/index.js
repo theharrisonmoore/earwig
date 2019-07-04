@@ -254,6 +254,9 @@ export default class EditProfile extends Component {
                   </Row>
                 </Section>
                 <div style={{ position: "relative" }}>
+                  {/**
+                   * @note not adding the new button here sincie this page need refactor and changing the style
+                   */}
                   <Button type="submit" disabled={isSubmitting}>
                     Save Changes
                   </Button>

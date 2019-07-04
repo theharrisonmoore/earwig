@@ -6,6 +6,7 @@ import { Checkbox as AntCheckbox, Modal, Alert, Input, Icon } from "antd";
 
 import Logo from "./../../Common/Logo";
 import Select from "./../../Common/Select";
+import Button from "./../../Common/Button";
 
 import { TERMS_OF_USE_URL } from "./../../../constants/naviagationUrls";
 import {
@@ -26,7 +27,7 @@ import {
   SignupWrapper,
   LinkSpan,
   ContentWrapper,
-  BlankDiv,
+  PurpleDiv,
   OptionsWrapper,
   StyledInput,
   ButtonsWrapper,
@@ -34,8 +35,7 @@ import {
   SubHeading,
   Paragraph,
   Example,
-  ImageInput,
-  Button
+  ImageInput
 } from "./Signup.style";
 
 import example from "./../../../assets/example.png";
@@ -346,7 +346,7 @@ export default class Signup extends Component {
 
     return (
       <SignupWrapper>
-        <BlankDiv />
+        <PurpleDiv />
         <ContentWrapper>
           <Logo />
           <Formik
@@ -603,7 +603,7 @@ export default class Signup extends Component {
                             {verificationImage && (
                               <Icon
                                 type="check"
-                                style={{ color: "green", fontSize: "23px" }}
+                                style={{ color: "white", fontSize: "23px" }}
                               />
                             )}
                           </Button>
@@ -654,7 +654,11 @@ export default class Signup extends Component {
                 </CheckboxWrapper>
 
                 {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
-                <Button type="submit" disabled={isSubmitting}>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  loading={isSubmitting}
+                >
                   Create account
                 </Button>
               </Form>

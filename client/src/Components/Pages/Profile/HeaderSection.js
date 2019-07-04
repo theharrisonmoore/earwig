@@ -30,7 +30,7 @@ import {
   ContractorListLink
 } from "./Profile.style";
 
-import { organizations } from "./../../../theme";
+import { organizations, colors } from "./../../../theme";
 
 import Icon from "./../../Common/Icon/Icon";
 import PopoverComponent from "./../../Common/Popover";
@@ -204,11 +204,14 @@ export default class HeaderSection extends Component {
                 <ActionButton
                   color={organizations[category].primary}
                   disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
+                  isMobile={isMobile}
                 >
+                  {!isMobile && <Icon icon="starComment" margin="0 1rem 0 0" width="38" height="38" color={colors.white} />}
                   Give a review about this {category}
                 </ActionButton>
               </Link>
-              <ActionButton color={organizations[category].primary}>
+              <ActionButton color={organizations[category].primary} isMobile={isMobile}>
+              {!isMobile && <Icon icon="raiseHand" margin="0 1rem 0 0" width="38" height="38" color={colors.white} />}
                 Ask workers a question about this {category}
               </ActionButton>
             </ActionButtonsDiv>

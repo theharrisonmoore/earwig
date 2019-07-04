@@ -1,5 +1,5 @@
 import React from "react";
-import { Spin } from "antd";
+import { Spin, Icon } from "antd";
 import styled from "styled-components";
 
 const SpinWrapper = styled.div`
@@ -19,3 +19,17 @@ const Loading = props => {
 };
 
 export default Loading;
+
+const ButtonSpinner = ({ color }) => {
+  // antd spinner for the submit button
+  const antIcon = (
+    <Icon
+      type="loading"
+      style={{ fontSize: 24, color: color || "white" }}
+      spin
+    />
+  );
+  return <Spin indicator={antIcon} style={{ marginRight: ".5rem" }} />;
+};
+
+export { ButtonSpinner };
