@@ -29,7 +29,6 @@ import Thankyou from "./Pages/ThankYou";
 import EditProfile from "./Pages/EditProfile";
 import DeleteProfile from "./Pages/DeleteProfile";
 import UserProfile from "./Pages/UserProfile";
-import Review from "./Pages/Review";
 import Profile from "./Pages/Profile";
 import Admin from "./Pages/Admin";
 import Search from "./Pages/Search";
@@ -41,6 +40,8 @@ import PrivateRoute from "./Common/PrivateRoute";
 import Reply from "./Pages/Profile/Reply";
 import ResetPassword from "./Pages/ResetPassword";
 import EditProfileSection from "./Pages/EditProfile/EditProfileSection";
+
+import Review from "./Pages/Review";
 
 import {
   FAQ,
@@ -62,7 +63,6 @@ import {
   ADD_PROFILE_URL,
   ADD_PROFILE_START_REVIEW_URL,
   ADMIN,
-  REVIEW_URL,
   CONFIRM_EMAIL_URL,
   INTRO_URL,
   USER_PROFILE_URL,
@@ -76,13 +76,9 @@ export default function index(props) {
   return (
     <>
       <Switch>
-        <PrivateRoute
-          exact
-          minimumLevel="LEVEL2"
-          path={REVIEW_URL}
-          {...props}
-          Component={Review}
-        />
+        <Route exact path="/organization/:orgId/review" component={Review} />
+        <Route exact path="/review/:reviewId/edit" component={Review} />
+
         <PrivateRoute
           exact
           minimumLevel="LEVEL2"

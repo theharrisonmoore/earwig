@@ -48,9 +48,9 @@ export default class UploadImage extends Component {
                 showConfirmButton: false,
                 timer: 1500
               }).then(() => {
-                this.props.setFieldValue(
-                  `questions[${this.props.number}]`,
-                  res.data.image
+                this.props.handleSliderChange(
+                  res.data.image,
+                  this.props.number
                 );
               });
             })
