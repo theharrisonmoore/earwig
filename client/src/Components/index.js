@@ -40,6 +40,7 @@ import PrivateRoute from "./Common/PrivateRoute";
 import Reply from "./Pages/Profile/Reply";
 import ResetPassword from "./Pages/ResetPassword";
 import EditProfileSection from "./Pages/EditProfile/EditProfileSection";
+import OrgCheck from "./Pages/OrgCheck";
 
 import Review from "./Pages/Review";
 
@@ -67,7 +68,9 @@ import {
   INTRO_URL,
   USER_PROFILE_URL,
   REPLY_URL,
-  PRIVACY_URL
+  PRIVACY_URL,
+  ORG_STATUS_URL_SIGNUP,
+  ORG_STATUS_URL_LOGIN,
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
@@ -345,6 +348,8 @@ export default function index(props) {
           isTablet={isTablet}
           Component={Intro}
         />
+
+        <PrivateRoute minimumLevel="LEVEL1" path={ORG_STATUS_URL_SIGNUP} {...props} isMobile={isMobile} isTablet={isTablet} type="sign-up" Component={OrgCheck} />
 
         <Route
           exact
