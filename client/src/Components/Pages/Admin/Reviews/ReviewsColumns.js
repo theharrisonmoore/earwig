@@ -25,7 +25,7 @@ export default ({
             highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
             searchWords={[searchText]}
             autoEscape
-            textToHighlight={text.toString()}
+            textToHighlight={text && text.toString()}
           />
         </span>
       ),
@@ -42,7 +42,7 @@ export default ({
               highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
               searchWords={[searchText]}
               autoEscape
-              textToHighlight={text.toString()}
+              textToHighlight={text && text.toString()}
             />
           </span>
         </Link>
@@ -105,7 +105,9 @@ export default ({
       title: "Date",
       dataIndex: "date",
       key: "date",
-      render: value => <span>{moment(value).format("DD MMM YYYY")}</span>,
+      render: value => (
+        <span>{value && moment(value).format("DD MMM YYYY")}</span>
+      ),
       sorter: (a, b) => moment(a.date) - moment(b.date),
       sortDirections: ["descend", "ascend"]
     },
@@ -135,14 +137,14 @@ export default ({
                   to={{
                     pathname: `${routes.REVIEWS_ALL}/${record._id}`,
                     state: {
-                      name: record.organization,
-                      category: record.orgType,
-                      userEmail: record.user.email,
-                      userID: record.user.userId,
-                      rating: text.rate,
-                      overallRev: text.overallReview,
-                      revID: text._id,
-                      isVerified: text.isVerified
+                      name: record && record.organization,
+                      category: record && record.orgType,
+                      userEmail: record && record.user.email,
+                      userID: record && record.user.userId,
+                      rating: text && text.rate,
+                      overallRev: text && text.overallReview,
+                      revID: text && text._id,
+                      isVerified: text && text.isVerified
                     }
                   }}
                 >
