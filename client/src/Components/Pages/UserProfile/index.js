@@ -53,7 +53,14 @@ export default class index extends Component {
   }
 
   render() {
-    const { userId, verified, points, helpedPoints, isSMobile, awaitingReview } = this.props;
+    const {
+      userId,
+      verified,
+      points,
+      helpedPoints,
+      isSMobile,
+      awaitingReview
+    } = this.props;
     const { reviewCount, userReviews, loaded } = this.state;
     if (!loaded) return <Loading />;
 
@@ -75,7 +82,9 @@ export default class index extends Component {
                 </Verified>
               ) : (
                 <Verified>
-                  <p>{awaitingReview ? "Verification pending" : "Unverified"}</p>
+                  <p>
+                    {awaitingReview ? "Verification pending" : "Unverified"}
+                  </p>
                 </Verified>
               )}
             </IDWrapper>
