@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
@@ -5,10 +6,7 @@ import moment from "moment";
 import { StarRateCreator } from "./../../../helpers";
 import { Icon as AntdIcon, Popover } from "antd";
 
-import {
-  REVIEW_URL,
-  USER_PROFILE_URL
-} from "../../../constants/naviagationUrls";
+import { USER_PROFILE_URL } from "../../../constants/naviagationUrls";
 
 import {
   Header,
@@ -55,6 +53,7 @@ export default class HeaderSection extends Component {
       handleScroll,
       contractorAnswers,
       reviewsLast30Days,
+      orgId,
       awaitingReview
     } = this.props;
     const {
@@ -176,6 +175,20 @@ export default class HeaderSection extends Component {
             </ContractorDiv>
           )}
         </CompanyDetails>
+        {/* {level === 2 && (
+          <GiveReviewDiv>
+            <GiveReviewTitle>Give a review about {name}</GiveReviewTitle>
+            <GiveReview
+              category={category}
+              orgId={orgId}
+              isTablet={isTablet}
+              isMobile={isMobile}
+              state={{ name, category, orgId: summary._id }}
+              reviewNotAllowed={reviewNotAllowed}
+              reviewsLast30Days={reviewsLast30Days}
+            />
+          </GiveReviewDiv>
+        )} */}
         {(level === 2 || level === 1) && (
           <>
             <ActionButtonsDiv>
@@ -184,7 +197,7 @@ export default class HeaderSection extends Component {
                   pathname:
                     level === 1 && !awaitingReview
                       ? USER_PROFILE_URL
-                      : REVIEW_URL,
+                      : `/organization/${orgId}/review`,
                   state: { name, category }
                 }}
               >

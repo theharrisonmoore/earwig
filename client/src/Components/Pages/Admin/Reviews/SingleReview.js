@@ -37,10 +37,10 @@ import {
   AnswerDiv,
   QText,
   HintText,
-  Options
+  Options,
+  StyledInput,
+  InputWrapper
 } from "../../Review/Question/Question.style";
-
-import { RadioButton } from "../../Review/Question/index";
 
 import { colors } from "../../../../theme";
 
@@ -315,31 +315,49 @@ export default class SingleReview extends Component {
 
                                   if (type === "yesno" || type === "radio") {
                                     return (
-                                      <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
-                                        <HintText>{question.hintText}</HintText>
-                                        <Options>
-                                          <AnswerDiv>
+                                      <QuestionOptionsWrapper>
+                                        <Options options={options.length}>
+                                          <div
+                                            className={`choices choices-${
+                                              options.length
+                                            }`}
+                                          >
                                             {options.map((option, i, arr) => {
                                               return (
-                                                <Field
-                                                  key={option}
-                                                  component={RadioButton}
-                                                  name={`questions[${number}]`}
-                                                  id={`${option}-${number}`}
-                                                  className={`hide radio-input ${option}`}
-                                                  checked={this.checkIten(
-                                                    answer,
-                                                    option
-                                                  )}
+                                                <InputWrapper
                                                   option={option}
-                                                  count={options.length}
-                                                  category={category}
-                                                />
+                                                  orgType={category}
+                                                  options={
+                                                    question.options.length
+                                                  }
+                                                  key={option}
+                                                >
+                                                  <input
+                                                    name={question.number}
+                                                    id={`${option}-${
+                                                      question.number
+                                                    }`}
+                                                    type="radio"
+                                                    value={option}
+                                                    className="radio-button"
+                                                    checked={this.checkIten(
+                                                      answer,
+                                                      option
+                                                    )}
+                                                  />
+                                                  <StyledInput
+                                                    htmlFor={`${option}-${
+                                                      question.number
+                                                    }`}
+                                                    className={`yesno options-3`}
+                                                  >
+                                                    {option}
+                                                  </StyledInput>
+                                                </InputWrapper>
                                               );
                                             })}
                                             {this.createDeleteBtn(entry._id)}
-                                          </AnswerDiv>
+                                          </div>
                                         </Options>
                                       </QuestionOptionsWrapper>
                                     );

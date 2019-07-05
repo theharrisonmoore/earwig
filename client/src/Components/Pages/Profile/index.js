@@ -231,8 +231,8 @@ export default class Profile extends Component {
       comments,
       commentsLoaded,
       level,
-      contractorAnswers,
       reviewsLast30Days,
+      contractorAnswers,
       FilteredReviewMonths,
       organizationID
     } = this.state;
@@ -264,6 +264,7 @@ export default class Profile extends Component {
           level={level}
           reviewsLast30Days={reviewsLast30Days}
           handleScroll={this.handleScroll}
+          orgId={organizationID}
           contractorAnswers={contractorAnswers}
           awaitingReview={awaitingReview}
           FilteredReviewMonths={FilteredReviewMonths}
