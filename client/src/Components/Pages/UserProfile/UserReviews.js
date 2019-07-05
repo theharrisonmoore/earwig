@@ -86,7 +86,8 @@ const Cancel = styled.p`
 
 export default class UserReviews extends Component {
   state = {
-    reviews: []
+    reviews: [],
+    isLoading: false
   };
   async componentDidMount() {
     this.getUserReviews();
@@ -94,11 +95,18 @@ export default class UserReviews extends Component {
 
   getUserReviews = async () => {
     try {
+      this.setState({
+        isLoading: true
+      });
       const res = await axios.get("/api/reviews");
       this.setState({
-        reviews: res.data
+        reviews: res.data,
+        isLoading: false
       });
     } catch (error) {
+      this.setState({
+        isLoading: false
+      });
       message.error(error);
     }
   };
@@ -124,7 +132,8 @@ export default class UserReviews extends Component {
   };
 
   render() {
-    const { reviews } = this.state;
+    const { reviews, isLoading } = this.state;
+
     return (
       <Wrapper>
         <BorderedWrapper>
@@ -137,46 +146,56 @@ export default class UserReviews extends Component {
           </Paragraph>
 
           <div>
-            {reviews.length ? (
-              reviews.map(review => {
-                return (
-                  <ReviewItem data-id={review._id}>
-                    <Icon
-                      icon={review.organization.category}
-                      margin="0 1rem 0 0"
-                      height="2rem"
-                      width="2rem"
-                      color="grey"
-                    />
-                    <p style={{ width: "50%" }}>{review.organization.name}</p>
-                    <p style={{ width: "15%" }}>
-                      {moment(review.createdAt).format("ll")}
-                    </p>
-                    <ActionGroup style={{ width: "15%", textAlign: "right" }}>
-                      <Link to={`/review/${review._id}`}>
-                        <Cancel>Edit</Cancel>
-                      </Link>
-                      <span>
-                        <Popconfirm
-                          title="Are you sure delete this review?"
-                          onConfirm={() => this.confirm(review._id)}
-                          onCancel={this.cancel}
-                          okText="Yes"
-                          cancelText="No"
-                          data-review-id={review._id}
-                        >
-                          <Cancel>Delete</Cancel>
-                        </Popconfirm>
-                      </span>
-                    </ActionGroup>
-                  </ReviewItem>
-                );
-              })
+            {isLoading ? (
+              <div>Loading...</div>
             ) : (
-              <div>
-                You have no reivews yet. You can add your review from&nbsp;
-                <Link to={"/search"}>here</Link>
-              </div>
+              <>
+                {reviews.length ? (
+                  reviews.map(review => {
+                    return (
+                      <ReviewItem data-id={review._id}>
+                        <Icon
+                          icon={review.organization.category}
+                          margin="0 1rem 0 0"
+                          height="2rem"
+                          width="2rem"
+                          color="grey"
+                        />
+                        <p style={{ width: "50%" }}>
+                          {review.organization.name}
+                        </p>
+                        <p style={{ width: "15%" }}>
+                          {moment(review.createdAt).format("ll")}
+                        </p>
+                        <ActionGroup
+                          style={{ width: "15%", textAlign: "right" }}
+                        >
+                          <Link to={`/review/${review._id}/edit`}>
+                            <Cancel>Edit</Cancel>
+                          </Link>
+                          <span>
+                            <Popconfirm
+                              title="Are you sure delete this review?"
+                              onConfirm={() => this.confirm(review._id)}
+                              onCancel={this.cancel}
+                              okText="Yes"
+                              cancelText="No"
+                              data-review-id={review._id}
+                            >
+                              <Cancel>Delete</Cancel>
+                            </Popconfirm>
+                          </span>
+                        </ActionGroup>
+                      </ReviewItem>
+                    );
+                  })
+                ) : (
+                  <div>
+                    You have no reivews yet. You can add your review from&nbsp;
+                    <Link to={"/search"}>here</Link>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </BorderedWrapper>
