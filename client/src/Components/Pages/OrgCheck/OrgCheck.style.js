@@ -4,12 +4,14 @@ import { colors, organizations, borders, shadows } from "./../../../theme"
 
 export const Wrapper = styled.div`
   width: 100%;
+  height: 100%;
   min-height: 100vh;
   background-color: ${props => props.orgType ? organizations[`${props.orgType}`].primary : colors.white };
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow: scroll;
 `
 
 export const QuestionWrapper = styled.div`
@@ -32,13 +34,7 @@ export const Question = styled.h1`
   font-weight: 400;
   line-height: 2.5rem;
   text-align: left;
-  color: ${colors.white}
-`
-
-export const InputWrapper = styled.input`
-  width: 300px;
-  height: 4.5rem
-  margin-bottom: 2rem;
+  color: ${colors.white};
 `
 
 export const StatusButton = styled.button`
@@ -50,6 +46,6 @@ export const StatusButton = styled.button`
   font-weight: 700;
   cursor: pointer;
   color: ${colors.profileFontColor};
-
+  margin-top: 2rem;
 `
 

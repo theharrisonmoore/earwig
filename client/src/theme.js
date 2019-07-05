@@ -124,7 +124,7 @@ export const gradient = {
 };
 
 export const borders = {
-  searchBox: `1px solid ${colors.lightGray}`,
+  searchBox: `2px solid ${colors.black}`,
   buttonBox: `1px solid ${colors.black}`,
   commentBox: `1px solid ${colors.veryLightGray}`
 };

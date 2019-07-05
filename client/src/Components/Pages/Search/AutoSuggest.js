@@ -38,7 +38,7 @@ import { organizationIcons, organizations } from "./../../../theme";
 // functions
 
 // gets called when a suggestion gets clicked
-export const getSuggestionValue = suggestion => suggestion.name;
+export const getSuggestionValue = suggestion => "";
 
 // compares the user's input value and the entries (organisations) and filters the data array accordingly
 
@@ -72,8 +72,14 @@ export const getSuggestions = (value, organisationsArray) => {
 class AutosuggestComponent extends Component {
   state = {
     value: "",
-    suggestions: []
+    suggestions: [],
+    isButton: false,
   };
+
+  componentDidMount() {
+    const { isButton } = this.props;
+    this.setState({ isButton })
+  }
 
   // functions for autosuggest component
 
@@ -118,20 +124,25 @@ class AutosuggestComponent extends Component {
   // renders individual suggestions
   renderSuggestion = suggestion => {
     // check if no suggestion is available and returns so that renderSuggestionsContainer function is still being called (gets deactivated otherwise)
+
+    // also need to check if button to see if we make it a link or not
+    // THIS RELATES TO THE ORGCHECK COMPONENT
+    const { isButton, storeOrg, noIcon } = this.props;
+
     if (suggestion.isEmpty) {
       return null;
     }
     return (
-      <ProfileLink to={`/profile/${suggestion._id}`}>
+      <ProfileLink to={isButton ? "#" : `/profile/${suggestion._id}`} onClick={() => isButton && storeOrg(suggestion) }>
         <SuggestionBox orgType={suggestion.category}>
           <InnerDivSuggestions>
             <SymbolDiv>
-              <Icon
+              {!noIcon && <Icon
                 icon="search"
                 height="1.5rem"
                 width="1.5rem"
                 margin="0 1rem 0 0"
-              />
+              />}
               <Icon
                 icon={suggestion.category}
                 height="1.5rem"
@@ -203,7 +214,9 @@ class AutosuggestComponent extends Component {
       placeholderText,
       isMobile,
       bool,
-      iconTop
+      iconTop,
+      noIcon,
+      isButton
     } = this.props;
 
     const inputProps = {
@@ -213,17 +226,18 @@ class AutosuggestComponent extends Component {
       onKeyPress: this.onKeyPress
     };
 
-    // limits suggestions to 10 results
+    // decide the number of suggestions rendered
+    const suggestionLimit = 10;
 
-    const filteredSuggestions = suggestions.slice(0, 10);
+    const filteredSuggestions = suggestions.slice(0, suggestionLimit);
     // console.log(suggestions);
     return (
-      <AutosuggestWrapper height={height} width={width}>
-        <IconDiv
+      <AutosuggestWrapper height={height} width={width} noIcon>
+        {!noIcon && <IconDiv
           iconTop={iconTop}
           bgr={this.selectIconBgr(value)}
           onClick={this.delSearchInput}
-        />
+        />}
         {/* on mobile disable shouldRenderSuggestions as we don't want automatic suggestion rendering as it hides most of the screen */}
         {isMobile ? (
           <Autosuggest
@@ -234,6 +248,7 @@ class AutosuggestComponent extends Component {
             renderSuggestion={this.renderSuggestion}
             inputProps={inputProps}
             renderSuggestionsContainer={this.renderSuggestionsContainer}
+
           />
         ) : (
           <Autosuggest

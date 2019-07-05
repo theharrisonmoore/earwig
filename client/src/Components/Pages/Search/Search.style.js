@@ -35,8 +35,6 @@ outline: none;
 }
 .${classNames.containerOpen} {
   border: ${borders.searchBox};
-  box-shadow: ${shadows.searchShadow};
-  border-radius: 10px;
   height: ${props => props.height};
   padding: 10px 20px;
   font-weight: 300;
@@ -48,7 +46,7 @@ outline: none;
 }
 
 input {
-  text-indent: 45px;
+  text-indent: ${props => props.noIcon ? "0px" : "45px"};
 }
 
 .${classNames.containerInputOpen} {
