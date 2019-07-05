@@ -23,6 +23,7 @@ class ModalComment extends React.Component {
   };
 
   handleOk = async () => {
+    const { number } = this.props;
     const { category } = this.props;
     let orgCategory = "";
     if (category === "agency") {
@@ -34,20 +35,14 @@ class ModalComment extends React.Component {
     }
 
     if (this.props.comment) {
-      this.props.setFieldValue(
-        `comments[${this.props.number}]`,
-        this.state.text
-      );
+      this.props.setFieldValue(this.state.text, number);
     } else {
       await axios.post("/api/organizations", {
         name: this.state.text,
         active: false,
         category: orgCategory
       });
-      this.props.setFieldValue(
-        `questions[${this.props.number}]`,
-        this.state.text
-      );
+      this.props.setFieldValue(this.state.text, number);
     }
     this.setState({
       visible: false,

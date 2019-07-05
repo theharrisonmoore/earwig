@@ -60,18 +60,12 @@ class DateRange extends React.Component {
 
   onStartChange = value => {
     this.onChange("startValue", value);
-    this.props.setFieldValue(
-      "review.workPeriod.from",
-      value && value.format("YYYY-MM-DD")
-    );
+    this.props.handleChange("from", value && value.format("YYYY-MM-DD"));
   };
 
   onEndChange = value => {
     this.onChange("endValue", value);
-    this.props.setFieldValue(
-      "review.workPeriod.to",
-      value && value.format("YYYY-MM-DD")
-    );
+    this.props.handleChange("to", value && value.format("YYYY-MM-DD"));
   };
 
   handleStartOpenChange = open => {
@@ -95,6 +89,21 @@ class DateRange extends React.Component {
           justifyContent: "space-around"
         }}
       >
+        {/* <DatePicker.MonthPicker
+          disabledDate={this.disabledStartDate}
+          value={startValue || this.props.review.workPeriod.from}
+          placeholder="Start"
+          onChange={this.onStartChange}
+          onOpenChange={this.handleStartOpenChange}
+        />
+        <DatePicker.MonthPicker
+          disabledDate={this.disabledEndDate}
+          value={endValue || this.props.review.workPeriod.to}
+          placeholder="End"
+          onChange={this.onEndChange}
+          open={endOpen}
+          onOpenChange={this.handleEndOpenChange}
+        /> */}
         <div
           style={{
             display: "flex",
@@ -105,7 +114,7 @@ class DateRange extends React.Component {
           <label htmlFor="start">From</label>
           <DatePicker.MonthPicker
             disabledDate={this.disabledStartDate}
-            value={startValue}
+            value={startValue || this.props.review.workPeriod.from}
             placeholder="Start"
             onChange={this.onStartChange}
             onOpenChange={this.handleStartOpenChange}
@@ -122,7 +131,7 @@ class DateRange extends React.Component {
           <label htmlFor="end">To</label>
           <DatePicker.MonthPicker
             disabledDate={this.disabledEndDate}
-            value={endValue}
+            value={endValue || this.props.review.workPeriod.to}
             placeholder="End"
             onChange={this.onEndChange}
             open={endOpen}

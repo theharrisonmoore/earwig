@@ -2,11 +2,15 @@ const boom = require("boom");
 
 const {
   getQuetionsByOrg,
+  getOrganizationById,
   getOrganization,
   getQuestionsByOrgCategory,
   postOrg,
   getOrgsNamesByType,
   getAgenciesAndPayrollsNames,
+  getReviewDetails,
+  findReviewById,
+  findReviewByIdAndUpdate,
 } = require("../database/queries/review");
 const { findByEmail } = require("../database/queries/user");
 
@@ -15,7 +19,10 @@ const Answer = require("../database/models/Answer");
 const Comment = require("../database/models/Comment");
 
 const getByOrg = async (req, res, next) => {
-  const { organization: category } = req.query;
+  const { _id: userId } = req.user;
+  const { id: orgId } = req.params;
+
+  const { category, name } = await getOrganizationById(orgId);
 
   try {
     let dropDownListData;
@@ -27,8 +34,13 @@ const getByOrg = async (req, res, next) => {
       dropDownListData = await getOrgsNamesByType("worksite");
     }
 
+    const getReviewAnswers = await getReviewDetails(orgId, userId);
+
+
     const groups = await getQuetionsByOrg(category);
-    res.json({ groups, dropDownListData });
+    res.json({
+      groups, dropDownListData, getReviewAnswers, organization: { name, category },
+    });
   } catch (err) {
     next(boom.badImplementation());
   }
@@ -41,6 +53,7 @@ const postReviewShort = async (req, res, next) => {
     },
   } = req.body.values;
   const { user, organization } = req.body;
+
 
   try {
     const organizationData = await getOrganization(organization.category, organization.name);
@@ -65,13 +78,14 @@ const postReviewShort = async (req, res, next) => {
 
 const postReview = async (req, res, next) => {
   const {
-    questions: questionsAnswers,
+    answers: questionsAnswers,
     review: {
       rate, overallReview, workPeriod, voiceReview,
     },
     comments,
   } = req.body.values;
-  const { user, organization } = req.body;
+  const { organization } = req.body;
+  const { user } = req;
 
   try {
     const organizationData = await getOrganization(organization.category, organization.name);
@@ -152,6 +166,54 @@ const postReview = async (req, res, next) => {
   }
 };
 
+
+const updateReview = async (req, res, next) => {
+  const {
+    answers: questionsAnswers,
+    review: {
+      rate, overallReview, workPeriod,
+    },
+  } = req.body.values;
+  const { organization } = req.body;
+  const { id: reviewId } = req.params;
+
+  try {
+    const questions = await getQuestionsByOrgCategory(organization.category);
+
+    const questionsObject = {};
+    questions.forEach((q) => {
+      if (!questionsObject[q.number]) {
+        questionsObject[q.number] = q;
+      }
+    });
+
+
+    await findReviewByIdAndUpdate(reviewId, { rate, text: overallReview, workPeriod });
+
+    const reviewAnswers = Object.keys(questionsAnswers)
+      .sort((a, b) => a - b)
+      .map((qAnswer) => {
+        if (questionsAnswers[qAnswer]) {
+          const answer = {
+            question: questionsObject[qAnswer]._id,
+            answer: questionsAnswers[qAnswer],
+          };
+          return answer;
+        }
+        return null;
+      });
+
+    const allAnswers = [...reviewAnswers].filter(answer => answer !== null);
+
+    allAnswers.forEach(async (ans) => {
+      await Answer.updateOne({ review: reviewId, question: ans.question }, { answer: ans.answer }, { upsert: true });
+    });
+    res.send();
+  } catch (err) {
+    next(boom.badImplementation());
+  }
+};
+
 /* not used now */
 const addNewOrg = async (req, res, next) => {
   const { name, category } = req.body;
@@ -190,4 +252,5 @@ module.exports = {
   getOrgsByType,
   getAgencesAndPayrollsNames,
   postReviewShort,
+  updateReview,
 };

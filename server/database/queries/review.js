@@ -1,5 +1,7 @@
+const { Types: { ObjectId } } = require("mongoose");
 const Question = require("../models/Question");
 const Organization = require("../models/Organization");
+const Review = require("../models/Review");
 
 
 // return the questions grouped by Org. category
@@ -29,6 +31,7 @@ const getQuetionsByOrg = org => Question.aggregate([
 
 
 const getOrganization = (category, name) => Organization.findOne({ category, name });
+const getOrganizationById = orgId => Organization.findById(orgId);
 
 const getQuestionsByOrgCategory = category => Question.find({ category }).sort({ number: 1 });
 
@@ -67,12 +70,56 @@ const postOrg = (category, name) => {
   return org.save();
 };
 
+
+const getReviewDetails = (org, user) => Review.aggregate([
+  {
+    $match: { organization: ObjectId(org), user: ObjectId(user) },
+  },
+  {
+    $sort: { createdAt: -1 },
+  },
+  {
+    $limit: 1,
+  },
+  {
+    $lookup: {
+      from: "answers",
+      let: { reviewId: "$_id" },
+      pipeline: [
+        {
+          $match:
+          {
+            $expr: { $eq: ["$review", "$$reviewId"] },
+          },
+        },
+        {
+          $lookup: {
+            from: "questions",
+            localField: "question",
+            foreignField: "_id",
+            as: "question",
+          },
+        },
+      ],
+      as: "answers",
+    },
+  },
+]);
+
+
+const findReviewById = reviewId => Review.findOne({ _id: reviewId });
+const findReviewByIdAndUpdate = (reviewId, { rate, text, workPeriod }) => Review.findOneAndUpdate({ _id: reviewId }, { rate, workPeriod, "overallReview.text": text }, { new: true });
+
 module.exports = {
   getQuetionsByOrg,
+  getOrganizationById,
   getOrganization,
   getQuestionsByOrgCategory,
   getOrganizationsByType,
   getOrgsNamesByType,
   getAgenciesAndPayrollsNames,
   postOrg,
+  getReviewDetails,
+  findReviewById,
+  findReviewByIdAndUpdate,
 };

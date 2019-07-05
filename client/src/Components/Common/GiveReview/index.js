@@ -14,12 +14,11 @@ import Icon from "./../Icon/Icon";
 
 import { colors } from "./../../../theme";
 
-import { REVIEW_URL } from "../../../constants/naviagationUrls";
-
 export default class GiveReview extends Component {
   render() {
     const {
       category,
+      orgId,
       isMobile,
       isTablet,
       state,
@@ -40,7 +39,7 @@ export default class GiveReview extends Component {
           <Time>2 mins</Time>
           <FullLink
             to={{
-              pathname: REVIEW_URL,
+              pathname: `/organization/${orgId}/review`,
               state: state
             }}
             disabled={reviewNotAllowed}
