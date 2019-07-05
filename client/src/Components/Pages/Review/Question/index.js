@@ -68,6 +68,7 @@ const Question = props => {
         question={props.question}
         state={props.state}
         runValidation={props.runValidation}
+        handleReviewChange={props.handleReviewChange}
       />
     </QuestionWrapper>
   );

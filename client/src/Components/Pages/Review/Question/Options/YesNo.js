@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import { Map } from "immutable";
-import { ErrorMessage } from "formik";
+import { Input } from "antd";
 
-import ModalComment from "../../../../Common/AntdComponents/ModalComment";
-import Icon from "../../../../Common/Icon/Icon";
 import {
   QuestionOptionsWrapper,
   InputWrapper,
   Options,
-  CommentsIcon,
-  StyledErrorMessage,
   StyledInput
 } from "../Question.style";
 
 class YesNo extends Component {
+  state = { showComment: false };
   shouldComponentUpdate(nextProps, nextState) {
-    if (Map(this.props.state.answers).equals(Map(nextProps.state.answers))) {
+    if (
+      Map(this.props.state.answers).equals(Map(nextProps.state.answers)) &&
+      Map(this.props.state.comments).equals(Map(nextProps.state.comments))
+    ) {
       return false;
     }
     return true;
@@ -69,6 +69,17 @@ class YesNo extends Component {
                         showNextQestion(groupId, nextQ, other, number);
                       }
                       handleChange(e);
+
+                      // toggle showCommetn on and off (only show it when asnwer is "No")
+                      if (e.target.value === "No") {
+                        this.setState({
+                          showComment: true
+                        });
+                      } else {
+                        this.setState({
+                          showComment: false
+                        });
+                      }
                     }}
                     checked={
                       state.answers && state.answers[question.number] === option
@@ -77,22 +88,6 @@ class YesNo extends Component {
                     }
                   />
                   <StyledInput
-                    // onClick={() => {
-                    //   if (typeof next === "object" && next !== null) {
-                    //     let nextQ = next["yes"];
-                    //     let other = next["no"];
-                    //     if (
-                    //       option === "No" ||
-                    //       option.includes("know") ||
-                    //       option.includes("need") ||
-                    //       option.includes("check")
-                    //     ) {
-                    //       nextQ = next["no"];
-                    //       other = next["yes"];
-                    //     }
-                    //     showNextQestion(groupId, nextQ, other, number);
-                    //   }
-                    // }}
                     htmlFor={`${option}-${question.number}`}
                     className={`yesno options-3`}
                   >
@@ -102,25 +97,16 @@ class YesNo extends Component {
               );
             })}
           </div>
-          {hasComment && (
-            <ModalComment
-              title="Enter you comment here"
-              setFieldValue={this.props.setFieldValue}
-              number={number}
-              comment
-              render={props => {
-                return (
-                  <CommentsIcon hasValue={!!props.submittedText}>
-                    <Icon icon="addComment" />
-                  </CommentsIcon>
-                );
-              }}
+          {hasComment && this.state.showComment && (
+            <Input.TextArea
+              placeholder="Add a comment..."
+              onChange={this.props.handleReviewChange}
+              data-type="comments"
+              value={state.comments[question.number]}
+              name={question.number}
             />
           )}
         </Options>
-        <ErrorMessage name={`questions[${number}]`}>
-          {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
-        </ErrorMessage>
       </QuestionOptionsWrapper>
     );
   }
