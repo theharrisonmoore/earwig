@@ -40,7 +40,8 @@ export default class AllReviews extends Component {
     data: [],
     visible: false,
     id: "",
-    exportData: ""
+    exportData: "",
+    exportQuestionHeaders: "",
   };
 
   getColumnSearchProps = dataIndex => ({
@@ -168,12 +169,13 @@ export default class AllReviews extends Component {
       <Wrapper>
         <StyledCSVLink
           data={this.state.exportData}
+          headers={this.state.exportQuestionHeaders}
           asyncOnClick={true}
           onClick={(event, done) => {
             axios
               .get("/api/admin/export-all-reviews")
               .then(({ data }) => {
-                this.setState({ exportData: data }, () => done());
+                this.setState({ exportData: data.cleanedReviews, exportQuestionHeaders: data.headers }, () => done());
               })
               .catch(err => {
                 const error =

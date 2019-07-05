@@ -76,7 +76,7 @@ module.exports = () => Answer.aggregate([
       "Review date": "$reviewDetails.createdAt",
       "Overall star rating": "$reviewDetails.rate",
       "Overall Review": "$reviewDetails.overallReview.text",
-      "User ID": "$user.userId",
+      "earwig ID": "$user.userId",
       "Unique User ID": "$user._id",
       "Town or City": "$user.city",
       "Points earned": "$user.points",
@@ -91,6 +91,7 @@ module.exports = () => Answer.aggregate([
       "answers.answer": 1,
       "answers.comment": 1,
       "answers.question.text": 1,
+      "answers.question.category": 1,
     },
   },
 ]);

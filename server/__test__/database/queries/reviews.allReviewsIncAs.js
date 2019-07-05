@@ -21,12 +21,12 @@ describe("Test getAllReviewsIncAnswers query", () => {
       expect(result).toBeDefined();
       expect(result[0].answers).toBeDefined();
       expect(result[0].answers[0].answer).toBeDefined();
-      expect(result[0].entityName).toBeDefined();
-      expect(result[0].givenReviews).toBeDefined();
-      expect(result[0].workedFrom).toBeDefined();
-      expect(result[0].trade).toBeDefined();
-      expect(result[0].peopleHelped).toBeDefined();
-      expect(result[0].userId).toBeDefined();
+      expect(result[0]["Entity name").toBeDefined();
+      expect(result[0]["Reviews given"]).toBeDefined();
+      expect(result[0]["Date from"]).toBeDefined();
+      expect(result[0]["Points earned"]).toBeDefined();
+      expect(result[0]["People earned"]).toBeDefined();
+      expect(result[0]["Town or City"]).toBeDefined();
       done();
     });
   });

@@ -498,3 +498,12 @@ module.exports.checkUsersLatestReview = (organization, user) => new Promise((res
     .then(result => resolve(result))
     .catch(err => reject(err));
 });
+
+module.exports.getAllQs = () => Question.aggregate([
+  {
+    $project: {
+      text: 1,
+      category: 1,
+    }
+  }
+])
