@@ -5,9 +5,12 @@ import axios from "axios";
 import Icon from "./../../Common/Icon/Icon"
 import CancelNavbar from "./../../Common/CancelNavbar"
 import Loading from "./../../Common/AntdComponents/Loading";
+import Button from "./../../Common/Button";
 
 // STYLING
-import { Wrapper, QuestionWrapper, QuestionHeader, Question, InputWrapper, StatusButton } from "./OrgCheck.style.js"
+import { Wrapper, QuestionWrapper, QuestionHeader, Question, InputWrapper, StatusButton, ConfirmWrapper, PurpleDiv, ContentWrapper, Row, OrgText, ConfirmQuestion } from "./OrgCheck.style.js"
+
+import { organizations } from "./../../../theme"
 
 // API ROUTES
 import { API_SEARCH_URL } from "../../../apiUrls";
@@ -55,6 +58,9 @@ export default class index extends Component {
         case "worksite":
         newSection = "company";
         break;
+        case "company":
+        newSection = "confirm";
+        break;
         default:
         newSection = section;
       }
@@ -68,6 +74,9 @@ export default class index extends Component {
         break;
         case "company":
         newSection = "worksite";
+        break;
+        case "confirm":
+        newSection = "company";
         break;
         default:
         newSection = section;
@@ -86,11 +95,14 @@ export default class index extends Component {
 
   render() {
     const { section, isLoaded, data, fields } = this.state
+    const { history } = this.props;
 
     if (!isLoaded) return <Loading />;
     return (
-      <Wrapper orgType={section}>
-        <QuestionWrapper>
+      <>
+        {section !== "agency" && <CancelNavbar CancelText="Back" customAction={() => this.sectionChange("back")} history={history} />}
+       {section != "confirm" ? (<Wrapper orgType={section}>
+       <QuestionWrapper>
           <QuestionHeader>
             <Icon icon={section} color="white" width="76px" height="76px" margin="0 24px 0 0" alt="icon" />
             {["agency", "payroll"].includes(section) && <Question>Which {section} are you using right now?</Question>}
@@ -109,8 +121,49 @@ export default class index extends Component {
               noIcon
             />
           <StatusButton type="button" onClick={() =>this.storeOrg("None")}>{section === "agency" ? `I'm not using an agency` : `I'm not using a ${section}` }</StatusButton>
-         </QuestionWrapper>
-      </Wrapper>
+         </QuestionWrapper>)
+      </Wrapper> ): (
+        <ConfirmWrapper>
+          <PurpleDiv />
+          <ContentWrapper>
+            <ConfirmQuestion confirm>Is this correct?</ConfirmQuestion>
+            <Row orgType="agency">
+              <Icon icon="agency" width="1.25rem" height="1.25rem" margin="0 1rem 0 0"/>
+              {fields.agency === "None" ? (
+                <OrgText noOrg>You're not using an agency</OrgText>
+              ) : (
+                <OrgText>fields.agency.name</OrgText>
+              )}
+            </Row>
+            <Row orgType="payroll">
+              <Icon icon="payroll" width="1.25rem" height="1.25rem" margin="0 1rem 0 0"/>
+              {fields.payroll === "None" ? (
+                <OrgText noOrg>You're not using a payroll</OrgText>
+              ) : (
+                <OrgText>fields.payroll.name</OrgText>
+              )}
+            </Row>
+            <Row orgType="worksite">
+              <Icon icon="worksite" width="1.25rem" height="1.25rem" margin="0 1rem 0 0"/>
+              {fields.worksite === "None" ? (
+                <OrgText noOrg>You're not using a worksite</OrgText>
+              ) : (
+                <OrgText>fields.worksite.name</OrgText>
+              )}
+            </Row>
+            <Row orgType="company">
+              <Icon icon="company" width="1.25rem" height="1.25rem" margin="0 1rem 0 0"/>
+              {fields.company === "None" ? (
+                <OrgText noOrg>You're not using a company</OrgText>
+              ) : (
+                <OrgText>fields.company.name</OrgText>
+              )}
+            </Row>
+            <Button left>Yep, that's correct</Button>
+          </ContentWrapper>
+        </ConfirmWrapper>
+         )}
+      </>
     )
   }
 }
