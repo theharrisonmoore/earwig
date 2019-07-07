@@ -242,7 +242,7 @@ router.patch(ADD_HELPFUL_OVERALL_POINTS, authentication, updateOverallHelpfulPoi
 
 router.get(USERS_TRADE, authentication, getUsersTrade)
 
-router.post(SET_ORGS, authentication, validation("setCurrentOrgs"), setCurrentOrgs)
+router.post(SET_ORGS, authentication, setCurrentOrgs)
 
 router.get(GET_USER_ORGS, authentication, getCurrentOrgs)
 
