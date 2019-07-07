@@ -10,8 +10,7 @@ const {
 } = require("./../database/queries/reviews");
 
 module.exports = async (req, res, next) => {
-  const { organizationID } = req.body;
-
+  const { organizationID } = req.params;
   const { user } = req;
   try {
     // check organisation exists

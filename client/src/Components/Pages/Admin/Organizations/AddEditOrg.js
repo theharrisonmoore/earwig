@@ -26,10 +26,15 @@ export default class AddEditOrg extends Component {
   };
 
   componentDidMount() {
-    const { purpose, location } = this.props;
-    const { record } = location.state;
+    const {
+      purpose,
+      location,
+      record: recordProps,
+      purpose: purposeProps
+    } = this.props;
+    const record = recordProps ? recordProps : location.state;
 
-    if (purpose === "edit" && record) {
+    if ((purpose === "edit" || purposeProps === "edit") && record) {
       // remove any values that are simply N/A
       const cleanRecord = record;
       const dataArr = Object.entries(cleanRecord);

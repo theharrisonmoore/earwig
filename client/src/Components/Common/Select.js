@@ -30,6 +30,7 @@ class CustomizedSelects extends React.Component {
       addHandler,
       isCreateNew,
       showSearch,
+      value,
       ...rest
     } = this.props;
     return (
@@ -45,6 +46,7 @@ class CustomizedSelects extends React.Component {
           style={{
             width: "100%"
           }}
+          value={value || undefined}
           size="large"
           dropdownRender={menu =>
             isCreateNew ? (

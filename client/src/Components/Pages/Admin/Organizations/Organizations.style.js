@@ -49,3 +49,26 @@ export const ErrorMsg = styled.div`
   color: ${colors.red};
   margin-bottom: 1rem;
 `;
+
+export const SelectsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 3rem auto;
+  align-items: space-around;
+
+  & > div {
+    margin: 1rem auto;
+    width: 50%;
+  }
+`;
+
+export const Paragraph = styled.p`
+  font-size: 1.25rem;
+  text-align: left;
+  margin-bottom: 0;
+  text-align: center;
+
+  span {
+    font-weight: 700;
+  }
+`;
