@@ -34,6 +34,15 @@ module.exports.updateUserById = (userId, data) => User.findByIdAndUpdate(
   // return the updated document
   { new: true },
 );
+
+module.exports.deleteUserFields = (userId, data) => User.findByIdAndUpdate(
+  userId, 
+  { $unset: data}, 
+  // return the updated document
+  { new: true },
+);
+
+
 module.exports.findByEmail = email => User.findOne({ email: email.toLowerCase() });
 
 module.exports.addNew = userData => User.create(userData);

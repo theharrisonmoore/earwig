@@ -13,7 +13,10 @@ import { Wrapper, QuestionWrapper, QuestionHeader, Question, InputWrapper, Statu
 import { organizations } from "./../../../theme"
 
 // API ROUTES
-import { API_SEARCH_URL } from "../../../apiUrls";
+import { API_SEARCH_URL, API_SET_ORGS } from "../../../apiUrls";
+
+// NAV ROUTES
+import { WELCOME_URL } from "../../../constants/naviagationUrls"
 
 import AutosuggestComponent from "../../Pages/Search/AutoSuggest";
 
@@ -93,6 +96,20 @@ export default class index extends Component {
     this.sectionChange("forward")
   }
 
+  setCurrentOrgs = () => {
+    const { fields } = this.state;
+    const { history } = this.props;
+
+    // set up object to send to server
+    const currentOrgs = { currentAgency: fields.agency, currentPayroll: fields.payroll, currentWorksite: fields.worksite, currentCompany: fields.company }
+
+    const answers = Object.entries(currentOrgs)
+
+    answers.map(answer => answer[1] === "None" && delete currentOrgs[answer[0]])
+
+    axios.post(API_SET_ORGS, currentOrgs).then(() => history.push(WELCOME_URL)).catch(err => console.log(err))
+  }
+
   render() {
     const { section, isLoaded, data, fields } = this.state
     const { history } = this.props;
@@ -132,7 +149,7 @@ export default class index extends Component {
               {fields.agency === "None" ? (
                 <OrgText noOrg>You're not using an agency</OrgText>
               ) : (
-                <OrgText>fields.agency.name</OrgText>
+                <OrgText>{fields.agency.name}</OrgText>
               )}
             </Row>
             <Row orgType="payroll">
@@ -140,7 +157,7 @@ export default class index extends Component {
               {fields.payroll === "None" ? (
                 <OrgText noOrg>You're not using a payroll</OrgText>
               ) : (
-                <OrgText>fields.payroll.name</OrgText>
+                <OrgText>{fields.payroll.name}</OrgText>
               )}
             </Row>
             <Row orgType="worksite">
@@ -148,7 +165,7 @@ export default class index extends Component {
               {fields.worksite === "None" ? (
                 <OrgText noOrg>You're not using a worksite</OrgText>
               ) : (
-                <OrgText>fields.worksite.name</OrgText>
+                <OrgText>{fields.worksite.name}</OrgText>
               )}
             </Row>
             <Row orgType="company">
@@ -156,10 +173,10 @@ export default class index extends Component {
               {fields.company === "None" ? (
                 <OrgText noOrg>You're not using a company</OrgText>
               ) : (
-                <OrgText>fields.company.name</OrgText>
+                <OrgText>{fields.company.name}</OrgText>
               )}
             </Row>
-            <Button left>Yep, that's correct</Button>
+            <Button left onClick={this.setCurrentOrgs}>Yep, that's correct</Button>
           </ContentWrapper>
         </ConfirmWrapper>
          )}

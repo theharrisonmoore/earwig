@@ -250,6 +250,12 @@ const schemas = {
       .required(),
     target: Joi.string().required(),
   },
+  setCurrentOrgs: {
+    currentAgency: Joi.object(),
+    currentPayroll: Joi.object(),
+    currentWorksite: Joi.object(),
+    currentCompany: Joi.object(),
+  }
 };
 
 module.exports = route => (req, res, next) => {

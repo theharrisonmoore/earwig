@@ -56,6 +56,8 @@ const checkIfEditReview = require("../controllers/checkIfCanEdit");
 
 const getUsersTrade = require("../controllers/getUsersTrade")
 
+const setCurrentOrgs = require("../controllers/setCurrentOrgs")
+
 
 const {
   LOGIN_URL,
@@ -78,7 +80,8 @@ const {
   RESET_PASSWORD,
   SET_PASSWORD,
   ADD_HELPFUL_OVERALL_POINTS,
-  USERS_TRADE
+  USERS_TRADE,
+  SET_ORGS
 } = require("../../client/src/apiUrls");
 
 
@@ -236,5 +239,7 @@ router.post(SET_PASSWORD, setPassword);
 router.patch(ADD_HELPFUL_OVERALL_POINTS, authentication, updateOverallHelpfulPoints);
 
 router.get(USERS_TRADE, authentication, getUsersTrade)
+
+router.post(SET_ORGS, authentication, validation("setCurrentOrgs"), setCurrentOrgs)
 
 module.exports = router;

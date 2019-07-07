@@ -41,3 +41,4 @@ export const JOBS_URL = "/jobs";
 export const INVITE_WORKERS_URL = "/invite-workers";
 export const ORG_STATUS_URL_SIGNUP = "/getting-to-know-you";
 export const ORG_STATUS_URL_LOGIN = "/update";
+export const WELCOME_URL = "/welcome"
