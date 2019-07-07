@@ -40,10 +40,10 @@ describe("Tesing for setting current organizations", () => {
           .end(async (err, res) => {
             expect(res).toBeDefined()
             expect(res.body).toBeDefined()
-            expect(res.body.currentAgency).toBeDefined()
-            expect(res.body.currentPayroll).toBeDefined()
-            expect(res.body.currentWorksite).toBeDefined()
-            expect(res.body.currentCompany).toBeDefined()
+            expect(res.body.agency).toBeDefined()
+            expect(res.body.payroll).toBeDefined()
+            expect(res.body.worskite).toBeDefined()
+            expect(res.body.company).toBeDefined()
             done(err)
           });
       });
