@@ -3,9 +3,18 @@ import { Route, Switch } from "react-router-dom";
 
 import { routes } from "./../../../../constants/adminRoutes";
 import AllOrganizations from "./AllOrganizations";
+import ModifyOrg from "./ModifyOrg";
 import AddEditOrg from "./AddEditOrg";
 
-const { COMPANIES, AGENCIES, PAYROLLS, WORKSITES, ADDORG, EDITORG } = routes;
+const {
+  COMPANIES,
+  AGENCIES,
+  PAYROLLS,
+  WORKSITES,
+  ADDORG,
+  EDITORG,
+  MODIFY
+} = routes;
 export default class Organizations extends Component {
   render() {
     return (
@@ -39,6 +48,11 @@ export default class Organizations extends Component {
           exact
           path={EDITORG}
           render={props => <AddEditOrg purpose="edit" {...props} />}
+        />
+        <Route
+          exact
+          path={MODIFY}
+          render={props => <ModifyOrg category="all" {...props} />}
         />
       </Switch>
     );

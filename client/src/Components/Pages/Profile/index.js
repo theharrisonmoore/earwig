@@ -59,7 +59,7 @@ export default class Profile extends Component {
     const organizationID = window.location.href.split("/")[4];
 
     axios
-      .post("/api/profile", { organizationID })
+      .get(`/api/profile/${organizationID}`)
       .then(res => {
         const { summary, reviewDetails, level, reviewsLast30Days } = res.data;
 

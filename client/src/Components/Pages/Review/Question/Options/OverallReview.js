@@ -30,6 +30,7 @@ class OverallReview extends Component {
             style={{ border: `1px solid ${colors.inputBorder}` }}
             value={review.overallReview}
             onChange={handleChange}
+            data-type="review"
           />
         </Options>
         <ErrorMessage name={`review.overallReview`}>

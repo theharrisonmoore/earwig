@@ -215,10 +215,10 @@ class Review extends Component {
   };
 
   handleReviewChange = e => {
-    const { review } = this.state;
-    const { value } = e.target;
+    const { value, name } = e.target;
+    const { type } = e.target.dataset;
     this.setState({
-      review: { ...review, overallReview: value }
+      [type]: { ...this.state[type], [name]: value }
     });
   };
 
@@ -502,6 +502,7 @@ class Review extends Component {
                               handleChange={this.handleChange}
                               state={this.state}
                               handleSliderChange={this.handleSliderChange}
+                              handleReviewChange={this.handleReviewChange}
                             />
                           );
                         })}

@@ -5,11 +5,12 @@ export const routes = {
   USERS_VERIFY: "/admin/users/verify",
   USERS_VIEW: "/admin/users/view",
   REVIEWS: "/admin/reviews",
-  REVIEWS_ALL: "/admin/reviews/",
+  REVIEWS_ALL: "/admin/reviews",
   REVIEWS_VERIFY: "/admin/reviews/verify",
   SINGLE_REVIEW: "/admin/reviews/:id",
   TRADES: "/admin/trades",
   ORGANIZATIONS: "/admin/organizations",
+  MODIFY_PROFILES: "/admin/organizations/modify",
   COMPANIES: "/admin/organizations/companies",
   AGENCIES: "/admin/organizations/agencies",
   PAYROLLS: "/admin/organizations/payrolls",
@@ -88,6 +89,11 @@ export const menuElements = [
         title: "Payrolls",
         icon: "pay-circle",
         route: "/payrolls"
+      },
+      {
+        title: "Modify",
+        icon: "tool",
+        route: "/modify"
       }
     ]
   }

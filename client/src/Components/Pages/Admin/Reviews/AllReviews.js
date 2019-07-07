@@ -114,7 +114,14 @@ export default class AllReviews extends Component {
   }
 
   fetchData = () => {
-    const query = this.props.awaitingReview ? "?awaitingReview=true" : "";
+    const { organisationId, awaitingReview } = this.props;
+    let query = "";
+    if (organisationId) {
+      query = `?organisation=${organisationId}`;
+    } else if (awaitingReview) {
+      query = "?awaitingReview=true";
+    }
+
     axios
       .get(`/api/admin/reviews${query}`)
       .then(res => {
