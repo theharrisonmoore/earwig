@@ -42,6 +42,9 @@ import example from "./../../../assets/example.png";
 
 import { API_SIGN_UP } from "./../../../apiUrls";
 
+import { ORG_STATUS_URL_SIGNUP, WELCOME_URL } from "./../../../constants/naviagationUrls"
+
+
 const { API_TRADE_URL } = require("../../../apiUrls");
 
 // create custom function
@@ -183,10 +186,7 @@ export default class Signup extends Component {
   handleSubmit = (values, { setSubmitting }) => {
     const { referral } = this.props.match.params;
     const form = new FormData();
-
-    let { from } = this.props.location.state || {
-      from: { pathname: "/intro" }
-    };
+    const { isWorker } = this.state;
 
     if (referral) {
       values.referral = referral;
@@ -210,7 +210,8 @@ export default class Signup extends Component {
         })
           .then(({ data }) => {
             this.props.handleChangeState({ ...data, isLoggedIn: true });
-            this.props.history.push(from.pathname);
+            if (isWorker) { this.props.history.push(ORG_STATUS_URL_SIGNUP) } else { this.props.history.push(WELCOME_URL)
+            };
           })
           .catch(err => {
             this.setState({ error: err.response.data.error });

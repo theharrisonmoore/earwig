@@ -8,12 +8,12 @@ import Loading from "./../../Common/AntdComponents/Loading";
 import Button from "./../../Common/Button";
 
 // STYLING
-import { Wrapper, QuestionWrapper, QuestionHeader, Question, InputWrapper, StatusButton, ConfirmWrapper, PurpleDiv, ContentWrapper, Row, OrgText, ConfirmQuestion } from "./OrgCheck.style.js"
+import { Wrapper, QuestionWrapper, QuestionHeader, Question, StatusButton, ConfirmWrapper, PurpleDiv, ContentWrapper, Row, OrgText, ConfirmQuestion, StyledLink } from "./OrgCheck.style.js"
 
-import { organizations } from "./../../../theme"
+import { organizations, colors } from "./../../../theme"
 
 // API ROUTES
-import { API_SEARCH_URL, API_SET_ORGS } from "../../../apiUrls";
+import { API_SEARCH_URL, API_SET_ORGS, API_GET_USER_ORGS } from "../../../apiUrls";
 
 // NAV ROUTES
 import { WELCOME_URL } from "../../../constants/naviagationUrls"
@@ -27,11 +27,18 @@ export const axiosCall = async () => {
 
 export default class index extends Component {
   state = {
-    fields: {},
+    fields: {
+      agency: "None",
+      payroll: "None",
+      worksite: "None",
+      company: "None"
+    },
     signUp: true,
     section: "agency",
     data: null, 
     isLoaded: false,
+    loggingIn: false,
+    updating: true,
   }
 
   componentDidMount() {
@@ -44,6 +51,22 @@ export default class index extends Component {
       this.setState({ isLoaded: true })
       console.log(err)
     });
+
+
+    // check is logging in on signing up
+    const { loggingIn } = this.props;
+
+    if (loggingIn) { 
+      axios.get(API_GET_USER_ORGS)
+      .then(({data}) => {
+        const { fields} = this.state;
+
+        const fieldArr = Object.entries(data)
+        fieldArr.map(org => fields[org[0]] = org[1])
+        this.setState({ fields, loggingIn, section: "confirm", updating: false })
+      })
+      .catch(err => console.log(err))
+    } 
   }
 
   sectionChange = (direction) => {
@@ -89,6 +112,10 @@ export default class index extends Component {
     this.setState({ section: newSection })
   }
 
+  setSectionAsAgency = () => {
+    this.setState({ section: "agency", updating: true })
+  }
+
   storeOrg = value => {
     const { section, fields } = this.state;
     fields[section] = value
@@ -110,15 +137,44 @@ export default class index extends Component {
     axios.post(API_SET_ORGS, currentOrgs).then(() => history.push(WELCOME_URL)).catch(err => console.log(err))
   }
 
+  nothingToChange = () => {
+    const { history } = this.props;
+    history.push(WELCOME_URL)
+  }
+
+  decideColor = () => {
+    const { section } = this.state;
+    let color
+
+    switch (section) {
+        case "payroll":
+        color = organizations.agency.primary;
+        break;
+        case "worksite":
+        color = organizations.payroll.primary;
+        break;
+        case "company":
+        color = organizations.worksite.primary;
+        break;
+        case "confirm":
+        color = organizations.company.primary;
+        break;
+        default:
+        color = colors.profileFontColor;
+      }
+    
+    return color
+  }
+
   render() {
-    const { section, isLoaded, data, fields } = this.state
+    const { section, isLoaded, data, fields, updating } = this.state
     const { history } = this.props;
 
     if (!isLoaded) return <Loading />;
     return (
       <>
-        {section !== "agency" && <CancelNavbar CancelText="Back" customAction={() => this.sectionChange("back")} history={history} />}
-       {section != "confirm" ? (<Wrapper orgType={section}>
+        {section !== "agency" && <CancelNavbar cancelColor={this.decideColor} CancelText={!updating ? " " : "Back"} customAction={() => this.sectionChange("back")} history={history} />}
+       {section !== "confirm" ? (<Wrapper orgType={section}>
        <QuestionWrapper>
           <QuestionHeader>
             <Icon icon={section} color="white" width="76px" height="76px" margin="0 24px 0 0" alt="icon" />
@@ -143,7 +199,7 @@ export default class index extends Component {
         <ConfirmWrapper>
           <PurpleDiv />
           <ContentWrapper>
-            <ConfirmQuestion confirm>Is this correct?</ConfirmQuestion>
+            <ConfirmQuestion confirm>{!updating ? "Still working here?" : "Is this correct?"}</ConfirmQuestion>
             <Row orgType="agency">
               <Icon icon="agency" width="1.25rem" height="1.25rem" margin="0 1rem 0 0"/>
               {fields.agency === "None" ? (
@@ -176,7 +232,8 @@ export default class index extends Component {
                 <OrgText>{fields.company.name}</OrgText>
               )}
             </Row>
-            <Button left onClick={this.setCurrentOrgs}>Yep, that's correct</Button>
+            <Button left onClick={updating ? this.setCurrentOrgs : this.nothingToChange}>Yep, that's correct</Button>
+            {!updating && <StyledLink onClick={this.setSectionAsAgency}>No, I need to change something</StyledLink>}
           </ContentWrapper>
         </ConfirmWrapper>
          )}

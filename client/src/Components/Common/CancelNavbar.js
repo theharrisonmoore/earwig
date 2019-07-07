@@ -19,6 +19,7 @@ const NavbarWrapper = styled.div`
   width: 100%;
   height: 11vh;
   min-height: 8vh;
+  text-decoration: none;
 
   /* & + * {
     padding-top: 11vh;

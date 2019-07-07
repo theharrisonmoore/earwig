@@ -215,8 +215,7 @@ class AutosuggestComponent extends Component {
       isMobile,
       bool,
       iconTop,
-      noIcon,
-      isButton
+      noIcon
     } = this.props;
 
     const inputProps = {

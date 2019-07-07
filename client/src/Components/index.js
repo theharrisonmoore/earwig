@@ -353,6 +353,8 @@ export default function index(props) {
 
         <PrivateRoute minimumLevel="LEVEL1" path={ORG_STATUS_URL_SIGNUP} {...props} isMobile={isMobile} isTablet={isTablet} type="sign-up" Component={OrgCheck} />
 
+        <PrivateRoute minimumLevel="LEVEL1" path={ORG_STATUS_URL_LOGIN} {...props} isMobile={isMobile} isTablet={isTablet} type="sign-up" Component={OrgCheck} loggingIn />
+
         <Route
           exact
           path="/"
@@ -368,6 +370,8 @@ export default function index(props) {
             )
           }
         />
+
+        <PrivateRoute minimumLevel="LEVEL1" path={WELCOME_URL} {...props} isMobile={isMobile} isTablet={isTablet} Component={Welcome} navbar />
 
         <PrivateRoute minimumLevel="LEVEL1" path={WELCOME_URL} {...props} isMobile={isMobile} isTablet={isTablet} Component={Welcome} navbar />
 

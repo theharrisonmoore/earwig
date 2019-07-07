@@ -1,8 +1,13 @@
 const User = require("../models/User");
 const Trade = require("./../models/Trade");
+const Organization = require("./../models/Organization");
 
 module.exports = async () => {
   const trades = await Trade.find();
+  const currentAgency = await Organization.findOne({ category: "agency" })
+  const currentPayroll = await Organization.findOne({ category: "payroll" })
+  const currentWorksite = await Organization.findOne({ category: "worksite" })
+  const currentCompany = await Organization.findOne({ category: "company" }) 
 
   // create verified user so that we can store as referral person
   const refUsers = [
@@ -51,6 +56,10 @@ module.exports = async () => {
       trade: trades[2],
       verified: true,
       awaitingReview: false,
+      currentAgency,
+      currentCompany,
+      currentPayroll,
+      currentWorksite
     },
   ];
 

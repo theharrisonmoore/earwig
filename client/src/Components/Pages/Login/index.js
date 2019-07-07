@@ -31,6 +31,9 @@ import {
 
 import { StyledField } from "./../../Common/Formik/Formik.style";
 
+import { ORG_STATUS_URL_LOGIN } from "./../../../constants/naviagationUrls"
+
+
 const initalValues = { email: "", password: "" };
 
 const loginSchema = Yup.object().shape({
@@ -50,7 +53,7 @@ export default class Login extends Component {
       .post("/api/login", values)
       .then(({ data }) => {
         this.props.handleChangeState({ ...data, isLoggedIn: true });
-        this.props.history.push(SEARCH_URL);
+        this.props.history.push(ORG_STATUS_URL_LOGIN);
       })
       .catch(err => {
         this.setState({ error: err.response.data.error });

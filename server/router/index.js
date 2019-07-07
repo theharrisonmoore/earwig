@@ -57,6 +57,7 @@ const checkIfEditReview = require("../controllers/checkIfCanEdit");
 const getUsersTrade = require("../controllers/getUsersTrade")
 
 const setCurrentOrgs = require("../controllers/setCurrentOrgs")
+const getCurrentOrgs = require("../controllers/getCurrentOrgs")
 
 
 const {
@@ -81,7 +82,8 @@ const {
   SET_PASSWORD,
   ADD_HELPFUL_OVERALL_POINTS,
   USERS_TRADE,
-  SET_ORGS
+  SET_ORGS,
+  GET_USER_ORGS
 } = require("../../client/src/apiUrls");
 
 
@@ -241,5 +243,7 @@ router.patch(ADD_HELPFUL_OVERALL_POINTS, authentication, updateOverallHelpfulPoi
 router.get(USERS_TRADE, authentication, getUsersTrade)
 
 router.post(SET_ORGS, authentication, validation("setCurrentOrgs"), setCurrentOrgs)
+
+router.get(GET_USER_ORGS, authentication, getCurrentOrgs)
 
 module.exports = router;

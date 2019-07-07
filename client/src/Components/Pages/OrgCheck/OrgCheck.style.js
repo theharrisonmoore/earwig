@@ -107,4 +107,12 @@ export const OrgText = styled.p`
   color: ${props => props.noOrg && colors.gray}
   font-size: 1rem;
 `
-
+export const StyledLink = styled.div`
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 1rem;
+  color: ${colors.purpleLinks};
+  width: 100%;
+  text-align: center;
+`
