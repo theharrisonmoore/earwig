@@ -17,7 +17,8 @@ import {
   EDIT_CITY_URL,
   EDIT_PASSWORD_URL,
   EDIT_ID_URL,
-  EDIT_TRADE_URL
+  EDIT_TRADE_URL,
+  WELCOME_URL
 } from "./../constants/naviagationUrls";
 
 import Landing from "./Pages/Landing";
@@ -41,6 +42,7 @@ import Reply from "./Pages/Profile/Reply";
 import ResetPassword from "./Pages/ResetPassword";
 import EditProfileSection from "./Pages/EditProfile/EditProfileSection";
 import OrgCheck from "./Pages/OrgCheck";
+import Welcome from "./Pages/Welcome";
 
 import Review from "./Pages/Review";
 
@@ -366,6 +368,8 @@ export default function index(props) {
             )
           }
         />
+
+        <PrivateRoute minimumLevel="LEVEL1" path={WELCOME_URL} {...props} isMobile={isMobile} isTablet={isTablet} Component={Welcome} navbar />
 
         <Route
           exact
