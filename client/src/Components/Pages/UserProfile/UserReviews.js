@@ -16,9 +16,10 @@ const Paragraph = styled.p`
   margin: 0 auto;
   margin-top: 3.5rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid ${colors.veryLightGray};
   width: 90%;
   text-align: center;
+  margin-bottom: 3rem;
 `;
 
 const BorderedWrapper = styled.div`
@@ -26,9 +27,10 @@ const BorderedWrapper = styled.div`
   margin: 0 auto;
   padding: 3rem 0;
   border: none;
+  min-height: 100vh;
 
   & > div {
-    max-width: 400px;
+    max-width: 500px;
     margin: 0 auto;
     width: 90%;
     margin-top: 1rem;
@@ -43,13 +45,13 @@ const BorderedWrapper = styled.div`
 const ReviewItem = styled.div`
   display: flex;
   align-items: center;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid ${colors.veryLightGray};
   /* justify-content: space-between; */
   text-align: left;
   /* padding: 0.5rem; */
-  height: 5rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  height: 7rem;
+  padding: 1rem 0;
+  width: 100%;
 
   & > * {
     margin-bottom: 0;
@@ -61,11 +63,13 @@ const ActionGroup = styled.div`
   flex-direction: column;
   width: 15%;
   text-align: right;
-  justify-content: space-between;
+  justify-content: center;
   height: 100%;
+  align-items: flex-end;
+  margin-left: auto;
 
   & * {
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
   }
 `;
 
@@ -175,7 +179,7 @@ export default class UserReviews extends Component {
                           </Link>
                           <span>
                             <Popconfirm
-                              title="Are you sure delete this review?"
+                              title="Are you sure you want to delete this review?"
                               onConfirm={() => this.confirm(review._id)}
                               onCancel={this.cancel}
                               okText="Yes"
