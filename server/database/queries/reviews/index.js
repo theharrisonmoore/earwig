@@ -10,8 +10,6 @@ const getOverallReplies = require("./getOverallReplies");
 const getReviewDetails = require("./getReviewDetails");
 const updateOverallHelpfullPoints = require("./updateOverallHelpfullPoints");
 
-const { getHelpedPoints } = require("../user/index");
-
 module.exports.updateOverallHelpfullPoints = updateOverallHelpfullPoints;
 
 module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
@@ -413,7 +411,9 @@ module.exports.allQsAndAs = (orgType, orgId, justContractor) => new Promise((res
         questions: { $push: "$$ROOT" },
       },
     },
-  ]).then(resolve).catch(err => reject(err));
+  ])
+    .then(resolve)
+    .catch(err => reject(err));
 });
 
 module.exports.allComments = (organizationID, questionID) => new Promise((resolve, reject) => {

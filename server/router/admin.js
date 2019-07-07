@@ -19,6 +19,8 @@ const addOrganizations = require("./../controllers/admin/addOrganizations");
 const editOrganization = require("./../controllers/admin/editOrganization");
 const getAllReviewsCSV = require("./../controllers/admin/getAllReviewsCSV");
 
+const mergeOrgsProfiles = require("./../controllers/admin/mergeOrgsProfiles");
+
 const {
   getAllTrades,
   deleteTradeController,
@@ -77,5 +79,7 @@ router.get("/images/:name", getImageLink);
 
 // exporting data
 router.get("/export-all-reviews", getAllReviewsCSV);
+
+router.put("/organisations/merge", mergeOrgsProfiles);
 
 module.exports = router;
