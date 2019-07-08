@@ -36,10 +36,12 @@ const getByOrg = async (req, res, next) => {
 
     const getReviewAnswers = await getReviewDetails(orgId, userId);
 
-
     const groups = await getQuetionsByOrg(category);
     res.json({
-      groups, dropDownListData, getReviewAnswers, organization: { name, category },
+      groups,
+      dropDownListData,
+      getReviewAnswers,
+      organization: { name, category },
     });
   } catch (err) {
     next(boom.badImplementation());
@@ -53,7 +55,6 @@ const postReviewShort = async (req, res, next) => {
     },
   } = req.body.values;
   const { user, organization } = req.body;
-
 
   try {
     const organizationData = await getOrganization(organization.category, organization.name);
@@ -87,7 +88,8 @@ const postReview = async (req, res, next) => {
   const { organization } = req.body;
   const { user } = req;
 
-  console.log("REQ", req.body)
+  console.log("REQ", req.body);
+  console.log("voice", voiceReview)
 
   try {
     const organizationData = await getOrganization(organization.category, organization.name);
@@ -109,8 +111,12 @@ const postReview = async (req, res, next) => {
         text: overallReview,
       },
       workPeriod,
-      voiceReview: voiceReview || "voice/file", // temp until we make the voice record
+      voiceReview: {
+        audio: voiceReview,
+      },
     });
+
+    console.log("new", newReview)
 
     const currentReview = await newReview.save();
 
@@ -168,13 +174,10 @@ const postReview = async (req, res, next) => {
   }
 };
 
-
 const updateReview = async (req, res, next) => {
   const {
     answers: questionsAnswers,
-    review: {
-      rate, overallReview, workPeriod,
-    },
+    review: { rate, overallReview, workPeriod },
   } = req.body.values;
   const { organization } = req.body;
   const { id: reviewId } = req.params;
@@ -188,7 +191,6 @@ const updateReview = async (req, res, next) => {
         questionsObject[q.number] = q;
       }
     });
-
 
     await findReviewByIdAndUpdate(reviewId, { rate, text: overallReview, workPeriod });
 
@@ -208,7 +210,11 @@ const updateReview = async (req, res, next) => {
     const allAnswers = [...reviewAnswers].filter(answer => answer !== null);
 
     allAnswers.forEach(async (ans) => {
-      await Answer.updateOne({ review: reviewId, question: ans.question }, { answer: ans.answer }, { upsert: true });
+      await Answer.updateOne(
+        { review: reviewId, question: ans.question },
+        { answer: ans.answer },
+        { upsert: true },
+      );
     });
     res.send();
   } catch (err) {

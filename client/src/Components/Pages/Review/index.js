@@ -68,7 +68,7 @@ class Review extends Component {
     isEditing: false,
     orgId: "",
     recording: false,
-    audioFile: null,
+    audioFile: null
   };
 
   componentDidMount() {
@@ -198,38 +198,40 @@ class Review extends Component {
   }
 
   // VOICE RECORDING
-  startRecord = (refs) => {
+  startRecord = refs => {
     const { player } = refs;
     const { recording } = this.state;
-    if(!recording) {
+    if (!recording) {
       this.setState({ recording: true });
       navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
         this.mediaRecorder = new MediaRecorder(stream);
         this.chunks = [];
         this.mediaRecorder.start(10);
-        this.mediaRecorder.addEventListener('dataavailable', event => {
-          this.chunks.push(event.data)
-        })
-      })
+        this.mediaRecorder.addEventListener("dataavailable", event => {
+          this.chunks.push(event.data);
+        });
+      });
     }
-  }
+  };
 
-  stopRecord = (refs) => {
+  stopRecord = refs => {
     const { recording, answers } = this.state;
     // get the user id so we can make each filename unique
-    const { id } = this.props
+    const { id } = this.props;
     if (recording) {
       const { player } = refs;
-      this.setState( { recording: false })
+      this.setState({ recording: false });
       this.mediaRecorder.stop();
       const audioBlob = new Blob(this.chunks);
-      const audio = new File(this.chunks, `${id}.mp3`, { type: 'audio', lastModified: Date.now() });
+      const audio = new File(this.chunks, `${id}.mp3`, {
+        type: "audio",
+        lastModified: Date.now()
+      });
       const audioUrl = URL.createObjectURL(audioBlob);
       player.src = audioUrl;
-      this.setState({ audioFile: audio }  )
-
+      this.setState({ audioFile: audio });
     }
-  }
+  };
 
   submitAudio = () => {
     const { audioFile } = this.state;
@@ -237,7 +239,7 @@ class Review extends Component {
       const reader = new FileReader();
       const form = new FormData();
 
-      form.append("voiceRecording", audioFile)
+      form.append("voiceRecording", audioFile);
 
       return axios({
         method: "post",
@@ -247,13 +249,12 @@ class Review extends Component {
           "content-type": `multipart/form-data; boundary=${form.boundary}`
         }
       })
-      .then(({data}) => {
-        return data.audio
-      })
-      .catch(err => console.log(err))
+        .then(({ data }) => {
+          return data.audio;
+        })
+        .catch(err => console.log(err));
     }
-   
-  }
+  };
 
   handleChange = e => {
     const { answers } = this.state;
@@ -429,8 +430,6 @@ class Review extends Component {
       });
   };
 
-  
-
   handleSubmit = async e => {
     e.preventDefault();
     this.setState({ isSubmitting: true });
@@ -473,10 +472,13 @@ class Review extends Component {
           // add new review
 
           // if there's an audio file submit and update answers with its correct filename
-          if (audioFile) review.values.answers.voiceReview = await this.submitAudio();
+          if (audioFile)
+            review.values.review.voiceReview = await this.submitAudio();
 
-            axios.post(API_POST_REVIEW_URL, review).then(res => {
-              console.log("res", res)
+          axios
+            .post(API_POST_REVIEW_URL, review)
+            .then(res => {
+              console.log("res", res);
               this.setState({ isSubmitting: false });
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,

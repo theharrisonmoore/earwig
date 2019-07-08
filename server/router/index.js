@@ -62,7 +62,7 @@ const setCurrentOrgs = require("../controllers/setCurrentOrgs");
 const getCurrentOrgs = require("../controllers/getCurrentOrgs");
 
 const uploadVoiceRecording = require("../controllers/uploadVoiceRecording");
-
+const voiceReview = require("../controllers/getVoiceReview");
 
 const {
   LOGIN_URL,
@@ -88,7 +88,8 @@ const {
   USERS_TRADE,
   SET_ORGS,
   GET_USER_ORGS,
-  UPLOAD_AUDIO
+  UPLOAD_AUDIO,
+  GET_AUDIO_URL,
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
@@ -147,17 +148,21 @@ router.post(
   uploadWorksiteController,
 );
 
-router.post(UPLOAD_AUDIO, upload("voiceRecording"), toGoogle(), deleteFileFromServer, uploadVoiceRecording);
+router.post(
+  UPLOAD_AUDIO,
+  upload("voiceRecording"),
+  toGoogle(),
+  deleteFileFromServer,
+  uploadVoiceRecording,
+);
+
+router.post(GET_AUDIO_URL, authentication, voiceReview);
 
 // get all trades
 router.get(TRADE_URL, getTradesController);
 
 // add new trade
-router.post(
-  TRADE_URL,
-  validation("addTrade"),
-  postTradesController,
-);
+router.post(TRADE_URL, validation("addTrade"), postTradesController);
 
 // sign up
 router.post(
@@ -251,10 +256,10 @@ router.post(SET_PASSWORD, setPassword);
 
 router.patch(ADD_HELPFUL_OVERALL_POINTS, authentication, updateOverallHelpfulPoints);
 
-router.get(USERS_TRADE, authentication, getUsersTrade)
+router.get(USERS_TRADE, authentication, getUsersTrade);
 
-router.post(SET_ORGS, authentication, setCurrentOrgs)
+router.post(SET_ORGS, authentication, setCurrentOrgs);
 
-router.get(GET_USER_ORGS, authentication, getCurrentOrgs)
+router.get(GET_USER_ORGS, authentication, getCurrentOrgs);
 
 module.exports = router;

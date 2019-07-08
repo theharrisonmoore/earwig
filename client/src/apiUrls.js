@@ -73,6 +73,9 @@ const ADMIN = "/admin";
 const UPLOAD_AUDIO = "/upload-audio";
 const API_UPLOAD_AUDIO = `${API_PREFIX}${UPLOAD_AUDIO}`;
 
+const GET_AUDIO_URL = "/get-audio";
+const API_GET_AUDIO_URL = `${API_PREFIX}${GET_AUDIO_URL}`;
+
 module.exports = {
   // React variables
   API_LOGIN_URL,
@@ -98,6 +101,7 @@ module.exports = {
   API_SET_ORGS,
   API_GET_USER_ORGS,
   API_UPLOAD_AUDIO,
+  API_GET_AUDIO_URL,
 
   // server variables
   LOGIN_URL,
@@ -124,5 +128,6 @@ module.exports = {
   USERS_TRADE,
   SET_ORGS,
   GET_USER_ORGS,
-  UPLOAD_AUDIO
+  UPLOAD_AUDIO,
+  GET_AUDIO_URL
 };
