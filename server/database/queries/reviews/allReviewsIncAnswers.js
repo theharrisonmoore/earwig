@@ -61,6 +61,40 @@ module.exports = () => Answer.aggregate([
       as: "user.givenReviews",
     },
   },
+  // get the current organization names
+  {
+    $lookup: {
+      from: "organizations",
+      localField: "user.currentAgency",
+      foreignField: "_id",
+      as: "user.currentAgency",
+    },
+  },
+  {
+    $lookup: {
+      from: "organizations",
+      localField: "user.currentPayroll",
+      foreignField: "_id",
+      as: "user.currentPayroll",
+    },
+  },
+  {
+    $lookup: {
+      from: "organizations",
+      localField: "user.currentWorksite",
+      foreignField: "_id",
+      as: "user.currentWorksite",
+    },
+  },
+  {
+    $lookup: {
+      from: "organizations",
+      localField: "user.currentCompany",
+      foreignField: "_id",
+      as: "user.currentCompany",
+    },
+  },
+  //  group each review
   {
     $group: {
       _id: "$review._id",
@@ -78,6 +112,10 @@ module.exports = () => Answer.aggregate([
       "Overall Review": "$reviewDetails.overallReview.text",
       "earwig ID": "$user.userId",
       "Unique User ID": "$user._id",
+      "Current agency": "$user.currentAgency.name",
+      "Current payroll": "$user.currentPayroll.name",
+      "Current worksite": "$user.currentWorksite.name",
+      "Current company": "$user.currentCompany.name",
       "Town or City": "$user.city",
       "Points earned": "$user.points",
       "People helped": "$user.helpedPoints",

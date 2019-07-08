@@ -32,7 +32,7 @@ module.exports = (req, res, next) => {
       return getAllQs().then(questions => {
 
         //  initial headers
-        let allHeaders = [ "Review date", "Overall star rating", "Overall Review", "earwig ID", "Unique User ID", "Town or City", "Points earned", "People helped", "Reviews given", "Trade", "Entity type", "Entity name", "Date from", "Date to"  ]
+        let allHeaders = [ "Review date", "Overall star rating", "Overall Review", "earwig ID", "Unique User ID", "Town or City", "Points earned", "People helped", "Reviews given", "Trade", "Current agency", "Current payroll", "Current worksite", "Current company", "Entity type", "Entity name", "Date from", "Date to"  ]
 
         // clean questions so only unique values
         const questionText = questions.map(question => question.text)
