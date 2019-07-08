@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import QuestionOptions from "./Options";
 import PopoverComponent from "./../../../Common/Popover";
-import { QuestionWrapper, QText, HintText, VoiceWrapper } from "./Question.style";
+import { QuestionWrapper, QText, HintText, VoiceWrapper, VoiceIconWrapper } from "./Question.style";
 
 import Icon from "./../../../Common/Icon/Icon"
 
@@ -54,8 +54,8 @@ class Question extends Component {
       {text === "What hourly rate were you paid?" && (
         <PopoverComponent category={category} popoverOptions={popoverOptions} />
       )}
-      {type === "voiceReview" && <><VoiceWrapper onClick={recording ? () => stopRecord(this.refs) : () => startRecord(this.refs)}>{console.log("RE", recording)}<Icon icon="voiceRecord" width="36px" height="48px" /></VoiceWrapper><audio id="player" controls className="no__record" ref="player" /></>}
-      {/* <QuestionOptions
+      {type === "voiceReview" && <VoiceWrapper><VoiceIconWrapper recording={recording} onClick={recording ? () => stopRecord(this.refs) : () => startRecord(this.refs)}><Icon icon="voiceRecord" width="36px" height="48px" /></VoiceIconWrapper><audio id="player" controls className="no__record" ref="player" /></VoiceWrapper>}
+      {type !== "voiceReview" && <QuestionOptions
         type={type}
         options={options}
         groupId={groupId}
@@ -77,7 +77,7 @@ class Question extends Component {
         state={this.props.state}
         runValidation={this.props.runValidation}
         handleReviewChange={this.props.handleReviewChange}
-      /> */}
+      />}
     </QuestionWrapper>
   );
   }

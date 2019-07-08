@@ -222,7 +222,7 @@ class Review extends Component {
       const audio = new File(this.chunks, 'record.mp3', { type: 'audio', lastModified: Date.now() });
       const audioUrl = URL.createObjectURL(audioBlob);
       player.src = audioUrl;
-      this.setState( { review: { voiceReview: audio } })
+      this.setState( {voiceReview: audio  })
     }
   }
 

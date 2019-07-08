@@ -126,7 +126,8 @@ export const gradient = {
 export const borders = {
   searchBox: `2px solid ${colors.black}`,
   buttonBox: `1px solid ${colors.black}`,
-  commentBox: `1px solid ${colors.veryLightGray}`
+  commentBox: `1px solid ${colors.veryLightGray}`,
+  recording: `1px solid ${colors.red}`
 };
 
 export const pieColors = {
