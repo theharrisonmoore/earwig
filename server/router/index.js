@@ -52,6 +52,8 @@ const deleteOrgController = require("../controllers/deleteOrganization");
 const resetPassword = require("../controllers/resetPassword");
 const setPassword = require("../controllers/setPassword");
 const updateOverallHelpfulPoints = require("../controllers/updateOverallHelpfulPoints");
+const userReviews = require("../controllers/userReviews");
+const deleteReview = require("../controllers/admin/deleteReview");
 const checkIfEditReview = require("../controllers/checkIfCanEdit");
 
 
@@ -78,8 +80,12 @@ const {
   ADD_HELPFUL_OVERALL_POINTS,
 } = require("../../client/src/apiUrls");
 
-
 router.get(SEARCH_URL, searchController);
+
+// get user reviews
+router.get("/reviews", authentication, userReviews);
+// delete a review
+router.delete("/reviews", authentication, deleteReview);
 
 // get user info from the cookies and send it to fron-end
 router.get(USERS, authentication, userInfoController);

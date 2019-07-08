@@ -25,6 +25,8 @@ import Thankyou from "./Pages/ThankYou";
 import EditProfile from "./Pages/EditProfile";
 import DeleteProfile from "./Pages/DeleteProfile";
 import UserProfile from "./Pages/UserProfile";
+import UserReviews from "./Pages/UserProfile/UserReviews";
+import Review from "./Pages/Review";
 import Profile from "./Pages/Profile";
 import Admin from "./Pages/Admin";
 import Search from "./Pages/Search";
@@ -35,8 +37,6 @@ import Intro from "./Pages/Intro";
 import PrivateRoute from "./Common/PrivateRoute";
 import Reply from "./Pages/Profile/Reply";
 import ResetPassword from "./Pages/ResetPassword";
-
-import Review from "./Pages/Review";
 
 import {
   FAQ,
@@ -167,6 +167,16 @@ export default function index(props) {
           Component={UserProfile}
           navbar
           title="Your profile"
+        />
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path="/my-reviews"
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={UserReviews}
+          navbar
+          title="Reviews you've given"
         />
 
         <PrivateRoute
