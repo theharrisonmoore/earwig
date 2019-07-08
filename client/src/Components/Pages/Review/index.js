@@ -57,15 +57,16 @@ class Review extends Component {
         to: ""
       },
       rate: 0,
-      overallReview: ""
-      // voiceReview: ""
+      overallReview: "",
+      voiceReview: null
     },
     hasAgreed: false,
     questions: [],
     errors: {},
     isSubmitting: false,
     isEditing: false,
-    orgId: ""
+    orgId: "",
+    recording: false,
   };
 
   componentDidMount() {
@@ -191,6 +192,37 @@ class Review extends Component {
             err.response && err.response.data && err.response.data.error;
           message.error(error || "Something went wrong");
         });
+    }
+  }
+
+  // VOICE RECORDING
+  startRecord = (refs) => {
+    const { player } = refs;
+    const { recording } = this.state;
+    if(!recording) {
+      this.setState({ recording: true });
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+        this.mediaRecorder = new MediaRecorder(stream);
+        this.chunks = [];
+        this.mediaRecorder.start(10);
+        this.mediaRecorder.addEventListener('dataavailable', event => {
+          this.chunks.push(event.data)
+        })
+      })
+    }
+  }
+
+  stopRecord = (refs) => {
+    const { recording } = this.state;
+    if (recording) {
+      const { player } = refs;
+      this.setState( { recording: false })
+      this.mediaRecorder.stop();
+      const audioBlob = new Blob(this.chunks);
+      const audio = new File(this.chunks, 'record.mp3', { type: 'audio', lastModified: Date.now() });
+      const audioUrl = URL.createObjectURL(audioBlob);
+      player.src = audioUrl;
+      this.setState( { review: { voiceReview: audio } })
     }
   }
 
@@ -437,7 +469,8 @@ class Review extends Component {
       groupss,
       organization: { name, category },
       errors,
-      isSubmitting
+      isSubmitting,
+      recording
     } = this.state;
     const { history } = this.props;
     const staticQuestion = STATIC_QUESTIONS(category);
@@ -527,10 +560,14 @@ class Review extends Component {
                   state={this.state}
                 />
                 {/* The voice questions in the next sprint */}
-                {/* <Question
-                        question={staticQuestion[3]}
-                        category={this.state.organization.category}
-                      /> */}
+                <Question
+                  question={staticQuestion[3]}
+                  category={this.state.organization.category}
+                  state={this.state}
+                  startRecord={this.startRecord}
+                  stopRecord={this.stopRecord}
+                  recording={recording}
+                />
               </div>
               <UserAgreement>
                 <Level2Header>Submit your review</Level2Header>

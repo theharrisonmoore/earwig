@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, organizations } from "../../../../theme";
+import { colors, organizations, borders } from "../../../../theme";
 
 export const QuestionWrapper = styled.div.attrs({ className: "" })`
   font-size: 18px;
@@ -257,3 +257,15 @@ export const SliderWrapper = styled.div`
     visibility: ${({ visibility }) => (visibility ? "intial" : "hidden")};
   }
 `;
+
+export const VoiceWrapper = styled.div`
+  width: 67px;
+  height: 67px;
+  border: ${borders.commentBox};
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${colors.dustyGray2};
+  cursor: pointer;
+`

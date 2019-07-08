@@ -1,11 +1,15 @@
-import React from "react";
+import React, { Component } from "react";
 
 import QuestionOptions from "./Options";
 import PopoverComponent from "./../../../Common/Popover";
-import { QuestionWrapper, QText, HintText } from "./Question.style";
+import { QuestionWrapper, QText, HintText, VoiceWrapper } from "./Question.style";
 
-const Question = props => {
-  if (!props) {
+import Icon from "./../../../Common/Icon/Icon"
+
+class Question extends Component {
+  render() {
+
+    if (!this.props) {
     return null;
   }
 
@@ -20,7 +24,7 @@ const Question = props => {
     label,
     hasComment,
     next
-  } = props.question;
+  } = this.props.question;
 
   const {
     questions,
@@ -31,8 +35,11 @@ const Question = props => {
     showNextQestion,
     groupId,
     handleChange,
-    handleSliderChange
-  } = props;
+    handleSliderChange,
+    recording,
+    startRecord,
+    stopRecord
+  } = this.props;
 
   const popoverOptions = {
     text:
@@ -47,7 +54,8 @@ const Question = props => {
       {text === "What hourly rate were you paid?" && (
         <PopoverComponent category={category} popoverOptions={popoverOptions} />
       )}
-      <QuestionOptions
+      {type === "voiceReview" && <><VoiceWrapper onClick={recording ? () => stopRecord(this.refs) : () => startRecord(this.refs)}>{console.log("RE", recording)}<Icon icon="voiceRecord" width="36px" height="48px" /></VoiceWrapper><audio id="player" controls className="no__record" ref="player" /></>}
+      {/* <QuestionOptions
         type={type}
         options={options}
         groupId={groupId}
@@ -65,13 +73,15 @@ const Question = props => {
         hasComment={hasComment}
         handleChange={handleChange}
         handleSliderChange={handleSliderChange}
-        question={props.question}
-        state={props.state}
-        runValidation={props.runValidation}
-        handleReviewChange={props.handleReviewChange}
-      />
+        question={this.props.question}
+        state={this.props.state}
+        runValidation={this.props.runValidation}
+        handleReviewChange={this.props.handleReviewChange}
+      /> */}
     </QuestionWrapper>
   );
+  }
+
 };
 
 export default Question;
