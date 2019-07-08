@@ -39,11 +39,11 @@ describe("Tesing for setting current organizations", () => {
           .expect(200)
           .end(async (err, res) => {
             expect(res).toBeDefined()
-            expect(res.body).toBeDefined()
-            expect(res.body.agency).toBeDefined()
-            expect(res.body.payroll).toBeDefined()
-            expect(res.body.worskite).toBeDefined()
-            expect(res.body.company).toBeDefined()
+            expect(res.body).toBeDefined();
+            expect(res.body.agency).toBeDefined();
+            expect(res.body.payroll).toBeDefined();
+            expect(res.body.worksite).toBeDefined();
+            expect(res.body.company).toBeDefined();
             done(err)
           });
       });
