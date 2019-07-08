@@ -234,9 +234,11 @@ class AutosuggestComponent extends Component {
       <AutosuggestWrapper height={height} width={width} noIcon>
         {!noIcon && <IconDiv
           iconTop={iconTop}
-          bgr={this.selectIconBgr(value)}
+          // bgr={this.selectIconBgr(value)}
           onClick={this.delSearchInput}
-        />}
+        >
+          {value.length > 0 ? <Icon icon="close" height="32px" width="32px" /> : <Icon icon="search" height="32px" width="32px" />}
+        </IconDiv>}
         {/* on mobile disable shouldRenderSuggestions as we don't want automatic suggestion rendering as it hides most of the screen */}
         {isMobile ? (
           <Autosuggest

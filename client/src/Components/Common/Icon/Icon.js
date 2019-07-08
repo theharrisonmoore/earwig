@@ -14,6 +14,7 @@ import Canteen from "./Canteen";
 import CheapFood from "./CheapFood";
 import Clock30s from "./Clock30s";
 import Clock2min from "./Clock2min";
+import Close from "./Close";
 import CommentsReceived from "./CommentsReceived";
 import Company from "./Company";
 import CompanyThanks from "./CompanyThanks";
@@ -86,6 +87,7 @@ const iconMap = {
   cheapFood: CheapFood,
   clock30s: Clock30s,
   clock2min: Clock2min,
+  close: Close,
   commentsReceived: CommentsReceived,
   company: Company,
   companyThanks: CompanyThanks,
