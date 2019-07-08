@@ -329,7 +329,7 @@ export default class OverallReview extends Component {
                 <CommentBubble color={organizations[category].secondary}>
                   {review.category === "written" && review.text}
                   {review.category === "audio" && (
-                    <VoiceReview filename={review.text} />
+                    <VoiceReview category={category} filename={review.text} />
                   )}
                 </CommentBubble>
                 <CommentDate>

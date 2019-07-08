@@ -266,9 +266,8 @@ export const VoiceIconWrapper = styled.div`
   justify-content: center;
   cursor: pointer;
   position: relative;
-  color: ${({recording}) => recording ? colors.red : colors.dustyGray2};
+  color: ${({ recording }) => (recording ? colors.red : colors.dustyGray2)};
   margin-right: 1rem;
-  
 
   :after {
     content: "";
@@ -277,17 +276,21 @@ export const VoiceIconWrapper = styled.div`
     height: 67px;
     border: ${borders.commentBox};
     border-radius: 50%;
-    animation: ${({recording}) => recording && "spin 2s linear infinite"};
-    border-top: ${({recording}) => recording && borders.recording};
+    animation: ${({ recording }) => recording && "spin 2s linear infinite"};
+    border-top: ${({ recording }) => recording && borders.recording};
 
     @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
-}
-`
+  }
+`;
 
 export const VoiceWrapper = styled.div`
   display: flex;
   align-items: center;
-`
+`;
