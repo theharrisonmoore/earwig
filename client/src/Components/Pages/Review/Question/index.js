@@ -4,6 +4,8 @@ import QuestionOptions from "./Options";
 import PopoverComponent from "./../../../Common/Popover";
 import { QuestionWrapper, QText, HintText, VoiceWrapper, VoiceIconWrapper } from "./Question.style";
 
+import UploadAudio from "./UploadAudio";
+
 import Icon from "./../../../Common/Icon/Icon"
 
 class Question extends Component {
@@ -54,8 +56,8 @@ class Question extends Component {
       {text === "What hourly rate were you paid?" && (
         <PopoverComponent category={category} popoverOptions={popoverOptions} />
       )}
-      {type === "voiceReview" && <VoiceWrapper><VoiceIconWrapper recording={recording} onClick={recording ? () => stopRecord(this.refs) : () => startRecord(this.refs)}><Icon icon="voiceRecord" width="36px" height="48px" /></VoiceIconWrapper><audio id="player" controls className="no__record" ref="player" /></VoiceWrapper>}
-      {type !== "voiceReview" && <QuestionOptions
+      {type === "voiceReview" && <UploadAudio recording={recording} stopRecord={stopRecord} startRecord={startRecord} />}
+      <QuestionOptions
         type={type}
         options={options}
         groupId={groupId}
@@ -77,7 +79,7 @@ class Question extends Component {
         state={this.props.state}
         runValidation={this.props.runValidation}
         handleReviewChange={this.props.handleReviewChange}
-      />}
+      />
     </QuestionWrapper>
   );
   }

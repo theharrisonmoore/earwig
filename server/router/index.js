@@ -56,10 +56,12 @@ const userReviews = require("../controllers/userReviews");
 const deleteReview = require("../controllers/admin/deleteReview");
 const checkIfEditReview = require("../controllers/checkIfCanEdit");
 
-const getUsersTrade = require("../controllers/getUsersTrade")
+const getUsersTrade = require("../controllers/getUsersTrade");
 
-const setCurrentOrgs = require("../controllers/setCurrentOrgs")
-const getCurrentOrgs = require("../controllers/getCurrentOrgs")
+const setCurrentOrgs = require("../controllers/setCurrentOrgs");
+const getCurrentOrgs = require("../controllers/getCurrentOrgs");
+
+const uploadVoiceRecording = require("../controllers/uploadVoiceRecording");
 
 
 const {
@@ -85,7 +87,8 @@ const {
   ADD_HELPFUL_OVERALL_POINTS,
   USERS_TRADE,
   SET_ORGS,
-  GET_USER_ORGS
+  GET_USER_ORGS,
+  UPLOAD_AUDIO
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
@@ -143,6 +146,8 @@ router.post(
   deleteFileFromServer,
   uploadWorksiteController,
 );
+
+router.post(UPLOAD_AUDIO, upload("voiceRecording"), toGoogle(), deleteFileFromServer, uploadVoiceRecording);
 
 // get all trades
 router.get(TRADE_URL, getTradesController);

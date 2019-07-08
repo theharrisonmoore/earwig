@@ -3,6 +3,7 @@ import axios from "axios";
 import moment from "moment";
 import { Checkbox, message, Spin, Icon } from "antd";
 import Loading from "../../Common/AntdComponents/Loading";
+import Swal from "sweetalert2";
 
 import {
   SubmitButton,
@@ -38,7 +39,7 @@ const antIcon = (
   <Icon type="loading" style={{ fontSize: 24, color: "white" }} spin />
 );
 
-const { API_POST_REVIEW_URL } = require("../../../apiUrls");
+const { API_POST_REVIEW_URL, API_UPLOAD_AUDIO } = require("../../../apiUrls");
 
 class Review extends Component {
   state = {
@@ -58,7 +59,7 @@ class Review extends Component {
       },
       rate: 0,
       overallReview: "",
-      voiceReview: null
+      voiceReview: ""
     },
     hasAgreed: false,
     questions: [],
@@ -67,6 +68,7 @@ class Review extends Component {
     isEditing: false,
     orgId: "",
     recording: false,
+    audioFile: null,
   };
 
   componentDidMount() {
@@ -213,17 +215,44 @@ class Review extends Component {
   }
 
   stopRecord = (refs) => {
-    const { recording } = this.state;
+    const { recording, answers } = this.state;
+    // get the user id so we can make each filename unique
+    const { id } = this.props
     if (recording) {
       const { player } = refs;
       this.setState( { recording: false })
       this.mediaRecorder.stop();
       const audioBlob = new Blob(this.chunks);
-      const audio = new File(this.chunks, 'record.mp3', { type: 'audio', lastModified: Date.now() });
+      const audio = new File(this.chunks, `${id}.mp3`, { type: 'audio', lastModified: Date.now() });
       const audioUrl = URL.createObjectURL(audioBlob);
       player.src = audioUrl;
-      this.setState( {voiceReview: audio  })
+      this.setState({ audioFile: audio }  )
+
     }
+  }
+
+  submitAudio = () => {
+    const { audioFile } = this.state;
+    if (audioFile) {
+      const reader = new FileReader();
+      const form = new FormData();
+
+      form.append("voiceRecording", audioFile)
+
+      return axios({
+        method: "post",
+        url: API_UPLOAD_AUDIO,
+        data: form,
+        headers: {
+          "content-type": `multipart/form-data; boundary=${form.boundary}`
+        }
+      })
+      .then(({data}) => {
+        return data.audio
+      })
+      .catch(err => console.log(err))
+    }
+   
   }
 
   handleChange = e => {
@@ -400,10 +429,12 @@ class Review extends Component {
       });
   };
 
+  
+
   handleSubmit = async e => {
     e.preventDefault();
     this.setState({ isSubmitting: true });
-    const { organization } = this.state;
+    const { organization, audioFile } = this.state;
     const { user } = this.state;
     const values = {
       answers: this.state.answers,
@@ -412,7 +443,7 @@ class Review extends Component {
       hasAgreed: this.state.hasAgreed
     };
 
-    this.runValidation().then(resp => {
+    this.runValidation().then(async resp => {
       if (resp) {
         const review = {
           values,
@@ -440,9 +471,12 @@ class Review extends Component {
             });
         } else {
           // add new review
-          axios
-            .post(API_POST_REVIEW_URL, review)
-            .then(res => {
+
+          // if there's an audio file submit and update answers with its correct filename
+          if (audioFile) review.values.answers.voiceReview = await this.submitAudio();
+
+            axios.post(API_POST_REVIEW_URL, review).then(res => {
+              console.log("res", res)
               this.setState({ isSubmitting: false });
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,

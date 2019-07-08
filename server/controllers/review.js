@@ -87,6 +87,8 @@ const postReview = async (req, res, next) => {
   const { organization } = req.body;
   const { user } = req;
 
+  console.log("REQ", req.body)
+
   try {
     const organizationData = await getOrganization(organization.category, organization.name);
     const userData = await findByEmail(user.email);

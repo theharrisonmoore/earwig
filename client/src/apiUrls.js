@@ -70,6 +70,9 @@ const API_GET_USER_ORGS = `${API_PREFIX}${GET_USER_ORGS}`;
 
 const ADMIN = "/admin";
 
+const UPLOAD_AUDIO = "/upload-audio";
+const API_UPLOAD_AUDIO = `${API_PREFIX}${UPLOAD_AUDIO}`;
+
 module.exports = {
   // React variables
   API_LOGIN_URL,
@@ -94,6 +97,7 @@ module.exports = {
   API_USERS_TRADE,
   API_SET_ORGS,
   API_GET_USER_ORGS,
+  API_UPLOAD_AUDIO,
 
   // server variables
   LOGIN_URL,
@@ -119,5 +123,6 @@ module.exports = {
   ADD_HELPFUL_OVERALL_POINTS,
   USERS_TRADE,
   SET_ORGS,
-  GET_USER_ORGS
+  GET_USER_ORGS,
+  UPLOAD_AUDIO
 };
