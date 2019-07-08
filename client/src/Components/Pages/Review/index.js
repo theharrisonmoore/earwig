@@ -3,7 +3,6 @@ import axios from "axios";
 import moment from "moment";
 import { Checkbox, message, Spin, Icon } from "antd";
 import Loading from "../../Common/AntdComponents/Loading";
-import Swal from "sweetalert2";
 
 import {
   SubmitButton,
@@ -199,7 +198,6 @@ class Review extends Component {
 
   // VOICE RECORDING
   startRecord = refs => {
-    const { player } = refs;
     const { recording } = this.state;
     if (!recording) {
       this.setState({ recording: true });
@@ -215,7 +213,7 @@ class Review extends Component {
   };
 
   stopRecord = refs => {
-    const { recording, answers } = this.state;
+    const { recording } = this.state;
     // get the user id so we can make each filename unique
     const { id } = this.props;
     if (recording) {
@@ -236,7 +234,7 @@ class Review extends Component {
   submitAudio = () => {
     const { audioFile } = this.state;
     if (audioFile) {
-      const reader = new FileReader();
+
       const form = new FormData();
 
       form.append("voiceRecording", audioFile);

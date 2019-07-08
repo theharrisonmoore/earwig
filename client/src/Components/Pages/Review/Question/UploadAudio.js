@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
 
 import { VoiceWrapper, VoiceIconWrapper } from "./Question.style";
 import Icon from "./../../../Common/Icon/Icon";

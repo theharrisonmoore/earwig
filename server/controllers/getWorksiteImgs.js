@@ -8,7 +8,6 @@ const worksiteImgs = async (req, res, next) => {
     // eslint-disable-next-line no-restricted-syntax
     for (const img of images) {
       // eslint-disable-next-line no-await-in-loop
-      console.log("img", img);
       const link = await getImageLink(img);
       links.push(link);
     }

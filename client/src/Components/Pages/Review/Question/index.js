@@ -2,17 +2,9 @@ import React, { Component } from "react";
 
 import QuestionOptions from "./Options";
 import PopoverComponent from "./../../../Common/Popover";
-import {
-  QuestionWrapper,
-  QText,
-  HintText,
-  VoiceWrapper,
-  VoiceIconWrapper
-} from "./Question.style";
+import { QuestionWrapper, QText, HintText } from "./Question.style";
 
 import UploadAudio from "./UploadAudio";
-
-import Icon from "./../../../Common/Icon/Icon";
 
 class Question extends Component {
   render() {

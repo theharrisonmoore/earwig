@@ -11,8 +11,6 @@ import {
   REPLY_URL
 } from "./../../../constants/naviagationUrls";
 
-import { API_GET_AUDIO_URL } from "./../../../apiUrls";
-
 import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
 import {

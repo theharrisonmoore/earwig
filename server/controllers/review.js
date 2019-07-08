@@ -88,9 +88,6 @@ const postReview = async (req, res, next) => {
   const { organization } = req.body;
   const { user } = req;
 
-  console.log("REQ", req.body);
-  console.log("voice", voiceReview)
-
   try {
     const organizationData = await getOrganization(organization.category, organization.name);
     const userData = await findByEmail(user.email);
@@ -115,8 +112,6 @@ const postReview = async (req, res, next) => {
         audio: voiceReview,
       },
     });
-
-    console.log("new", newReview)
 
     const currentReview = await newReview.save();
 

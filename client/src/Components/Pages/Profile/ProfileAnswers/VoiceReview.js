@@ -53,12 +53,6 @@ const StopButton = styled.div`
   margin-right: 1rem;
 `;
 
-const Progress = styled.div`
-  width: 100%;
-  height: 2px;
-  background-color: gray;
-`;
-
 export default class VoiceReview extends Component {
   state = {
     audioFile: null,
@@ -71,12 +65,9 @@ export default class VoiceReview extends Component {
 
   componentDidMount() {
     const { filename } = this.props;
-    const { currentTime, duration } = this.state;
     axios
       .post(API_GET_AUDIO_URL, { filename })
       .then(res => {
-        console.log("AUDIO", res);
-
         // LOAD THE FILE
         this.setState({
           audioFile: res.data.audio
@@ -149,21 +140,11 @@ export default class VoiceReview extends Component {
   };
 
   render() {
-    const {
-      audioFile,
-      loading,
-      playing,
-      length,
-      timeupdate,
-      progress
-    } = this.state;
+    const { audioFile, loading, playing, progress } = this.state;
 
     const { category } = this.props;
 
     if (loading) return <Loading />;
-
-    const currentTime = this.getTime(this.state.currentTime);
-    const duration = this.getTime(this.state.duration);
 
     return (
       <>
@@ -174,16 +155,11 @@ export default class VoiceReview extends Component {
             <PlayButton onClick={this.togglePlay} category={category} />
           )}
           <Slider
-            defaultValue={currentTime}
             value={progress}
             style={{ width: "100%" }}
             onChange={this.handleSlide}
             onAfterChange={this.handleAfterSlide}
           />
-          {/* // <Progress currentTime={(currentTime / duration) * 100} />
-          <div>
-            {currentTime} / {duration}
-          </div> */}
         </Player>
         <audio
           id="player"
