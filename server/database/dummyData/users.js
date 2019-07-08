@@ -59,7 +59,8 @@ module.exports = async () => {
       currentAgency,
       currentCompany,
       currentPayroll,
-      currentWorksite
+      currentWorksite,
+      city: "London"
     },
   ];
 
