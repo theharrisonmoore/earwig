@@ -28,10 +28,8 @@ module.exports = async (req, res, next) => {
     data.displayName = displayName;
   }
   try {
-    if (target === "overall") {
-      await addCommentOnOverallReview(reviewId, data);
-      res.json();
-    }
+    await addCommentOnOverallReview(reviewId, data, target);
+    res.json();
   } catch (error) {
     next(boom.badImplementation(error));
   }

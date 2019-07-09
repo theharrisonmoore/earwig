@@ -27,10 +27,7 @@ import {
 
 import { organizations } from "./../../../theme";
 
-import {
-  API_GET_OVERALL_REVIEW_REPLIES_URL,
-  API_ADD_COMMENT_ON_REVIEW_URL
-} from "./../../../apiUrls";
+import { API_ADD_COMMENT_ON_REVIEW_URL } from "./../../../apiUrls";
 
 import { highlightMentions } from "../../../helpers";
 
@@ -103,7 +100,7 @@ export default class Reply extends Component {
                   errors: {},
                   submitting: false
                 },
-                () => this.fetchOverallReplies(reviewId)
+                () => this.fetchOverallReplies(reviewId, target)
               );
               // UNCOMMENT IF YOU WANT TO SEND BACK TO PROFILE AFTER SUBMITTING COMMENT
               // this.props.history.push(`/profile/${orgId}`);
@@ -121,10 +118,10 @@ export default class Reply extends Component {
   inputWrapper = React.createRef();
   fixedDiv = React.createRef();
 
-  fetchOverallReplies = id => {
+  fetchOverallReplies = (id, target) => {
     id
       ? axios
-          .get(`${API_GET_OVERALL_REVIEW_REPLIES_URL}/${id}`)
+          .get(`/api/reviews/${target}/replies/${id}`)
           .then(({ data }) => {
             this.setState(
               {
@@ -154,9 +151,8 @@ export default class Reply extends Component {
   componentDidMount() {
     if (this.props.location && this.props.location.state) {
       const { reviewId, target } = this.props.location.state;
-      if (target === "overall") {
-        this.fetchOverallReplies(reviewId);
-      }
+      // target equal "overallReview" OR "voiceReview";
+      this.fetchOverallReplies(reviewId, target);
     } else {
       this.goBack();
     }

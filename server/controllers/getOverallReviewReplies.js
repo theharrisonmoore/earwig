@@ -8,9 +8,9 @@ const boom = require("boom");
 const { getOverallReplies } = require("../database/queries/reviews");
 
 module.exports = (req, res, next) => {
-  const { id } = req.params;
+  const { id, target } = req.params;
 
-  getOverallReplies(id)
+  getOverallReplies(id, target)
     .then((replies) => {
       res.json(replies);
     })

@@ -211,10 +211,12 @@ export default class OverallReview extends Component {
       });
   };
 
-  togglePanel = id => {
+  togglePanel = key => {
+    const [id, type] = key.split("/");
+    const target = type === "written" ? "overallReview" : "voiceReview";
     id
-      ? this.setState({ activeReview: id }, () => {
-          this.props.fetchOverallReplies(id);
+      ? this.setState({ activeReview: key }, () => {
+          this.props.fetchOverallReplies(id, target);
         })
       : this.setState({ activeReview: "" });
   };
@@ -424,7 +426,10 @@ export default class OverallReview extends Component {
                       pathname: REPLY_URL,
                       state: {
                         reviewId: review._id,
-                        target: "overall",
+                        target:
+                          review.category === "written"
+                            ? "overallReview"
+                            : "voiceReview",
                         category,
                         orgId
                       }
@@ -505,7 +510,7 @@ export default class OverallReview extends Component {
                       </span>
                     </>
                   }
-                  key={review._id}
+                  key={review._id + "/" + review.category}
                 >
                   {overallReplies.map(reply => {
                     return (

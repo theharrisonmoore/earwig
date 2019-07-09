@@ -73,7 +73,6 @@ const {
   ADD_ORGANIZATION_URL,
   REPORT_CONTENT_URL,
   ADD_COMMENT_ON_QUESTION_URL,
-  GET_OVERALL_REVIEW_REPLIES_URL,
   ADD_COMMENT_ON_REVIEW_URL,
   ADMIN,
   CONFIRM_EMAIL,
@@ -235,8 +234,9 @@ router.post(
 );
 
 // get all replies on specific overall review
+// /reviews/${target}/replies/${id}
 router.get(
-  `${GET_OVERALL_REVIEW_REPLIES_URL}/:id`,
+  "/reviews/:target/replies/:id",
   authentication,
   authorization("LEVEL1"),
   getOverallReviewReplies,

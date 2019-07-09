@@ -22,9 +22,9 @@ module.exports.getOverallReplies = getOverallReplies;
 
 module.exports.getAllReviews = getAllReviews;
 
-module.exports.addCommentOnOverallReview = (id, data) => Review.findByIdAndUpdate(id, {
+module.exports.addCommentOnOverallReview = (id, data, target) => Review.findByIdAndUpdate(id, {
   $push: {
-    "overallReview.replies": data,
+    [`${target}.replies`]: data,
   },
 });
 
@@ -504,6 +504,6 @@ module.exports.getAllQs = () => Question.aggregate([
     $project: {
       text: 1,
       category: 1,
-    }
-  }
-])
+    },
+  },
+]);

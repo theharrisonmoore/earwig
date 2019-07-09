@@ -12,7 +12,6 @@ import Loading from "./../../Common/AntdComponents/Loading";
 
 import { ITEMS } from "./../../../constants/promoItems";
 import { SIGNUP_URL } from "./../../../constants/naviagationUrls";
-import { API_GET_OVERALL_REVIEW_REPLIES_URL } from "./../../../apiUrls";
 
 import Icon from "./../../Common/Icon/Icon";
 
@@ -177,10 +176,10 @@ export default class Profile extends Component {
       });
   };
 
-  fetchOverallReplies = id => {
-    id
+  fetchOverallReplies = (id, target) => {
+    id && target
       ? axios
-          .get(`${API_GET_OVERALL_REVIEW_REPLIES_URL}/${id}`)
+          .get(`/api/reviews/${target}/replies/${id}`)
           .then(({ data }) => {
             this.setState({ overallReplies: data, activeOverallId: id });
           })

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Review = require("../../models/Review");
 
-module.exports = id => Review.aggregate([
+module.exports = (id, target) => Review.aggregate([
   {
     $match: {
       _id: mongoose.Types.ObjectId(id),
@@ -10,7 +10,7 @@ module.exports = id => Review.aggregate([
   },
   {
     $project: {
-      replies: "$overallReview.replies",
+      replies: `$${target}.replies`,
     },
   },
   {
