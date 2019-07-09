@@ -54,10 +54,10 @@ const setPassword = require("../controllers/setPassword");
 const updateOverallHelpfulPoints = require("../controllers/updateOverallHelpfulPoints");
 const checkIfEditReview = require("../controllers/checkIfCanEdit");
 
-const getUsersTrade = require("../controllers/getUsersTrade")
+const getUsersTrade = require("../controllers/getUsersTrade");
 
-const setCurrentOrgs = require("../controllers/setCurrentOrgs")
-const getCurrentOrgs = require("../controllers/getCurrentOrgs")
+const setCurrentOrgs = require("../controllers/setCurrentOrgs");
+const getCurrentOrgs = require("../controllers/getCurrentOrgs");
 
 
 const {
@@ -83,7 +83,7 @@ const {
   ADD_HELPFUL_OVERALL_POINTS,
   USERS_TRADE,
   SET_ORGS,
-  GET_USER_ORGS
+  GET_USER_ORGS,
 } = require("../../client/src/apiUrls");
 
 
@@ -94,8 +94,8 @@ router.get(USERS, authentication, userInfoController);
 
 router.get("/review/:id/is-edatable", authentication, authorization("LEVEL3"), checkIfEditReview);
 
-router.get("/questions/:id", authentication, authorization("LEVEL3"), getByOrg);
-router.post(REVIEW_URL, authentication, authorization("LEVEL3"), postReview);
+router.get("/questions/:id", authentication, authorization("LEVEL2"), getByOrg);
+router.post(REVIEW_URL, authentication, authorization("LEVEL2"), postReview);
 router.put("/review/:id", authentication, authorization("LEVEL3"), updateReview);
 router.post("/short-review", authentication, authorization("LEVEL3"), postReviewShort);
 
@@ -240,10 +240,10 @@ router.post(SET_PASSWORD, setPassword);
 
 router.patch(ADD_HELPFUL_OVERALL_POINTS, authentication, updateOverallHelpfulPoints);
 
-router.get(USERS_TRADE, authentication, getUsersTrade)
+router.get(USERS_TRADE, authentication, getUsersTrade);
 
-router.post(SET_ORGS, authentication, setCurrentOrgs)
+router.post(SET_ORGS, authentication, setCurrentOrgs);
 
-router.get(GET_USER_ORGS, authentication, getCurrentOrgs)
+router.get(GET_USER_ORGS, authentication, getCurrentOrgs);
 
 module.exports = router;
