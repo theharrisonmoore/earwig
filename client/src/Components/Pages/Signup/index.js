@@ -42,8 +42,10 @@ import example from "./../../../assets/example.png";
 
 import { API_SIGN_UP } from "./../../../apiUrls";
 
-import { ORG_STATUS_URL_SIGNUP, WELCOME_URL } from "./../../../constants/naviagationUrls"
-
+import {
+  ORG_STATUS_URL_SIGNUP,
+  WELCOME_URL
+} from "./../../../constants/naviagationUrls";
 
 const { API_TRADE_URL } = require("../../../apiUrls");
 
@@ -210,8 +212,11 @@ export default class Signup extends Component {
         })
           .then(({ data }) => {
             this.props.handleChangeState({ ...data, isLoggedIn: true });
-            if (isWorker) { this.props.history.push(ORG_STATUS_URL_SIGNUP) } else { this.props.history.push(WELCOME_URL)
-            };
+            if (isWorker) {
+              this.props.history.push(ORG_STATUS_URL_SIGNUP);
+            } else {
+              this.props.history.push(WELCOME_URL);
+            }
           })
           .catch(err => {
             this.setState({ error: err.response.data.error });
@@ -243,7 +248,7 @@ export default class Signup extends Component {
   }
 
   handleChange = value => {
-    this.setState({ tradeId: value });
+    this.setState({ trade: value });
   };
 
   showModal = () => {
@@ -252,7 +257,7 @@ export default class Signup extends Component {
     });
   };
 
-  handleOk = () => {
+  handleOk = setFieldValue => {
     if (this.state.newTrade && this.state.newTrade.length >= 3) {
       this.setState(
         {
@@ -266,9 +271,10 @@ export default class Signup extends Component {
 
               this.setState({
                 trades: [{ value: data._id, label: data.title }],
-                tradeId: data._id,
+                trade: data._id,
                 disableSelect: true
               });
+              setFieldValue("trade", data._id);
 
               this.setState(
                 {
@@ -355,7 +361,7 @@ export default class Signup extends Component {
             validationSchema={signupSchema}
             onSubmit={this.handleSubmit}
           >
-            {({ isSubmitting, handleChange }) => (
+            {({ isSubmitting, handleChange, values, setFieldValue }) => (
               <Form style={{ width: "100%" }}>
                 <Label htmlFor="email">
                   Email
@@ -516,7 +522,7 @@ export default class Signup extends Component {
                                   form.setFieldValue("trade", value);
                                   this.handleChange(value);
                                 }}
-                                value={this.state.tradeId}
+                                value={this.state.trade}
                                 disabled={this.state.disableSelect}
                                 isCreateNew
                                 showSearch
@@ -535,7 +541,7 @@ export default class Signup extends Component {
                             <Modal
                               title="Add new trade"
                               visible={ismodalVisible}
-                              onOk={this.handleOk}
+                              onOk={() => this.handleOk(setFieldValue)}
                               confirmLoading={confirmLoading}
                               onCancel={this.handleCancel}
                             >

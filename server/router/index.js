@@ -103,8 +103,8 @@ router.get(USERS, authentication, userInfoController);
 
 router.get("/review/:id/is-edatable", authentication, authorization("LEVEL3"), checkIfEditReview);
 
-router.get("/questions/:id", authentication, authorization("LEVEL3"), getByOrg);
-router.post(REVIEW_URL, authentication, authorization("LEVEL3"), postReview);
+router.get("/questions/:id", authentication, authorization("LEVEL2"), getByOrg);
+router.post(REVIEW_URL, authentication, authorization("LEVEL2"), postReview);
 router.put("/review/:id", authentication, authorization("LEVEL3"), updateReview);
 router.post("/short-review", authentication, authorization("LEVEL3"), postReviewShort);
 
