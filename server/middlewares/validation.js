@@ -67,6 +67,8 @@ const schemas = {
       .allow("")
       .optional(),
     newUsername: Joi.string().max(15),
+    newTrade: Joi.any(),
+    newCity: Joi.string(),
   },
   addTrade: {
     trade: Joi.string()
@@ -248,6 +250,12 @@ const schemas = {
       .required(),
     target: Joi.string().required(),
   },
+  setCurrentOrgs: {
+    currentAgency: Joi.object(),
+    currentPayroll: Joi.object(),
+    currentWorksite: Joi.object(),
+    currentCompany: Joi.object(),
+  }
 };
 
 module.exports = route => (req, res, next) => {

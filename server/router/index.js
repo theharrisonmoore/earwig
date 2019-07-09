@@ -56,6 +56,11 @@ const userReviews = require("../controllers/userReviews");
 const deleteReview = require("../controllers/admin/deleteReview");
 const checkIfEditReview = require("../controllers/checkIfCanEdit");
 
+const getUsersTrade = require("../controllers/getUsersTrade");
+
+const setCurrentOrgs = require("../controllers/setCurrentOrgs");
+const getCurrentOrgs = require("../controllers/getCurrentOrgs");
+
 
 const {
   LOGIN_URL,
@@ -78,6 +83,9 @@ const {
   RESET_PASSWORD,
   SET_PASSWORD,
   ADD_HELPFUL_OVERALL_POINTS,
+  USERS_TRADE,
+  SET_ORGS,
+  GET_USER_ORGS,
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
@@ -92,8 +100,8 @@ router.get(USERS, authentication, userInfoController);
 
 router.get("/review/:id/is-edatable", authentication, authorization("LEVEL3"), checkIfEditReview);
 
-router.get("/questions/:id", authentication, authorization("LEVEL3"), getByOrg);
-router.post(REVIEW_URL, authentication, authorization("LEVEL3"), postReview);
+router.get("/questions/:id", authentication, authorization("LEVEL2"), getByOrg);
+router.post(REVIEW_URL, authentication, authorization("LEVEL2"), postReview);
 router.put("/review/:id", authentication, authorization("LEVEL3"), updateReview);
 router.post("/short-review", authentication, authorization("LEVEL3"), postReviewShort);
 
@@ -161,7 +169,7 @@ router.post(
 router.post(
   EDIT_PROFILE,
   authentication,
-  authorization("LEVEL3"),
+  authorization("LEVEL1"),
   upload("verificationImage"),
   validation("editProfile"),
   toGoogle(false),
@@ -237,5 +245,11 @@ router.post(RESET_PASSWORD, resetPassword);
 router.post(SET_PASSWORD, setPassword);
 
 router.patch(ADD_HELPFUL_OVERALL_POINTS, authentication, updateOverallHelpfulPoints);
+
+router.get(USERS_TRADE, authentication, getUsersTrade);
+
+router.post(SET_ORGS, authentication, setCurrentOrgs);
+
+router.get(GET_USER_ORGS, authentication, getCurrentOrgs);
 
 module.exports = router;

@@ -31,7 +31,7 @@ const getByOrg = async (req, res, next) => {
     } else if (category === "payroll") {
       dropDownListData = await getOrgsNamesByType("agency");
     } else if (category === "worksite") {
-      dropDownListData = await getOrgsNamesByType("worksite");
+      dropDownListData = await getOrgsNamesByType("company");
     }
 
     const getReviewAnswers = await getReviewDetails(orgId, userId);

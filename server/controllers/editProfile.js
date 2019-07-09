@@ -7,6 +7,7 @@
  * @param {oldPassword} -string- plain old password
  * @param {newPassword} -string- plain new password
  * @param {newUsername} -string- plain new username
+ * @param {newTrade} -string- plain new trade ID
  * if image uploaded then store it in the DB
  *
  */
@@ -18,7 +19,9 @@ const { getUserById, updateUserById, getUserByUsername } = require("./../databas
 
 // eslint-disable-next-line consistent-return
 module.exports = async (req, res, next) => {
-  const { oldPassword, newPassword, newUsername } = req.body;
+  const {
+    oldPassword, newPassword, newUsername, newTrade, newCity
+  } = req.body;
   const { user } = req;
   const updateData = {};
 
@@ -58,7 +61,13 @@ module.exports = async (req, res, next) => {
       }
       updateData.userId = newUsername;
     }
-
+    if (newTrade) {
+      updateData.trade = newTrade;
+    }
+    if (newCity) {
+      updateData.city = newCity;
+    }
+    
     const updatedUser = await updateUserById(userInfo.id, updateData);
 
     return res.json(updatedUser);

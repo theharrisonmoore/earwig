@@ -13,7 +13,12 @@ import {
   COMMUNITY_GUIDELINES_URL,
   TERMS_OF_USE_URL,
   COOKIES_POLICY_URL,
-  RESET_PASSWORD_URL
+  RESET_PASSWORD_URL,
+  EDIT_CITY_URL,
+  EDIT_PASSWORD_URL,
+  EDIT_ID_URL,
+  EDIT_TRADE_URL,
+  WELCOME_URL
 } from "./../constants/naviagationUrls";
 
 import Landing from "./Pages/Landing";
@@ -37,6 +42,9 @@ import Intro from "./Pages/Intro";
 import PrivateRoute from "./Common/PrivateRoute";
 import Reply from "./Pages/Profile/Reply";
 import ResetPassword from "./Pages/ResetPassword";
+import EditProfileSection from "./Pages/EditProfile/EditProfileSection";
+import OrgCheck from "./Pages/OrgCheck";
+import Welcome from "./Pages/Welcome";
 
 import {
   FAQ,
@@ -62,7 +70,9 @@ import {
   INTRO_URL,
   USER_PROFILE_URL,
   REPLY_URL,
-  PRIVACY_URL
+  PRIVACY_URL,
+  ORG_STATUS_URL_SIGNUP,
+  ORG_STATUS_URL_LOGIN,
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
@@ -141,12 +151,59 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL3"
+          minimumLevel="LEVEL1"
           path={EDIT_PROFILE_URL}
+          exact
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
           Component={EditProfile}
+        />
+
+        {/* SUB EDIT PROFILE SECTIONS */}
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={EDIT_ID_URL}
+          exact
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={EditProfileSection}
+          section="earwigId"
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={EDIT_PASSWORD_URL}
+          exact
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={EditProfileSection}
+          section="password"
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={EDIT_TRADE_URL}
+          exact
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={EditProfileSection}
+          section="trade"
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={EDIT_CITY_URL}
+          exact
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={EditProfileSection}
+          section="city"
         />
 
         <PrivateRoute
@@ -157,6 +214,8 @@ export default function index(props) {
           isTablet={isTablet}
           Component={DeleteProfile}
         />
+
+        {/* END OF SUB EDIT PROFILE SECTIONS */}
 
         <PrivateRoute
           minimumLevel="LEVEL1"
@@ -302,6 +361,10 @@ export default function index(props) {
           Component={Intro}
         />
 
+        <PrivateRoute minimumLevel="LEVEL1" path={ORG_STATUS_URL_SIGNUP} {...props} isMobile={isMobile} isTablet={isTablet} type="sign-up" Component={OrgCheck} />
+
+        <PrivateRoute minimumLevel="LEVEL1" path={ORG_STATUS_URL_LOGIN} {...props} isMobile={isMobile} isTablet={isTablet} type="sign-up" Component={OrgCheck} loggingIn />
+
         <Route
           exact
           path="/"
@@ -317,6 +380,10 @@ export default function index(props) {
             )
           }
         />
+
+        <PrivateRoute minimumLevel="LEVEL1" path={WELCOME_URL} {...props} isMobile={isMobile} isTablet={isTablet} Component={Welcome} navbar />
+
+        <PrivateRoute minimumLevel="LEVEL1" path={WELCOME_URL} {...props} isMobile={isMobile} isTablet={isTablet} Component={Welcome} navbar />
 
         <Route
           exact

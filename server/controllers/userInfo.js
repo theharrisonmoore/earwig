@@ -10,6 +10,7 @@ module.exports = (req, res) => {
     helpedPoints: user.helpedPoints,
     isAdmin: user.isAdmin,
     email: user.email,
+    city: user.city,
   };
   return res.json(userInfo);
 };

@@ -3,6 +3,7 @@ const User = require("./../../models/User");
 const Comment = require("./../../models/Comment");
 const Answer = require("./../../models/Answer");
 const Review = require("./../../models/Review");
+const Trade = require("./../../models/Trade");
 
 const getAllUsers = require("./allUsers");
 
@@ -33,6 +34,15 @@ module.exports.updateUserById = (userId, data) => User.findByIdAndUpdate(
   // return the updated document
   { new: true },
 );
+
+module.exports.deleteUserFields = (userId, data) => User.findByIdAndUpdate(
+  userId, 
+  { $unset: data}, 
+  // return the updated document
+  { new: true },
+);
+
+
 module.exports.findByEmail = email => User.findOne({ email: email.toLowerCase() });
 
 module.exports.addNew = userData => User.create(userData);
@@ -99,3 +109,5 @@ module.exports.findUserByToken = token => User.findOne({
 });
 
 module.exports.getUserByUsername = username => User.findOne({ userId: username });
+
+module.exports.getUsersTrade = tradeId => Trade.findById(tradeId)

@@ -59,6 +59,15 @@ const API_SET_PASSWORD = `${API_PREFIX}${SET_PASSWORD}`;
 
 const ADD_HELPFUL_OVERALL_POINTS = "/review/:reviewId/overall/helpful-points";
 
+const USERS_TRADE = "/users-trade";
+const API_USERS_TRADE = `${API_PREFIX}${USERS_TRADE}`;
+
+const SET_ORGS = "/set-current-orgs";
+const API_SET_ORGS = `${API_PREFIX}${SET_ORGS}`;
+
+const GET_USER_ORGS = "/get-current-orgs";
+const API_GET_USER_ORGS = `${API_PREFIX}${GET_USER_ORGS}`;
+
 const ADMIN = "/admin";
 
 module.exports = {
@@ -82,6 +91,9 @@ module.exports = {
   API_USERS,
   API_RESET_PASSWORD,
   API_SET_PASSWORD,
+  API_USERS_TRADE,
+  API_SET_ORGS,
+  API_GET_USER_ORGS,
 
   // server variables
   LOGIN_URL,
@@ -104,5 +116,8 @@ module.exports = {
   USERS,
   RESET_PASSWORD,
   SET_PASSWORD,
-  ADD_HELPFUL_OVERALL_POINTS
+  ADD_HELPFUL_OVERALL_POINTS,
+  USERS_TRADE,
+  SET_ORGS,
+  GET_USER_ORGS
 };

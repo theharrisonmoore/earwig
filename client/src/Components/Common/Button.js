@@ -20,7 +20,7 @@ const ButtonElement = styled.button`
   display: block;
   padding: 0.75rem 0;
   cursor: pointer;
-  margin: 2rem auto;
+  margin: ${props => props.margin || "2rem auto"};
 
   &:active {
     box-shadow: none;
@@ -39,6 +39,8 @@ const ButtonElement = styled.button`
       color: ${colors.red};
     }
 `}
+
+  ${({alignContent}) => (alignContent ? "display: flex; align-items: center; padding-left: 1.5rem;" : "")}
 
   ${({ left }) => (left ? "margin-left: auto;" : "")}
 `;

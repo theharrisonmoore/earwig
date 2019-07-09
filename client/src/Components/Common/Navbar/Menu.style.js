@@ -64,8 +64,6 @@ export const PriorityMenuItem = styled(MenuItem)`
     padding-left: 1.5rem;
     color: ${colors.white};
   }
-
-
 `
 
 export const ComingSoon = styled.div`

@@ -62,6 +62,22 @@ const userSchema = new Schema(
       expiresIn: Date,
     },
     worksFor: String,
+    currentAgency: {
+      type: ObjectId,
+      ref: "organizations",
+    },
+    currentPayroll: {
+      type: ObjectId,
+      ref: "organizations",
+    },
+    currentWorksite: {
+      type: ObjectId,
+      ref: "organizations",
+    },
+    currentCompany: {
+      type: ObjectId,
+      ref: "organizations",
+    },
   },
   { timestamps: true },
 );

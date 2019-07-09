@@ -14,15 +14,16 @@ const NavbarWrapper = styled.div`
   z-index: 2;
   background-color: ${({ backgroundColor }) =>
     backgroundColor ? backgroundColor : colors.white};
-  box-shadow: ${shadows.headerShadow};
+  /* box-shadow: ${shadows.headerShadow}; */
   border-bottom: 1px solid ${colors.lightGray};
   width: 100%;
   height: 11vh;
   min-height: 8vh;
+  text-decoration: none;
 
-  & + * {
+  /* & + * {
     padding-top: 11vh;
-  }
+  } */
 
   p {
     margin-bottom: 0;
@@ -60,11 +61,12 @@ const CancelNavbar = ({
   title,
   titleColor,
   cancelColor,
-  CancelText
+  CancelText,
+  customAction
 }) => {
   return (
     <NavbarWrapper backgroundColor={backgroundColor}>
-      <Cancel onClick={history.goBack} cancelColor={cancelColor}>
+      <Cancel onClick={customAction ? customAction : history.goBack} cancelColor={cancelColor}>
         {CancelText || "Cancel"}
       </Cancel>
       {title && <NavbarTitle titleColor={titleColor}>{title}</NavbarTitle>}
