@@ -49,7 +49,10 @@ export default class OverallReview extends Component {
     activeReview: "",
     activeReplies: [],
     repliesLoaded: false,
-    counters: {},
+    counters: {
+      written: {},
+      audio: {}
+    },
     isMouseDown: false,
     writtenOrAudioReviews: []
   };
@@ -59,8 +62,10 @@ export default class OverallReview extends Component {
   pressingDown = e => {
     const { counters } = this.state;
     const { id } = e.target;
+    // type = "audio" or "written"
+    const { type } = e.target.dataset;
 
-    const item = counters[id];
+    const item = counters[type][id];
     const counter = item ? item.counter : 0;
     const sentNumber = item ? item.sentNumber : 0;
 
@@ -70,11 +75,14 @@ export default class OverallReview extends Component {
       {
         counters: {
           ...counters,
-          [id]: {
-            counter: updateCounter,
-            sentNumber: sentNumber,
-            scaleValue: 1 + counter / 100,
-            byUser: true
+          [type]: {
+            ...counters[type],
+            [id]: {
+              counter: updateCounter,
+              sentNumber: sentNumber,
+              scaleValue: 1 + counter / 100,
+              byUser: true
+            }
           }
         },
         isMouseDown: true
@@ -83,16 +91,17 @@ export default class OverallReview extends Component {
         setTimeout(index => {
           const { isMouseDown } = this.state;
           if (isMouseDown) {
-            this.hold(id);
+            this.hold(id, type);
           }
         }, 500);
       }
     );
   };
 
-  hold = id => {
+  hold = (id, type) => {
     const { counters, isMouseDown } = this.state;
-    const item = counters[id];
+
+    const item = counters[type][id];
     const counter = item ? item.counter : 0;
 
     if ((item && counter >= 10) || !isMouseDown) {
@@ -103,7 +112,7 @@ export default class OverallReview extends Component {
 
     this.timer = setInterval(() => {
       const { counters, isMouseDown } = this.state;
-      const item = counters[id];
+      const item = counters[type][id];
       const counter = item ? item.counter : 0;
       const sentNumber = item ? item.sentNumber : 0;
 
@@ -115,11 +124,14 @@ export default class OverallReview extends Component {
       this.setState({
         counters: {
           ...counters,
-          [id]: {
-            counter: counter + 1,
-            sentNumber: sentNumber,
-            scaleValue: 1 + counter / 100,
-            byUser: true
+          [type]: {
+            ...counters[type],
+            [id]: {
+              counter: counter + 1,
+              sentNumber: sentNumber,
+              scaleValue: 1 + counter / 100,
+              byUser: true
+            }
           }
         },
         isMouseDown: true
@@ -128,11 +140,13 @@ export default class OverallReview extends Component {
   };
 
   notPressingDown = e => {
-    const reviewId = e.target.id;
     const { counters } = this.state;
+    const reviewId = e.target.id;
+    const { type } = e.target.dataset;
+
     const { userId } = e.target.dataset;
 
-    const item = counters[reviewId];
+    const item = counters[type][reviewId];
     const counter = item ? item.counter : 0;
     const sentNumber = item ? item.sentNumber : 0;
 
@@ -142,17 +156,20 @@ export default class OverallReview extends Component {
         {
           counters: {
             ...counters,
-            [reviewId]: {
-              counter: counter,
-              sentNumber: counter,
-              scaleValue: 1,
-              byUser: true
+            [type]: {
+              ...counters[type],
+              [reviewId]: {
+                counter: counter,
+                sentNumber: counter,
+                scaleValue: 1,
+                byUser: true
+              }
             }
           },
           isMouseDown: false
         },
         () => {
-          this.postHelpfulPoints(counter, sentNumber, reviewId, userId);
+          this.postHelpfulPoints(counter, sentNumber, reviewId, userId, type);
         }
       );
     } else {
@@ -160,9 +177,10 @@ export default class OverallReview extends Component {
     }
   };
 
-  postHelpfulPoints = (points, prevPoints, reviewId, userId) => {
+  postHelpfulPoints = (points, prevPoints, reviewId, userId, type) => {
+    const target = type === "written" ? "overallReview" : "voiceReview";
     axios
-      .patch(`/api/review/${reviewId}/overall/helpful-points`, {
+      .patch(`/api/review/${reviewId}/${target}/helpful-points`, {
         points,
         prevPoints,
         userId
@@ -173,11 +191,14 @@ export default class OverallReview extends Component {
         this.setState({
           counters: {
             ...counters,
-            [reviewId]: {
-              counter: points,
-              sentNumber: points,
-              scaleValue: 1,
-              byUser: false
+            [type]: {
+              ...counters[type],
+              [reviewId]: {
+                counter: points,
+                sentNumber: points,
+                scaleValue: 1,
+                byUser: false
+              }
             }
           },
           isMouseDown: false
@@ -204,22 +225,37 @@ export default class OverallReview extends Component {
 
     const newCounters =
       summary &&
-      summary.reviews.reduce((prev, currReview) => {
-        const { overallReview } = currReview;
+      summary.reviews.reduce(
+        (prev, currReview) => {
+          const { overallReview, voiceReview } = currReview;
 
-        overallReview &&
-          overallReview.votes.forEach(vote => {
-            if (vote && vote.user === id) {
-              prev[currReview._id] = {
-                counter: vote.points,
-                sentNumber: vote.points,
-                scaleValue: 1,
-                byUser: false
-              };
-            }
-          });
-        return prev;
-      }, {});
+          overallReview &&
+            overallReview.votes.forEach(vote => {
+              if (vote && vote.user === id) {
+                prev["written"][currReview._id] = {
+                  counter: vote.points,
+                  sentNumber: vote.points,
+                  scaleValue: 1,
+                  byUser: false
+                };
+              }
+            });
+
+          voiceReview &&
+            voiceReview.votes.forEach(vote => {
+              if (vote && vote.user === id) {
+                prev["audio"][currReview._id] = {
+                  counter: vote.points,
+                  sentNumber: vote.points,
+                  scaleValue: 1,
+                  byUser: false
+                };
+              }
+            });
+          return prev;
+        },
+        { written: {}, audio: {} }
+      );
 
     let totalReviews = [];
 
@@ -285,8 +321,6 @@ export default class OverallReview extends Component {
 
     const { writtenOrAudioReviews } = this.state;
 
-    console.log(writtenOrAudioReviews);
-
     const { activeReview, counters } = this.state;
 
     const isAuthorized = authorization({
@@ -305,8 +339,8 @@ export default class OverallReview extends Component {
         {writtenOrAudioReviews &&
           writtenOrAudioReviews.map((review, index) => (
             <CommentDiv
-              key={review._id + "comment"}
-              noReview={review.text.length < 1}
+              key={review._id + "comment" + review.category}
+              noReview={!!review.text && review.text.length < 1}
             >
               <UserDiv>
                 <UserID>{review.user && review.user.userId}</UserID>
@@ -351,14 +385,17 @@ export default class OverallReview extends Component {
                   >
                     <HelpfulBubble
                       number={
-                        counters[review._id] && counters[review._id].byUser
-                          ? counters[review._id].counter
+                        counters[review.category][review._id] &&
+                        counters[review.category][review._id].byUser
+                          ? counters[review.category][review._id].counter
                           : undefined
                       }
                       color={organizations[category].primary}
                     />
+
                     <ActionsButton
                       data-user-id={review.user._id}
+                      data-type={review.category}
                       type="primary"
                       bgcolor={
                         isAuthorized

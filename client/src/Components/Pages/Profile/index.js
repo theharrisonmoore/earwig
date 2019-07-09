@@ -120,7 +120,7 @@ export default class Profile extends Component {
     // work out the average cost from the answers
     const average = carSection[0][0].answers
       .map(answer => answer.answer)
-      .reduce((accum, curr) => (accum + curr) / 2);
+      .reduce((accum, curr) => (accum + curr) / 2, 0);
 
     return average > 0 ? average : "Free";
   };

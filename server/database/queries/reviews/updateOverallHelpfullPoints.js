@@ -1,7 +1,9 @@
 const Review = require("../../models/Review");
 const User = require("../../models/User");
 
-module.exports = ({ userId, reviewId, points }) => new Promise(async (resolve, reject) => {
+module.exports = ({
+  userId, reviewId, points, target,
+}) => new Promise(async (resolve, reject) => {
   try {
     if (points === 0) {
       const review = await Review.findById(reviewId);
@@ -14,9 +16,10 @@ module.exports = ({ userId, reviewId, points }) => new Promise(async (resolve, r
         },
       );
 
-      review.overallReview.votes.forEach((vote, index) => {
+      // target equal "overallReview" Or "voiceReview"
+      review[target].votes.forEach((vote, index) => {
         if (vote.user.toString() === userId.toString()) {
-          review.overallReview.votes[index].remove();
+          review[target].votes[index].remove();
         }
       });
       await review.save();
@@ -26,13 +29,13 @@ module.exports = ({ userId, reviewId, points }) => new Promise(async (resolve, r
         {
           _id: reviewId,
           // the condition for positional operator $
-          "overallReview.votes.user": userId,
+          [`${target}.votes.user`]: userId,
         },
         {
           // update the vote
           $set: {
-            "overallReview.votes.$.points": points,
-            "overallReview.votes.$.updatedAt": Date.now(),
+            [`${target}.votes.$.points`]: points,
+            [`${target}.votes.$.updatedAt`]: Date.now(),
           },
         },
       );
@@ -44,7 +47,7 @@ module.exports = ({ userId, reviewId, points }) => new Promise(async (resolve, r
           { _id: reviewId },
           {
             $push: {
-              "overallReview.votes": {
+              [`${target}.votes`]: {
                 user: userId,
                 points,
               },

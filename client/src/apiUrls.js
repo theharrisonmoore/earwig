@@ -57,7 +57,7 @@ const API_RESET_PASSWORD = `${API_PREFIX}${RESET_PASSWORD}`;
 const SET_PASSWORD = "/set-password";
 const API_SET_PASSWORD = `${API_PREFIX}${SET_PASSWORD}`;
 
-const ADD_HELPFUL_OVERALL_POINTS = "/review/:reviewId/overall/helpful-points";
+const ADD_HELPFUL_OVERALL_POINTS = "/review/:reviewId/:target/helpful-points";
 
 const USERS_TRADE = "/users-trade";
 const API_USERS_TRADE = `${API_PREFIX}${USERS_TRADE}`;
