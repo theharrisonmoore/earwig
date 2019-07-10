@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, organizations } from "../../../../theme";
+import { colors, organizations, borders } from "../../../../theme";
 
 export const QuestionWrapper = styled.div.attrs({ className: "" })`
   font-size: 18px;
@@ -256,4 +256,41 @@ export const SliderWrapper = styled.div`
     width: 100%;
     visibility: ${({ visibility }) => (visibility ? "intial" : "hidden")};
   }
+`;
+
+export const VoiceIconWrapper = styled.div`
+  width: 67px;
+  height: 67px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  color: ${({ recording }) => (recording ? colors.red : colors.dustyGray2)};
+  margin-right: 1rem;
+
+  :after {
+    content: "";
+    position: absolute;
+    width: 67px;
+    height: 67px;
+    border: ${borders.commentBox};
+    border-radius: 50%;
+    animation: ${({ recording }) => recording && "spin 2s linear infinite"};
+    border-top: ${({ recording }) => recording && borders.recording};
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+`;
+
+export const VoiceWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;

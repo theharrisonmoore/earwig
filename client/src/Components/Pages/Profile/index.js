@@ -12,7 +12,6 @@ import Loading from "./../../Common/AntdComponents/Loading";
 
 import { ITEMS } from "./../../../constants/promoItems";
 import { SIGNUP_URL } from "./../../../constants/naviagationUrls";
-import { API_GET_OVERALL_REVIEW_REPLIES_URL } from "./../../../apiUrls";
 
 import Icon from "./../../Common/Icon/Icon";
 
@@ -120,7 +119,7 @@ export default class Profile extends Component {
     // work out the average cost from the answers
     const average = carSection[0][0].answers
       .map(answer => answer.answer)
-      .reduce((accum, curr) => (accum + curr) / 2);
+      .reduce((accum, curr) => (accum + curr) / 2, 0);
 
     return average > 0 ? average : "Free";
   };
@@ -177,10 +176,10 @@ export default class Profile extends Component {
       });
   };
 
-  fetchOverallReplies = id => {
-    id
+  fetchOverallReplies = (id, target) => {
+    id && target
       ? axios
-          .get(`${API_GET_OVERALL_REVIEW_REPLIES_URL}/${id}`)
+          .get(`/api/reviews/${target}/replies/${id}`)
           .then(({ data }) => {
             this.setState({ overallReplies: data, activeOverallId: id });
           })

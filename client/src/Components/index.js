@@ -81,7 +81,7 @@ export default function index(props) {
   return (
     <>
       <Switch>
-        <Route exact path="/organization/:orgId/review" component={Review} />
+        <PrivateRoute exact minimumLevel="LEVEL1" path="/organization/:orgId/review" {...props} Component={Review} />
         <Route exact path="/review/:reviewId/edit" component={Review} />
 
         <PrivateRoute

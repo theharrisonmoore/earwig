@@ -94,15 +94,16 @@ input {
 `;
 
 export const IconDiv = styled.div`
-  width: 22px;
-  height: 22px;
-  background: url(${props => props.bgr}) no-repeat;
+  width: 32px;
+  height: 32px;
+  /* background: url(${props => props.bgr}) no-repeat; */
   object-fit: fill;
   position: absolute;
   top: ${props => props.iconTop};
   margin-left: 20px;
   cursor: pointer;
   z-index: 1;
+  right: 24px;
 `;
 
 export const SearchWrapper = styled.div`

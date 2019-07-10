@@ -36,12 +36,12 @@ module.exports = ((req, res, next) => {
                   // send rejection email
                   rejectionEmail(user.email)
                     .then(() => {
-                      res.send();
+                      res.json();
                     }).catch(() => {
                       next(boom.badImplementation());
                     });
                 } else {
-                  res.send();
+                  res.json();
                 }
               })
               .catch((err) => {

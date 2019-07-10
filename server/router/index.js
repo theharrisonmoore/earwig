@@ -61,6 +61,8 @@ const getUsersTrade = require("../controllers/getUsersTrade");
 const setCurrentOrgs = require("../controllers/setCurrentOrgs");
 const getCurrentOrgs = require("../controllers/getCurrentOrgs");
 
+const uploadVoiceRecording = require("../controllers/uploadVoiceRecording");
+const voiceReview = require("../controllers/getVoiceReview");
 
 const {
   LOGIN_URL,
@@ -71,7 +73,6 @@ const {
   ADD_ORGANIZATION_URL,
   REPORT_CONTENT_URL,
   ADD_COMMENT_ON_QUESTION_URL,
-  GET_OVERALL_REVIEW_REPLIES_URL,
   ADD_COMMENT_ON_REVIEW_URL,
   ADMIN,
   CONFIRM_EMAIL,
@@ -86,6 +87,8 @@ const {
   USERS_TRADE,
   SET_ORGS,
   GET_USER_ORGS,
+  UPLOAD_AUDIO,
+  GET_AUDIO_URL,
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
@@ -144,15 +147,21 @@ router.post(
   uploadWorksiteController,
 );
 
+router.post(
+  UPLOAD_AUDIO,
+  upload("voiceRecording"),
+  toGoogle(),
+  deleteFileFromServer,
+  uploadVoiceRecording,
+);
+
+router.post(GET_AUDIO_URL, authentication, voiceReview);
+
 // get all trades
 router.get(TRADE_URL, getTradesController);
 
 // add new trade
-router.post(
-  TRADE_URL,
-  validation("addTrade"),
-  postTradesController,
-);
+router.post(TRADE_URL, validation("addTrade"), postTradesController);
 
 // sign up
 router.post(
@@ -225,8 +234,9 @@ router.post(
 );
 
 // get all replies on specific overall review
+// /reviews/${target}/replies/${id}
 router.get(
-  `${GET_OVERALL_REVIEW_REPLIES_URL}/:id`,
+  "/reviews/:target/replies/:id",
   authentication,
   authorization("LEVEL1"),
   getOverallReviewReplies,

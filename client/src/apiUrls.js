@@ -57,7 +57,7 @@ const API_RESET_PASSWORD = `${API_PREFIX}${RESET_PASSWORD}`;
 const SET_PASSWORD = "/set-password";
 const API_SET_PASSWORD = `${API_PREFIX}${SET_PASSWORD}`;
 
-const ADD_HELPFUL_OVERALL_POINTS = "/review/:reviewId/overall/helpful-points";
+const ADD_HELPFUL_OVERALL_POINTS = "/review/:reviewId/:target/helpful-points";
 
 const USERS_TRADE = "/users-trade";
 const API_USERS_TRADE = `${API_PREFIX}${USERS_TRADE}`;
@@ -69,6 +69,12 @@ const GET_USER_ORGS = "/get-current-orgs";
 const API_GET_USER_ORGS = `${API_PREFIX}${GET_USER_ORGS}`;
 
 const ADMIN = "/admin";
+
+const UPLOAD_AUDIO = "/upload-audio";
+const API_UPLOAD_AUDIO = `${API_PREFIX}${UPLOAD_AUDIO}`;
+
+const GET_AUDIO_URL = "/get-audio";
+const API_GET_AUDIO_URL = `${API_PREFIX}${GET_AUDIO_URL}`;
 
 module.exports = {
   // React variables
@@ -94,6 +100,8 @@ module.exports = {
   API_USERS_TRADE,
   API_SET_ORGS,
   API_GET_USER_ORGS,
+  API_UPLOAD_AUDIO,
+  API_GET_AUDIO_URL,
 
   // server variables
   LOGIN_URL,
@@ -119,5 +127,7 @@ module.exports = {
   ADD_HELPFUL_OVERALL_POINTS,
   USERS_TRADE,
   SET_ORGS,
-  GET_USER_ORGS
+  GET_USER_ORGS,
+  UPLOAD_AUDIO,
+  GET_AUDIO_URL
 };

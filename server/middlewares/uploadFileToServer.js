@@ -23,7 +23,7 @@ module.exports = fieldName => (req, res, next) => {
 
   upload(req, res, (err) => {
     if (err) {
-      return next(boom.badImplementation("Error while uploading photo"));
+      return next(boom.badImplementation("Error while uploading file"));
     }
     return next();
   });

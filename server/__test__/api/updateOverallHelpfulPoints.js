@@ -40,7 +40,7 @@ describe("Tesing for update helpfulness points", () => {
 
         const points = 5;
         request(app)
-          .patch(`/api/review/${reviewBefore._id}/overall/helpful-points`)
+          .patch(`/api/review/${reviewBefore._id}/overallReview/helpful-points`)
           .send({
             points,
             prevPoints: 0,

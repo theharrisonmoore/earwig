@@ -14,8 +14,7 @@ module.exports = async (req, res, next) => {
   const { user } = req;
   try {
     // check organisation exists
-    const organization = await checkOrgExists(organizationID)
-      .catch(err => next(boom.badImplementation(err)));
+    const organization = await checkOrgExists(organizationID).catch(err => next(boom.badImplementation(err)));
 
     if (!organization) return next(boom.notFound("Cannot find the organization you're looking for"));
 
@@ -30,6 +29,7 @@ module.exports = async (req, res, next) => {
         next(boom.badImplementation(err));
       });
 
+      console.log("sum", summary);
 
       // check if user has already given reviews less old than 4 weeks
       const userReviews = await checkUsersLatestReview(organizationID, user._id);
@@ -44,9 +44,7 @@ module.exports = async (req, res, next) => {
       // reviewDetails = await allAnswers(organizationID)
       //   .catch(err => next(boom.badImplementation(err)));
 
-      reviewDetails = await allQsAndAs(organization.category, organizationID)
-        .catch(err => next(boom.badImplementation(err)));
-
+      reviewDetails = await allQsAndAs(organization.category, organizationID).catch(err => next(boom.badImplementation(err)));
 
       level = user.verified ? 2 : 1;
     } else {
@@ -55,8 +53,11 @@ module.exports = async (req, res, next) => {
       if (summary[0].reviews.length === 0) summary[0].reviews = [{}];
       if (organization.category === "worksite") {
         const justContractor = true;
-        reviewDetails = await allQsAndAs(organization.category, organizationID, justContractor)
-          .catch(err => next(boom.badImplementation(err)));
+        reviewDetails = await allQsAndAs(
+          organization.category,
+          organizationID,
+          justContractor,
+        ).catch(err => next(boom.badImplementation(err)));
       } else {
         reviewDetails = [];
       }

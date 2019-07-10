@@ -38,7 +38,7 @@ const antIcon = (
   <Icon type="loading" style={{ fontSize: 24, color: "white" }} spin />
 );
 
-const { API_POST_REVIEW_URL } = require("../../../apiUrls");
+const { API_POST_REVIEW_URL, API_UPLOAD_AUDIO } = require("../../../apiUrls");
 
 class Review extends Component {
   state = {
@@ -57,15 +57,17 @@ class Review extends Component {
         to: ""
       },
       rate: 0,
-      overallReview: ""
-      // voiceReview: ""
+      overallReview: "",
+      voiceReview: ""
     },
     hasAgreed: false,
     questions: [],
     errors: {},
     isSubmitting: false,
     isEditing: false,
-    orgId: ""
+    orgId: "",
+    recording: false,
+    audioFile: null
   };
 
   componentDidMount() {
@@ -193,6 +195,64 @@ class Review extends Component {
         });
     }
   }
+
+  // VOICE RECORDING
+  startRecord = refs => {
+    const { recording } = this.state;
+    if (!recording) {
+      this.setState({ recording: true });
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+        this.mediaRecorder = new MediaRecorder(stream);
+        this.chunks = [];
+        this.mediaRecorder.start(10);
+        this.mediaRecorder.addEventListener("dataavailable", event => {
+          this.chunks.push(event.data);
+        });
+      });
+    }
+  };
+
+  stopRecord = refs => {
+    const { recording } = this.state;
+    // get the user id so we can make each filename unique
+    const { id } = this.props;
+    if (recording) {
+      const { player } = refs;
+      this.setState({ recording: false });
+      this.mediaRecorder.stop();
+      const audioBlob = new Blob(this.chunks);
+      const audio = new File(this.chunks, `${id}.mp3`, {
+        type: "audio",
+        lastModified: Date.now()
+      });
+      const audioUrl = URL.createObjectURL(audioBlob);
+      player.src = audioUrl;
+      this.setState({ audioFile: audio });
+    }
+  };
+
+  submitAudio = () => {
+    const { audioFile } = this.state;
+    if (audioFile) {
+
+      const form = new FormData();
+
+      form.append("voiceRecording", audioFile);
+
+      return axios({
+        method: "post",
+        url: API_UPLOAD_AUDIO,
+        data: form,
+        headers: {
+          "content-type": `multipart/form-data; boundary=${form.boundary}`
+        }
+      })
+        .then(({ data }) => {
+          return data.audio;
+        })
+        .catch(err => console.log(err));
+    }
+  };
 
   handleChange = e => {
     const { answers } = this.state;
@@ -371,7 +431,7 @@ class Review extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     this.setState({ isSubmitting: true });
-    const { organization } = this.state;
+    const { organization, audioFile } = this.state;
     const { user } = this.state;
     const values = {
       answers: this.state.answers,
@@ -380,7 +440,7 @@ class Review extends Component {
       hasAgreed: this.state.hasAgreed
     };
 
-    this.runValidation().then(resp => {
+    this.runValidation().then(async resp => {
       if (resp) {
         const review = {
           values,
@@ -408,9 +468,15 @@ class Review extends Component {
             });
         } else {
           // add new review
+
+          // if there's an audio file submit and update answers with its correct filename
+          if (audioFile)
+            review.values.review.voiceReview = await this.submitAudio();
+
           axios
             .post(API_POST_REVIEW_URL, review)
             .then(res => {
+              console.log("res", res);
               this.setState({ isSubmitting: false });
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,
@@ -437,7 +503,8 @@ class Review extends Component {
       groupss,
       organization: { name, category },
       errors,
-      isSubmitting
+      isSubmitting,
+      recording
     } = this.state;
     const { history } = this.props;
     const staticQuestion = STATIC_QUESTIONS(category);
@@ -527,10 +594,14 @@ class Review extends Component {
                   state={this.state}
                 />
                 {/* The voice questions in the next sprint */}
-                {/* <Question
-                        question={staticQuestion[3]}
-                        category={this.state.organization.category}
-                      /> */}
+                <Question
+                  question={staticQuestion[3]}
+                  category={this.state.organization.category}
+                  state={this.state}
+                  startRecord={this.startRecord}
+                  stopRecord={this.stopRecord}
+                  recording={recording}
+                />
               </div>
               <UserAgreement>
                 <Level2Header>Submit your review</Level2Header>
