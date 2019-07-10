@@ -44,6 +44,7 @@ export const BorderedWrapper = styled.div`
   @media ${breakpoints.tablet} {
     border-left: 3px solid ${colors.heliotrope};
     border-right: 3px solid ${colors.heliotrope};
+    padding-top: 12rem;
   }
 `;
 
