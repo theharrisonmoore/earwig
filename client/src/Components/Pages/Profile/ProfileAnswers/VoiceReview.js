@@ -13,7 +13,7 @@ import { colors, organizations } from "./../../../../theme";
 const Player = styled.div`
   display: flex;
   width: 100%;
-  min-width: 400px;
+  min-width: 200px;
   align-items: center;
 
   .ant-slider-handle {
