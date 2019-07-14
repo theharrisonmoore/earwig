@@ -124,7 +124,7 @@ export default class Profile extends Component {
         return accum + curr;
       }, 0) / costsArr.length;
 
-    return average > 0 ? average : "Free";
+    return average > 0 ? average.toFixed(2) : "Free";
   };
 
   updateLastViewed = () => {
