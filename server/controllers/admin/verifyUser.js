@@ -13,7 +13,6 @@ const {
   updateUserById,
   getUserById,
   updateUserPoints,
-  updateUserHelpedPoints,
 } = require("./../../database/queries/user");
 
 const deleteFile = require("./../../helpers/deleteFile");
@@ -54,7 +53,6 @@ module.exports = async (req, res, next) => {
 
     if (user.referral) {
       await updateUserPoints(user.referral, referralPoints);
-      await updateUserHelpedPoints(user.referral);
     }
 
 

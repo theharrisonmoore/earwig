@@ -1,10 +1,9 @@
 const boom = require("boom");
 
 const { updateOverallHelpfullPoints } = require("../database/queries/reviews");
-const { updateUserPoints } = require("../database/queries/user");
 
 module.exports = async (req, res, next) => {
-  const { points, prevPoints, userId } = req.body;
+  const { points, prevPoints } = req.body;
   const { reviewId, target } = req.params;
   const { user } = req;
 
@@ -15,9 +14,8 @@ module.exports = async (req, res, next) => {
   const diffPoints = points - prevPoints;
   const promises = [
     updateOverallHelpfullPoints({
-      reviewId, userId: user._id, points, target,
+      reviewId, userId: user._id, points, target, diffPoints,
     }),
-    updateUserPoints(userId, diffPoints),
   ];
 
   return Promise.all(promises)

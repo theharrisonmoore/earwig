@@ -10,19 +10,13 @@ const getAllUsers = require("./allUsers");
 module.exports.updateUserPoints = (userId, diffPoints) => User.findOneAndUpdate(
   { _id: userId },
   {
-    $inc: { points: diffPoints },
-  },
-  {
-    $inc: { helpedPoints: 1 },
+    $inc: {
+      points: diffPoints,
+      helpedPoints: 1,
+    },
   },
 );
 
-module.exports.updateUserHelpedPoints = userId => User.findOneAndUpdate(
-  { _id: userId },
-  {
-    $inc: { helpedPoints: 1 },
-  },
-);
 
 module.exports.checkValidReferral = id => User.findOne(
   { _id: id, verified: true }, { password: 0 },
@@ -36,8 +30,8 @@ module.exports.updateUserById = (userId, data) => User.findByIdAndUpdate(
 );
 
 module.exports.deleteUserFields = (userId, data) => User.findByIdAndUpdate(
-  userId, 
-  { $unset: data}, 
+  userId,
+  { $unset: data },
   // return the updated document
   { new: true },
 );
@@ -110,4 +104,4 @@ module.exports.findUserByToken = token => User.findOne({
 
 module.exports.getUserByUsername = username => User.findOne({ userId: username });
 
-module.exports.getUsersTrade = tradeId => Trade.findById(tradeId)
+module.exports.getUsersTrade = tradeId => Trade.findById(tradeId);

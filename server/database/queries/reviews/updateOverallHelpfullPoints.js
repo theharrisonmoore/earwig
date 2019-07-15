@@ -6,7 +6,7 @@ const targets = ["overallReview", "voiceReview"];
 
 
 module.exports = ({
-  userId, reviewId, points, target,
+  userId, reviewId, points, target, diffPoints,
 }) => new Promise(async (resolve, reject) => {
   try {
     const [notTarget] = targets.filter(i => i !== target);
@@ -33,7 +33,10 @@ module.exports = ({
       await User.findOneAndUpdate(
         { _id: review.user._id },
         {
-          $inc: { helpedPoints: givePointsOnAnotherTarget ? 0 : -1 },
+          $inc: {
+            helpedPoints: givePointsOnAnotherTarget ? 0 : -1,
+            points: diffPoints,
+          },
         },
       );
 
@@ -87,7 +90,10 @@ module.exports = ({
         await User.findOneAndUpdate(
           { _id: reviewDetails.user._id },
           {
-            $inc: { helpedPoints: givePointsOnAnotherTarget ? 0 : 1 },
+            $inc: {
+              helpedPoints: givePointsOnAnotherTarget ? 0 : 1,
+              points: diffPoints,
+            },
           },
         );
       }
