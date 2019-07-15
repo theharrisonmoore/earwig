@@ -74,11 +74,13 @@ class AutosuggestComponent extends Component {
     value: "",
     suggestions: [],
     isButton: false,
+    target: "profile"
   };
 
   componentDidMount() {
+    const { target } = this.props.match.params;
     const { isButton } = this.props;
-    this.setState({ isButton })
+    this.setState({ isButton, target: target || "profile" });
   }
 
   // functions for autosuggest component
@@ -128,21 +130,31 @@ class AutosuggestComponent extends Component {
     // also need to check if button to see if we make it a link or not
     // THIS RELATES TO THE ORGCHECK COMPONENT
     const { isButton, storeOrg, noIcon } = this.props;
+    const { target } = this.state;
+    const url =
+      target === "profile"
+        ? `/profile/${suggestion._id}`
+        : `/organization/${suggestion._id}/review`;
 
     if (suggestion.isEmpty) {
       return null;
     }
     return (
-      <ProfileLink to={isButton ? "#" : `/profile/${suggestion._id}`} onClick={() => isButton && storeOrg(suggestion) }>
+      <ProfileLink
+        to={isButton ? "#" : url}
+        onClick={() => isButton && storeOrg(suggestion)}
+      >
         <SuggestionBox orgType={suggestion.category}>
           <InnerDivSuggestions>
             <SymbolDiv>
-              {!noIcon && <Icon
-                icon="search"
-                height="1.5rem"
-                width="1.5rem"
-                margin="0 1rem 0 0"
-              />}
+              {!noIcon && (
+                <Icon
+                  icon="search"
+                  height="1.5rem"
+                  width="1.5rem"
+                  margin="0 1rem 0 0"
+                />
+              )}
               <Icon
                 icon={suggestion.category}
                 height="1.5rem"
@@ -232,13 +244,19 @@ class AutosuggestComponent extends Component {
     // console.log(suggestions);
     return (
       <AutosuggestWrapper height={height} width={width} noIcon>
-        {!noIcon && <IconDiv
-          iconTop={iconTop}
-          // bgr={this.selectIconBgr(value)}
-          onClick={this.delSearchInput}
-        >
-          {value.length > 0 ? <Icon icon="close" height="32px" width="32px" /> : <Icon icon="search" height="32px" width="32px" />}
-        </IconDiv>}
+        {!noIcon && (
+          <IconDiv
+            iconTop={iconTop}
+            // bgr={this.selectIconBgr(value)}
+            onClick={this.delSearchInput}
+          >
+            {value.length > 0 ? (
+              <Icon icon="close" height="32px" width="32px" />
+            ) : (
+              <Icon icon="search" height="32px" width="32px" />
+            )}
+          </IconDiv>
+        )}
         {/* on mobile disable shouldRenderSuggestions as we don't want automatic suggestion rendering as it hides most of the screen */}
         {isMobile ? (
           <Autosuggest
@@ -249,7 +267,6 @@ class AutosuggestComponent extends Component {
             renderSuggestion={this.renderSuggestion}
             inputProps={inputProps}
             renderSuggestionsContainer={this.renderSuggestionsContainer}
-
           />
         ) : (
           <Autosuggest

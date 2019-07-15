@@ -66,7 +66,7 @@ export default class Search extends Component {
       this.setState({
         data: organizations.data,
         isLoading: true,
-        target
+        target: target || "profile"
       });
     });
     document.addEventListener("mousedown", this.handleClickOutside);
@@ -76,42 +76,45 @@ export default class Search extends Component {
   }
 
   // renders last viewed organization section
-  renderLastViewed = (org, key) => (
-    /**
-     * @todo change the link to get target from the state
-     */
-    <ProfileLink key={key} to={`/profile/${org._id}`}>
-      <ReviewsFrame orgType={org.category}>
-        <InnerDivLastReviews orgType={org.category}>
-          <SymbolDiv>
-            <Icon
-              icon={org.category}
-              height="1.5rem"
-              width="1.5rem"
-              margin="0 1rem 0 0"
-            />
-          </SymbolDiv>
-          <OrganisationDetailsDiv>
-            <h3
-              style={{
-                color: organizations[org.category].primary,
-                textTransform: "capitalize"
-              }}
-            >
-              {org.name}
-            </h3>
-            <ReviewDetailsDiv>
-              {StarRateCreator(org)}
-              <p>{org.totalReviews} reviews</p>
-            </ReviewDetailsDiv>
-          </OrganisationDetailsDiv>
-          <ArrowDiv>
-            <img src={orgArrowIcon[org.category]} alt="" />
-          </ArrowDiv>
-        </InnerDivLastReviews>
-      </ReviewsFrame>
-    </ProfileLink>
-  );
+  renderLastViewed = (org, key, target) => {
+    const url =
+      target === "profile"
+        ? `/profile/${org._id}`
+        : `/organization/${org._id}/review`;
+    return (
+      <ProfileLink key={key} to={url}>
+        <ReviewsFrame orgType={org.category}>
+          <InnerDivLastReviews orgType={org.category}>
+            <SymbolDiv>
+              <Icon
+                icon={org.category}
+                height="1.5rem"
+                width="1.5rem"
+                margin="0 1rem 0 0"
+              />
+            </SymbolDiv>
+            <OrganisationDetailsDiv>
+              <h3
+                style={{
+                  color: organizations[org.category].primary,
+                  textTransform: "capitalize"
+                }}
+              >
+                {org.name}
+              </h3>
+              <ReviewDetailsDiv>
+                {StarRateCreator(org)}
+                <p>{org.totalReviews} reviews</p>
+              </ReviewDetailsDiv>
+            </OrganisationDetailsDiv>
+            <ArrowDiv>
+              <img src={orgArrowIcon[org.category]} alt="" />
+            </ArrowDiv>
+          </InnerDivLastReviews>
+        </ReviewsFrame>
+      </ProfileLink>
+    );
+  };
 
   // functions to detect if user clicks outside search box
   // if clicked inside => don't show other sections
@@ -127,12 +130,13 @@ export default class Search extends Component {
   };
 
   render() {
-    const { isLoading, data, showOtherSections } = this.state;
+    const { isLoading, data, showOtherSections, target } = this.state;
     const { isMobile, isTablet } = this.props;
     if (!isLoading) return <Loading />;
 
     return (
       <SearchWrapper data-testid="searchwrapper">
+        oganisation
         <HeadlineDiv>
           {isMobile ? (
             <h2>
@@ -219,7 +223,7 @@ export default class Search extends Component {
             </HeadlineDiv>
             <ReviewsContainer>
               {data[0].lastReviwed.map(org =>
-                this.renderLastViewed(org.lastReviwed, org._id)
+                this.renderLastViewed(org.lastReviwed, org._id, target)
               )}
             </ReviewsContainer>
           </FlexContainer>

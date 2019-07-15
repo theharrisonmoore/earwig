@@ -1,5 +1,4 @@
 export const SEARCH_URL = "/search";
-export const GIVE_REVIEW_URL = "/give-review";
 export const ADD_PROFILE_URL = "/add-profile";
 export const ADD_PROFILE_START_REVIEW_URL = "/add-profile-start-review";
 export const USER_PROFILE_URL = "/my-profile";
@@ -41,4 +40,4 @@ export const JOBS_URL = "/jobs";
 export const INVITE_WORKERS_URL = "/invite-workers";
 export const ORG_STATUS_URL_SIGNUP = "/getting-to-know-you";
 export const ORG_STATUS_URL_LOGIN = "/update";
-export const WELCOME_URL = "/welcome"
+export const WELCOME_URL = "/welcome";

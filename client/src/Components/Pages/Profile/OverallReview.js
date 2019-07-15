@@ -212,9 +212,7 @@ export default class OverallReview extends Component {
   };
 
   togglePanel = key => {
-    console.log("KEY", key)
-
-    if (!key) return this.setState({ activeReview: ""})
+    if (!key) return this.setState({ activeReview: "" });
 
     const [id, type] = key.split("/");
     const target = type === "written" ? "overallReview" : "voiceReview";
@@ -480,7 +478,8 @@ export default class OverallReview extends Component {
                   showArrow={false}
                   header={
                     <>
-                      {activeReview ===  (review._id + "/" + review.category) && activeOverallId === review._id ? (
+                      {activeReview === review._id + "/" + review.category &&
+                      activeOverallId === review._id ? (
                         <Icon
                           fontWeight={700}
                           type="up"
@@ -508,7 +507,8 @@ export default class OverallReview extends Component {
                           marginBottom: "1rem"
                         }}
                       >
-                        {activeReview ===  (review._id + "/" + review.category) && activeOverallId === review._id
+                        {activeReview === review._id + "/" + review.category &&
+                        activeOverallId === review._id
                           ? "Hide Replies"
                           : "Read Replies"}
                       </span>
