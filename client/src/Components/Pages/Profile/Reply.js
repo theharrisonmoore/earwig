@@ -159,7 +159,8 @@ export default class Reply extends Component {
   }
 
   goBack = () => {
-    this.props.history.goBack();
+    const { orgId, pageYOffset } = this.props.location.state;
+    this.props.history.replace(`/profile/${orgId}`, { pageYOffset });
   };
 
   render() {
