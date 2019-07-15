@@ -224,8 +224,6 @@ export default class OverallReview extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
-
     const { id, summary } = this.props;
     const { counters } = this.state;
 

@@ -1,20 +1,19 @@
 const Review = require("../../models/Review");
 const User = require("../../models/User");
 
+
+const targets = ["overallReview", "voiceReview"];
+
+
 module.exports = ({
   userId, reviewId, points, target,
 }) => new Promise(async (resolve, reject) => {
   try {
+    const [notTarget] = targets.filter(i => i !== target);
+
     if (points === 0) {
       const review = await Review.findById(reviewId);
 
-      // remove helped point
-      await User.findOneAndUpdate(
-        { _id: review.user._id },
-        {
-          $inc: { helpedPoints: -1 },
-        },
-      );
 
       // target equal "overallReview" Or "voiceReview"
       review[target].votes.forEach((vote, index) => {
@@ -22,6 +21,23 @@ module.exports = ({
           review[target].votes[index].remove();
         }
       });
+
+      const givePointsOnAnotherTarget = review[notTarget].votes.reduce((acc, curr) => {
+        if (curr.user.toString() === userId.toString()) {
+          return true;
+        }
+        return acc;
+      }, false);
+
+      // remove helped point if the user didn't give helped points in another place
+      await User.findOneAndUpdate(
+        { _id: review.user._id },
+        {
+          $inc: { helpedPoints: givePointsOnAnotherTarget ? 0 : -1 },
+        },
+      );
+
+
       await review.save();
     } else {
       const updateResult = await Review.updateOne(
@@ -55,13 +71,23 @@ module.exports = ({
           },
         );
 
+        const review = await Review.findById(reviewId);
+
+        const givePointsOnAnotherTarget = review[notTarget].votes.reduce((acc, curr) => {
+          if (curr.user.toString() === userId.toString()) {
+            return true;
+          }
+          return acc;
+        }, false);
+
+
         // give review author 1 helped point
         const reviewDetails = await Review.findOne({ _id: reviewId });
 
         await User.findOneAndUpdate(
           { _id: reviewDetails.user._id },
           {
-            $inc: { helpedPoints: 1 },
+            $inc: { helpedPoints: givePointsOnAnotherTarget ? 0 : 1 },
           },
         );
       }
