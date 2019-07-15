@@ -212,9 +212,7 @@ export default class OverallReview extends Component {
   };
 
   togglePanel = key => {
-    console.log("KEY", key)
-
-    if (!key) return this.setState({ activeReview: ""})
+    if (!key) return this.setState({ activeReview: "" });
 
     const [id, type] = key.split("/");
     const target = type === "written" ? "overallReview" : "voiceReview";
@@ -226,6 +224,8 @@ export default class OverallReview extends Component {
   };
 
   componentDidMount() {
+    console.log(this.props);
+
     const { id, summary } = this.props;
     const { counters } = this.state;
 
@@ -322,7 +322,8 @@ export default class OverallReview extends Component {
       isAdmin,
       orgId,
       awaitingReview,
-      FilteredReviewMonths
+      FilteredReviewMonths,
+      id: userId
     } = this.props;
 
     const { writtenOrAudioReviews } = this.state;
@@ -404,7 +405,7 @@ export default class OverallReview extends Component {
                       data-type={review.category}
                       type="primary"
                       bgcolor={
-                        isAuthorized
+                        isAuthorized && review.user._id !== userId
                           ? organizations[category].primary
                           : organizations[category].secondary
                       }
@@ -415,7 +416,7 @@ export default class OverallReview extends Component {
                       onMouseLeave={isAuthorized && this.notPressingDown}
                       onTouchEnd={isAuthorized && this.notPressingDown}
                       scale={1}
-                      disabled={!verified}
+                      disabled={!verified || review.user._id === userId}
                       isMobile={isMobile}
                       //   this.state.counters[review._id]
                       //     ? this.state.counters[review._id].scaleValue
@@ -480,7 +481,8 @@ export default class OverallReview extends Component {
                   showArrow={false}
                   header={
                     <>
-                      {activeReview ===  (review._id + "/" + review.category) && activeOverallId === review._id ? (
+                      {activeReview === review._id + "/" + review.category &&
+                      activeOverallId === review._id ? (
                         <Icon
                           fontWeight={700}
                           type="up"
@@ -508,7 +510,8 @@ export default class OverallReview extends Component {
                           marginBottom: "1rem"
                         }}
                       >
-                        {activeReview ===  (review._id + "/" + review.category) && activeOverallId === review._id
+                        {activeReview === review._id + "/" + review.category &&
+                        activeOverallId === review._id
                           ? "Hide Replies"
                           : "Read Replies"}
                       </span>
