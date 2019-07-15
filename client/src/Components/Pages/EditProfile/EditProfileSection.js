@@ -43,13 +43,13 @@ export default class EditProfileSection extends Component {
     fields: {},
     ismodalVisible: false,
     currentTradeName: "",
-    section: null,
+    section: null
   };
 
   componentDidMount() {
     const { section } = this.props;
 
-    this.setState({ section })
+    this.setState({ section });
 
     if (section === "trade") {
       axios.get(API_TRADE_URL).then(res => {
@@ -61,9 +61,9 @@ export default class EditProfileSection extends Component {
         this.setState({ trades });
       });
 
-      axios.get(API_USERS_TRADE).then(({data}) => {
-        this.setState({ currentTradeName: data.title}) 
-      })
+      axios.get(API_USERS_TRADE).then(({ data }) => {
+        this.setState({ currentTradeName: (data && data.title) || null });
+      });
     }
   }
 
@@ -159,9 +159,9 @@ export default class EditProfileSection extends Component {
 
     // this.setState({ isSubmitting: true });
 
-    const isValid = this.submitValidation(section)
+    const isValid = this.submitValidation(section);
 
-    if(isValid) {
+    if (isValid) {
       axios
         .post("/api/edit-profile", fields)
         .then(({ data }) => {
@@ -170,10 +170,12 @@ export default class EditProfileSection extends Component {
           this.setState({ isSubmitting: false });
         })
         .catch(err => {
-          this.setState({ serverError: err.response.data.error, isSubmitting: false });
+          this.setState({
+            serverError: err.response.data.error,
+            isSubmitting: false
+          });
         });
     }
-
   };
 
   onBlurValidation = event => {
@@ -181,11 +183,11 @@ export default class EditProfileSection extends Component {
     let { errors } = this.state;
 
     // remove that field from errors if already there
-    if (errors[name]) delete errors[name]
+    if (errors[name]) delete errors[name];
 
     // VALIDATION
-    const newError = this.fieldValidation(name, value)
-    errors = {...errors, ...newError}
+    const newError = this.fieldValidation(name, value);
+    errors = { ...errors, ...newError };
 
     this.setState({ errors });
   };
@@ -227,48 +229,47 @@ export default class EditProfileSection extends Component {
     }
 
     return errors;
-  }
+  };
 
-  submitValidation = (type) => {
+  submitValidation = type => {
     let { errors, fields } = this.state;
     errors = {};
     let requiredFields;
 
     if (type === "earwigId") {
-        requiredFields = ["newUsername"]
+      requiredFields = ["newUsername"];
     }
 
     if (type === "password") {
-      requiredFields = ["oldPassword", "newPassword", "reNewPassword"]
+      requiredFields = ["oldPassword", "newPassword", "reNewPassword"];
     }
 
     if (type === "trade") {
-      requiredFields = ["newTrade"]
+      requiredFields = ["newTrade"];
     }
 
     if (type === "city") {
-      requiredFields = ["newCity"]
+      requiredFields = ["newCity"];
     }
 
-      // check if any required fields haven't been filled in
-      const fieldNames = Object.keys(fields)
-      requiredFields.map(type => {
-        if (fieldNames.includes(type) === false) {
-          return errors[type] = "Required"
-        } else return null;
-       })
-      
-      // check for any other errors with the fields submitted
-      const fieldArr = Object.entries(fields);
-      fieldArr.map(field => {
-        const newError = this.fieldValidation(field[0], field[1])
-        return errors = {...errors, ...newError}
-    })
-    
+    // check if any required fields haven't been filled in
+    const fieldNames = Object.keys(fields);
+    requiredFields.map(type => {
+      if (fieldNames.includes(type) === false) {
+        return (errors[type] = "Required");
+      } else return null;
+    });
 
-    this.setState({ errors })
+    // check for any other errors with the fields submitted
+    const fieldArr = Object.entries(fields);
+    fieldArr.map(field => {
+      const newError = this.fieldValidation(field[0], field[1]);
+      return (errors = { ...errors, ...newError });
+    });
+
+    this.setState({ errors });
     return Object.entries(errors).length > 0 ? false : true;
-  }
+  };
 
   render() {
     const { history, section, userId, city } = this.props;
@@ -278,7 +279,7 @@ export default class EditProfileSection extends Component {
       serverError,
       ismodalVisible,
       confirmLoading,
-      currentTradeName,
+      currentTradeName
     } = this.state;
 
     return (
@@ -353,7 +354,7 @@ export default class EditProfileSection extends Component {
             {section === "trade" && (
               <div>
                 <InputDiv>
-                <CurrentValue>Current trade: {currentTradeName}</CurrentValue>
+                  <CurrentValue>Current trade: {currentTradeName}</CurrentValue>
                   <InputLabel htmlFor="newTrade">New trade</InputLabel>
                   <Select
                     id="newTrade"
