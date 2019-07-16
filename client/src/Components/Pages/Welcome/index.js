@@ -78,7 +78,7 @@ export default class Welcome extends Component {
                   />
                   <ButtonText>
                     <Text>Give a review</Text>
-                    {!verified && (
+                    {!verified && !awaitingReview && (
                       <HintText>(Click here to get verified first)</HintText>
                     )}
                   </ButtonText>
@@ -111,7 +111,7 @@ export default class Welcome extends Component {
                   />
                   <ButtonText>
                     <Text> Ask workers a question</Text>
-                    {!verified && (
+                    {!verified && !awaitingReview && (
                       <HintText>(Click here to get verified first)</HintText>
                     )}
                   </ButtonText>
@@ -133,7 +133,7 @@ export default class Welcome extends Component {
                   />
                   <ButtonText>
                     <Text>Find a job</Text>
-                    {!verified && (
+                    {!verified && !awaitingReview && (
                       <HintText>(Click here to get verified first)</HintText>
                     )}
                   </ButtonText>

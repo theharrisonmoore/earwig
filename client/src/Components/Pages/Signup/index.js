@@ -212,8 +212,11 @@ export default class Signup extends Component {
         })
           .then(({ data }) => {
             this.props.handleChangeState({ ...data, isLoggedIn: true });
-            if (isWorker) {
-              this.props.history.push(ORG_STATUS_URL_SIGNUP);
+            if (isWorker === "yes") {
+              this.props.history.push({
+                pathname: "/intro",
+                state: { isWorker }
+              });
             } else {
               this.props.history.push(WELCOME_URL);
             }
