@@ -19,7 +19,7 @@ import {
 
 // NAV ROUTES
 import {
-  GIVE_REVIEW_URL,
+  // GIVE_REVIEW_URL,
   SEARCH_URL,
   ASK_QUESTION_URL,
   JOBS_URL,
@@ -64,7 +64,7 @@ export default class Welcome extends Component {
               <StyledLink
                 to={
                   verified || awaitingReview
-                    ? SEARCH_URL
+                    ? `${SEARCH_URL}/review`
                     : UPLOAD_VERIFICATION_PHOTO
                 }
               >
@@ -83,7 +83,14 @@ export default class Welcome extends Component {
                   </ButtonText>
                 </Button>
               </StyledLink>
-              <StyledLink to={SEARCH_URL}>
+              <StyledLink
+                // to={
+                //   verified || awaitingReview
+                //     ? `${SEARCH_URL}/profile`
+                //     : SEARCH_URL
+                // }
+                to={SEARCH_URL}
+              >
                 <Button alignContent left margin="0 0 1.5rem 0">
                   <Icon
                     icon="search"

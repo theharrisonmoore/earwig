@@ -136,7 +136,6 @@ export default class Search extends Component {
 
     return (
       <SearchWrapper data-testid="searchwrapper">
-        oganisation
         <HeadlineDiv>
           {isMobile ? (
             <h2>
