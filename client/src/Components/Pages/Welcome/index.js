@@ -37,7 +37,6 @@ export default class Welcome extends Component {
             Thanks! <br />
             Welcome to earwig
           </Title>
-
           {/* this should be extracted to a common component */}
           {!isLoggedIn ? (
             <Subtitle>
@@ -65,7 +64,7 @@ export default class Welcome extends Component {
               <StyledLink
                 to={
                   verified || awaitingReview
-                    ? GIVE_REVIEW_URL
+                    ? SEARCH_URL
                     : UPLOAD_VERIFICATION_PHOTO
                 }
               >

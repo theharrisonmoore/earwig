@@ -1,5 +1,4 @@
 export const SEARCH_URL = "/search";
-export const GIVE_REVIEW_URL = "/give-review";
 export const ADD_PROFILE_URL = "/add-profile";
 export const ADD_PROFILE_START_REVIEW_URL = "/add-profile-start-review";
 export const USER_PROFILE_URL = "/my-profile";

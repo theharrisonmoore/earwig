@@ -29,7 +29,6 @@ module.exports = async (req, res, next) => {
         next(boom.badImplementation(err));
       });
 
-      console.log("sum", summary);
 
       // check if user has already given reviews less old than 4 weeks
       const userReviews = await checkUsersLatestReview(organizationID, user._id);

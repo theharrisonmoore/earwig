@@ -212,9 +212,7 @@ export default class OverallReview extends Component {
   };
 
   togglePanel = key => {
-    console.log("KEY", key)
-
-    if (!key) return this.setState({ activeReview: ""})
+    if (!key) return this.setState({ activeReview: "" });
 
     const [id, type] = key.split("/");
     const target = type === "written" ? "overallReview" : "voiceReview";
@@ -223,6 +221,22 @@ export default class OverallReview extends Component {
           this.props.fetchOverallReplies(id, target);
         })
       : this.setState({ activeReview: "" });
+  };
+
+  goTOReply = e => {
+    const { reviewId, category, orgId, target } = e.target.dataset;
+    const { pageYOffset } = window;
+    const { history } = this.props;
+    history.push({
+      pathname: REPLY_URL,
+      state: {
+        reviewId,
+        target,
+        category,
+        orgId,
+        pageYOffset
+      }
+    });
   };
 
   componentDidMount() {
@@ -276,7 +290,8 @@ export default class OverallReview extends Component {
             user: review.user,
             createdAt: review.createdAt,
             _id: review._id,
-            category: "written"
+            category: "written",
+            review
           });
         }
 
@@ -292,13 +307,21 @@ export default class OverallReview extends Component {
         }
       });
 
-    this.setState({
-      counters: {
-        ...counters,
-        ...newCounters
+    this.setState(
+      {
+        counters: {
+          ...counters,
+          ...newCounters
+        },
+        writtenOrAudioReviews: totalReviews
       },
-      writtenOrAudioReviews: totalReviews
-    });
+      () => {
+        const pageYOffset =
+          this.props.location.state && this.props.location.state.pageYOffset;
+
+        pageYOffset && window.scrollTo(0, pageYOffset);
+      }
+    );
   }
 
   checkWrittenComments = reviews => {
@@ -425,32 +448,27 @@ export default class OverallReview extends Component {
                       This is helpful
                     </ActionsButton>
                   </HelpfulButtonWrapper>
-                  <Link
-                    to={{
-                      pathname: REPLY_URL,
-                      state: {
-                        reviewId: review._id,
-                        target:
-                          review.category === "written"
-                            ? "overallReview"
-                            : "voiceReview",
-                        category,
-                        orgId
-                      }
-                    }}
+
+                  <ReplyButton
+                    onClick={this.goTOReply}
+                    data-target={
+                      review.category === "written"
+                        ? "overallReview"
+                        : "voiceReview"
+                    }
+                    data-category={category}
+                    data-org-id={orgId}
+                    data-review-id={review._id}
+                    type="primary"
+                    color={
+                      verified
+                        ? organizations[category].primary
+                        : organizations[category].secondary
+                    }
+                    disabled={!verified}
                   >
-                    <ReplyButton
-                      type="primary"
-                      color={
-                        verified
-                          ? organizations[category].primary
-                          : organizations[category].secondary
-                      }
-                      disabled={!verified}
-                    >
-                      Reply
-                    </ReplyButton>
-                  </Link>
+                    Reply
+                  </ReplyButton>
                 </ButtonsWrapper>
                 <Link
                   style={{ right: 0, width: "10%" }}
@@ -458,11 +476,15 @@ export default class OverallReview extends Component {
                     pathname: REPORT_CONTENT_URL,
                     state: {
                       review: {
-                        overallReview: review.overallReview,
+                        overallReview:
+                          review.review && review.review.overallReview,
                         user: review.user
                       },
                       organization: summary,
-                      target: "overallReview"
+                      target:
+                        review.category === "written"
+                          ? "overallReview"
+                          : "voiceReview"
                     }
                   }}
                 >
@@ -480,7 +502,8 @@ export default class OverallReview extends Component {
                   showArrow={false}
                   header={
                     <>
-                      {activeReview ===  (review._id + "/" + review.category) && activeOverallId === review._id ? (
+                      {activeReview === review._id + "/" + review.category &&
+                      activeOverallId === review._id ? (
                         <Icon
                           fontWeight={700}
                           type="up"
@@ -508,7 +531,8 @@ export default class OverallReview extends Component {
                           marginBottom: "1rem"
                         }}
                       >
-                        {activeReview ===  (review._id + "/" + review.category) && activeOverallId === review._id
+                        {activeReview === review._id + "/" + review.category &&
+                        activeOverallId === review._id
                           ? "Hide Replies"
                           : "Read Replies"}
                       </span>
