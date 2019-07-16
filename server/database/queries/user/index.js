@@ -4,7 +4,7 @@ const Comment = require("./../../models/Comment");
 const Answer = require("./../../models/Answer");
 const Review = require("./../../models/Review");
 const Trade = require("./../../models/Trade");
-
+const updateUserHelpfulPoints = require("./updateUserHelpfulPoints");
 const getAllUsers = require("./allUsers");
 
 module.exports.updateUserPoints = (userId, diffPoints) => User.findOneAndUpdate(
@@ -12,7 +12,7 @@ module.exports.updateUserPoints = (userId, diffPoints) => User.findOneAndUpdate(
   {
     $inc: {
       points: diffPoints,
-      helpedPoints: 1,
+      helpedUsers: 1,
     },
   },
 );
@@ -105,3 +105,5 @@ module.exports.findUserByToken = token => User.findOne({
 module.exports.getUserByUsername = username => User.findOne({ userId: username });
 
 module.exports.getUsersTrade = tradeId => Trade.findById(tradeId);
+
+module.exports.updateUserHelpfulPoints = updateUserHelpfulPoints;

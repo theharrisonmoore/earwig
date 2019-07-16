@@ -118,7 +118,7 @@ module.exports = () => Answer.aggregate([
       "Current company": "$user.currentCompany.name",
       "Town or City": "$user.city",
       "Points earned": "$user.points",
-      "People helped": "$user.helpedPoints",
+      "People helped": "$user.helpedUsers",
       "Reviews given": { $size: "$user.givenReviews" },
       Trade: { $arrayElemAt: ["$user.trade.title", 0] },
       "Entity type": "$organization.category",

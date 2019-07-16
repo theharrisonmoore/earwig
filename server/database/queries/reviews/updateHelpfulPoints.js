@@ -2,13 +2,22 @@ const Helpfulness = require("./../../models/Helpfulness");
 
 module.exports = ({
   helpfulUser, helpedUser, target, organization, review, points,
-}) => Helpfulness.updateOne(
-  // filters
-  {
+}) => {
+  if (points > 0) {
+    return Helpfulness.updateOne(
+      // filters
+      {
+        fromReferral: false, helpfulUser, helpedUser, target, review, organization,
+      }, {
+        // update data
+        points,
+      }, {
+        // options
+        upsert: true,
+      },
+    );
+  }
+  return Helpfulness.deleteOne({
     fromReferral: false, helpfulUser, helpedUser, target, review, organization,
-  }, {
-    points,
-  }, {
-    upsert: true,
-  },
-);
+  });
+};

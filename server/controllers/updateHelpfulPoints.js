@@ -1,6 +1,7 @@
 const boom = require("boom");
 
 const { updateHelpfulPoints } = require("../database/queries/reviews");
+const { updateUserHelpfulPoints } = require("./../database/queries/user");
 
 module.exports = async (req, res, next) => {
   const {
@@ -15,27 +16,15 @@ module.exports = async (req, res, next) => {
     return next(boom.badRequest("invalid arguments"));
   }
 
-  // const diffPoints = points - prevPoints;
 
-  const promises = [
-    updateHelpfulPoints({
-      helpfulUser: userId,
-      helpedUser: user._id,
-      target,
-      organization,
-      review: reviewId,
-      points,
-
-      //
-      // reviewId,
-      // userId: user._id,
-      // points,
-      // target,
-      // diffPoints,
-    }),
-  ];
-
-  return Promise.all(promises)
+  return updateHelpfulPoints({
+    helpfulUser: userId,
+    helpedUser: user._id,
+    target,
+    organization,
+    review: reviewId,
+    points,
+  }).then(() => updateUserHelpfulPoints(userId))
     .then(() => {
       res.json({ updatedPoints: points });
     })
