@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 
 const Review = require("./../../database/models/Review");
 const User = require("./../../database/models/User");
+const Helpfulness = require("./../../database/models/Helpfulness");
 
 const buildDB = require("./../../database/dummyData/index");
 const app = require("./../../app");
@@ -32,32 +33,35 @@ describe("Tesing for update helpfulness points", () => {
       .end(async (error, result) => {
         const token = result.headers["set-cookie"][0].split(";")[0];
         const reviewBefore = await Review.findOne();
-        const userBefore = await User.findById(reviewBefore.user);
 
-        expect(userBefore.points).toBe(0);
-        expect(reviewBefore.overallReview.votes).toHaveLength(1);
+        const helpfulnessBefore = await Helpfulness.find({ helpfulUser: reviewBefore.user });
 
+        const pointsBefore = helpfulnessBefore.reduce((prev, curr) => prev + curr.points, 0);
+
+        expect(helpfulnessBefore).toHaveLength(4);
 
         const points = 5;
+
         request(app)
           .patch(`/api/review/${reviewBefore._id}/overallReview/helpful-points`)
           .send({
             points,
-            prevPoints: 0,
             userId: reviewBefore.user,
+            organization: reviewBefore.organization,
           })
+
           .expect("Content-Type", /json/)
           .set("Cookie", [token])
           .expect(200)
           .end(async (err, res) => {
+            const helpfulnessAfter = await Helpfulness.find({ helpfulUser: reviewBefore.user });
+            expect(helpfulnessAfter).toHaveLength(5);
+
             expect(res).toBeDefined();
             expect(res.body).toBeDefined();
-            expect(res.body.updatedPoints).toBe(points);
 
             const userAfter = await User.findById(reviewBefore.user);
-            const reviewAfter = await Review.findOne();
-            expect(reviewAfter.overallReview.votes).toHaveLength(2);
-            expect(userAfter.points).toBe(points);
+            expect(userAfter.points).toBe(points + pointsBefore);
             done(err);
           });
       });

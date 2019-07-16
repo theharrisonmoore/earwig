@@ -169,7 +169,6 @@ export default class OverallReview extends Component {
         () => {
           this.postHelpfulPoints({
             points: counter,
-            // prevPoints: sentNumber,
             reviewId,
             userId,
             type,
@@ -182,19 +181,11 @@ export default class OverallReview extends Component {
     }
   };
 
-  postHelpfulPoints = ({
-    points,
-    prevPoints,
-    reviewId,
-    userId,
-    type,
-    organization
-  }) => {
+  postHelpfulPoints = ({ points, reviewId, userId, type, organization }) => {
     const target = type === "written" ? "overallReview" : "voiceReview";
     axios
       .patch(`/api/review/${reviewId}/${target}/helpful-points`, {
         points,
-        prevPoints,
         userId,
         organization
       })
