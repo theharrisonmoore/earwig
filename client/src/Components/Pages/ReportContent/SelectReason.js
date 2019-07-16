@@ -81,6 +81,7 @@ export default class SelectReason extends Component {
             options={options}
             handleChange={handleSelect}
             placeholder="Choose a reason"
+            value={this.props.reason}
           />
         </SelectWrapper>
         <SubTitle marginBottom style={{ fontSize: "1rem", paddingTop: "0" }}>

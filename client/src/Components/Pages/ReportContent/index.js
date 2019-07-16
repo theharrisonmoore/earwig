@@ -87,6 +87,7 @@ export default class ReportContent extends Component {
                       handleTextAreaChange={this.handleTextAreaChange}
                       description={this.state.description}
                       loading={loading}
+                      reason={this.state.reason}
                     />
                   ) : (
                     <Thanks history={history} />

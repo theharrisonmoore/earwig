@@ -117,11 +117,22 @@ export default class Profile extends Component {
     if (!carSection || carSection.length < 1) return;
 
     // work out the average cost from the answers
-    const average = carSection[0][0].answers
-      .map(answer => answer.answer)
-      .reduce((accum, curr) => (accum + curr) / 2, 0);
+    const costsArr = carSection[0][0].answers.map(answer => answer.answer);
 
-    return average > 0 ? average : "Free";
+    const average =
+      costsArr.reduce((accum, curr, i, arr) => {
+        return accum + curr;
+      }, 0) / costsArr.length;
+
+    if (average > 0) {
+      if (Number.isInteger(average)) {
+        return average;
+      } else {
+        return average.toFixed(2);
+      }
+    } else {
+      return "Free";
+    }
   };
 
   updateLastViewed = () => {
