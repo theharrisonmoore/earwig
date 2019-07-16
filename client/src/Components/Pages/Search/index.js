@@ -26,7 +26,8 @@ import {
   ReviewsFrame,
   ProfileLink,
   ReviewsContainer,
-  FlexContainer
+  FlexContainer,
+  HeaderParagraph
 } from "./Search.style";
 
 import { organizations } from "./../../../theme";
@@ -138,11 +139,27 @@ export default class Search extends Component {
       <SearchWrapper data-testid="searchwrapper">
         <HeadlineDiv>
           {isMobile ? (
-            <h2>
-              Welcome to earwig. <br /> Try searching for…
-            </h2>
+            target === "profile" ? (
+              <HeaderParagraph>
+                See what workers are saying about agencies, payrolls, worksites,
+                and companies
+              </HeaderParagraph>
+            ) : (
+              <HeaderParagraph>
+                Which agency, payroll, worksite, or company do you want to give
+                a review of?
+              </HeaderParagraph>
+            )
+          ) : target === "profile" ? (
+            <HeaderParagraph>
+              See what workers are saying about agencies, payrolls, worksites,
+              and companies
+            </HeaderParagraph>
           ) : (
-            <h2>Welcome to earwig. Try searching for…</h2>
+            <HeaderParagraph>
+              Which agency, payroll, worksite, or company do you want to give a
+              review of?
+            </HeaderParagraph>
           )}
         </HeadlineDiv>
         {showOtherSections && (
