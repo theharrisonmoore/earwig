@@ -274,7 +274,8 @@ export default class OverallReview extends Component {
             user: review.user,
             createdAt: review.createdAt,
             _id: review._id,
-            category: "written"
+            category: "written",
+            review
           });
         }
 
@@ -457,11 +458,15 @@ export default class OverallReview extends Component {
                     pathname: REPORT_CONTENT_URL,
                     state: {
                       review: {
-                        overallReview: review.overallReview,
+                        overallReview:
+                          review.review && review.review.overallReview,
                         user: review.user
                       },
                       organization: summary,
-                      target: "overallReview"
+                      target:
+                        review.category === "written"
+                          ? "overallReview"
+                          : "voiceReview"
                     }
                   }}
                 >

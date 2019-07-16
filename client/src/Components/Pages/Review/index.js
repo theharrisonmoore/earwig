@@ -234,7 +234,6 @@ class Review extends Component {
   submitAudio = () => {
     const { audioFile } = this.state;
     if (audioFile) {
-
       const form = new FormData();
 
       form.append("voiceRecording", audioFile);
@@ -476,7 +475,6 @@ class Review extends Component {
           axios
             .post(API_POST_REVIEW_URL, review)
             .then(res => {
-              console.log("res", res);
               this.setState({ isSubmitting: false });
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,
