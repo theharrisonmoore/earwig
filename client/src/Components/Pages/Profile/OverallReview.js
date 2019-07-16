@@ -212,9 +212,7 @@ export default class OverallReview extends Component {
   };
 
   togglePanel = key => {
-    console.log("KEY", key)
-
-    if (!key) return this.setState({ activeReview: ""})
+    if (!key) return this.setState({ activeReview: "" });
 
     const [id, type] = key.split("/");
     const target = type === "written" ? "overallReview" : "voiceReview";
@@ -276,7 +274,8 @@ export default class OverallReview extends Component {
             user: review.user,
             createdAt: review.createdAt,
             _id: review._id,
-            category: "written"
+            category: "written",
+            review
           });
         }
 
@@ -458,11 +457,15 @@ export default class OverallReview extends Component {
                     pathname: REPORT_CONTENT_URL,
                     state: {
                       review: {
-                        overallReview: review.overallReview,
+                        overallReview:
+                          review.review && review.review.overallReview,
                         user: review.user
                       },
                       organization: summary,
-                      target: "overallReview"
+                      target:
+                        review.category === "written"
+                          ? "overallReview"
+                          : "voiceReview"
                     }
                   }}
                 >
@@ -480,7 +483,8 @@ export default class OverallReview extends Component {
                   showArrow={false}
                   header={
                     <>
-                      {activeReview ===  (review._id + "/" + review.category) && activeOverallId === review._id ? (
+                      {activeReview === review._id + "/" + review.category &&
+                      activeOverallId === review._id ? (
                         <Icon
                           fontWeight={700}
                           type="up"
@@ -508,7 +512,8 @@ export default class OverallReview extends Component {
                           marginBottom: "1rem"
                         }}
                       >
-                        {activeReview ===  (review._id + "/" + review.category) && activeOverallId === review._id
+                        {activeReview === review._id + "/" + review.category &&
+                        activeOverallId === review._id
                           ? "Hide Replies"
                           : "Read Replies"}
                       </span>

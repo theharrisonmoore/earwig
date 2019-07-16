@@ -43,6 +43,7 @@ import example from "./../../../assets/example.png";
 import { API_SIGN_UP } from "./../../../apiUrls";
 
 import {
+  SEARCH_URL,
   ORG_STATUS_URL_SIGNUP,
   WELCOME_URL
 } from "./../../../constants/naviagationUrls";
@@ -671,7 +672,7 @@ export default class Signup extends Component {
               </Form>
             )}
           </Formik>
-          <Link to="/intro">Continue without an account</Link>
+          <Link to={SEARCH_URL}>Continue without an account</Link>
         </ContentWrapper>
       </SignupWrapper>
     );

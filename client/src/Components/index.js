@@ -72,7 +72,7 @@ import {
   REPLY_URL,
   PRIVACY_URL,
   ORG_STATUS_URL_SIGNUP,
-  ORG_STATUS_URL_LOGIN,
+  ORG_STATUS_URL_LOGIN
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
@@ -81,7 +81,13 @@ export default function index(props) {
   return (
     <>
       <Switch>
-        <PrivateRoute exact minimumLevel="LEVEL1" path="/organization/:orgId/review" {...props} Component={Review} />
+        <PrivateRoute
+          exact
+          minimumLevel="LEVEL1"
+          path="/organization/:orgId/review"
+          {...props}
+          Component={Review}
+        />
         <Route exact path="/review/:reviewId/edit" component={Review} />
 
         <PrivateRoute
@@ -353,7 +359,7 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL0"
+          minimumLevel="LEVEL3"
           path={INTRO_URL}
           {...props}
           isMobile={isMobile}
@@ -361,9 +367,26 @@ export default function index(props) {
           Component={Intro}
         />
 
-        <PrivateRoute minimumLevel="LEVEL1" path={ORG_STATUS_URL_SIGNUP} {...props} isMobile={isMobile} isTablet={isTablet} type="sign-up" Component={OrgCheck} />
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={ORG_STATUS_URL_SIGNUP}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          type="sign-up"
+          Component={OrgCheck}
+        />
 
-        <PrivateRoute minimumLevel="LEVEL1" path={ORG_STATUS_URL_LOGIN} {...props} isMobile={isMobile} isTablet={isTablet} type="sign-up" Component={OrgCheck} loggingIn />
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={ORG_STATUS_URL_LOGIN}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          type="sign-up"
+          Component={OrgCheck}
+          loggingIn
+        />
 
         <Route
           exact
@@ -381,9 +404,25 @@ export default function index(props) {
           }
         />
 
-        <PrivateRoute minimumLevel="LEVEL1" path={WELCOME_URL} {...props} isMobile={isMobile} isTablet={isTablet} Component={Welcome} navbar />
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={WELCOME_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={Welcome}
+          navbar
+        />
 
-        <PrivateRoute minimumLevel="LEVEL1" path={WELCOME_URL} {...props} isMobile={isMobile} isTablet={isTablet} Component={Welcome} navbar />
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={WELCOME_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={Welcome}
+          navbar
+        />
 
         <Route
           exact

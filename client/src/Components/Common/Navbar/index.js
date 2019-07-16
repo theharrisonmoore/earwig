@@ -9,32 +9,12 @@ import { ADMIN } from "./../../../constants/naviagationUrls";
 
 import { Wrapper, ToggleMenu, SideDiv, WrapperH2 } from "./Navbar.style";
 import Menu from "./Menu.js";
-
 import CloseIcon from "./../../../assets/close-icon.svg";
-import axios from "axios";
-
-import { API_SEARCH_URL } from "../../../apiUrls";
-
-export const axiosCall = async () => {
-  const response = await axios.get(API_SEARCH_URL);
-  return response;
-};
 
 export default class Navbar extends Component {
   state = {
-    isLoading: false,
-    data: null,
     menuOpen: false
   };
-
-  componentDidMount() {
-    axiosCall().then(organizations => {
-      this.setState({
-        data: organizations.data,
-        isLoading: true
-      });
-    });
-  }
 
   toggleMenu = () => {
     const { menuOpen } = this.state;
@@ -52,8 +32,7 @@ export default class Navbar extends Component {
       verified,
       awaitingReview
     } = this.props;
-    const { menuOpen, isLoading } = this.state;
-    if (!isLoading) return null;
+    const { menuOpen } = this.state;
     if (!isMobile) {
       return (
         <Wrapper height="4rem">
@@ -63,7 +42,6 @@ export default class Navbar extends Component {
                 <ToggleMenu onClick={this.toggleMenu} position="flex-end">
                   <img src={CloseIcon} alt="close" />
                 </ToggleMenu>
-
                 <Menu
                   isMobile={isMobile}
                   isLoggedIn={isLoggedIn}
