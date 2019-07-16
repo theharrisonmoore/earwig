@@ -1,18 +1,19 @@
-import styled from "styled-components"
-import { NavLink } from "react-router-dom"
+import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
-import { colors, organizations, breakpoints } from "./../../../theme"
+import { colors, organizations, breakpoints } from "./../../../theme";
 
 export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  background-color: ${props => props.orgType ? organizations[`${props.orgType}`].primary : colors.white };
+  background-color: ${props =>
+    props.orgType ? organizations[`${props.orgType}`].primary : colors.white};
   display: flex;
   overflow: scroll;
   position: absolute;
   top: 0;
-`
+`;
 
 export const Title = styled.h1`
   width: 300px;
@@ -22,13 +23,13 @@ export const Title = styled.h1`
   text-align: left;
   color: ${colors.profileFontColor};
   margin-bottom: 1rem;
-`
+`;
 
 export const Subtitle = styled.h2`
   font-size: 1.25rem;
   color: ${colors.profileFontColor};
   margin-bottom: 2rem;
-`
+`;
 
 export const PurpleDiv = styled.div`
   width: 0%;
@@ -62,7 +63,6 @@ export const ContentWrapper = styled.div`
   }
 `;
 
-
 export const StyledLink = styled(NavLink)`
   width: 100%;
-`
+`;

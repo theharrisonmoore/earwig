@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-
-import Loading from "./../../Common/AntdComponents/Loading";
+import { Skeleton } from "antd";
 
 import { API_SEARCH_URL } from "../../../apiUrls";
-
 import AutosuggestComponent from "./AutoSuggest";
 
 // UI helper functions
@@ -132,7 +130,6 @@ export default class Search extends Component {
   render() {
     const { isLoading, data, showOtherSections, target } = this.state;
     const { isMobile, isTablet } = this.props;
-    if (!isLoading) return <Loading />;
 
     return (
       <SearchWrapper data-testid="searchwrapper">
@@ -210,7 +207,7 @@ export default class Search extends Component {
             bool={() => true}
             height="4.5rem"
             width="80%"
-            data={data[0].searchData}
+            data={data && data[0].searchData}
             placeholderText="Start typing..."
             isMobile={isMobile}
             isTablet={isTablet}
@@ -222,9 +219,12 @@ export default class Search extends Component {
               <p>Most recent reviews:</p>
             </HeadlineDiv>
             <ReviewsContainer>
-              {data[0].lastReviwed.map(org =>
-                this.renderLastViewed(org.lastReviwed, org._id, target)
-              )}
+              <Skeleton loading={!isLoading}>
+                {data &&
+                  data[0].lastReviwed.map(org =>
+                    this.renderLastViewed(org.lastReviwed, org._id, target)
+                  )}
+              </Skeleton>
             </ReviewsContainer>
           </FlexContainer>
         )}

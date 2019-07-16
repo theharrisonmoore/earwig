@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
+import { Skeleton } from "antd";
 
 import {
   EDIT_PROFILE_URL,
   UPLOAD_VERIFICATION_URL
 } from "./../../../constants/naviagationUrls";
 
-import Loading from "./../../Common/AntdComponents/Loading";
 import Button from "./../../Common/Button";
 
 import {
@@ -67,9 +67,8 @@ export default class index extends Component {
       isSMobile,
       awaitingReview
     } = this.props;
-    const { reviewCount, userReviews, loaded } = this.state;
-    if (!loaded) return <Loading />;
 
+    const { reviewCount, userReviews, loaded } = this.state;
     const isWorker = verified || awaitingReview;
 
     if (isWorker) {
@@ -106,50 +105,86 @@ export default class index extends Component {
             <BottomSection isSMobile={isSMobile}>
               <StatWrapper>
                 <StatTitle isSMobile={isSMobile}>Given</StatTitle>
-                <Stat>{reviewCount} reviews</Stat>
+                <Stat>
+                  <Skeleton
+                    loading={!loaded}
+                    title={{ width: 60 }}
+                    paragraph={false}
+                    active
+                  >
+                    {reviewCount} reviews
+                  </Skeleton>
+                </Stat>
               </StatWrapper>
               <StatWrapper>
                 <StatTitle>Helped</StatTitle>
-                <Stat>{helpedPoints} workers</Stat>
+                <Stat>
+                  <Skeleton
+                    loading={!loaded}
+                    title={{ width: 60 }}
+                    paragraph={false}
+                    active
+                  >
+                    {helpedPoints} workers
+                  </Skeleton>
+                </Stat>
               </StatWrapper>
               <StatWrapper>
                 <StatTitle>Earned</StatTitle>
-                <Stat>{points} points</Stat>
+                <Stat>
+                  <Skeleton
+                    loading={!loaded}
+                    title={{ width: 60 }}
+                    paragraph={false}
+                    active
+                  >
+                    {points} points
+                  </Skeleton>
+                </Stat>
               </StatWrapper>
             </BottomSection>
           </Header>
           {verified ? (
             <VerifiedSection>
               <SectionTitle>Your reviews</SectionTitle>
-              {userReviews.length > 0 ? (
-                userReviews.map((review, index) => (
-                  <NavLink
-                    to={`/profile/${review.organization[0]._id}`}
-                    key={index}
-                  >
-                    <ReviewDiv>
-                      <Icon
-                        icon={review.organization[0].category}
-                        width="18"
-                        height="18"
-                        margin="0 0.5rem 0 0"
-                        // fill={colors.lightGray}
-                      />
-                      <ReviewText>
-                        You reviewed{" "}
-                        <AgencyTitle type={review.organization[0].category}>
-                          {review.organization[0].name}
-                        </AgencyTitle>
-                      </ReviewText>
-                      <ReviewText>
-                        {moment().diff(review.createdAt, "weeks")}w
-                      </ReviewText>
-                    </ReviewDiv>
-                  </NavLink>
-                ))
-              ) : (
-                <p>You have not completed any reviews yet</p>
-              )}
+              <Skeleton
+                loading={!loaded}
+                title={false}
+                paragraph={{
+                  rows: 5,
+                  width: ["50%", "80%", "70%", "40%", "70%"]
+                }}
+              >
+                {userReviews.length > 0 ? (
+                  userReviews.map((review, index) => (
+                    <NavLink
+                      to={`/profile/${review.organization[0]._id}`}
+                      key={index}
+                    >
+                      <ReviewDiv>
+                        <Icon
+                          icon={review.organization[0].category}
+                          width="18"
+                          height="18"
+                          margin="0 0.5rem 0 0"
+                          // fill={colors.lightGray}
+                        />
+                        <ReviewText>
+                          You reviewed{" "}
+                          <AgencyTitle type={review.organization[0].category}>
+                            {review.organization[0].name}
+                          </AgencyTitle>
+                        </ReviewText>
+                        <ReviewText>
+                          {moment().diff(review.createdAt, "weeks")}w
+                        </ReviewText>
+                      </ReviewDiv>
+                    </NavLink>
+                  ))
+                ) : (
+                  <p>You have not completed any reviews yet</p>
+                )}
+              </Skeleton>
             </VerifiedSection>
           ) : (
             <MainSection>
