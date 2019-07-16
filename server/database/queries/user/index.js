@@ -9,16 +9,6 @@ const Helpfulness = require("./../../models/Helpfulness");
 const updateUserHelpfulPoints = require("./updateUserHelpfulPoints");
 const getAllUsers = require("./allUsers");
 
-module.exports.updateUserPoints = (userId, diffPoints) => User.findOneAndUpdate(
-  { _id: userId },
-  {
-    $inc: {
-      points: diffPoints,
-      helpedUsers: 1,
-    },
-  },
-);
-
 
 module.exports.checkValidReferral = id => User.findOne(
   { _id: id, verified: true }, { password: 0 },

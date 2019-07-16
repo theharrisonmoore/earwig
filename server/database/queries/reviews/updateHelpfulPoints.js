@@ -1,14 +1,22 @@
 const Helpfulness = require("./../../models/Helpfulness");
 
-module.exports = ({
-  helpfulUser, helpedUser, target, organization, review, points,
+const updateHelpfulPoints = ({
+  helpfulUser, helpedUser, target, organization, review, points, fromReferral,
 }) => {
   if (points > 0) {
+    let match = {
+      helpfulUser, helpedUser, fromReferral,
+    };
+
+    if (!fromReferral) {
+      match = {
+        ...match, target, review, organization,
+      };
+    }
     return Helpfulness.updateOne(
       // filters
+      { ...match },
       {
-        fromReferral: false, helpfulUser, helpedUser, target, review, organization,
-      }, {
         // update data
         points,
       }, {
@@ -21,3 +29,5 @@ module.exports = ({
     fromReferral: false, helpfulUser, helpedUser, target, review, organization,
   });
 };
+
+module.exports = updateHelpfulPoints;

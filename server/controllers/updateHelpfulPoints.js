@@ -7,6 +7,7 @@ module.exports = async (req, res, next) => {
   const {
     points, organization, userId,
   } = req.body;
+
   const {
     reviewId, target,
   } = req.params;
@@ -24,6 +25,7 @@ module.exports = async (req, res, next) => {
     organization,
     review: reviewId,
     points,
+    fromReferral: false,
   }).then(() => updateUserHelpfulPoints(userId))
     .then(() => {
       res.json({ updatedPoints: points });
