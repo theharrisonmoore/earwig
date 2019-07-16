@@ -63,6 +63,7 @@ const getCurrentOrgs = require("../controllers/getCurrentOrgs");
 
 const uploadVoiceRecording = require("../controllers/uploadVoiceRecording");
 const voiceReview = require("../controllers/getVoiceReview");
+const getUserVotesOnProfile = require("./../controllers/getUserVotesOnProfile");
 
 const {
   LOGIN_URL,
@@ -89,6 +90,7 @@ const {
   GET_USER_ORGS,
   UPLOAD_AUDIO,
   GET_AUDIO_URL,
+  GET_USER_VOTES_ON_PROFILE,
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
@@ -261,5 +263,7 @@ router.get(USERS_TRADE, authentication, getUsersTrade);
 router.post(SET_ORGS, authentication, setCurrentOrgs);
 
 router.get(GET_USER_ORGS, authentication, getCurrentOrgs);
+
+router.get(GET_USER_VOTES_ON_PROFILE, authentication, getUserVotesOnProfile);
 
 module.exports = router;

@@ -76,6 +76,9 @@ const API_UPLOAD_AUDIO = `${API_PREFIX}${UPLOAD_AUDIO}`;
 const GET_AUDIO_URL = "/get-audio";
 const API_GET_AUDIO_URL = `${API_PREFIX}${GET_AUDIO_URL}`;
 
+const GET_USER_VOTES_ON_PROFILE = "/users/:userId/profile/:orgId/votes";
+const API_GET_USER_VOTES_ON_PROFILE = `${API_PREFIX}${GET_USER_VOTES_ON_PROFILE}`;
+
 module.exports = {
   // React variables
   API_LOGIN_URL,
@@ -102,6 +105,7 @@ module.exports = {
   API_GET_USER_ORGS,
   API_UPLOAD_AUDIO,
   API_GET_AUDIO_URL,
+  API_GET_USER_VOTES_ON_PROFILE,
 
   // server variables
   LOGIN_URL,
@@ -129,5 +133,6 @@ module.exports = {
   SET_ORGS,
   GET_USER_ORGS,
   UPLOAD_AUDIO,
-  GET_AUDIO_URL
+  GET_AUDIO_URL,
+  GET_USER_VOTES_ON_PROFILE
 };

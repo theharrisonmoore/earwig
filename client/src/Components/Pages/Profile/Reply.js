@@ -208,7 +208,7 @@ export default class Reply extends Component {
                   </UserDiv>
                   <UserAdditionalDetails>
                     <p>
-                      Helped {reply.replies.user.helpedPoints} · Points{" "}
+                      Helped {reply.replies.user.helpedUsers} · Points{" "}
                       {reply.replies.user.points}
                     </p>
                   </UserAdditionalDetails>

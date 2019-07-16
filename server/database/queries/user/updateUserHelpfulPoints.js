@@ -21,11 +21,14 @@ const updateUserHelpfulPoints = async (userId) => {
     },
   ]);
 
+  const points = data && data.points ? data.points : 0;
+  const helpedUsers = data && data.helped ? data.helped.length : 0;
+
   return User.updateOne(
     { _id: userId },
     {
-      points: data.points,
-      helpedUsers: data.helped.length,
+      points,
+      helpedUsers,
     },
     { upsert: false },
   );

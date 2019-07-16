@@ -4,6 +4,8 @@ const Comment = require("./../../models/Comment");
 const Answer = require("./../../models/Answer");
 const Review = require("./../../models/Review");
 const Trade = require("./../../models/Trade");
+const Helpfulness = require("./../../models/Helpfulness");
+
 const updateUserHelpfulPoints = require("./updateUserHelpfulPoints");
 const getAllUsers = require("./allUsers");
 
@@ -107,3 +109,8 @@ module.exports.getUserByUsername = username => User.findOne({ userId: username }
 module.exports.getUsersTrade = tradeId => Trade.findById(tradeId);
 
 module.exports.updateUserHelpfulPoints = updateUserHelpfulPoints;
+
+module.exports.getUserVotesOnProfile = ({ userId, orgId }) => Helpfulness.find(
+  { helpedUser: userId, organization: orgId, fromReferral: false },
+  { points: 1, review: 1, target: 1 },
+);

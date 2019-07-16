@@ -142,9 +142,7 @@ export default class OverallReview extends Component {
   notPressingDown = e => {
     const { counters } = this.state;
     const reviewId = e.target.id;
-    const { type } = e.target.dataset;
-
-    const { userId } = e.target.dataset;
+    const { type, organization, userId } = e.target.dataset;
 
     const item = counters[type][reviewId];
     const counter = item ? item.counter : 0;
@@ -169,7 +167,14 @@ export default class OverallReview extends Component {
           isMouseDown: false
         },
         () => {
-          this.postHelpfulPoints(counter, sentNumber, reviewId, userId, type);
+          this.postHelpfulPoints({
+            points: counter,
+            // prevPoints: sentNumber,
+            reviewId,
+            userId,
+            type,
+            organization
+          });
         }
       );
     } else {
@@ -177,13 +182,21 @@ export default class OverallReview extends Component {
     }
   };
 
-  postHelpfulPoints = (points, prevPoints, reviewId, userId, type) => {
+  postHelpfulPoints = ({
+    points,
+    prevPoints,
+    reviewId,
+    userId,
+    type,
+    organization
+  }) => {
     const target = type === "written" ? "overallReview" : "voiceReview";
     axios
       .patch(`/api/review/${reviewId}/${target}/helpful-points`, {
         points,
         prevPoints,
-        userId
+        userId,
+        organization
       })
       .then(({ data }) => {
         const { counters } = this.state;
@@ -223,44 +236,42 @@ export default class OverallReview extends Component {
       : this.setState({ activeReview: "" });
   };
 
-  componentDidMount() {
-    const { id, summary } = this.props;
-    const { counters } = this.state;
+  getUserVotesOnProfile = () => {
+    const { id, orgId } = this.props;
 
-    const newCounters =
-      summary &&
-      summary.reviews.reduce(
+    axios.get(`/api/users/${id}/profile/${orgId}/votes`).then(({ data }) => {
+      const newCounters = data.reduce(
         (prev, currReview) => {
-          const { overallReview, voiceReview } = currReview;
+          if (currReview.target === "voiceReview") {
+            prev["audio"][currReview.review] = {
+              counter: currReview.points,
+              sentNumber: currReview.points,
+              scaleValue: 1,
+              byUser: false
+            };
+          } else if (currReview.target === "overallReview") {
+            prev["written"][currReview.review] = {
+              counter: currReview.points,
+              sentNumber: currReview.points,
+              scaleValue: 1,
+              byUser: false
+            };
+          }
 
-          overallReview &&
-            overallReview.votes.forEach(vote => {
-              if (vote && vote.user === id) {
-                prev["written"][currReview._id] = {
-                  counter: vote.points,
-                  sentNumber: vote.points,
-                  scaleValue: 1,
-                  byUser: false
-                };
-              }
-            });
-
-          voiceReview &&
-            voiceReview.votes.forEach(vote => {
-              if (vote && vote.user === id) {
-                prev["audio"][currReview._id] = {
-                  counter: vote.points,
-                  sentNumber: vote.points,
-                  scaleValue: 1,
-                  byUser: false
-                };
-              }
-            });
           return prev;
         },
         { written: {}, audio: {} }
       );
+      this.setState({
+        counters: newCounters
+      });
+    });
+  };
 
+  componentDidMount() {
+    this.getUserVotesOnProfile();
+
+    const { summary } = this.props;
     let totalReviews = [];
 
     if (summary)
@@ -275,7 +286,8 @@ export default class OverallReview extends Component {
             createdAt: review.createdAt,
             _id: review._id,
             category: "written",
-            review
+            review,
+            organization: review.organization
           });
         }
 
@@ -286,16 +298,13 @@ export default class OverallReview extends Component {
             user: review.user,
             createdAt: review.createdAt,
             _id: review._id,
-            category: "audio"
+            category: "audio",
+            organization: review.organization
           });
         }
       });
 
     this.setState({
-      counters: {
-        ...counters,
-        ...newCounters
-      },
       writtenOrAudioReviews: totalReviews
     });
   }
@@ -359,8 +368,7 @@ export default class OverallReview extends Component {
               </UserDiv>
               <UserAdditionalDetails>
                 <p>
-                  Helped {review.user.helpedPoints} · Points{" "}
-                  {review.user.points}
+                  Helped {review.user.helpedUsers} · Points {review.user.points}
                 </p>
               </UserAdditionalDetails>
               <BubbleAndDate>
@@ -402,6 +410,7 @@ export default class OverallReview extends Component {
                     <ActionsButton
                       data-user-id={review.user._id}
                       data-type={review.category}
+                      data-organization={review.organization}
                       type="primary"
                       bgcolor={
                         isAuthorized && review.user._id !== userId
@@ -538,7 +547,7 @@ export default class OverallReview extends Component {
                         </UserDiv>
                         <UserAdditionalDetails>
                           <p>
-                            Helped {reply.replies.user.helpedPoints} · Points{" "}
+                            Helped {reply.replies.user.helpedUsers} · Points{" "}
                             {reply.replies.user.points}
                           </p>
                         </UserAdditionalDetails>
