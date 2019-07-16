@@ -39,4 +39,3 @@ module.exports = async () => {
   ];
   return Comment.create(comments);
 };
-
