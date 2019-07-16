@@ -95,6 +95,8 @@ export default class Navbar extends Component {
                 isAdmin={isAdmin}
                 history={history}
                 handleChangeState={handleChangeState}
+                verified={verified}
+                awaitingReview={awaitingReview}
               />
             </>
           ) : (
