@@ -62,7 +62,7 @@ export default class EditProfileSection extends Component {
       });
 
       axios.get(API_USERS_TRADE).then(({ data }) => {
-        this.setState({ currentTradeName: data.title });
+        this.setState({ currentTradeName: (data && data.title) || null });
       });
     }
   }
@@ -74,6 +74,7 @@ export default class EditProfileSection extends Component {
   };
 
   handleOk = () => {
+    const { fields } = this.state;
     if (this.state.newTrade && this.state.newTrade.length >= 3) {
       this.setState(
         {
@@ -88,7 +89,8 @@ export default class EditProfileSection extends Component {
               this.setState({
                 trades: [{ value: data._id, label: data.title }],
                 tradeId: data._id,
-                disableSelect: true
+                disableSelect: true,
+                fields: { ...fields, newTrade: data._id }
               });
 
               this.setState(
@@ -148,9 +150,9 @@ export default class EditProfileSection extends Component {
 
   handleChange = value => {
     const { fields } = this.state;
-    fields.newTrade = value;
+    // fields.newTrade = value;
 
-    this.setState({ tradeId: value, fields });
+    this.setState({ tradeId: value, fields: { ...fields, newTrade: value } });
   };
 
   handleInput = event => {
@@ -163,7 +165,6 @@ export default class EditProfileSection extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const { fields, section } = this.state;
-
     this.setState({ isSubmitting: true });
 
     const isValid = this.submitValidation(section);
