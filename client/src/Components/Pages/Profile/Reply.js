@@ -13,7 +13,6 @@ import {
   Wrapper,
   IndividComment,
   ReplyWrapper,
-  StyledButton,
   CommentsWrapper,
   Banner,
   Cancel
@@ -32,6 +31,7 @@ import { API_ADD_COMMENT_ON_REVIEW_URL } from "./../../../apiUrls";
 import { highlightMentions } from "../../../helpers";
 
 import Loading from "./../../Common/AntdComponents/Loading";
+import Button from "./../../Common/Button";
 
 const { toString, toContentState } = Mention;
 
@@ -42,7 +42,8 @@ export default class Reply extends Component {
     user: "",
     errors: {},
     loaded: false,
-    submitting: false
+    submitting: false,
+    focus: false
   };
 
   handleChangeUserName = ({ target }) => {
@@ -52,6 +53,14 @@ export default class Reply extends Component {
 
   onChange = contentState => {
     this.setState({ commentContentState: contentState });
+  };
+
+  handleFocus = () => {
+    this.setState({ focus: true });
+  };
+
+  handleBlur = () => {
+    this.setState({ focus: false });
   };
 
   validate = () => {
@@ -131,7 +140,7 @@ export default class Reply extends Component {
                 reviewId: id
               },
               () => {
-                window.scrollTo(0, window.innerHeight);
+                window.scrollTo(0, document.body.scrollHeight);
               }
             );
           })
@@ -167,7 +176,7 @@ export default class Reply extends Component {
     if (!this.props.location || !this.props.location.state) {
       return this.props.history.goBack();
     }
-    const { replies, loaded, submitting } = this.state;
+    const { replies, loaded, submitting, focus } = this.state;
     const { isAdmin } = this.props;
     const { category } = this.props.location.state;
     const users =
@@ -230,7 +239,7 @@ export default class Reply extends Component {
                 textAlign: "left",
                 width: "100%",
                 background: "white",
-                paddingBottom: "2rem",
+                paddingBottom: focus ? "0.5rem" : "2rem",
                 maxWidth: "30rem"
                 // margin: "0 auto",
                 // left: 0,
@@ -256,7 +265,7 @@ export default class Reply extends Component {
                   style={{
                     width: "100%",
                     marginTop: "0.25rem",
-                    minHeight: "6rem"
+                    minHeight: "4rem"
                   }}
                   onChange={this.onChange}
                   defaultSuggestions={users}
@@ -273,14 +282,21 @@ export default class Reply extends Component {
                   /> */}
               </div>
             </div>
-            <StyledButton
-              category={category}
-              loading={submitting}
-              onClick={this.handleSubmit}
+            <div
+              style={{
+                paddingBottom: focus ? "5rem" : "2rem",
+                width: "100%"
+              }}
             >
-              Post reply
-            </StyledButton>
-
+              <Button
+                style={{ maxWidth: "30rem", margin: "0 auto" }}
+                category={category}
+                loading={submitting}
+                onClick={this.handleSubmit}
+              >
+                Post reply
+              </Button>
+            </div>
             {this.state.errors.comment && (
               <Error>{this.state.errors.comment}</Error>
             )}

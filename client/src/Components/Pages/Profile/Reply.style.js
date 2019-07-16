@@ -54,7 +54,7 @@ export const Wrapper = styled.div`
 `;
 
 export const CommentsWrapper = styled.div`
-  padding-bottom: 40vh;
+  padding-bottom: 20vh;
 `;
 
 export const IndividComment = styled.div`
@@ -62,7 +62,7 @@ export const IndividComment = styled.div`
   flex-direction: column;
   flex: initial;
   justify-content: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
   position: relative;
   padding-bottom: 2rem;
   align-items: flex-start;
@@ -88,42 +88,5 @@ export const ReplyWrapper = styled.div`
   @media (max-width: ${MOBILE_WIDTH}px) {
     width: 90%;
     padding: 2rem 0;
-  }
-`;
-
-export const StyledButton = styled.button`
-  text-decoration: none;
-  border: none;
-  padding: 1rem;
-  background-color: ${props => organizations[props.category].primary};
-  cursor: pointer;
-  width: 100%;
-  max-width: 30rem;
-  color: ${colors.white};
-  border-radius: 4px;
-  position: relative;
-  font-size: 1.125rem;
-  font-weight: 500;
-
-  &:hover::after {
-    content: "";
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: none;
-  }
-
-  &:active::after {
-    content: "";
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    background: ${colors.ghostGray};
-    box-shadow: none;
   }
 `;
