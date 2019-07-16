@@ -8,7 +8,6 @@ import Logo from "./../../Common/Logo";
 import Select from "./../../Common/Select";
 import Button from "./../../Common/Button";
 
-import { TERMS_OF_USE_URL } from "./../../../constants/naviagationUrls";
 import {
   StyledFormik as Formik,
   StyledForm as Form,
@@ -44,7 +43,8 @@ import { API_SIGN_UP } from "./../../../apiUrls";
 
 import {
   ORG_STATUS_URL_SIGNUP,
-  WELCOME_URL
+  WELCOME_URL,
+  TERMS_OF_USE_URL
 } from "./../../../constants/naviagationUrls";
 
 const { API_TRADE_URL } = require("../../../apiUrls");
@@ -671,7 +671,7 @@ export default class Signup extends Component {
               </Form>
             )}
           </Formik>
-          <Link to="/intro">Continue without an account</Link>
+          <Link to={WELCOME_URL}>Continue without an account</Link>
         </ContentWrapper>
       </SignupWrapper>
     );
