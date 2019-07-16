@@ -381,6 +381,7 @@ export const ReplyButton = styled.p`
   padding: 0.5rem 1rem;
   color: ${({ color }) => color};
   margin: 0.5rem;
+  cursor: pointer;
 `;
 
 export const ActionButton = styled.button`
@@ -395,7 +396,7 @@ export const ActionButton = styled.button`
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   font-size: 12px;
   font-weight: 700;
-  text-align: ${props => props.isMobile ? "center" : "left"};
+  text-align: ${props => (props.isMobile ? "center" : "left")};
   color: ${colors.white};
   box-shadow: ${shadows.buttonShadow};
   display: flex;
@@ -443,7 +444,6 @@ export const ContractorListLink = styled.span`
   background-color: transparent;
   cursor: pointer;
 `;
-
 
 export const BorderedWrapper = styled.div`
   max-width: 700px;

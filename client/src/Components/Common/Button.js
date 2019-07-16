@@ -40,7 +40,10 @@ const ButtonElement = styled.button`
     }
 `}
 
-  ${({alignContent}) => (alignContent ? "display: flex; align-items: center; padding-left: 1.5rem;" : "")}
+  ${({ alignContent }) =>
+    alignContent
+      ? "display: flex; align-items: center; padding-left: 1.5rem;"
+      : ""}
 
   ${({ left }) => (left ? "margin-left: auto;" : "")}
 `;

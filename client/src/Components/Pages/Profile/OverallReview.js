@@ -223,6 +223,22 @@ export default class OverallReview extends Component {
       : this.setState({ activeReview: "" });
   };
 
+  goTOReply = e => {
+    const { reviewId, category, orgId, target } = e.target.dataset;
+    const { pageYOffset } = window;
+    const { history } = this.props;
+    history.push({
+      pathname: REPLY_URL,
+      state: {
+        reviewId,
+        target,
+        category,
+        orgId,
+        pageYOffset
+      }
+    });
+  };
+
   componentDidMount() {
     const { id, summary } = this.props;
     const { counters } = this.state;
@@ -291,13 +307,21 @@ export default class OverallReview extends Component {
         }
       });
 
-    this.setState({
-      counters: {
-        ...counters,
-        ...newCounters
+    this.setState(
+      {
+        counters: {
+          ...counters,
+          ...newCounters
+        },
+        writtenOrAudioReviews: totalReviews
       },
-      writtenOrAudioReviews: totalReviews
-    });
+      () => {
+        const pageYOffset =
+          this.props.location.state && this.props.location.state.pageYOffset;
+
+        pageYOffset && window.scrollTo(0, pageYOffset);
+      }
+    );
   }
 
   checkWrittenComments = reviews => {
@@ -424,32 +448,27 @@ export default class OverallReview extends Component {
                       This is helpful
                     </ActionsButton>
                   </HelpfulButtonWrapper>
-                  <Link
-                    to={{
-                      pathname: REPLY_URL,
-                      state: {
-                        reviewId: review._id,
-                        target:
-                          review.category === "written"
-                            ? "overallReview"
-                            : "voiceReview",
-                        category,
-                        orgId
-                      }
-                    }}
+
+                  <ReplyButton
+                    onClick={this.goTOReply}
+                    data-target={
+                      review.category === "written"
+                        ? "overallReview"
+                        : "voiceReview"
+                    }
+                    data-category={category}
+                    data-org-id={orgId}
+                    data-review-id={review._id}
+                    type="primary"
+                    color={
+                      verified
+                        ? organizations[category].primary
+                        : organizations[category].secondary
+                    }
+                    disabled={!verified}
                   >
-                    <ReplyButton
-                      type="primary"
-                      color={
-                        verified
-                          ? organizations[category].primary
-                          : organizations[category].secondary
-                      }
-                      disabled={!verified}
-                    >
-                      Reply
-                    </ReplyButton>
-                  </Link>
+                    Reply
+                  </ReplyButton>
                 </ButtonsWrapper>
                 <Link
                   style={{ right: 0, width: "10%" }}
