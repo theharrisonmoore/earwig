@@ -42,7 +42,6 @@ import example from "./../../../assets/example.png";
 import { API_SIGN_UP } from "./../../../apiUrls";
 
 import {
-  ORG_STATUS_URL_SIGNUP,
   WELCOME_URL,
   TERMS_OF_USE_URL
 } from "./../../../constants/naviagationUrls";
