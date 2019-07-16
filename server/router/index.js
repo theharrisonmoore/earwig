@@ -51,7 +51,7 @@ const updateLastViewedOrg = require("../controllers/updateLastViewedOrg");
 const deleteOrgController = require("../controllers/deleteOrganization");
 const resetPassword = require("../controllers/resetPassword");
 const setPassword = require("../controllers/setPassword");
-const updateOverallHelpfulPoints = require("../controllers/updateOverallHelpfulPoints");
+const updateHelpfulPoints = require("../controllers/updateHelpfulPoints");
 const userReviews = require("../controllers/userReviews");
 const deleteReview = require("../controllers/admin/deleteReview");
 const checkIfEditReview = require("../controllers/checkIfCanEdit");
@@ -254,7 +254,7 @@ router.post("/update-last-viewed", updateLastViewedOrg);
 router.post(RESET_PASSWORD, resetPassword);
 router.post(SET_PASSWORD, setPassword);
 
-router.patch(ADD_HELPFUL_OVERALL_POINTS, authentication, updateOverallHelpfulPoints);
+router.patch(ADD_HELPFUL_OVERALL_POINTS, authentication, updateHelpfulPoints);
 
 router.get(USERS_TRADE, authentication, getUsersTrade);
 

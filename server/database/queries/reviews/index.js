@@ -8,9 +8,9 @@ const Question = require("./../../models/Question");
 const getAllReviews = require("./allReviews");
 const getOverallReplies = require("./getOverallReplies");
 const getReviewDetails = require("./getReviewDetails");
-const updateOverallHelpfullPoints = require("./updateOverallHelpfullPoints");
+const updateHelpfulPoints = require("./updateHelpfulPoints");
 
-module.exports.updateOverallHelpfullPoints = updateOverallHelpfullPoints;
+module.exports.updateHelpfulPoints = updateHelpfulPoints;
 
 module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
 
