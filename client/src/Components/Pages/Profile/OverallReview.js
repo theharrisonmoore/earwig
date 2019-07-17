@@ -10,7 +10,7 @@ import {
   REPORT_CONTENT_URL,
   REPLY_URL
 } from "./../../../constants/naviagationUrls";
-
+import { isMobileDevice } from "./../../../helpers";
 import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
 import {
@@ -69,7 +69,7 @@ export default class OverallReview extends Component {
     const counter = item ? item.counter : 0;
     const sentNumber = item ? item.sentNumber : 0;
 
-    const updateCounter = counter >= 10 ? 0 : counter + 1;
+    const updateCounter = counter >= 10 ? 10 : counter + 1;
 
     this.setState(
       {
@@ -435,9 +435,23 @@ export default class OverallReview extends Component {
                             : organizations[category].secondary
                         }
                         id={review._id}
-                        onMouseDown={isAuthorized && this.pressingDown}
-                        onMouseUp={isAuthorized && this.notPressingDown}
-                        onMouseLeave={isAuthorized && this.notPressingDown}
+                        onMouseDown={
+                          !isMobileDevice.any() &&
+                          isAuthorized &&
+                          this.pressingDown
+                        }
+                        onTouchStart={this.pressingDown}
+                        onTouchEnd={this.notPressingDown}
+                        onMouseUp={
+                          !isMobileDevice.any() &&
+                          isAuthorized &&
+                          this.notPressingDown
+                        }
+                        onMouseLeave={
+                          !isMobileDevice.any() &&
+                          isAuthorized &&
+                          this.notPressingDown
+                        }
                         scale={1}
                         disabled={!verified || review.user._id === userId}
                         isMobile={isMobile}
