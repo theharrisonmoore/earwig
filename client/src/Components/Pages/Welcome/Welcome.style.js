@@ -67,6 +67,7 @@ export const ContentWrapper = styled.div`
 export const StyledLink = styled(NavLink)`
   width: 100%;
   text-align: left;
+  margin-bottom: 1.5rem;
 `;
 
 export const HintText = styled.p`
@@ -80,4 +81,11 @@ export const Text = styled.p`
 
 export const ButtonText = styled.div`
   text-align: left;
+`;
+
+export const ComingSoon = styled.span`
+  font-weight: 300;
+  font-size: 14px;
+  width: 8rem;
+  margin-left: 0.5rem;
 `;

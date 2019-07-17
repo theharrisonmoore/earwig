@@ -14,7 +14,8 @@ import {
   StyledLink,
   HintText,
   Text,
-  ButtonText
+  ButtonText,
+  ComingSoon
 } from "./Welcome.style.js";
 
 // NAV ROUTES
@@ -68,7 +69,7 @@ export default class Welcome extends Component {
                     : UPLOAD_VERIFICATION_PHOTO
                 }
               >
-                <Button alignContent left margin="0 0 1.5rem 0">
+                <Button alignContent left margin="0 0 0 0">
                   <Icon
                     icon="starComment"
                     margin="0 1rem 0 0"
@@ -91,7 +92,7 @@ export default class Welcome extends Component {
                 // }
                 to={SEARCH_URL}
               >
-                <Button alignContent left margin="0 0 1.5rem 0">
+                <Button alignContent left margin="0 0 0 0">
                   <Icon
                     icon="search"
                     margin="0 1rem 0 0"
@@ -107,8 +108,9 @@ export default class Welcome extends Component {
                     ? ASK_QUESTION_URL
                     : UPLOAD_VERIFICATION_PHOTO
                 }
+                disabled
               >
-                <Button alignContent left disabled margin="0 0 1.5rem 0">
+                <Button alignContent left disabled margin="0 0 0 0">
                   <Icon
                     icon="raiseHand"
                     margin="0 1rem 0 0"
@@ -116,7 +118,10 @@ export default class Welcome extends Component {
                     height="20px"
                   />
                   <ButtonText>
-                    <Text> Ask workers a question</Text>
+                    <Text>
+                      Ask workers a question
+                      <ComingSoon>(comming soon)</ComingSoon>
+                    </Text>
                     {!verified && !awaitingReview && (
                       <HintText>(Click here to get verified first)</HintText>
                     )}
@@ -129,6 +134,7 @@ export default class Welcome extends Component {
                     ? JOBS_URL
                     : UPLOAD_VERIFICATION_PHOTO
                 }
+                disabled
               >
                 <Button alignContent left disabled margin="0 0 1.5rem 0">
                   <Icon
@@ -138,7 +144,10 @@ export default class Welcome extends Component {
                     height="20px"
                   />
                   <ButtonText>
-                    <Text>Find a job</Text>
+                    <Text>
+                      Find a job <ComingSoon>(comming soon)</ComingSoon>
+                    </Text>
+
                     {!verified && !awaitingReview && (
                       <HintText>(Click here to get verified first)</HintText>
                     )}
