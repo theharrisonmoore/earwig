@@ -41,3 +41,8 @@ html {
   padding: 0;
   box-sizing: inherit;
 }
+
+.full-text-select .ant-select-dropdown-menu-item {
+  white-space: unset !important;
+  border-bottom: 1px solid #80808026;
+}

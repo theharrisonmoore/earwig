@@ -82,6 +82,7 @@ export default class SelectReason extends Component {
             handleChange={handleSelect}
             placeholder="Choose a reason"
             value={this.props.reason}
+            dropdownClassName="full-text-select"
           />
         </SelectWrapper>
         <SubTitle marginBottom style={{ fontSize: "1rem", paddingTop: "0" }}>
