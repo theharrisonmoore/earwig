@@ -44,7 +44,7 @@ const Cancel = styled.p`
   line-height: 1;
   font-size: 1.125rem;
   font-weight: 700;
-  margin-left: 1.8rem;
+  margin-left: 1.5rem;
   position: absolute;
   left: 7px;
   cursor: pointer;

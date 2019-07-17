@@ -61,7 +61,7 @@ export default class SelectReason extends Component {
       loading
     } = this.props;
     return (
-      <div style={{ paddingTop: "60px" }}>
+      <div style={{ paddingTop: "100px" }}>
         <MainIcon src={flagIcon} />
         <SubTitle
           marginBottom
