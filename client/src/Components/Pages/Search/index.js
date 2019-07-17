@@ -2,11 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import Loading from "./../../Common/AntdComponents/Loading";
-
 import { API_SEARCH_URL } from "../../../apiUrls";
-
 import AutosuggestComponent from "./AutoSuggest";
-
 // UI helper functions
 import { StarRateCreator } from "../../../helpers";
 
@@ -31,7 +28,6 @@ import {
 } from "./Search.style";
 
 import { organizations } from "./../../../theme";
-
 import Icon from "./../../Common/Icon/Icon";
 
 import agencyArrow from "../../../assets/agency-arrow.svg";
@@ -72,6 +68,16 @@ export default class Search extends Component {
     });
     document.addEventListener("mousedown", this.handleClickOutside);
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { target } = this.props.match.params;
+    if (prevState.target !== target) {
+      this.setState({
+        target: target
+      });
+    }
+  }
+
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
   }
@@ -79,7 +85,7 @@ export default class Search extends Component {
   // renders last viewed organization section
   renderLastViewed = (org, key, target) => {
     const url =
-      target === "profile"
+      target !== "review"
         ? `/profile/${org._id}`
         : `/organization/${org._id}/review`;
     return (
@@ -139,7 +145,7 @@ export default class Search extends Component {
       <SearchWrapper data-testid="searchwrapper">
         <HeadlineDiv>
           {isMobile ? (
-            target === "profile" ? (
+            target !== "review" ? (
               <HeaderParagraph>
                 See what workers are saying about agencies, payrolls, worksites,
                 and companies
@@ -150,7 +156,7 @@ export default class Search extends Component {
                 a review of?
               </HeaderParagraph>
             )
-          ) : target === "profile" ? (
+          ) : target !== "review" ? (
             <HeaderParagraph>
               See what workers are saying about agencies, payrolls, worksites,
               and companies
