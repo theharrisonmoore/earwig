@@ -20,6 +20,9 @@ class CustomizedSelects extends React.Component {
     this.setState({ open: !this.state.open });
   };
 
+  filterOption = (input, option) =>
+    option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+
   render() {
     const {
       options,
@@ -47,6 +50,7 @@ class CustomizedSelects extends React.Component {
             width: "100%"
           }}
           value={value || undefined}
+          filterOption={this.filterOption}
           size="large"
           dropdownRender={menu =>
             isCreateNew ? (

@@ -227,9 +227,24 @@ export default class OverallReview extends Component {
       : this.setState({ activeReview: "" });
   };
 
+  goTOReply = e => {
+    const { reviewId, category, orgId, target } = e.target.dataset;
+    const { pageYOffset } = window;
+    const { history } = this.props;
+    history.push({
+      pathname: REPLY_URL,
+      state: {
+        reviewId,
+        target,
+        category,
+        orgId,
+        pageYOffset
+      }
+    });
+  };
+
   getUserVotesOnProfile = () => {
     const { id, orgId } = this.props;
-
     axios.get(`/api/users/${id}/profile/${orgId}/votes`).then(({ data }) => {
       const newCounters = data.reduce(
         (prev, currReview) => {
@@ -295,9 +310,17 @@ export default class OverallReview extends Component {
         }
       });
 
-    this.setState({
-      writtenOrAudioReviews: totalReviews
-    });
+    this.setState(
+      {
+        writtenOrAudioReviews: totalReviews
+      },
+      () => {
+        const pageYOffset =
+          this.props.location.state && this.props.location.state.pageYOffset;
+
+        pageYOffset && window.scrollTo(0, pageYOffset);
+      }
+    );
   }
 
   checkWrittenComments = reviews => {
@@ -379,7 +402,9 @@ export default class OverallReview extends Component {
                 <ButtonsWrapper>
                   <HelpfulButtonWrapper
                     number={
-                      counters[review._id] ? counters[review._id].counter : 0
+                      counters[review.category][review._id]
+                        ? counters[review.category][review._id].counter
+                        : 0
                     }
                     color={
                       category !== "company"
@@ -425,32 +450,27 @@ export default class OverallReview extends Component {
                       This is helpful
                     </ActionsButton>
                   </HelpfulButtonWrapper>
-                  <Link
-                    to={{
-                      pathname: REPLY_URL,
-                      state: {
-                        reviewId: review._id,
-                        target:
-                          review.category === "written"
-                            ? "overallReview"
-                            : "voiceReview",
-                        category,
-                        orgId
-                      }
-                    }}
+
+                  <ReplyButton
+                    onClick={this.goTOReply}
+                    data-target={
+                      review.category === "written"
+                        ? "overallReview"
+                        : "voiceReview"
+                    }
+                    data-category={category}
+                    data-org-id={orgId}
+                    data-review-id={review._id}
+                    type="primary"
+                    color={
+                      verified
+                        ? organizations[category].primary
+                        : organizations[category].secondary
+                    }
+                    disabled={!verified}
                   >
-                    <ReplyButton
-                      type="primary"
-                      color={
-                        verified
-                          ? organizations[category].primary
-                          : organizations[category].secondary
-                      }
-                      disabled={!verified}
-                    >
-                      Reply
-                    </ReplyButton>
-                  </Link>
+                    Reply
+                  </ReplyButton>
                 </ButtonsWrapper>
                 <Link
                   style={{ right: 0, width: "10%" }}

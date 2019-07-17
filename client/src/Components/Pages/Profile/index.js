@@ -253,7 +253,9 @@ export default class Profile extends Component {
       verified,
       isAdmin,
       id,
-      awaitingReview
+      awaitingReview,
+      history,
+      location
     } = this.props;
 
     if (!loaded) return <Loading />;
@@ -452,6 +454,8 @@ export default class Profile extends Component {
           id={id}
           awaitingReview={awaitingReview}
           FilteredReviewMonths={FilteredReviewMonths}
+          history={history}
+          location={location}
         />
         {level < 1 && (
           <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
