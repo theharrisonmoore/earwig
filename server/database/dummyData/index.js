@@ -13,6 +13,7 @@ const jobs = require("./jobs");
 const reviews = require("./reviews");
 const users = require("./users");
 const mailList = require("./mailList");
+const helpfulness = require("./helpfulness");
 
 // production databases
 const realOrganizations = require("./../productionData/organizations");
@@ -32,6 +33,7 @@ const buildDummyData = () => new Promise((resolve, reject) => {
       await comments();
       await answers();
       await mailList();
+      await helpfulness();
     })
     .then(resolve)
     .catch(reject);

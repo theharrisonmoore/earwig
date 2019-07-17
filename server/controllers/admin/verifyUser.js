@@ -1,7 +1,6 @@
 /**
  * update the user state to be verified
  * remove the verificcation image from DB
- * @todo delete verification image from google storage
  * @param {id} mongoID - user id
  */
 
@@ -12,9 +11,9 @@ const approvalEmail = require("./../../helpers/emails/approvalEmail");
 const {
   updateUserById,
   getUserById,
-  updateUserPoints,
-  updateUserHelpedPoints,
+  updateUserHelpfulPoints,
 } = require("./../../database/queries/user");
+const { updateHelpfulPoints } = require("./../../database/queries/reviews");
 
 const deleteFile = require("./../../helpers/deleteFile");
 
@@ -53,8 +52,13 @@ module.exports = async (req, res, next) => {
     }
 
     if (user.referral) {
-      await updateUserPoints(user.referral, referralPoints);
-      await updateUserHelpedPoints(user.referral);
+      await updateHelpfulPoints({
+        points: referralPoints,
+        helpfulUser: user.referral,
+        helpedUser: id,
+        fromReferral: true,
+      });
+      await updateUserHelpfulPoints(user.referral);
     }
 
 

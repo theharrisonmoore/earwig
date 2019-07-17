@@ -76,7 +76,7 @@ describe("Tesing for verify user", () => {
           .end(async (err, res) => {
             const referralUserAfter = await User.findById(userWithReferral.referral);
             expect(referralUserAfter.points).toBe(20);
-            expect(referralUserAfter.helpedPoints).toBe(1);
+            expect(referralUserAfter.helpedUsers).toBe(1);
             expect(res).toBeDefined();
             expect(res.body).toBeDefined();
             done(err);

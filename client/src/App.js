@@ -29,7 +29,7 @@ export const initialState = {
   awaitingReview: false,
   userId: "",
   points: 0,
-  helpedPoints: 0,
+  helpedUsers: 0,
   isAdmin: false,
   isMounted: false,
   email: "",

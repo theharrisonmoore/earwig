@@ -63,7 +63,7 @@ export default class index extends Component {
       userId,
       verified,
       points,
-      helpedPoints,
+      helpedUsers,
       isSMobile,
       awaitingReview
     } = this.props;
@@ -110,7 +110,7 @@ export default class index extends Component {
               </StatWrapper>
               <StatWrapper>
                 <StatTitle>Helped</StatTitle>
-                <Stat>{helpedPoints} workers</Stat>
+                <Stat>{helpedUsers} workers</Stat>
               </StatWrapper>
               <StatWrapper>
                 <StatTitle>Earned</StatTitle>
