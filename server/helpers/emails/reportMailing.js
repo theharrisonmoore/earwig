@@ -20,7 +20,7 @@ module.exports = ({
           <span style="display: inline-block; margin-top: 1rem;">Reported a comment on a question:</span>
           <br />
 
-          <span style="font-weight: 700;">Question: </span> <span style="font-weight: 100; padding: 0 11px; border-radius: 10px; background: #ababab29; display: block">"${question.question.profileText}"</span>
+          <span style="font-weight: 700;">Question: </span> <span style="font-weight: 100; padding: 0 11px; border-radius: 10px; background: #ababab29; display: block">"${question.profileText}"</span>
           <br />
 
           <span style="font-weight: 700;">Comment owner:</span> ${comment.userId}

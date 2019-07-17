@@ -100,7 +100,7 @@ export default class CommentsBox extends Component {
             .then(({ data }) => {
               const question = {
                 ...this.props.question,
-                _id: this.props.question.question._id
+                _id: this.props.question._id
               };
               this.setState(
                 {
@@ -148,7 +148,7 @@ export default class CommentsBox extends Component {
           {commentsLoaded ? (
             <>
               <CommentsHeader>
-                <CommentsTitle>{question.question.profileText}</CommentsTitle>
+                <CommentsTitle>{question.profileText}</CommentsTitle>
                 <Close src={CloseIcon} alt="close" onClick={toggleComments} />
               </CommentsHeader>
 
