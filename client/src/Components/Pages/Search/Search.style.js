@@ -46,7 +46,7 @@ outline: none;
 }
 
 input {
-  text-indent: ${props => props.noIcon ? "0px" : "45px"};
+  text-indent: ${props => (props.noIcon ? "0px" : "45px")};
 }
 
 .${classNames.containerInputOpen} {
@@ -130,9 +130,9 @@ export const SearchLegendDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 2rem 1rem 2rem;
   width: 100%;
   max-width: 600px;
+  border: 1px solid;
 `;
 
 export const LastReviewsContainer = styled.div`
