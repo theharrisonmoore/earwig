@@ -359,7 +359,7 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL3"
+          minimumLevel="LEVEL2"
           path={INTRO_URL}
           {...props}
           isMobile={isMobile}
