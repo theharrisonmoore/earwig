@@ -436,10 +436,8 @@ export default class OverallReview extends Component {
                         }
                         id={review._id}
                         onMouseDown={isAuthorized && this.pressingDown}
-                        onTouchStart={isAuthorized && this.pressingDown}
                         onMouseUp={isAuthorized && this.notPressingDown}
                         onMouseLeave={isAuthorized && this.notPressingDown}
-                        onTouchEnd={isAuthorized && this.notPressingDown}
                         scale={1}
                         disabled={!verified || review.user._id === userId}
                         isMobile={isMobile}
