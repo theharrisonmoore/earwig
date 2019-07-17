@@ -400,57 +400,54 @@ export default class OverallReview extends Component {
               {/*  BUTTONS SECTION */}
               <ActionsDiv>
                 <ButtonsWrapper>
-                  <HelpfulButtonWrapper
-                    number={
-                      counters[review.category][review._id]
-                        ? counters[review.category][review._id].counter
-                        : 0
-                    }
-                    color={
-                      category !== "company"
-                        ? organizations[category].secondary
-                        : "#424242"
-                    }
-                    isMobile={isMobile}
-                  >
-                    <HelpfulBubble
+                  {review.user._id !== userId && (
+                    <HelpfulButtonWrapper
                       number={
-                        counters[review.category][review._id] &&
-                        counters[review.category][review._id].byUser
+                        counters[review.category][review._id]
                           ? counters[review.category][review._id].counter
-                          : undefined
+                          : 0
                       }
-                      color={organizations[category].primary}
-                    />
-
-                    <ActionsButton
-                      data-user-id={review.user._id}
-                      data-type={review.category}
-                      data-organization={review.organization}
-                      type="primary"
-                      bgcolor={
-                        isAuthorized && review.user._id !== userId
-                          ? organizations[category].primary
-                          : organizations[category].secondary
+                      color={
+                        category !== "company"
+                          ? organizations[category].secondary
+                          : "#424242"
                       }
-                      id={review._id}
-                      onMouseDown={isAuthorized && this.pressingDown}
-                      onTouchStart={isAuthorized && this.pressingDown}
-                      onMouseUp={isAuthorized && this.notPressingDown}
-                      onMouseLeave={isAuthorized && this.notPressingDown}
-                      onTouchEnd={isAuthorized && this.notPressingDown}
-                      scale={1}
-                      disabled={!verified || review.user._id === userId}
                       isMobile={isMobile}
-                      //   this.state.counters[review._id]
-                      //     ? this.state.counters[review._id].scaleValue
-                      //     : 1
-                      // }
                     >
-                      This is helpful
-                    </ActionsButton>
-                  </HelpfulButtonWrapper>
+                      <HelpfulBubble
+                        number={
+                          counters[review.category][review._id] &&
+                          counters[review.category][review._id].byUser
+                            ? counters[review.category][review._id].counter
+                            : undefined
+                        }
+                        color={organizations[category].primary}
+                      />
 
+                      <ActionsButton
+                        data-user-id={review.user._id}
+                        data-type={review.category}
+                        data-organization={review.organization}
+                        type="primary"
+                        bgcolor={
+                          isAuthorized && review.user._id !== userId
+                            ? organizations[category].primary
+                            : organizations[category].secondary
+                        }
+                        id={review._id}
+                        onMouseDown={isAuthorized && this.pressingDown}
+                        onTouchStart={isAuthorized && this.pressingDown}
+                        onMouseUp={isAuthorized && this.notPressingDown}
+                        onMouseLeave={isAuthorized && this.notPressingDown}
+                        onTouchEnd={isAuthorized && this.notPressingDown}
+                        scale={1}
+                        disabled={!verified || review.user._id === userId}
+                        isMobile={isMobile}
+                      >
+                        This is helpful
+                      </ActionsButton>
+                    </HelpfulButtonWrapper>
+                  )}
                   <ReplyButton
                     onClick={this.goTOReply}
                     data-target={
