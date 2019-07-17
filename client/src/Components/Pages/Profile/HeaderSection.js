@@ -158,7 +158,7 @@ export default class HeaderSection extends Component {
               <ContractorText>
                 Main Contractor:{" "}
                 <span className="contactor-name">
-                  {contractorAnswers[0] || "No data!!"}
+                  {contractorAnswers[0] || "No answers yet"}
                 </span>
               </ContractorText>
               {contractorAnswers[0] && (
@@ -168,7 +168,9 @@ export default class HeaderSection extends Component {
                   content={content(contractorAnswers)}
                   trigger="click"
                 >
-                  <ContractorListLink>View the full list</ContractorListLink>
+                  <ContractorListLink>
+                    More main contractors on this site
+                  </ContractorListLink>
                   <AntdIcon style={{ color: "#1890ff" }} type="caret-down" />
                 </Popover>
               )}

@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { colors, shadows, borders, organizations, breakpoints } from "./../../../theme";
+import {
+  colors,
+  shadows,
+  borders,
+  organizations,
+  breakpoints
+} from "./../../../theme";
 
 export const Wrapper = styled.div`
   margin-bottom: 2rem;
@@ -33,8 +39,7 @@ export const BottomSection = styled.div`
 
 export const StatWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 `;
 
 export const StatTitle = styled.p`
@@ -48,6 +53,7 @@ export const Stat = styled.p`
   color: ${colors.lightGray};
   font-size: 1rem;
   font-weight: 500;
+  padding-left: 4px;
 `;
 
 export const IDWrapper = styled.div`
@@ -220,10 +226,9 @@ export const MiniHeader = styled.div`
   }
 
   a {
-    color: ${colors.purpleLinks}
+    color: ${colors.purpleLinks};
   }
-
-`
+`;
 
 export const VerifyTitle = styled.h1`
   font-size: 2.125rem;
@@ -235,8 +240,8 @@ export const VerifyTitle = styled.h1`
 
 export const VerifyParagraph = styled.p`
   text-align: left;
-`
+`;
 
 export const VerifySection = styled.div`
   padding-top: 5rem;
-`
+`;

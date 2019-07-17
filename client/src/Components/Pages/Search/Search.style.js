@@ -132,7 +132,6 @@ export const SearchLegendDiv = styled.div`
   align-items: center;
   width: 100%;
   max-width: 600px;
-  border: 1px solid;
 `;
 
 export const LastReviewsContainer = styled.div`
