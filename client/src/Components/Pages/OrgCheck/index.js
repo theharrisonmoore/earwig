@@ -260,7 +260,6 @@ export default class index extends Component {
                   : `I'm not using a ${section}`}
               </StatusButton>
             </QuestionWrapper>
-            )
           </Wrapper>
         ) : (
           <ConfirmWrapper>
