@@ -4,25 +4,11 @@ const Comment = require("./../../models/Comment");
 const Answer = require("./../../models/Answer");
 const Review = require("./../../models/Review");
 const Trade = require("./../../models/Trade");
+const Helpfulness = require("./../../models/Helpfulness");
 
+const updateUserHelpfulPoints = require("./updateUserHelpfulPoints");
 const getAllUsers = require("./allUsers");
 
-module.exports.updateUserPoints = (userId, diffPoints) => User.findOneAndUpdate(
-  { _id: userId },
-  {
-    $inc: { points: diffPoints },
-  },
-  {
-    $inc: { helpedPoints: 1 },
-  },
-);
-
-module.exports.updateUserHelpedPoints = userId => User.findOneAndUpdate(
-  { _id: userId },
-  {
-    $inc: { helpedPoints: 1 },
-  },
-);
 
 module.exports.checkValidReferral = id => User.findOne(
   { _id: id, verified: true }, { password: 0 },
@@ -36,8 +22,8 @@ module.exports.updateUserById = (userId, data) => User.findByIdAndUpdate(
 );
 
 module.exports.deleteUserFields = (userId, data) => User.findByIdAndUpdate(
-  userId, 
-  { $unset: data}, 
+  userId,
+  { $unset: data },
   // return the updated document
   { new: true },
 );
@@ -110,4 +96,11 @@ module.exports.findUserByToken = token => User.findOne({
 
 module.exports.getUserByUsername = username => User.findOne({ userId: username });
 
-module.exports.getUsersTrade = tradeId => Trade.findById(tradeId)
+module.exports.getUsersTrade = tradeId => Trade.findById(tradeId);
+
+module.exports.updateUserHelpfulPoints = updateUserHelpfulPoints;
+
+module.exports.getUserVotesOnProfile = ({ userId, orgId }) => Helpfulness.find(
+  { helpedUser: userId, organization: orgId, fromReferral: false },
+  { points: 1, review: 1, target: 1 },
+);

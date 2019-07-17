@@ -43,7 +43,7 @@ const userSchema = new Schema(
       required: true,
       min: 0,
     },
-    helpedPoints: {
+    helpedUsers: {
       type: Number,
       default: 0,
       min: 0,

@@ -51,7 +51,7 @@ const updateLastViewedOrg = require("../controllers/updateLastViewedOrg");
 const deleteOrgController = require("../controllers/deleteOrganization");
 const resetPassword = require("../controllers/resetPassword");
 const setPassword = require("../controllers/setPassword");
-const updateOverallHelpfulPoints = require("../controllers/updateOverallHelpfulPoints");
+const updateHelpfulPoints = require("../controllers/updateHelpfulPoints");
 const userReviews = require("../controllers/userReviews");
 const deleteReview = require("../controllers/admin/deleteReview");
 const checkIfEditReview = require("../controllers/checkIfCanEdit");
@@ -63,6 +63,7 @@ const getCurrentOrgs = require("../controllers/getCurrentOrgs");
 
 const uploadVoiceRecording = require("../controllers/uploadVoiceRecording");
 const voiceReview = require("../controllers/getVoiceReview");
+const getUserVotesOnProfile = require("./../controllers/getUserVotesOnProfile");
 
 const {
   LOGIN_URL,
@@ -89,6 +90,7 @@ const {
   GET_USER_ORGS,
   UPLOAD_AUDIO,
   GET_AUDIO_URL,
+  GET_USER_VOTES_ON_PROFILE,
 } = require("../../client/src/apiUrls");
 
 router.get(SEARCH_URL, searchController);
@@ -254,12 +256,14 @@ router.post("/update-last-viewed", updateLastViewedOrg);
 router.post(RESET_PASSWORD, resetPassword);
 router.post(SET_PASSWORD, setPassword);
 
-router.patch(ADD_HELPFUL_OVERALL_POINTS, authentication, updateOverallHelpfulPoints);
+router.patch(ADD_HELPFUL_OVERALL_POINTS, authentication, updateHelpfulPoints);
 
 router.get(USERS_TRADE, authentication, getUsersTrade);
 
 router.post(SET_ORGS, authentication, setCurrentOrgs);
 
 router.get(GET_USER_ORGS, authentication, getCurrentOrgs);
+
+router.get(GET_USER_VOTES_ON_PROFILE, authentication, getUserVotesOnProfile);
 
 module.exports = router;
