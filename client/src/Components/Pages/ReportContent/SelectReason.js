@@ -52,16 +52,24 @@ export default class SelectReason extends Component {
     reason: ""
   };
 
+  decidePaddingTop = mobileWidth => {
+    let height;
+    mobileWidth ? (height = "80px") : (height = "100px");
+    return height;
+  };
+
   render() {
     const {
       handleSelect,
       handleTextAreaChange,
       description,
       handleSubmit,
+      isMobile,
       loading
     } = this.props;
+
     return (
-      <div style={{ paddingTop: "100px" }}>
+      <div style={{ paddingTop: this.decidePaddingTop(isMobile) }}>
         <MainIcon src={flagIcon} />
         <SubTitle
           marginBottom

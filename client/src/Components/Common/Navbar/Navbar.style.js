@@ -30,8 +30,8 @@ export const WrapperH2 = styled.h2`
   font-size: 1rem;
   margin-right: 0.5rem;
 
-  @media ${breakpointsMax.mobileM} {
-    width: 80%;
+  @media ${breakpointsMax.mobileS} {
+    font-size: 0.9rem;
   }
 `;
 

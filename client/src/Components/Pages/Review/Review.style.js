@@ -61,18 +61,19 @@ export const ImageBoxPhone = styled.div`
 
 export const OrganizationPhone = styled.div`
   display: flex;
+  width: 100%;
 `;
 
 /* desktop */
 
 export const Header = styled.section`
+  border: 1px solid green;
   width: 100%;
   background-color: ${props => organizations[props.orgType].primary};
   color: ${colors.white};
   font-size: 1.25rem;
   font-weight: 400;
-  padding: 1rem 2rem 0;
-  padding-left: 3rem;
+  margin: 0;
   position: fixed;
   z-index: 100;
 
@@ -102,6 +103,8 @@ export const Organization = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  border: 1px solid red;
+  width: 68%;
 
   div {
     display: flex;
@@ -125,7 +128,7 @@ export const Paragraph = styled.p`
   ${({ cancel }) => (cancel ? "text-decoration: underline" : "")}
   font-weight:${({ bold }) => (bold ? "700" : "normal")};
   text-transform:${({ capitalized }) => (capitalized ? "capitalize" : "none")};
-  
+
   @media (min-width: ${size.tablet}) {
     font-size: 16px;
   }
@@ -133,8 +136,8 @@ export const Paragraph = styled.p`
 
 export const OrgName = styled.p`
   margin-bottom: 0;
-  font-weight: 900;
-  font-size: 1.375rem;
+  font-weight: 800;
+  font-size: 1.1rem;
   color: ${colors.white};
   text-transform: capitalize;
 
@@ -160,6 +163,7 @@ export const ReviewTime = styled.p`
 
 export const FormWrapper = styled.div`
   width: 85%;
+  border: 1px solid blue;
   margin: 0 auto;
 `;
 
