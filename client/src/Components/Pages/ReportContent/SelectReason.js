@@ -71,7 +71,7 @@ export default class SelectReason extends Component {
         </SubTitle>
         <SmallParagraph left>
           You’ll find guidance in our
-          <BoldLink to={COMMUNITY_GUIDELINES_URL}>
+          <BoldLink to={COMMUNITY_GUIDELINES_URL} target="_blank">
             {" "}
             Community&nbsp;Guidelines
           </BoldLink>
