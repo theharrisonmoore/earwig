@@ -44,6 +44,7 @@ const Cancel = styled.p`
   line-height: 1;
   font-size: 1.125rem;
   font-weight: 700;
+  margin-left: 1.8rem;
   position: absolute;
   left: 7px;
   cursor: pointer;
@@ -66,7 +67,10 @@ const CancelNavbar = ({
 }) => {
   return (
     <NavbarWrapper backgroundColor={backgroundColor}>
-      <Cancel onClick={customAction ? customAction : history.goBack} cancelColor={cancelColor}>
+      <Cancel
+        onClick={customAction ? customAction : history.goBack}
+        cancelColor={cancelColor}
+      >
         {CancelText || "Cancel"}
       </Cancel>
       {title && <NavbarTitle titleColor={titleColor}>{title}</NavbarTitle>}
