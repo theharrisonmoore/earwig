@@ -10,6 +10,13 @@ import { Slider } from "antd";
 // STYLING
 import { colors, organizations } from "./../../../../theme";
 
+// if the browser doesn't support MediaRecorder
+// use the polyfill
+if (window.MediaRecorder == null) {
+  // safari polyfill
+  window.MediaRecorder = require("audio-recorder-polyfill");
+}
+
 const Player = styled.div`
   display: flex;
   width: 100%;
@@ -28,6 +35,11 @@ const Player = styled.div`
       props.category
         ? organizations[props.category].primary
         : colors.profileFontColor};
+  }
+
+  video,
+  audio {
+    display: none;
   }
 `;
 
@@ -160,13 +172,24 @@ export default class VoiceReview extends Component {
             onChange={this.handleSlide}
             onAfterChange={this.handleAfterSlide}
           />
+          {!MediaRecorder.isTypeSupported("audio/webm") ? (
+            <audio
+              id="player"
+              ref={ref => (this.player = ref)}
+              type={"audio/mpeg"}
+              src={audioFile}
+              preload="metadata"
+            />
+          ) : (
+            <video
+              id="player"
+              ref={ref => (this.player = ref)}
+              type={"audio/mpeg"}
+              src={audioFile}
+              preload="metadata"
+            />
+          )}
         </Player>
-        <audio
-          id="player"
-          src={audioFile}
-          ref={ref => (this.player = ref)}
-          preload="metadata"
-        />
       </>
     );
   }
