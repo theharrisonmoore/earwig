@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { SEARCH_URL } from "./../../../constants/naviagationUrls";
+import { ORG_STATUS_URL_SIGNUP } from "./../../../constants/naviagationUrls";
 
 import { Link } from "react-router-dom";
 
@@ -32,7 +32,7 @@ export default class Intro extends Component {
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
           />
-          <Link to={SEARCH_URL}>
+          <Link to={ORG_STATUS_URL_SIGNUP}>
             <Button>Got it</Button>
           </Link>
         </VideoContainer>
