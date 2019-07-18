@@ -18,13 +18,6 @@ import { API_USERS } from "./apiUrls";
 
 import { cookieStyles } from "./theme";
 
-// third party apps
-import ReactGA from "react-ga";
-
-// set up analytics
-ReactGA.initialize("UA-141501764-1");
-ReactGA.pageview(window.location.pathname + window.location.search);
-
 export const initialState = {
   isLoggedIn: false,
   isSMobile: false,
