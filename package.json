@@ -66,7 +66,6 @@
     "moment": "^2.24.0",
     "mongoose": "^5.4.22",
     "morgan": "^1.9.1",
-    "mp3-mediarecorder": "^3.4.4",
     "multer": "^1.4.1",
     "nodemailer": "^6.1.0",
     "request": "^2.88.0",
