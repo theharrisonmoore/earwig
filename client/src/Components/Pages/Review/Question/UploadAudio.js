@@ -144,7 +144,7 @@ class UploadAudio extends Component {
       type: "audio/mp3"
     });
 
-    const audioFile = new File(this.recordedAudioBlobs, `${id}.mp3`, {
+    const audioFile = new File(this.recordedAudioBlobs, `${id}.wav`, {
       type: "audio",
       lastModified: Date.now()
     });

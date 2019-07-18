@@ -176,7 +176,6 @@ export default class VoiceReview extends Component {
             <audio
               id="player"
               ref={ref => (this.player = ref)}
-              type={"audio/mpeg"}
               src={audioFile}
               preload="metadata"
             />
@@ -184,7 +183,6 @@ export default class VoiceReview extends Component {
             <video
               id="player"
               ref={ref => (this.player = ref)}
-              type={"audio/mpeg"}
               src={audioFile}
               preload="metadata"
             />
