@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { colors, organizations, size } from "../../../theme";
+import { colors, organizations, size, breakpoints } from "../../../theme";
 
 export const ReviewWrapper = styled.div`
   font-family: "Roboto", sans-serif;
@@ -67,8 +67,9 @@ export const OrganizationPhone = styled.div`
 /* desktop */
 
 export const Header = styled.section`
-  border: 1px solid green;
   width: 100%;
+  display: flex;
+  justify-content: center;
   background-color: ${props => organizations[props.orgType].primary};
   color: ${colors.white};
   font-size: 1.25rem;
@@ -85,8 +86,23 @@ export const Header = styled.section`
 
 export const Content = styled.div`
   display: flex;
-  padding: 1rem;
-  margin: 0 auto;
+  justify-content: space-between;
+  padding: .8rem;
+  width: 100%;
+  max-width: 80vw;
+
+  @media ${breakpoints.laptop} {
+      max-width: 60vw;
+  }
+
+  @media ${breakpoints.laptopL} {
+      max-width: 45vw;
+  }
+
+  @media ${breakpoints.desktop} {
+      max-width: 40vw;
+  }
+
 `;
 
 export const ImageBox = styled.div`
@@ -102,9 +118,8 @@ export const Image = styled.img`
 export const Organization = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   margin: 0 auto;
-  border: 1px solid red;
-  width: 68%;
 
   div {
     display: flex;
@@ -122,16 +137,16 @@ export const Headline = styled.h1`
 
 export const Paragraph = styled.p`
   margin-bottom: 0;
-  font-size: 14px;
+  margin: 0 auto;
+  margin-top: auto;
+  font-size: 1rem;
   font-weight: 400;
   ${({ cancel }) => (cancel ? "cursor: pointer;" : "")}
+   ${({ cancel }) => (cancel ? "line-height: 3;" : "")}
   ${({ cancel }) => (cancel ? "text-decoration: underline" : "")}
   font-weight:${({ bold }) => (bold ? "700" : "normal")};
   text-transform:${({ capitalized }) => (capitalized ? "capitalize" : "none")};
 
-  @media (min-width: ${size.tablet}) {
-    font-size: 16px;
-  }
 `;
 
 export const OrgName = styled.p`
