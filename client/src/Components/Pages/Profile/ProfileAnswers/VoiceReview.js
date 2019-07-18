@@ -36,11 +36,6 @@ const Player = styled.div`
         ? organizations[props.category].primary
         : colors.profileFontColor};
   }
-
-  video,
-  audio {
-    display: none;
-  }
 `;
 
 const PlayButton = styled.div`
@@ -156,27 +151,34 @@ export default class VoiceReview extends Component {
 
     const { category } = this.props;
 
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
     if (loading) return <Loading />;
 
     return (
       <>
         <Player category={category}>
-          {playing === "playing" ? (
-            <StopButton onClick={this.togglePlay} category={category} />
-          ) : (
-            <PlayButton onClick={this.togglePlay} category={category} />
+          {!isSafari && (
+            <>
+              {playing === "playing" ? (
+                <StopButton onClick={this.togglePlay} category={category} />
+              ) : (
+                <PlayButton onClick={this.togglePlay} category={category} />
+              )}
+              <Slider
+                value={progress}
+                style={{ width: "100%" }}
+                onChange={this.handleSlide}
+                onAfterChange={this.handleAfterSlide}
+              />
+            </>
           )}
-          <Slider
-            value={progress}
-            style={{ width: "100%" }}
-            onChange={this.handleSlide}
-            onAfterChange={this.handleAfterSlide}
-          />
           <audio
             id="player"
             ref={ref => (this.player = ref)}
             src={audioFile}
             preload="metadata"
+            controls={isSafari}
           />
         </Player>
       </>
