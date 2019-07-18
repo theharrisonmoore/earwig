@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 import { message } from "antd";
+import { getMp3MediaRecorder } from "mp3-mediarecorder";
 
 import { VoiceWrapper, VoiceIconWrapper } from "./Question.style";
 import Icon from "./../../../Common/Icon/Icon";
 
-// if the browser doesn't support MediaRecorder
-// use the polyfill
-if (window.MediaRecorder == null) {
-  // safari polyfill
-  window.MediaRecorder = require("audio-recorder-polyfill");
-}
+window.getMp3MediaRecorder = getMp3MediaRecorder;
 
 class UploadAudio extends Component {
   state = {
@@ -20,119 +16,90 @@ class UploadAudio extends Component {
     mimeType: null
   };
 
+  Mp3MediaRecorder = null;
+  mediaStream = null;
+  recorder = null;
+  blobs = [];
+  mediaStream = null;
+
   componentDidMount() {
-    this.reset();
-    this.blobLengthMS = null;
-  }
+    const supportsWasm =
+      WebAssembly && typeof WebAssembly.instantiate === "function";
+    const supportsUserMediaAPI =
+      navigator.mediaDevices &&
+      typeof navigator.mediaDevices.getUserMedia === "function";
+    const isBrowserSupported = supportsWasm && supportsUserMediaAPI;
 
-  recordAudioStream = stream => {
-    this.stream = stream;
-    // requires https to work on chrome and safari
-    this.options = {
-      // chrome likes webm
-      mimeType: "audio/webm"
-    };
-    if (MediaRecorder.isTypeSupported(this.options.mimeType)) {
-      this.mediaRecorder = new MediaRecorder(stream, this.options);
-    } else {
-      // firefox only supports ogg completely
-      this.options.mimeType = "audio/ogg";
-      if (MediaRecorder.isTypeSupported(this.options.mimeType)) {
-        this.mediaRecorder = new MediaRecorder(stream, this.options);
-      } else {
-        // safari polyfill
-        this.options.mimeType = "audio/wav";
-        if (MediaRecorder.isTypeSupported(this.options.mimeType)) {
-          this.mediaRecorder = new MediaRecorder(stream, this.options);
-        } else {
-          message.error(
-            "Sorry!, Your Browser doesn't support recording voices"
-          );
-          return;
-        }
-      }
+    if (isBrowserSupported) {
+      window
+        .getMp3MediaRecorder({
+          wasmURL: "https://unpkg.com/vmsg@0.3.5/vmsg.wasm"
+        })
+        .then(recorderClass => {
+          this.Mp3MediaRecorder = recorderClass;
+        });
     }
-
-    this.setState({
-      mimeType: this.options.mimeType
-    });
-
-    this.newMediaRecorder(this.mediaRecorder, this.options.mimeType);
-  };
-
-  reset = () => {
-    this.recordedMarks = [];
-
-    this.recordedAudioBlobs = [];
-    this.fftOutput = [];
-    this.recordedAudioStartTimestamp = null;
-    this.recordedAudioEndTimestamp = null;
-
-    this.fr = new FileReader();
-    this.fr.addEventListener("error", e => {
-      message.error("Sorry!, Something went wrong");
-    });
-    this.counter = 0;
-
-    this.lastMark = null;
-  };
-
-  newMediaRecorder = (mediaRecorder, mimeType) => {
-    this.mediaRecorder = mediaRecorder;
-    this.mimeType = mimeType;
-    this.mediaRecorder.addEventListener("stop", this.saveRecording);
-    this.mediaRecorder.addEventListener("error", e => {
-      message.error("Sorry!, error in recording audio from mic");
-    });
-    this.mediaRecorder.addEventListener("dataavailable", event => {
-      if (event.data.size > 0) {
-        // this.recordedAudioBlobs.push(event.data);
-        this.pushNewAudioBlob(event.data, event);
-      } else {
-        this.pushNewAudioBlob(event.data, event);
-      }
-    });
-  };
-
-  clearTracks = () => {
-    this.stream
-      .getTracks() // get all tracks from the MediaStream
-      .forEach(track => track.stop());
-  };
-
-  pushNewAudioBlob = (blob, event) => {
-    this.recordedAudioBlobs.push(blob);
-  };
+  }
 
   toggleRecording = () => {
     // Stop Recording
     if (this.state.recording) {
-      this.mediaRecorder.stop();
-      this.clearTracks();
+      this.recorder.stop();
+
       this.setState({
         recording: false
       });
     } else {
-      // Start Recording
-      navigator.mediaDevices
-        .getUserMedia({ audio: true, video: false })
-        .then(this.recordAudioStream)
-        .then(() => {
-          this.reset();
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(
+        stream => {
+          this.mediaStream = stream;
+          this.recorder = new this.Mp3MediaRecorder(stream);
+          this.recorder.start();
 
-          this.setState({
-            recordedAudio: null,
-            recordedAudioURL: null
-          });
+          this.recorder.onstart = e => {
+            this.blobs = [];
+            this.setState({ recording: true });
+          };
 
-          let timestamp = Date.now();
-          this.recordedAudioStartTimestamp = timestamp;
+          this.recorder.ondataavailable = e => {
+            this.blobs.push(e.data);
+          };
 
-          this.mediaRecorder.start(this.blobLengthMS);
-          this.setState({
-            recording: true
-          });
-        });
+          this.recorder.onstop = e => {
+            this.setState({ recording: false });
+            this.mediaStream.getTracks().forEach(track => track.stop());
+            const mp3Blob = new Blob(this.blobs, { type: "audio/mpeg" });
+            const mp3BlobUrl = URL.createObjectURL(mp3Blob);
+            const audio = new Audio();
+            audio.controls = true;
+            audio.src = mp3BlobUrl;
+            const audioFile = new File(this.blobs, `${this.props.id}.mp3`, {
+              type: "audio/mp3",
+              lastModified: Date.now()
+            });
+
+            this.setState({
+              recordedAudio: mp3Blob,
+              audioFile: audioFile
+            });
+
+            this.props.handleRecord({
+              recordedAudio: mp3Blob,
+              audioFile
+            });
+          };
+
+          this.recorder.onerror = e => {
+            message.error("Sorry!, Something went wrong");
+          };
+        },
+        reason => {
+          message.error(
+            `Could not get microphone access.\nError:
+            ${reason.message}`
+          );
+        }
+      );
     }
   };
 
@@ -144,7 +111,7 @@ class UploadAudio extends Component {
       type: "audio/mp3"
     });
 
-    const audioFile = new File(this.recordedAudioBlobs, `${id}.wav`, {
+    const audioFile = new File(this.recordedAudioBlobs, `${id}.mp3`, {
       type: "audio",
       lastModified: Date.now()
     });
@@ -183,30 +150,15 @@ class UploadAudio extends Component {
           <div style={{ width: "100%" }}>
             {this.state.mimeType !== "audio/webm" && (
               <audio id="player" controls key={recordedAudioURL}>
-                <source
-                  key={recordedAudioURL}
-                  type={this.options.mimeType}
-                  src={recordedAudioURL}
-                ></source>
+                <source key={recordedAudioURL} src={recordedAudioURL}></source>
               </audio>
             )}
             {this.state.mimeType === "audio/webm" && (
               <video id="player" controls key={recordedAudioURL}>
                 {/* For Chrome */}
-                <source
-                  key={recordedAudioURL}
-                  type={this.state.mimeType}
-                  src={recordedAudioURL}
-                ></source>
+                <source key={recordedAudioURL} src={recordedAudioURL}></source>
               </video>
             )}
-            <a
-              className="button is-info"
-              href={recordedAudioURL}
-              download={"audio." + this.state.mimeType.split("/")[1]}
-            >
-              Download Audio Recording
-            </a>
           </div>
         )}
       </VoiceWrapper>
