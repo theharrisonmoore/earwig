@@ -20,16 +20,10 @@ import { cookieStyles } from "./theme";
 
 // third party apps
 import ReactGA from "react-ga";
-import LogRocket from "logrocket";
-import setupLogRocketReact from "logrocket-react";
 
 // set up analytics
 ReactGA.initialize("UA-141501764-1");
 ReactGA.pageview(window.location.pathname + window.location.search);
-
-// set up logrocket
-// LogRocket.init("5aud6s/earwig");
-// setupLogRocketReact(LogRocket);
 
 export const initialState = {
   isLoggedIn: false,
