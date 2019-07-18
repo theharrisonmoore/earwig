@@ -263,14 +263,9 @@ class Review extends Component {
 
   handleCheckBox = () => {
     const { hasAgreed } = this.state;
-    this.setState(
-      {
-        hasAgreed: !hasAgreed
-      },
-      () => {
-        this.runValidation();
-      }
-    );
+    this.setState({
+      hasAgreed: !hasAgreed
+    });
   };
 
   handleReviewChange = e => {
@@ -297,27 +292,17 @@ class Review extends Component {
 
   handleRateChage = value => {
     const { review } = this.state;
-    this.setState(
-      {
-        review: { ...review, rate: value }
-      },
-      () => {
-        this.runValidation();
-      }
-    );
+    this.setState({
+      review: { ...review, rate: value }
+    });
   };
 
   handleDateChage = (fromOrTo, value) => {
     const { review } = this.state;
     const { workPeriod } = review;
-    this.setState(
-      {
-        review: { ...review, workPeriod: { ...workPeriod, [fromOrTo]: value } }
-      },
-      () => {
-        this.runValidation();
-      }
-    );
+    this.setState({
+      review: { ...review, workPeriod: { ...workPeriod, [fromOrTo]: value } }
+    });
   };
 
   showNextQestion = (groupId, next, other, set, num) => {
@@ -533,7 +518,9 @@ class Review extends Component {
                 </Paragraph>
               </div>
               <div>
-              {!isMobile && <Paragraph capitalized>{category}: &nbsp;</Paragraph>}
+                {!isMobile && (
+                  <Paragraph capitalized>{category}: &nbsp;</Paragraph>
+                )}
                 <OrgName> {name}</OrgName>
               </div>
             </Organization>
