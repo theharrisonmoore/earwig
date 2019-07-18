@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { colors, organizations, size, breakpoints, breakpointsMax } from "../../../theme";
+import {
+  colors,
+  organizations,
+  size,
+  breakpoints,
+  breakpointsMax
+} from "../../../theme";
 
 export const ReviewWrapper = styled.div`
   font-family: "Roboto", sans-serif;
@@ -10,17 +16,23 @@ export const ReviewWrapper = styled.div`
   .review-body {
     max-width: 40rem;
     margin: 0 auto;
-    padding-top: 10rem;
+    padding-top: 8rem;
 
     h2 {
       color: ${colors.profileFontColor};
     }
-  }
 
+    @media (max-width: ${size.mobileL}) {
+      padding-top: 10rem;
+    }
+
+    @media (max-width: ${size.mobileS}) {
+      padding-top: 11rem;
+    }
+  }
 `;
 
 /* phone styles */
-
 
 export const DetailsDiv = styled.div`
   padding-top: 1rem;
@@ -60,32 +72,32 @@ export const Header = styled.section`
 export const Content = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: .8rem;
+  padding: 0.8rem;
   width: 100%;
-  max-width: 80vw;
+  /* max-width: 80vw; */
+  position: relative;
 
-  @media ${breakpointsMax.mobileS} {
+  /* @media ${breakpointsMax.mobileS} {
     padding: 0;
     font-size: 0.9rem;
   }
 
   @media ${breakpointsMax.mobileL} {
-      max-width: 100vw;
-      padding: 1rem;
+    max-width: 100vw;
+    padding: 1rem;
   }
 
   @media ${breakpoints.laptop} {
-      max-width: 60vw;
+    max-width: 60vw;
   }
 
   @media ${breakpoints.laptopL} {
-      max-width: 45vw;
+    max-width: 45vw;
   }
 
   @media ${breakpoints.desktop} {
-      max-width: 40vw;
-  }
-
+    max-width: 40vw;
+  } */
 `;
 
 export const ImageBox = styled.div`
@@ -103,6 +115,8 @@ export const Organization = styled.div`
   flex-direction: column;
   align-items: flex-start;
   margin: 0 auto;
+  width: 80%;
+  max-width: 34rem;
 
   div {
     display: flex;
@@ -126,13 +140,15 @@ export const Paragraph = styled.p`
   font-weight: 400;
   ${({ cancel }) => (cancel ? "cursor: pointer;" : "")}
   ${({ cancel }) => (cancel ? "line-height: 3;" : "")}
-  ${({ cancel }) => (cancel ? "text-decoration: underline" : "")}
+  ${({ cancel }) => (cancel ? "text-decoration: underline" : "")};
+  ${({ cancel }) => (cancel ? "position: absolute" : "")};
   font-weight:${({ bold }) => (bold ? "700" : "normal")};
   text-transform:${({ capitalized }) => (capitalized ? "capitalize" : "none")};
 
  @media (max-width: ${size.mobileL}) {
   ${({ cancel }) => (cancel ? "margin-top: 0;" : "")}
   ${({ cancel }) => (cancel ? "line-height: 1.8;" : "")}
+  ${({ cancel }) => (cancel ? "position: relative" : "")};
   }
 `;
 
@@ -147,7 +163,6 @@ export const OrgName = styled.p`
     font-size: 1rem;
     font-weight: 600;
   }
-
 `;
 
 export const ReviewTimePhone = styled.p`
@@ -165,11 +180,11 @@ export const FormWrapper = styled.div`
   margin: 0 auto;
 
   @media ${breakpointsMax.mobileS} {
-      margin-top: -10px;
+    margin-top: -10px;
   }
 
   @media ${breakpointsMax.mobileL} {
-      margin-top: -50px;
+    margin-top: -50px;
   }
 `;
 
