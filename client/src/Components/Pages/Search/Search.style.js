@@ -25,7 +25,6 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
   position: relative;
   width: ${props => props.width};
   outline: none;
-
   .${classNames.container} {
     position: relative;
     display: flex;
@@ -43,11 +42,9 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
   .${classNames.containerFocussed} {
     outline: none;
   }
-
   input {
     text-indent: ${props => (props.noIcon ? "0px" : "45px")};
   }
-
   .${classNames.containerInputOpen} {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -71,7 +68,6 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
     box-shadow: ${shadows.autocompleteSuggestionShadow};
     opacity: 0.75;
     transition: all ease 0.2s;
-
     :hover,
     :active,
     :focus {
@@ -82,7 +78,6 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
     box-shadow: ${shadows.autocompleteSuggestionShadow};
     opacity: 0.75;
     transition: all ease 0.2s;
-
     :hover,
     :active,
     :focus {
@@ -190,7 +185,6 @@ export const ReviewsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   width: 80%;
 `;
 
@@ -274,7 +268,6 @@ export const ProfileLink = styled(Link)`
 
 export const AddProfileLink = styled(Link)`
   width: 100%;
-
   :hover {
     text-decoration: none;
   }

@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-import { colors, borders, shadows, breakpoints } from "./../../../theme";
+import {
+  colors,
+  borders,
+  shadows,
+  breakpoints,
+  breakpointsMax
+} from "./../../../theme";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -23,7 +29,10 @@ export const WrapperH2 = styled.h2`
   margin: 0;
   font-size: 1rem;
   margin-right: 0.5rem;
-  width: 40%;
+
+  @media ${breakpointsMax.mobileS} {
+    font-size: 0.9rem;
+  }
 `;
 
 export const SideDiv = styled.div`

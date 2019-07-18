@@ -105,8 +105,8 @@ export default class index extends Component {
             </TopSection>
             <BottomSection isSMobile={isSMobile}>
               <StatWrapper>
-                <StatTitle isSMobile={isSMobile}>Given</StatTitle>
-                <Stat>{reviewCount} reviews</Stat>
+                <StatTitle isSMobile={isSMobile}>Given </StatTitle>
+                <Stat> {reviewCount} reviews</Stat>
               </StatWrapper>
               <StatWrapper>
                 <StatTitle>Helped</StatTitle>

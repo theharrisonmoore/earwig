@@ -70,7 +70,7 @@ class CustomRate extends Component {
             </span>
           ))}
         </div>
-        {errors && errors.review && errors.review.workPeriod.from && (
+        {errors && errors.review && errors.review.rate && (
           <StyledErrorMessage>{errors.review.rate}</StyledErrorMessage>
         )}
       </QuestionOptionsWrapper>
