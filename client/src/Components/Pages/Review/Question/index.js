@@ -37,7 +37,9 @@ class Question extends Component {
       handleSliderChange,
       recording,
       startRecord,
-      stopRecord
+      stopRecord,
+      handleRecord,
+      id
     } = this.props;
 
     const popoverOptions = {
@@ -61,6 +63,8 @@ class Question extends Component {
             recording={recording}
             stopRecord={stopRecord}
             startRecord={startRecord}
+            handleRecord={handleRecord}
+            id={id}
           />
         )}
         <QuestionOptions

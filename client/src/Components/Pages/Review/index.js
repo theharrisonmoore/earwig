@@ -496,6 +496,12 @@ class Review extends Component {
     });
   };
 
+  handleRecord = ({ recordedAudio, audioFile }) => {
+    this.setState({
+      recordedAudio,
+      audioFile
+    });
+  };
   render() {
     const {
       groupss,
@@ -504,7 +510,7 @@ class Review extends Component {
       isSubmitting,
       recording
     } = this.state;
-    const { history } = this.props;
+    const { history, id } = this.props;
     const staticQuestion = STATIC_QUESTIONS(category);
 
     const { isLoading } = this.state;
@@ -599,6 +605,8 @@ class Review extends Component {
                   startRecord={this.startRecord}
                   stopRecord={this.stopRecord}
                   recording={recording}
+                  handleRecord={this.handleRecord}
+                  id={id}
                 />
               </div>
               <UserAgreement>
