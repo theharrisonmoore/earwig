@@ -6,9 +6,16 @@ import "./index.css";
 import App from "./App";
 import ErrorBoundry from "./Components/Common/ErrorBoundry";
 
+import LogRocket from "logrocket";
+import setupLogRocketReact from "logrocket-react";
+
 Sentry.init({
   dsn: "https://1f427f5f106c4253abb2bf6140aa5691@sentry.io/1485403"
 });
+
+// set up logrocket
+LogRocket.init("5aud6s/earwig");
+setupLogRocketReact(LogRocket);
 
 ReactDOM.render(
   <ErrorBoundry>
