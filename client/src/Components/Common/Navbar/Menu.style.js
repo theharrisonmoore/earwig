@@ -54,20 +54,20 @@ export const MenuItem = styled(NavLink)`
 
 export const PriorityMenuItem = styled(MenuItem)`
   border: none;
-  margin: 0.5px 0;
+  padding: 1.3rem;
+  font-size: 1rem;
+  margin: 3.5px 0;
   color: ${colors.white};
   background-color: ${colors.heliotrope};
-  font-size: 1.125rem;
   cursor: ${props => props.disabled && "not-allowed"};
 
   :hover {
     padding-left: 1.5rem;
     color: ${colors.white};
   }
-`
+`;
 
 export const ComingSoon = styled.div`
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -77,7 +77,7 @@ export const ComingSoon = styled.div`
   p {
     padding: 0;
     margin: 0;
-    color: ${props => props.purple ? colors.heliotrope: colors.white};
+    color: ${props => (props.purple ? colors.heliotrope : colors.white)};
     width: 100%;
   }
 
@@ -85,11 +85,11 @@ export const ComingSoon = styled.div`
     font-weight: 300;
     font-size: 14px;
     width: 8rem;
-    color: ${props => props.purple ? colors.heliotrope: colors.white};
+    color: ${props => (props.purple ? colors.heliotrope : colors.white)};
     text-align: center;
     margin: 0 auto;
   }
-`
+`;
 
 export const LogoutButton = styled.div`
   display: flex;
@@ -127,4 +127,4 @@ export const PriorityIcon = styled(Icon)`
   margin-right: 1rem;
   color: ${colors.white};
   opacity: ${props => props.disabled && "0.6"};
-`
+`;

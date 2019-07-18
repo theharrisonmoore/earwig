@@ -228,14 +228,9 @@ class Review extends Component {
 
   handleCheckBox = () => {
     const { hasAgreed } = this.state;
-    this.setState(
-      {
-        hasAgreed: !hasAgreed
-      },
-      () => {
-        this.runValidation();
-      }
-    );
+    this.setState({
+      hasAgreed: !hasAgreed
+    });
   };
 
   handleReviewChange = e => {
@@ -262,27 +257,17 @@ class Review extends Component {
 
   handleRateChage = value => {
     const { review } = this.state;
-    this.setState(
-      {
-        review: { ...review, rate: value }
-      },
-      () => {
-        this.runValidation();
-      }
-    );
+    this.setState({
+      review: { ...review, rate: value }
+    });
   };
 
   handleDateChage = (fromOrTo, value) => {
     const { review } = this.state;
     const { workPeriod } = review;
-    this.setState(
-      {
-        review: { ...review, workPeriod: { ...workPeriod, [fromOrTo]: value } }
-      },
-      () => {
-        this.runValidation();
-      }
-    );
+    this.setState({
+      review: { ...review, workPeriod: { ...workPeriod, [fromOrTo]: value } }
+    });
   };
 
   showNextQestion = (groupId, next, other, set, num) => {
@@ -475,7 +460,7 @@ class Review extends Component {
       isSubmitting,
       recording
     } = this.state;
-    const { history, id } = this.props;
+    const { history, isMobile, id } = this.props;
     const staticQuestion = STATIC_QUESTIONS(category);
 
     const { isLoading } = this.state;
@@ -500,11 +485,13 @@ class Review extends Component {
             <Organization>
               <div>
                 <Paragraph style={{ paddingRight: ".5rem" }}>
-                  You’re giving a review about
+                  You’re giving a review about:
                 </Paragraph>
               </div>
               <div>
-                <Paragraph capitalized>{category}: &nbsp;</Paragraph>
+                {!isMobile && (
+                  <Paragraph capitalized>{category}: &nbsp;</Paragraph>
+                )}
                 <OrgName> {name}</OrgName>
               </div>
             </Organization>

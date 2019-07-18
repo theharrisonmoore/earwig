@@ -11,18 +11,26 @@ import {
   Subtitle,
   ContentWrapper,
   PurpleDiv,
-  StyledLink
+  StyledLink,
+  HintText,
+  Text,
+  ButtonText,
+  ComingSoon
 } from "./Welcome.style.js";
 
 // NAV ROUTES
 import {
+  // GIVE_REVIEW_URL,
   SEARCH_URL,
   ASK_QUESTION_URL,
-  JOBS_URL
+  JOBS_URL,
+  UPLOAD_VERIFICATION_PHOTO
 } from "./../../../constants/naviagationUrls.js";
 
 export default class Welcome extends Component {
   render() {
+    const { verified, awaitingReview, isLoggedIn } = this.props;
+
     return (
       <Wrapper>
         <ContentWrapper>
@@ -30,51 +38,124 @@ export default class Welcome extends Component {
             Thanks! <br />
             Welcome to earwig
           </Title>
-          <Subtitle>What would you like to do?</Subtitle>
-          <StyledLink to={`${SEARCH_URL}/review`}>
-            <Button alignContent left margin="0 0 1.5rem 0">
-              <Icon
-                icon="starComment"
-                margin="0 1rem 0 0"
-                width="20px"
-                height="20px"
-              />
-              Give a review
-            </Button>
-          </StyledLink>
-          <StyledLink to={SEARCH_URL}>
-            <Button alignContent left margin="0 0 1.5rem 0">
-              <Icon
-                icon="search"
-                margin="0 1rem 0 0"
-                width="20px"
-                height="20px"
-              />
-              Read reviews & ratings
-            </Button>
-          </StyledLink>
-          <StyledLink to={ASK_QUESTION_URL}>
-            <Button alignContent left disabled margin="0 0 1.5rem 0">
-              <Icon
-                icon="raiseHand"
-                margin="0 1rem 0 0"
-                width="20px"
-                height="20px"
-              />
-              Ask workers a question
-            </Button>
-          </StyledLink>
-          <StyledLink to={JOBS_URL}>
-            <Button alignContent left disabled margin="0 0 1.5rem 0">
-              <Icon
-                icon="jobBoard"
-                margin="0 1rem 0 0"
-                width="20px"
-                height="20px"
-              />
-              Find a job
-            </Button>
-          </StyledLink>
+          {/* this should be extracted to a common component */}
+          {!isLoggedIn ? (
+            <Subtitle>
+              Without an account, you can still read reviews & ratings, although
+              the data is limited
+            </Subtitle>
+          ) : (
+            <Subtitle>What would you like to do?</Subtitle>
+          )}
+
+          {!isLoggedIn ? (
+            <StyledLink to={SEARCH_URL}>
+              <Button alignContent left margin="0 0 1.5rem 0">
+                <Icon
+                  icon="search"
+                  margin="0 1rem 0 0"
+                  width="20px"
+                  height="20px"
+                />
+                Read reviews & ratings
+              </Button>
+            </StyledLink>
+          ) : (
+            <>
+              <StyledLink
+                to={
+                  verified || awaitingReview
+                    ? `${SEARCH_URL}/review`
+                    : UPLOAD_VERIFICATION_PHOTO
+                }
+              >
+                <Button alignContent left margin="0 0 0 0">
+                  <Icon
+                    icon="starComment"
+                    margin="0 1rem 0 0"
+                    width="20px"
+                    height="20px"
+                  />
+                  <ButtonText>
+                    <Text>Give a review</Text>
+                    {!verified && !awaitingReview && (
+                      <HintText>(Click here to get verified first)</HintText>
+                    )}
+                  </ButtonText>
+                </Button>
+              </StyledLink>
+              <StyledLink
+                // to={
+                //   verified || awaitingReview
+                //     ? `${SEARCH_URL}/profile`
+                //     : SEARCH_URL
+                // }
+                to={SEARCH_URL}
+              >
+                <Button alignContent left margin="0 0 0 0">
+                  <Icon
+                    icon="search"
+                    margin="0 1rem 0 0"
+                    width="20px"
+                    height="20px"
+                  />
+                  Read reviews & ratings
+                </Button>
+              </StyledLink>
+              <StyledLink
+                to={
+                  verified || awaitingReview
+                    ? ASK_QUESTION_URL
+                    : UPLOAD_VERIFICATION_PHOTO
+                }
+                disabled
+              >
+                <Button alignContent left disabled margin="0 0 0 0">
+                  <Icon
+                    icon="raiseHand"
+                    margin="0 1rem 0 0"
+                    width="20px"
+                    height="20px"
+                  />
+                  <ButtonText>
+                    <Text>
+                      Ask workers a question
+                      <ComingSoon>(comming soon)</ComingSoon>
+                    </Text>
+                    {!verified && !awaitingReview && (
+                      <HintText>(Click here to get verified first)</HintText>
+                    )}
+                  </ButtonText>
+                </Button>
+              </StyledLink>
+              <StyledLink
+                to={
+                  verified || awaitingReview
+                    ? JOBS_URL
+                    : UPLOAD_VERIFICATION_PHOTO
+                }
+                disabled
+              >
+                <Button alignContent left disabled margin="0 0 1.5rem 0">
+                  <Icon
+                    icon="jobBoard"
+                    margin="0 1rem 0 0"
+                    width="20px"
+                    height="20px"
+                  />
+                  <ButtonText>
+                    <Text>
+                      Find a job <ComingSoon>(comming soon)</ComingSoon>
+                    </Text>
+
+                    {!verified && !awaitingReview && (
+                      <HintText>(Click here to get verified first)</HintText>
+                    )}
+                  </ButtonText>
+                </Button>
+              </StyledLink>
+            </>
+          )}
         </ContentWrapper>
         <PurpleDiv />
       </Wrapper>

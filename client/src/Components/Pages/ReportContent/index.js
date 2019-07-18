@@ -63,7 +63,7 @@ export default class ReportContent extends Component {
 
   render() {
     const { activePage, loading } = this.state;
-    const { history } = this.props;
+    const { history, isMobile } = this.props;
     return (
       <>
         <CancelNavbar
@@ -81,6 +81,7 @@ export default class ReportContent extends Component {
                 <div style={{ maxWidth: "300px", margin: "0 auto" }}>
                   {activePage === "selectReason" ? (
                     <SelectReason
+                      isMobile={isMobile}
                       handleCancel={this.handleCancel}
                       handleSelect={this.handleSelect}
                       handleSubmit={this.handleSubmit}

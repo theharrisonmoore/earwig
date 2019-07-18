@@ -16,9 +16,9 @@ import {
 } from "./../../Common/Formik/Formik.style";
 
 import {
-  SEARCH_URL,
   SIGNUP_URL,
-  RESET_PASSWORD_URL
+  RESET_PASSWORD_URL,
+  WELCOME_URL
 } from "./../../../constants/naviagationUrls";
 
 import {
@@ -31,8 +31,7 @@ import {
 
 import { StyledField } from "./../../Common/Formik/Formik.style";
 
-import { ORG_STATUS_URL_LOGIN } from "./../../../constants/naviagationUrls"
-
+import { ORG_STATUS_URL_LOGIN } from "./../../../constants/naviagationUrls";
 
 const initalValues = { email: "", password: "" };
 
@@ -116,7 +115,7 @@ export default class Login extends Component {
         <Devider>
           <Circle>OR</Circle>
         </Devider>
-        <Link to={SEARCH_URL}>Continue without an account</Link>
+        <Link to={WELCOME_URL}>Continue without an account</Link>
       </LoginWrapper>
     );
   }

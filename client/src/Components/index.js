@@ -359,7 +359,7 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL3"
+          minimumLevel="LEVEL2"
           path={INTRO_URL}
           {...props}
           isMobile={isMobile}
@@ -399,23 +399,13 @@ export default function index(props) {
                 handleChangeState={handleChangeState}
               />
             ) : (
-              <Redirect to={isAdmin ? ADMIN : SEARCH_URL} />
+              <Redirect to={isAdmin ? ADMIN : WELCOME_URL} />
             )
           }
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL1"
-          path={WELCOME_URL}
-          {...props}
-          isMobile={isMobile}
-          isTablet={isTablet}
-          Component={Welcome}
-          navbar
-        />
-
-        <PrivateRoute
-          minimumLevel="LEVEL1"
+          minimumLevel="LEVEL0"
           path={WELCOME_URL}
           {...props}
           isMobile={isMobile}
