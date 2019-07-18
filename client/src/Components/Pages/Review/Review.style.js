@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { colors, organizations, size, breakpoints } from "../../../theme";
+import { colors, organizations, size, breakpoints, breakpointsMax } from "../../../theme";
 
 export const ReviewWrapper = styled.div`
   font-family: "Roboto", sans-serif;
@@ -16,41 +16,15 @@ export const ReviewWrapper = styled.div`
       color: ${colors.profileFontColor};
     }
   }
+
 `;
 
 /* phone styles */
-export const HeaderPhone = styled.section`
-  width: 100%;
-  background-color: ${props => organizations[props.orgType].primary};
-  color: ${colors.white};
-  font-size: 1.25rem;
-  font-weight: 400;
-  padding: 0.5rem 2rem;
-  padding-left: 3rem;
-  overflow: hidden;
-  position: fixed;
-  z-index: 100;
-  max-height: 6.5rem;
 
-  @media (max-width: ${size.mobileL}) {
-    font-size: 1rem;
-    padding-left: 3rem;
-  }
-
-  @media (min-width: ${size.tablet}) {
-    display: none;
-    text-align: center;
-  }
-`;
 
 export const DetailsDiv = styled.div`
   padding-top: 1rem;
   border-bottom: 1px solid;
-`;
-
-export const ContentPhone = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 export const ImageBoxPhone = styled.div`
@@ -80,7 +54,6 @@ export const Header = styled.section`
 
   @media (max-width: ${size.mobileL}) {
     font-size: 1rem;
-    padding: 1rem;
   }
 `;
 
@@ -90,6 +63,16 @@ export const Content = styled.div`
   padding: .8rem;
   width: 100%;
   max-width: 80vw;
+
+  @media ${breakpointsMax.mobileS} {
+    padding: 0;
+    font-size: 0.9rem;
+  }
+
+  @media ${breakpointsMax.mobileL} {
+      max-width: 100vw;
+      padding: 1rem;
+  }
 
   @media ${breakpoints.laptop} {
       max-width: 60vw;
@@ -142,11 +125,15 @@ export const Paragraph = styled.p`
   font-size: 1rem;
   font-weight: 400;
   ${({ cancel }) => (cancel ? "cursor: pointer;" : "")}
-   ${({ cancel }) => (cancel ? "line-height: 3;" : "")}
+  ${({ cancel }) => (cancel ? "line-height: 3;" : "")}
   ${({ cancel }) => (cancel ? "text-decoration: underline" : "")}
   font-weight:${({ bold }) => (bold ? "700" : "normal")};
   text-transform:${({ capitalized }) => (capitalized ? "capitalize" : "none")};
 
+ @media (max-width: ${size.mobileL}) {
+  ${({ cancel }) => (cancel ? "margin-top: 0;" : "")}
+  ${({ cancel }) => (cancel ? "line-height: 1.8;" : "")}
+  }
 `;
 
 export const OrgName = styled.p`
@@ -157,13 +144,10 @@ export const OrgName = styled.p`
   text-transform: capitalize;
 
   @media (max-width: ${size.mobileL}) {
-    font-size: 1.1rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 600;
   }
-  @media (max-width: ${size.mobileS}) {
-    font-size: 0.8rem;
-    font-weight: 500;
-  }
+
 `;
 
 export const ReviewTimePhone = styled.p`
@@ -178,8 +162,15 @@ export const ReviewTime = styled.p`
 
 export const FormWrapper = styled.div`
   width: 85%;
-  border: 1px solid blue;
   margin: 0 auto;
+
+  @media ${breakpointsMax.mobileS} {
+      margin-top: -10px;
+  }
+
+  @media ${breakpointsMax.mobileL} {
+      margin-top: -50px;
+  }
 `;
 
 export const UserAgreement = styled.div``;

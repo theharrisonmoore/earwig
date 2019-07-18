@@ -504,7 +504,7 @@ class Review extends Component {
       isSubmitting,
       recording
     } = this.state;
-    const { history } = this.props;
+    const { history, isMobile } = this.props;
     const staticQuestion = STATIC_QUESTIONS(category);
 
     const { isLoading } = this.state;
@@ -529,11 +529,11 @@ class Review extends Component {
             <Organization>
               <div>
                 <Paragraph style={{ paddingRight: ".5rem" }}>
-                  You’re giving a review about
+                  You’re giving a review about:
                 </Paragraph>
               </div>
               <div>
-                <Paragraph capitalized>{category}: &nbsp;</Paragraph>
+              {!isMobile && <Paragraph capitalized>{category}: &nbsp;</Paragraph>}
                 <OrgName> {name}</OrgName>
               </div>
             </Organization>
