@@ -63,7 +63,8 @@ export default class VoiceReview extends Component {
     playing: "stopped",
     duration: null,
     currentTime: 0,
-    progress: 0
+    progress: 0,
+    loaded: false
   };
 
   componentDidMount() {
@@ -71,18 +72,25 @@ export default class VoiceReview extends Component {
     axios
       .post(API_GET_AUDIO_URL, { filename })
       .then(res => {
-        this.sound = new Howl({
-          src: [res.data.audio]
-        });
-
-        this.getDuration(res.data.audio, duration =>
-          this.setState({ duration })
-        );
-
-        this.sound.on("play", this.step);
+        this.setState({ soundFile: res.data.audio });
       })
       .catch(err => console.log(err));
   }
+
+  loadSound = () => {
+    const { soundFile } = this.state;
+    this.sound = new Howl({
+      src: [soundFile]
+    });
+
+    this.getDuration(soundFile, duration => this.setState({ duration }));
+
+    this.sound.on("play", this.step);
+    this.sound.on("load", () => {
+      this.setState({ loaded: true });
+      this.sound.play();
+    });
+  };
 
   step = () => {
     // Determine our current seek position.
@@ -99,15 +107,20 @@ export default class VoiceReview extends Component {
 
   componentWillUnmount() {
     this.sound.off("play");
+    this.sound.off("load");
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const { loaded } = this.state;
     if (this.state.playing !== prevState.playing) {
       if (this.state.playing === "stopped") {
         this.sound.pause();
       } else if (this.state.playing === "paused") {
         this.sound.pause();
       } else {
+        if (!loaded) {
+          this.loadSound();
+        }
         this.sound.play();
       }
     }
@@ -178,7 +191,7 @@ export default class VoiceReview extends Component {
   formatter = value => `${this.getMinutes(value)}:${this.getSeconds(value)}`;
 
   render() {
-    const { loading, playing, progress, duration } = this.state;
+    const { loading, playing, progress, duration, loaded } = this.state;
 
     const durationSeconds = this.getSeconds(duration);
 
@@ -205,9 +218,11 @@ export default class VoiceReview extends Component {
             tipFormatter={this.formatter}
             tooltipVisible={this.sound && this.sound.playing()}
           />
-          <div style={{ position: "absolute", right: "0", bottom: "-11px" }}>
-            {durationMinutes}:{durationSeconds}
-          </div>
+          {loaded && (
+            <div style={{ position: "absolute", right: "0", bottom: "-11px" }}>
+              {durationMinutes}:{durationSeconds}
+            </div>
+          )}
         </Player>
       </>
     );
