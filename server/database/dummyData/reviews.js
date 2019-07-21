@@ -27,12 +27,7 @@ module.exports = async () => {
             text: "I faced the same thing",
           },
         ],
-        votes: [
-          {
-            user: users[1],
-            points: 8,
-          },
-        ],
+
       },
       voiceReview: {
         audio: "audio/audio1.mp3", // to be updated when firebase storage is ready
@@ -40,12 +35,6 @@ module.exports = async () => {
           {
             user: users[1],
             text: "you are right",
-          },
-        ],
-        votes: [
-          {
-            user: users[1],
-            points: 5,
           },
         ],
       },
@@ -65,12 +54,6 @@ module.exports = async () => {
           {
             user: users[0],
             text: "Agree",
-          },
-        ],
-        votes: [
-          {
-            user: users[0],
-            points: 10,
           },
         ],
       },
@@ -93,16 +76,6 @@ module.exports = async () => {
             text: "yeah that's right",
           },
         ],
-        votes: [
-          {
-            user: users[1],
-            points: 8,
-          },
-          {
-            user: users[2],
-            points: 3,
-          },
-        ],
       },
       voiceReview: {
         audio: "audio/audio1.mp3", // to be updated when firebase storage is ready
@@ -110,16 +83,6 @@ module.exports = async () => {
           {
             user: users[1],
             text: "you are right",
-          },
-        ],
-        votes: [
-          {
-            user: users[2],
-            points: 5,
-          },
-          {
-            user: users[1],
-            points: 3,
           },
         ],
       },
@@ -139,12 +102,6 @@ module.exports = async () => {
           {
             user: users[0],
             text: "yeah that's right",
-          },
-        ],
-        votes: [
-          {
-            user: users[0],
-            points: 8,
           },
         ],
       },
@@ -167,12 +124,6 @@ module.exports = async () => {
             text: "yeah that's right",
           },
         ],
-        votes: [
-          {
-            user: users[1],
-            points: 8,
-          },
-        ],
       },
       isVerified: true,
       siteImages: ["site-images1.png", "site-images2.png"],
@@ -191,12 +142,6 @@ module.exports = async () => {
           {
             user: users[0],
             text: "yeah that's right",
-          },
-        ],
-        votes: [
-          {
-            user: users[0],
-            points: 5,
           },
         ],
       },
@@ -220,12 +165,6 @@ module.exports = async () => {
             text: "yeah that's right",
           },
         ],
-        votes: [
-          {
-            user: users[1],
-            points: 5,
-          },
-        ],
       },
       isVerified: true,
     },
@@ -243,12 +182,6 @@ module.exports = async () => {
           {
             user: users[0],
             text: "yeah that's right",
-          },
-        ],
-        votes: [
-          {
-            user: users[0],
-            points: 5,
           },
         ],
       },

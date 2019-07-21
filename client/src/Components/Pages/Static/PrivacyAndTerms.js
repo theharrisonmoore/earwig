@@ -30,18 +30,19 @@ export default class PrivacyAndTerms extends Component {
           <MainIcon src={paperIcon} />
           <LargeLink
             purpleLinks
+            target="_blank"
             to={COMMUNITY_GUIDELINES_URL}
             style={{ marginTop: "40px" }}
           >
             earwig Community Guidelines
           </LargeLink>
-          <LargeLink purpleLinks to={TERMS_OF_USE_URL}>
+          <LargeLink purpleLinks target="_blank" to={TERMS_OF_USE_URL}>
             Terms of Use
           </LargeLink>
-          <LargeLink purpleLinks to={PRIVACY_URL}>
+          <LargeLink purpleLinks target="_blank" to={PRIVACY_URL}>
             Privacy Policy
           </LargeLink>
-          <LargeLink purpleLinks to={COOKIES_POLICY_URL}>
+          <LargeLink purpleLinks target="_blank" to={COOKIES_POLICY_URL}>
             Cookies Policy
           </LargeLink>
         </ContentWrapper>

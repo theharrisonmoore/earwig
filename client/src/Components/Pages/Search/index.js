@@ -4,7 +4,6 @@ import { Skeleton } from "antd";
 
 import { API_SEARCH_URL } from "../../../apiUrls";
 import AutosuggestComponent from "./AutoSuggest";
-
 // UI helper functions
 import { StarRateCreator } from "../../../helpers";
 
@@ -24,11 +23,11 @@ import {
   ReviewsFrame,
   ProfileLink,
   ReviewsContainer,
-  FlexContainer
+  FlexContainer,
+  HeaderParagraph
 } from "./Search.style";
 
 import { organizations } from "./../../../theme";
-
 import Icon from "./../../Common/Icon/Icon";
 
 import agencyArrow from "../../../assets/agency-arrow.svg";
@@ -69,6 +68,16 @@ export default class Search extends Component {
     });
     document.addEventListener("mousedown", this.handleClickOutside);
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { target } = this.props.match.params;
+    if (prevState.target !== target) {
+      this.setState({
+        target: target
+      });
+    }
+  }
+
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
   }
@@ -76,7 +85,7 @@ export default class Search extends Component {
   // renders last viewed organization section
   renderLastViewed = (org, key, target) => {
     const url =
-      target === "profile"
+      target !== "review"
         ? `/profile/${org._id}`
         : `/organization/${org._id}/review`;
     return (
@@ -133,14 +142,29 @@ export default class Search extends Component {
 
     return (
       <SearchWrapper data-testid="searchwrapper">
-        oganisation
         <HeadlineDiv>
           {isMobile ? (
-            <h2>
-              Welcome to earwig. <br /> Try searching for…
-            </h2>
+            target !== "review" ? (
+              <HeaderParagraph>
+                See what workers are saying about agencies, payrolls, worksites,
+                and companies
+              </HeaderParagraph>
+            ) : (
+              <HeaderParagraph>
+                Which agency, payroll, worksite, or company do you want to give
+                a review of?
+              </HeaderParagraph>
+            )
+          ) : target !== "review" ? (
+            <HeaderParagraph>
+              See what workers are saying about agencies, payrolls, worksites,
+              and companies
+            </HeaderParagraph>
           ) : (
-            <h2>Welcome to earwig. Try searching for…</h2>
+            <HeaderParagraph>
+              Which agency, payroll, worksite, or company do you want to give a
+              review of?
+            </HeaderParagraph>
           )}
         </HeadlineDiv>
         {showOtherSections && (

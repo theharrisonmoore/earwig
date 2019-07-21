@@ -10,7 +10,7 @@ import {
   REPORT_CONTENT_URL,
   REPLY_URL
 } from "./../../../constants/naviagationUrls";
-
+import { isMobileDevice } from "./../../../helpers";
 import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
 import {
@@ -69,7 +69,7 @@ export default class OverallReview extends Component {
     const counter = item ? item.counter : 0;
     const sentNumber = item ? item.sentNumber : 0;
 
-    const updateCounter = counter >= 10 ? 0 : counter + 1;
+    const updateCounter = counter >= 10 ? 10 : counter + 1;
 
     this.setState(
       {
@@ -142,9 +142,7 @@ export default class OverallReview extends Component {
   notPressingDown = e => {
     const { counters } = this.state;
     const reviewId = e.target.id;
-    const { type } = e.target.dataset;
-
-    const { userId } = e.target.dataset;
+    const { type, organization, userId } = e.target.dataset;
 
     const item = counters[type][reviewId];
     const counter = item ? item.counter : 0;
@@ -169,7 +167,13 @@ export default class OverallReview extends Component {
           isMouseDown: false
         },
         () => {
-          this.postHelpfulPoints(counter, sentNumber, reviewId, userId, type);
+          this.postHelpfulPoints({
+            points: counter,
+            reviewId,
+            userId,
+            type,
+            organization
+          });
         }
       );
     } else {
@@ -177,13 +181,13 @@ export default class OverallReview extends Component {
     }
   };
 
-  postHelpfulPoints = (points, prevPoints, reviewId, userId, type) => {
+  postHelpfulPoints = ({ points, reviewId, userId, type, organization }) => {
     const target = type === "written" ? "overallReview" : "voiceReview";
     axios
       .patch(`/api/review/${reviewId}/${target}/helpful-points`, {
         points,
-        prevPoints,
-        userId
+        userId,
+        organization
       })
       .then(({ data }) => {
         const { counters } = this.state;
@@ -239,44 +243,41 @@ export default class OverallReview extends Component {
     });
   };
 
-  componentDidMount() {
-    const { id, summary } = this.props;
-    const { counters } = this.state;
-
-    const newCounters =
-      summary &&
-      summary.reviews.reduce(
+  getUserVotesOnProfile = () => {
+    const { id, orgId } = this.props;
+    axios.get(`/api/users/${id}/profile/${orgId}/votes`).then(({ data }) => {
+      const newCounters = data.reduce(
         (prev, currReview) => {
-          const { overallReview, voiceReview } = currReview;
+          if (currReview.target === "voiceReview") {
+            prev["audio"][currReview.review] = {
+              counter: currReview.points,
+              sentNumber: currReview.points,
+              scaleValue: 1,
+              byUser: false
+            };
+          } else if (currReview.target === "overallReview") {
+            prev["written"][currReview.review] = {
+              counter: currReview.points,
+              sentNumber: currReview.points,
+              scaleValue: 1,
+              byUser: false
+            };
+          }
 
-          overallReview &&
-            overallReview.votes.forEach(vote => {
-              if (vote && vote.user === id) {
-                prev["written"][currReview._id] = {
-                  counter: vote.points,
-                  sentNumber: vote.points,
-                  scaleValue: 1,
-                  byUser: false
-                };
-              }
-            });
-
-          voiceReview &&
-            voiceReview.votes.forEach(vote => {
-              if (vote && vote.user === id) {
-                prev["audio"][currReview._id] = {
-                  counter: vote.points,
-                  sentNumber: vote.points,
-                  scaleValue: 1,
-                  byUser: false
-                };
-              }
-            });
           return prev;
         },
         { written: {}, audio: {} }
       );
+      this.setState({
+        counters: newCounters
+      });
+    });
+  };
 
+  componentDidMount() {
+    this.getUserVotesOnProfile();
+
+    const { summary } = this.props;
     let totalReviews = [];
 
     if (summary)
@@ -291,7 +292,8 @@ export default class OverallReview extends Component {
             createdAt: review.createdAt,
             _id: review._id,
             category: "written",
-            review
+            review,
+            organization: review.organization
           });
         }
 
@@ -302,17 +304,14 @@ export default class OverallReview extends Component {
             user: review.user,
             createdAt: review.createdAt,
             _id: review._id,
-            category: "audio"
+            category: "audio",
+            organization: review.organization
           });
         }
       });
 
     this.setState(
       {
-        counters: {
-          ...counters,
-          ...newCounters
-        },
         writtenOrAudioReviews: totalReviews
       },
       () => {
@@ -345,7 +344,8 @@ export default class OverallReview extends Component {
       isAdmin,
       orgId,
       awaitingReview,
-      FilteredReviewMonths
+      FilteredReviewMonths,
+      id: userId
     } = this.props;
 
     const { writtenOrAudioReviews } = this.state;
@@ -382,8 +382,7 @@ export default class OverallReview extends Component {
               </UserDiv>
               <UserAdditionalDetails>
                 <p>
-                  Helped {review.user.helpedPoints} · Points{" "}
-                  {review.user.points}
+                  Helped {review.user.helpedUsers} · Points {review.user.points}
                 </p>
               </UserAdditionalDetails>
               <BubbleAndDate>
@@ -401,54 +400,66 @@ export default class OverallReview extends Component {
               {/*  BUTTONS SECTION */}
               <ActionsDiv>
                 <ButtonsWrapper>
-                  <HelpfulButtonWrapper
-                    number={
-                      counters[review._id] ? counters[review._id].counter : 0
-                    }
-                    color={
-                      category !== "company"
-                        ? organizations[category].secondary
-                        : "#424242"
-                    }
-                    isMobile={isMobile}
-                  >
-                    <HelpfulBubble
+                  {review.user._id !== userId && (
+                    <HelpfulButtonWrapper
                       number={
-                        counters[review.category][review._id] &&
-                        counters[review.category][review._id].byUser
+                        counters[review.category][review._id]
                           ? counters[review.category][review._id].counter
-                          : undefined
+                          : 0
                       }
-                      color={organizations[category].primary}
-                    />
-
-                    <ActionsButton
-                      data-user-id={review.user._id}
-                      data-type={review.category}
-                      type="primary"
-                      bgcolor={
-                        isAuthorized
-                          ? organizations[category].primary
-                          : organizations[category].secondary
+                      color={
+                        category !== "company"
+                          ? organizations[category].secondary
+                          : "#424242"
                       }
-                      id={review._id}
-                      onMouseDown={isAuthorized && this.pressingDown}
-                      onTouchStart={isAuthorized && this.pressingDown}
-                      onMouseUp={isAuthorized && this.notPressingDown}
-                      onMouseLeave={isAuthorized && this.notPressingDown}
-                      onTouchEnd={isAuthorized && this.notPressingDown}
-                      scale={1}
-                      disabled={!verified}
                       isMobile={isMobile}
-                      //   this.state.counters[review._id]
-                      //     ? this.state.counters[review._id].scaleValue
-                      //     : 1
-                      // }
                     >
-                      This is helpful
-                    </ActionsButton>
-                  </HelpfulButtonWrapper>
+                      <HelpfulBubble
+                        number={
+                          counters[review.category][review._id] &&
+                          counters[review.category][review._id].byUser
+                            ? counters[review.category][review._id].counter
+                            : undefined
+                        }
+                        color={organizations[category].primary}
+                      />
 
+                      <ActionsButton
+                        data-user-id={review.user._id}
+                        data-type={review.category}
+                        data-organization={review.organization}
+                        type="primary"
+                        bgcolor={
+                          isAuthorized && review.user._id !== userId
+                            ? organizations[category].primary
+                            : organizations[category].secondary
+                        }
+                        id={review._id}
+                        onMouseDown={
+                          !isMobileDevice.any() &&
+                          isAuthorized &&
+                          this.pressingDown
+                        }
+                        onTouchStart={this.pressingDown}
+                        onTouchEnd={this.notPressingDown}
+                        onMouseUp={
+                          !isMobileDevice.any() &&
+                          isAuthorized &&
+                          this.notPressingDown
+                        }
+                        onMouseLeave={
+                          !isMobileDevice.any() &&
+                          isAuthorized &&
+                          this.notPressingDown
+                        }
+                        scale={1}
+                        disabled={!verified || review.user._id === userId}
+                        isMobile={isMobile}
+                      >
+                        This is helpful
+                      </ActionsButton>
+                    </HelpfulButtonWrapper>
+                  )}
                   <ReplyButton
                     onClick={this.goTOReply}
                     data-target={
@@ -556,7 +567,7 @@ export default class OverallReview extends Component {
                         </UserDiv>
                         <UserAdditionalDetails>
                           <p>
-                            Helped {reply.replies.user.helpedPoints} · Points{" "}
+                            Helped {reply.replies.user.helpedUsers} · Points{" "}
                             {reply.replies.user.points}
                           </p>
                         </UserAdditionalDetails>

@@ -63,7 +63,7 @@ export default class index extends Component {
       userId,
       verified,
       points,
-      helpedPoints,
+      helpedUsers,
       isSMobile,
       awaitingReview
     } = this.props;
@@ -125,7 +125,7 @@ export default class index extends Component {
                     paragraph={false}
                     active
                   >
-                    {helpedPoints} workers
+                    {helpedUsers} workers
                   </Skeleton>
                 </Stat>
               </StatWrapper>

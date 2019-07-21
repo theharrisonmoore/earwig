@@ -22,74 +22,72 @@ export const classNames = {
 };
 
 export const AutosuggestWrapper = styled.div.attrs(classNames)`
-position: relative;
-width: ${props => props.width};
-outline: none;
-
-
-.${classNames.container} {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.${classNames.containerOpen} {
-  border: ${borders.searchBox};
-  height: ${props => props.height};
-  padding: 10px 20px;
-  font-weight: 300;
-  font-size: 1rem;
-  width: 100%;
-}
-.${classNames.containerFocussed} {
+  width: ${props => props.width};
   outline: none;
-}
-
-input {
-  text-indent: ${props => props.noIcon ? "0px" : "45px"};
-}
-
-.${classNames.containerInputOpen} {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-.${classNames.suggestionsContainer} {
-  display: none;
-}
-.${classNames.suggestionsContainerOpen} {
-  display: block;
-  position: absolute;
-  margin-top: ${props => props.height};
-  width: 100%;
-  z-index: 2;
-  background-color: ${colors.white};
-  max-height: 80vh;
-  overflow-y: auto;
-}
-.${classNames.suggestionsList} {
-}
-.${classNames.suggestions} {
-  box-shadow: ${shadows.autocompleteSuggestionShadow};
-  opacity: 0.75;
-  transition: all ease 0.2s;
-
-  :hover, :active, :focus {
-    opacity: 1;
+  .${classNames.container} {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-}
-.${classNames.suggestionHighlighted} {
-  box-shadow: ${shadows.autocompleteSuggestionShadow};
-  opacity: 0.75;
-  transition: all ease 0.2s;
-
-  :hover, :active, :focus {
-    opacity: 1;
+  .${classNames.containerOpen} {
+    border: ${borders.searchBox};
+    height: ${props => props.height};
+    padding: 10px 20px;
+    font-weight: 300;
+    font-size: 1rem;
+    width: 100%;
   }
-}
-@media ${breakpoints.tablet} {
-
+  .${classNames.containerFocussed} {
+    outline: none;
+  }
+  input {
+    text-indent: ${props => (props.noIcon ? "0px" : "45px")};
+  }
+  .${classNames.containerInputOpen} {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .${classNames.suggestionsContainer} {
+    display: none;
+  }
   .${classNames.suggestionsContainerOpen} {
-    max-height: inherit;
+    display: block;
+    position: absolute;
+    margin-top: ${props => props.height};
+    width: 100%;
+    z-index: 2;
+    background-color: ${colors.white};
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .${classNames.suggestionsList} {
+  }
+  .${classNames.suggestions} {
+    box-shadow: ${shadows.autocompleteSuggestionShadow};
+    opacity: 0.75;
+    transition: all ease 0.2s;
+    :hover,
+    :active,
+    :focus {
+      opacity: 1;
+    }
+  }
+  .${classNames.suggestionHighlighted} {
+    box-shadow: ${shadows.autocompleteSuggestionShadow};
+    opacity: 0.75;
+    transition: all ease 0.2s;
+    :hover,
+    :active,
+    :focus {
+      opacity: 1;
+    }
+  }
+  @media ${breakpoints.tablet} {
+    .${classNames.suggestionsContainerOpen} {
+      max-height: inherit;
+    }
   }
 `;
 
@@ -187,7 +185,6 @@ export const ReviewsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   width: 80%;
 `;
 
@@ -271,7 +268,6 @@ export const ProfileLink = styled(Link)`
 
 export const AddProfileLink = styled(Link)`
   width: 100%;
-
   :hover {
     text-decoration: none;
   }
@@ -341,4 +337,14 @@ export const AddWrapper = styled.div`
   margin: 0;
   align-items: center;
   padding-top: 4rem;
+`;
+
+export const HeaderParagraph = styled.p`
+  font-size: 1.2rem !important;
+  text-align: left;
+  font-style: normal !important;
+  max-width: 70%;
+  margin: 0 auto;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 `;

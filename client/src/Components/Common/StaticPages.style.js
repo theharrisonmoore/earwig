@@ -249,6 +249,7 @@ export const Ol = styled.ol`
   line-height: 36px;
   margin-bottom: 20px;
   font-weight: normal;
+  text-align: left;
 
   @media (max-width: ${MOBILE_WIDTH}px) {
     font-size: 14px;
