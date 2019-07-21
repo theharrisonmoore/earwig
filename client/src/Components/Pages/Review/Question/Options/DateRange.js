@@ -19,12 +19,17 @@ class DateRange extends Component {
   render() {
     const {
       handleChange,
+      category,
       state: { errors }
     } = this.props;
 
     return (
       <QuestionOptionsWrapper>
-        <CustomRangePicker handleChange={handleChange} {...this.props.state} />
+        <CustomRangePicker
+          handleChange={handleChange}
+          {...this.props.state}
+          category={category}
+        />
         {errors && errors.review && errors.review.workPeriod.from && (
           <StyledErrorMessage>
             {errors.review.workPeriod.from}
