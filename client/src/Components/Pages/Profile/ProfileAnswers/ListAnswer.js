@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import {
   ListWrapper,
@@ -62,14 +63,15 @@ export default class ListAnswer extends Component {
           {question.answers.map((answer, index) => (
             <ListItem
               color={
-                question.profileText ===
-                "Works with the following agencies"
+                question.profileText === "Works with the following agencies"
                   ? "agency"
                   : question.category
               }
               key={index}
             >
-              {answer.answer}
+              <Link to={`/profile/${answer.answer._id}`}>
+                {answer.answer.name}
+              </Link>
             </ListItem>
           ))}
         </ListWrapper>
