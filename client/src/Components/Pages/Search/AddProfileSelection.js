@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import swal from "sweetalert2";
+import { Spin } from "antd";
 
 import { SEARCH_URL } from "../../../constants/naviagationUrls";
 import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
@@ -26,6 +27,10 @@ import worksiteCategory from "../../../assets/worksite-category.svg";
 import payrollCategory from "../../../assets/payroll-category.svg";
 
 export default class AddProfileSelection extends Component {
+  state = {
+    isLoading: false
+  };
+
   deleteOrg = name => {
     axios.delete(`/api/delete-organization/${name}`).then(() => {
       // need to trigger a hard refresh here as organisation was still shown in search bar after deletion
@@ -34,34 +39,32 @@ export default class AddProfileSelection extends Component {
     });
   };
 
-  addOrganisation = (orgName, orgCategory) => {
+  addOrganisation = (e, orgName, orgCategory) => {
+    e.preventDefault();
     const newOrg = { name: orgName, category: orgCategory };
-
-    axios.post(API_ADD_ORGANIZATION_URL, newOrg).catch(err =>
-      swal
-        .fire({
+    this.setState({ isLoading: true });
+    axios
+      .post(API_ADD_ORGANIZATION_URL, newOrg)
+      .then(res => {
+        this.setState({ isLoading: false });
+        this.props.history.push(ADD_PROFILE_START_REVIEW_URL, {
+          newOrg: res.data
+        });
+      })
+      .catch(err => {
+        this.setState({ isLoading: false });
+        swal.fire({
           type: "error",
           title: "Oops...",
           text: `${orgName} already exists. Please contact us directly with your request.`,
           footer: '<a href="/contact">Contact</a>'
-        })
-        .then(() => this.props.history.push(SEARCH_URL))
-    );
+        });
+      });
   };
 
   render() {
     const { name } = this.props.location.state;
-
-    const linkProps = category => {
-      return {
-        pathname: `${ADD_PROFILE_START_REVIEW_URL}`,
-        state: {
-          name: `${name}`,
-          category: category,
-          needsVerification: true
-        }
-      };
-    };
+    const { isLoading } = this.state;
 
     const categories = ["agency", "payroll", "worksite", "company"];
 
@@ -72,54 +75,68 @@ export default class AddProfileSelection extends Component {
             <H2>{name} is a ...</H2>
           </HeadlineDiv>
           <LogosContainer>
-            <RowDiv>
-              <ItemDiv>
-                <AddProfileLink
-                  to={linkProps(categories[0])}
-                  onClick={() => {
-                    this.addOrganisation(name, categories[0]);
-                  }}
-                >
-                  <img src={agencyCategory} alt="" style={{ width: "100%" }} />
-                </AddProfileLink>
-              </ItemDiv>
-              <ItemDiv>
-                <AddProfileLink
-                  to={linkProps(categories[1])}
-                  onClick={() => {
-                    this.addOrganisation(name, categories[1]);
-                  }}
-                >
-                  <img src={payrollCategory} alt="" style={{ width: "100%" }} />
-                </AddProfileLink>
-              </ItemDiv>
-            </RowDiv>
-            <RowDiv>
-              <ItemDiv>
-                <AddProfileLink
-                  to={linkProps(categories[2])}
-                  onClick={() => {
-                    this.addOrganisation(name, categories[2]);
-                  }}
-                >
-                  <img
-                    src={worksiteCategory}
-                    alt=""
-                    style={{ width: "100%" }}
-                  />
-                </AddProfileLink>
-              </ItemDiv>
-              <ItemDiv>
-                <AddProfileLink
-                  to={linkProps(categories[3])}
-                  onClick={() => {
-                    this.addOrganisation(name, categories[3]);
-                  }}
-                >
-                  <img src={companyCategory} alt="" style={{ width: "100%" }} />
-                </AddProfileLink>
-              </ItemDiv>
-            </RowDiv>
+            <Spin tip="Loading..." spinning={isLoading}>
+              <RowDiv>
+                <ItemDiv>
+                  <AddProfileLink
+                    as="button"
+                    onClick={e => {
+                      this.addOrganisation(e, name, categories[0]);
+                    }}
+                  >
+                    <img
+                      src={agencyCategory}
+                      alt=""
+                      style={{ width: "100%" }}
+                    />
+                  </AddProfileLink>
+                </ItemDiv>
+                <ItemDiv>
+                  <AddProfileLink
+                    as="button"
+                    onClick={e => {
+                      this.addOrganisation(e, name, categories[1]);
+                    }}
+                  >
+                    <img
+                      src={payrollCategory}
+                      alt=""
+                      style={{ width: "100%" }}
+                    />
+                  </AddProfileLink>
+                </ItemDiv>
+              </RowDiv>
+              <RowDiv>
+                <ItemDiv>
+                  <AddProfileLink
+                    as="button"
+                    onClick={e => {
+                      this.addOrganisation(e, name, categories[2]);
+                    }}
+                  >
+                    <img
+                      src={worksiteCategory}
+                      alt=""
+                      style={{ width: "100%" }}
+                    />
+                  </AddProfileLink>
+                </ItemDiv>
+                <ItemDiv>
+                  <AddProfileLink
+                    as="button"
+                    onClick={e => {
+                      this.addOrganisation(e, name, categories[3]);
+                    }}
+                  >
+                    <img
+                      src={companyCategory}
+                      alt=""
+                      style={{ width: "100%" }}
+                    />
+                  </AddProfileLink>
+                </ItemDiv>
+              </RowDiv>
+            </Spin>
           </LogosContainer>
           <AddProfileLink
             to={SEARCH_URL}
