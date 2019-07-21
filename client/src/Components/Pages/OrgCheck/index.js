@@ -226,6 +226,7 @@ export default class index extends Component {
                   height="76px"
                   margin="0 24px 0 0"
                   alt="icon"
+                  className="getting-to-know-you-icon"
                 />
                 {["agency", "payroll"].includes(section) && (
                   <Question>Which {section} are you using right now?</Question>
@@ -245,14 +246,14 @@ export default class index extends Component {
                 iconTop="24px"
                 height="4.5rem"
                 bool={() => true}
-                width="300px"
+                width="295px"
                 data={data[0].searchData.filter(
                   item => item.category === section
                 )}
                 placeholderText={`Type the name of the ${section}`}
                 isButton
                 storeOrg={this.storeOrg}
-                noIcon
+                noIcon={false}
               />
               <StatusButton type="button" onClick={() => this.storeOrg("None")}>
                 {section === "agency"
