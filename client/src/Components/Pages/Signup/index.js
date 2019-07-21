@@ -8,7 +8,6 @@ import Logo from "./../../Common/Logo";
 import Select from "./../../Common/Select";
 import Button from "./../../Common/Button";
 
-import { TERMS_OF_USE_URL } from "./../../../constants/naviagationUrls";
 import {
   StyledFormik as Formik,
   StyledForm as Form,
@@ -43,9 +42,8 @@ import example from "./../../../assets/example.png";
 import { API_SIGN_UP } from "./../../../apiUrls";
 
 import {
-  SEARCH_URL,
-  ORG_STATUS_URL_SIGNUP,
-  WELCOME_URL
+  WELCOME_URL,
+  TERMS_OF_USE_URL
 } from "./../../../constants/naviagationUrls";
 
 const { API_TRADE_URL } = require("../../../apiUrls");
@@ -213,8 +211,11 @@ export default class Signup extends Component {
         })
           .then(({ data }) => {
             this.props.handleChangeState({ ...data, isLoggedIn: true });
-            if (isWorker) {
-              this.props.history.push(ORG_STATUS_URL_SIGNUP);
+            if (isWorker === "yes") {
+              this.props.history.push({
+                pathname: "/intro",
+                state: { isWorker }
+              });
             } else {
               this.props.history.push(WELCOME_URL);
             }
@@ -672,7 +673,7 @@ export default class Signup extends Component {
               </Form>
             )}
           </Formik>
-          <Link to={SEARCH_URL}>Continue without an account</Link>
+          <Link to={WELCOME_URL}>Continue without an account</Link>
         </ContentWrapper>
       </SignupWrapper>
     );

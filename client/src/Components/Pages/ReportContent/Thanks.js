@@ -14,7 +14,7 @@ export default class Thanks extends Component {
   render() {
     const { history } = this.props;
     return (
-      <div style={{ paddingTop: "60px" }}>
+      <div style={{ paddingTop: "100px" }}>
         <MainIcon src={checkIcon} />
         <SubTitle marginBottom center>
           Thanks for your report
