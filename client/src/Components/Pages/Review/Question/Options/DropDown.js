@@ -92,8 +92,12 @@ class DropDown extends Component {
               );
             }}
           >
-            {newOptions.map(option => (
-              <Select.Option value={option} key={option}>
+            {newOptions.map(({ name: option, _id }) => (
+              <Select.Option
+                value={`${option}===${_id}`}
+                key={_id}
+                data-id={_id}
+              >
                 {option}
               </Select.Option>
             ))}

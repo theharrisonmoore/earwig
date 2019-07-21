@@ -38,12 +38,13 @@ const getQuestionsByOrgCategory = category => Question.find({ category }).sort({
 
 const getOrganizationsByType = category => Organization.find({ category });
 
+// get the names of orgs. to show on the dropdown list
 const getOrgsNamesByType = category => Organization.aggregate([
   {
     $match: { category },
   },
   {
-    $group: { _id: "$category", category: { $push: "$$CURRENT.name" } },
+    $group: { _id: "$category", category: { $push: { name: "$$CURRENT.name", _id: "$$CURRENT._id" } } },
   },
 ]);
 

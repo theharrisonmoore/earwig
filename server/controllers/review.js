@@ -9,7 +9,6 @@ const {
   getOrgsNamesByType,
   getAgenciesAndPayrollsNames,
   getReviewDetails,
-  findReviewById,
   findReviewByIdAndUpdate,
 } = require("../database/queries/review");
 const { findByEmail } = require("../database/queries/user");
