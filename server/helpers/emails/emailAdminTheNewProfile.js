@@ -1,3 +1,5 @@
+const path = require("path");
+
 const mailer = require("./mailer");
 
 module.exports = (userDetails, orgInfo) => {
@@ -23,7 +25,7 @@ module.exports = (userDetails, orgInfo) => {
   const attachments = [
     {
       filename: "logo.png",
-      path: `${__dirname}/../assets/../logo.png`,
+      path: path.join(__dirname, "..", "..", "assets", "logo.png"),
       cid: "earwig-logo",
     },
   ];

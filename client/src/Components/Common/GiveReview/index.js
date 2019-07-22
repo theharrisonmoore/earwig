@@ -39,7 +39,7 @@ export default class GiveReview extends Component {
           <Time>2 mins</Time>
           <FullLink
             to={{
-              pathname: `/organization/${orgId}/review`,
+              pathname: `/organization/${orgId ? orgId : state.orgId}/review`,
               state: state
             }}
             disabled={reviewNotAllowed}
