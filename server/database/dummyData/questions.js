@@ -37,7 +37,10 @@ module.exports = async () => {
     const payrolls = await getOrgsNamesByType("payroll");
 
     agencyNames = agencies[0].category;
+    agencyNames = agencyNames.map(name => name.name);
+
     payrollsNames = payrolls[0].category;
+    payrollsNames = payrollsNames.map(name => name.name);
   } catch (err) {
     console.log("database query error", err);
   }
