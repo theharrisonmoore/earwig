@@ -4,12 +4,12 @@ import { message } from "antd";
 import { VoiceWrapper, VoiceIconWrapper } from "./Question.style";
 import Icon from "./../../../Common/Icon/Icon";
 
-// if the browser doesn't support MediaRecorder
-// use the polyfill
-if (window.MediaRecorder == null) {
-  // safari polyfill
-  window.MediaRecorder = require("audio-recorder-polyfill");
-}
+// // if the browser doesn't support MediaRecorder
+// // use the polyfill
+// if (window.MediaRecorder == null) {
+//   // safari polyfill
+//   window.MediaRecorder = require("audio-recorder-polyfill");
+// }
 
 class UploadAudio extends Component {
   state = {
