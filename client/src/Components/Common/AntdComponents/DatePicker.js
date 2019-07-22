@@ -1,12 +1,21 @@
 import React from "react";
 import { DatePicker } from "antd";
 import moment from "moment";
+import styled from "styled-components";
+
+import { organizations } from "../../../theme";
+
+const StyledLabel = styled.label`
+  color: ${({ open, category }) =>
+    open ? organizations[category].primary : "black"};
+`;
 
 class DateRange extends React.Component {
   state = {
     startValue: null,
     endValue: null,
-    endOpen: false
+    endOpen: false,
+    isOpen: false
   };
 
   disabledStartDate = startValue => {
@@ -69,6 +78,7 @@ class DateRange extends React.Component {
   };
 
   handleStartOpenChange = open => {
+    this.setState({ isOpen: open });
     if (!open) {
       this.setState({ endOpen: true });
     }
@@ -80,6 +90,7 @@ class DateRange extends React.Component {
 
   render() {
     const { startValue, endValue, endOpen } = this.state;
+    const { category } = this.props;
     return (
       <div
         style={{
@@ -89,21 +100,6 @@ class DateRange extends React.Component {
           justifyContent: "space-around"
         }}
       >
-        {/* <DatePicker.MonthPicker
-          disabledDate={this.disabledStartDate}
-          value={startValue || this.props.review.workPeriod.from}
-          placeholder="Start"
-          onChange={this.onStartChange}
-          onOpenChange={this.handleStartOpenChange}
-        />
-        <DatePicker.MonthPicker
-          disabledDate={this.disabledEndDate}
-          value={endValue || this.props.review.workPeriod.to}
-          placeholder="End"
-          onChange={this.onEndChange}
-          open={endOpen}
-          onOpenChange={this.handleEndOpenChange}
-        /> */}
         <div
           style={{
             display: "flex",
@@ -111,7 +107,13 @@ class DateRange extends React.Component {
             fontWeight: "500"
           }}
         >
-          <label htmlFor="start">From</label>
+          <StyledLabel
+            open={this.state.isOpen}
+            category={category}
+            htmlFor="start"
+          >
+            From
+          </StyledLabel>
           <DatePicker.MonthPicker
             disabledDate={this.disabledStartDate}
             value={startValue || this.props.review.workPeriod.from}
@@ -128,7 +130,13 @@ class DateRange extends React.Component {
             fontWeight: "500"
           }}
         >
-          <label htmlFor="end">To</label>
+          <StyledLabel
+            open={this.state.endOpen}
+            category={category}
+            htmlFor="end"
+          >
+            To
+          </StyledLabel>
           <DatePicker.MonthPicker
             disabledDate={this.disabledEndDate}
             value={endValue || this.props.review.workPeriod.to}

@@ -51,6 +51,7 @@ class Number extends Component {
               value={answers[number]}
               onChange={value => handleSliderChange(value, number)}
               style={{ width: "100%" }}
+              step={0.5}
               marks={{
                 0: {
                   style: marksStyle,
