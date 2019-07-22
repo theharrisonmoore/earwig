@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { colors, shadows } from "./../../theme";
+import { colors, shadows, breakpointsMax } from "./../../theme";
 
 const NavbarWrapper = styled.div`
   width: 100%;
@@ -44,6 +44,7 @@ const Cancel = styled.p`
   line-height: 1;
   font-size: 1.125rem;
   font-weight: 700;
+  margin-left: 1.3rem;
   position: absolute;
   left: 7px;
   cursor: pointer;
@@ -53,6 +54,15 @@ const Cancel = styled.p`
 
   color: ${({ cancelColor }) =>
     cancelColor ? cancelColor : colors.heliotrope};
+
+  @media ${breakpointsMax.mobileM} {
+    font-size: 1rem;
+  }
+
+  @media ${breakpointsMax.mobileS} {
+    margin-left: 0.4rem;
+    font-size: 0.9rem;
+  }
 `;
 
 const CancelNavbar = ({
@@ -66,7 +76,10 @@ const CancelNavbar = ({
 }) => {
   return (
     <NavbarWrapper backgroundColor={backgroundColor}>
-      <Cancel onClick={customAction ? customAction : history.goBack} cancelColor={cancelColor}>
+      <Cancel
+        onClick={customAction ? customAction : history.goBack}
+        cancelColor={cancelColor}
+      >
         {CancelText || "Cancel"}
       </Cancel>
       {title && <NavbarTitle titleColor={titleColor}>{title}</NavbarTitle>}

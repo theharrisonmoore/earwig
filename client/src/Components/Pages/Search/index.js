@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-
-import Loading from "./../../Common/AntdComponents/Loading";
+import { Skeleton } from "antd";
 
 import { API_SEARCH_URL } from "../../../apiUrls";
-
 import AutosuggestComponent from "./AutoSuggest";
-
 // UI helper functions
 import { StarRateCreator } from "../../../helpers";
 
@@ -26,11 +23,11 @@ import {
   ReviewsFrame,
   ProfileLink,
   ReviewsContainer,
-  FlexContainer
+  FlexContainer,
+  HeaderParagraph
 } from "./Search.style";
 
 import { organizations } from "./../../../theme";
-
 import Icon from "./../../Common/Icon/Icon";
 
 import agencyArrow from "../../../assets/agency-arrow.svg";
@@ -71,6 +68,16 @@ export default class Search extends Component {
     });
     document.addEventListener("mousedown", this.handleClickOutside);
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { target } = this.props.match.params;
+    if (prevState.target !== target) {
+      this.setState({
+        target: target
+      });
+    }
+  }
+
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
   }
@@ -78,7 +85,7 @@ export default class Search extends Component {
   // renders last viewed organization section
   renderLastViewed = (org, key, target) => {
     const url =
-      target === "profile"
+      target !== "review"
         ? `/profile/${org._id}`
         : `/organization/${org._id}/review`;
     return (
@@ -132,18 +139,32 @@ export default class Search extends Component {
   render() {
     const { isLoading, data, showOtherSections, target } = this.state;
     const { isMobile, isTablet } = this.props;
-    if (!isLoading) return <Loading />;
 
     return (
       <SearchWrapper data-testid="searchwrapper">
-        oganisation
         <HeadlineDiv>
           {isMobile ? (
-            <h2>
-              Welcome to earwig. <br /> Try searching for…
-            </h2>
+            target !== "review" ? (
+              <HeaderParagraph>
+                See what workers are saying about agencies, payrolls, worksites,
+                and companies
+              </HeaderParagraph>
+            ) : (
+              <HeaderParagraph>
+                Which agency, payroll, worksite, or company do you want to give
+                a review of?
+              </HeaderParagraph>
+            )
+          ) : target !== "review" ? (
+            <HeaderParagraph>
+              See what workers are saying about agencies, payrolls, worksites,
+              and companies
+            </HeaderParagraph>
           ) : (
-            <h2>Welcome to earwig. Try searching for…</h2>
+            <HeaderParagraph>
+              Which agency, payroll, worksite, or company do you want to give a
+              review of?
+            </HeaderParagraph>
           )}
         </HeadlineDiv>
         {showOtherSections && (
@@ -210,7 +231,7 @@ export default class Search extends Component {
             bool={() => true}
             height="4.5rem"
             width="80%"
-            data={data[0].searchData}
+            data={data && data[0].searchData}
             placeholderText="Start typing..."
             isMobile={isMobile}
             isTablet={isTablet}
@@ -222,9 +243,12 @@ export default class Search extends Component {
               <p>Most recent reviews:</p>
             </HeadlineDiv>
             <ReviewsContainer>
-              {data[0].lastReviwed.map(org =>
-                this.renderLastViewed(org.lastReviwed, org._id, target)
-              )}
+              <Skeleton loading={!isLoading}>
+                {data &&
+                  data[0].lastReviwed.map(org =>
+                    this.renderLastViewed(org.lastReviwed, org._id, target)
+                  )}
+              </Skeleton>
             </ReviewsContainer>
           </FlexContainer>
         )}

@@ -52,16 +52,24 @@ export default class SelectReason extends Component {
     reason: ""
   };
 
+  decidePaddingTop = mobileWidth => {
+    let height;
+    mobileWidth ? (height = "80px") : (height = "100px");
+    return height;
+  };
+
   render() {
     const {
       handleSelect,
       handleTextAreaChange,
       description,
       handleSubmit,
+      isMobile,
       loading
     } = this.props;
+
     return (
-      <div style={{ paddingTop: "60px" }}>
+      <div style={{ paddingTop: this.decidePaddingTop(isMobile) }}>
         <MainIcon src={flagIcon} />
         <SubTitle
           marginBottom
@@ -71,7 +79,7 @@ export default class SelectReason extends Component {
         </SubTitle>
         <SmallParagraph left>
           You’ll find guidance in our
-          <BoldLink to={COMMUNITY_GUIDELINES_URL}>
+          <BoldLink to={COMMUNITY_GUIDELINES_URL} target="_blank">
             {" "}
             Community&nbsp;Guidelines
           </BoldLink>

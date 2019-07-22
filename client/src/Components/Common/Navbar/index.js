@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-
 import { NavLink } from "react-router-dom";
 import { Button, Icon as AntIcon } from "antd";
 
 import Icon from "./../Icon/Icon";
-
 import { ADMIN } from "./../../../constants/naviagationUrls";
-
 import { Wrapper, ToggleMenu, SideDiv, WrapperH2 } from "./Navbar.style";
 import Menu from "./Menu.js";
 import CloseIcon from "./../../../assets/close-icon.svg";
@@ -22,6 +19,7 @@ export default class Navbar extends Component {
   };
 
   render() {
+    const { url } = this.props.match;
     const {
       title,
       isMobile,
@@ -32,6 +30,12 @@ export default class Navbar extends Component {
       verified,
       awaitingReview
     } = this.props;
+
+    let text = title;
+    if (url === "/search/review") {
+      text = "Give review";
+    }
+
     const { menuOpen } = this.state;
     if (!isMobile) {
       return (
@@ -61,7 +65,7 @@ export default class Navbar extends Component {
               </>
             )}
           </SideDiv>
-          <WrapperH2 style={{ fontWeight: "900" }}>{title && title}</WrapperH2>
+          <WrapperH2 style={{ fontWeight: "900" }}>{text && text}</WrapperH2>
           <SideDiv position="flex-end" isDesktop={!isMobile}>
             {isAdmin && (
               <NavLink to={ADMIN}>
@@ -106,7 +110,7 @@ export default class Navbar extends Component {
               </ToggleMenu>
             </SideDiv>
           )}
-          <WrapperH2 style={{ fontWeight: "900" }}>{title && title}</WrapperH2>
+          <WrapperH2 style={{ fontWeight: "900" }}>{text && text}</WrapperH2>
           <SideDiv position="flex-end" />
         </Wrapper>
       );
