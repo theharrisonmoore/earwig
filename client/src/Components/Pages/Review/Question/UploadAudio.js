@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { message } from "antd";
 
-import { VoiceWrapper, VoiceIconWrapper } from "./Question.style";
+import { VoiceWrapper, VoiceIconWrapper, StopIcon } from "./Question.style";
 import Icon from "./../../../Common/Icon/Icon";
 
 // if the browser doesn't support MediaRecorder
@@ -167,21 +167,23 @@ class UploadAudio extends Component {
 
   render() {
     let recordedAudioURL = null;
-    if (this.state.recordedAudio) {
-      recordedAudioURL = window.URL.createObjectURL(this.state.recordedAudio);
+    const { recording, recordedAudio, mimeType } = this.state;
+    if (recordedAudio) {
+      recordedAudioURL = window.URL.createObjectURL(recordedAudio);
     }
 
     return (
       <VoiceWrapper>
-        <VoiceIconWrapper
-          recording={this.state.recording}
-          onClick={this.toggleRecording}
-        >
-          <Icon icon="voiceRecord" width="36px" height="48px" />
+        <VoiceIconWrapper recording={recording} onClick={this.toggleRecording}>
+          {recording ? (
+            <StopIcon className="rectangle"></StopIcon>
+          ) : (
+            <Icon icon="voiceRecord" width="36px" height="48px" />
+          )}
         </VoiceIconWrapper>
-        {this.state.recordedAudio && (
+        {recordedAudio && (
           <div style={{ width: "100%" }}>
-            {this.state.mimeType !== "audio/webm" && (
+            {mimeType !== "audio/webm" && (
               <audio id="player" controls key={recordedAudioURL}>
                 <source
                   key={recordedAudioURL}
@@ -190,23 +192,26 @@ class UploadAudio extends Component {
                 ></source>
               </audio>
             )}
-            {this.state.mimeType === "audio/webm" && (
+            {mimeType === "audio/webm" && (
               <video id="player" controls key={recordedAudioURL}>
                 {/* For Chrome */}
                 <source
                   key={recordedAudioURL}
-                  type={this.state.mimeType}
+                  type={mimeType}
                   src={recordedAudioURL}
                 ></source>
               </video>
             )}
-            <a
+            {/* In case of failing to support running voice
+              on all browsers this could be a b-plan :) */}
+
+            {/* <a
               className="button is-info"
               href={recordedAudioURL}
-              download={"audio." + this.state.mimeType.split("/")[1]}
+              download={`audio.${mimeType.split("/")[1]}`}
             >
               Download Audio Recording
-            </a>
+            </a> */}
           </div>
         )}
       </VoiceWrapper>

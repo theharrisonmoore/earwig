@@ -300,3 +300,13 @@ export const VoiceWrapper = styled.div`
     width: calc(100% - 76px);
   }
 `;
+
+export const StopIcon = styled.div`
+  width: 20px;
+  height: 20px;
+  background-color: ${colors.gray};
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+`;
