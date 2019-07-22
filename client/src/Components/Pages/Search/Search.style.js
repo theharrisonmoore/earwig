@@ -101,7 +101,7 @@ export const IconDiv = styled.div`
   margin-left: 20px;
   cursor: pointer;
   z-index: 1;
-  right: 24px;
+  right: 18px;
 `;
 
 export const SearchWrapper = styled.div`
