@@ -4,7 +4,6 @@ import { message } from "antd";
 import { VoiceWrapper, VoiceIconWrapper, StopIcon } from "./Question.style";
 import Icon from "./../../../Common/Icon/Icon";
 
-// use the polyfill
 window.MediaRecorder = require("audio-recorder-polyfill");
 
 class UploadAudio extends Component {
