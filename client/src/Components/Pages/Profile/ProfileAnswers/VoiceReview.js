@@ -106,8 +106,8 @@ export default class VoiceReview extends Component {
   };
 
   componentWillUnmount() {
-    this.sound.off("play");
-    this.sound.off("load");
+    this.sound && this.sound.off("play");
+    this.sound && this.sound.off("load");
   }
 
   componentDidUpdate(prevProps, prevState) {

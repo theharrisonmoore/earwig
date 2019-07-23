@@ -26,8 +26,12 @@ module.exports = (required, isVoice) => async (req, res, next) => {
     };
 
     if (isVoice) {
+      const { size } = req.file;
       options.metadata = {
         contentType: "application/octet-stream",
+        acceptRanges: "bytes",
+        contentLength: size,
+        contentRange: `bytes 0-${size - 1}/${size}`,
       };
     }
 
