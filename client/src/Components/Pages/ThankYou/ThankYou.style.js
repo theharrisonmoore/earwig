@@ -1,43 +1,62 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import {
-  EmailShareButton,
-  WhatsappShareButton,
-  TelegramShareButton
-} from "react-share";
+import { EmailShareButton, WhatsappShareButton } from "react-share";
 
 import { colors, organizations } from "./../../../theme";
 
 export const EmailShare = styled(EmailShareButton)`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   cursor: pointer;
-  opacity: 0.7;
-
+  background-color: ${({ category }) => organizations[category].primary};
+  width: 80px;
+  height: 55px;
+  border-radius: 6px;
+  color: ${colors.white};
+  font-weight: 700;
   :hover,
   :active,
   :focus {
-    opacity: 1;
+    opacity: 0.8;
   }
 `;
 
 export const WhatsappShare = styled(WhatsappShareButton)`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   cursor: pointer;
-  opacity: 0.7;
-
+  background-color: ${({ category }) => organizations[category].primary};
+  width: 80px;
+  height: 55px;
+  border-radius: 6px;
+  color: ${colors.white};
+  font-weight: 700;
   :hover,
   :active,
   :focus {
-    opacity: 1;
+    opacity: 0.8;
   }
 `;
 
-export const TelegramShare = styled(TelegramShareButton)`
-  cursor: pointer;
-  opacity: 0.7;
-
+export const FBMsgShare = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 55px;
+  width: 80px;
+  border-radius: 6px;
+  background-color: ${({ category }) => organizations[category].primary};
+  color: ${colors.white};
+  font-weight: 700;
   :hover,
   :active,
   :focus {
-    opacity: 1;
+    opacity: 0.8;
   }
 `;
 

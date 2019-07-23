@@ -11,7 +11,7 @@
 
 import React, { Component } from "react";
 
-import { EmailIcon, WhatsappIcon, TelegramIcon } from "react-share";
+import { EmailIcon, WhatsappIcon } from "react-share";
 
 import { organizations } from "./../../../theme";
 
@@ -28,14 +28,27 @@ import {
   StyledLink,
   EmailShare,
   WhatsappShare,
-  TelegramShare
+  FBMsgShare
 } from "./ThankYou.style";
 
+import whatsAppIcon from "../../../assets/whatsapp-logo.svg";
+import facebookMsgIcon from "../../../assets/messenger-logo.svg";
+import emailIcon from "../../../assets/email-logo.svg";
+
 export default class ThankYou extends Component {
+  facebookMsgShare = referralLink => {
+    window.open(
+      "fb-messenger://share?link=" +
+        encodeURIComponent(referralLink) +
+        "&app_id=" +
+        encodeURIComponent("earwig-work-2019")
+    );
+  };
   render() {
     const { state } = this.props.history.location;
 
-    const orgType = state && this.props.history.location.state.orgType;
+    const { orgType } = state && state;
+
     if (!orgType) {
       return this.props.history.goBack();
     }
@@ -73,34 +86,28 @@ export default class ThankYou extends Component {
             <EmailShare
               url={orgURL}
               subject={`I've reviewed ${orgName} on earwig`}
+              category={orgType}
             >
-              <EmailIcon
-                size={40}
-                round
-                iconBgStyle={{ fill: organizations[orgType].primary }}
-              />
+              <img src={emailIcon} alt="" />
+              Email
             </EmailShare>
             <WhatsappShare
               url={orgURL}
               title={`I've reviewed ${orgName} on earwig`}
               separator=": "
+              category={orgType}
             >
-              <WhatsappIcon
-                size={40}
-                round
-                iconBgStyle={{ fill: organizations[orgType].primary }}
-              />
+              <img src={whatsAppIcon} alt="" />
+              WhatsApp
             </WhatsappShare>
-            <TelegramShare
-              url={orgURL}
-              title={`I've reviewed ${orgName} on earwig`}
+
+            <FBMsgShare
+              category={orgType}
+              onClick={() => this.facebookMsgShare(orgURL)}
             >
-              <TelegramIcon
-                size={40}
-                round
-                iconBgStyle={{ fill: organizations[orgType].primary }}
-              />
-            </TelegramShare>
+              <img src={facebookMsgIcon} alt="" />
+              Facebook
+            </FBMsgShare>
           </IconWrapper>
           <SharePromo orgType={orgType}>
             Click one of the icons above to share privately with your colleagues
