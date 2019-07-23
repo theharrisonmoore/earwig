@@ -152,7 +152,8 @@ router.post(
 router.post(
   UPLOAD_AUDIO,
   upload("voiceRecording"),
-  toGoogle(),
+  // required = true , isVoice = true
+  toGoogle(true, true),
   deleteFileFromServer,
   uploadVoiceRecording,
 );
