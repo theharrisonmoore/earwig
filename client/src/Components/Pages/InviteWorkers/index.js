@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 import whatsAppIcon from "../../../assets/whatsapp-logo.svg";
 import facebookMsgIcon from "../../../assets/messenger-logo.svg";
@@ -19,21 +20,20 @@ import {
 } from "./inviteWorkers.style";
 
 export default class InviteWorkers extends Component {
-  facebookMsgShare = () => {
-    //ToDo: Ajax request to the server to fetch the real referral link.
-
-    const referralLink =
-      "http://localhost:3000/signup?token=fake-referral-link-for-testing-only";
+  facebookMsgShare = referralLink => {
     window.open(
       "fb-messenger://share?link=" +
         encodeURIComponent(referralLink) +
         "&app_id=" +
-        encodeURIComponent("app_uniquie_Id1897514576845314")
+        encodeURIComponent("earwig-work-2019")
     );
   };
   render() {
-    const referralLink =
-      "http://localhost:3000/signup?token=fake-referral-link-for-testing-only";
+    const { id: userId } = this.props;
+    let referralLink = `https://${window.location.host}/signup/${userId}`;
+    if (process.env.NODE_ENV === "development") {
+      referralLink = `http://${window.location.host}/signup/${userId}`;
+    }
     return (
       <InviteWrapper>
         <Icon
@@ -67,7 +67,7 @@ export default class InviteWorkers extends Component {
             WhatsApp
           </WhatsappShare>
 
-          <IconWrapper onClick={this.facebookMsgShare}>
+          <IconWrapper onClick={() => this.facebookMsgShare(referralLink)}>
             <img src={facebookMsgIcon} alt="" />
             Facebook
           </IconWrapper>
