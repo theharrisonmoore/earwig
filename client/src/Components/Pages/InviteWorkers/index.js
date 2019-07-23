@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 
 import whatsAppIcon from "../../../assets/whatsapp-logo.svg";
 import facebookMsgIcon from "../../../assets/messenger-logo.svg";
