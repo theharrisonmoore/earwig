@@ -17,6 +17,19 @@ export const Wrapper = styled.div`
   padding-top: 4rem;
   z-index: 3;
   box-shadow: ${shadows.buttonShadow};
+  overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 
   /* if you want to do any styling on active link then assign to this class */
   /* .active {
@@ -29,7 +42,7 @@ export const MenuItem = styled(NavLink)`
   text-decoration: none;
   border-style: solid;
   border-width: 0px 1px 1px 1px;
-  border-color: ${colors.heliotrope}
+  border-color: ${colors.heliotrope};
   border-radius: 3px;
   color: ${colors.heliotrope};
   padding: 0.5rem;
@@ -96,7 +109,7 @@ export const LogoutButton = styled.div`
   text-decoration: none;
   border-style: solid;
   border-width: 0px 1px 1px 1px;
-  border-color: ${colors.heliotrope}
+  border-color: ${colors.heliotrope};
   border-radius: 3px;
   color: ${colors.heliotrope};
   padding: 0.5rem;
