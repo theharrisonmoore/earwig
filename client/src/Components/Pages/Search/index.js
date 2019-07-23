@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Skeleton } from "antd";
+import { Skeleton, Rate } from "antd";
 
 import { API_SEARCH_URL } from "../../../apiUrls";
 import AutosuggestComponent from "./AutoSuggest";
-// UI helper functions
-import { StarRateCreator } from "../../../helpers";
 
 // styles
 import {
@@ -110,7 +108,15 @@ export default class Search extends Component {
                 {org.name}
               </h3>
               <ReviewDetailsDiv>
-                {StarRateCreator(org)}
+                <Rate
+                  disabled
+                  value={org.avgRatings || org.value}
+                  style={{
+                    color: `${organizations[org.category].primary}`,
+                    fontSize: "0.75rem"
+                  }}
+                  className="last-reviewed-star-rate"
+                />
                 <p>{org.totalReviews} reviews</p>
               </ReviewDetailsDiv>
             </OrganisationDetailsDiv>
