@@ -518,4 +518,4 @@ module.exports.getAllQs = () => Question.aggregate([
  * @return {query}
  */
 module.exports.patchReviewField = (reviewId, data) => Review
-  .findByIdAndUpdate(reviewId, data, { omitUndefined: true });
+  .findByIdAndUpdate(reviewId, { $set: data }, { omitUndefined: true });

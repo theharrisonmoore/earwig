@@ -4,7 +4,7 @@ const { patchReviewField } = require("./../../database/queries/reviews");
 const updateReviewFields = (req, res, next) => {
   const { data } = req.body;
   const { id: reviewId } = req.params;
-  patchReviewField(reviewId, { $set: data })
+  patchReviewField(reviewId, data)
     .then((result) => {
       if (!result) {
         next(boom.notFound("error updating!"));

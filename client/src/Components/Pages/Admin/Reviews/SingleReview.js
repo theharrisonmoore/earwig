@@ -182,7 +182,7 @@ export default class SingleReview extends Component {
         axios
           .patch(`/api/admin/reviews/${reviewId}`, {
             data: {
-              "voiceReview.audio": undefined
+              "voiceReview.audio": ""
             }
           })
           .then(res => {
