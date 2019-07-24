@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import { message, Select, Input, Modal, InputNumber } from "antd";
 
 import Loading from "./../../../Common/AntdComponents/Loading";
+import VoiceReview from "../../Profile/ProfileAnswers/VoiceReview";
 
 import { SVGCreator, NewSVGCreator, isMobile } from "../../../../helpers";
 
@@ -147,7 +148,6 @@ export default class SingleReview extends Component {
   // asks admin if sure to delete answer
   showDeleteConfirm = answerID => {
     // delete from db and update
-
     Modal.confirm({
       title: "Are you sure you want to delete this answer?",
       okText: "Yes",
@@ -171,11 +171,47 @@ export default class SingleReview extends Component {
       }
     });
   };
+  showDeleteReviewConfirm = reviewId => {
+    // delete from db and update
+    Modal.confirm({
+      title: "Are you sure you want to delete this answer?",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "Cancel",
+      onOk: () =>
+        axios
+          .patch(`/api/admin/reviews/${reviewId}`, {
+            data: {
+              "voiceReview.audio": undefined
+            }
+          })
+          .then(res => {
+            message.success("Deleted");
+            this.fetchData();
+          })
+          .catch(err => {
+            const error =
+              err.response && err.response.data && err.response.data.error;
+            message.error(error || "Something went wrong");
+          })
+    });
+  };
 
   // renders delete btn next to answer
   createDeleteBtn = answerID => {
     return (
       <DelButton type="button" onClick={() => this.showDeleteConfirm(answerID)}>
+        {SVGCreator("delete-icon")}
+      </DelButton>
+    );
+  };
+
+  createDeleteOverallReview = reviewId => {
+    return (
+      <DelButton
+        type="button"
+        onClick={() => this.showDeleteReviewConfirm(reviewId)}
+      >
         {SVGCreator("delete-icon")}
       </DelButton>
     );
@@ -195,6 +231,7 @@ export default class SingleReview extends Component {
       review: { revID, rating, overallRev, isVerified }
     } = this.state;
 
+    const review = groups.length && groups[0].review[0];
     // review stats
     const workedFrom = overallRev.workedFrom;
     const workedTo = overallRev.workedTo;
@@ -245,6 +282,22 @@ export default class SingleReview extends Component {
                         <QText>ID:</QText>
                         <HintText>{id}</HintText>
                       </DetailsDiv>
+                    </QuestionOptionsWrapper>
+                    <QuestionOptionsWrapper>
+                      <Headline>Voice review:</Headline>
+                      {review &&
+                      review.voiceReview &&
+                      review.voiceReview.audio ? (
+                        <>
+                          <VoiceReview
+                            category={category}
+                            filename={review.voiceReview.audio}
+                          />
+                          {this.createDeleteOverallReview(review._id)}
+                        </>
+                      ) : (
+                        <div>No voice review</div>
+                      )}
                     </QuestionOptionsWrapper>
                     <QuestionOptionsWrapper>
                       <Headline>Overall Results</Headline>
@@ -318,9 +371,7 @@ export default class SingleReview extends Component {
                                       <QuestionOptionsWrapper>
                                         <Options options={options.length}>
                                           <div
-                                            className={`choices choices-${
-                                              options.length
-                                            }`}
+                                            className={`choices choices-${options.length}`}
                                           >
                                             {options.map((option, i, arr) => {
                                               return (
@@ -334,9 +385,7 @@ export default class SingleReview extends Component {
                                                 >
                                                   <input
                                                     name={question.number}
-                                                    id={`${option}-${
-                                                      question.number
-                                                    }`}
+                                                    id={`${option}-${question.number}`}
                                                     type="radio"
                                                     value={option}
                                                     className="radio-button"
@@ -346,9 +395,7 @@ export default class SingleReview extends Component {
                                                     )}
                                                   />
                                                   <StyledInput
-                                                    htmlFor={`${option}-${
-                                                      question.number
-                                                    }`}
+                                                    htmlFor={`${option}-${question.number}`}
                                                     className={`yesno options-3`}
                                                   >
                                                     {option}
@@ -375,9 +422,7 @@ export default class SingleReview extends Component {
                                                 size="large"
                                                 value={answer}
                                                 style={{
-                                                  border: `1px solid ${
-                                                    colors.dustyGray1
-                                                  }`
+                                                  border: `1px solid ${colors.dustyGray1}`
                                                 }}
                                               />
                                             )}
@@ -401,9 +446,7 @@ export default class SingleReview extends Component {
                                             {() => (
                                               <InputNumber
                                                 style={{
-                                                  border: `1px solid ${
-                                                    colors.dustyGray1
-                                                  }`,
+                                                  border: `1px solid ${colors.dustyGray1}`,
                                                   width: "12rem",
                                                   height: "70px",
                                                   lineHeight: "70px"
@@ -434,9 +477,7 @@ export default class SingleReview extends Component {
                                                     value={answer}
                                                     disabled
                                                     style={{
-                                                      border: `1px solid ${
-                                                        colors.dustyGray1
-                                                      }`
+                                                      border: `1px solid ${colors.dustyGray1}`
                                                     }}
                                                   />
                                                 </>
@@ -462,9 +503,7 @@ export default class SingleReview extends Component {
                                                 // {...form}
                                                 value={answer}
                                                 style={{
-                                                  border: `1px solid ${
-                                                    colors.inputBorder
-                                                  }`
+                                                  border: `1px solid ${colors.inputBorder}`
                                                 }}
                                               />
                                             )}

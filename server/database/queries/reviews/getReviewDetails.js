@@ -34,6 +34,7 @@ module.exports = reviewID => new Promise((resolve, reject) => {
           $arrayElemAt: ["$question.group.name", 0],
         },
         answers: { $push: "$$CURRENT" },
+        review: { $first: "$review" },
         group: {
           $push: {
             $arrayElemAt: ["$question.group", 0],
