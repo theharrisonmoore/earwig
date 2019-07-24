@@ -7,6 +7,7 @@ import React, { Component } from "react";
 import Autosuggest from "react-autosuggest";
 import { withRouter } from "react-router-dom";
 import createTrie from "autosuggest-trie";
+import { Rate } from "antd";
 
 import { ADD_PROFILE_URL } from "../../../constants/naviagationUrls";
 // styles
@@ -31,7 +32,7 @@ import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
 import addItemIcon from "../../../assets/add-item-icon.svg";
 
 // UI helper functions
-import { SVGCreator, StarRateCreator } from "../../../helpers";
+import { SVGCreator } from "../../../helpers";
 
 import { organizationIcons, organizations } from "./../../../theme";
 
@@ -172,7 +173,15 @@ class AutosuggestComponent extends Component {
                 {suggestion.name}
               </h3>
               <ReviewDetailsDiv>
-                {StarRateCreator(suggestion)}
+                <Rate
+                  disabled
+                  value={suggestion.avgRatings || suggestion.value}
+                  style={{
+                    color: `${organizations[suggestion.category].primary}`,
+                    fontSize: "0.75rem"
+                  }}
+                  className="last-reviewed-star-rate"
+                />
                 <p>{suggestion.totalReviews} reviews</p>
               </ReviewDetailsDiv>
             </OrganisationDetailsDiv>
