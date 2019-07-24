@@ -28,6 +28,7 @@ module.exports.addCommentOnOverallReview = (id, data, target) => Review.findById
   },
 });
 
+
 // used in admin panel to change isVerified status of review
 module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate(
   { _id: id }, { isVerified: bool }, { new: true },
@@ -507,3 +508,14 @@ module.exports.getAllQs = () => Question.aggregate([
     },
   },
 ]);
+
+
+/**
+ * A query to patch specific fields from Review object
+ * @param {string} reviewId MongodDB ObjectId
+ * @param {object} data Fields to be updated
+ *
+ * @return {query}
+ */
+module.exports.patchReviewField = (reviewId, data) => Review
+  .findByIdAndUpdate(reviewId, data, { omitUndefined: true });
