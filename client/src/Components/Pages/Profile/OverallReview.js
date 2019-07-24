@@ -376,7 +376,7 @@ export default class OverallReview extends Component {
           <LightTitle>No written reviews yet. Be the first...</LightTitle>
         )}
         {writtenOrAudioReviews &&
-          writtenOrAudioReviews.map((review, index) => {
+          writtenOrAudioReviews.map(review => {
             if (!this.checkIfReviewExist(review)) {
               return (
                 <CommentDiv key={review._id + "comment" + review.category}>
@@ -638,6 +638,8 @@ export default class OverallReview extends Component {
                   </Collapse>
                 </CommentDiv>
               );
+            } else {
+              return null;
             }
           })}
         {level === 1 && !awaitingReview && (
