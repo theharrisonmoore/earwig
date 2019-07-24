@@ -83,7 +83,11 @@ export default class VoiceReview extends Component {
       src: [soundFile]
     });
 
-    this.getDuration(soundFile, duration => this.setState({ duration }));
+    this.getDuration(soundFile, duration => {
+      if (!Number.isNaN(duration)) {
+        this.setState({ duration });
+      }
+    });
 
     this.sound.on("play", this.step);
     this.sound.on("load", () => {
@@ -209,16 +213,18 @@ export default class VoiceReview extends Component {
           ) : (
             <PlayButton onClick={this.togglePlay} category={category} />
           )}
-          <Slider
-            value={progress}
-            style={{ width: "100%" }}
-            onChange={this.handleSlide}
-            onAfterChange={this.handleAfterSlide}
-            max={duration}
-            tipFormatter={this.formatter}
-            tooltipVisible={this.sound && this.sound.playing()}
-          />
-          {loaded && (
+          {!Number.isNaN(duration) && (
+            <Slider
+              value={progress}
+              style={{ width: "100%" }}
+              onChange={this.handleSlide}
+              onAfterChange={this.handleAfterSlide}
+              max={duration}
+              tipFormatter={this.formatter}
+              tooltipVisible={this.sound && this.sound.playing()}
+            />
+          )}
+          {loaded && !Number.isNaN(duration) && (
             <div style={{ position: "absolute", right: "0", bottom: "-11px" }}>
               {durationMinutes}:{durationSeconds}
             </div>
