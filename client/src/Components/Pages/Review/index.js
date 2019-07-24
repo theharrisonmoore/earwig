@@ -196,41 +196,6 @@ class Review extends Component {
     }
   }
 
-  // VOICE RECORDING
-  startRecord = refs => {
-    const { recording } = this.state;
-    if (!recording) {
-      this.setState({ recording: true });
-      navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-        this.mediaRecorder = new MediaRecorder(stream);
-        this.chunks = [];
-        this.mediaRecorder.start(10);
-        this.mediaRecorder.addEventListener("dataavailable", event => {
-          this.chunks.push(event.data);
-        });
-      });
-    }
-  };
-
-  stopRecord = refs => {
-    const { recording } = this.state;
-    // get the user id so we can make each filename unique
-    const { id } = this.props;
-    if (recording) {
-      const { player } = refs;
-      this.setState({ recording: false });
-      this.mediaRecorder.stop();
-      const audioBlob = new Blob(this.chunks);
-      const audio = new File(this.chunks, `${id}.mp3`, {
-        type: "audio",
-        lastModified: Date.now()
-      });
-      const audioUrl = URL.createObjectURL(audioBlob);
-      player.src = audioUrl;
-      this.setState({ audioFile: audio });
-    }
-  };
-
   submitAudio = () => {
     const { audioFile } = this.state;
     if (audioFile) {
@@ -488,6 +453,12 @@ class Review extends Component {
     });
   };
 
+  handleRecord = ({ recordedAudio, audioFile }) => {
+    this.setState({
+      recordedAudio,
+      audioFile
+    });
+  };
   render() {
     const {
       groupss,
@@ -496,7 +467,7 @@ class Review extends Component {
       isSubmitting,
       recording
     } = this.state;
-    const { history, isMobile } = this.props;
+    const { history, isMobile, id } = this.props;
     const staticQuestion = STATIC_QUESTIONS(category);
 
     const { isLoading } = this.state;
@@ -590,9 +561,9 @@ class Review extends Component {
                   question={staticQuestion[3]}
                   category={this.state.organization.category}
                   state={this.state}
-                  startRecord={this.startRecord}
-                  stopRecord={this.stopRecord}
                   recording={recording}
+                  handleRecord={this.handleRecord}
+                  id={id}
                 />
               </div>
               <UserAgreement>

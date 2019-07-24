@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { Howl } from "howler";
 
 import { API_GET_AUDIO_URL } from "./../../../../apiUrls";
 
@@ -15,6 +16,10 @@ const Player = styled.div`
   width: 100%;
   min-width: 200px;
   align-items: center;
+  min-width: 252px;
+  max-width: 350px;
+  width: 100%;
+  position: relative;
 
   .ant-slider-handle {
     border: ${props =>
@@ -22,7 +27,6 @@ const Player = styled.div`
         ? `2px ${organizations[props.category].primary} solid`
         : `2px ${colors.profileFontColor} solid`};
   }
-
   .ant-slider-track {
     background-color: ${props =>
       props.category
@@ -55,12 +59,12 @@ const StopButton = styled.div`
 
 export default class VoiceReview extends Component {
   state = {
-    audioFile: null,
     loading: false,
     playing: "stopped",
     duration: null,
     currentTime: 0,
-    progress: 0
+    progress: 0,
+    loaded: false
   };
 
   componentDidMount() {
@@ -68,43 +72,84 @@ export default class VoiceReview extends Component {
     axios
       .post(API_GET_AUDIO_URL, { filename })
       .then(res => {
-        // LOAD THE FILE
-        this.setState({
-          audioFile: res.data.audio
-        });
-
-        // TRACK THE SECONDS PLAYED
-        this.player.addEventListener("timeupdate", e => {
-          this.setState({
-            currentTime: e.target.currentTime,
-            progress: (e.target.currentTime / e.target.duration) * 100
-          });
-        });
-
-        // SET THE DURATION OF THE TRACK
-        this.player.onloadedmetadata = () => {
-          this.setState({ duration: this.player.duration });
-        };
+        this.setState({ soundFile: res.data.audio });
       })
       .catch(err => console.log(err));
   }
 
+  loadSound = () => {
+    const { soundFile } = this.state;
+    this.sound = new Howl({
+      src: [soundFile]
+    });
+
+    this.getDuration(soundFile, duration => {
+      if (!Number.isNaN(duration)) {
+        this.setState({ duration });
+      }
+    });
+
+    this.sound.on("play", this.step);
+    this.sound.on("load", () => {
+      this.setState({ loaded: true });
+      this.sound.play();
+    });
+  };
+
+  step = () => {
+    // Determine our current seek position.
+    var seek = this.sound.seek() || 0;
+    // If the sound is still playing, continue stepping.
+    if (this.sound.playing()) {
+      this.setState({ progress: Math.round(seek) }, () =>
+        setTimeout(() => {
+          requestAnimationFrame(this.step);
+        }, 1000)
+      );
+    }
+  };
+
   componentWillUnmount() {
-    this.player.removeEventListener("timeupdate", () => {});
+    this.sound && this.sound.off("play");
+    this.sound && this.sound.off("load");
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const { loaded } = this.state;
     if (this.state.playing !== prevState.playing) {
       if (this.state.playing === "stopped") {
-        this.player.pause();
-        // this.player.currentTime = 0;
+        this.sound.pause();
       } else if (this.state.playing === "paused") {
-        this.player.pause();
+        this.sound.pause();
       } else {
-        this.player.play();
+        if (!loaded) {
+          this.loadSound();
+        }
+        this.sound.play();
       }
     }
   }
+
+  // get audio duration
+  // https://stackoverflow.com/questions/21522036/html-audio-tag-duration-always-infinity
+  getDuration = function(url, next) {
+    var _player = new Audio(url);
+    _player.addEventListener(
+      "durationchange",
+      function(e) {
+        if (this.duration !== Infinity) {
+          var duration = this.duration;
+          _player.remove();
+          next(duration);
+        }
+      },
+      false
+    );
+    _player.load();
+    _player.currentTime = 24 * 60 * 60;
+    _player.volume = 0;
+    _player.play();
+  };
 
   togglePlay = () => {
     const { playing } = this.state;
@@ -134,13 +179,27 @@ export default class VoiceReview extends Component {
     // also pause the track if playing
     this.setState({
       currentTime: actualTime,
-      playing: "paused",
+      // playing: "paused",
       progress: value
     });
+
+    this.sound.seek(value);
   };
 
+  getSeconds = time =>
+    `0${new Date(Math.round(time * 1000)).getSeconds()}`.slice(-2);
+
+  getMinutes = time =>
+    `0${new Date(Math.round(time * 1000)).getMinutes()}`.slice(-2);
+
+  formatter = value => `${this.getMinutes(value)}:${this.getSeconds(value)}`;
+
   render() {
-    const { audioFile, loading, playing, progress } = this.state;
+    const { loading, playing, progress, duration, loaded } = this.state;
+
+    const durationSeconds = this.getSeconds(duration);
+
+    const durationMinutes = this.getMinutes(duration);
 
     const { category } = this.props;
 
@@ -154,19 +213,23 @@ export default class VoiceReview extends Component {
           ) : (
             <PlayButton onClick={this.togglePlay} category={category} />
           )}
-          <Slider
-            value={progress}
-            style={{ width: "100%" }}
-            onChange={this.handleSlide}
-            onAfterChange={this.handleAfterSlide}
-          />
+          {!Number.isNaN(duration) && (
+            <Slider
+              value={progress}
+              style={{ width: "100%" }}
+              onChange={this.handleSlide}
+              onAfterChange={this.handleAfterSlide}
+              max={duration}
+              tipFormatter={this.formatter}
+              tooltipVisible={this.sound && this.sound.playing()}
+            />
+          )}
+          {loaded && !Number.isNaN(duration) && (
+            <div style={{ position: "absolute", right: "0", bottom: "-11px" }}>
+              {durationMinutes}:{durationSeconds}
+            </div>
+          )}
         </Player>
-        <audio
-          id="player"
-          src={audioFile}
-          ref={ref => (this.player = ref)}
-          preload="metadata"
-        />
       </>
     );
   }
