@@ -2,9 +2,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
-
-import { StarRateCreator } from "./../../../helpers";
-import { Icon as AntdIcon, Popover } from "antd";
+import { Icon as AntdIcon, Popover, Rate } from "antd";
 
 import { USER_PROFILE_URL } from "../../../constants/naviagationUrls";
 
@@ -83,7 +81,15 @@ export default class HeaderSection extends Component {
             <CompanyNameAndStars>
               <CompanyTitle>{name}</CompanyTitle>
               <StarWrapper onClick={handleScroll}>
-                {StarRateCreator(summary)}
+                <Rate
+                  disabled
+                  value={summary.avgRatings || summary.value}
+                  style={{
+                    color: `${organizations[summary.category].primary}`,
+                    fontSize: "0.75rem"
+                  }}
+                  className="last-reviewed-star-rate"
+                />
                 <Reviews>
                   {totalReviews === 0
                     ? "No reviews yet"

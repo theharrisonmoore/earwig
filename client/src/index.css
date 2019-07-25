@@ -46,3 +46,8 @@ html {
   white-space: unset !important;
   border-bottom: 1px solid #80808026;
 }
+
+
+.last-reviewed-star-rate .ant-rate-star {
+  margin-right: 3px !important;
+}
