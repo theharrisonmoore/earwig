@@ -30,7 +30,6 @@ export default class InviteWorkers extends Component {
   };
 
   fbSendBrowser = referralLink => {
-    console.log("hii", referralLink);
     if (isMobileDevice.any()) {
       window.open(
         "fb-messenger://share?link=" +
