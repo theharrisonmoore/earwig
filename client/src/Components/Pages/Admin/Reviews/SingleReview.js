@@ -118,7 +118,8 @@ export default class SingleReview extends Component {
           showConfirmButton: false,
           timer: 1500
         }).then(() => {
-          this.props.history.push("/admin/reviews/");
+          // this.props.history.push("/admin/reviews/verify");
+          this.props.history.goBack();
         });
       })
       .catch(err => {
