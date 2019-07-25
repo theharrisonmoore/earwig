@@ -6,6 +6,7 @@ import emailIcon from "../../../assets/email-logo.svg";
 
 import Icon from "../../Common/Icon/Icon";
 import { organizations } from "../../../theme";
+import { isMobileDevice } from "../../../helpers";
 
 import {
   InviteWrapper,
@@ -26,6 +27,24 @@ export default class InviteWorkers extends Component {
         "&app_id=" +
         encodeURIComponent("earwig-work-2019")
     );
+  };
+
+  fbSendBrowser = referralLink => {
+    console.log("hii", referralLink);
+    if (isMobileDevice.any()) {
+      window.open(
+        "fb-messenger://share?link=" +
+          encodeURIComponent(referralLink) +
+          "&app_id=" +
+          encodeURIComponent("1065819443628486")
+      );
+    } else {
+      // eslint-disable-next-line no-undef
+      FB.ui({
+        method: "send",
+        link: referralLink
+      });
+    }
   };
   render() {
     const { id: userId } = this.props;
@@ -66,10 +85,14 @@ export default class InviteWorkers extends Component {
             WhatsApp
           </WhatsappShare>
 
-          <IconWrapper onClick={() => this.facebookMsgShare(referralLink)}>
+          <IconWrapper onClick={() => this.fbSendBrowser(referralLink)}>
             <img src={facebookMsgIcon} alt="" />
             Facebook
           </IconWrapper>
+          {/* <IconWrapper onClick={this.fbSendBrowser}>
+            <img src={facebookMsgIcon} alt="" />
+            Facebook
+          </IconWrapper> */}
         </SocialIcons>
       </InviteWrapper>
     );

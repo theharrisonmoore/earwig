@@ -17,6 +17,7 @@ export const SocialIcons = styled.div`
 export const IconWrapper = styled.div`
   display: flex;
   justify-content: center;
+  cursor: pointer;
   flex-direction: column;
   align-items: center;
   height: 55px;
