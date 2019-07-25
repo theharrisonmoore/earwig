@@ -18,7 +18,6 @@ import { SVGCreator, NewSVGCreator, isMobile } from "../../../../helpers";
 
 import {
   ReviewWrapper,
-  Header,
   Content,
   ImageBox,
   Organization,
@@ -32,6 +31,8 @@ import {
   StarRating,
   Headline
 } from "../../Review/Review.style";
+
+import { SingleReviewHeader, DetailedAnswers } from "./AdminReview.style";
 
 import {
   QuestionOptionsWrapper,
@@ -51,8 +52,8 @@ export default class SingleReview extends Component {
     groups: [],
     organization: { category: "", name: "" },
     user: { id: "", email: "" },
-    review: { isVerified: "", revID: "", rating: "", overallRev: "" },
-    images: {}
+    images: {},
+    review: {}
   };
 
   // get the image url using the image name
@@ -66,34 +67,18 @@ export default class SingleReview extends Component {
 
   // fetches all data relevant to user, organisation and review
   fetchData = () => {
-    const {
-      category,
-      name,
-      userEmail,
-      userID,
-      rating,
-      overallRev,
-      revID,
-      isVerified
-    } = this.props.location.state;
-
-    const { organization, user, review } = this.state;
-
-    organization.category = category;
-    organization.name = name;
-    user.email = userEmail;
-    user.id = userID;
-    review.revID = revID;
-    review.rating = rating;
-    review.overallRev = overallRev;
-    review.isVerified = isVerified;
+    const { id: reviewId } = this.props.match.params;
 
     axios
-      .get(`/api/admin/single-review/${revID}`)
+      .get(`/api/admin/single-review/${reviewId}`)
       .then(res => {
+        const { review, details } = res.data;
         this.setState({
-          groups: res.data,
-          isLoading: false
+          groups: details,
+          isLoading: false,
+          review: review,
+          organization: review.organization,
+          user: review.user
         });
       })
       .catch(err => {
@@ -227,21 +212,20 @@ export default class SingleReview extends Component {
     const {
       groups,
       organization: { name, category },
-      user: { email, id },
-      review: { revID, rating, overallRev, isVerified }
+      user: { email, _id: id },
+      review: {
+        voiceReview,
+        overallReview: { text: overallText, replies },
+        workPeriod: { from: workedFrom, to: workedTo },
+        rate,
+        _id: reviewId,
+        isVerified
+      }
     } = this.state;
-
-    const review = groups.length && groups[0].review[0];
-    // review stats
-    const workedFrom = overallRev.workedFrom;
-    const workedTo = overallRev.workedTo;
-    const overallText = overallRev.text;
-    const replies = overallRev.replies;
-    const votes = overallRev.votes;
 
     return (
       <ReviewWrapper>
-        <Header orgType={category} style={{ marginBottom: "3rem" }}>
+        <SingleReviewHeader orgType={category} style={{ marginBottom: "3rem" }}>
           <Content>
             <ImageBox>
               {!isMobile(window.innerWidth) &&
@@ -249,12 +233,12 @@ export default class SingleReview extends Component {
             </ImageBox>
             <Organization>
               <Paragraph style={{ paddingRight: ".5rem" }}>Review </Paragraph>
-              <Paragraph> (ID {revID}) </Paragraph>
+              <Paragraph> (ID {reviewId}) </Paragraph>
               <OrgName>{name}</OrgName>
             </Organization>
           </Content>
-        </Header>
-        <section>
+        </SingleReviewHeader>
+        <DetailedAnswers>
           <Formik>
             {() => {
               return (
@@ -267,13 +251,13 @@ export default class SingleReview extends Component {
                           name="star rating component"
                           editing={false}
                           starCount={5}
-                          value={rating}
+                          value={rate}
                           emptyStarColor={"#D3D3D3"}
                         />
                       </StarRating>
                     </QuestionOptionsWrapper>
                     <QuestionOptionsWrapper>
-                      <Headline>User:</Headline>
+                      <Headline>User Data:</Headline>
                       <DetailsDiv>
                         <QText>Email:</QText>
                         <HintText>{email}</HintText>
@@ -285,15 +269,13 @@ export default class SingleReview extends Component {
                     </QuestionOptionsWrapper>
                     <QuestionOptionsWrapper>
                       <Headline>Voice review:</Headline>
-                      {review &&
-                      review.voiceReview &&
-                      review.voiceReview.audio ? (
+                      {!!voiceReview && !!voiceReview.audio ? (
                         <>
                           <VoiceReview
                             category={category}
-                            filename={review.voiceReview.audio}
+                            filename={voiceReview.audio}
                           />
-                          {this.createDeleteOverallReview(review._id)}
+                          {this.createDeleteOverallReview(reviewId)}
                         </>
                       ) : (
                         <div>No voice review</div>
@@ -311,13 +293,13 @@ export default class SingleReview extends Component {
                           </HintText>
                         </DetailsDiv>
                       )}
-                      {overallText && (
+                      {!!overallText && (
                         <DetailsDiv>
                           <QText>Overall Feedback:</QText>
                           <HintText>{overallText}</HintText>
                         </DetailsDiv>
                       )}
-                      {replies && replies.length && (
+                      {!!replies && !!replies.length && (
                         <DetailsDiv>
                           <QText>Replies: </QText>
                           {replies.map((reply, i) => {
@@ -331,22 +313,8 @@ export default class SingleReview extends Component {
                           })}
                         </DetailsDiv>
                       )}
-                      {votes && votes.length && (
-                        <DetailsDiv>
-                          <QText>Votes: </QText>
-                          {votes.map((vote, i) => {
-                            return (
-                              <div key={i}>
-                                <HintText>
-                                  {vote.points} Points by UserID {vote.user}
-                                </HintText>
-                              </div>
-                            );
-                          })}
-                        </DetailsDiv>
-                      )}
                     </QuestionOptionsWrapper>
-                    {groups && groups.length && (
+                    {groups && !!groups.length && (
                       <div>
                         <Headline>Full Review Answers</Headline>
 
@@ -603,7 +571,7 @@ export default class SingleReview extends Component {
               color={this.changeBtnColor(isVerified)}
               onClick={() =>
                 this.updateIsVerified({
-                  id: revID,
+                  id: reviewId,
                   bool: !isVerified
                 })
               }
@@ -611,7 +579,7 @@ export default class SingleReview extends Component {
               {this.renderBtnText(isVerified)}
             </Button>
           </ButtonDiv>
-        </section>
+        </DetailedAnswers>
       </ReviewWrapper>
     );
   }

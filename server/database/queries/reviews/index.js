@@ -519,3 +519,16 @@ module.exports.getAllQs = () => Question.aggregate([
  */
 module.exports.patchReviewField = (reviewId, data) => Review
   .findByIdAndUpdate(reviewId, { $set: data }, { omitUndefined: true });
+
+
+/**
+   * A query to fetch single review populated with the `user` and
+   * `organiztion` data
+   *
+   * @param {string} reviewId MongoDB ObjectId
+   */
+
+module.exports.getOneReviewWithOrgAndUser = reviewId => Review
+  .findById(reviewId)
+  .populate({ path: "user", select: "email" })
+  .populate({ path: "organization", select: "category name" });
