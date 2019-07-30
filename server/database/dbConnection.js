@@ -15,6 +15,7 @@ if (process.env.NODE_ENV === "test") {
 const dbConnection = async () => mongoose.disconnect().then(() => mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useCreateIndex: true,
+  useFindAndModify: false,
 }));
 
 module.exports = dbConnection;

@@ -11,6 +11,7 @@ const deleteReview = require("./../controllers/admin/deleteReview");
 const deleteReviewAnswer = require("./../controllers/admin/deleteReviewAnswer");
 
 const updateReview = require("./../controllers/admin/handleSingleReviewStatus");
+const { updateReviewFields } = require("../controllers/admin/updateReviewFields");
 const getSingleReview = require("./../controllers/admin/getSingleReview");
 const getOrganizations = require("./../controllers/admin/getOrganizations");
 const activateOrganization = require("./../controllers/admin/activateOrganization");
@@ -52,9 +53,13 @@ router.get("/single-review/:reviewID", getSingleReview);
 // delete specific review by id
 router.delete("/reviews", validation("onlyMongoId"), deleteReview);
 
+// this should be before the next route (ToDO: merge them into one route)
+router.patch("/reviews/update-status", updateReview);
+// update specific field on a review
+router.patch("/reviews/:id", updateReviewFields);
+
 router.delete("/reviews/delete-answer/:id", deleteReviewAnswer);
 
-router.patch("/reviews/update-status", updateReview);
 
 // get all organizations by category
 router.get("/organizations/:category", getOrganizations);

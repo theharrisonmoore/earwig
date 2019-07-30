@@ -195,7 +195,14 @@ export default class VoiceReview extends Component {
   formatter = value => `${this.getMinutes(value)}:${this.getSeconds(value)}`;
 
   render() {
-    const { loading, playing, progress, duration, loaded } = this.state;
+    const {
+      loading,
+      playing,
+      progress,
+      duration,
+      loaded,
+      soundFile
+    } = this.state;
 
     const durationSeconds = this.getSeconds(duration);
 
@@ -204,7 +211,7 @@ export default class VoiceReview extends Component {
     const { category } = this.props;
 
     if (loading) return <Loading />;
-
+    if (!soundFile) return <div>No voice review</div>;
     return (
       <>
         <Player category={category}>
