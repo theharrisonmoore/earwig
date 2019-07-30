@@ -4,7 +4,7 @@ import { Button, Icon as AntIcon } from "antd";
 
 import Icon from "./../Icon/Icon";
 import { ADMIN } from "./../../../constants/naviagationUrls";
-import { Wrapper, ToggleMenu, SideDiv, WrapperH2 } from "./Navbar.style";
+import { Wrapper, ToggleMenu, SideDiv, WrapperH2, MenuWrapper } from "./Navbar.style";
 import Menu from "./Menu.js";
 import CloseIcon from "./../../../assets/close-icon.svg";
 
@@ -43,9 +43,9 @@ export default class Navbar extends Component {
           <SideDiv position="flex-start">
             {menuOpen ? (
               <>
-                <ToggleMenu onClick={this.toggleMenu} position="flex-end">
+                {/* <ToggleMenu onClick={this.toggleMenu} position="flex-end">
                   <img src={CloseIcon} alt="close" />
-                </ToggleMenu>
+                </ToggleMenu> */}
                 <Menu
                   isMobile={isMobile}
                   isLoggedIn={isLoggedIn}
@@ -59,7 +59,7 @@ export default class Navbar extends Component {
               </>
             ) : (
               <>
-                <ToggleMenu onClick={this.toggleMenu}>
+                <ToggleMenu isMobile={isMobile} onClick={this.toggleMenu}>
                   <Icon icon="hamburger" width="1.5rem" height="1.5rem" />
                 </ToggleMenu>
               </>
@@ -86,12 +86,9 @@ export default class Navbar extends Component {
       );
     } else {
       return (
-        <Wrapper height="3rem">
+        <Wrapper height={menuOpen ? "200vh" : "3rem"}>
           {menuOpen ? (
             <>
-              <ToggleMenu onClick={this.toggleMenu} position="flex-start">
-                <img src={CloseIcon} alt="close" />
-              </ToggleMenu>
               <Menu
                 isMobile={isMobile}
                 isLoggedIn={isLoggedIn}
