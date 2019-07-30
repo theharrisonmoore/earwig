@@ -8,6 +8,7 @@ const { deleteReview, deleteReviewAnswers, findById } = require("./../../databas
 
 module.exports = ((req, res, next) => {
   const { id } = req.body;
+
   findById(id).then((review) => {
     if (!review) {
       next(boom.notFound("review not found!"));

@@ -5,6 +5,7 @@
     <link rel="shortcut icon" href="%PUBLIC_URL%/logo_square_icon.ico" />
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap" rel="stylesheet">
 
     <meta
       name="viewport"
@@ -29,6 +30,17 @@
     <script src="AudioContextMonkeyPatch.js"></script>
   </head>
   <body>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId            : '1065819443628486',
+          autoLogAppEvents : true,
+          xfbml            : true,
+          version          : 'v3.3'
+        });
+      };
+    </script>
+    <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--

@@ -28,6 +28,7 @@ module.exports.addCommentOnOverallReview = (id, data, target) => Review.findById
   },
 });
 
+
 // used in admin panel to change isVerified status of review
 module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate(
   { _id: id }, { isVerified: bool }, { new: true },
@@ -507,3 +508,27 @@ module.exports.getAllQs = () => Question.aggregate([
     },
   },
 ]);
+
+
+/**
+ * A query to patch specific fields from Review object
+ * @param {string} reviewId MongodDB ObjectId
+ * @param {object} data Fields to be updated
+ *
+ * @return {query}
+ */
+module.exports.patchReviewField = (reviewId, data) => Review
+  .findByIdAndUpdate(reviewId, { $set: data }, { omitUndefined: true });
+
+
+/**
+   * A query to fetch single review populated with the `user` and
+   * `organiztion` data
+   *
+   * @param {string} reviewId MongoDB ObjectId
+   */
+
+module.exports.getOneReviewWithOrgAndUser = reviewId => Review
+  .findById(reviewId)
+  .populate({ path: "user", select: "email" })
+  .populate({ path: "organization", select: "category name" });
