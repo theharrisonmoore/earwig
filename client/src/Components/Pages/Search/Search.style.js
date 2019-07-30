@@ -23,7 +23,8 @@ export const classNames = {
 
 export const AutosuggestWrapper = styled.div.attrs(classNames)`
   position: relative;
-  width: ${props => props.width};
+  /* width: ${props => props.width}; */
+  width: 100%;
   outline: none;
   .${classNames.container} {
     position: relative;
@@ -109,7 +110,8 @@ export const SearchWrapper = styled.div`
   flex-direction: column;
   height: 100%;
   padding: 0;
-  padding-top: 4rem;
+  padding: ${props => props.isMobile ? "0 1rem 0 1rem" : "0 8rem 0 8rem"};
+  padding-top: ${props => props.isMobile ? "4rem" : "6rem"};
   margin: 0;
   align-items: center;
   li {
@@ -128,7 +130,7 @@ export const SearchLegendDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 2rem 1rem 2rem;
+  padding: ${props => props.isMobile ? "0" : "0 2rem 1rem 2rem"};
   width: 100%;
   max-width: 600px;
 `;
@@ -185,7 +187,7 @@ export const ReviewsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 80%;
+  width: 100%;
 `;
 
 export const InnerDivLastReviews = styled.div`
@@ -281,7 +283,8 @@ export const HeadlineDiv = styled.div`
   color: ${colors.profileFontColor};
   h2 {
     font-size: 2rem;
-    font-weight: 350;
+    font-weight: 300;
+    line-height: 2.5rem;
   }
   p {
     font-style: italic;
@@ -340,11 +343,13 @@ export const AddWrapper = styled.div`
 `;
 
 export const HeaderParagraph = styled.p`
-  font-size: 1.2rem !important;
+  font-size: 1.5rem !important;
   text-align: left;
   font-style: normal !important;
-  max-width: 70%;
-  margin: 0 auto;
-  font-weight: bold;
+  /* max-width: 80%; */
+  /* margin: 0 auto; */
+  font-weight: 400;
+  line-height: 1.75rem !important;
   margin-bottom: 0.5rem;
+  width: 100%
 `;

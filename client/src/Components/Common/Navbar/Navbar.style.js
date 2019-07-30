@@ -80,4 +80,5 @@ export const ToggleMenu = styled.div`
   padding-right: 1rem;
   margin-bottom: 1rem;
   padding-top: ${props => props.isMobile ? "0.5rem" : "1rem"};
+  min-height: 1rem;
 `;
