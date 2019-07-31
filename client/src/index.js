@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import * as Sentry from "@sentry/browser";
+import mixpanel from "mixpanel-browser";
 
 import "./index.css";
 import App from "./App";
@@ -9,6 +10,7 @@ import ErrorBoundry from "./Components/Common/ErrorBoundry";
 Sentry.init({
   dsn: "https://1f427f5f106c4253abb2bf6140aa5691@sentry.io/1485403"
 });
+mixpanel.init("6e556a55e4e9c20a0ecbc15e28fc00d8");
 
 ReactDOM.render(
   <ErrorBoundry>

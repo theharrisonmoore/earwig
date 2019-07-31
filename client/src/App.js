@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-
 import { BrowserRouter as Router } from "react-router-dom";
-
 import CookieConsent from "react-cookie-consent";
+import mixpanel from "mixpanel-browser";
 
 import "antd/dist/antd.css";
 import "./App.css";
@@ -73,6 +72,9 @@ class App extends Component {
     window.addEventListener("resize", this.updateWindowDimensions);
     this.getUserInfo();
     window.scrollTo(0, 0);
+    mixpanel.track("app mounted", {
+      "cool app": "earwig"
+    });
   }
 
   componentWillUnmount() {

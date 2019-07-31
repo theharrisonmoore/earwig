@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import * as Yup from "yup";
 import axios from "axios";
 import { Alert } from "antd";
+import Mixpanel from "mixpanel-browser";
 
 import Logo from "./../../Common/Logo";
 import Button from "./../../Common/Button";
@@ -51,6 +52,11 @@ export default class Login extends Component {
     axios
       .post("/api/login", values)
       .then(({ data }) => {
+        Mixpanel.identify(data.userId);
+        Mixpanel.track("Successful login");
+        Mixpanel.people.set({
+          $userId: data.userId
+        });
         this.props.handleChangeState({ ...data, isLoggedIn: true });
         this.props.history.push(ORG_STATUS_URL_LOGIN);
       })

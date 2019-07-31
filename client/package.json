@@ -16,6 +16,7 @@
     "howler": "^2.1.2",
     "http-proxy-middleware": "^0.19.1",
     "lightbox-react": "^0.3.7",
+    "mixpanel-browser": "^2.29.0",
     "moment": "^2.24.0",
     "mp3-mediarecorder": "^3.4.4",
     "react": "^16.8.2",
