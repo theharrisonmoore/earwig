@@ -41,7 +41,7 @@ export default class AllReviews extends Component {
     visible: false,
     id: "",
     exportData: "",
-    exportQuestionHeaders: "",
+    exportQuestionHeaders: ""
   };
 
   getColumnSearchProps = dataIndex => ({
@@ -182,7 +182,13 @@ export default class AllReviews extends Component {
             axios
               .get("/api/admin/export-all-reviews")
               .then(({ data }) => {
-                this.setState({ exportData: data.cleanedReviews, exportQuestionHeaders: data.headers }, () => done());
+                this.setState(
+                  {
+                    exportData: data.cleanedReviews,
+                    exportQuestionHeaders: data.headers
+                  },
+                  () => done()
+                );
               })
               .catch(err => {
                 const error =

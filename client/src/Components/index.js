@@ -45,6 +45,7 @@ import ResetPassword from "./Pages/ResetPassword";
 import EditProfileSection from "./Pages/EditProfile/EditProfileSection";
 import OrgCheck from "./Pages/OrgCheck";
 import Welcome from "./Pages/Welcome";
+import InviteWorkers from "./Pages/InviteWorkers";
 
 import {
   FAQ,
@@ -72,7 +73,8 @@ import {
   REPLY_URL,
   PRIVACY_URL,
   ORG_STATUS_URL_SIGNUP,
-  ORG_STATUS_URL_LOGIN
+  ORG_STATUS_URL_LOGIN,
+  INVITE_WORKERS_URL
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
@@ -98,6 +100,16 @@ export default function index(props) {
           Component={Thankyou}
           navbar
         />
+
+        <PrivateRoute
+          exact
+          minimumLevel="LEVEL2"
+          path={INVITE_WORKERS_URL}
+          {...props}
+          Component={InviteWorkers}
+          navbar
+        />
+
         <PrivateRoute
           exact
           minimumLevel="LEVEL1"
