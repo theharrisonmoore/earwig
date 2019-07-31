@@ -15,7 +15,6 @@ import ModalComment from "../../../../Common/AntdComponents/ModalComment";
 class DropDown extends Component {
   state = { placeholder: "", searchValue: "" };
   shouldComponentUpdate(nextProps, nextState) {
-    console.log(this.props.state.answers);
     if (Map(this.props.state.answers).equals(Map(nextProps.state.answers))) {
       return false;
     }

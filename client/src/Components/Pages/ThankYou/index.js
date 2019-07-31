@@ -44,7 +44,6 @@ export default class ThankYou extends Component {
     const { state } = this.props.history.location;
 
     const { orgType } = state && state;
-    console.log(this.props);
 
     if (!orgType) {
       return this.props.history.goBack();

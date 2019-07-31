@@ -13,7 +13,7 @@ class ModalComment extends React.Component {
   showModal = () => {
     this.setState({
       visible: true,
-      text: this.state.submittedText
+      text: this.props.value
     });
   };
 
