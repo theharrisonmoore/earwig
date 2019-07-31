@@ -13,7 +13,6 @@ import CustomRate from "./Rate";
 class QuestionOptions extends React.Component {
   render() {
     const { type, category } = this.props;
-
     switch (type) {
       case "yesno":
       case "radio":

@@ -13,8 +13,9 @@ import {
 import ModalComment from "../../../../Common/AntdComponents/ModalComment";
 
 class DropDown extends Component {
-  state = { placeholder: "" };
+  state = { placeholder: "", searchValue: "" };
   shouldComponentUpdate(nextProps, nextState) {
+    console.log(this.props.state.answers);
     if (Map(this.props.state.answers).equals(Map(nextProps.state.answers))) {
       return false;
     }
@@ -35,6 +36,7 @@ class DropDown extends Component {
   render() {
     const { props } = this;
     const { number, label, handleSliderChange, category } = props;
+
     const { dropdownOptions } = this.props;
     let newOptions = [...dropdownOptions];
 
@@ -51,12 +53,11 @@ class DropDown extends Component {
             onChange={value => {
               handleSliderChange(value, number);
             }}
-            // onSearch={value => {
-            //   if (value) {
-            //     this.setState({ placeholder: value });
-            //     form.setFieldValue(`questions[${number}]`, value);
-            //   }
-            // }}
+            onSearch={searchValue => {
+              if (searchValue) {
+                this.setState({ searchValue });
+              }
+            }}
             dropdownRender={menu => {
               return (
                 <div>
@@ -64,6 +65,7 @@ class DropDown extends Component {
                   <Divider style={{ margin: "4px 0" }} />
                   <ModalComment
                     title={`Add a new ${this.addOrgType(category)}`}
+                    value={this.state.searchValue}
                     setFieldValue={value => {
                       this.setState({ placeholder: value });
                       handleSliderChange(value, number);
