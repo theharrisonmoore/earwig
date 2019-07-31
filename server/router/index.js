@@ -103,7 +103,7 @@ router.delete("/reviews", authentication, deleteReview);
 // get user info from the cookies and send it to fron-end
 router.get(USERS, authentication, userInfoController);
 
-router.get("/review/:id/is-edatable", authentication, authorization("LEVEL3"), checkIfEditReview);
+router.post("/review/edit", authentication, authorization("LEVEL3"), checkIfEditReview);
 
 router.get("/questions/:id", authentication, authorization("LEVEL2"), getByOrg);
 router.post(REVIEW_URL, authentication, authorization("LEVEL2"), postReview);

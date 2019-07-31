@@ -9,17 +9,22 @@ const { findReviewById } = require("./../database/queries/review");
  * 3. the review has not been marked as helpful by any other workers.
  */
 module.exports = async (req, res, next) => {
-  const { id: reviewId } = req.params;
+  const { reviewId } = req.body;
+
   try {
     const review = await findReviewById(reviewId);
-
     const before1Month = moment().subtract(30, "days");
     const createdLTMonthAgo = moment(review.createdAt).isSameOrAfter(before1Month);
-    const hasVotes = !!review.overallReview.votes.length;
-    const hasVoiceVotes = !!review.voiceReview.votes.length;
+    const hasVotes = !!review.overallReview.replies.length;
 
-    if (!hasVotes && !hasVoiceVotes && createdLTMonthAgo
-       && review.user.toString() === req.user._id.toString()) {
+    const hasVoiceVotes = !!review.voiceReview.replies.length;
+
+    if (
+      !hasVotes
+      && !hasVoiceVotes
+      && createdLTMonthAgo
+      && review.user.toString() === req.user._id.toString()
+    ) {
       return res.send({ orgId: review.organization });
     }
     return next(boom.unauthorized());

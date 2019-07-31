@@ -87,8 +87,9 @@ class Review extends Component {
 
     if (reviewId) {
       axios
-        .get(`/api/review/${reviewId}/is-edatable`)
+        .post(`/api/review/edit`, { reviewId })
         .then(res => {
+          console.log("reached");
           const { orgId } = res.data;
           axios
             .get(`/api/questions/${orgId}`)
@@ -145,6 +146,7 @@ class Review extends Component {
               });
             })
             .catch(err => {
+              console.log(err);
               // server error 500
               const error =
                 err.response && err.response.data && err.response.data.error;

@@ -137,7 +137,7 @@ export default class UserReviews extends Component {
 
   render() {
     const { reviews, isLoading } = this.state;
-
+    console.log(reviews);
     return (
       <Wrapper>
         <BorderedWrapper>
