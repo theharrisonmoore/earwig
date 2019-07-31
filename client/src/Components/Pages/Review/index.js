@@ -72,6 +72,7 @@ class Review extends Component {
 
   componentDidMount() {
     const { orgId, reviewId } = this.props.match.params;
+
     if (!orgId && !reviewId) {
       this.props.history.push("/search");
     }
@@ -89,7 +90,6 @@ class Review extends Component {
       axios
         .post(`/api/review/edit`, { reviewId })
         .then(res => {
-          console.log("reached");
           const { orgId } = res.data;
           axios
             .get(`/api/questions/${orgId}`)
@@ -414,7 +414,8 @@ class Review extends Component {
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,
                 orgId: res.data,
-                orgName: organization.name
+                orgName: organization.name,
+                ID: this.props.location.state.orgID
               });
             })
             .catch(err => {

@@ -1,12 +1,10 @@
-
 const boom = require("boom");
 
 const getUserReviewsQuery = require("../database/queries/reviews/getUserReviews");
 
-
 const getUserReviews = async (req, res, next) => {
   const { user } = req;
-  console.log(user._id);
+
   try {
     const userReviews = await getUserReviewsQuery(user._id);
     console.log("urevs", userReviews);

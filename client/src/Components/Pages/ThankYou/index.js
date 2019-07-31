@@ -44,6 +44,7 @@ export default class ThankYou extends Component {
     const { state } = this.props.history.location;
 
     const { orgType } = state && state;
+    console.log(this.props);
 
     if (!orgType) {
       return this.props.history.goBack();
@@ -105,7 +106,10 @@ export default class ThankYou extends Component {
           <SharePromo orgType={orgType}>
             Click one of the icons above to share privately with your colleagues
           </SharePromo>
-          <StyledLink to={`/profile/${state.orgId}`} orgType={orgType}>
+          <StyledLink
+            to={`/profile/${this.props.history.location.state.ID}`}
+            orgType={orgType}
+          >
             Go to the {orgType}'s profile
           </StyledLink>
         </ContentWrapper>

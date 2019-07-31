@@ -137,7 +137,7 @@ export default class UserReviews extends Component {
 
   render() {
     const { reviews, isLoading } = this.state;
-    console.log(reviews);
+
     return (
       <Wrapper>
         <BorderedWrapper>
@@ -174,7 +174,12 @@ export default class UserReviews extends Component {
                         <ActionGroup
                           style={{ width: "15%", textAlign: "right" }}
                         >
-                          <Link to={`/review/${review._id}/edit`}>
+                          <Link
+                            to={{
+                              pathname: `/review/${review._id}/edit`,
+                              state: { orgID: `${review.organization._id}` }
+                            }}
+                          >
                             <Cancel>Edit</Cancel>
                           </Link>
                           <span>

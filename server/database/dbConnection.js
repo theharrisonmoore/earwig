@@ -8,7 +8,7 @@ let mongoURI = process.env.MONGO_URI;
 
 if (process.env.NODE_ENV === "test") {
   // change mongoURI to testing database URI
-  mongoURI = "mongodb+srv://ABD:H5nI1XcPZctS7QkF@earwig-hvkjd.mongodb.net/test?retryWrites=true";
+  mongoURI = process.env.MONGO_URI_TEST;
 }
 
 // create DB connection

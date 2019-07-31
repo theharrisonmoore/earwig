@@ -35,9 +35,9 @@ import PopoverComponent from "./../../Common/Popover";
 
 const content = contractorAnswers => (
   <div style={{ maxHeight: "150px", overflow: "auto" }}>
-    {contractorAnswers.map(item => (
-      <p>{item}</p>
-    ))}
+    {contractorAnswers.map(item => {
+      return <p>{item.name}</p>;
+    })}
   </div>
 );
 
@@ -54,6 +54,8 @@ export default class HeaderSection extends Component {
       orgId,
       awaitingReview
     } = this.props;
+
+    console.log(this.props);
     const {
       category,
       name,
@@ -164,7 +166,7 @@ export default class HeaderSection extends Component {
               <ContractorText>
                 Main Contractor:{" "}
                 <span className="contactor-name">
-                  {contractorAnswers[0] || "No answers yet"}
+                  {contractorAnswers[0].name || "No answers yet"}
                 </span>
               </ContractorText>
               {contractorAnswers[0] && (

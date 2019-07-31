@@ -30,7 +30,7 @@ class ErrorBoundary extends Component {
       return (
         <div>
           <h1>Ooops Error...</h1>
-          <p>Help us imprving this by submiting a report</p>
+          <p>Help us improving this by submiting a report</p>
           <button onClick={this.showSentryDialogFrom}>Report feedback</button>
         </div>
       );
