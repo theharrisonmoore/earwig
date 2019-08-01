@@ -10,12 +10,11 @@ class ModalComment extends React.Component {
     submittedText: ""
   };
 
-  showModal = () => {
+  showModal = () =>
     this.setState({
       visible: true,
       text: this.props.value
     });
-  };
 
   handleChange = e => {
     const { value } = e.target;
@@ -57,6 +56,7 @@ class ModalComment extends React.Component {
 
   render() {
     const { visible, loading, text } = this.state;
+
     return (
       <>
         <div onClick={this.showModal}>{this.props.render(this.state)}</div>

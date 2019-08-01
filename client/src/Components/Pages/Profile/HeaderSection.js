@@ -55,7 +55,6 @@ export default class HeaderSection extends Component {
       awaitingReview
     } = this.props;
 
-    console.log(this.props);
     const {
       category,
       name,
