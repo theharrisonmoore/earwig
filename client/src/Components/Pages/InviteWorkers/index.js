@@ -32,11 +32,7 @@ export default class InviteWorkers extends Component {
       // eslint-disable-next-line no-undef
       FB.ui({
         method: "send",
-        link: referralLink,
-        picture: "http://fbrell.com/f8.jpg",
-        caption: "Reference Documentation",
-        description:
-          "Dialogs provide a simple, consistent interface for applications to interface with users."
+        link: referralLink
       });
     }
   };
