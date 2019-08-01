@@ -14,7 +14,7 @@ export const SocialIcons = styled.div`
   justify-content: space-between;
 `;
 
-export const IconWrapper = styled.div`
+export const FbShare = styled.div`
   display: flex;
   justify-content: center;
   cursor: pointer;

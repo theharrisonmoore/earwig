@@ -42,22 +42,18 @@ export const WhatsappShare = styled(WhatsappShareButton)`
   }
 `;
 
-export const FBMsgShare = styled.div`
+export const FbShare = styled.div`
   display: flex;
   justify-content: center;
+  cursor: pointer;
   flex-direction: column;
   align-items: center;
   height: 55px;
   width: 80px;
   border-radius: 6px;
-  background-color: ${({ category }) => organizations[category].primary};
+  background-color: ${organizations.agency.primary};
   color: ${colors.white};
   font-weight: 700;
-  :hover,
-  :active,
-  :focus {
-    opacity: 0.8;
-  }
 `;
 
 export const ThankYouWrapper = styled.div`
