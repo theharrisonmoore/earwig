@@ -51,7 +51,7 @@ export const FbShare = styled.div`
   height: 55px;
   width: 80px;
   border-radius: 6px;
-  background-color: ${organizations.agency.primary};
+  background-color: ${({ category }) => organizations[category].primary};
   color: ${colors.white};
   font-weight: 700;
 `;
