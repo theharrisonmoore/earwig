@@ -67,9 +67,11 @@ export default class EditProfileSection extends Component {
     }
   }
 
-  showModal = () => {
+  showModal = e => {
+    const { searchTerm } = e.target.dataset;
     this.setState({
-      ismodalVisible: true
+      ismodalVisible: true,
+      newTrade: searchTerm
     });
   };
 
@@ -144,14 +146,13 @@ export default class EditProfileSection extends Component {
     this.setState({
       ismodalVisible: false,
       newTradeSuccess: false,
-      newTradeError: ""
+      newTradeError: "",
+      newTrade: ""
     });
   };
 
   handleChange = value => {
     const { fields } = this.state;
-    // fields.newTrade = value;
-
     this.setState({ tradeId: value, fields: { ...fields, newTrade: value } });
   };
 

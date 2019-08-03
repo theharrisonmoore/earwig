@@ -13,11 +13,16 @@ const Label = styled.label`
 
 class CustomizedSelects extends React.Component {
   state = {
-    open: false
+    open: false,
+    searchTerm: ""
   };
 
   handleOpen = () => {
     this.setState({ open: !this.state.open });
+  };
+
+  handleSearchChange = value => {
+    this.setState({ searchTerm: value });
   };
 
   filterOption = (input, option) =>
@@ -36,6 +41,9 @@ class CustomizedSelects extends React.Component {
       value,
       ...rest
     } = this.props;
+
+    const { searchTerm } = this.state;
+
     return (
       <>
         {label && <Label onClick={this.handleOpen}>{label}</Label>}
@@ -46,6 +54,7 @@ class CustomizedSelects extends React.Component {
           onDropdownVisibleChange={this.handleOpen}
           disabled={disabled}
           showSearch={showSearch}
+          onSearch={this.handleSearchChange}
           style={{
             width: "100%"
           }}
@@ -65,8 +74,9 @@ class CustomizedSelects extends React.Component {
                 <div
                   style={{ padding: "8px", cursor: "pointer" }}
                   onClick={addHandler}
+                  data-search-term={searchTerm}
                 >
-                  <Icon type="plus" /> Add item
+                  <Icon type="plus" /> Add item: {searchTerm}
                 </div>
               </div>
             ) : (
