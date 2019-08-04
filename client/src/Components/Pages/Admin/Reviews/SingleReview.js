@@ -10,6 +10,7 @@ import StarRatingComponent from "react-star-rating-component";
 import moment from "moment";
 import Swal from "sweetalert2";
 import { message, Select, Input, Modal, InputNumber } from "antd";
+import { Link } from "react-router-dom";
 
 import Loading from "./../../../Common/AntdComponents/Loading";
 import VoiceReview from "../../Profile/ProfileAnswers/VoiceReview";
@@ -332,7 +333,8 @@ export default class SingleReview extends Component {
                                     options,
                                     number,
                                     category,
-                                    label
+                                    label,
+                                    profileText
                                   } = question;
 
                                   if (type === "yesno" || type === "radio") {
@@ -440,6 +442,20 @@ export default class SingleReview extends Component {
                                         <AnswerDiv>
                                           <Field name={`questions[${number}]`}>
                                             {() => {
+                                              if (
+                                                answer &&
+                                                answer.name &&
+                                                profileText ===
+                                                  "Main contractor"
+                                              ) {
+                                                return (
+                                                  <Link
+                                                    to={`/profile/${answer._id}`}
+                                                  >
+                                                    {answer.name}
+                                                  </Link>
+                                                );
+                                              }
                                               return (
                                                 <>
                                                   <Select
