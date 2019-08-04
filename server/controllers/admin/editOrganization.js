@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
     if (org && newOrgData.record.name !== newOrgData.name) {
       return next(boom.conflict(`${newOrgData.name} Already exists`));
     }
-    return updateOrgsById(newOrgData.record._id, newOrgData)
+    return updateOrgsById(newOrgData._id || newOrgData.record._id, newOrgData)
       .then(() => {
         res.send(newOrgData);
       })
