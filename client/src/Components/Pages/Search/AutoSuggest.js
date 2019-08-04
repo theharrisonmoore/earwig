@@ -122,7 +122,11 @@ class AutosuggestComponent extends Component {
   selectIconBgr = value => (value.length > 0 ? PlaceholderArrow : SearchIcon);
 
   // when users clicks on back arrow icon it deletes the input
-  delSearchInput = () => this.setState({ value: "" });
+  delSearchInput = () => {
+    const { handleCancelIconClick } = this.props;
+    this.setState({ value: "" });
+    handleCancelIconClick();
+  };
 
   // renders individual suggestions
   renderSuggestion = suggestion => {
