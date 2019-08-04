@@ -69,7 +69,10 @@ export default class ListAnswer extends Component {
               }
               key={index}
             >
-              <Link to={`/profile/${answer.answer._id}`}>
+              <Link
+                to={`/profile/${answer.answer._id}`}
+                style={{ color: "inherit" }}
+              >
                 {answer.answer.name}
               </Link>
             </ListItem>
