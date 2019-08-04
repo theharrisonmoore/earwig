@@ -212,6 +212,13 @@ export const StarWrapper = styled.div`
 export const Reviews = styled.p`
   margin: 0;
   margin-left: 1rem;
+  border-bottom: 2px solid ${props => organizations[props.category].primary};
+  font-weight: 600;
+  color: ${props => organizations[`${props.category}`].primary};
+`;
+
+export const NoReview = styled.span`
+  color: ${colors.dustyGray1};
 `;
 
 export const VerifyPromo = styled.div`
