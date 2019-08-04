@@ -64,6 +64,7 @@ const getCurrentOrgs = require("../controllers/getCurrentOrgs");
 const uploadVoiceRecording = require("../controllers/uploadVoiceRecording");
 const voiceReview = require("../controllers/getVoiceReview");
 const getUserVotesOnProfile = require("./../controllers/getUserVotesOnProfile");
+const getOrgsReviewedLast30D = require("./../controllers/getOrgsReviewedLast30D");
 
 const {
   LOGIN_URL,
@@ -92,6 +93,8 @@ const {
   GET_AUDIO_URL,
   GET_USER_VOTES_ON_PROFILE,
 } = require("../../client/src/apiUrls");
+
+router.get("/reviews/organisations/30days", authentication, getOrgsReviewedLast30D);
 
 router.get(SEARCH_URL, searchController);
 
