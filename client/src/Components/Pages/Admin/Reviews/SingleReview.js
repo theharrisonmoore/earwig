@@ -334,12 +334,13 @@ export default class SingleReview extends Component {
                                     number,
                                     category,
                                     label,
-                                    profileText
+                                    profileText,
+                                    text
                                   } = question;
-
                                   if (type === "yesno" || type === "radio") {
                                     return (
                                       <QuestionOptionsWrapper>
+                                        <QText>{text}</QText>
                                         <Options options={options.length}>
                                           <div
                                             className={`choices choices-${options.length}`}
@@ -384,7 +385,7 @@ export default class SingleReview extends Component {
                                   if (type === "open") {
                                     return (
                                       <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
                                           <Field name={`questions[${number}]`}>
@@ -407,7 +408,7 @@ export default class SingleReview extends Component {
                                   if (type === "number") {
                                     return (
                                       <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
                                           <Field
@@ -437,7 +438,7 @@ export default class SingleReview extends Component {
                                   if (type === "dropdown") {
                                     return (
                                       <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
                                           <Field name={`questions[${number}]`}>
@@ -478,7 +479,7 @@ export default class SingleReview extends Component {
                                   if (type === "overallReview") {
                                     return (
                                       <QuestionOptionsWrapper>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
                                           <Field name={`review.overallReview`}>
@@ -502,7 +503,7 @@ export default class SingleReview extends Component {
                                   if (type === "checklist") {
                                     return (
                                       <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
                                           <FieldArray
@@ -543,7 +544,7 @@ export default class SingleReview extends Component {
                                     this.fetchImage(answer);
                                     return (
                                       <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         {this.state.images[answer] ? (
                                           <div style={{ position: "relative" }}>
