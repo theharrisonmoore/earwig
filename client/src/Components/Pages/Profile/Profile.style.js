@@ -425,7 +425,6 @@ export const ContractorDiv = styled.div`
 `;
 
 export const ContractorText = styled.p`
-  font-family: ArialMT;
   font-size: 18px;
 
   letter-spacing: 0.3px;
