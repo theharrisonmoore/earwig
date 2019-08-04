@@ -411,7 +411,6 @@ export const ActionButton = styled.button`
   @media ${breakpoints.mobileL} {
     width: 11rem;
     padding: 1rem 0.5rem;
-    margin: 0 1rem;
   }
 
   @media ${breakpoints.tablet} {

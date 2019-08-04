@@ -208,6 +208,7 @@ export default class HeaderSection extends Component {
                       : `/organization/${orgId}/review`,
                   state: { name, category }
                 }}
+                style={{ margin: "0 1rem" }}
               >
                 <ActionButton
                   color={organizations[category].primary}
@@ -229,6 +230,7 @@ export default class HeaderSection extends Component {
               <ActionButton
                 color={organizations[category].primary}
                 isMobile={isMobile}
+                style={{ margin: "0 1rem" }}
               >
                 {!isMobile && (
                   <Icon
