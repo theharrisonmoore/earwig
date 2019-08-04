@@ -25,6 +25,9 @@ module.exports = (id, target) => Review.aggregate([
     },
   },
   {
+    $match: { "replies.user.verified": true },
+  },
+  {
     $unwind: { path: "$replies.user", preserveNullAndEmptyArrays: true },
   },
   {

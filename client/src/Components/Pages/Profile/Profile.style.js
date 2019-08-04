@@ -388,7 +388,7 @@ export const ReplyButton = styled.p`
   padding: 0.5rem 1rem;
   color: ${({ color }) => color};
   margin: 0.5rem;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;
 
 export const ActionButton = styled.button`

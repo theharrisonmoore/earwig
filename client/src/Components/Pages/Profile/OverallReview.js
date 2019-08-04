@@ -365,7 +365,8 @@ export default class OverallReview extends Component {
     const isAuthorized = authorization({
       isAdmin,
       verified,
-      minimumLevel: "LEVEL3"
+      awaitingReview,
+      minimumLevel: "LEVEL2"
     });
 
     return FilteredReviewMonths[0] && FilteredReviewMonths[0].createdAt ? (
@@ -466,7 +467,13 @@ export default class OverallReview extends Component {
                               this.notPressingDown
                             }
                             scale={1}
-                            disabled={!verified || review.user._id === userId}
+                            disabled={
+                              !(
+                                verified ||
+                                awaitingReview ||
+                                review.user._id === userId
+                              )
+                            }
                             isMobile={isMobile}
                           >
                             This is helpful
@@ -474,7 +481,7 @@ export default class OverallReview extends Component {
                         </HelpfulButtonWrapper>
                       )}
                       <ReplyButton
-                        onClick={this.goTOReply}
+                        onClick={(verified || awaitingReview) && this.goTOReply}
                         data-target={
                           review.category === "written"
                             ? "overallReview"
@@ -485,11 +492,11 @@ export default class OverallReview extends Component {
                         data-review-id={review._id}
                         type="primary"
                         color={
-                          verified
+                          verified || awaitingReview
                             ? organizations[category].primary
                             : organizations[category].secondary
                         }
-                        disabled={!verified}
+                        disabled={!(verified || awaitingReview)}
                       >
                         Reply
                       </ReplyButton>

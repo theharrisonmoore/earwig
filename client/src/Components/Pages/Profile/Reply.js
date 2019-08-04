@@ -212,7 +212,8 @@ export default class Reply extends Component {
                       {reply.replies.displayName || reply.replies.user.userId}
                     </UserID>
                     <UserTrade>
-                      {reply.replies.user.trade[0] &&
+                      {reply.replies.user.trade &&
+                        reply.replies.user.trade[0] &&
                         reply.replies.user.trade[0].title}
                     </UserTrade>
                   </UserDiv>

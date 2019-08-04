@@ -158,7 +158,7 @@ router.post(
   uploadVoiceRecording,
 );
 
-router.post(GET_AUDIO_URL, authentication, voiceReview);
+router.post(GET_AUDIO_URL, softAuthCheck, voiceReview);
 
 // get all trades
 router.get(TRADE_URL, getTradesController);
@@ -231,7 +231,7 @@ router.post(
 router.post(
   ADD_COMMENT_ON_REVIEW_URL,
   authentication,
-  authorization("LEVEL3"),
+  authorization("LEVEL2"),
   validation("addCommentOnReview"),
   addCommentOnReview,
 );
@@ -240,8 +240,7 @@ router.post(
 // /reviews/${target}/replies/${id}
 router.get(
   "/reviews/:target/replies/:id",
-  authentication,
-  authorization("LEVEL1"),
+  softAuthCheck,
   getOverallReviewReplies,
 );
 
