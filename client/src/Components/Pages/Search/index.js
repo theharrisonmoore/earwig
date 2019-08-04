@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Skeleton, Rate } from "antd";
+import { Skeleton, Rate, Popover, message } from "antd";
 
-import { API_SEARCH_URL } from "../../../apiUrls";
+import {
+  API_SEARCH_URL,
+  API_GET_LAST_30D_ORGANISATIONS_IDS
+} from "../../../apiUrls";
+
 import AutosuggestComponent from "./AutoSuggest";
 
 // styles
@@ -46,6 +50,29 @@ export const axiosCall = async () => {
   return response;
 };
 
+export const PopOverWrapper = ({ disabled, children }) => {
+  if (disabled) {
+    return (
+      <Popover
+        content={"You reviewed this organisation within the last 30 days"}
+        trigger="click"
+        placement="topLeft"
+      >
+        <div
+          style={{ cursor: "not-allowed" }}
+          onClick={e => {
+            e.stopPropagation();
+          }}
+        >
+          {children}
+        </div>
+      </Popover>
+    );
+  } else {
+    return children;
+  }
+};
+
 export default class Search extends Component {
   state = {
     isLoading: false,
@@ -63,8 +90,21 @@ export default class Search extends Component {
         isLoading: true,
         target: target || "profile"
       });
+
+      if (target === "review") {
+        axios
+          .get(API_GET_LAST_30D_ORGANISATIONS_IDS)
+          .then(({ data }) => {
+            this.setState({ orgsIds: data.orgsIds });
+          })
+          .catch(err => {
+            const error =
+              err.response && err.response.data && err.response.data.error;
+            message.error(error || "Something went wrong");
+          });
+      }
     });
-    document.addEventListener("mousedown", this.handleClickOutside);
+    document.addEventListener("mousedown", this.handleClickOutside, false);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -82,50 +122,62 @@ export default class Search extends Component {
 
   // renders last viewed organization section
   renderLastViewed = (org, key, target) => {
+    const { orgsIds } = this.state;
+
     const url =
       target !== "review"
         ? `/profile/${org._id}`
         : `/organization/${org._id}/review`;
+
+    const disabled =
+      target === "review" && orgsIds && orgsIds.includes(org._id);
+
     return (
-      <ProfileLink key={key} to={url}>
-        <ReviewsFrame orgType={org.category}>
-          <InnerDivLastReviews orgType={org.category}>
-            <SymbolDiv>
-              <Icon
-                icon={org.category}
-                height="1.5rem"
-                width="1.5rem"
-                margin="0 1rem 0 0"
-              />
-            </SymbolDiv>
-            <OrganisationDetailsDiv>
-              <h3
-                style={{
-                  color: organizations[org.category].primary,
-                  textTransform: "capitalize"
-                }}
-              >
-                {org.name}
-              </h3>
-              <ReviewDetailsDiv>
-                <Rate
-                  disabled
-                  value={org.avgRatings || org.value}
-                  style={{
-                    color: `${organizations[org.category].primary}`,
-                    fontSize: "0.75rem"
-                  }}
-                  className="last-reviewed-star-rate"
+      <PopOverWrapper disabled>
+        <ProfileLink
+          key={key}
+          to={disabled ? "#" : url}
+          as={disabled ? "div" : undefined}
+        >
+          <ReviewsFrame orgType={org.category}>
+            <InnerDivLastReviews orgType={org.category}>
+              <SymbolDiv>
+                <Icon
+                  icon={org.category}
+                  height="1.5rem"
+                  width="1.5rem"
+                  margin="0 1rem 0 0"
                 />
-                <p>{org.totalReviews} reviews</p>
-              </ReviewDetailsDiv>
-            </OrganisationDetailsDiv>
-            <ArrowDiv>
-              <img src={orgArrowIcon[org.category]} alt="" />
-            </ArrowDiv>
-          </InnerDivLastReviews>
-        </ReviewsFrame>
-      </ProfileLink>
+              </SymbolDiv>
+              <OrganisationDetailsDiv>
+                <h3
+                  style={{
+                    color: organizations[org.category].primary,
+                    textTransform: "capitalize"
+                  }}
+                >
+                  {org.name}
+                </h3>
+                <ReviewDetailsDiv>
+                  <Rate
+                    disabled
+                    value={org.avgRatings || org.value}
+                    style={{
+                      color: `${organizations[org.category].primary}`,
+                      fontSize: "0.75rem"
+                    }}
+                    className="last-reviewed-star-rate"
+                  />
+                  <p>{org.totalReviews} reviews</p>
+                </ReviewDetailsDiv>
+              </OrganisationDetailsDiv>
+              <ArrowDiv>
+                <img src={orgArrowIcon[org.category]} alt="" />
+              </ArrowDiv>
+            </InnerDivLastReviews>
+          </ReviewsFrame>
+        </ProfileLink>
+      </PopOverWrapper>
     );
   };
 
@@ -143,7 +195,7 @@ export default class Search extends Component {
   };
 
   render() {
-    const { isLoading, data, showOtherSections, target } = this.state;
+    const { isLoading, data, showOtherSections, target, orgsIds } = this.state;
     const { isMobile, isTablet } = this.props;
 
     return (
@@ -241,6 +293,8 @@ export default class Search extends Component {
             placeholderText="Start typing..."
             isMobile={isMobile}
             isTablet={isTablet}
+            orgsIds={orgsIds}
+            showOtherSections={showOtherSections}
           />
         </FlexContainer>
         {showOtherSections && (

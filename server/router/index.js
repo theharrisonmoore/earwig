@@ -92,9 +92,10 @@ const {
   UPLOAD_AUDIO,
   GET_AUDIO_URL,
   GET_USER_VOTES_ON_PROFILE,
+  GET_LAST_30D_ORGANISATIONS_IDS,
 } = require("../../client/src/apiUrls");
 
-router.get("/reviews/organisations/30days", authentication, getOrgsReviewedLast30D);
+router.get(GET_LAST_30D_ORGANISATIONS_IDS, authentication, getOrgsReviewedLast30D);
 
 router.get(SEARCH_URL, searchController);
 

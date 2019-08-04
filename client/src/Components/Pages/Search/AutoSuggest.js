@@ -8,6 +8,7 @@ import Autosuggest from "react-autosuggest";
 import { withRouter } from "react-router-dom";
 import createTrie from "autosuggest-trie";
 import { Rate } from "antd";
+import { PopOverWrapper } from "./index";
 
 import { ADD_PROFILE_URL } from "../../../constants/naviagationUrls";
 // styles
@@ -84,6 +85,15 @@ class AutosuggestComponent extends Component {
     this.setState({ isButton, target: target || "profile" });
   }
 
+  componentDidUpdate(prevProps) {
+    const { showOtherSections } = this.props;
+    if (prevProps.showOtherSections !== showOtherSections) {
+      if (showOtherSections) {
+        this.setState({ value: "" });
+      }
+    }
+  }
+
   // functions for autosuggest component
 
   // gets called every time suggestions are updated based on a users input
@@ -130,67 +140,73 @@ class AutosuggestComponent extends Component {
 
     // also need to check if button to see if we make it a link or not
     // THIS RELATES TO THE ORGCHECK COMPONENT
-    const { isButton, storeOrg, noIcon } = this.props;
+    const { isButton, storeOrg, noIcon, orgsIds } = this.props;
     const { target } = this.state;
     const url =
       target === "profile"
         ? `/profile/${suggestion._id}`
         : `/organization/${suggestion._id}/review`;
 
+    const disabled =
+      target === "review" && orgsIds && orgsIds.includes(suggestion._id);
+
     if (suggestion.isEmpty) {
       return null;
     }
     return (
-      <ProfileLink
-        to={isButton ? "#" : url}
-        onClick={() => isButton && storeOrg(suggestion)}
-      >
-        <SuggestionBox orgType={suggestion.category}>
-          <InnerDivSuggestions>
-            <SymbolDiv>
-              {!noIcon && (
+      <PopOverWrapper disabled={disabled}>
+        <ProfileLink
+          as={isButton || disabled ? "div" : undefined}
+          to={isButton || disabled ? undefined : url}
+          onClick={() => !disabled && isButton && storeOrg(suggestion)}
+        >
+          <SuggestionBox orgType={suggestion.category}>
+            <InnerDivSuggestions>
+              <SymbolDiv>
+                {!noIcon && (
+                  <Icon
+                    icon="search"
+                    height="1.5rem"
+                    width="1.5rem"
+                    margin="0 1rem 0 0"
+                  />
+                )}
                 <Icon
-                  icon="search"
+                  icon={suggestion.category}
                   height="1.5rem"
                   width="1.5rem"
                   margin="0 1rem 0 0"
                 />
-              )}
-              <Icon
-                icon={suggestion.category}
-                height="1.5rem"
-                width="1.5rem"
-                margin="0 1rem 0 0"
-              />
-            </SymbolDiv>
-            <OrganisationDetailsDiv>
-              <h3
-                style={{
-                  color: organizations[suggestion.category].primary,
-                  textTransform: "capitalize"
-                }}
-              >
-                {suggestion.name}
-              </h3>
-              <ReviewDetailsDiv>
-                <Rate
-                  disabled
-                  value={suggestion.avgRatings || suggestion.value}
+              </SymbolDiv>
+              <OrganisationDetailsDiv>
+                <h3
                   style={{
-                    color: `${organizations[suggestion.category].primary}`,
-                    fontSize: "0.75rem"
+                    color: organizations[suggestion.category].primary,
+                    textTransform: "capitalize"
                   }}
-                  className="last-reviewed-star-rate"
-                />
-                <p>{suggestion.totalReviews} reviews</p>
-              </ReviewDetailsDiv>
-            </OrganisationDetailsDiv>
-            <ArrowDiv>
-              {SVGCreator(`${organizationIcons[suggestion.category].arrow}`)}
-            </ArrowDiv>
-          </InnerDivSuggestions>
-        </SuggestionBox>
-      </ProfileLink>
+                >
+                  {suggestion.name}
+                </h3>
+                <ReviewDetailsDiv>
+                  <Rate
+                    disabled
+                    value={suggestion.avgRatings || suggestion.value}
+                    style={{
+                      color: `${organizations[suggestion.category].primary}`,
+                      fontSize: "0.75rem"
+                    }}
+                    className="last-reviewed-star-rate"
+                  />
+                  <p>{suggestion.totalReviews} reviews</p>
+                </ReviewDetailsDiv>
+              </OrganisationDetailsDiv>
+              <ArrowDiv>
+                {SVGCreator(`${organizationIcons[suggestion.category].arrow}`)}
+              </ArrowDiv>
+            </InnerDivSuggestions>
+          </SuggestionBox>
+        </ProfileLink>
+      </PopOverWrapper>
     );
   };
 

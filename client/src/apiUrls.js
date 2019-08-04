@@ -80,7 +80,7 @@ const GET_USER_VOTES_ON_PROFILE = "/users/:userId/profile/:orgId/votes";
 const API_GET_USER_VOTES_ON_PROFILE = `${API_PREFIX}${GET_USER_VOTES_ON_PROFILE}`;
 
 const GET_LAST_30D_ORGANISATIONS_IDS = "/reviews/organisations/30days";
-const API_GET_LAST_30D_ORGANISATIONS_IDS = `${API_PREFIX}${GET_USER_VOTES_ON_PROFILE}`;
+const API_GET_LAST_30D_ORGANISATIONS_IDS = `${API_PREFIX}${GET_LAST_30D_ORGANISATIONS_IDS}`;
 
 module.exports = {
   // React variables
