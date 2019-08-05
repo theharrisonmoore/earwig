@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import moment from "moment";
-import { Checkbox, message, Spin, Icon } from "antd";
+import { Checkbox, message, Spin, Icon, Modal } from "antd";
 import Loading from "../../Common/AntdComponents/Loading";
 
 import {
@@ -188,9 +188,16 @@ class Review extends Component {
           });
         })
         .catch(err => {
-          // server error 500
           const error =
             err.response && err.response.data && err.response.data.error;
+          if (err.response && err.response.status === 409) {
+            return Modal.error({
+              title: "Error",
+              content: error,
+              onOk: () => this.props.history.goBack()
+            });
+          }
+          // server error 500
           message.error(error || "Something went wrong");
         });
     }

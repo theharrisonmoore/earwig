@@ -1,7 +1,7 @@
 const boom = require("boom");
 
 const allReviewsIncAnswers = require("../../database/queries/reviews/allReviewsIncAnswers");
-const { getAllQs } = require("../../database/queries/reviews")
+const { getAllQs } = require("../../database/queries/reviews");
 
 module.exports = (req, res, next) => {
   allReviewsIncAnswers()
@@ -25,28 +25,21 @@ module.exports = (req, res, next) => {
         return newReviewObj;
       });
 
-      return { cleanedReviews, reviews }
+      return { cleanedReviews, reviews };
 
       // res.json(cleanedReviews);
-    }).then(({cleanedReviews, reviews}) => {
-      return getAllQs().then(questions => {
+    }).then(({ cleanedReviews }) => getAllQs().then((questions) => {
+      //  initial headers
+      const allHeaders = ["Review date", "Overall star rating", "Overall Review", "earwig ID", "Unique User ID", "Town or City", "Points earned", "People helped", "Reviews given", "Trade", "Current agency", "Current payroll", "Current worksite", "Current company", "Entity type", "Entity name", "Date from", "Date to"];
 
-        //  initial headers
-        let allHeaders = [ "Review date", "Overall star rating", "Overall Review", "earwig ID", "Unique User ID", "Town or City", "Points earned", "People helped", "Reviews given", "Trade", "Current agency", "Current payroll", "Current worksite", "Current company", "Entity type", "Entity name", "Date from", "Date to"  ]
+      const sortedQs = questions.sort((a, b) => a.category.localeCompare(b.category));
 
-        // clean questions so only unique values
-        const questionText = questions.map(question => question.text)
-        const distinctQs = [...new Set(questionText)]
+      sortedQs.forEach((question) => {
+        const newQs = [`${question.category}: ${question.text}`, `${question.category}: ${question.text}: Comment`];
+        allHeaders.push(...newQs);
+      });
 
-        const sortedQs = questions.sort((a, b) => a.category.localeCompare(b.category))
-
-        sortedQs.map(question => {
-          const newQs = [`${question.category}: ${question.text}`, `${question.category}: ${question.text}: Comment`]
-          allHeaders.push(...newQs)
-          })
-
-        res.json({cleanedReviews, headers: allHeaders})
-      })
-    })
+      res.json({ cleanedReviews, headers: allHeaders });
+    }))
     .catch(err => next(boom.badImplementation(err)));
 };

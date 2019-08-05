@@ -43,7 +43,16 @@ class Number extends Component {
             color={organizations[category].primary}
           >
             <p>
-              £{answers[number]} {label}
+              £
+              <span
+                style={{
+                  color: organizations[category].primary,
+                  fontWeight: "700"
+                }}
+              >
+                {answers[number]}
+              </span>{" "}
+              {label}
             </p>
 
             <Slider
