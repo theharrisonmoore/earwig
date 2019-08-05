@@ -128,7 +128,10 @@ export default class index extends Component {
               <Title>You’re about to delete your earwig account</Title>
               <Paragraph>
                 If you want to permanently delete your earwig account, let us
-                know. <br />
+                know. Once the deletion process begins, you won’t be able to
+                reactivate your account or access any of the content you’ve
+                given or the points you’ve earned.
+                <br />
                 <br />
                 If you think you may like to keep your account but you’re
                 unhappy about something, tell us what’s wrong so we can do our
