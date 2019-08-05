@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Mention, Input, message } from "antd";
+import { Mention, Input, message, Alert } from "antd";
 import * as yup from "yup";
 import axios from "axios";
 
@@ -173,9 +173,11 @@ export default class Reply extends Component {
   };
 
   render() {
-    if (!this.props.location || !this.props.location.state) {
-      return this.props.history.goBack();
+    const { verified, history, location } = this.props;
+    if (!location || !location.state) {
+      return history.goBack();
     }
+
     const { replies, loaded, submitting, focus } = this.state;
     const { isAdmin } = this.props;
     const { category } = this.props.location.state;
@@ -206,6 +208,14 @@ export default class Reply extends Component {
             {replies &&
               replies.map(reply => (
                 <IndividComment key={reply.replies._id}>
+                  {!verified && (
+                    <Alert
+                      message="Your replies are visible only for you untill you get
+                    verified"
+                      type="warning"
+                      banner
+                    />
+                  )}
                   <UserDiv>
                     <UserID>
                       {" "}
