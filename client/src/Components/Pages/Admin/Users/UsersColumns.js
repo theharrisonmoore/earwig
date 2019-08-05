@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Tag, Button, Icon, Tooltip } from "antd";
+import { Tag, Button, Icon, Popover } from "antd";
 import Highlighter from "react-highlight-words";
 
 export default ({
@@ -104,9 +104,9 @@ export default ({
       render: text => {
         if (text !== "N/A") {
           return (
-            <Tooltip
+            <Popover
               placement="topLeft"
-              title={
+              content={
                 <div>
                   <p>Current agency: {text.agency.name}</p>
                   <p>Current company: {text.company.name}</p>
@@ -115,8 +115,16 @@ export default ({
                 </div>
               }
             >
-              <div>CurrentOrg</div>
-            </Tooltip>
+              <div
+                style={{
+                  color: "#1890ff",
+                  cursor: "pointer",
+                  textDecoration: "underline"
+                }}
+              >
+                Current Orgs.
+              </div>
+            </Popover>
           );
         } else {
           return (

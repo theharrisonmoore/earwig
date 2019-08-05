@@ -54,6 +54,11 @@ export const FbShare = styled.div`
   background-color: ${({ category }) => organizations[category].primary};
   color: ${colors.white};
   font-weight: 700;
+  :hover,
+  :active,
+  :focus {
+    opacity: 0.8;
+  }
 `;
 
 export const ThankYouWrapper = styled.div`
