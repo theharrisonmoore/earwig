@@ -71,10 +71,7 @@
   "browserslist": [
     ">0.2%",
     "not dead",
-    "not ie <= 11",
-    "not op_mini all",
-    "ie 9",
-    "ie 11"
+    "not op_mini all"
   ],
   "jest": {
     "collectCoverageFrom": [
