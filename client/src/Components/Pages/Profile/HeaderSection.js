@@ -165,7 +165,10 @@ export default class HeaderSection extends Component {
                 Main Contractor:{" "}
                 <span className="contactor-name">
                   {contractorAnswers[0] && contractorAnswers[0].name ? (
-                    <Link to={`/profile/${contractorAnswers[0]._id}`}>
+                    <Link
+                      to={`/profile/${contractorAnswers[0]._id}`}
+                      style={{ color: "black", textDecoration: "underline" }}
+                    >
                       {contractorAnswers[0] && contractorAnswers[0].name}
                     </Link>
                   ) : (
@@ -183,7 +186,7 @@ export default class HeaderSection extends Component {
                   <ContractorListLink>
                     More main contractors on this site
                   </ContractorListLink>
-                  <AntdIcon style={{ color: "#1890ff" }} type="caret-down" />
+                  <AntdIcon style={{ color: "black" }} type="caret-down" />
                 </Popover>
               )}
             </ContractorDiv>

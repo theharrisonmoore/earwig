@@ -440,7 +440,7 @@ export const ContractorText = styled.p`
 `;
 
 export const ContractorListLink = styled.span`
-  color: #1890ff;
+  /* color: #1890ff; */
   text-decoration: none;
   background-color: transparent;
   cursor: pointer;
