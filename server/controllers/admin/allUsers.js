@@ -7,13 +7,13 @@ const boom = require("boom");
 
 const { getAllUsers } = require("./../../database/queries/user");
 
-module.exports = ((req, res, next) => {
+module.exports = async (req, res, next) => {
   const awaitingReview = req.query.awaitingReview === "true";
 
-  getAllUsers(awaitingReview)
-    .then((users) => {
-      res.json(users);
-    }).catch(() => {
-      next(boom.badImplementation());
-    });
-});
+  try {
+    const users = await getAllUsers(awaitingReview);
+    res.json(users);
+  } catch (error) {
+    next(boom.badImplementation(error));
+  }
+};

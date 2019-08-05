@@ -153,6 +153,7 @@ class AutosuggestComponent extends Component {
     if (suggestion.isEmpty) {
       return null;
     }
+
     return (
       <PopOverWrapper disabled={disabled}>
         <ProfileLink
@@ -190,10 +191,11 @@ class AutosuggestComponent extends Component {
                 <ReviewDetailsDiv>
                   <Rate
                     disabled
-                    value={suggestion.avgRatings || suggestion.value}
+                    value={suggestion.avgRatings || suggestion.value || 0}
                     style={{
                       color: `${organizations[suggestion.category].primary}`,
-                      fontSize: "0.75rem"
+                      fontSize: "0.75rem",
+                      textTransform: "capitalize"
                     }}
                     className="last-reviewed-star-rate"
                   />

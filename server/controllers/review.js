@@ -226,16 +226,6 @@ const updateReview = async (req, res, next) => {
   }
 };
 
-/* not used now */
-const addNewOrg = async (req, res, next) => {
-  const { name, category } = req.body;
-  try {
-    await postOrg(category, name);
-    res.send();
-  } catch (err) {
-    next(boom.badImplementation());
-  }
-};
 
 const getOrgsByType = async (req, res, next) => {
   const { category } = req.body;
@@ -260,7 +250,6 @@ const getAgencesAndPayrollsNames = async (req, res, next) => {
 module.exports = {
   getByOrg,
   postReview,
-  addNewOrg,
   getOrgsByType,
   getAgencesAndPayrollsNames,
   postReviewShort,

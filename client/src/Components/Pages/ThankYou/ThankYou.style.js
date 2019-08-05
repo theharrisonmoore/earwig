@@ -42,9 +42,10 @@ export const WhatsappShare = styled(WhatsappShareButton)`
   }
 `;
 
-export const FBMsgShare = styled.div`
+export const FbShare = styled.div`
   display: flex;
   justify-content: center;
+  cursor: pointer;
   flex-direction: column;
   align-items: center;
   height: 55px;
