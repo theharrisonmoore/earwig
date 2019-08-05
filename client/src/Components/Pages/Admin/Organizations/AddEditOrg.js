@@ -41,7 +41,7 @@ export default class AddEditOrg extends Component {
       for (const [key, value] of dataArr) {
         if (value === "N/A") delete cleanRecord[key];
       }
-      this.setState({ fields: record });
+      this.setState({ fields: record.record });
     }
   }
 
@@ -92,9 +92,9 @@ export default class AddEditOrg extends Component {
 
   handleInput = e => {
     const { fields } = this.state;
-    fields[e.target.name] = e.target.value;
+    const { name, value } = e.target;
     this.setState({
-      fields
+      fields: { ...fields, [name]: value }
     });
   };
 
@@ -107,6 +107,7 @@ export default class AddEditOrg extends Component {
   };
 
   handleValidation = () => {
+    const { purpose } = this.props;
     const { fields } = this.state;
     const errors = {};
     let formIsValid = true;
@@ -116,7 +117,7 @@ export default class AddEditOrg extends Component {
       errors.nameError = "* Organization name is required";
     }
 
-    if (!fields.category) {
+    if (!fields.category && purpose === "add") {
       formIsValid = false;
       errors.categoryError = "* Category is required";
     }
@@ -130,7 +131,8 @@ export default class AddEditOrg extends Component {
   render() {
     const { fields, errors, msg } = this.state;
     const { nameError, categoryError } = errors;
-    const { name, phoneNumber, email, websiteURL } = fields;
+    const { name, phoneNumber, email, websiteURL } =
+      !!Object.keys(fields).length && fields;
     const { Option } = Select;
     const { purpose } = this.props;
 
@@ -153,20 +155,22 @@ export default class AddEditOrg extends Component {
             />
           </InputDiv>
           {nameError && <ErrorMsg>{nameError}</ErrorMsg>}
-          <InputDiv>
-            <InputLabel>Category:*</InputLabel>
-            <Select
-              placeholder="Category"
-              style={{ width: "70%" }}
-              value={fields.category}
-              onChange={value => this.handleSelect("category", value)}
-            >
-              <Option value="agency">Agency</Option>
-              <Option value="company">Company</Option>
-              <Option value="worksite">Worksite</Option>
-              <Option value="payroll">Payroll</Option>
-            </Select>
-          </InputDiv>
+          {purpose === "add" && (
+            <InputDiv>
+              <InputLabel>Category:*</InputLabel>
+              <Select
+                placeholder="Category"
+                style={{ width: "70%" }}
+                value={fields.category}
+                onChange={value => this.handleSelect("category", value)}
+              >
+                <Option value="agency">Agency</Option>
+                <Option value="company">Company</Option>
+                <Option value="worksite">Worksite</Option>
+                <Option value="payroll">Payroll</Option>
+              </Select>
+            </InputDiv>
+          )}
           {categoryError && <ErrorMsg>{categoryError}</ErrorMsg>}
           <InputDiv>
             <InputLabel>Phone:</InputLabel>
