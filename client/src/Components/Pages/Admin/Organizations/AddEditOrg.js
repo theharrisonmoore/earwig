@@ -41,7 +41,7 @@ export default class AddEditOrg extends Component {
       for (const [key, value] of dataArr) {
         if (value === "N/A") delete cleanRecord[key];
       }
-      this.setState({ fields: record });
+      this.setState({ fields: record.record });
     }
   }
 
@@ -92,9 +92,9 @@ export default class AddEditOrg extends Component {
 
   handleInput = e => {
     const { fields } = this.state;
-    fields[e.target.name] = e.target.value;
+    const { name, value } = e.target;
     this.setState({
-      fields
+      fields: { ...fields, [name]: value }
     });
   };
 
@@ -131,7 +131,8 @@ export default class AddEditOrg extends Component {
   render() {
     const { fields, errors, msg } = this.state;
     const { nameError, categoryError } = errors;
-    const { name, phoneNumber, email, websiteURL } = fields;
+    const { name, phoneNumber, email, websiteURL } =
+      !!Object.keys(fields).length && fields;
     const { Option } = Select;
     const { purpose } = this.props;
 

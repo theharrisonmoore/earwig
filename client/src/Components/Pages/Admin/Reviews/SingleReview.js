@@ -460,7 +460,7 @@ export default class SingleReview extends Component {
                                               return (
                                                 <>
                                                   <Select
-                                                    value={answer}
+                                                    value={answer.name}
                                                     disabled
                                                     style={{
                                                       border: `1px solid ${colors.dustyGray1}`

@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
   const { newOrgData } = req.body;
   // check if the new name is exist in DB
   getOrganizationByName(newOrgData.name).then(([org]) => {
-    if (org && newOrgData.record.name !== newOrgData.name) {
+    if (org && org.name !== newOrgData.name) {
       return next(boom.conflict(`${newOrgData.name} Already exists`));
     }
     return updateOrgsById(newOrgData._id || newOrgData.record._id, newOrgData)
@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
       .catch(() => {
         next(boom.badImplementation());
       });
-  }).catch(() => {
-    next(boom.badImplementation());
+  }).catch((err) => {
+    next(boom.badImplementation(err));
   });
 };
