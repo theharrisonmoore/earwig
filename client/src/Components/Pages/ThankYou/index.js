@@ -11,6 +11,8 @@
 
 import React, { Component } from "react";
 
+import { isMobileDevice } from "../../../helpers";
+
 import {
   ThankYouWrapper,
   ContentWrapper,
@@ -24,7 +26,7 @@ import {
   StyledLink,
   EmailShare,
   WhatsappShare,
-  FBMsgShare
+  FbShare
 } from "./ThankYou.style";
 
 import whatsAppIcon from "../../../assets/whatsapp-logo.svg";
@@ -32,13 +34,21 @@ import facebookMsgIcon from "../../../assets/messenger-logo.svg";
 import emailIcon from "../../../assets/email-logo.svg";
 
 export default class ThankYou extends Component {
-  facebookMsgShare = referralLink => {
-    window.open(
-      "fb-messenger://share?link=" +
-        encodeURIComponent(referralLink) +
-        "&app_id=" +
-        encodeURIComponent("earwig-work-2019")
-    );
+  fbSendBrowser = referralLink => {
+    if (isMobileDevice.any()) {
+      window.open(
+        "fb-messenger://share?link=" +
+          encodeURIComponent(referralLink) +
+          "&app_id=" +
+          encodeURIComponent("1065819443628486")
+      );
+    } else {
+      // eslint-disable-next-line no-undef
+      FB.ui({
+        method: "send",
+        link: referralLink
+      });
+    }
   };
   render() {
     const { state } = this.props.history.location;
@@ -94,13 +104,13 @@ export default class ThankYou extends Component {
               WhatsApp
             </WhatsappShare>
 
-            <FBMsgShare
+            <FbShare
               category={orgType}
-              onClick={() => this.facebookMsgShare(orgURL)}
+              onClick={() => this.fbSendBrowser(orgURL)}
             >
               <img src={facebookMsgIcon} alt="" />
               Facebook
-            </FBMsgShare>
+            </FbShare>
           </IconWrapper>
           <SharePromo orgType={orgType}>
             Click one of the icons above to share privately with your colleagues

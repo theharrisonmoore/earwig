@@ -161,9 +161,11 @@ export default class UploadImage extends Component {
     }
   };
 
-  showModal = () => {
+  showModal = e => {
+    const { searchTerm } = e.target.dataset;
     this.setState({
-      ismodalVisible: true
+      ismodalVisible: true,
+      newTrade: searchTerm
     });
   };
 
@@ -244,7 +246,8 @@ export default class UploadImage extends Component {
       confirmLoading,
       error,
       image,
-      loading
+      loading,
+      newTrade
     } = this.state;
     return (
       <UploadImageWrapper className="test">
@@ -305,6 +308,7 @@ export default class UploadImage extends Component {
                       placeholder="Add your trade..."
                       allowClear
                       onChange={this.addNewTradeHandler}
+                      value={newTrade}
                     />
                   </Modal>
                 </div>
