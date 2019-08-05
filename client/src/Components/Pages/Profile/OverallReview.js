@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Collapse, Icon } from "antd";
 import axios from "axios";
 
-import { message } from "antd";
+import { message, Alert } from "antd";
 import { organizations } from "./../../../theme";
 import {
   REPORT_CONTENT_URL,
@@ -576,6 +576,18 @@ export default class OverallReview extends Component {
                       {overallReplies.map(reply => {
                         return (
                           <div key={reply.replies._id}>
+                            {!verified && reply.replies.user._id === userId && (
+                              <Alert
+                                message="Your replies are visible only for you untill you get
+                    verified"
+                                type="warning"
+                                style={{
+                                  display: "inline-block",
+                                  marginBottom: "0.5rem"
+                                }}
+                                banner
+                              />
+                            )}
                             <UserDiv>
                               <UserID>
                                 {" "}

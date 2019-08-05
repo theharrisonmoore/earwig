@@ -173,7 +173,7 @@ export default class Reply extends Component {
   };
 
   render() {
-    const { verified, history, location } = this.props;
+    const { verified, history, location, id } = this.props;
     if (!location || !location.state) {
       return history.goBack();
     }
@@ -208,11 +208,15 @@ export default class Reply extends Component {
             {replies &&
               replies.map(reply => (
                 <IndividComment key={reply.replies._id}>
-                  {!verified && (
+                  {!verified && reply.replies.user._id === id && (
                     <Alert
                       message="Your replies are visible only for you untill you get
                     verified"
                       type="warning"
+                      style={{
+                        display: "inline-block",
+                        marginBottom: "0.5rem"
+                      }}
                       banner
                     />
                   )}
