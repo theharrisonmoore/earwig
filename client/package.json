@@ -21,6 +21,7 @@
     "moment": "^2.24.0",
     "mp3-mediarecorder": "^3.4.4",
     "react": "^16.8.2",
+    "react-app-polyfill": "^1.0.1",
     "react-autosuggest": "^9.4.3",
     "react-chartjs-2": "^2.7.6",
     "react-cookie-consent": "^2.3.2",
@@ -71,7 +72,9 @@
     ">0.2%",
     "not dead",
     "not ie <= 11",
-    "not op_mini all"
+    "not op_mini all",
+    "ie 9",
+    "ie 11"
   ],
   "jest": {
     "collectCoverageFrom": [
