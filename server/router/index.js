@@ -5,7 +5,6 @@ const {
   getOrgsByType,
   getAgencesAndPayrollsNames,
   postReviewShort,
-  addNewOrg,
   updateReview,
 } = require("../controllers/review");
 
@@ -112,7 +111,7 @@ router.post("/short-review", authentication, authorization("LEVEL3"), postReview
 
 // Add new payroll and agency
 router.get("/organizations", authentication, authorization("LEVEL3"), getOrgsByType);
-router.post("/organizations", authentication, authorization("LEVEL3"), addNewOrg);
+router.post("/organizations", authentication, authorization("LEVEL2"), addOrganizationController);
 router.get("/agency-payroll", authentication, authorization("LEVEL3"), getAgencesAndPayrollsNames);
 
 // require all the routes in this file

@@ -144,6 +144,7 @@ class AutosuggestComponent extends Component {
     if (suggestion.isEmpty) {
       return null;
     }
+
     return (
       <ProfileLink
         to={isButton ? "#" : url}
@@ -179,7 +180,7 @@ class AutosuggestComponent extends Component {
               <ReviewDetailsDiv>
                 <Rate
                   disabled
-                  value={suggestion.avgRatings || suggestion.value}
+                  value={suggestion.avgRatings || suggestion.value || 0}
                   style={{
                     color: `${organizations[suggestion.category].primary}`,
                     fontSize: "0.75rem"
