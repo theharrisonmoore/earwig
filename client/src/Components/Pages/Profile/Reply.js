@@ -292,6 +292,7 @@ export default class Reply extends Component {
               <Button
                 style={{ maxWidth: "30rem", margin: "0 auto" }}
                 category={category}
+                backgroundColor={organizations[category].primary}
                 loading={submitting}
                 onClick={this.handleSubmit}
               >
