@@ -11,6 +11,9 @@ const getReviewDetails = require("./getReviewDetails");
 const updateHelpfulPoints = require("./updateHelpfulPoints");
 
 module.exports.updateHelpfulPoints = updateHelpfulPoints;
+module.exports.getOverallReplies = getOverallReplies;
+module.exports.getAllReviews = getAllReviews;
+module.exports.getReviewDetails = getReviewDetails;
 
 module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
 
@@ -18,9 +21,6 @@ module.exports.deleteReview = id => Review.deleteOne({ _id: id });
 
 module.exports.findById = id => Review.findById(id);
 
-module.exports.getOverallReplies = getOverallReplies;
-
-module.exports.getAllReviews = getAllReviews;
 
 module.exports.addCommentOnOverallReview = (id, data, target) => Review.findByIdAndUpdate(id, {
   $push: {
@@ -39,9 +39,6 @@ module.exports.deleteAnswer = id => Answer.deleteOne({ _id: id });
 
 module.exports.deleteReviewAnswers = id => Answer.deleteMany({ review: id });
 
-module.exports.getAllReviews = getAllReviews;
-
-module.exports.getReviewDetails = getReviewDetails;
 
 module.exports.overallReview = organizationID => new Promise((resolve, reject) => {
   Organization.aggregate([
@@ -576,3 +573,15 @@ module.exports.getOneReviewWithOrgAndUser = reviewId => Review
   .findById(reviewId)
   .populate({ path: "user", select: "email" })
   .populate({ path: "organization", select: "category name" });
+
+module.exports.getOrgsReviewedLast30D = userId => Review.find(
+  {
+    $and: [
+      // created at within 30 Days
+      { createdAt: { $gte: Date.now() - 1000 * 60 * 60 * 24 * 30 } },
+      {
+        user: mongoose.Types.ObjectId(userId),
+      },
+    ],
+  }, { _id: 0, organization: 1 },
+);

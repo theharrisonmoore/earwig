@@ -326,14 +326,17 @@ export const HelpfulButtonWrapper = styled.div`
     position: absolute;
     content: "";
     width: 100%;
-    mix-blend-mode: exclusion;
     height: ${({ number }) => number + "0%"};
     left: 0;
     z-index: 2;
     bottom: 0;
-    background: ${({ color }) => color};
     pointer-events: none;
     transition: 0.5s all ease;
+
+    @supports (mix-blend-mode: exclusion) {
+      mix-blend-mode: exclusion;
+      background: ${({ color }) => color};
+    }
   }
 `;
 
@@ -418,7 +421,6 @@ export const ActionButton = styled.button`
   @media ${breakpoints.mobileL} {
     width: 11rem;
     padding: 1rem 0.5rem;
-    margin: 0 1rem;
   }
 
   @media ${breakpoints.tablet} {
@@ -433,7 +435,6 @@ export const ContractorDiv = styled.div`
 `;
 
 export const ContractorText = styled.p`
-  font-family: ArialMT;
   font-size: 18px;
 
   letter-spacing: 0.3px;
@@ -446,7 +447,7 @@ export const ContractorText = styled.p`
 `;
 
 export const ContractorListLink = styled.span`
-  color: #1890ff;
+  /* color: #1890ff; */
   text-decoration: none;
   background-color: transparent;
   cursor: pointer;

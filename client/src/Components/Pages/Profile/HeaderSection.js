@@ -37,7 +37,7 @@ import PopoverComponent from "./../../Common/Popover";
 const content = contractorAnswers => (
   <div style={{ maxHeight: "150px", overflow: "auto" }}>
     {contractorAnswers.map(item => (
-      <p>{item}</p>
+      <Link to={`/profile/${item._id}`}>{item.name}</Link>
     ))}
   </div>
 );
@@ -165,7 +165,16 @@ export default class HeaderSection extends Component {
               <ContractorText>
                 Main Contractor:{" "}
                 <span className="contactor-name">
-                  {contractorAnswers[0] || "No answers yet"}
+                  {contractorAnswers[0] && contractorAnswers[0].name ? (
+                    <Link
+                      to={`/profile/${contractorAnswers[0]._id}`}
+                      style={{ color: "black", textDecoration: "underline" }}
+                    >
+                      {contractorAnswers[0] && contractorAnswers[0].name}
+                    </Link>
+                  ) : (
+                    "No answers yet"
+                  )}
                 </span>
               </ContractorText>
               {contractorAnswers[0] && (
@@ -178,7 +187,7 @@ export default class HeaderSection extends Component {
                   <ContractorListLink>
                     More main contractors on this site
                   </ContractorListLink>
-                  <AntdIcon style={{ color: "#1890ff" }} type="caret-down" />
+                  <AntdIcon style={{ color: "black" }} type="caret-down" />
                 </Popover>
               )}
             </ContractorDiv>
@@ -209,6 +218,7 @@ export default class HeaderSection extends Component {
                       : `/organization/${orgId}/review`,
                   state: { name, category }
                 }}
+                style={{ margin: "0 1rem" }}
               >
                 <ActionButton
                   color={organizations[category].primary}
@@ -230,6 +240,7 @@ export default class HeaderSection extends Component {
               <ActionButton
                 color={organizations[category].primary}
                 isMobile={isMobile}
+                style={{ margin: "0 1rem" }}
               >
                 {!isMobile && (
                   <Icon
