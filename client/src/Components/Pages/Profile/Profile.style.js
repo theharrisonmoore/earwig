@@ -319,14 +319,17 @@ export const HelpfulButtonWrapper = styled.div`
     position: absolute;
     content: "";
     width: 100%;
-    mix-blend-mode: exclusion;
     height: ${({ number }) => number + "0%"};
     left: 0;
     z-index: 2;
     bottom: 0;
-    background: ${({ color }) => color};
     pointer-events: none;
     transition: 0.5s all ease;
+
+    @supports (mix-blend-mode: exclusion) {
+      mix-blend-mode: exclusion;
+      background: ${({ color }) => color};
+    }
   }
 `;
 
