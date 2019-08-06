@@ -52,6 +52,8 @@ class DropDown extends Component {
       orgCategory = "payroll";
     } else if (category === "payroll") {
       orgCategory = "agency";
+    } else if (category === "worksite") {
+      orgCategory = "main contractor";
     } else {
       orgCategory = category;
     }
@@ -158,6 +160,8 @@ class DropDown extends Component {
         return "payroll";
       case "payroll":
         return "agency";
+      case "worksite":
+        return "main contractor";
       default:
         return category;
     }
@@ -192,7 +196,7 @@ class DropDown extends Component {
           />
           <div>
             <Modal
-              title="Add new trade"
+              title={`Add a new ${this.addOrgType(category)}`}
               visible={ismodalVisible}
               onOk={this.handleOk}
               confirmLoading={confirmLoading}
