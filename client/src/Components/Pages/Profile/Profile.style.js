@@ -212,6 +212,13 @@ export const StarWrapper = styled.div`
 export const Reviews = styled.p`
   margin: 0;
   margin-left: 1rem;
+  border-bottom: 2px solid ${props => organizations[props.category].primary};
+  font-weight: 600;
+  color: ${props => organizations[`${props.category}`].primary};
+`;
+
+export const NoReview = styled.span`
+  color: ${colors.dustyGray1};
 `;
 
 export const VerifyPromo = styled.div`
@@ -384,7 +391,7 @@ export const ReplyButton = styled.p`
   padding: 0.5rem 1rem;
   color: ${({ color }) => color};
   margin: 0.5rem;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;
 
 export const ActionButton = styled.button`

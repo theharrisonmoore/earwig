@@ -194,6 +194,10 @@ export default class Search extends Component {
     }
   };
 
+  handleCancelIconClick = () => {
+    this.setState({ showOtherSections: true });
+  };
+
   render() {
     const { isLoading, data, showOtherSections, target, orgsIds } = this.state;
     const { isMobile, isTablet } = this.props;
@@ -293,6 +297,7 @@ export default class Search extends Component {
             placeholderText="Start typing..."
             isMobile={isMobile}
             isTablet={isTablet}
+            handleCancelIconClick={this.handleCancelIconClick}
             orgsIds={orgsIds}
             showOtherSections={showOtherSections}
           />

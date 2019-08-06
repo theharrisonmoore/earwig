@@ -83,9 +83,10 @@ export const ListWrapper = styled.div`
 export const ListItem = styled.p`
   margin: 0;
   color: ${props =>
-    props.color === "default"
-      ? `${colors.profileFontColor}`
-      : `${organizations[props.color].primary}`};
+    props.color === "agency"
+      ? organizations[props.color].primary
+      : colors.profileFontColor};
+
   font-weight: 900;
   font-size: 1rem;
   /* width: "100%"; */
