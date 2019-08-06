@@ -39,6 +39,7 @@ class Question extends Component {
       startRecord,
       stopRecord,
       handleRecord,
+      handleAddNewOrdChange,
       id
     } = this.props;
 
@@ -89,6 +90,7 @@ class Question extends Component {
           state={this.props.state}
           runValidation={this.props.runValidation}
           handleReviewChange={this.props.handleReviewChange}
+          handleAddNewOrdChange={handleAddNewOrdChange}
         />
       </QuestionWrapper>
     );

@@ -262,6 +262,12 @@ class Review extends Component {
     });
   };
 
+  handleAddNewOrdChange = (value, number) => {
+    const { answers } = this.state;
+    const answer = JSON.parse(value);
+    this.setState({ answers: { ...answers, [number]: answer } });
+  };
+
   handleImageUpload = (value, number) => {
     const { answers } = this.state;
     this.setState({
@@ -540,6 +546,7 @@ class Review extends Component {
                               state={this.state}
                               handleSliderChange={this.handleSliderChange}
                               handleReviewChange={this.handleReviewChange}
+                              handleAddNewOrdChange={this.handleAddNewOrdChange}
                             />
                           );
                         })}
