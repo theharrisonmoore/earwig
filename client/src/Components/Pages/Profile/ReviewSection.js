@@ -227,7 +227,6 @@ export default class ReviewSection extends Component {
                         <>
                           {question.answers.length > 0 && (
                             <QuestionWrapper>
-                              {/* {console.log(canteenQuestions)} */}
                               <CanteenItemAnswer
                                 questions={canteenQuestions}
                                 toggleComments={toggleComments}

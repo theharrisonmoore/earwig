@@ -243,11 +243,8 @@ export const SliderWrapper = styled.div`
   }
 
   p {
-    font-family: ArialMT;
     font-size: 18px;
     line-height: 21px;
-    /* identical to box height */
-
     text-align: center;
     letter-spacing: 0.375px;
 

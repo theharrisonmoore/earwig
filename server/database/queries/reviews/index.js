@@ -11,6 +11,9 @@ const getReviewDetails = require("./getReviewDetails");
 const updateHelpfulPoints = require("./updateHelpfulPoints");
 
 module.exports.updateHelpfulPoints = updateHelpfulPoints;
+module.exports.getOverallReplies = getOverallReplies;
+module.exports.getAllReviews = getAllReviews;
+module.exports.getReviewDetails = getReviewDetails;
 
 module.exports.checkOrgExists = organizationID => Organization.findById(organizationID);
 
@@ -18,9 +21,6 @@ module.exports.deleteReview = id => Review.deleteOne({ _id: id });
 
 module.exports.findById = id => Review.findById(id);
 
-module.exports.getOverallReplies = getOverallReplies;
-
-module.exports.getAllReviews = getAllReviews;
 
 module.exports.addCommentOnOverallReview = (id, data, target) => Review.findByIdAndUpdate(id, {
   $push: {
@@ -39,9 +39,6 @@ module.exports.deleteAnswer = id => Answer.deleteOne({ _id: id });
 
 module.exports.deleteReviewAnswers = id => Answer.deleteMany({ review: id });
 
-module.exports.getAllReviews = getAllReviews;
-
-module.exports.getReviewDetails = getReviewDetails;
 
 module.exports.overallReview = organizationID => new Promise((resolve, reject) => {
   Organization.aggregate([
@@ -87,6 +84,11 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
                 },
               ],
               as: "user",
+            },
+          },
+          {
+            $match: {
+              "user.verified": true,
             },
           },
           {
@@ -205,47 +207,86 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
     .catch(err => reject(err));
 });
 
-module.exports.basicReview = organizationID => new Promise((resolve, reject) => {
-  Organization.aggregate([
-    // get the specific organization
-    {
-      $match: { _id: mongoose.Types.ObjectId(organizationID) },
-    },
-    // get all the reviews that organization has
-    {
-      $lookup: {
-        from: "reviews",
-        localField: "_id",
-        foreignField: "organization",
-        as: "reviews",
-      },
-    },
-    {
-      $addFields: {
-        // store the total number of reviews
-        totalReviews: {
-          $size: "$reviews",
+module.exports.basicReview = organizationID => Organization.aggregate([
+  // get the specific organization
+  {
+    $match: { _id: mongoose.Types.ObjectId(organizationID) },
+  },
+  // get all the reviews that organization has
+  {
+    $lookup: {
+      from: "reviews",
+      let: { organization: "$_id" },
+      pipeline: [
+        {
+          $match:
+           {
+             $expr:
+              {
+                $and:
+                 [
+                   { $eq: ["$organization", "$$organization"] },
+                 ],
+              },
+           },
         },
-        // work out the organization's average rating
-        avgRatings: {
-          $avg: "$reviews.rate",
+        {
+          $lookup: {
+            from: "users",
+            let: { user: "$user" },
+            pipeline: [
+              {
+                $match:
+                 {
+                   $expr:
+                    {
+                      $and:
+                       [
+                         { $eq: ["$_id", "$$user"] },
+                       ],
+                    },
+                 },
+              },
+            ],
+            as: "user",
+          },
         },
+        {
+          $match: {
+            "user.verified": true,
+          },
+        },
+        {
+          $addFields: {
+            user: { $arrayElemAt: ["$user", 0] },
+          },
+        },
+      ],
+      as: "reviews",
+    },
+  },
+  {
+    $addFields: {
+      // store the total number of reviews
+      totalReviews: {
+        $size: "$reviews",
+      },
+      // work out the organization's average rating
+      avgRatings: {
+        $avg: "$reviews.rate",
       },
     },
-    {
-      $project: {
-        lastViewed: 0,
-        websiteURL: 0,
-        phoneNumber: 0,
-        email: 0,
-      },
+  },
+  {
+    $project: {
+      lastViewed: 0,
+      websiteURL: 0,
+      phoneNumber: 0,
+      email: 0,
     },
-  ])
-    .then((result) => {
-      resolve(result);
-    })
-    .catch(err => reject(err));
-});
+  },
+]);
+
 
 module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
   Answer.aggregate([
@@ -532,3 +573,15 @@ module.exports.getOneReviewWithOrgAndUser = reviewId => Review
   .findById(reviewId)
   .populate({ path: "user", select: "email" })
   .populate({ path: "organization", select: "category name" });
+
+module.exports.getOrgsReviewedLast30D = userId => Review.find(
+  {
+    $and: [
+      // created at within 30 Days
+      { createdAt: { $gte: Date.now() - 1000 * 60 * 60 * 24 * 30 } },
+      {
+        user: mongoose.Types.ObjectId(userId),
+      },
+    ],
+  }, { _id: 0, organization: 1 },
+);
