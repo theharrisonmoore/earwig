@@ -25,7 +25,8 @@ import {
   ActionButton,
   ContractorDiv,
   ContractorText,
-  ContractorListLink
+  ContractorListLink,
+  NoReview
 } from "./Profile.style";
 
 import { organizations, colors } from "./../../../theme";
@@ -83,18 +84,18 @@ export default class HeaderSection extends Component {
               <StarWrapper onClick={handleScroll}>
                 <Rate
                   disabled
-                  value={summary.avgRatings || summary.value}
+                  value={summary.avgRatings || summary.value || 0}
                   style={{
                     color: `${organizations[summary.category].primary}`,
                     fontSize: "0.75rem"
                   }}
                   className="last-reviewed-star-rate"
                 />
-                <Reviews>
-                  {totalReviews === 0
-                    ? "No reviews yet"
-                    : `${totalReviews} reviews`}
-                </Reviews>
+                {totalReviews === 0 ? (
+                  <NoReview>No reviews yet</NoReview>
+                ) : (
+                  <Reviews category={category}>{totalReviews} reviews</Reviews>
+                )}
               </StarWrapper>
             </CompanyNameAndStars>
           </CompanyDiv>

@@ -87,8 +87,20 @@ export const authorization = ({
 
 export const handleLogout = (history, handleChangeState) => {
   axios.get(API_LOGOUT_URL).then(() => {
-    // window.location = LOGIN_URL;
-    handleChangeState({ isLoggedIn: false });
+    handleChangeState({
+      isLoggedIn: false,
+      id: "",
+      trade: "",
+      verified: false,
+      awaitingReview: false,
+      userId: "",
+      points: 0,
+      helpedUsers: 0,
+      isAdmin: false,
+      isMounted: false,
+      email: "",
+      city: ""
+    });
     history.push(LOGIN_URL);
   });
 };

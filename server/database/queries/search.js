@@ -10,8 +10,26 @@ module.exports = () => Organization.aggregate([
   {
     $lookup: {
       from: "reviews",
-      localField: "_id",
-      foreignField: "organization",
+      let: { org_id: "$_id" },
+      pipeline: [
+        {
+          $match:
+            { $expr: { $eq: ["$organization", "$$org_id"] } },
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "user",
+            foreignField: "_id",
+            as: "userObject",
+          },
+        },
+        {
+          $match: {
+            "userObject.verified": true,
+          },
+        },
+      ],
       as: "reviews",
     },
   },
