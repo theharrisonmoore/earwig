@@ -30,7 +30,7 @@
     "test": "NODE_ENV=test npm run test:coverage && npm run test:client:coverage",
     "heroku-postbuild": "npm run client:init && npm run client:build",
     "build:data": "node server/database/dummyData/index.js",
-    "build:data2": "NODE_ENV=prod node server/database/dummyData/index.js"
+    "build:data2": "NODE_ENV=production node server/database/dummyData/index.js"
   },
   "devDependencies": {
     "codecov": "^3.2.0",
