@@ -262,7 +262,7 @@ class Review extends Component {
     });
   };
 
-  handleAddNewOrdChange = (value, number) => {
+  handleAddNewOrgChange = (value, number) => {
     const { answers } = this.state;
     const answer = JSON.parse(value);
     this.setState({ answers: { ...answers, [number]: answer } });
@@ -546,7 +546,7 @@ class Review extends Component {
                               state={this.state}
                               handleSliderChange={this.handleSliderChange}
                               handleReviewChange={this.handleReviewChange}
-                              handleAddNewOrdChange={this.handleAddNewOrdChange}
+                              handleAddNewOrgChange={this.handleAddNewOrgChange}
                             />
                           );
                         })}

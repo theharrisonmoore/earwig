@@ -16,7 +16,6 @@ class DropDown extends Component {
     confirmLoading: false,
     newOrgSuccess: false,
     newOrgError: "",
-    organizations: [],
     disableSelect: false
   };
 
@@ -35,6 +34,18 @@ class DropDown extends Component {
   //   return true;
   // }
 
+  addedOrgCategory = category => {
+    switch (category) {
+      case "agency":
+        return "payroll";
+      case "payroll":
+        return "agency";
+      case "worksite":
+      default:
+        return category;
+    }
+  };
+
   showModal = e => {
     const { searchTerm } = e.target.dataset;
     this.setState({
@@ -46,17 +57,7 @@ class DropDown extends Component {
   handleOk = async () => {
     const { dropdownOptions } = this.state;
 
-    const { number, category, handleAddNewOrdChange } = this.props;
-    let orgCategory = "";
-    if (category === "agency") {
-      orgCategory = "payroll";
-    } else if (category === "payroll") {
-      orgCategory = "agency";
-    } else if (category === "worksite") {
-      orgCategory = "main contractor";
-    } else {
-      orgCategory = category;
-    }
+    const { number, category, handleAddNewOrgChange } = this.props;
 
     if (this.state.newOrg && this.state.newOrg.length >= 3) {
       this.setState(
@@ -68,7 +69,7 @@ class DropDown extends Component {
             const res = await axios.post("/api/organizations", {
               name: this.state.newOrg,
               active: false,
-              category: orgCategory
+              category: this.addedOrgCategory(category)
             });
             const { data } = res;
             const addedOrg = {
@@ -82,7 +83,7 @@ class DropDown extends Component {
               dropdownOptions: [...dropdownOptions, addedOrg]
             });
 
-            handleAddNewOrdChange(JSON.stringify(addedOrg), number);
+            handleAddNewOrgChange(JSON.stringify(addedOrg), number);
 
             this.setState(
               {
@@ -124,7 +125,7 @@ class DropDown extends Component {
     }
   };
 
-  addNewTradeHandler = e => {
+  addNewOrgHandler = e => {
     const { name, value } = e.target;
     const { dropdownOptions } = this.state;
     this.setState({
@@ -137,7 +138,7 @@ class DropDown extends Component {
     this.setState({
       ismodalVisible: false,
       newOrgSuccess: false,
-      newTradeError: "",
+      newOrgError: "",
       newOrg: ""
     });
   };
@@ -168,7 +169,7 @@ class DropDown extends Component {
   };
 
   render() {
-    const { number, handleAddNewOrdChange, category } = this.props;
+    const { number, handleAddNewOrgChange, category } = this.props;
     const {
       ismodalVisible,
       confirmLoading,
@@ -187,7 +188,7 @@ class DropDown extends Component {
             options={dropdownOptions}
             handleChange={value => {
               this.setState({ newOrg: value });
-              handleAddNewOrdChange(value, number);
+              handleAddNewOrgChange(value, number);
             }}
             value={newOrg}
             // disabled={this.state.disableSelect}
@@ -202,10 +203,10 @@ class DropDown extends Component {
               confirmLoading={confirmLoading}
               onCancel={this.handleCancel}
             >
-              {this.state.newTradeError && (
+              {this.state.newOrgError && (
                 <>
                   <Alert
-                    message={this.state.newTradeError}
+                    message={this.state.newOrgError}
                     type="error"
                     showIcon
                   />
@@ -215,7 +216,9 @@ class DropDown extends Component {
               {this.state.newOrgSuccess && (
                 <>
                   <Alert
-                    message="Trade added successfully"
+                    message={`A new ${this.addOrgType(
+                      category
+                    )} added successfully`}
                     type="success"
                     showIcon
                   />
@@ -227,7 +230,7 @@ class DropDown extends Component {
                 placeholder={`Add a new ${this.addOrgType(category)}`}
                 allowClear
                 name="newOrg"
-                onChange={this.addNewTradeHandler}
+                onChange={this.addNewOrgHandler}
                 value={newOrg}
               />
             </Modal>
