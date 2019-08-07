@@ -438,13 +438,13 @@ export default class Profile extends Component {
                 )
             )}
 
-            {/* MONTHLY REVIEWS */}
+            {/* MONTHLY REVIEWS
             {level > 0 && (
               <MonthlyReviews
                 category={category}
                 reviewsByMonth={this.reviewsByMonth()}
               />
-            )}
+            )} */}
           </ReviewDiv>
           {/* OVERALL RATINGS SECTION */}
           {/* HIDDEN DIV TO SCROLL SECTION INTO VIEW */}
