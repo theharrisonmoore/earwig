@@ -170,11 +170,17 @@ export const cookieStyles = {
     background: `${colors.dodgerBlue}`,
     color: `${colors.white}`,
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    alignItems: "center",
     fontSize: "16px",
     fontWeight: "500",
     fontFamily: "Roboto",
-    maxHeight: 155
+    maxHeight: 155,
+    paddingRight: "10rem",
+    textAlign: "left"
+  },
+  contentStyle: {
+    border: "1px red solid"
   },
   button: {
     background: `${colors.white}`,
@@ -182,10 +188,20 @@ export const cookieStyles = {
     fontSize: "16px",
     borderRadius: 4,
     border: `1px ${colors.white}`,
-    marginTop: -8
+    marginTop: "15px"
+    // marginTop: -8
+  },
+  buttonMobile: {
+    background: `${colors.white}`,
+    color: `${colors.black}`,
+    fontSize: "16px",
+    borderRadius: 4,
+    border: `1px ${colors.white}`,
+    marginTop: 0
   },
   link: {
-    textDecoration: "none"
+    textDecoration: "none",
+    cursor: "pointer"
   }
 };
 //  font families to be added
