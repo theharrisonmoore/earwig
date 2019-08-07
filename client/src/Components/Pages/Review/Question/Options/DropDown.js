@@ -41,6 +41,7 @@ class DropDown extends Component {
       case "payroll":
         return "agency";
       case "worksite":
+        return "company";
       default:
         return category;
     }
