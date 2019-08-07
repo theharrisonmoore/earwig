@@ -12,16 +12,12 @@ import AutosuggestComponent from "./AutoSuggest";
 // styles
 import {
   HeadlineDiv,
-  RowDiv,
-  ItemDiv,
-  SearchLegendDiv,
   SymbolDiv,
   OrganisationDetailsDiv,
   ReviewDetailsDiv,
   InnerDivLastReviews,
   ArrowDiv,
   SearchWrapper,
-  LegendTitle,
   ReviewsFrame,
   ProfileLink,
   ReviewsContainer,

@@ -72,7 +72,7 @@ export default class AddProfileSelection extends Component {
   };
 
   render() {
-    const { name, referrerUrl } = this.props.location.state;
+    const { name } = this.props.location.state;
     const { isLoading } = this.state;
 
     const categories = ["agency", "payroll", "worksite", "company"];
