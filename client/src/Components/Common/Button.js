@@ -31,6 +31,10 @@ const ButtonElement = styled.button`
     outline: none;
   }
 
+  &:hover {
+    opacity: 0.9;
+  }
+
   ${({ danger }) =>
     danger &&
     `
