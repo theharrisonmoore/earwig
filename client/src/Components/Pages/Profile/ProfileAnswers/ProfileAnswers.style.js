@@ -173,6 +173,7 @@ export const CommentsTitle = styled.h2`
   color: ${colors.profileFontColor};
   margin-bottom: 0;
   font-weight: 900;
+  width: 90%;
 `;
 
 export const IndividComment = styled.div`

@@ -6,6 +6,8 @@ import axios from "axios";
 
 import Loading from "./../../../Common/AntdComponents/Loading";
 
+import Icon from "./../../../Common/Icon/Icon";
+
 import {
   Wrapper,
   CommentsDiv,
@@ -149,7 +151,14 @@ export default class CommentsBox extends Component {
             <>
               <CommentsHeader>
                 <CommentsTitle>{question.profileText}</CommentsTitle>
-                <Close src={CloseIcon} alt="close" onClick={toggleComments} />
+                <Icon
+                  icon="close"
+                  onClick={toggleComments}
+                  width="30px"
+                  height="30px"
+                  cursor="pointer"
+                />
+                {/* <Close src={CloseIcon} alt="close" onClick={toggleComments} /> */}
               </CommentsHeader>
 
               {comments &&
