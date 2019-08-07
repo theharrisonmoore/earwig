@@ -12,6 +12,7 @@ const addNewOrg = async (req, res, next) => {
   }
   try {
     const foundOrg = await getOrganizationByName(name);
+    console.log("foundOrg", foundOrg);
     if (foundOrg.length > 0) {
       next(boom.conflict("organisation already exists"));
     } else {
