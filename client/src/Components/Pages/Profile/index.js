@@ -4,7 +4,7 @@ import moment from "moment";
 import { message, Skeleton } from "antd";
 
 import ReviewSection from "./ReviewSection";
-import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
+// import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
 import CommentsBox from "./ProfileAnswers/CommentsBox";
 import HeaderSection from "./HeaderSection";
 import OverallReview from "./OverallReview";
