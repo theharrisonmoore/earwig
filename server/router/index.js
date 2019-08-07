@@ -5,7 +5,6 @@ const {
   getOrgsByType,
   getAgencesAndPayrollsNames,
   postReviewShort,
-  addNewOrg,
   updateReview,
 } = require("../controllers/review");
 
@@ -64,6 +63,7 @@ const getCurrentOrgs = require("../controllers/getCurrentOrgs");
 const uploadVoiceRecording = require("../controllers/uploadVoiceRecording");
 const voiceReview = require("../controllers/getVoiceReview");
 const getUserVotesOnProfile = require("./../controllers/getUserVotesOnProfile");
+const getOrgsReviewedLast30D = require("./../controllers/getOrgsReviewedLast30D");
 
 const {
   LOGIN_URL,
@@ -91,7 +91,10 @@ const {
   UPLOAD_AUDIO,
   GET_AUDIO_URL,
   GET_USER_VOTES_ON_PROFILE,
+  GET_LAST_30D_ORGANISATIONS_IDS,
 } = require("../../client/src/apiUrls");
+
+router.get(GET_LAST_30D_ORGANISATIONS_IDS, authentication, getOrgsReviewedLast30D);
 
 router.get(SEARCH_URL, searchController);
 
@@ -112,7 +115,7 @@ router.post("/short-review", authentication, authorization("LEVEL3"), postReview
 
 // Add new payroll and agency
 router.get("/organizations", authentication, authorization("LEVEL3"), getOrgsByType);
-router.post("/organizations", authentication, authorization("LEVEL3"), addNewOrg);
+router.post("/organizations", authentication, authorization("LEVEL2"), addOrganizationController);
 router.get("/agency-payroll", authentication, authorization("LEVEL3"), getAgencesAndPayrollsNames);
 
 // require all the routes in this file
@@ -158,7 +161,7 @@ router.post(
   uploadVoiceRecording,
 );
 
-router.post(GET_AUDIO_URL, authentication, voiceReview);
+router.post(GET_AUDIO_URL, softAuthCheck, voiceReview);
 
 // get all trades
 router.get(TRADE_URL, getTradesController);
@@ -231,7 +234,7 @@ router.post(
 router.post(
   ADD_COMMENT_ON_REVIEW_URL,
   authentication,
-  authorization("LEVEL3"),
+  authorization("LEVEL2"),
   validation("addCommentOnReview"),
   addCommentOnReview,
 );
@@ -240,8 +243,7 @@ router.post(
 // /reviews/${target}/replies/${id}
 router.get(
   "/reviews/:target/replies/:id",
-  authentication,
-  authorization("LEVEL1"),
+  softAuthCheck,
   getOverallReviewReplies,
 );
 

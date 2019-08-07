@@ -10,6 +10,7 @@ import StarRatingComponent from "react-star-rating-component";
 import moment from "moment";
 import Swal from "sweetalert2";
 import { message, Select, Input, Modal, InputNumber } from "antd";
+import { Link } from "react-router-dom";
 
 import Loading from "./../../../Common/AntdComponents/Loading";
 import VoiceReview from "../../Profile/ProfileAnswers/VoiceReview";
@@ -332,12 +333,14 @@ export default class SingleReview extends Component {
                                     options,
                                     number,
                                     category,
-                                    label
+                                    label,
+                                    profileText,
+                                    text
                                   } = question;
-
                                   if (type === "yesno" || type === "radio") {
                                     return (
                                       <QuestionOptionsWrapper>
+                                        <QText>{text}</QText>
                                         <Options options={options.length}>
                                           <div
                                             className={`choices choices-${options.length}`}
@@ -382,7 +385,7 @@ export default class SingleReview extends Component {
                                   if (type === "open") {
                                     return (
                                       <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
                                           <Field name={`questions[${number}]`}>
@@ -405,7 +408,7 @@ export default class SingleReview extends Component {
                                   if (type === "number") {
                                     return (
                                       <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
                                           <Field
@@ -435,15 +438,29 @@ export default class SingleReview extends Component {
                                   if (type === "dropdown") {
                                     return (
                                       <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
                                           <Field name={`questions[${number}]`}>
                                             {() => {
+                                              if (
+                                                answer &&
+                                                answer.name &&
+                                                profileText ===
+                                                  "Main contractor"
+                                              ) {
+                                                return (
+                                                  <Link
+                                                    to={`/profile/${answer._id}`}
+                                                  >
+                                                    {answer.name}
+                                                  </Link>
+                                                );
+                                              }
                                               return (
                                                 <>
                                                   <Select
-                                                    value={answer}
+                                                    value={answer.name}
                                                     disabled
                                                     style={{
                                                       border: `1px solid ${colors.dustyGray1}`
@@ -462,7 +479,7 @@ export default class SingleReview extends Component {
                                   if (type === "overallReview") {
                                     return (
                                       <QuestionOptionsWrapper>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
                                           <Field name={`review.overallReview`}>
@@ -486,7 +503,7 @@ export default class SingleReview extends Component {
                                   if (type === "checklist") {
                                     return (
                                       <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
                                           <FieldArray
@@ -527,7 +544,7 @@ export default class SingleReview extends Component {
                                     this.fetchImage(answer);
                                     return (
                                       <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         {this.state.images[answer] ? (
                                           <div style={{ position: "relative" }}>

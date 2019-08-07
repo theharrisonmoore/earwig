@@ -57,6 +57,16 @@ export default class ListAnswer extends Component {
           </ListComment>
         </ListWrapper>
       );
+    } else if (question.profileText === "Recommended nearby shops and cafés") {
+      return (
+        <ListWrapper style={{ paddingLeft: "2rem" }}>
+          {question.answers.map((answer, index) => (
+            <ListItem color={question.category} key={index}>
+              - {answer.answer}
+            </ListItem>
+          ))}
+        </ListWrapper>
+      );
     } else {
       return (
         <ListWrapper>
@@ -69,7 +79,10 @@ export default class ListAnswer extends Component {
               }
               key={index}
             >
-              <Link to={`/profile/${answer.answer._id}`}>
+              <Link
+                to={`/profile/${answer.answer._id}`}
+                style={{ color: "inherit" }}
+              >
                 {answer.answer.name}
               </Link>
             </ListItem>

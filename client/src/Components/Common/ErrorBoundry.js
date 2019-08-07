@@ -9,25 +9,30 @@ class ErrorBoundary extends Component {
 
   componentDidCatch(error, errorInfo) {
     this.setState({ error });
-    Sentry.withScope(scope => {
-      scope.setExtras(errorInfo);
-      const eventId = Sentry.captureException(error);
-      this.setState({ eventId });
-    });
+    if (process.env.NODE_ENV === "production") {
+      Sentry.withScope(scope => {
+        scope.setExtras(errorInfo);
+        const eventId = Sentry.captureException(error);
+        this.setState({ eventId });
+      });
+    }
   }
+
+  showSentryDialogFrom = () => {
+    if (process.env.NODE_ENV === "production") {
+      Sentry.showReportDialog({ eventId: this.state.eventId });
+    }
+  };
 
   render() {
     if (this.state.error) {
       //render fallback UI
       return (
-        <a
-          href="##"
-          onClick={() =>
-            Sentry.showReportDialog({ eventId: this.state.eventId })
-          }
-        >
-          Report feedback
-        </a>
+        <div>
+          <h1>Ooops Error...</h1>
+          <p>Help us imprving this by submiting a report</p>
+          <button onClick={this.showSentryDialogFrom}>Report feedback</button>
+        </div>
       );
     }
 

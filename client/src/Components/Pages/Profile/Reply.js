@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Mention, Input, message } from "antd";
+import { Mention, Input, message, Alert } from "antd";
 import * as yup from "yup";
 import axios from "axios";
 
@@ -173,9 +173,11 @@ export default class Reply extends Component {
   };
 
   render() {
-    if (!this.props.location || !this.props.location.state) {
-      return this.props.history.goBack();
+    const { verified, history, location, id } = this.props;
+    if (!location || !location.state) {
+      return history.goBack();
     }
+
     const { replies, loaded, submitting, focus } = this.state;
     const { isAdmin } = this.props;
     const { category } = this.props.location.state;
@@ -206,13 +208,26 @@ export default class Reply extends Component {
             {replies &&
               replies.map(reply => (
                 <IndividComment key={reply.replies._id}>
+                  {!verified && reply.replies.user._id === id && (
+                    <Alert
+                      message="Your replies are visible only for you untill you get
+                    verified"
+                      type="warning"
+                      style={{
+                        display: "inline-block",
+                        marginBottom: "0.5rem"
+                      }}
+                      banner
+                    />
+                  )}
                   <UserDiv>
                     <UserID>
                       {" "}
                       {reply.replies.displayName || reply.replies.user.userId}
                     </UserID>
                     <UserTrade>
-                      {reply.replies.user.trade[0] &&
+                      {reply.replies.user.trade &&
+                        reply.replies.user.trade[0] &&
                         reply.replies.user.trade[0].title}
                     </UserTrade>
                   </UserDiv>
@@ -291,6 +306,7 @@ export default class Reply extends Component {
               <Button
                 style={{ maxWidth: "30rem", margin: "0 auto" }}
                 category={category}
+                backgroundColor={organizations[category].primary}
                 loading={submitting}
                 onClick={this.handleSubmit}
               >

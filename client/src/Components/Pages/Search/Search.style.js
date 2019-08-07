@@ -270,6 +270,9 @@ export const ProfileLink = styled(Link)`
 
 export const AddProfileLink = styled(Link)`
   width: 100%;
+  background: none;
+  border: none;
+
   :hover {
     text-decoration: none;
   }

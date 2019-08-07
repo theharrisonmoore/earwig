@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Tag, Button, Icon } from "antd";
+import { Tag, Button, Icon, Popover } from "antd";
 import Highlighter from "react-highlight-words";
 
 export default ({
@@ -9,7 +9,7 @@ export default ({
   getColumnSearchProps,
   searchText
 }) => {
-  return [
+  const tableColumns = [
     {
       title: "User Id",
       dataIndex: "userId",
@@ -68,6 +68,7 @@ export default ({
       ),
       ...getColumnSearchProps("trade")
     },
+
     {
       title: "Status",
       dataIndex: "status",
@@ -81,6 +82,62 @@ export default ({
             : "gold";
         return <Tag color={color}>{text.toUpperCase()}</Tag>;
       }
+    },
+    {
+      title: "Works For",
+      dataIndex: "worksFor",
+      key: "worksFor",
+      render: text => (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text.toString()}
+        />
+      ),
+      ...getColumnSearchProps("worksFor")
+    },
+    {
+      title: "Current Org",
+      dataIndex: "currentOrg",
+      key: "currentOrg",
+      render: text => {
+        if (text !== "N/A") {
+          return (
+            <Popover
+              placement="topLeft"
+              content={
+                <div>
+                  <p>Current agency: {text.agency.name}</p>
+                  <p>Current company: {text.company.name}</p>
+                  <p>Current worksite: {text.worksite.name}</p>
+                  <p>Current payroll: {text.payroll.name}</p>
+                </div>
+              }
+            >
+              <div
+                style={{
+                  color: "#1890ff",
+                  cursor: "pointer",
+                  textDecoration: "underline"
+                }}
+              >
+                Current Orgs.
+              </div>
+            </Popover>
+          );
+        } else {
+          return (
+            <Highlighter
+              highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+              searchWords={[searchText]}
+              autoEscape
+              textToHighlight={text.toString()}
+            />
+          );
+        }
+      },
+      ...getColumnSearchProps("currentOrg")
     },
     {
       title: "Action",
@@ -120,4 +177,6 @@ export default ({
       }
     }
   ];
+
+  return tableColumns;
 };
