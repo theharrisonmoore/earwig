@@ -326,7 +326,7 @@ export default class Profile extends Component {
               </AccountPromo>
             </ReviewDiv>
           )}
-          {reviewDetails.length < 1 && (
+          {/* {reviewDetails.length < 1 && (
             <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
               <ReviewSection
                 category={category}
@@ -335,7 +335,7 @@ export default class Profile extends Component {
                 loaded={loaded}
               />
             </ReviewDiv>
-          )}
+          )} */}
           <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
             {/* KEY RATINGS SECTION */}
             {reviewDetails.map(
@@ -382,7 +382,7 @@ export default class Profile extends Component {
                 )
             )}
 
-            {reviewDetails.map(
+            {level > 0 && reviewDetails.map(
               (section, index) =>
                 section._id === "Working on the site" && (
                   <ReviewSection
