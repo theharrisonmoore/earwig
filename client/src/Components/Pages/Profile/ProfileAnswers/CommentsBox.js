@@ -12,7 +12,6 @@ import {
   Wrapper,
   CommentsDiv,
   CommentsHeader,
-  Close,
   CommentsTitle,
   IndividComment,
   UserID,
@@ -25,8 +24,6 @@ import { organizations } from "./../../../../theme";
 import { StyledAntIcon, StyledReplyIcon } from "./../Profile.style";
 
 import { REPORT_CONTENT_URL } from "./../../../../constants/naviagationUrls";
-
-import CloseIcon from "./../../../../assets/close-icon.svg";
 
 import { isMobileDevice, highlightMentions } from "./../../../../helpers";
 import { API_ADD_COMMENT_ON_QUESTION_URL } from "./../../../../apiUrls";
