@@ -42,7 +42,7 @@ export const axiosCall = async () => {
   return response;
 };
 
-export default class index extends Component {
+export default class OrgCheck extends Component {
   state = {
     fields: {
       agency: "None",
@@ -59,6 +59,7 @@ export default class index extends Component {
   };
 
   componentDidMount() {
+    const { state } = this.props.history.location;
     axiosCall()
       .then(organizations => {
         this.setState({
@@ -88,6 +89,15 @@ export default class index extends Component {
             section: "confirm",
             updating: false
           });
+
+          if (state) {
+            const { section = "agnecy" } = state;
+            if (section) {
+              this.setState({
+                section
+              });
+            }
+          }
         })
         .catch(err => console.log(err));
     }
@@ -254,6 +264,7 @@ export default class index extends Component {
                 isButton
                 storeOrg={this.storeOrg}
                 noIcon={false}
+                section={section}
               />
               <StatusButton type="button" onClick={() => this.storeOrg("None")}>
                 {section === "agency"

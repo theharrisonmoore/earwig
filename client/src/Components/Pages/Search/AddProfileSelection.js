@@ -40,6 +40,8 @@ export default class AddProfileSelection extends Component {
   };
 
   addOrganisation = (e, orgName, orgCategory) => {
+    const { referrerUrl, section } = this.props.location.state;
+
     e.preventDefault();
     const newOrg = { name: orgName, category: orgCategory };
     this.setState({ isLoading: true });
@@ -47,9 +49,16 @@ export default class AddProfileSelection extends Component {
       .post(API_ADD_ORGANIZATION_URL, newOrg)
       .then(res => {
         this.setState({ isLoading: false });
-        this.props.history.push(ADD_PROFILE_START_REVIEW_URL, {
-          newOrg: res.data
-        });
+        if (referrerUrl === "/update") {
+          this.props.history.push(referrerUrl, {
+            newOrg: res.data,
+            section
+          });
+        } else {
+          this.props.history.push(ADD_PROFILE_START_REVIEW_URL, {
+            newOrg: res.data
+          });
+        }
       })
       .catch(err => {
         this.setState({ isLoading: false });
@@ -63,7 +72,7 @@ export default class AddProfileSelection extends Component {
   };
 
   render() {
-    const { name } = this.props.location.state;
+    const { name, referrerUrl } = this.props.location.state;
     const { isLoading } = this.state;
 
     const categories = ["agency", "payroll", "worksite", "company"];

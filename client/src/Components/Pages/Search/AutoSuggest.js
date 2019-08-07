@@ -82,6 +82,9 @@ class AutosuggestComponent extends Component {
   componentDidMount() {
     const { target } = this.props.match.params;
     const { isButton } = this.props;
+    // if (name) {
+    //   this.setState({ value: name });
+    // }
     this.setState({ isButton, target: target || "profile" });
   }
 
@@ -135,7 +138,9 @@ class AutosuggestComponent extends Component {
   delSearchInput = () => {
     const { handleCancelIconClick } = this.props;
     this.setState({ value: "" });
-    handleCancelIconClick();
+    if (handleCancelIconClick) {
+      handleCancelIconClick();
+    }
   };
 
   // renders individual suggestions
@@ -227,7 +232,11 @@ class AutosuggestComponent extends Component {
           <AddProfileLink
             to={{
               pathname: `${ADD_PROFILE_URL}`,
-              state: { name: `${query}` }
+              state: {
+                name: `${query}`,
+                referrerUrl: this.props.location.pathname,
+                section: this.props.section
+              }
             }}
           >
             <AddItemBox>
