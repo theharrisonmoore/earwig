@@ -82,7 +82,8 @@ export default class Search extends Component {
   };
 
   componentDidMount() {
-    const { target } = this.props.match.params;
+    const { isLoggedIn, match } = this.props;
+    const { target } = match.params;
 
     axiosCall().then(organizations => {
       this.setState({
@@ -91,7 +92,7 @@ export default class Search extends Component {
         target: target || "profile"
       });
 
-      if (target === "review") {
+      if (target === "review" && isLoggedIn) {
         axios
           .get(API_GET_LAST_30D_ORGANISATIONS_IDS)
           .then(({ data }) => {
