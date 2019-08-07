@@ -48,7 +48,7 @@ class CustomizedSelects extends React.Component {
       <>
         {label && <Label onClick={this.handleOpen}>{label}</Label>}
         <Select
-          placeholder={disabled ? options[0] && options[0].label : placeholder}
+          placeholder={disabled ? options[0] && options[0].name : placeholder}
           onSelect={handleChange}
           open={this.state.open}
           onDropdownVisibleChange={this.handleOpen}
@@ -58,7 +58,7 @@ class CustomizedSelects extends React.Component {
           style={{
             width: "100%"
           }}
-          value={value || undefined}
+          value={value || searchTerm || undefined}
           filterOption={this.filterOption}
           size="large"
           dropdownRender={menu =>
@@ -69,8 +69,6 @@ class CustomizedSelects extends React.Component {
                   return false;
                 }}
               >
-                {menu}
-                <Divider style={{ margin: "4px 0" }} />
                 <div
                   style={{ padding: "8px", cursor: "pointer" }}
                   onClick={addHandler}
@@ -78,6 +76,8 @@ class CustomizedSelects extends React.Component {
                 >
                   <Icon type="plus" /> Add item: {searchTerm}
                 </div>
+                <Divider style={{ margin: "4px 0" }} />
+                {menu}
               </div>
             ) : (
               menu
@@ -87,8 +87,8 @@ class CustomizedSelects extends React.Component {
         >
           {options &&
             options.map(item => (
-              <Option value={item.value} key={item.value}>
-                {item.label}
+              <Option value={item.value || JSON.stringify(item)} key={item._id}>
+                {item.label || item.name}
               </Option>
             ))}
         </Select>
