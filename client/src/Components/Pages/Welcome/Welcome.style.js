@@ -44,12 +44,14 @@ export const PurpleDiv = styled.div`
 export const ContentWrapper = styled.div`
   width: 100%;
   /* max-width: 25rem; */
-  padding: 1rem 1.5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  max-width: 30rem;
+  margin: 0 auto;
 
   & .paragraph {
     display: block;
@@ -59,7 +61,7 @@ export const ContentWrapper = styled.div`
 
   @media ${breakpoints.tablet} {
     width: 50%;
-    padding: 1rem 7rem;
+    padding: 1rem 3rem;
     align-items: flex-start;
   }
 `;
