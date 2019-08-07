@@ -533,7 +533,7 @@ export default class Signup extends Component {
                                 isCreateNew
                                 showSearch
                                 addHandler={this.showModal}
-                                onBlur={this.showModal}
+                                // onBlur={this.showModal}
                               />
                             </>
                           )}
