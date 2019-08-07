@@ -4,9 +4,8 @@ import { Button, Icon as AntIcon } from "antd";
 
 import Icon from "./../Icon/Icon";
 import { ADMIN } from "./../../../constants/naviagationUrls";
-import { Wrapper, ToggleMenu, SideDiv, WrapperH2, MenuWrapper } from "./Navbar.style";
+import { Wrapper, ToggleMenu, SideDiv, WrapperH2 } from "./Navbar.style";
 import Menu from "./Menu.js";
-import CloseIcon from "./../../../assets/close-icon.svg";
 
 export default class Navbar extends Component {
   state = {

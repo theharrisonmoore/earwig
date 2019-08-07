@@ -241,6 +241,7 @@ export default class HeaderSection extends Component {
                 color={organizations[category].primary}
                 isMobile={isMobile}
                 style={{ margin: "0 1rem" }}
+                disabled
               >
                 {!isMobile && (
                   <Icon

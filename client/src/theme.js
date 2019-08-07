@@ -63,6 +63,7 @@ const colorCodes = {
 
   // transparent
   ghostWhite: "rgba(255, 255, 255, 0.7)",
+  btnClick: "rgba(255, 255, 255, 0.3)",
   ghostGray: "rgba(28, 15, 19, 0.0514915)"
 };
 
