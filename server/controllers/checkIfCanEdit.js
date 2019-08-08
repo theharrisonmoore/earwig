@@ -15,8 +15,9 @@ module.exports = async (req, res, next) => {
 
     const before1Month = moment().subtract(30, "days");
     const createdLTMonthAgo = moment(review.createdAt).isSameOrAfter(before1Month);
-    const hasVotes = !!review.overallReview.votes.length;
-    const hasVoiceVotes = !!review.voiceReview.votes.length;
+    const hasVotes = !!review.overallReview.replies.length;
+    const hasVoiceVotes = !!review.voiceReview.replies.length;
+
 
     if (!hasVotes && !hasVoiceVotes && createdLTMonthAgo
        && review.user.toString() === req.user._id.toString()) {
@@ -24,6 +25,7 @@ module.exports = async (req, res, next) => {
     }
     return next(boom.unauthorized());
   } catch (error) {
+    console.log("err", error);
     return next(boom.badImplementation());
   }
 };

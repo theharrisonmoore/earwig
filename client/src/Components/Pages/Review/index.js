@@ -149,6 +149,9 @@ class Review extends Component {
               const error =
                 err.response && err.response.data && err.response.data.error;
               message.error(error || "Something went wrong");
+              setTimeout(() => {
+                this.props.history.push("/search");
+              }, 2000);
             });
         })
         .catch(err => {
