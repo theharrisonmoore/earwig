@@ -78,7 +78,14 @@ import {
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
-  const { handleChangeState, isMobile, isTablet, isLoggedIn, isAdmin } = props;
+  const {
+    handleChangeState,
+    isMobile,
+    isTablet,
+    isLoggedIn,
+    isAdmin,
+    setCurrentUserOrgs
+  } = props;
 
   return (
     <>
@@ -387,6 +394,7 @@ export default function index(props) {
           isTablet={isTablet}
           type="sign-up"
           Component={OrgCheck}
+          setCurrentUserOrgs={setCurrentUserOrgs}
         />
 
         <PrivateRoute
@@ -398,6 +406,7 @@ export default function index(props) {
           type="sign-up"
           Component={OrgCheck}
           loggingIn
+          setCurrentUserOrgs={setCurrentUserOrgs}
         />
 
         <Route

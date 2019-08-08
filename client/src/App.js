@@ -33,7 +33,13 @@ export const initialState = {
   isAdmin: false,
   isMounted: false,
   email: "",
-  city: ""
+  city: "",
+  fields: {
+    agency: "None",
+    payroll: "None",
+    worksite: "None",
+    company: "None"
+  }
 };
 
 class App extends Component {
@@ -55,6 +61,7 @@ class App extends Component {
     axios
       .get(API_USERS)
       .then(res => {
+        console.log("resssss", res);
         this.setState({ ...res.data, isLoggedIn: true, isMounted: true });
         this.updateWindowDimensions();
       })
@@ -83,6 +90,15 @@ class App extends Component {
     this.setState({ ...data, isMounted: true });
   };
 
+  setCurrentUserOrgs = (value, section) => {
+    console.log("val", value, "section", section);
+    this.setState((state, props) => {
+      return {
+        fields: { ...state.fields, [section]: value }
+      };
+    });
+  };
+
   render() {
     const { isLoggedIn, isMobile, isTablet } = this.state;
     return (
@@ -107,6 +123,7 @@ class App extends Component {
             </CookieConsent>
             <Routes
               handleChangeState={this.handleChangeState}
+              setCurrentUserOrgs={this.setCurrentUserOrgs}
               isMobile={isMobile}
               isTablet={isTablet}
               isLoggedIn={isLoggedIn}

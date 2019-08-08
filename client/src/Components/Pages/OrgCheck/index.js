@@ -60,8 +60,12 @@ export default class OrgCheck extends Component {
 
   componentDidMount() {
     const { state } = this.props.history.location;
+    // console.log("didmountState", state.newOrg);
+
+    // if (!state) {
     axiosCall()
       .then(organizations => {
+        console.log("data", organizations.data);
         this.setState({
           data: organizations.data,
           isLoaded: true
@@ -71,6 +75,8 @@ export default class OrgCheck extends Component {
         this.setState({ isLoaded: true });
         console.log(err);
       });
+    // }
+    // this.setState({ isLoaded: true });
 
     // check is logging in on signing up
     const { loggingIn } = this.props;
@@ -79,8 +85,8 @@ export default class OrgCheck extends Component {
       axios
         .get(API_GET_USER_ORGS)
         .then(({ data }) => {
+          console.log("data", data);
           const { fields } = this.state;
-
           const fieldArr = Object.entries(data);
           fieldArr.map(org => (fields[org[0]] = org[1]));
           this.setState({
@@ -151,9 +157,9 @@ export default class OrgCheck extends Component {
   };
 
   storeOrg = value => {
-    const { section, fields } = this.state;
-    fields[section] = value;
-    this.setState({ fields });
+    console.log("value", value);
+    const { section } = this.state;
+    this.props.setCurrentUserOrgs(value, section);
     this.sectionChange("forward");
   };
 
