@@ -12,12 +12,13 @@ export const Wrapper = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
-  padding: 2rem;
+  padding: 5rem 2rem 2rem 2rem;
   margin-bottom: 3rem;
   width: 100%;
 
   @media ${breakpoints.tablet} {
     width: ${({ width }) => width || "100%"};
+    padding-top: 6rem;
   }
 
   .table {
@@ -87,7 +88,8 @@ export const PageTitle = styled.h1`
 export const SubTitle = styled.h4`
   font-weight: 900;
   font-size: 1.125rem;
-  color: ${colors.profileFontColor};
+  color: ${colors.heliotrope};
+  text-decoration: underline;
   text-align: ${({ center }) => (center ? "center" : "left")};
   margin-bottom: ${({ marginBottom }) => (marginBottom ? "1.5rem" : "0")};
   margin-top: ${props => (props.list ? "0" : "1.5rem")};
