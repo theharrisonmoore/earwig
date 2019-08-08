@@ -12,16 +12,12 @@ import AutosuggestComponent from "./AutoSuggest";
 // styles
 import {
   HeadlineDiv,
-  RowDiv,
-  ItemDiv,
-  SearchLegendDiv,
   SymbolDiv,
   OrganisationDetailsDiv,
   ReviewDetailsDiv,
   InnerDivLastReviews,
   ArrowDiv,
   SearchWrapper,
-  LegendTitle,
   ReviewsFrame,
   ProfileLink,
   ReviewsContainer,
@@ -204,7 +200,7 @@ export default class Search extends Component {
     const { isMobile, isTablet } = this.props;
 
     return (
-      <SearchWrapper data-testid="searchwrapper">
+      <SearchWrapper data-testid="searchwrapper" isMobile={isMobile}>
         <HeadlineDiv>
           {isMobile ? (
             target !== "review" ? (
@@ -230,9 +226,9 @@ export default class Search extends Component {
             </HeaderParagraph>
           )}
         </HeadlineDiv>
-        {showOtherSections && (
+        {/* {showOtherSections && (
           <FlexContainer>
-            <SearchLegendDiv>
+            <SearchLegendDiv isMobile={isMobile}>
               <RowDiv>
                 <ItemDiv notMobile={!isMobile} left>
                   <div>
@@ -287,7 +283,7 @@ export default class Search extends Component {
               </RowDiv>
             </SearchLegendDiv>
           </FlexContainer>
-        )}
+        )} */}
         <FlexContainer ref={this.setSearchBoxRef}>
           <AutosuggestComponent
             iconTop="20px"

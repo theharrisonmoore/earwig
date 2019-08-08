@@ -9,18 +9,18 @@ export const Wrapper = styled.div`
   position: fixed;
   background: ${colors.white};
   display: flex;
-  padding: 1rem 0;
+  padding-top: 0.5rem;
   flex-direction: column;
   top: 0;
   left: 0;
   width: ${props => (props.isMobile ? `100%` : "33%")};
-  padding-top: 4rem;
+  /* padding-top: ${props => !props.isMobile && "4rem"}; */
   z-index: 3;
   box-shadow: ${shadows.buttonShadow};
-  overflow-y: auto;
+  overflow-y: scroll;
 
   ::-webkit-scrollbar {
-    width: 5px;
+    width: 0px;
   }
   /* Handle */
   ::-webkit-scrollbar-thumb {
@@ -49,6 +49,7 @@ export const MenuItem = styled(NavLink)`
   padding-left: 1rem;
   transition: all ease-in 0.2s;
   height: 3.5rem;
+  min-height: 54px;
   align-items: center;
   text-align: left;
   font-weight: bold;
@@ -69,7 +70,7 @@ export const PriorityMenuItem = styled(MenuItem)`
   border: none;
   padding: 1.3rem;
   font-size: 1rem;
-  margin: 3.5px 0;
+  margin-bottom: 1px;
   color: ${colors.white};
   background-color: ${colors.heliotrope};
   cursor: ${props => props.disabled && "not-allowed"};
@@ -115,10 +116,12 @@ export const LogoutButton = styled.div`
   padding: 0.5rem;
   transition: all ease-in 0.2s;
   height: 3.5rem;
+  min-height: 54px;
   align-items: center;
   text-align: left;
   cursor: pointer;
   font-weight: bold;
+  padding-left: 1rem;
 
   .menuIcon {
     margin-right: 1rem;
