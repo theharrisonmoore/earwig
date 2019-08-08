@@ -42,7 +42,7 @@ import {
 } from "./../../Common/Formik/Formik.style";
 
 import {
-  SEARCH_URL,
+  ORG_STATUS_URL_LOGIN,
   SIGNUP_URL,
   RESET_PASSWORD_URL,
   WELCOME_URL
@@ -67,7 +67,7 @@ export default class index extends Component {
       .post("/api/login", values)
       .then(({ data }) => {
         this.props.handleChangeState({ ...data, isLoggedIn: true });
-        this.props.history.push(SEARCH_URL);
+        this.props.history.push(ORG_STATUS_URL_LOGIN);
       })
       .catch(err => {
         this.setState({ error: err.response.data.error });
