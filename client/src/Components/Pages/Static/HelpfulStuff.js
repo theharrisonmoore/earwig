@@ -16,7 +16,9 @@ export default class HelpfulStuff extends Component {
     const { isLoggedIn } = this.props;
     return (
       <Wrapper>
-        <ContentWrapper>
+        <ContentWrapper
+          style={{ maxWidth: "32rem", margin: "0 auto", paddingTop: "6rem" }}
+        >
           <PageTitle>More helpful stuff for workers</PageTitle>
           <MainIcon src={linkIcon} />
           <SubTitle>Link 1</SubTitle>
