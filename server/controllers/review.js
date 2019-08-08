@@ -5,7 +5,7 @@ const {
   getOrganizationById,
   getOrganization,
   getQuestionsByOrgCategory,
-  postOrg,
+  // postOrg,
   getOrgsNamesByType,
   getAgenciesAndPayrollsNames,
   getReviewDetails,
@@ -13,7 +13,7 @@ const {
 
 } = require("../database/queries/review");
 
-const { getOrgsReviewedLast30D } = require("./../database/queries/reviews");
+// const { getOrgsReviewedLast30D } = require("./../database/queries/reviews");
 
 const { findByEmail } = require("../database/queries/user");
 
@@ -29,11 +29,11 @@ const getByOrg = async (req, res, next) => {
 
   try {
     // check if the user gave a review recently
-    const reviewdOrgsIn30D = await getOrgsReviewedLast30D(userId);
-    const gaveReviewIn30D = reviewdOrgsIn30D.some(item => item.organization.toString() === orgId);
-    if (gaveReviewIn30D) {
-      return next(boom.conflict("You gave this organisation a review within the last 30 days"));
-    }
+    // const reviewdOrgsIn30D = await getOrgsReviewedLast30D(userId);
+    // const gaveReviewIn30D = reviewdOrgsIn30D.some(item => item.organization.toString() === orgId);
+    // if (gaveReviewIn30D) {
+    //   return next(boom.conflict("You gave this organisation a review within the last 30 days"));
+    // }
     let dropDownListData;
     if (category === "agency") {
       dropDownListData = await getOrgsNamesByType("payroll");

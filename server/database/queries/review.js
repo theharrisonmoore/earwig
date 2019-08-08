@@ -2,7 +2,11 @@ const { Types: { ObjectId } } = require("mongoose");
 const Question = require("../models/Question");
 const Organization = require("../models/Organization");
 const Review = require("../models/Review");
+const Helpfulness = require("../models/Helpfulness");
 
+
+// return hepflness by review id
+const getReviewHelpfulness = id => Helpfulness.findOne({ review: id });
 
 // return the questions grouped by Org. category
 const getQuetionsByOrg = org => Question.aggregate([
@@ -123,4 +127,5 @@ module.exports = {
   getReviewDetails,
   findReviewById,
   findReviewByIdAndUpdate,
+  getReviewHelpfulness,
 };

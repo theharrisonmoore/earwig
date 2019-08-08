@@ -4,7 +4,7 @@ import axios from "axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
-import { Popconfirm, message } from "antd";
+import { Popconfirm, message, Button, Modal } from "antd";
 
 import { Wrapper } from "./UserProfile.style";
 
@@ -135,6 +135,18 @@ export default class UserReviews extends Component {
     message.error("Cancelled");
   };
 
+  error = async reviewId => {
+    try {
+      await axios.get(`/api/review/${reviewId}/is-edatable`);
+      this.props.history.push(`/review/${reviewId}/edit`);
+    } catch (err) {
+      Modal.error({
+        title: "Edit is not allowed",
+        content: "You can't edit this review, please check the rules above"
+      });
+    }
+  };
+
   render() {
     const { reviews, isLoading } = this.state;
 
@@ -174,9 +186,15 @@ export default class UserReviews extends Component {
                         <ActionGroup
                           style={{ width: "15%", textAlign: "right" }}
                         >
-                          <Link to={`/review/${review._id}/edit`}>
+                          {/* <Link to={`/review/${review._id}/edit`}>
                             <Cancel>Edit</Cancel>
-                          </Link>
+                          </Link> */}
+                          <div>
+                            <Button onClick={() => this.error(review._id)}>
+                              <Cancel>Edit</Cancel>
+                            </Button>
+                          </div>
+
                           <span>
                             <Popconfirm
                               title="Are you sure you want to delete this review?"
