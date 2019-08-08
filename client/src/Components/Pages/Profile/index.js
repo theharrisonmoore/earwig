@@ -4,7 +4,7 @@ import moment from "moment";
 import { message, Skeleton } from "antd";
 
 import ReviewSection from "./ReviewSection";
-import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
+// import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
 import CommentsBox from "./ProfileAnswers/CommentsBox";
 import HeaderSection from "./HeaderSection";
 import OverallReview from "./OverallReview";
@@ -326,7 +326,7 @@ export default class Profile extends Component {
               </AccountPromo>
             </ReviewDiv>
           )}
-          {reviewDetails.length < 1 && (
+          {/* {reviewDetails.length < 1 && (
             <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
               <ReviewSection
                 category={category}
@@ -335,7 +335,7 @@ export default class Profile extends Component {
                 loaded={loaded}
               />
             </ReviewDiv>
-          )}
+          )} */}
           <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
             {/* KEY RATINGS SECTION */}
             {reviewDetails.map(
@@ -382,7 +382,7 @@ export default class Profile extends Component {
                 )
             )}
 
-            {reviewDetails.map(
+            {level > 0 && reviewDetails.map(
               (section, index) =>
                 section._id === "Working on the site" && (
                   <ReviewSection
@@ -438,13 +438,13 @@ export default class Profile extends Component {
                 )
             )}
 
-            {/* MONTHLY REVIEWS */}
+            {/* MONTHLY REVIEWS
             {level > 0 && (
               <MonthlyReviews
                 category={category}
                 reviewsByMonth={this.reviewsByMonth()}
               />
-            )}
+            )} */}
           </ReviewDiv>
           {/* OVERALL RATINGS SECTION */}
           {/* HIDDEN DIV TO SCROLL SECTION INTO VIEW */}

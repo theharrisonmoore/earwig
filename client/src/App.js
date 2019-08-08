@@ -16,6 +16,8 @@ import { isSMobile, isMobile, isTablet } from "./helpers";
 
 import { API_USERS } from "./apiUrls";
 
+import { COOKIES_POLICY_URL } from "./constants/naviagationUrls";
+
 import { cookieStyles } from "./theme";
 
 export const initialState = {
@@ -95,12 +97,14 @@ class App extends Component {
               buttonText="Got it!"
               cookieName="myAwesomeCookieName2"
               style={cookieStyles.general}
-              buttonStyle={cookieStyles.button}
+              buttonStyle={
+                isMobile ? cookieStyles.buttonMobile : cookieStyles.button
+              }
               expires={150}
               acceptOnScroll={true}
             >
               This website uses cookies to enhance the user experience.{" "}
-              <a style={cookieStyles.link} href={`/`}>
+              <a style={cookieStyles.link} href={COOKIES_POLICY_URL}>
                 {" "}
                 Find out more about our Cookie Policy
               </a>{" "}
