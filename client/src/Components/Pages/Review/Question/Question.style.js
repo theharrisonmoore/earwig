@@ -243,11 +243,8 @@ export const SliderWrapper = styled.div`
   }
 
   p {
-    font-family: ArialMT;
     font-size: 18px;
     line-height: 21px;
-    /* identical to box height */
-
     text-align: center;
     letter-spacing: 0.375px;
 
@@ -309,4 +306,15 @@ export const StopIcon = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+`;
+
+export const Input = styled.input`
+  background: ${colors.white};
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 0.5rem 0.75rem;
+  display: block;
+  width: 100%;
+  border: 1px solid ${colors.inputBorder};
+  outline: none;
 `;

@@ -13,11 +13,16 @@ const Label = styled.label`
 
 class CustomizedSelects extends React.Component {
   state = {
-    open: false
+    open: false,
+    searchTerm: ""
   };
 
   handleOpen = () => {
     this.setState({ open: !this.state.open });
+  };
+
+  handleSearchChange = value => {
+    this.setState({ searchTerm: value });
   };
 
   filterOption = (input, option) =>
@@ -36,20 +41,24 @@ class CustomizedSelects extends React.Component {
       value,
       ...rest
     } = this.props;
+
+    const { searchTerm } = this.state;
+
     return (
       <>
         {label && <Label onClick={this.handleOpen}>{label}</Label>}
         <Select
-          placeholder={disabled ? options[0] && options[0].label : placeholder}
+          placeholder={disabled ? options[0] && options[0].name : placeholder}
           onSelect={handleChange}
           open={this.state.open}
           onDropdownVisibleChange={this.handleOpen}
           disabled={disabled}
           showSearch={showSearch}
+          onSearch={this.handleSearchChange}
           style={{
             width: "100%"
           }}
-          value={value || undefined}
+          value={value || searchTerm || undefined}
           filterOption={this.filterOption}
           size="large"
           dropdownRender={menu =>
@@ -60,14 +69,15 @@ class CustomizedSelects extends React.Component {
                   return false;
                 }}
               >
-                {menu}
-                <Divider style={{ margin: "4px 0" }} />
                 <div
                   style={{ padding: "8px", cursor: "pointer" }}
                   onClick={addHandler}
+                  data-search-term={searchTerm}
                 >
-                  <Icon type="plus" /> Add item
+                  <Icon type="plus" /> Add item: {searchTerm}
                 </div>
+                <Divider style={{ margin: "4px 0" }} />
+                {menu}
               </div>
             ) : (
               menu
@@ -77,8 +87,8 @@ class CustomizedSelects extends React.Component {
         >
           {options &&
             options.map(item => (
-              <Option value={item.value} key={item.value}>
-                {item.label}
+              <Option value={item.value || JSON.stringify(item)} key={item._id}>
+                {item.label || item.name}
               </Option>
             ))}
         </Select>

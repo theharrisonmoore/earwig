@@ -6,11 +6,12 @@ import axios from "axios";
 
 import Loading from "./../../../Common/AntdComponents/Loading";
 
+import Icon from "./../../../Common/Icon/Icon";
+
 import {
   Wrapper,
   CommentsDiv,
   CommentsHeader,
-  Close,
   CommentsTitle,
   IndividComment,
   UserID,
@@ -23,8 +24,6 @@ import { organizations } from "./../../../../theme";
 import { StyledAntIcon, StyledReplyIcon } from "./../Profile.style";
 
 import { REPORT_CONTENT_URL } from "./../../../../constants/naviagationUrls";
-
-import CloseIcon from "./../../../../assets/close-icon.svg";
 
 import { isMobileDevice, highlightMentions } from "./../../../../helpers";
 import { API_ADD_COMMENT_ON_QUESTION_URL } from "./../../../../apiUrls";
@@ -149,7 +148,14 @@ export default class CommentsBox extends Component {
             <>
               <CommentsHeader>
                 <CommentsTitle>{question.profileText}</CommentsTitle>
-                <Close src={CloseIcon} alt="close" onClick={toggleComments} />
+                <Icon
+                  icon="close"
+                  onClick={toggleComments}
+                  width="30px"
+                  height="30px"
+                  cursor="pointer"
+                />
+                {/* <Close src={CloseIcon} alt="close" onClick={toggleComments} /> */}
               </CommentsHeader>
 
               {comments &&

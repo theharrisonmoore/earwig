@@ -180,6 +180,7 @@ export default class Signup extends Component {
     isWorker: "yes",
     orgType: "agency",
     ismodalVisible: false,
+    newTrade: "",
     error: "",
     errors: {}
   };
@@ -253,9 +254,11 @@ export default class Signup extends Component {
     this.setState({ trade: value });
   };
 
-  showModal = () => {
+  showModal = e => {
+    const { searchTerm } = e.target.dataset;
     this.setState({
-      ismodalVisible: true
+      ismodalVisible: true,
+      newTrade: searchTerm
     });
   };
 
@@ -350,7 +353,8 @@ export default class Signup extends Component {
       error,
       ismodalVisible,
       confirmLoading,
-      verificationImage
+      verificationImage,
+      newTrade
     } = this.state;
 
     return (
@@ -529,6 +533,7 @@ export default class Signup extends Component {
                                 isCreateNew
                                 showSearch
                                 addHandler={this.showModal}
+                                // onBlur={this.showModal}
                               />
                             </>
                           )}
@@ -572,6 +577,7 @@ export default class Signup extends Component {
                                 placeholder="Add your trade..."
                                 allowClear
                                 onChange={this.addNewTradeHandler}
+                                value={newTrade}
                               />
                             </Modal>
                           </div>

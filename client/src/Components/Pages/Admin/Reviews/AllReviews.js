@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   padding-top: 2rem;
 `;
 
-const StyledCSVLink = styled(CSVLink)`
+const CSVButton = styled.a`
   padding: 1rem;
   border-radius: 3px;
   background-color: ${colors.heliotrope};
@@ -29,10 +29,6 @@ const StyledCSVLink = styled(CSVLink)`
     color: ${colors.white};
     text-decoration: underline;
   }
-
-  :active {
-    cursor: none;
-  }
 `;
 
 export default class AllReviews extends Component {
@@ -43,6 +39,8 @@ export default class AllReviews extends Component {
     exportData: "",
     exportQuestionHeaders: ""
   };
+
+  CSVRef = React.createRef();
 
   getColumnSearchProps = dataIndex => ({
     filterDropdown: ({
@@ -171,34 +169,40 @@ export default class AllReviews extends Component {
     this.fetchData();
   }
 
+  getCSVData = () => {
+    axios
+      .get("/api/admin/export-all-reviews")
+      .then(({ data }) => {
+        this.setState(
+          {
+            exportData: data.cleanedReviews,
+            exportQuestionHeaders: data.headers
+          },
+          () => {
+            this.CSVRef.current.link.click();
+          }
+        );
+      })
+      .catch(err => {
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        message.error(error || "Something went wrong");
+      });
+  };
+
   render() {
     return (
       <Wrapper>
-        <StyledCSVLink
-          data={this.state.exportData}
-          headers={this.state.exportQuestionHeaders}
-          asyncOnClick={true}
-          onClick={(event, done) => {
-            axios
-              .get("/api/admin/export-all-reviews")
-              .then(({ data }) => {
-                this.setState(
-                  {
-                    exportData: data.cleanedReviews,
-                    exportQuestionHeaders: data.headers
-                  },
-                  () => done()
-                );
-              })
-              .catch(err => {
-                const error =
-                  err.response && err.response.data && err.response.data.error;
-                message.error(error || "Something went wrong");
-              });
-          }}
-        >
-          Export all reviews
-        </StyledCSVLink>
+        <CSVButton onClick={this.getCSVData}>Export all reviews</CSVButton>
+        <div style={{ display: "none" }}>
+          <CSVLink
+            data={this.state.exportData}
+            headers={this.state.exportQuestionHeaders}
+            ref={this.CSVRef}
+          >
+            Export all reviews
+          </CSVLink>
+        </div>
         <Table
           columns={ReviewsColumns({
             deletHandler: this.showDeleteConfirm,

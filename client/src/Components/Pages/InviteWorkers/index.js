@@ -11,7 +11,7 @@ import { isMobileDevice } from "../../../helpers";
 import {
   InviteWrapper,
   SocialIcons,
-  IconWrapper,
+  FbShare,
   ShareParagraph,
   Head3,
   PromoParagraph,
@@ -20,15 +20,6 @@ import {
 } from "./inviteWorkers.style";
 
 export default class InviteWorkers extends Component {
-  facebookMsgShare = referralLink => {
-    window.open(
-      "fb-messenger://share?link=" +
-        encodeURIComponent(referralLink) +
-        "&app_id=" +
-        encodeURIComponent("earwig-work-2019")
-    );
-  };
-
   fbSendBrowser = referralLink => {
     if (isMobileDevice.any()) {
       window.open(
@@ -84,14 +75,10 @@ export default class InviteWorkers extends Component {
             WhatsApp
           </WhatsappShare>
 
-          <IconWrapper onClick={() => this.fbSendBrowser(referralLink)}>
+          <FbShare onClick={() => this.fbSendBrowser(referralLink)}>
             <img src={facebookMsgIcon} alt="" />
             Facebook
-          </IconWrapper>
-          {/* <IconWrapper onClick={this.fbSendBrowser}>
-            <img src={facebookMsgIcon} alt="" />
-            Facebook
-          </IconWrapper> */}
+          </FbShare>
         </SocialIcons>
       </InviteWrapper>
     );

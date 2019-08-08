@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   text-align: left;
-  padding: 2.5rem 0;
+  padding-bottom: 2.5rem;
 `;
 
 export const SectionTitle = styled.h2`
@@ -37,10 +37,13 @@ export const StarWrapper = styled(QuestionTitle)`
   font-size: 3rem;
 `;
 
-export const CategoryTitle = styled.span`
+export const CategoryTitle = styled.h2`
   text-transform: capitalize;
+  font-size: 1.75rem;
+  font-weight: medium;
+  margin: 0;
+  color: ${colors.profileFontColor};
 `;
-
 
 export const LightTitle = styled.div`
   opacity: 0.5;

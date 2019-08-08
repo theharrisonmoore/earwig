@@ -100,10 +100,28 @@ export const OrgButton = styled.button`
   box-shadow: ${shadows.buttonShadow};
   margin: 0 0.5rem;
   cursor: pointer;
+  position: relative;
 
   :hover {
     background: ${props => organizations[`${props.category}`].primary};
     color: ${colors.white};
+  }
+
+  &:active {
+    box-shadow: none;
+    border: none;
+
+    ::after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: ${colors.btnClick};
+    box-shadow: none;
+    
+    }
   }
 `;
 
@@ -212,6 +230,13 @@ export const StarWrapper = styled.div`
 export const Reviews = styled.p`
   margin: 0;
   margin-left: 1rem;
+  border-bottom: 2px solid ${props => organizations[props.category].primary};
+  font-weight: 600;
+  color: ${props => organizations[`${props.category}`].primary};
+`;
+
+export const NoReview = styled.span`
+  color: ${colors.dustyGray1};
 `;
 
 export const VerifyPromo = styled.div`
@@ -319,14 +344,17 @@ export const HelpfulButtonWrapper = styled.div`
     position: absolute;
     content: "";
     width: 100%;
-    mix-blend-mode: exclusion;
     height: ${({ number }) => number + "0%"};
     left: 0;
     z-index: 2;
     bottom: 0;
-    background: ${({ color }) => color};
     pointer-events: none;
     transition: 0.5s all ease;
+
+    @supports (mix-blend-mode: exclusion) {
+      mix-blend-mode: exclusion;
+      background: ${({ color }) => color};
+    }
   }
 `;
 
@@ -339,6 +367,7 @@ export const ActionsButton = styled(Button)`
   padding: 0.5rem 1rem;
   height: auto;
   margin-right: ${props => (props.ismobile ? "0.5rem" : "2rem")};
+  position: relative;
 
   transform: scale3d(
     ${({ scale }) => scale || 1},
@@ -352,6 +381,7 @@ export const ActionsButton = styled(Button)`
     background-color: ${({ bgcolor }) => bgcolor};
     border-color: ${({ bgcolor }) => bgcolor};
   }
+
 `;
 
 export const UserTrade = styled.p`
@@ -381,7 +411,7 @@ export const ReplyButton = styled.p`
   padding: 0.5rem 1rem;
   color: ${({ color }) => color};
   margin: 0.5rem;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;
 
 export const ActionButton = styled.button`
@@ -402,6 +432,7 @@ export const ActionButton = styled.button`
   display: flex;
   align-items: center;
   height: 5.5rem;
+  position: relative;
 
   @media ${breakpoints.mobileM} {
     font-size: 14px;
@@ -411,13 +442,28 @@ export const ActionButton = styled.button`
   @media ${breakpoints.mobileL} {
     width: 11rem;
     padding: 1rem 0.5rem;
-    margin: 0 1rem;
   }
 
   @media ${breakpoints.tablet} {
     width: 18rem;
     height: 4.5rem;
     padding: 0.5rem 1rem;
+  }
+
+    &:active {
+    box-shadow: none;
+
+    ::after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: ${colors.btnClick};
+    box-shadow: none;
+    
+    }
   }
 `;
 
@@ -426,7 +472,6 @@ export const ContractorDiv = styled.div`
 `;
 
 export const ContractorText = styled.p`
-  font-family: ArialMT;
   font-size: 18px;
 
   letter-spacing: 0.3px;
@@ -439,7 +484,7 @@ export const ContractorText = styled.p`
 `;
 
 export const ContractorListLink = styled.span`
-  color: #1890ff;
+  /* color: #1890ff; */
   text-decoration: none;
   background-color: transparent;
   cursor: pointer;

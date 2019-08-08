@@ -72,6 +72,7 @@ const iconStyles = props => css`
   height: ${props.height || "100%"};
   color: ${props.color};
   margin: ${props.margin || "0 0 0 0"};
+  cursor: ${props.cursor};
 `;
 
 const iconMap = {

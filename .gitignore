@@ -63,3 +63,5 @@ typings/
 uploads/
 
 !.gitignore
+
+notes.js

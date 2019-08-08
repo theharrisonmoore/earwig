@@ -87,7 +87,7 @@ export default class AddProfileSelection extends Component {
                     <img
                       src={agencyCategory}
                       alt=""
-                      style={{ width: "100%" }}
+                      style={{ width: "100%", cursor: "pointer" }}
                     />
                   </AddProfileLink>
                 </ItemDiv>
@@ -101,7 +101,7 @@ export default class AddProfileSelection extends Component {
                     <img
                       src={payrollCategory}
                       alt=""
-                      style={{ width: "100%" }}
+                      style={{ width: "100%", cursor: "pointer" }}
                     />
                   </AddProfileLink>
                 </ItemDiv>
@@ -117,7 +117,7 @@ export default class AddProfileSelection extends Component {
                     <img
                       src={worksiteCategory}
                       alt=""
-                      style={{ width: "100%" }}
+                      style={{ width: "100%", cursor: "pointer" }}
                     />
                   </AddProfileLink>
                 </ItemDiv>
@@ -131,7 +131,7 @@ export default class AddProfileSelection extends Component {
                     <img
                       src={companyCategory}
                       alt=""
-                      style={{ width: "100%" }}
+                      style={{ width: "100%", cursor: "pointer" }}
                     />
                   </AddProfileLink>
                 </ItemDiv>

@@ -16,6 +16,7 @@ export const EmailShare = styled(EmailShareButton)`
   border-radius: 6px;
   color: ${colors.white};
   font-weight: 700;
+  margin: 1rem auto;
   :hover,
   :active,
   :focus {
@@ -35,6 +36,7 @@ export const WhatsappShare = styled(WhatsappShareButton)`
   border-radius: 6px;
   color: ${colors.white};
   font-weight: 700;
+  margin: 1rem auto;
   :hover,
   :active,
   :focus {
@@ -42,9 +44,10 @@ export const WhatsappShare = styled(WhatsappShareButton)`
   }
 `;
 
-export const FBMsgShare = styled.div`
+export const FbShare = styled.div`
   display: flex;
   justify-content: center;
+  cursor: pointer;
   flex-direction: column;
   align-items: center;
   height: 55px;
@@ -53,6 +56,8 @@ export const FBMsgShare = styled.div`
   background-color: ${({ category }) => organizations[category].primary};
   color: ${colors.white};
   font-weight: 700;
+  margin: 1rem auto;
+
   :hover,
   :active,
   :focus {
@@ -124,6 +129,7 @@ export const IconWrapper = styled.div`
   display: flex;
   justify-content: space-around;
   margin: 2rem auto 0.5rem;
+  flex-wrap: wrap;
 `;
 
 export const Icon = styled.i`
@@ -140,13 +146,14 @@ export const SharePromo = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 3.5rem;
+  /* height: 3.5rem; */
   border-radius: 6px;
   color: ${colors.profileFontColor};
   /* background-color: ${props => organizations[props.orgType].primary}; */
-  margin-bottom: 2.5rem;
+  /* margin-bottom: 2.5rem; */
   font-size: 1.25rem;
   font-weight: 700;
+  margin: 1.5rem auto
 `;
 
 export const StyledLink = styled(Link)`

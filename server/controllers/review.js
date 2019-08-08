@@ -10,7 +10,11 @@ const {
   getAgenciesAndPayrollsNames,
   getReviewDetails,
   findReviewByIdAndUpdate,
+
 } = require("../database/queries/review");
+
+const { getOrgsReviewedLast30D } = require("./../database/queries/reviews");
+
 const { findByEmail } = require("../database/queries/user");
 
 const Review = require("../database/models/Review");
@@ -24,6 +28,12 @@ const getByOrg = async (req, res, next) => {
   const { category, name } = await getOrganizationById(orgId);
 
   try {
+    // check if the user gave a review recently
+    const reviewdOrgsIn30D = await getOrgsReviewedLast30D(userId);
+    const gaveReviewIn30D = reviewdOrgsIn30D.some(item => item.organization.toString() === orgId);
+    if (gaveReviewIn30D) {
+      return next(boom.conflict("You gave this organisation a review within the last 30 days"));
+    }
     let dropDownListData;
     if (category === "agency") {
       dropDownListData = await getOrgsNamesByType("payroll");
@@ -36,14 +46,14 @@ const getByOrg = async (req, res, next) => {
     const getReviewAnswers = await getReviewDetails(orgId, userId);
 
     const groups = await getQuetionsByOrg(category);
-    res.json({
+    return res.json({
       groups,
       dropDownListData,
       getReviewAnswers,
       organization: { name, category },
     });
   } catch (err) {
-    next(boom.badImplementation());
+    return next(boom.badImplementation());
   }
 };
 
@@ -147,7 +157,7 @@ const postReview = async (req, res, next) => {
             answer: questionsAnswers[qAnswer],
             organization: organizationData,
           };
-          commentedQuestions.map((item) => {
+          commentedQuestions.forEach((item) => {
             // eslint-disable-next-line eqeqeq
             if (item.id == qAnswer) {
               answer.comment = item.comment;
@@ -216,16 +226,6 @@ const updateReview = async (req, res, next) => {
   }
 };
 
-/* not used now */
-const addNewOrg = async (req, res, next) => {
-  const { name, category } = req.body;
-  try {
-    await postOrg(category, name);
-    res.send();
-  } catch (err) {
-    next(boom.badImplementation());
-  }
-};
 
 const getOrgsByType = async (req, res, next) => {
   const { category } = req.body;
@@ -250,7 +250,6 @@ const getAgencesAndPayrollsNames = async (req, res, next) => {
 module.exports = {
   getByOrg,
   postReview,
-  addNewOrg,
   getOrgsByType,
   getAgencesAndPayrollsNames,
   postReviewShort,
