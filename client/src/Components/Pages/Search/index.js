@@ -200,7 +200,7 @@ export default class Search extends Component {
     const { isMobile, isTablet } = this.props;
 
     return (
-      <SearchWrapper data-testid="searchwrapper">
+      <SearchWrapper data-testid="searchwrapper" isMobile={isMobile}>
         <HeadlineDiv>
           {isMobile ? (
             target !== "review" ? (

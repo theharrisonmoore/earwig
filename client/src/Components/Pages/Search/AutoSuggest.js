@@ -307,6 +307,7 @@ class AutosuggestComponent extends Component {
             renderSuggestion={this.renderSuggestion}
             inputProps={inputProps}
             renderSuggestionsContainer={this.renderSuggestionsContainer}
+            focusInputOnSuggestionClick={false}
           />
         ) : (
           <Autosuggest
@@ -318,6 +319,7 @@ class AutosuggestComponent extends Component {
             shouldRenderSuggestions={() => bool}
             inputProps={inputProps}
             renderSuggestionsContainer={this.renderSuggestionsContainer}
+            focusInputOnSuggestionClick={false}
           />
         )}
       </AutosuggestWrapper>
