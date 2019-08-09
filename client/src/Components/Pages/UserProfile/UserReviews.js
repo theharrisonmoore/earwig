@@ -4,7 +4,7 @@ import axios from "axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
-import { Popconfirm, message, Button, Modal } from "antd";
+import { Popconfirm, message, Modal } from "antd";
 
 import { Wrapper } from "./UserProfile.style";
 
