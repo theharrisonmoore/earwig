@@ -5,7 +5,6 @@ const {
   getOrganizationById,
   getOrganization,
   getQuestionsByOrgCategory,
-  // postOrg,
   getOrgsNamesByType,
   getAgenciesAndPayrollsNames,
   getReviewDetails,
@@ -28,11 +27,14 @@ const getByOrg = async (req, res, next) => {
   const { category, name } = await getOrganizationById(orgId);
 
   try {
-    // check if the user gave a review recently
-    // const reviewdOrgsIn30D = await getOrgsReviewedLast30D(userId);
-    // const gaveReviewIn30D = reviewdOrgsIn30D.some(item => item.organization.toString() === orgId);
-    // if (gaveReviewIn30D) {
-    //   return next(boom.conflict("You gave this organisation a review within the last 30 days"));
+    // if (!req.query.edit) {
+    //   // check if the user gave a review recently
+    //   const reviewdOrgsIn30D = await getOrgsReviewedLast30D(userId);
+    //   const gaveReviewIn30D = reviewdOrgsIn30D
+    //     .some(item => item.organization.toString() === orgId);
+    //   if (gaveReviewIn30D) {
+    //     return next(boom.conflict("You gave this organisation a review within the last 30 days"));
+    //   }
     // }
     let dropDownListData;
     if (category === "agency") {
@@ -53,7 +55,7 @@ const getByOrg = async (req, res, next) => {
       organization: { name, category },
     });
   } catch (err) {
-    return next(boom.badImplementation());
+    return next(boom.badImplementation(err));
   }
 };
 
@@ -81,8 +83,8 @@ const postReviewShort = async (req, res, next) => {
     });
     await newReview.save();
     res.send(organizationData._id);
-  } catch (error) {
-    next(boom.badImplementation());
+  } catch (err) {
+    next(boom.badImplementation(err));
   }
 };
 
@@ -173,21 +175,27 @@ const postReview = async (req, res, next) => {
     await Answer.insertMany(allAnswers);
 
     res.send(organizationData._id);
-  } catch (error) {
-    next(boom.badImplementation());
+  } catch (err) {
+    next(boom.badImplementation(err));
   }
 };
 
 const updateReview = async (req, res, next) => {
   const {
     answers: questionsAnswers,
-    review: { rate, overallReview, workPeriod },
+    review: {
+      rate, overallReview, workPeriod, voiceReview,
+    },
   } = req.body.values;
+  const { user } = req;
+
   const { organization } = req.body;
   const { id: reviewId } = req.params;
 
   try {
     const questions = await getQuestionsByOrgCategory(organization.category);
+    const organizationData = await getOrganization(organization.category, organization.name);
+    const userData = await findByEmail(user.email);
 
     const questionsObject = {};
     questions.forEach((q) => {
@@ -196,15 +204,17 @@ const updateReview = async (req, res, next) => {
       }
     });
 
-    await findReviewByIdAndUpdate(reviewId, { rate, text: overallReview, workPeriod });
+    await findReviewByIdAndUpdate(reviewId, {
+      rate, text: overallReview, workPeriod, audio: voiceReview || "",
+    });
 
     const reviewAnswers = Object.keys(questionsAnswers)
       .sort((a, b) => a - b)
       .map((qAnswer) => {
         if (questionsAnswers[qAnswer]) {
           const answer = {
-            question: questionsObject[qAnswer]._id,
             answer: questionsAnswers[qAnswer],
+            question: questionsObject[qAnswer],
           };
           return answer;
         }
@@ -215,14 +225,19 @@ const updateReview = async (req, res, next) => {
 
     allAnswers.forEach(async (ans) => {
       await Answer.updateOne(
-        { review: reviewId, question: ans.question },
+        {
+          review: reviewId,
+          question: ans.question._id,
+          organization: organizationData._id,
+          user: userData._id,
+        },
         { answer: ans.answer },
         { upsert: true },
       );
     });
-    res.send();
+    res.send(organizationData._id);
   } catch (err) {
-    next(boom.badImplementation());
+    next(boom.badImplementation(err));
   }
 };
 
@@ -234,7 +249,7 @@ const getOrgsByType = async (req, res, next) => {
     const names = organization[0].category;
     res.send({ names });
   } catch (err) {
-    next(boom.badImplementation());
+    next(boom.badImplementation(err));
   }
 };
 
@@ -243,7 +258,7 @@ const getAgencesAndPayrollsNames = async (req, res, next) => {
     const agencyAndPayrolls = await getAgenciesAndPayrollsNames();
     res.send(agencyAndPayrolls);
   } catch (err) {
-    next(boom.badImplementation());
+    next(boom.badImplementation(err));
   }
 };
 

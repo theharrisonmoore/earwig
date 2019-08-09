@@ -186,13 +186,10 @@ export default class UserReviews extends Component {
                         <ActionGroup
                           style={{ width: "15%", textAlign: "right" }}
                         >
-                          {/* <Link to={`/review/${review._id}/edit`}>
-                            <Cancel>Edit</Cancel>
-                          </Link> */}
                           <div>
-                            <Button onClick={() => this.error(review._id)}>
-                              <Cancel>Edit</Cancel>
-                            </Button>
+                            <Cancel onClick={() => this.error(review._id)}>
+                              Edit
+                            </Cancel>
                           </div>
 
                           <span>

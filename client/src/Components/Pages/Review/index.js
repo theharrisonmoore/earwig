@@ -101,8 +101,8 @@ class Review extends Component {
                   to: moment(reviewDetails[0].workPeriod.to)
                 },
                 rate: reviewDetails[0].rate,
-                overallReview: reviewDetails[0].overallReview.text
-                // voiceReview: ""
+                overallReview: reviewDetails[0].overallReview.text,
+                voiceReview: reviewDetails[0].overallReview.audio || ""
               };
 
               reviewDetails[0].answers.forEach(answer => {
@@ -421,6 +421,11 @@ class Review extends Component {
         };
         if (this.state.isEditing) {
           // update the same review
+          if (audioFile) {
+            review.values.review.voiceReview = await this.submitAudio();
+          }
+
+          // if there's an audio file submit and update answers with its correct filename
           axios
             .put(`/api/review/${this.state.reviewId}`, review)
             .then(res => {
@@ -440,7 +445,6 @@ class Review extends Component {
             });
         } else {
           // add new review
-
           // if there's an audio file submit and update answers with its correct filename
           if (audioFile)
             review.values.review.voiceReview = await this.submitAudio();

@@ -113,7 +113,12 @@ const getReviewDetails = (org, user) => Review.aggregate([
 
 
 const findReviewById = reviewId => Review.findOne({ _id: reviewId });
-const findReviewByIdAndUpdate = (reviewId, { rate, text, workPeriod }) => Review.findOneAndUpdate({ _id: reviewId }, { rate, workPeriod, "overallReview.text": text }, { new: true });
+
+const findReviewByIdAndUpdate = (reviewId, {
+  rate, text, workPeriod, audio,
+}) => Review.findOneAndUpdate({ _id: reviewId }, {
+  rate, workPeriod, "overallReview.text": text, "voiceReview.audio": audio,
+}, { new: true });
 
 module.exports = {
   getQuetionsByOrg,
