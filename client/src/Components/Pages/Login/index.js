@@ -54,7 +54,7 @@ export default class Login extends Component {
       .then(({ data }) => {
         Mixpanel.identify(data.userId);
         Mixpanel.track("Successful login");
-        Mixpanel.people.set({
+        Mixpanel.people.append({
           $userId: data.userId
         });
         this.props.handleChangeState({ ...data, isLoggedIn: true });

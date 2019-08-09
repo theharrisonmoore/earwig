@@ -74,8 +74,8 @@ class App extends Component {
     window.addEventListener("resize", this.updateWindowDimensions);
     this.getUserInfo();
     window.scrollTo(0, 0);
-    mixpanel.track("app mounted", {
-      "cool app": "earwig"
+    mixpanel.track("new mount", {
+      earwig: "earwig"
     });
   }
 
