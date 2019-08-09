@@ -99,7 +99,13 @@ export const handleLogout = (history, handleChangeState) => {
       isAdmin: false,
       isMounted: false,
       email: "",
-      city: ""
+      city: "",
+      fields: {
+        agency: {},
+        payroll: {},
+        worksite: {},
+        company: {}
+      }
     });
     history.push(LOGIN_URL);
   });

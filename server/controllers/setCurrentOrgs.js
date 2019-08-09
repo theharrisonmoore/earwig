@@ -18,9 +18,6 @@ module.exports = async (req, res, next) => {
   } = req.body;
   const { user } = req;
 
-  console.log("user", user.id);
-
-  console.log("req.body", req.body);
 
   const updateData = {
     currentAgency, currentPayroll, currentWorksite, currentCompany,
@@ -38,6 +35,6 @@ module.exports = async (req, res, next) => {
     // send updated user back to client
     return res.json(updatedUser);
   } catch (error) {
-    next(boom.badImplementation());
+    next(boom.badImplementation(error));
   }
 };

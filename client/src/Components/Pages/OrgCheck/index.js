@@ -26,11 +26,7 @@ import {
 import { organizations, colors } from "./../../../theme";
 
 // API ROUTES
-import {
-  API_SEARCH_URL,
-  API_SET_ORGS,
-  API_GET_USER_ORGS
-} from "../../../apiUrls";
+import { API_SEARCH_URL, API_SET_ORGS } from "../../../apiUrls";
 
 // NAV ROUTES
 import { WELCOME_URL } from "../../../constants/naviagationUrls";
@@ -65,7 +61,6 @@ export default class OrgCheck extends Component {
     // if (!state) {
     axiosCall()
       .then(organizations => {
-        console.log("data", organizations.data);
         this.setState({
           data: organizations.data,
           isLoaded: true
@@ -75,38 +70,36 @@ export default class OrgCheck extends Component {
         this.setState({ isLoaded: true });
         console.log(err);
       });
-    // }
-    // this.setState({ isLoaded: true });
 
-    // check is logging in on signing up
-    const { loggingIn } = this.props;
+    // check is logging in or signing up
+    // const { loggingIn } = this.props;
 
-    if (loggingIn) {
-      axios
-        .get(API_GET_USER_ORGS)
-        .then(({ data }) => {
-          console.log("data", data);
-          const { fields } = this.state;
-          const fieldArr = Object.entries(data);
-          fieldArr.map(org => (fields[org[0]] = org[1]));
-          this.setState({
-            fields,
-            loggingIn,
-            section: "confirm",
-            updating: false
-          });
+    // if (loggingIn) {
+    // axios
+    //   .get(API_GET_USER_ORGS)
+    //   .then(({ data }) => {
+    // console.log("data", data);
+    // const { fields } = this.state;
+    // const fieldArr = Object.entries(data);
+    // fieldArr.map(org => (fields[org[0]] = org[1]));
+    this.setState({
+      // fields,
+      // loggingIn,
+      section: "confirm",
+      updating: false
+    });
 
-          if (state) {
-            const { section = "agnecy" } = state;
-            if (section) {
-              this.setState({
-                section
-              });
-            }
-          }
-        })
-        .catch(err => console.log(err));
+    if (state) {
+      const { section = "agnecy" } = state;
+      if (section) {
+        this.setState({
+          section
+        });
+      }
     }
+    // })
+    // .catch(err => console.log(err));
+    // }
   }
 
   sectionChange = direction => {
@@ -157,14 +150,14 @@ export default class OrgCheck extends Component {
   };
 
   storeOrg = value => {
-    console.log("value", value);
     const { section } = this.state;
     this.props.setCurrentUserOrgs(value, section);
+    this.setState({ updating: true });
     this.sectionChange("forward");
   };
 
   setCurrentOrgs = () => {
-    const { fields } = this.state;
+    const { fields } = this.props;
     const { history } = this.props;
 
     // set up object to send to server
@@ -177,10 +170,7 @@ export default class OrgCheck extends Component {
 
     const answers = Object.entries(currentOrgs);
 
-    answers.map(
-      answer => answer[1] === "None" && delete currentOrgs[answer[0]]
-    );
-
+    answers.map(answer => !answer[1] && delete currentOrgs[answer[0]]);
     axios
       .post(API_SET_ORGS, currentOrgs)
       .then(() => history.push(WELCOME_URL))
@@ -217,8 +207,8 @@ export default class OrgCheck extends Component {
   };
 
   render() {
-    const { section, isLoaded, data, fields, updating } = this.state;
-    const { history } = this.props;
+    const { section, isLoaded, data, updating } = this.state;
+    const { history, fields } = this.props;
 
     if (!isLoaded) return <Loading />;
     return (
@@ -272,7 +262,7 @@ export default class OrgCheck extends Component {
                 noIcon={false}
                 section={section}
               />
-              <StatusButton type="button" onClick={() => this.storeOrg("None")}>
+              <StatusButton type="button" onClick={() => this.storeOrg("")}>
                 {section === "agency"
                   ? `I'm not using an agency`
                   : `I'm not using a ${section}`}
@@ -293,7 +283,7 @@ export default class OrgCheck extends Component {
                   height="1.25rem"
                   margin="0 1rem 0 0"
                 />
-                {fields.agency === "None" ? (
+                {!fields.agency ? (
                   <OrgText noOrg>You're not using an agency</OrgText>
                 ) : (
                   <OrgText>{fields.agency.name}</OrgText>
@@ -306,7 +296,7 @@ export default class OrgCheck extends Component {
                   height="1.25rem"
                   margin="0 1rem 0 0"
                 />
-                {fields.payroll === "None" ? (
+                {!fields.payroll ? (
                   <OrgText noOrg>You're not using a payroll</OrgText>
                 ) : (
                   <OrgText>{fields.payroll.name}</OrgText>
@@ -319,7 +309,7 @@ export default class OrgCheck extends Component {
                   height="1.25rem"
                   margin="0 1rem 0 0"
                 />
-                {fields.worksite === "None" ? (
+                {!fields.worksite ? (
                   <OrgText noOrg>You're not using a worksite</OrgText>
                 ) : (
                   <OrgText>{fields.worksite.name}</OrgText>
@@ -332,7 +322,7 @@ export default class OrgCheck extends Component {
                   height="1.25rem"
                   margin="0 1rem 0 0"
                 />
-                {fields.company === "None" ? (
+                {!fields.company ? (
                   <OrgText noOrg>You're not using a company</OrgText>
                 ) : (
                   <OrgText>{fields.company.name}</OrgText>

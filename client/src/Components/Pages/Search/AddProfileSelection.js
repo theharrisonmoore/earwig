@@ -49,7 +49,10 @@ export default class AddProfileSelection extends Component {
       .post(API_ADD_ORGANIZATION_URL, newOrg)
       .then(res => {
         this.setState({ isLoading: false });
-        if (referrerUrl === "/update") {
+        if (
+          referrerUrl === "/update" ||
+          referrerUrl === "/getting-to-know-you"
+        ) {
           this.props.history.push(referrerUrl, {
             newOrg: res.data,
             section

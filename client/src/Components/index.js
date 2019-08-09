@@ -156,7 +156,7 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL3"
+          minimumLevel="LEVEL2"
           path={ADD_PROFILE_URL}
           {...props}
           isMobile={isMobile}
@@ -166,7 +166,7 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL3"
+          minimumLevel="LEVEL2"
           path={ADD_PROFILE_START_REVIEW_URL}
           {...props}
           isMobile={isMobile}

@@ -35,10 +35,10 @@ export const initialState = {
   email: "",
   city: "",
   fields: {
-    agency: "None",
-    payroll: "None",
-    worksite: "None",
-    company: "None"
+    agency: {},
+    payroll: {},
+    worksite: {},
+    company: {}
   }
 };
 
@@ -61,7 +61,6 @@ class App extends Component {
     axios
       .get(API_USERS)
       .then(res => {
-        console.log("resssss", res);
         this.setState({ ...res.data, isLoggedIn: true, isMounted: true });
         this.updateWindowDimensions();
       })
@@ -91,8 +90,7 @@ class App extends Component {
   };
 
   setCurrentUserOrgs = (value, section) => {
-    console.log("val", value, "section", section);
-    this.setState((state, props) => {
+    this.setState(state => {
       return {
         fields: { ...state.fields, [section]: value }
       };

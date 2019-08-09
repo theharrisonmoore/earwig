@@ -50,6 +50,7 @@ app.use(Sentry.Handlers.errorHandler());
 // error handler
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
+  console.log("err", err);
   // send the error object
   if (err.isBoom) {
     // for boom errors

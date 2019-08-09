@@ -40,8 +40,15 @@ module.exports.deleteUser = id => User.deleteOne({ _id: id });
 module.exports.getUserById = (id, withoutPassword) => (
   withoutPassword
     ? User.findById(id, { password: 0 })
-      .populate("currentAgency", "currentCompany", "currentWorksite", "currentPayroll")
-    : User.findById(id).populate("currentAgency", "currentCompany", "currentWorksite", "currentPayroll")
+      .populate("currentAgency")
+      .populate("currentCompany")
+      .populate("currentWorksite")
+      .populate("currentPayroll")
+    : User.findById(id)
+      .populate("currentAgency")
+      .populate("currentCompany")
+      .populate("currentWorksite")
+      .populate("currentPayroll")
 );
 
 module.exports.deleteUserCompletely = async (userId) => {
