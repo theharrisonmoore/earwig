@@ -358,9 +358,7 @@ export default class OverallReview extends Component {
       id: userId
     } = this.props;
 
-    const {
-      totalReviews
-    } = summary;
+    const { totalReviews } = summary;
 
     const { writtenOrAudioReviews } = this.state;
 

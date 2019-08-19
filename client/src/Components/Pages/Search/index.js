@@ -41,8 +41,10 @@ const orgArrowIcon = {
 };
 
 // gets all organisations from db
-export const axiosCall = async () => {
-  const response = await axios.get(API_SEARCH_URL);
+export const axiosCall = source => {
+  const response = axios.get(API_SEARCH_URL, {
+    cancelToken: source.token
+  });
   return response;
 };
 
@@ -69,6 +71,9 @@ export const PopOverWrapper = ({ disabled, children }) => {
   }
 };
 
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
+
 export default class Search extends Component {
   state = {
     isLoading: false,
@@ -78,29 +83,34 @@ export default class Search extends Component {
   };
 
   componentDidMount() {
+    console.log("search mounted");
     const { isLoggedIn, match } = this.props;
     const { target } = match.params;
 
-    axiosCall().then(organizations => {
-      this.setState({
-        data: organizations.data,
-        isLoading: true,
-        target: target || "profile"
-      });
+    axiosCall(source)
+      .then(organizations => {
+        this.setState({
+          data: organizations.data,
+          isLoading: true,
+          target: target || "profile"
+        });
 
-      if (target === "review" && isLoggedIn) {
-        axios
-          .get(API_GET_LAST_30D_ORGANISATIONS_IDS)
-          .then(({ data }) => {
-            this.setState({ orgsIds: data.orgsIds });
-          })
-          .catch(err => {
-            const error =
-              err.response && err.response.data && err.response.data.error;
-            message.error(error || "Something went wrong");
-          });
-      }
-    });
+        if (target === "review" && isLoggedIn) {
+          axios
+            .get(API_GET_LAST_30D_ORGANISATIONS_IDS)
+            .then(({ data }) => {
+              this.setState({ orgsIds: data.orgsIds });
+            })
+            .catch(err => {
+              const error =
+                err.response && err.response.data && err.response.data.error;
+              message.error(error || "Something went wrong");
+            });
+        }
+      })
+      .catch(err => {
+        console.log("err", err);
+      });
     document.addEventListener("mousedown", this.handleClickOutside, false);
   }
 
@@ -114,7 +124,10 @@ export default class Search extends Component {
   }
 
   componentWillUnmount() {
+    console.log("search unnnn mounted");
     document.removeEventListener("mousedown", this.handleClickOutside);
+    // cancel the request (the message parameter is optional)
+    source.cancel("Operation canceled by the user.");
   }
 
   // renders last viewed organization section
@@ -130,9 +143,8 @@ export default class Search extends Component {
       target === "review" && orgsIds && orgsIds.includes(org._id);
 
     return (
-      <PopOverWrapper disabled>
+      <PopOverWrapper key={key} disabled>
         <ProfileLink
-          key={key}
           to={disabled ? "#" : url}
           as={disabled ? "div" : undefined}
         >

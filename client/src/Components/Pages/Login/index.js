@@ -18,7 +18,8 @@ import {
 import {
   SIGNUP_URL,
   RESET_PASSWORD_URL,
-  WELCOME_URL
+  WELCOME_URL,
+  ORG_STATUS_URL_LOGIN
 } from "./../../../constants/naviagationUrls";
 
 import {
@@ -30,8 +31,6 @@ import {
 } from "./Login.style";
 
 import { StyledField } from "./../../Common/Formik/Formik.style";
-
-import { ORG_STATUS_URL_LOGIN } from "./../../../constants/naviagationUrls";
 
 const initalValues = { email: "", password: "" };
 

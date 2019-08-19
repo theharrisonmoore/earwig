@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import SVG from "react-inlinesvg";
 import { NavLink } from "react-router-dom";
@@ -112,15 +113,14 @@ export const OrgButton = styled.button`
     border: none;
 
     ::after {
-    content: "";
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    background: ${colors.btnClick};
-    box-shadow: none;
-    
+      content: "";
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      background: ${colors.btnClick};
+      box-shadow: none;
     }
   }
 `;
@@ -201,7 +201,7 @@ export const LightTitle = styled(UserID)`
   opacity: 0.5;
 `;
 
-export const CommentBubble = styled.p`
+export const CommentBubble = styled.div`
   background: ${({ color }) => color || colors.ghostGray};
   border-radius: 1.125rem;
   align-self: flex-start;
@@ -358,7 +358,9 @@ export const HelpfulButtonWrapper = styled.div`
   }
 `;
 
-export const ActionsButton = styled(Button)`
+export const ActionsButton = styled(({ isMobile, ...rest }) => (
+  <Button {...rest} />
+))`
   background: ${({ bgcolor }) => bgcolor};
   border: none;
   font-weight: 700;
@@ -366,7 +368,7 @@ export const ActionsButton = styled(Button)`
   width: 100%;
   padding: 0.5rem 1rem;
   height: auto;
-  margin-right: ${props => (props.ismobile ? "0.5rem" : "2rem")};
+  margin-right: ${props => (props.isMobile ? "0.5rem" : "2rem")};
   position: relative;
 
   transform: scale3d(
@@ -381,7 +383,6 @@ export const ActionsButton = styled(Button)`
     background-color: ${({ bgcolor }) => bgcolor};
     border-color: ${({ bgcolor }) => bgcolor};
   }
-
 `;
 
 export const UserTrade = styled.p`
@@ -450,19 +451,18 @@ export const ActionButton = styled.button`
     padding: 0.5rem 1rem;
   }
 
-    &:active {
+  &:active {
     box-shadow: none;
 
     ::after {
-    content: "";
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    background: ${colors.btnClick};
-    box-shadow: none;
-    
+      content: "";
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      background: ${colors.btnClick};
+      box-shadow: none;
     }
   }
 `;

@@ -4,7 +4,7 @@ import {
   MOBILE_WIDTH,
   TABLET_WIDTH
 } from "../constants/screenWidths";
-import React from "react";
+import React, { Fragment } from "react";
 import StarRatingComponent from "react-star-rating-component";
 import SVG from "react-inlinesvg";
 import { ImgDiv } from "../Components/Pages/Search/Search.style";
@@ -161,17 +161,17 @@ export const questionsNumber = {
 
 export const highlightMentions = text => {
   return text.split("\n").map(line => (
-    <>
+    <Fragment key={line}>
       {line.split(" ").map((ele, index) => (
-        <>
+        <Fragment key={ele}>
           {ele.startsWith("@") ? (
             <span style={{ fontWeight: 900 }}>{ele.substr(1)}</span>
           ) : (
             ele
           )}{" "}
           {line.split(" ").length === index + 1 && "\n"}
-        </>
+        </Fragment>
       ))}
-    </>
+    </Fragment>
   ));
 };

@@ -53,8 +53,8 @@ class Review extends Component {
     answers: {},
     review: {
       workPeriod: {
-        from: "",
-        to: ""
+        from: null,
+        to: null
       },
       rate: 0,
       overallReview: "",

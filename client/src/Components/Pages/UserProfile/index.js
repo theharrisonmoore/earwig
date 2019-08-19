@@ -105,42 +105,36 @@ export default class index extends Component {
             <BottomSection isSMobile={isSMobile}>
               <StatWrapper>
                 <StatTitle isSMobile={isSMobile}>Given</StatTitle>
-                <Stat>
-                  <Skeleton
-                    loading={!loaded}
-                    title={{ width: 60 }}
-                    paragraph={false}
-                    active
-                  >
-                    {reviewCount} reviews
-                  </Skeleton>
-                </Stat>
+                <Skeleton
+                  loading={!loaded}
+                  title={{ width: 60 }}
+                  paragraph={false}
+                  active
+                >
+                  <Stat>{reviewCount} reviews</Stat>
+                </Skeleton>
               </StatWrapper>
               <StatWrapper>
                 <StatTitle>Helped</StatTitle>
-                <Stat>
-                  <Skeleton
-                    loading={!loaded}
-                    title={{ width: 60 }}
-                    paragraph={false}
-                    active
-                  >
-                    {helpedUsers} workers
-                  </Skeleton>
-                </Stat>
+                <Skeleton
+                  loading={!loaded}
+                  title={{ width: 60 }}
+                  paragraph={false}
+                  active
+                >
+                  <Stat>{helpedUsers} workers</Stat>
+                </Skeleton>
               </StatWrapper>
               <StatWrapper>
                 <StatTitle>Earned</StatTitle>
-                <Stat>
-                  <Skeleton
-                    loading={!loaded}
-                    title={{ width: 60 }}
-                    paragraph={false}
-                    active
-                  >
-                    {points} points
-                  </Skeleton>
-                </Stat>
+                <Skeleton
+                  loading={!loaded}
+                  title={{ width: 60 }}
+                  paragraph={false}
+                  active
+                >
+                  <Stat>{points} points</Stat>
+                </Skeleton>
               </StatWrapper>
             </BottomSection>
           </Header>

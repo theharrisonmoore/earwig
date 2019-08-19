@@ -157,9 +157,8 @@ export default class CommentsBox extends Component {
                 />
                 {/* <Close src={CloseIcon} alt="close" onClick={toggleComments} /> */}
               </CommentsHeader>
-
               {comments &&
-                comments.map(comment => (
+                comments.map((comment, i) => (
                   <IndividComment key={comment._id}>
                     <UserID>{comment.displayName || comment.userId}</UserID>
                     <CommentBubble as="pre">

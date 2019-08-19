@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -218,7 +219,10 @@ export const ButtonsWrapper = styled.div`
   }
 `;
 
-export const LargeLink = styled(Link)`
+// export const LargeLink = styled(Link)`
+export const LargeLink = styled(({ purpleLinks, ...rest }) => (
+  <Link {...rest} />
+))`
   font-family: Roboto;
   font-weight: 900;
   font-size: 18px;

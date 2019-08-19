@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
@@ -156,7 +157,7 @@ export const SharePromo = styled.div`
   margin: 1.5rem auto
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled(({ orgType, ...rest }) => <Link {...rest} />)`
   &,
   &:link,
   &:hover {
