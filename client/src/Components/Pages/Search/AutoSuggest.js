@@ -223,35 +223,60 @@ class AutosuggestComponent extends Component {
 
   // renders all elements and the add item footer
   renderSuggestionsContainer = ({ containerProps, children, query }) => {
+    // if (this.props.origin === 'orgCheck') {
+    //   toObject = {
+    //     pathname: '/'
+    //   }
+    // }
     if (query && query.length > 0) {
       return (
         <div {...containerProps}>
           {children}
           <div className="my-suggestions-container-footer" />
           {/* {children && children.props.items[0].isEmpty && ( */}
-          <AddProfileLink
-            to={{
-              pathname: `${ADD_PROFILE_URL}`,
-              state: {
-                name: `${query}`,
-                referrerUrl: this.props.location.pathname,
-                section: this.props.section
-              }
-            }}
-          >
-            <AddItemBox>
-              <InnerDivSuggestions>
-                {/* <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv> */}
-                <SymbolDiv>
-                  <img src={addItemIcon} alt="" />
-                </SymbolDiv>
-                <AddItemDetails>
-                  <h3>Add {query}</h3>
-                </AddItemDetails>
-              </InnerDivSuggestions>
-            </AddItemBox>
-          </AddProfileLink>
-          {/* )} */}
+          {this.props.origin === "orgCheck" ? (
+            <AddProfileLink
+              as="button"
+              onClick={() => {
+                console.log("hi");
+              }}
+            >
+              <AddItemBox>
+                <InnerDivSuggestions>
+                  {/* <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv> */}
+                  <SymbolDiv>
+                    <img src={addItemIcon} alt="" />
+                  </SymbolDiv>
+                  <AddItemDetails>
+                    <h3>Add {query}</h3>
+                  </AddItemDetails>
+                </InnerDivSuggestions>
+              </AddItemBox>
+            </AddProfileLink>
+          ) : (
+            <AddProfileLink
+              to={{
+                pathname: `${ADD_PROFILE_URL}`,
+                state: {
+                  name: `${query}`,
+                  referrerUrl: this.props.location.pathname,
+                  section: this.props.section
+                }
+              }}
+            >
+              <AddItemBox>
+                <InnerDivSuggestions>
+                  {/* <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv> */}
+                  <SymbolDiv>
+                    <img src={addItemIcon} alt="" />
+                  </SymbolDiv>
+                  <AddItemDetails>
+                    <h3>Add {query}</h3>
+                  </AddItemDetails>
+                </InnerDivSuggestions>
+              </AddItemBox>
+            </AddProfileLink>
+          )}
         </div>
       );
     }

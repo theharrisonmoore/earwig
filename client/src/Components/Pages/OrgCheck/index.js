@@ -51,14 +51,12 @@ export default class OrgCheck extends Component {
     data: null,
     isLoaded: false,
     loggingIn: false,
-    updating: true
+    updating: true,
+    newOrg: {}
   };
 
   componentDidMount() {
     const { state } = this.props.history.location;
-    // console.log("didmountState", state.newOrg);
-
-    // if (!state) {
     axiosCall()
       .then(organizations => {
         this.setState({
@@ -71,20 +69,7 @@ export default class OrgCheck extends Component {
         console.log(err);
       });
 
-    // check is logging in or signing up
-    // const { loggingIn } = this.props;
-
-    // if (loggingIn) {
-    // axios
-    //   .get(API_GET_USER_ORGS)
-    //   .then(({ data }) => {
-    // console.log("data", data);
-    // const { fields } = this.state;
-    // const fieldArr = Object.entries(data);
-    // fieldArr.map(org => (fields[org[0]] = org[1]));
     this.setState({
-      // fields,
-      // loggingIn,
       section: "confirm",
       updating: false
     });
@@ -97,10 +82,24 @@ export default class OrgCheck extends Component {
         });
       }
     }
-    // })
-    // .catch(err => console.log(err));
-    // }
   }
+
+  handleAddNewOrg = async e => {
+    const { newOrg: name, section } = this.state;
+    console.log("hi", name, section);
+    const newOrg = {
+      name,
+      category: section
+    };
+
+    try {
+      const res = await axios.post("/api/organizations", newOrg);
+      const { data } = res;
+      console.log("data", data);
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
 
   sectionChange = direction => {
     const { section } = this.state;
@@ -152,7 +151,7 @@ export default class OrgCheck extends Component {
   storeOrg = value => {
     const { section } = this.state;
     this.props.setCurrentUserOrgs(value, section);
-    this.setState({ updating: true });
+    this.setState({ updating: true, newOrg: value });
     this.sectionChange("forward");
   };
 
@@ -182,10 +181,8 @@ export default class OrgCheck extends Component {
     history.push(WELCOME_URL);
   };
 
-  decideColor = () => {
-    const { section } = this.state;
+  getSectionColor = section => {
     let color;
-
     switch (section) {
       case "payroll":
         color = organizations.agency.primary;
@@ -204,6 +201,11 @@ export default class OrgCheck extends Component {
     }
 
     return color;
+  };
+
+  decideColor = () => {
+    const { section } = this.state;
+    return this.getSectionColor(section);
   };
 
   render() {
@@ -261,6 +263,7 @@ export default class OrgCheck extends Component {
                 storeOrg={this.storeOrg}
                 noIcon={false}
                 section={section}
+                origin="orgCheck"
               />
               <StatusButton type="button" onClick={() => this.storeOrg("")}>
                 {section === "agency"
