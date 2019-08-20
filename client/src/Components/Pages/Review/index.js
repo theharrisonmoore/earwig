@@ -234,10 +234,14 @@ class Review extends Component {
   };
 
   handleCheckBox = () => {
-    const { hasAgreed } = this.state;
-    this.setState({
-      hasAgreed: !hasAgreed
-    });
+    this.setState(
+      prevState => ({
+        hasAgreed: !prevState.hasAgreed
+      }),
+      () => {
+        this.runValidation();
+      }
+    );
   };
 
   handleReviewChange = e => {
@@ -269,25 +273,33 @@ class Review extends Component {
   };
 
   handleImageUpload = (value, number) => {
-    const { answers } = this.state;
-    this.setState({
-      answers: { ...answers, [number]: value }
-    });
+    this.setState(prevState => ({
+      answers: { ...prevState.answers, [number]: value }
+    }));
   };
 
   handleRateChage = value => {
-    const { review } = this.state;
-    this.setState({
-      review: { ...review, rate: value }
-    });
+    this.setState(prevState => ({
+      review: { ...prevState.review, rate: value }
+    }));
   };
 
   handleDateChage = (fromOrTo, value) => {
-    const { review } = this.state;
-    const { workPeriod } = review;
-    this.setState({
-      review: { ...review, workPeriod: { ...workPeriod, [fromOrTo]: value } }
-    });
+    this.setState(
+      prevState => {
+        const { review } = prevState;
+        const { workPeriod } = review;
+        return {
+          review: {
+            ...review,
+            workPeriod: { ...workPeriod, [fromOrTo]: value }
+          }
+        };
+      },
+      () => {
+        this.runValidation();
+      }
+    );
   };
 
   showNextQestion = (groupId, next, other, set, num) => {
@@ -363,23 +375,25 @@ class Review extends Component {
       review: this.state.review,
       hasAgreed: this.state.hasAgreed
     };
+    let errs = {
+      answers: {},
+      review: {
+        workPeriod: {
+          from: "",
+          to: ""
+        },
+        rate: "",
+        overallReview: ""
+      },
+      hasAgreed: ""
+    };
     return validationSchema[organization.category]
       .validate(values, { abortEarly: false })
+      .then(() => {
+        this.setState({ errors: {} });
+        return "done";
+      })
       .catch(errors => {
-        const errs = {
-          answers: {},
-          review: {
-            workPeriod: {
-              from: "",
-              to: ""
-            },
-            rate: "",
-            overallReview: ""
-            // voiceReview: ""
-          },
-          hasAgreed: false
-        };
-
         errors.inner.forEach(err => {
           if (err.path.includes("answers")) {
             const num = err.path.split(".")[1];
@@ -389,11 +403,11 @@ class Review extends Component {
             errs.review.workPeriod[key] = err.message;
           } else if (err.path.includes("rate")) {
             errs.review.rate = err.message;
-          } else {
+          } else if (err.path.includes("hasAgreed")) {
             errs.hasAgreed = err.message;
           }
         });
-        this.setState({ errors: errs, hasError: true });
+        this.setState({ errors: errs, isSubmitting: false });
       });
   };
 
@@ -437,10 +451,10 @@ class Review extends Component {
             });
         } else {
           // add new review
-
           // if there's an audio file submit and update answers with its correct filename
-          if (audioFile)
+          if (audioFile) {
             review.values.review.voiceReview = await this.submitAudio();
+          }
 
           axios
             .post(API_POST_REVIEW_URL, review)
@@ -587,6 +601,7 @@ class Review extends Component {
                     onChange={this.handleCheckBox}
                     style={{ marginTop: "4px" }}
                     checked={this.state.hasAgreed}
+                    value={this.state.hasAgreed}
                   >
                     <AgreementLabel
                       htmlFor="agreement"
