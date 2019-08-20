@@ -21,9 +21,21 @@ const ButtonElement = styled.button`
   padding: 0.75rem 0;
   cursor: pointer;
   margin: ${props => props.margin || "2rem auto"};
+  position: relative;
 
   &:active {
     box-shadow: none;
+
+    ::after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: ${colors.btnClick};
+    box-shadow: none;
+    }
   }
 
   &:active,

@@ -358,6 +358,10 @@ export default class OverallReview extends Component {
       id: userId
     } = this.props;
 
+    const {
+      totalReviews
+    } = summary;
+
     const { writtenOrAudioReviews } = this.state;
 
     const { activeReview, counters } = this.state;
@@ -371,7 +375,7 @@ export default class OverallReview extends Component {
 
     return FilteredReviewMonths[0] && FilteredReviewMonths[0].createdAt ? (
       <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-        <SectionTitle>Overall ratings</SectionTitle>
+        <SectionTitle>Reviews ({totalReviews})</SectionTitle>
         {/* check if any written comments */}
         {this.checkWrittenComments(summary.reviews) === false && (
           <LightTitle>No written reviews yet. Be the first...</LightTitle>

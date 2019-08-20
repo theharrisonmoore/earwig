@@ -19,11 +19,17 @@ export const Wrapper = styled.div`
   align-items: center;
   background: ${colors.white};
   z-index: 1000;
-
+  overflow-y: scroll;
+  top: 0;
+  left: 0;
   /* @media ${breakpoints.tablet} {
     border-bottom: none;
   } */
 `;
+
+export const MenuWrapper = styled.div`
+
+`
 
 export const WrapperH2 = styled.h2`
   margin: 0;
@@ -71,4 +77,8 @@ export const ToggleMenu = styled.div`
   min-width: 5.25rem;
   width: 100%;
   justify-content: ${props => props.position};
+  padding-right: 1rem;
+  margin-bottom: 1rem;
+  padding-top: ${props => props.isMobile ? "0.5rem" : "1rem"};
+  min-height: 1rem;
 `;

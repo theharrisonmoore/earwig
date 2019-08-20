@@ -1,25 +1,160 @@
 import React, { Component } from "react";
-import { Map } from "immutable";
-import { ErrorMessage } from "formik";
-import { Select, Icon as AntdIcon, Divider } from "antd";
+// import { Map } from "immutable";
+import { Modal, Alert } from "antd";
+import axios from "axios";
 
-import { colors } from "../../../../../theme";
-import {
-  QuestionOptionsWrapper,
-  Options,
-  StyledErrorMessage
-} from "../Question.style";
+import { QuestionOptionsWrapper, Options, Input } from "../Question.style";
 
-import ModalComment from "../../../../Common/AntdComponents/ModalComment";
+import Select from "../../../../Common/Select";
 
 class DropDown extends Component {
-  state = { placeholder: "" };
-  shouldComponentUpdate(nextProps, nextState) {
-    if (Map(this.props.state.answers).equals(Map(nextProps.state.answers))) {
-      return false;
-    }
-    return true;
+  state = {
+    placeholder: "",
+    newOrg: "",
+    ismodalVisible: false,
+    dropdownOptions: [],
+    confirmLoading: false,
+    newOrgSuccess: false,
+    newOrgError: "",
+    disableSelect: false
+  };
+
+  componentDidMount() {
+    const { dropdownOptions } = this.props;
+
+    this.setState({ dropdownOptions });
   }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const sameProps = Map(this.props).equals(Map(nextProps));
+  //   const sameState = Map(this.state).equals(Map(nextState));
+  //   if (sameProps && sameState) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
+  addedOrgCategory = category => {
+    switch (category) {
+      case "agency":
+        return "payroll";
+      case "payroll":
+        return "agency";
+      case "worksite":
+        return "company";
+      default:
+        return category;
+    }
+  };
+
+  showModal = e => {
+    const { searchTerm } = e.target.dataset;
+    this.setState({
+      ismodalVisible: true,
+      newOrg: searchTerm
+    });
+  };
+
+  handleOk = async () => {
+    const { dropdownOptions } = this.state;
+
+    const { number, category, handleAddNewOrgChange } = this.props;
+
+    if (this.state.newOrg && this.state.newOrg.length >= 3) {
+      this.setState(
+        {
+          confirmLoading: true
+        },
+        async () => {
+          try {
+            const res = await axios.post("/api/organizations", {
+              name: this.state.newOrg,
+              active: false,
+              category: this.addedOrgCategory(category)
+            });
+            const { data } = res;
+            const addedOrg = {
+              _id: data._id,
+              name: data.name
+            };
+
+            this.setState({
+              newOrg: data.name,
+              disableSelect: true,
+              dropdownOptions: [...dropdownOptions, addedOrg]
+            });
+
+            handleAddNewOrgChange(JSON.stringify(addedOrg), number);
+
+            this.setState(
+              {
+                newOrgSuccess: true
+              },
+              () => {
+                setTimeout(() => {
+                  this.setState({
+                    newOrgSuccess: false,
+                    ismodalVisible: false,
+                    confirmLoading: false,
+                    newOrg: data.name
+                  });
+                }, 1000);
+              }
+            );
+          } catch (err) {
+            this.setState(
+              {
+                newOrgSuccess: false,
+                newOrgError: err.response.data.error
+              },
+              () => {
+                setTimeout(() => {
+                  this.setState({
+                    ismodalVisible: false,
+                    confirmLoading: false
+                  });
+                }, 1000);
+              }
+            );
+          }
+        }
+      );
+    } else if (this.state.newOrg.length < 3) {
+      this.setState({
+        newOrgError: "Organization name must be at least 3 characters long"
+      });
+    }
+  };
+
+  addNewOrgHandler = e => {
+    const { name, value } = e.target;
+    const { dropdownOptions } = this.state;
+    this.setState({
+      dropdownOptions: [...dropdownOptions, { [name]: value }],
+      newOrg: value
+    });
+  };
+
+  handleCancel = () => {
+    this.setState({
+      ismodalVisible: false,
+      newOrgSuccess: false,
+      newOrgError: "",
+      newOrg: ""
+    });
+  };
+
+  handleChange = value => {
+    const { fields } = this.state;
+    this.setState({ newOrg: value, fields: { ...fields, newOrg: value } });
+  };
+
+  handleInput = event => {
+    const { name, value } = event.target;
+    const { fields } = this.state;
+    fields[name] = value;
+    this.setState({ fields });
+  };
 
   addOrgType = category => {
     switch (category) {
@@ -27,85 +162,81 @@ class DropDown extends Component {
         return "payroll";
       case "payroll":
         return "agency";
+      case "worksite":
+        return "main contractor";
       default:
         return category;
     }
   };
 
   render() {
-    const { props } = this;
-    const { number, label, handleSliderChange, category } = props;
-    const { dropdownOptions } = this.props;
-    let newOptions = [...dropdownOptions];
+    const { number, handleAddNewOrgChange, category } = this.props;
+    const {
+      ismodalVisible,
+      confirmLoading,
+      newOrg,
+      dropdownOptions
+    } = this.state;
 
     return (
       <QuestionOptionsWrapper>
         <Options>
           <Select
             showSearch
-            placeholder={this.state.placeholder || label}
-            style={{
-              border: `1px solid ${colors.dustyGray1}`,
-              borderRadius: "4px"
+            placeholder={"Select your organization"}
+            id="newOrg"
+            name="newOrg"
+            options={dropdownOptions}
+            handleChange={value => {
+              this.setState({ newOrg: value });
+              handleAddNewOrgChange(value, number);
             }}
-            onChange={value => {
-              handleSliderChange(value, number);
-            }}
-            // onSearch={value => {
-            //   if (value) {
-            //     this.setState({ placeholder: value });
-            //     form.setFieldValue(`questions[${number}]`, value);
-            //   }
-            // }}
-            dropdownRender={menu => {
-              return (
-                <div>
-                  {menu}
-                  <Divider style={{ margin: "4px 0" }} />
-                  <ModalComment
-                    title={`Add a new ${this.addOrgType(category)}`}
-                    setFieldValue={value => {
-                      this.setState({ placeholder: value });
-                      handleSliderChange(value, number);
-                    }}
-                    number={number}
-                    category={category}
-                    render={renderProps => {
-                      newOptions = [...newOptions, renderProps.text];
-                      return (
-                        <div
-                          onMouseDown={e => {
-                            e.preventDefault();
-                            return false;
-                          }}
-                          style={{
-                            padding: "8px",
-                            cursor: "pointer"
-                          }}
-                        >
-                          <AntdIcon type="plus" /> Add item
-                        </div>
-                      );
-                    }}
+            value={newOrg}
+            // disabled={this.state.disableSelect}
+            isCreateNew
+            addHandler={this.showModal}
+          />
+          <div>
+            <Modal
+              title={`Add a new ${this.addOrgType(category)}`}
+              visible={ismodalVisible}
+              onOk={this.handleOk}
+              confirmLoading={confirmLoading}
+              onCancel={this.handleCancel}
+            >
+              {this.state.newOrgError && (
+                <>
+                  <Alert
+                    message={this.state.newOrgError}
+                    type="error"
+                    showIcon
                   />
-                </div>
-              );
-            }}
-          >
-            {newOptions.map(({ name: option, _id }) => (
-              <Select.Option
-                value={`${option}===${_id}`}
-                key={_id}
-                data-id={_id}
-              >
-                {option}
-              </Select.Option>
-            ))}
-          </Select>
+                  <br />
+                </>
+              )}
+              {this.state.newOrgSuccess && (
+                <>
+                  <Alert
+                    message={`A new ${this.addOrgType(
+                      category
+                    )} added successfully`}
+                    type="success"
+                    showIcon
+                  />
+                  <br />
+                </>
+              )}
+              <Input
+                autoFocus
+                placeholder={`Add a new ${this.addOrgType(category)}`}
+                allowClear
+                name="newOrg"
+                onChange={this.addNewOrgHandler}
+                value={newOrg}
+              />
+            </Modal>
+          </div>
         </Options>
-        <ErrorMessage name={`questions[${number}]`}>
-          {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
-        </ErrorMessage>
       </QuestionOptionsWrapper>
     );
   }

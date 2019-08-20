@@ -100,10 +100,28 @@ export const OrgButton = styled.button`
   box-shadow: ${shadows.buttonShadow};
   margin: 0 0.5rem;
   cursor: pointer;
+  position: relative;
 
   :hover {
     background: ${props => organizations[`${props.category}`].primary};
     color: ${colors.white};
+  }
+
+  &:active {
+    box-shadow: none;
+    border: none;
+
+    ::after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: ${colors.btnClick};
+    box-shadow: none;
+    
+    }
   }
 `;
 
@@ -349,6 +367,7 @@ export const ActionsButton = styled(Button)`
   padding: 0.5rem 1rem;
   height: auto;
   margin-right: ${props => (props.ismobile ? "0.5rem" : "2rem")};
+  position: relative;
 
   transform: scale3d(
     ${({ scale }) => scale || 1},
@@ -362,6 +381,7 @@ export const ActionsButton = styled(Button)`
     background-color: ${({ bgcolor }) => bgcolor};
     border-color: ${({ bgcolor }) => bgcolor};
   }
+
 `;
 
 export const UserTrade = styled.p`
@@ -412,6 +432,7 @@ export const ActionButton = styled.button`
   display: flex;
   align-items: center;
   height: 5.5rem;
+  position: relative;
 
   @media ${breakpoints.mobileM} {
     font-size: 14px;
@@ -427,6 +448,22 @@ export const ActionButton = styled.button`
     width: 18rem;
     height: 4.5rem;
     padding: 0.5rem 1rem;
+  }
+
+    &:active {
+    box-shadow: none;
+
+    ::after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: ${colors.btnClick};
+    box-shadow: none;
+    
+    }
   }
 `;
 

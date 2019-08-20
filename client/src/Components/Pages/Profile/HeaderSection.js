@@ -94,7 +94,9 @@ export default class HeaderSection extends Component {
                 {totalReviews === 0 ? (
                   <NoReview>No reviews yet</NoReview>
                 ) : (
-                  <Reviews category={category}>{totalReviews} reviews</Reviews>
+                  <Reviews category={category}>
+                    {totalReviews} review{totalReviews !== 1 && "s"}
+                  </Reviews>
                 )}
               </StarWrapper>
             </CompanyNameAndStars>
@@ -241,6 +243,7 @@ export default class HeaderSection extends Component {
                 color={organizations[category].primary}
                 isMobile={isMobile}
                 style={{ margin: "0 1rem" }}
+                disabled
               >
                 {!isMobile && (
                   <Icon

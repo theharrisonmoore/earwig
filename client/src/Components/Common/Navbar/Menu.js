@@ -11,7 +11,11 @@ import {
   ComingSoon,
   PriorityIcon
 } from "./Menu.style.js";
+
+import { ToggleMenu } from "./Navbar.style"
 import { Icon as AdminIcon } from "antd";
+
+import CloseIcon from "./../../../assets/close-icon.svg";
 
 import { colors } from "./../../../theme";
 
@@ -40,7 +44,7 @@ export default class Menu extends PureComponent {
       awaitingReview,
       verified,
       history,
-      handleChangeState
+      handleChangeState,
     } = this.props;
     const data = {
       isAdmin,
@@ -53,6 +57,9 @@ export default class Menu extends PureComponent {
 
     return (
       <Wrapper isMobile={isMobile}>
+        <ToggleMenu onClick={toggleMenu} position="flex-end" isMobile={isMobile}>
+          <img src={CloseIcon} alt="close" />
+        </ToggleMenu>
         {authorization({ ...data, minimumLevel: "ADMIN" }) && (
           <PriorityMenuItem to={ADMIN} onClick={toggleMenu}>
             <AdminIcon
