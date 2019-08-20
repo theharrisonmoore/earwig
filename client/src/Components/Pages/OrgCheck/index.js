@@ -254,6 +254,8 @@ export default class index extends Component {
                 isButton
                 storeOrg={this.storeOrg}
                 noIcon={false}
+                origin="checkOrg"
+                addOrganisation={this.addOrganisation}
               />
               <StatusButton type="button" onClick={() => this.storeOrg("None")}>
                 {section === "agency"
