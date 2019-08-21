@@ -60,9 +60,9 @@ export default class index extends Component {
 
   componentDidMount() {
     axiosCall()
-      .then(organizations => {
+      .then(({ data }) => {
         this.setState({
-          data: organizations.data,
+          data: data[0].searchData,
           isLoaded: true
         });
       })
@@ -141,9 +141,12 @@ export default class index extends Component {
   };
 
   storeOrg = value => {
-    const { section, fields } = this.state;
-    fields[section] = value;
-    this.setState({ fields });
+    const { section } = this.state;
+
+    this.setState(prevState => ({
+      fields: { ...prevState.fields, [section]: value },
+      data: [...prevState.data, value]
+    }));
     this.sectionChange("forward");
   };
 
@@ -247,13 +250,14 @@ export default class index extends Component {
                 height="4.5rem"
                 bool={() => true}
                 width="295px"
-                data={data[0].searchData.filter(
-                  item => item.category === section
-                )}
+                data={data.filter(item => item.category === section)}
                 placeholderText={`Type the name of the ${section}`}
                 isButton
                 storeOrg={this.storeOrg}
                 noIcon={false}
+                origin="checkOrg"
+                addOrganisation={this.addOrganisation}
+                section={section}
               />
               <StatusButton type="button" onClick={() => this.storeOrg("None")}>
                 {section === "agency"
