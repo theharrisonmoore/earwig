@@ -138,6 +138,7 @@ class Review extends Component {
                 organization: res.data.organization,
                 email,
                 answers,
+                orgId,
                 review,
                 dropdownOptions:
                   res.data.dropDownListData &&
@@ -420,14 +421,16 @@ class Review extends Component {
           user
         };
         if (this.state.isEditing) {
+          const { orgId } = this.state;
           // update the same review
           axios
             .put(`/api/review/${this.state.reviewId}`, review)
             .then(res => {
               this.setState({ isSubmitting: false });
+              
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,
-                orgId: res.data,
+                orgId,
                 orgName: organization.name
               });
             })

@@ -88,6 +88,11 @@ const Cancel = styled.p`
     cancelColor ? cancelColor : colors.heliotrope};
 `;
 
+// const LinkBtn = styled.button`
+//   outline: none;
+//   border
+// `
+
 export default class UserReviews extends Component {
   state = {
     reviews: [],
@@ -190,7 +195,13 @@ export default class UserReviews extends Component {
                             <Cancel>Edit</Cancel>
                           </Link> */}
                           <div>
-                            <Button onClick={() => this.error(review._id)}>
+                            <Button
+                              onClick={() => this.error(review._id)}
+                              style={{
+                                outline: "none",
+                                border: "none"
+                              }}
+                            >
                               <Cancel>Edit</Cancel>
                             </Button>
                           </div>
