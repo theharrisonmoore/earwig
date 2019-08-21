@@ -168,7 +168,9 @@ class AutosuggestComponent extends Component {
   delSearchInput = () => {
     const { handleCancelIconClick } = this.props;
     this.setState({ value: "" });
-    handleCancelIconClick();
+    if (this.props.origin !== "checkOrg") {
+      handleCancelIconClick();
+    }
   };
 
   // renders individual suggestions
