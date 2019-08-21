@@ -1,6 +1,6 @@
 const boom = require("boom");
 const moment = require("moment");
-const { findReviewById } = require("./../database/queries/review");
+const { findReviewById, getReviewHelpfulness } = require("./../database/queries/review");
 
 /**
  * Check if the user can edit his own review under these condidtion
@@ -15,15 +15,17 @@ module.exports = async (req, res, next) => {
 
     const before1Month = moment().subtract(30, "days");
     const createdLTMonthAgo = moment(review.createdAt).isSameOrAfter(before1Month);
-    const hasVotes = !!review.overallReview.votes.length;
-    const hasVoiceVotes = !!review.voiceReview.votes.length;
 
-    if (!hasVotes && !hasVoiceVotes && createdLTMonthAgo
+    const helpedSomeone = await getReviewHelpfulness(reviewId);
+
+
+    if (!helpedSomeone && createdLTMonthAgo
        && review.user.toString() === req.user._id.toString()) {
       return res.send({ orgId: review.organization });
     }
     return next(boom.unauthorized());
   } catch (error) {
+    console.log("err", error);
     return next(boom.badImplementation());
   }
 };

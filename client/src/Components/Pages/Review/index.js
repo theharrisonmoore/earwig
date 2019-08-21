@@ -101,8 +101,8 @@ class Review extends Component {
                   to: moment(reviewDetails[0].workPeriod.to)
                 },
                 rate: reviewDetails[0].rate,
-                overallReview: reviewDetails[0].overallReview.text
-                // voiceReview: ""
+                overallReview: reviewDetails[0].overallReview.text,
+                voiceReview: reviewDetails[0].overallReview.audio || ""
               };
 
               reviewDetails[0].answers.forEach(answer => {
@@ -138,6 +138,7 @@ class Review extends Component {
                 organization: res.data.organization,
                 email,
                 answers,
+                orgId,
                 review,
                 dropdownOptions:
                   res.data.dropDownListData &&
@@ -149,6 +150,9 @@ class Review extends Component {
               const error =
                 err.response && err.response.data && err.response.data.error;
               message.error(error || "Something went wrong");
+              // setTimeout(() => {
+              //   this.props.history.push("/search");
+              // }, 2000);
             });
         })
         .catch(err => {
@@ -417,14 +421,21 @@ class Review extends Component {
           user
         };
         if (this.state.isEditing) {
+          const { orgId } = this.state;
           // update the same review
+          if (audioFile) {
+            review.values.review.voiceReview = await this.submitAudio();
+          }
+
+          // if there's an audio file submit and update answers with its correct filename
           axios
             .put(`/api/review/${this.state.reviewId}`, review)
             .then(res => {
               this.setState({ isSubmitting: false });
+              
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,
-                orgId: res.data,
+                orgId,
                 orgName: organization.name
               });
             })
@@ -437,7 +448,6 @@ class Review extends Component {
             });
         } else {
           // add new review
-
           // if there's an audio file submit and update answers with its correct filename
           if (audioFile)
             review.values.review.voiceReview = await this.submitAudio();
