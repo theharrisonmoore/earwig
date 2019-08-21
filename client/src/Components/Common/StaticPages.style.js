@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { colors, shadows, breakpoints } from "./../../theme";
+import { colors, shadows, breakpoints, borders } from "./../../theme";
 import { MOBILE_WIDTH } from "./../../constants/screenWidths";
 
 export const Wrapper = styled.div`
@@ -85,14 +85,24 @@ export const PageTitle = styled.h1`
   }
 `;
 
+export const SubTitleGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 0 2.5rem 0;
+  border-bottom: ${borders.commentBox};
+  margin-bottom: 2rem;
+`;
+
 export const SubTitle = styled.h4`
-  font-weight: 900;
-  font-size: 1.125rem;
+  font-weight: ${props => (props.sublist ? "700" : "900")};
+  font-size: ${props => (props.list ? "1rem" : "1.125rem")};
   color: ${colors.heliotrope};
   text-decoration: underline;
   text-align: ${({ center }) => (center ? "center" : "left")};
   margin-bottom: ${({ marginBottom }) => (marginBottom ? "1.5rem" : "0")};
-  margin-top: ${props => (props.list ? "0" : "1.5rem")};
+  margin-top: ${props => (props.list ? "1rem" : "1.5rem")};
+  padding-left: ${({ sublist }) => sublist && "1rem"};
+  margin-top: ${props => props.sublist && "0.5rem"};
 
   @media (min-width: ${MOBILE_WIDTH}px) {
     font-size: 1.5rem;
