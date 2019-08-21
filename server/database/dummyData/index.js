@@ -62,7 +62,7 @@ const buildProdctionData = () => new Promise((resolve, reject) => {
 // if it is "test" that mean we run the the build script in terminal
 // invoke the build function
 
-if (process.env.NODE_ENV === "prod") {
+if (process.env.NODE_ENV === "production") {
   buildProdctionData().then(() => {
     // eslint-disable-next-line no-console
     console.log("Done!: Production DB has been built successfully");

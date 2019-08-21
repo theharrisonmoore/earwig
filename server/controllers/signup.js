@@ -67,11 +67,11 @@ module.exports = async (req, res, next) => {
     const user = await addNew(newUserData);
 
     // if in production add email to list
-    if (process.env.NODE_ENV === "prod") {
+    if (process.env.NODE_ENV === "production") {
       try {
         await addToMailchimpList(email);
       } catch (err) {
-        return next(boom.badImplementation());
+        return next(boom.badImplementation(err));
       }
     }
 
