@@ -120,7 +120,7 @@ export default class Welcome extends Component {
                   <ButtonText>
                     <Text>
                       Ask workers a question
-                      <ComingSoon>(comming soon)</ComingSoon>
+                      <ComingSoon>(coming soon)</ComingSoon>
                     </Text>
                     {!verified && !awaitingReview && (
                       <HintText>(Click here to get verified first)</HintText>
@@ -145,7 +145,7 @@ export default class Welcome extends Component {
                   />
                   <ButtonText>
                     <Text>
-                      Find a job <ComingSoon>(comming soon)</ComingSoon>
+                      Find a job <ComingSoon>(coming soon)</ComingSoon>
                     </Text>
 
                     {!verified && !awaitingReview && (
