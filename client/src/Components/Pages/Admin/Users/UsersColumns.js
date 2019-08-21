@@ -108,10 +108,10 @@ export default ({
               placement="topLeft"
               content={
                 <div>
-                  <p>Current agency: {text.agency.name}</p>
-                  <p>Current company: {text.company.name}</p>
-                  <p>Current worksite: {text.worksite.name}</p>
-                  <p>Current payroll: {text.payroll.name}</p>
+                  <p>Current agency: {text.agency && text.agency.name}</p>
+                  <p>Current company: {text.company && text.company.name}</p>
+                  <p>Current worksite: {text.worksite && text.worksite.name}</p>
+                  <p>Current payroll: {text.payroll && text.payroll.name}</p>
                 </div>
               }
             >
