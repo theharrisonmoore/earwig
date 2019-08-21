@@ -255,7 +255,7 @@ const schemas = {
     currentPayroll: Joi.object(),
     currentWorksite: Joi.object(),
     currentCompany: Joi.object(),
-  }
+  },
 };
 
 module.exports = route => (req, res, next) => {
@@ -265,6 +265,6 @@ module.exports = route => (req, res, next) => {
   if (!isValid.error) {
     next();
   } else {
-    next(boom.badRequest(isValid.error.details[0].message));
+    return next(boom.badRequest(isValid.error.details[0].message));
   }
 };

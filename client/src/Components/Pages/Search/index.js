@@ -238,64 +238,6 @@ export default class Search extends Component {
             </HeaderParagraph>
           )}
         </HeadlineDiv>
-        {/* {showOtherSections && (
-          <FlexContainer>
-            <SearchLegendDiv isMobile={isMobile}>
-              <RowDiv>
-                <ItemDiv notMobile={!isMobile} left>
-                  <div>
-                    <Icon
-                      icon="agency"
-                      color={organizations.agency.primary}
-                      width="2rem"
-                      height="2rem"
-                      margin="0 1rem 0 0"
-                    />
-                  </div>
-                  <LegendTitle orgType="agency">Agencies</LegendTitle>
-                </ItemDiv>
-                <ItemDiv notMobile={!isMobile}>
-                  <div>
-                    <Icon
-                      icon="payroll"
-                      color={organizations.payroll.primary}
-                      width="2rem"
-                      height="2rem"
-                      margin="0 1rem 0 0"
-                    />
-                  </div>
-                  <LegendTitle orgType="payroll">Payrolls</LegendTitle>
-                </ItemDiv>
-              </RowDiv>
-              <RowDiv>
-                <ItemDiv notMobile={!isMobile} left>
-                  <div>
-                    <Icon
-                      icon="worksite"
-                      color={organizations.worksite.primary}
-                      width="2rem"
-                      height="2rem"
-                      margin="0 1rem 0 0"
-                    />
-                  </div>
-                  <LegendTitle orgType="worksite">Worksites</LegendTitle>
-                </ItemDiv>
-                <ItemDiv notMobile={!isMobile}>
-                  <div>
-                    <Icon
-                      icon="company"
-                      color={organizations.company.primary}
-                      width="2rem"
-                      height="2rem"
-                      margin="0 1rem 0 0"
-                    />
-                  </div>
-                  <LegendTitle orgType="company">Companies</LegendTitle>
-                </ItemDiv>
-              </RowDiv>
-            </SearchLegendDiv>
-          </FlexContainer>
-        )} */}
         <FlexContainer ref={this.setSearchBoxRef}>
           <AutosuggestComponent
             iconTop="20px"

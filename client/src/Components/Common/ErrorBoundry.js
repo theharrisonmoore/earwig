@@ -29,8 +29,7 @@ class ErrorBoundary extends Component {
       //render fallback UI
       return (
         <div>
-          <h1>Ooops Error...</h1>
-          <p>Help us imprving this by submiting a report</p>
+          <h1>Oops… Help us fix this by submitting a report</h1>
           <button onClick={this.showSentryDialogFrom}>Report feedback</button>
         </div>
       );
