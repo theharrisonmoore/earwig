@@ -52,8 +52,7 @@ const schemas = {
     otherOrg: Joi.string()
       .when("orgType", {
         is: "other",
-        then: Joi.string().min(3).error(() => "enter valid organisation you work for")
-          .required("enter valid organisation you work for"),
+        then: Joi.string().min(3),
         otherwise: Joi.allow("").optional(),
       }),
   },
