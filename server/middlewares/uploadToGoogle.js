@@ -34,12 +34,10 @@ module.exports = (required, isVoice) => async (req, res, next) => {
         contentRange: `bytes 0-${size - 1}/${size}`,
       };
     }
-
     const [file] = await bucket.upload(req.file.path, options);
     req.file.uploadedFileName = file.name;
+    return next();
   } catch (error) {
     next(boom.badImplementation("Error while uploading photo"));
   }
-
-  return next();
 };
