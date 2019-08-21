@@ -4,7 +4,7 @@ import axios from "axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
-import { Popconfirm, message, Button, Modal } from "antd";
+import { Popconfirm, message, Modal } from "antd";
 
 import { Wrapper } from "./UserProfile.style";
 
@@ -191,19 +191,10 @@ export default class UserReviews extends Component {
                         <ActionGroup
                           style={{ width: "15%", textAlign: "right" }}
                         >
-                          {/* <Link to={`/review/${review._id}/edit`}>
-                            <Cancel>Edit</Cancel>
-                          </Link> */}
                           <div>
-                            <Button
-                              onClick={() => this.error(review._id)}
-                              style={{
-                                outline: "none",
-                                border: "none"
-                              }}
-                            >
-                              <Cancel>Edit</Cancel>
-                            </Button>
+                            <Cancel onClick={() => this.error(review._id)}>
+                              Edit
+                            </Cancel>
                           </div>
 
                           <span>
