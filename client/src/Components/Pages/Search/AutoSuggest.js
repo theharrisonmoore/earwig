@@ -6,11 +6,16 @@
 import React, { Component } from "react";
 import Autosuggest from "react-autosuggest";
 import { withRouter } from "react-router-dom";
+import axios from "axios";
 import createTrie from "autosuggest-trie";
-import { Rate } from "antd";
+import { Rate, Spin } from "antd";
+import swal from "sweetalert2";
+
 import { PopOverWrapper } from "./index";
 
 import { ADD_PROFILE_URL } from "../../../constants/naviagationUrls";
+import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
+
 // styles
 import {
   AutosuggestWrapper,
@@ -76,7 +81,11 @@ class AutosuggestComponent extends Component {
     value: "",
     suggestions: [],
     isButton: false,
-    target: "profile"
+    target: "profile",
+    isLoaded: true,
+    ismodalVisible: false,
+    errors: {},
+    confirmLoading: false
   };
 
   componentDidMount() {
@@ -93,6 +102,30 @@ class AutosuggestComponent extends Component {
       }
     }
   }
+
+  handleAddNewOrg = () => {
+    const { value } = this.state;
+    const { section } = this.props;
+    const newOrg = { name: value, category: section };
+    this.setState({ isLoaded: false });
+    axios
+      .post(API_ADD_ORGANIZATION_URL, newOrg)
+      .then(res => {
+        this.setState({ isLoaded: true });
+        this.props.storeOrg(res.data);
+      })
+      .catch(err => {
+        this.setState({ isLoaded: true });
+        swal.fire({
+          type: "error",
+          title: "Oops...",
+          text: `${value} already exists. Please contact us directly with your request.`,
+          footer: '<a href="/contact">Contact</a>'
+        });
+      });
+
+    this.setState({ value: "", suggestions: [] });
+  };
 
   // functions for autosuggest component
 
@@ -135,7 +168,9 @@ class AutosuggestComponent extends Component {
   delSearchInput = () => {
     const { handleCancelIconClick } = this.props;
     this.setState({ value: "" });
-    handleCancelIconClick();
+    if (this.props.origin !== "checkOrg") {
+      handleCancelIconClick();
+    }
   };
 
   // renders individual suggestions
@@ -218,31 +253,48 @@ class AutosuggestComponent extends Component {
 
   // renders all elements and the add item footer
   renderSuggestionsContainer = ({ containerProps, children, query }) => {
+    // const { confirmLoading, ismodalVisible } = this.state;
     if (query && query.length > 0) {
       return (
         <div {...containerProps}>
           {children}
           <div className="my-suggestions-container-footer" />
-          {/* {children && children.props.items[0].isEmpty && ( */}
-          <AddProfileLink
-            to={{
-              pathname: `${ADD_PROFILE_URL}`,
-              state: { name: `${query}` }
-            }}
-          >
-            <AddItemBox>
-              <InnerDivSuggestions>
-                {/* <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv> */}
-                <SymbolDiv>
-                  <img src={addItemIcon} alt="" />
-                </SymbolDiv>
-                <AddItemDetails>
-                  <h3>Add {query}</h3>
-                </AddItemDetails>
-              </InnerDivSuggestions>
-            </AddItemBox>
-          </AddProfileLink>
-          {/* )} */}
+          {this.props.origin === "checkOrg" ? (
+            <AddProfileLink as="button" onClick={this.handleAddNewOrg}>
+              <AddItemBox>
+                <InnerDivSuggestions>
+                  <SymbolDiv>
+                    <img src={addItemIcon} alt="" />
+                  </SymbolDiv>
+                  <AddItemDetails>
+                    <h3>Add {query}</h3>
+                  </AddItemDetails>
+                </InnerDivSuggestions>
+              </AddItemBox>
+            </AddProfileLink>
+          ) : (
+            <AddProfileLink
+              to={{
+                pathname: `${ADD_PROFILE_URL}`,
+                state: {
+                  name: `${query}`,
+                  referrerUrl: this.props.location.pathname,
+                  section: this.props.section
+                }
+              }}
+            >
+              <AddItemBox>
+                <InnerDivSuggestions>
+                  <SymbolDiv>
+                    <img src={addItemIcon} alt="" />
+                  </SymbolDiv>
+                  <AddItemDetails>
+                    <h3>Add {query}</h3>
+                  </AddItemDetails>
+                </InnerDivSuggestions>
+              </AddItemBox>
+            </AddProfileLink>
+          )}
         </div>
       );
     }
@@ -270,49 +322,46 @@ class AutosuggestComponent extends Component {
 
     // decide the number of suggestions rendered
     const suggestionLimit = 10;
-
     const filteredSuggestions = suggestions.slice(0, suggestionLimit);
-    // console.log(suggestions);
+
     return (
       <AutosuggestWrapper height={height} width={width} noIcon>
-        {!noIcon && (
-          <IconDiv
-            iconTop={iconTop}
-            // bgr={this.selectIconBgr(value)}
-            onClick={this.delSearchInput}
-          >
-            {value.length > 0 ? (
-              <Icon icon="close" height="32px" width="32px" />
-            ) : (
-              <Icon icon="search" height="32px" width="32px" />
-            )}
-          </IconDiv>
-        )}
-        {/* on mobile disable shouldRenderSuggestions as we don't want automatic suggestion rendering as it hides most of the screen */}
-        {isMobile ? (
-          <Autosuggest
-            suggestions={filteredSuggestions}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            getSuggestionValue={getSuggestionValue}
-            renderSuggestion={this.renderSuggestion}
-            inputProps={inputProps}
-            renderSuggestionsContainer={this.renderSuggestionsContainer}
-            focusInputOnSuggestionClick={false}
-          />
-        ) : (
-          <Autosuggest
-            suggestions={filteredSuggestions}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            getSuggestionValue={getSuggestionValue}
-            renderSuggestion={this.renderSuggestion}
-            shouldRenderSuggestions={() => bool}
-            inputProps={inputProps}
-            renderSuggestionsContainer={this.renderSuggestionsContainer}
-            focusInputOnSuggestionClick={false}
-          />
-        )}
+        <Spin spinning={!this.state.isLoaded} tip="Adding the new org.">
+          {!noIcon && (
+            <IconDiv iconTop={iconTop} onClick={this.delSearchInput}>
+              {value.length > 0 ? (
+                <Icon icon="close" height="32px" width="32px" />
+              ) : (
+                <Icon icon="search" height="32px" width="32px" />
+              )}
+            </IconDiv>
+          )}
+          {/* on mobile disable shouldRenderSuggestions as we don't want automatic suggestion rendering as it hides most of the screen */}
+          {isMobile ? (
+            <Autosuggest
+              suggestions={filteredSuggestions}
+              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+              getSuggestionValue={getSuggestionValue}
+              renderSuggestion={this.renderSuggestion}
+              inputProps={inputProps}
+              renderSuggestionsContainer={this.renderSuggestionsContainer}
+              focusInputOnSuggestionClick={false}
+            />
+          ) : (
+            <Autosuggest
+              suggestions={filteredSuggestions}
+              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+              getSuggestionValue={getSuggestionValue}
+              renderSuggestion={this.renderSuggestion}
+              shouldRenderSuggestions={() => bool}
+              inputProps={inputProps}
+              renderSuggestionsContainer={this.renderSuggestionsContainer}
+              focusInputOnSuggestionClick={false}
+            />
+          )}
+        </Spin>
       </AutosuggestWrapper>
     );
   }
