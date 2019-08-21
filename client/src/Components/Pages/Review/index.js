@@ -25,7 +25,12 @@ import { StyledErrorMessage } from "./Question/Question.style";
 import Question from "./Question/index";
 import { organizations } from "../../../theme";
 
-import { validationSchema } from "./validationSchema";
+import {
+  validationSchema,
+  hasAgreed,
+  rate,
+  workPeriod
+} from "./validationSchema";
 import { STATIC_QUESTIONS } from "./staticQuestions";
 
 import {
@@ -150,9 +155,6 @@ class Review extends Component {
               const error =
                 err.response && err.response.data && err.response.data.error;
               message.error(error || "Something went wrong");
-              // setTimeout(() => {
-              //   this.props.history.push("/search");
-              // }, 2000);
             });
         })
         .catch(err => {
@@ -243,7 +245,24 @@ class Review extends Component {
         hasAgreed: !prevState.hasAgreed
       }),
       () => {
-        this.runValidation();
+        hasAgreed
+          .validate(this.state.hasAgreed)
+          .then(res => {
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                hasAgreed: ""
+              }
+            }));
+          })
+          .catch(err => {
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                hasAgreed: err.message
+              }
+            }));
+          });
       }
     );
   };
@@ -283,9 +302,31 @@ class Review extends Component {
   };
 
   handleRateChage = value => {
-    this.setState(prevState => ({
-      review: { ...prevState.review, rate: value }
-    }));
+    this.setState(
+      prevState => ({
+        review: { ...prevState.review, rate: value }
+      }),
+      () => {
+        rate
+          .validate(this.state.review.rate)
+          .then(() => {
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                review: { ...oldState.errors.review, rate: "" }
+              }
+            }));
+          })
+          .catch(err => {
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                review: { ...oldState.errors.review, rate: err.message }
+              }
+            }));
+          });
+      }
+    );
   };
 
   handleDateChage = (fromOrTo, value) => {
@@ -301,7 +342,29 @@ class Review extends Component {
         };
       },
       () => {
-        this.runValidation();
+        workPeriod
+          .validate(this.state.review.workPeriod)
+          .then(() => {
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                review: { ...oldState.errors.review, workPeriod: {} }
+              }
+            }));
+          })
+          .catch(err => {
+            const workPeriod = {
+              from: err.message,
+              to: err.message
+            };
+            console.log("err.message", err.message);
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                review: { ...oldState.errors.review, workPeriod }
+              }
+            }));
+          });
       }
     );
   };
@@ -371,14 +434,8 @@ class Review extends Component {
     this.setState({ groupss: newGroups });
   };
 
-  runValidation = () => {
+  runValidation = values => {
     const { organization } = this.state;
-    const values = {
-      answers: this.state.answers,
-      comments: this.state.comments,
-      review: this.state.review,
-      hasAgreed: this.state.hasAgreed
-    };
     let errs = {
       answers: {},
       review: {
@@ -427,7 +484,7 @@ class Review extends Component {
       hasAgreed: this.state.hasAgreed
     };
 
-    this.runValidation().then(async resp => {
+    this.runValidation(values).then(async resp => {
       if (resp) {
         const review = {
           values,
@@ -446,7 +503,7 @@ class Review extends Component {
             .put(`/api/review/${this.state.reviewId}`, review)
             .then(res => {
               this.setState({ isSubmitting: false });
-              
+
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,
                 orgId,
@@ -631,7 +688,7 @@ class Review extends Component {
                     </AgreementLabel>
                   </Checkbox>
 
-                  {errors && errors.hasAgreed && (
+                  {!!errors && !!errors.hasAgreed && (
                     <StyledErrorMessage>{errors.hasAgreed}</StyledErrorMessage>
                   )}
                 </CheckboxWrapper>
