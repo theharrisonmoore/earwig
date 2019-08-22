@@ -45,7 +45,6 @@ class CustomRate extends Component {
           }}
           onHoverChange={this.handleHoverRate}
           value={review.rate}
-          onBlur={this.props.runValidation}
         />
         <div style={{ dispay: "inline-block" }}>
           {options.map((option, index) => (
@@ -70,7 +69,7 @@ class CustomRate extends Component {
             </span>
           ))}
         </div>
-        {errors && errors.review && errors.review.rate && (
+        {!!errors && !!errors.review && !!errors.review.rate && (
           <StyledErrorMessage>{errors.review.rate}</StyledErrorMessage>
         )}
       </QuestionOptionsWrapper>

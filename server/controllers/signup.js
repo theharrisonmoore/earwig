@@ -9,7 +9,7 @@ const boom = require("boom");
 const jwt = require("jsonwebtoken");
 
 const { findByEmail, addNew, checkValidReferral } = require("./../database/queries/user");
-// const confirmJoiningMailList = require("./../helpers/confirmJoiningMailList");
+const createAccountEmails = require("./../helpers/emails/createAccountEmail");
 
 const addToMailchimpList = require("../helpers/3dParty/mailchimp");
 
@@ -70,6 +70,7 @@ module.exports = async (req, res, next) => {
     if (process.env.NODE_ENV === "production") {
       try {
         await addToMailchimpList(email);
+        await createAccountEmails(email);
       } catch (err) {
         return next(boom.badImplementation(err));
       }

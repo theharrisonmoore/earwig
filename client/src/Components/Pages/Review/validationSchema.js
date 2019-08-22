@@ -1,24 +1,31 @@
 import * as Yup from "yup";
 
-const generalSectionSchema = {
+export const from = Yup.date()
+  .typeError("Must select the work period")
+  .required("Required");
+
+export const workPeriod = Yup.object({
+  from: from,
+  to: from
+});
+
+export const rate = Yup.number()
+  .min(1, "Must pick a rate")
+  .required("Required");
+
+export const overallReview = Yup.string();
+
+export const hasAgreed = Yup.boolean()
+  .required("Required")
+  .oneOf([true], "Must Accept Terms and Conditions");
+
+export const generalSectionSchema = {
   review: Yup.object({
-    workPeriod: Yup.object({
-      from: Yup.date()
-        .typeError("Must select the work period")
-        .required("Required"),
-      to: Yup.date()
-        .typeError("Must select the work period")
-        .required("Required")
-    }),
-    rate: Yup.number()
-      .min(1, "Must pick a rate")
-      .required("Required"),
-    overallReview: Yup.string()
-    // voiceReview: Yup.mixed()
+    workPeriod,
+    rate,
+    overallReview
   }),
-  hasAgreed: Yup.boolean()
-    .required("Required")
-    .oneOf([true], "Must Accept Terms and Conditions")
+  hasAgreed
 };
 
 export const validationSchema = {

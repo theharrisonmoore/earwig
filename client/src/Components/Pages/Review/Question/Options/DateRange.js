@@ -30,7 +30,7 @@ class DateRange extends Component {
           {...this.props.state}
           category={category}
         />
-        {errors && errors.review && errors.review.workPeriod.from && (
+        {!!errors && !!errors.review && !!errors.review.workPeriod.from && (
           <StyledErrorMessage>
             {errors.review.workPeriod.from}
           </StyledErrorMessage>
