@@ -15,7 +15,6 @@ module.exports = fileName => new Promise(async (resolve, reject) => {
 
     return resolve(url);
   } catch (error) {
-    console.log("err", error);
     return reject(error);
   }
 });

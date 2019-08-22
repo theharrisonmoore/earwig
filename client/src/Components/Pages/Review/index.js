@@ -357,7 +357,6 @@ class Review extends Component {
               from: err.message,
               to: err.message
             };
-            console.log("err.message", err.message);
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
