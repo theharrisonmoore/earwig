@@ -122,9 +122,10 @@ export default class Welcome extends Component {
                       Ask workers a question
                       <ComingSoon>(coming soon)</ComingSoon>
                     </Text>
-                    {!verified && !awaitingReview && (
+                    {/* will go in once this feature is built */}
+                    {/* {!verified && !awaitingReview && (
                       <HintText>(Click here to get verified first)</HintText>
-                    )}
+                    )} */}
                   </ButtonText>
                 </Button>
               </StyledLink>
@@ -147,10 +148,10 @@ export default class Welcome extends Component {
                     <Text>
                       Find a job <ComingSoon>(coming soon)</ComingSoon>
                     </Text>
-
-                    {!verified && !awaitingReview && (
+                    {/* will go in once this feature is built */}
+                    {/* {!verified && !awaitingReview && (
                       <HintText>(Click here to get verified first)</HintText>
-                    )}
+                    )} */}
                   </ButtonText>
                 </Button>
               </StyledLink>
