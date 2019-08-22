@@ -25,7 +25,12 @@ import { StyledErrorMessage } from "./Question/Question.style";
 import Question from "./Question/index";
 import { organizations } from "../../../theme";
 
-import { validationSchema } from "./validationSchema";
+import {
+  validationSchema,
+  hasAgreed,
+  rate,
+  workPeriod
+} from "./validationSchema";
 import { STATIC_QUESTIONS } from "./staticQuestions";
 
 import {
@@ -150,9 +155,6 @@ class Review extends Component {
               const error =
                 err.response && err.response.data && err.response.data.error;
               message.error(error || "Something went wrong");
-              // setTimeout(() => {
-              //   this.props.history.push("/search");
-              // }, 2000);
             });
         })
         .catch(err => {
@@ -238,10 +240,31 @@ class Review extends Component {
   };
 
   handleCheckBox = () => {
-    const { hasAgreed } = this.state;
-    this.setState({
-      hasAgreed: !hasAgreed
-    });
+    this.setState(
+      prevState => ({
+        hasAgreed: !prevState.hasAgreed
+      }),
+      () => {
+        hasAgreed
+          .validate(this.state.hasAgreed)
+          .then(res => {
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                hasAgreed: ""
+              }
+            }));
+          })
+          .catch(err => {
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                hasAgreed: err.message
+              }
+            }));
+          });
+      }
+    );
   };
 
   handleReviewChange = e => {
@@ -273,25 +296,77 @@ class Review extends Component {
   };
 
   handleImageUpload = (value, number) => {
-    const { answers } = this.state;
-    this.setState({
-      answers: { ...answers, [number]: value }
-    });
+    this.setState(prevState => ({
+      answers: { ...prevState.answers, [number]: value }
+    }));
   };
 
   handleRateChage = value => {
-    const { review } = this.state;
-    this.setState({
-      review: { ...review, rate: value }
-    });
+    this.setState(
+      prevState => ({
+        review: { ...prevState.review, rate: value }
+      }),
+      () => {
+        rate
+          .validate(this.state.review.rate)
+          .then(() => {
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                review: { ...oldState.errors.review, rate: "" }
+              }
+            }));
+          })
+          .catch(err => {
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                review: { ...oldState.errors.review, rate: err.message }
+              }
+            }));
+          });
+      }
+    );
   };
 
   handleDateChage = (fromOrTo, value) => {
-    const { review } = this.state;
-    const { workPeriod } = review;
-    this.setState({
-      review: { ...review, workPeriod: { ...workPeriod, [fromOrTo]: value } }
-    });
+    this.setState(
+      prevState => {
+        const { review } = prevState;
+        const { workPeriod } = review;
+        return {
+          review: {
+            ...review,
+            workPeriod: { ...workPeriod, [fromOrTo]: value }
+          }
+        };
+      },
+      () => {
+        workPeriod
+          .validate(this.state.review.workPeriod)
+          .then(() => {
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                review: { ...oldState.errors.review, workPeriod: {} }
+              }
+            }));
+          })
+          .catch(err => {
+            const workPeriod = {
+              from: err.message,
+              to: err.message
+            };
+            console.log("err.message", err.message);
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                review: { ...oldState.errors.review, workPeriod }
+              }
+            }));
+          });
+      }
+    );
   };
 
   showNextQestion = (groupId, next, other, set, num) => {
@@ -359,31 +434,27 @@ class Review extends Component {
     this.setState({ groupss: newGroups });
   };
 
-  runValidation = () => {
+  runValidation = values => {
     const { organization } = this.state;
-    const values = {
-      answers: this.state.answers,
-      comments: this.state.comments,
-      review: this.state.review,
-      hasAgreed: this.state.hasAgreed
+    let errs = {
+      answers: {},
+      review: {
+        workPeriod: {
+          from: "",
+          to: ""
+        },
+        rate: "",
+        overallReview: ""
+      },
+      hasAgreed: ""
     };
     return validationSchema[organization.category]
       .validate(values, { abortEarly: false })
+      .then(() => {
+        this.setState({ errors: {} });
+        return "done";
+      })
       .catch(errors => {
-        const errs = {
-          answers: {},
-          review: {
-            workPeriod: {
-              from: "",
-              to: ""
-            },
-            rate: "",
-            overallReview: ""
-            // voiceReview: ""
-          },
-          hasAgreed: false
-        };
-
         errors.inner.forEach(err => {
           if (err.path.includes("answers")) {
             const num = err.path.split(".")[1];
@@ -393,11 +464,11 @@ class Review extends Component {
             errs.review.workPeriod[key] = err.message;
           } else if (err.path.includes("rate")) {
             errs.review.rate = err.message;
-          } else {
+          } else if (err.path.includes("hasAgreed")) {
             errs.hasAgreed = err.message;
           }
         });
-        this.setState({ errors: errs, hasError: true });
+        this.setState({ errors: errs, isSubmitting: false });
       });
   };
 
@@ -413,7 +484,7 @@ class Review extends Component {
       hasAgreed: this.state.hasAgreed
     };
 
-    this.runValidation().then(async resp => {
+    this.runValidation(values).then(async resp => {
       if (resp) {
         const review = {
           values,
@@ -432,7 +503,7 @@ class Review extends Component {
             .put(`/api/review/${this.state.reviewId}`, review)
             .then(res => {
               this.setState({ isSubmitting: false });
-              
+
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,
                 orgId,
@@ -449,8 +520,9 @@ class Review extends Component {
         } else {
           // add new review
           // if there's an audio file submit and update answers with its correct filename
-          if (audioFile)
+          if (audioFile) {
             review.values.review.voiceReview = await this.submitAudio();
+          }
 
           axios
             .post(API_POST_REVIEW_URL, review)
@@ -597,6 +669,7 @@ class Review extends Component {
                     onChange={this.handleCheckBox}
                     style={{ marginTop: "4px" }}
                     checked={this.state.hasAgreed}
+                    value={this.state.hasAgreed}
                   >
                     <AgreementLabel
                       htmlFor="agreement"
@@ -615,7 +688,7 @@ class Review extends Component {
                     </AgreementLabel>
                   </Checkbox>
 
-                  {errors && errors.hasAgreed && (
+                  {!!errors && !!errors.hasAgreed && (
                     <StyledErrorMessage>{errors.hasAgreed}</StyledErrorMessage>
                   )}
                 </CheckboxWrapper>

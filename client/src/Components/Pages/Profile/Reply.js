@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Mention, Input, message, Alert } from "antd";
+import { Mentions, Input, message, Alert } from "antd";
 import * as yup from "yup";
 import axios from "axios";
 
@@ -33,11 +33,9 @@ import { highlightMentions } from "../../../helpers";
 import Loading from "./../../Common/AntdComponents/Loading";
 import Button from "./../../Common/Button";
 
-const { toString, toContentState } = Mention;
-
 export default class Reply extends Component {
   state = {
-    commentContentState: toContentState(""),
+    commentContentState: "",
     replies: [],
     user: "",
     errors: {},
@@ -51,8 +49,8 @@ export default class Reply extends Component {
     this.setState({ user: value });
   };
 
-  onChange = contentState => {
-    this.setState({ commentContentState: contentState });
+  onChange = value => {
+    this.setState({ commentContentState: value });
   };
 
   handleFocus = () => {
@@ -74,7 +72,7 @@ export default class Reply extends Component {
     return schema
       .validate(
         {
-          comment: toString(this.state.commentContentState),
+          comment: this.state.commentContentState,
           user: this.state.user
         },
         { abortEarly: false }
@@ -95,7 +93,7 @@ export default class Reply extends Component {
       res &&
         this.setState({ errors: {}, submitting: true }, () => {
           const data = {
-            text: toString(this.state.commentContentState),
+            text: this.state.commentContentState,
             displayName: this.state.user,
             reviewId,
             target
@@ -105,7 +103,7 @@ export default class Reply extends Component {
             .then(({ data }) => {
               this.setState(
                 {
-                  commentContentState: toContentState(""),
+                  commentContentState: "",
                   errors: {},
                   submitting: false
                 },
@@ -181,12 +179,20 @@ export default class Reply extends Component {
     const { replies, loaded, submitting, focus } = this.state;
     const { isAdmin } = this.props;
     const { category } = this.props.location.state;
+
     const users =
       replies &&
       replies.reduce((prev, curr) => {
         prev.push(curr.replies.displayName || curr.replies.user.userId);
         return prev;
       }, []);
+
+    const uniqueUsers = [];
+    users.forEach(user => {
+      if (!uniqueUsers.includes(user)) {
+        uniqueUsers.push(user);
+      }
+    });
 
     if (!loaded) {
       return <Loading />;
@@ -256,9 +262,6 @@ export default class Reply extends Component {
                 background: "white",
                 paddingBottom: focus ? "0.5rem" : "2rem",
                 maxWidth: "30rem"
-                // margin: "0 auto",
-                // left: 0,
-                // right: 0
               }}
             >
               {isAdmin && (
@@ -275,26 +278,21 @@ export default class Reply extends Component {
                 <Error>{this.state.errors.user}</Error>
               )}
               <div style={{ position: "relative" }}>
-                <Mention
-                  autoFocus
-                  style={{
-                    width: "100%",
-                    marginTop: "0.25rem",
-                    minHeight: "4rem"
-                  }}
+                <Mentions
+                  rows="3"
+                  style={{ width: "100%" }}
                   onChange={this.onChange}
-                  defaultSuggestions={users}
-                  onFocus={this.handleFocus}
-                  onBlur={this.handleBlur}
-                  value={this.state.commentContentState}
-                  multiLines
+                  onSelect={this.onSelect}
                   placeholder={"Write your reply…"}
-                />
-                {/* <StyledReplyIcon
-                    width="40px"
-                    fill={organizations[category].primary}
-                    onClick={this.handleSubmit}
-                  /> */}
+                >
+                  {uniqueUsers.map((user, index) => {
+                    return (
+                      <Mentions.Option key={index} value={user}>
+                        {user}
+                      </Mentions.Option>
+                    );
+                  })}
+                </Mentions>
               </div>
             </div>
             <div

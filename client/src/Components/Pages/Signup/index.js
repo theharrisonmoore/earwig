@@ -87,17 +87,7 @@ const signupSchema = Yup.object().shape({
       ["agency", "payroll", "company", "mainContractor", "other"],
       "Invalid organisation type"
     ),
-  otherOrg: Yup.string().test(
-    "otherOrg",
-    "Enter the organisation you are working for",
-    function(otherOrg) {
-      const orgType = this.resolve(Yup.ref("orgType"));
-      if (orgType === "other" && !otherOrg) {
-        return false;
-      }
-      return true;
-    }
-  ),
+  otherOrg: Yup.string(),
   trade: Yup.string().test("trade", "Required", function(trade) {
     const isWorker = this.resolve(Yup.ref("isWorker"));
     if (isWorker === "yes" && !trade) {
