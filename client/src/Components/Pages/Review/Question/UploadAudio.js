@@ -81,6 +81,7 @@ class UploadAudio extends Component {
     });
     this.mediaRecorder.addEventListener("dataavailable", event => {
       if (event.data.size > 0) {
+        console.log("size");
         // this.recordedAudioBlobs.push(event.data);
         this.pushNewAudioBlob(event.data, event);
       } else {
@@ -123,6 +124,7 @@ class UploadAudio extends Component {
           let timestamp = Date.now();
           this.recordedAudioStartTimestamp = timestamp;
 
+          // arg: the length of chucnks instead of the default long track
           this.mediaRecorder.start(this.blobLengthMS);
           this.setState({
             recording: true
@@ -151,14 +153,15 @@ class UploadAudio extends Component {
     this.props.handleRecord({ recordedAudio: audioBlob, audioFile });
   };
 
-  processSample = e => {
-    this.counter++;
+  // // what is this for???
+  // processSample = e => {
+  //   this.counter++;
 
-    let bufferLength = this.analyser.frequencyBinCount;
-    let dataArray = new Uint8Array(bufferLength);
-    this.analyser.getByteFrequencyData(dataArray);
-    this.fftOutput.push(dataArray);
-  };
+  //   let bufferLength = this.analyser.frequencyBinCount;
+  //   let dataArray = new Uint8Array(bufferLength);
+  //   this.analyser.getByteFrequencyData(dataArray);
+  //   this.fftOutput.push(dataArray);
+  // };
 
   render() {
     let recordedAudioURL = null;
@@ -169,7 +172,13 @@ class UploadAudio extends Component {
 
     return (
       <VoiceWrapper>
-        <VoiceIconWrapper recording={recording} onClick={this.toggleRecording}>
+        <VoiceIconWrapper
+          style={{
+            background: "red"
+          }}
+          recording={recording}
+          onClick={this.toggleRecording}
+        >
           {recording ? (
             <StopIcon className="rectangle"></StopIcon>
           ) : (
