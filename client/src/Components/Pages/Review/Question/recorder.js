@@ -1,6 +1,4 @@
 /* eslint-disable */
-/* eslint-disable no-restricted-globals */
-/* eslint-disable no-undef */
 (function(f) {
   if (typeof exports === "object" && typeof module !== "undefined") {
     module.exports = f();
