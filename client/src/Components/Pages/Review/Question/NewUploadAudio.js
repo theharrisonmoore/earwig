@@ -70,10 +70,10 @@ class NewAudio extends React.Component {
     this.recorder.stop();
     tracks.forEach(track => track.stop());
     this.recorder.exportWAV(s => {
-      console.log("sssssssssss", s);
+      console.log("s", s);
       const src = window.URL.createObjectURL(s);
       const mimeType = s.type;
-      console.log(src, "type");
+      console.log("sssssssssssssssssssss", src);
       this.setState({ src, mimeType });
     });
   };
