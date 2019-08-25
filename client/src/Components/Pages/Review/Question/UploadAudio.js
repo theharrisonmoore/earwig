@@ -81,7 +81,6 @@ class UploadAudio extends Component {
     });
     this.mediaRecorder.addEventListener("dataavailable", event => {
       if (event.data.size > 0) {
-        console.log("size");
         // this.recordedAudioBlobs.push(event.data);
         this.pushNewAudioBlob(event.data, event);
       } else {

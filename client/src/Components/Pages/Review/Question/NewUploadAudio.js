@@ -8,25 +8,25 @@ import Recorder from "./recorder";
 // let codeBtn = document.querySelector(".js-code");
 // let pre = document.querySelector("pre");
 
+window.URL = window.URL || window.webkitURL;
+
+/**
+ * Detecte the correct AudioContext for the browser
+ * */
+
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
+navigator.getUserMedia =
+  navigator.getUserMedia ||
+  navigator.webkitGetUserMedia ||
+  navigator.mozGetUserMedia ||
+  navigator.msGetUserMedia;
+
 class NewAudio extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { tracks: [], src: "" };
+    this.state = { tracks: [], src: "", mimeType: "" };
     this.recorder = null;
     this.context = null;
-
-    window.URL = window.URL || window.webkitURL;
-
-    /**
-     * Detecte the correct AudioContext for the browser
-     * */
-
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    navigator.getUserMedia =
-      navigator.getUserMedia ||
-      navigator.webkitGetUserMedia ||
-      navigator.mozGetUserMedia ||
-      navigator.msGetUserMedia;
   }
 
   onFail = e => {
@@ -70,15 +70,25 @@ class NewAudio extends React.Component {
     this.recorder.stop();
     tracks.forEach(track => track.stop());
     this.recorder.exportWAV(s => {
+      console.log("sssssssssss", s);
       const src = window.URL.createObjectURL(s);
-      this.setState({ src });
+      const mimeType = s.type;
+      console.log(src, "type");
+      this.setState({ src, mimeType });
     });
   };
 
   render() {
     return (
       <div class="center-align">
-        <audio controls autoplay src={this.state.src}></audio>
+        <audio controls src={this.state.src} type={this.state.mimeType} />
+        {/* <source src={this.state.src} type={this.state.mimeType} />
+          {/* <source src="myAudio.ogg" type="audio/ogg" /> */}
+        {/* <p>
+            Your browser doesn't support HTML5 audio. Here is a{" "}
+            <a href="myAudio.mp4">link to the audio</a> instead.
+          </p>
+        </audio> */}
         <button
           onClick={this.handleStartClick}
           class="btn waves-effect waves-light js-start"
