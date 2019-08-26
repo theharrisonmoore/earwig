@@ -5,6 +5,8 @@ import React from "react";
 // let codeBtn = document.querySelector(".js-code");
 // let pre = document.querySelector("pre");
 
+import Recorder from "./recorder";
+
 window.URL = window.URL || window.webkitURL;
 
 /**
