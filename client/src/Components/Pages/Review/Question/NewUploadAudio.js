@@ -1,8 +1,5 @@
 import React from "react";
 // import Recorder from "recorder-js";
-
-import Recorder from "./recorder";
-
 // let startBtn = document.querySelector(".js-start");
 // let stopBtn = document.querySelector(".js-stop");
 // let codeBtn = document.querySelector(".js-code");
@@ -37,6 +34,7 @@ class NewAudio extends React.Component {
   onSuccess = s => {
     console.log("Recording...", s);
     let tracks = s.getTracks();
+
     this.setState({ tracks });
     console.log("tracks", tracks);
     // startBtn.setAttribute("disabled", true);
@@ -64,11 +62,12 @@ class NewAudio extends React.Component {
 
   handleStopClick = () => {
     const { tracks } = this.state;
-    console.log("Stop Recording...");
+    console.log("Stop Recording...", tracks);
     // stopBtn.setAttribute("disabled", true);
     // startBtn.removeAttribute("disabled");
     this.recorder.stop();
     tracks.forEach(track => track.stop());
+    console.log("hi");
     this.recorder.exportWAV(s => {
       console.log("s", s);
       const src = window.URL.createObjectURL(s);
