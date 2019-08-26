@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 // import Recorder from "recorder-js";
 // let startBtn = document.querySelector(".js-start");
@@ -5,7 +6,7 @@ import React from "react";
 // let codeBtn = document.querySelector(".js-code");
 // let pre = document.querySelector("pre");
 
-import Recorder from "./recorder";
+// import Recorder from "./recorder";
 
 window.URL = window.URL || window.webkitURL;
 
