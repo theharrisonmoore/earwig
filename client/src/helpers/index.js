@@ -178,9 +178,9 @@ export const highlightMentions = text => {
 
 export const isIphone = () => {
   const iOSUserAgent =
-    /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && !window.MSStream;
   const iOSPlatform =
-    !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+    !!navigator.platform && /iPad|iPhone|iPod|Macintosh/.test(navigator.platform);
 
   return iOSPlatform && iOSUserAgent;
 };
