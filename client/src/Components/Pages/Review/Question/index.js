@@ -4,7 +4,7 @@ import QuestionOptions from "./Options";
 import PopoverComponent from "./../../../Common/Popover";
 import { QuestionWrapper, QText, HintText } from "./Question.style";
 
-import UploadAudio from "./UploadAudio";
+import { isIphone } from "../../../../helpers/index";
 
 import UploadAudio2 from "./NewUploadAudio";
 
@@ -65,28 +65,23 @@ class Question extends Component {
         )}
         {type === "voiceReview" && (
           <div>
-            <UploadAudio
-              recording={recording}
-              stopRecord={stopRecord}
-              startRecord={startRecord}
-              handleRecord={handleRecord}
-              id={id}
-            />
-            <UploadAudio2
-              recording={recording}
-              stopRecord={stopRecord}
-              startRecord={startRecord}
-              handleRecord={handleRecord}
-              id={id}
-            />
-
-            <UploadAudio3
-              recording={recording}
-              stopRecord={stopRecord}
-              startRecord={startRecord}
-              handleRecord={handleRecord}
-              id={id}
-            />
+            {isIphone() ? (
+              <UploadAudio3
+                recording={recording}
+                stopRecord={stopRecord}
+                startRecord={startRecord}
+                handleRecord={handleRecord}
+                id={id}
+              />
+            ) : (
+              <UploadAudio2
+                recording={recording}
+                stopRecord={stopRecord}
+                startRecord={startRecord}
+                handleRecord={handleRecord}
+                id={id}
+              />
+            )}
           </div>
         )}
         <QuestionOptions

@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 
+import { VoiceWrapper, VoiceIconWrapper, StopIcon } from "./Question.style";
+
+import Icon from "./../../../Common/Icon/Icon";
+import { message } from "antd";
+
 window.URL = window.URL || window.webkitURL;
 /**
  * Detecte the correct AudioContext for the browser
@@ -28,6 +33,11 @@ export default class UploadAudio3 extends Component {
       mimeType: "audio/mp3"
     };
     this.encoder = null;
+  }
+
+  componentDidMount() {
+    message.config({ duration: 20 });
+    message.info("exmple3");
   }
 
   handleStartClick = () => {
@@ -115,14 +125,13 @@ export default class UploadAudio3 extends Component {
     /**
      * Give the node a function to process audio events
      */
-    this.processor.onaudioprocess = (event) => {
+    this.processor.onaudioprocess = event => {
       this.encoder.encode(this.getBuffers(event));
     };
   };
 
   logError = error => {
     alert(error);
-    console.log(error);
   };
 
   getBuffers = event => {
@@ -130,37 +139,65 @@ export default class UploadAudio3 extends Component {
     for (let ch = 0; ch < 2; ++ch) {
       buffers[ch] = event.inputBuffer.getChannelData(ch);
     }
-    console.log("buffer", buffers);
     return buffers;
   };
 
+  toggleRecording = () => {
+    console.log("333");
+    if (this.state.isRecording) {
+      this.handleStopClick();
+    } else {
+      this.handleStartClick();
+    }
+  };
+
   render() {
+    const { isRecording, src } = this.state;
     return (
-      <div class="center-align">
-        <div>
-          <canvas class="js-volume" width="20" height="140"></canvas>
-        </div>
-        <audio controls type="audio/mpeg" src={this.state.src}></audio>
-        <br />
-        <button
-          class="btn waves-effect waves-light js-start"
-          onClick={this.handleStartClick}
+      <VoiceWrapper>
+        <VoiceIconWrapper
+          recording={isRecording}
+          onClick={this.toggleRecording}
         >
-          Start
-        </button>
-        <button
-          class="btn waves-effect waves-light js-stop"
-          onClick={this.handleStopClick}
-        >
-          Stop
-        </button>
-        <br />
-        <a id="download" class="hide">
-          Download Audio
-        </a>
-        <br />
-        <button class="btn waves-effect waves-light js-code">Show Code</button>
-      </div>
+          {isRecording ? (
+            <StopIcon className="rectangle"></StopIcon>
+          ) : (
+            <Icon icon="voiceRecord" width="36px" height="48px" />
+          )}
+        </VoiceIconWrapper>
+        {src && (
+          <div style={{ width: "100%" }}>
+            <audio controls src={this.state.src} type="audio/mp3" />
+          </div>
+        )}
+      </VoiceWrapper>
     );
+    // return (
+    //   <div class="center-align">
+    //     <div>
+    //       <canvas class="js-volume" width="20" height="140"></canvas>
+    //     </div>
+    //     <audio controls type="audio/mpeg" src={this.state.src}></audio>
+    //     <br />
+    //     <button
+    //       class="btn waves-effect waves-light js-start"
+    //       onClick={this.handleStartClick}
+    //     >
+    //       Start
+    //     </button>
+    //     <button
+    //       class="btn waves-effect waves-light js-stop"
+    //       onClick={this.handleStopClick}
+    //     >
+    //       Stop
+    //     </button>
+    //     <br />
+    //     <a id="download" class="hide">
+    //       Download Audio
+    //     </a>
+    //     <br />
+    //     <button class="btn waves-effect waves-light js-code">Show Code</button>
+    //   </div>
+    // );
   }
 }
