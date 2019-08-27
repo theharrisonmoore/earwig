@@ -4,9 +4,11 @@ import QuestionOptions from "./Options";
 import PopoverComponent from "./../../../Common/Popover";
 import { QuestionWrapper, QText, HintText } from "./Question.style";
 
-// import UploadAudio from "./UploadAudio";
+import UploadAudio from "./UploadAudio";
 
 import UploadAudio2 from "./NewUploadAudio";
+
+import UploadAudio3 from "./UploadAudio3";
 
 class Question extends Component {
   render() {
@@ -63,14 +65,22 @@ class Question extends Component {
         )}
         {type === "voiceReview" && (
           <div>
-            {/* <UploadAudio
+            <UploadAudio
               recording={recording}
               stopRecord={stopRecord}
               startRecord={startRecord}
               handleRecord={handleRecord}
               id={id}
-            /> */}
+            />
             <UploadAudio2
+              recording={recording}
+              stopRecord={stopRecord}
+              startRecord={startRecord}
+              handleRecord={handleRecord}
+              id={id}
+            />
+
+            <UploadAudio3
               recording={recording}
               stopRecord={stopRecord}
               startRecord={startRecord}

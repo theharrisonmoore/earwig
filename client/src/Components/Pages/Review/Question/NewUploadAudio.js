@@ -1,15 +1,9 @@
-/* eslint-disable */
 import React from "react";
-// import Recorder from "recorder-js";
-// let startBtn = document.querySelector(".js-start");
-// let stopBtn = document.querySelector(".js-stop");
-// let codeBtn = document.querySelector(".js-code");
-// let pre = document.querySelector("pre");
+import { message } from "antd";
 
-// import Recorder from "./recorder";
+import { isMobileDevice } from "../../../../helpers/index";
 
 window.URL = window.URL || window.webkitURL;
-
 /**
  * Detecte the correct AudioContext for the browser
  * */
@@ -29,6 +23,21 @@ class NewAudio extends React.Component {
     this.context = null;
   }
 
+  componentDidMount() {
+    message.config({ duration: 20 });
+    message.info(navigator.platform);
+    message.info(navigator.productSub);
+    message.info(navigator.product);
+    message.info(navigator.userAgent);
+    message.info(navigator.vendor);
+    message.info(window.navigator.appCodeName);
+    console.log(navigator.platform);
+    // console.log(navigator.productSub);
+    // console.log(navigator.product);
+    // console.log(navigator.userAgent);
+    // console.log(navigator.vendor);
+  }
+
   onFail = e => {
     alert("Error " + e);
     console.log("Rejected!", e);
@@ -45,6 +54,7 @@ class NewAudio extends React.Component {
     this.context = new AudioContext();
     // console.log("context", this.context);
     let mediaStreamSource = this.context.createMediaStreamSource(s);
+    // eslint-disable-next-line no-undef
     this.recorder = new Recorder(mediaStreamSource);
     console.log("this.recoreder", this.recorder);
 

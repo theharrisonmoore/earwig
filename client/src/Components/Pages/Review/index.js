@@ -225,6 +225,7 @@ class Review extends Component {
         }
       })
         .then(({ data }) => {
+          console.log("dataaaaa", data);
           return data.audio;
         })
         .catch(err => console.log(err));
@@ -549,6 +550,7 @@ class Review extends Component {
   };
 
   handleRecord = ({ recordedAudio, audioFile }) => {
+    console.log("hiiiiiiiiiiiiiiiiiiiii", audioFile);
     this.setState({
       recordedAudio,
       audioFile
@@ -563,6 +565,7 @@ class Review extends Component {
       recording
     } = this.state;
     const { history, isMobile, id } = this.props;
+    console.log("main review props", this.props);
     const staticQuestion = STATIC_QUESTIONS(category);
 
     const { isLoading } = this.state;

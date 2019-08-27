@@ -34,6 +34,7 @@ module.exports = (required, isVoice) => async (req, res, next) => {
         contentRange: `bytes 0-${size - 1}/${size}`,
       };
     }
+    console.log("req.file.path", req.file.path);
     const [file] = await bucket.upload(req.file.path, options);
     req.file.uploadedFileName = file.name;
     return next();
