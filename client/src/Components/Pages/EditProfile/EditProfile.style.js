@@ -295,8 +295,8 @@ export const FieldError = styled.p`
   margin: 0;
   text-align: left;
   color: ${colors.red};
-`
+`;
 
 export const InputDiv = styled.div`
   margin-bottom: 2rem;
-`
+`;

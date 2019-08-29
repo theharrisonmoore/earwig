@@ -1,61 +1,61 @@
 import React, { Component } from "react";
 import axios from "axios";
-import styled from "styled-components";
+// import styled from "styled-components";
 import { Howl } from "howler";
 
 import { API_GET_AUDIO_URL } from "./../../../../apiUrls";
 
 import Loading from "./../../../Common/AntdComponents/Loading";
-import { Slider } from "antd";
+// import { Slider } from "antd";
 
 // STYLING
-import { colors, organizations } from "./../../../../theme";
+// import { colors, organizations } from "./../../../../theme";
 
-const Player = styled.div`
-  display: flex;
-  width: 100%;
-  min-width: 200px;
-  align-items: center;
-  min-width: 252px;
-  max-width: 350px;
-  width: 100%;
-  position: relative;
+// const Player = styled.div`
+//   display: flex;
+//   width: 100%;
+//   min-width: 200px;
+//   align-items: center;
+//   min-width: 252px;
+//   max-width: 350px;
+//   width: 100%;
+//   position: relative;
 
-  .ant-slider-handle {
-    border: ${props =>
-      props.category
-        ? `2px ${organizations[props.category].primary} solid`
-        : `2px ${colors.profileFontColor} solid`};
-  }
-  .ant-slider-track {
-    background-color: ${props =>
-      props.category
-        ? organizations[props.category].primary
-        : colors.profileFontColor};
-  }
-`;
+//   .ant-slider-handle {
+//     border: ${props =>
+//       props.category
+//         ? `2px ${organizations[props.category].primary} solid`
+//         : `2px ${colors.profileFontColor} solid`};
+//   }
+//   .ant-slider-track {
+//     background-color: ${props =>
+//       props.category
+//         ? organizations[props.category].primary
+//         : colors.profileFontColor};
+//   }
+// `;
 
-const PlayButton = styled.div`
-  width: 0;
-  height: 0;
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-  border-left: ${({ category }) =>
-    category
-      ? `30px solid ${organizations[category].primary}`
-      : `30px solid ${colors.profileFontColor}`};
-  border-radius: 3px;
-  margin-right: 1rem;
-`;
+// const PlayButton = styled.div`
+//   width: 0;
+//   height: 0;
+//   border-top: 20px solid transparent;
+//   border-bottom: 20px solid transparent;
+//   border-left: ${({ category }) =>
+//     category
+//       ? `30px solid ${organizations[category].primary}`
+//       : `30px solid ${colors.profileFontColor}`};
+//   border-radius: 3px;
+//   margin-right: 1rem;
+// `;
 
-const StopButton = styled.div`
-  width: 40px;
-  height: 35px;
-  background-color: ${({ category }) =>
-    category ? organizations[category].primary : colors.profileFontColor};
-  border-radius: 3px;
-  margin-right: 1rem;
-`;
+// const StopButton = styled.div`
+//   width: 40px;
+//   height: 35px;
+//   background-color: ${({ category }) =>
+//     category ? organizations[category].primary : colors.profileFontColor};
+//   border-radius: 3px;
+//   margin-right: 1rem;
+// `;
 
 export default class VoiceReview extends Component {
   state = {
@@ -72,7 +72,9 @@ export default class VoiceReview extends Component {
     axios
       .post(API_GET_AUDIO_URL, { filename })
       .then(res => {
-        this.setState({ soundFile: res.data.audio });
+        this.getDuration(res.data.audio, duration => {
+          this.setState({ soundFile: res.data.audio, duration });
+        });
       })
       .catch(err => console.log(err));
   }
@@ -197,24 +199,30 @@ export default class VoiceReview extends Component {
   render() {
     const {
       loading,
-      playing,
-      progress,
-      duration,
-      loaded,
+      // playing,
+      // progress,
+      // duration,
+      // loaded,
       soundFile
     } = this.state;
 
-    const durationSeconds = this.getSeconds(duration);
+    // const durationSeconds = this.getSeconds(duration);
 
-    const durationMinutes = this.getMinutes(duration);
+    // const durationMinutes = this.getMinutes(duration);
 
-    const { category } = this.props;
+    // const { category } = this.props;
 
     if (loading) return <Loading />;
     if (!soundFile) return <div>No voice review</div>;
     return (
       <>
-        <Player category={category}>
+        <audio
+          controls
+          src={soundFile}
+          type={this.state.mimeType}
+          // duration={this.state.duration}
+        />
+        {/* <Player category={category}>
           {playing === "playing" ? (
             <StopButton onClick={this.togglePlay} category={category} />
           ) : (
@@ -236,7 +244,7 @@ export default class VoiceReview extends Component {
               {durationMinutes}:{durationSeconds}
             </div>
           )}
-        </Player>
+        </Player> */}
       </>
     );
   }
