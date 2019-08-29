@@ -18,6 +18,7 @@ export const IconWrapper = styled.div`
   width: 35%;
   vertical-align: middle;
 `;
+
 export const ThumbnailWrapper = styled.div`
   vertical-align: middle;
   display: inline-block;
@@ -34,4 +35,10 @@ export const UploadIcon = styled.img`
 
 export const Thumbnail = styled.img`
   width: 100%;
+`;
+
+export const AudioErrorMsg = styled.p`
+  color: red;
+  font-size: bold;
+  border: 1px solid grey;
 `;

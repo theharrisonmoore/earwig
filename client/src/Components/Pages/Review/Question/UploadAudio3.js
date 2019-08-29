@@ -1,9 +1,9 @@
 import React, { Component } from "react";
+import { message } from "antd";
 
 import { VoiceWrapper, VoiceIconWrapper, StopIcon } from "./Question.style";
-
+import { AudioErrorMsg } from "./UploadPhoto.style";
 import Icon from "./../../../Common/Icon/Icon";
-import { message } from "antd";
 
 window.URL = window.URL || window.webkitURL;
 /**
@@ -22,7 +22,8 @@ export default class UploadAudio3 extends Component {
     this.state = {
       isRecording: false,
       tracks: [],
-      src: ""
+      src: "",
+      message: ""
     };
     this.audioContext = null;
     this.processor = null;
@@ -64,11 +65,6 @@ export default class UploadAudio3 extends Component {
 
     audioBlob.name = `${id}.mp3`;
 
-    // const audioFile = new File([blob], `${id}.mp3`, {
-    //   type: "audio/mp3",
-    //   lastModified: Date.now()
-    // });
-
     this.setState({
       recordedAudio: audioBlob,
       audioFile: audioBlob
@@ -77,57 +73,70 @@ export default class UploadAudio3 extends Component {
   };
 
   startRecord = () => {
-    this.audioContext = new AudioContext();
-    /**
-     * Create a ScriptProcessorNode with a bufferSize of
-     * 4096 and two input and output channel
-     * */
-    if (this.audioContext.createJavaScriptNode) {
-      this.processor = this.audioContext.createJavaScriptNode(
-        this.config.bufferLen,
-        this.config.numChannels,
-        this.config.numChannels
-      );
-    } else if (this.audioContext.createScriptProcessor) {
-      this.processor = this.audioContext.createScriptProcessor(
-        this.config.bufferLen,
-        this.config.numChannels,
-        this.config.numChannels
-      );
-    } else {
-      console.log("WebAudio API has no support on this browser.");
-    }
+    this.setState({ message: "" });
+    try {
+      this.audioContext = new AudioContext();
+      /**
+       * Create a ScriptProcessorNode with a bufferSize of
+       * 4096 and two input and output channel
+       * */
+      if (this.audioContext.createJavaScriptNode) {
+        this.processor = this.audioContext.createJavaScriptNode(
+          this.config.bufferLen,
+          this.config.numChannels,
+          this.config.numChannels
+        );
+      } else if (this.audioContext.createScriptProcessor) {
+        this.processor = this.audioContext.createScriptProcessor(
+          this.config.bufferLen,
+          this.config.numChannels,
+          this.config.numChannels
+        );
+      } else {
+        console.log("WebAudio API has no support on this browser.");
+      }
 
-    this.processor.connect(this.audioContext.destination);
-    /**
-     *  ask permission of the user for use microphone or camera
-     * */
-    navigator.mediaDevices
-      .getUserMedia({ audio: true, video: false })
-      .then(this.gotStreamMethod)
-      .catch(this.logError);
+      this.processor.connect(this.audioContext.destination);
+      /**
+       *  ask permission of the user for use microphone or camera
+       * */
+      navigator.mediaDevices
+        .getUserMedia({ audio: true, video: false })
+        .then(this.gotStreamMethod)
+        .catch(this.logError);
+    } catch (error) {
+      this.setState({
+        message: "For a better experience please try this on chrome for desktop"
+      });
+    }
   };
 
   gotStreamMethod = stream => {
-    this.setState({ isRecording: true });
-    const tracks = stream.getTracks();
-    this.setState({ tracks });
-    /**
-     * Create a MediaStreamAudioSourceNode for the microphone
-     * */
-    this.microphone = this.audioContext.createMediaStreamSource(stream);
-    /**
-     * connect the AudioBufferSourceNode to the gainNode
-     * */
-    this.microphone.connect(this.processor);
-    // eslint-disable-next-line no-undef
-    this.encoder = new Mp3LameEncoder(this.audioContext.sampleRate, 160);
-    /**
-     * Give the node a function to process audio events
-     */
-    this.processor.onaudioprocess = event => {
-      this.encoder.encode(this.getBuffers(event));
-    };
+    try {
+      this.setState({ isRecording: true, message: "" });
+      const tracks = stream.getTracks();
+      this.setState({ tracks });
+      /**
+       * Create a MediaStreamAudioSourceNode for the microphone
+       * */
+      this.microphone = this.audioContext.createMediaStreamSource(stream);
+      /**
+       * connect the AudioBufferSourceNode to the gainNode
+       * */
+      this.microphone.connect(this.processor);
+      // eslint-disable-next-line no-undef
+      this.encoder = new Mp3LameEncoder(this.audioContext.sampleRate, 160);
+      /**
+       * Give the node a function to process audio events
+       */
+      this.processor.onaudioprocess = event => {
+        this.encoder.encode(this.getBuffers(event));
+      };
+    } catch (err) {
+      this.setState({
+        message: "For a better experience please try this on chrome for desktop"
+      });
+    }
   };
 
   logError = error => {
@@ -143,7 +152,6 @@ export default class UploadAudio3 extends Component {
   };
 
   toggleRecording = () => {
-    console.log("333");
     if (this.state.isRecording) {
       this.handleStopClick();
     } else {
@@ -152,7 +160,11 @@ export default class UploadAudio3 extends Component {
   };
 
   render() {
-    const { isRecording, src } = this.state;
+    const { isRecording, src, message } = this.state;
+
+    if (message) {
+      return <AudioErrorMsg>{message}</AudioErrorMsg>;
+    }
     return (
       <VoiceWrapper>
         <VoiceIconWrapper
@@ -172,32 +184,5 @@ export default class UploadAudio3 extends Component {
         )}
       </VoiceWrapper>
     );
-    // return (
-    //   <div class="center-align">
-    //     <div>
-    //       <canvas class="js-volume" width="20" height="140"></canvas>
-    //     </div>
-    //     <audio controls type="audio/mpeg" src={this.state.src}></audio>
-    //     <br />
-    //     <button
-    //       class="btn waves-effect waves-light js-start"
-    //       onClick={this.handleStartClick}
-    //     >
-    //       Start
-    //     </button>
-    //     <button
-    //       class="btn waves-effect waves-light js-stop"
-    //       onClick={this.handleStopClick}
-    //     >
-    //       Stop
-    //     </button>
-    //     <br />
-    //     <a id="download" class="hide">
-    //       Download Audio
-    //     </a>
-    //     <br />
-    //     <button class="btn waves-effect waves-light js-code">Show Code</button>
-    //   </div>
-    // );
   }
 }

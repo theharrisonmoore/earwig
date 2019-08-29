@@ -2,7 +2,7 @@ import React from "react";
 import { message } from "antd";
 
 import { VoiceWrapper, VoiceIconWrapper, StopIcon } from "./Question.style";
-
+import { AudioErrorMsg } from "./UploadPhoto.style";
 import Icon from "./../../../Common/Icon/Icon";
 
 window.URL = window.URL || window.webkitURL;
@@ -20,7 +20,13 @@ navigator.getUserMedia =
 class NewAudio extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { tracks: [], src: "", mimeType: "", recording: false };
+    this.state = {
+      tracks: [],
+      src: "",
+      mimeType: "",
+      recording: false,
+      message: ""
+    };
     this.recorder = null;
     this.context = null;
   }
@@ -28,40 +34,44 @@ class NewAudio extends React.Component {
   componentDidMount() {
     message.config({ duration: 20 });
     message.info("example1");
-    // message.info(navigator.platform);
-    // message.info(navigator.productSub);
-    // message.info(navigator.product);
-    // message.info(navigator.userAgent);
-    // message.info(navigator.vendor);
-    // message.info(window.navigator.appCodeName);
   }
 
   onFail = e => {
     this.setState({ recording: false });
-    console.log("Rejected!", e);
   };
 
   onSuccess = s => {
-    let tracks = s.getTracks();
-    this.setState({ tracks });
-    this.context = new AudioContext();
-    let mediaStreamSource = this.context.createMediaStreamSource(s);
-    // eslint-disable-next-line no-undef
-    this.recorder = new Recorder(mediaStreamSource);
-    console.log("this.recoreder", this.recorder);
+    try {
+      let tracks = s.getTracks();
+      this.setState({ tracks });
+      this.context = new AudioContext();
+      let mediaStreamSource = this.context.createMediaStreamSource(s);
+      // eslint-disable-next-line no-undef
+      this.recorder = new Recorder(mediaStreamSource);
 
-    this.recorder.record();
+      this.recorder.record();
+    } catch (err) {
+      this.setState({
+        message: "For a better experience please use chrome on laptop"
+      });
+    }
   };
 
   handleStartClick = () => {
-    this.setState({ recording: true });
-    if (navigator.getUserMedia) {
-      /**
-       * ask permission of the user for use microphone or camera
-       */
-      navigator.getUserMedia({ audio: true }, this.onSuccess, this.onFail);
-    } else {
-      console.warn("navigator.getUserMedia not present");
+    try {
+      this.setState({ recording: true, message: "" });
+      if (navigator.getUserMedia) {
+        /**
+         * ask permission of the user for use microphone or camera
+         */
+        navigator.getUserMedia({ audio: true }, this.onSuccess, this.onFail);
+      } else {
+        console.warn("navigator.getUserMedia not present");
+      }
+    } catch (err) {
+      this.setState({
+        message: "For a better experience please use chrome on laptop"
+      });
     }
   };
 
@@ -70,7 +80,6 @@ class NewAudio extends React.Component {
     this.recorder.stop();
     tracks.forEach(track => track.stop());
     this.recorder.exportWAV(s => {
-      console.log('s', s)
       const src = window.URL.createObjectURL(s);
       const mimeType = s.type;
       this.setState({ src, mimeType, recording: false });
@@ -79,14 +88,12 @@ class NewAudio extends React.Component {
   };
 
   toggleRecording = () => {
-    console.log("hii");
     if (this.state.recording) {
       this.handleStopClick();
     } else {
       this.handleStartClick();
     }
   };
-
 
   saveRecording = blob => {
     const { id } = this.props;
@@ -110,7 +117,10 @@ class NewAudio extends React.Component {
   };
 
   render() {
-    const { recording, src, mimeType } = this.state;
+    const { recording, src, mimeType, message } = this.state;
+    if (message) {
+      return <AudioErrorMsg>{message}</AudioErrorMsg>;
+    }
     return (
       <VoiceWrapper>
         <VoiceIconWrapper recording={recording} onClick={this.toggleRecording}>
