@@ -236,7 +236,7 @@ export default class HeaderSection extends Component {
                       color={colors.white}
                     />
                   )}
-                  Give a review about this {category}
+                  Give a review
                 </ActionButton>
               </Link>
               <ActionButton
@@ -254,7 +254,7 @@ export default class HeaderSection extends Component {
                     color={colors.white}
                   />
                 )}
-                Ask workers a question about this {category}
+                Ask workers a question
               </ActionButton>
             </ActionButtonsDiv>
 

@@ -431,7 +431,7 @@ export const ReplyButton = styled.p`
 export const ActionButton = styled.button`
   background: ${({ color }) => color};
   box-shadow: 0px 4px 13px rgba(173, 145, 183, 0.273438);
-  border-radius: 3px;
+  border-radius: 300px;
   border: none;
   padding: 0.5rem 0.5rem;
   /* width: 96%; */
@@ -445,11 +445,12 @@ export const ActionButton = styled.button`
   box-shadow: ${shadows.buttonShadow};
   display: flex;
   align-items: center;
-  height: 5.5rem;
+  justify-content: center;
+  height: 3rem;
   position: relative;
 
   @media ${breakpoints.mobileM} {
-    font-size: 14px;
+    font-size: 12px;
     width: 10rem;
   }
 
