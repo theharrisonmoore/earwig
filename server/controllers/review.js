@@ -89,7 +89,6 @@ const postReviewShort = async (req, res, next) => {
 };
 
 const postReview = async (req, res, next) => {
-  console.log("req.body", req.body);
   const {
     answers: questionsAnswers,
     review: {

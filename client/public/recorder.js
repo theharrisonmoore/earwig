@@ -114,7 +114,6 @@
 
               Object.assign(this.config, cfg);
               this.context = source.context;
-              console.log("this.context.createScriptProcessor");
               this.node = (
                 this.context.createScriptProcessor ||
                 this.context.createJavaScriptNode

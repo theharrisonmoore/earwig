@@ -25,7 +25,6 @@ module.exports = async (req, res, next) => {
     }
     return next(boom.unauthorized());
   } catch (error) {
-    console.log("err", error);
-    return next(boom.badImplementation());
+    return next(boom.badImplementation(error));
   }
 };

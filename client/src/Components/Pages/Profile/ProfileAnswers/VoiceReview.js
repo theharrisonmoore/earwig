@@ -72,9 +72,7 @@ export default class VoiceReview extends Component {
     axios
       .post(API_GET_AUDIO_URL, { filename })
       .then(res => {
-        this.getDuration(res.data.audio, duration => {
-          this.setState({ soundFile: res.data.audio, duration });
-        });
+        this.setState({ soundFile: res.data.audio });
       })
       .catch(err => console.log(err));
   }
@@ -207,9 +205,7 @@ export default class VoiceReview extends Component {
     } = this.state;
 
     // const durationSeconds = this.getSeconds(duration);
-
     // const durationMinutes = this.getMinutes(duration);
-
     // const { category } = this.props;
 
     if (loading) return <Loading />;
