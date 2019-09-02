@@ -44,7 +44,8 @@ class Question extends Component {
       stopRecord,
       handleRecord,
       handleAddNewOrgChange,
-      id
+      id,
+      voiceReviewUrl
     } = this.props;
 
     const popoverOptions = {
@@ -72,6 +73,7 @@ class Question extends Component {
                 startRecord={startRecord}
                 handleRecord={handleRecord}
                 id={id}
+                voiceReviewUrl={voiceReviewUrl}
               />
             ) : (
               <UploadAudio2
@@ -80,6 +82,7 @@ class Question extends Component {
                 startRecord={startRecord}
                 handleRecord={handleRecord}
                 id={id}
+                voiceReviewUrl={voiceReviewUrl}
               />
             )}
           </div>

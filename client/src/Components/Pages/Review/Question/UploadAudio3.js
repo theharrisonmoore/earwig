@@ -177,9 +177,13 @@ export default class UploadAudio3 extends Component {
             <Icon icon="voiceRecord" width="36px" height="48px" />
           )}
         </VoiceIconWrapper>
-        {src && (
+        {(src || this.props.voiceReviewUrl) && (
           <div style={{ width: "100%" }}>
-            <audio controls src={this.state.src} type="audio/mp3" />
+            <audio
+              controls
+              src={this.state.src || this.props.voiceReviewUrl}
+              type="audio/mp3"
+            />
           </div>
         )}
       </VoiceWrapper>

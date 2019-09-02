@@ -121,6 +121,7 @@ class NewAudio extends React.Component {
     if (message) {
       return <AudioErrorMsg>{message}</AudioErrorMsg>;
     }
+
     return (
       <VoiceWrapper>
         <VoiceIconWrapper recording={recording} onClick={this.toggleRecording}>
@@ -130,10 +131,14 @@ class NewAudio extends React.Component {
             <Icon icon="voiceRecord" width="36px" height="48px" />
           )}
         </VoiceIconWrapper>
-        {src && (
+        {(src || this.props.voiceReviewUrl) && (
           <div style={{ width: "100%" }}>
             {mimeType !== "audio/webm" && (
-              <audio controls src={this.state.src} type={this.state.mimeType} />
+              <audio
+                controls
+                src={this.state.src || this.props.voiceReviewUrl}
+                type={this.state.mimeType}
+              />
             )}
           </div>
         )}
