@@ -80,6 +80,12 @@ export default class InviteWorkers extends Component {
             Facebook
           </FbShare>
         </SocialIcons>
+        <PromoParagraph>
+          You’ll earn 20 points for every worker who gets verified using your
+          magic link. Your points are an important measure of how helpful you’ve
+          been to other workers. We may give awards and run competitions from
+          time to time.
+        </PromoParagraph>
       </InviteWrapper>
     );
   }
