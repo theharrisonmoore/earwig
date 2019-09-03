@@ -66,6 +66,7 @@ export const IndividComment = styled.div`
   position: relative;
   padding-bottom: 2rem;
   align-items: flex-start;
+  direction: ${({ adminReply }) => adminReply && "rtl"};
 `;
 
 export const ReplyWrapper = styled.div`

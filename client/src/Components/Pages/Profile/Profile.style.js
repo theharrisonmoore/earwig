@@ -223,7 +223,7 @@ export const CommentBubble = styled.p`
   white-space: pre-wrap;
   text-align: left;
   margin-right: 0.25rem;
-  width: 80%;
+  max-width: 80%;
 
   ${({ adminReply }) => adminReply && adminBorder}
 `;
