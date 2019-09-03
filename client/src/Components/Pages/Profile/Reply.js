@@ -201,7 +201,7 @@ export default class Reply extends Component {
       <>
         <Banner category={category}>
           <BannerTitle>Replying</BannerTitle>
-          <Cancel onClick={this.goBack}>Cancel</Cancel>
+          <Cancel onClick={this.goBack}>Back</Cancel>
         </Banner>
         <Wrapper
           style={{
