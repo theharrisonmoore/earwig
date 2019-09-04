@@ -195,20 +195,6 @@ export default class HeaderSection extends Component {
             </ContractorDiv>
           )}
         </CompanyDetails>
-        {/* {level === 2 && (
-          <GiveReviewDiv>
-            <GiveReviewTitle>Give a review about {name}</GiveReviewTitle>
-            <GiveReview
-              category={category}
-              orgId={orgId}
-              isTablet={isTablet}
-              isMobile={isMobile}
-              state={{ name, category, orgId: summary._id }}
-              reviewNotAllowed={reviewNotAllowed}
-              reviewsLast30Days={reviewsLast30Days}
-            />
-          </GiveReviewDiv>
-        )} */}
         {(level === 2 || level === 1) && (
           <>
             <ActionButtonsDiv>
@@ -220,12 +206,13 @@ export default class HeaderSection extends Component {
                       : `/organization/${orgId}/review`,
                   state: { name, category }
                 }}
-                style={{ margin: "0 1rem" }}
+                // style={{ margin: "0 1rem" }}
               >
                 <ActionButton
                   color={organizations[category].primary}
                   disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
                   isMobile={isMobile}
+                  style={{ margin: "0 .5rem" }}
                 >
                   {!isMobile && (
                     <Icon
@@ -239,23 +226,35 @@ export default class HeaderSection extends Component {
                   Give a review
                 </ActionButton>
               </Link>
-              <ActionButton
-                color={organizations[category].primary}
-                isMobile={isMobile}
-                style={{ margin: "0 1rem" }}
+              <Link
+                to={{
+                  pathname:
+                    level === 1 && !awaitingReview
+                      ? USER_PROFILE_URL
+                      : `/organization/${orgId}/review`,
+                  state: { name, category }
+                }}
+                // style={{ margin: "0 1rem" }}
                 disabled
               >
-                {!isMobile && (
-                  <Icon
-                    icon="raiseHand"
-                    margin="0 1rem 0 0"
-                    width="38"
-                    height="38"
-                    color={colors.white}
-                  />
-                )}
-                Ask workers a question
-              </ActionButton>
+                <ActionButton
+                  color={organizations[category].primary}
+                  isMobile={isMobile}
+                  style={{ margin: "0 .5rem" }}
+                  disabled
+                >
+                  {!isMobile && (
+                    <Icon
+                      icon="raiseHand"
+                      margin="0 1rem 0 0"
+                      width="38"
+                      height="38"
+                      color={colors.white}
+                    />
+                  )}
+                  Ask workers a question
+                </ActionButton>
+              </Link>
             </ActionButtonsDiv>
 
             {reviewNotAllowed && reviewsLast30Days.length > 0 && (
