@@ -880,29 +880,10 @@ module.exports = async () => {
       hasComment: false,
     },
 
-    // new
+    // The site welfare
     {
       number: 12,
       next: 13,
-      type: "yesno",
-      text: "Were there female toilets on site?",
-      isJumping: false,
-      options: ["Yes", "No", "I didn't check"],
-      category: "worksite",
-      profileText: "Female toilets on site",
-      profileSection: "The site welfare",
-      profileType: "yesno",
-      profileOrder: 2,
-      group: {
-        groupOrder: 2,
-        name: "siteWelfare",
-        text: "The site welfare",
-      },
-      hasComment: false,
-    },
-    {
-      number: 13,
-      next: 14,
       type: "yesno",
       text: "Were the toilets well maintained?",
       isJumping: false,
@@ -919,6 +900,28 @@ module.exports = async () => {
       },
       hasComment: true,
     },
+
+    // new
+    {
+      number: 13,
+      next: 14,
+      type: "yesno",
+      text: "Were there female toilets on site?",
+      isJumping: false,
+      options: ["Yes", "No", "I didn't check"],
+      category: "worksite",
+      profileText: "Female toilets on site",
+      profileSection: "The site welfare",
+      profileType: "yesno",
+      profileOrder: 2,
+      group: {
+        groupOrder: 2,
+        name: "siteWelfare",
+        text: "The site welfare",
+      },
+      hasComment: false,
+    },
+
 
     {
       number: 14,
