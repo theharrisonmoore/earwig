@@ -16,7 +16,7 @@ export default ({
 }) => {
   return [
     {
-      title: "User Id",
+      title: "Username",
       dataIndex: "userId",
       key: "user.userIduserId",
       render: text => (

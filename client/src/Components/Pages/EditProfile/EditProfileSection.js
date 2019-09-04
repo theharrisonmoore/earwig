@@ -166,7 +166,7 @@ export default class EditProfileSection extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const { fields, section } = this.state;
-    this.setState({ isSubmitting: true });
+    this.setState({ isSubmitting: true, serverError: "" });
 
     const isValid = this.submitValidation(section);
 
@@ -184,6 +184,8 @@ export default class EditProfileSection extends Component {
             isSubmitting: false
           });
         });
+    } else {
+      this.setState({ isSubmitting: false });
     }
   };
 
@@ -305,12 +307,14 @@ export default class EditProfileSection extends Component {
                   use your real name or any name that could identify you
                 </SubTitle>
                 <Paragraph>
-                  Whilst your earwig ID is the only thing that is shown beside
-                  your reviews and activity, it is publicly visible
+                  Whilst your earwig Username is the only thing that is shown
+                  beside your reviews and activity, it is publicly visible
                 </Paragraph>
-                <CurrentValue>Current eawig ID: {userId}</CurrentValue>
+                <CurrentValue>Current earwig Username: {userId}</CurrentValue>
                 <InputDiv>
-                  <InputLabel htmlFor="newUsername">New earwig ID</InputLabel>
+                  <InputLabel htmlFor="newUsername">
+                    New earwig Username
+                  </InputLabel>
                   <Input
                     type="text"
                     name="newUsername"
@@ -439,13 +443,15 @@ export default class EditProfileSection extends Component {
               </div>
             )}
             <div>
-              <ErrorMessage>{serverError}</ErrorMessage>
+              <FieldError>{serverError}</FieldError>
+            </div>
+            <div>
               <Button
                 onClick={this.handleSubmit}
                 disabled={isSubmitting}
                 loading={isSubmitting}
               >
-                {section === "earwigId" && "Save new ID"}
+                {section === "earwigId" && "Save new Username"}
                 {section === "password" && "Save new password"}
                 {section === "trade" && "Save new trade"}
                 {section === "city" && "Save new town or city"}
