@@ -369,7 +369,7 @@ export default class Profile extends Component {
 
             {reviewDetails.map(
               (section, index) =>
-                section._id === "Getting onto site" && (
+                section._id === "Getting on to site" && (
                   <ReviewSection
                     key={index}
                     category={category}
@@ -382,19 +382,20 @@ export default class Profile extends Component {
                 )
             )}
 
-            {level > 0 && reviewDetails.map(
-              (section, index) =>
-                section._id === "Working on the site" && (
-                  <ReviewSection
-                    key={index}
-                    category={category}
-                    sectionDetails={section}
-                    toggleComments={this.toggleComments}
-                    summary={summary}
-                    isMobile={isMobile}
-                  />
-                )
-            )}
+            {level > 0 &&
+              reviewDetails.map(
+                (section, index) =>
+                  section._id === "Working on the site" && (
+                    <ReviewSection
+                      key={index}
+                      category={category}
+                      sectionDetails={section}
+                      toggleComments={this.toggleComments}
+                      summary={summary}
+                      isMobile={isMobile}
+                    />
+                  )
+              )}
 
             {reviewDetails.map(
               (section, index) =>
