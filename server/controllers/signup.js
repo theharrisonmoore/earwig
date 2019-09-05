@@ -10,6 +10,7 @@ const jwt = require("jsonwebtoken");
 
 const { findByEmail, addNew, checkValidReferral } = require("./../database/queries/user");
 const createAccountEmails = require("./../helpers/emails/createAccountEmail");
+const verificationPhotoEmail = require("./../helpers/emails/verificationPhotoEmail");
 
 const addToMailchimpList = require("../helpers/3dParty/mailchimp");
 
@@ -34,6 +35,8 @@ module.exports = async (req, res, next) => {
       email,
       password,
     };
+
+    const { fieldName } = req;
 
     if (isWorker === "yes") {
       newUserData.trade = trade;
@@ -71,6 +74,10 @@ module.exports = async (req, res, next) => {
       try {
         await addToMailchimpList(email);
         await createAccountEmails(email);
+        if (fieldName === "verificationImage") {
+        // send an email to the admin.
+          await verificationPhotoEmail();
+        }
       } catch (err) {
         return next(boom.badImplementation(err));
       }
@@ -98,6 +105,6 @@ module.exports = async (req, res, next) => {
     // send the user info
     return res.json(userInfo);
   } catch (error) {
-    return next(boom.badImplementation());
+    return next(boom.badImplementation(error));
   }
 };

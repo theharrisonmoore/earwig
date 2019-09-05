@@ -8,12 +8,13 @@
  */
 
 const boom = require("boom");
+const verificationPhotoEmail = require("../helpers/emails/verificationPhotoEmail");
 
 const { updateUserById } = require("./../database/queries/user");
 
 module.exports = async (req, res, next) => {
   // to be updated when authentication is ready
-  const { user } = req;
+  const { user, fieldName } = req;
   const { tradeId, city } = req.body;
   const { uploadedFileName } = req.file;
   updateUserById(user._id, {
@@ -22,9 +23,13 @@ module.exports = async (req, res, next) => {
     verificationPhoto: uploadedFileName,
     city,
   })
-    .then(() => {
+    .then(async () => {
+      if (fieldName === "verificationImage") {
+        // send an email to admin
+        await verificationPhotoEmail();
+      }
       res.send();
-    }).catch(() => {
-      next(boom.badImplementation("Error in updating your information"));
+    }).catch((err) => {
+      next(boom.badImplementation(err));
     });
 };
