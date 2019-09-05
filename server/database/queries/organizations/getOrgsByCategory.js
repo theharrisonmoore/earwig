@@ -2,7 +2,6 @@ const Organization = require("../../models/Organization");
 
 // if category is all -> return all
 module.exports = (category) => {
-  console.log(category);
   if (category === "all") {
     return Organization.aggregate([
       {
