@@ -1,5 +1,5 @@
 import React from "react";
-import { message } from "antd";
+// import { message } from "antd";
 
 import { VoiceWrapper, VoiceIconWrapper, StopIcon } from "./Question.style";
 import { AudioErrorMsg } from "./UploadPhoto.style";
@@ -31,10 +31,10 @@ class NewAudio extends React.Component {
     this.context = null;
   }
 
-  componentDidMount() {
-    message.config({ duration: 20 });
-    message.info("example1");
-  }
+  // componentDidMount() {
+  //   message.config({ duration: 20 });
+  //   message.info("example1");
+  // }
 
   onFail = e => {
     this.setState({ recording: false });
@@ -88,10 +88,16 @@ class NewAudio extends React.Component {
   };
 
   toggleRecording = () => {
-    if (this.state.recording) {
-      this.handleStopClick();
-    } else {
-      this.handleStartClick();
+    try {
+      if (this.state.recording) {
+        this.handleStopClick();
+      } else {
+        this.handleStartClick();
+      }
+    } catch (error) {
+      this.setState({
+        message: "For a better experience please use chrome on laptop"
+      });
     }
   };
 

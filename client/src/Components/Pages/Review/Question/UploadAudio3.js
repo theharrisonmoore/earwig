@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { message } from "antd";
+// import { message } from "antd";
 
 import { VoiceWrapper, VoiceIconWrapper, StopIcon } from "./Question.style";
 import { AudioErrorMsg } from "./UploadPhoto.style";
@@ -36,10 +36,10 @@ export default class UploadAudio3 extends Component {
     this.encoder = null;
   }
 
-  componentDidMount() {
-    message.config({ duration: 20 });
-    message.info("exmple3");
-  }
+  // componentDidMount() {
+  //   message.config({ duration: 20 });
+  //   message.info("exmple3");
+  // }
 
   handleStartClick = () => {
     this.startRecord();
@@ -152,10 +152,16 @@ export default class UploadAudio3 extends Component {
   };
 
   toggleRecording = () => {
-    if (this.state.isRecording) {
-      this.handleStopClick();
-    } else {
-      this.handleStartClick();
+    try {
+      if (this.state.isRecording) {
+        this.handleStopClick();
+      } else {
+        this.handleStartClick();
+      }
+    } catch (err) {
+      this.setState({
+        message: "For a better experience please try this on chrome for desktop"
+      });
     }
   };
 
