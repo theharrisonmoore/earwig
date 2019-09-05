@@ -4,7 +4,7 @@ import { colors, organizations } from "../../../theme";
 
 export const PopoverLink = styled.p`
   margin-top: 10px;
-  font-weight: 900;
+  font-weight: 500;
   font-size: 18px;
   text-decoration: underline;
   color: ${({ category }) => organizations[category].primary};

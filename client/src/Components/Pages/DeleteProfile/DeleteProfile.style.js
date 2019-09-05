@@ -10,6 +10,7 @@ export const BorderedWrapper = styled.div`
   max-width: 700px;
   margin: 0 auto;
   padding: 3rem 0;
+  padding-top: 7rem;
   border: none;
 
   & > div {

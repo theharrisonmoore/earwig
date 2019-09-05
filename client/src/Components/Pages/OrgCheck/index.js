@@ -260,9 +260,7 @@ export default class index extends Component {
                 section={section}
               />
               <StatusButton type="button" onClick={() => this.storeOrg("None")}>
-                {section === "agency"
-                  ? `I'm not using an agency`
-                  : `I'm not using a ${section}`}
+                Skip
               </StatusButton>
             </QuestionWrapper>
           </Wrapper>

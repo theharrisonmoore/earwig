@@ -701,7 +701,7 @@ class Review extends Component {
                 {isSubmitting && (
                   <Spin indicator={antIcon} style={{ marginRight: ".5rem" }} />
                 )}
-                Submit your review
+                Publish your review
               </SubmitButton>
             </FormWrapper>
           </form>

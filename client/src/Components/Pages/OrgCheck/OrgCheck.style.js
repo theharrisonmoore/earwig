@@ -68,7 +68,7 @@ export const StatusButton = styled.button`
   width: 148px;
   height: 3.5rem;
   border: ${borders.buttonBox};
-  border-radius: 3px;
+  border-radius: 500px;
   box-shadow: ${shadows.buttonShadow};
   font-weight: 700;
   cursor: pointer;
