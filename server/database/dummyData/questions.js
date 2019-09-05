@@ -235,7 +235,7 @@ module.exports = async () => {
         no: 11,
       },
       type: "yesno",
-      text: "Were you paid via a payroll/umbrella?",
+      text: "Were you paid via a payroll company?",
       isJumping: true,
       jumpTo: [{ value: "Yes", nextQuestion: 15 }, { value: "No", nextQuestion: 10 }],
       options: ["Yes", "No"],
@@ -659,7 +659,7 @@ module.exports = async () => {
       options: ["Yes", "No", "don't know"],
       category: "worksite",
       profileText: "Public transport within 10 mins walk of site",
-      profileSection: "Getting onto site",
+      profileSection: "Getting on to site",
       profileType: "siteItem",
       profileOrder: 1,
       group: {
@@ -688,7 +688,7 @@ module.exports = async () => {
       options: ["Yes", "No", "don't know"],
       category: "worksite",
       profileText: "Car parking within 10 mins walk of site",
-      profileSection: "Getting onto site",
+      profileSection: "Getting on to site",
       profileType: "siteItem",
       profileOrder: 2,
       group: {
@@ -726,7 +726,7 @@ module.exports = async () => {
       options: ["Yes", "No", "Yes, but I didn't need it"],
       category: "worksite",
       profileText: "Storage for your personal belongings",
-      profileSection: "Getting onto site",
+      profileSection: "Getting on to site",
       profileType: "siteItem",
       profileOrder: 3,
       group: {
@@ -747,7 +747,7 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "worksite",
       profileText: "Fingerprint scanners/eye-recognition to access site",
-      profileSection: "Getting onto site",
+      profileSection: "Getting on to site",
       profileType: "siteItem",
       profileOrder: 4,
       group: {
@@ -768,7 +768,7 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "worksite",
       profileText: "5-point PPE at all times",
-      profileSection: "Getting onto site",
+      profileSection: "Getting on to site",
       profileType: "siteItem",
       profileOrder: 5,
       group: {
@@ -868,7 +868,7 @@ module.exports = async () => {
         "Offer workers a behind-the-scenes look at the site, e.g., work areas, canteen, etc.",
       isJumping: false,
       category: "worksite",
-      profileText: "Site Photos",
+      profileText: "Site images",
       profileSection: "Key ratings",
       profileType: "image",
       profileOrder: 2,
@@ -880,29 +880,10 @@ module.exports = async () => {
       hasComment: false,
     },
 
-    // new
+    // The site welfare
     {
       number: 12,
       next: 13,
-      type: "yesno",
-      text: "Were there female toilets on site?",
-      isJumping: false,
-      options: ["Yes", "No", "I didn't check"],
-      category: "worksite",
-      profileText: "Female toilets on site",
-      profileSection: "The site welfare",
-      profileType: "yesno",
-      profileOrder: 2,
-      group: {
-        groupOrder: 2,
-        name: "siteWelfare",
-        text: "The site welfare",
-      },
-      hasComment: false,
-    },
-    {
-      number: 13,
-      next: 14,
       type: "yesno",
       text: "Were the toilets well maintained?",
       isJumping: false,
@@ -919,6 +900,28 @@ module.exports = async () => {
       },
       hasComment: true,
     },
+
+    // new
+    {
+      number: 13,
+      next: 14,
+      type: "yesno",
+      text: "Were there female toilets on site?",
+      isJumping: false,
+      options: ["Yes", "No", "I didn't check"],
+      category: "worksite",
+      profileText: "Female toilets on site",
+      profileSection: "The site welfare",
+      profileType: "yesno",
+      profileOrder: 2,
+      group: {
+        groupOrder: 2,
+        name: "siteWelfare",
+        text: "The site welfare",
+      },
+      hasComment: false,
+    },
+
 
     {
       number: 14,
