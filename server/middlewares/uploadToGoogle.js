@@ -8,7 +8,7 @@ const { admin } = require("../config");
  * that upload the file to Google storage
  */
 
-module.exports = (required, isVoice) => async (req, res, next) => {
+module.exports = (required, isVoice, fieldName) => async (req, res, next) => {
   if (!req.file) {
     if (required) {
       return next(boom.badImplementation());
@@ -36,8 +36,9 @@ module.exports = (required, isVoice) => async (req, res, next) => {
     }
     const [file] = await bucket.upload(req.file.path, options);
     req.file.uploadedFileName = file.name;
+    req.fieldName = fieldName;
     return next();
   } catch (error) {
-    next(boom.badImplementation("Error while uploading photo"));
+    next(boom.badImplementation(error));
   }
 };
