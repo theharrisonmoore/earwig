@@ -17,7 +17,6 @@ import {
   CurrentValue,
   InputLabel,
   Input,
-  ErrorMessage,
   FieldError,
   InputDiv
 } from "./EditProfile.style";
