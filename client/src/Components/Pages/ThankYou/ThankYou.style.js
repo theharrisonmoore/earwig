@@ -109,7 +109,6 @@ export const List = styled.ul`
   opacity: 0.8;
   color: ${colors.profileFontColor};
   font-size: 1.125rem;
-  font-weight: 700;
 
   & li {
     text-align: left;

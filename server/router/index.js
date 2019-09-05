@@ -139,7 +139,7 @@ router.post(
   authorization("LEVEL1"),
   upload("verificationImage"),
   validation("uploadVerificationImage"),
-  toGoogle(true),
+  toGoogle(true, false, "verificationImage"),
   deleteFileFromServer,
   uploadVerificationImage,
 );
@@ -174,7 +174,7 @@ router.post(
   SIGN_UP,
   upload("verificationImage"),
   validation("signup"),
-  toGoogle(false),
+  toGoogle(false, false, "verificationImage"),
   signupController,
   deleteFileFromServer,
 );

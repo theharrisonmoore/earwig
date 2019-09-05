@@ -74,9 +74,17 @@ export default class ThankYou extends Component {
           <Image src={img} />
           <Heading>You did it!</Heading>
           <BoldPargraph>
-            Your review will be seen by this {orgType} and other workers who
-            rely on reviews like yours
+            Your review will be seen by everyone in the industry and other
+            workers who rely on reviews like yours
           </BoldPargraph>
+
+          <BoldPargraph>
+            <strong>
+              Don’t worry, only your earwig Username is visible beside your
+              review
+            </strong>
+          </BoldPargraph>
+
           <SubHeading>Each time you give a review, you</SubHeading>
           <List>
             <li>Create awareness</li>

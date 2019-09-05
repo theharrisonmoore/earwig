@@ -396,7 +396,7 @@ export default class OverallReview extends Component {
                     </p>
                   </UserAdditionalDetails>
                   <BubbleAndDate>
-                    <CommentBubble color={organizations[category].secondary}>
+                    <CommentBubble bgColor={organizations[category].secondary}>
                       {review.category === "written" && review.text}
                       {review.category === "audio" && (
                         <VoiceReview
@@ -574,7 +574,12 @@ export default class OverallReview extends Component {
                     >
                       {overallReplies.map(reply => {
                         return (
-                          <div key={reply.replies._id}>
+                          <div
+                            key={reply.replies._id}
+                            style={{
+                              direction: `${reply.replies.displayName && "rtl"}`
+                            }}
+                          >
                             {!verified && reply.replies.user._id === userId && (
                               <Alert
                                 message="Your replies are visible only for you untill you get
@@ -587,23 +592,28 @@ export default class OverallReview extends Component {
                                 banner
                               />
                             )}
+
                             <UserDiv>
-                              <UserID>
+                              <UserID adminReply={!!reply.replies.displayName}>
                                 {" "}
                                 {reply.replies.displayName ||
                                   reply.replies.user.userId}
                               </UserID>
+
                               <UserTrade>
-                                {reply.replies.user.trade[0] &&
+                                {!reply.replies.displayName &&
+                                  reply.replies.user.trade[0] &&
                                   reply.replies.user.trade[0].title}
                               </UserTrade>
                             </UserDiv>
-                            <UserAdditionalDetails>
-                              <p>
-                                Helped {reply.replies.user.helpedUsers} · Points{" "}
-                                {reply.replies.user.points}
-                              </p>
-                            </UserAdditionalDetails>
+                            {!reply.replies.displayName && (
+                              <UserAdditionalDetails>
+                                <p>
+                                  Helped {reply.replies.user.helpedUsers} ·
+                                  Points {reply.replies.user.points}
+                                </p>
+                              </UserAdditionalDetails>
+                            )}
                             <div
                               style={{
                                 position: "relative",
@@ -613,7 +623,17 @@ export default class OverallReview extends Component {
                               <BubbleAndDate>
                                 <CommentBubble
                                   style={{ maxWidth: "100%" }}
-                                  color={organizations[category].secondary}
+                                  bgColor={
+                                    reply.replies.displayName
+                                      ? "white"
+                                      : organizations[category].secondary
+                                  }
+                                  color={
+                                    reply.replies.displayName &&
+                                    organizations[category].primary
+                                  }
+                                  adminReply={!!reply.replies.displayName}
+                                  category={category}
                                 >
                                   {reply.replies.text}
                                 </CommentBubble>
@@ -627,7 +647,9 @@ export default class OverallReview extends Component {
                               </BubbleAndDate>
                               <Link
                                 style={{
-                                  right: 0,
+                                  [reply.replies.displayName
+                                    ? "left"
+                                    : "right"]: 0,
                                   width: "10%",
                                   position: "absolute",
                                   top: "50%",

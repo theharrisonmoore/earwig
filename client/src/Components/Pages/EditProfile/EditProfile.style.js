@@ -72,6 +72,8 @@ export const Title = styled.h1`
 export const Option = styled.p`
   font-size: 1.125rem;
   margin: 0;
+  color: ${colors.profileFontColor};
+  font-weight: 500;
 `;
 
 export const SubTitle = styled.h2`
@@ -298,5 +300,5 @@ export const FieldError = styled.p`
 `;
 
 export const InputDiv = styled.div`
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
 `;

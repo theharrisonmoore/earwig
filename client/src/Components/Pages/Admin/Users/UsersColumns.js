@@ -11,7 +11,7 @@ export default ({
 }) => {
   const tableColumns = [
     {
-      title: "User Id",
+      title: "Username",
       dataIndex: "userId",
       key: "userId",
       render: text => (

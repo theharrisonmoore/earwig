@@ -3,11 +3,7 @@ import { Mentions, Input, message, Alert } from "antd";
 import * as yup from "yup";
 import axios from "axios";
 
-import {
-  UserID,
-  CommentBubble,
-  Error
-} from "./ProfileAnswers/ProfileAnswers.style";
+import { Error } from "./ProfileAnswers/ProfileAnswers.style";
 
 import {
   Wrapper,
@@ -21,7 +17,9 @@ import {
   BannerTitle,
   UserDiv,
   UserTrade,
-  UserAdditionalDetails
+  UserAdditionalDetails,
+  UserID,
+  CommentBubble
 } from "./Profile.style";
 
 import { organizations } from "./../../../theme";
@@ -104,6 +102,7 @@ export default class Reply extends Component {
               this.setState(
                 {
                   commentContentState: "",
+                  user: "",
                   errors: {},
                   submitting: false
                 },
@@ -176,7 +175,13 @@ export default class Reply extends Component {
       return history.goBack();
     }
 
-    const { replies, loaded, submitting, focus } = this.state;
+    const {
+      replies,
+      loaded,
+      submitting,
+      focus,
+      commentContentState
+    } = this.state;
     const { isAdmin } = this.props;
     const { category } = this.props.location.state;
 
@@ -201,7 +206,7 @@ export default class Reply extends Component {
       <>
         <Banner category={category}>
           <BannerTitle>Replying</BannerTitle>
-          <Cancel onClick={this.goBack}>Cancel</Cancel>
+          <Cancel onClick={this.goBack}>Back</Cancel>
         </Banner>
         <Wrapper
           style={{
@@ -213,7 +218,11 @@ export default class Reply extends Component {
           <CommentsWrapper>
             {replies &&
               replies.map(reply => (
-                <IndividComment key={reply.replies._id}>
+                <IndividComment
+                  key={reply.replies._id}
+                  adminReply={reply.replies.displayName}
+                  category={category}
+                >
                   {!verified && reply.replies.user._id === id && (
                     <Alert
                       message="Your replies are visible only for you untill you get
@@ -227,25 +236,39 @@ export default class Reply extends Component {
                     />
                   )}
                   <UserDiv>
-                    <UserID>
+                    <UserID adminReply={!!reply.replies.displayName}>
                       {" "}
                       {reply.replies.displayName || reply.replies.user.userId}
                     </UserID>
                     <UserTrade>
-                      {reply.replies.user.trade &&
+                      {!reply.replies.displayName &&
+                        reply.replies.user.trade &&
                         reply.replies.user.trade[0] &&
                         reply.replies.user.trade[0].title}
                     </UserTrade>
                   </UserDiv>
-                  <UserAdditionalDetails>
-                    <p>
-                      Helped {reply.replies.user.helpedUsers} · Points{" "}
-                      {reply.replies.user.points}
-                    </p>
-                  </UserAdditionalDetails>
+                  {!reply.replies.displayName && (
+                    <UserAdditionalDetails>
+                      <p>
+                        Helped {reply.replies.user.helpedUsers} · Points{" "}
+                        {reply.replies.user.points}
+                      </p>
+                    </UserAdditionalDetails>
+                  )}
                   <CommentBubble
                     as="pre"
-                    color={organizations[category].secondary}
+                    style={{ maxWidth: "100%" }}
+                    bgColor={
+                      reply.replies.displayName
+                        ? "white"
+                        : organizations[category].secondary
+                    }
+                    color={
+                      reply.replies.displayName &&
+                      organizations[category].primary
+                    }
+                    adminReply={!!reply.replies.displayName}
+                    category={category}
                   >
                     {highlightMentions(reply.replies.text)}
                   </CommentBubble>
@@ -284,6 +307,7 @@ export default class Reply extends Component {
                   onChange={this.onChange}
                   onSelect={this.onSelect}
                   placeholder={"Write your reply…"}
+                  value={commentContentState}
                 >
                   {uniqueUsers.map((user, index) => {
                     return (

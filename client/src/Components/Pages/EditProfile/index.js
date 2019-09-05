@@ -43,7 +43,7 @@ export default class EditProfile extends Component {
               <VerifiedWrapper>
                 <TopSection>
                   <Row>
-                    <Option>earwig ID: {userId}</Option>
+                    <Option>Username: {userId}</Option>
                     <NavLink to={EDIT_ID_URL}>
                       <EditButton type="button">Change</EditButton>
                     </NavLink>

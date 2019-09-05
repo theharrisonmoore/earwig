@@ -77,7 +77,7 @@ class YesNo extends Component {
                         });
                       } else {
                         this.setState({
-                          showComment: false
+                          showComment: true
                         });
                       }
                     }}
