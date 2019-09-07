@@ -7,7 +7,8 @@ export const PopoverLink = styled.p`
   font-weight: 500;
   font-size: 18px;
   text-decoration: underline;
-  color: ${({ category }) => organizations[category].primary};
+  color: ${({ category }) =>
+    category ? organizations[category].primary : "white"};
   font-style: italic;
   cursor: pointer;
 `;

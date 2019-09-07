@@ -43,7 +43,11 @@ class PopoverComponent extends React.Component {
         visible={this.state.popoverVisible}
         onVisibleChange={this.handleVisibleChange}
       >
-        <PopoverLink category={category}>{linkText}</PopoverLink>
+        {linkText ? (
+          <PopoverLink category={category}>{linkText}</PopoverLink>
+        ) : (
+          <p>{this.props.children}</p>
+        )}
       </Popover>
     );
   }

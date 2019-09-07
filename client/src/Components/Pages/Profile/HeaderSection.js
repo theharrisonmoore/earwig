@@ -206,13 +206,17 @@ export default class HeaderSection extends Component {
                       : `/organization/${orgId}/review`,
                   state: { name, category }
                 }}
-                // style={{ margin: "0 1rem" }}
               >
                 <ActionButton
                   color={organizations[category].primary}
                   disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
                   isMobile={isMobile}
-                  style={{ margin: "0 .5rem" }}
+                  style={{
+                    margin: "0 .5rem",
+                    opacity: `${
+                      reviewNotAllowed && reviewsLast30Days.length > 0 ? 0.5 : 1
+                    }`
+                  }}
                 >
                   {!isMobile && (
                     <Icon
@@ -226,7 +230,7 @@ export default class HeaderSection extends Component {
                   Give a review
                 </ActionButton>
               </Link>
-              <Link
+              {/* <Link
                 to={{
                   pathname:
                     level === 1 && !awaitingReview
@@ -234,14 +238,17 @@ export default class HeaderSection extends Component {
                       : `/organization/${orgId}/review`,
                   state: { name, category }
                 }}
-                // style={{ margin: "0 1rem" }}
-                disabled
+              > */}
+              <PopoverComponent
+                category={category}
+                popoverOptions={{
+                  text: "This feature is coming soon. Stay tuned"
+                }}
               >
                 <ActionButton
                   color={organizations[category].primary}
                   isMobile={isMobile}
-                  style={{ margin: "0 .5rem" }}
-                  disabled
+                  style={{ margin: "0 .5rem", opacity: "0.5" }}
                 >
                   {!isMobile && (
                     <Icon
@@ -254,7 +261,8 @@ export default class HeaderSection extends Component {
                   )}
                   Ask workers a question
                 </ActionButton>
-              </Link>
+              </PopoverComponent>
+              {/* </Link> */}
             </ActionButtonsDiv>
 
             {reviewNotAllowed && reviewsLast30Days.length > 0 && (
