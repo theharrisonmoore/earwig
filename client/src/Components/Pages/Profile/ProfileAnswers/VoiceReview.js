@@ -213,6 +213,7 @@ export default class VoiceReview extends Component {
     return (
       <>
         <audio
+          style={{ width: "200px" }}
           controls
           src={soundFile}
           type={this.state.mimeType}
