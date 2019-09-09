@@ -90,7 +90,14 @@ export default function index(props) {
           {...props}
           Component={Review}
         />
-        <Route exact path="/review/:reviewId/edit" component={Review} />
+
+        <PrivateRoute
+          exact
+          minimumLevel="LEVEL1"
+          path="/review/:reviewId/edit"
+          {...props}
+          Component={Review}
+        />
 
         <PrivateRoute
           exact

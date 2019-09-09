@@ -20,7 +20,7 @@ const { getUserById, updateUserById, getUserByUsername } = require("./../databas
 // eslint-disable-next-line consistent-return
 module.exports = async (req, res, next) => {
   const {
-    oldPassword, newPassword, newUsername, newTrade, newCity
+    oldPassword, newPassword, newUsername, newTrade, newCity,
   } = req.body;
   const { user } = req;
   const updateData = {};
@@ -35,7 +35,7 @@ module.exports = async (req, res, next) => {
   try {
     const userInfo = await getUserById(user.id);
     if (!userInfo) {
-      return next(boom.unauthorized("Wronge password"));
+      return next(boom.unauthorized("Wrong password"));
     }
 
     if (uploadedFileName) {
@@ -45,7 +45,7 @@ module.exports = async (req, res, next) => {
       // hash password
       const matched = await compare(oldPassword, userInfo.password);
       if (!matched) {
-        return next(boom.unauthorized("Incorrect password"));
+        return next(boom.unauthorized("Wrong password"));
       }
 
       const hashedPassword = await hash(newPassword, 8);
@@ -57,7 +57,7 @@ module.exports = async (req, res, next) => {
       // check if username already exists
       const usernameExists = await getUserByUsername(newUsername);
       if (usernameExists) {
-        return next(boom.notAcceptable("Username already taken"));
+        return next(boom.notAcceptable("That Username is already taken"));
       }
       updateData.userId = newUsername;
     }
@@ -67,7 +67,7 @@ module.exports = async (req, res, next) => {
     if (newCity) {
       updateData.city = newCity;
     }
-    
+
     const updatedUser = await updateUserById(userInfo.id, updateData);
 
     return res.json(updatedUser);

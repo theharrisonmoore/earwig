@@ -4,7 +4,7 @@ import { EmailShareButton, WhatsappShareButton } from "react-share";
 import { organizations, colors } from "../../../theme";
 
 export const InviteWrapper = styled.div`
-  padding-top: 7rem;
+  padding-top: 5rem;
   max-width: 17rem;
   margin: 0 auto;
 `;
@@ -71,4 +71,5 @@ export const PromoParagraph = styled.p`
   font-size: 20px;
   line-height: 1;
   font-family: "Lato", sans-serif;
+  margin: 2rem 0;
 `;

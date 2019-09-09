@@ -77,7 +77,7 @@ export default class index extends Component {
           <Header>
             <TopSection>
               <IDWrapper>
-                <IDText>ID: {userId}</IDText>
+                <IDText>Username: {userId}</IDText>
                 {verified ? (
                   <Verified>
                     <Icon

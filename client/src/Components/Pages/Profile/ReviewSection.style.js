@@ -38,7 +38,6 @@ export const StarWrapper = styled(QuestionTitle)`
 `;
 
 export const CategoryTitle = styled.h2`
-  text-transform: capitalize;
   font-size: 1.75rem;
   font-weight: medium;
   margin: 0;

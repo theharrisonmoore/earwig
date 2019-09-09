@@ -87,17 +87,7 @@ const signupSchema = Yup.object().shape({
       ["agency", "payroll", "company", "mainContractor", "other"],
       "Invalid organisation type"
     ),
-  otherOrg: Yup.string().test(
-    "otherOrg",
-    "Enter the organisation you are working for",
-    function(otherOrg) {
-      const orgType = this.resolve(Yup.ref("orgType"));
-      if (orgType === "other" && !otherOrg) {
-        return false;
-      }
-      return true;
-    }
-  ),
+  otherOrg: Yup.string(),
   trade: Yup.string().test("trade", "Required", function(trade) {
     const isWorker = this.resolve(Yup.ref("isWorker"));
     if (isWorker === "yes" && !trade) {
@@ -593,12 +583,15 @@ export default class Signup extends Component {
 
                     <SubHeading>Verification Photo</SubHeading>
                     <Paragraph>
-                      Please upload a photo of your face holding your trade ID
-                      like the example below. Please no glare or blur!
+                      We need to verify you’re a genuine worker so the worker
+                      community is protected from fake reviews and spam by
+                      non-workers. Please upload a photo of your face holding
+                      your trade ID like the example below. Please no glare or
+                      blur!
                       <br />
                       <br />
-                      Once we’ve verified you, we’ll delete your photo to
-                      protect your anonymity.
+                      Don’t worry! Once we’ve verified you, we’ll delete your
+                      photo to protect your identity.
                     </Paragraph>
 
                     <Field name="verificationImage">
@@ -646,7 +639,7 @@ export default class Signup extends Component {
                     <SubHeading>Protecting you from blacklisting</SubHeading>
                     <Paragraph>
                       To protect your identity, we’ll randomly assign you an
-                      earwig ID, which is the only thing shown beside your
+                      earwig Username, which is the only thing shown beside your
                       reviews and activity.
                     </Paragraph>
                   </>

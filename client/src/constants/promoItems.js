@@ -4,7 +4,6 @@ export const ITEMS = {
     { text: "Trust ratings", img: "trustRating" },
     { text: "Pay scales", img: "payscales" }
   ],
-
   payroll: [
     { text: "Payroll charges", img: "payrollCharges" },
     { text: "Trust ratings", img: "trustRating" },
@@ -13,7 +12,7 @@ export const ITEMS = {
   worksite: [
     { text: "Access and storage", img: "parkingSign" },
     { text: "Welfare and safety", img: "welfareSafety" },
-    { text: "Site photos", img: "photoCamera" }
+    { text: "Site images", img: "photoCamera" }
   ],
   company: [
     { text: "Supervisor ratings", img: "supervisor" },

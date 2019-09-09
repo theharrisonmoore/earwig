@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import SVG from "react-inlinesvg";
 import { NavLink } from "react-router-dom";
 import { Icon as AntIcon, Button } from "antd";
@@ -196,18 +196,31 @@ export const BubbleAndDate = styled.div`
   margin-bottom: 1rem;
 `;
 
+const adminTitle = css`
+  text-align: right;
+`;
+
 export const UserID = styled.h3`
   font-weight: 900;
   font-size: 1rem;
   color: ${colors.profileFontColor};
+  ${({ adminReply }) => adminReply && adminTitle}
 `;
 
 export const LightTitle = styled(UserID)`
   opacity: 0.5;
 `;
 
+const adminBorder = css`
+  border: 1px solid ${({ category }) => organizations[category].primary};
+  text-align: right;
+  margin-left: 0.25rem;
+  margin-right: 0;
+`;
+
 export const CommentBubble = styled.p`
-  background: ${({ color }) => color || colors.ghostGray};
+  background: ${({ bgColor }) => bgColor || colors.ghostGray};
+  color: ${({ color }) => color && color};
   border-radius: 1.125rem;
   align-self: flex-start;
   justify-content: flex-start;
@@ -215,7 +228,10 @@ export const CommentBubble = styled.p`
   margin-bottom: 0;
   white-space: pre-wrap;
   text-align: left;
-  margin-right: 0.5rem;
+  margin-right: 0.25rem;
+  max-width: 80%;
+
+  ${({ adminReply }) => adminReply && adminBorder}
 `;
 
 export const CommentDate = styled.p`
@@ -443,7 +459,7 @@ export const ReplyButton = styled.p`
 export const ActionButton = styled.button`
   background: ${({ color }) => color};
   box-shadow: 0px 4px 13px rgba(173, 145, 183, 0.273438);
-  border-radius: 3px;
+  border-radius: 300px;
   border: none;
   padding: 0.5rem 0.5rem;
   /* width: 96%; */
@@ -457,11 +473,12 @@ export const ActionButton = styled.button`
   box-shadow: ${shadows.buttonShadow};
   display: flex;
   align-items: center;
-  height: 5.5rem;
+  justify-content: center;
+  height: 3rem;
   position: relative;
 
   @media ${breakpoints.mobileM} {
-    font-size: 14px;
+    font-size: 12px;
     width: 10rem;
   }
 

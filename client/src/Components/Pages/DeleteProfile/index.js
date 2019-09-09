@@ -147,7 +147,7 @@ export default class index extends Component {
                 disabled={isSubmitting}
                 loading={isSubmitting}
               >
-                Send
+                Send message
               </Button>
               <Button
                 danger
@@ -155,7 +155,7 @@ export default class index extends Component {
                 disabled={isDeleting}
                 loading={isDeleting}
               >
-                Permanently delete account
+                Permanently delete your account
               </Button>
             </div>
           </BorderedWrapper>

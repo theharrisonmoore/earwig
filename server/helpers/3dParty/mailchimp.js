@@ -8,6 +8,7 @@ const addToMailchimp = email => new Promise(async (reslove, reject) => {
       {
         email_address: email,
         status: "subscribed",
+        update_existing: true,
       },
     ],
   };
@@ -21,19 +22,21 @@ const addToMailchimp = email => new Promise(async (reslove, reject) => {
     data,
   };
 
+
   try {
     const resp = await axios(options);
     const { errors } = resp.data;
     if (!errors.length) {
       return reslove("Successfully added");
     }
-    return reject(boom.badData());
+    return reject(boom.badData(errors));
   } catch (error) {
     if (error.response.status === 400) {
-      return reject(boom.badRequest("Invalid Resource"));
+      return reject(boom.badRequest(error));
     }
-    return reject(boom.badImplementation());
+    return reject(boom.badImplementation(error));
   }
 });
+
 
 module.exports = addToMailchimp;

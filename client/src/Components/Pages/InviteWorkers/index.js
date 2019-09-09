@@ -61,14 +61,17 @@ export default class InviteWorkers extends Component {
         <SocialIcons>
           <EmailShare
             url={referralLink}
-            subject={`Signup using my referal link`}
+            subject={`Mate, never choose a bad construction job again!`}
+            body={`Hi mate, have you heard about earwig? It’s the first construction worker voice platform that lets us give and get feedback about every agency, payroll company, worksite and employer in the industry so we can avoid bad jobs and choose the best. It was set-up by a sparky who’s used agencies for 7 years. I’ve joined up. You should too mate. It’s free and secure.
+            >>> ${referralLink}
+If the link isn’t working, copy and paste it into your browser.`}
           >
             <img src={emailIcon} alt="" />
             Email
           </EmailShare>
           <WhatsappShare
             url={referralLink}
-            title={`Signup using my referal link`}
+            title={`Mate, never choose a bad construction job again! Have you heard about earwig? It’s the first construction worker voice platform that lets us give and get feedback about every agency, payroll company, worksite and employer in the industry so we can avoid bad jobs and choose the best. It was set-up by a sparky who’s used agencies for 7 years. I’ve joined up. You should too mate. It’s free and secure.`}
             separator=": "
           >
             <img src={whatsAppIcon} alt="" />
@@ -80,6 +83,12 @@ export default class InviteWorkers extends Component {
             Facebook
           </FbShare>
         </SocialIcons>
+        <PromoParagraph>
+          You’ll earn 20 points for every worker who gets verified using your
+          magic link. Your points are an important measure of how helpful you’ve
+          been to other workers. We may give awards and run competitions from
+          time to time.
+        </PromoParagraph>
       </InviteWrapper>
     );
   }

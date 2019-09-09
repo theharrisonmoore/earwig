@@ -52,8 +52,7 @@ const schemas = {
     otherOrg: Joi.string()
       .when("orgType", {
         is: "other",
-        then: Joi.string().min(3).error(() => "enter valid organisation you work for")
-          .required("enter valid organisation you work for"),
+        then: Joi.string().min(3),
         otherwise: Joi.allow("").optional(),
       }),
   },
@@ -255,7 +254,7 @@ const schemas = {
     currentPayroll: Joi.object(),
     currentWorksite: Joi.object(),
     currentCompany: Joi.object(),
-  }
+  },
 };
 
 module.exports = route => (req, res, next) => {
@@ -265,6 +264,6 @@ module.exports = route => (req, res, next) => {
   if (!isValid.error) {
     next();
   } else {
-    next(boom.badRequest(isValid.error.details[0].message));
+    return next(boom.badRequest(isValid.error.details[0].message));
   }
 };

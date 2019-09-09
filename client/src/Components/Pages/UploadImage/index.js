@@ -320,12 +320,14 @@ export default class UploadImage extends Component {
             </SelectWrapper>
             <SubHeading>Verification Photo</SubHeading>
             <Paragraph>
-              Please upload a photo of your face holding your trade ID like the
-              example below. Please no glare or blur!
+              We need to verify you’re a genuine worker so the worker community
+              is protected from fake reviews and spam by non-workers. Please
+              upload a photo of your face holding your trade ID like the example
+              below. Please no glare or blur!
               <br />
               <br />
-              Once we’ve verified you, we’ll delete your photo to protect your
-              anonymity.
+              Don’t worry! Once we’ve verified you, we’ll delete your photo to
+              protect your identity.
             </Paragraph>
             <div style={{ width: "60%", margin: "0 auto" }}>
               <Example src={image ? image : example} />
@@ -351,11 +353,9 @@ export default class UploadImage extends Component {
             </div>
             <SubHeading>Protecting you from blacklisting</SubHeading>
             <Paragraph>
-              We believe that every voice counts and should be protected by
-              anonymity - everybody has a right to speak and be heard without
-              fear of blacklisting. To protect you, we’ll randomly assign you an
-              earwig ID, which is the only thing that will be shown beside your
-              reviews and activity.
+              To protect your identity, we’ll randomly assign you an earwig
+              Username, which is the only thing shown beside your reviews and
+              activity.
             </Paragraph>
             <Divider style={{ margin: "3rem auto" }} />
             {error && <Error>{error}</Error>}

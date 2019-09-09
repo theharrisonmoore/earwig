@@ -16,6 +16,7 @@
     "howler": "^2.1.2",
     "http-proxy-middleware": "^0.19.1",
     "lightbox-react": "^0.3.7",
+    "mixpanel-browser": "^2.29.0",
     "logrocket": "^1.0.2",
     "logrocket-react": "^3.0.0",
     "moment": "^2.24.0",

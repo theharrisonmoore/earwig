@@ -9,7 +9,7 @@ const ButtonElement = styled.button`
   color: ${colors.white};
   border: none;
   box-shadow: ${shadows.buttonShadow};
-  border-radius: 3px;
+  border-radius: 300px;
   width: 100%;
 
   font-weight: 900;
@@ -41,6 +41,10 @@ const ButtonElement = styled.button`
   &:active,
   &:focus {
     outline: none;
+  }
+
+  &:hover {
+    opacity: 0.9;
   }
 
   ${({ danger }) =>
