@@ -110,15 +110,52 @@ export const SubTitle = styled.h4`
   }
 `;
 
+export const TopSubTitle = styled.h4`
+  font-weight: ${props => (props.sublist ? "400" : "900")};
+  font-size: ${props => (props.list ? "1rem" : "1.125rem")};
+  color: ${colors.heliotrope};
+  text-decoration: underline;
+  text-align: ${({ center }) => (center ? "center" : "left")};
+  /* margin-bottom: ${({ marginBottom }) => (marginBottom ? "1.5rem" : "0")};
+  margin-top: ${props => (props.list ? "1rem" : "1.5rem")}; */
+  padding-left: ${({ sublist }) => sublist && "1rem"};
+  padding-top: ${props => !props.sublist && "1rem"};
+  margin: 0;
+  margin-bottom: 1rem;
+
+  @media (min-width: ${MOBILE_WIDTH}px) {
+    font-size: 1.5rem;
+    /* padding-top: 3rem; */
+  }
+`;
+
+export const SectionHeading = styled(TopSubTitle)`
+  color: ${colors.black2};
+  text-decoration: none;
+  font-weight: ${props => (props.sublist ? "500" : "900")};
+  padding-left: 0;
+`;
+
 export const SmallParagraph = styled.p`
   font-size: 1rem;
-
+  margin-bottom: 2rem;
   color: ${colors.profileFontColor};
   text-align: ${({ center }) => (center ? "center" : "left")};
   @media (min-width: ${MOBILE_WIDTH}px) {
     font-size: 1.125rem;
   }
 `;
+
+export const StyledOl = styled.ol`
+font-size: 1rem;
+  margin-bottom: 2rem;
+  color: ${colors.profileFontColor};
+  text-align: ${({ center }) => (center ? "center" : "left")};
+  padding-left: 2rem;
+  @media (min-width: ${MOBILE_WIDTH}px) {
+    font-size: 1.125rem;
+  }
+`
 
 export const BoldLink = styled(Link)`
   font-size: 1rem;
@@ -139,6 +176,7 @@ export const Iframe = styled.iframe`
   max-height: 35rem;
   box-shadow: ${shadows.frameShadow};
   max-width: 480px;
+  margin-bottom: 2rem;
 
   @media ${breakpoints.tablet} {
     height: 27vw;
@@ -230,6 +268,8 @@ export const ButtonsWrapper = styled.div`
   }
 `;
 
+
+
 export const LargeLink = styled(Link)`
   font-family: Roboto;
   font-weight: 900;
@@ -250,6 +290,15 @@ export const LargeLink = styled(Link)`
     font-size: 1.5rem;
   }
 `;
+
+export const NormalLink = styled(Link)`
+color: ${colors.purpleLinks};
+text-decoration: underline;
+  &:hover {
+    text-decoration: underline;
+    color: ${colors.purpleLinks};
+  }
+`
 
 export const Ol = styled.ol`
   list-style-type: none;
