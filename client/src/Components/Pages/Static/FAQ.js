@@ -190,8 +190,9 @@ export default class FAQ extends Component {
             <SectionHeading sublist="true">Homepage Video</SectionHeading>
           </Element>
           <Iframe
-            src="https://www.youtube.com/embed/OCWj5xgu5Ng"
+            src="https://www.youtube.com/embed/Z4F7iJeYgqE?controls=0"
             frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
           />
           <Element name="important-message">
             <SectionHeading sublist="true">
@@ -199,8 +200,9 @@ export default class FAQ extends Component {
             </SectionHeading>
           </Element>
           <Iframe
-            src="https://www.youtube.com/embed/OCWj5xgu5Ng"
+            src="https://www.youtube.com/embed/nV2Wbg3pMPE?controls=0"
             frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
           />
           <Element name="pay">
             <SectionHeading sublist="true">

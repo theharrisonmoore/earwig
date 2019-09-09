@@ -107,10 +107,9 @@ export default class index extends Component {
             <HalfDiv>
               <VideoWrapper>
                 <Video
-                  src="https://www.youtube.com/embed/9eBzZOwaTpw?controls=0"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
+                  src="https://www.youtube.com/embed/Z4F7iJeYgqE?controls=0"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
                 />
               </VideoWrapper>
             </HalfDiv>

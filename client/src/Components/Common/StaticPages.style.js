@@ -173,9 +173,9 @@ export const BoldLink = styled(Link)`
 export const Iframe = styled.iframe`
   width: 100%;
   height: 49vw;
-  max-height: 35rem;
+  max-height: 315px;;
   box-shadow: ${shadows.frameShadow};
-  max-width: 480px;
+  max-width: 560px;
   margin-bottom: 2rem;
 
   @media ${breakpoints.tablet} {
