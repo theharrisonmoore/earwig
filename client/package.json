@@ -62,7 +62,7 @@
   },
   "scripts": {
     "start": "react-scripts --max_old_space_size=8192 start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test --runInBand --detectOpenHandles --forceExit",
     "test:coverage": "react-scripts test --coverage --runInBand --detectOpenHandles --forceExit",
     "eject": "react-scripts eject"
