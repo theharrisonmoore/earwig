@@ -211,9 +211,9 @@ export default class VoiceReview extends Component {
     if (loading) return <Loading />;
     if (!soundFile) return <div>No voice review</div>;
     return (
-      <>
+      <div style={{ minWidth: "350px" }}>
         <audio
-          style={{ width: "200px" }}
+          style={{ minWidth: "350px" }}
           controls
           src={soundFile}
           type={this.state.mimeType}
@@ -242,7 +242,7 @@ export default class VoiceReview extends Component {
             </div>
           )}
         </Player> */}
-      </>
+      </div>
     );
   }
 }

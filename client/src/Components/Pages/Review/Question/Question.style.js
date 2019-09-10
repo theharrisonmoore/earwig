@@ -290,6 +290,7 @@ export const VoiceIconWrapper = styled.div`
 export const VoiceWrapper = styled.div`
   display: flex;
   align-items: center;
+  min-width: 350px;
 
   video,
   audio {
