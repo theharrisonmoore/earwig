@@ -5,12 +5,14 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const Sentry = require("@sentry/node");
+const compression = require("compression");
 
 
 const router = require("./router");
 const dbConnection = require("./database/dbConnection");
 
 const app = express();
+app.use(compression());
 
 Sentry.init({ dsn: process.env.SENTRY_DSN });
 

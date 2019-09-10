@@ -15,7 +15,7 @@ module.exports = fieldName => (req, res, next) => {
     filename(fileReq, file, cb) {
       const extention = file.originalname.split(".")[file.originalname.split(".").length - 1];
       const fileName = file.originalname.split(".")[0];
-      cb(null, `${fileName}-${Date.now()}.${extention}`);
+      cb(null, `${fileName}-${Date.now()}.${"mp3"}`);
     },
   });
 

@@ -502,6 +502,7 @@ export default class Profile extends Component {
               fetchComments={this.fetchComments}
               category={category}
               verified={verified}
+              isAdmin={isAdmin}
             />
           )}
         </Skeleton>

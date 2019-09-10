@@ -175,3 +175,14 @@ export const highlightMentions = text => {
     </>
   ));
 };
+
+export const isIphone = () => {
+  const iOSUserAgent =
+    /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && !window.MSStream;
+
+  const iOSPlatform =
+    !!navigator.platform &&
+    /iPad|iPhone|iPod|MacIntel/.test(navigator.platform);
+
+  return iOSPlatform && iOSUserAgent;
+};

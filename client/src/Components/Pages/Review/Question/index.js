@@ -4,7 +4,11 @@ import QuestionOptions from "./Options";
 import PopoverComponent from "./../../../Common/Popover";
 import { QuestionWrapper, QText, HintText } from "./Question.style";
 
-import UploadAudio from "./UploadAudio";
+import { isIphone } from "../../../../helpers/index";
+
+import UploadAudio2 from "./NewUploadAudio";
+
+import UploadAudio3 from "./UploadAudio3";
 
 class Question extends Component {
   render() {
@@ -40,7 +44,8 @@ class Question extends Component {
       stopRecord,
       handleRecord,
       handleAddNewOrgChange,
-      id
+      id,
+      voiceReviewUrl
     } = this.props;
 
     const popoverOptions = {
@@ -60,13 +65,27 @@ class Question extends Component {
           />
         )}
         {type === "voiceReview" && (
-          <UploadAudio
-            recording={recording}
-            stopRecord={stopRecord}
-            startRecord={startRecord}
-            handleRecord={handleRecord}
-            id={id}
-          />
+          <div>
+            {isIphone() ? (
+              <UploadAudio3
+                recording={recording}
+                stopRecord={stopRecord}
+                startRecord={startRecord}
+                handleRecord={handleRecord}
+                id={id}
+                voiceReviewUrl={voiceReviewUrl}
+              />
+            ) : (
+              <UploadAudio2
+                recording={recording}
+                stopRecord={stopRecord}
+                startRecord={startRecord}
+                handleRecord={handleRecord}
+                id={id}
+                voiceReviewUrl={voiceReviewUrl}
+              />
+            )}
+          </div>
         )}
         <QuestionOptions
           type={type}

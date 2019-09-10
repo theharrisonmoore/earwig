@@ -43,7 +43,11 @@ const antIcon = (
   <Icon type="loading" style={{ fontSize: 24, color: "white" }} spin />
 );
 
-const { API_POST_REVIEW_URL, API_UPLOAD_AUDIO } = require("../../../apiUrls");
+const {
+  API_POST_REVIEW_URL,
+  API_UPLOAD_AUDIO,
+  API_GET_AUDIO_URL
+} = require("../../../apiUrls");
 
 class Review extends Component {
   state = {
@@ -72,7 +76,8 @@ class Review extends Component {
     isEditing: false,
     orgId: "",
     recording: false,
-    audioFile: null
+    audioFile: null,
+    voiceReviewUrl: ""
   };
 
   componentDidMount() {
@@ -97,58 +102,74 @@ class Review extends Component {
           const { orgId } = res.data;
           axios
             .get(`/api/questions/${orgId}`)
-            .then(res => {
-              const answers = {};
-              const { getReviewAnswers: reviewDetails } = res.data;
-              const review = {
-                workPeriod: {
-                  from: moment(reviewDetails[0].workPeriod.from),
-                  to: moment(reviewDetails[0].workPeriod.to)
-                },
-                rate: reviewDetails[0].rate,
-                overallReview: reviewDetails[0].overallReview.text,
-                voiceReview: reviewDetails[0].overallReview.audio || ""
-              };
-
-              reviewDetails[0].answers.forEach(answer => {
-                const {
-                  answer: ans,
-                  question: [question]
-                } = answer;
-                const number = question.number;
-                if (answers[number]) {
-                  // think about this again;
-                  answers[number] = ans;
-                } else {
-                  answers[number] = ans;
+            .then(async res => {
+              try {
+                const answers = {};
+                const { getReviewAnswers: reviewDetails } = res.data;
+                // fetch the audio url
+                if (
+                  reviewDetails[0] &&
+                  reviewDetails[0].voiceReview &&
+                  reviewDetails[0].voiceReview.audio
+                ) {
+                  const { data } = await axios.post(API_GET_AUDIO_URL, {
+                    filename: reviewDetails[0].voiceReview.audio
+                  });
+                  this.setState({ voiceReviewUrl: data.audio });
                 }
-              });
-              const groupss = {};
-              res.data.groups.forEach(group => {
-                groupss[group._id] = {
-                  title: group.group.text,
-                  main: group.questions.filter(
-                    question => !question.isDependent
-                  ),
-                  dependant: group.questions.filter(
-                    question => question.isDependent
-                  )
+
+                const review = {
+                  workPeriod: {
+                    from: moment(reviewDetails[0].workPeriod.from),
+                    to: moment(reviewDetails[0].workPeriod.to)
+                  },
+                  rate: reviewDetails[0].rate,
+                  overallReview: reviewDetails[0].overallReview.text,
+                  voiceReview: reviewDetails[0].voiceReview.audio
                 };
-              });
-              this.setState({
-                isEditing: true,
-                groups: res.data,
-                groupss,
-                isLoading: false,
-                organization: res.data.organization,
-                email,
-                answers,
-                orgId,
-                review,
-                dropdownOptions:
-                  res.data.dropDownListData &&
-                  res.data.dropDownListData[0].category
-              });
+
+                reviewDetails[0].answers.forEach(answer => {
+                  const {
+                    answer: ans,
+                    question: [question]
+                  } = answer;
+                  const number = question.number;
+                  if (answers[number]) {
+                    // think about this again;
+                    answers[number] = ans;
+                  } else {
+                    answers[number] = ans;
+                  }
+                });
+                const groupss = {};
+                res.data.groups.forEach(group => {
+                  groupss[group._id] = {
+                    title: group.group.text,
+                    main: group.questions.filter(
+                      question => !question.isDependent
+                    ),
+                    dependant: group.questions.filter(
+                      question => question.isDependent
+                    )
+                  };
+                });
+                this.setState({
+                  isEditing: true,
+                  groups: res.data,
+                  groupss,
+                  isLoading: false,
+                  organization: res.data.organization,
+                  email,
+                  answers,
+                  orgId,
+                  review,
+                  dropdownOptions:
+                    res.data.dropDownListData &&
+                    res.data.dropDownListData[0].category
+                });
+              } catch (error) {
+                console.log("err", error);
+              }
             })
             .catch(err => {
               // server error 500
@@ -651,7 +672,7 @@ class Review extends Component {
                   handleChange={this.handleReviewChange}
                   state={this.state}
                 />
-                {/* The voice questions in the next sprint */}
+                {/* The voice questions */}
                 <Question
                   question={staticQuestion[3]}
                   category={this.state.organization.category}
@@ -659,6 +680,7 @@ class Review extends Component {
                   recording={recording}
                   handleRecord={this.handleRecord}
                   id={id}
+                  voiceReviewUrl={this.state.voiceReviewUrl}
                 />
               </div>
               <UserAgreement>

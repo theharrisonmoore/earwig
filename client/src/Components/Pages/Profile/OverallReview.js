@@ -285,7 +285,7 @@ export default class OverallReview extends Component {
         const { overallReview, voiceReview } = review;
 
         // check for writtenReview and add to array
-        if (overallReview) {
+        if (overallReview && overallReview.text) {
           totalReviews.push({
             text: review.overallReview.text,
             user: review.user,
@@ -298,7 +298,7 @@ export default class OverallReview extends Component {
         }
 
         // check for audioReview and add to array
-        if (voiceReview) {
+        if (voiceReview && voiceReview.audio) {
           totalReviews.push({
             text: review.voiceReview.audio,
             user: review.user,
@@ -333,9 +333,9 @@ export default class OverallReview extends Component {
 
   checkIfReviewExist = review => {
     const { category, text } = review;
-    if (category === "written" && text.length < 1) {
+    if (category === "written" && text.length) {
       return true;
-    } else if (category === "audio" && text.length < 1) {
+    } else if (category === "audio" && text.length) {
       return true;
     }
     return false;
@@ -359,10 +359,7 @@ export default class OverallReview extends Component {
     } = this.props;
 
     const { totalReviews } = summary;
-
-    const { writtenOrAudioReviews } = this.state;
-
-    const { activeReview, counters } = this.state;
+    const { activeReview, counters, writtenOrAudioReviews } = this.state;
 
     const isAuthorized = authorization({
       isAdmin,
@@ -380,7 +377,7 @@ export default class OverallReview extends Component {
         )}
         {writtenOrAudioReviews &&
           writtenOrAudioReviews.map(review => {
-            if (!this.checkIfReviewExist(review)) {
+            if (this.checkIfReviewExist(review)) {
               return (
                 <CommentDiv key={review._id + "comment" + review.category}>
                   <UserDiv>
