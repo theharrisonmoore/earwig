@@ -50,11 +50,16 @@ class NewAudio extends React.Component {
       this.recorder = new Recorder(mediaStreamSource);
 
       this.recorder.record();
-    } catch (err) {
-      this.setState({
-        message: "For a better experience please use chrome on laptop"
-      });
+    } catch (error) {
+      this.handleError(error);
     }
+  };
+
+  handleError = error => {
+    console.log("error", error);
+    this.setState({
+      message: "For a better experience please try this on Safaris"
+    });
   };
 
   handleStartClick = () => {
@@ -69,22 +74,24 @@ class NewAudio extends React.Component {
         console.warn("navigator.getUserMedia not present");
       }
     } catch (err) {
-      this.setState({
-        message: "For a better experience please use chrome on laptop"
-      });
+      this.handleError(err);
     }
   };
 
   handleStopClick = () => {
-    const { tracks } = this.state;
-    this.recorder.stop();
-    tracks.forEach(track => track.stop());
-    this.recorder.exportWAV(s => {
-      const src = window.URL.createObjectURL(s);
-      const mimeType = s.type;
-      this.setState({ src, mimeType, recording: false });
-      this.saveRecording(s);
-    });
+    try {
+      const { tracks } = this.state;
+      this.recorder.stop();
+      tracks.forEach(track => track.stop());
+      this.recorder.exportWAV(s => {
+        const src = window.URL.createObjectURL(s);
+        const mimeType = s.type;
+        this.setState({ src, mimeType, recording: false });
+        this.saveRecording(s);
+      });
+    } catch (error) {
+      this.handleError(error);
+    }
   };
 
   toggleRecording = () => {
@@ -95,31 +102,36 @@ class NewAudio extends React.Component {
         this.handleStartClick();
       }
     } catch (error) {
-      this.setState({
-        message: "For a better experience please use chrome on laptop"
-      });
+      this.handleError(error);
     }
   };
 
   saveRecording = blob => {
-    const { id } = this.props;
+    try {
+      const { id } = this.props;
 
-    let audioBlob = new Blob([blob], {
-      type: "audio/mp3"
-    });
+      let audioBlob = new Blob([blob], {
+        type: "audio/mp3"
+      });
 
-    audioBlob.name = `${id}.mp3`;
+      audioBlob.name = `${id}.mp3`;
 
-    // const audioFile = new File([blob], `${id}.mp3`, {
-    //   type: "audio/mp3",
-    //   lastModified: Date.now()
-    // });
+      // const audioFile = new File([blob], `${id}.mp3`, {
+      //   type: "audio/mp3",
+      //   lastModified: Date.now()
+      // });
 
-    this.setState({
-      recordedAudio: audioBlob,
-      audioFile: audioBlob
-    });
-    this.props.handleRecord({ recordedAudio: audioBlob, audioFile: audioBlob });
+      this.setState({
+        recordedAudio: audioBlob,
+        audioFile: audioBlob
+      });
+      this.props.handleRecord({
+        recordedAudio: audioBlob,
+        audioFile: audioBlob
+      });
+    } catch (error) {
+      this.handleError(error);
+    }
   };
 
   render() {

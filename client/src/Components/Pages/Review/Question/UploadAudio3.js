@@ -46,33 +46,44 @@ export default class UploadAudio3 extends Component {
   };
 
   handleStopClick = () => {
-    this.audioContext.close();
-    this.processor.disconnect();
-    this.state.tracks.forEach(track => track.stop());
-    const blob = this.encoder.finish("audio/mp3");
-    const src = URL.createObjectURL(blob);
-    this.setState({ isRecording: false, src });
-    this.saveRecording(blob);
-    // this.encoder.cancel();
+    try {
+      this.audioContext.close();
+      this.processor.disconnect();
+      this.state.tracks.forEach(track => track.stop());
+      const blob = this.encoder.finish("audio/mp3");
+      const src = URL.createObjectURL(blob);
+      this.setState({ isRecording: false, src });
+      this.saveRecording(blob);
+      // this.encoder.cancel();
+    } catch (err) {
+      this.logError(err);
+    }
   };
 
   saveRecording = blob => {
-    const { id } = this.props;
+    try {
+      const { id } = this.props;
 
-    let audioBlob = new Blob([blob], {
-      type: "audio/mp3"
-    });
+      let audioBlob = new Blob([blob], {
+        type: "audio/mp3"
+      });
 
-    audioBlob.name = `${id}.mp3`;
+      audioBlob.name = `${id}.mp3`;
 
-    this.setState({
-      recordedAudio: audioBlob,
-      audioFile: audioBlob
-    });
-    this.props.handleRecord({ recordedAudio: audioBlob, audioFile: audioBlob });
+      this.setState({
+        recordedAudio: audioBlob,
+        audioFile: audioBlob
+      });
+      this.props.handleRecord({
+        recordedAudio: audioBlob,
+        audioFile: audioBlob
+      });
+    } catch (err) {
+      this.logError(err);
+    }
   };
 
-  startRecord = () => {
+  startRecord = async () => {
     this.setState({ message: "" });
     try {
       this.audioContext = new AudioContext();
@@ -105,9 +116,7 @@ export default class UploadAudio3 extends Component {
         .then(this.gotStreamMethod)
         .catch(this.logError);
     } catch (error) {
-      this.setState({
-        message: "For a better experience please try this on chrome for desktop"
-      });
+      this.logError(error);
     }
   };
 
@@ -133,22 +142,27 @@ export default class UploadAudio3 extends Component {
         this.encoder.encode(this.getBuffers(event));
       };
     } catch (err) {
-      this.setState({
-        message: "For a better experience please try this on chrome for desktop"
-      });
+      this.logError(err);
     }
   };
 
   logError = error => {
-    alert(error);
+    console.log("err", error);
+    this.setState({
+      message: "For a better experience please try this on Safari"
+    });
   };
 
   getBuffers = event => {
-    const buffers = [];
-    for (let ch = 0; ch < 2; ++ch) {
-      buffers[ch] = event.inputBuffer.getChannelData(ch);
+    try {
+      const buffers = [];
+      for (let ch = 0; ch < 2; ++ch) {
+        buffers[ch] = event.inputBuffer.getChannelData(ch);
+      }
+      return buffers;
+    } catch (err) {
+      this.logError(err);
     }
-    return buffers;
   };
 
   toggleRecording = () => {
@@ -159,9 +173,7 @@ export default class UploadAudio3 extends Component {
         this.handleStartClick();
       }
     } catch (err) {
-      this.setState({
-        message: "For a better experience please try this on chrome for desktop"
-      });
+      this.logError(err);
     }
   };
 
