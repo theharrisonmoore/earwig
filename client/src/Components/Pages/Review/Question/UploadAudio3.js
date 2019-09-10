@@ -138,8 +138,13 @@ export default class UploadAudio3 extends Component {
       /**
        * Give the node a function to process audio events
        */
+      // handle firefox bug
       this.processor.onaudioprocess = event => {
-        this.encoder.encode(this.getBuffers(event));
+        try {
+          this.encoder.encode(this.getBuffers(event));
+        } catch (err) {
+          this.logError(err)
+        }
       };
     } catch (err) {
       this.logError(err);
@@ -149,7 +154,7 @@ export default class UploadAudio3 extends Component {
   logError = error => {
     console.log("err", error);
     this.setState({
-      message: "For a better experience please try this on Safari"
+      message: "Sorry, there seems to be an issue doing voice recordings on this browser/device. If on a computer please use Chrome or on Apple mobile devices please use Safari."
     });
   };
 
