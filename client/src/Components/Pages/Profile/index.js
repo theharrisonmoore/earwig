@@ -21,7 +21,9 @@ import {
   ReviewDiv,
   AccountPromo,
   AccountLink,
-  AccountItem
+  AccountItem,
+  Level0Promo,
+  BottomAccountPromo
 } from "./Profile.style";
 
 export default class Profile extends Component {
@@ -291,7 +293,7 @@ export default class Profile extends Component {
         {/* BASIC VIEW FOR LOGGED OUT USERS */}
         <Skeleton loading={!loaded}>
           {level < 1 && (
-            <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
+            <Level0Promo isTablet={isTablet} isMobile={isMobile}>
               <ReviewSection
                 category={category}
                 sectionDetails={{ _id: "Key ratings" }}
@@ -324,7 +326,7 @@ export default class Profile extends Component {
                   Create an account now >
                 </AccountLink>
               </AccountPromo>
-            </ReviewDiv>
+            </Level0Promo>
           )}
           {/* {reviewDetails.length < 1 && (
             <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
@@ -336,6 +338,8 @@ export default class Profile extends Component {
               />
             </ReviewDiv>
           )} */}
+
+          {level > 0 &&
           <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
             {/* KEY RATINGS SECTION */}
             {reviewDetails.map(
@@ -447,6 +451,7 @@ export default class Profile extends Component {
               />
             )} */}
           </ReviewDiv>
+          }
           {/* OVERALL RATINGS SECTION */}
           {/* HIDDEN DIV TO SCROLL SECTION INTO VIEW */}
           <div ref={this.myDivToFocus} />
@@ -471,7 +476,7 @@ export default class Profile extends Component {
           />
           {level < 1 && (
             <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-              <AccountPromo>
+              <BottomAccountPromo>
                 <p>Create an account to see all reviews</p>
                 <AccountLink
                   to={{
@@ -482,7 +487,7 @@ export default class Profile extends Component {
                 >
                   Create an account now >
                 </AccountLink>
-              </AccountPromo>
+              </BottomAccountPromo>
             </ReviewDiv>
           )}
           {/* COMMENTS BOX */}

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { colors, shadows, breakpoints } from "./../../theme";
+import { colors, shadows, breakpoints, borders } from "./../../theme";
 import { MOBILE_WIDTH } from "./../../constants/screenWidths";
 
 export const Wrapper = styled.div`
@@ -12,12 +12,13 @@ export const Wrapper = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
-  padding: 2rem;
+  padding: 5rem 2rem 2rem 2rem;
   margin-bottom: 3rem;
   width: 100%;
 
   @media ${breakpoints.tablet} {
     width: ${({ width }) => width || "100%"};
+    padding-top: 6rem;
   }
 
   .table {
@@ -84,13 +85,24 @@ export const PageTitle = styled.h1`
   }
 `;
 
+export const SubTitleGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 0 2.5rem 0;
+  border-bottom: ${borders.commentBox};
+  margin-bottom: 2rem;
+`;
+
 export const SubTitle = styled.h4`
-  font-weight: 900;
-  font-size: 1.125rem;
-  color: ${colors.profileFontColor};
+  font-weight: ${props => (props.sublist ? "700" : "900")};
+  font-size: ${props => (props.list ? "1rem" : "1.125rem")};
+  color: ${colors.heliotrope};
+  text-decoration: underline;
   text-align: ${({ center }) => (center ? "center" : "left")};
   margin-bottom: ${({ marginBottom }) => (marginBottom ? "1.5rem" : "0")};
-  margin-top: ${props => (props.list ? "0" : "1.5rem")};
+  margin-top: ${props => (props.list ? "1rem" : "1.5rem")};
+  padding-left: ${({ sublist }) => sublist && "1rem"};
+  margin-top: ${props => props.sublist && "0.5rem"};
 
   @media (min-width: ${MOBILE_WIDTH}px) {
     font-size: 1.5rem;
@@ -98,15 +110,52 @@ export const SubTitle = styled.h4`
   }
 `;
 
+export const TopSubTitle = styled.h4`
+  font-weight: ${props => (props.sublist ? "400" : "900")};
+  font-size: ${props => (props.list ? "1rem" : "1.125rem")};
+  color: ${colors.heliotrope};
+  text-decoration: underline;
+  text-align: ${({ center }) => (center ? "center" : "left")};
+  /* margin-bottom: ${({ marginBottom }) => (marginBottom ? "1.5rem" : "0")};
+  margin-top: ${props => (props.list ? "1rem" : "1.5rem")}; */
+  padding-left: ${({ sublist }) => sublist && "1rem"};
+  padding-top: ${props => !props.sublist && "1rem"};
+  margin: 0;
+  margin-bottom: 1rem;
+
+  @media (min-width: ${MOBILE_WIDTH}px) {
+    font-size: 1.5rem;
+    /* padding-top: 3rem; */
+  }
+`;
+
+export const SectionHeading = styled(TopSubTitle)`
+  color: ${colors.black2};
+  text-decoration: none;
+  font-weight: ${props => (props.sublist ? "500" : "900")};
+  padding-left: 0;
+`;
+
 export const SmallParagraph = styled.p`
   font-size: 1rem;
-
+  margin-bottom: 2rem;
   color: ${colors.profileFontColor};
   text-align: ${({ center }) => (center ? "center" : "left")};
   @media (min-width: ${MOBILE_WIDTH}px) {
     font-size: 1.125rem;
   }
 `;
+
+export const StyledOl = styled.ol`
+font-size: 1rem;
+  margin-bottom: 2rem;
+  color: ${colors.profileFontColor};
+  text-align: ${({ center }) => (center ? "center" : "left")};
+  padding-left: 2rem;
+  @media (min-width: ${MOBILE_WIDTH}px) {
+    font-size: 1.125rem;
+  }
+`
 
 export const BoldLink = styled(Link)`
   font-size: 1rem;
@@ -124,9 +173,10 @@ export const BoldLink = styled(Link)`
 export const Iframe = styled.iframe`
   width: 100%;
   height: 49vw;
-  max-height: 35rem;
+  max-height: 315px;;
   box-shadow: ${shadows.frameShadow};
-  max-width: 480px;
+  max-width: 560px;
+  margin-bottom: 2rem;
 
   @media ${breakpoints.tablet} {
     height: 27vw;
@@ -218,6 +268,8 @@ export const ButtonsWrapper = styled.div`
   }
 `;
 
+
+
 export const LargeLink = styled(Link)`
   font-family: Roboto;
   font-weight: 900;
@@ -238,6 +290,15 @@ export const LargeLink = styled(Link)`
     font-size: 1.5rem;
   }
 `;
+
+export const NormalLink = styled(Link)`
+color: ${colors.purpleLinks};
+text-decoration: underline;
+  &:hover {
+    text-decoration: underline;
+    color: ${colors.purpleLinks};
+  }
+`
 
 export const Ol = styled.ol`
   list-style-type: none;

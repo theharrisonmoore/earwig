@@ -133,7 +133,9 @@ export default class index extends Component {
       }
     }
 
-    this.setState({ section: newSection });
+    this.setState({ section: newSection }, () => {
+      window.scrollTo(0, 0);
+    });
   };
 
   setSectionAsAgency = () => {

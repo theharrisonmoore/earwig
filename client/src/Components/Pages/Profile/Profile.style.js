@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import SVG from "react-inlinesvg";
 import { NavLink } from "react-router-dom";
 import { Icon as AntIcon, Button } from "antd";
+import BlurredBackground from "./../../../assets/blurred-background.png";
 
 import {
   organizations,
@@ -155,6 +156,11 @@ export const ReviewDiv = styled.div`
   text-align: left;
 `;
 
+export const Level0Promo = styled(ReviewDiv)`
+  padding: ${props =>
+    props.isTablet || props.isMobile ? "2rem 1rem" : "2rem 7rem 0 7rem"};
+`
+
 export const GiveReviewTitle = styled.h3`
   font-size: 1.75rem;
   font-style: italic;
@@ -288,10 +294,32 @@ export const AccountPromo = styled.div`
   color: ${colors.profileFontColor};
   display: flex;
   flex-direction: column;
+  background-image: url(${BlurredBackground});
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+
+  ::after {
+    content: " ";
+    position: absolute;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 1) 90%
+    );
+    width: 100%;
+    height: 1rem;
+    bottom: 0;
+  }
 `;
+
+export const BottomAccountPromo = styled(AccountPromo)`
+  background-image: none;
+`
 
 export const AccountLink = styled(VerifyLink)`
   padding-top: 1rem;
+  z-index: 2;
 `;
 
 export const AccountItem = styled.div`

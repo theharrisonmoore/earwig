@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { ORG_STATUS_URL_SIGNUP } from "./../../../constants/naviagationUrls";
+import { WELCOME_URL } from "./../../../constants/naviagationUrls";
 
 import { Link } from "react-router-dom";
 
@@ -27,12 +27,11 @@ export default class Intro extends Component {
           <Logo src={logo} alt="logo" />
           <Title>An important message for workers</Title>
           <Iframe
-            src="https://www.youtube.com/embed/9eBzZOwaTpw?controls=0"
+            src="https://www.youtube.com/embed/nV2Wbg3pMPE?controls=0"
             frameBorder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
           />
-          <Link to={ORG_STATUS_URL_SIGNUP}>
+          <Link to={WELCOME_URL}>
             <Button>Got it</Button>
           </Link>
         </VideoContainer>

@@ -42,7 +42,6 @@ import {
 } from "./../../Common/Formik/Formik.style";
 
 import {
-  SEARCH_URL,
   SIGNUP_URL,
   RESET_PASSWORD_URL,
   WELCOME_URL
@@ -67,7 +66,7 @@ export default class index extends Component {
       .post("/api/login", values)
       .then(({ data }) => {
         this.props.handleChangeState({ ...data, isLoggedIn: true });
-        this.props.history.push(SEARCH_URL);
+        this.props.history.push(WELCOME_URL);
       })
       .catch(err => {
         this.setState({ error: err.response.data.error });
@@ -107,10 +106,9 @@ export default class index extends Component {
             <HalfDiv>
               <VideoWrapper>
                 <Video
-                  src="https://www.youtube.com/embed/9eBzZOwaTpw?controls=0"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
+                  src="https://www.youtube.com/embed/Z4F7iJeYgqE?controls=0"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
                 />
               </VideoWrapper>
             </HalfDiv>
