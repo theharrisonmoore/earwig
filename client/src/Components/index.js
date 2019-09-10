@@ -444,7 +444,7 @@ export default function index(props) {
                 handleChangeState={handleChangeState}
               />
             ) : (
-              <Redirect to={isAdmin ? ADMIN : SEARCH_URL} />
+              <Redirect to={isAdmin ? ADMIN : WELCOME_URL} />
             )
           }
         />
@@ -460,7 +460,7 @@ export default function index(props) {
                 handleChangeState={handleChangeState}
               />
             ) : (
-              <Redirect to={isAdmin ? ADMIN : SEARCH_URL} />
+              <Redirect to={isAdmin ? ADMIN : WELCOME_URL} />
             )
           }
         />
@@ -475,7 +475,7 @@ export default function index(props) {
                 handleChangeState={handleChangeState}
               />
             ) : (
-              <Redirect to={isAdmin ? ADMIN : SEARCH_URL} />
+              <Redirect to={isAdmin ? ADMIN : WELCOME_URL} />
             )
           }
         />

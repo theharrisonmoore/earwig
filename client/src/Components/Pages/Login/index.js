@@ -32,7 +32,7 @@ import {
 
 import { StyledField } from "./../../Common/Formik/Formik.style";
 
-import { ORG_STATUS_URL_LOGIN } from "./../../../constants/naviagationUrls";
+// import { ORG_STATUS_URL_LOGIN } from "./../../../constants/naviagationUrls";
 
 const initalValues = { email: "", password: "" };
 
@@ -58,7 +58,7 @@ export default class Login extends Component {
           $userId: data.userId
         });
         this.props.handleChangeState({ ...data, isLoggedIn: true });
-        this.props.history.push(ORG_STATUS_URL_LOGIN);
+        this.props.history.push(WELCOME_URL);
       })
       .catch(err => {
         this.setState({ error: err.response.data.error });

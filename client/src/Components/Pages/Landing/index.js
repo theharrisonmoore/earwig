@@ -67,7 +67,7 @@ export default class index extends Component {
       .post("/api/login", values)
       .then(({ data }) => {
         this.props.handleChangeState({ ...data, isLoggedIn: true });
-        this.props.history.push(ORG_STATUS_URL_LOGIN);
+        this.props.history.push(WELCOME_URL);
       })
       .catch(err => {
         this.setState({ error: err.response.data.error });
