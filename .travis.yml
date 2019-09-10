@@ -1,8 +1,7 @@
 language: node_js
 
-
 node_js:
-  - "11.10.1"
+  - '11.10.1'
 
 cache:
   directories:
@@ -28,6 +27,7 @@ before_script:
   - npm run build
   - npm run client:build
   - mongo --version
+  - export NODE_OPTIONS=–max_old_space_size=8192
 
 script:
   - npm test
@@ -40,4 +40,3 @@ after_success:
 
 after_script:
   - pkill mongod
-  
