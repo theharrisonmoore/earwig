@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { ORG_STATUS_URL_SIGNUP, WELCOME_URL } from "./../../../constants/naviagationUrls";
+import { WELCOME_URL } from "./../../../constants/naviagationUrls";
 
 import { Link } from "react-router-dom";
 

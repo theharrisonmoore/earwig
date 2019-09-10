@@ -42,7 +42,6 @@ import {
 } from "./../../Common/Formik/Formik.style";
 
 import {
-  ORG_STATUS_URL_LOGIN,
   SIGNUP_URL,
   RESET_PASSWORD_URL,
   WELCOME_URL
