@@ -5,6 +5,8 @@ import { Howl } from "howler";
 
 import { API_GET_AUDIO_URL } from "./../../../../apiUrls";
 
+import { VoiceWrapper } from "./../Profile.style.js";
+
 import Loading from "./../../../Common/AntdComponents/Loading";
 // import { Slider } from "antd";
 
@@ -211,9 +213,9 @@ export default class VoiceReview extends Component {
     if (loading) return <Loading />;
     if (!soundFile) return <div>No voice review</div>;
     return (
-      <div style={{ minWidth: "350px" }}>
+      <VoiceWrapper>
         <audio
-          style={{ minWidth: "350px" }}
+          style={{ width: "100%" }}
           controls
           src={soundFile}
           type={this.state.mimeType}
@@ -242,7 +244,7 @@ export default class VoiceReview extends Component {
             </div>
           )}
         </Player> */}
-      </div>
+      </VoiceWrapper>
     );
   }
 }

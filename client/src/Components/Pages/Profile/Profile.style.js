@@ -218,6 +218,14 @@ const adminBorder = css`
   margin-right: 0;
 `;
 
+export const VoiceWrapper = styled.div`
+  width: 200px;
+
+@media ${breakpoints.tablet} {
+    min-width: 400px;
+  }
+`
+
 export const CommentBubble = styled.p`
   background: ${({ bgColor }) => bgColor || colors.ghostGray};
   color: ${({ color }) => color && color};
@@ -229,7 +237,7 @@ export const CommentBubble = styled.p`
   white-space: pre-wrap;
   text-align: left;
   margin-right: 0.25rem;
-  max-width: 80%;
+  max-width: 90%;
 
   ${({ adminReply }) => adminReply && adminBorder}
 `;
