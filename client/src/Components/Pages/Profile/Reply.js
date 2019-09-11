@@ -1,37 +1,45 @@
 import React, { Component } from "react";
-import { Mention, Input, message } from "antd";
+import { Mentions, Input, message, Alert } from "antd";
 import * as yup from "yup";
 import axios from "axios";
 
-import {
-  UserID,
-  CommentBubble,
-  Error
-} from "./ProfileAnswers/ProfileAnswers.style";
+import { Error } from "./ProfileAnswers/ProfileAnswers.style";
 
-import { Wrapper, IndividComment } from "./Reply.style";
-import { Banner, StyledReplyIcon, Cancel, BannerTitle } from "./Profile.style";
+import {
+  Wrapper,
+  IndividComment,
+  ReplyWrapper,
+  CommentsWrapper,
+  Banner,
+  Cancel
+} from "./Reply.style";
+import {
+  BannerTitle,
+  UserDiv,
+  UserTrade,
+  UserAdditionalDetails,
+  UserID,
+  CommentBubble
+} from "./Profile.style";
 
 import { organizations } from "./../../../theme";
 
-import {
-  API_GET_OVERALL_REVIEW_REPLIES_URL,
-  API_ADD_COMMENT_ON_REVIEW_URL
-} from "./../../../apiUrls";
+import { API_ADD_COMMENT_ON_REVIEW_URL } from "./../../../apiUrls";
 
 import { highlightMentions } from "../../../helpers";
 
 import Loading from "./../../Common/AntdComponents/Loading";
-
-const { toString, toContentState } = Mention;
+import Button from "./../../Common/Button";
 
 export default class Reply extends Component {
   state = {
-    commentContentState: toContentState(""),
+    commentContentState: "",
     replies: [],
     user: "",
     errors: {},
-    loaded: false
+    loaded: false,
+    submitting: false,
+    focus: false
   };
 
   handleChangeUserName = ({ target }) => {
@@ -39,8 +47,16 @@ export default class Reply extends Component {
     this.setState({ user: value });
   };
 
-  onChange = contentState => {
-    this.setState({ commentContentState: contentState });
+  onChange = value => {
+    this.setState({ commentContentState: value });
+  };
+
+  handleFocus = () => {
+    this.setState({ focus: true });
+  };
+
+  handleBlur = () => {
+    this.setState({ focus: false });
   };
 
   validate = () => {
@@ -54,7 +70,7 @@ export default class Reply extends Component {
     return schema
       .validate(
         {
-          comment: toString(this.state.commentContentState),
+          comment: this.state.commentContentState,
           user: this.state.user
         },
         { abortEarly: false }
@@ -73,9 +89,9 @@ export default class Reply extends Component {
 
     this.validate().then(res => {
       res &&
-        this.setState({ errors: {} }, () => {
+        this.setState({ errors: {}, submitting: true }, () => {
           const data = {
-            text: toString(this.state.commentContentState),
+            text: this.state.commentContentState,
             displayName: this.state.user,
             reviewId,
             target
@@ -85,13 +101,18 @@ export default class Reply extends Component {
             .then(({ data }) => {
               this.setState(
                 {
-                  commentContentState: toContentState(""),
-                  errors: {}
+                  commentContentState: "",
+                  user: "",
+                  errors: {},
+                  submitting: false
                 },
-                () => this.fetchOverallReplies(reviewId)
+                () => this.fetchOverallReplies(reviewId, target)
               );
+              // UNCOMMENT IF YOU WANT TO SEND BACK TO PROFILE AFTER SUBMITTING COMMENT
+              // this.props.history.push(`/profile/${orgId}`);
             })
             .catch(err => {
+              this.setState({ submitting: false });
               const error =
                 err.response && err.response.data && err.response.data.error;
               message.error(error || "Something went wrong");
@@ -103,10 +124,10 @@ export default class Reply extends Component {
   inputWrapper = React.createRef();
   fixedDiv = React.createRef();
 
-  fetchOverallReplies = id => {
+  fetchOverallReplies = (id, target) => {
     id
       ? axios
-          .get(`${API_GET_OVERALL_REVIEW_REPLIES_URL}/${id}`)
+          .get(`/api/reviews/${target}/replies/${id}`)
           .then(({ data }) => {
             this.setState(
               {
@@ -116,7 +137,7 @@ export default class Reply extends Component {
                 reviewId: id
               },
               () => {
-                window.scrollTo(0, window.innerHeight);
+                window.scrollTo(0, document.body.scrollHeight);
               }
             );
           })
@@ -136,31 +157,47 @@ export default class Reply extends Component {
   componentDidMount() {
     if (this.props.location && this.props.location.state) {
       const { reviewId, target } = this.props.location.state;
-      if (target === "overall") {
-        this.fetchOverallReplies(reviewId);
-      }
+      // target equal "overallReview" OR "voiceReview";
+      this.fetchOverallReplies(reviewId, target);
     } else {
       this.goBack();
     }
   }
 
   goBack = () => {
-    this.props.history.goBack();
+    const { orgId, pageYOffset } = this.props.location.state;
+    this.props.history.replace(`/profile/${orgId}`, { pageYOffset });
   };
 
   render() {
-    if (!this.props.location || !this.props.location.state) {
-      return this.props.history.goBack();
+    const { verified, history, location, id } = this.props;
+    if (!location || !location.state) {
+      return history.goBack();
     }
-    const { replies, loaded } = this.state;
+
+    const {
+      replies,
+      loaded,
+      submitting,
+      focus,
+      commentContentState
+    } = this.state;
     const { isAdmin } = this.props;
     const { category } = this.props.location.state;
+
     const users =
       replies &&
       replies.reduce((prev, curr) => {
-        prev.push(curr.replies.displayName || curr.replies.user[0].userId);
+        prev.push(curr.replies.displayName || curr.replies.user.userId);
         return prev;
       }, []);
+
+    const uniqueUsers = [];
+    users.forEach(user => {
+      if (!uniqueUsers.includes(user)) {
+        uniqueUsers.push(user);
+      }
+    });
 
     if (!loaded) {
       return <Loading />;
@@ -169,7 +206,7 @@ export default class Reply extends Component {
       <>
         <Banner category={category}>
           <BannerTitle>Replying</BannerTitle>
-          <Cancel onClick={this.goBack}>Cancel</Cancel>
+          <Cancel onClick={this.goBack}>Back</Cancel>
         </Banner>
         <Wrapper
           style={{
@@ -178,35 +215,76 @@ export default class Reply extends Component {
             paddingBottom: "9rem"
           }}
         >
-          <>
+          <CommentsWrapper>
             {replies &&
               replies.map(reply => (
-                <IndividComment key={reply.replies._id}>
-                  <UserID>
-                    {reply.replies.displayName || reply.replies.user[0].userId}
-                  </UserID>
+                <IndividComment
+                  key={reply.replies._id}
+                  adminReply={reply.replies.displayName}
+                  category={category}
+                >
+                  {!verified && reply.replies.user._id === id && (
+                    <Alert
+                      message="Your replies are visible only for you untill you get
+                    verified"
+                      type="warning"
+                      style={{
+                        display: "inline-block",
+                        marginBottom: "0.5rem"
+                      }}
+                      banner
+                    />
+                  )}
+                  <UserDiv>
+                    <UserID adminReply={!!reply.replies.displayName}>
+                      {" "}
+                      {reply.replies.displayName || reply.replies.user.userId}
+                    </UserID>
+                    <UserTrade>
+                      {!reply.replies.displayName &&
+                        reply.replies.user.trade &&
+                        reply.replies.user.trade[0] &&
+                        reply.replies.user.trade[0].title}
+                    </UserTrade>
+                  </UserDiv>
+                  {!reply.replies.displayName && (
+                    <UserAdditionalDetails>
+                      <p>
+                        Helped {reply.replies.user.helpedUsers} · Points{" "}
+                        {reply.replies.user.points}
+                      </p>
+                    </UserAdditionalDetails>
+                  )}
                   <CommentBubble
                     as="pre"
-                    color={organizations[category].secondary}
+                    style={{ maxWidth: "100%" }}
+                    bgColor={
+                      reply.replies.displayName
+                        ? "white"
+                        : organizations[category].secondary
+                    }
+                    color={
+                      reply.replies.displayName &&
+                      organizations[category].primary
+                    }
+                    adminReply={!!reply.replies.displayName}
+                    category={category}
                   >
                     {highlightMentions(reply.replies.text)}
                   </CommentBubble>
                 </IndividComment>
               ))}
+          </CommentsWrapper>
 
+          <ReplyWrapper>
             <div
               ref={this.inputWrapper}
               style={{
                 textAlign: "left",
-                position: "fixed",
                 width: "100%",
-                bottom: "0",
                 background: "white",
-                paddingBottom: "2rem",
-                maxWidth: "30rem",
-                margin: "0 auto",
-                left: 0,
-                right: 0
+                paddingBottom: focus ? "0.5rem" : "2rem",
+                maxWidth: "30rem"
               }}
             >
               {isAdmin && (
@@ -223,29 +301,44 @@ export default class Reply extends Component {
                 <Error>{this.state.errors.user}</Error>
               )}
               <div style={{ position: "relative" }}>
-                <Mention
-                  autoFocus
-                  style={{ width: "100%", marginTop: "0.25rem" }}
+                <Mentions
+                  rows="3"
+                  style={{ width: "100%" }}
                   onChange={this.onChange}
-                  defaultSuggestions={users}
-                  onFocus={this.handleFocus}
-                  onBlur={this.handleBlur}
-                  value={this.state.commentContentState}
-                  multiLines
-                  placeholder={"Add a reply… use @ to mention"}
-                />
-                <StyledReplyIcon
-                  width="20px"
-                  fill={organizations[category].primary}
-                  onClick={this.handleSubmit}
-                />
+                  onSelect={this.onSelect}
+                  placeholder={"Write your reply…"}
+                  value={commentContentState}
+                >
+                  {uniqueUsers.map((user, index) => {
+                    return (
+                      <Mentions.Option key={index} value={user}>
+                        {user}
+                      </Mentions.Option>
+                    );
+                  })}
+                </Mentions>
               </div>
-
-              {this.state.errors.comment && (
-                <Error>{this.state.errors.comment}</Error>
-              )}
             </div>
-          </>
+            <div
+              style={{
+                paddingBottom: focus ? "5rem" : "2rem",
+                width: "100%"
+              }}
+            >
+              <Button
+                style={{ maxWidth: "30rem", margin: "0 auto" }}
+                category={category}
+                backgroundColor={organizations[category].primary}
+                loading={submitting}
+                onClick={this.handleSubmit}
+              >
+                Post reply
+              </Button>
+            </div>
+            {this.state.errors.comment && (
+              <Error>{this.state.errors.comment}</Error>
+            )}
+          </ReplyWrapper>
         </Wrapper>
       </>
     );

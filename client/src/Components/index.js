@@ -12,7 +12,13 @@ import {
   DELETE_PROFILE_URL,
   COMMUNITY_GUIDELINES_URL,
   TERMS_OF_USE_URL,
-  COOKIES_POLICY_URL
+  COOKIES_POLICY_URL,
+  RESET_PASSWORD_URL,
+  EDIT_CITY_URL,
+  EDIT_PASSWORD_URL,
+  EDIT_ID_URL,
+  EDIT_TRADE_URL,
+  WELCOME_URL
 } from "./../constants/naviagationUrls";
 
 import Landing from "./Pages/Landing";
@@ -24,8 +30,8 @@ import Thankyou from "./Pages/ThankYou";
 import EditProfile from "./Pages/EditProfile";
 import DeleteProfile from "./Pages/DeleteProfile";
 import UserProfile from "./Pages/UserProfile";
+import UserReviews from "./Pages/UserProfile/UserReviews";
 import Review from "./Pages/Review";
-import QuickReview from "./Pages/QuickReview";
 import Profile from "./Pages/Profile";
 import Admin from "./Pages/Admin";
 import Search from "./Pages/Search";
@@ -35,6 +41,11 @@ import AddProfileStartReview from "./Pages/Search/AddProfileReviewStart";
 import Intro from "./Pages/Intro";
 import PrivateRoute from "./Common/PrivateRoute";
 import Reply from "./Pages/Profile/Reply";
+import ResetPassword from "./Pages/ResetPassword";
+import EditProfileSection from "./Pages/EditProfile/EditProfileSection";
+import OrgCheck from "./Pages/OrgCheck";
+import Welcome from "./Pages/Welcome";
+import InviteWorkers from "./Pages/InviteWorkers";
 
 import {
   FAQ,
@@ -56,13 +67,14 @@ import {
   ADD_PROFILE_URL,
   ADD_PROFILE_START_REVIEW_URL,
   ADMIN,
-  REVIEW_URL,
-  QUICK_REVIEW_URL,
   CONFIRM_EMAIL_URL,
   INTRO_URL,
   USER_PROFILE_URL,
   REPLY_URL,
-  PRIVACY_URL
+  PRIVACY_URL,
+  ORG_STATUS_URL_SIGNUP,
+  ORG_STATUS_URL_LOGIN,
+  INVITE_WORKERS_URL
 } from "./../constants/naviagationUrls";
 
 export default function index(props) {
@@ -72,28 +84,39 @@ export default function index(props) {
     <>
       <Switch>
         <PrivateRoute
-          minimumLevel="LEVEL3"
           exact
-          path={QUICK_REVIEW_URL}
-          {...props}
-          Component={QuickReview}
-        />
-        <PrivateRoute
-          exact
-          minimumLevel="LEVEL3"
-          path={REVIEW_URL}
+          minimumLevel="LEVEL1"
+          path="/organization/:orgId/review"
           {...props}
           Component={Review}
         />
+
         <PrivateRoute
           exact
-          minimumLevel="LEVEL3"
+          minimumLevel="LEVEL1"
+          path="/review/:reviewId/edit"
+          {...props}
+          Component={Review}
+        />
+
+        <PrivateRoute
+          exact
+          minimumLevel="LEVEL2"
           path={THANKYOU_URL}
           {...props}
           Component={Thankyou}
           navbar
-          search={!isMobile}
         />
+
+        <PrivateRoute
+          exact
+          minimumLevel="LEVEL2"
+          path={INVITE_WORKERS_URL}
+          {...props}
+          Component={InviteWorkers}
+          navbar
+        />
+
         <PrivateRoute
           exact
           minimumLevel="LEVEL1"
@@ -111,7 +134,6 @@ export default function index(props) {
           {...props}
           Component={Profile}
           navbar
-          search={!isMobile}
         />
         <PrivateRoute
           minimumLevel="ADMIN"
@@ -120,16 +142,17 @@ export default function index(props) {
           Component={Admin}
         />
 
+        {/* target could be 'profile' or `review` */}
         <PrivateRoute
           exact
           minimumLevel="LEVEL0"
-          path={SEARCH_URL}
+          path={`${SEARCH_URL}/:target?`}
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
           Component={Search}
           navbar
-          title="Search"
+          title="Read reviews & ratings"
         />
 
         <PrivateRoute
@@ -153,12 +176,59 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL3"
+          minimumLevel="LEVEL1"
           path={EDIT_PROFILE_URL}
+          exact
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
           Component={EditProfile}
+        />
+
+        {/* SUB EDIT PROFILE SECTIONS */}
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={EDIT_ID_URL}
+          exact
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={EditProfileSection}
+          section="earwigId"
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={EDIT_PASSWORD_URL}
+          exact
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={EditProfileSection}
+          section="password"
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={EDIT_TRADE_URL}
+          exact
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={EditProfileSection}
+          section="trade"
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={EDIT_CITY_URL}
+          exact
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={EditProfileSection}
+          section="city"
         />
 
         <PrivateRoute
@@ -170,6 +240,8 @@ export default function index(props) {
           Component={DeleteProfile}
         />
 
+        {/* END OF SUB EDIT PROFILE SECTIONS */}
+
         <PrivateRoute
           minimumLevel="LEVEL1"
           path={USER_PROFILE_URL}
@@ -179,6 +251,16 @@ export default function index(props) {
           Component={UserProfile}
           navbar
           title="Your profile"
+        />
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path="/my-reviews"
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={UserReviews}
+          navbar
+          title="Reviews you've given"
         />
 
         <PrivateRoute
@@ -199,7 +281,6 @@ export default function index(props) {
           Component={FAQ}
           navbar
           title="FAQ & explainer videos"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -211,7 +292,6 @@ export default function index(props) {
           Component={HelpfulStuff}
           navbar
           title="Helpful stuff"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -223,7 +303,6 @@ export default function index(props) {
           Component={ShapeEarwig}
           navbar
           title="Shape earwig"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -235,7 +314,6 @@ export default function index(props) {
           Component={PrivacyAndTerms}
           navbar
           title="Privacy & terms"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -247,7 +325,6 @@ export default function index(props) {
           Component={PrivacyPolicy}
           navbar
           title="Privacy Policy"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -259,7 +336,6 @@ export default function index(props) {
           Component={CommunityGuidlines}
           navbar
           title="Community Guidlines"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -271,7 +347,6 @@ export default function index(props) {
           Component={TermsOfUse}
           navbar
           title="Terms Of Use"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -283,7 +358,6 @@ export default function index(props) {
           Component={CookiesPolicy}
           navbar
           title="Privacy Policy"
-          search={!isMobile}
         />
 
         <PrivateRoute
@@ -293,9 +367,6 @@ export default function index(props) {
           isMobile={isMobile}
           isTablet={isTablet}
           Component={ReportContent}
-          navbar
-          title="Report this content"
-          search={!isMobile}
         />
         <PrivateRoute
           minimumLevel="LEVEL1"
@@ -307,12 +378,33 @@ export default function index(props) {
         />
 
         <PrivateRoute
-          minimumLevel="LEVEL0"
+          minimumLevel="LEVEL2"
           path={INTRO_URL}
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
           Component={Intro}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={ORG_STATUS_URL_SIGNUP}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          type="sign-up"
+          Component={OrgCheck}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={ORG_STATUS_URL_LOGIN}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          type="sign-up"
+          Component={OrgCheck}
+          loggingIn
         />
 
         <Route
@@ -326,14 +418,24 @@ export default function index(props) {
                 handleChangeState={handleChangeState}
               />
             ) : (
-              <Redirect to={isAdmin ? ADMIN : SEARCH_URL} />
+              <Redirect to={isAdmin ? ADMIN : WELCOME_URL} />
             )
           }
         />
 
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={WELCOME_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={Welcome}
+          navbar
+        />
+
         <Route
           exact
-          path={SIGNUP_URL}
+          path={`${SIGNUP_URL}/:referral?`}
           render={linkProps =>
             !isLoggedIn ? (
               <Signup
@@ -342,7 +444,7 @@ export default function index(props) {
                 handleChangeState={handleChangeState}
               />
             ) : (
-              <Redirect to={isAdmin ? ADMIN : SEARCH_URL} />
+              <Redirect to={isAdmin ? ADMIN : WELCOME_URL} />
             )
           }
         />
@@ -358,7 +460,22 @@ export default function index(props) {
                 handleChangeState={handleChangeState}
               />
             ) : (
-              <Redirect to={isAdmin ? ADMIN : SEARCH_URL} />
+              <Redirect to={isAdmin ? ADMIN : WELCOME_URL} />
+            )
+          }
+        />
+
+        <Route
+          path={RESET_PASSWORD_URL}
+          render={linkProps =>
+            !isLoggedIn ? (
+              <ResetPassword
+                {...props}
+                {...linkProps}
+                handleChangeState={handleChangeState}
+              />
+            ) : (
+              <Redirect to={isAdmin ? ADMIN : WELCOME_URL} />
             )
           }
         />

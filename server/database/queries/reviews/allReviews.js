@@ -1,6 +1,7 @@
+const mongoose = require("mongoose");
 const Review = require("../../models/Review");
 
-module.exports = (awaitingReview) => {
+module.exports = ({ awaitingReview, organisation }) => {
   const aggregationArray = [
     {
       $lookup: {
@@ -29,6 +30,16 @@ module.exports = (awaitingReview) => {
         isVerified: 1,
         rate: 1,
         overallReview: 1,
+        date: "$createdAt",
+      },
+    },
+    {
+      $addFields: {
+        organization: "$organization.name",
+        orgType: "$organization.category",
+        userId: "$user.userId",
+        orgId: "$organization._id",
+        key: "$_id",
       },
     },
   ];
@@ -36,6 +47,10 @@ module.exports = (awaitingReview) => {
   if (awaitingReview === true) {
     aggregationArray.unshift({
       $match: { isVerified: false },
+    });
+  } else if (organisation) {
+    aggregationArray.unshift({
+      $match: { organization: mongoose.Types.ObjectId(organisation) },
     });
   }
 

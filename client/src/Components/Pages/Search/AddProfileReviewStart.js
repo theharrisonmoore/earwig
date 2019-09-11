@@ -23,7 +23,9 @@ export default class AddProfileReviewStart extends Component {
   };
 
   render() {
-    const { name, category } = this.props.location.state;
+    const {
+      newOrg: { name, category, _id }
+    } = this.props.location.state;
     const { isTablet, isMobile } = this.props;
 
     return (
@@ -34,7 +36,7 @@ export default class AddProfileReviewStart extends Component {
             <P>
               To finish adding <strong>{name}</strong>,
             </P>
-            <P>please give a full or quick review </P>
+            <P>please give a review</P>
           </HeadlineDiv>
           <div>
             <GiveReview
@@ -44,7 +46,8 @@ export default class AddProfileReviewStart extends Component {
               state={{
                 name: `${name}`,
                 category: `${category}`,
-                needsVerification: true
+                needsVerification: true,
+                orgId: _id
               }}
             />
           </div>

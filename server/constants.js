@@ -5,7 +5,7 @@ module.exports = {
     PROFILE_SECTIONS: [
       "Key ratings",
       "Detailed ratings",
-      "Getting onto site",
+      "Getting on to site",
       "Working on the site",
       "The site welfare",
       "Supervisors & employees",
@@ -16,4 +16,6 @@ module.exports = {
     string: "30d",
     number: 2592000000,
   },
+  referralPoints: 20,
+  resetTokenMaxAge: 3600000,
 };

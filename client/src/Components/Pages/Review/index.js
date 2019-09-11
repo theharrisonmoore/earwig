@@ -1,49 +1,42 @@
 import React, { Component } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
-import { Checkbox, message } from "antd";
-import Loading from "./../../Common/AntdComponents/Loading";
-
-import { Spin, Icon } from "antd";
+import moment from "moment";
+import { Checkbox, message, Spin, Icon, Modal } from "antd";
+import Loading from "../../Common/AntdComponents/Loading";
 
 import {
-  ReviewWrapper,
   SubmitButton,
   UserAgreement,
   CheckboxWrapper,
   Header,
-  HeaderPhone,
-  ContentPhone,
-  ImageBoxPhone,
-  OrganizationPhone,
-  ReviewTimePhone,
   Content,
-  ImageBox,
   Organization,
   OrgName,
-  ReviewTime,
   Paragraph,
   FormWrapper,
   Level2Header,
   AgreementLabel,
-  LinkSpan
+  LinkSpan,
+  ReviewWrapper
 } from "./Review.style";
 
 import { StyledErrorMessage } from "./Question/Question.style";
 
 import Question from "./Question/index";
-import clockLong from "./../../../assets/clock-long-icon.png";
-import { organizations } from "./../../../theme";
+import { organizations } from "../../../theme";
 
-import { initQueestionsValues } from "./initialQuestionsValues";
-import { validationSchema } from "./validationSchema";
+import {
+  validationSchema,
+  hasAgreed,
+  rate,
+  workPeriod
+} from "./validationSchema";
 import { STATIC_QUESTIONS } from "./staticQuestions";
 
 import {
   THANKYOU_URL,
   TERMS_OF_USE_URL
 } from "../../../constants/naviagationUrls";
-import { NewSVGCreator, questionsNumber, isMobile } from "../../../helpers";
 
 // antd spinner for the submit button
 const antIcon = (
@@ -51,75 +44,350 @@ const antIcon = (
 );
 
 const {
-  API_GET_QUESTIONS_URL,
-  API_POST_REVIEW_URL
+  API_POST_REVIEW_URL,
+  API_UPLOAD_AUDIO,
+  API_GET_AUDIO_URL
 } = require("../../../apiUrls");
-
-let rateQ = {};
 
 class Review extends Component {
   state = {
     isLoading: true,
     groups: [],
     groupss: {},
-    organization: { category: "", name: "", needsVerification: false },
+    organization: { category: "agency", name: "", orgId: "" },
+    reviewId: "",
     user: { email: "" },
-    worksiteImage: "",
-    agencies: [],
-    payrolls: []
+    dropdownList: [],
+    comments: {},
+    answers: {},
+    review: {
+      workPeriod: {
+        from: "",
+        to: ""
+      },
+      rate: 0,
+      overallReview: "",
+      voiceReview: ""
+    },
+    hasAgreed: false,
+    questions: [],
+    errors: {},
+    isSubmitting: false,
+    isEditing: false,
+    orgId: "",
+    recording: false,
+    audioFile: null,
+    voiceReviewUrl: ""
   };
+
   componentDidMount() {
+    const { orgId, reviewId } = this.props.match.params;
+    if (!orgId && !reviewId) {
+      this.props.history.push("/search");
+    }
     const { email } = this.props;
-    const { category, name, needsVerification } = this.props.location.state;
-    const { organization, user } = this.state;
 
-    // update the static questions to reflect the orgType
-    rateQ = {
-      number: 19,
-      text: "How would you rate this",
-      type: "rate",
-      options: ["Bad", "Poor", "Average", "Great", "Excellent"]
-    };
-    const text = rateQ.text;
-    const newText = `${text} ${category}?`;
-    rateQ.text = newText;
+    this.setState({
+      organization: {
+        orgId
+      },
+      user: { email },
+      reviewId
+    });
 
-    organization.category = category;
-    organization.name = name;
-    organization.needsVerification = needsVerification || false;
-    user.email = email;
-    axios
-      .get(API_GET_QUESTIONS_URL, {
-        params: {
-          organization: category
+    if (reviewId) {
+      axios
+        .get(`/api/review/${reviewId}/is-edatable`)
+        .then(res => {
+          const { orgId } = res.data;
+          axios
+            .get(`/api/questions/${orgId}`)
+            .then(async res => {
+              try {
+                const answers = {};
+                const { getReviewAnswers: reviewDetails } = res.data;
+                // fetch the audio url
+                if (
+                  reviewDetails[0] &&
+                  reviewDetails[0].voiceReview &&
+                  reviewDetails[0].voiceReview.audio
+                ) {
+                  const { data } = await axios.post(API_GET_AUDIO_URL, {
+                    filename: reviewDetails[0].voiceReview.audio
+                  });
+                  this.setState({ voiceReviewUrl: data.audio });
+                }
+
+                const review = {
+                  workPeriod: {
+                    from: moment(reviewDetails[0].workPeriod.from),
+                    to: moment(reviewDetails[0].workPeriod.to)
+                  },
+                  rate: reviewDetails[0].rate,
+                  overallReview: reviewDetails[0].overallReview.text,
+                  voiceReview: reviewDetails[0].voiceReview.audio
+                };
+
+                reviewDetails[0].answers.forEach(answer => {
+                  const {
+                    answer: ans,
+                    question: [question]
+                  } = answer;
+                  const number = question.number;
+                  if (answers[number]) {
+                    // think about this again;
+                    answers[number] = ans;
+                  } else {
+                    answers[number] = ans;
+                  }
+                });
+                const groupss = {};
+                res.data.groups.forEach(group => {
+                  groupss[group._id] = {
+                    title: group.group.text,
+                    main: group.questions.filter(
+                      question => !question.isDependent
+                    ),
+                    dependant: group.questions.filter(
+                      question => question.isDependent
+                    )
+                  };
+                });
+                this.setState({
+                  isEditing: true,
+                  groups: res.data,
+                  groupss,
+                  isLoading: false,
+                  organization: res.data.organization,
+                  email,
+                  answers,
+                  orgId,
+                  review,
+                  dropdownOptions:
+                    res.data.dropDownListData &&
+                    res.data.dropDownListData[0].category
+                });
+              } catch (error) {
+                console.log("err", error);
+              }
+            })
+            .catch(err => {
+              // server error 500
+              const error =
+                err.response && err.response.data && err.response.data.error;
+              message.error(error || "Something went wrong");
+            });
+        })
+        .catch(err => {
+          if (err.response.status === 401) {
+            message.error("You can't edit this review");
+            // redirect back to the edit page
+            this.props.history.push("/search");
+          } else {
+            const error =
+              err.response && err.response.data && err.response.data.error;
+            message.error(error || "Something went wrong");
+          }
+        });
+    } else {
+      axios
+        .get(`/api/questions/${orgId}`)
+        .then(res => {
+          const groupss = {};
+          res.data.groups.forEach(group => {
+            groupss[group._id] = {
+              title: group.group.text,
+              main: group.questions.filter(question => !question.isDependent),
+              dependant: group.questions.filter(
+                question => question.isDependent
+              )
+            };
+          });
+          this.setState({
+            groups: res.data,
+            groupss,
+            isLoading: false,
+            organization: res.data.organization,
+            email,
+            // answers,
+            dropdownOptions:
+              res.data.dropDownListData && res.data.dropDownListData[0].category
+          });
+        })
+        .catch(err => {
+          const error =
+            err.response && err.response.data && err.response.data.error;
+          if (err.response && err.response.status === 409) {
+            return Modal.error({
+              title: "Error",
+              content: error,
+              onOk: () => this.props.history.goBack()
+            });
+          }
+          // server error 500
+          message.error(error || "Something went wrong");
+        });
+    }
+  }
+
+  submitAudio = () => {
+    const { audioFile } = this.state;
+    if (audioFile) {
+      const form = new FormData();
+
+      form.append("voiceRecording", audioFile);
+
+      return axios({
+        method: "post",
+        url: API_UPLOAD_AUDIO,
+        data: form,
+        headers: {
+          "content-type": `multipart/form-data; boundary=${form.boundary}`
         }
       })
-      .then(res => {
-        const groupss = {};
-        res.data.forEach(group => {
-          groupss[group._id] = {
-            title: group.group.text,
-            main: group.questions.filter(question => !question.isDependent),
-            dependant: group.questions.filter(question => question.isDependent)
-          };
-        });
-        this.setState({
-          groups: res.data,
-          groupss,
-          isLoading: false,
-          organization,
-          user,
-          email
-        });
-      })
-      .catch(err => {
-        // server error 500
-        const error =
-          err.response && err.response.data && err.response.data.error;
-        message.error(error || "Something went wrong");
-      });
-    this.getAgenciesAndPayrolls();
-  }
+        .then(({ data }) => {
+          return data.audio;
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
+  handleChange = e => {
+    const { answers } = this.state;
+    const { name, value } = e.target;
+    this.setState({
+      answers: { ...answers, [name]: value }
+    });
+  };
+
+  handleCheckBox = () => {
+    this.setState(
+      prevState => ({
+        hasAgreed: !prevState.hasAgreed
+      }),
+      () => {
+        hasAgreed
+          .validate(this.state.hasAgreed)
+          .then(res => {
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                hasAgreed: ""
+              }
+            }));
+          })
+          .catch(err => {
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                hasAgreed: err.message
+              }
+            }));
+          });
+      }
+    );
+  };
+
+  handleReviewChange = e => {
+    const { value, name } = e.target;
+    const { type } = e.target.dataset;
+    this.setState({
+      [type]: { ...this.state[type], [name]: value }
+    });
+  };
+
+  handleSliderChange = (value, number) => {
+    let answer = null;
+    const { answers } = this.state;
+    if (typeof value !== "number" && value.includes("===")) {
+      const [name, _id] = value.split("===");
+      answer = { name, _id };
+    } else {
+      answer = value;
+    }
+    this.setState({
+      answers: { ...answers, [number]: answer }
+    });
+  };
+
+  handleAddNewOrgChange = (value, number) => {
+    const { answers } = this.state;
+    const answer = JSON.parse(value);
+    this.setState({ answers: { ...answers, [number]: answer } });
+  };
+
+  handleImageUpload = (value, number) => {
+    this.setState(prevState => ({
+      answers: { ...prevState.answers, [number]: value }
+    }));
+  };
+
+  handleRateChage = value => {
+    this.setState(
+      prevState => ({
+        review: { ...prevState.review, rate: value }
+      }),
+      () => {
+        rate
+          .validate(this.state.review.rate)
+          .then(() => {
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                review: { ...oldState.errors.review, rate: "" }
+              }
+            }));
+          })
+          .catch(err => {
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                review: { ...oldState.errors.review, rate: err.message }
+              }
+            }));
+          });
+      }
+    );
+  };
+
+  handleDateChage = (fromOrTo, value) => {
+    this.setState(
+      prevState => {
+        const { review } = prevState;
+        const { workPeriod } = review;
+        return {
+          review: {
+            ...review,
+            workPeriod: { ...workPeriod, [fromOrTo]: value }
+          }
+        };
+      },
+      () => {
+        workPeriod
+          .validate(this.state.review.workPeriod)
+          .then(() => {
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                review: { ...oldState.errors.review, workPeriod: {} }
+              }
+            }));
+          })
+          .catch(err => {
+            const workPeriod = {
+              from: err.message,
+              to: err.message
+            };
+            this.setState(oldState => ({
+              errors: {
+                ...oldState.errors,
+                review: { ...oldState.errors.review, workPeriod }
+              }
+            }));
+          });
+      }
+    );
+  };
 
   showNextQestion = (groupId, next, other, set, num) => {
     const newGroups = { ...this.state.groupss };
@@ -143,10 +411,17 @@ class Review extends Component {
       // eslint-disable-next-line array-callback-return
       newDependant.map(question => {
         if (question.type === "number") {
-          set(`questions[${question.number}]`, null);
-        } else set(`questions[${question.number}]`, "");
+          this.setState({
+            answers: { ...this.state.answers, [question.number]: null }
+          });
+        } else {
+          this.setState({
+            answers: { ...this.state.answers, [question.number]: "" }
+          });
+        }
       });
     }
+
     while (typeof next !== "object" && next !== null) {
       // eslint-disable-next-line no-loop-func
       const nextQ = newDependant.find(question => question.number === next);
@@ -163,8 +438,14 @@ class Review extends Component {
       // eslint-disable-next-line array-callback-return
       newDependant.map(question => {
         if (question.type === "number") {
-          set(`questions[${question.number}]`, null);
-        } else set(`questions[${question.number}]`, "");
+          this.setState({
+            answers: { ...this.state.answers, [question.number]: null }
+          });
+        } else {
+          this.setState({
+            answers: { ...this.state.answers, [question.number]: "" }
+          });
+        }
       });
     }
     group.main = newMain.sort((a, b) => a.number - b.number);
@@ -173,256 +454,279 @@ class Review extends Component {
     this.setState({ groupss: newGroups });
   };
 
-  getAgenciesAndPayrolls = () => {
-    axios
-      .get("/api/agency-payroll")
-      .then(res => {
-        this.setState({
-          agencies: res.data[1].category,
-          payrolls: res.data[0].category
-        });
-      })
-      .catch(err => {
-        const error =
-          err.response && err.response.data && err.response.data.error;
-        message.error(error || "Something went wrong");
-      });
-  };
-
-  handleSubmit = (values, { setSubmitting }) => {
+  runValidation = values => {
     const { organization } = this.state;
-    const { user } = this.state;
-    const review = {
-      values,
-      organization,
-      user
-    };
-    axios
-      .post(API_POST_REVIEW_URL, review)
-      .then(res => {
-        this.props.history.push(THANKYOU_URL, {
-          orgType: organization.category,
-          orgId: res.data,
-          orgName: organization.name
-        });
-      })
-      .catch(err => {
-        const error =
-          err.response && err.response.data && err.response.data.error;
-        message.error(error || "Something went wrong");
-        // server error 500, maybe redirect to 500.error page??!!
-        setSubmitting(false);
-      });
-  };
-
-  render() {
-    const {
-      groupss,
-      agencies,
-      payrolls,
-      organization: { name, category }
-    } = this.state;
-    const staticQuestion = STATIC_QUESTIONS(category);
-
-    const { isLoading } = this.state;
-    if (isLoading) return <Loading />;
-
-    const initialValues = {
-      questions: initQueestionsValues[this.state.organization.category],
-      comments: initQueestionsValues[this.state.organization.category],
+    let errs = {
+      answers: {},
       review: {
         workPeriod: {
           from: "",
           to: ""
         },
-        rate: 0,
+        rate: "",
         overallReview: ""
-        // voiceReview: ""
       },
-      hasAgreed: false
+      hasAgreed: ""
     };
+    return validationSchema[organization.category]
+      .validate(values, { abortEarly: false })
+      .then(() => {
+        this.setState({ errors: {} });
+        return "done";
+      })
+      .catch(errors => {
+        errors.inner.forEach(err => {
+          if (err.path.includes("answers")) {
+            const num = err.path.split(".")[1];
+            errs.answers[num] = err.message;
+          } else if (err.path.includes("workPeriod")) {
+            const key = err.path.split(".")[2];
+            errs.review.workPeriod[key] = err.message;
+          } else if (err.path.includes("rate")) {
+            errs.review.rate = err.message;
+          } else if (err.path.includes("hasAgreed")) {
+            errs.hasAgreed = err.message;
+          }
+        });
+        this.setState({ errors: errs, isSubmitting: false });
+      });
+  };
+
+  handleSubmit = async e => {
+    e.preventDefault();
+    this.setState({ isSubmitting: true });
+    const { organization, audioFile } = this.state;
+    const { user } = this.state;
+    const values = {
+      answers: this.state.answers,
+      comments: this.state.comments,
+      review: this.state.review,
+      hasAgreed: this.state.hasAgreed
+    };
+
+    this.runValidation(values).then(async resp => {
+      if (resp) {
+        const review = {
+          values,
+          organization,
+          user
+        };
+        if (this.state.isEditing) {
+          const { orgId } = this.state;
+          // update the same review
+          if (audioFile) {
+            review.values.review.voiceReview = await this.submitAudio();
+          }
+
+          // if there's an audio file submit and update answers with its correct filename
+          axios
+            .put(`/api/review/${this.state.reviewId}`, review)
+            .then(res => {
+              this.setState({ isSubmitting: false });
+
+              this.props.history.push(THANKYOU_URL, {
+                orgType: organization.category,
+                orgId,
+                orgName: organization.name
+              });
+            })
+            .catch(err => {
+              const error =
+                err.response && err.response.data && err.response.data.error;
+              message.error(error || "Something went wrong");
+              // server error 500, maybe redirect to 500.error page??!!
+              this.setState({ isSubmitting: false });
+            });
+        } else {
+          // add new review
+          // if there's an audio file submit and update answers with its correct filename
+          if (audioFile) {
+            review.values.review.voiceReview = await this.submitAudio();
+          }
+
+          axios
+            .post(API_POST_REVIEW_URL, review)
+            .then(res => {
+              this.setState({ isSubmitting: false });
+              this.props.history.push(THANKYOU_URL, {
+                orgType: organization.category,
+                orgId: res.data,
+                orgName: organization.name
+              });
+            })
+            .catch(err => {
+              const error =
+                err.response && err.response.data && err.response.data.error;
+              message.error(error || "Something went wrong");
+              // server error 500, maybe redirect to 500.error page??!!
+              this.setState({ isSubmitting: false });
+            });
+        }
+      } else {
+        this.setState({ isSubmitting: false });
+      }
+    });
+  };
+
+  handleRecord = ({ recordedAudio, audioFile }) => {
+    this.setState({
+      recordedAudio,
+      audioFile
+    });
+  };
+  render() {
+    const {
+      groupss,
+      organization: { name, category },
+      errors,
+      isSubmitting,
+      recording
+    } = this.state;
+    const { history, isMobile, id } = this.props;
+    const staticQuestion = STATIC_QUESTIONS(category);
+
+    const { isLoading } = this.state;
+    if (isLoading) return <Loading />;
 
     if (!this.state && !this.state.groups[0]) {
       return null;
     }
 
-    let dropdownOptions;
-    if (category === "agency") {
-      dropdownOptions = agencies;
-    } else if (category === "payroll") {
-      dropdownOptions = payrolls;
-    }
     return (
       <ReviewWrapper>
         <Header orgType={category} style={{ marginBottom: "3rem" }}>
           <Content>
-            <ImageBox>
-              {!isMobile(window.innerWidth) &&
-                NewSVGCreator(category, "4rem", "4rem", "white")}
-            </ImageBox>
+            <Paragraph
+              style={{ paddingRight: "1.5rem" }}
+              cancel
+              bold
+              onClick={() => history.goBack()}
+            >
+              Cancel
+            </Paragraph>
             <Organization>
               <div>
                 <Paragraph style={{ paddingRight: ".5rem" }}>
-                  You're reviewing:{" "}
+                  You’re giving a review about:
                 </Paragraph>
-                <OrgName>{name}</OrgName>
               </div>
-              <ReviewTime>
-                {questionsNumber[category].full.count}{" "}
-                <img src={clockLong} alt="" />{" "}
-                {questionsNumber[category].full.time}
-              </ReviewTime>
+              <div>
+                {!isMobile && (
+                  <Paragraph capitalized>{category}: &nbsp;</Paragraph>
+                )}
+                <OrgName> {name}</OrgName>
+              </div>
             </Organization>
           </Content>
         </Header>
 
-        <HeaderPhone orgType={category} style={{ marginBottom: "3rem" }}>
-          <ContentPhone>
-            <OrganizationPhone>
-              <ImageBoxPhone>
-                {isMobile(window.innerWidth) &&
-                  NewSVGCreator(category, "3rem", "3rem", "white")}
-              </ImageBoxPhone>
-              <div>
-                <Paragraph>You're reviewing:</Paragraph>
-                <OrgName>{name}</OrgName>
-              </div>
-            </OrganizationPhone>
-            <ReviewTimePhone>
-              {questionsNumber[category].full.count}{" "}
-              <img src={clockLong} alt="" />{" "}
-              {questionsNumber[category].full.time}
-            </ReviewTimePhone>
-          </ContentPhone>
-        </HeaderPhone>
-
         <section className="review-body">
-          <Formik
-            initialValues={initialValues}
-            onSubmit={this.handleSubmit}
-            validationSchema={
-              validationSchema[this.state.organization.category]
-            }
-          >
-            {({
-              values,
-              isSubmitting,
-              handleChange,
-              errors,
-              setFieldValue
-            }) => {
-              return (
-                <FormWrapper>
-                  <Form>
-                    <Question
-                      {...values}
-                      question={staticQuestion[0]}
-                      setFieldValue={setFieldValue}
-                      category={this.state.organization.category}
-                    />
-                    <div>
-                      {Object.keys(groupss).map(groupId => {
-                        const group = groupss[groupId];
-                        if (group && group.title) {
+          <form onSubmit={this.handleSubmit}>
+            <FormWrapper>
+              <Question
+                question={staticQuestion[0]}
+                category={this.state.organization.category}
+                handleChange={this.handleDateChage}
+                state={this.state}
+              />
+              <div>
+                {Object.keys(groupss).map(groupId => {
+                  const group = groupss[groupId];
+                  if (group && group.title) {
+                    return (
+                      <div key={groupId}>
+                        <h2>{group.title}</h2>
+                        {group.main.map(question => {
                           return (
-                            <div key={groupId}>
-                              <h2>{group.title}</h2>
-                              {group.main.map(question => {
-                                return (
-                                  <Question
-                                    key={question._id}
-                                    showNextQestion={this.showNextQestion}
-                                    groupId={groupId}
-                                    values={values}
-                                    handleChagne={handleChange}
-                                    question={question}
-                                    errors={errors}
-                                    setFieldValue={setFieldValue}
-                                    agencies={agencies}
-                                    payrolls={payrolls}
-                                    dropdownOptions={dropdownOptions}
-                                  />
-                                );
-                              })}
-                            </div>
-                          );
-                        }
-                        return null;
-                      })}
-                    </div>
-                    <div className="questions">
-                      <Question
-                        {...values}
-                        handleChagne={handleChange}
-                        question={rateQ ? rateQ : ""}
-                        setFieldValue={setFieldValue}
-                        category={this.state.organization.category}
-                      />
-                      <Question
-                        {...values}
-                        handleChagne={handleChange}
-                        question={staticQuestion[1]}
-                        category={this.state.organization.category}
-                      />
-                      {/* The voice questions in the next sprint */}
-                      {/* <Question
-                        {...values}
-                        handleChagne={handleChange}
-                        question={staticQuestion[3]}
-                        category={this.state.organization.category}
-                      /> */}
-                    </div>
-                    <UserAgreement>
-                      <Level2Header>Submit your review</Level2Header>
-                      <CheckboxWrapper>
-                        <Field name={`hasAgreed`} id="agreement">
-                          {({ field, form }) => (
-                            <Checkbox
-                              {...field}
-                              id="agreement"
-                              style={{ marginTop: "4px" }}
+                            <Question
+                              key={question._id}
+                              question={question}
+                              showNextQestion={this.showNextQestion}
+                              groupId={groupId}
+                              dropdownOptions={this.state.dropdownOptions}
+                              handleChange={this.handleChange}
+                              state={this.state}
+                              handleSliderChange={this.handleSliderChange}
+                              handleReviewChange={this.handleReviewChange}
+                              handleAddNewOrgChange={this.handleAddNewOrgChange}
                             />
-                          )}
-                        </Field>
-
-                        <AgreementLabel htmlFor="agreement">
-                          I agree to the earwig{" "}
-                          <LinkSpan
-                            target="_blank"
-                            to={TERMS_OF_USE_URL}
-                            color={organizations[category].primary}
-                          >
-                            Terms of Use.
-                          </LinkSpan>{" "}
-                          This review of my experience with this current or
-                          former agency is truthful.
-                        </AgreementLabel>
-                        <ErrorMessage name={`hasAgreed`}>
-                          {msg => (
-                            <StyledErrorMessage>{msg}</StyledErrorMessage>
-                          )}
-                        </ErrorMessage>
-                      </CheckboxWrapper>
-                    </UserAgreement>
-                    <SubmitButton
-                      type="submit"
-                      size="large"
-                      disabled={isSubmitting}
-                      orgType={category}
+                          );
+                        })}
+                      </div>
+                    );
+                  }
+                  return null;
+                })}
+              </div>
+              <div className="questions">
+                <Question
+                  question={staticQuestion[2]}
+                  category={this.state.organization.category}
+                  handleChange={this.handleRateChage}
+                  state={this.state}
+                  runValidation={this.runValidation}
+                />
+                <Question
+                  question={staticQuestion[1]}
+                  category={this.state.organization.category}
+                  handleChange={this.handleReviewChange}
+                  state={this.state}
+                />
+                {/* The voice questions */}
+                <Question
+                  question={staticQuestion[3]}
+                  category={this.state.organization.category}
+                  state={this.state}
+                  recording={recording}
+                  handleRecord={this.handleRecord}
+                  id={id}
+                  voiceReviewUrl={this.state.voiceReviewUrl}
+                />
+              </div>
+              <UserAgreement>
+                <Level2Header>Submit your review</Level2Header>
+                <CheckboxWrapper>
+                  <Checkbox
+                    onChange={this.handleCheckBox}
+                    style={{ marginTop: "4px" }}
+                    checked={this.state.hasAgreed}
+                    value={this.state.hasAgreed}
+                  >
+                    <AgreementLabel
+                      htmlFor="agreement"
+                      style={{ pointerEvents: "none" }}
                     >
-                      {isSubmitting && (
-                        <Spin
-                          indicator={antIcon}
-                          style={{ marginRight: ".5rem" }}
-                        />
-                      )}
-                      Submit your review
-                    </SubmitButton>
-                  </Form>
-                </FormWrapper>
-              );
-            }}
-          </Formik>
+                      I agree to the earwig{" "}
+                      <LinkSpan
+                        target="_blank"
+                        to={TERMS_OF_USE_URL}
+                        color={organizations[category].primary}
+                      >
+                        Terms of Use.
+                      </LinkSpan>{" "}
+                      This review of my experience with this current or former{" "}
+                      {category} is truthful.
+                    </AgreementLabel>
+                  </Checkbox>
+
+                  {!!errors && !!errors.hasAgreed && (
+                    <StyledErrorMessage>{errors.hasAgreed}</StyledErrorMessage>
+                  )}
+                </CheckboxWrapper>
+              </UserAgreement>
+              <SubmitButton
+                type="submit"
+                size="large"
+                disabled={isSubmitting}
+                orgType={category}
+              >
+                {isSubmitting && (
+                  <Spin indicator={antIcon} style={{ marginRight: ".5rem" }} />
+                )}
+                Publish your review
+              </SubmitButton>
+            </FormWrapper>
+          </form>
         </section>
       </ReviewWrapper>
     );

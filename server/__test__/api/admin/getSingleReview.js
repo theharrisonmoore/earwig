@@ -40,9 +40,9 @@ describe("Tesing for get single review route", () => {
           .end(async (err, res) => {
             expect(res).toBeDefined();
             expect(res.body).toBeDefined();
-            expect(res.body[0]).toBeDefined();
-            expect(res.body[0]._id).toBeDefined();
-
+            expect(res.body.details).toBeDefined();
+            expect(res.body.details[0]).toBeDefined();
+            expect(res.body.details[0]._id).toBeDefined();
             done(err);
           });
       });

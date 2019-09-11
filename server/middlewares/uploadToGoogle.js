@@ -8,7 +8,7 @@ const { admin } = require("../config");
  * that upload the file to Google storage
  */
 
-module.exports = required => async (req, res, next) => {
+module.exports = (required, isVoice, fieldName) => async (req, res, next) => {
   if (!req.file) {
     if (required) {
       return next(boom.badImplementation());
@@ -18,14 +18,27 @@ module.exports = required => async (req, res, next) => {
 
   try {
     const bucket = admin.storage().bucket();
-    const [file] = await bucket.upload(req.file.path, {
-    // Support for HTTP requests made with `Accept-Encoding: gzip`
-      gzip: true,
-    });
-    req.file.uploadedFileName = file.name;
-  } catch (error) {
-    next(boom.badImplementation("Error while uploading photo"));
-  }
 
-  return next();
+
+    const options = {
+      // Support for HTTP requests made with `Accept-Encoding: gzip`
+      gzip: true,
+    };
+
+    if (isVoice) {
+      const { size } = req.file;
+      options.metadata = {
+        contentType: "application/octet-stream",
+        acceptRanges: "bytes",
+        contentLength: size,
+        contentRange: `bytes 0-${size - 1}/${size}`,
+      };
+    }
+    const [file] = await bucket.upload(req.file.path, options);
+    req.file.uploadedFileName = file.name;
+    req.fieldName = fieldName;
+    return next();
+  } catch (error) {
+    next(boom.badImplementation(error));
+  }
 };

@@ -1,7 +1,10 @@
+/* eslint-disable no-undef */
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import moment from "moment";
+import { Icon as AntdIcon, Popover, Rate } from "antd";
 
-import { StarRateCreator } from "./../../../helpers";
-import GiveReview from "./../../Common/GiveReview";
+import { USER_PROFILE_URL } from "../../../constants/naviagationUrls";
 
 import {
   Header,
@@ -9,8 +12,7 @@ import {
   CompanyDiv,
   ButtonDiv,
   OrgButton,
-  GiveReviewTitle,
-  GiveReviewDiv,
+  ActionButtonsDiv,
   CompanyNameAndStars,
   StarWrapper,
   CompanyTitle,
@@ -19,16 +21,40 @@ import {
   VerifyLink,
   InactiveButton,
   IconWrapper,
-  OrgLink
+  OrgLink,
+  ActionButton,
+  ContractorDiv,
+  ContractorText,
+  ContractorListLink,
+  NoReview
 } from "./Profile.style";
 
-import { organizations } from "./../../../theme";
+import { organizations, colors } from "./../../../theme";
 
 import Icon from "./../../Common/Icon/Icon";
+import PopoverComponent from "./../../Common/Popover";
+
+const content = contractorAnswers => (
+  <div style={{ maxHeight: "150px", overflow: "auto" }}>
+    {contractorAnswers.map(item => (
+      <Link to={`/profile/${item._id}`}>{item.name}</Link>
+    ))}
+  </div>
+);
 
 export default class HeaderSection extends Component {
   render() {
-    const { isTablet, isMobile, summary, level } = this.props;
+    const {
+      isTablet,
+      isMobile,
+      summary,
+      level,
+      handleScroll,
+      contractorAnswers,
+      reviewsLast30Days,
+      orgId,
+      awaitingReview
+    } = this.props;
     const {
       category,
       name,
@@ -37,6 +63,8 @@ export default class HeaderSection extends Component {
       totalReviews,
       websiteUrl
     } = summary;
+    // if there are reviews less dating before 1 month user not allowed
+    const reviewNotAllowed = reviewsLast30Days.length > 0;
 
     return (
       <Header isTablet={isTablet} isMobile={isMobile}>
@@ -53,9 +81,23 @@ export default class HeaderSection extends Component {
             </IconWrapper>
             <CompanyNameAndStars>
               <CompanyTitle>{name}</CompanyTitle>
-              <StarWrapper>
-                {StarRateCreator(summary)}
-                <Reviews>{totalReviews} reviews</Reviews>
+              <StarWrapper onClick={handleScroll}>
+                <Rate
+                  disabled
+                  value={summary.avgRatings || summary.value || 0}
+                  style={{
+                    color: `${organizations[summary.category].primary}`,
+                    fontSize: "0.75rem"
+                  }}
+                  className="last-reviewed-star-rate"
+                />
+                {totalReviews === 0 ? (
+                  <NoReview>No reviews yet</NoReview>
+                ) : (
+                  <Reviews category={category}>
+                    {totalReviews} review{totalReviews !== 1 && "s"}
+                  </Reviews>
+                )}
               </StarWrapper>
             </CompanyNameAndStars>
           </CompanyDiv>
@@ -119,19 +161,126 @@ export default class HeaderSection extends Component {
               </InactiveButton>
             </ButtonDiv>
           )}
+          {/* contractor section */}
+          {category === "worksite" && (
+            <ContractorDiv>
+              <ContractorText>
+                Main Contractor:{" "}
+                <span className="contactor-name">
+                  {contractorAnswers[0] && contractorAnswers[0].name ? (
+                    <Link
+                      to={`/profile/${contractorAnswers[0]._id}`}
+                      style={{ color: "black", textDecoration: "underline" }}
+                    >
+                      {contractorAnswers[0] && contractorAnswers[0].name}
+                    </Link>
+                  ) : (
+                    "No answers yet"
+                  )}
+                </span>
+              </ContractorText>
+              {contractorAnswers[0] && (
+                <Popover
+                  placement="bottom"
+                  title={"Contractors List"}
+                  content={content(contractorAnswers)}
+                  trigger="click"
+                >
+                  <ContractorListLink>
+                    More main contractors on this site
+                  </ContractorListLink>
+                  <AntdIcon style={{ color: "black" }} type="caret-down" />
+                </Popover>
+              )}
+            </ContractorDiv>
+          )}
         </CompanyDetails>
-        {level === 2 && (
-          <GiveReviewDiv>
-            <GiveReviewTitle>Give a review about {name}</GiveReviewTitle>
-            <GiveReview
-              category={category}
-              isTablet={isTablet}
-              isMobile={isMobile}
-              state={{ name, category }}
-            />
-          </GiveReviewDiv>
+        {(level === 2 || level === 1) && (
+          <>
+            <ActionButtonsDiv>
+              <Link
+                to={{
+                  pathname:
+                    level === 1 && !awaitingReview
+                      ? USER_PROFILE_URL
+                      : `/organization/${orgId}/review`,
+                  state: { name, category }
+                }}
+              >
+                <ActionButton
+                  color={organizations[category].primary}
+                  disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
+                  isMobile={isMobile}
+                  style={{
+                    margin: "0 .5rem",
+                    opacity: `${
+                      reviewNotAllowed && reviewsLast30Days.length > 0 ? 0.5 : 1
+                    }`
+                  }}
+                >
+                  {!isMobile && (
+                    <Icon
+                      icon="starComment"
+                      margin="0 1rem 0 0"
+                      width="38"
+                      height="38"
+                      color={colors.white}
+                    />
+                  )}
+                  Give a review
+                </ActionButton>
+              </Link>
+              {/* <Link
+                to={{
+                  pathname:
+                    level === 1 && !awaitingReview
+                      ? USER_PROFILE_URL
+                      : `/organization/${orgId}/review`,
+                  state: { name, category }
+                }}
+              > */}
+              <PopoverComponent
+                category={category}
+                popoverOptions={{
+                  text: "This feature is coming soon. Stay tuned"
+                }}
+              >
+                <ActionButton
+                  color={organizations[category].primary}
+                  isMobile={isMobile}
+                  style={{ margin: "0 .5rem", opacity: "0.5" }}
+                >
+                  {!isMobile && (
+                    <Icon
+                      icon="raiseHand"
+                      margin="0 1rem 0 0"
+                      width="38"
+                      height="38"
+                      color={colors.white}
+                    />
+                  )}
+                  Ask workers a question
+                </ActionButton>
+              </PopoverComponent>
+              {/* </Link> */}
+            </ActionButtonsDiv>
+
+            {reviewNotAllowed && reviewsLast30Days.length > 0 && (
+              <div style={{ textAlign: "center" }}>
+                <PopoverComponent
+                  category={category}
+                  popoverOptions={{
+                    text: `It seems that you've already reviewed this organisation in the last 30 days. You can review each organisation once a month. Date of last review: ${moment(
+                      reviewsLast30Days[0].date
+                    ).format("DD.MM.YYYY")}`,
+                    linkText: "Why can't I give a review?"
+                  }}
+                />
+              </div>
+            )}
+          </>
         )}
-        {level === 1 && (
+        {level === 1 && !awaitingReview && (
           <VerifyPromo>
             <p>
               Get verified as a worker to give reviews, comment on other reviews

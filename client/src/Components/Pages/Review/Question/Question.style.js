@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, organizations } from "../../../../theme";
+import { colors, organizations, borders } from "../../../../theme";
 
 export const QuestionWrapper = styled.div.attrs({ className: "" })`
   font-size: 18px;
@@ -189,4 +189,133 @@ export const StyledCheckList = styled.div`
     display: flex;
     align-self: flex-end;
   }
+`;
+
+export const SliderWrapper = styled.div`
+  width: calc(85% - 1rem);
+  display: flex;
+  justify-content: space-between;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+
+  .ant-slider-with-marks {
+    margin-top: 45px;
+    margin-bottom: 0;
+  }
+
+  .ant-slider-handle {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    margin-top: -11px;
+  }
+  .ant-slider-track {
+    background-color: ${({ color }) => color};
+  }
+
+  .ant-slider:hover .ant-slider-track {
+    background-color: ${({ color }) => color}88;
+  }
+
+  .ant-slider:hover .ant-slider-rail {
+    background-color: #b6b6b6;
+  }
+
+  .ant-slider-rail::after {
+    content: "";
+    width: 100%;
+    height: 1px;
+    z-index: 1;
+    background: #cfced3;
+    position: absolute;
+    bottom: 25px;
+  }
+
+  .ant-slider-rail::before {
+    content: "";
+    width: 100%;
+    height: 1px;
+    z-index: 1;
+    background: #cfced3;
+    position: absolute;
+    top: 25px;
+  }
+
+  p {
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    letter-spacing: 0.375px;
+
+    color: #4a4a4a;
+    opacity: 0.8;
+    width: 100%;
+    visibility: ${({ visibility }) => (visibility ? "intial" : "hidden")};
+  }
+`;
+
+export const VoiceIconWrapper = styled.div`
+  width: 67px;
+  height: 67px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  color: ${({ recording }) => (recording ? colors.red : colors.dustyGray2)};
+  margin-right: 1rem;
+
+  :after {
+    content: "";
+    position: absolute;
+    width: 67px;
+    height: 67px;
+    border: ${borders.commentBox};
+    border-radius: 50%;
+    animation: ${({ recording }) => recording && "spin 2s linear infinite"};
+    border-top: ${({ recording }) => recording && borders.recording};
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+`;
+
+export const VoiceWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  min-width: 350px;
+
+  video,
+  audio {
+    height: 46px;
+    width: calc(100% - 76px);
+  }
+`;
+
+export const StopIcon = styled.div`
+  width: 20px;
+  height: 20px;
+  background-color: ${colors.gray};
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+export const Input = styled.input`
+  background: ${colors.white};
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 0.5rem 0.75rem;
+  display: block;
+  width: 100%;
+  border: 1px solid ${colors.inputBorder};
+  outline: none;
 `;

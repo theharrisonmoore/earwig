@@ -1,39 +1,39 @@
 import React, { Component } from "react";
-import { Mention, Input, message } from "antd";
+import { Mentions, Input, message } from "antd";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 import Loading from "./../../../Common/AntdComponents/Loading";
 
+import Icon from "./../../../Common/Icon/Icon";
+
 import {
   Wrapper,
   CommentsDiv,
   CommentsHeader,
-  Close,
   CommentsTitle,
-  IndividComment,
-  UserID,
-  CommentBubble,
   Error
 } from "./ProfileAnswers.style";
 
+import { IndividComment } from "../Reply.style";
+
 import { organizations } from "./../../../../theme";
 
-import { StyledAntIcon, StyledReplyIcon } from "./../Profile.style";
+import {
+  StyledAntIcon,
+  StyledReplyIcon,
+  UserID,
+  CommentBubble
+} from "./../Profile.style";
 
 import { REPORT_CONTENT_URL } from "./../../../../constants/naviagationUrls";
-
-import CloseIcon from "./../../../../assets/close-icon.svg";
-
 import { isMobileDevice, highlightMentions } from "./../../../../helpers";
 import { API_ADD_COMMENT_ON_QUESTION_URL } from "./../../../../apiUrls";
 
-const { toString, toContentState } = Mention;
-
 export default class CommentsBox extends Component {
   state = {
-    commentContentState: toContentState(""),
+    commentContentState: "",
     user: "",
     errors: {}
   };
@@ -90,7 +90,7 @@ export default class CommentsBox extends Component {
         this.setState({ errors: {} }, () => {
           const { organization, question } = this.props;
           const data = {
-            text: toString(this.state.commentContentState),
+            text: this.state.commentContentState,
             displayName: this.state.user,
             question: question._id,
             organization: organization._id
@@ -100,11 +100,11 @@ export default class CommentsBox extends Component {
             .then(({ data }) => {
               const question = {
                 ...this.props.question,
-                _id: this.props.question.question._id
+                _id: this.props.question._id
               };
               this.setState(
                 {
-                  commentContentState: toContentState(""),
+                  commentContentState: "",
                   errors: {}
                 },
                 () => this.props.fetchComments(question)
@@ -136,11 +136,19 @@ export default class CommentsBox extends Component {
     } = this.props;
 
     const users =
-      comments &&
-      comments.reduce((prev, curr) => {
-        prev.push(curr.displayName || curr.userId);
-        return prev;
-      }, []);
+      (comments &&
+        comments.reduce((prev, curr) => {
+          prev.push(curr.displayName || curr.userId);
+          return prev;
+        }, [])) ||
+      [];
+
+    const uniqueUsers = [];
+    users.forEach(user => {
+      if (!uniqueUsers.includes(user)) {
+        uniqueUsers.push(user);
+      }
+    });
 
     return (
       <Wrapper>
@@ -148,23 +156,48 @@ export default class CommentsBox extends Component {
           {commentsLoaded ? (
             <>
               <CommentsHeader>
-                <CommentsTitle>{question.question.profileText}</CommentsTitle>
-                <Close src={CloseIcon} alt="close" onClick={toggleComments} />
+                <CommentsTitle>{question.profileText}</CommentsTitle>
+                <Icon
+                  icon="close"
+                  onClick={toggleComments}
+                  width="30px"
+                  height="30px"
+                  cursor="pointer"
+                />
               </CommentsHeader>
 
               {comments &&
                 comments.map(comment => (
-                  <IndividComment key={comment._id}>
-                    <UserID>{comment.displayName || comment.userId}</UserID>
-                    <CommentBubble as="pre">
+                  <IndividComment
+                    key={comment._id}
+                    adminReply={comment.displayName}
+                    category={category}
+                  >
+                    <UserID adminReply={!!comment.displayName}>
+                      {comment.displayName || comment.userId}
+                    </UserID>
+                    <CommentBubble
+                      as="pre"
+                      style={{ maxWidth: "100%" }}
+                      bgColor={
+                        comment.displayName
+                          ? "white"
+                          : organizations[category].secondary
+                      }
+                      color={
+                        comment.displayName && organizations[category].primary
+                      }
+                      adminReply={!!comment.displayName}
+                      category={category}
+                    >
                       {highlightMentions(comment.text)}
                     </CommentBubble>
                     <Link
                       style={{
-                        right: 0,
+                        [comment.displayName ? "left" : "right"]: 0,
                         position: "absolute",
                         border: 0,
-                        bottom: "-0.5rem"
+                        bottom: "2rem"
                       }}
                       to={{
                         pathname: REPORT_CONTENT_URL,
@@ -196,7 +229,7 @@ export default class CommentsBox extends Component {
                     <Error>{this.state.errors.user}</Error>
                   )}
                   <div style={{ position: "relative", marginBottom: "2rem" }}>
-                    <Mention
+                    {/* <Mention
                       style={{ width: "100%", marginTop: "0.25rem" }}
                       onChange={this.onChange}
                       defaultSuggestions={users}
@@ -205,7 +238,25 @@ export default class CommentsBox extends Component {
                       value={this.state.commentContentState}
                       multiLines
                       placeholder={"Add a reply… use @ to mention"}
-                    />
+                    /> */}
+                    <Mentions
+                      rows="2"
+                      style={{ width: "100%", marginTop: "0.25rem" }}
+                      onChange={this.onChange}
+                      onFocus={this.handleFocus}
+                      onBlur={this.handleBlur}
+                      onSelect={this.onSelect}
+                      placeholder={"Add a reply… use @ to mention"}
+                      value={this.state.commentContentState}
+                    >
+                      {uniqueUsers.map((user, index) => {
+                        return (
+                          <Mentions.Option key={index} value={user}>
+                            {user}
+                          </Mentions.Option>
+                        );
+                      })}
+                    </Mentions>
                     <StyledReplyIcon
                       width="40px"
                       fill={organizations[category].primary}

@@ -1,28 +1,33 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
-import { colors, shadows } from "./../../../theme";
+import { colors, shadows, breakpoints } from "./../../../theme";
 import Icon from "./../../Common/Icon/Icon";
 
 export const UploadImageWrapper = styled.div`
   width: 100%;
-  max-width: 40rem;
+
   margin: 0 auto;
-  padding: 0 1rem;
-  padding-top: 3rem;
+  display: flex;
 `;
+
 export const EditIcon = styled(Icon)`
   width: 15vw;
   height: 15vw;
-  max-width: 62rem;
-  max-height: 62rem;
+  max-width: 5rem;
+  max-height: 5rem;
   margin-bottom: 1rem;
 `;
 
 export const ContentWrapper = styled.div`
-  width: 85%;
+  width: 100%;
   margin: 0 auto;
   padding-bottom: 2rem;
+  padding: 2rem;
+  max-width: 400px;
+
+  @media ${breakpoints.tablet} {
+    width: 50%;
+  }
 `;
 
 export const SelectWrapper = styled.div`
@@ -31,9 +36,18 @@ export const SelectWrapper = styled.div`
   /* max-width: 24rem; */
 `;
 
+export const PurpleDiv = styled.div`
+  width: 0%;
+  background-color: ${colors.heliotrope};
+
+  @media ${breakpoints.tablet} {
+    width: ${({ width }) => width || "50%"};
+  }
+`;
+
 export const Heading = styled.h1`
   color: ${colors.mineShaft2};
-  font-size: 1.125rem;
+  font-size: 2rem;
   font-weight: 900;
   margin-bottom: 2rem;
 `;
@@ -46,8 +60,7 @@ export const SubHeading = styled.h2`
 `;
 
 export const Example = styled.img`
-  margin-bottom: 0.25rem;
-  max-width: 70%;
+  width: 100%;
 `;
 
 export const Label = styled.label``;
@@ -85,17 +98,6 @@ export const Button = styled.button`
 
   @media (max-width: 360px) {
     font-size: 4.5vw;
-  }
-`;
-
-export const StyledLink = styled(Link)`
-  font-weight: 900;
-  font-size: 1.125rem;
-
-  color: ${colors.profileFontColor};
-
-  :hover {
-    color: ${colors.red};
   }
 `;
 

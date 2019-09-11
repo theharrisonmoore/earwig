@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-
 import { BrowserRouter as Router } from "react-router-dom";
+import CookieConsent from "react-cookie-consent";
+import mixpanel from "mixpanel-browser";
 
 import "antd/dist/antd.css";
 import "./App.css";
@@ -10,12 +11,17 @@ import Routes from "./Components/";
 
 import ScrollToTop from "./Components/Common/ScrollToTop";
 
-import { isMobile, isTablet } from "./helpers";
+import { isSMobile, isMobile, isTablet } from "./helpers";
 
 import { API_USERS } from "./apiUrls";
 
+import { COOKIES_POLICY_URL } from "./constants/naviagationUrls";
+
+import { cookieStyles } from "./theme";
+
 export const initialState = {
   isLoggedIn: false,
+  isSMobile: false,
   isMobile: false,
   isTablet: false,
   id: "",
@@ -24,9 +30,11 @@ export const initialState = {
   awaitingReview: false,
   userId: "",
   points: 0,
+  helpedUsers: 0,
   isAdmin: false,
   isMounted: false,
-  email: ""
+  email: "",
+  city: ""
 };
 
 class App extends Component {
@@ -38,6 +46,7 @@ class App extends Component {
 
   updateWindowDimensions() {
     this.setState({
+      isSMobile: isSMobile(window.innerWidth),
       isMobile: isMobile(window.innerWidth),
       isTablet: isTablet(window.innerWidth)
     });
@@ -65,6 +74,9 @@ class App extends Component {
     window.addEventListener("resize", this.updateWindowDimensions);
     this.getUserInfo();
     window.scrollTo(0, 0);
+    mixpanel.track("new mount", {
+      earwig: "earwig"
+    });
   }
 
   componentWillUnmount() {
@@ -81,6 +93,24 @@ class App extends Component {
       <Router>
         <ScrollToTop>
           <div className="App">
+            {/* cookie policy page to be inserted */}
+            <CookieConsent
+              location="bottom"
+              buttonText="Got it!"
+              cookieName="myAwesomeCookieName2"
+              style={cookieStyles.general}
+              buttonStyle={
+                isMobile ? cookieStyles.buttonMobile : cookieStyles.button
+              }
+              expires={150}
+              acceptOnScroll={true}
+            >
+              This website uses cookies to enhance the user experience.{" "}
+              <a style={cookieStyles.link} href={COOKIES_POLICY_URL}>
+                {" "}
+                Find out more about our Cookie Policy
+              </a>{" "}
+            </CookieConsent>
             <Routes
               handleChangeState={this.handleChangeState}
               isMobile={isMobile}

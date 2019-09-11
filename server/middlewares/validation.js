@@ -1,6 +1,7 @@
 const Joi = require("joi");
 const boom = require("boom");
 
+
 // define all routes schema here
 const schemas = {
   login: {
@@ -29,6 +30,31 @@ const schemas = {
     checkbox: Joi.boolean()
       .valid(true)
       .error(() => "You should agree Earwig terms of user"),
+    referral: Joi.string().length(24),
+    isWorker: Joi.string()
+      .valid(["yes", "no"], "Must select an option")
+      .required("Required"),
+    city: Joi.string().when("isWorker", {
+      is: true,
+      then: Joi.string().required("city is required"),
+      otherwise: Joi.allow("").optional(),
+    }),
+    trade: Joi.string()
+      .when("isWorker", { is: "no", then: Joi.allow("").optional() })
+      .when("isWorker", { is: "yes", then: Joi.required("trade is required") }),
+    orgType: Joi.string().when("isWorker", {
+      is: "no",
+      then: Joi.string()
+        .valid(["agency", "payroll", "company", "mainContractor", "other"],
+          "invalid organisation type").required(),
+      otherwise: Joi.allow("").optional(),
+    }),
+    otherOrg: Joi.string()
+      .when("orgType", {
+        is: "other",
+        then: Joi.string().min(3),
+        otherwise: Joi.allow("").optional(),
+      }),
   },
   editProfile: {
     oldPassword: Joi.string(),
@@ -39,6 +65,9 @@ const schemas = {
     verificationImage: Joi.any()
       .allow("")
       .optional(),
+    newUsername: Joi.string().max(15),
+    newTrade: Joi.any(),
+    newCity: Joi.string(),
   },
   addTrade: {
     trade: Joi.string()
@@ -48,6 +77,9 @@ const schemas = {
   addOrganization: {
     name: Joi.string()
       .min(3)
+      .required(),
+    category: Joi.string()
+      .valid("payroll", "company", "worksite", "agency")
       .required(),
   },
   agency: {
@@ -174,10 +206,14 @@ const schemas = {
       .error(() => "You should agree Earwig terms of user"),
   },
   onlyMongoId: {
-    id: Joi.string().length(24).required(),
+    id: Joi.string()
+      .length(24)
+      .required(),
   },
   activateOrganization: {
-    id: Joi.string().length(24).required(),
+    id: Joi.string()
+      .length(24)
+      .required(),
     active: Joi.boolean().required(),
   },
   reportContent: {
@@ -193,15 +229,31 @@ const schemas = {
   },
   addCommentOnQuestion: {
     text: Joi.string().required(),
-    displayName: Joi.string().allow("").optional(),
-    question: Joi.string().length(24).required(),
-    organization: Joi.string().length(24).required(),
+    displayName: Joi.string()
+      .allow("")
+      .optional(),
+    question: Joi.string()
+      .length(24)
+      .required(),
+    organization: Joi.string()
+      .length(24)
+      .required(),
   },
   addCommentOnReview: {
     text: Joi.string().required(),
-    displayName: Joi.string().allow("").optional(),
-    reviewId: Joi.string().length(24).required(),
+    displayName: Joi.string()
+      .allow("")
+      .optional(),
+    reviewId: Joi.string()
+      .length(24)
+      .required(),
     target: Joi.string().required(),
+  },
+  setCurrentOrgs: {
+    currentAgency: Joi.object(),
+    currentPayroll: Joi.object(),
+    currentWorksite: Joi.object(),
+    currentCompany: Joi.object(),
   },
 };
 
@@ -212,6 +264,6 @@ module.exports = route => (req, res, next) => {
   if (!isValid.error) {
     next();
   } else {
-    next(boom.badRequest(isValid.error.details[0].message));
+    return next(boom.badRequest(isValid.error.details[0].message));
   }
 };

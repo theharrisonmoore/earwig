@@ -2,11 +2,10 @@ const router = require("express").Router();
 const {
   getByOrg,
   postReview,
-  addNewAgencyPayroll,
   getOrgsByType,
   getAgencesAndPayrollsNames,
   postReviewShort,
-  getSingleReviewAnswers,
+  updateReview,
 } = require("../controllers/review");
 
 const adminRouter = require("./admin");
@@ -49,10 +48,25 @@ const addCommentOnReview = require("../controllers/addCommentOnReview");
 const updateLastViewedOrg = require("../controllers/updateLastViewedOrg");
 
 const deleteOrgController = require("../controllers/deleteOrganization");
+const resetPassword = require("../controllers/resetPassword");
+const setPassword = require("../controllers/setPassword");
+const updateHelpfulPoints = require("../controllers/updateHelpfulPoints");
+const userReviews = require("../controllers/userReviews");
+const deleteReview = require("../controllers/admin/deleteReview");
+const checkIfEditReview = require("../controllers/checkIfCanEdit");
+
+const getUsersTrade = require("../controllers/getUsersTrade");
+
+const setCurrentOrgs = require("../controllers/setCurrentOrgs");
+const getCurrentOrgs = require("../controllers/getCurrentOrgs");
+
+const uploadVoiceRecording = require("../controllers/uploadVoiceRecording");
+const voiceReview = require("../controllers/getVoiceReview");
+const getUserVotesOnProfile = require("./../controllers/getUserVotesOnProfile");
+const getOrgsReviewedLast30D = require("./../controllers/getOrgsReviewedLast30D");
 
 const {
   LOGIN_URL,
-  GET_QUESTIONS_URL,
   REVIEW_URL,
   UPLOAD_WORKSITE_IMAGE_URL,
   SEARCH_URL,
@@ -60,7 +74,6 @@ const {
   ADD_ORGANIZATION_URL,
   REPORT_CONTENT_URL,
   ADD_COMMENT_ON_QUESTION_URL,
-  GET_OVERALL_REVIEW_REPLIES_URL,
   ADD_COMMENT_ON_REVIEW_URL,
   ADMIN,
   CONFIRM_EMAIL,
@@ -69,24 +82,44 @@ const {
   UPLOAD_VERIFICATION_IMAGE_URL,
   TRADE_URL,
   USERS,
+  RESET_PASSWORD,
+  SET_PASSWORD,
+  ADD_HELPFUL_OVERALL_POINTS,
+  USERS_TRADE,
+  SET_ORGS,
+  GET_USER_ORGS,
+  UPLOAD_AUDIO,
+  GET_AUDIO_URL,
+  GET_USER_VOTES_ON_PROFILE,
+  GET_LAST_30D_ORGANISATIONS_IDS,
 } = require("../../client/src/apiUrls");
 
+router.get(GET_LAST_30D_ORGANISATIONS_IDS, authentication, getOrgsReviewedLast30D);
+
 router.get(SEARCH_URL, searchController);
+
+// get user reviews
+router.get("/reviews", authentication, userReviews);
+// delete a review
+router.delete("/reviews", authentication, deleteReview);
 
 // get user info from the cookies and send it to fron-end
 router.get(USERS, authentication, userInfoController);
 
-router.get(GET_QUESTIONS_URL, authentication, authorization("LEVEL3"), getByOrg);
-router.post(REVIEW_URL, authentication, authorization("LEVEL3"), postReview);
+router.get("/review/:id/is-edatable", authentication, authorization("LEVEL3"), checkIfEditReview);
+
+router.get("/questions/:id", authentication, authorization("LEVEL2"), getByOrg);
+router.post(REVIEW_URL, authentication, authorization("LEVEL2"), postReview);
+router.put("/review/:id", authentication, authorization("LEVEL3"), updateReview);
 router.post("/short-review", authentication, authorization("LEVEL3"), postReviewShort);
 
 // Add new payroll and agency
 router.get("/organizations", authentication, authorization("LEVEL3"), getOrgsByType);
-router.post("/organizations", authentication, authorization("LEVEL3"), addNewAgencyPayroll);
+router.post("/organizations", authentication, authorization("LEVEL2"), addOrganizationController);
 router.get("/agency-payroll", authentication, authorization("LEVEL3"), getAgencesAndPayrollsNames);
 
 // require all the routes in this file
-router.post("/profile", softAuthCheck, profileController);
+router.get("/profile/:organizationID", softAuthCheck, profileController);
 
 router.post("/comments", commentsController);
 
@@ -106,7 +139,7 @@ router.post(
   authorization("LEVEL1"),
   upload("verificationImage"),
   validation("uploadVerificationImage"),
-  toGoogle(true),
+  toGoogle(true, false, "verificationImage"),
   deleteFileFromServer,
   uploadVerificationImage,
 );
@@ -119,27 +152,39 @@ router.post(
   uploadWorksiteController,
 );
 
-// get all trades
-router.get(TRADE_URL, authentication, authorization("LEVEL1"), getTradesController);
-
-// add new trade
 router.post(
-  TRADE_URL,
-  authentication,
-  authorization("LEVEL1"),
-  validation("addTrade"),
-  postTradesController,
+  UPLOAD_AUDIO,
+  upload("voiceRecording"),
+  // required = true , isVoice = true
+  toGoogle(true, true),
+  deleteFileFromServer,
+  uploadVoiceRecording,
 );
 
+router.post(GET_AUDIO_URL, softAuthCheck, voiceReview);
+
+// get all trades
+router.get(TRADE_URL, getTradesController);
+
+// add new trade
+router.post(TRADE_URL, validation("addTrade"), postTradesController);
+
 // sign up
-router.post(SIGN_UP, validation("signup"), signupController);
+router.post(
+  SIGN_UP,
+  upload("verificationImage"),
+  validation("signup"),
+  toGoogle(false, false, "verificationImage"),
+  signupController,
+  deleteFileFromServer,
+);
 
 // edit profile route
 // user can update password or/and the verification image
 router.post(
   EDIT_PROFILE,
   authentication,
-  authorization("LEVEL3"),
+  authorization("LEVEL1"),
   upload("verificationImage"),
   validation("editProfile"),
   toGoogle(false),
@@ -152,10 +197,10 @@ router.delete("/delete-user", authentication, deleteUserProfile);
 router.get("/user-reviews", authentication, userReviewsController);
 
 router.post(
-  "/add-organization",
-  // authentication,
-  // authorization("LEVEL3"),
-  // validation("addOrganization"),
+  ADD_ORGANIZATION_URL,
+  authentication,
+  authorization("LEVEL2"),
+  validation("addOrganization"),
   addOrganizationController,
 );
 
@@ -189,16 +234,16 @@ router.post(
 router.post(
   ADD_COMMENT_ON_REVIEW_URL,
   authentication,
-  authorization("LEVEL3"),
+  authorization("LEVEL2"),
   validation("addCommentOnReview"),
   addCommentOnReview,
 );
 
 // get all replies on specific overall review
+// /reviews/${target}/replies/${id}
 router.get(
-  `${GET_OVERALL_REVIEW_REPLIES_URL}/:id`,
-  authentication,
-  authorization("LEVEL1"),
+  "/reviews/:target/replies/:id",
+  softAuthCheck,
   getOverallReviewReplies,
 );
 
@@ -210,5 +255,18 @@ router.post("/thinking-of-deleting", authentication, thinkingofDeletingControlle
 router.post("/give-feedback", authentication, feedbackController);
 
 router.post("/update-last-viewed", updateLastViewedOrg);
+
+router.post(RESET_PASSWORD, resetPassword);
+router.post(SET_PASSWORD, setPassword);
+
+router.patch(ADD_HELPFUL_OVERALL_POINTS, authentication, updateHelpfulPoints);
+
+router.get(USERS_TRADE, authentication, getUsersTrade);
+
+router.post(SET_ORGS, authentication, setCurrentOrgs);
+
+router.get(GET_USER_ORGS, authentication, getCurrentOrgs);
+
+router.get(GET_USER_VOTES_ON_PROFILE, authentication, getUserVotesOnProfile);
 
 module.exports = router;

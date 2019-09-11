@@ -25,4 +25,13 @@ describe("Test for updateUserById query", () => {
     expect(updatedUser.verificationPhoto).toBe("test.png");
     done();
   });
+
+  test("Test updateUserById - update username", async (done) => {
+    const user = await User.findOne({ isAdmin: false });
+    await updateUserById(user._id, { userId: "test12345" });
+    const updatedUser = await User.findById(user._id);
+    expect(updatedUser._id).toEqual(user._id);
+    expect(updatedUser.userId).toBe("test12345");
+    done();
+  });
 });

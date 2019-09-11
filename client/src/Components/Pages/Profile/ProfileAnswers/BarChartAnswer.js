@@ -11,7 +11,7 @@ export default class BarChartAnswer extends Component {
   createDataObj = question => {
     // create object
 
-    let optionsObj = question.question.options.reduce((acc, option) => {
+    let optionsObj = question.options.reduce((acc, option) => {
       acc[option] = 0;
       return acc;
     }, Object.create(null));
@@ -21,7 +21,11 @@ export default class BarChartAnswer extends Component {
     // get the total for the number of answers
     const totalCount = totalAnswers.length;
 
-    totalAnswers.map(answer => (optionsObj[answer] += (1 / totalCount) * 100));
+    totalAnswers.map(answer => {
+      optionsObj[answer] += (1 / totalCount) * 100;
+      const roundedNum = Math.round(optionsObj[answer]);
+      return (optionsObj[answer] = roundedNum);
+    });
 
     return optionsObj;
   };
@@ -60,7 +64,7 @@ export default class BarChartAnswer extends Component {
     };
 
     const data = {
-      labels: question.question.options,
+      labels: question.options,
       datasets: [
         {
           backgroundColor: organizations[`${category}`].primary,

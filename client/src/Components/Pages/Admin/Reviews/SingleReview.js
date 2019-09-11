@@ -10,14 +10,15 @@ import StarRatingComponent from "react-star-rating-component";
 import moment from "moment";
 import Swal from "sweetalert2";
 import { message, Select, Input, Modal, InputNumber } from "antd";
+import { Link } from "react-router-dom";
 
 import Loading from "./../../../Common/AntdComponents/Loading";
+import VoiceReview from "../../Profile/ProfileAnswers/VoiceReview";
 
 import { SVGCreator, NewSVGCreator, isMobile } from "../../../../helpers";
 
 import {
   ReviewWrapper,
-  Header,
   Content,
   ImageBox,
   Organization,
@@ -32,15 +33,17 @@ import {
   Headline
 } from "../../Review/Review.style";
 
+import { SingleReviewHeader, DetailedAnswers } from "./AdminReview.style";
+
 import {
   QuestionOptionsWrapper,
   AnswerDiv,
   QText,
   HintText,
-  Options
+  Options,
+  StyledInput,
+  InputWrapper
 } from "../../Review/Question/Question.style";
-
-import { RadioButton } from "../../Review/Question/index";
 
 import { colors } from "../../../../theme";
 
@@ -50,8 +53,8 @@ export default class SingleReview extends Component {
     groups: [],
     organization: { category: "", name: "" },
     user: { id: "", email: "" },
-    review: { isVerified: "", revID: "", rating: "", overallRev: "" },
-    images: {}
+    images: {},
+    review: {}
   };
 
   // get the image url using the image name
@@ -65,34 +68,18 @@ export default class SingleReview extends Component {
 
   // fetches all data relevant to user, organisation and review
   fetchData = () => {
-    const {
-      category,
-      name,
-      userEmail,
-      userID,
-      rating,
-      overallRev,
-      revID,
-      isVerified
-    } = this.props.location.state;
-
-    const { organization, user, review } = this.state;
-
-    organization.category = category;
-    organization.name = name;
-    user.email = userEmail;
-    user.id = userID;
-    review.revID = revID;
-    review.rating = rating;
-    review.overallRev = overallRev;
-    review.isVerified = isVerified;
+    const { id: reviewId } = this.props.match.params;
 
     axios
-      .get(`/api/admin/single-review/${revID}`)
+      .get(`/api/admin/single-review/${reviewId}`)
       .then(res => {
+        const { review, details } = res.data;
         this.setState({
-          groups: res.data,
-          isLoading: false
+          groups: details,
+          isLoading: false,
+          review: review,
+          organization: review.organization,
+          user: review.user
         });
       })
       .catch(err => {
@@ -132,7 +119,8 @@ export default class SingleReview extends Component {
           showConfirmButton: false,
           timer: 1500
         }).then(() => {
-          this.props.history.push("/admin/reviews/");
+          // this.props.history.push("/admin/reviews/verify");
+          this.props.history.goBack();
         });
       })
       .catch(err => {
@@ -147,7 +135,6 @@ export default class SingleReview extends Component {
   // asks admin if sure to delete answer
   showDeleteConfirm = answerID => {
     // delete from db and update
-
     Modal.confirm({
       title: "Are you sure you want to delete this answer?",
       okText: "Yes",
@@ -171,11 +158,47 @@ export default class SingleReview extends Component {
       }
     });
   };
+  showDeleteReviewConfirm = reviewId => {
+    // delete from db and update
+    Modal.confirm({
+      title: "Are you sure you want to delete this answer?",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "Cancel",
+      onOk: () =>
+        axios
+          .patch(`/api/admin/reviews/${reviewId}`, {
+            data: {
+              "voiceReview.audio": ""
+            }
+          })
+          .then(res => {
+            message.success("Deleted");
+            this.fetchData();
+          })
+          .catch(err => {
+            const error =
+              err.response && err.response.data && err.response.data.error;
+            message.error(error || "Something went wrong");
+          })
+    });
+  };
 
   // renders delete btn next to answer
   createDeleteBtn = answerID => {
     return (
       <DelButton type="button" onClick={() => this.showDeleteConfirm(answerID)}>
+        {SVGCreator("delete-icon")}
+      </DelButton>
+    );
+  };
+
+  createDeleteOverallReview = reviewId => {
+    return (
+      <DelButton
+        type="button"
+        onClick={() => this.showDeleteReviewConfirm(reviewId)}
+      >
         {SVGCreator("delete-icon")}
       </DelButton>
     );
@@ -191,20 +214,20 @@ export default class SingleReview extends Component {
     const {
       groups,
       organization: { name, category },
-      user: { email, id },
-      review: { revID, rating, overallRev, isVerified }
+      user: { email, _id: id },
+      review: {
+        voiceReview,
+        overallReview: { text: overallText, replies },
+        workPeriod: { from: workedFrom, to: workedTo },
+        rate,
+        _id: reviewId,
+        isVerified
+      }
     } = this.state;
-
-    // review stats
-    const workedFrom = overallRev.workedFrom;
-    const workedTo = overallRev.workedTo;
-    const overallText = overallRev.text;
-    const replies = overallRev.replies;
-    const votes = overallRev.votes;
 
     return (
       <ReviewWrapper>
-        <Header orgType={category} style={{ marginBottom: "3rem" }}>
+        <SingleReviewHeader orgType={category} style={{ marginBottom: "3rem" }}>
           <Content>
             <ImageBox>
               {!isMobile(window.innerWidth) &&
@@ -212,12 +235,12 @@ export default class SingleReview extends Component {
             </ImageBox>
             <Organization>
               <Paragraph style={{ paddingRight: ".5rem" }}>Review </Paragraph>
-              <Paragraph> (ID {revID}) </Paragraph>
+              <Paragraph> (ID {reviewId}) </Paragraph>
               <OrgName>{name}</OrgName>
             </Organization>
           </Content>
-        </Header>
-        <section>
+        </SingleReviewHeader>
+        <DetailedAnswers>
           <Formik>
             {() => {
               return (
@@ -230,13 +253,13 @@ export default class SingleReview extends Component {
                           name="star rating component"
                           editing={false}
                           starCount={5}
-                          value={rating}
+                          value={rate}
                           emptyStarColor={"#D3D3D3"}
                         />
                       </StarRating>
                     </QuestionOptionsWrapper>
                     <QuestionOptionsWrapper>
-                      <Headline>User:</Headline>
+                      <Headline>User Data:</Headline>
                       <DetailsDiv>
                         <QText>Email:</QText>
                         <HintText>{email}</HintText>
@@ -245,6 +268,20 @@ export default class SingleReview extends Component {
                         <QText>ID:</QText>
                         <HintText>{id}</HintText>
                       </DetailsDiv>
+                    </QuestionOptionsWrapper>
+                    <QuestionOptionsWrapper>
+                      <Headline>Voice review:</Headline>
+                      {!!voiceReview && !!voiceReview.audio ? (
+                        <>
+                          <VoiceReview
+                            category={category}
+                            filename={voiceReview.audio}
+                          />
+                          {this.createDeleteOverallReview(reviewId)}
+                        </>
+                      ) : (
+                        <div>No voice review</div>
+                      )}
                     </QuestionOptionsWrapper>
                     <QuestionOptionsWrapper>
                       <Headline>Overall Results</Headline>
@@ -258,13 +295,13 @@ export default class SingleReview extends Component {
                           </HintText>
                         </DetailsDiv>
                       )}
-                      {overallText && (
+                      {!!overallText && (
                         <DetailsDiv>
                           <QText>Overall Feedback:</QText>
                           <HintText>{overallText}</HintText>
                         </DetailsDiv>
                       )}
-                      {replies && replies.length && (
+                      {!!replies && !!replies.length && (
                         <DetailsDiv>
                           <QText>Replies: </QText>
                           {replies.map((reply, i) => {
@@ -278,22 +315,8 @@ export default class SingleReview extends Component {
                           })}
                         </DetailsDiv>
                       )}
-                      {votes && votes.length && (
-                        <DetailsDiv>
-                          <QText>Votes: </QText>
-                          {votes.map((vote, i) => {
-                            return (
-                              <div key={i}>
-                                <HintText>
-                                  {vote.points} Points by UserID {vote.user}
-                                </HintText>
-                              </div>
-                            );
-                          })}
-                        </DetailsDiv>
-                      )}
                     </QuestionOptionsWrapper>
-                    {groups && groups.length && (
+                    {groups && !!groups.length && (
                       <div>
                         <Headline>Full Review Answers</Headline>
 
@@ -310,36 +333,50 @@ export default class SingleReview extends Component {
                                     options,
                                     number,
                                     category,
-                                    label
+                                    label,
+                                    profileText,
+                                    text
                                   } = question;
-
                                   if (type === "yesno" || type === "radio") {
                                     return (
-                                      <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
-                                        <HintText>{question.hintText}</HintText>
-                                        <Options>
-                                          <AnswerDiv>
+                                      <QuestionOptionsWrapper>
+                                        <QText>{text}</QText>
+                                        <Options options={options.length}>
+                                          <div
+                                            className={`choices choices-${options.length}`}
+                                          >
                                             {options.map((option, i, arr) => {
                                               return (
-                                                <Field
-                                                  key={option}
-                                                  component={RadioButton}
-                                                  name={`questions[${number}]`}
-                                                  id={`${option}-${number}`}
-                                                  className={`hide radio-input ${option}`}
-                                                  checked={this.checkIten(
-                                                    answer,
-                                                    option
-                                                  )}
+                                                <InputWrapper
                                                   option={option}
-                                                  count={options.length}
-                                                  category={category}
-                                                />
+                                                  orgType={category}
+                                                  options={
+                                                    question.options.length
+                                                  }
+                                                  key={option}
+                                                >
+                                                  <input
+                                                    name={question.number}
+                                                    id={`${option}-${question.number}`}
+                                                    type="radio"
+                                                    value={option}
+                                                    className="radio-button"
+                                                    checked={this.checkIten(
+                                                      answer,
+                                                      option
+                                                    )}
+                                                  />
+                                                  <StyledInput
+                                                    htmlFor={`${option}-${question.number}`}
+                                                    className={`yesno options-3`}
+                                                  >
+                                                    {option}
+                                                  </StyledInput>
+                                                </InputWrapper>
                                               );
                                             })}
                                             {this.createDeleteBtn(entry._id)}
-                                          </AnswerDiv>
+                                          </div>
                                         </Options>
                                       </QuestionOptionsWrapper>
                                     );
@@ -348,7 +385,7 @@ export default class SingleReview extends Component {
                                   if (type === "open") {
                                     return (
                                       <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
                                           <Field name={`questions[${number}]`}>
@@ -357,9 +394,7 @@ export default class SingleReview extends Component {
                                                 size="large"
                                                 value={answer}
                                                 style={{
-                                                  border: `1px solid ${
-                                                    colors.dustyGray1
-                                                  }`
+                                                  border: `1px solid ${colors.dustyGray1}`
                                                 }}
                                               />
                                             )}
@@ -373,7 +408,7 @@ export default class SingleReview extends Component {
                                   if (type === "number") {
                                     return (
                                       <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
                                           <Field
@@ -383,9 +418,7 @@ export default class SingleReview extends Component {
                                             {() => (
                                               <InputNumber
                                                 style={{
-                                                  border: `1px solid ${
-                                                    colors.dustyGray1
-                                                  }`,
+                                                  border: `1px solid ${colors.dustyGray1}`,
                                                   width: "12rem",
                                                   height: "70px",
                                                   lineHeight: "70px"
@@ -405,20 +438,32 @@ export default class SingleReview extends Component {
                                   if (type === "dropdown") {
                                     return (
                                       <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
                                           <Field name={`questions[${number}]`}>
                                             {() => {
+                                              if (
+                                                answer &&
+                                                answer.name &&
+                                                profileText ===
+                                                  "Main contractor"
+                                              ) {
+                                                return (
+                                                  <Link
+                                                    to={`/profile/${answer._id}`}
+                                                  >
+                                                    {answer.name}
+                                                  </Link>
+                                                );
+                                              }
                                               return (
                                                 <>
                                                   <Select
-                                                    value={answer}
+                                                    value={answer.name}
                                                     disabled
                                                     style={{
-                                                      border: `1px solid ${
-                                                        colors.dustyGray1
-                                                      }`
+                                                      border: `1px solid ${colors.dustyGray1}`
                                                     }}
                                                   />
                                                 </>
@@ -434,7 +479,7 @@ export default class SingleReview extends Component {
                                   if (type === "overallReview") {
                                     return (
                                       <QuestionOptionsWrapper>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
                                           <Field name={`review.overallReview`}>
@@ -444,9 +489,7 @@ export default class SingleReview extends Component {
                                                 // {...form}
                                                 value={answer}
                                                 style={{
-                                                  border: `1px solid ${
-                                                    colors.inputBorder
-                                                  }`
+                                                  border: `1px solid ${colors.inputBorder}`
                                                 }}
                                               />
                                             )}
@@ -460,7 +503,7 @@ export default class SingleReview extends Component {
                                   if (type === "checklist") {
                                     return (
                                       <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
                                           <FieldArray
@@ -501,7 +544,7 @@ export default class SingleReview extends Component {
                                     this.fetchImage(answer);
                                     return (
                                       <QuestionOptionsWrapper key={i}>
-                                        <QText>{question.text}</QText>
+                                        <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         {this.state.images[answer] ? (
                                           <div style={{ position: "relative" }}>
@@ -546,7 +589,7 @@ export default class SingleReview extends Component {
               color={this.changeBtnColor(isVerified)}
               onClick={() =>
                 this.updateIsVerified({
-                  id: revID,
+                  id: reviewId,
                   bool: !isVerified
                 })
               }
@@ -554,7 +597,7 @@ export default class SingleReview extends Component {
               {this.renderBtnText(isVerified)}
             </Button>
           </ButtonDiv>
-        </section>
+        </DetailedAnswers>
       </ReviewWrapper>
     );
   }

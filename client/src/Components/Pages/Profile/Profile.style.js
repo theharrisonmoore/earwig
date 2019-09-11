@@ -1,9 +1,16 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import SVG from "react-inlinesvg";
 import { NavLink } from "react-router-dom";
 import { Icon as AntIcon, Button } from "antd";
+import BlurredBackground from "./../../../assets/blurred-background.png";
 
-import { organizations, colors, shadows, borders } from "./../../../theme";
+import {
+  organizations,
+  colors,
+  shadows,
+  borders,
+  breakpoints
+} from "./../../../theme";
 import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
 export const Wrapper = styled.div`
@@ -45,8 +52,8 @@ export const Header = styled.div`
 `;
 
 export const CompanyDetails = styled.div`
-  border-bottom: ${props =>
-    props.level > 0 ? `${borders.commentBox}` : "none"};
+  /* border-bottom: ${props =>
+    props.level > 0 ? `${borders.commentBox}` : "none"}; */
   display: flex;
   flex-direction: ${props =>
     props.isTablet || props.isMobile ? "column" : "row"};
@@ -94,10 +101,27 @@ export const OrgButton = styled.button`
   box-shadow: ${shadows.buttonShadow};
   margin: 0 0.5rem;
   cursor: pointer;
+  position: relative;
 
   :hover {
     background: ${props => organizations[`${props.category}`].primary};
     color: ${colors.white};
+  }
+
+  &:active {
+    box-shadow: none;
+    border: none;
+
+    ::after {
+      content: "";
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      background: ${colors.btnClick};
+      box-shadow: none;
+    }
   }
 `;
 
@@ -114,11 +138,14 @@ export const InactiveButton = styled(OrgButton)`
   }
 `;
 
-export const GiveReviewDiv = styled.div`
+export const ActionButtonsDiv = styled.div`
   display: flex;
-  flex-direction: column;
-  padding: 2rem 0;
-  text-align: center;
+  flex-direction: row;
+  justify-content: space-between;
+
+  @media ${breakpoints.mobileL} {
+    justify-content: center;
+  }
 `;
 
 export const ReviewDiv = styled.div`
@@ -128,6 +155,11 @@ export const ReviewDiv = styled.div`
     props.isTablet || props.isMobile ? "2rem 1rem" : "2rem 7rem"};
   text-align: left;
 `;
+
+export const Level0Promo = styled(ReviewDiv)`
+  padding: ${props =>
+    props.isTablet || props.isMobile ? "2rem 1rem" : "2rem 7rem 0 7rem"};
+`
 
 export const GiveReviewTitle = styled.h3`
   font-size: 1.75rem;
@@ -150,7 +182,9 @@ export const CompanyNameAndStars = styled.div`
 export const CommentDiv = styled.div`
   align-self: flex-start;
   justify-content: flex-start;
-  flex: initial;
+  display: flex;
+  flex-direction: column;
+  /* flex: initial; */
   margin-bottom: 1rem;
   width: 100%;
   position: relative;
@@ -162,18 +196,39 @@ export const BubbleAndDate = styled.div`
   margin-bottom: 1rem;
 `;
 
+const adminTitle = css`
+  text-align: right;
+`;
+
 export const UserID = styled.h3`
   font-weight: 900;
   font-size: 1rem;
   color: ${colors.profileFontColor};
+  ${({ adminReply }) => adminReply && adminTitle}
 `;
 
 export const LightTitle = styled(UserID)`
   opacity: 0.5;
 `;
 
+const adminBorder = css`
+  border: 1px solid ${({ category }) => organizations[category].primary};
+  text-align: right;
+  margin-left: 0.25rem;
+  margin-right: 0;
+`;
+
+export const VoiceWrapper = styled.div`
+  width: 200px;
+
+@media ${breakpoints.tablet} {
+    min-width: 400px;
+  }
+`
+
 export const CommentBubble = styled.p`
-  background: ${({ color }) => color || colors.ghostGray};
+  background: ${({ bgColor }) => bgColor || colors.ghostGray};
+  color: ${({ color }) => color && color};
   border-radius: 1.125rem;
   align-self: flex-start;
   justify-content: flex-start;
@@ -181,7 +236,10 @@ export const CommentBubble = styled.p`
   margin-bottom: 0;
   white-space: pre-wrap;
   text-align: left;
-  margin-right: 0.5rem;
+  margin-right: 0.25rem;
+  max-width: 90%;
+
+  ${({ adminReply }) => adminReply && adminBorder}
 `;
 
 export const CommentDate = styled.p`
@@ -195,11 +253,19 @@ export const StarWrapper = styled.div`
   text-align: left;
   flex-direction: row;
   justify-content: flex-start;
+  cursor: pointer;
 `;
 
 export const Reviews = styled.p`
   margin: 0;
   margin-left: 1rem;
+  border-bottom: 2px solid ${props => organizations[props.category].primary};
+  font-weight: 600;
+  color: ${props => organizations[`${props.category}`].primary};
+`;
+
+export const NoReview = styled.span`
+  color: ${colors.dustyGray1};
 `;
 
 export const VerifyPromo = styled.div`
@@ -236,10 +302,32 @@ export const AccountPromo = styled.div`
   color: ${colors.profileFontColor};
   display: flex;
   flex-direction: column;
+  background-image: url(${BlurredBackground});
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+
+  ::after {
+    content: " ";
+    position: absolute;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 1) 90%
+    );
+    width: 100%;
+    height: 1rem;
+    bottom: 0;
+  }
 `;
+
+export const BottomAccountPromo = styled(AccountPromo)`
+  background-image: none;
+`
 
 export const AccountLink = styled(VerifyLink)`
   padding-top: 1rem;
+  z-index: 2;
 `;
 
 export const AccountItem = styled.div`
@@ -285,23 +373,188 @@ export const Cancel = styled.p`
 
 export const ActionsDiv = styled.div`
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
-  max-width: 25rem;
+  width: 100%;
   margin: 0 auto;
+  margin-bottom: 1rem;
 `;
 
 export const ButtonsWrapper = styled(ActionsDiv)`
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
   width: 90%;
 `;
+
+export const HelpfulButtonWrapper = styled.div`
+  position: relative;
+  margin-right: ${props => (props.isMobile ? "0.5rem" : "2rem")};
+
+  &::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: ${({ number }) => number + "0%"};
+    left: 0;
+    z-index: 2;
+    bottom: 0;
+    pointer-events: none;
+    transition: 0.5s all ease;
+
+    @supports (mix-blend-mode: exclusion) {
+      mix-blend-mode: exclusion;
+      background: ${({ color }) => color};
+    }
+  }
+`;
+
 export const ActionsButton = styled(Button)`
   background: ${({ bgcolor }) => bgcolor};
   border: none;
   font-weight: 700;
   font-size: 1rem;
+  width: 100%;
   padding: 0.5rem 1rem;
   height: auto;
+  margin-right: ${props => (props.ismobile ? "0.5rem" : "2rem")};
+  position: relative;
+
+  transform: scale3d(
+    ${({ scale }) => scale || 1},
+    ${({ scale }) => scale || 1},
+    1
+  );
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    background-color: ${({ bgcolor }) => bgcolor};
+    border-color: ${({ bgcolor }) => bgcolor};
+  }
+`;
+
+export const UserTrade = styled.p`
+  font-style: italic;
+  margin-left: 10px;
+`;
+
+export const UserDiv = styled.div`
+  display: flex;
+`;
+
+export const UserAdditionalDetails = styled.div`
+  margin-top: -15px;
+
+  p {
+    font-size: 0.8rem;
+    color: ${colors.dustyGray2};
+  }
+`;
+
+export const ReplyButton = styled.p`
+  text-decoration: underline;
+  border: none;
+  background: none;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  color: ${({ color }) => color};
+  margin: 0.5rem;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+`;
+
+export const ActionButton = styled.button`
+  background: ${({ color }) => color};
+  box-shadow: 0px 4px 13px rgba(173, 145, 183, 0.273438);
+  border-radius: 300px;
+  border: none;
+  padding: 0.5rem 0.5rem;
+  /* width: 96%; */
+  /* width: 10rem; */
+  width: 8.5rem;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  font-size: 12px;
+  font-weight: 700;
+  text-align: ${props => (props.isMobile ? "center" : "left")};
+  color: ${colors.white};
+  box-shadow: ${shadows.buttonShadow};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  position: relative;
+
+  @media ${breakpoints.mobileM} {
+    font-size: 12px;
+    width: 10rem;
+  }
+
+  @media ${breakpoints.mobileL} {
+    width: 11rem;
+    padding: 1rem 0.5rem;
+  }
+
+  @media ${breakpoints.tablet} {
+    width: 18rem;
+    height: 4.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+  &:active {
+    box-shadow: none;
+
+    ::after {
+      content: "";
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      background: ${colors.btnClick};
+      box-shadow: none;
+    }
+  }
+`;
+
+export const ContractorDiv = styled.div`
+  width: 100%;
+`;
+
+export const ContractorText = styled.p`
+  font-size: 18px;
+
+  letter-spacing: 0.3px;
+
+  color: ${colors.profileFontColor};
+
+  .contactor-name {
+    font-weight: 700;
+  }
+`;
+
+export const ContractorListLink = styled.span`
+  /* color: #1890ff; */
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+`;
+
+export const BorderedWrapper = styled.div`
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 5rem 0;
+  border: none;
+  min-height: calc(100vh - 5.5rem);
+
+  & > div {
+    max-width: 400px;
+    margin: 0 auto;
+    width: 80%;
+  }
+
+  @media ${breakpoints.tablet} {
+    border-left: 3px solid ${colors.heliotrope};
+    border-right: 3px solid ${colors.heliotrope};
+  }
 `;

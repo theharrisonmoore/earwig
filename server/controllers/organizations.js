@@ -1,15 +1,29 @@
 const boom = require("boom");
 
 const { addNew, getOrganizationByName } = require("../database/queries/organizations/");
+const emailAdminTheNewProfile = require("./../helpers/emails/emailAdminTheNewProfile");
 
-module.exports = async (req, res, next) => {
+const addNewOrg = async (req, res, next) => {
+  const { user } = req;
   const { name, category } = req.body;
-  const foundOrg = await getOrganizationByName(name);
-  if (foundOrg.length > 0) {
-    next(boom.conflict("organisation already exists"));
-  } else {
-    addNew({ name, category })
-      .then(addedOrg => res.json(addedOrg))
-      .catch(() => next(boom.badImplementation()));
+  // Todo: validate the name and category
+  if (!name || !category) {
+    next(boom.badRequest("Name is required"));
+  }
+  try {
+    const foundOrg = await getOrganizationByName(name);
+    if (foundOrg.length > 0) {
+      next(boom.conflict("organisation already exists"));
+    } else {
+      const addedOrg = await addNew({ name, category });
+      if (user.role !== "admin" && process.env.NODE_ENV === "production") {
+        await emailAdminTheNewProfile(user, addedOrg);
+      }
+      res.json(addedOrg);
+    }
+  } catch (error) {
+    next(boom.badImplementation(error));
   }
 };
+
+module.exports = addNewOrg;

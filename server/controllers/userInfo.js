@@ -7,8 +7,10 @@ module.exports = (req, res) => {
     awaitingReview: user.awaitingReview,
     userId: user.userId,
     points: user.points,
+    helpedUsers: user.helpedUsers,
     isAdmin: user.isAdmin,
     email: user.email,
+    city: user.city,
   };
   return res.json(userInfo);
 };

@@ -24,9 +24,14 @@ module.exports = (req, res, next) => {
     const { id } = decoded;
     return getUserById(id, true)
       .then((user) => {
+        if (!user) {
+          res.clearCookie("token");
+          return next(boom.unauthorized("credentials are not valid"));
+        }
+
         // put the user info in the req to be accessed in the next middlewares
         req.user = user;
-        next();
+        return next();
       }).catch(() => next(boom.badImplementation()));
   });
 };

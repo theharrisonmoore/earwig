@@ -13,6 +13,7 @@ const jobs = require("./jobs");
 const reviews = require("./reviews");
 const users = require("./users");
 const mailList = require("./mailList");
+const helpfulness = require("./helpfulness");
 
 // production databases
 const realOrganizations = require("./../productionData/organizations");
@@ -32,6 +33,7 @@ const buildDummyData = () => new Promise((resolve, reject) => {
       await comments();
       await answers();
       await mailList();
+      await helpfulness();
     })
     .then(resolve)
     .catch(reject);
@@ -60,7 +62,7 @@ const buildProdctionData = () => new Promise((resolve, reject) => {
 // if it is "test" that mean we run the the build script in terminal
 // invoke the build function
 
-if (process.env.NODE_ENV === "prod") {
+if (process.env.NODE_ENV === "production") {
   buildProdctionData().then(() => {
     // eslint-disable-next-line no-console
     console.log("Done!: Production DB has been built successfully");

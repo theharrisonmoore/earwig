@@ -11,9 +11,7 @@
 
 import React, { Component } from "react";
 
-import { EmailIcon, WhatsappIcon, TelegramIcon } from "react-share";
-
-import { organizations } from "./../../../theme";
+import { isMobileDevice } from "../../../helpers";
 
 import {
   ThankYouWrapper,
@@ -28,14 +26,35 @@ import {
   StyledLink,
   EmailShare,
   WhatsappShare,
-  TelegramShare
+  FbShare
 } from "./ThankYou.style";
 
+import whatsAppIcon from "../../../assets/whatsapp-logo.svg";
+import facebookMsgIcon from "../../../assets/messenger-logo.svg";
+import emailIcon from "../../../assets/email-logo.svg";
+
 export default class ThankYou extends Component {
+  fbSendBrowser = referralLink => {
+    if (isMobileDevice.any()) {
+      window.open(
+        "fb-messenger://share?link=" +
+          encodeURIComponent(referralLink) +
+          "&app_id=" +
+          encodeURIComponent("1065819443628486")
+      );
+    } else {
+      // eslint-disable-next-line no-undef
+      FB.ui({
+        method: "send",
+        link: referralLink
+      });
+    }
+  };
   render() {
     const { state } = this.props.history.location;
 
-    const orgType = state && this.props.history.location.state.orgType;
+    const { orgType } = state && state;
+
     if (!orgType) {
       return this.props.history.goBack();
     }
@@ -48,9 +67,6 @@ export default class ThankYou extends Component {
     const orgName = state && state.orgName ? state.orgName : "an organization";
 
     const img = require(`./../../../assets/thank-you-${orgType}.svg`);
-    const otherOrgs = ["agency", "worksite", "payroll", "company"].filter(
-      org => org !== orgType
-    );
 
     return (
       <ThankYouWrapper>
@@ -58,9 +74,17 @@ export default class ThankYou extends Component {
           <Image src={img} />
           <Heading>You did it!</Heading>
           <BoldPargraph>
-            Your review will be seen by this {orgType} and other workers who
-            rely on reviews like yours
+            Your review will be seen by everyone in the industry and other
+            workers who rely on reviews like yours
           </BoldPargraph>
+
+          <BoldPargraph>
+            <strong>
+              Don’t worry, only your earwig Username is visible beside your
+              review
+            </strong>
+          </BoldPargraph>
+
           <SubHeading>Each time you give a review, you</SubHeading>
           <List>
             <li>Create awareness</li>
@@ -73,40 +97,34 @@ export default class ThankYou extends Component {
             <EmailShare
               url={orgURL}
               subject={`I've reviewed ${orgName} on earwig`}
+              category={orgType}
             >
-              <EmailIcon
-                size={40}
-                round
-                iconBgStyle={{ fill: organizations[orgType].primary }}
-              />
+              <img src={emailIcon} alt="" />
+              Email
             </EmailShare>
             <WhatsappShare
               url={orgURL}
               title={`I've reviewed ${orgName} on earwig`}
               separator=": "
+              category={orgType}
             >
-              <WhatsappIcon
-                size={40}
-                round
-                iconBgStyle={{ fill: organizations[orgType].primary }}
-              />
+              <img src={whatsAppIcon} alt="" />
+              WhatsApp
             </WhatsappShare>
-            <TelegramShare
-              url={orgURL}
-              title={`I've reviewed ${orgName} on earwig`}
+
+            <FbShare
+              category={orgType}
+              onClick={() => this.fbSendBrowser(orgURL)}
             >
-              <TelegramIcon
-                size={40}
-                round
-                iconBgStyle={{ fill: organizations[orgType].primary }}
-              />
-            </TelegramShare>
+              <img src={facebookMsgIcon} alt="" />
+              Facebook
+            </FbShare>
           </IconWrapper>
           <SharePromo orgType={orgType}>
             Click one of the icons above to share privately with your colleagues
           </SharePromo>
-          <StyledLink to="search" orgType={orgType}>
-            Now review an {otherOrgs[0]}, {otherOrgs[1]} or {otherOrgs[2]}
+          <StyledLink to={`/profile/${state.orgId}`} orgType={orgType}>
+            Go to the {orgType}'s profile
           </StyledLink>
         </ContentWrapper>
       </ThankYouWrapper>

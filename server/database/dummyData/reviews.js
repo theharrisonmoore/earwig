@@ -27,21 +27,16 @@ module.exports = async () => {
             text: "I faced the same thing",
           },
         ],
-        votes: [{
-          user: users[1],
-          points: 8,
-        }],
+
       },
       voiceReview: {
         audio: "audio/audio1.mp3", // to be updated when firebase storage is ready
-        replies: [{
-          user: users[1],
-          text: "you are right",
-        }],
-        votes: [{
-          user: users[1],
-          points: 5,
-        }],
+        replies: [
+          {
+            user: users[1],
+            text: "you are right",
+          },
+        ],
       },
       isVerified: true,
     },
@@ -61,10 +56,6 @@ module.exports = async () => {
             text: "Agree",
           },
         ],
-        votes: [{
-          user: users[0],
-          points: 10,
-        }],
       },
       isVerified: true,
     },
@@ -85,10 +76,15 @@ module.exports = async () => {
             text: "yeah that's right",
           },
         ],
-        votes: [{
-          user: users[1],
-          points: 8,
-        }],
+      },
+      voiceReview: {
+        audio: "audio/audio1.mp3", // to be updated when firebase storage is ready
+        replies: [
+          {
+            user: users[1],
+            text: "you are right",
+          },
+        ],
       },
       isVerified: true,
     },
@@ -108,10 +104,6 @@ module.exports = async () => {
             text: "yeah that's right",
           },
         ],
-        votes: [{
-          user: users[0],
-          points: 8,
-        }],
       },
       isVerified: true,
     },
@@ -132,10 +124,6 @@ module.exports = async () => {
             text: "yeah that's right",
           },
         ],
-        votes: [{
-          user: users[1],
-          points: 8,
-        }],
       },
       isVerified: true,
       siteImages: ["site-images1.png", "site-images2.png"],
@@ -156,10 +144,6 @@ module.exports = async () => {
             text: "yeah that's right",
           },
         ],
-        votes: [{
-          user: users[0],
-          points: 5,
-        }],
       },
       isVerified: false,
       siteImages: ["site-images3.png", "site-images4.png"],
@@ -181,10 +165,6 @@ module.exports = async () => {
             text: "yeah that's right",
           },
         ],
-        votes: [{
-          user: users[1],
-          points: 5,
-        }],
       },
       isVerified: true,
     },
@@ -204,10 +184,6 @@ module.exports = async () => {
             text: "yeah that's right",
           },
         ],
-        votes: [{
-          user: users[0],
-          points: 5,
-        }],
       },
       isVerified: true,
     },

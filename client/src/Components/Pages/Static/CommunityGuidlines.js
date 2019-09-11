@@ -14,7 +14,7 @@ import { TERMS_OF_USE_URL } from "./../../../constants/naviagationUrls";
 export default class CommunityGuidlines extends Component {
   render() {
     return (
-      <Wrapper>
+      <Wrapper style={{ paddingTop: "3rem" }}>
         <ContentWrapper>
           <SmallTitle>EARWIG</SmallTitle>
           <SmallTitle>COMMUNITY GUIDELINES</SmallTitle>
@@ -24,15 +24,19 @@ export default class CommunityGuidlines extends Component {
                 <Li>
                   These Community Guidelines set out the rules you must follow
                   if you wish to submit any content to our website (located at ​
-                  <UnderlinedLink to="/">earwig </UnderlinedLink>
+                  <UnderlinedLink target="_blank" to="/">
+                    earwig{" "}
+                  </UnderlinedLink>
                   ).
                 </Li>
                 <Li>
                   By using the earwig Platform ​ you accept, and agree to abide
                   by, these Community Guidelines, which supplement and form part
                   of the{" "}
-                  <UnderlinedLink to={TERMS_OF_USE_URL}>​Terms</UnderlinedLink>​
-                  .
+                  <UnderlinedLink target="_blank" to={TERMS_OF_USE_URL}>
+                    ​Terms
+                  </UnderlinedLink>
+                  ​ .
                 </Li>
                 <SubTitle
                   left

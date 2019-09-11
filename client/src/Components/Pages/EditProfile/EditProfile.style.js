@@ -4,14 +4,20 @@ import { Label, Button } from "./../../Common/Formik/Formik.style";
 
 import Icon from "./../../Common/Icon/Icon";
 
-import { colors, shadows, gradient, borders } from "./../../../theme";
+import {
+  colors,
+  shadows,
+  gradient,
+  borders,
+  breakpoints
+} from "./../../../theme";
 
 export const EditIcon = styled(Icon)`
   margin-right: 0.5rem;
 `;
 
 export const EditWrapper = styled.div`
-  width: 100%;
+  /* width: 100%;
   max-width: 60rem;
   margin: 0 auto;
   padding: 1.5rem;
@@ -19,6 +25,26 @@ export const EditWrapper = styled.div`
 
   & > div:first-child {
     padding-top: 0;
+  } */
+`;
+
+export const BorderedWrapper = styled.div`
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 5rem 0;
+  border: none;
+  min-height: calc(100vh - 5.5rem);
+
+  & > div {
+    max-width: 400px;
+    margin: 0 auto;
+    width: 80%;
+  }
+
+  @media ${breakpoints.tablet} {
+    border-left: 3px solid ${colors.heliotrope};
+    border-right: 3px solid ${colors.heliotrope};
+    padding-top: 12rem;
   }
 `;
 
@@ -32,11 +58,69 @@ export const Section = styled.div`
   border-bottom: ${borders.commentBox}};
 `;
 
-export const Title = styled.h2`
-  font-weight: 900;
-  font-size: 1.125rem;
+export const TopSection = styled(Section)`
+  border-top: ${borders.commentBox}};
+`;
+
+export const Title = styled.h1`
+  font-size: 2.125rem;
+  font-weight: 500;
   color: ${colors.profileFontColor};
+  margin-bottom: 2rem;
+`;
+
+export const Option = styled.p`
+  font-size: 1.125rem;
   margin: 0;
+  color: ${colors.profileFontColor};
+  font-weight: 500;
+`;
+
+export const SubTitle = styled.h2`
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: ${colors.profileFontColor};
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 1.5rem;
+`;
+
+export const Paragraph = styled.p`
+  color: ${colors.profileFontColor};
+  margin-bottom: 3rem;
+  font-size: 1rem;
+`;
+
+export const ErrorMessage = styled.p.attrs()`
+  color: ${colors.red};
+  font-weight: 100;
+  font-size: 1rem;
+  text-align: center;
+  width: 100%;
+`;
+
+export const CurrentValue = styled.p`
+  text-align: left;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+`;
+
+export const Input = styled.input`
+  background: ${colors.white};
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 0.5rem 0.75rem;
+  display: block;
+  width: 100%;
+  border: 1px solid ${colors.inputBorder};
+  outline: none;
+`;
+
+export const InputLabel = styled.label`
+  font-weight: 700;
+  text-align: left;
+  width: 100%;
+  display: block;
 `;
 
 export const Row = styled.div`
@@ -59,13 +143,13 @@ export const Row = styled.div`
 export const EditButton = styled.button`
   font-weight: 900;
   font-size: 1rem;
-  color: ${colors.profileFontColor};
+  color: ${colors.purpleLinks};
   background: none;
   border: none;
   outline: none;
   cursor: pointer;
   margin-bottom: 0;
-  text-decoration: underline;
+  text-decoration: none;
 
   &:active,
   &:focus,
@@ -160,13 +244,13 @@ export const UnVerifiedTitle = styled.h1`
   }
 `;
 
-export const Paragraph = styled.p`
-  font-weight: 500;
-  font-size: 1rem;
-  text-align: left;
-  color: ${colors.gray};
-  margin-top: 1rem;
-`;
+// export const Paragraph = styled.p`
+//   font-weight: 500;
+//   font-size: 1rem;
+//   text-align: left;
+//   color: ${colors.gray};
+//   margin-top: 1rem;
+// `;
 
 export const UnVerifiedButton = styled(Link)`
   border-radius: 5px;
@@ -203,8 +287,18 @@ export const VerifiedLabelWrapper = styled.div`
 export const Error = styled.p`
   position: absolute;
   transform: translate(-50%, -50%);
-  top: 3rem;
+  top: 2rem;
   left: 50%;
   color: #ff4d4f;
   font-size: 16px;
+`;
+
+export const FieldError = styled.p`
+  margin: 0;
+  text-align: left;
+  color: ${colors.red};
+`;
+
+export const InputDiv = styled.div`
+  /* margin-bottom: 2rem; */
 `;

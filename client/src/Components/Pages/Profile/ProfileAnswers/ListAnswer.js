@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import {
   ListWrapper,
@@ -35,7 +36,7 @@ export default class ListAnswer extends Component {
   render() {
     const { question, toggleComments, category } = this.props;
 
-    if (question.question.profileText === "Payroll charge") {
+    if (question.profileText === "Payroll charge") {
       return (
         <ListWrapper>
           <ListComment>
@@ -56,20 +57,34 @@ export default class ListAnswer extends Component {
           </ListComment>
         </ListWrapper>
       );
+    } else if (question.profileText === "Recommended nearby shops and cafés") {
+      return (
+        <ListWrapper style={{ paddingLeft: "2rem" }}>
+          {question.answers.map((answer, index) => (
+            <ListItem color={question.category} key={index}>
+              - {answer.answer}
+            </ListItem>
+          ))}
+        </ListWrapper>
+      );
     } else {
       return (
         <ListWrapper>
           {question.answers.map((answer, index) => (
             <ListItem
               color={
-                question.question.profileText ===
-                "Works with the following agencies"
+                question.profileText === "Works with the following agencies"
                   ? "agency"
-                  : question.question.category
+                  : question.category
               }
               key={index}
             >
-              {answer.answer}
+              <Link
+                to={`/profile/${answer.answer._id}`}
+                style={{ color: "inherit" }}
+              >
+                {answer.answer.name}
+              </Link>
             </ListItem>
           ))}
         </ListWrapper>

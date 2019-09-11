@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import {
   ListWrapper,
@@ -15,59 +16,67 @@ export default class PayrollAnswer extends Component {
   };
 
   sortPayroll = questions => {
-    // create an object of the payrolls mentioned and the amounts
+    const obj = {};
+    questions.forEach(question => {
+      if (question.profileType === "payrollList") {
+        question.answers.forEach(ans => {
+          if (!obj[ans.answer._id]) {
+            obj[ans.answer._id] = {
+              name: ans.answer.name,
+              payrollId: ans.answer._id,
+              perSheet: 0,
+              reviewId: [ans.review],
+              count: 0
+            };
+          } else {
+            obj[ans.answer._id].reviewId = [
+              ...obj[ans.answer._id].reviewId,
+              ans.review
+            ];
+          }
+        });
+      }
+    });
 
-    // filter the payroll question
-
-    let payrolls = [];
-
-    questions
-      .filter(question => question.question.profileType === "payrollList")
-      .map(question =>
-        question.answers.map(answer =>
-          payrolls.push([answer.review, answer.answer])
-        )
-      );
-
-    const payrollAnswers = payrolls.map(payroll => payroll[1]);
-
-    let payrollCount = payrollAnswers.reduce((acc, payroll) => {
-      acc[payroll] = 0;
-      return acc;
-    }, Object.create(null));
-
-    let payrollFees = [];
-
-    questions
-      .filter(question => question.question.profileType === "payrollSubList")
-      .map(question =>
-        question.answers.map(answer =>
-          payrollFees.push([answer.review, answer.answer])
-        )
-      );
-
-    payrolls.forEach(payroll =>
-      payrollFees.forEach(fee => {
-        if (payroll[0] === fee[0]) payrollCount[payroll[1]] += fee[1];
-      })
-    );
-
-    return Object.entries(payrollCount);
+    Object.entries(obj).forEach(payroll => {
+      const [payrollId, details] = payroll;
+      questions.forEach(question => {
+        if (question.profileType === "payrollSubList") {
+          question.answers.forEach(cost => {
+            if (details.reviewId.includes(cost.review)) {
+              obj[payrollId].perSheet += cost.answer;
+              obj[payrollId].count += 1;
+            }
+          });
+        }
+      });
+    });
+    return obj;
   };
 
   render() {
     const { questions } = this.props;
-
     const payrollList = this.sortPayroll(questions);
 
     return (
       <ListWrapper>
-        {payrollList.map((item, index) => (
-          <PayrollListRow key={index} color="payroll">
-            <PayrollName>{item[0]}</PayrollName>
-            <PayrollFee>£{item[1]} fee per timesheet</PayrollFee>
-          </PayrollListRow>
-        ))}
+        {Object.values(payrollList).map(
+          ({ name, count, perSheet, payrollId }, index) => {
+            const cost = perSheet / count;
+            return (
+              <PayrollListRow key={index} color="payroll">
+                <PayrollName>
+                  <Link to={`/profile/${payrollId}`}>{name}</Link>
+                </PayrollName>
+                {cost ? (
+                  <PayrollFee>£{cost} fee per timesheet</PayrollFee>
+                ) : (
+                  <PayrollFee>No data</PayrollFee>
+                )}
+              </PayrollListRow>
+            );
+          }
+        )}
       </ListWrapper>
     );
   }

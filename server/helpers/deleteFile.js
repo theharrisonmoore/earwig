@@ -4,6 +4,10 @@ module.exports = fileName => new Promise(async (resolve, reject) => {
   try {
     const bucket = admin.storage().bucket();
 
+    if (process.env.NODE_ENV === "test") {
+      return resolve();
+    }
+
     const [exists] = await bucket
       .file(fileName)
       .exists();
@@ -16,8 +20,8 @@ module.exports = fileName => new Promise(async (resolve, reject) => {
       .file(fileName)
       .delete();
 
-    resolve();
+    return resolve();
   } catch (error) {
-    reject(error);
+    return reject(error);
   }
 });

@@ -23,6 +23,18 @@ export const breakpoints = {
   desktopL: `(min-width: ${size.desktop})`
 };
 
+export const breakpointsMax = {
+  mobileS: `(max-width: ${size.mobileS})`,
+  mobileM: `(max-width: ${size.mobileM})`,
+  mobileL: `(max-width: ${size.mobileL})`,
+  mobileXL: `(max-width: ${size.mobileXL})`,
+  tablet: `(max-width: ${size.tablet})`,
+  laptop: `(max-width: ${size.laptop})`,
+  laptopL: `(max-width: ${size.laptopL})`,
+  desktop: `(max-width: ${size.desktop})`,
+  desktopL: `(max-width: ${size.desktop})`
+};
+
 const colorCodes = {
   // organizations
   heliotrope: "#8B51FC",
@@ -51,6 +63,7 @@ const colorCodes = {
 
   // transparent
   ghostWhite: "rgba(255, 255, 255, 0.7)",
+  btnClick: "rgba(255, 255, 255, 0.3)",
   ghostGray: "rgba(28, 15, 19, 0.0514915)"
 };
 
@@ -103,30 +116,19 @@ export const shadows = {
 
 // gradient colors
 export const gradient = {
-  earwig: `linear-gradient(100.91deg, ${colorCodes.heliotrope} 41.92%, ${
-    colorCodes.dodgerBlue
-  } 71.11%)`,
+  earwig: `linear-gradient(100.91deg, ${colorCodes.heliotrope} 41.92%, ${colorCodes.dodgerBlue} 71.11%)`,
 
-  fade: `linear-gradient(96.06deg, ${colorCodes.heliotrope} 18.26%, ${
-    colorCodes.cocoaBrown
-  }  35.62%, rgba(55, 182, 253, 0.353591) 50.96%, rgba(55, 182, 253, 0) 68.85%)`,
-  blackFade: `linear-gradient(96.06deg, ${
-    colorCodes.cocoaBrown
-  } 18.26%, rgba(42, 30, 34, 0) 90%)`,
-  multiFade: `linear-gradient(95.7deg, ${colorCodes.heliotrope} -0.49%, ${
-    colorCodes.cocoaBrown
-  }  16.44%, ${colorCodes.webOrange} 32.65%, ${
-    colorCodes.cocoaBrown
-  } 48.14%, rgba(42, 30, 34, 0) 68.67%)`,
-  adminBackground: `linear-gradient(to bottom, ${colorCodes.athens1} 0%,  ${
-    colorCodes.athens2
-  } 100%)`
+  fade: `linear-gradient(96.06deg, ${colorCodes.heliotrope} 18.26%, ${colorCodes.cocoaBrown}  35.62%, rgba(55, 182, 253, 0.353591) 50.96%, rgba(55, 182, 253, 0) 68.85%)`,
+  blackFade: `linear-gradient(96.06deg, ${colorCodes.cocoaBrown} 18.26%, rgba(42, 30, 34, 0) 90%)`,
+  multiFade: `linear-gradient(95.7deg, ${colorCodes.heliotrope} -0.49%, ${colorCodes.cocoaBrown}  16.44%, ${colorCodes.webOrange} 32.65%, ${colorCodes.cocoaBrown} 48.14%, rgba(42, 30, 34, 0) 68.67%)`,
+  adminBackground: `linear-gradient(to bottom, ${colorCodes.athens1} 0%,  ${colorCodes.athens2} 100%)`
 };
 
 export const borders = {
-  searchBox: `1px solid ${colors.lightGray}`,
+  searchBox: `2px solid ${colors.black}`,
   buttonBox: `1px solid ${colors.black}`,
-  commentBox: `1px solid ${colors.veryLightGray}`
+  commentBox: `1px solid ${colors.veryLightGray}`,
+  recording: `1px solid ${colors.red}`
 };
 
 export const pieColors = {
@@ -163,4 +165,43 @@ export const organizationIcons = {
   }
 };
 
+export const cookieStyles = {
+  general: {
+    background: `${colors.dodgerBlue}`,
+    color: `${colors.white}`,
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    fontSize: "16px",
+    fontWeight: "500",
+    fontFamily: "Roboto",
+    maxHeight: 155,
+    paddingRight: "10rem",
+    textAlign: "left"
+  },
+  contentStyle: {
+    border: "1px red solid"
+  },
+  button: {
+    background: `${colors.white}`,
+    color: `${colors.black}`,
+    fontSize: "16px",
+    borderRadius: 4,
+    border: `1px ${colors.white}`,
+    marginTop: "15px"
+    // marginTop: -8
+  },
+  buttonMobile: {
+    background: `${colors.white}`,
+    color: `${colors.black}`,
+    fontSize: "16px",
+    borderRadius: 4,
+    border: `1px ${colors.white}`,
+    marginTop: 0
+  },
+  link: {
+    textDecoration: "none",
+    cursor: "pointer"
+  }
+};
 //  font families to be added

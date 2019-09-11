@@ -14,15 +14,6 @@ const replySchema = new Schema({
   timestamps: true,
 });
 
-const voteSchema = new Schema({
-  user: {
-    type: ObjectId,
-    ref: "users",
-  },
-  points: Number,
-}, {
-  timestamps: true,
-});
 
 const reviewSchema = new Schema({
   organization: {
@@ -49,12 +40,10 @@ const reviewSchema = new Schema({
   overallReview: {
     text: String,
     replies: [replySchema],
-    votes: [voteSchema],
   },
   voiceReview: {
     audio: String,
     replies: [replySchema],
-    votes: [voteSchema],
   },
   isVerified: {
     type: Boolean,

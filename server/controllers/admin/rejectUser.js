@@ -6,6 +6,7 @@
  */
 
 const boom = require("boom");
+const rejectionEmail = require("./../../helpers/emails/rejectionEmail");
 
 const { updateUserById, getUserById } = require("./../../database/queries/user");
 const deleteFile = require("./../../helpers/deleteFile");
@@ -31,7 +32,17 @@ module.exports = ((req, res, next) => {
             // delete verification photo from google storage
             deleteFile(user.verificationPhoto)
               .then(() => {
-                res.send();
+                if (process.env.NODE_ENV !== "test") {
+                  // send rejection email
+                  rejectionEmail(user.email)
+                    .then(() => {
+                      res.json();
+                    }).catch(() => {
+                      next(boom.badImplementation());
+                    });
+                } else {
+                  res.json();
+                }
               })
               .catch((err) => {
                 if (err.message === "file is no longer available") {

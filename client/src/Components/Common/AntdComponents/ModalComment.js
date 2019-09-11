@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, Button, Input } from "antd";
+import axios from "axios";
 
 class ModalComment extends React.Component {
   state = {
@@ -21,17 +22,27 @@ class ModalComment extends React.Component {
     this.setState({ text: value });
   };
 
-  handleOk = () => {
-    if (this.props.comment) {
-      this.props.setFieldValue(
-        `comments[${this.props.number}]`,
-        this.state.text
-      );
+  handleOk = async () => {
+    const { number } = this.props;
+    const { category } = this.props;
+    let orgCategory = "";
+    if (category === "agency") {
+      orgCategory = "payroll";
+    } else if (category === "payroll") {
+      orgCategory = "agency";
     } else {
-      this.props.setFieldValue(
-        `questions[${this.props.number}]`,
-        this.state.text
-      );
+      orgCategory = category;
+    }
+
+    if (this.props.comment) {
+      this.props.setFieldValue(this.state.text, number);
+    } else {
+      await axios.post("/api/organizations", {
+        name: this.state.text,
+        active: false,
+        category: orgCategory
+      });
+      this.props.setFieldValue(this.state.text, number);
     }
     this.setState({
       visible: false,

@@ -24,11 +24,12 @@ import {
   LabelTitle
 } from "./Landing.style";
 
-import LogoImg from "./../../../assets/logo-white.png";
+import LogoBetaWhite from "./../../../assets/logo-beta-white.svg";
 
 import { colors } from "./../../../theme";
 
 import Icon from "./../../Common/Icon/Icon";
+import Button from "./../../Common/Button";
 
 import {
   StyledFormik as Formik,
@@ -36,16 +37,14 @@ import {
   StyledField as Field,
   StyledFormikErrorMessage as FormikErrorMessage,
   Label,
-  Button,
   GeneralErrorMessage,
   StyledField
 } from "./../../Common/Formik/Formik.style";
 
 import {
-  ADMIN,
-  SEARCH_URL,
   SIGNUP_URL,
-  RESET_PASSWORD_URL
+  RESET_PASSWORD_URL,
+  WELCOME_URL
 } from "./../../../constants/naviagationUrls";
 
 const initalValues = { email: "", password: "" };
@@ -67,8 +66,7 @@ export default class index extends Component {
       .post("/api/login", values)
       .then(({ data }) => {
         this.props.handleChangeState({ ...data, isLoggedIn: true });
-        const { isAdmin } = data;
-        this.props.history.push(isAdmin ? ADMIN : SEARCH_URL);
+        this.props.history.push(WELCOME_URL);
       })
       .catch(err => {
         this.setState({ error: err.response.data.error });
@@ -83,7 +81,7 @@ export default class index extends Component {
 
     return (
       <Wrapper>
-        <Logo src={LogoImg} alt="logo" isMobile={isMobile} />
+        <Logo src={LogoBetaWhite} alt="logo" isMobile={isMobile} />
         {isMobile || isTablet ? (
           <TopWrapper>
             <Title>Every voice counts</Title>
@@ -108,10 +106,9 @@ export default class index extends Component {
             <HalfDiv>
               <VideoWrapper>
                 <Video
-                  src="https://www.youtube.com/embed/9eBzZOwaTpw?controls=0"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
+                  src="https://www.youtube.com/embed/Z4F7iJeYgqE?controls=0"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
                 />
               </VideoWrapper>
             </HalfDiv>
@@ -139,16 +136,15 @@ export default class index extends Component {
                     id="password"
                   />
                 </Label>
-                <SmallLink to={RESET_PASSWORD_URL} disabled>
-                  Forgot password?
-                </SmallLink>
+                <SmallLink to={RESET_PASSWORD_URL}>Forgot password?</SmallLink>
                 {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
                 <Button
                   type="submit"
                   disabled={isSubmitting}
                   color={colors.white}
-                  background={colors.dodgerBlue}
+                  backgroundColor={colors.dodgerBlue}
                   border="none"
+                  loading={isSubmitting}
                 >
                   Log in
                 </Button>
@@ -161,7 +157,7 @@ export default class index extends Component {
           <Link to={SIGNUP_URL}>Create an account</Link>
         </p>
         <Icon icon="orWhite" margin="2rem 0 2rem 0" width="280" height="58" />
-        <Link to={SEARCH_URL}>Continue without an account</Link>
+        <Link to={WELCOME_URL}>Continue without an account</Link>
         {isMobile || isTablet ? (
           <VideoWrapper style={{ marginTop: "3rem" }}>
             <Video
@@ -171,9 +167,7 @@ export default class index extends Component {
               allowfullscreen
             />
           </VideoWrapper>
-        ) : (
-          <></>
-        )}
+        ) : null}
         <WhiteWrapper>
           <SectionTitle>earwig's promises</SectionTitle>
           <PromiseParagraph>

@@ -5,7 +5,9 @@ import {
   ContentWrapper,
   MainIcon,
   PageTitle,
-  LargeLink
+  LargeLink,
+  BlueDiv,
+  PurpleDiv
 } from "./../../Common/StaticPages.style";
 
 import {
@@ -19,18 +21,30 @@ export default class PrivacyAndTerms extends Component {
   render() {
     return (
       <Wrapper>
-        <ContentWrapper>
+        <PurpleDiv width="25%" />
+        <BlueDiv width="25%" />
+        <ContentWrapper
+          style={{ maxWidth: "32rem", margin: "0 auto", paddingTop: "6rem" }}
+        >
           <PageTitle>Privacy & terms</PageTitle>
           <MainIcon src={paperIcon} />
           <LargeLink
+            purpleLinks
+            target="_blank"
             to={COMMUNITY_GUIDELINES_URL}
             style={{ marginTop: "40px" }}
           >
             earwig Community Guidelines
           </LargeLink>
-          <LargeLink to={TERMS_OF_USE_URL}>Terms of Use</LargeLink>
-          <LargeLink to={PRIVACY_URL}>Privacy Policy</LargeLink>
-          <LargeLink to={COOKIES_POLICY_URL}>Cookies Policy</LargeLink>
+          <LargeLink purpleLinks target="_blank" to={TERMS_OF_USE_URL}>
+            Terms of Use
+          </LargeLink>
+          <LargeLink purpleLinks target="_blank" to={PRIVACY_URL}>
+            Privacy Policy
+          </LargeLink>
+          <LargeLink purpleLinks target="_blank" to={COOKIES_POLICY_URL}>
+            Cookies Policy
+          </LargeLink>
         </ContentWrapper>
       </Wrapper>
     );

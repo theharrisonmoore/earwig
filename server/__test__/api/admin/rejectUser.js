@@ -38,11 +38,10 @@ describe("Tesing for reject user", () => {
           .send({ id: awaitingReviewUser._id })
           .set("Cookie", [token])
           .expect("Content-Type", /json/)
-          .expect(422)
+          .expect(200)
           .end(async (err, res) => {
             expect(res).toBeDefined();
             expect(res.body).toBeDefined();
-            expect(res.body.error).toMatch("file is no longer available");
             done(err);
           });
       });

@@ -11,14 +11,10 @@ module.exports = fileName => new Promise(async (resolve, reject) => {
     const bucket = admin.storage().bucket();
 
     // Get a v4 signed URL for reading the file
-    const [url] = await bucket
-      .file(fileName)
-      .getSignedUrl(options);
+    const [url] = await bucket.file(fileName).getSignedUrl(options);
 
     return resolve(url);
   } catch (error) {
     return reject(error);
   }
-
-  // [END storage_generate_signed_url_v4]
 });

@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { colors, organizations, size } from "../../../theme";
+import {
+  colors,
+  organizations,
+  size,
+  breakpoints,
+  breakpointsMax
+} from "../../../theme";
 
 export const ReviewWrapper = styled.div`
   font-family: "Roboto", sans-serif;
@@ -10,47 +16,27 @@ export const ReviewWrapper = styled.div`
   .review-body {
     max-width: 40rem;
     margin: 0 auto;
-    padding-top: 10rem;
+    padding-top: 8rem;
 
     h2 {
       color: ${colors.profileFontColor};
+    }
+
+    @media (max-width: ${size.mobileL}) {
+      padding-top: 10rem;
+    }
+
+    @media (max-width: ${size.mobileS}) {
+      padding-top: 11rem;
     }
   }
 `;
 
 /* phone styles */
-export const HeaderPhone = styled.section`
-  width: 100%;
-  background-color: ${props => organizations[props.orgType].primary};
-  color: ${colors.white};
-  font-size: 1.25rem;
-  font-weight: 400;
-  padding: 0.5rem 2rem;
-  padding-left: 3rem;
-  overflow: hidden;
-  position: fixed;
-  z-index: 100;
-  max-height: 6.5rem;
-
-  @media (max-width: ${size.mobileL}) {
-    font-size: 1rem;
-    padding-left: 3rem;
-  }
-
-  @media (min-width: ${size.tablet}) {
-    display: none;
-    text-align: center;
-  }
-`;
 
 export const DetailsDiv = styled.div`
   padding-top: 1rem;
   border-bottom: 1px solid;
-`;
-
-export const ContentPhone = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 export const ImageBoxPhone = styled.div`
@@ -61,36 +47,57 @@ export const ImageBoxPhone = styled.div`
 
 export const OrganizationPhone = styled.div`
   display: flex;
+  width: 100%;
 `;
 
 /* desktop */
 
 export const Header = styled.section`
   width: 100%;
+  display: flex;
+  justify-content: center;
   background-color: ${props => organizations[props.orgType].primary};
   color: ${colors.white};
   font-size: 1.25rem;
   font-weight: 400;
-  padding: 1rem 2rem 0;
-  padding-left: 3rem;
-  overflow: hidden;
+  margin: 0;
   position: fixed;
   z-index: 100;
 
   @media (max-width: ${size.mobileL}) {
     font-size: 1rem;
-    padding-left: 3rem;
-  }
-
-  @media (max-width: ${size.tablet}) {
-    display: none;
-    text-align: center;
   }
 `;
 
 export const Content = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0.8rem;
+  width: 100%;
+  /* max-width: 80vw; */
+  position: relative;
+
+  /* @media ${breakpointsMax.mobileS} {
+    padding: 0;
+    font-size: 0.9rem;
+  }
+
+  @media ${breakpointsMax.mobileL} {
+    max-width: 100vw;
+    padding: 1rem;
+  }
+
+  @media ${breakpoints.laptop} {
+    max-width: 60vw;
+  }
+
+  @media ${breakpoints.laptopL} {
+    max-width: 45vw;
+  }
+
+  @media ${breakpoints.desktop} {
+    max-width: 40vw;
+  } */
 `;
 
 export const ImageBox = styled.div`
@@ -106,6 +113,11 @@ export const Image = styled.img`
 export const Organization = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 34rem;
+
   div {
     display: flex;
     align-items: center;
@@ -122,28 +134,34 @@ export const Headline = styled.h1`
 
 export const Paragraph = styled.p`
   margin-bottom: 0;
-  font-size: 14px;
+  margin: 0 auto;
+  margin-top: auto;
+  font-size: 1rem;
   font-weight: 400;
+  ${({ cancel }) => (cancel ? "cursor: pointer;" : "")}
+  ${({ cancel }) => (cancel ? "line-height: 3;" : "")}
+  ${({ cancel }) => (cancel ? "text-decoration: underline" : "")};
+  ${({ cancel }) => (cancel ? "position: absolute" : "")};
+  font-weight:${({ bold }) => (bold ? "700" : "normal")};
+  text-transform:${({ capitalized }) => (capitalized ? "capitalize" : "none")};
 
-  @media (min-width: ${size.tablet}) {
-    font-size: 16px;
+ @media (max-width: ${size.mobileL}) {
+  ${({ cancel }) => (cancel ? "margin-top: 0;" : "")}
+  ${({ cancel }) => (cancel ? "line-height: 1.8;" : "")}
+  ${({ cancel }) => (cancel ? "position: relative" : "")};
   }
 `;
 
-export const OrgName = styled.h2`
+export const OrgName = styled.p`
   margin-bottom: 0;
-  font-weight: 900;
-  font-size: 1.375rem;
+  font-weight: 800;
+  font-size: 1.1rem;
   color: ${colors.white};
   text-transform: capitalize;
 
   @media (max-width: ${size.mobileL}) {
-    font-size: 1.1rem;
-    font-weight: 700;
-  }
-  @media (max-width: ${size.mobileS}) {
-    font-size: 0.8rem;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 600;
   }
 `;
 
@@ -160,6 +178,14 @@ export const ReviewTime = styled.p`
 export const FormWrapper = styled.div`
   width: 85%;
   margin: 0 auto;
+
+  @media ${breakpointsMax.mobileS} {
+    margin-top: -10px;
+  }
+
+  @media ${breakpointsMax.mobileL} {
+    margin-top: -50px;
+  }
 `;
 
 export const UserAgreement = styled.div``;
@@ -177,9 +203,20 @@ export const AgreementLabel = styled.label`
 `;
 
 export const CheckboxWrapper = styled.div`
-  display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  .ant-checkbox-wrapper {
+    display: flex;
+  }
+
+  .ant-checkbox {
+    margin-top: 6px;
+  }
+
+  .ant-checkbox-wrapper + span,
+  .ant-checkbox + span {
+    margin-left: 10px;
+  }
 `;
 
 export const SubmitButton = styled.button`

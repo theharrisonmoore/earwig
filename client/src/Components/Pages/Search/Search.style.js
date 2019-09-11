@@ -22,89 +22,87 @@ export const classNames = {
 };
 
 export const AutosuggestWrapper = styled.div.attrs(classNames)`
-position: relative;
-width: ${props => props.width};
-outline: none;
-
-
-.${classNames.container} {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.${classNames.containerOpen} {
-  border: ${borders.searchBox};
-  box-shadow: ${shadows.searchShadow};
-  border-radius: 10px;
-  height: ${props => props.height};
-  padding: 10px 20px;
-  font-weight: 300;
-  font-size: 1rem;
+  /* width: ${props => props.width}; */
   width: 100%;
-}
-.${classNames.containerFocussed} {
   outline: none;
-}
-
-input {
-  text-indent: 45px;
-}
-
-.${classNames.containerInputOpen} {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-.${classNames.suggestionsContainer} {
-  display: none;
-}
-.${classNames.suggestionsContainerOpen} {
-  display: block;
-  position: absolute;
-  margin-top: ${props => props.height};
-  width: 100%;
-  z-index: 2;
-  background-color: ${colors.white};
-  max-height: 80vh;
-  overflow-y: auto;
-}
-.${classNames.suggestionsList} {
-}
-.${classNames.suggestions} {
-  box-shadow: ${shadows.autocompleteSuggestionShadow};
-  opacity: 0.75;
-  transition: all ease 0.2s;
-
-  :hover, :active, :focus {
-    opacity: 1;
+  .${classNames.container} {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-}
-.${classNames.suggestionHighlighted} {
-  box-shadow: ${shadows.autocompleteSuggestionShadow};
-  opacity: 0.75;
-  transition: all ease 0.2s;
-
-  :hover, :active, :focus {
-    opacity: 1;
+  .${classNames.containerOpen} {
+    border: ${borders.searchBox};
+    height: ${props => props.height};
+    padding: 10px 20px;
+    font-weight: 300;
+    font-size: 1rem;
+    width: 100%;
   }
-}
-@media ${breakpoints.tablet} {
-
+  .${classNames.containerFocussed} {
+    outline: none;
+  }
+  input {
+    text-indent: ${props => (props.noIcon ? "0px" : "45px")};
+  }
+  .${classNames.containerInputOpen} {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .${classNames.suggestionsContainer} {
+    display: none;
+  }
   .${classNames.suggestionsContainerOpen} {
-    max-height: inherit;
+    display: block;
+    position: absolute;
+    margin-top: ${props => props.height};
+    width: 100%;
+    z-index: 2;
+    background-color: ${colors.white};
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .${classNames.suggestionsList} {
+  }
+  .${classNames.suggestions} {
+    box-shadow: ${shadows.autocompleteSuggestionShadow};
+    opacity: 0.75;
+    transition: all ease 0.2s;
+    :hover,
+    :active,
+    :focus {
+      opacity: 1;
+    }
+  }
+  .${classNames.suggestionHighlighted} {
+    box-shadow: ${shadows.autocompleteSuggestionShadow};
+    opacity: 0.75;
+    transition: all ease 0.2s;
+    :hover,
+    :active,
+    :focus {
+      opacity: 1;
+    }
+  }
+  @media ${breakpoints.tablet} {
+    .${classNames.suggestionsContainerOpen} {
+      max-height: inherit;
+    }
   }
 `;
 
 export const IconDiv = styled.div`
-  width: 22px;
-  height: 22px;
-  background: url(${props => props.bgr}) no-repeat;
+  width: 32px;
+  height: 32px;
+  /* background: url(${props => props.bgr}) no-repeat; */
   object-fit: fill;
   position: absolute;
   top: ${props => props.iconTop};
   margin-left: 20px;
   cursor: pointer;
   z-index: 1;
+  right: 18px;
 `;
 
 export const SearchWrapper = styled.div`
@@ -112,7 +110,8 @@ export const SearchWrapper = styled.div`
   flex-direction: column;
   height: 100%;
   padding: 0;
-  padding-top: 4rem;
+  padding: ${props => props.isMobile ? "0 1rem 0 1rem" : "0 8rem 0 8rem"};
+  padding-top: ${props => props.isMobile ? "4rem" : "6rem"};
   margin: 0;
   align-items: center;
   li {
@@ -131,7 +130,7 @@ export const SearchLegendDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 2rem 1rem 2rem;
+  padding: ${props => props.isMobile ? "0" : "0 2rem 1rem 2rem"};
   width: 100%;
   max-width: 600px;
 `;
@@ -188,8 +187,7 @@ export const ReviewsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  width: 80%;
+  width: 100%;
 `;
 
 export const InnerDivLastReviews = styled.div`
@@ -272,6 +270,8 @@ export const ProfileLink = styled(Link)`
 
 export const AddProfileLink = styled(Link)`
   width: 100%;
+  background: none;
+  border: none;
 
   :hover {
     text-decoration: none;
@@ -286,7 +286,8 @@ export const HeadlineDiv = styled.div`
   color: ${colors.profileFontColor};
   h2 {
     font-size: 2rem;
-    font-weight: 350;
+    font-weight: 300;
+    line-height: 2.5rem;
   }
   p {
     font-style: italic;
@@ -342,4 +343,16 @@ export const AddWrapper = styled.div`
   margin: 0;
   align-items: center;
   padding-top: 4rem;
+`;
+
+export const HeaderParagraph = styled.p`
+  font-size: 1.5rem !important;
+  text-align: left;
+  font-style: normal !important;
+  /* max-width: 80%; */
+  /* margin: 0 auto; */
+  font-weight: 400;
+  line-height: 1.75rem !important;
+  margin-bottom: 0.5rem;
+  width: 100%
 `;

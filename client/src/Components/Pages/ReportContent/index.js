@@ -2,19 +2,25 @@ import React, { Component } from "react";
 import axios from "axios";
 import { message } from "antd";
 
-import { Wrapper, ContentWrapper } from "./../../Common/StaticPages.style";
+import {
+  Wrapper,
+  ContentWrapper,
+  PurpleDiv
+} from "./../../Common/StaticPages.style";
 
 import Loading from "./../../Common/AntdComponents/Loading.js";
 import SelectReason from "./SelectReason";
-import GiveInformation from "./GiveInformation";
 import Thanks from "./Thanks";
+import CancelNavbar from "./../../Common/CancelNavbar";
+import { colors } from "./../../../theme";
 
 import { API_REPORT_CONTENT_URL } from "./../../../apiUrls";
 export default class ReportContent extends Component {
   state = {
     reason: "",
-    step: 0,
-    description: ""
+    description: "",
+    activePage: "selectReason",
+    loading: false
   };
 
   componentDidMount() {
@@ -25,21 +31,6 @@ export default class ReportContent extends Component {
 
   handleSelect = reason => {
     this.setState({ reason });
-  };
-
-  handleCancel = () => {
-    this.props.history.goBack();
-  };
-
-  handleMove = direction => {
-    const { step, reason, description } = this.state;
-    if (step === 0 && direction === 1 && !reason) {
-      return message.error("Please select a reason!");
-    }
-    if (step === 1 && direction === 1 && !description) {
-      return message.error("Please fill in some information!");
-    }
-    this.setState({ step: this.state.step + direction });
   };
 
   handleTextAreaChange = ({ target }) => {
@@ -58,12 +49,10 @@ export default class ReportContent extends Component {
           reason: this.state.reason
         })
         .then(() => {
-          this.setState({ loading: false }, () => {
-            this.handleMove(1);
-          });
+          this.setState({ loading: false, activePage: "thanks" });
         })
         .catch(err => {
-          this.setState({ loading: true }, () => {
+          this.setState({ loading: false }, () => {
             const error =
               err.response && err.response.data && err.response.data.error;
             message.error(error || "Something went wrong");
@@ -73,26 +62,43 @@ export default class ReportContent extends Component {
   };
 
   render() {
-    const Components = [SelectReason, GiveInformation, Thanks];
-    const ActiveComponent = Components[this.state.step];
-
+    const { activePage, loading } = this.state;
+    const { history, isMobile } = this.props;
     return (
-      <Wrapper>
-        {this.state.loading ? (
-          <Loading />
-        ) : (
-          <ContentWrapper>
-            <ActiveComponent
-              handleCancel={this.handleCancel}
-              handleSelect={this.handleSelect}
-              handleMove={this.handleMove}
-              handleSubmit={this.handleSubmit}
-              handleTextAreaChange={this.handleTextAreaChange}
-              description={this.state.description}
-            />
-          </ContentWrapper>
-        )}
-      </Wrapper>
+      <>
+        <CancelNavbar
+          history={history}
+          title="Reporting content"
+          titleColor={colors.profileFontColor}
+        />
+        <Wrapper>
+          {this.state.loading ? (
+            <Loading />
+          ) : (
+            <>
+              <PurpleDiv width="50%" />
+              <ContentWrapper>
+                <div style={{ maxWidth: "300px", margin: "0 auto" }}>
+                  {activePage === "selectReason" ? (
+                    <SelectReason
+                      isMobile={isMobile}
+                      handleCancel={this.handleCancel}
+                      handleSelect={this.handleSelect}
+                      handleSubmit={this.handleSubmit}
+                      handleTextAreaChange={this.handleTextAreaChange}
+                      description={this.state.description}
+                      loading={loading}
+                      reason={this.state.reason}
+                    />
+                  ) : (
+                    <Thanks history={history} />
+                  )}
+                </div>
+              </ContentWrapper>
+            </>
+          )}
+        </Wrapper>
+      </>
     );
   }
 }

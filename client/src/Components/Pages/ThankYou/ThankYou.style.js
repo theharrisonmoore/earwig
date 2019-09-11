@@ -1,43 +1,67 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import {
-  EmailShareButton,
-  WhatsappShareButton,
-  TelegramShareButton
-} from "react-share";
+import { EmailShareButton, WhatsappShareButton } from "react-share";
 
 import { colors, organizations } from "./../../../theme";
 
 export const EmailShare = styled(EmailShareButton)`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   cursor: pointer;
-  opacity: 0.7;
-
+  background-color: ${({ category }) => organizations[category].primary};
+  width: 80px;
+  height: 55px;
+  border-radius: 6px;
+  color: ${colors.white};
+  font-weight: 700;
+  margin: 1rem auto;
   :hover,
   :active,
   :focus {
-    opacity: 1;
+    opacity: 0.8;
   }
 `;
 
 export const WhatsappShare = styled(WhatsappShareButton)`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   cursor: pointer;
-  opacity: 0.7;
-
+  background-color: ${({ category }) => organizations[category].primary};
+  width: 80px;
+  height: 55px;
+  border-radius: 6px;
+  color: ${colors.white};
+  font-weight: 700;
+  margin: 1rem auto;
   :hover,
   :active,
   :focus {
-    opacity: 1;
+    opacity: 0.8;
   }
 `;
 
-export const TelegramShare = styled(TelegramShareButton)`
+export const FbShare = styled.div`
+  display: flex;
+  justify-content: center;
   cursor: pointer;
-  opacity: 0.7;
+  flex-direction: column;
+  align-items: center;
+  height: 55px;
+  width: 80px;
+  border-radius: 6px;
+  background-color: ${({ category }) => organizations[category].primary};
+  color: ${colors.white};
+  font-weight: 700;
+  margin: 1rem auto;
 
   :hover,
   :active,
   :focus {
-    opacity: 1;
+    opacity: 0.8;
   }
 `;
 
@@ -85,7 +109,6 @@ export const List = styled.ul`
   opacity: 0.8;
   color: ${colors.profileFontColor};
   font-size: 1.125rem;
-  font-weight: 700;
 
   & li {
     text-align: left;
@@ -105,6 +128,7 @@ export const IconWrapper = styled.div`
   display: flex;
   justify-content: space-around;
   margin: 2rem auto 0.5rem;
+  flex-wrap: wrap;
 `;
 
 export const Icon = styled.i`
@@ -121,13 +145,14 @@ export const SharePromo = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 3.5rem;
+  /* height: 3.5rem; */
   border-radius: 6px;
   color: ${colors.profileFontColor};
   /* background-color: ${props => organizations[props.orgType].primary}; */
-  margin-bottom: 2.5rem;
+  /* margin-bottom: 2.5rem; */
   font-size: 1.25rem;
   font-weight: 700;
+  margin: 1.5rem auto
 `;
 
 export const StyledLink = styled(Link)`

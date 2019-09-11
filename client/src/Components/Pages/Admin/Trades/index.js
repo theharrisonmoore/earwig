@@ -1,7 +1,19 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import { Table, Input, Button, Popconfirm, Form, Icon, message } from "antd";
+import {
+  Table,
+  Input,
+  Button,
+  Popconfirm,
+  Form,
+  Icon,
+  message,
+  Select
+} from "antd";
+
+// styles
+import { AddTradeWrapper, AddTradeTitle } from "./Trades.style.js";
 
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
@@ -29,13 +41,23 @@ class EditableCell extends Component {
   };
 
   save = e => {
-    const { record, handleSave } = this.props;
+    const { record, handleEditSave } = this.props;
     this.form.validateFields((error, values) => {
       if (error && error[e.currentTarget.id]) {
         return;
       }
+      const oldName = record.trade;
+      const newName = values.trade;
+      const cleanNewName =
+        newName
+          .toLowerCase()
+          .charAt(0)
+          .toUpperCase() + newName.slice(1);
+
       this.toggleEdit();
-      handleSave({ ...record, ...values });
+      if (oldName !== cleanNewName) {
+        handleEditSave(oldName, cleanNewName);
+      }
     });
   };
 
@@ -47,44 +69,58 @@ class EditableCell extends Component {
       title,
       record,
       index,
-      handleSave,
+      handleEditSave,
       ...restProps
     } = this.props;
     return (
       <td {...restProps}>
         {editable ? (
-          <EditableContext.Consumer>
-            {form => {
-              this.form = form;
-              return editing ? (
-                <FormItem style={{ margin: 0 }}>
-                  {form.getFieldDecorator(dataIndex, {
-                    rules: [
-                      {
-                        required: true,
-                        message: `${title} is required.`
-                      }
-                    ],
-                    initialValue: record[dataIndex]
-                  })(
-                    <Input
-                      ref={node => (this.input = node)}
-                      onPressEnter={this.save}
-                      onBlur={this.save}
-                    />
-                  )}
-                </FormItem>
-              ) : (
-                <div
-                  className="editable-cell-value-wrap"
-                  style={{ paddingRight: 24 }}
-                  onClick={this.toggleEdit}
-                >
-                  {restProps.children}
-                </div>
-              );
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "space-between"
             }}
-          </EditableContext.Consumer>
+          >
+            <EditableContext.Consumer>
+              {form => {
+                this.form = form;
+                return editing ? (
+                  <FormItem style={{ margin: 0, width: "80%" }}>
+                    {form.getFieldDecorator(dataIndex, {
+                      rules: [
+                        {
+                          required: true,
+                          message: `${title} is required.`
+                        }
+                      ],
+                      initialValue: record[dataIndex]
+                    })(
+                      <Input
+                        ref={node => (this.input = node)}
+                        onPressEnter={this.save}
+                        onBlur={this.save}
+                      />
+                    )}
+                  </FormItem>
+                ) : (
+                  <div
+                    className="editable-cell-value-wrap"
+                    style={{ paddingRight: 24, width: "100%" }}
+                    onClick={this.toggleEdit}
+                  >
+                    {restProps.children}
+                  </div>
+                );
+              }}
+            </EditableContext.Consumer>
+            <Button
+              type="primary"
+              icon="edit"
+              ghost
+              onClick={this.toggleEdit}
+            />
+          </div>
         ) : (
           restProps.children
         )}
@@ -100,12 +136,11 @@ class EditableTable extends Component {
       {
         title: "Trade",
         dataIndex: "trade",
-        width: "30%",
         editable: true
       },
       {
-        title: "operation",
-        dataIndex: "operation",
+        title: "Action",
+        dataIndex: "Action",
         render: (text, record) =>
           this.state.dataSource.length >= 1 ? (
             <Popconfirm
@@ -122,7 +157,8 @@ class EditableTable extends Component {
 
     this.state = {
       dataSource: [],
-      count: 2
+      count: 2,
+      newTrades: []
     };
   }
   // end of constuctor
@@ -153,35 +189,63 @@ class EditableTable extends Component {
     // this.setState({ dataSource: dataSource.filter(item => item.key !== key) });
   };
 
-  handleAdd = () => {
-    // save to database then update the table
-    // key the trade id
-    // Modal
-    // axios.post("/api/admin/trades", trade);
-    const { count, dataSource } = this.state;
-    const newData = {
-      key: count,
-      trade: `Edward King ${count}`
-    };
-    this.setState({
-      dataSource: [...dataSource, newData],
-      count: count + 1
-    });
+  handleAddInput = value => {
+    this.setState({ newTrades: value });
   };
 
-  handleSave = row => {
-    const newData = [...this.state.dataSource];
-    const index = newData.findIndex(item => row.key === item.key);
-    const item = newData[index];
-    newData.splice(index, 1, {
-      ...item,
-      ...row
+  handleAdd = () => {
+    // save to database then update the table
+    const { newTrades } = this.state;
+
+    const tradesList = Object.values(newTrades);
+    const trades = tradesList.map(trade => {
+      const cleanedTrade =
+        trade
+          .toLowerCase()
+          .charAt(0)
+          .toUpperCase() + trade.slice(1);
+      return { title: cleanedTrade };
     });
-    this.setState({ dataSource: newData });
+
+    axios
+      .post("/api/admin/trades/add", { trades })
+      .then(() => {
+        this.fetchTrades();
+        this.setState({ newTrades: [] });
+        message.success("Trades succesfully added");
+      })
+      .catch(err => {
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        message.error(error || "Something went wrong");
+      });
+  };
+
+  handleEditSave = (oldName, newName) => {
+    // const newData = [...this.state.dataSource];
+    // const index = newData.findIndex(item => row.key === item.key);
+    // const item = newData[index];
+    // newData.splice(index, 1, {
+    //   ...item,
+    //   ...row
+    // });
+    // this.setState({ dataSource: newData });
+
+    axios
+      .post("/api/admin/trades/edit", { oldName, newName })
+      .then(() => {
+        this.fetchTrades();
+        message.success("Trade successfully edited");
+      })
+      .catch(err => {
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        message.error(error || "Something went wrong");
+      });
   };
 
   render() {
-    const { dataSource } = this.state;
+    const { dataSource, newTrades } = this.state;
     const components = {
       body: {
         row: EditableFormRow,
@@ -199,20 +263,25 @@ class EditableTable extends Component {
           editable: col.editable,
           dataIndex: col.dataIndex,
           title: col.title,
-          handleSave: this.handleSave
+          handleEditSave: this.handleEditSave
         })
       };
     });
     return (
       <div>
-        <Button
-          onClick={this.handleAdd}
-          type="primary"
-          style={{ marginBottom: 16 }}
-          disabled
-        >
-          Add a row
-        </Button>
+        <AddTradeWrapper>
+          <AddTradeTitle>Add new trades:</AddTradeTitle>
+          <Select
+            style={{ width: "100%", marginRight: "16px" }}
+            mode="tags"
+            placeholder="Hit enter for each trade"
+            onChange={this.handleAddInput}
+            value={newTrades}
+          />
+          <Button onClick={this.handleAdd} type="primary">
+            Submit
+          </Button>
+        </AddTradeWrapper>
         <Table
           components={components}
           rowClassName={() => "editable-row"}

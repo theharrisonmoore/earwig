@@ -6,7 +6,16 @@
 import React, { Component } from "react";
 import Autosuggest from "react-autosuggest";
 import { withRouter } from "react-router-dom";
+import axios from "axios";
+import createTrie from "autosuggest-trie";
+import { Rate, Spin } from "antd";
+import swal from "sweetalert2";
+
+import { PopOverWrapper } from "./index";
+
 import { ADD_PROFILE_URL } from "../../../constants/naviagationUrls";
+import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
+
 // styles
 import {
   AutosuggestWrapper,
@@ -29,35 +38,93 @@ import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
 import addItemIcon from "../../../assets/add-item-icon.svg";
 
 // UI helper functions
-import { SVGCreator, StarRateCreator } from "../../../helpers";
+import { SVGCreator } from "../../../helpers";
 
 import { organizationIcons, organizations } from "./../../../theme";
 
 // functions
 
 // gets called when a suggestion gets clicked
-export const getSuggestionValue = suggestion => suggestion.name;
+export const getSuggestionValue = suggestion => "";
 
 // compares the user's input value and the entries (organisations) and filters the data array accordingly
+
 export const getSuggestions = (value, organisationsArray) => {
-  const inputValue = value.trim().toLowerCase();
+  const inputValue = value.toLowerCase();
+
+  const inputValueChained = inputValue.replace(/\s/g, "");
+
+  const trie = createTrie(organisationsArray, "name");
 
   const suggestions = organisationsArray.filter(org =>
-    org.name.toLowerCase().includes(inputValue)
+    org.name
+      .toLowerCase()
+      .replace(/\s/g, "")
+      .includes(inputValueChained)
   );
 
+  // creates trie from value in data array
+  const trieMatches = trie.getMatches(`${value}`);
+
+  const suggestionsTogether = [...new Set(trieMatches.concat(suggestions))];
+
   // in case there are no suggestions still return a value -> enables the 'add' box to be rendered
-  if (suggestions.length === 0) {
+  if (suggestionsTogether.length === 0) {
     return [{ isEmpty: true }];
   }
 
-  return suggestions;
+  return suggestionsTogether;
 };
 
 class AutosuggestComponent extends Component {
   state = {
     value: "",
-    suggestions: []
+    suggestions: [],
+    isButton: false,
+    target: "profile",
+    isLoaded: true,
+    ismodalVisible: false,
+    errors: {},
+    confirmLoading: false
+  };
+
+  componentDidMount() {
+    const { target } = this.props.match.params;
+    const { isButton } = this.props;
+    this.setState({ isButton, target: target || "profile" });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { showOtherSections } = this.props;
+    if (prevProps.showOtherSections !== showOtherSections) {
+      if (showOtherSections) {
+        this.setState({ value: "" });
+      }
+    }
+  }
+
+  handleAddNewOrg = () => {
+    const { value } = this.state;
+    const { section } = this.props;
+    const newOrg = { name: value, category: section };
+    this.setState({ isLoaded: false });
+    axios
+      .post(API_ADD_ORGANIZATION_URL, newOrg)
+      .then(res => {
+        this.setState({ isLoaded: true });
+        this.props.storeOrg(res.data);
+      })
+      .catch(err => {
+        this.setState({ isLoaded: true });
+        swal.fire({
+          type: "error",
+          title: "Oops...",
+          text: `${value} already exists. Please contact us directly with your request.`,
+          footer: '<a href="/contact">Contact</a>'
+        });
+      });
+
+    this.setState({ value: "", suggestions: [] });
   };
 
   // functions for autosuggest component
@@ -98,82 +165,136 @@ class AutosuggestComponent extends Component {
   selectIconBgr = value => (value.length > 0 ? PlaceholderArrow : SearchIcon);
 
   // when users clicks on back arrow icon it deletes the input
-  delSearchInput = () => this.setState({ value: "" });
+  delSearchInput = () => {
+    const { handleCancelIconClick } = this.props;
+    this.setState({ value: "" });
+    if (this.props.origin !== "checkOrg") {
+      handleCancelIconClick();
+    }
+  };
 
   // renders individual suggestions
   renderSuggestion = suggestion => {
     // check if no suggestion is available and returns so that renderSuggestionsContainer function is still being called (gets deactivated otherwise)
+
+    // also need to check if button to see if we make it a link or not
+    // THIS RELATES TO THE ORGCHECK COMPONENT
+    const { isButton, storeOrg, noIcon, orgsIds } = this.props;
+    const { target } = this.state;
+    const url =
+      target === "profile"
+        ? `/profile/${suggestion._id}`
+        : `/organization/${suggestion._id}/review`;
+
+    const disabled =
+      target === "review" && orgsIds && orgsIds.includes(suggestion._id);
+
     if (suggestion.isEmpty) {
       return null;
     }
+
     return (
-      <ProfileLink to={`/profile/${suggestion._id}`}>
-        <SuggestionBox orgType={suggestion.category}>
-          <InnerDivSuggestions>
-            <SymbolDiv>
-              <Icon
-                icon="search"
-                height="1.5rem"
-                width="1.5rem"
-                margin="0 1rem 0 0"
-              />
-              <Icon
-                icon={suggestion.category}
-                height="1.5rem"
-                width="1.5rem"
-                margin="0 1rem 0 0"
-              />
-            </SymbolDiv>
-            <OrganisationDetailsDiv>
-              <h3
-                style={{
-                  color: organizations[suggestion.category].primary,
-                  textTransform: "capitalize"
-                }}
-              >
-                {suggestion.name}
-              </h3>
-              <ReviewDetailsDiv>
-                {StarRateCreator(suggestion)}
-                <p>{suggestion.totalReviews} reviews</p>
-              </ReviewDetailsDiv>
-            </OrganisationDetailsDiv>
-            <ArrowDiv>
-              {SVGCreator(`${organizationIcons[suggestion.category].arrow}`)}
-            </ArrowDiv>
-          </InnerDivSuggestions>
-        </SuggestionBox>
-      </ProfileLink>
+      <PopOverWrapper disabled={disabled}>
+        <ProfileLink
+          as={isButton || disabled ? "div" : undefined}
+          to={isButton || disabled ? undefined : url}
+          onClick={() => !disabled && isButton && storeOrg(suggestion)}
+        >
+          <SuggestionBox orgType={suggestion.category}>
+            <InnerDivSuggestions>
+              <SymbolDiv>
+                {!noIcon && (
+                  <Icon
+                    icon="search"
+                    height="1.5rem"
+                    width="1.5rem"
+                    margin="0 1rem 0 0"
+                  />
+                )}
+                <Icon
+                  icon={suggestion.category}
+                  height="1.5rem"
+                  width="1.5rem"
+                  margin="0 1rem 0 0"
+                />
+              </SymbolDiv>
+              <OrganisationDetailsDiv>
+                <h3
+                  style={{
+                    color: organizations[suggestion.category].primary,
+                    textTransform: "capitalize"
+                  }}
+                >
+                  {suggestion.name}
+                </h3>
+                <ReviewDetailsDiv>
+                  <Rate
+                    disabled
+                    value={suggestion.avgRatings || suggestion.value || 0}
+                    style={{
+                      color: `${organizations[suggestion.category].primary}`,
+                      fontSize: "0.75rem",
+                      textTransform: "capitalize"
+                    }}
+                    className="last-reviewed-star-rate"
+                  />
+                  <p>{suggestion.totalReviews} reviews</p>
+                </ReviewDetailsDiv>
+              </OrganisationDetailsDiv>
+              <ArrowDiv>
+                {SVGCreator(`${organizationIcons[suggestion.category].arrow}`)}
+              </ArrowDiv>
+            </InnerDivSuggestions>
+          </SuggestionBox>
+        </ProfileLink>
+      </PopOverWrapper>
     );
   };
 
   // renders all elements and the add item footer
   renderSuggestionsContainer = ({ containerProps, children, query }) => {
+    // const { confirmLoading, ismodalVisible } = this.state;
     if (query && query.length > 0) {
       return (
         <div {...containerProps}>
           {children}
           <div className="my-suggestions-container-footer" />
-          {/* {children && children.props.items[0].isEmpty && ( */}
-          <AddProfileLink
-            to={{
-              pathname: `${ADD_PROFILE_URL}`,
-              state: { name: `${query}` }
-            }}
-          >
-            <AddItemBox>
-              <InnerDivSuggestions>
-                {/* <SymbolDiv>{SVGCreator("add-item-icon")}</SymbolDiv> */}
-                <SymbolDiv>
-                  <img src={addItemIcon} alt="" />
-                </SymbolDiv>
-                <AddItemDetails>
-                  <h3>Add {query}</h3>
-                </AddItemDetails>
-              </InnerDivSuggestions>
-            </AddItemBox>
-          </AddProfileLink>
-          {/* )} */}
+          {this.props.origin === "checkOrg" ? (
+            <AddProfileLink as="button" onClick={this.handleAddNewOrg}>
+              <AddItemBox>
+                <InnerDivSuggestions>
+                  <SymbolDiv>
+                    <img src={addItemIcon} alt="" />
+                  </SymbolDiv>
+                  <AddItemDetails>
+                    <h3>Add {query}</h3>
+                  </AddItemDetails>
+                </InnerDivSuggestions>
+              </AddItemBox>
+            </AddProfileLink>
+          ) : (
+            <AddProfileLink
+              to={{
+                pathname: `${ADD_PROFILE_URL}`,
+                state: {
+                  name: `${query}`,
+                  referrerUrl: this.props.location.pathname,
+                  section: this.props.section
+                }
+              }}
+            >
+              <AddItemBox>
+                <InnerDivSuggestions>
+                  <SymbolDiv>
+                    <img src={addItemIcon} alt="" />
+                  </SymbolDiv>
+                  <AddItemDetails>
+                    <h3>Add {query}</h3>
+                  </AddItemDetails>
+                </InnerDivSuggestions>
+              </AddItemBox>
+            </AddProfileLink>
+          )}
         </div>
       );
     }
@@ -188,7 +309,8 @@ class AutosuggestComponent extends Component {
       placeholderText,
       isMobile,
       bool,
-      iconTop
+      iconTop,
+      noIcon
     } = this.props;
 
     const inputProps = {
@@ -198,40 +320,48 @@ class AutosuggestComponent extends Component {
       onKeyPress: this.onKeyPress
     };
 
-    // limits suggestions to 10 results
-
-    const filteredSuggestions = suggestions.slice(0, 10);
+    // decide the number of suggestions rendered
+    const suggestionLimit = 10;
+    const filteredSuggestions = suggestions.slice(0, suggestionLimit);
 
     return (
-      <AutosuggestWrapper height={height} width={width}>
-        <IconDiv
-          iconTop={iconTop}
-          bgr={this.selectIconBgr(value)}
-          onClick={this.delSearchInput}
-        />
-        {/* on mobile disable shouldRenderSuggestions as we don't want automatic suggestion rendering as it hides most of the screen */}
-        {isMobile ? (
-          <Autosuggest
-            suggestions={filteredSuggestions}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            getSuggestionValue={getSuggestionValue}
-            renderSuggestion={this.renderSuggestion}
-            inputProps={inputProps}
-            renderSuggestionsContainer={this.renderSuggestionsContainer}
-          />
-        ) : (
-          <Autosuggest
-            suggestions={filteredSuggestions}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            getSuggestionValue={getSuggestionValue}
-            renderSuggestion={this.renderSuggestion}
-            shouldRenderSuggestions={() => bool}
-            inputProps={inputProps}
-            renderSuggestionsContainer={this.renderSuggestionsContainer}
-          />
-        )}
+      <AutosuggestWrapper height={height} width={width} noIcon>
+        <Spin spinning={!this.state.isLoaded} tip="Adding the new org.">
+          {!noIcon && (
+            <IconDiv iconTop={iconTop} onClick={this.delSearchInput}>
+              {value.length > 0 ? (
+                <Icon icon="close" height="32px" width="32px" />
+              ) : (
+                <Icon icon="search" height="32px" width="32px" />
+              )}
+            </IconDiv>
+          )}
+          {/* on mobile disable shouldRenderSuggestions as we don't want automatic suggestion rendering as it hides most of the screen */}
+          {isMobile ? (
+            <Autosuggest
+              suggestions={filteredSuggestions}
+              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+              getSuggestionValue={getSuggestionValue}
+              renderSuggestion={this.renderSuggestion}
+              inputProps={inputProps}
+              renderSuggestionsContainer={this.renderSuggestionsContainer}
+              focusInputOnSuggestionClick={false}
+            />
+          ) : (
+            <Autosuggest
+              suggestions={filteredSuggestions}
+              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+              getSuggestionValue={getSuggestionValue}
+              renderSuggestion={this.renderSuggestion}
+              shouldRenderSuggestions={() => bool}
+              inputProps={inputProps}
+              renderSuggestionsContainer={this.renderSuggestionsContainer}
+              focusInputOnSuggestionClick={false}
+            />
+          )}
+        </Spin>
       </AutosuggestWrapper>
     );
   }

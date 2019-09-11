@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { colors, shadows, borders, organizations } from "./../../../theme";
+import {
+  colors,
+  shadows,
+  borders,
+  organizations,
+  breakpoints
+} from "./../../../theme";
 
 export const Wrapper = styled.div`
   margin-bottom: 2rem;
@@ -27,16 +33,17 @@ export const TopSection = styled.div`
 
 export const BottomSection = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  flex-direction: ${props => (props.isSMobile ? "column" : "row")};
 `;
 
 export const StatWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 `;
 
 export const StatTitle = styled.p`
+  margin-top: ${props => (props.isSMobile ? "20px" : "0px")};
   margin: 0;
   color: ${colors.veryLightGray};
 `;
@@ -46,6 +53,7 @@ export const Stat = styled.p`
   color: ${colors.lightGray};
   font-size: 1rem;
   font-weight: 500;
+  padding-left: 4px;
 `;
 
 export const IDWrapper = styled.div`
@@ -137,7 +145,8 @@ export const UnVerifiedButton = styled(Link)`
   transition: all ease 0.2s;
 
   &:active,
-  &:focus, &:hover {
+  &:focus,
+  &:hover {
     outline: none;
     text-decoration: none;
     color: ${colors.heliotrope};
@@ -152,7 +161,8 @@ export const Title = styled.h2`
   transition: all ease 0.2s;
 
   &:active,
-  &:focus, &:hover {
+  &:focus,
+  &:hover {
     outline: none;
     text-decoration: none;
     color: ${colors.heliotrope};
@@ -176,4 +186,62 @@ export const ReviewText = styled.p`
   margin: 0;
   margin-right: 0.5rem;
   font-size: 0.875rem;
+`;
+
+export const BorderedWrapper = styled.div`
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 5rem 0;
+  border: none;
+  min-height: calc(100vh - 5.5rem);
+  position: relative;
+
+  & > div {
+    max-width: 400px;
+    margin: 0 auto;
+    width: 80%;
+  }
+
+  @media ${breakpoints.tablet} {
+    border-left: 3px solid ${colors.heliotrope};
+    border-right: 3px solid ${colors.heliotrope};
+  }
+`;
+
+export const MiniHeader = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  height: 5rem;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  top: 3rem;
+  padding-right: 2rem;
+  font-weight: 500;
+
+  @media ${breakpoints.tablet} {
+    top: 4rem;
+  }
+
+  a {
+    color: ${colors.purpleLinks};
+  }
+`;
+
+export const VerifyTitle = styled.h1`
+  font-size: 2.125rem;
+  font-weight: 500;
+  color: ${colors.profileFontColor};
+  margin-bottom: 2rem;
+  text-align: left;
+`;
+
+export const VerifyParagraph = styled.p`
+  text-align: left;
+`;
+
+export const VerifySection = styled.div`
+  padding-top: 5rem;
 `;
