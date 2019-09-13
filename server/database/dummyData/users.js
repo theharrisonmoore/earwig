@@ -102,7 +102,7 @@ module.exports = async () => {
     // Admin
     {
       email: "admin@earwig.com",
-      password: "Adm1n2019!",
+      password: "123456",
       verified: true,
       awaitingReview: false,
       isAdmin: true,
