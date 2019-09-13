@@ -36,7 +36,7 @@ module.exports = (to) => {
 
   const user = process.env.EMAIL;
   const pass = process.env.EMAIL_PASSWORD;
-  const subject = "Your signed-up to earwig";
+  const subject = "You're now signed-up to earwig";
   const from = process.env.EMAIL;
 
   const attachments = [
