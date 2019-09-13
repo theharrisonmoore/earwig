@@ -4,10 +4,10 @@ const Organization = require("./../models/Organization");
 
 module.exports = async () => {
   const trades = await Trade.find();
-  const currentAgency = await Organization.findOne({ category: "agency" })
-  const currentPayroll = await Organization.findOne({ category: "payroll" })
-  const currentWorksite = await Organization.findOne({ category: "worksite" })
-  const currentCompany = await Organization.findOne({ category: "company" }) 
+  const currentAgency = await Organization.findOne({ category: "agency" });
+  const currentPayroll = await Organization.findOne({ category: "payroll" });
+  const currentWorksite = await Organization.findOne({ category: "worksite" });
+  const currentCompany = await Organization.findOne({ category: "company" });
 
   // create verified user so that we can store as referral person
   const refUsers = [
@@ -60,7 +60,7 @@ module.exports = async () => {
       currentCompany,
       currentPayroll,
       currentWorksite,
-      city: "London"
+      city: "London",
     },
   ];
 
@@ -93,13 +93,6 @@ module.exports = async () => {
       awaitingReview: false,
     },
     {
-      email: "abdalsamad.y.m@gmail.com",
-      password: "123456",
-      trade: trades[3],
-      verified: true,
-      awaitingReview: false,
-    },
-    {
       email: "simon@gmail.com",
       password: "123456",
       trade: trades[3],
@@ -109,10 +102,46 @@ module.exports = async () => {
     // Admin
     {
       email: "admin@earwig.com",
-      password: "123456",
+      password: "Adm1n2019!",
       verified: true,
       awaitingReview: false,
       isAdmin: true,
+    },
+    {
+      email: "harrison@earwig.work",
+      password: "3arW1g2019!",
+      verified: true,
+      awaitingReview: false,
+      isAdmin: true,
+    },
+    // Level 3
+    {
+      email: "haz_s17@yahoo.co.uk",
+      password: "123456",
+      verified: true,
+      trade: trades[3],
+      awaitingReview: false,
+    },
+    {
+      email: "ericacorina@me.com",
+      password: "123456",
+      verified: true,
+      trade: trades[3],
+      awaitingReview: false,
+    },
+    {
+      email: "abdalsamad.y.m@gmail.com",
+      password: "Yalla2019!",
+      verified: true,
+      trade: trades[3],
+      awaitingReview: false,
+    },
+    {
+      email: "hello@yallacooperative.com",
+      password: "Yalla2019!",
+      trade: trades[3],
+      verified: true,
+      awaitingReview: false,
     },
   ];
 

@@ -203,8 +203,8 @@ export const AgreementLabel = styled.label`
 `;
 
 export const CheckboxWrapper = styled.div`
-  justify-content: space-between;
-  flex-wrap: wrap;
+  /* justify-content: space-between;
+  flex-wrap: wrap; */
   .ant-checkbox-wrapper {
     display: flex;
   }
@@ -217,6 +217,11 @@ export const CheckboxWrapper = styled.div`
   .ant-checkbox + span {
     margin-left: 10px;
   }
+`;
+
+export const ConditionWrapper = styled.div`
+  justify-content: space-between;
+  flex-wrap: wrap;
 `;
 
 export const SubmitButton = styled.button`
@@ -271,6 +276,7 @@ export const LinkSpan = styled(Link)`
   font-size: 1rem;
   font-weight: 700;
   text-decoration: underline;
+  z-index: 4;
 
   &:hover,
   &:active {

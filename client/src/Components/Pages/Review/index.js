@@ -17,7 +17,8 @@ import {
   Level2Header,
   AgreementLabel,
   LinkSpan,
-  ReviewWrapper
+  ReviewWrapper,
+  ConditionWrapper
 } from "./Review.style";
 
 import { StyledErrorMessage } from "./Question/Question.style";
@@ -694,7 +695,7 @@ class Review extends Component {
                   >
                     <AgreementLabel
                       htmlFor="agreement"
-                      style={{ pointerEvents: "none" }}
+                      // style={{ pointerEvents: "none" }}
                     >
                       I agree to the earwig{" "}
                       <LinkSpan
