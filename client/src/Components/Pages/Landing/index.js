@@ -108,7 +108,8 @@ export default class index extends Component {
                 <Video
                   src="https://www.youtube.com/embed/Z4F7iJeYgqE?controls=0"
                   frameBorder="0"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
                 />
               </VideoWrapper>
             </HalfDiv>
@@ -161,8 +162,8 @@ export default class index extends Component {
         {isMobile || isTablet ? (
           <VideoWrapper style={{ marginTop: "3rem" }}>
             <Video
-              src="https://www.youtube.com/embed/9eBzZOwaTpw?controls=0"
-              frameborder="0"
+              src="https://www.youtube.com/embed/Z4F7iJeYgqE?controls=0"
+              frameBorder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             />
