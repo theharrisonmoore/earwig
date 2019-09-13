@@ -25,11 +25,6 @@ import {
 } from "./Search.style";
 import { ADD_PROFILE_START_REVIEW_URL } from "../../../constants/naviagationUrls";
 
-import agencyCategory from "../../../assets/agency-category.svg";
-import companyCategory from "../../../assets/company-category.svg";
-import worksiteCategory from "../../../assets/worksite-category.svg";
-import payrollCategory from "../../../assets/payroll-category.svg";
-
 export default class AddProfileSelection extends Component {
   state = {
     isLoading: false
@@ -88,11 +83,6 @@ export default class AddProfileSelection extends Component {
                       this.addOrganisation(e, name, categories[0]);
                     }}
                   >
-                    {/* <img
-                      src={agencyCategory}
-                      alt=""
-                      style={{ width: "100%", cursor: "pointer" }}
-                    /> */}
                     <Icon
                       icon="agency"
                       width="50%"
@@ -110,11 +100,6 @@ export default class AddProfileSelection extends Component {
                       this.addOrganisation(e, name, categories[1]);
                     }}
                   >
-                    {/* <img
-                      src={payrollCategory}
-                      alt=""
-                      style={{ width: "100%", cursor: "pointer" }}
-                    /> */}
                     <Icon
                       icon="payroll"
                       width="50%"
@@ -136,11 +121,6 @@ export default class AddProfileSelection extends Component {
                     }}
                     category="worksite"
                   >
-                    {/* <img
-                      src={worksiteCategory}
-                      alt=""
-                      style={{ width: "100%", cursor: "pointer" }}
-                    /> */}
                     <Icon
                       icon="worksite"
                       width="50%"
@@ -158,11 +138,6 @@ export default class AddProfileSelection extends Component {
                       this.addOrganisation(e, name, categories[3]);
                     }}
                   >
-                    {/* <img
-                      src={companyCategory}
-                      alt=""
-                      style={{ width: "100%", cursor: "pointer" }}
-                    /> */}
                     <Icon
                       icon="company"
                       width="50%"

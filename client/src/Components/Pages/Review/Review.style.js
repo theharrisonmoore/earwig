@@ -236,6 +236,7 @@ export const SubmitButton = styled.button`
   display: block;
   margin: 2rem auto 3rem;
   height: auto;
+  cursor: pointer;
 `;
 
 export const ButtonDiv = styled.div`
