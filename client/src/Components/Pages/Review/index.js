@@ -17,8 +17,7 @@ import {
   Level2Header,
   AgreementLabel,
   LinkSpan,
-  ReviewWrapper,
-  ConditionWrapper
+  ReviewWrapper
 } from "./Review.style";
 
 import { StyledErrorMessage } from "./Question/Question.style";
