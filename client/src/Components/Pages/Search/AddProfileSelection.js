@@ -6,6 +6,8 @@ import { Spin } from "antd";
 import { SEARCH_URL } from "../../../constants/naviagationUrls";
 import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
 
+import Icon from "../../Common/Icon/Icon";
+
 // styles
 import {
   HeadlineDiv,
@@ -17,7 +19,9 @@ import {
   H3,
   MainDiv,
   AddWrapper,
-  AddProfileLink
+  AddProfileLink,
+  AddProfileButton,
+  LinkTitle
 } from "./Search.style";
 import { ADD_PROFILE_START_REVIEW_URL } from "../../../constants/naviagationUrls";
 
@@ -77,63 +81,97 @@ export default class AddProfileSelection extends Component {
           <LogosContainer>
             <Spin tip="Loading..." spinning={isLoading}>
               <RowDiv>
-                <ItemDiv>
-                  <AddProfileLink
+                <ItemDiv category="agency">
+                  <AddProfileButton
                     as="button"
                     onClick={e => {
                       this.addOrganisation(e, name, categories[0]);
                     }}
                   >
-                    <img
+                    {/* <img
                       src={agencyCategory}
                       alt=""
                       style={{ width: "100%", cursor: "pointer" }}
+                    /> */}
+                    <Icon
+                      icon="agency"
+                      width="50%"
+                      height="auto"
+                      color="white"
+                      margin="0 0 1rem 0"
                     />
-                  </AddProfileLink>
+                    <LinkTitle>Agency</LinkTitle>
+                  </AddProfileButton>
                 </ItemDiv>
-                <ItemDiv>
-                  <AddProfileLink
+                <ItemDiv category="payroll">
+                  <AddProfileButton
                     as="button"
                     onClick={e => {
                       this.addOrganisation(e, name, categories[1]);
                     }}
                   >
-                    <img
+                    {/* <img
                       src={payrollCategory}
                       alt=""
                       style={{ width: "100%", cursor: "pointer" }}
+                    /> */}
+                    <Icon
+                      icon="payroll"
+                      width="50%"
+                      height="auto"
+                      color="white"
+                      margin="0 0 1rem 0"
+                      cursor="pointer"
                     />
-                  </AddProfileLink>
+                    <LinkTitle>Payroll</LinkTitle>
+                  </AddProfileButton>
                 </ItemDiv>
               </RowDiv>
               <RowDiv>
-                <ItemDiv>
-                  <AddProfileLink
+                <ItemDiv category="worksite">
+                  <AddProfileButton
                     as="button"
                     onClick={e => {
                       this.addOrganisation(e, name, categories[2]);
                     }}
+                    category="worksite"
                   >
-                    <img
+                    {/* <img
                       src={worksiteCategory}
                       alt=""
                       style={{ width: "100%", cursor: "pointer" }}
+                    /> */}
+                    <Icon
+                      icon="worksite"
+                      width="50%"
+                      height="auto"
+                      color="white"
+                      margin="0 0 1rem 0"
                     />
-                  </AddProfileLink>
+                    <LinkTitle>Worksite</LinkTitle>
+                  </AddProfileButton>
                 </ItemDiv>
-                <ItemDiv>
-                  <AddProfileLink
+                <ItemDiv category="company">
+                  <AddProfileButton
                     as="button"
                     onClick={e => {
                       this.addOrganisation(e, name, categories[3]);
                     }}
                   >
-                    <img
+                    {/* <img
                       src={companyCategory}
                       alt=""
                       style={{ width: "100%", cursor: "pointer" }}
+                    /> */}
+                    <Icon
+                      icon="company"
+                      width="50%"
+                      height="auto"
+                      color="white"
+                      margin="0 0 1rem 0"
                     />
-                  </AddProfileLink>
+                    <LinkTitle>Company</LinkTitle>
+                  </AddProfileButton>
                 </ItemDiv>
               </RowDiv>
             </Spin>
