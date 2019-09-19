@@ -12,10 +12,9 @@ const dbConnection = require("./database/dbConnection");
 const app = express();
 if (process.env.NODE_ENV === "production") {
   Sentry.init({ dsn: process.env.SENTRY_DSN });
+  // The request handler must be the first middleware on the app
+  app.use(Sentry.Handlers.requestHandler());
 }
-
-// The request handler must be the first middleware on the app
-app.use(Sentry.Handlers.requestHandler());
 
 app.use(compression());
 
@@ -45,8 +44,10 @@ app.use((req, res, next) => {
   next(boom.notFound("Not Found"));
 });
 
-// this must be before any error handling middlewares
-app.use(Sentry.Handlers.errorHandler());
+if (process.env.NODE_ENV === "production") {
+  // this must be before any error handling middlewares
+  app.use(Sentry.Handlers.errorHandler());
+}
 
 
 // error handler
