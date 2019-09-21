@@ -694,7 +694,7 @@ class Review extends Component {
                   >
                     <AgreementLabel
                       htmlFor="agreement"
-                      // style={{ pointerEvents: "none" }}
+                      style={{ pointerEvents: "auto" }}
                     >
                       I agree to the earwig{" "}
                       <LinkSpan
