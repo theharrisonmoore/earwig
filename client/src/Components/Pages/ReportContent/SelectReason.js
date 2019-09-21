@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import {
   MainIcon,
-  SubTitle,
   SmallParagraph,
   BoldLink,
   SelectWrapper,

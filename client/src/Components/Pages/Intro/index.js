@@ -18,7 +18,6 @@ import {
   LogoWrapper
 } from "./Intro.style";
 
-import logo from "./../../../assets/logo.svg";
 import Button from "./../../Common/Button";
 
 export default class Intro extends Component {

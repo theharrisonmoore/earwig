@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 import moment from "moment";
-import { Checkbox, message, Spin, Icon, Modal } from "antd";
+import { Checkbox, message, Modal } from "antd";
 import Loading from "../../Common/AntdComponents/Loading";
 import Button from "../../Common/Button";
 
 import {
-  SubmitButton,
   UserAgreement,
   CheckboxWrapper,
   Header,
@@ -38,11 +37,6 @@ import {
   THANKYOU_URL,
   TERMS_OF_USE_URL
 } from "../../../constants/naviagationUrls";
-
-// antd spinner for the submit button
-const antIcon = (
-  <Icon type="loading" style={{ fontSize: 24, color: "white" }} spin />
-);
 
 const {
   API_POST_REVIEW_URL,
