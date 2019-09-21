@@ -6,7 +6,9 @@ import {
   SmallParagraph,
   BoldLink,
   SelectWrapper,
-  TextArea
+  TextArea,
+  PageTitle,
+  LargeParagraph
 } from "./../../Common/StaticPages.style";
 
 import Button from "./../../Common/Button";
@@ -71,12 +73,15 @@ export default class SelectReason extends Component {
     return (
       <div style={{ paddingTop: this.decidePaddingTop(isMobile) }}>
         <MainIcon src={flagIcon} />
-        <SubTitle
-          marginBottom
-          style={{ fontSize: "1.75rem", paddingTop: "2rem" }}
+        <PageTitle
+          style={{
+            fontSize: "1.75rem",
+            paddingTop: "2rem",
+            marginBottom: "2rem"
+          }}
         >
           Why do you want to report this piece of content?
-        </SubTitle>
+        </PageTitle>
         <SmallParagraph left>
           You’ll find guidance in our
           <BoldLink to={COMMUNITY_GUIDELINES_URL} target="_blank">
@@ -93,10 +98,13 @@ export default class SelectReason extends Component {
             dropdownClassName="full-text-select"
           />
         </SelectWrapper>
-        <SubTitle marginBottom style={{ fontSize: "1rem", paddingTop: "0" }}>
+        <LargeParagraph
+          marginBottom
+          style={{ fontSize: "1rem", paddingTop: "0" }}
+        >
           Please give us more information, telling us exactly why you think this
           content needs reporting.
-        </SubTitle>
+        </LargeParagraph>
         <TextArea
           placeholder="More information"
           onChange={handleTextAreaChange}

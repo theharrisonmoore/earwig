@@ -165,6 +165,10 @@ export const BoldLink = styled(Link)`
   font-weight: 900;
   text-decoration: underline;
 
+  :hover {
+    color: ${colors.heliotrope};
+  }
+
   @media (min-width: ${MOBILE_WIDTH}px) {
     font-size: 1.125rem;
   }
