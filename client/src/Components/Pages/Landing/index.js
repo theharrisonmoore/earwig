@@ -86,7 +86,9 @@ export default class index extends Component {
           <TopWrapper>
             <Title>Never choose a bad construction job again</Title>
             <Paragraph>
-              earwig is where construction workers give reviews, read reviews and ask other workers questions about agencies, payrolls, worksites and companies so they can choose the best jobs.
+              earwig is where construction workers give reviews, read reviews
+              and ask other workers questions about agencies, payrolls,
+              worksites and companies so they can choose the best jobs.
             </Paragraph>
           </TopWrapper>
         ) : (
@@ -94,7 +96,9 @@ export default class index extends Component {
             <HalfDiv>
               <Title>Never choose a bad construction job again</Title>
               <Paragraph>
-                earwig is where construction workers give reviews, read reviews and ask other workers questions about agencies, payrolls, worksites and companies so they can choose the best jobs.
+                earwig is where construction workers give reviews, read reviews
+                and ask other workers questions about agencies, payrolls,
+                worksites and companies so they can choose the best jobs.
               </Paragraph>
             </HalfDiv>
             <HalfDiv>
