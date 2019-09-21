@@ -184,7 +184,11 @@ class DropDown extends Component {
         <Options>
           <Select
             showSearch
-            placeholder={profileText === "Main contractor" ? "Select main contractor" : "Select your organization"}
+            placeholder={
+              profileText === "Main contractor"
+                ? "Select main contractor"
+                : "Select your organization"
+            }
             id="newOrg"
             name="newOrg"
             options={dropdownOptions}
