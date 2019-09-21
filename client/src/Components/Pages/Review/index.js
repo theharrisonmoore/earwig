@@ -3,6 +3,7 @@ import axios from "axios";
 import moment from "moment";
 import { Checkbox, message, Spin, Icon, Modal } from "antd";
 import Loading from "../../Common/AntdComponents/Loading";
+import Button from "../../Common/Button";
 
 import {
   SubmitButton,
@@ -714,17 +715,13 @@ class Review extends Component {
                   )}
                 </CheckboxWrapper>
               </UserAgreement>
-              <SubmitButton
+              <Button
                 type="submit"
                 size="large"
-                disabled={isSubmitting}
-                orgType={category}
-              >
-                {isSubmitting && (
-                  <Spin indicator={antIcon} style={{ marginRight: ".5rem" }} />
-                )}
-                Publish your review
-              </SubmitButton>
+                loading={isSubmitting}
+                backgroundColor={organizations[category].primary}
+                children="Publish your review"
+              />
             </FormWrapper>
           </form>
         </section>
