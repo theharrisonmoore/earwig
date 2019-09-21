@@ -170,7 +170,8 @@ class DropDown extends Component {
   };
 
   render() {
-    const { number, handleAddNewOrgChange, category } = this.props;
+    const { number, handleAddNewOrgChange, category, question } = this.props;
+    const { profileText } = question;
     const {
       ismodalVisible,
       confirmLoading,
@@ -183,7 +184,7 @@ class DropDown extends Component {
         <Options>
           <Select
             showSearch
-            placeholder={"Select your organization"}
+            placeholder={profileText === "Main contractor" ? "Select main contractor" : "Select your organization"}
             id="newOrg"
             name="newOrg"
             options={dropdownOptions}
