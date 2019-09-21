@@ -84,23 +84,17 @@ export default class index extends Component {
         <Logo src={LogoBetaWhite} alt="logo" isMobile={isMobile} />
         {isMobile || isTablet ? (
           <TopWrapper>
-            <Title>Every voice counts</Title>
+            <Title>Never choose a bad construction job again</Title>
             <Paragraph>
-              earwig is a reviews platform giving a voice to construction
-              workers. They can show which agencies, payrolls, worksites, and
-              companies to trust and why. Join the community of verified workers
-              shaping construction and making work more secure.
+              earwig is where construction workers give reviews, read reviews and ask other workers questions about agencies, payrolls, worksites and companies so they can choose the best jobs.
             </Paragraph>
           </TopWrapper>
         ) : (
           <TopWrapper direction="row" isMobile={isMobile}>
             <HalfDiv>
-              <Title>Every voice counts</Title>
+              <Title>Never choose a bad construction job again</Title>
               <Paragraph>
-                earwig is a reviews platform giving a voice to construction
-                workers. They can show which agencies, payrolls, worksites, and
-                companies to trust and why. Join the community of verified
-                workers shaping construction and making work more secure.
+                earwig is where construction workers give reviews, read reviews and ask other workers questions about agencies, payrolls, worksites and companies so they can choose the best jobs.
               </Paragraph>
             </HalfDiv>
             <HalfDiv>
