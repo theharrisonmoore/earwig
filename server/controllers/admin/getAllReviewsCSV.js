@@ -10,14 +10,11 @@ module.exports = (req, res, next) => {
       const cleanedReviews = reviews.map((review) => {
         const newReviewObj = review;
 
-        if (review.answers && review.answers.length > 0) {
-          review.answers.map((answer) => {
-            const { question, comment } = answer;
-            newReviewObj[`${question.category}: ${question.text}`] = answer.answer;
-            newReviewObj[`${question.category}: ${question.text}: Comment`] = comment || "-";
-            return newReviewObj;
-          });
-        }
+        review.answers.forEach((answer) => {
+          const { question, comment } = answer;
+          newReviewObj[`${question.category}: ${question.text}`] = answer.answer;
+          newReviewObj[`${question.category}: ${question.text}: Comment`] = comment || "-";
+        });
 
         // now answers assigned, remove answers array from obj
         delete newReviewObj.answers;
@@ -26,8 +23,6 @@ module.exports = (req, res, next) => {
       });
 
       return { cleanedReviews, reviews };
-
-      // res.json(cleanedReviews);
     }).then(({ cleanedReviews }) => getAllQs().then((questions) => {
       //  initial headers
       const allHeaders = ["Review date", "Overall star rating", "Overall Review", "earwig ID", "Unique User ID", "Town or City", "Points earned", "People helped", "Reviews given", "Trade", "Current agency", "Current payroll", "Current worksite", "Current company", "Entity type", "Entity name", "Date from", "Date to"];
@@ -41,5 +36,7 @@ module.exports = (req, res, next) => {
 
       res.json({ cleanedReviews, headers: allHeaders });
     }))
-    .catch(err => next(boom.badImplementation(err)));
+    .catch((err) => {
+      next(boom.badImplementation(err));
+    });
 };
