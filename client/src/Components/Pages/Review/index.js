@@ -689,13 +689,14 @@ class Review extends Component {
                   >
                     <AgreementLabel
                       htmlFor="agreement"
-                      style={{ pointerEvents: "auto" }}
+                      style={{ pointerEvents: "none" }}
                     >
                       I agree to the earwig{" "}
                       <LinkSpan
                         target="_blank"
                         to={TERMS_OF_USE_URL}
                         color={organizations[category].primary}
+                        style={{ pointerEvents: "auto" }}
                       >
                         Terms of Use.
                       </LinkSpan>{" "}
