@@ -3,7 +3,7 @@ import React from "react";
 
 import { VoiceWrapper, VoiceIconWrapper, StopIcon } from "./Question.style";
 import { AudioErrorMsg } from "./UploadPhoto.style";
-import Icon from "./../../../Common/Icon/Icon";
+import Icon from "../../../Common/Icon/Icon";
 
 window.URL = window.URL || window.webkitURL;
 /**
@@ -25,7 +25,7 @@ class NewAudio extends React.Component {
       src: "",
       mimeType: "",
       recording: false,
-      message: ""
+      message: "",
     };
     this.recorder = null;
     this.context = null;
@@ -42,23 +42,27 @@ class NewAudio extends React.Component {
 
   onSuccess = s => {
     try {
-      let tracks = s.getTracks();
+      const tracks = s.getTracks();
       this.setState({ tracks });
       this.context = new AudioContext();
-      let mediaStreamSource = this.context.createMediaStreamSource(s);
+      const mediaStreamSource = this.context.createMediaStreamSource(s);
       // eslint-disable-next-line no-undef
       this.recorder = new Recorder(mediaStreamSource);
 
       this.recorder.record();
+      setTimeout(() => {
+        if (this.state.recording) {
+          this.handleStopClick();
+        }
+      }, 30500);
     } catch (error) {
       this.handleError(error);
     }
   };
 
-  handleError = error => {
-    console.log("error", error);
+  handleError = () => {
     this.setState({
-      message: "For a better experience please try this on Safaris"
+      message: "For a better experience please try this on Safaris",
     });
   };
 
@@ -110,8 +114,8 @@ class NewAudio extends React.Component {
     try {
       const { id } = this.props;
 
-      let audioBlob = new Blob([blob], {
-        type: "audio/mp3"
+      const audioBlob = new Blob([blob], {
+        type: "audio/mp3",
       });
 
       audioBlob.name = `${id}.mp3`;
@@ -123,11 +127,11 @@ class NewAudio extends React.Component {
 
       this.setState({
         recordedAudio: audioBlob,
-        audioFile: audioBlob
+        audioFile: audioBlob,
       });
       this.props.handleRecord({
         recordedAudio: audioBlob,
-        audioFile: audioBlob
+        audioFile: audioBlob,
       });
     } catch (error) {
       this.handleError(error);
