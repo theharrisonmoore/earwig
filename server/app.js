@@ -1,4 +1,3 @@
-// test comment
 const boom = require("boom");
 const express = require("express");
 const path = require("path");
@@ -7,17 +6,17 @@ const logger = require("morgan");
 const Sentry = require("@sentry/node");
 const compression = require("compression");
 
-
 const router = require("./router");
 const dbConnection = require("./database/dbConnection");
 
 const app = express();
+if (process.env.NODE_ENV === "production") {
+  Sentry.init({ dsn: process.env.SENTRY_DSN });
+  // The request handler must be the first middleware on the app
+  app.use(Sentry.Handlers.requestHandler());
+}
+
 app.use(compression());
-
-Sentry.init({ dsn: process.env.SENTRY_DSN });
-
-// The request handler must be the first middleware on the app
-app.use(Sentry.Handlers.requestHandler());
 
 // connect to DB
 dbConnection();
@@ -45,8 +44,10 @@ app.use((req, res, next) => {
   next(boom.notFound("Not Found"));
 });
 
-// this must be before any error handling middlewares
-app.use(Sentry.Handlers.errorHandler());
+if (process.env.NODE_ENV === "production") {
+  // this must be before any error handling middlewares
+  app.use(Sentry.Handlers.errorHandler());
+}
 
 
 // error handler
@@ -54,13 +55,17 @@ app.use(Sentry.Handlers.errorHandler());
 app.use((err, req, res, next) => {
   // send the error object
   if (err.isBoom) {
-    // for boom errors
-    res.status(err.output.statusCode || 500);
-  } else {
-    // for unexpected internal server errors
-    res.status(err.statusCode || 500);
+    if (err.isServer) {
+      res.status(500);
+      return res.json({ error: "500 Internal server error" });
+    }
+    // for 400 errors
+    res.status(err.output.statusCode);
+    return res.json({ error: err.message });
   }
-  res.json({ error: err.message });
+  // should terminate the sever and run it again
+  res.status(500);
+  return res.json({ error: "500 Internal server error" });
 });
 
 module.exports = app;
