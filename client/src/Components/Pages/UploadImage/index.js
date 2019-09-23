@@ -19,7 +19,7 @@ import {
   SelectWrapper,
   Error,
   EditIcon,
-  PurpleDiv,
+  PurpleDiv
 } from "./UploadImage.style";
 
 import example from "../../../assets/example.png";
@@ -28,7 +28,7 @@ import { PROFILE_URL } from "../../../constants/naviagationUrls";
 
 const {
   API_TRADE_URL,
-  API_UPLOAD_VERIFICATION_IMAGE_URL,
+  API_UPLOAD_VERIFICATION_IMAGE_URL
 } = require("../../../apiUrls");
 
 const placeholder = "Select your trade";
@@ -45,7 +45,7 @@ export default class UploadImage extends Component {
     newTradeSuccess: false,
     disableSelect: false,
     city: "",
-    loading: false,
+    loading: false
   };
 
   componentDidMount() {
@@ -53,7 +53,7 @@ export default class UploadImage extends Component {
       Swal.fire({
         type: "warning",
         title: "Already verified",
-        text: "you are already verified!",
+        text: "you are already verified!"
       }).then(() => {
         this.props.history.goBack();
       });
@@ -61,7 +61,7 @@ export default class UploadImage extends Component {
       Swal.fire({
         type: "warning",
         title: "We are currently verifying your account",
-        text: "Please come back soon!",
+        text: "Please come back soon!"
       }).then(() => {
         this.props.history.goBack();
       });
@@ -92,13 +92,13 @@ export default class UploadImage extends Component {
     reader.onload = () => {
       const dataURL = reader.result;
       this.setState({
-        image: dataURL,
+        image: dataURL
       });
     };
 
     this.setState(
       {
-        imageFile: image,
+        imageFile: image
       },
       () => {
         // eslint-disable-next-line no-unused-expressions
@@ -132,8 +132,8 @@ export default class UploadImage extends Component {
             url: API_UPLOAD_VERIFICATION_IMAGE_URL,
             data: form,
             headers: {
-              "content-type": `multipart/form-data; boundary=${form._boundary}`,
-            },
+              "content-type": `multipart/form-data; boundary=${form._boundary}`
+            }
           })
             .then(() => {
               this.setState({ loading: false }, () => {
@@ -141,7 +141,7 @@ export default class UploadImage extends Component {
                   type: "success",
                   title: "Done!",
                   showConfirmButton: false,
-                  timer: 1500,
+                  timer: 1500
                 }).then(() => {
                   this.props.handleChangeState({ awaitingReview: true });
                   this.props.history.push(PROFILE_URL);
@@ -153,11 +153,11 @@ export default class UploadImage extends Component {
                 Swal.fire({
                   type: "error",
                   title: "Oops...",
-                  text: err.response.data.error,
+                  text: err.response.data.error
                 });
               });
             });
-        },
+        }
       });
     }
   };
@@ -166,7 +166,7 @@ export default class UploadImage extends Component {
     const { searchTerm } = e.target.dataset;
     this.setState({
       ismodalVisible: true,
-      newTrade: searchTerm,
+      newTrade: searchTerm
     });
   };
 
@@ -174,7 +174,7 @@ export default class UploadImage extends Component {
     if (this.state.newTrade && this.state.newTrade.length >= 3) {
       this.setState(
         {
-          confirmLoading: true,
+          confirmLoading: true
         },
         () => {
           axios
@@ -185,19 +185,19 @@ export default class UploadImage extends Component {
               this.setState({
                 trades: [{ value: data._id, label: data.title }],
                 tradeId: data._id,
-                disableSelect: true,
+                disableSelect: true
               });
 
               this.setState(
                 {
-                  newTradeSuccess: true,
+                  newTradeSuccess: true
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       newTradeSuccess: false,
                       ismodalVisible: false,
-                      confirmLoading: false,
+                      confirmLoading: false
                     });
                   }, 1000);
                 }
@@ -207,13 +207,13 @@ export default class UploadImage extends Component {
               this.setState(
                 {
                   newTradeSuccess: false,
-                  newTradeError: err.response.data.error,
+                  newTradeError: err.response.data.error
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       ismodalVisible: false,
-                      confirmLoading: false,
+                      confirmLoading: false
                     });
                   }, 1000);
                 }
@@ -223,7 +223,7 @@ export default class UploadImage extends Component {
       );
     } else if (this.state.newTrade.length < 3) {
       this.setState({
-        newTradeError: "Trade must be 3 charachters length at least",
+        newTradeError: "Trade must be 3 charachters length at least"
       });
     }
   };
@@ -232,7 +232,7 @@ export default class UploadImage extends Component {
     this.setState({
       ismodalVisible: false,
       newTradeSuccess: false,
-      newTradeError: "",
+      newTradeError: ""
     });
   };
 
@@ -248,7 +248,7 @@ export default class UploadImage extends Component {
       error,
       image,
       loading,
-      newTrade,
+      newTrade
     } = this.state;
     return (
       <UploadImageWrapper className="test">
@@ -261,7 +261,7 @@ export default class UploadImage extends Component {
             margin="0 0.5rem 0 0"
             fill={colors.veryLightGray}
           />
-          <Heading>Verificaion</Heading>
+          <Heading>Verification</Heading>
           <form onSubmit={this.handleSubmit}>
             <SelectWrapper>
               <SubHeading>Your trade</SubHeading>
