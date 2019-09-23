@@ -17,7 +17,8 @@ import {
   Level2Header,
   AgreementLabel,
   LinkSpan,
-  ReviewWrapper
+  ReviewWrapper,
+  ErrorsWrapper
 } from "./Review.style";
 
 import { StyledErrorMessage } from "./Question/Question.style";
@@ -708,6 +709,21 @@ class Review extends Component {
                   {!!errors && !!errors.hasAgreed && (
                     <StyledErrorMessage>{errors.hasAgreed}</StyledErrorMessage>
                   )}
+                  <ErrorsWrapper>
+                    {!!errors &&
+                      !!errors.review &&
+                      !!errors.review.workPeriod &&
+                      !!errors.review.workPeriod.from && (
+                        <StyledErrorMessage>
+                          Must select the month(s) you used the agency
+                        </StyledErrorMessage>
+                      )}
+                    {!!errors && !!errors.review && !!errors.review.rate && (
+                      <StyledErrorMessage>
+                        Must select a rating for this {category}
+                      </StyledErrorMessage>
+                    )}
+                  </ErrorsWrapper>
                 </CheckboxWrapper>
               </UserAgreement>
               <Button

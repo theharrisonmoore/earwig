@@ -285,3 +285,14 @@ export const LinkSpan = styled(Link)`
     text-decoration: underline;
   }
 `;
+
+export const ErrorsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+`
+
+export const ErrorsTitle = styled.h4`
+  font-size: 1rem;
+  color: ${colors.red}
+`
