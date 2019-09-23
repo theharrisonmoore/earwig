@@ -1,6 +1,6 @@
-const axios = require("axios");
-
 const addToMailchimp = email => new Promise(async (reslove, reject) => {
+  // eslint-disable-next-line global-require
+  const axios = require("axios");
   const data = {
     members: [
       {
