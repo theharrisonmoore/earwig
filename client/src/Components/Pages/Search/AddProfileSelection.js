@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import axios from "axios";
-import swal from "sweetalert2";
 import { Spin } from "antd";
 
-import { SEARCH_URL } from "../../../constants/naviagationUrls";
-import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
+import {
+  SEARCH_URL,
+  ADD_PROFILE_START_REVIEW_URL,
+} from "../../../constants/naviagationUrls";
 
 // styles
 import {
@@ -17,9 +17,8 @@ import {
   H3,
   MainDiv,
   AddWrapper,
-  AddProfileLink
+  AddProfileLink,
 } from "./Search.style";
-import { ADD_PROFILE_START_REVIEW_URL } from "../../../constants/naviagationUrls";
 
 import agencyCategory from "../../../assets/agency-category.svg";
 import companyCategory from "../../../assets/company-category.svg";
@@ -28,47 +27,20 @@ import payrollCategory from "../../../assets/payroll-category.svg";
 
 export default class AddProfileSelection extends Component {
   state = {
-    isLoading: false
+    isLoading: false,
   };
 
-  deleteOrg = name => {
-    axios.delete(`/api/delete-organization/${name}`)
-    .then(() => {
-      // need to trigger a hard refresh here as organisation was still shown in search bar after deletion
-      window.location.reload();
-      this.props.history.push("/search");
-    });
+  goBack = () => {
+    this.props.history.push("/search");
   };
 
   addOrganisation = (e, orgName, orgCategory) => {
     e.preventDefault();
-    const newOrg = { name: orgName, category: orgCategory };
     this.setState({ isLoading: true });
     this.props.history.push(ADD_PROFILE_START_REVIEW_URL, {
-      orgName,orgCategory
-          });
-
-
-
-
-
-    // axios
-    //   .post(API_ADD_ORGANIZATION_URL, newOrg)
-    //   .then(res => {
-    //     this.setState({ isLoading: false });
-    //     this.props.history.push(ADD_PROFILE_START_REVIEW_URL, {
-    //       newOrg: res.data
-    //     });
-    //   })
-    //   .catch(err => {
-    //     this.setState({ isLoading: false });
-    //     swal.fire({
-    //       type: "error",
-    //       title: "Oops...",
-    //       text: `${orgName} already exists. Please contact us directly with your request.`,
-    //       footer: '<a href="/contact">Contact</a>'
-    //     });
-    //   });
+      orgName,
+      orgCategory,
+    });
   };
 
   render() {
@@ -76,7 +48,6 @@ export default class AddProfileSelection extends Component {
     const { isLoading } = this.state;
 
     const categories = ["agency", "payroll", "worksite", "company"];
-console.log("AddProfileSelection")
     return (
       <AddWrapper>
         <MainDiv>
@@ -153,13 +124,11 @@ console.log("AddProfileSelection")
               position: "fixed",
               bottom: "3rem",
               left: "50%",
-              transform: "translateX(-50%)"
+              transform: "translateX(-50%)",
             }}
           >
             <FooterDiv>
-              <H3 onClick={() => this.deleteOrg(name)}>
-                Cancel and return to Search
-              </H3>
+              <H3 onClick={this.goBack}>Cancel and return to Search</H3>
             </FooterDiv>
           </AddProfileLink>
         </MainDiv>
