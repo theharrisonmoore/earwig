@@ -10,7 +10,7 @@ module.exports = (to) => {
 
     <p>You can now <a href="${process.env.DOMAIN}/search" target="_blank" rel="noreferrer" rel="noopener"
         style="color: #8c6bfc; font-weight: 900;"> read
-        reviews and ratings</a> &nbsp; workers have given about agencies, payrolls, worksites and construction
+        reviews and ratings</a>&nbsp; workers have given about agencies, payrolls, worksites and construction
       companies.</p>
     <p>If you’re a worker, you should <a href="${process.env.DOMAIN}/upload-verification-photo"
     style="color: #8c6bfc; font-weight: 900;">get verified</a> so you can enjoy full access to the earwig
