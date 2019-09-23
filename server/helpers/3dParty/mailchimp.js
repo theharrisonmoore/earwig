@@ -1,16 +1,14 @@
-/* eslint-disable global-require */
-
 const addToMailchimp = email => new Promise(async (reslove, reject) => {
+  // eslint-disable-next-line global-require
   const axios = require("axios");
-  const boom = require("boom");
   const data = {
     members: [
       {
         email_address: email,
         status: "subscribed",
-        update_existing: true,
       },
     ],
+    update_existing: true,
   };
 
   const options = {
@@ -21,22 +19,20 @@ const addToMailchimp = email => new Promise(async (reslove, reject) => {
     },
     data,
   };
-
-
+  // TODO: refactor this function
   try {
     const resp = await axios(options);
     const { errors } = resp.data;
     if (!errors.length) {
       return reslove("Successfully added");
     }
-    return reject(boom.badData(errors));
+    return reject(errors[0]);
   } catch (error) {
     if (error.response.status === 400) {
-      return reject(boom.badRequest(error));
+      return reject(error);
     }
-    return reject(boom.badImplementation(error));
+    return reject(error);
   }
 });
-
 
 module.exports = addToMailchimp;
