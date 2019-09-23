@@ -1,12 +1,12 @@
 import axios from "axios";
-import {
-  S_MOBILE_WIDTH,
-  MOBILE_WIDTH,
-  TABLET_WIDTH
-} from "../constants/screenWidths";
 import React from "react";
 import StarRatingComponent from "react-star-rating-component";
 import SVG from "react-inlinesvg";
+import {
+  S_MOBILE_WIDTH,
+  MOBILE_WIDTH,
+  TABLET_WIDTH,
+} from "../constants/screenWidths";
 import { ImgDiv } from "../Components/Pages/Search/Search.style";
 import { organizations } from "../theme";
 
@@ -37,12 +37,13 @@ export const StarRateCreator = (organisation, value) => (
     starCount={5}
     value={organisation.avgRatings || value || 0}
     starColor={`${organizations[organisation.category].primary}` || "red"}
-    emptyStarColor={"#D3D3D3"}
+    emptyStarColor="#D3D3D3"
   />
 );
 
 // sorts array of organisations by last viewed category
 export const SortArrayNewest = (a, b) => {
+  // eslint-disable-next-line no-nested-ternary
   return a.lastViewed > b.lastViewed ? -1 : b.lastViewed > a.lastViewed ? 1 : 0;
 };
 export const isSMobile = width => width <= S_MOBILE_WIDTH;
@@ -56,7 +57,7 @@ const levels = {
   LEVEL1: 1, // just logged in user
   LEVEL2: 2, // awaiting verification user
   LEVEL3: 3, // verified user
-  ADMIN: 4 // admin
+  ADMIN: 4, // admin
 };
 
 export const authorization = ({
@@ -64,7 +65,7 @@ export const authorization = ({
   awaitingReview,
   verified,
   minimumLevel,
-  isLoggedIn
+  isLoggedIn,
 }) => {
   const minimumLevelValue = levels[minimumLevel];
 
@@ -99,29 +100,29 @@ export const handleLogout = (history, handleChangeState) => {
       isAdmin: false,
       isMounted: false,
       email: "",
-      city: ""
+      city: "",
     });
     history.push(LOGIN_URL);
   });
 };
 
 export const isMobileDevice = {
-  Android: function() {
+  Android() {
     return navigator.userAgent.match(/Android/i);
   },
-  BlackBerry: function() {
+  BlackBerry() {
     return navigator.userAgent.match(/BlackBerry/i);
   },
-  iOS: function() {
+  iOS() {
     return navigator.userAgent.match(/iPhone|iPad|iPod/i);
   },
-  Opera: function() {
+  Opera() {
     return navigator.userAgent.match(/Opera Mini/i);
   },
-  Windows: function() {
+  Windows() {
     return navigator.userAgent.match(/IEMobile/i);
   },
-  any: function() {
+  any() {
     return (
       isMobileDevice.Android() ||
       isMobileDevice.BlackBerry() ||
@@ -129,34 +130,34 @@ export const isMobileDevice = {
       isMobileDevice.Opera() ||
       isMobileDevice.Windows()
     );
-  }
+  },
 };
 
 export const questionsNumber = {
   agency: {
     full: {
       count: "17 questions",
-      time: "2 mins"
-    }
+      time: "2 mins",
+    },
   },
   payroll: {
     full: {
       count: "14 questions",
-      time: "2 mins"
-    }
+      time: "2 mins",
+    },
   },
   worksite: {
     full: {
       count: "19 questions",
-      time: "2 mins"
-    }
+      time: "2 mins",
+    },
   },
   company: {
     full: {
       count: "10 questions",
-      time: "1 mins"
-    }
-  }
+      time: "1 mins",
+    },
+  },
 };
 
 export const highlightMentions = text => {
