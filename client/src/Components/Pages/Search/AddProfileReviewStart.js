@@ -23,8 +23,12 @@ export default class AddProfileReviewStart extends Component {
   };
 
   render() {
+    console.log("addProfileReviewStart")
+    // const {
+    //   newOrg: { name, category, _id }
+    // } = this.props.location.state;
     const {
-      newOrg: { name, category, _id }
+      orgName: name,orgCategory:category
     } = this.props.location.state;
     const { isTablet, isMobile } = this.props;
 
@@ -43,11 +47,13 @@ export default class AddProfileReviewStart extends Component {
               category={category}
               isTablet={isTablet}
               isMobile={isMobile}
+              history={this.props.history}
               state={{
                 name: `${name}`,
                 category: `${category}`,
                 needsVerification: true,
-                orgId: _id
+                shouldCreateNew: true
+                // orgId: _id
               }}
             />
           </div>

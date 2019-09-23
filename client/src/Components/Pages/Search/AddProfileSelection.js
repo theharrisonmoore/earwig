@@ -32,7 +32,8 @@ export default class AddProfileSelection extends Component {
   };
 
   deleteOrg = name => {
-    axios.delete(`/api/delete-organization/${name}`).then(() => {
+    axios.delete(`/api/delete-organization/${name}`)
+    .then(() => {
       // need to trigger a hard refresh here as organisation was still shown in search bar after deletion
       window.location.reload();
       this.props.history.push("/search");
@@ -43,23 +44,31 @@ export default class AddProfileSelection extends Component {
     e.preventDefault();
     const newOrg = { name: orgName, category: orgCategory };
     this.setState({ isLoading: true });
-    axios
-      .post(API_ADD_ORGANIZATION_URL, newOrg)
-      .then(res => {
-        this.setState({ isLoading: false });
-        this.props.history.push(ADD_PROFILE_START_REVIEW_URL, {
-          newOrg: res.data
-        });
-      })
-      .catch(err => {
-        this.setState({ isLoading: false });
-        swal.fire({
-          type: "error",
-          title: "Oops...",
-          text: `${orgName} already exists. Please contact us directly with your request.`,
-          footer: '<a href="/contact">Contact</a>'
-        });
-      });
+    this.props.history.push(ADD_PROFILE_START_REVIEW_URL, {
+      orgName,orgCategory
+          });
+
+
+
+
+
+    // axios
+    //   .post(API_ADD_ORGANIZATION_URL, newOrg)
+    //   .then(res => {
+    //     this.setState({ isLoading: false });
+    //     this.props.history.push(ADD_PROFILE_START_REVIEW_URL, {
+    //       newOrg: res.data
+    //     });
+    //   })
+    //   .catch(err => {
+    //     this.setState({ isLoading: false });
+    //     swal.fire({
+    //       type: "error",
+    //       title: "Oops...",
+    //       text: `${orgName} already exists. Please contact us directly with your request.`,
+    //       footer: '<a href="/contact">Contact</a>'
+    //     });
+    //   });
   };
 
   render() {
@@ -67,7 +76,7 @@ export default class AddProfileSelection extends Component {
     const { isLoading } = this.state;
 
     const categories = ["agency", "payroll", "worksite", "company"];
-
+console.log("AddProfileSelection")
     return (
       <AddWrapper>
         <MainDiv>

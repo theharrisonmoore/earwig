@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import moment from "moment";
+import axios from "axios";
+
+import {API_ADD_ORGANIZATION_URL} from "../../../apiUrls"
+
 import {
   ReviewButtonsDiv,
   ReviewType,
@@ -15,6 +19,36 @@ import Icon from "./../Icon/Icon";
 import { colors } from "./../../../theme";
 
 export default class GiveReview extends Component {
+
+  handleClick = () => {
+    const {state} = this.props
+    const {orgId,shouldCreateNew} = state
+    if(shouldCreateNew){
+      axios
+      .post(API_ADD_ORGANIZATION_URL, newOrg)
+      .then(res => {
+        this.setState({ isLoading: false });
+        this.props.history.push(ADD_PROFILE_START_REVIEW_URL, {
+          newOrg: res.data
+        });
+      })
+      .catch(err => {
+        this.setState({ isLoading: false });
+        // swal.fire({
+        //   type: "error",
+        //   title: "Oops...",
+        //   text: `${orgName} already exists. Please contact us directly with your request.`,
+        //   footer: '<a href="/contact">Contact</a>'
+        // });
+      });
+    }else {
+      this.props.history.push({
+        pathname: `/organization/${orgId ? orgId : state.orgId}/review`,
+        state: state
+      })
+    }
+  }
+
   render() {
     const {
       category,
@@ -38,10 +72,7 @@ export default class GiveReview extends Component {
           />
           <Time>2 mins</Time>
           <FullLink
-            to={{
-              pathname: `/organization/${orgId ? orgId : state.orgId}/review`,
-              state: state
-            }}
+           as="div"
             disabled={reviewNotAllowed}
           >
             <ReviewButton grayOut={reviewNotAllowed} category={category}>

@@ -62,6 +62,7 @@ export const FullLink = styled(NavLink)`
   display: flex;
   width: 18rem;
   margin-left: 0.5rem;
+  cursor: pointer;
 `;
 
 export const Icon = styled(SVG)`
