@@ -8,7 +8,7 @@ import { Popconfirm, message, Modal } from "antd";
 
 import { Wrapper } from "./UserProfile.style";
 
-import { colors, breakpoints } from "./../../../theme";
+import { colors, breakpoints } from "../../../theme";
 
 import Icon from "../../Common/Icon/Icon";
 
@@ -82,10 +82,9 @@ const Cancel = styled.p`
   text-decoration: none;
   /* pointer-events: none; */
   border-bottom: 2px solid
-    ${({ cancelColor }) => (cancelColor ? cancelColor : colors.heliotrope)};
+    ${({ cancelColor }) => cancelColor || colors.heliotrope};
 
-  color: ${({ cancelColor }) =>
-    cancelColor ? cancelColor : colors.heliotrope};
+  color: ${({ cancelColor }) => cancelColor || colors.heliotrope};
 `;
 
 // const LinkBtn = styled.button`
@@ -96,8 +95,9 @@ const Cancel = styled.p`
 export default class UserReviews extends Component {
   state = {
     reviews: [],
-    isLoading: false
+    isLoading: false,
   };
+
   async componentDidMount() {
     this.getUserReviews();
   }
@@ -105,16 +105,16 @@ export default class UserReviews extends Component {
   getUserReviews = async () => {
     try {
       this.setState({
-        isLoading: true
+        isLoading: true,
       });
       const res = await axios.get("/api/reviews");
       this.setState({
         reviews: res.data,
-        isLoading: false
+        isLoading: false,
       });
     } catch (error) {
       this.setState({
-        isLoading: false
+        isLoading: false,
       });
       message.error(error);
     }
@@ -123,7 +123,7 @@ export default class UserReviews extends Component {
   deleteReview = async reviewId => {
     try {
       await axios.delete("/api/reviews", {
-        data: { id: reviewId }
+        data: { id: reviewId },
       });
       this.getUserReviews();
     } catch (error) {
@@ -136,7 +136,7 @@ export default class UserReviews extends Component {
     message.success("Successfully deleted");
   };
 
-  cancel = e => {
+  cancel = () => {
     message.error("Cancelled");
   };
 
@@ -147,7 +147,7 @@ export default class UserReviews extends Component {
     } catch (err) {
       Modal.error({
         title: "Edit is not allowed",
-        content: "You can't edit this review, please check the rules above"
+        content: "You can't edit this review, please check the rules above",
       });
     }
   };
@@ -216,7 +216,7 @@ export default class UserReviews extends Component {
                 ) : (
                   <div>
                     You have no reivews yet. You can add your review from&nbsp;
-                    <Link to={"/search"}>here</Link>
+                    <Link to="/search">here</Link>
                   </div>
                 )}
               </>

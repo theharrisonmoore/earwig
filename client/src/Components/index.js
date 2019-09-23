@@ -18,8 +18,24 @@ import {
   EDIT_PASSWORD_URL,
   EDIT_ID_URL,
   EDIT_TRADE_URL,
-  WELCOME_URL
-} from "./../constants/naviagationUrls";
+  WELCOME_URL,
+  RESOURCES_URL,
+  CONTACT_URL,
+  FAQ_URL,
+  PRIVACY_AND_TERMS_URL,
+  SEARCH_URL,
+  ADD_PROFILE_URL,
+  ADD_PROFILE_START_REVIEW_URL,
+  ADMIN,
+  CONFIRM_EMAIL_URL,
+  INTRO_URL,
+  USER_PROFILE_URL,
+  REPLY_URL,
+  PRIVACY_URL,
+  ORG_STATUS_URL_SIGNUP,
+  ORG_STATUS_URL_LOGIN,
+  INVITE_WORKERS_URL,
+} from "../constants/naviagationUrls";
 
 import Landing from "./Pages/Landing";
 import ReportContent from "./Pages/ReportContent";
@@ -55,27 +71,8 @@ import {
   CommunityGuidlines,
   TermsOfUse,
   CookiesPolicy,
-  PrivacyPolicy
+  PrivacyPolicy,
 } from "./Pages/Static";
-
-import {
-  RESOURCES_URL,
-  CONTACT_URL,
-  FAQ_URL,
-  PRIVACY_AND_TERMS_URL,
-  SEARCH_URL,
-  ADD_PROFILE_URL,
-  ADD_PROFILE_START_REVIEW_URL,
-  ADMIN,
-  CONFIRM_EMAIL_URL,
-  INTRO_URL,
-  USER_PROFILE_URL,
-  REPLY_URL,
-  PRIVACY_URL,
-  ORG_STATUS_URL_SIGNUP,
-  ORG_STATUS_URL_LOGIN,
-  INVITE_WORKERS_URL
-} from "./../constants/naviagationUrls";
 
 export default function index(props) {
   const { handleChangeState, isMobile, isTablet, isLoggedIn, isAdmin } = props;
@@ -481,16 +478,8 @@ export default function index(props) {
         />
 
         {/* 404 Error Page -need to be created */}
-        <Route component={PageNotFound} />
+        <Route render={() => <h1>Page Not Found</h1>} />
       </Switch>
-    </>
-  );
-}
-
-function PageNotFound(props) {
-  return (
-    <>
-      <h1>Page Not Found</h1>
     </>
   );
 }

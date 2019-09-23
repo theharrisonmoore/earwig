@@ -1,21 +1,35 @@
-const Answer = require("../../models/Answer");
+const Review = require("../../models/Review");
 
-module.exports = () => Answer.aggregate([
+module.exports = () => Review.aggregate([
   {
     $lookup: {
-      from: "questions",
-      localField: "question",
-      foreignField: "_id",
-      as: "question",
+      from: "answers",
+      let: { reviewId: "$_id" },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $eq: ["$review", "$$reviewId"],
+            },
+          },
+        },
+        {
+          $lookup: {
+            from: "questions",
+            localField: "question",
+            foreignField: "_id",
+            as: "question",
+          },
+        },
+        {
+          $unwind: { path: "$question", preserveNullAndEmptyArrays: true },
+        },
+      ],
+      as: "answers",
     },
   },
   {
-    $lookup: {
-      from: "reviews",
-      localField: "review",
-      foreignField: "_id",
-      as: "review",
-    },
+    $unwind: { path: "$answers", preserveNullAndEmptyArrays: true },
   },
   {
     $lookup: {
@@ -34,16 +48,13 @@ module.exports = () => Answer.aggregate([
     },
   },
   {
-    $unwind: "$review",
-  },
-  {
     $unwind: "$user",
   },
   {
-    $unwind: "$organization",
+    $unwind: { path: "$organization", preserveNullAndEmptyArrays: true },
   },
   {
-    $unwind: "$question",
+    $unwind: { path: "$question", preserveNullAndEmptyArrays: true },
   },
   {
     $lookup: {
@@ -94,12 +105,16 @@ module.exports = () => Answer.aggregate([
       as: "user.currentCompany",
     },
   },
-  //  group each review
+  // //  group each review
   {
     $group: {
-      _id: "$review._id",
-      reviewDetails: { $first: "$review" },
-      answers: { $push: "$$CURRENT" },
+      _id: "$_id",
+      "Review date": { $first: "$createdAt" },
+      "Overall star rating": { $first: "$rate" },
+      "Overall Review": { $first: "$overallReview.text" },
+      "Date from": { $first: "$workPeriod.from" },
+      "Date to": { $first: "$workPeriod.to" },
+      answers: { $push: "$answers" },
       user: { $first: "$user" },
       organization: { $first: "$organization" },
     },
@@ -107,9 +122,9 @@ module.exports = () => Answer.aggregate([
   {
     $project: {
       _id: 1,
-      "Review date": "$reviewDetails.createdAt",
-      "Overall star rating": "$reviewDetails.rate",
-      "Overall Review": "$reviewDetails.overallReview.text",
+      "Review date": 1,
+      "Overall star rating": 1,
+      "Overall Review": 1,
       "earwig ID": "$user.userId",
       "Unique User ID": "$user._id",
       "Current agency": "$user.currentAgency.name",
@@ -123,8 +138,8 @@ module.exports = () => Answer.aggregate([
       Trade: { $arrayElemAt: ["$user.trade.title", 0] },
       "Entity type": "$organization.category",
       "Entity name": "$organization.name",
-      "Date from": "$reviewDetails.workPeriod.from",
-      "Date to": "$reviewDetails.workPeriod.to",
+      "Date from": 1,
+      "Date to": 1,
       "answers._id": 1,
       "answers.answer": 1,
       "answers.comment": 1,

@@ -26,7 +26,7 @@ import {
   StyledLink,
   EmailShare,
   WhatsappShare,
-  FbShare
+  FbShare,
 } from "./ThankYou.style";
 
 import whatsAppIcon from "../../../assets/whatsapp-logo.svg";
@@ -37,19 +37,19 @@ export default class ThankYou extends Component {
   fbSendBrowser = referralLink => {
     if (isMobileDevice.any()) {
       window.open(
-        "fb-messenger://share?link=" +
-          encodeURIComponent(referralLink) +
-          "&app_id=" +
-          encodeURIComponent("1065819443628486")
+        `fb-messenger://share?link=${encodeURIComponent(
+          referralLink
+        )}&app_id=${encodeURIComponent("1065819443628486")}`
       );
     } else {
       // eslint-disable-next-line no-undef
       FB.ui({
         method: "send",
-        link: referralLink
+        link: referralLink,
       });
     }
   };
+
   render() {
     const { state } = this.props.history.location;
 
@@ -66,6 +66,7 @@ export default class ThankYou extends Component {
 
     const orgName = state && state.orgName ? state.orgName : "an organization";
 
+    // eslint-disable-next-line import/no-dynamic-require, global-require
     const img = require(`./../../../assets/thank-you-${orgType}.svg`);
 
     return (
@@ -124,7 +125,7 @@ export default class ThankYou extends Component {
             Click one of the icons above to share privately with your colleagues
           </SharePromo>
           <StyledLink to={`/profile/${state.orgId}`} orgType={orgType}>
-            Go to the {orgType}'s profile
+            Go to the {orgType}&apos;s profile
           </StyledLink>
         </ContentWrapper>
       </ThankYouWrapper>
