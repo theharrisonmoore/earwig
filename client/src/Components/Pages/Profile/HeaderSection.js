@@ -107,20 +107,26 @@ export default class HeaderSection extends Component {
               isMobile={isMobile}
               organization={category}
             >
-              <OrgLink href={`tel:${phoneNumber}`} hasDetails={phoneNumber}>
-                <OrgButton
-                  category={category}
-                  isMobile={isMobile}
-                  hasDetails={phoneNumber}
-                >
-                  Call
-                </OrgButton>
-              </OrgLink>
-              <OrgLink href={`mailto:${email}`} hasDetails={email}>
-                <OrgButton category={category} isMobile={isMobile}>
-                  Email
-                </OrgButton>
-              </OrgLink>
+              {category !== "company" && (
+                <>
+                  <OrgLink href={`tel:${phoneNumber}`} hasDetails={phoneNumber}>
+                    <OrgButton
+                      category={category}
+                      isMobile={isMobile}
+                      hasDetails={phoneNumber}
+                    >
+                      Call
+                    </OrgButton>
+                  </OrgLink>
+
+                  <OrgLink href={`mailto:${email}`} hasDetails={email}>
+                    <OrgButton category={category} isMobile={isMobile}>
+                      Email
+                    </OrgButton>
+                  </OrgLink>
+                </>
+              )}
+
               <OrgLink
                 href={`${websiteUrl}`}
                 target="_blank"
@@ -138,20 +144,25 @@ export default class HeaderSection extends Component {
               isMobile={isMobile}
               organization={category}
             >
-              <InactiveButton
-                category={category}
-                isMobile={isMobile}
-                hasDetails={phoneNumber}
-              >
-                Call
-              </InactiveButton>
-              <InactiveButton
-                category={category}
-                isMobile={isMobile}
-                hasDetails={email}
-              >
-                Email
-              </InactiveButton>
+              {category !== "company" && (
+                <>
+                  <InactiveButton
+                    category={category}
+                    isMobile={isMobile}
+                    hasDetails={phoneNumber}
+                  >
+                    Call
+                  </InactiveButton>
+                  <InactiveButton
+                    category={category}
+                    isMobile={isMobile}
+                    hasDetails={email}
+                  >
+                    Email
+                  </InactiveButton>
+                </>
+              )}
+
               <InactiveButton
                 category={category}
                 isMobile={isMobile}
