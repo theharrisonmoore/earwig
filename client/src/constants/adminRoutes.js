@@ -16,14 +16,14 @@ export const routes = {
   PAYROLLS: "/admin/organizations/payrolls",
   WORKSITES: "/admin/organizations/worksites",
   ADDORG: "/admin/organizations/add",
-  EDITORG: "/admin/organizations/edit"
+  EDITORG: "/admin/organizations/edit",
 };
 
 export const menuElements = [
   {
     title: "Dashboard",
     icon: "dashboard",
-    route: "/"
+    route: "/",
   },
 
   {
@@ -34,14 +34,14 @@ export const menuElements = [
       {
         title: "All Users",
         icon: "team",
-        route: "/"
+        route: "/",
       },
       {
         title: "Verify awaiting users",
         icon: "user-add",
-        route: "/verify"
-      }
-    ]
+        route: "/verify",
+      },
+    ],
   },
   {
     title: "Reviews",
@@ -51,19 +51,19 @@ export const menuElements = [
       {
         title: "All Reviews",
         icon: "file-search",
-        route: "/"
+        route: "/",
       },
       {
         title: "Verify awaiting reviews",
         icon: "file-done",
-        route: "/verify"
-      }
-    ]
+        route: "/verify",
+      },
+    ],
   },
   {
     title: "Trades",
     icon: "shop",
-    route: "/trades"
+    route: "/trades",
   },
   {
     title: "Organizations",
@@ -73,28 +73,28 @@ export const menuElements = [
       {
         title: "Companies",
         icon: "trademark",
-        route: "/companies"
+        route: "/companies",
       },
       {
         title: "Worksites",
         icon: "tool",
-        route: "/worksites"
+        route: "/worksites",
       },
       {
         title: "Agencies",
         icon: "team",
-        route: "/agencies"
+        route: "/agencies",
       },
       {
         title: "Payrolls",
         icon: "pay-circle",
-        route: "/payrolls"
+        route: "/payrolls",
       },
       {
         title: "Modify",
         icon: "tool",
-        route: "/modify"
-      }
-    ]
-  }
+        route: "/modify",
+      },
+    ],
+  },
 ];

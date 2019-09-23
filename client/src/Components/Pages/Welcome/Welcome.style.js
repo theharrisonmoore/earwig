@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-import { colors, organizations, breakpoints } from "./../../../theme";
+import { colors, organizations, breakpoints } from "../../../theme";
 
 export const Wrapper = styled.div`
   width: 100%;
