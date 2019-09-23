@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { colors, shadows, breakpoints, borders } from "./../../theme";
-import { MOBILE_WIDTH } from "./../../constants/screenWidths";
+import { colors, shadows, breakpoints, borders } from "../../theme";
+import { MOBILE_WIDTH } from "../../constants/screenWidths";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -71,18 +71,18 @@ export const MainIcon = styled.img`
   text-align: center;
   margin: 0 auto 0.5rem;
   display: block;
+
+  @media (max-width: ${MOBILE_WIDTH}px) {
+    margin: 1rem auto 0.5rem;
+  }
 `;
 
 export const PageTitle = styled.h1`
   font-weight: 500;
   font-size: 2.625rem;
-  text-align: center;
+  text-align: left;
 
   color: ${colors.profileFontColor};
-
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    display: none;
-  }
 `;
 
 export const SubTitleGroup = styled.div`
@@ -147,7 +147,7 @@ export const SmallParagraph = styled.p`
 `;
 
 export const StyledOl = styled.ol`
-font-size: 1rem;
+  font-size: 1rem;
   margin-bottom: 2rem;
   color: ${colors.profileFontColor};
   text-align: ${({ center }) => (center ? "center" : "left")};
@@ -155,7 +155,7 @@ font-size: 1rem;
   @media (min-width: ${MOBILE_WIDTH}px) {
     font-size: 1.125rem;
   }
-`
+`;
 
 export const BoldLink = styled(Link)`
   font-size: 1rem;
@@ -177,7 +177,7 @@ export const BoldLink = styled(Link)`
 export const Iframe = styled.iframe`
   width: 100%;
   height: 49vw;
-  max-height: 315px;;
+  max-height: 315px;
   box-shadow: ${shadows.frameShadow};
   max-width: 560px;
   margin-bottom: 2rem;
@@ -244,7 +244,7 @@ export const Devider = styled.div`
 `;
 
 export const UnderlinedLink = styled(BoldLink).attrs({
-  className: "UnderlinedLink"
+  className: "UnderlinedLink",
 })`
   text-decoration: underline;
   font-size: 1.125rem;
@@ -272,8 +272,6 @@ export const ButtonsWrapper = styled.div`
   }
 `;
 
-
-
 export const LargeLink = styled(Link)`
   font-family: Roboto;
   font-weight: 900;
@@ -296,13 +294,13 @@ export const LargeLink = styled(Link)`
 `;
 
 export const NormalLink = styled(Link)`
-color: ${colors.purpleLinks};
-text-decoration: underline;
+  color: ${colors.purpleLinks};
+  text-decoration: underline;
   &:hover {
     text-decoration: underline;
     color: ${colors.purpleLinks};
   }
-`
+`;
 
 export const Ol = styled.ol`
   list-style-type: none;
