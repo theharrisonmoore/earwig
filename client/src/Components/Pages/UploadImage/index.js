@@ -24,7 +24,7 @@ import {
 
 import example from "../../../assets/example.png";
 
-import { PROFILE_URL } from "../../../constants/naviagationUrls";
+import { INTRO_URL } from "../../../constants/naviagationUrls";
 
 const {
   API_TRADE_URL,
@@ -144,7 +144,7 @@ export default class UploadImage extends Component {
                   timer: 1500
                 }).then(() => {
                   this.props.handleChangeState({ awaitingReview: true });
-                  this.props.history.push(PROFILE_URL);
+                  this.props.history.push(INTRO_URL);
                 });
               });
             })
