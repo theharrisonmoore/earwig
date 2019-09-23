@@ -203,8 +203,8 @@ export const AgreementLabel = styled.label`
 `;
 
 export const CheckboxWrapper = styled.div`
-  justify-content: space-between;
-  flex-wrap: wrap;
+  /* justify-content: space-between;
+  flex-wrap: wrap; */
   .ant-checkbox-wrapper {
     display: flex;
   }
@@ -219,6 +219,11 @@ export const CheckboxWrapper = styled.div`
   }
 `;
 
+export const ConditionWrapper = styled.div`
+  justify-content: space-between;
+  flex-wrap: wrap;
+`;
+
 export const SubmitButton = styled.button`
   background: ${props => organizations[props.orgType].primary};
   border: 1px solid ${colors.inputBorder};
@@ -231,6 +236,7 @@ export const SubmitButton = styled.button`
   display: block;
   margin: 2rem auto 3rem;
   height: auto;
+  cursor: pointer;
 `;
 
 export const ButtonDiv = styled.div`
@@ -271,6 +277,7 @@ export const LinkSpan = styled(Link)`
   font-size: 1rem;
   font-weight: 700;
   text-decoration: underline;
+  z-index: 4;
 
   &:hover,
   &:active {

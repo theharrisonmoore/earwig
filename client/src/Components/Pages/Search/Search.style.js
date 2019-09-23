@@ -145,12 +145,16 @@ export const ItemDiv = styled.div`
   max-width: 200px;
   align-items: center;
   width: 45%;
-  padding: ${props => (props.notMobile ? "0 2rem" : "0 1rem")};
+  /* padding: ${props => (props.notMobile ? "0 2rem" : "0 1rem")}; */
+  padding: 1rem;
   margin-bottom: 1.5rem;
   margin-left: auto;
   margin-right: auto;
   justify-content: ${props =>
     props.notMobile && props.left ? "flex-end" : "flex-start"};
+  background: ${props => props.category && organizations[props.category].primary};
+  border-radius: 4px;
+  cursor: pointer;
 `;
 
 export const LegendTitle = styled.h2`
@@ -265,17 +269,41 @@ export const ReviewDetailsDiv = styled.div`
 export const ProfileLink = styled(Link)`
   :hover {
     text-decoration: none;
-  }
+  };
 `;
 
 export const AddProfileLink = styled(Link)`
   width: 100%;
   background: none;
-  border: none;
+  cursor: pointer;
 
   :hover {
     text-decoration: none;
   }
+`;
+
+export const AddProfileButton = styled(Link)`
+  width: 100%;
+  background: none;
+  outline: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  :hover {
+    text-decoration: none;
+  }
+`;
+
+
+export const LinkTitle = styled.h3`
+  font-weight: 700;
+  margin: 0;
+  font-size: 1.25rem;
+  color: white;
 `;
 
 export const HeadlineDiv = styled.div`
