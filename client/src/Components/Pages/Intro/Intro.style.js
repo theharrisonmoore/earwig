@@ -87,9 +87,10 @@ export const Title = styled.h1`
   text-align: left;
 `;
 
-export const Logo = styled.img`
+export const LogoWrapper = styled.span`
   display: none;
   margin: 0 auto 2rem;
+  margin-bottom: 0;
 
   @media (max-width: ${MOBILE_WIDTH}px) {
     display: block;

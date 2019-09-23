@@ -75,7 +75,7 @@ export default class EditProfile extends Component {
                 </Section>
                 <Section>
                   <Row>
-                    <Option>Delete my account</Option>
+                    <Option>Delete your account</Option>
                     <NavLink to="/delete-profile">
                       <DeleteButton>Delete</DeleteButton>
                     </NavLink>

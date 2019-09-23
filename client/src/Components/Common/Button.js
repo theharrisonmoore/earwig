@@ -10,7 +10,7 @@ const ButtonElement = styled.button`
   border: none;
   box-shadow: ${shadows.buttonShadow};
   border-radius: 300px;
-  width: 100%;
+  width: ${props => props.width || "100%"};
 
   font-weight: 900;
   font-size: 1.125rem;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
 
-import { colors, organizations } from "./../../../theme";
+import { colors, organizations } from "../../../theme";
 
 export const EmailShare = styled(EmailShareButton)`
   display: flex;

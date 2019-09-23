@@ -5,22 +5,23 @@ import { message } from "antd";
 import {
   Wrapper,
   ContentWrapper,
-  PurpleDiv
-} from "./../../Common/StaticPages.style";
+  PurpleDiv,
+} from "../../Common/StaticPages.style";
 
-import Loading from "./../../Common/AntdComponents/Loading.js";
+import Loading from "../../Common/AntdComponents/Loading";
 import SelectReason from "./SelectReason";
 import Thanks from "./Thanks";
-import CancelNavbar from "./../../Common/CancelNavbar";
-import { colors } from "./../../../theme";
+import CancelNavbar from "../../Common/CancelNavbar";
+import { colors } from "../../../theme";
 
-import { API_REPORT_CONTENT_URL } from "./../../../apiUrls";
+import { API_REPORT_CONTENT_URL } from "../../../apiUrls";
+
 export default class ReportContent extends Component {
   state = {
     reason: "",
     description: "",
     activePage: "selectReason",
-    loading: false
+    loading: false,
   };
 
   componentDidMount() {
@@ -41,12 +42,12 @@ export default class ReportContent extends Component {
     if (!this.state.description) {
       return message.error("Please fill in some information!");
     }
-    this.setState({ loading: true }, () => {
+    return this.setState({ loading: true }, () => {
       axios
         .post(API_REPORT_CONTENT_URL, {
           ...this.props.location.state,
           description: this.state.description,
-          reason: this.state.reason
+          reason: this.state.reason,
         })
         .then(() => {
           this.setState({ loading: false, activePage: "thanks" });
