@@ -12,8 +12,10 @@ module.exports = (req, res, next) => {
 
         review.answers.forEach((answer) => {
           const { question, comment } = answer;
-          newReviewObj[`${question.category}: ${question.text}`] = answer.answer;
-          newReviewObj[`${question.category}: ${question.text}: Comment`] = comment || "-";
+          if (question && question.category && question.text) {
+            newReviewObj[`${question.category}: ${question.text}`] = answer.answer;
+            newReviewObj[`${question.category}: ${question.text}: Comment`] = comment || "-";
+          }
         });
 
         // now answers assigned, remove answers array from obj
