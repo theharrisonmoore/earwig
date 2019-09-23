@@ -14,6 +14,7 @@ import { ITEMS } from "./../../../constants/promoItems";
 import { SIGNUP_URL } from "./../../../constants/naviagationUrls";
 
 import Icon from "./../../Common/Icon/Icon";
+import Button from "./../../Common/Button";
 
 import {
   Wrapper,
@@ -323,7 +324,10 @@ export default class Profile extends Component {
                   }}
                   category={category}
                 >
-                  Create an account now >
+                  <Button
+                    children="Create an account to see more"
+                    width="300px"
+                  />
                 </AccountLink>
               </AccountPromo>
             </Level0Promo>
@@ -339,57 +343,12 @@ export default class Profile extends Component {
             </ReviewDiv>
           )} */}
 
-          {level > 0 &&
-          <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-            {/* KEY RATINGS SECTION */}
-            {reviewDetails.map(
-              (section, index) =>
-                section._id === "Key ratings" && (
-                  <ReviewSection
-                    key={index}
-                    category={category}
-                    sectionDetails={section}
-                    toggleComments={this.toggleComments}
-                    summary={summary}
-                    isMobile={isMobile}
-                  />
-                )
-            )}
-
-            {/* OTHER SECTIONS */}
-            {reviewDetails.map(
-              (section, index) =>
-                section._id === "Detailed ratings" && (
-                  <ReviewSection
-                    key={index}
-                    category={category}
-                    sectionDetails={section}
-                    toggleComments={this.toggleComments}
-                    summary={summary}
-                    isMobile={isMobile}
-                  />
-                )
-            )}
-
-            {reviewDetails.map(
-              (section, index) =>
-                section._id === "Getting on to site" && (
-                  <ReviewSection
-                    key={index}
-                    category={category}
-                    sectionDetails={section}
-                    toggleComments={this.toggleComments}
-                    summary={summary}
-                    isMobile={isMobile}
-                    carParkingPrice={this.getCarCost}
-                  />
-                )
-            )}
-
-            {level > 0 &&
-              reviewDetails.map(
+          {level > 0 && (
+            <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
+              {/* KEY RATINGS SECTION */}
+              {reviewDetails.map(
                 (section, index) =>
-                  section._id === "Working on the site" && (
+                  section._id === "Key ratings" && (
                     <ReviewSection
                       key={index}
                       category={category}
@@ -401,57 +360,102 @@ export default class Profile extends Component {
                   )
               )}
 
-            {reviewDetails.map(
-              (section, index) =>
-                section._id === "The site welfare" && (
-                  <ReviewSection
-                    key={index}
-                    category={category}
-                    sectionDetails={section}
-                    toggleComments={this.toggleComments}
-                    summary={summary}
-                    isMobile={isMobile}
-                  />
-                )
-            )}
+              {/* OTHER SECTIONS */}
+              {reviewDetails.map(
+                (section, index) =>
+                  section._id === "Detailed ratings" && (
+                    <ReviewSection
+                      key={index}
+                      category={category}
+                      sectionDetails={section}
+                      toggleComments={this.toggleComments}
+                      summary={summary}
+                      isMobile={isMobile}
+                    />
+                  )
+              )}
 
-            {reviewDetails.map(
-              (section, index) =>
-                section._id === "Supervisors & employees" && (
-                  <ReviewSection
-                    key={index}
-                    category={category}
-                    sectionDetails={section}
-                    toggleComments={this.toggleComments}
-                    summary={summary}
-                    isMobile={isMobile}
-                  />
-                )
-            )}
+              {reviewDetails.map(
+                (section, index) =>
+                  section._id === "Getting on to site" && (
+                    <ReviewSection
+                      key={index}
+                      category={category}
+                      sectionDetails={section}
+                      toggleComments={this.toggleComments}
+                      summary={summary}
+                      isMobile={isMobile}
+                      carParkingPrice={this.getCarCost}
+                    />
+                  )
+              )}
 
-            {reviewDetails.map(
-              (section, index) =>
-                section._id === "Tools & materials" && (
-                  <ReviewSection
-                    key={index}
-                    category={category}
-                    sectionDetails={section}
-                    toggleComments={this.toggleComments}
-                    summary={summary}
-                    isMobile={isMobile}
-                  />
-                )
-            )}
+              {level > 0 &&
+                reviewDetails.map(
+                  (section, index) =>
+                    section._id === "Working on the site" && (
+                      <ReviewSection
+                        key={index}
+                        category={category}
+                        sectionDetails={section}
+                        toggleComments={this.toggleComments}
+                        summary={summary}
+                        isMobile={isMobile}
+                      />
+                    )
+                )}
 
-            {/* MONTHLY REVIEWS
+              {reviewDetails.map(
+                (section, index) =>
+                  section._id === "The site welfare" && (
+                    <ReviewSection
+                      key={index}
+                      category={category}
+                      sectionDetails={section}
+                      toggleComments={this.toggleComments}
+                      summary={summary}
+                      isMobile={isMobile}
+                    />
+                  )
+              )}
+
+              {reviewDetails.map(
+                (section, index) =>
+                  section._id === "Supervisors & employees" && (
+                    <ReviewSection
+                      key={index}
+                      category={category}
+                      sectionDetails={section}
+                      toggleComments={this.toggleComments}
+                      summary={summary}
+                      isMobile={isMobile}
+                    />
+                  )
+              )}
+
+              {reviewDetails.map(
+                (section, index) =>
+                  section._id === "Tools & materials" && (
+                    <ReviewSection
+                      key={index}
+                      category={category}
+                      sectionDetails={section}
+                      toggleComments={this.toggleComments}
+                      summary={summary}
+                      isMobile={isMobile}
+                    />
+                  )
+              )}
+
+              {/* MONTHLY REVIEWS
             {level > 0 && (
               <MonthlyReviews
                 category={category}
                 reviewsByMonth={this.reviewsByMonth()}
               />
             )} */}
-          </ReviewDiv>
-          }
+            </ReviewDiv>
+          )}
           {/* OVERALL RATINGS SECTION */}
           {/* HIDDEN DIV TO SCROLL SECTION INTO VIEW */}
           <div ref={this.myDivToFocus} />

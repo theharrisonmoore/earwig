@@ -2,7 +2,7 @@ import styled from "styled-components";
 import SVG from "react-inlinesvg";
 import { NavLink } from "react-router-dom";
 
-import { organizations, colors, shadows } from "./../../../theme";
+import { organizations, colors, shadows } from "../../../theme";
 
 export const ReviewButtonsDiv = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ export const ReviewButtonsDiv = styled.div`
 
 export const ReviewType = styled.div`
   display: flex;
-  width: ${props => (props.isMobile || props.isTablet ? "100%" : "45%")};
+  width: 100%;
   align-items: center;
   justify-content: center;
 `;
