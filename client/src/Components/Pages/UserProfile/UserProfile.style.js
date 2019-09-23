@@ -6,8 +6,8 @@ import {
   shadows,
   borders,
   organizations,
-  breakpoints
-} from "./../../../theme";
+  breakpoints,
+} from "../../../theme";
 
 export const Wrapper = styled.div`
   margin-bottom: 2rem;

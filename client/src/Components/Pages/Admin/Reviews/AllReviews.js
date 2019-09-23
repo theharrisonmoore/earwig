@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { Table, Modal, message, Input, Icon, Button } from "antd";
 
-import { colors } from "./../../../../theme";
+import { colors } from "../../../../theme";
 
 import ReviewsColumns from "./ReviewsColumns";
 
@@ -37,7 +37,7 @@ export default class AllReviews extends Component {
     visible: false,
     id: "",
     exportData: "",
-    exportQuestionHeaders: ""
+    exportQuestionHeaders: "",
   };
 
   CSVRef = React.createRef();
@@ -47,7 +47,7 @@ export default class AllReviews extends Component {
       setSelectedKeys,
       selectedKeys,
       confirm,
-      clearFilters
+      clearFilters,
     }) => (
       <div style={{ padding: 8 }}>
         <Input
@@ -96,7 +96,7 @@ export default class AllReviews extends Component {
       if (visible) {
         setTimeout(() => this.searchInput.select());
       }
-    }
+    },
   });
 
   handleSearch = (selectedKeys, confirm) => {
@@ -119,7 +119,7 @@ export default class AllReviews extends Component {
         return new Promise((resolve, reject) => {
           axios
             .delete(`/api/admin/reviews`, {
-              data: { id }
+              data: { id },
             })
             .then(() => {
               message.success("Deleted");
@@ -133,7 +133,7 @@ export default class AllReviews extends Component {
               this.fetchData();
             });
         });
-      }
+      },
     });
   };
 
@@ -176,7 +176,7 @@ export default class AllReviews extends Component {
         this.setState(
           {
             exportData: data.cleanedReviews,
-            exportQuestionHeaders: data.headers
+            exportQuestionHeaders: data.headers,
           },
           () => {
             this.CSVRef.current.link.click();
@@ -207,7 +207,7 @@ export default class AllReviews extends Component {
           columns={ReviewsColumns({
             deletHandler: this.showDeleteConfirm,
             getColumnSearchProps: this.getColumnSearchProps,
-            searchText: this.state.searchText
+            searchText: this.state.searchText,
           })}
           dataSource={this.state.data}
           style={{ backgroundColor: "#ffffff", marginTop: "3rem" }}

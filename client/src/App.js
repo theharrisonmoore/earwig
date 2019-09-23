@@ -7,7 +7,7 @@ import mixpanel from "mixpanel-browser";
 import "antd/dist/antd.css";
 import "./App.css";
 
-import Routes from "./Components/";
+import Routes from "./Components";
 
 import ScrollToTop from "./Components/Common/ScrollToTop";
 
@@ -34,12 +34,12 @@ export const initialState = {
   isAdmin: false,
   isMounted: false,
   email: "",
-  city: ""
+  city: "",
 };
 
 class App extends Component {
   state = {
-    ...initialState
+    ...initialState,
   };
 
   updateWindowDimensions = this.updateWindowDimensions.bind(this);
@@ -48,7 +48,7 @@ class App extends Component {
     this.setState({
       isSMobile: isSMobile(window.innerWidth),
       isMobile: isMobile(window.innerWidth),
-      isTablet: isTablet(window.innerWidth)
+      isTablet: isTablet(window.innerWidth),
     });
   }
 
@@ -75,7 +75,7 @@ class App extends Component {
     this.getUserInfo();
     window.scrollTo(0, 0);
     mixpanel.track("new mount", {
-      earwig: "earwig"
+      earwig: "earwig",
     });
   }
 
@@ -103,7 +103,7 @@ class App extends Component {
                 isMobile ? cookieStyles.buttonMobile : cookieStyles.button
               }
               expires={150}
-              acceptOnScroll={true}
+              acceptOnScroll
             >
               This website uses cookies to enhance the user experience.{" "}
               <a style={cookieStyles.link} href={COOKIES_POLICY_URL}>

@@ -33,20 +33,21 @@
     "build:data2": "NODE_ENV=production node server/database/dummyData/index.js"
   },
   "devDependencies": {
+    "babel-eslint": "10.0.3",
     "codecov": "^3.2.0",
     "concurrently": "^4.1.0",
     "eslint": "^6.3.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jsx-a11y": "^6.2.0",
-    "eslint-plugin-node": "^8.0.1",
-    "eslint-plugin-promise": "^4.1.1",
-    "eslint-plugin-react": "^7.12.4",
-    "eslint-plugin-standard": "^4.0.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.11.1",
+    "istanbul": "^0.4.5",
     "jest": "24.9.0",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.6",
+    "prettier": "^1.17.0"
   },
   "dependencies": {
     "@sentry/node": "^5.4.0",

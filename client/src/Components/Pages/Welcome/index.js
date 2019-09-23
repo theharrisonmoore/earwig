@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 // COMMON
-import Button from "./../../Common/Button";
-import Icon from "./../../Common/Icon/Icon";
+import Button from "../../Common/Button";
+import Icon from "../../Common/Icon/Icon";
 
 // STYLING
 import {
@@ -15,8 +15,8 @@ import {
   HintText,
   Text,
   ButtonText,
-  ComingSoon
-} from "./Welcome.style.js";
+  ComingSoon,
+} from "./Welcome.style";
 
 // NAV ROUTES
 import {
@@ -24,8 +24,8 @@ import {
   SEARCH_URL,
   ASK_QUESTION_URL,
   JOBS_URL,
-  UPLOAD_VERIFICATION_PHOTO
-} from "./../../../constants/naviagationUrls.js";
+  UPLOAD_VERIFICATION_PHOTO,
+} from "../../../constants/naviagationUrls";
 
 export default class Welcome extends Component {
   render() {

@@ -6,10 +6,10 @@ import { Skeleton } from "antd";
 
 import {
   EDIT_PROFILE_URL,
-  UPLOAD_VERIFICATION_URL
-} from "./../../../constants/naviagationUrls";
+  UPLOAD_VERIFICATION_URL,
+} from "../../../constants/naviagationUrls";
 
-import Button from "./../../Common/Button";
+import Button from "../../Common/Button";
 
 import {
   Wrapper,
@@ -36,16 +36,16 @@ import {
   MiniHeader,
   VerifyTitle,
   VerifyParagraph,
-  VerifySection
+  VerifySection,
 } from "./UserProfile.style";
 
-import Icon from "./../../Common/Icon/Icon";
+import Icon from "../../Common/Icon/Icon";
 
 export default class index extends Component {
   state = {
     reviewCount: 0,
     userReviews: [],
-    loaded: false
+    loaded: false,
   };
 
   componentDidMount() {
@@ -53,7 +53,7 @@ export default class index extends Component {
       this.setState({
         userReviews: res.data,
         reviewCount: res.data.length,
-        loaded: true
+        loaded: true,
       });
     });
   }
@@ -65,7 +65,7 @@ export default class index extends Component {
       points,
       helpedUsers,
       isSMobile,
-      awaitingReview
+      awaitingReview,
     } = this.props;
 
     const { reviewCount, userReviews, loaded } = this.state;
@@ -152,7 +152,7 @@ export default class index extends Component {
                 title={false}
                 paragraph={{
                   rows: 5,
-                  width: ["50%", "80%", "70%", "40%", "70%"]
+                  width: ["50%", "80%", "70%", "40%", "70%"],
                 }}
               >
                 {userReviews.length > 0 ? (
@@ -212,33 +212,32 @@ export default class index extends Component {
           )}
         </Wrapper>
       );
-    } else {
-      // BASIC VIEW FOR NON-WORKERS
-      return (
-        <Wrapper>
-          <BorderedWrapper>
-            <div>
-              <MiniHeader>
-                <NavLink to={EDIT_PROFILE_URL}>Edit Profile</NavLink>
-              </MiniHeader>
-              <VerifySection>
-                <VerifyTitle>You're not a verified worker</VerifyTitle>
-                <VerifyParagraph>
-                  If you want to give reviews, ask questions and find jobs, you
-                  first need to get verified as a genuine worker.
-                  <br />
-                  <br />
-                  This protects the worker community from fake reviews and spam
-                  by non-workers.
-                </VerifyParagraph>
-                <NavLink to={UPLOAD_VERIFICATION_URL}>
-                  <Button type="button">Get verified as a worker</Button>
-                </NavLink>
-              </VerifySection>
-            </div>
-          </BorderedWrapper>
-        </Wrapper>
-      );
     }
+    // BASIC VIEW FOR NON-WORKERS
+    return (
+      <Wrapper>
+        <BorderedWrapper>
+          <div>
+            <MiniHeader>
+              <NavLink to={EDIT_PROFILE_URL}>Edit Profile</NavLink>
+            </MiniHeader>
+            <VerifySection>
+              <VerifyTitle>You&apos;re not a verified worker</VerifyTitle>
+              <VerifyParagraph>
+                If you want to give reviews, ask questions and find jobs, you
+                first need to get verified as a genuine worker.
+                <br />
+                <br />
+                This protects the worker community from fake reviews and spam by
+                non-workers.
+              </VerifyParagraph>
+              <NavLink to={UPLOAD_VERIFICATION_URL}>
+                <Button type="button">Get verified as a worker</Button>
+              </NavLink>
+            </VerifySection>
+          </div>
+        </BorderedWrapper>
+      </Wrapper>
+    );
   }
 }
