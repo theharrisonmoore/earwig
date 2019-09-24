@@ -39,13 +39,12 @@ export const Thumbnail = styled.img`
     switch (orientation) {
       case 3:
         return "rotate(180deg)";
-        break;
       case 8:
         return "rotate(-90deg)";
-        break;
       case 6:
         return "rotate(90deg)";
-        break;
+      default:
+        return "rotate(0deg)";
     }
   }};
 `;

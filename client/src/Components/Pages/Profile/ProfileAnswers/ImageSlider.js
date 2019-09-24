@@ -134,7 +134,11 @@ class Slider extends React.Component {
                         style={{ cursor: "pointer", position: "relative" }}
                         onClick={this.handleOpenLightBox}
                       >
-                        <Image src={img} alt="" />
+                        <Image
+                          src={img.link}
+                          alt=""
+                          orientation={img.orientation}
+                        />
                       </ImgWrapper>
                     </div>
                   ))}
