@@ -6,9 +6,9 @@ import Lightbox from "lightbox-react";
 
 import { SliderWrapper, ImgWrapper, Image } from "./ProfileAnswers.style";
 
-import { StyledAntIcon } from "./../Profile.style";
+import { StyledAntIcon } from "../Profile.style";
 
-import { REPORT_CONTENT_URL } from "./../../../../constants/naviagationUrls";
+import { REPORT_CONTENT_URL } from "../../../../constants/naviagationUrls";
 
 import { ReactComponent as LeftArrow } from "../../../../assets/leftarrowicon.svg";
 
@@ -25,7 +25,7 @@ class Slider extends React.Component {
       errors: { image: "" },
       answers: [],
       activeIndex: 0,
-      isOpen: false
+      isOpen: false,
     };
   }
 
@@ -36,11 +36,11 @@ class Slider extends React.Component {
     axios
       .post("/api/wroksite-images", images)
       .then(res => {
-        this.setState({ images: res.data.images, answers: answers });
+        this.setState({ images: res.data.images, answers });
       })
       .catch(err => {
         this.setState({
-          errors: { ...this.state.errors, image: "image error" }
+          errors: { ...this.state.errors, image: "image error" },
         });
       });
   }
@@ -68,14 +68,14 @@ class Slider extends React.Component {
   onMovePrevRequest = () => {
     const { activeIndex, images } = this.state;
     this.setState({
-      activeIndex: (activeIndex + images.length - 1) % images.length
+      activeIndex: (activeIndex + images.length - 1) % images.length,
     });
   };
 
   onMoveNextRequest = () => {
     const { activeIndex, images } = this.state;
     this.setState({
-      activeIndex: (activeIndex + 1) % images.length
+      activeIndex: (activeIndex + 1) % images.length,
     });
   };
 
@@ -87,8 +87,18 @@ class Slider extends React.Component {
     );
 
     const arrowStyle = CSS.supports("( mix-blend-mode: difference )")
-      ? { mixBlendMode: "difference", cursor: "pointer" }
-      : { background: "#364d79", cursor: "pointer" };
+      ? {
+          mixBlendMode: "difference",
+          cursor: "pointer",
+          width: "2rem",
+          height: "2rem",
+        }
+      : {
+          background: "#364d79",
+          cursor: "pointer",
+          width: "2rem",
+          height: "2rem",
+        };
 
     return (
       <>
@@ -108,18 +118,20 @@ class Slider extends React.Component {
             style={{
               position: "relative",
               maxWidth: "500px",
-              margin: " 0 auto"
+              margin: " 0 auto",
             }}
           >
             <SliderWrapper>
-              <LeftArrow
-                fill="white"
-                height="2rem"
-                width="2rem"
-                onClick={this.next}
-                className="left-arrow"
-                style={arrowStyle}
-              />
+              <div>
+                <LeftArrow
+                  fill="white"
+                  height="2rem"
+                  width="2rem"
+                  onClick={this.next}
+                  className="left-arrow"
+                  style={arrowStyle}
+                />
+              </div>
               <Carousel
                 effect="scrollx"
                 dots={false}
@@ -160,18 +172,18 @@ class Slider extends React.Component {
                 justifyContent: "center",
                 height: "33px",
                 alignItems: "center",
-                borderRadius: "50%"
+                borderRadius: "50%",
               }}
               to={{
                 pathname: REPORT_CONTENT_URL,
                 state: {
                   review: {
-                    user: activeReview && activeReview.user
+                    user: activeReview && activeReview.user,
                   },
                   organization,
                   image: images[activeIndex],
-                  target: "worksiteImage"
-                }
+                  target: "worksiteImage",
+                },
               }}
             >
               <StyledAntIcon type="flag" />
