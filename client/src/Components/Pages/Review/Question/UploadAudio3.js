@@ -3,7 +3,7 @@ import React, { Component } from "react";
 
 import { VoiceWrapper, VoiceIconWrapper, StopIcon } from "./Question.style";
 import { AudioErrorMsg } from "./UploadPhoto.style";
-import Icon from "./../../../Common/Icon/Icon";
+import Icon from "../../../Common/Icon/Icon";
 
 window.URL = window.URL || window.webkitURL;
 /**
@@ -23,7 +23,7 @@ export default class UploadAudio3 extends Component {
       isRecording: false,
       tracks: [],
       src: "",
-      message: ""
+      message: "",
     };
     this.audioContext = null;
     this.processor = null;
@@ -31,7 +31,7 @@ export default class UploadAudio3 extends Component {
     this.config = {
       bufferLen: 4096,
       numChannels: 2,
-      mimeType: "audio/mp3"
+      mimeType: "audio/mp3",
     };
     this.encoder = null;
   }
@@ -64,19 +64,19 @@ export default class UploadAudio3 extends Component {
     try {
       const { id } = this.props;
 
-      let audioBlob = new Blob([blob], {
-        type: "audio/mp3"
+      const audioBlob = new Blob([blob], {
+        type: "audio/mp3",
       });
 
       audioBlob.name = `${id}.mp3`;
 
       this.setState({
         recordedAudio: audioBlob,
-        audioFile: audioBlob
+        audioFile: audioBlob,
       });
       this.props.handleRecord({
         recordedAudio: audioBlob,
-        audioFile: audioBlob
+        audioFile: audioBlob,
       });
     } catch (err) {
       this.logError(err);
@@ -86,7 +86,7 @@ export default class UploadAudio3 extends Component {
   startRecord = async () => {
     this.setState({ message: "" });
     try {
-      this.audioContext = new AudioContext();
+      this.audioContext = new AudioContext({ latencyHint: "playback" });
       /**
        * Create a ScriptProcessorNode with a bufferSize of
        * 4096 and two input and output channel
@@ -142,8 +142,12 @@ export default class UploadAudio3 extends Component {
       this.processor.onaudioprocess = event => {
         try {
           this.encoder.encode(this.getBuffers(event));
+
+          if (event.playbackTime >= 33) {
+            this.handleStopClick();
+          }
         } catch (err) {
-          this.logError(err)
+          this.logError(err);
         }
       };
     } catch (err) {
@@ -154,7 +158,8 @@ export default class UploadAudio3 extends Component {
   logError = error => {
     console.log("err", error);
     this.setState({
-      message: "Sorry, there seems to be an issue doing voice recordings on this browser/device. If on a computer please use Chrome or on Apple mobile devices please use Safari."
+      message:
+        "Sorry, there seems to be an issue doing voice recordings on this browser/device. If on a computer please use Chrome or on Apple mobile devices please use Safari.",
     });
   };
 

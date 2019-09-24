@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import QuestionOptions from "./Options";
-import PopoverComponent from "./../../../Common/Popover";
+import PopoverComponent from "../../../Common/Popover";
 import { QuestionWrapper, QText, HintText } from "./Question.style";
 
 import { isIphone } from "../../../../helpers/index";
@@ -26,7 +26,7 @@ class Question extends Component {
       name,
       label,
       hasComment,
-      next
+      next,
     } = this.props.question;
 
     const {
@@ -45,13 +45,13 @@ class Question extends Component {
       handleRecord,
       handleAddNewOrgChange,
       id,
-      voiceReviewUrl
+      voiceReviewUrl,
     } = this.props;
 
     const popoverOptions = {
       text:
         "We’re asking this because it will be useful to track over time how much agencies are paying workers",
-      linkText: "Why are we asking this?"
+      linkText: "Why are we asking this?",
     };
 
     return (
