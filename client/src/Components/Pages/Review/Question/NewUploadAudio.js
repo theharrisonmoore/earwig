@@ -25,7 +25,7 @@ class NewAudio extends React.Component {
       src: "",
       mimeType: "",
       recording: false,
-      message: "",
+      message: ""
     };
     this.recorder = null;
     this.context = null;
@@ -62,7 +62,7 @@ class NewAudio extends React.Component {
 
   handleError = () => {
     this.setState({
-      message: "For a better experience please try this on Safaris",
+      message: "For a better experience please try this on Safari"
     });
   };
 
@@ -115,7 +115,7 @@ class NewAudio extends React.Component {
       const { id } = this.props;
 
       const audioBlob = new Blob([blob], {
-        type: "audio/mp3",
+        type: "audio/mp3"
       });
 
       audioBlob.name = `${id}.mp3`;
@@ -127,11 +127,11 @@ class NewAudio extends React.Component {
 
       this.setState({
         recordedAudio: audioBlob,
-        audioFile: audioBlob,
+        audioFile: audioBlob
       });
       this.props.handleRecord({
         recordedAudio: audioBlob,
-        audioFile: audioBlob,
+        audioFile: audioBlob
       });
     } catch (error) {
       this.handleError(error);
