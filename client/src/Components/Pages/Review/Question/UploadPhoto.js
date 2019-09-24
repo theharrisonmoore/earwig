@@ -21,45 +21,108 @@ export default class UploadImage extends Component {
     exifData: null
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    const { image } = this.state;
-    const { image: prevImage } = prevState;
+  // componentDidUpdate(prevProps, prevState) {
+  //   const { image } = this.state;
+  //   const { image: prevImage } = prevState;
 
-    if (image !== prevImage) {
-      window.onload = this.getExif();
-    }
-  }
+  //   if (image !== prevImage) {
+  //     window.onload = this.getExif();
+  //   }
+  // }
 
-  getExif = () => {
-    const image = document.getElementById("loadedImg");
-    const exifObj = piexif.load(image.src);
-    const exifData = {};
-    for (var ifd in exifObj) {
-      if (ifd == "thumbnail") {
-        continue;
-      }
-      for (var tag in exifObj[ifd]) {
-        exifData[piexif.TAGS[ifd][tag]["name"]] = exifObj[ifd][tag];
-      }
-    }
-    this.setState({ exifData });
-  };
+  // getExif = () => {
+  //   const image = document.getElementById("loadedImg");
+  //   const exifObj = piexif.load(image.src);
+  //   const exifData = {};
+  //   for (var ifd in exifObj) {
+  //     if (ifd == "thumbnail") {
+  //       continue;
+  //     }
+  //     for (var tag in exifObj[ifd]) {
+  //       exifData[piexif.TAGS[ifd][tag]["name"]] = exifObj[ifd][tag];
+  //     }
+  //   }
+  //   this.setState({ exifData });
+  // };
 
   handleImageChange = event => {
     const image = event.target.files && event.target.files[0];
+
     const reader = new FileReader();
+    console.log(image);
+
+    // extract the exif data from the image
+
+    // reader.onloadend = function(e) {
+    //   var exifObj = piexif.load(e.target.result);
+
+    //   const exifData = {};
+    //   for (var ifd in exifObj) {
+    //     if (ifd == "thumbnail") {
+    //       continue;
+    //     }
+    //     for (var tag in exifObj[ifd]) {
+    //       exifData[piexif.TAGS[ifd][tag]["name"]] = exifObj[ifd][tag];
+    //     }
+    //   }
+    // };
+
+    // console.log(exifData);
+
+    // // get the orientation data
+    // const { Orientation } = exifData;
+
+    // // rename the image to include the orientation data
+    // const newImageFile = new File(
+    //   [image],
+    //   `${image.name}_orient:${Orientation}`,
+    //   {
+    //     type: image.type
+    //   }
+    // );
+    // console.log("NEW", newImageFile);
 
     Swal.fire({
       title: "Uploading!",
       onBeforeOpen: () => {
         Swal.showLoading();
-        reader.onload = () => {
+        reader.onload = e => {
+          // GET EXIF DATA FROM IMAGE
+          var exifObj = piexif.load(e.target.result);
+          const exifData = {};
+          for (var ifd in exifObj) {
+            if (ifd == "thumbnail") {
+              continue;
+            }
+            for (var tag in exifObj[ifd]) {
+              exifData[piexif.TAGS[ifd][tag]["name"]] = exifObj[ifd][tag];
+            }
+          }
+          console.log(exifData);
+
+          // get the orientation data
+          const { Orientation } = exifData;
+
+          // rename the image to include the orientation data
+          const newImageFile = new File(
+            [image],
+            `${image.name.split(".")[0]}_orient:${Orientation || 1}.${
+              image.type.split("/")[1]
+            }`,
+            {
+              type: image.type
+            }
+          );
+          console.log("NEW", newImageFile);
+
           const form = new FormData();
+
           var dataURL = reader.result;
           this.setState({
             image: dataURL
           });
-          form.append("worksiteImage", image);
+          form.append("worksiteImage", newImageFile);
+          console.log("form", form);
           axios({
             method: "post",
             url: API_UPLOAD_WORKSITE_IMAGE_URL,
