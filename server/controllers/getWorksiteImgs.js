@@ -9,7 +9,16 @@ const worksiteImgs = async (req, res, next) => {
     for (const img of images) {
       // eslint-disable-next-line no-await-in-loop
       const link = await getImageLink(img);
-      links.push(link);
+
+      // get the orientation
+      const imgArr = img.split(".");
+      const orientName = imgArr[imgArr.length - 2];
+      const orientation = orientName.split("orient:")[1].split("-")[0];
+
+      const imgObj = { link, orientation };
+
+      links.push(imgObj);
+
     }
 
     res.send({ images: links });

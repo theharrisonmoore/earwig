@@ -18,7 +18,6 @@ module.exports = fieldName => (req, res, next) => {
       const extention = file.originalname.split(".")[file.originalname.split(".").length - 1];
 
       console.log("file", file);
-      console.log("fileReq", fileReq);
 
       let fileName;
 

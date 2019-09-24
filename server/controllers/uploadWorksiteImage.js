@@ -6,7 +6,6 @@ module.exports = async (req, res) => {
       return boom.badImplementation();
     }
     const { uploadedFileName } = req.file;
-    console.log("up", req.file);
     return res.send({ image: uploadedFileName });
   } catch (error) {
     return boom.badImplementation();
