@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Skeleton, Rate, Popover, message } from "antd";
+import { Skeleton, Rate, message } from "antd";
 
 import {
   API_SEARCH_URL,
-  API_GET_LAST_30D_ORGANISATIONS_IDS
+  API_GET_LAST_30D_ORGANISATIONS_IDS,
 } from "../../../apiUrls";
 
 import AutosuggestComponent from "./AutoSuggest";
+import PopOverWrapper from "./PopOverWrapper";
 
 // styles
 import {
@@ -22,11 +23,11 @@ import {
   ProfileLink,
   ReviewsContainer,
   FlexContainer,
-  HeaderParagraph
+  HeaderParagraph,
 } from "./Search.style";
 
-import { organizations } from "./../../../theme";
-import Icon from "./../../Common/Icon/Icon";
+import { organizations } from "../../../theme";
+import Icon from "../../Common/Icon/Icon";
 
 import agencyArrow from "../../../assets/agency-arrow.svg";
 import payrollArrow from "../../../assets/payroll-arrow.svg";
@@ -37,7 +38,7 @@ const orgArrowIcon = {
   agency: agencyArrow,
   payroll: payrollArrow,
   worksite: worksiteArrow,
-  company: companyArrow
+  company: companyArrow,
 };
 
 // gets all organisations from db
@@ -46,46 +47,23 @@ export const axiosCall = async () => {
   return response;
 };
 
-export const PopOverWrapper = ({ disabled, children }) => {
-  if (disabled) {
-    return (
-      <Popover
-        content={"You reviewed this organisation within the last 30 days"}
-        trigger="click"
-        placement="topLeft"
-      >
-        <div
-          style={{ cursor: "not-allowed" }}
-          onClick={e => {
-            e.stopPropagation();
-          }}
-        >
-          {children}
-        </div>
-      </Popover>
-    );
-  } else {
-    return children;
-  }
-};
-
 export default class Search extends Component {
   state = {
     isLoading: false,
     data: null,
     showOtherSections: true,
-    target: "profile"
+    target: "profile",
   };
 
   componentDidMount() {
     const { isLoggedIn, match } = this.props;
     const { target } = match.params;
 
-    axiosCall().then(organizations => {
+    axiosCall().then(_organizations => {
       this.setState({
-        data: organizations.data,
+        data: _organizations.data,
         isLoading: true,
-        target: target || "profile"
+        target: target || "profile",
       });
 
       if (target === "review" && isLoggedIn) {
@@ -108,7 +86,7 @@ export default class Search extends Component {
     const { target } = this.props.match.params;
     if (prevState.target !== target) {
       this.setState({
-        target: target
+        target,
       });
     }
   }
@@ -150,7 +128,7 @@ export default class Search extends Component {
                 <h3
                   style={{
                     color: organizations[org.category].primary,
-                    textTransform: "capitalize"
+                    textTransform: "capitalize",
                   }}
                 >
                   {org.name}
@@ -161,7 +139,7 @@ export default class Search extends Component {
                     value={org.avgRatings || org.value}
                     style={{
                       color: `${organizations[org.category].primary}`,
-                      fontSize: "0.75rem"
+                      fontSize: "0.75rem",
                     }}
                     className="last-reviewed-star-rate"
                   />
@@ -183,9 +161,10 @@ export default class Search extends Component {
   setSearchBoxRef = node => {
     this.searchBoxRef = node;
   };
+
   handleClickOutside = event => {
     if (this.searchBoxRef && !this.searchBoxRef.contains(event.target)) {
-      this.setState({ showOtherSections: true, boxClicked: false });
+      this.setState({ showOtherSections: true });
     } else {
       this.setState({ showOtherSections: false });
     }

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 
 // styles
 import {
@@ -9,23 +8,18 @@ import {
   H3,
   P,
   MainDiv,
-  AddWrapper
+  AddWrapper,
 } from "./Search.style";
 
 import GiveReview from "../../Common/GiveReview";
 
 export default class AddProfileReviewStart extends Component {
-  deleteOrg = name => {
-    axios
-      .delete(`/api/delete-organization/${name}`)
-      .then(() => this.props.history.push("/search"))
-      .catch(err => console.log(err));
+  goBack = () => {
+    this.props.history.push("/search");
   };
 
   render() {
-    const {
-      newOrg: { name, category, _id }
-    } = this.props.location.state;
+    const { orgName: name, orgCategory: category } = this.props.location.state;
     const { isTablet, isMobile } = this.props;
 
     return (
@@ -43,11 +37,12 @@ export default class AddProfileReviewStart extends Component {
               category={category}
               isTablet={isTablet}
               isMobile={isMobile}
+              history={this.props.history}
               state={{
                 name: `${name}`,
                 category: `${category}`,
                 needsVerification: true,
-                orgId: _id
+                shouldCreateNew: true,
               }}
             />
           </div>
@@ -57,12 +52,10 @@ export default class AddProfileReviewStart extends Component {
               position: "fixed",
               bottom: "3rem",
               left: "50%",
-              transform: "translateX(-50%)"
+              transform: "translateX(-50%)",
             }}
           >
-            <H3 onClick={() => this.deleteOrg(name)}>
-              Cancel and return to Search
-            </H3>
+            <H3 onClick={this.goBack}>Cancel and return to Search</H3>
           </FooterDiv>
           {/* </ProfileLink> */}
         </MainDiv>
