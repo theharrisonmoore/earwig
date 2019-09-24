@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import piexif from "piexifjs";
 
 import uploadIcon from "../../../../assets/upload-worksite-icon.svg";
 import { API_UPLOAD_WORKSITE_IMAGE_URL } from "../../../../apiUrls";
@@ -16,12 +17,38 @@ import {
 
 export default class UploadImage extends Component {
   state = {
-    image: ""
+    image: "",
+    exifData: null
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    const { image } = this.state;
+    const { image: prevImage } = prevState;
+
+    if (image !== prevImage) {
+      window.onload = this.getExif();
+    }
+  }
+
+  getExif = () => {
+    const image = document.getElementById("loadedImg");
+    const exifObj = piexif.load(image.src);
+    const exifData = {};
+    for (var ifd in exifObj) {
+      if (ifd == "thumbnail") {
+        continue;
+      }
+      for (var tag in exifObj[ifd]) {
+        exifData[piexif.TAGS[ifd][tag]["name"]] = exifObj[ifd][tag];
+      }
+    }
+    this.setState({ exifData });
   };
 
   handleImageChange = event => {
     const image = event.target.files && event.target.files[0];
     const reader = new FileReader();
+
     Swal.fire({
       title: "Uploading!",
       onBeforeOpen: () => {
@@ -68,7 +95,7 @@ export default class UploadImage extends Component {
   };
 
   render() {
-    const { image } = this.state;
+    const { image, exifData } = this.state;
     return (
       <ImageUploader>
         <input
@@ -85,7 +112,12 @@ export default class UploadImage extends Component {
           </Label>
         </IconWrapper>
         <ThumbnailWrapper>
-          <Thumbnail src={image} alt="" />
+          <Thumbnail
+            src={image}
+            alt=""
+            id="loadedImg"
+            orientation={exifData && exifData.Orientation}
+          />
         </ThumbnailWrapper>
       </ImageUploader>
     );

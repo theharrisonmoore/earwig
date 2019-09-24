@@ -35,6 +35,19 @@ export const UploadIcon = styled.img`
 
 export const Thumbnail = styled.img`
   width: 100%;
+  transform: ${({ orientation }) => {
+    switch (orientation) {
+      case 3:
+        return "rotate(180deg)";
+        break;
+      case 8:
+        return "rotate(-90deg)";
+        break;
+      case 6:
+        return "rotate(90deg)";
+        break;
+    }
+  }};
 `;
 
 export const AudioErrorMsg = styled.p`
