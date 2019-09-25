@@ -10,14 +10,14 @@ export const workPeriod = Yup.object({
 });
 
 export const rate = Yup.number()
-  .min(1, "Must pick a rate")
+  .min(1, "Must select a rating")
   .required("Required");
 
 export const overallReview = Yup.string();
 
 export const hasAgreed = Yup.boolean()
   .required("Required")
-  .oneOf([true], "Must Accept Terms and Conditions");
+  .oneOf([true], "Must accept Terms and Conditions");
 
 export const generalSectionSchema = {
   review: Yup.object({

@@ -302,12 +302,13 @@ export default class EditProfileSection extends Component {
               <div>
                 <Title>Warning!</Title>
                 <SubTitle>
-                  To avoid the threat of blacklisting, we recommend you do not
+                  To avoid the threat of blacklisting, we recommend you{" "}
+                  <span style={{ textDecoration: "underline" }}>do not</span>{" "}
                   use your real name or any name that could identify you
                 </SubTitle>
                 <Paragraph>
-                  Whilst your earwig Username is the only thing that is shown
-                  beside your reviews and activity, it is publicly visible
+                  Your earwig Username is shown beside your reviews and
+                  activity, and is publicly visible
                 </Paragraph>
                 <CurrentValue>Current earwig Username: {userId}</CurrentValue>
                 <InputDiv>
