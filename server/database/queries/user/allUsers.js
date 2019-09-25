@@ -12,7 +12,8 @@ module.exports = (awaitingReview) => {
   return User.aggregate([
     {
       $match: match,
-    }, {
+    },
+    {
       $lookup: {
         from: "trades",
         localField: "trade",
@@ -20,14 +21,14 @@ module.exports = (awaitingReview) => {
         as: "trade",
       },
     },
-    {
-      $lookup: {
-        from: "organizations",
-        localField: "trade",
-        foreignField: "_id",
-        as: "trade",
-      },
-    },
+    // {
+    //   $lookup: {
+    //     from: "organizations",
+    //     localField: "trade",
+    //     foreignField: "_id",
+    //     as: "trade",
+    //   },
+    // },
     {
       $lookup: {
         from: "organizations",
@@ -93,10 +94,9 @@ module.exports = (awaitingReview) => {
           payroll: { $arrayElemAt: ["$currentPayroll", 0] },
           worksite: { $arrayElemAt: ["$currentWorksite", 0] },
         },
-
-
       },
-    }, {
+    },
+    {
       $addFields: {
         trade: { $ifNull: ["$trade.title", "N/A"] },
         currentAgency: { $ifNull: ["$currentAgency.name", "N/A"] },

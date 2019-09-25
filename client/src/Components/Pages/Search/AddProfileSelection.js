@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import axios from "axios";
-import swal from "sweetalert2";
 import { Spin } from "antd";
 
-import { SEARCH_URL } from "../../../constants/naviagationUrls";
-import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
+import {
+  SEARCH_URL,
+  ADD_PROFILE_START_REVIEW_URL,
+} from "../../../constants/naviagationUrls";
+
+import Icon from "../../Common/Icon/Icon";
 
 // styles
 import {
@@ -17,49 +19,27 @@ import {
   H3,
   MainDiv,
   AddWrapper,
-  AddProfileLink
+  AddProfileLink,
+  AddProfileButton,
+  LinkTitle,
 } from "./Search.style";
-import { ADD_PROFILE_START_REVIEW_URL } from "../../../constants/naviagationUrls";
-
-import agencyCategory from "../../../assets/agency-category.svg";
-import companyCategory from "../../../assets/company-category.svg";
-import worksiteCategory from "../../../assets/worksite-category.svg";
-import payrollCategory from "../../../assets/payroll-category.svg";
 
 export default class AddProfileSelection extends Component {
   state = {
-    isLoading: false
+    isLoading: false,
   };
 
-  deleteOrg = name => {
-    axios.delete(`/api/delete-organization/${name}`).then(() => {
-      // need to trigger a hard refresh here as organisation was still shown in search bar after deletion
-      window.location.reload();
-      this.props.history.push("/search");
-    });
+  goBack = () => {
+    this.props.history.push("/search");
   };
 
   addOrganisation = (e, orgName, orgCategory) => {
     e.preventDefault();
-    const newOrg = { name: orgName, category: orgCategory };
     this.setState({ isLoading: true });
-    axios
-      .post(API_ADD_ORGANIZATION_URL, newOrg)
-      .then(res => {
-        this.setState({ isLoading: false });
-        this.props.history.push(ADD_PROFILE_START_REVIEW_URL, {
-          newOrg: res.data
-        });
-      })
-      .catch(err => {
-        this.setState({ isLoading: false });
-        swal.fire({
-          type: "error",
-          title: "Oops...",
-          text: `${orgName} already exists. Please contact us directly with your request.`,
-          footer: '<a href="/contact">Contact</a>'
-        });
-      });
+    this.props.history.push(ADD_PROFILE_START_REVIEW_URL, {
+      orgName,
+      orgCategory,
+    });
   };
 
   render() {
@@ -67,7 +47,6 @@ export default class AddProfileSelection extends Component {
     const { isLoading } = this.state;
 
     const categories = ["agency", "payroll", "worksite", "company"];
-
     return (
       <AddWrapper>
         <MainDiv>
@@ -77,63 +56,77 @@ export default class AddProfileSelection extends Component {
           <LogosContainer>
             <Spin tip="Loading..." spinning={isLoading}>
               <RowDiv>
-                <ItemDiv>
-                  <AddProfileLink
+                <ItemDiv category="agency">
+                  <AddProfileButton
                     as="button"
                     onClick={e => {
                       this.addOrganisation(e, name, categories[0]);
                     }}
                   >
-                    <img
-                      src={agencyCategory}
-                      alt=""
-                      style={{ width: "100%", cursor: "pointer" }}
+                    <Icon
+                      icon="agency"
+                      width="50%"
+                      height="auto"
+                      color="white"
+                      margin="0 0 1rem 0"
                     />
-                  </AddProfileLink>
+                    <LinkTitle>Agency</LinkTitle>
+                  </AddProfileButton>
                 </ItemDiv>
-                <ItemDiv>
-                  <AddProfileLink
+                <ItemDiv category="payroll">
+                  <AddProfileButton
                     as="button"
                     onClick={e => {
                       this.addOrganisation(e, name, categories[1]);
                     }}
                   >
-                    <img
-                      src={payrollCategory}
-                      alt=""
-                      style={{ width: "100%", cursor: "pointer" }}
+                    <Icon
+                      icon="payroll"
+                      width="50%"
+                      height="auto"
+                      color="white"
+                      margin="0 0 1rem 0"
+                      cursor="pointer"
                     />
-                  </AddProfileLink>
+                    <LinkTitle>Payroll</LinkTitle>
+                  </AddProfileButton>
                 </ItemDiv>
               </RowDiv>
               <RowDiv>
-                <ItemDiv>
-                  <AddProfileLink
+                <ItemDiv category="worksite">
+                  <AddProfileButton
                     as="button"
                     onClick={e => {
                       this.addOrganisation(e, name, categories[2]);
                     }}
+                    category="worksite"
                   >
-                    <img
-                      src={worksiteCategory}
-                      alt=""
-                      style={{ width: "100%", cursor: "pointer" }}
+                    <Icon
+                      icon="worksite"
+                      width="50%"
+                      height="auto"
+                      color="white"
+                      margin="0 0 1rem 0"
                     />
-                  </AddProfileLink>
+                    <LinkTitle>Worksite</LinkTitle>
+                  </AddProfileButton>
                 </ItemDiv>
-                <ItemDiv>
-                  <AddProfileLink
+                <ItemDiv category="company">
+                  <AddProfileButton
                     as="button"
                     onClick={e => {
                       this.addOrganisation(e, name, categories[3]);
                     }}
                   >
-                    <img
-                      src={companyCategory}
-                      alt=""
-                      style={{ width: "100%", cursor: "pointer" }}
+                    <Icon
+                      icon="company"
+                      width="50%"
+                      height="auto"
+                      color="white"
+                      margin="0 0 1rem 0"
                     />
-                  </AddProfileLink>
+                    <LinkTitle>Company</LinkTitle>
+                  </AddProfileButton>
                 </ItemDiv>
               </RowDiv>
             </Spin>
@@ -144,13 +137,11 @@ export default class AddProfileSelection extends Component {
               position: "fixed",
               bottom: "3rem",
               left: "50%",
-              transform: "translateX(-50%)"
+              transform: "translateX(-50%)",
             }}
           >
             <FooterDiv>
-              <H3 onClick={() => this.deleteOrg(name)}>
-                Cancel and return to Search
-              </H3>
+              <H3 onClick={this.goBack}>Cancel and return to Search</H3>
             </FooterDiv>
           </AddProfileLink>
         </MainDiv>

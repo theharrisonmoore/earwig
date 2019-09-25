@@ -3,10 +3,10 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { Modal, Input, Alert, Icon, Divider } from "antd";
 
-import { colors } from "./../../../theme";
+import { colors } from "../../../theme";
 
-import Select from "./../../Common/Select";
-import Button from "./../../Common/Button";
+import Select from "../../Common/Select";
+import Button from "../../Common/Button";
 
 import {
   UploadImageWrapper,
@@ -22,9 +22,9 @@ import {
   PurpleDiv
 } from "./UploadImage.style";
 
-import example from "./../../../assets/example.png";
+import example from "../../../assets/example.png";
 
-import { PROFILE_URL } from "../../../constants/naviagationUrls";
+import { INTRO_URL } from "../../../constants/naviagationUrls";
 
 const {
   API_TRADE_URL,
@@ -87,10 +87,10 @@ export default class UploadImage extends Component {
 
   handleImageChange = event => {
     const image = event.target.files && event.target.files[0];
-    var reader = new FileReader();
+    const reader = new FileReader();
 
     reader.onload = () => {
-      var dataURL = reader.result;
+      const dataURL = reader.result;
       this.setState({
         image: dataURL
       });
@@ -101,6 +101,7 @@ export default class UploadImage extends Component {
         imageFile: image
       },
       () => {
+        // eslint-disable-next-line no-unused-expressions
         image && reader.readAsDataURL(image);
       }
     );
@@ -134,7 +135,7 @@ export default class UploadImage extends Component {
               "content-type": `multipart/form-data; boundary=${form._boundary}`
             }
           })
-            .then(res => {
+            .then(() => {
               this.setState({ loading: false }, () => {
                 Swal.fire({
                   type: "success",
@@ -143,7 +144,7 @@ export default class UploadImage extends Component {
                   timer: 1500
                 }).then(() => {
                   this.props.handleChangeState({ awaitingReview: true });
-                  this.props.history.push(PROFILE_URL);
+                  this.props.history.push(INTRO_URL);
                 });
               });
             })
@@ -260,7 +261,7 @@ export default class UploadImage extends Component {
             margin="0 0.5rem 0 0"
             fill={colors.veryLightGray}
           />
-          <Heading>Verificaion</Heading>
+          <Heading>Verification</Heading>
           <form onSubmit={this.handleSubmit}>
             <SelectWrapper>
               <SubHeading>Your trade</SubHeading>
@@ -330,7 +331,7 @@ export default class UploadImage extends Component {
               protect your identity.
             </Paragraph>
             <div style={{ width: "60%", margin: "0 auto" }}>
-              <Example src={image ? image : example} />
+              <Example src={image || example} />
               <Button
                 as="label"
                 htmlFor="image-input"
@@ -359,12 +360,7 @@ export default class UploadImage extends Component {
             </Paragraph>
             <Divider style={{ margin: "3rem auto" }} />
             {error && <Error>{error}</Error>}
-            <Button
-              marginTop={true}
-              type="submit"
-              error={error}
-              loading={loading}
-            >
+            <Button marginTop type="submit" error={error} loading={loading}>
               Finish verification
             </Button>
           </form>

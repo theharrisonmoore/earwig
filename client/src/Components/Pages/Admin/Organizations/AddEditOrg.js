@@ -38,6 +38,7 @@ export default class AddEditOrg extends Component {
       // remove any values that are simply N/A
       const cleanRecord = record;
       const dataArr = Object.entries(cleanRecord);
+      // eslint-disable-next-line
       for (const [key, value] of dataArr) {
         if (value === "N/A") delete cleanRecord[key];
       }

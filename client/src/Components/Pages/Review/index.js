@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 import moment from "moment";
-import { Checkbox, message, Spin, Icon, Modal } from "antd";
+import { Checkbox, message, Modal } from "antd";
 import Loading from "../../Common/AntdComponents/Loading";
+import Button from "../../Common/Button";
 
 import {
-  SubmitButton,
   UserAgreement,
   CheckboxWrapper,
   Header,
@@ -17,7 +17,8 @@ import {
   Level2Header,
   AgreementLabel,
   LinkSpan,
-  ReviewWrapper
+  ReviewWrapper,
+  ErrorsWrapper
 } from "./Review.style";
 
 import { StyledErrorMessage } from "./Question/Question.style";
@@ -37,11 +38,6 @@ import {
   THANKYOU_URL,
   TERMS_OF_USE_URL
 } from "../../../constants/naviagationUrls";
-
-// antd spinner for the submit button
-const antIcon = (
-  <Icon type="loading" style={{ fontSize: 24, color: "white" }} spin />
-);
 
 const {
   API_POST_REVIEW_URL,
@@ -701,6 +697,7 @@ class Review extends Component {
                         target="_blank"
                         to={TERMS_OF_USE_URL}
                         color={organizations[category].primary}
+                        style={{ pointerEvents: "auto" }}
                       >
                         Terms of Use.
                       </LinkSpan>{" "}
@@ -712,19 +709,30 @@ class Review extends Component {
                   {!!errors && !!errors.hasAgreed && (
                     <StyledErrorMessage>{errors.hasAgreed}</StyledErrorMessage>
                   )}
+                  <ErrorsWrapper>
+                    {!!errors &&
+                      !!errors.review &&
+                      !!errors.review.workPeriod &&
+                      !!errors.review.workPeriod.from && (
+                        <StyledErrorMessage>
+                          Must select the month(s) you used the agency
+                        </StyledErrorMessage>
+                      )}
+                    {!!errors && !!errors.review && !!errors.review.rate && (
+                      <StyledErrorMessage>
+                        Must select a rating for this {category}
+                      </StyledErrorMessage>
+                    )}
+                  </ErrorsWrapper>
                 </CheckboxWrapper>
               </UserAgreement>
-              <SubmitButton
+              <Button
                 type="submit"
                 size="large"
-                disabled={isSubmitting}
-                orgType={category}
-              >
-                {isSubmitting && (
-                  <Spin indicator={antIcon} style={{ marginRight: ".5rem" }} />
-                )}
-                Publish your review
-              </SubmitButton>
+                loading={isSubmitting}
+                backgroundColor={organizations[category].primary}
+                children="Publish your review"
+              />
             </FormWrapper>
           </form>
         </section>

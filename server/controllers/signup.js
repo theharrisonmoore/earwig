@@ -19,17 +19,9 @@ const { tokenMaxAge } = require("./../constants");
 module.exports = async (req, res, next) => {
   try {
     const {
-      email,
-      password,
-      referral,
-      isWorker,
-      orgType,
-      trade,
-      city,
-      otherOrg,
+      email, password, referral, isWorker, orgType, trade, city, otherOrg,
     } = req.body;
     const uploadedFileName = req.file && req.file.uploadedFileName;
-
 
     const newUserData = {
       email,
@@ -75,7 +67,7 @@ module.exports = async (req, res, next) => {
         await addToMailchimpList(email);
         await createAccountEmails(email);
         if (fieldName === "verificationImage") {
-        // send an email to the admin.
+          // send an email to the admin.
           await verificationPhotoEmail();
         }
       } catch (err) {

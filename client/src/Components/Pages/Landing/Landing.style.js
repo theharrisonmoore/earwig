@@ -46,7 +46,7 @@ export const Title = styled.h1`
   margin: 0 0 1rem 0;
   width: 100%;
   color: ${colors.white};
-  font-weight: normal;
+  font-weight: medium;
   line-height: 3rem;
 `;
 

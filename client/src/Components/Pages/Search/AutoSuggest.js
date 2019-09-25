@@ -11,7 +11,7 @@ import createTrie from "autosuggest-trie";
 import { Rate, Spin } from "antd";
 import swal from "sweetalert2";
 
-import { PopOverWrapper } from "./index";
+import PopOverWrapper from "./PopOverWrapper";
 
 import { ADD_PROFILE_URL } from "../../../constants/naviagationUrls";
 import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
@@ -29,10 +29,10 @@ import {
   AddItemBox,
   ProfileLink,
   AddProfileLink,
-  IconDiv
+  IconDiv,
 } from "./Search.style";
 
-import Icon from "./../../Common/Icon/Icon";
+import Icon from "../../Common/Icon/Icon";
 import SearchIcon from "../../../assets/search-icon.svg";
 import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
 import addItemIcon from "../../../assets/add-item-icon.svg";
@@ -40,11 +40,12 @@ import addItemIcon from "../../../assets/add-item-icon.svg";
 // UI helper functions
 import { SVGCreator } from "../../../helpers";
 
-import { organizationIcons, organizations } from "./../../../theme";
+import { organizationIcons, organizations } from "../../../theme";
 
 // functions
 
 // gets called when a suggestion gets clicked
+// eslint-disable-next-line no-unused-vars
 export const getSuggestionValue = suggestion => "";
 
 // compares the user's input value and the entries (organisations) and filters the data array accordingly
@@ -80,18 +81,13 @@ class AutosuggestComponent extends Component {
   state = {
     value: "",
     suggestions: [],
-    isButton: false,
     target: "profile",
     isLoaded: true,
-    ismodalVisible: false,
-    errors: {},
-    confirmLoading: false
   };
 
   componentDidMount() {
     const { target } = this.props.match.params;
-    const { isButton } = this.props;
-    this.setState({ isButton, target: target || "profile" });
+    this.setState({ target: target || "profile" });
   }
 
   componentDidUpdate(prevProps) {
@@ -114,13 +110,13 @@ class AutosuggestComponent extends Component {
         this.setState({ isLoaded: true });
         this.props.storeOrg(res.data);
       })
-      .catch(err => {
+      .catch(() => {
         this.setState({ isLoaded: true });
         swal.fire({
           type: "error",
           title: "Oops...",
           text: `${value} already exists. Please contact us directly with your request.`,
-          footer: '<a href="/contact">Contact</a>'
+          footer: '<a href="/contact">Contact</a>',
         });
       });
 
@@ -133,7 +129,7 @@ class AutosuggestComponent extends Component {
   // you need to feed in data as a prop which acts as array of entries
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: getSuggestions(value, this.props.data)
+      suggestions: getSuggestions(value, this.props.data),
     });
   };
 
@@ -222,7 +218,7 @@ class AutosuggestComponent extends Component {
                 <h3
                   style={{
                     color: organizations[suggestion.category].primary,
-                    textTransform: "capitalize"
+                    textTransform: "capitalize",
                   }}
                 >
                   {suggestion.name}
@@ -234,7 +230,7 @@ class AutosuggestComponent extends Component {
                     style={{
                       color: `${organizations[suggestion.category].primary}`,
                       fontSize: "0.75rem",
-                      textTransform: "capitalize"
+                      textTransform: "capitalize",
                     }}
                     className="last-reviewed-star-rate"
                   />
@@ -253,7 +249,6 @@ class AutosuggestComponent extends Component {
 
   // renders all elements and the add item footer
   renderSuggestionsContainer = ({ containerProps, children, query }) => {
-    // const { confirmLoading, ismodalVisible } = this.state;
     if (query && query.length > 0) {
       return (
         <div {...containerProps}>
@@ -279,8 +274,8 @@ class AutosuggestComponent extends Component {
                 state: {
                   name: `${query}`,
                   referrerUrl: this.props.location.pathname,
-                  section: this.props.section
-                }
+                  section: this.props.section,
+                },
               }}
             >
               <AddItemBox>
@@ -310,14 +305,14 @@ class AutosuggestComponent extends Component {
       isMobile,
       bool,
       iconTop,
-      noIcon
+      noIcon,
     } = this.props;
 
     const inputProps = {
       placeholder: `${placeholderText}`,
       value,
       onChange: this.onChange,
-      onKeyPress: this.onKeyPress
+      onKeyPress: this.onKeyPress,
     };
 
     // decide the number of suggestions rendered
