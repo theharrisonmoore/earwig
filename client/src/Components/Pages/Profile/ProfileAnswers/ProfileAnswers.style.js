@@ -6,8 +6,8 @@ import {
   organizations,
   shadows,
   borders,
-  size
-} from "./../../../../theme";
+  size,
+} from "../../../../theme";
 
 export const YesNoWrapper = styled.div`
   width: 100%;
@@ -17,7 +17,11 @@ export const YesNoWrapper = styled.div`
 `;
 
 export const YesHalf = styled.div`
-  width: ${props => `${props.width}%`};
+  width: ${({ width }) => {
+    if (width < 25) return "25%";
+    if (width > 75) return "75%";
+    return `${width}%`;
+  }};
   background-color: ${props => (props.width === 0 ? colors.red : colors.green)};
   border-right: none;
   color: ${colors.white};
@@ -26,6 +30,7 @@ export const YesHalf = styled.div`
   display: flex;
   align-items: center;
   font-size: 15px;
+  position: relative;
 
   p {
     margin: 0;
@@ -34,7 +39,11 @@ export const YesHalf = styled.div`
 `;
 
 export const NoHalf = styled.div`
-  width: ${props => `${props.width}%`};
+  width: ${({ width }) => {
+    if (width < 25) return "25%";
+    if (width > 75) return "75%";
+    return `${width}%`;
+  }};
   background-color: ${props => (props.width === 0 ? colors.green : colors.red)};
   border-left: none;
   color: ${colors.white};
@@ -44,6 +53,7 @@ export const NoHalf = styled.div`
   justify-content: flex-end;
   align-items: center;
   font-size: 15px;
+  position: relative;
 
   p {
     margin: 0;
