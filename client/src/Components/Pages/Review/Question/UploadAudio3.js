@@ -211,6 +211,7 @@ export default class UploadAudio3 extends Component {
               controls
               src={this.state.src || this.props.voiceReviewUrl}
               type="audio/mp3"
+              controlsList="nodownload"
             />
           </div>
         )}
