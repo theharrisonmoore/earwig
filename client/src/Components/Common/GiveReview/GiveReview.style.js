@@ -33,9 +33,9 @@ export const ReviewButton = styled.button`
   display: flex;
   justify-content: space-between;
   box-shadow: ${shadows.buttonShadow};
-  border-radius: 0.25rem;
+  border-radius: 300px;
   height: 3rem;
-  padding: 0 0.5rem;
+  padding: 0 1rem;
   align-items: center;
   width: 100%;
   z-index: -1;
