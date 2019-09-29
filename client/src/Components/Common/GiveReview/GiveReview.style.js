@@ -9,6 +9,7 @@ export const ReviewButtonsDiv = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 `;
 
 export const ReviewType = styled.div`
@@ -33,9 +34,9 @@ export const ReviewButton = styled.button`
   display: flex;
   justify-content: space-between;
   box-shadow: ${shadows.buttonShadow};
-  border-radius: 0.25rem;
+  border-radius: 300px;
   height: 3rem;
-  padding: 0 0.5rem;
+  padding: 0 1rem;
   align-items: center;
   width: 100%;
   z-index: -1;
@@ -43,7 +44,7 @@ export const ReviewButton = styled.button`
   h4 {
     margin: 0;
     font-size: 1rem;
-    width: 50%;
+    width: 70%;
     text-align: left;
     line-height: 0.9rem;
     font-weight: 700;
@@ -60,7 +61,8 @@ export const ReviewButton = styled.button`
 
 export const FullLink = styled(NavLink)`
   display: flex;
-  width: 18rem;
+  width: 100%;
+  max-width: 18rem;
   margin-left: 0.5rem;
   cursor: pointer;
 `;

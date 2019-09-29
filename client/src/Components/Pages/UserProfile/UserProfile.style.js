@@ -126,7 +126,7 @@ export const Paragraph = styled.p`
 `;
 
 export const UnVerifiedButton = styled(Link)`
-  border-radius: 5px;
+  border-radius: 300px;
   padding: 0.5rem 0.75rem;
   background-color: ${colors.white};
   font-size: 1.25rem;

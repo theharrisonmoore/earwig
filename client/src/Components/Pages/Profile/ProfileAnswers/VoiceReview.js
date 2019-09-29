@@ -3,11 +3,11 @@ import axios from "axios";
 // import styled from "styled-components";
 import { Howl } from "howler";
 
-import { API_GET_AUDIO_URL } from "./../../../../apiUrls";
+import { API_GET_AUDIO_URL } from "../../../../apiUrls";
 
-import { VoiceWrapper } from "./../Profile.style.js";
+import { VoiceWrapper } from "../Profile.style.js";
 
-import Loading from "./../../../Common/AntdComponents/Loading";
+import Loading from "../../../Common/AntdComponents/Loading";
 // import { Slider } from "antd";
 
 // STYLING
@@ -66,7 +66,7 @@ export default class VoiceReview extends Component {
     duration: null,
     currentTime: 0,
     progress: 0,
-    loaded: false
+    loaded: false,
   };
 
   componentDidMount() {
@@ -82,7 +82,7 @@ export default class VoiceReview extends Component {
   loadSound = () => {
     const { soundFile } = this.state;
     this.sound = new Howl({
-      src: [soundFile]
+      src: [soundFile],
     });
 
     this.getDuration(soundFile, duration => {
@@ -100,7 +100,7 @@ export default class VoiceReview extends Component {
 
   step = () => {
     // Determine our current seek position.
-    var seek = this.sound.seek() || 0;
+    let seek = this.sound.seek() || 0;
     // If the sound is still playing, continue stepping.
     if (this.sound.playing()) {
       this.setState({ progress: Math.round(seek) }, () =>
@@ -135,12 +135,12 @@ export default class VoiceReview extends Component {
   // get audio duration
   // https://stackoverflow.com/questions/21522036/html-audio-tag-duration-always-infinity
   getDuration = function(url, next) {
-    var _player = new Audio(url);
+    let _player = new Audio(url);
     _player.addEventListener(
       "durationchange",
       function(e) {
         if (this.duration !== Infinity) {
-          var duration = this.duration;
+          let {duration} = this;
           _player.remove();
           next(duration);
         }
@@ -166,7 +166,7 @@ export default class VoiceReview extends Component {
   getTime = time => {
     if (!isNaN(time)) {
       return (
-        Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
+        `${Math.floor(time / 60)  }:${  ("0" + Math.floor(time % 60)).slice(-2)}`
       );
     }
   };
@@ -182,7 +182,7 @@ export default class VoiceReview extends Component {
     this.setState({
       currentTime: actualTime,
       // playing: "paused",
-      progress: value
+      progress: value,
     });
 
     this.sound.seek(value);
@@ -203,7 +203,7 @@ export default class VoiceReview extends Component {
       // progress,
       // duration,
       // loaded,
-      soundFile
+      soundFile,
     } = this.state;
 
     // const durationSeconds = this.getSeconds(duration);
@@ -217,6 +217,7 @@ export default class VoiceReview extends Component {
         <audio
           style={{ width: "100%" }}
           controls
+          controlsList="nodownload"
           src={soundFile}
           type={this.state.mimeType}
           // duration={this.state.duration}
