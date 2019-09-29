@@ -1,13 +1,12 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import {
   borders,
   colors,
   shadows,
   organizations,
-  breakpoints
-} from "./../../../theme";
-
-import { Link } from "react-router-dom";
+  breakpoints,
+} from "../../../theme";
 
 export const classNames = {
   container: "react-autosuggest__container",
@@ -18,7 +17,7 @@ export const classNames = {
   suggestionsContainerOpen: "react-autosuggest__suggestions-container--open",
   suggestionsList: "react-autosuggest__suggestions-list",
   suggestions: "react-autosuggest__suggestion",
-  suggestionHighlighted: "react-autosuggest__suggestion--highlighted"
+  suggestionHighlighted: "react-autosuggest__suggestion--highlighted",
 };
 
 export const AutosuggestWrapper = styled.div.attrs(classNames)`
@@ -110,8 +109,8 @@ export const SearchWrapper = styled.div`
   flex-direction: column;
   height: 100%;
   padding: 0;
-  padding: ${props => props.isMobile ? "0 1rem 0 1rem" : "0 8rem 0 8rem"};
-  padding-top: ${props => props.isMobile ? "4rem" : "6rem"};
+  padding: ${props => (props.isMobile ? "0 1rem 0 1rem" : "0 8rem 0 8rem")};
+  padding-top: ${props => (props.isMobile ? "4rem" : "6rem")};
   margin: 0;
   align-items: center;
   li {
@@ -130,7 +129,7 @@ export const SearchLegendDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: ${props => props.isMobile ? "0" : "0 2rem 1rem 2rem"};
+  padding: ${props => (props.isMobile ? "0" : "0 2rem 1rem 2rem")};
   width: 100%;
   max-width: 600px;
 `;
@@ -152,7 +151,8 @@ export const ItemDiv = styled.div`
   margin-right: auto;
   justify-content: ${props =>
     props.notMobile && props.left ? "flex-end" : "flex-start"};
-  background: ${props => props.category && organizations[props.category].primary};
+  background: ${props =>
+    props.category && organizations[props.category].primary};
   border-radius: 4px;
   cursor: pointer;
 `;
@@ -269,7 +269,7 @@ export const ReviewDetailsDiv = styled.div`
 export const ProfileLink = styled(Link)`
   :hover {
     text-decoration: none;
-  };
+  }
 `;
 
 export const AddProfileLink = styled(Link)`
@@ -297,7 +297,6 @@ export const AddProfileButton = styled(Link)`
     text-decoration: none;
   }
 `;
-
 
 export const LinkTitle = styled.h3`
   font-weight: 700;
@@ -354,19 +353,19 @@ export const RowDiv = styled.div`
 `;
 
 export const FooterDiv = styled.footer`
-  flex-shrink: 0;
+  /* flex-shrink: 0; */
 `;
 
 export const MainDiv = styled.div`
-  flex-grow: 1;
-  flex-shrink: 0;
+  /* flex-grow: 1;
+  flex-shrink: 0; */
   width: 90%;
 `;
 
 export const AddWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  /* height: 100%; */
   padding: 0;
   margin: 0;
   align-items: center;
@@ -382,5 +381,5 @@ export const HeaderParagraph = styled.p`
   font-weight: 400;
   line-height: 1.75rem !important;
   margin-bottom: 0.5rem;
-  width: 100%
+  width: 100%;
 `;

@@ -74,39 +74,38 @@ export default class GiveReview extends Component {
 
     return (
       <ReviewButtonsDiv isTablet={isTablet} isMobile={isMobile}>
-        <Spin tip="Loading..." spinning={isLoading}>
-          <ReviewType isTablet={isTablet} isMobile={isMobile}>
-            <Icon
-              icon="clock2min"
-              height="34"
-              width="34"
-              margin="0 0.5rem 0 0"
-              color={colors.profileFontColor}
-            />
-            <Time>2 mins</Time>
-            <FullLink
-              as="div"
-              disabled={reviewNotAllowed}
-              onClick={this.handleClick}
-            >
-              <ReviewButton grayOut={reviewNotAllowed} category={category}>
-                <h4>Give a review</h4>
-                <Icon icon="arrow" width="16" height="16" color="white" />
-              </ReviewButton>
-            </FullLink>
-          </ReviewType>
-          {reviewNotAllowed && reviewsLast30Days.length > 0 && (
-            <PopoverComponent
-              category={category}
-              popoverOptions={{
-                text: `It seems that you've already reviewed this organisation in the last 30 days. You can review each organisation once a month. Date of last review: ${moment(
-                  reviewsLast30Days[0].date
-                ).format("DD.MM.YYYY")}`,
-                linkText: "Why can't I give a review?",
-              }}
-            />
-          )}
-        </Spin>
+        <Spin tip="Loading..." spinning={isLoading} />
+        <ReviewType isTablet={isTablet} isMobile={isMobile}>
+          <Icon
+            icon="clock2min"
+            height="34"
+            width="34"
+            margin="0 0.5rem 0 0"
+            color={colors.profileFontColor}
+          />
+          <Time>2 mins</Time>
+          <FullLink
+            as="div"
+            disabled={reviewNotAllowed}
+            onClick={this.handleClick}
+          >
+            <ReviewButton grayOut={reviewNotAllowed} category={category}>
+              <h4>Give a review</h4>
+              <Icon icon="arrow" width="16" height="16" color="white" />
+            </ReviewButton>
+          </FullLink>
+        </ReviewType>
+        {reviewNotAllowed && reviewsLast30Days.length > 0 && (
+          <PopoverComponent
+            category={category}
+            popoverOptions={{
+              text: `It seems that you've already reviewed this organisation in the last 30 days. You can review each organisation once a month. Date of last review: ${moment(
+                reviewsLast30Days[0].date
+              ).format("DD.MM.YYYY")}`,
+              linkText: "Why can't I give a review?",
+            }}
+          />
+        )}
       </ReviewButtonsDiv>
     );
   }

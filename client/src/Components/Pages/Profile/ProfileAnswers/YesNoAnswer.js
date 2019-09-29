@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { YesNoWrapper, YesHalf, NoHalf, Comment } from "./ProfileAnswers.style";
-import { organizations } from "./../../../../theme";
+import { organizations } from "../../../../theme";
 
 export default class YesNoAnswer extends Component {
   countYesNo = answers => {
@@ -17,7 +17,7 @@ export default class YesNoAnswer extends Component {
       yesCount: yesAnswers,
       noCount: noAnswers,
       yesPercentage: Math.ceil((yesAnswers / (yesAnswers + noAnswers)) * 100),
-      noPercentage: noPerc
+      noPercentage: noPerc,
     };
     return answerObj;
   };

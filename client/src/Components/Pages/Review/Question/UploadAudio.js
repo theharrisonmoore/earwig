@@ -187,7 +187,7 @@ class UploadAudio extends Component {
         {recordedAudio && (
           <div style={{ width: "100%" }}>
             {mimeType !== "audio/webm" && (
-              <audio id="player" controls key={recordedAudioURL}>
+              <audio id="player" controls key={recordedAudioURL} controlsList="nodownload">
                 <source
                   key={recordedAudioURL}
                   type={this.options.mimeType}
@@ -196,7 +196,7 @@ class UploadAudio extends Component {
               </audio>
             )}
             {mimeType === "audio/webm" && (
-              <video id="player" controls key={recordedAudioURL}>
+              <video id="player" controls key={recordedAudioURL} controlsList="nodownload">
                 {/* For Chrome */}
                 <source
                   key={recordedAudioURL}

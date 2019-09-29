@@ -160,6 +160,7 @@ class NewAudio extends React.Component {
                 controls
                 src={this.state.src || this.props.voiceReviewUrl}
                 type={this.state.mimeType}
+                controlsList="nodownload"
               />
             )}
           </div>
