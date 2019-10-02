@@ -366,3 +366,15 @@ export const SelectWrapper = styled.div`
     line-height: 48px;
   }
 `;
+
+export const BoldWord = styled.span`
+  font-weight: bold;
+`
+export const BasicLink = styled.a`
+  color: ${colors.profileFontColor};
+  text-decoration: underline;
+
+  :hover {
+    color: ${colors.heliotrope};
+  }
+`
