@@ -5,12 +5,13 @@ import {
   SmallTitle,
   Ol,
   Li,
-  UnderlinedLink
+  UnderlinedLink,
+  BoldWord,
 } from "../../Common/StaticPages.style";
 
 import {
   TERMS_OF_USE_URL,
-  PRIVACY_URL
+  PRIVACY_URL,
 } from "../../../constants/naviagationUrls";
 
 export default class CookiesPolicy extends Component {
@@ -27,10 +28,10 @@ export default class CookiesPolicy extends Component {
                 <Li>
                   Welcome to earwig. This website, located at{" "}
                   <UnderlinedLink to="www.earwig.work">
-                    www.earwig.work (Site)
-                  </UnderlinedLink>
-                  {"  "}
-                  is owned and operated by Subtap Limited{" "}
+                    www.earwig.work
+                  </UnderlinedLink>{" "}
+                  <BoldWord> (Site)</BoldWord>
+                  {"  "} is owned and operated by Subtap Limited{" "}
                   <strong>(we, us, our)</strong>. Our Site may use cookies to
                   distinguish you from other users. This helps us to provide you
                   with a good experience when you browse the Site and also

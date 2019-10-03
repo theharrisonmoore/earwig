@@ -6,7 +6,8 @@ import {
   SmallTitle,
   Ol,
   Li,
-  UnderlinedLink
+  UnderlinedLink,
+  BoldWord
 } from "./../../Common/StaticPages.style";
 
 import { TERMS_OF_USE_URL } from "./../../../constants/naviagationUrls";
@@ -24,10 +25,7 @@ export default class CommunityGuidlines extends Component {
                 <Li>
                   These Community Guidelines set out the rules you must follow
                   if you wish to submit any content to our website (located at ​
-                  <UnderlinedLink target="_blank" to="/">
-                    earwig{" "}
-                  </UnderlinedLink>
-                  ).
+                  <UnderlinedLink to="/">www.earwig.work</UnderlinedLink>) (<BoldWord>Site</BoldWord> or <BoldWord>earwig Platform</BoldWord>).
                 </Li>
                 <Li>
                   By using the earwig Platform ​ you accept, and agree to abide
@@ -48,9 +46,7 @@ export default class CommunityGuidlines extends Component {
                   Any information, material and content which you and other
                   users post, contribute or otherwise submit to the earwig
                   Platform is generally known as ‘user generated content’ (​
-                  UGC​ ). Paragraphs 1.4 to 1.9 below set out the rules for
-                  contributing UGC, the ways in which we and other users may use
-                  your UGC, and how you can use their UGC.
+                  <BoldWord>UGC​</BoldWord> ). Paragraphs 1.4 to 1.9 below set out the rules for contributing UGC, the ways in which we and other users may use your UGC, and how you can use their UGC.
                 </Li>
                 <Li>
                   You agree to ensure that:
@@ -92,8 +88,7 @@ export default class CommunityGuidlines extends Component {
                       these Community Guidelines and the ​
                       <UnderlinedLink to={TERMS_OF_USE_URL}>
                         ​Terms
-                      </UnderlinedLink>
-                      ​ , and by any third parties that we may authorise under
+                      </UnderlinedLink>, and by any third parties that we may authorise under
                       the ​
                       <UnderlinedLink to={TERMS_OF_USE_URL}>
                         ​Terms
