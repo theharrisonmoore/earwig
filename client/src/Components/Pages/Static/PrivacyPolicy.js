@@ -5,7 +5,8 @@ import {
   SmallTitle,
   Ol,
   Li,
-  UnderlinedLink
+  UnderlinedLink,
+  BoldWord
 } from "./../../Common/StaticPages.style";
 
 import { COOKIES_POLICY_URL } from "./../../../constants/naviagationUrls";
@@ -22,26 +23,26 @@ export default class PrivacyPolicy extends Component {
               <span style={{ fontWeight: "900", display: "block" }}>
                 INTRODUCTION
               </span>{" "}
-              Welcome to earwig. Subtap Limited (we, us, our or Subtap Limited),
+              Welcome to earwig. Subtap Limited (<BoldWord>we</BoldWord>, <BoldWord>us</BoldWord>, <BoldWord>our</BoldWord> or <BoldWord>Subtap Limited</BoldWord>),
               the owner and operator of earwig, is committed to protecting and
               respecting your privacy. This Privacy Policy explains: (i) why and
               how we may use the personal information that we have obtained from
               interactions you (or others) may have with us as a business,
-              including when you visit our website currently located at
-              <UnderlinedLink to="/"> earwig </UnderlinedLink>
+              including when you visit our website currently located at ​
+              <UnderlinedLink to="/">www.earwig.work</UnderlinedLink> (<BoldWord>Site</BoldWord> or <BoldWord>earwig Platform</BoldWord>)
               or when you contact us; (ii) with whom we share your personal
               information; and (iii) the rights you have in connection with the
-              information we use. Please read the following carefully. Subtap
-              Limited is the controller of your personal information. This means
+              information we use. Please read the following carefully. 
+              <br />
+              <br />
+              Subtap Limited is the controller of your personal information. This means
               that Subtap Limited decides why and how your personal information
               is processed. Please see the section at the end of this Privacy
-              Policy for our contact and legal information. This Privacy Policy
-              may change from time to time so please check this Privacy Policy
-              occasionally to ensure that you are happy with any changes. For
-              more information on changes to our Privacy Policy, please see
-              paragraph 11 (Changes to this Privacy Policy). This Privacy Policy
-              was last updated on the date set out at the end of this Privacy
-              Policy.
+              Policy for our contact and legal information. 
+              <br />
+              <br />
+              This Privacy Policy may change from time to time so please check this Privacy Policy occasionally to ensure that you are happy with any changes. For more information on changes to our Privacy Policy, please see
+              paragraph 11 (<BoldWord>Changes to this Privacy Policy</BoldWord>). This Privacy Policy was last updated on the date set out at the end of this Privacy Policy.
             </Li>
             <Li>
               <span style={{ fontWeight: "900", display: "block" }}>
