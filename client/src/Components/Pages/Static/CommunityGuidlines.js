@@ -313,16 +313,17 @@ export default class CommunityGuidlines extends Component {
                   Your permitted use of UGC on the earwig Platform
                 </SubTitle>
                 <Li>
-                  You may view any UGC posted to the earwig Platform for your
+                  You may view any UGC posted to the earwig Platform and listen to any audio files we make available for download for your
                   own personal and non-commercial purposes only. You are not, in
                   any circumstances, permitted to:
                   <Ol>
                     <Li>make commercial use of any such content;</Li>
                     <Li>edit any such content; or</Li>
                     <Li>
-                      remove, obscure or otherwise tamper with any copyright and
-                      proprietary notices that relate to, or are contained
-                      within, the content.
+                      remove, obscure or otherwise tamper with any copyright and proprietary notices that relate to, or are contained within, such content; or
+                    </Li>
+                    <Li>
+                      publish, distribute or share with any other person any files you download from the Platform.
                     </Li>
                   </Ol>
                 </Li>
