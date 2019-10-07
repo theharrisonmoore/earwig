@@ -138,7 +138,7 @@ export default class TermsOfUse extends Component {
                 <Li>
                   You can sign up and create your account on the ​{" "}
                   <UnderlinedLink to={SIGNUP_URL}>
-                    ​ Account Registration
+                    ​ Account Registration page
                   </UnderlinedLink>
                   . We will never publicly publish the information you give to
                   us when you create your account nor publicly associate such
@@ -490,23 +490,10 @@ export default class TermsOfUse extends Component {
                   international copyright and other intellectual property laws.
                 </Li>
                 <Li>
-                  All references in these Terms to ‘content’ includes any
-                  information or other material found on or via the earwig
-                  Platform, including without limitation text, databases,
-                  graphics, videos, software and all other features found on or
-                  via the earwig Platform.
+                  All references in these Terms to ‘content’ includes any information or other material found on or via the earwig Platform, including without limitation text, databases, graphics, audio files, videos, software and all other features found on or via the earwig Platform.
                 </Li>
                 <Li>
-                  We make the earwig Platform and our content available through
-                  the earwig Platform for your personal, non-commercial use
-                  only. You may view the earwig Platform’s pages and content
-                  online and may print a copy of these Terms and store such
-                  Terms in electronic form on your computer for your records,
-                  provided you keep intact any and all copyright and proprietary
-                  notices. You may not otherwise reproduce, modify, copy or
-                  distribute or use any of the content on the earwig Platform
-                  other than as expressly permitted under these Terms without
-                  our prior written consent.
+                  We make the earwig Platform and our content available through the earwig Platform for your personal, non-commercial use only. You may view the earwig Platform’s pages and content online, download and play on your personal device any audio files we make available for download from the Platform and print a copy of these Terms and store such Terms in electronic form on your computer for your records, provided you keep intact any and all copyright and proprietary notices. You may not otherwise reproduce, modify, copy or distribute or use any of the content on the earwig Platform other than as expressly permitted under these Terms without our prior written consent.
                 </Li>
                 <Li>
                   You are not in any circumstances permitted to:
@@ -519,8 +506,7 @@ export default class TermsOfUse extends Component {
                       Platform in contravention of the provisions of our Terms;
                     </Li>
                     <Li>
-                      adapt, vary, edit, modify, translate or transpose, in part
-                      or in whole, any of the content on the earwig Platform;
+                      adapt, vary, edit, modify, distribute, translate or transpose, in part or in whole, any of the content on the earwig Platform;
                     </Li>
                     <Li>
                       scrape, harvest, mine, retrieve, meter or otherwise gather
