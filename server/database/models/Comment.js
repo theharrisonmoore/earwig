@@ -7,14 +7,17 @@ const commentSchema = new Schema({
   organization: {
     type: ObjectId,
     ref: "organizations",
+    required: true,
   },
   question: {
     type: ObjectId,
     ref: "questions",
+    required: true,
   },
   user: {
     type: ObjectId,
     ref: "users",
+    required: true,
   },
   text: {
     type: String,
