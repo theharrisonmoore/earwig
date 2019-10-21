@@ -8,9 +8,11 @@ const answerSchema = new Schema(
     question: {
       type: ObjectId,
       ref: "questions",
+      required: true,
     },
     answer: {
       type: Mixed,
+      required: true,
     },
     comment: {
       type: ObjectId,
@@ -19,14 +21,17 @@ const answerSchema = new Schema(
     user: {
       type: ObjectId,
       ref: "users",
+      required: true,
     },
     review: {
       type: ObjectId,
       ref: "reviews",
+      required: true,
     },
     organization: {
       type: ObjectId,
       ref: "organizations",
+      required: true,
     },
   },
   { timestamps: true },
