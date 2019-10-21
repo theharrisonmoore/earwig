@@ -114,21 +114,6 @@ module.exports = async () => {
       review: reviews[0],
       organization: reviews[0].organization,
     },
-    {
-      question: agencyQuestions[16],
-      answer: "Yes",
-      user: users[0],
-      review: reviews[0],
-      organization: reviews[0].organization,
-    },
-    {
-      question: agencyQuestions[17],
-      answer: "Yes",
-      comment: comments[2],
-      user: users[0],
-      review: reviews[0],
-      organization: reviews[0].organization,
-    },
 
     /* ================ agency 2 ========================= */
     {
@@ -230,21 +215,6 @@ module.exports = async () => {
       review: reviews[1],
       organization: reviews[1].organization,
     },
-    {
-      question: agencyQuestions[16],
-      answer: "Yes",
-      user: users[1],
-      review: reviews[1],
-      organization: reviews[1].organization,
-    },
-    {
-      question: agencyQuestions[17],
-      answer: "Yes",
-      comment: comments[3],
-      user: users[1],
-      review: reviews[1],
-      organization: reviews[1].organization,
-    },
     /* ================ payroll 1 ========================= */
     {
       question: payrollQuestions[0],
@@ -319,13 +289,6 @@ module.exports = async () => {
     {
       question: payrollQuestions[10],
       answer: "Acrow Recruitment",
-      user: users[0],
-      review: reviews[2],
-      organization: reviews[2].organization,
-    },
-    {
-      question: payrollQuestions[11],
-      answer: "Yes",
       user: users[0],
       review: reviews[2],
       organization: reviews[2].organization,
@@ -405,13 +368,6 @@ module.exports = async () => {
     {
       question: payrollQuestions[10],
       answer: "Adecco",
-      user: users[1],
-      review: reviews[3],
-      organization: reviews[3].organization,
-    },
-    {
-      question: payrollQuestions[11],
-      answer: "No",
       user: users[1],
       review: reviews[3],
       organization: reviews[3].organization,

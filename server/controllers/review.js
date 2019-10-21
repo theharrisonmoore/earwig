@@ -99,11 +99,18 @@ const postReview = async (req, res, next) => {
   const { organization } = req.body;
   const { user } = req;
 
+  if (!user) {
+    next(boom.badImplementation("User is undefined"));
+  }
   try {
     const organizationData = await getOrganization(organization.category, organization.name);
     const userData = await findByEmail(user.email);
     const questions = await getQuestionsByOrgCategory(organization.category);
 
+    // TODO: refactor this code
+    if (!organizationData || !userData || !questions) {
+      next(boom.badImplementation("Bad data"));
+    }
     const questionsObject = {};
     questions.forEach((q) => {
       if (!questionsObject[q.number]) {

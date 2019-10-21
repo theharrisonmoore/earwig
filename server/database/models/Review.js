@@ -7,6 +7,7 @@ const replySchema = new Schema({
   user: {
     type: ObjectId,
     ref: "users",
+    required: true,
   },
   text: String,
   displayName: String,
@@ -19,23 +20,28 @@ const reviewSchema = new Schema({
   organization: {
     type: ObjectId,
     ref: "organizations",
+    required: true,
   },
   user: {
     type: ObjectId,
     ref: "users",
+    required: true,
   },
   workPeriod: {
     from: {
       type: Date,
+      required: true,
     },
     to: {
       type: Date,
+      required: true,
     },
   },
   rate: {
     type: Number,
     min: 1,
     max: 5,
+    required: true,
   },
   overallReview: {
     text: String,
