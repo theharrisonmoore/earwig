@@ -8,6 +8,7 @@ export const LoginWrapper = styled.div.attrs({ className: "login" })`
   max-width: 30rem;
   margin: 0 auto;
   padding: 4rem 1rem;
+  padding-bottom: 100px;
 
   & .paragraph {
     color: red;

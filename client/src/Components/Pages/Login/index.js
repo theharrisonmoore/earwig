@@ -6,6 +6,7 @@ import Mixpanel from "mixpanel-browser";
 
 import Logo from "../../Common/Logo";
 import Button from "../../Common/Button";
+import Link from "../../Common/Link";
 
 import {
   StyledFormik as Formik,
@@ -24,7 +25,7 @@ import {
 } from "../../../constants/naviagationUrls";
 
 import {
-  StyledLink as Link,
+  // StyledLink as Link,
   LoginWrapper,
   SmallLink,
   Devider,
@@ -125,7 +126,11 @@ export default class Login extends Component {
             Sign up free
           </Button>
         </p>
-        <Link to={WELCOME_URL}>Continue without an account</Link>
+        <Link
+          to={WELCOME_URL}
+          type="primary"
+          text="Continue without an account"
+        />
       </LoginWrapper>
     );
   }
