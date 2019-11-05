@@ -11,6 +11,7 @@ const sharedStyles = css`
   font-size: 1.125rem;
   font-weight: bold;
   text-decoration: none;
+  text-align: ${props => props.align};
 
   &:hover,
   &:active {
@@ -27,12 +28,10 @@ const LinkElement = styled(ReactLink)`
   ${props => props.type === "primary" && primaryStyles}
 `;
 /**
- * @example <Link to="/landing" styleType="primary">
-              Send
-            </Link>
+ * @example <Link to="/landing" styleType="primary" text="Sign out" />
  */
 
-const Link = ({ disabled, color, type, text, to, ...rest }) => {
+const Link = ({ disabled, color, type, text, to, align, ...rest }) => {
   return (
     <>
       <LinkElement
@@ -41,6 +40,7 @@ const Link = ({ disabled, color, type, text, to, ...rest }) => {
         type={type}
         {...rest}
         to={to}
+        align={align}
       >
         {text}
       </LinkElement>
