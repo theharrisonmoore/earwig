@@ -145,9 +145,8 @@ export default class index extends Component {
                   border="none"
                   loading={isSubmitting}
                   styleType="primary"
-                >
-                  Log in
-                </Button>
+                  text="Log in"
+                />
               </Form>
             )}
           </Formik>

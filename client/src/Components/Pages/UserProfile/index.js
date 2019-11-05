@@ -232,7 +232,11 @@ export default class index extends Component {
                 non-workers.
               </VerifyParagraph>
               <NavLink to={UPLOAD_VERIFICATION_URL}>
-                <Button type="button" styleType="primary">Get verified as a worker</Button>
+                <Button
+                  type="button"
+                  styleType="primary"
+                  text="Get verified as a worker"
+                />
               </NavLink>
             </VerifySection>
           </div>

@@ -98,9 +98,12 @@ export default class SelectReason extends Component {
           onChange={handleTextAreaChange}
           value={description}
         />
-        <Button onClick={handleSubmit} loading={loading} styleType="primary">
-          Send report
-        </Button>
+        <Button
+          onClick={handleSubmit}
+          loading={loading}
+          styleType="primary"
+          text="Send report"
+        />
       </div>
     );
   }

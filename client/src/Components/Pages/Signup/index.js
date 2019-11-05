@@ -668,9 +668,8 @@ export default class Signup extends Component {
                   disabled={isSubmitting}
                   loading={isSubmitting}
                   styleType="primary"
-                >
-                  Create account
-                </Button>
+                  text="Create account"
+                />
               </Form>
             )}
           </Formik>

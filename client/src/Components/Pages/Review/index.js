@@ -18,7 +18,7 @@ import {
   AgreementLabel,
   LinkSpan,
   ReviewWrapper,
-  ErrorsWrapper
+  ErrorsWrapper,
 } from "./Review.style";
 
 import { StyledErrorMessage } from "./Question/Question.style";
@@ -30,19 +30,19 @@ import {
   validationSchema,
   hasAgreed,
   rate,
-  workPeriod
+  workPeriod,
 } from "./validationSchema";
 import { STATIC_QUESTIONS } from "./staticQuestions";
 
 import {
   THANKYOU_URL,
-  TERMS_OF_USE_URL
+  TERMS_OF_USE_URL,
 } from "../../../constants/naviagationUrls";
 
 const {
   API_POST_REVIEW_URL,
   API_UPLOAD_AUDIO,
-  API_GET_AUDIO_URL
+  API_GET_AUDIO_URL,
 } = require("../../../apiUrls");
 
 class Review extends Component {
@@ -59,11 +59,11 @@ class Review extends Component {
     review: {
       workPeriod: {
         from: "",
-        to: ""
+        to: "",
       },
       rate: 0,
       overallReview: "",
-      voiceReview: ""
+      voiceReview: "",
     },
     hasAgreed: false,
     questions: [],
@@ -73,7 +73,7 @@ class Review extends Component {
     orgId: "",
     recording: false,
     audioFile: null,
-    voiceReviewUrl: ""
+    voiceReviewUrl: "",
   };
 
   componentDidMount() {
@@ -85,10 +85,10 @@ class Review extends Component {
 
     this.setState({
       organization: {
-        orgId
+        orgId,
       },
       user: { email },
-      reviewId
+      reviewId,
     });
 
     if (reviewId) {
@@ -109,7 +109,7 @@ class Review extends Component {
                   reviewDetails[0].voiceReview.audio
                 ) {
                   const { data } = await axios.post(API_GET_AUDIO_URL, {
-                    filename: reviewDetails[0].voiceReview.audio
+                    filename: reviewDetails[0].voiceReview.audio,
                   });
                   this.setState({ voiceReviewUrl: data.audio });
                 }
@@ -117,19 +117,19 @@ class Review extends Component {
                 const review = {
                   workPeriod: {
                     from: moment(reviewDetails[0].workPeriod.from),
-                    to: moment(reviewDetails[0].workPeriod.to)
+                    to: moment(reviewDetails[0].workPeriod.to),
                   },
                   rate: reviewDetails[0].rate,
                   overallReview: reviewDetails[0].overallReview.text,
-                  voiceReview: reviewDetails[0].voiceReview.audio
+                  voiceReview: reviewDetails[0].voiceReview.audio,
                 };
 
                 reviewDetails[0].answers.forEach(answer => {
                   const {
                     answer: ans,
-                    question: [question]
+                    question: [question],
                   } = answer;
-                  const number = question.number;
+                  const { number } = question;
                   if (answers[number]) {
                     // think about this again;
                     answers[number] = ans;
@@ -146,7 +146,7 @@ class Review extends Component {
                     ),
                     dependant: group.questions.filter(
                       question => question.isDependent
-                    )
+                    ),
                   };
                 });
                 this.setState({
@@ -161,7 +161,7 @@ class Review extends Component {
                   review,
                   dropdownOptions:
                     res.data.dropDownListData &&
-                    res.data.dropDownListData[0].category
+                    res.data.dropDownListData[0].category,
                 });
               } catch (error) {
                 console.log("err", error);
@@ -196,7 +196,7 @@ class Review extends Component {
               main: group.questions.filter(question => !question.isDependent),
               dependant: group.questions.filter(
                 question => question.isDependent
-              )
+              ),
             };
           });
           this.setState({
@@ -207,7 +207,8 @@ class Review extends Component {
             email,
             // answers,
             dropdownOptions:
-              res.data.dropDownListData && res.data.dropDownListData[0].category
+              res.data.dropDownListData &&
+              res.data.dropDownListData[0].category,
           });
         })
         .catch(err => {
@@ -217,7 +218,7 @@ class Review extends Component {
             return Modal.error({
               title: "Error",
               content: error,
-              onOk: () => this.props.history.goBack()
+              onOk: () => this.props.history.goBack(),
             });
           }
           // server error 500
@@ -238,8 +239,8 @@ class Review extends Component {
         url: API_UPLOAD_AUDIO,
         data: form,
         headers: {
-          "content-type": `multipart/form-data; boundary=${form.boundary}`
-        }
+          "content-type": `multipart/form-data; boundary=${form.boundary}`,
+        },
       })
         .then(({ data }) => {
           return data.audio;
@@ -252,14 +253,14 @@ class Review extends Component {
     const { answers } = this.state;
     const { name, value } = e.target;
     this.setState({
-      answers: { ...answers, [name]: value }
+      answers: { ...answers, [name]: value },
     });
   };
 
   handleCheckBox = () => {
     this.setState(
       prevState => ({
-        hasAgreed: !prevState.hasAgreed
+        hasAgreed: !prevState.hasAgreed,
       }),
       () => {
         hasAgreed
@@ -268,16 +269,16 @@ class Review extends Component {
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
-                hasAgreed: ""
-              }
+                hasAgreed: "",
+              },
             }));
           })
           .catch(err => {
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
-                hasAgreed: err.message
-              }
+                hasAgreed: err.message,
+              },
             }));
           });
       }
@@ -288,7 +289,7 @@ class Review extends Component {
     const { value, name } = e.target;
     const { type } = e.target.dataset;
     this.setState({
-      [type]: { ...this.state[type], [name]: value }
+      [type]: { ...this.state[type], [name]: value },
     });
   };
 
@@ -302,7 +303,7 @@ class Review extends Component {
       answer = value;
     }
     this.setState({
-      answers: { ...answers, [number]: answer }
+      answers: { ...answers, [number]: answer },
     });
   };
 
@@ -314,14 +315,14 @@ class Review extends Component {
 
   handleImageUpload = (value, number) => {
     this.setState(prevState => ({
-      answers: { ...prevState.answers, [number]: value }
+      answers: { ...prevState.answers, [number]: value },
     }));
   };
 
   handleRateChage = value => {
     this.setState(
       prevState => ({
-        review: { ...prevState.review, rate: value }
+        review: { ...prevState.review, rate: value },
       }),
       () => {
         rate
@@ -330,16 +331,16 @@ class Review extends Component {
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
-                review: { ...oldState.errors.review, rate: "" }
-              }
+                review: { ...oldState.errors.review, rate: "" },
+              },
             }));
           })
           .catch(err => {
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
-                review: { ...oldState.errors.review, rate: err.message }
-              }
+                review: { ...oldState.errors.review, rate: err.message },
+              },
             }));
           });
       }
@@ -354,8 +355,8 @@ class Review extends Component {
         return {
           review: {
             ...review,
-            workPeriod: { ...workPeriod, [fromOrTo]: value }
-          }
+            workPeriod: { ...workPeriod, [fromOrTo]: value },
+          },
         };
       },
       () => {
@@ -365,20 +366,20 @@ class Review extends Component {
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
-                review: { ...oldState.errors.review, workPeriod: {} }
-              }
+                review: { ...oldState.errors.review, workPeriod: {} },
+              },
             }));
           })
           .catch(err => {
             const workPeriod = {
               from: err.message,
-              to: err.message
+              to: err.message,
             };
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
-                review: { ...oldState.errors.review, workPeriod }
-              }
+                review: { ...oldState.errors.review, workPeriod },
+              },
             }));
           });
       }
@@ -408,11 +409,11 @@ class Review extends Component {
       newDependant.map(question => {
         if (question.type === "number") {
           this.setState({
-            answers: { ...this.state.answers, [question.number]: null }
+            answers: { ...this.state.answers, [question.number]: null },
           });
         } else {
           this.setState({
-            answers: { ...this.state.answers, [question.number]: "" }
+            answers: { ...this.state.answers, [question.number]: "" },
           });
         }
       });
@@ -435,11 +436,11 @@ class Review extends Component {
       newDependant.map(question => {
         if (question.type === "number") {
           this.setState({
-            answers: { ...this.state.answers, [question.number]: null }
+            answers: { ...this.state.answers, [question.number]: null },
           });
         } else {
           this.setState({
-            answers: { ...this.state.answers, [question.number]: "" }
+            answers: { ...this.state.answers, [question.number]: "" },
           });
         }
       });
@@ -452,17 +453,17 @@ class Review extends Component {
 
   runValidation = values => {
     const { organization } = this.state;
-    let errs = {
+    const errs = {
       answers: {},
       review: {
         workPeriod: {
           from: "",
-          to: ""
+          to: "",
         },
         rate: "",
-        overallReview: ""
+        overallReview: "",
       },
-      hasAgreed: ""
+      hasAgreed: "",
     };
     return validationSchema[organization.category]
       .validate(values, { abortEarly: false })
@@ -497,7 +498,7 @@ class Review extends Component {
       answers: this.state.answers,
       comments: this.state.comments,
       review: this.state.review,
-      hasAgreed: this.state.hasAgreed
+      hasAgreed: this.state.hasAgreed,
     };
 
     this.runValidation(values).then(async resp => {
@@ -505,7 +506,7 @@ class Review extends Component {
         const review = {
           values,
           organization,
-          user
+          user,
         };
         if (this.state.isEditing) {
           const { orgId } = this.state;
@@ -523,7 +524,7 @@ class Review extends Component {
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,
                 orgId,
-                orgName: organization.name
+                orgName: organization.name,
               });
             })
             .catch(err => {
@@ -547,7 +548,7 @@ class Review extends Component {
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,
                 orgId: res.data,
-                orgName: organization.name
+                orgName: organization.name,
               });
             })
             .catch(err => {
@@ -567,16 +568,17 @@ class Review extends Component {
   handleRecord = ({ recordedAudio, audioFile }) => {
     this.setState({
       recordedAudio,
-      audioFile
+      audioFile,
     });
   };
+
   render() {
     const {
       groupss,
       organization: { name, category },
       errors,
       isSubmitting,
-      recording
+      recording,
     } = this.state;
     const { history, isMobile, id } = this.props;
     const staticQuestion = STATIC_QUESTIONS(category);
@@ -732,7 +734,7 @@ class Review extends Component {
                 size="large"
                 loading={isSubmitting}
                 backgroundColor={organizations[category].primary}
-                children="Publish your review"
+                text="Publish your review"
               />
             </FormWrapper>
           </form>

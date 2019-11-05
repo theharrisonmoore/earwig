@@ -93,7 +93,7 @@ const ButtonElement = styled.button`
 
 const Button = ({
   loading,
-  children,
+  text,
   spinnerColor,
   backgroundColor,
   danger,
@@ -112,7 +112,7 @@ const Button = ({
         {...rest}
       >
         {loading && <ButtonSpinner color={spinnerColor} />}
-        {children}
+        {text}
       </ButtonElement>
     </>
   );

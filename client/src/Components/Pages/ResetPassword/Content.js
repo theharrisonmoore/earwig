@@ -9,25 +9,25 @@ import {
   StyledField,
   StyledFormikErrorMessage as FormikErrorMessage,
   Label,
-  GeneralErrorMessage
+  GeneralErrorMessage,
 } from "../../Common/Formik/Formik.style";
 
-import { LOGIN_URL } from "./../../../constants/naviagationUrls";
+import { LOGIN_URL } from "../../../constants/naviagationUrls";
 
 import Logo from "../../Common/Logo";
 
-import Button from "./../../Common/Button";
+import Button from "../../Common/Button";
 
 export const ResetPassword = ({
   error,
   handleSubmitReset,
   history,
-  loading
+  loading,
 }) => {
   const resetSchema = Yup.object().shape({
     email: Yup.string()
       .email("Invalid email")
-      .required("Required")
+      .required("Required"),
   });
 
   return (
@@ -57,9 +57,8 @@ export const ResetPassword = ({
                 as="button"
                 loading={isSubmitting}
                 styleType="primary"
-              >
-                Send link to my email
-              </Button>
+                text="Send link to my email"
+              />
             </Form>
           )}
         </Formik>
@@ -75,7 +74,7 @@ export const SetPassword = ({ error, handleSubmitSet, match, loading }) => {
       .required("Required"),
     rePassword: Yup.string()
       .required("Required")
-      .equalTo(Yup.ref("password"))
+      .equalTo(Yup.ref("password")),
   });
 
   const { token } = match.params;
@@ -110,9 +109,13 @@ export const SetPassword = ({ error, handleSubmitSet, match, loading }) => {
             </Label>
 
             {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
-            <Button type="submit" disabled={isSubmitting} as="button" styleType="primary">
-              Save Password
-            </Button>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              as="button"
+              styleType="primary"
+              text="Save password"
+            />
           </Form>
         )}
       </Formik>
@@ -125,9 +128,13 @@ export const PasswordSent = ({ history }) => {
     <Wrapper>
       <ContentWrapper>
         <Description>A password reset link was emailed to you</Description>
-        <Button left type="submit" onClick={() => history.push("/")} styleType="primary">
-          Got it
-        </Button>
+        <Button
+          left
+          type="submit"
+          onClick={() => history.push("/")}
+          styleType="primary"
+          text="Got it"
+        />
       </ContentWrapper>
     </Wrapper>
   );
@@ -146,13 +153,12 @@ export const PasswordDone = ({ history }) => {
           onClick={() =>
             history.push({
               pathname: LOGIN_URL,
-              state: { resetSuccess: true }
+              state: { resetSuccess: true },
             })
           }
           styleType="primary"
-        >
-          Will do
-        </Button>
+          text="Will do"
+        />
       </ContentWrapper>
     </Wrapper>
   );

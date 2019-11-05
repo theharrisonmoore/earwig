@@ -147,18 +147,16 @@ export default class index extends Component {
                 disabled={isSubmitting}
                 loading={isSubmitting}
                 styleType="primary"
-              >
-                Send message
-              </Button>
+                text="Send message"
+              />
               <Button
                 danger
                 onClick={this.deleteUser}
                 disabled={isDeleting}
                 loading={isDeleting}
                 styleType="primary"
-              >
-                Permanently delete your account
-              </Button>
+                text="Permanently delete your account"
+              />
             </div>
           </BorderedWrapper>
         </Wrapper>

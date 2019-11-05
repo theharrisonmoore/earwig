@@ -115,9 +115,8 @@ export default class Login extends Component {
                 loading={isSubmitting}
                 styleType="primary"
                 margin="2rem auto 0 auto"
-              >
-                Log in
-              </Button>
+                text="Log in"
+              />
             </Form>
           )}
         </Formik>
@@ -127,9 +126,8 @@ export default class Login extends Component {
           <Button
             styleType="secondary"
             onClick={() => history.push(SIGNUP_URL)}
-          >
-            Sign up free
-          </Button>
+            text="Sign up free"
+          />
         </p>
         <Link
           to={WELCOME_URL}

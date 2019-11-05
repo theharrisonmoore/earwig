@@ -325,7 +325,7 @@ export default class Profile extends Component {
                   category={category}
                 >
                   <Button
-                    children="Create an account to see more"
+                    text="Create an account to see more"
                     styleType="primary"
                   />
                 </AccountLink>

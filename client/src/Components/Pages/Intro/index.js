@@ -36,7 +36,7 @@ export default class Intro extends Component {
             allowfullscreen
           />
           <Link to={WELCOME_URL}>
-            <Button styleType="primary">Got it</Button>
+            <Button styleType="primary" text="Got it" />
           </Link>
         </VideoContainer>
         <YellowDiv backgroundColor="yellow" />

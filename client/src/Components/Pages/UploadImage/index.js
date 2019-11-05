@@ -367,9 +367,8 @@ export default class UploadImage extends Component {
               error={error}
               loading={loading}
               styleType="primary"
-            >
-              Finish verification
-            </Button>
+              text="Finish verification"
+            />
           </form>
         </ContentWrapper>
       </UploadImageWrapper>
