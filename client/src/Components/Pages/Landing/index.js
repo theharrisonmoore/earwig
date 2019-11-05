@@ -144,6 +144,7 @@ export default class index extends Component {
                   backgroundColor={colors.dodgerBlue}
                   border="none"
                   loading={isSubmitting}
+                  styleType="primary"
                 >
                   Log in
                 </Button>

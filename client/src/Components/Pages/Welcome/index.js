@@ -50,7 +50,12 @@ export default class Welcome extends Component {
 
           {!isLoggedIn ? (
             <StyledLink to={SEARCH_URL}>
-              <Button alignContent left margin="0 0 1.5rem 0">
+              <Button
+                alignContent
+                left
+                margin="0 0 1.5rem 0"
+                styleType="primary"
+              >
                 <Icon
                   icon="search"
                   margin="0 1rem 0 0"
@@ -69,7 +74,7 @@ export default class Welcome extends Component {
                     : UPLOAD_VERIFICATION_PHOTO
                 }
               >
-                <Button alignContent left margin="0 0 0 0">
+                <Button alignContent left margin="0 0 0 0" styleType="primary">
                   <Icon
                     icon="starComment"
                     margin="0 1rem 0 0"
@@ -92,7 +97,7 @@ export default class Welcome extends Component {
                 // }
                 to={SEARCH_URL}
               >
-                <Button alignContent left margin="0 0 0 0">
+                <Button alignContent left margin="0 0 0 0" styleType="primary">
                   <Icon
                     icon="search"
                     margin="0 1rem 0 0"
@@ -110,7 +115,13 @@ export default class Welcome extends Component {
                 }
                 disabled
               >
-                <Button alignContent left disabled margin="0 0 0 0">
+                <Button
+                  alignContent
+                  left
+                  disabled
+                  margin="0 0 0 0"
+                  styleType="primary"
+                >
                   <Icon
                     icon="raiseHand"
                     margin="0 1rem 0 0"
@@ -137,7 +148,13 @@ export default class Welcome extends Component {
                 }
                 disabled
               >
-                <Button alignContent left disabled margin="0 0 1.5rem 0">
+                <Button
+                  alignContent
+                  left
+                  disabled
+                  margin="0 0 1.5rem 0"
+                  styleType="primary"
+                >
                   <Icon
                     icon="jobBoard"
                     margin="0 1rem 0 0"

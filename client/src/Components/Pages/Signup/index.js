@@ -606,6 +606,7 @@ export default class Signup extends Component {
                             as="label"
                             htmlFor="verificationImage"
                             style={{ width: "70%", margin: "0 auto 1.25rem" }}
+                            styleType="primary"
                           >
                             Upload photo
                             {verificationImage && (
@@ -666,6 +667,7 @@ export default class Signup extends Component {
                   type="submit"
                   disabled={isSubmitting}
                   loading={isSubmitting}
+                  styleType="primary"
                 >
                   Create account
                 </Button>

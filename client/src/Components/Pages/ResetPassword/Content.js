@@ -56,6 +56,7 @@ export const ResetPassword = ({
                 disabled={isSubmitting}
                 as="button"
                 loading={isSubmitting}
+                styleType="primary"
               >
                 Send link to my email
               </Button>
@@ -109,7 +110,7 @@ export const SetPassword = ({ error, handleSubmitSet, match, loading }) => {
             </Label>
 
             {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
-            <Button type="submit" disabled={isSubmitting} as="button">
+            <Button type="submit" disabled={isSubmitting} as="button" styleType="primary">
               Save Password
             </Button>
           </Form>
@@ -124,7 +125,7 @@ export const PasswordSent = ({ history }) => {
     <Wrapper>
       <ContentWrapper>
         <Description>A password reset link was emailed to you</Description>
-        <Button left type="submit" onClick={() => history.push("/")}>
+        <Button left type="submit" onClick={() => history.push("/")} styleType="primary">
           Got it
         </Button>
       </ContentWrapper>
@@ -148,6 +149,7 @@ export const PasswordDone = ({ history }) => {
               state: { resetSuccess: true }
             })
           }
+          styleType="primary"
         >
           Will do
         </Button>

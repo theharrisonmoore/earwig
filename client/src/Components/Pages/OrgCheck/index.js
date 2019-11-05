@@ -327,6 +327,7 @@ export default class index extends Component {
               </Row>
               <Button
                 left
+                styleType="primary"
                 onClick={updating ? this.setCurrentOrgs : this.nothingToChange}
               >
                 Yep, that's correct

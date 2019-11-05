@@ -728,6 +728,7 @@ class Review extends Component {
               </UserAgreement>
               <Button
                 type="submit"
+                styleType="primary"
                 size="large"
                 loading={isSubmitting}
                 backgroundColor={organizations[category].primary}

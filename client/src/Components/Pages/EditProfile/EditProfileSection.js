@@ -450,6 +450,7 @@ export default class EditProfileSection extends Component {
                 onClick={this.handleSubmit}
                 disabled={isSubmitting}
                 loading={isSubmitting}
+                styleType="primary"
               >
                 {section === "earwigId" && "Save new Username"}
                 {section === "password" && "Save new password"}

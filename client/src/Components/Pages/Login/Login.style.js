@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { colors } from "./../../../theme";
+import { colors } from "../../../theme";
 
 export const LoginWrapper = styled.div.attrs({ className: "login" })`
   width: 100%;
@@ -50,7 +50,8 @@ export const Devider = styled.div`
   position: relative;
   height: 3.25rem;
   width: 80%;
-  margin: 2rem auto;
+  margin: 1rem auto;
+  opacity: 0.25;
 
   :after {
     content: "";
@@ -60,21 +61,4 @@ export const Devider = styled.div`
     top: 50%;
     width: 100%;
   }
-`;
-
-export const Circle = styled.div`
-  position: absolute;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 50%;
-  width: 3.25rem;
-  height: 3.25rem;
-  border-radius: 50%;
-  border: 1px solid ${colors.inputBorder};
-  z-index: 2;
-  background-color: white;
-  font-size: 1.25rem;
-  color: ${colors.lightGray};
-  line-height: 3.25rem;
-  font-weight: 900;
 `;

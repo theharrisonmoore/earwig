@@ -326,7 +326,7 @@ export default class Profile extends Component {
                 >
                   <Button
                     children="Create an account to see more"
-                    width="300px"
+                    styleType="primary"
                   />
                 </AccountLink>
               </AccountPromo>
