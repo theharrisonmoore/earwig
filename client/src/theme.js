@@ -36,6 +36,9 @@ export const breakpointsMax = {
 };
 
 const colorCodes = {
+  // primary
+  primary: "#1C77C3",
+
   // organizations
   heliotrope: "#8B51FC",
   dodgerBlue: "#37B6FD",
@@ -102,8 +105,8 @@ export const colors = {
 
 // shadows
 export const shadows = {
-  buttonShadow: "0px 4px 13px rgba(173, 145, 183, 0.273438)",
-  activeButtonShadow: "0px 2px 9px rgba(173, 145, 183, 0.273438)",
+  buttonShadow: "0px 2px 4px rgba(0, 0, 0, 0.462658)",
+  activeButtonShadow: "0px 1px 2px rgba(0, 0, 0, 0.462658)",
   sectionShadow: "0px 12px 16px -13px rgba(173,145,183,0.273438)",
   searchShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
   commentShadow: "0px 3px 4px rgba(152, 152, 152, 0.5);",

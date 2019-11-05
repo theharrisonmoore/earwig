@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { gradient } from "./../../../theme";
+import { gradient } from "../../../theme";
 
 export const AdminWrapper = styled.div`
   background: ${gradient.adminBackground};

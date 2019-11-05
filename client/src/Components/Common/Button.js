@@ -10,15 +10,15 @@ const ButtonElement = styled.button`
   border: none;
   box-shadow: ${shadows.buttonShadow};
   border-radius: 300px;
-  width: ${props => props.width || "100%"};
-
-  font-weight: 900;
+  /* width: ${props => props.width || "100%"}; */
+  min-height: 45px;
+  font-weight: bold;
   font-size: 1.125rem;
   background-color: ${({ backgroundColor }) =>
-    backgroundColor || colors.heliotrope};
+    backgroundColor || colors.primary};
   outline: none;
   display: block;
-  padding: 0.75rem 0;
+  padding: 0 1rem;
   cursor: pointer;
   margin: ${props => props.margin || "2rem auto"};
   position: relative;
@@ -57,9 +57,7 @@ const ButtonElement = styled.button`
 `}
 
   ${({ alignContent }) =>
-    alignContent
-      ? "display: flex; align-items: center; padding-left: 1.5rem;"
-      : ""}
+    alignContent ? "display: flex; align-items: center; " : ""}
 
   ${({ left }) => (left ? "margin-left: auto;" : "")}
 `;
