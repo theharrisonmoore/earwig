@@ -20,7 +20,7 @@ class DateRange extends Component {
     const {
       handleChange,
       category,
-      state: { errors }
+      state: { errors },
     } = this.props;
 
     return (
