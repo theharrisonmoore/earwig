@@ -189,8 +189,14 @@ export default class OverallReview extends Component {
 
         // check for writtenReview and add to array
         if (overallReview && overallReview.text) {
+          const repliesCount =
+            (review.overallReview.replies &&
+              review.overallReview.replies.length) ||
+            0;
+
           totalReviews.push({
             text: review.overallReview.text,
+            repliesCount,
             user: review.user,
             createdAt: review.createdAt,
             _id: review._id,
@@ -202,8 +208,12 @@ export default class OverallReview extends Component {
 
         // check for audioReview and add to array
         if (voiceReview && voiceReview.audio) {
+          const repliesCount =
+            (review.voiceReview.replies && review.voiceReview.replies.length) ||
+            0;
           totalReviews.push({
             text: review.voiceReview.audio,
+            repliesCount,
             user: review.user,
             createdAt: review.createdAt,
             _id: review._id,
@@ -392,162 +402,166 @@ export default class OverallReview extends Component {
                       <StyledAntIcon type="flag" />
                     </Link>
                   </ActionsDiv>
-                  <Collapse
-                    bordered={false}
-                    data-id={review._id}
-                    onChange={this.togglePanel}
-                    accordion
-                    activeKey={this.state.activeReview}
-                  >
-                    <Panel
-                      showArrow={false}
-                      header={
-                        <>
-                          {activeReview ===
-                            `${review._id}/${review.category}` &&
-                          activeOverallId === review._id ? (
-                            <Icon
-                              fontWeight={700}
-                              type="up"
-                              style={{
-                                color: organizations[category].primary,
-                                width: "15px",
-                                marginRight: "0.5rem",
-                                fontWeight: 700,
-                              }}
-                            />
-                          ) : (
-                            <ReplyIcon
-                              width="15px"
-                              fill={organizations[category].primary}
-                              style={{
-                                transform: "rotate(180deg)",
-                                marginRight: "0.5rem",
-                              }}
-                            />
-                          )}
-                          <span
-                            style={{
-                              fontWeight: 700,
-                              color: organizations[category].primary,
-                              marginBottom: "1rem",
-                            }}
-                          >
+                  {review.repliesCount ? (
+                    <Collapse
+                      bordered={false}
+                      data-id={review._id}
+                      onChange={this.togglePanel}
+                      accordion
+                      activeKey={this.state.activeReview}
+                    >
+                      <Panel
+                        showArrow={false}
+                        header={
+                          <>
                             {activeReview ===
                               `${review._id}/${review.category}` &&
-                            activeOverallId === review._id
-                              ? "Hide Replies"
-                              : "Read Replies"}
-                          </span>
-                        </>
-                      }
-                      key={`${review._id}/${review.category}`}
-                    >
-                      {overallReplies.map(reply => {
-                        return (
-                          <div
-                            key={reply.replies._id}
-                            style={{
-                              direction: `${reply.replies.displayName &&
-                                "rtl"}`,
-                            }}
-                          >
-                            {!verified && reply.replies.user._id === userId && (
-                              <Alert
-                                message="Your replies are visible only for you untill you get
-                    verified"
-                                type="warning"
+                            activeOverallId === review._id ? (
+                              <Icon
+                                fontWeight={700}
+                                type="up"
                                 style={{
-                                  display: "inline-block",
-                                  marginBottom: "0.5rem",
+                                  color: organizations[category].primary,
+                                  width: "15px",
+                                  marginRight: "0.5rem",
+                                  fontWeight: 700,
                                 }}
-                                banner
+                              />
+                            ) : (
+                              <ReplyIcon
+                                width="15px"
+                                fill={organizations[category].primary}
+                                style={{
+                                  transform: "rotate(180deg)",
+                                  marginRight: "0.5rem",
+                                }}
                               />
                             )}
-
-                            <UserDiv>
-                              <UserID adminReply={!!reply.replies.displayName}>
-                                {" "}
-                                {reply.replies.displayName ||
-                                  reply.replies.user.userId}
-                              </UserID>
-
-                              <UserTrade>
-                                {!reply.replies.displayName &&
-                                  reply.replies.user.trade[0] &&
-                                  reply.replies.user.trade[0].title}
-                              </UserTrade>
-                            </UserDiv>
-                            {!reply.replies.displayName && (
-                              <UserAdditionalDetails>
-                                <p>
-                                  Helped {reply.replies.user.helpedUsers} ·
-                                  Points {reply.replies.user.points}
-                                </p>
-                              </UserAdditionalDetails>
-                            )}
-                            <div
+                            <span
                               style={{
-                                position: "relative",
-                                marginBottom: "2rem",
+                                fontWeight: 700,
+                                color: organizations[category].primary,
+                                marginBottom: "1rem",
                               }}
                             >
-                              <BubbleAndDate>
-                                <CommentBubble
-                                  style={{ maxWidth: "100%" }}
-                                  bgColor={
-                                    reply.replies.displayName
-                                      ? "white"
-                                      : organizations[category].secondary
-                                  }
-                                  color={
-                                    reply.replies.displayName &&
-                                    organizations[category].primary
-                                  }
+                              {activeReview ===
+                                `${review._id}/${review.category}` &&
+                              activeOverallId === review._id
+                                ? "Hide Replies"
+                                : "Read Replies"}
+                            </span>
+                          </>
+                        }
+                        key={`${review._id}/${review.category}`}
+                      >
+                        {overallReplies.map(reply => {
+                          return (
+                            <div
+                              key={reply.replies._id}
+                              style={{
+                                direction: `${reply.replies.displayName &&
+                                  "rtl"}`,
+                              }}
+                            >
+                              {!verified && reply.replies.user._id === userId && (
+                                <Alert
+                                  message="Your replies are visible only for you untill you get
+                    verified"
+                                  type="warning"
+                                  style={{
+                                    display: "inline-block",
+                                    marginBottom: "0.5rem",
+                                  }}
+                                  banner
+                                />
+                              )}
+
+                              <UserDiv>
+                                <UserID
                                   adminReply={!!reply.replies.displayName}
-                                  category={category}
                                 >
-                                  {reply.replies.text}
-                                </CommentBubble>
-                                <CommentDate>
-                                  {reply.replies.createdAt &&
-                                    `${moment().diff(
-                                      reply.replies.createdAt,
-                                      "weeks"
-                                    )}w`}
-                                </CommentDate>
-                              </BubbleAndDate>
-                              <Link
+                                  {" "}
+                                  {reply.replies.displayName ||
+                                    reply.replies.user.userId}
+                                </UserID>
+
+                                <UserTrade>
+                                  {!reply.replies.displayName &&
+                                    reply.replies.user.trade[0] &&
+                                    reply.replies.user.trade[0].title}
+                                </UserTrade>
+                              </UserDiv>
+                              {!reply.replies.displayName && (
+                                <UserAdditionalDetails>
+                                  <p>
+                                    Helped {reply.replies.user.helpedUsers} ·
+                                    Points {reply.replies.user.points}
+                                  </p>
+                                </UserAdditionalDetails>
+                              )}
+                              <div
                                 style={{
-                                  [reply.replies.displayName
-                                    ? "left"
-                                    : "right"]: 0,
-                                  width: "10%",
-                                  position: "absolute",
-                                  top: "50%",
-                                  transform: "translateY(-50%)",
-                                }}
-                                to={{
-                                  pathname: REPORT_CONTENT_URL,
-                                  state: {
-                                    review: {
-                                      overallReview: review.overallReview,
-                                      user: review.user,
-                                    },
-                                    organization: summary,
-                                    reply: reply.replies,
-                                    target: "overallReply",
-                                  },
+                                  position: "relative",
+                                  marginBottom: "2rem",
                                 }}
                               >
-                                <StyledAntIcon type="flag" />
-                              </Link>
+                                <BubbleAndDate>
+                                  <CommentBubble
+                                    style={{ maxWidth: "100%" }}
+                                    bgColor={
+                                      reply.replies.displayName
+                                        ? "white"
+                                        : organizations[category].secondary
+                                    }
+                                    color={
+                                      reply.replies.displayName &&
+                                      organizations[category].primary
+                                    }
+                                    adminReply={!!reply.replies.displayName}
+                                    category={category}
+                                  >
+                                    {reply.replies.text}
+                                  </CommentBubble>
+                                  <CommentDate>
+                                    {reply.replies.createdAt &&
+                                      `${moment().diff(
+                                        reply.replies.createdAt,
+                                        "weeks"
+                                      )}w`}
+                                  </CommentDate>
+                                </BubbleAndDate>
+                                <Link
+                                  style={{
+                                    [reply.replies.displayName
+                                      ? "left"
+                                      : "right"]: 0,
+                                    width: "10%",
+                                    position: "absolute",
+                                    top: "50%",
+                                    transform: "translateY(-50%)",
+                                  }}
+                                  to={{
+                                    pathname: REPORT_CONTENT_URL,
+                                    state: {
+                                      review: {
+                                        overallReview: review.overallReview,
+                                        user: review.user,
+                                      },
+                                      organization: summary,
+                                      reply: reply.replies,
+                                      target: "overallReply",
+                                    },
+                                  }}
+                                >
+                                  <StyledAntIcon type="flag" />
+                                </Link>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
-                    </Panel>
-                  </Collapse>
+                          );
+                        })}
+                      </Panel>
+                    </Collapse>
+                  ) : null}
                 </CommentDiv>
               );
             }
