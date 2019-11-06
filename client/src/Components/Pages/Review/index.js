@@ -30,7 +30,7 @@ import {
   validationSchema,
   hasAgreed,
   rate,
-  workPeriod,
+  lastUseSchema,
 } from "./validationSchema";
 import { STATIC_QUESTIONS } from "./staticQuestions";
 
@@ -57,10 +57,7 @@ class Review extends Component {
     comments: {},
     answers: {},
     review: {
-      workPeriod: {
-        from: "",
-        to: "",
-      },
+      lastUse: "",
       rate: 0,
       overallReview: "",
       voiceReview: "",
@@ -115,10 +112,7 @@ class Review extends Component {
                 }
 
                 const review = {
-                  workPeriod: {
-                    from: moment(reviewDetails[0].workPeriod.from),
-                    to: moment(reviewDetails[0].workPeriod.to),
-                  },
+                  lastUse: moment(reviewDetails[0].lastUse),
                   rate: reviewDetails[0].rate,
                   overallReview: reviewDetails[0].overallReview.text,
                   voiceReview: reviewDetails[0].voiceReview.audio,
@@ -347,38 +341,33 @@ class Review extends Component {
     );
   };
 
-  handleDateChage = (fromOrTo, value) => {
+  handleDateChage = date => {
     this.setState(
       prevState => {
         const { review } = prevState;
-        const { workPeriod } = review;
         return {
           review: {
             ...review,
-            workPeriod: { ...workPeriod, [fromOrTo]: value },
+            lastUse: date,
           },
         };
       },
       () => {
-        workPeriod
-          .validate(this.state.review.workPeriod)
+        lastUseSchema
+          .validate(this.state.review.lastUse)
           .then(() => {
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
-                review: { ...oldState.errors.review, workPeriod: {} },
+                review: { ...oldState.errors.review, lastUse: null },
               },
             }));
           })
           .catch(err => {
-            const workPeriod = {
-              from: err.message,
-              to: err.message,
-            };
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
-                review: { ...oldState.errors.review, workPeriod },
+                review: { ...oldState.errors.review, lastUse: err.message },
               },
             }));
           });
@@ -456,10 +445,7 @@ class Review extends Component {
     const errs = {
       answers: {},
       review: {
-        workPeriod: {
-          from: "",
-          to: "",
-        },
+        lastUse: "",
         rate: "",
         overallReview: "",
       },
@@ -476,9 +462,8 @@ class Review extends Component {
           if (err.path.includes("answers")) {
             const num = err.path.split(".")[1];
             errs.answers[num] = err.message;
-          } else if (err.path.includes("workPeriod")) {
-            const key = err.path.split(".")[2];
-            errs.review.workPeriod[key] = err.message;
+          } else if (err.path.includes("lastUse")) {
+            errs.review.lastUse = err.message;
           } else if (err.path.includes("rate")) {
             errs.review.rate = err.message;
           } else if (err.path.includes("hasAgreed")) {
@@ -712,14 +697,11 @@ class Review extends Component {
                     <StyledErrorMessage>{errors.hasAgreed}</StyledErrorMessage>
                   )}
                   <ErrorsWrapper>
-                    {!!errors &&
-                      !!errors.review &&
-                      !!errors.review.workPeriod &&
-                      !!errors.review.workPeriod.from && (
-                        <StyledErrorMessage>
-                          Must select the month(s) you used the agency
-                        </StyledErrorMessage>
-                      )}
+                    {!!errors && !!errors.review && !!errors.review.lastUse && (
+                      <StyledErrorMessage>
+                        Must select the last month you used this {category}
+                      </StyledErrorMessage>
+                    )}
                     {!!errors && !!errors.review && !!errors.review.rate && (
                       <StyledErrorMessage>
                         Must select a rating for this {category}
@@ -733,8 +715,9 @@ class Review extends Component {
                 size="large"
                 loading={isSubmitting}
                 backgroundColor={organizations[category].primary}
-                children="Publish your review"
-              />
+              >
+                Publish your review
+              </Button>
             </FormWrapper>
           </form>
         </section>

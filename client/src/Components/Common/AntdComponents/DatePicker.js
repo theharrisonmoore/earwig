@@ -52,13 +52,13 @@ class DateRange extends React.Component {
 
   onChange = date => {
     this.setState({ lastUse: date });
-    this.props.handleChange("lastUse", date && date.format("YYYY-MM-DD"));
+    this.props.handleChange(date && date.format("YYYY-MM-DD"));
   };
 
   render() {
     const { lastUse } = this.state;
     return (
-      <Wrapper fill={!!lastUse}>
+      <Wrapper fill={!!lastUse || !!this.props.review.lastUse}>
         <div
           style={{
             display: "flex",
@@ -68,7 +68,7 @@ class DateRange extends React.Component {
         >
           <DatePicker.MonthPicker
             disabledDate={this.disabledDate}
-            value={lastUse || this.props.review.workPeriod.from}
+            value={lastUse || this.props.review.lastUse}
             placeholder="Choose month"
             onChange={this.onChange}
             allowClear={false}
