@@ -92,13 +92,12 @@ class Review extends Component {
       axios
         .get(`/api/review/${reviewId}/is-edatable`)
         .then(res => {
-          const { orgId } = res.data;
+          const { orgId: organisationId } = res.data;
           axios
-            .get(`/api/questions/${orgId}`)
-            .then(async res => {
+            .get(`/api/questions/${organisationId}`)
+            .then(async ({ getReviewAnswers: reviewDetails }) => {
               try {
                 const answers = {};
-                const { getReviewAnswers: reviewDetails } = res.data;
                 // fetch the audio url
                 if (
                   reviewDetails[0] &&
@@ -216,7 +215,7 @@ class Review extends Component {
             });
           }
           // server error 500
-          message.error(error || "Something went wrong");
+          return message.error(error || "Something went wrong");
         });
     }
   }
@@ -241,6 +240,7 @@ class Review extends Component {
         })
         .catch(err => console.log(err));
     }
+    return undefined;
   };
 
   handleChange = e => {
@@ -259,7 +259,7 @@ class Review extends Component {
       () => {
         hasAgreed
           .validate(this.state.hasAgreed)
-          .then(res => {
+          .then(() => {
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
@@ -282,8 +282,10 @@ class Review extends Component {
   handleReviewChange = e => {
     const { value, name } = e.target;
     const { type } = e.target.dataset;
-    this.setState({
-      [type]: { ...this.state[type], [name]: value },
+    this.setState(prevState => {
+      return {
+        [type]: { ...prevState[type], [name]: value },
+      };
     });
   };
 
@@ -375,7 +377,7 @@ class Review extends Component {
     );
   };
 
-  showNextQestion = (groupId, next, other, set, num) => {
+  showNextQestion = (groupId, next, other) => {
     const newGroups = { ...this.state.groupss };
     const group = { ...newGroups[groupId] };
     let newMain = [...group.main];
@@ -397,12 +399,16 @@ class Review extends Component {
       // eslint-disable-next-line array-callback-return
       newDependant.map(question => {
         if (question.type === "number") {
-          this.setState({
-            answers: { ...this.state.answers, [question.number]: null },
+          this.setState(prevState => {
+            return {
+              answers: { ...prevState.answers, [question.number]: null },
+            };
           });
         } else {
-          this.setState({
-            answers: { ...this.state.answers, [question.number]: "" },
+          this.setState(prevState => {
+            return {
+              answers: { ...prevState.answers, [question.number]: "" },
+            };
           });
         }
       });
@@ -424,12 +430,16 @@ class Review extends Component {
       // eslint-disable-next-line array-callback-return
       newDependant.map(question => {
         if (question.type === "number") {
-          this.setState({
-            answers: { ...this.state.answers, [question.number]: null },
+          this.setState(prevState => {
+            return {
+              answers: { ...prevState.answers, [question.number]: null },
+            };
           });
         } else {
-          this.setState({
-            answers: { ...this.state.answers, [question.number]: "" },
+          this.setState(prevState => {
+            return {
+              answers: { ...prevState.answers, [question.number]: "" },
+            };
           });
         }
       });
@@ -503,7 +513,7 @@ class Review extends Component {
           // if there's an audio file submit and update answers with its correct filename
           axios
             .put(`/api/review/${this.state.reviewId}`, review)
-            .then(res => {
+            .then(() => {
               this.setState({ isSubmitting: false });
 
               this.props.history.push(THANKYOU_URL, {

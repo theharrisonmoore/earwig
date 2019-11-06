@@ -291,7 +291,7 @@ export default class SingleReview extends Component {
                         <DetailsDiv>
                           <QText>Last Use of this {category}:</QText>
                           <HintText>
-                            {moment(lastUse).format("DD MMM YYYY")}
+                            {moment(lastUse).format("MMM YYYY")}
                           </HintText>
                         </DetailsDiv>
                       )}

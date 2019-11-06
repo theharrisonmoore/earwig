@@ -1,30 +1,8 @@
 import React from "react";
 import { DatePicker } from "antd";
 import moment from "moment";
-import styled from "styled-components";
-import { ReactComponent as CalendarIcon } from "../../../assets/calendar.svg";
 
-const Wrapper = styled.div`
-  text-align: center;
-  margin: 1rem 0;
-  display: flex;
-
-  .ant-calendar-picker div {
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-
-  .ant-calendar-picker-input.ant-input {
-    height: 60px;
-    min-width: 300px;
-    background: ${({ fill }) => (fill ? "#9B9B9B" : "none")};
-  }
-
-  svg {
-    margin-top: 0;
-  }
-`;
+import { DateRangeWrapper, styledCalendarIcon } from "./AntdComponents.style";
 
 class DateRange extends React.Component {
   state = {
@@ -52,43 +30,23 @@ class DateRange extends React.Component {
 
   onChange = date => {
     this.setState({ lastUse: date });
-    this.props.handleChange(date && date.format("YYYY-MM-DD"));
+    this.props.handleChange(date && date.startOf("month").format("YYYY-MM-DD"));
   };
 
   render() {
     const { lastUse } = this.state;
     return (
-      <Wrapper fill={!!lastUse || !!this.props.review.lastUse}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            fontWeight: "500",
-          }}
-        >
-          <DatePicker.MonthPicker
-            disabledDate={this.disabledDate}
-            value={lastUse || this.props.review.lastUse}
-            placeholder="Choose month"
-            onChange={this.onChange}
-            allowClear={false}
-            suffixIcon={
-              <CalendarIcon
-                style={{
-                  width: "27px",
-                  height: "100%",
-
-                  position: "absolute",
-                  top: "50%",
-                  transform: "translate(-50%, -50%)",
-                }}
-                height="100%"
-                width="27px"
-              />
-            }
-          />
-        </div>
-      </Wrapper>
+      <DateRangeWrapper fill={lastUse || this.props.review.lastUse}>
+        <DatePicker.MonthPicker
+          disabledDate={this.disabledDate}
+          value={lastUse || this.props.review.lastUse || null}
+          placeholder="Choose month"
+          onChange={this.onChange}
+          allowClear={false}
+          style={{ width: "100%" }}
+          suffixIcon={styledCalendarIcon}
+        />
+      </DateRangeWrapper>
     );
   }
 }
