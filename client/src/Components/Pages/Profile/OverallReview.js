@@ -10,7 +10,7 @@ import {
   REPORT_CONTENT_URL,
   REPLY_URL,
 } from "../../../constants/naviagationUrls";
-import { isMobileDevice, authorization } from "../../../helpers";
+import { authorization } from "../../../helpers";
 import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
 import {
@@ -24,17 +24,15 @@ import {
   StyledAntIcon,
   ActionsDiv,
   ButtonsWrapper,
-  ActionsButton,
   ReplyButton,
+  HelpfulButton,
   VerifyPromo,
   VerifyLink,
   UserTrade,
   UserDiv,
   UserAdditionalDetails,
-  HelpfulButtonWrapper,
 } from "./Profile.style";
 
-import HelpfulBubble from "../../Common/HelpfulBubble";
 import VoiceReview from "./ProfileAnswers/VoiceReview";
 
 import { SectionTitle } from "./ReviewSection.style";
@@ -48,23 +46,20 @@ export default class OverallReview extends Component {
       written: {},
       audio: {},
     },
-    isMouseDown: false,
     writtenOrAudioReviews: [],
   };
 
-  timer = null;
-
-  pressingDown = e => {
+  toggleHelpful = e => {
     const { counters } = this.state;
-    const { id } = e.target;
+    const { id: reviewId } = e.target;
     // type = "audio" or "written"
-    const { type } = e.target.dataset;
+    const { type, organization, userId } = e.target.dataset;
 
-    const item = counters[type][id];
+    const item = counters[type][reviewId];
     const counter = item ? item.counter : 0;
     const sentNumber = item ? item.sentNumber : 0;
 
-    const updateCounter = counter >= 10 ? 10 : counter + 1;
+    const updateCounter = counter > 0 ? 0 : 1;
 
     this.setState(
       {
@@ -72,112 +67,24 @@ export default class OverallReview extends Component {
           ...counters,
           [type]: {
             ...counters[type],
-            [id]: {
+            [reviewId]: {
               counter: updateCounter,
               sentNumber,
-              scaleValue: 1 + counter / 100,
               byUser: true,
             },
           },
         },
-        isMouseDown: true,
       },
       () => {
-        setTimeout(() => {
-          const { isMouseDown } = this.state;
-          if (isMouseDown) {
-            this.hold(id, type);
-          }
-        }, 500);
+        this.postHelpfulPoints({
+          points: updateCounter,
+          reviewId,
+          userId,
+          type,
+          organization,
+        });
       }
     );
-  };
-
-  hold = (id, type) => {
-    const { counters, isMouseDown } = this.state;
-
-    const item = counters[type][id];
-    const counter = item ? item.counter : 0;
-
-    if ((item && counter >= 10) || !isMouseDown) {
-      return this.setState({ isMouseDown: false });
-    }
-
-    clearInterval(this.timer);
-
-    this.timer = setInterval(() => {
-      const {
-        counters: countersAfter,
-        isMouseDown: isMouseDownAfter,
-      } = this.state;
-      const itemAfter = countersAfter[type][id];
-      const counterAfter = itemAfter ? itemAfter.counter : 0;
-      const sentNumber = itemAfter ? itemAfter.sentNumber : 0;
-
-      if ((item && counter >= 10) || !isMouseDownAfter) {
-        clearInterval(this.timer);
-        return this.setState({ isMouseDown: false });
-      }
-
-      return this.setState({
-        counters: {
-          ...countersAfter,
-          [type]: {
-            ...countersAfter[type],
-            [id]: {
-              counter: counterAfter + 1,
-              sentNumber,
-              scaleValue: 1 + counterAfter / 100,
-              byUser: true,
-            },
-          },
-        },
-        isMouseDown: true,
-      });
-    }, 300);
-    return undefined;
-  };
-
-  notPressingDown = e => {
-    const { counters } = this.state;
-    const reviewId = e.target.id;
-    const { type, organization, userId } = e.target.dataset;
-
-    const item = counters[type][reviewId];
-    const counter = item ? item.counter : 0;
-    const sentNumber = item ? item.sentNumber : 0;
-
-    clearInterval(this.timer);
-    if (item && counter !== sentNumber) {
-      this.setState(
-        {
-          counters: {
-            ...counters,
-            [type]: {
-              ...counters[type],
-              [reviewId]: {
-                counter,
-                sentNumber: counter,
-                scaleValue: 1,
-                byUser: true,
-              },
-            },
-          },
-          isMouseDown: false,
-        },
-        () => {
-          this.postHelpfulPoints({
-            points: counter,
-            reviewId,
-            userId,
-            type,
-            organization,
-          });
-        }
-      );
-    } else {
-      this.setState({ isMouseDown: false });
-    }
   };
 
   postHelpfulPoints = ({ points, reviewId, userId, type, organization }) => {
@@ -199,12 +106,10 @@ export default class OverallReview extends Component {
               [reviewId]: {
                 counter: points,
                 sentNumber: points,
-                scaleValue: 1,
                 byUser: false,
               },
             },
           },
-          isMouseDown: false,
         });
       })
       .catch(err => {
@@ -252,14 +157,12 @@ export default class OverallReview extends Component {
             prev.audio[currReview.review] = {
               counter: currReview.points,
               sentNumber: currReview.points,
-              scaleValue: 1,
               byUser: false,
             };
           } else if (currReview.target === "overallReview") {
             prev.written[currReview.review] = {
               counter: currReview.points,
               sentNumber: currReview.points,
-              scaleValue: 1,
               byUser: false,
             };
           }
@@ -417,70 +320,35 @@ export default class OverallReview extends Component {
                   <ActionsDiv>
                     <ButtonsWrapper>
                       {review.user._id !== userId && (
-                        <HelpfulButtonWrapper
-                          number={
-                            counters[review.category][review._id]
-                              ? counters[review.category][review._id].counter
-                              : 0
-                          }
-                          color={
-                            category !== "company"
-                              ? organizations[category].secondary
-                              : "#424242"
-                          }
-                          isMobile={isMobile}
-                        >
-                          <HelpfulBubble
+                        <>
+                          <HelpfulButton
+                            onClick={isAuthorized && this.toggleHelpful}
                             number={
-                              counters[review.category][review._id] &&
-                              counters[review.category][review._id].byUser
+                              counters[review.category][review._id]
                                 ? counters[review.category][review._id].counter
-                                : undefined
+                                : 0
                             }
-                            color={organizations[category].primary}
-                          />
-
-                          <ActionsButton
+                            id={review._id}
                             data-user-id={review.user._id}
                             data-type={review.category}
                             data-organization={review.organization}
+                            data-target={
+                              review.category === "written"
+                                ? "overallReview"
+                                : "voiceReview"
+                            }
+                            data-category={category}
                             type="primary"
-                            bgcolor={
-                              isAuthorized && review.user._id !== userId
+                            color={
+                              verified || awaitingReview
                                 ? organizations[category].primary
                                 : organizations[category].secondary
                             }
-                            id={review._id}
-                            onMouseDown={
-                              !isMobileDevice.any() &&
-                              isAuthorized &&
-                              this.pressingDown
-                            }
-                            onTouchStart={this.pressingDown}
-                            onTouchEnd={this.notPressingDown}
-                            onMouseUp={
-                              !isMobileDevice.any() &&
-                              isAuthorized &&
-                              this.notPressingDown
-                            }
-                            onMouseLeave={
-                              !isMobileDevice.any() &&
-                              isAuthorized &&
-                              this.notPressingDown
-                            }
-                            scale={1}
-                            disabled={
-                              !(
-                                verified ||
-                                awaitingReview ||
-                                review.user._id === userId
-                              )
-                            }
-                            isMobile={isMobile}
+                            disabled={!(verified || awaitingReview)}
                           >
-                            This is helpful
-                          </ActionsButton>
-                        </HelpfulButtonWrapper>
+                            Helpful
+                          </HelpfulButton>
+                        </>
                       )}
                       <ReplyButton
                         onClick={(verified || awaitingReview) && this.goTOReply}
