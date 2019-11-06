@@ -1,5 +1,5 @@
 import React from "react";
-import { DatePicker, Icon } from "antd";
+import { DatePicker } from "antd";
 import moment from "moment";
 import styled from "styled-components";
 import { ReactComponent as CalendarIcon } from "../../../assets/calendar.svg";
@@ -8,7 +8,6 @@ const Wrapper = styled.div`
   text-align: center;
   margin: 1rem 0;
   display: flex;
-  justify-content: space-around;
 
   .ant-calendar-picker div {
     display: flex;
@@ -29,45 +28,31 @@ const Wrapper = styled.div`
 
 class DateRange extends React.Component {
   state = {
-    startValue: null,
-    isOpen: false,
     lastUse: null,
   };
 
-  disabledDate = lastUse => {
-    if (!lastUse) {
+  disabledDate = date => {
+    if (!date) {
       return (
-        lastUse.valueOf() > moment().valueOf() ||
-        lastUse.valueOf() <
+        date.valueOf() > moment().valueOf() ||
+        date.valueOf() <
           moment()
-            .subtract(12, "months")
+            .subtract(3, "years")
             .valueOf()
       );
     }
     return (
-      lastUse.valueOf() <
-      moment()
-        .subtract(12, "months")
-        .valueOf()
+      date.valueOf() > moment().valueOf() ||
+      date.valueOf() <
+        moment()
+          .subtract(3, "years")
+          .valueOf()
     );
   };
 
-  onChange = (field, value) => {
-    this.setState({
-      [field]: value,
-    });
-  };
-
-  onStartChange = value => {
-    this.onChange("lastUse", value);
-    this.props.handleChange("from", value && value.format("YYYY-MM-DD"));
-  };
-
-  handleStartOpenChange = open => {
-    this.setState({ isOpen: open });
-    if (!open) {
-      this.setState({ endOpen: true });
-    }
+  onChange = date => {
+    this.setState({ lastUse: date });
+    this.props.handleChange("lastUse", date && date.format("YYYY-MM-DD"));
   };
 
   render() {
@@ -82,11 +67,10 @@ class DateRange extends React.Component {
           }}
         >
           <DatePicker.MonthPicker
-            disabledDate={this.disabledStartDate}
+            disabledDate={this.disabledDate}
             value={lastUse || this.props.review.workPeriod.from}
             placeholder="Choose month"
-            onChange={this.onStartChange}
-            onOpenChange={this.handleStartOpenChange}
+            onChange={this.onChange}
             allowClear={false}
             suffixIcon={
               <CalendarIcon
