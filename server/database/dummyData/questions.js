@@ -956,14 +956,15 @@ module.exports = async () => {
     {
       number: 1,
       type: "yesno",
-      text: "Was their materials store well organised?",
-      isJumping: false,
+      text: "Was this company’s materials store well organised?",
       options: ["Yes", "No", "I didn't check", "They didn't have a materials store"],
       category: "company",
+
       profileText: "Materials stores are well organised",
       profileSection: "Tools & materials",
       profileType: "yesno",
       profileOrder: 1,
+
       group: {
         groupOrder: 0,
         name: "toolsAndMaterials",
@@ -978,15 +979,16 @@ module.exports = async () => {
         no: 4,
       },
       type: "yesno",
-      text: "Were you offered access equipment when you needed it?",
-      hintText: "E.g., stepladders, harnesses, lifters, etc.",
-      isJumping: false,
+      text: "Did this company offer you access equipment when you needed it?",
+      hintText: "eg stepladders, harnesses, lifters, etc.",
       options: ["Yes", "No", "I didn't need it"],
       category: "company",
+
       profileText: "Offers access equipment when you need it",
       profileSection: "Tools & materials",
       profileType: "yesno",
       profileOrder: 2,
+
       group: {
         groupOrder: 0,
         name: "toolsAndMaterials",
@@ -1000,13 +1002,14 @@ module.exports = async () => {
       isDependent: true,
       type: "radio",
       text: "Was the access equipment in safe condition?",
-      isJumping: false,
       options: ["Yes", "No", "I didn't check"],
       category: "company",
+
       profileText: "Access equipment is in safe condition",
       profileSection: "Tools & materials",
       profileType: "yesno",
       profileOrder: 3,
+
       group: {
         groupOrder: 0,
         name: "toolsAndMaterials",
@@ -1018,14 +1021,15 @@ module.exports = async () => {
       number: 4,
       next: 5,
       type: "radio",
-      text: "Were you offered storage for your tools overnight?",
-      isJumping: false,
+      text: "Did this company offer you secure storage for your tools overnight?",
       options: ["Yes", "No", "I didn't need it"],
       category: "company",
+
       profileText: "Offers storage for your tools overnight when you need it",
       profileSection: "Tools & materials",
       profileType: "yesno",
       profileOrder: 4,
+
       group: {
         groupOrder: 0,
         name: "toolsAndMaterials",
@@ -1039,14 +1043,15 @@ module.exports = async () => {
       number: 5,
       next: 6,
       type: "yesno",
-      text: "Did the supervisor share all the information you needed to do a good job?",
-      isJumping: false,
+      text: "Did you feel the supervisor shared all the information you needed to do a good job?",
       options: ["Yes", "No"],
       category: "company",
+
       profileText: "Feel supervisors share all the information you need to do a good job",
       profileSection: "Supervisors & employees",
       profileType: "yesno",
       profileOrder: 1,
+
       group: {
         groupOrder: 1,
         name: "supervisorsAndEmployees",
@@ -1058,14 +1063,15 @@ module.exports = async () => {
       number: 6,
       next: 7,
       type: "yesno",
-      text: "Did the supervisor treat you with respect?",
-      isJumping: false,
+      text: "Did you feel the supervisor treated you with respect?",
       options: ["Yes", "No"],
       category: "company",
+
       profileText: "Feel supervisors treat you with respect",
       profileSection: "Supervisors & employees",
       profileType: "yesno",
       profileOrder: 2,
+
       group: {
         groupOrder: 1,
         name: "supervisorsAndEmployees",
@@ -1077,14 +1083,15 @@ module.exports = async () => {
       number: 7,
       next: 8,
       type: "yesno",
-      text: "Did the other company employees treat you with respect?",
-      isJumping: false,
+      text: "Did you feel the company’s other employees treated you with respect?",
       options: ["Yes", "No"],
       category: "company",
+
       profileText: "Feel other company employees treat you with respect",
       profileSection: "Supervisors & employees",
       profileType: "yesno",
       profileOrder: 3,
+
       group: {
         groupOrder: 1,
         name: "supervisorsAndEmployees",
@@ -1096,14 +1103,15 @@ module.exports = async () => {
       number: 8,
       next: 9,
       type: "yesno",
-      text: "Overall, did you feel valued working with this company?",
-      isJumping: false,
+      text: "Did you feel valued working for this company?",
       options: ["Yes", "No"],
       category: "company",
+
       profileText: "Feel valued working with this company overall",
       profileSection: "Supervisors & employees",
       profileType: "yesno",
       profileOrder: 4,
+
       group: {
         groupOrder: 1,
         name: "supervisorsAndEmployees",
@@ -1111,17 +1119,19 @@ module.exports = async () => {
       },
       hasComment: true,
     },
+
     {
       number: 9,
       type: "yesno",
       text: "Overall, would you be happy to work for this company again?",
-      isJumping: false,
       options: ["Yes", "No"],
       category: "company",
+
       profileText: "Happy to work for this company again overall",
       profileSection: "Key ratings",
       profileType: "yesno",
       profileOrder: 1,
+
       group: {
         groupOrder: 2,
         name: "overall",
