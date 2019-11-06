@@ -675,6 +675,7 @@ export default class Signup extends Component {
                   loading={isSubmitting}
                   styleType="primary"
                   text="Finish and log in"
+                  margin="0 auto 2rem auto"
                 />
               </Form>
             )}
