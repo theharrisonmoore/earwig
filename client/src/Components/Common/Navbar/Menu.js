@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 
-import { handleLogout, authorization } from "./../../../helpers";
+import { Icon as AdminIcon } from "antd";
+import { handleLogout, authorization } from "../../../helpers";
 
 import {
   Wrapper,
@@ -9,15 +10,14 @@ import {
   LogoutButton,
   PriorityMenuItem,
   ComingSoon,
-  PriorityIcon
-} from "./Menu.style.js";
+  PriorityIcon,
+} from "./Menu.style";
 
-import { ToggleMenu } from "./Navbar.style"
-import { Icon as AdminIcon } from "antd";
+import { ToggleMenu } from "./Navbar.style";
 
-import CloseIcon from "./../../../assets/close-icon.svg";
+import CloseIcon from "../../../assets/close-icon.svg";
 
-import { colors } from "./../../../theme";
+import { colors } from "../../../theme";
 
 import {
   SEARCH_URL,
@@ -31,8 +31,8 @@ import {
   MY_REVIEWS_URL,
   JOBS_URL,
   INVITE_WORKERS_URL,
-  ASK_QUESTION_URL
-} from "./../../../constants/naviagationUrls";
+  ASK_QUESTION_URL,
+} from "../../../constants/naviagationUrls";
 
 export default class Menu extends PureComponent {
   render() {
@@ -50,14 +50,18 @@ export default class Menu extends PureComponent {
       isAdmin,
       awaitingReview,
       verified,
-      isLoggedIn
+      isLoggedIn,
     };
 
     const isWorker = awaitingReview || verified;
 
     return (
       <Wrapper isMobile={isMobile}>
-        <ToggleMenu onClick={toggleMenu} position="flex-end" isMobile={isMobile}>
+        <ToggleMenu
+          onClick={toggleMenu}
+          position="flex-end"
+          isMobile={isMobile}
+        >
           <img src={CloseIcon} alt="close" />
         </ToggleMenu>
         {authorization({ ...data, minimumLevel: "ADMIN" }) && (
@@ -67,7 +71,7 @@ export default class Menu extends PureComponent {
               style={{
                 fontSize: "19px",
                 color: colors.white,
-                marginRight: "16px"
+                marginRight: "16px",
               }}
             />
             Admin Dashboard
@@ -126,7 +130,7 @@ export default class Menu extends PureComponent {
             {isWorker && (
               <MenuItem to={MY_REVIEWS_URL} onClick={toggleMenu}>
                 <MenuIcon icon="starComment" height="19" width="19" />
-                Reviews you've given
+                Reviews you&apos;ve given
               </MenuItem>
             )}
             {isWorker && (
