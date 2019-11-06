@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 
 import { colors, shadows } from "../../theme";
 import { ButtonSpinner } from "./AntdComponents/Loading";
+import Icon from "./Icon/Icon";
 
 const sharedStyles = css`
   border-radius: 300px;
@@ -82,10 +83,20 @@ const secondaryStyles = css`
   }
 `;
 
+const linkStyles = css`
+  color: ${colors.primary};
+  outline: none;
+  border: none;
+  display: inline;
+  text-align: left;
+  padding-left: 0;
+`;
+
 const ButtonElement = styled.button`
   ${sharedStyles}
   ${props => props.styleType === "primary" && primaryStyles}
   ${props => props.styleType === "secondary" && secondaryStyles}
+  ${props => props.styleType === "link" && linkStyles}
 `;
 /**
  * @example <Button loading={loading} onClick={this.handleSubmit} spinnerColor="red" styleType="primary">
@@ -101,6 +112,7 @@ const Button = ({
   danger,
   left,
   styleType,
+  icon,
   ...rest
 }) => {
   return (
@@ -113,7 +125,13 @@ const Button = ({
         styleType={styleType}
         {...rest}
       >
-        {loading && <ButtonSpinner color={spinnerColor} />}
+        {loading ? (
+          <ButtonSpinner color={spinnerColor} />
+        ) : (
+          icon && (
+            <Icon icon={icon} width="18" height="18" margin="0 0.5rem 0 0" />
+          )
+        )}
         {text}
       </ButtonElement>
     </>

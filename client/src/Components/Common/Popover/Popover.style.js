@@ -18,14 +18,16 @@ export const PopoverDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 250px;
+  min-width: 250px;
+  max-width: 400px;
+  padding: 0 1rem;
 
   margin-top: 10px;
 `;
 
 export const PopoverText = styled.p`
   text-align: center;
-  padding-bottom: 10px;
+  margin-bottom: 0;
 `;
 
 export const StyledButton = styled.button`
@@ -39,10 +41,4 @@ export const StyledButton = styled.button`
   display: inline-block;
   padding: 1px 1rem;
   margin-right: 0.5rem;
-`;
-
-export const PopoverBtn = styled(StyledButton)`
-  background: ${({ category }) => organizations[category].primary};
-  color: ${colors.white};
-  width: 40%;
 `;

@@ -9,7 +9,7 @@ import Select from "../../Common/Select";
 import Button from "../../Common/Button";
 import Link from "../../Common/Link";
 import Icon from "../../Common/Icon/Icon";
-
+import PopoverComponent from "../../Common/Popover";
 
 import {
   StyledFormik as Formik,
@@ -38,6 +38,7 @@ import {
   Paragraph,
   Example,
   ImageInput,
+  ModalText
 } from "./Signup.style";
 
 import example from "../../../assets/example.png";
@@ -176,6 +177,8 @@ export default class Signup extends Component {
     newTrade: "",
     error: "",
     errors: {},
+    isPopupVisible: false,
+    data: null,
   };
 
   handleSubmit = (values, { setSubmitting }) => {
@@ -204,13 +207,12 @@ export default class Signup extends Component {
           },
         })
           .then(({ data }) => {
-            this.props.handleChangeState({ ...data, isLoggedIn: true });
             if (isWorker === "yes") {
-              this.props.history.push({
-                pathname: "/intro",
-                state: { isWorker },
-              });
+              console.log("reached1", isWorker);
+              // this.info(data, this.props);
+              this.setState({ isPopupVisible: true, data });
             } else {
+              this.props.handleChangeState({ ...data, isLoggedIn: true });
               this.props.history.push(WELCOME_URL);
             }
           })
@@ -348,6 +350,9 @@ export default class Signup extends Component {
       confirmLoading,
       verificationImage,
       newTrade,
+      isPopupVisible,
+      isWorker,
+      data,
     } = this.state;
 
     return (
@@ -586,29 +591,20 @@ export default class Signup extends Component {
 
                     <SubHeading>Verification Photo</SubHeading>
                     <Paragraph>
-                    Please upload a photo of your face holding your trade ID like the example below. Please no glare or blur!
+                      Please upload a photo of your face holding your trade ID
+                      like the example below. Please no glare or blur!
                     </Paragraph>
-                     <Link 
-                      type="primary" 
-                      text={(
-                        <>
-                        <Icon
-                          icon="info"
-                          width="18"
-                          height="18"
-                          margin="0 0.5rem 0 0"
-                        />
-                        What trade ID can I use?
-                        </>)} 
-                      to="#" 
-                      onClick={e => {
-                       e.preventDefault();
-                       console.log("hello");
-                       }}  
-                      align="left" 
-                     />
-                     <Paragraph>
-                      Once we’ve verified you, we’ll delete the photo to protect your identity.
+                    <PopoverComponent
+                      popoverOptions={{
+                        text: `Any card or ticket that shows you are a worker, eg CSCS card.`,
+                        linkText: "What trade ID can I use?",
+                        icon: "info",
+                        margin: "0 0 0.5rem 0",
+                      }}
+                    />
+                    <Paragraph>
+                      Once we’ve verified you, we’ll delete the photo to protect
+                      your identity.
                     </Paragraph>
 
                     <Field name="verificationImage">
@@ -662,7 +658,12 @@ export default class Signup extends Component {
                   />
                   <CheckboxLabel htmlFor="checkbox">
                     I agree to the earwig{" "}
-                    <Link target="_blank" to={TERMS_OF_USE_URL} text="Terms of Use" type="plain"/>
+                    <Link
+                      target="_blank"
+                      to={TERMS_OF_USE_URL}
+                      text="Terms of Use"
+                      type="plain"
+                    />
                   </CheckboxLabel>
                   <FormikErrorMessage name="checkbox" component="div" />
                 </CheckboxWrapper>
@@ -683,6 +684,36 @@ export default class Signup extends Component {
             type="primary"
             text="Continue without an account"
           />
+          <Modal
+            visible={isPopupVisible}
+            footer={null}
+            closable={false}
+            afterClose={() => {
+              this.props.handleChangeState({ ...data, isLoggedIn: true });
+              this.props.history.push({
+                pathname: "/intro",
+                state: { isWorker },
+              });
+            }}
+          >
+            <ModalText>
+              Thanks, we're checking your photo. Any reviews you give won't be
+              shown on earwig until we've checked your photo
+            </ModalText>
+            <Button
+              styleType="primary"
+              margin="1rem auto"
+              text="Okay"
+              onClick={() => {
+                this.props.handleChangeState({ ...data, isLoggedIn: true });
+                this.props.history.push({
+                  pathname: "/intro",
+                  state: { isWorker },
+                });
+              }
+              }
+            />
+          </Modal>
         </ContentWrapper>
       </SignupWrapper>
     );

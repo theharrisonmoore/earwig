@@ -145,3 +145,10 @@ export const Example = styled.img`
 export const ImageInput = styled.input`
   display: none;
 `;
+
+export const ModalText = styled.p`
+  font-weight: bold;
+  color: ${colors.dustyGray2};
+  text-align: center;
+  margin-bottom: 0;
+`;
