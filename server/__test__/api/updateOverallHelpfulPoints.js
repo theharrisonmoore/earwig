@@ -40,7 +40,7 @@ describe("Tesing for update helpfulness points", () => {
 
         expect(helpfulnessBefore).toHaveLength(4);
 
-        const points = 5;
+        const points = 1;
 
         request(app)
           .patch(`/api/review/${reviewBefore._id}/overallReview/helpful-points`)
