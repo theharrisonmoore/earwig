@@ -17,6 +17,8 @@ const sharedStyles = css`
   cursor: pointer;
   margin: ${props => props.margin || "2rem auto"};
   position: relative;
+  display: flex;
+  align-items: center;
 
   &:active {
     box-shadow: none;

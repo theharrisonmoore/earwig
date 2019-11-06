@@ -27,6 +27,7 @@ import Hamburger from "./Hamburger";
 import HelpfulLinks from "./HelpfulLinks";
 import HelpingHand from "./HelpingHand";
 import HotFood from "./HotFood";
+import Info from "./Info";
 import JobBoard from "./JobBoard";
 import Lockers from "./Lockers";
 import Logo from "./Logo";
@@ -61,6 +62,7 @@ import TrophyIcon2 from "./TrophyIcon2";
 import TrustRating from "./TrustRating";
 import User from "./User";
 import VoiceRecord from "./VoiceRecord";
+import Warning from "./Warning";
 import Water from "./Water";
 import WelfareSafety from "./WelfareSafety";
 import Win from "./Win";
@@ -101,6 +103,7 @@ const iconMap = {
   hotFood: HotFood,
   helpfulLinks: HelpfulLinks,
   helpingHand: HelpingHand,
+  info: Info,
   jobBoard: JobBoard,
   lockers: Lockers,
   logo: Logo,
@@ -135,6 +138,7 @@ const iconMap = {
   trustRating: TrustRating,
   user: User,
   voiceRecord: VoiceRecord,
+  warning: Warning,
   water: Water,
   welfareSafety: WelfareSafety,
   win: Win,

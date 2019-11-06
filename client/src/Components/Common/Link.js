@@ -7,11 +7,11 @@ import { Link as ReactLink } from "react-router-dom";
 import { colors } from "../../theme";
 
 const sharedStyles = css`
-  display: block;
   font-size: 1.125rem;
   font-weight: bold;
   text-decoration: none;
   text-align: ${props => props.align};
+  margin: ${props => props.margin};
 
   &:hover,
   &:active {
@@ -20,18 +20,33 @@ const sharedStyles = css`
 `;
 
 const primaryStyles = css`
+  display: block;
   color: ${colors.primary};
+`;
+
+const plainStyles = css`
+  color: ${props => props.color || colors.profileFontColor};
+  font-weight: normal;
+  text-decoration: underline;
+  font-size: 1rem;
+
+  &:hover,
+  &:active {
+    color: ${colors.profileFontColor};
+    text-decoration: underline;
+  }
 `;
 
 const LinkElement = styled(ReactLink)`
   ${sharedStyles}
   ${props => props.type === "primary" && primaryStyles}
+  ${props => props.type === "plain" && plainStyles}
 `;
 /**
  * @example <Link to="/landing" styleType="primary" text="Sign out" />
  */
 
-const Link = ({ disabled, color, type, text, to, align, ...rest }) => {
+const Link = ({ disabled, color, type, text, to, align, margin, ...rest }) => {
   return (
     <>
       <LinkElement
