@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 
-import { FlexContainer } from "../Search.style";
 import AutosuggestComponent from "../AutoSuggest";
 
-import { HeaderWrapper } from "./Header.style";
+import { HeaderWrapper, SearchBarContainer } from "./Header.style";
 
 export default class SearchHeader extends Component {
   render() {
@@ -16,7 +15,7 @@ export default class SearchHeader extends Component {
           Search bar
           {/* ---------------------- the old code for test before deleting--------------------------- */}
           {/* <FlexContainer ref={this.setSearchBoxRef}> */}
-          <FlexContainer ref={this.setSearchBoxRef}>
+          <SearchBarContainer ref={this.setSearchBoxRef}>
             <AutosuggestComponent
               iconTop="20px"
               bool={() => true}
@@ -29,7 +28,7 @@ export default class SearchHeader extends Component {
               handleCancelIconClick={this.handleCancelIconClick}
               orgsIds={orgsIds}
             />
-          </FlexContainer>
+          </SearchBarContainer>
         </div>
       </HeaderWrapper>
     );

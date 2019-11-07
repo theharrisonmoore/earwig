@@ -120,13 +120,6 @@ export const SearchWrapper = styled.div`
   }
 `;
 
-export const FlexContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
 export const SearchLegendDiv = styled.div`
   display: flex;
   flex-direction: column;
