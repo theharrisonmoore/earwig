@@ -2,8 +2,10 @@
 import React, { Component } from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import { Collapse, Icon, message, Alert } from "antd";
+import { Collapse, Icon as AntdIcon, message, Alert } from "antd";
 import axios from "axios";
+
+import Icon from "../../Common/Icon/Icon";
 
 import { organizations } from "../../../theme";
 import {
@@ -11,7 +13,6 @@ import {
   REPLY_URL,
 } from "../../../constants/naviagationUrls";
 import { authorization } from "../../../helpers";
-import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
 import {
   CommentDiv,
@@ -434,7 +435,7 @@ export default class OverallReview extends Component {
                             {activeReview ===
                               `${review._id}/${review.category}` &&
                             activeOverallId === review._id ? (
-                              <Icon
+                              <AntdIcon
                                 fontWeight={700}
                                 type="up"
                                 style={{
@@ -445,13 +446,14 @@ export default class OverallReview extends Component {
                                 }}
                               />
                             ) : (
-                              <ReplyIcon
+                              <Icon
+                                icon="reply"
                                 width="15px"
-                                fill={organizations[category].primary}
                                 style={{
                                   transform: "rotate(180deg)",
                                   marginRight: "0.5rem",
                                 }}
+                                fill={organizations[category].primary}
                               />
                             )}
                             <span

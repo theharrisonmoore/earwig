@@ -15,7 +15,7 @@ import {
 
 import { ToggleMenu } from "./Navbar.style";
 
-import CloseIcon from "../../../assets/close-icon.svg";
+import Icon from "../Icon/Icon";
 
 import { colors } from "../../../theme";
 
@@ -62,7 +62,7 @@ export default class Menu extends PureComponent {
           position="flex-end"
           isMobile={isMobile}
         >
-          <img src={CloseIcon} alt="close" />
+          <Icon icon="close" height="20px" width="20px" />
         </ToggleMenu>
         {authorization({ ...data, minimumLevel: "ADMIN" }) && (
           <PriorityMenuItem to={ADMIN} onClick={toggleMenu}>

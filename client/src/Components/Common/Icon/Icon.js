@@ -66,6 +66,7 @@ import WelfareSafety from "./WelfareSafety";
 import Win from "./Win";
 import Worksite from "./Worksite";
 import WorksiteThanks from "./WorksiteThanks";
+import Reply from "./Reply";
 
 const iconStyles = props => css`
   width: ${props.width || "100%"};
@@ -139,7 +140,8 @@ const iconMap = {
   welfareSafety: WelfareSafety,
   win: Win,
   worksite: Worksite,
-  worksiteThanks: WorksiteThanks
+  worksiteThanks: WorksiteThanks,
+  reply: Reply,
 };
 
 const styledIconMap = Object.keys(iconMap).reduce((accum, curr) => {
