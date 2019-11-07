@@ -12,6 +12,7 @@ import {
 export const ReviewWrapper = styled.div`
   font-family: "Roboto", sans-serif;
   text-align: left;
+  padding-bottom: 100px;
 
   .review-body {
     max-width: 40rem;

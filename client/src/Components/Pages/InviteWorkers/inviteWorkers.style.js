@@ -7,6 +7,7 @@ export const InviteWrapper = styled.div`
   padding-top: 5rem;
   max-width: 17rem;
   margin: 0 auto;
+  padding-bottom: 100px;
 `;
 
 export const SocialIcons = styled.div`

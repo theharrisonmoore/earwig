@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   padding-top: ${props => (props.isMobile ? "3rem" : "4rem")};
   text-align: left;
-  padding-bottom: 2rem;
+  padding-bottom: 100px;
   font-size: 1rem;
 `;
 

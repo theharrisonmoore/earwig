@@ -35,6 +35,7 @@ export const Subtitle = styled.h2`
 export const PurpleDiv = styled.div`
   width: 0%;
   background-color: ${colors.heliotrope};
+  padding-bottom: 100px;
 
   @media ${breakpoints.tablet} {
     width: 50%;
@@ -52,6 +53,7 @@ export const ContentWrapper = styled.div`
   min-height: 100vh;
   max-width: 30rem;
   margin: 0 auto;
+  padding-bottom: 100px;
 
   & .paragraph {
     display: block;

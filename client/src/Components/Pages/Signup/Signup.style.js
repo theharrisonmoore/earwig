@@ -5,7 +5,6 @@ import { colors, breakpoints, organizations } from "../../../theme";
 
 export const SignupWrapper = styled.div`
   display: flex;
-  padding-bottom: 100px;
 `;
 
 export const StyledLink = styled(Link).attrs({})`
@@ -46,6 +45,7 @@ export const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-bottom: 100px;
 
   & .paragraph {
     display: block;
@@ -57,6 +57,7 @@ export const ContentWrapper = styled.div`
 export const PurpleDiv = styled.div`
   width: 0%;
   background-color: ${colors.heliotrope};
+  padding-bottom: 100px;
 
   @media ${breakpoints.tablet} {
     width: 50%;

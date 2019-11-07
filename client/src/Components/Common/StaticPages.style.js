@@ -15,6 +15,7 @@ export const ContentWrapper = styled.div`
   padding: 5rem 2rem 2rem 2rem;
   margin-bottom: 3rem;
   width: 100%;
+  padding-bottom: 100px;
 
   @media ${breakpoints.tablet} {
     width: ${({ width }) => width || "100%"};
@@ -49,6 +50,7 @@ export const ContentWrapper = styled.div`
 export const PurpleDiv = styled.div`
   width: 0%;
   background-color: ${colors.heliotrope};
+  padding-bottom: 100px;
 
   @media ${breakpoints.tablet} {
     width: ${({ width }) => width || "50%"};
@@ -58,6 +60,7 @@ export const PurpleDiv = styled.div`
 export const BlueDiv = styled.div`
   width: 0%;
   background-color: ${colors.dodgerBlue};
+  padding-bottom: 100px;
 
   @media ${breakpoints.tablet} {
     width: ${({ width }) => width || "50%"};

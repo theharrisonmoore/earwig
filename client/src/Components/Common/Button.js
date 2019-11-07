@@ -51,6 +51,7 @@ const sharedStyles = css`
     :hover,
     :active {
       color: ${colors.red};
+      border: 1px solid ${colors.red};
     }
 `}
 
