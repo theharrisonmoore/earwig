@@ -137,7 +137,7 @@ export default class ThankYou extends Component {
                     onClick={() => this.fbSendBrowser(orgURL)}
                   >
                     <IconImg src={facebookMsgIcon} alt="facebook" />
-                    Facebook
+                    Messenger
                   </FbShare>
                 </IconWrapper>
               </SquareSection>
@@ -194,7 +194,7 @@ export default class ThankYou extends Component {
                   onClick={() => this.fbSendBrowser(orgURL)}
                 >
                   <IconImg src={facebookMsgIcon} alt="facebook" />
-                  Facebook
+                  Messenger
                 </FbShare>
               </IconWrapper>
             </SquareSection>
