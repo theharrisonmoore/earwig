@@ -1,30 +1,30 @@
 export const STATIC_QUESTIONS = category => [
   {
     number: 21,
-    text: `Select the month(s) you used this ${category}?`,
+    text: `When did you last use this ${category}?`,
     type: "dateRange",
-    category: category
+    category,
   },
   {
     number: 22,
-    text: "If you’d like to write an overall review, go ahead here",
+    text: "Please write a review of this agency or share a voice review below",
     type: "overallReview",
-    category: category,
+    category,
+    label: "Talk about what's most important to you at work...",
     hintText:
-      "To help other workers, please try to explain why something was or wasn't good."
+      "How can you make your reviews helpful for workers and earn rewards?",
   },
   {
     number: 23,
     text: `How would you rate this ${category}`,
     type: "rate",
     options: ["Bad", "Poor", "Average", "Great", "Excellent"],
-    category: category
+    category,
   },
   {
     number: 24,
-    text: "Share a voice review",
-    hintText:
-      "30 seconds max. Bear in mind that people may be able to identify you from your voice.",
-    type: "voiceReview"
-  }
+    text: "Share a voice review of this agency",
+    hintText: "People may be able to identify you by your voice",
+    type: "voiceReview",
+  },
 ];
