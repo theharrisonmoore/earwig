@@ -52,6 +52,8 @@ export const isMobile = width => width <= MOBILE_WIDTH;
 
 export const isTablet = width => width <= TABLET_WIDTH && width > MOBILE_WIDTH;
 
+export const isDesktop = width => width > TABLET_WIDTH;
+
 const levels = {
   LEVEL0: 0, // not logged in user
   LEVEL1: 1, // just logged in user

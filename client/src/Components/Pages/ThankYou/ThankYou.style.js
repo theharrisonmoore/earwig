@@ -72,7 +72,6 @@ export const FbShare = styled.div`
 
 export const ThankYouWrapper = styled.div`
   width: 100%;
-  max-width: 40rem;
   margin: 0 auto;
   padding: 0 0.5rem;
   padding-top: 6rem;
@@ -83,6 +82,38 @@ export const ContentWrapper = styled.div`
   width: 90%;
   margin: 0 auto;
   padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  ${({ isDesktop }) =>
+    isDesktop &&
+    `
+    display: flex;
+    flex-direction: row;
+  `}
+`;
+
+export const LeftSide = styled.section`
+  width: 50%;
+  padding: 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const RightSide = styled(LeftSide)`
+  position: relative;
+
+  :after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 10%;
+    height: 80%;
+    border-left: 1px ${colors.dustyGray2} solid;
+    opacity: 0.25;
+  }
 `;
 
 export const Image = styled.img`
@@ -180,7 +211,8 @@ export const SquareSection = styled.section`
   border: 1px solid rgba(155, 155, 155, 0.525514);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
   padding: 1rem;
-  margin: 1rem 0 2rem 0;
+  margin: 0 0 2rem 0;
+  max-width: 350px;
 `;
 
 export const PromoTitle = styled.h3`

@@ -32,6 +32,8 @@ import {
   PromoTitle,
   IconImg,
   Thanks,
+  LeftSide,
+  RightSide,
 } from "./ThankYou.style";
 
 import Button from "../../Common/Button";
@@ -61,6 +63,8 @@ export default class ThankYou extends Component {
 
   render() {
     const { state } = this.props.history.location;
+    const { isDesktop } = this.props;
+    console.log("props", this.props);
 
     const { orgType } = state && state;
 
@@ -80,73 +84,147 @@ export default class ThankYou extends Component {
 
     return (
       <ThankYouWrapper>
-        <ContentWrapper>
-          <Image src={img} />
-          <Heading>You did it!</Heading>
-          <Paragraph>
-            Your review will be published now! There may be a small delay if
-            we’re verifying your account.
-          </Paragraph>
-          <SquareSection>
-            <PromoTitle>Now tell your work mates!</PromoTitle>
-            <Paragraph>
-              Privately share news of your review with the people you work with
-              via:
+        {isDesktop ? (
+          <ContentWrapper isDesktop>
+            <LeftSide>
+              <Image src={img} />
+              <Heading>You did it!</Heading>
+              <Paragraph>
+                Your review will be published now! There may be a small delay if
+                we’re verifying your account.
+              </Paragraph>
+              <Divider />
+              <Paragraph>
+                Each time you give a review, you:
+                <List>
+                  <li>Create awareness</li>
+
+                  <li>Improve working conditions</li>
+
+                  <li>Help workers feel secure</li>
+                </List>
+              </Paragraph>
+              <Thanks>Thank you!</Thanks>
+            </LeftSide>
+            <RightSide>
+              <SquareSection>
+                <PromoTitle>Now tell your work mates!</PromoTitle>
+                <Paragraph>
+                  Privately share news of your review with the people you work
+                  with via:
+                </Paragraph>
+                <IconWrapper>
+                  <EmailShare
+                    url={orgURL}
+                    subject={`I've reviewed ${orgName} on earwig`}
+                    category={orgType}
+                  >
+                    <IconImg src={emailIcon} alt="email" />
+                    Email
+                  </EmailShare>
+                  <WhatsappShare
+                    url={orgURL}
+                    title={`I've reviewed ${orgName} on earwig`}
+                    separator=": "
+                    category={orgType}
+                  >
+                    <IconImg src={whatsAppIcon} alt="whatsApp" />
+                    WhatsApp
+                  </WhatsappShare>
+
+                  <FbShare
+                    category={orgType}
+                    onClick={() => this.fbSendBrowser(orgURL)}
+                  >
+                    <IconImg src={facebookMsgIcon} alt="facebook" />
+                    Facebook
+                  </FbShare>
+                </IconWrapper>
+              </SquareSection>
+              <Paragraph>
+                Your reviews are seen by workers and everyone in the
+                construction industry.
+              </Paragraph>
+              <Paragraph>
+                <strong>Don’t worry</strong>, only your username is visible on
+                earwig
+              </Paragraph>
+              <Button
+                styleType="secondary"
+                text="Change your username"
+                onClick={() => this.props.history.push(EDIT_ID_URL)}
+              />
+            </RightSide>
+          </ContentWrapper>
+        ) : (
+          <ContentWrapper>
+            <Image src={img} />
+            <Heading>You did it!</Heading>
+            <Paragraph style={{ marginBottom: "1.5rem" }}>
+              Your review will be published now! There may be a small delay if
+              we’re verifying your account.
             </Paragraph>
-            <IconWrapper>
-              <EmailShare
-                url={orgURL}
-                subject={`I've reviewed ${orgName} on earwig`}
-                category={orgType}
-              >
-                <IconImg src={emailIcon} alt="email" />
-                Email
-              </EmailShare>
-              <WhatsappShare
-                url={orgURL}
-                title={`I've reviewed ${orgName} on earwig`}
-                separator=": "
-                category={orgType}
-              >
-                <IconImg src={whatsAppIcon} alt="whatsApp" />
-                WhatsApp
-              </WhatsappShare>
+            <SquareSection>
+              <PromoTitle>Now tell your work mates!</PromoTitle>
+              <Paragraph>
+                Privately share news of your review with the people you work
+                with via:
+              </Paragraph>
+              <IconWrapper>
+                <EmailShare
+                  url={orgURL}
+                  subject={`I've reviewed ${orgName} on earwig`}
+                  category={orgType}
+                >
+                  <IconImg src={emailIcon} alt="email" />
+                  Email
+                </EmailShare>
+                <WhatsappShare
+                  url={orgURL}
+                  title={`I've reviewed ${orgName} on earwig`}
+                  separator=": "
+                  category={orgType}
+                >
+                  <IconImg src={whatsAppIcon} alt="whatsApp" />
+                  WhatsApp
+                </WhatsappShare>
 
-              <FbShare
-                category={orgType}
-                onClick={() => this.fbSendBrowser(orgURL)}
-              >
-                <IconImg src={facebookMsgIcon} alt="facebook" />
-                Facebook
-              </FbShare>
-            </IconWrapper>
-          </SquareSection>
-          <Paragraph>
-            Your reviews are seen by workers and everyone in the construction
-            industry.
-          </Paragraph>
-          <Paragraph>
-            <strong>Don’t worry</strong>, only your username is visible on
-            earwig
-          </Paragraph>
-          <Button
-            styleType="secondary"
-            text="Change your username"
-            onClick={() => this.props.history.push(EDIT_ID_URL)}
-          />
-          <Divider />
-          <Paragraph>
-            Each time you give a review, you:
-            <List>
-              <li>Create awareness</li>
+                <FbShare
+                  category={orgType}
+                  onClick={() => this.fbSendBrowser(orgURL)}
+                >
+                  <IconImg src={facebookMsgIcon} alt="facebook" />
+                  Facebook
+                </FbShare>
+              </IconWrapper>
+            </SquareSection>
+            <Paragraph>
+              Your reviews are seen by workers and everyone in the construction
+              industry.
+            </Paragraph>
+            <Paragraph>
+              <strong>Don’t worry</strong>, only your username is visible on
+              earwig
+            </Paragraph>
+            <Button
+              styleType="secondary"
+              text="Change your username"
+              onClick={() => this.props.history.push(EDIT_ID_URL)}
+            />
+            <Divider />
+            <Paragraph>
+              Each time you give a review, you:
+              <List>
+                <li>Create awareness</li>
 
-              <li>Improve working conditions</li>
+                <li>Improve working conditions</li>
 
-              <li>Help workers feel secure</li>
-            </List>
-          </Paragraph>
-          <Thanks>Thank you!</Thanks>
-        </ContentWrapper>
+                <li>Help workers feel secure</li>
+              </List>
+            </Paragraph>
+            <Thanks>Thank you!</Thanks>
+          </ContentWrapper>
+        )}
       </ThankYouWrapper>
     );
   }
