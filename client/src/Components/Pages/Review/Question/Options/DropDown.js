@@ -9,14 +9,13 @@ import Select from "../../../../Common/Select";
 
 class DropDown extends Component {
   state = {
-    placeholder: "",
     newOrg: "",
     ismodalVisible: false,
     dropdownOptions: [],
     confirmLoading: false,
     newOrgSuccess: false,
     newOrgError: "",
-    disableSelect: false,
+    // disableSelect: false,
   };
 
   componentDidMount() {
@@ -80,7 +79,7 @@ class DropDown extends Component {
 
             this.setState({
               newOrg: data.name,
-              disableSelect: true,
+              // disableSelect: true,
               dropdownOptions: [...dropdownOptions, addedOrg],
             });
 

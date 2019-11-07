@@ -4,9 +4,9 @@ import axios from "axios";
 import * as Yup from "yup";
 import { Checkbox as AntCheckbox, Modal, Alert, Input, Icon } from "antd";
 
-import Logo from "./../../Common/Logo";
-import Select from "./../../Common/Select";
-import Button from "./../../Common/Button";
+import Logo from "../../Common/Logo";
+import Select from "../../Common/Select";
+import Button from "../../Common/Button";
 
 import {
   StyledFormik as Formik,
@@ -18,7 +18,7 @@ import {
   CheckboxWrapper,
   Checkbox,
   CheckboxLabel,
-  StyledField
+  StyledField,
 } from "../../Common/Formik/Formik.style";
 
 import {
@@ -34,17 +34,17 @@ import {
   SubHeading,
   Paragraph,
   Example,
-  ImageInput
+  ImageInput,
 } from "./Signup.style";
 
-import example from "./../../../assets/example.png";
+import example from "../../../assets/example.png";
 
-import { API_SIGN_UP } from "./../../../apiUrls";
+import { API_SIGN_UP } from "../../../apiUrls";
 
 import {
   WELCOME_URL,
-  TERMS_OF_USE_URL
-} from "./../../../constants/naviagationUrls";
+  TERMS_OF_USE_URL,
+} from "../../../constants/naviagationUrls";
 
 const { API_TRADE_URL } = require("../../../apiUrls");
 
@@ -55,11 +55,11 @@ function equalTo(ref, msg) {
     exclusive: false,
     message: msg || "Not match",
     params: {
-      reference: ref.path
+      reference: ref.path,
     },
-    test: function(value) {
+    test(value) {
       return value === this.resolve(ref);
-    }
+    },
   });
 }
 
@@ -112,7 +112,7 @@ const signupSchema = Yup.object().shape({
       return false;
     }
     return true;
-  })
+  }),
 });
 
 const initialValues = {
@@ -125,7 +125,7 @@ const initialValues = {
   otherOrg: "",
   trade: "",
   city: "",
-  verificationImage: undefined
+  verificationImage: undefined,
 };
 
 const RadioButton = ({
@@ -151,7 +151,7 @@ const RadioButton = ({
         checked={id === value}
         onChange={onChange}
         onBlur={onBlur}
-        className={"radio-button"}
+        className="radio-button"
         {...props}
       />
       <StyledInput htmlFor={id} value={value} id={id} orgType={orgType}>
@@ -172,7 +172,7 @@ export default class Signup extends Component {
     ismodalVisible: false,
     newTrade: "",
     error: "",
-    errors: {}
+    errors: {},
   };
 
   handleSubmit = (values, { setSubmitting }) => {
@@ -197,15 +197,15 @@ export default class Signup extends Component {
           url: API_SIGN_UP,
           data: form,
           headers: {
-            "content-type": `multipart/form-data; boundary=${form._boundary}`
-          }
+            "content-type": `multipart/form-data; boundary=${form._boundary}`,
+          },
         })
           .then(({ data }) => {
             this.props.handleChangeState({ ...data, isLoggedIn: true });
             if (isWorker === "yes") {
               this.props.history.push({
                 pathname: "/intro",
-                state: { isWorker }
+                state: { isWorker },
               });
             } else {
               this.props.history.push(WELCOME_URL);
@@ -248,7 +248,7 @@ export default class Signup extends Component {
     const { searchTerm } = e.target.dataset;
     this.setState({
       ismodalVisible: true,
-      newTrade: searchTerm
+      newTrade: searchTerm,
     });
   };
 
@@ -256,7 +256,7 @@ export default class Signup extends Component {
     if (this.state.newTrade && this.state.newTrade.length >= 3) {
       this.setState(
         {
-          confirmLoading: true
+          confirmLoading: true,
         },
         () => {
           axios
@@ -267,20 +267,20 @@ export default class Signup extends Component {
               this.setState({
                 trades: [{ value: data._id, label: data.title }],
                 trade: data._id,
-                disableSelect: true
+                disableSelect: true,
               });
               setFieldValue("trade", data._id);
 
               this.setState(
                 {
-                  newTradeSuccess: true
+                  newTradeSuccess: true,
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       newTradeSuccess: false,
                       ismodalVisible: false,
-                      confirmLoading: false
+                      confirmLoading: false,
                     });
                   }, 1000);
                 }
@@ -290,13 +290,13 @@ export default class Signup extends Component {
               this.setState(
                 {
                   newTradeSuccess: false,
-                  newTradeError: err.response.data.error
+                  newTradeError: err.response.data.error,
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       ismodalVisible: false,
-                      confirmLoading: false
+                      confirmLoading: false,
                     });
                   }, 1000);
                 }
@@ -306,7 +306,7 @@ export default class Signup extends Component {
       );
     } else if (this.state.newTrade.length < 3) {
       this.setState({
-        newTradeError: "Trade must be at least 3 characters long"
+        newTradeError: "Trade must be at least 3 characters long",
       });
     }
   };
@@ -315,7 +315,7 @@ export default class Signup extends Component {
     this.setState({
       ismodalVisible: false,
       newTradeSuccess: false,
-      newTradeError: ""
+      newTradeError: "",
     });
   };
 
@@ -326,12 +326,12 @@ export default class Signup extends Component {
 
   handleImageChange = event => {
     const verificationImage = event.target.files && event.target.files[0];
-    var reader = new FileReader();
+    const reader = new FileReader();
 
     reader.onload = () => {
-      var dataURL = reader.result;
+      const dataURL = reader.result;
       this.setState({
-        verificationImage: dataURL
+        verificationImage: dataURL,
       });
     };
 
@@ -344,7 +344,7 @@ export default class Signup extends Component {
       ismodalVisible,
       confirmLoading,
       verificationImage,
-      newTrade
+      newTrade,
     } = this.state;
 
     return (
@@ -396,7 +396,7 @@ export default class Signup extends Component {
                       this.handleIsworker("yes");
                       handleChange(e);
                     }}
-                    option={"yes"}
+                    option="yes"
                   />
 
                   <Field
@@ -408,7 +408,7 @@ export default class Signup extends Component {
                       this.handleIsworker("no");
                       handleChange(e);
                     }}
-                    option={"no"}
+                    option="no"
                   />
                 </ButtonsWrapper>
 
@@ -433,7 +433,7 @@ export default class Signup extends Component {
                           this.handleOrgType("agency");
                           handleChange(e);
                         }}
-                        option={"agency"}
+                        option="agency"
                       />
 
                       <Field
@@ -446,7 +446,7 @@ export default class Signup extends Component {
                           this.handleOrgType("company");
                           handleChange(e);
                         }}
-                        option={"company"}
+                        option="company"
                       />
                       <Field
                         component={RadioButton}
@@ -512,7 +512,7 @@ export default class Signup extends Component {
                               <Select
                                 id="trade"
                                 name="trade"
-                                placeholder={"Select your trade"}
+                                placeholder="Select your trade"
                                 options={this.state.trades}
                                 handleChange={value => {
                                   form.setFieldValue("trade", value);
@@ -597,11 +597,7 @@ export default class Signup extends Component {
                     <Field name="verificationImage">
                       {({ field, form, onChange }) => (
                         <>
-                          <Example
-                            src={
-                              verificationImage ? verificationImage : example
-                            }
-                          />
+                          <Example src={verificationImage || example} />
                           <Button
                             as="label"
                             htmlFor="verificationImage"

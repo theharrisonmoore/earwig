@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Label, Button } from "./../../Common/Formik/Formik.style";
+import { Label, Button } from "../../Common/Formik/Formik.style";
 
-import Icon from "./../../Common/Icon/Icon";
+import Icon from "../../Common/Icon/Icon";
 
 import {
   colors,
   shadows,
   gradient,
   borders,
-  breakpoints
-} from "./../../../theme";
+  breakpoints,
+} from "../../../theme";
 
 export const EditIcon = styled(Icon)`
   margin-right: 0.5rem;
@@ -39,6 +39,10 @@ export const BorderedWrapper = styled.div`
     max-width: 400px;
     margin: 0 auto;
     width: 80%;
+  }
+
+  & > div:first-child {
+    margin-top: 5rem;
   }
 
   @media ${breakpoints.tablet} {
