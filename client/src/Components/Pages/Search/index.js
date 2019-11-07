@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Skeleton, Rate, message } from "antd";
 
+import Header from "./Header";
+
 import {
   API_SEARCH_URL,
   API_GET_LAST_30D_ORGANISATIONS_IDS,
@@ -50,7 +52,7 @@ export const axiosCall = async () => {
 export default class Search extends Component {
   state = {
     isLoading: false,
-    data: null,
+    searchData: null,
     showOtherSections: true,
     target: "profile",
   };
@@ -59,9 +61,9 @@ export default class Search extends Component {
     const { isLoggedIn, match } = this.props;
     const { target } = match.params;
 
-    axiosCall().then(_organizations => {
+    axiosCall().then(({ data: [{ searchData }] }) => {
       this.setState({
-        data: _organizations.data,
+        searchData,
         isLoading: true,
         target: target || "profile",
       });
@@ -69,8 +71,8 @@ export default class Search extends Component {
       if (target === "review" && isLoggedIn) {
         axios
           .get(API_GET_LAST_30D_ORGANISATIONS_IDS)
-          .then(({ data }) => {
-            this.setState({ orgsIds: data.orgsIds });
+          .then(({ data: { orgsIds } }) => {
+            this.setState({ orgsIds });
           })
           .catch(err => {
             const error =
@@ -96,65 +98,65 @@ export default class Search extends Component {
   }
 
   // renders last viewed organization section
-  renderLastViewed = (org, key, target) => {
-    const { orgsIds } = this.state;
+  // renderLastViewed = (org, key, target) => {
+  //   const { orgsIds } = this.state;
 
-    const url =
-      target !== "review"
-        ? `/profile/${org._id}`
-        : `/organization/${org._id}/review`;
+  //   const url =
+  //     target !== "review"
+  //       ? `/profile/${org._id}`
+  //       : `/organization/${org._id}/review`;
 
-    const disabled =
-      target === "review" && orgsIds && orgsIds.includes(org._id);
+  //   const disabled =
+  //     target === "review" && orgsIds && orgsIds.includes(org._id);
 
-    return (
-      <PopOverWrapper disabled>
-        <ProfileLink
-          key={key}
-          to={disabled ? "#" : url}
-          as={disabled ? "div" : undefined}
-        >
-          <ReviewsFrame orgType={org.category}>
-            <InnerDivLastReviews orgType={org.category}>
-              <SymbolDiv>
-                <Icon
-                  icon={org.category}
-                  height="1.5rem"
-                  width="1.5rem"
-                  margin="0 1rem 0 0"
-                />
-              </SymbolDiv>
-              <OrganisationDetailsDiv>
-                <h3
-                  style={{
-                    color: organizations[org.category].primary,
-                    textTransform: "capitalize",
-                  }}
-                >
-                  {org.name}
-                </h3>
-                <ReviewDetailsDiv>
-                  <Rate
-                    disabled
-                    value={org.avgRatings || org.value}
-                    style={{
-                      color: `${organizations[org.category].primary}`,
-                      fontSize: "0.75rem",
-                    }}
-                    className="last-reviewed-star-rate"
-                  />
-                  <p>{org.totalReviews} reviews</p>
-                </ReviewDetailsDiv>
-              </OrganisationDetailsDiv>
-              <ArrowDiv>
-                <img src={orgArrowIcon[org.category]} alt="" />
-              </ArrowDiv>
-            </InnerDivLastReviews>
-          </ReviewsFrame>
-        </ProfileLink>
-      </PopOverWrapper>
-    );
-  };
+  //   return (
+  //     <PopOverWrapper disabled>
+  //       <ProfileLink
+  //         key={key}
+  //         to={disabled ? "#" : url}
+  //         as={disabled ? "div" : undefined}
+  //       >
+  //         <ReviewsFrame orgType={org.category}>
+  //           <InnerDivLastReviews orgType={org.category}>
+  //             <SymbolDiv>
+  //               <Icon
+  //                 icon={org.category}
+  //                 height="1.5rem"
+  //                 width="1.5rem"
+  //                 margin="0 1rem 0 0"
+  //               />
+  //             </SymbolDiv>
+  //             <OrganisationDetailsDiv>
+  //               <h3
+  //                 style={{
+  //                   color: organizations[org.category].primary,
+  //                   textTransform: "capitalize",
+  //                 }}
+  //               >
+  //                 {org.name}
+  //               </h3>
+  //               <ReviewDetailsDiv>
+  //                 <Rate
+  //                   disabled
+  //                   value={org.avgRatings || org.value}
+  //                   style={{
+  //                     color: `${organizations[org.category].primary}`,
+  //                     fontSize: "0.75rem",
+  //                   }}
+  //                   className="last-reviewed-star-rate"
+  //                 />
+  //                 <p>{org.totalReviews} reviews</p>
+  //               </ReviewDetailsDiv>
+  //             </OrganisationDetailsDiv>
+  //             <ArrowDiv>
+  //               <img src={orgArrowIcon[org.category]} alt="" />
+  //             </ArrowDiv>
+  //           </InnerDivLastReviews>
+  //         </ReviewsFrame>
+  //       </ProfileLink>
+  //     </PopOverWrapper>
+  //   );
+  // };
 
   // functions to detect if user clicks outside search box
   // if clicked inside => don't show other sections
@@ -175,12 +177,26 @@ export default class Search extends Component {
   };
 
   render() {
-    const { isLoading, data, showOtherSections, target, orgsIds } = this.state;
+    const {
+      isLoading,
+      searchData,
+      showOtherSections,
+      target,
+      orgsIds,
+    } = this.state;
     const { isMobile, isTablet } = this.props;
+    const category = "company";
 
     return (
       <SearchWrapper data-testid="searchwrapper" isMobile={isMobile}>
-        <HeadlineDiv>
+        <Header
+          orgsIds={orgsIds}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          data={searchData}
+          category={category}
+        />
+        {/* <HeadlineDiv>
           {isMobile ? (
             target !== "review" ? (
               <HeaderParagraph>
@@ -204,8 +220,9 @@ export default class Search extends Component {
               review of?
             </HeaderParagraph>
           )}
-        </HeadlineDiv>
-        <FlexContainer ref={this.setSearchBoxRef}>
+        </HeadlineDiv> */}
+
+        {/* <FlexContainer ref={this.setSearchBoxRef}>
           <AutosuggestComponent
             iconTop="20px"
             bool={() => true}
@@ -219,8 +236,9 @@ export default class Search extends Component {
             orgsIds={orgsIds}
             showOtherSections={showOtherSections}
           />
-        </FlexContainer>
-        {showOtherSections && (
+        </FlexContainer> */}
+
+        {/* {showOtherSections && (
           <FlexContainer>
             <HeadlineDiv>
               <p>Most recent reviews:</p>
@@ -234,7 +252,7 @@ export default class Search extends Component {
               </Skeleton>
             </ReviewsContainer>
           </FlexContainer>
-        )}
+        )} */}
       </SearchWrapper>
     );
   }

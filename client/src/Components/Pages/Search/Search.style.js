@@ -104,13 +104,15 @@ export const IconDiv = styled.div`
   right: 18px;
 `;
 
+// padding: ${props => (props.isMobile ? "0 1rem 0 1rem" : "0 8rem 0 8rem")};
+
 export const SearchWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
   padding: 0;
-  padding: ${props => (props.isMobile ? "0 1rem 0 1rem" : "0 8rem 0 8rem")};
-  padding-top: ${props => (props.isMobile ? "4rem" : "6rem")};
+  padding-top: ${props => (props.isMobile ? "3rem" : "4rem")};
+
   margin: 0;
   align-items: center;
   li {
