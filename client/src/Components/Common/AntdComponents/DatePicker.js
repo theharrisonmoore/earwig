@@ -2,7 +2,9 @@ import React from "react";
 import { DatePicker } from "antd";
 import moment from "moment";
 
-import { DateRangeWrapper, styledCalendarIcon } from "./AntdComponents.style";
+import Icon from "../Icon/Icon";
+
+import { DateRangeWrapper } from "./AntdComponents.style";
 
 class DateRange extends React.Component {
   state = {
@@ -44,7 +46,7 @@ class DateRange extends React.Component {
           onChange={this.onChange}
           allowClear={false}
           style={{ width: "100%" }}
-          suffixIcon={styledCalendarIcon}
+          suffixIcon={<Icon icon="calendar" />}
         />
       </DateRangeWrapper>
     );

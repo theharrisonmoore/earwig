@@ -1,6 +1,5 @@
-import React from "react";
 import styled from "styled-components";
-import { ReactComponent as CalendarIcon } from "../../../assets/calendar.svg";
+import { colors } from "../../../theme";
 
 export const DateRangeWrapper = styled.div`
   text-align: center;
@@ -17,25 +16,13 @@ export const DateRangeWrapper = styled.div`
 
   .ant-calendar-picker-input.ant-input {
     height: 60px;
-    background: ${({ fill }) => (fill ? "#9B9B9B" : "none")};
+    background: ${({ fill }) => (fill ? "#9b9b9b4d" : "none")};
+    color: ${colors.profileFontColor};
+    font-size: ${({ fill }) => (fill ? "16px" : "initial")};
+    font-weight: ${({ fill }) => (fill ? "900" : "initial")};
   }
 
   svg {
     margin-top: 0;
   }
 `;
-
-export const styledCalendarIcon = (
-  <CalendarIcon
-    style={{
-      width: "27px",
-      height: "100%",
-
-      position: "absolute",
-      top: "50%",
-      transform: "translate(-50%, -50%)",
-    }}
-    height="100%"
-    width="27px"
-  />
-);
