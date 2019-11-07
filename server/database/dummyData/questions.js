@@ -208,7 +208,7 @@ module.exports = async () => {
       isDependent: true,
       type: "dropdown",
       text: "What's the name of the payroll?",
-      label: "Select payroll",
+      label: "Choose payroll",
       options: payrollsNames,
       category: "agency",
       profileText: "Pays using the following payrolls",
@@ -264,7 +264,7 @@ module.exports = async () => {
       next: 13,
       type: "yesno",
       text: "Were you paid the amount you expected (including any overtime)?",
-      options: ["Yes", "No", "I didn't check"],
+      options: ["Yes", "No"],
       category: "agency",
       profileText: "Payslips are easily accessible",
       profileSection: "Key ratings",
@@ -469,7 +469,6 @@ module.exports = async () => {
       next: 8,
       type: "radio",
       text: "Were your payslips easily accessible?",
-      isJumping: false,
       options: ["Yes", "No", "I didn't check"],
       category: "payroll",
       profileText: "Payslips are easily accessible",
@@ -508,7 +507,7 @@ module.exports = async () => {
       next: 10,
       type: "dropdown",
       text: "What's the name of the agency you used?",
-      label: "Select agency",
+      label: "Choose agency",
       options: agencyNames,
       category: "payroll",
 
@@ -681,6 +680,7 @@ module.exports = async () => {
       type: "dropdown",
       text: "Who was the main contractor on site?",
       category: "worksite",
+      label: "Choose main contractor",
 
       profileText: "Main contractor",
       profileSection: "Working on the site",
@@ -768,10 +768,12 @@ module.exports = async () => {
         "Offer workers a behind-the-scenes look at the site, e.g., work areas, canteen, etc.",
       isJumping: false,
       category: "worksite",
+
       profileText: "Site images",
       profileSection: "Key ratings",
       profileType: "image",
       profileOrder: 2,
+
       group: {
         groupOrder: 1,
         name: "onTheSite",
@@ -786,13 +788,14 @@ module.exports = async () => {
       next: 13,
       type: "yesno",
       text: "Were the toilets well maintained?",
-      isJumping: false,
       options: ["Yes", "No", "I didn't check"],
       category: "worksite",
+
       profileText: "Toilets are well maintained",
       profileSection: "The site welfare",
       profileType: "yesno",
       profileOrder: 1,
+
       group: {
         groupOrder: 2,
         name: "siteWelfare",
@@ -805,13 +808,14 @@ module.exports = async () => {
       next: 14,
       type: "yesno",
       text: "Did this site have a prayer room?",
-      isJumping: false,
       options: ["Yes", "No", "I didn't check"],
       category: "worksite",
+
       profileText: "Prayer room",
       profileSection: "The site welfare",
       profileType: "siteItem",
       profileOrder: 3,
+
       group: {
         groupOrder: 2,
         name: "siteWelfare",
@@ -896,13 +900,14 @@ module.exports = async () => {
       next: 18,
       type: "radio",
       text: "Could you buy hot food and a drink for less than £5?",
-      isJumping: false,
       options: ["Yes", "No", "I didn't check"],
       category: "worksite",
+
       profileText: "Can buy hot food and a drink for less than £5",
       profileSection: "The site welfare",
       profileType: "siteItem",
       profileOrder: 6,
+
       group: {
         groupOrder: 2,
         name: "siteWelfare",
@@ -957,7 +962,7 @@ module.exports = async () => {
       number: 1,
       type: "yesno",
       text: "Was this company’s materials store well organised?",
-      options: ["Yes", "No", "I didn't check", "They didn't have a materials store"],
+      options: ["Yes", "No", "I didn't check"],
       category: "company",
 
       profileText: "Materials stores are well organised",
@@ -981,7 +986,7 @@ module.exports = async () => {
       type: "yesno",
       text: "Did this company offer you access equipment when you needed it?",
       hintText: "eg stepladders, harnesses, lifters, etc.",
-      options: ["Yes", "No", "I didn't need it"],
+      options: ["Yes", "No", "Yes, but I didn't need it"],
       category: "company",
 
       profileText: "Offers access equipment when you need it",
@@ -1022,7 +1027,7 @@ module.exports = async () => {
       next: 5,
       type: "radio",
       text: "Did this company offer you secure storage for your tools overnight?",
-      options: ["Yes", "No", "I didn't need it"],
+      options: ["Yes", "No", "Yes, but I didn't need it"],
       category: "company",
 
       profileText: "Offers storage for your tools overnight when you need it",
@@ -1084,7 +1089,7 @@ module.exports = async () => {
       next: 8,
       type: "yesno",
       text: "Did you feel the company’s other employees treated you with respect?",
-      options: ["Yes", "No"],
+      options: ["Yes", "No", "I didn't meet them"],
       category: "company",
 
       profileText: "Feel other company employees treat you with respect",
@@ -1119,7 +1124,6 @@ module.exports = async () => {
       },
       hasComment: true,
     },
-
     {
       number: 9,
       type: "yesno",
