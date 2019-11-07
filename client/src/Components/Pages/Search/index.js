@@ -54,47 +54,43 @@ export default class Search extends Component {
     isLoading: false,
     searchData: null,
     showOtherSections: true,
-    target: "profile",
+    category: "agency",
   };
 
   componentDidMount() {
     const { isLoggedIn, match } = this.props;
-    const { target } = match.params;
+    const { category } = match.params;
 
     axiosCall().then(({ data: [{ searchData }] }) => {
       this.setState({
         searchData,
         isLoading: true,
-        target: target || "profile",
+        category,
       });
 
-      if (target === "review" && isLoggedIn) {
-        axios
-          .get(API_GET_LAST_30D_ORGANISATIONS_IDS)
-          .then(({ data: { orgsIds } }) => {
-            this.setState({ orgsIds });
-          })
-          .catch(err => {
-            const error =
-              err.response && err.response.data && err.response.data.error;
-            message.error(error || "Something went wrong");
-          });
-      }
+      // ---------------------   keeeeeep this -------------------
+      // if (target === "review" && isLoggedIn) {
+      //   axios
+      //     .get(API_GET_LAST_30D_ORGANISATIONS_IDS)
+      //     .then(({ data: { orgsIds } }) => {
+      //       this.setState({ orgsIds });
+      //     })
+      //     .catch(err => {
+      //       const error =
+      //         err.response && err.response.data && err.response.data.error;
+      //       message.error(error || "Something went wrong");
+      //     });
+      // }
     });
-    document.addEventListener("mousedown", this.handleClickOutside, false);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { target } = this.props.match.params;
-    if (prevState.target !== target) {
+    const { category } = this.props.match.params;
+    if (prevState.category !== category) {
       this.setState({
-        target,
+        category,
       });
     }
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
   // renders last viewed organization section
@@ -160,32 +156,16 @@ export default class Search extends Component {
 
   // functions to detect if user clicks outside search box
   // if clicked inside => don't show other sections
-  setSearchBoxRef = node => {
-    this.searchBoxRef = node;
-  };
-
-  handleClickOutside = event => {
-    if (this.searchBoxRef && !this.searchBoxRef.contains(event.target)) {
-      this.setState({ showOtherSections: true });
-    } else {
-      this.setState({ showOtherSections: false });
-    }
-  };
-
-  handleCancelIconClick = () => {
-    this.setState({ showOtherSections: true });
-  };
 
   render() {
     const {
       isLoading,
       searchData,
       showOtherSections,
-      target,
+      category,
       orgsIds,
     } = this.state;
     const { isMobile, isTablet } = this.props;
-    const category = "company";
 
     return (
       <SearchWrapper data-testid="searchwrapper" isMobile={isMobile}>

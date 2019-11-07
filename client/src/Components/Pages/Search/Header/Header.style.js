@@ -1,5 +1,6 @@
+import React from "react";
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 import { organizations } from "../../../../theme";
 
 export const HeaderWrapper = styled.div`
@@ -21,5 +22,41 @@ export const SearchBarContainer = styled.div`
 
   .react-autosuggest__input {
     border-radius: 5rem;
+    border: none;
   }
+`;
+
+export const TabsWrapper = styled.div`
+  max-width: 23.5rem;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+`;
+
+export const Tab = styled(({ isActive, ...rest }) => <Link {...rest} />)`
+  font-family: Roboto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 5.875rem;
+  width: 25%;
+  height: 2.75rem;
+  font-size: 13px;
+  line-height: 15px;
+  text-align: center;
+  letter-spacing: 0.216667px;
+  color: #ffffff;
+  box-shadow: ${({ isActive }) =>
+    isActive ? "none" : "0px 2px 4px rgba(0, 0, 0, 0.5)"};
+  background-color: ${({ category }) => organizations[category].primary};
+`;
+
+export const Heading = styled.h1`
+  font-family: Roboto;
+  font-size: 52px;
+  line-height: 61px;
+  text-align: center;
+  letter-spacing: 0.631945px;
+
+  color: #ffffff;
 `;
