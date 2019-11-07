@@ -44,8 +44,10 @@ const orgArrowIcon = {
 };
 
 // gets all organisations from db
-export const axiosCall = async () => {
-  const response = await axios.get(API_SEARCH_URL);
+export const axiosCall = async category => {
+  const response = await axios.get(
+    API_SEARCH_URL.replace(":category", category)
+  );
   return response;
 };
 
@@ -61,38 +63,39 @@ export default class Search extends Component {
     const { isLoggedIn, match } = this.props;
     const { category } = match.params;
 
-    axiosCall().then(({ data: [{ searchData }] }) => {
-      this.setState({
-        searchData,
-        isLoading: true,
-        category,
-      });
+    this.fetchOrgs(category);
 
-      // ---------------------   keeeeeep this -------------------
-      // if (target === "review" && isLoggedIn) {
-      //   axios
-      //     .get(API_GET_LAST_30D_ORGANISATIONS_IDS)
-      //     .then(({ data: { orgsIds } }) => {
-      //       this.setState({ orgsIds });
-      //     })
-      //     .catch(err => {
-      //       const error =
-      //         err.response && err.response.data && err.response.data.error;
-      //       message.error(error || "Something went wrong");
-      //     });
-      // }
-    });
+    // ---------------------   keeeeeep this -------------------
+    // if (target === "review" && isLoggedIn) {
+    //   axios
+    //     .get(API_GET_LAST_30D_ORGANISATIONS_IDS)
+    //     .then(({ data: { orgsIds } }) => {
+    //       this.setState({ orgsIds });
+    //     })
+    //     .catch(err => {
+    //       const error =
+    //         err.response && err.response.data && err.response.data.error;
+    //       message.error(error || "Something went wrong");
+    //     });
+    // }
+    // });
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { category } = this.props.match.params;
     if (prevState.category !== category) {
-      this.setState({
-        category,
-      });
+      this.fetchOrgs(category);
     }
   }
 
+  fetchOrgs = category =>
+    axiosCall(category).then(({ data: [{ searchData }] }) => {
+      this.setState({
+        searchData,
+        isLoading: true,
+        category,
+      });
+    });
   // renders last viewed organization section
   // renderLastViewed = (org, key, target) => {
   //   const { orgsIds } = this.state;

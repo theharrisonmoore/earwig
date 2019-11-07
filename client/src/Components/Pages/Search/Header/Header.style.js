@@ -48,7 +48,13 @@ export const Tab = styled(({ isActive, ...rest }) => <Link {...rest} />)`
   color: #ffffff;
   box-shadow: ${({ isActive }) =>
     isActive ? "none" : "0px 2px 4px rgba(0, 0, 0, 0.5)"};
+  font-weight: ${({ isActive }) => (isActive ? "bold" : "initial")};
   background-color: ${({ category }) => organizations[category].primary};
+
+  :hover {
+    color: #ffffff;
+    font-weight: bold;
+  }
 `;
 
 export const Heading = styled.h1`
