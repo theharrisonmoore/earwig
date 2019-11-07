@@ -47,6 +47,7 @@ class DateRange extends React.Component {
           allowClear={false}
           style={{ width: "100%" }}
           suffixIcon={<Icon icon="calendar" />}
+          format="MMM YYYY"
         />
       </DateRangeWrapper>
     );
