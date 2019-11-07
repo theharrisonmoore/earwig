@@ -125,14 +125,16 @@ const Button = ({
         styleType={styleType}
         {...rest}
       >
-        {loading ? (
-          <ButtonSpinner color={spinnerColor} />
-        ) : (
-          icon && (
-            <Icon icon={icon} width="18" height="18" margin="0 0.5rem 0 0" />
-          )
-        )}
-        {text}
+        <span style={{ display: "flex", alignItems: "center" }}>
+          {loading ? (
+            <ButtonSpinner color={spinnerColor} />
+          ) : (
+            icon && (
+              <Icon icon={icon} width="23" height="23" margin="0 0.5rem 0 0" />
+            )
+          )}
+          {text}
+        </span>
       </ButtonElement>
     </>
   );

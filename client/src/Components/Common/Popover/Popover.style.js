@@ -28,6 +28,7 @@ export const PopoverDiv = styled.div`
 export const PopoverText = styled.p`
   text-align: center;
   margin-bottom: 0;
+  color: ${colors.dustyGray2};
 `;
 
 export const StyledButton = styled.button`

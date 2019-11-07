@@ -733,7 +733,6 @@ class Review extends Component {
                 styleType="primary"
                 size="large"
                 loading={isSubmitting}
-                backgroundColor={organizations[category].primary}
                 text="Publish your review"
               />
             </FormWrapper>

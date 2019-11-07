@@ -4,7 +4,9 @@ import { colors, breakpoints } from "./../../../theme";
 
 import { MOBILE_WIDTH } from "./../../../constants/screenWidths";
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+  padding-bottom: 100px;
+`;
 
 export const BorderedWrapper = styled.div`
   max-width: 700px;
