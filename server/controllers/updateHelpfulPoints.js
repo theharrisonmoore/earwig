@@ -32,8 +32,8 @@ module.exports = async (req, res, next) => {
     points,
     fromReferral: false,
   }).then(() => updateUserHelpfulPoints(userId))
-    .then(() => {
-      res.json({ updatedPoints: points });
+    .then((updateData) => {
+      res.json(updateData);
     })
     .catch((err) => {
       next(boom.badImplementation(err));

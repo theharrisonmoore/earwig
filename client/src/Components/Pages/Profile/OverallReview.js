@@ -47,6 +47,7 @@ export default class OverallReview extends Component {
       audio: {},
     },
     writtenOrAudioReviews: [],
+    updatedUsers: {},
   };
 
   toggleHelpful = e => {
@@ -95,7 +96,7 @@ export default class OverallReview extends Component {
         userId,
         organization,
       })
-      .then(() => {
+      .then(({ data: { points: newPoints, helpedUsers: newHelpedUsers } }) => {
         const { counters } = this.state;
 
         this.setState({
@@ -110,6 +111,12 @@ export default class OverallReview extends Component {
               },
             },
           },
+          updatedUsers: {
+            [userId]: {
+              helpedUsers: newHelpedUsers,
+              points: newPoints,
+            },
+          },
         });
       })
       .catch(err => {
@@ -122,11 +129,11 @@ export default class OverallReview extends Component {
   togglePanel = key => {
     if (!key) return this.setState({ activeReview: "" });
 
-    const [id, type] = key.split("/");
+    const [reviewId, type] = key.split("/");
     const target = type === "written" ? "overallReview" : "voiceReview";
-    if (id) {
+    if (reviewId) {
       return this.setState({ activeReview: key }, () => {
-        this.props.fetchOverallReplies(id, target);
+        this.props.fetchOverallReplies(reviewId, target);
       });
     }
     return this.setState({ activeReview: "" });
@@ -275,8 +282,12 @@ export default class OverallReview extends Component {
     } = this.props;
 
     const { totalReviews } = summary;
-    const { activeReview, counters, writtenOrAudioReviews } = this.state;
-
+    const {
+      activeReview,
+      counters,
+      writtenOrAudioReviews,
+      updatedUsers,
+    } = this.state;
     const isAuthorized = authorization({
       isAdmin,
       verified,
@@ -307,8 +318,14 @@ export default class OverallReview extends Component {
                   </UserDiv>
                   <UserAdditionalDetails>
                     <p>
-                      Helped {review.user.helpedUsers} · Points{" "}
-                      {review.user.points}
+                      Helped{" "}
+                      {updatedUsers[review.user._id]
+                        ? updatedUsers[review.user._id].helpedUsers
+                        : review.user.helpedUsers}{" "}
+                      · Points{" "}
+                      {updatedUsers[review.user._id]
+                        ? updatedUsers[review.user._id].points
+                        : review.user.points}
                     </p>
                   </UserAdditionalDetails>
                   <BubbleAndDate>
@@ -494,8 +511,16 @@ export default class OverallReview extends Component {
                               {!reply.replies.displayName && (
                                 <UserAdditionalDetails>
                                   <p>
-                                    Helped {reply.replies.user.helpedUsers} ·
-                                    Points {reply.replies.user.points}
+                                    Helped{" "}
+                                    {updatedUsers[reply.replies.user._id]
+                                      ? updatedUsers[reply.replies.user._id]
+                                          .helpedUsers
+                                      : reply.replies.user.helpedUsers}{" "}
+                                    · Points{" "}
+                                    {updatedUsers[reply.replies.user._id]
+                                      ? updatedUsers[reply.replies.user._id]
+                                          .points
+                                      : reply.replies.user.points}
                                   </p>
                                 </UserAdditionalDetails>
                               )}
