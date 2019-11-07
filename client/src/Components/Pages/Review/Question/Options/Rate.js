@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Rate } from "antd";
 
 import { QuestionOptionsWrapper, StyledErrorMessage } from "../Question.style";
-import { organizations } from "../../../../../theme";
+import { colors } from "../../../../../theme";
 import { isMobile } from "../../../../../helpers";
 
 class CustomRate extends Component {
@@ -29,8 +29,7 @@ class CustomRate extends Component {
     const { rate, hoverRate } = this.state;
     const {
       options,
-      category,
-      state: { review, errors }
+      state: { review, errors },
     } = this.props;
 
     const rateValue = hoverRate || rate;
@@ -40,8 +39,8 @@ class CustomRate extends Component {
         <Rate
           onChange={value => this.setRateValue(value)}
           style={{
-            color: `${organizations[category].primary}`,
-            fontSize: `${isMobile(window.innerWidth) ? "2rem" : "3rem"}`
+            color: colors.profileFontColor,
+            fontSize: `${isMobile(window.innerWidth) ? "2rem" : "3rem"}`,
           }}
           onHoverChange={this.handleHoverRate}
           value={review.rate}
@@ -51,9 +50,7 @@ class CustomRate extends Component {
             <span
               style={{
                 color: `${
-                  index < rateValue
-                    ? organizations[category && category].primary
-                    : "#e8e8e8"
+                  index === rateValue - 1 ? colors.profileFontColor : "#e8e8e8"
                 }`,
                 fontWeight: `${index === rateValue - 1 ? "900" : "500"}`,
                 fontSize: `${
@@ -62,7 +59,7 @@ class CustomRate extends Component {
                 width: `${isMobile(window.innerWidth) ? "32px" : "48px"}`,
                 display: "inline-block",
                 textAlign: "center",
-                marginRight: "8px"
+                marginRight: "8px",
               }}
             >
               {option}

@@ -921,7 +921,7 @@ module.exports = async () => {
       next: 19,
       type: "open",
       text: "Is there a shop or café near this site that you would recommend to other workers?",
-      label: "Good shop or café",
+      label: "",
       category: "worksite",
 
       profileText: "Recommended nearby shops and cafés",

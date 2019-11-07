@@ -6,11 +6,12 @@ import {
   QuestionOptionsWrapper,
   InputWrapper,
   Options,
-  StyledInput
+  StyledInput,
 } from "../Question.style";
 
 class YesNo extends Component {
   state = { showComment: false };
+
   shouldComponentUpdate(nextProps, nextState) {
     if (
       Map(this.props.state.answers).equals(Map(nextProps.state.answers)) &&
@@ -20,6 +21,7 @@ class YesNo extends Component {
     }
     return true;
   }
+
   render() {
     const {
       options,
@@ -31,7 +33,7 @@ class YesNo extends Component {
       showNextQestion,
       handleChange,
       question,
-      state
+      state,
     } = this.props;
 
     return (
@@ -55,16 +57,16 @@ class YesNo extends Component {
                     // onChange={handleChange}
                     onChange={e => {
                       if (typeof next === "object" && next !== null) {
-                        let nextQ = next["yes"];
-                        let other = next["no"];
+                        let nextQ = next.yes;
+                        let other = next.no;
                         if (
                           option === "No" ||
                           option.includes("know") ||
                           option.includes("need") ||
                           option.includes("check")
                         ) {
-                          nextQ = next["no"];
-                          other = next["yes"];
+                          nextQ = next.no;
+                          other = next.yes;
                         }
                         showNextQestion(groupId, nextQ, other, number);
                       }
@@ -73,23 +75,24 @@ class YesNo extends Component {
                       // toggle showCommetn on and off (only show it when asnwer is "No")
                       if (e.target.value === "No") {
                         this.setState({
-                          showComment: true
+                          showComment: true,
                         });
                       } else {
                         this.setState({
-                          showComment: true
+                          showComment: true,
                         });
                       }
                     }}
                     checked={
-                      state.answers && state.answers[question.number] === option
-                        ? true
-                        : false
+                      !!(
+                        state.answers &&
+                        state.answers[question.number] === option
+                      )
                     }
                   />
                   <StyledInput
                     htmlFor={`${option}-${question.number}`}
-                    className={`yesno options-3`}
+                    className="yesno options-3"
                   >
                     {option}
                   </StyledInput>
@@ -99,7 +102,7 @@ class YesNo extends Component {
           </div>
           {hasComment && this.state.showComment && (
             <Input.TextArea
-              placeholder="Add a comment..."
+              placeholder="Add comment (optional)"
               onChange={this.props.handleReviewChange}
               data-type="comments"
               value={state.comments[question.number]}

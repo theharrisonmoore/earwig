@@ -154,15 +154,27 @@ export const InputWrapper = styled.div`
 
   .radio-button:checked + .yesno {
     box-shadow: none;
+    color: white;
+    transition: all 0.3s;
     border: 3px solid
       ${props => {
         if (props.option.toLowerCase() === "yes") {
           return colors.green;
-        } else if (props.option.toLowerCase() === "no") {
+        }
+        if (props.option.toLowerCase() === "no") {
           return colors.red;
         }
-        return organizations[props.orgType].primary;
+        return colors.profileFontColor;
       }};
+    background-color: ${props => {
+      if (props.option.toLowerCase() === "yes") {
+        return colors.green;
+      }
+      if (props.option.toLowerCase() === "no") {
+        return colors.red;
+      }
+      return colors.profileFontColor;
+    }};
   }
 `;
 
