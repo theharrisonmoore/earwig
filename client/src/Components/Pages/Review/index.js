@@ -17,7 +17,6 @@ import {
   FormWrapper,
   Level2Header,
   AgreementLabel,
-  LinkSpan,
   ReviewWrapper,
   ErrorsWrapper,
 } from "./Review.style";
@@ -25,7 +24,6 @@ import {
 import { StyledErrorMessage } from "./Question/Question.style";
 
 import Question from "./Question/index";
-import { organizations } from "../../../theme";
 
 import {
   validationSchema,
