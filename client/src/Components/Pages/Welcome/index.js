@@ -44,7 +44,6 @@ export default class Welcome extends Component {
 
           {!isLoggedIn ? (
             <Button
-              left
               margin="0.5rem 0"
               styleType="primary"
               text="Read reviews & ratings"

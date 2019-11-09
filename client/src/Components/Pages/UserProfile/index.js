@@ -9,6 +9,8 @@ import {
   UPLOAD_VERIFICATION_URL,
 } from "../../../constants/naviagationUrls";
 
+import Link from "../../Common/Link"
+
 import Button from "../../Common/Button";
 
 import {
@@ -95,9 +97,7 @@ export default class index extends Component {
                 )}
               </IDWrapper>
               {verified && (
-                <NavLink to={EDIT_PROFILE_URL}>
-                  <EditInfo>Edit info</EditInfo>
-                </NavLink>
+                <Link to={EDIT_PROFILE_URL} text="Edit profile" type="primary" />
               )}
             </TopSection>
             <BottomSection isSMobile={isSMobile}>

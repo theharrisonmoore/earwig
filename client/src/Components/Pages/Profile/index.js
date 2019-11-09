@@ -325,8 +325,9 @@ export default class Profile extends Component {
                   category={category}
                 >
                   <Button
-                    text="Create an account to see more"
+                    text="Sign up to see more"
                     styleType="primary"
+                    margin="1rem 0"
                   />
                 </AccountLink>
               </AccountPromo>

@@ -30,6 +30,7 @@ export const Subtitle = styled.h2`
   font-size: 1.25rem;
   color: ${colors.profileFontColor};
   margin-bottom: 2rem;
+  text-align: left;
 `;
 
 export const PurpleDiv = styled.div`

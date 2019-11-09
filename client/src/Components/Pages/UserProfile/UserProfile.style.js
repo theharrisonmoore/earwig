@@ -29,6 +29,7 @@ export const TopSection = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
+  align-items: center;
 `;
 
 export const BottomSection = styled.div`
