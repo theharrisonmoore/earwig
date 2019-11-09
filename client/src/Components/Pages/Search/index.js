@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Children } from "react";
 import axios from "axios";
 import { Skeleton, Rate, message } from "antd";
 
@@ -51,12 +51,63 @@ export const axiosCall = async category => {
   return response;
 };
 
+const categorizeOrgs = arrayOfOrgs => {
+  const generalGroup = {};
+
+  arrayOfOrgs
+    .sort((a, b) => {
+      const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+      const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      // names must be equal
+      return 0;
+    })
+    .forEach(org => {
+      const firstLetter = org.name[0].toUpperCase();
+      if (!generalGroup[firstLetter]) {
+        generalGroup[firstLetter] = [];
+      }
+      generalGroup[firstLetter].push(org);
+    });
+
+  const groups = [
+    { key: "A-Z", children: [] },
+    { key: "0-9", children: [] },
+    { key: "Others", children: [] },
+  ];
+  // const a = { key: "0-9", children: [{ key: "0", children: [{ org }] }] };
+
+  const lettersGroup = groups[0];
+  const numbersGroup = groups[1];
+  const othersGroup = groups[2];
+
+  Object.entries(generalGroup).forEach(([key, children]) => {
+    const code = key.charCodeAt();
+
+    if (code >= 48 && code <= 57) {
+      numbersGroup.children.push({ key, children });
+    } else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+      lettersGroup.children.push({ key, children });
+    } else {
+      othersGroup.children.push({ key, children });
+    }
+  });
+  console.log(groups);
+  return groups;
+};
 export default class Search extends Component {
   state = {
     isLoading: false,
-    searchData: null,
+    searchData: [],
     showOtherSections: true,
     category: "agency",
+    sortedOrgs: [],
   };
 
   componentDidMount() {
@@ -90,10 +141,13 @@ export default class Search extends Component {
 
   fetchOrgs = category =>
     axiosCall(category).then(({ data: [{ searchData }] }) => {
+      const sortedOrgs = categorizeOrgs(searchData);
+
       this.setState({
         searchData,
         isLoading: true,
         category,
+        sortedOrgs,
       });
     });
   // renders last viewed organization section
@@ -167,9 +221,9 @@ export default class Search extends Component {
       showOtherSections,
       category,
       orgsIds,
+      sortedOrgs,
     } = this.state;
     const { isMobile, isTablet } = this.props;
-
     return (
       <SearchWrapper data-testid="searchwrapper" isMobile={isMobile}>
         <Header
@@ -179,6 +233,7 @@ export default class Search extends Component {
           data={searchData}
           category={category}
         />
+
         {/* <HeadlineDiv>
           {isMobile ? (
             target !== "review" ? (
