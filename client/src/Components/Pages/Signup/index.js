@@ -8,7 +8,6 @@ import Logo from "../../Common/Logo";
 import Select from "../../Common/Select";
 import Button from "../../Common/Button";
 import Link from "../../Common/Link";
-import Icon from "../../Common/Icon/Icon";
 import PopoverComponent from "../../Common/Popover";
 
 import {
@@ -27,7 +26,6 @@ import {
 import {
   // StyledLink as Link,
   SignupWrapper,
-  LinkSpan,
   ContentWrapper,
   PurpleDiv,
   OptionsWrapper,
@@ -208,8 +206,6 @@ export default class Signup extends Component {
         })
           .then(({ data }) => {
             if (isWorker === "yes") {
-              console.log("reached1", isWorker);
-              // this.info(data, this.props);
               this.setState({ isPopupVisible: true, data });
             } else {
               this.props.handleChangeState({ ...data, isLoggedIn: true });
@@ -613,7 +609,6 @@ export default class Signup extends Component {
                           <Button
                             as="label"
                             htmlFor="verificationImage"
-                            // style={{ width: "70%", margin: "0 auto 1.25rem" }}
                             styleType="secondary"
                             text="Upload photo"
                             margin="1rem auto"

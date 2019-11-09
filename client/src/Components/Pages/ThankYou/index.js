@@ -20,11 +20,8 @@ import {
   Image,
   Heading,
   Paragraph,
-  SubHeading,
   List,
   IconWrapper,
-  SharePromo,
-  StyledLink,
   EmailShare,
   WhatsappShare,
   FbShare,
@@ -64,7 +61,6 @@ export default class ThankYou extends Component {
   render() {
     const { state } = this.props.history.location;
     const { isDesktop } = this.props;
-    console.log("props", this.props);
 
     const { orgType } = state && state;
 

@@ -27,8 +27,6 @@ import {
   VerifiedSection,
   SectionTitle,
   Paragraph,
-  UnVerifiedButton,
-  Title,
   ReviewDiv,
   AgencyTitle,
   ReviewText,
@@ -199,15 +197,11 @@ export default class index extends Component {
                 non-workers.
               </Paragraph>
 
-              <UnVerifiedButton to={UPLOAD_VERIFICATION_URL}>
-                <Icon
-                  icon="getVerified"
-                  width="24"
-                  height="24"
-                  margin="0 0.5rem 0 0"
-                />
-                <Title>Get verified now</Title>
-              </UnVerifiedButton>
+              <Button
+                onClick={() => this.props.history.push(UPLOAD_VERIFICATION_URL)}
+                text="Get verified now"
+                styleType="primary"
+              />
             </MainSection>
           )}
         </Wrapper>

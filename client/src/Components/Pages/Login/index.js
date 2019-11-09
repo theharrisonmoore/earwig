@@ -27,7 +27,6 @@ import {
 import {
   // StyledLink as Link,
   LoginWrapper,
-  SmallLink,
   Devider,
 } from "./Login.style";
 

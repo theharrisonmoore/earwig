@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Modal, Input, Alert, Icon, Divider } from "antd";
+import { Modal, Input, Alert } from "antd";
 
 import { colors } from "../../../theme";
 
@@ -146,49 +146,6 @@ export default class UploadImage extends Component {
             });
           });
         });
-
-      // Swal.fire({
-      //   title: "Uploading!",
-      //   onBeforeOpen: () => {
-      //     Swal.showLoading();
-      //     this.setState({ error: "", loading: true });
-
-      //     form.append("verificationImage", this.state.imageFile);
-      //     form.append("tradeId", this.state.tradeId);
-      //     form.append("city", this.state.city);
-
-      //     axios({
-      //       method: "post",
-      //       url: API_UPLOAD_VERIFICATION_IMAGE_URL,
-      //       data: form,
-      //       headers: {
-      //         "content-type": `multipart/form-data; boundary=${form._boundary}`,
-      //       },
-      //     })
-      //       .then(() => {
-      //         this.setState({ loading: false }, () => {
-      //           Swal.fire({
-      //             type: "success",
-      //             title: "Done!",
-      //             showConfirmButton: false,
-      //             timer: 1500,
-      //           }).then(() => {
-      //             this.props.handleChangeState({ awaitingReview: true });
-      //             this.props.history.push(INTRO_URL);
-      //           });
-      //         });
-      //       })
-      //       .catch(err => {
-      //         this.setState({ loading: false }, () => {
-      //           Swal.fire({
-      //             type: "error",
-      //             title: "Oops...",
-      //             text: err.response.data.error,
-      //           });
-      //         });
-      //       });
-      //   },
-      // });
     }
   };
 
@@ -403,22 +360,20 @@ export default class UploadImage extends Component {
             footer={null}
             closable={false}
             afterClose={() => {
-              // this.props.handleChangeState({ ...data, isLoggedIn: true });
-              this.props.history.push("/intro");
+              this.props.handleChangeState({ awaitingReview: true });
+              this.props.history.push(INTRO_URL);
             }}
           >
             <ModalText>
-              Thanks, we're checking your photo. Any reviews you give won't be
-              shown on earwig until we've checked your photo
+              Thanks, we're checking your photo. Any reviews you give won't be shown on earwig until we've checked your photo
             </ModalText>
             <Button
               styleType="primary"
               margin="1rem auto"
               text="Okay"
               onClick={() => {
-                // this.props.handleChangeState({ ...data, isLoggedIn: true });
                 this.props.handleChangeState({ awaitingReview: true });
-                this.props.history.push("/intro");
+                this.props.history.push(INTRO_URL);
               }}
             />
           </Modal>

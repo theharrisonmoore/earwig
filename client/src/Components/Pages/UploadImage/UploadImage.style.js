@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, shadows, breakpoints } from "../../../theme";
+import { colors, breakpoints } from "../../../theme";
 import Icon from "../../Common/Icon/Icon";
 
 export const UploadImageWrapper = styled.div`
