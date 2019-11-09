@@ -199,7 +199,7 @@ export default class index extends Component {
 
               <Button
                 onClick={() => this.props.history.push(UPLOAD_VERIFICATION_URL)}
-                text="Get verified now"
+                text="Get verified as a worker"
                 styleType="primary"
               />
             </MainSection>

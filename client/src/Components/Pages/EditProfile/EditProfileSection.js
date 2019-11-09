@@ -282,21 +282,6 @@ export default class EditProfileSection extends Component {
     return !(Object.entries(errors).length > 0);
   };
 
-  decideText = section => {
-    switch (section) {
-      case "earwigId":
-        return "Save new Username";
-      case "password":
-        return "Save new password";
-      case "trade":
-        return "Save new trade";
-      case "city":
-        return "Save new town or city";
-      default:
-        return "";
-    }
-  };
-
   render() {
     const { history, section, userId, city } = this.props;
     const {
@@ -467,7 +452,7 @@ export default class EditProfileSection extends Component {
                 disabled={isSubmitting}
                 loading={isSubmitting}
                 styleType="primary"
-                text={this.decideText(section)}
+                text="Save"
               ></Button>
             </div>
           </BorderedWrapper>

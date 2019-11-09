@@ -82,10 +82,9 @@ export default class index extends Component {
             <Button
               loading={loading}
               onClick={this.handleSubmit}
-              type="primary"
-            >
-              Send
-            </Button>
+              styleType="primary"
+              text="Send message"
+            />
           </>
         ) : (
           <LogInPrompt to={LOGIN_URL}>
