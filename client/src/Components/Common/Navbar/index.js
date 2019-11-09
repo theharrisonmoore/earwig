@@ -3,9 +3,11 @@ import { NavLink } from "react-router-dom";
 import { Button, Icon as AntIcon } from "antd";
 
 import Icon from "./../Icon/Icon";
-import { ADMIN } from "./../../../constants/naviagationUrls";
-import { Wrapper, ToggleMenu, SideDiv, WrapperH2 } from "./Navbar.style";
+import { ADMIN, WELCOME_URL } from "./../../../constants/naviagationUrls";
+import { Wrapper, ToggleMenu, SideDiv, WrapperH2, LogoLink } from "./Navbar.style";
 import Menu from "./Menu.js";
+import { colors } from './../../../theme'
+import Logo from "../Icon/Logo";
 
 export default class Navbar extends Component {
   state = {
@@ -79,8 +81,10 @@ export default class Navbar extends Component {
                 </Button>
               </NavLink>
             )}
-
-            <Icon icon="logo" width="59px" />
+            <LogoLink to={WELCOME_URL}>
+              <Icon icon="logo" width="59px" />
+            </LogoLink>
+            
 
           </SideDiv>
           {/* MOBILE VERSION */}
@@ -111,7 +115,9 @@ export default class Navbar extends Component {
           )}
           <WrapperH2 style={{ fontWeight: "900" }}>{text && text}</WrapperH2>
           <SideDiv position="flex-end">
-            <Icon icon="logo" width="59" />
+            <LogoLink to={WELCOME_URL}>
+              <Icon icon="logo" width="59px" color={colors.profileFontColor} />
+            </LogoLink>
           </SideDiv>
         </Wrapper>
       );
