@@ -99,7 +99,7 @@ export const SubTitleGroup = styled.div`
 export const SubTitle = styled.h4`
   font-weight: ${props => (props.sublist ? "700" : "900")};
   font-size: ${props => (props.list ? "1rem" : "1.125rem")};
-  color: ${colors.heliotrope};
+  color: ${colors.profileFontColor};
   text-decoration: underline;
   text-align: ${({ center }) => (center ? "center" : "left")};
   margin-bottom: ${({ marginBottom }) => (marginBottom ? "1.5rem" : "0")};
@@ -163,13 +163,13 @@ export const StyledOl = styled.ol`
 export const BoldLink = styled(Link)`
   font-size: 1rem;
 
-  color: ${colors.profileFontColor};
+  color: ${colors.primary};
   text-align: left;
-  font-weight: 900;
-  text-decoration: underline;
+  font-weight: 700;
+  text-decoration: none;
 
   :hover {
-    color: ${colors.heliotrope};
+    color: ${colors.primary};
   }
 
   @media (min-width: ${MOBILE_WIDTH}px) {
@@ -249,7 +249,7 @@ export const Devider = styled.div`
 export const UnderlinedLink = styled(BoldLink).attrs({
   className: "UnderlinedLink",
 })`
-  text-decoration: underline;
+  text-decoration: none;
   font-size: 1.125rem;
   text-align: center;
   margin: 0 auto;
@@ -279,7 +279,7 @@ export const LargeLink = styled(Link)`
   font-family: Roboto;
   font-weight: 900;
   font-size: 18px;
-  color: ${({ purpleLinks }) => (purpleLinks ? colors.purpleLinks : "#4a4a4a")};
+  color: ${({ primary }) => (primary ? colors.primary : "#4a4a4a")};
   text-decoration: underline;
   text-align: left;
   font-size: 1.125rem;
@@ -288,7 +288,7 @@ export const LargeLink = styled(Link)`
 
   &:hover {
     text-decoration: underline;
-    color: ${colors.purpleLinks};
+    color: ${colors.primary};
   }
 
   @media ${breakpoints.tablet} {
@@ -297,11 +297,11 @@ export const LargeLink = styled(Link)`
 `;
 
 export const NormalLink = styled(Link)`
-  color: ${colors.purpleLinks};
-  text-decoration: underline;
+  color: ${colors.primary};
+  text-decoration: none;
   &:hover {
     text-decoration: underline;
-    color: ${colors.purpleLinks};
+    color: ${colors.primary};
   }
 `;
 

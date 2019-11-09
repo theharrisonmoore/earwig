@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Rate } from "antd";
 
-import { organizations, colors } from "./../../../theme";
+import { colors } from "./../../../theme";
 
 import {
   Wrapper,

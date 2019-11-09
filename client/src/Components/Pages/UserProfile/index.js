@@ -23,7 +23,6 @@ import {
   Stat,
   IDWrapper,
   Verified,
-  EditInfo,
   IDText,
   MainSection,
   VerifiedSection,
@@ -213,7 +212,7 @@ export default class index extends Component {
         <BorderedWrapper>
           <div>
             <MiniHeader>
-              <NavLink to={EDIT_PROFILE_URL}>Edit Profile</NavLink>
+              <Link to={EDIT_PROFILE_URL} text="Edit profile" type="primary"/>
             </MiniHeader>
             <VerifySection>
               <VerifyTitle>You&apos;re not a verified worker</VerifyTitle>

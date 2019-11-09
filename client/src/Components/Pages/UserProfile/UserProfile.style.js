@@ -227,7 +227,7 @@ export const MiniHeader = styled.div`
   }
 
   a {
-    color: ${colors.purpleLinks};
+    color: ${colors.primary};
   }
 `;
 

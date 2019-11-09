@@ -7,7 +7,6 @@ import { ADMIN, WELCOME_URL } from "./../../../constants/naviagationUrls";
 import { Wrapper, ToggleMenu, SideDiv, WrapperH2, LogoLink } from "./Navbar.style";
 import Menu from "./Menu.js";
 import { colors } from './../../../theme'
-import Logo from "../Icon/Logo";
 
 export default class Navbar extends Component {
   state = {

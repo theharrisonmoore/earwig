@@ -29,7 +29,6 @@ class CustomRate extends Component {
     const { rate, hoverRate } = this.state;
     const {
       options,
-      category,
       state: { review, errors },
     } = this.props;
 
