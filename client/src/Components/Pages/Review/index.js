@@ -4,6 +4,7 @@ import moment from "moment";
 import { Checkbox, message, Modal } from "antd";
 import Loading from "../../Common/AntdComponents/Loading";
 import Button from "../../Common/Button";
+import Link from "../../Common/Link";
 
 import {
   UserAgreement,
@@ -695,14 +696,12 @@ class Review extends Component {
                       style={{ pointerEvents: "none" }}
                     >
                       I agree to the earwig{" "}
-                      <LinkSpan
-                        target="_blank"
-                        to={TERMS_OF_USE_URL}
-                        color={organizations[category].primary}
-                        style={{ pointerEvents: "auto" }}
-                      >
-                        Terms of Use.
-                      </LinkSpan>{" "}
+                      <Link
+                      target="_blank"
+                      to={TERMS_OF_USE_URL}
+                      text="Terms of Use"
+                      type="plain"
+                    />.{" "}
                       This review of my experience with this current or former{" "}
                       {category} is truthful.
                     </AgreementLabel>
