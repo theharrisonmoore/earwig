@@ -64,6 +64,9 @@ const colorCodes = {
   // shadows color
   cocoaBrown: "#2A1E22",
 
+  // stars
+  stars: "#F8E71C",
+
   // transparent
   ghostWhite: "rgba(255, 255, 255, 0.7)",
   btnClick: "rgba(255, 255, 255, 0.3)",
