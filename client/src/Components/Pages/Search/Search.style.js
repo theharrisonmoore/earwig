@@ -104,8 +104,6 @@ export const IconDiv = styled.div`
   right: 18px;
 `;
 
-// padding: ${props => (props.isMobile ? "0 1rem 0 1rem" : "0 8rem 0 8rem")};
-
 export const SearchWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -115,6 +113,7 @@ export const SearchWrapper = styled.div`
 
   margin: 0;
   align-items: center;
+
   li {
     list-style-type: none;
   }
@@ -159,7 +158,8 @@ export const LegendTitle = styled.h2`
 `;
 
 export const SuggestionBox = styled.div`
-  border: 0.2px solid ${colors.lightGray};
+  border: ${({ withoutBorder }) =>
+    withoutBorder ? "none" : `0.2px solid ${colors.lightGray}`};
   box-shadow: ${colors.searchBoxShadow};
   color: ${props => organizations[props.orgType].primary};
 `;
@@ -171,33 +171,6 @@ export const AddItemBox = styled.div`
   box-shadow: ${colors.searchBoxShadow};
   color: ${colors.black};
   margin-top: -1rem;
-`;
-
-export const ReviewsFrame = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 0.3rem;
-  color: ${props => organizations[props.orgType].primary};
-`;
-
-export const ReviewsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-`;
-
-export const InnerDivLastReviews = styled.div`
-  text-align: left;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding: 1rem 0;
-  @media ${breakpoints.tablet} {
-    border-bottom: 2px solid ${props => organizations[props.orgType].secondary};
-  }
 `;
 
 export const InnerDivSuggestions = styled.div`
@@ -215,16 +188,6 @@ export const SymbolDiv = styled.div`
     margin-right: 1rem;
     margin-bottom: 8px;
   }
-`;
-
-export const ArrowDiv = styled.div`
-  display: flex;
-  margin-left: auto;
-  align-items: center;
-  padding-right: 0.5rem;
-  /* svg {
-    margin-right: 1rem;
-  } */
 `;
 
 export const ImgDiv = styled.div`
@@ -367,14 +330,21 @@ export const AddWrapper = styled.div`
   padding-top: 4rem;
 `;
 
-export const HeaderParagraph = styled.p`
-  font-size: 1.5rem !important;
+export const OrgsListWrapper = styled.div`
   text-align: left;
-  font-style: normal !important;
-  /* max-width: 80%; */
-  /* margin: 0 auto; */
-  font-weight: 400;
-  line-height: 1.75rem !important;
-  margin-bottom: 0.5rem;
-  width: 100%;
+  padding: 0 5% 3rem;
+`;
+
+export const MainKey = styled.p`
+  font-size: 26px;
+  line-height: 30px;
+  letter-spacing: 0.541667px;
+  margin-top: 35px;
+  color: #9b9b9b;
+`;
+
+export const SubKey = styled(MainKey)`
+  font-size: 18px;
+  margin-top: 30px;
+  margin-bottom: 0;
 `;

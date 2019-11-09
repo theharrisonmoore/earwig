@@ -187,3 +187,52 @@ export const isIphone = () => {
 
   return iOSPlatform && iOSUserAgent;
 };
+
+export const sortAndCategorizeOrgs = arrayOfOrgs => {
+  const generalGroup = {};
+
+  arrayOfOrgs
+    .sort((a, b) => {
+      const nameA = a.name.toUpperCase();
+      const nameB = b.name.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      // names must be equal
+      return 0;
+    })
+    .forEach(org => {
+      const firstLetter = org.name[0].toUpperCase();
+      if (!generalGroup[firstLetter]) {
+        generalGroup[firstLetter] = [];
+      }
+      generalGroup[firstLetter].push(org);
+    });
+
+  const groups = [
+    { key: "A-Z", children: [] },
+    { key: "0-9", children: [] },
+    { key: "Others", children: [] },
+  ];
+
+  const lettersGroup = groups[0];
+  const numbersGroup = groups[1];
+  const othersGroup = groups[2];
+
+  Object.entries(generalGroup).forEach(([key, children]) => {
+    const code = key.charCodeAt();
+
+    if (code >= 48 && code <= 57) {
+      numbersGroup.children.push({ key, children });
+    } else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+      lettersGroup.children.push({ key, children });
+    } else {
+      othersGroup.children.push({ key, children });
+    }
+  });
+  return groups;
+};
