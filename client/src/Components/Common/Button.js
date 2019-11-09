@@ -19,7 +19,9 @@ const sharedStyles = css`
   margin: ${props => props.margin || "2rem auto"};
   position: relative;
   display: flex;
+  justify-content: center;
   align-items: center;
+  width: auto;
 
   &:active {
     box-shadow: none;

@@ -7,6 +7,7 @@ import { colors } from "../../../theme";
 
 import Select from "../../Common/Select";
 import Button from "../../Common/Button";
+import PopoverComponent from "../../Common/Popover";
 
 import {
   UploadImageWrapper,
@@ -20,6 +21,7 @@ import {
   Error,
   EditIcon,
   PurpleDiv,
+  ModalText,
 } from "./UploadImage.style";
 
 import example from "../../../assets/example.png";
@@ -46,6 +48,7 @@ export default class UploadImage extends Component {
     disableSelect: false,
     city: "",
     loading: false,
+    isPopupVisible: false,
   };
 
   componentDidMount() {
@@ -117,48 +120,75 @@ export default class UploadImage extends Component {
     } else if (!this.state.city) {
       this.setState({ error: "Please enter your city/town" });
     } else {
-      Swal.fire({
-        title: "Uploading!",
-        onBeforeOpen: () => {
-          Swal.showLoading();
-          this.setState({ error: "", loading: true });
+      this.setState({ error: "", loading: true });
 
-          form.append("verificationImage", this.state.imageFile);
-          form.append("tradeId", this.state.tradeId);
-          form.append("city", this.state.city);
+      form.append("verificationImage", this.state.imageFile);
+      form.append("tradeId", this.state.tradeId);
+      form.append("city", this.state.city);
 
-          axios({
-            method: "post",
-            url: API_UPLOAD_VERIFICATION_IMAGE_URL,
-            data: form,
-            headers: {
-              "content-type": `multipart/form-data; boundary=${form._boundary}`,
-            },
-          })
-            .then(() => {
-              this.setState({ loading: false }, () => {
-                Swal.fire({
-                  type: "success",
-                  title: "Done!",
-                  showConfirmButton: false,
-                  timer: 1500,
-                }).then(() => {
-                  this.props.handleChangeState({ awaitingReview: true });
-                  this.props.history.push(INTRO_URL);
-                });
-              });
-            })
-            .catch(err => {
-              this.setState({ loading: false }, () => {
-                Swal.fire({
-                  type: "error",
-                  title: "Oops...",
-                  text: err.response.data.error,
-                });
-              });
-            });
+      axios({
+        method: "post",
+        url: API_UPLOAD_VERIFICATION_IMAGE_URL,
+        data: form,
+        headers: {
+          "content-type": `multipart/form-data; boundary=${form._boundary}`,
         },
-      });
+      })
+        .then(() => {
+          this.setState({ loading: false, isPopupVisible: true });
+        })
+        .catch(err => {
+          this.setState({ loading: false }, () => {
+            Swal.fire({
+              type: "error",
+              title: "Oops...",
+              text: err.response.data.error,
+            });
+          });
+        });
+
+      // Swal.fire({
+      //   title: "Uploading!",
+      //   onBeforeOpen: () => {
+      //     Swal.showLoading();
+      //     this.setState({ error: "", loading: true });
+
+      //     form.append("verificationImage", this.state.imageFile);
+      //     form.append("tradeId", this.state.tradeId);
+      //     form.append("city", this.state.city);
+
+      //     axios({
+      //       method: "post",
+      //       url: API_UPLOAD_VERIFICATION_IMAGE_URL,
+      //       data: form,
+      //       headers: {
+      //         "content-type": `multipart/form-data; boundary=${form._boundary}`,
+      //       },
+      //     })
+      //       .then(() => {
+      //         this.setState({ loading: false }, () => {
+      //           Swal.fire({
+      //             type: "success",
+      //             title: "Done!",
+      //             showConfirmButton: false,
+      //             timer: 1500,
+      //           }).then(() => {
+      //             this.props.handleChangeState({ awaitingReview: true });
+      //             this.props.history.push(INTRO_URL);
+      //           });
+      //         });
+      //       })
+      //       .catch(err => {
+      //         this.setState({ loading: false }, () => {
+      //           Swal.fire({
+      //             type: "error",
+      //             title: "Oops...",
+      //             text: err.response.data.error,
+      //           });
+      //         });
+      //       });
+      //   },
+      // });
     }
   };
 
@@ -249,10 +279,11 @@ export default class UploadImage extends Component {
       image,
       loading,
       newTrade,
+      isPopupVisible,
     } = this.state;
     return (
       <UploadImageWrapper className="test">
-        <PurpleDiv width="50%" />
+        <PurpleDiv />
         <ContentWrapper>
           <EditIcon
             icon="getVerified"
@@ -262,7 +293,7 @@ export default class UploadImage extends Component {
             fill={colors.veryLightGray}
           />
           <Heading>Verification</Heading>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} style={{ width: "100%" }}>
             <SelectWrapper>
               <SubHeading>Your trade</SubHeading>
               <Select
@@ -321,55 +352,76 @@ export default class UploadImage extends Component {
             </SelectWrapper>
             <SubHeading>Verification Photo</SubHeading>
             <Paragraph>
-              We need to verify you’re a genuine worker so the worker community
-              is protected from fake reviews and spam by non-workers. Please
-              upload a photo of your face holding your trade ID like the example
-              below. Please no glare or blur!
-              <br />
-              <br />
-              Don’t worry! Once we’ve verified you, we’ll delete your photo to
-              protect your identity.
+              Please upload a photo of your face holding your trade ID like the
+              example below. Please no glare or blur!
             </Paragraph>
-            <div style={{ width: "60%", margin: "0 auto" }}>
-              <Example src={image || example} />
-              <Button
-                as="label"
-                htmlFor="image-input"
-                style={{ marginTop: "1rem" }}
-                styleType="primary"
-              >
-                Upload photo
-                {image && (
-                  <Icon
-                    type="check"
-                    style={{ color: "white", fontSize: "23px" }}
-                  />
-                )}
-              </Button>
-              <ImageInput
-                id="image-input"
-                type="file"
-                onChange={this.handleImageChange}
-                accept="image/*"
-              />
-            </div>
+            <PopoverComponent
+              popoverOptions={{
+                text: `Any card or ticket that shows you are a worker, eg CSCS card.`,
+                linkText: "What trade ID can I use?",
+                icon: "info",
+                margin: "0 0 0.5rem 0",
+              }}
+            />
+            <Paragraph>
+              Once we’ve verified you, we’ll delete the photo to protect your
+              identity.
+            </Paragraph>
+            <Button
+              as="label"
+              htmlFor="image-input"
+              margin="1rem auto"
+              styleType="secondary"
+              text="Upload photo"
+            />
+            <ImageInput
+              id="image-input"
+              type="file"
+              onChange={this.handleImageChange}
+              accept="image/*"
+            />
+            <Example src={image || example} />
             <SubHeading>Protecting you from blacklisting</SubHeading>
             <Paragraph>
               To protect your identity, we’ll randomly assign you an earwig
               Username, which is the only thing shown beside your reviews and
               activity.
             </Paragraph>
-            <Divider style={{ margin: "3rem auto" }} />
             {error && <Error>{error}</Error>}
             <Button
               marginTop
               type="submit"
               error={error}
+              disabled={loading}
               loading={loading}
               styleType="primary"
               text="Finish verification"
             />
           </form>
+          <Modal
+            visible={isPopupVisible}
+            footer={null}
+            closable={false}
+            afterClose={() => {
+              // this.props.handleChangeState({ ...data, isLoggedIn: true });
+              this.props.history.push("/intro");
+            }}
+          >
+            <ModalText>
+              Thanks, we're checking your photo. Any reviews you give won't be
+              shown on earwig until we've checked your photo
+            </ModalText>
+            <Button
+              styleType="primary"
+              margin="1rem auto"
+              text="Okay"
+              onClick={() => {
+                // this.props.handleChangeState({ ...data, isLoggedIn: true });
+                this.props.handleChangeState({ awaitingReview: true });
+                this.props.history.push("/intro");
+              }}
+            />
+          </Modal>
         </ContentWrapper>
       </UploadImageWrapper>
     );
