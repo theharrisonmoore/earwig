@@ -110,8 +110,8 @@ export const VerifiedSection = styled(MainSection)`
 `;
 
 export const SectionTitle = styled.h1`
-  font-weight: 900;
-  font-size: 1.375rem;
+  font-weight: normal;
+  font-size: ${({verified}) => verified ? "1.125rem" : "2.125rem"};
   color: ${colors.profileFontColor};
   margin-top: 0;
   display: inline-block;
