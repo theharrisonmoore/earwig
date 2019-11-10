@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Checkbox as CheckboxComponent } from "antd";
 
-import { colors, shadows, borders } from "./../../../theme";
+import { colors, shadows, borders } from "../../../theme";
 
 export const StyledFormik = styled(Formik).attrs()`
   display: flex;
@@ -26,6 +27,7 @@ export const GeneralErrorMessage = styled.p.attrs()`
   font-weight: 100;
   font-size: 1rem;
   text-align: left;
+  padding: 1rem 0;
 `;
 
 export const StyledField = styled(Field).attrs()`
@@ -70,24 +72,29 @@ export const Button = styled.button`
 `;
 
 export const CheckboxWrapper = styled.div.attrs({
-  className: "custom-control custom-checkbox"
+  className: "custom-control custom-checkbox",
 })`
   text-align: left;
-  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
 `;
 
 export const Checkbox = styled(Field).attrs({
-  className: "custom-control-input"
+  className: "custom-control-input",
 })``;
 
 export const CheckboxLabel = styled.label.attrs({
-  className: "custom-control-label"
+  className: "custom-control-label",
 })`
   font-size: 1rem;
   color: ${colors.profileFontColor};
-  padding-left: 0.5rem;
-  line-height: 3rem;
+  padding-left: 0.75rem;
   cursor: pointer;
+
+  .ant-checkbox-inner {
+    margin: 1rem 0;
+  }
 
   &:after,
   &:before {
@@ -95,4 +102,21 @@ export const CheckboxLabel = styled.label.attrs({
     height: 2rem;
     width: 2rem;
   }
+`;
+
+export const AntCheckbox = styled(CheckboxComponent)`
+  .ant-checkbox-inner {
+    border: 2px ${colors.profileFontColor} solid;
+    height: 24px;
+    width: 24px;
+    border-radius: 4px;
+  }
+
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: ${colors.primary};
+    border: 2px ${colors.primary} solid;
+
+    :after {
+      left: 25%;
+    }
 `;

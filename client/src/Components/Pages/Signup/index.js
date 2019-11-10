@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import * as Yup from "yup";
-import { Checkbox as AntCheckbox, Modal, Alert, Input } from "antd";
+import { Modal, Alert, Input } from "antd";
 
 import Logo from "../../Common/Logo";
 import Select from "../../Common/Select";
@@ -21,6 +21,7 @@ import {
   Checkbox,
   CheckboxLabel,
   StyledField,
+  AntCheckbox
 } from "../../Common/Formik/Formik.style";
 
 import {
@@ -45,7 +46,7 @@ import { API_SIGN_UP } from "../../../apiUrls";
 
 import {
   WELCOME_URL,
-  TERMS_OF_USE_URL,
+  TERMS_OF_USE_URL, PRIVACY_URL
 } from "../../../constants/naviagationUrls";
 
 const { API_TRADE_URL } = require("../../../apiUrls");
@@ -55,7 +56,7 @@ function equalTo(ref, msg) {
   return this.test({
     name: "equalTo",
     exclusive: false,
-    message: msg || "Not match",
+    message: msg || "Passwords do not match",
     params: {
       reference: ref.path,
     },
@@ -658,11 +659,17 @@ export default class Signup extends Component {
                       to={TERMS_OF_USE_URL}
                       text="Terms of Use"
                       type="plain"
-                    />
+                    />.{" "} By clicking Finish and log in you acknowledge our{" "}
+                    <Link
+                      target="_blank"
+                      to={PRIVACY_URL}
+                      text="Privacy Policy"
+                      type="plain"
+                    />.
                   </CheckboxLabel>
-                  <FormikErrorMessage name="checkbox" component="div" />
+                  
                 </CheckboxWrapper>
-
+                <FormikErrorMessage name="checkbox" component="div" />
                 {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
                 <Button
                   type="submit"
@@ -670,7 +677,7 @@ export default class Signup extends Component {
                   loading={isSubmitting}
                   styleType="primary"
                   text="Finish and log in"
-                  margin="0 auto 2rem auto"
+                  margin="1rem auto 2rem auto"
                 />
               </Form>
             )}
