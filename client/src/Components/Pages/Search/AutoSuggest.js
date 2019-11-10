@@ -146,11 +146,7 @@ class AutosuggestComponent extends Component {
 
   // when users clicks on back arrow icon it deletes the input
   delSearchInput = () => {
-    const { handleCancelIconClick } = this.props;
     this.setState({ value: "" });
-    if (this.props.origin !== "checkOrg") {
-      handleCancelIconClick();
-    }
   };
 
   renderSuggestion = suggestion => {

@@ -41,7 +41,7 @@ export default class Search extends Component {
 
   componentDidMount() {
     const { match } = this.props;
-    const { category } = match.params;
+    const { category = "agency" } = match.params;
 
     this.fetchOrgs(category);
 
@@ -61,14 +61,14 @@ export default class Search extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { category } = this.props.match.params;
+    const { category = "agency" } = this.props.match.params;
     const { loading } = this.state;
     if (prevState.category !== category && !loading) {
       this.fetchOrgs(category);
     }
   }
 
-  fetchOrgs = category => {
+  fetchOrgs = (category = "agency") => {
     const { searchData } = this.state;
     if (!searchData[category].length) {
       this.setState({ loading: true }, () => {
@@ -94,7 +94,7 @@ export default class Search extends Component {
   render() {
     const { searchData, orgsIds, sortedOrgs, loading } = this.state;
     const { isMobile, isTablet, match } = this.props;
-    const { category } = match.params;
+    const { category = "agency" } = match.params;
 
     return (
       <SearchWrapper data-testid="searchwrapper" isMobile={isMobile}>

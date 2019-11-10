@@ -58,7 +58,6 @@ export default class SearchHeader extends Component {
             } ${category}...`}
             isMobile={isMobile}
             isTablet={isTablet}
-            handleCancelIconClick={this.handleCancelIconClick}
             orgsIds={orgsIds}
           />
         </SearchBarContainer>

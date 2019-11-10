@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { Link } from "react-router-dom";
+
 // COMMON
 import Button from "../../Common/Button";
 
@@ -10,27 +12,21 @@ import {
   Subtitle,
   ContentWrapper,
   PurpleDiv,
-  StyledLink,
-  HintText,
-  Text,
-  ButtonText,
-  ComingSoon,
   Header,
   Body,
+  ButtonsWrpper,
 } from "./Welcome.style";
 
 // NAV ROUTES
 import {
   // GIVE_REVIEW_URL,
   SEARCH_URL,
-  ASK_QUESTION_URL,
-  JOBS_URL,
-  UPLOAD_VERIFICATION_PHOTO,
 } from "../../../constants/naviagationUrls";
+import { organizations } from "../../../theme";
 
 export default class Welcome extends Component {
   render() {
-    const { verified, awaitingReview, isLoggedIn } = this.props;
+    const { isLoggedIn } = this.props;
 
     return (
       <Wrapper>
@@ -50,58 +46,53 @@ export default class Welcome extends Component {
             ) : (
               <Subtitle>Give reviews! Read reviews! Be heard!</Subtitle>
             )}
-
-            {!isLoggedIn ? (
-              <>
-                {/* <Button
-                  margin="0.5rem 0"
-                  styleType="primary"
-                  text="Read reviews & ratings"
-                  onClick={() => this.props.history.push(SEARCH_URL)}
-                /> */}
-              </>
-            ) : (
-              <>
-                {/* <Button
-                  margin="0.5rem 0"
-                  styleType="primary"
-                  text="Give a review"
-                  onClick={() => {
-                    verified || awaitingReview
-                      ? this.props.history.push(`${SEARCH_URL}/review`)
-                      : this.props.history.push(UPLOAD_VERIFICATION_PHOTO);
-                  }}
-                /> */}
-                {/* <Button
-                  margin="0.5rem 0"
-                  styleType="primary"
-                  text="Read reviews & ratings"
-                  onClick={() => this.props.history.push(SEARCH_URL)}
-                /> */}
-                {/* <Button
-                  margin="0.5rem 0"
-                  disabled
-                  styleType="primary"
-                  text="Ask workers a question (coming soon)"
-                  onClick={() => {
-                    verified || awaitingReview
-                      ? this.props.history.push(ASK_QUESTION_URL)
-                      : this.props.history.push(UPLOAD_VERIFICATION_PHOTO);
-                  }}
-                /> */}
-                {/* <Button
-                  margin="0.5rem 0"
-                  disabled
-                  styleType="primary"
-                  text="Find a job (coming soon)"
-                  onClick={() => {
-                    verified || awaitingReview
-                      ? this.props.history.push(JOBS_URL)
-                      : this.props.history.push(UPLOAD_VERIFICATION_PHOTO);
-                  }}
-                /> */}
-              </>
-            )}
+            <ButtonsWrpper>
+              <div>
+                <Link to={SEARCH_URL.replace(":category?", "agency")}>
+                  <Button
+                    margin="0.5rem 0"
+                    styleType="primary"
+                    text="Agencies"
+                    backgroundColor={organizations.agency.primary}
+                    style={{ minWidth: "8.5rem" }}
+                  />
+                </Link>
+                <Link to={SEARCH_URL.replace(":category?", "payroll")}>
+                  <Button
+                    margin="0.5rem 0"
+                    styleType="primary"
+                    text="Payrolls"
+                    backgroundColor={organizations.payroll.primary}
+                    style={{ minWidth: "8.5rem" }}
+                  />
+                </Link>
+              </div>
+              <div>
+                <Link to={SEARCH_URL.replace(":category?", "worksite")}>
+                  <Button
+                    margin="0.5rem 0"
+                    styleType="primary"
+                    text="Worksites"
+                    backgroundColor={organizations.worksite.primary}
+                    style={{ minWidth: "8.5rem" }}
+                  />
+                </Link>
+                <Link to={SEARCH_URL.replace(":category?", "company")}>
+                  <Button
+                    margin="0.5rem 0"
+                    styleType="primary"
+                    text="Copmanies"
+                    backgroundColor={organizations.company.primary}
+                    style={{ minWidth: "8.5rem" }}
+                    onClick={() => {
+                      this.props.history.push(
+                        SEARCH_URL.replace(":category?", "company")
+                      );
+                    }}
+                  />
+                </Link>
+              </div>
+            </ButtonsWrpper>
           </ContentWrapper>
         </Body>
         <PurpleDiv />

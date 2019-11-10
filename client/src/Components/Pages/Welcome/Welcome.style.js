@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
 
 import { colors, organizations, breakpoints } from "../../../theme";
 
@@ -67,32 +66,6 @@ export const ContentWrapper = styled.div`
   }
 `;
 
-export const StyledLink = styled(NavLink)`
-  width: 100%;
-  text-align: left;
-  margin-bottom: 1.5rem;
-`;
-
-export const HintText = styled.p`
-  font-size: 14px;
-  margin: 0;
-`;
-
-export const Text = styled.p`
-  margin: 0;
-`;
-
-export const ButtonText = styled.div`
-  text-align: left;
-`;
-
-export const ComingSoon = styled.span`
-  font-weight: 300;
-  font-size: 14px;
-  width: 8rem;
-  margin-left: 0.5rem;
-`;
-
 export const Header = styled.header`
   margin: 0 auto;
   padding: 6.5rem 1rem 2.5rem;
@@ -113,5 +86,19 @@ export const Body = styled.div`
 
   @media ${breakpoints.tablet} {
     width: 50%;
+  }
+`;
+
+export const ButtonsWrpper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  div {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+    max-width: 25rem;
+    width: 100%;
   }
 `;
