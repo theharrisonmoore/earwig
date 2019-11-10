@@ -69,7 +69,9 @@ export const Head3 = styled.h3`
 
 export const PromoParagraph = styled.p`
   font-size: 20px;
-  line-height: 1;
+  line-height: 19px;
   font-family: "Lato", sans-serif;
   margin: 2rem 0;
+  letter-spacing: 0.34px;
+  opacity: 0.8;
 `;

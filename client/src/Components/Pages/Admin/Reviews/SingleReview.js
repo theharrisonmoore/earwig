@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 import { message, Select, Input, Modal, InputNumber } from "antd";
 import { Link } from "react-router-dom";
 
-import Loading from "./../../../Common/AntdComponents/Loading";
+import Loading from "../../../Common/AntdComponents/Loading";
 import VoiceReview from "../../Profile/ProfileAnswers/VoiceReview";
 
 import { SVGCreator, NewSVGCreator, isMobile } from "../../../../helpers";
@@ -30,7 +30,7 @@ import {
   ButtonDiv,
   DelButton,
   StarRating,
-  Headline
+  Headline,
 } from "../../Review/Review.style";
 
 import { SingleReviewHeader, DetailedAnswers } from "./AdminReview.style";
@@ -42,7 +42,7 @@ import {
   HintText,
   Options,
   StyledInput,
-  InputWrapper
+  InputWrapper,
 } from "../../Review/Question/Question.style";
 
 import { colors } from "../../../../theme";
@@ -54,7 +54,7 @@ export default class SingleReview extends Component {
     organization: { category: "", name: "" },
     user: { id: "", email: "" },
     images: {},
-    review: {}
+    review: {},
   };
 
   // get the image url using the image name
@@ -77,9 +77,9 @@ export default class SingleReview extends Component {
         this.setState({
           groups: details,
           isLoading: false,
-          review: review,
+          review,
           organization: review.organization,
-          user: review.user
+          user: review.user,
         });
       })
       .catch(err => {
@@ -96,7 +96,7 @@ export default class SingleReview extends Component {
 
   // checks boxes according to answers given
   checkIten = (answer, option) => {
-    return answer === option ? true : false;
+    return answer === option;
   };
 
   // changes color of isVerified updater button
@@ -110,14 +110,14 @@ export default class SingleReview extends Component {
     axios
       .patch("/api/admin/reviews/update-status", {
         id,
-        bool
+        bool,
       })
       .then(res => {
         Swal.fire({
           type: "success",
           title: "Review status updated",
           showConfirmButton: false,
-          timer: 1500
+          timer: 1500,
         }).then(() => {
           // this.props.history.push("/admin/reviews/verify");
           this.props.history.goBack();
@@ -127,7 +127,7 @@ export default class SingleReview extends Component {
         Swal.fire({
           type: "error",
           title: "Oops...error updating review status",
-          text: err.response.data.error
+          text: err.response.data.error,
         });
       });
   };
@@ -155,9 +155,10 @@ export default class SingleReview extends Component {
               message.error(error || "Something went wrong");
             });
         });
-      }
+      },
     });
   };
+
   showDeleteReviewConfirm = reviewId => {
     // delete from db and update
     Modal.confirm({
@@ -169,8 +170,8 @@ export default class SingleReview extends Component {
         axios
           .patch(`/api/admin/reviews/${reviewId}`, {
             data: {
-              "voiceReview.audio": ""
-            }
+              "voiceReview.audio": "",
+            },
           })
           .then(res => {
             message.success("Deleted");
@@ -180,7 +181,7 @@ export default class SingleReview extends Component {
             const error =
               err.response && err.response.data && err.response.data.error;
             message.error(error || "Something went wrong");
-          })
+          }),
     });
   };
 
@@ -218,11 +219,11 @@ export default class SingleReview extends Component {
       review: {
         voiceReview,
         overallReview: { text: overallText, replies },
-        workPeriod: { from: workedFrom, to: workedTo },
+        lastUse,
         rate,
         _id: reviewId,
-        isVerified
-      }
+        isVerified,
+      },
     } = this.state;
 
     return (
@@ -254,7 +255,7 @@ export default class SingleReview extends Component {
                           editing={false}
                           starCount={5}
                           value={rate}
-                          emptyStarColor={"#D3D3D3"}
+                          emptyStarColor="#D3D3D3"
                         />
                       </StarRating>
                     </QuestionOptionsWrapper>
@@ -286,12 +287,11 @@ export default class SingleReview extends Component {
                     <QuestionOptionsWrapper>
                       <Headline>Overall Results</Headline>
 
-                      {workedFrom && workedTo && (
+                      {lastUse && (
                         <DetailsDiv>
-                          <QText>Work Period:</QText>
+                          <QText>Last Use of this {category}:</QText>
                           <HintText>
-                            {moment(workedFrom).format("DD MMM YYYY")} to{" "}
-                            {moment(workedTo).format("DD MMM YYYY")}
+                            {moment(lastUse).format("MMM YYYY")}
                           </HintText>
                         </DetailsDiv>
                       )}
@@ -327,7 +327,7 @@ export default class SingleReview extends Component {
                                 <h2>{group.group.text}</h2>
                                 {group.answers.map((entry, i) => {
                                   const question = entry.question[0];
-                                  const answer = entry.answer;
+                                  const { answer } = entry;
                                   const {
                                     type,
                                     options,
@@ -335,7 +335,7 @@ export default class SingleReview extends Component {
                                     category,
                                     label,
                                     profileText,
-                                    text
+                                    text,
                                   } = question;
                                   if (type === "yesno" || type === "radio") {
                                     return (
@@ -368,7 +368,7 @@ export default class SingleReview extends Component {
                                                   />
                                                   <StyledInput
                                                     htmlFor={`${option}-${question.number}`}
-                                                    className={`yesno options-3`}
+                                                    className="yesno options-3"
                                                   >
                                                     {option}
                                                   </StyledInput>
@@ -394,7 +394,7 @@ export default class SingleReview extends Component {
                                                 size="large"
                                                 value={answer}
                                                 style={{
-                                                  border: `1px solid ${colors.dustyGray1}`
+                                                  border: `1px solid ${colors.dustyGray1}`,
                                                 }}
                                               />
                                             )}
@@ -421,7 +421,7 @@ export default class SingleReview extends Component {
                                                   border: `1px solid ${colors.dustyGray1}`,
                                                   width: "12rem",
                                                   height: "70px",
-                                                  lineHeight: "70px"
+                                                  lineHeight: "70px",
                                                 }}
                                                 size="large"
                                                 value={answer}
@@ -463,7 +463,7 @@ export default class SingleReview extends Component {
                                                     value={answer.name}
                                                     disabled
                                                     style={{
-                                                      border: `1px solid ${colors.dustyGray1}`
+                                                      border: `1px solid ${colors.dustyGray1}`,
                                                     }}
                                                   />
                                                 </>
@@ -482,14 +482,14 @@ export default class SingleReview extends Component {
                                         <QText>{text}</QText>
                                         <HintText>{question.hintText}</HintText>
                                         <AnswerDiv>
-                                          <Field name={`review.overallReview`}>
+                                          <Field name="review.overallReview">
                                             {() => (
                                               <Input.TextArea
                                                 rows={4}
                                                 // {...form}
                                                 value={answer}
                                                 style={{
-                                                  border: `1px solid ${colors.inputBorder}`
+                                                  border: `1px solid ${colors.inputBorder}`,
                                                 }}
                                               />
                                             )}
@@ -557,7 +557,7 @@ export default class SingleReview extends Component {
                                               style={{
                                                 position: "absolute",
                                                 right: 0,
-                                                top: 0
+                                                top: 0,
                                               }}
                                             >
                                               {this.createDeleteBtn(entry._id)}
@@ -590,7 +590,7 @@ export default class SingleReview extends Component {
               onClick={() =>
                 this.updateIsVerified({
                   id: reviewId,
-                  bool: !isVerified
+                  bool: !isVerified,
                 })
               }
             >

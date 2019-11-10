@@ -5,7 +5,7 @@ import { Wrapper } from "./HelpfulBubble.style";
 
 class HelpfulBubble extends Component {
   state = {
-    numbers: []
+    numbers: [],
   };
 
   componentDidUpdate(prevProps) {
