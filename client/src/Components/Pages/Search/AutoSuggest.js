@@ -150,20 +150,16 @@ class AutosuggestComponent extends Component {
   };
 
   renderSuggestion = suggestion => {
-    const { isButton, storeOrg, noIcon, orgsIds, target } = this.props;
-
+    const { isButton, storeOrg, noIcon } = this.props;
     if (suggestion.isEmpty) {
       return null;
     }
-
     return (
       <Suggestion
         organisation={suggestion}
         isButton={isButton}
         storeOrg={storeOrg}
         noIcon={noIcon}
-        orgsIds={orgsIds}
-        target={target}
       />
     );
   };

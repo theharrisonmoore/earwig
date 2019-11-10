@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import { Icon as AntdIcon, Popover, Rate } from "antd";
 
-import { USER_PROFILE_URL } from "../../../constants/naviagationUrls";
+import {
+  USER_PROFILE_URL,
+  PRE_REVIEW,
+} from "../../../constants/naviagationUrls";
 
 import {
   Header,
@@ -26,13 +29,13 @@ import {
   ContractorDiv,
   ContractorText,
   ContractorListLink,
-  NoReview
+  NoReview,
 } from "./Profile.style";
 
-import { organizations, colors } from "./../../../theme";
+import { organizations, colors } from "../../../theme";
 
-import Icon from "./../../Common/Icon/Icon";
-import PopoverComponent from "./../../Common/Popover";
+import Icon from "../../Common/Icon/Icon";
+import PopoverComponent from "../../Common/Popover";
 
 const content = contractorAnswers => (
   <div style={{ maxHeight: "150px", overflow: "auto" }}>
@@ -53,7 +56,7 @@ export default class HeaderSection extends Component {
       contractorAnswers,
       reviewsLast30Days,
       orgId,
-      awaitingReview
+      awaitingReview,
     } = this.props;
     const {
       category,
@@ -61,7 +64,7 @@ export default class HeaderSection extends Component {
       email,
       phoneNumber,
       totalReviews,
-      websiteUrl
+      websiteUrl,
     } = summary;
     // if there are reviews less dating before 1 month user not allowed
     const reviewNotAllowed = reviewsLast30Days.length > 0;
@@ -87,7 +90,7 @@ export default class HeaderSection extends Component {
                   value={summary.avgRatings || summary.value || 0}
                   style={{
                     color: `${organizations[summary.category].primary}`,
-                    fontSize: "0.75rem"
+                    fontSize: "0.75rem",
                   }}
                   className="last-reviewed-star-rate"
                 />
@@ -193,7 +196,7 @@ export default class HeaderSection extends Component {
               {contractorAnswers[0] && (
                 <Popover
                   placement="bottom"
-                  title={"Contractors List"}
+                  title="Contractors List"
                   content={content(contractorAnswers)}
                   trigger="click"
                 >
@@ -214,8 +217,8 @@ export default class HeaderSection extends Component {
                   pathname:
                     level === 1 && !awaitingReview
                       ? USER_PROFILE_URL
-                      : `/organization/${orgId}/review`,
-                  state: { name, category }
+                      : PRE_REVIEW.replace(":orgId", orgId),
+                  state: { name, category },
                 }}
               >
                 <ActionButton
@@ -226,7 +229,7 @@ export default class HeaderSection extends Component {
                     margin: "0 .5rem",
                     opacity: `${
                       reviewNotAllowed && reviewsLast30Days.length > 0 ? 0.5 : 1
-                    }`
+                    }`,
                   }}
                 >
                   {!isMobile && (
@@ -238,7 +241,7 @@ export default class HeaderSection extends Component {
                       color={colors.white}
                     />
                   )}
-                  Review this {category || 'organisation'}
+                  Review this {category || "organisation"}
                 </ActionButton>
               </Link>
               {/* <Link
@@ -253,7 +256,7 @@ export default class HeaderSection extends Component {
               <PopoverComponent
                 category={category}
                 popoverOptions={{
-                  text: "This feature is coming soon. Stay tuned"
+                  text: "This feature is coming soon. Stay tuned",
                 }}
               >
                 <ActionButton
@@ -285,7 +288,7 @@ export default class HeaderSection extends Component {
                       reviewsLast30Days[0].date
                     ).format("DD.MM.YYYY")}`,
                     linkText: "Why can't I give a review?",
-                    icon: "info"
+                    icon: "info",
                   }}
                 />
               </div>
@@ -298,8 +301,8 @@ export default class HeaderSection extends Component {
               Get verified as a worker to give reviews, comment on other reviews
               and search jobs
             </p>
-            <VerifyLink to={"/upload-verification-photo"} category={category}>
-              Get verified as a worker >
+            <VerifyLink to="/upload-verification-photo" category={category}>
+              Get verified as a worker &gt;
             </VerifyLink>
           </VerifyPromo>
         )}

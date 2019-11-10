@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { colors, breakpoints } from "../../../theme";
 
 export const Wrapper = styled.div`
-  background-color: ${colors.dustyGray2};
+  background-color: ${colors.dustyGray2}26;
 `;
 
 export const CenterContent = styled.main`

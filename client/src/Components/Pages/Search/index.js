@@ -8,10 +8,7 @@ import { sortAndCategorizeOrgs } from "../../../helpers";
 
 import Layout from "../../Common/Layout";
 
-import {
-  API_SEARCH_URL,
-  API_GET_LAST_30D_ORGANISATIONS_IDS,
-} from "../../../apiUrls";
+import { API_SEARCH_URL } from "../../../apiUrls";
 
 // styles
 import { SearchWrapper } from "./Search.style";
@@ -47,19 +44,16 @@ export default class Search extends Component {
 
     this.fetchOrgs(category);
 
-    // ---------------------   keeeeeep this -------------------
-    // if (target === "review" && isLoggedIn) {
-    //   axios
-    //     .get(API_GET_LAST_30D_ORGANISATIONS_IDS)
-    //     .then(({ data: { orgsIds } }) => {
-    //       this.setState({ orgsIds });
-    //     })
-    //     .catch(err => {
-    //       const error =
-    //         err.response && err.response.data && err.response.data.error;
-    //       message.error(error || "Something went wrong");
-    //     });
-    // }
+    // axios
+    //   .get(API_GET_LAST_30D_ORGANISATIONS_IDS)
+    //   .then(({ data: { orgsIds } }) => {
+    //     this.setState({ orgsIds });
+    //   })
+    //   .catch(err => {
+    //     const error =
+    //       err.response && err.response.data && err.response.data.error;
+    //     message.error(error || "Something went wrong");
+    //   });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -94,15 +88,13 @@ export default class Search extends Component {
   };
 
   render() {
-    const { searchData, orgsIds, sortedOrgs, loading } = this.state;
+    const { searchData, sortedOrgs, loading } = this.state;
     const { isMobile, isTablet, match } = this.props;
     const { category = "agency" } = match.params;
-
     return (
       <Layout type="center">
         <SearchWrapper data-testid="searchwrapper" isMobile={isMobile}>
           <Header
-            orgsIds={orgsIds}
             isMobile={isMobile}
             isTablet={isTablet}
             data={searchData[category]}

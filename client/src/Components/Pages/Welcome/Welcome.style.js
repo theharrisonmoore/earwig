@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
 
 export const Title = styled.h1`
   margin-top: 6rem;
-  width: 300px;
+  max-width: 300px;
   font-size: 2rem;
   font-weight: 400;
   line-height: 2.5rem;

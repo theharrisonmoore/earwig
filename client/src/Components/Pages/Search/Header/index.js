@@ -39,7 +39,7 @@ export default class SearchHeader extends Component {
   };
 
   render() {
-    const { orgsIds, isMobile, isTablet, data, category } = this.props;
+    const { isMobile, isTablet, data, category } = this.props;
     const { shrink } = this.state;
     return (
       <HeaderWrapper category={category} shrink={shrink}>
@@ -58,7 +58,6 @@ export default class SearchHeader extends Component {
             } ${category}...`}
             isMobile={isMobile}
             isTablet={isTablet}
-            orgsIds={orgsIds}
           />
         </SearchBarContainer>
       </HeaderWrapper>

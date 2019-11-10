@@ -22,30 +22,16 @@ const Suggestion = props => {
 
   // also need to check if button to see if we make it a link or not
   // THIS RELATES TO THE ORGCHECK COMPONENT
-  const {
-    isButton,
-    storeOrg,
-    noIcon,
-    orgsIds,
-    target,
-    organisation,
-    withoutBorder,
-  } = props;
+  const { isButton, storeOrg, noIcon, organisation, withoutBorder } = props;
 
-  const url =
-    target === "profile"
-      ? `/profile/${organisation._id}`
-      : `/organization/${organisation._id}/review`;
-
-  const disabled =
-    target === "review" && orgsIds && orgsIds.includes(organisation._id);
+  const url = `/profile/${organisation._id}`;
 
   return (
-    <PopOverWrapper disabled={disabled}>
+    <PopOverWrapper>
       <ProfileLink
-        as={isButton || disabled ? "div" : undefined}
-        to={isButton || disabled ? undefined : url}
-        onClick={() => !disabled && isButton && storeOrg(organisation)}
+        as={isButton}
+        to={isButton || url}
+        onClick={() => storeOrg(organisation)}
       >
         <SuggestionBox
           orgType={organisation.category}
