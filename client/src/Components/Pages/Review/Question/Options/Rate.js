@@ -48,6 +48,7 @@ class CustomRate extends Component {
         <div style={{ dispay: "inline-block" }}>
           {options.map((option, index) => (
             <span
+              key={option}
               style={{
                 color: `${index < rateValue ? colors.stars : "#e8e8e8"}`,
                 fontWeight: `${index === rateValue - 1 ? "900" : "500"}`,

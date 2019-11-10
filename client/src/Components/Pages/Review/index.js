@@ -6,6 +6,8 @@ import Loading from "../../Common/AntdComponents/Loading";
 import Button from "../../Common/Button";
 import Link from "../../Common/Link";
 
+import { organizations } from "../../../theme";
+
 import {
   UserAgreement,
   CheckboxWrapper,
@@ -29,7 +31,7 @@ import {
   validationSchema,
   hasAgreed,
   rate,
-  workPeriod,
+  lastUseSchema,
 } from "./validationSchema";
 import { STATIC_QUESTIONS } from "./staticQuestions";
 
@@ -56,10 +58,7 @@ class Review extends Component {
     comments: {},
     answers: {},
     review: {
-      workPeriod: {
-        from: "",
-        to: "",
-      },
+      lastUse: "",
       rate: 0,
       overallReview: "",
       voiceReview: "",
@@ -94,13 +93,12 @@ class Review extends Component {
       axios
         .get(`/api/review/${reviewId}/is-edatable`)
         .then(res => {
-          const { orgId } = res.data;
+          const { orgId: organisationId } = res.data;
           axios
-            .get(`/api/questions/${orgId}`)
-            .then(async res => {
+            .get(`/api/questions/${organisationId}`)
+            .then(async ({ getReviewAnswers: reviewDetails }) => {
               try {
                 const answers = {};
-                const { getReviewAnswers: reviewDetails } = res.data;
                 // fetch the audio url
                 if (
                   reviewDetails[0] &&
@@ -114,10 +112,7 @@ class Review extends Component {
                 }
 
                 const review = {
-                  workPeriod: {
-                    from: moment(reviewDetails[0].workPeriod.from),
-                    to: moment(reviewDetails[0].workPeriod.to),
-                  },
+                  lastUse: moment(reviewDetails[0].lastUse),
                   rate: reviewDetails[0].rate,
                   overallReview: reviewDetails[0].overallReview.text,
                   voiceReview: reviewDetails[0].voiceReview.audio,
@@ -221,7 +216,7 @@ class Review extends Component {
             });
           }
           // server error 500
-          message.error(error || "Something went wrong");
+          return message.error(error || "Something went wrong");
         });
     }
   }
@@ -246,6 +241,7 @@ class Review extends Component {
         })
         .catch(err => console.log(err));
     }
+    return undefined;
   };
 
   handleChange = e => {
@@ -264,7 +260,7 @@ class Review extends Component {
       () => {
         hasAgreed
           .validate(this.state.hasAgreed)
-          .then(res => {
+          .then(() => {
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
@@ -287,8 +283,10 @@ class Review extends Component {
   handleReviewChange = e => {
     const { value, name } = e.target;
     const { type } = e.target.dataset;
-    this.setState({
-      [type]: { ...this.state[type], [name]: value },
+    this.setState(prevState => {
+      return {
+        [type]: { ...prevState[type], [name]: value },
+      };
     });
   };
 
@@ -346,38 +344,33 @@ class Review extends Component {
     );
   };
 
-  handleDateChage = (fromOrTo, value) => {
+  handleDateChage = date => {
     this.setState(
       prevState => {
         const { review } = prevState;
-        const { workPeriod } = review;
         return {
           review: {
             ...review,
-            workPeriod: { ...workPeriod, [fromOrTo]: value },
+            lastUse: date,
           },
         };
       },
       () => {
-        workPeriod
-          .validate(this.state.review.workPeriod)
+        lastUseSchema
+          .validate(this.state.review.lastUse)
           .then(() => {
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
-                review: { ...oldState.errors.review, workPeriod: {} },
+                review: { ...oldState.errors.review, lastUse: null },
               },
             }));
           })
           .catch(err => {
-            const workPeriod = {
-              from: err.message,
-              to: err.message,
-            };
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
-                review: { ...oldState.errors.review, workPeriod },
+                review: { ...oldState.errors.review, lastUse: err.message },
               },
             }));
           });
@@ -385,7 +378,7 @@ class Review extends Component {
     );
   };
 
-  showNextQestion = (groupId, next, other, set, num) => {
+  showNextQestion = (groupId, next, other) => {
     const newGroups = { ...this.state.groupss };
     const group = { ...newGroups[groupId] };
     let newMain = [...group.main];
@@ -407,12 +400,16 @@ class Review extends Component {
       // eslint-disable-next-line array-callback-return
       newDependant.map(question => {
         if (question.type === "number") {
-          this.setState({
-            answers: { ...this.state.answers, [question.number]: null },
+          this.setState(prevState => {
+            return {
+              answers: { ...prevState.answers, [question.number]: null },
+            };
           });
         } else {
-          this.setState({
-            answers: { ...this.state.answers, [question.number]: "" },
+          this.setState(prevState => {
+            return {
+              answers: { ...prevState.answers, [question.number]: "" },
+            };
           });
         }
       });
@@ -434,12 +431,16 @@ class Review extends Component {
       // eslint-disable-next-line array-callback-return
       newDependant.map(question => {
         if (question.type === "number") {
-          this.setState({
-            answers: { ...this.state.answers, [question.number]: null },
+          this.setState(prevState => {
+            return {
+              answers: { ...prevState.answers, [question.number]: null },
+            };
           });
         } else {
-          this.setState({
-            answers: { ...this.state.answers, [question.number]: "" },
+          this.setState(prevState => {
+            return {
+              answers: { ...prevState.answers, [question.number]: "" },
+            };
           });
         }
       });
@@ -455,10 +456,7 @@ class Review extends Component {
     const errs = {
       answers: {},
       review: {
-        workPeriod: {
-          from: "",
-          to: "",
-        },
+        lastUse: "",
         rate: "",
         overallReview: "",
       },
@@ -475,9 +473,8 @@ class Review extends Component {
           if (err.path.includes("answers")) {
             const num = err.path.split(".")[1];
             errs.answers[num] = err.message;
-          } else if (err.path.includes("workPeriod")) {
-            const key = err.path.split(".")[2];
-            errs.review.workPeriod[key] = err.message;
+          } else if (err.path.includes("lastUse")) {
+            errs.review.lastUse = err.message;
           } else if (err.path.includes("rate")) {
             errs.review.rate = err.message;
           } else if (err.path.includes("hasAgreed")) {
@@ -517,7 +514,7 @@ class Review extends Component {
           // if there's an audio file submit and update answers with its correct filename
           axios
             .put(`/api/review/${this.state.reviewId}`, review)
-            .then(res => {
+            .then(() => {
               this.setState({ isSubmitting: false });
 
               this.props.history.push(THANKYOU_URL, {
@@ -695,12 +692,12 @@ class Review extends Component {
                     >
                       I agree to the earwig{" "}
                       <Link
-                      target="_blank"
-                      to={TERMS_OF_USE_URL}
-                      text="Terms of Use"
-                      type="plain"
-                    />.{" "}
-                      This review of my experience with this current or former{" "}
+                        target="_blank"
+                        to={TERMS_OF_USE_URL}
+                        text="Terms of Use"
+                        type="plain"
+                      />
+                      . This review of my experience with this current or former{" "}
                       {category} is truthful.
                     </AgreementLabel>
                   </Checkbox>
@@ -709,14 +706,11 @@ class Review extends Component {
                     <StyledErrorMessage>{errors.hasAgreed}</StyledErrorMessage>
                   )}
                   <ErrorsWrapper>
-                    {!!errors &&
-                      !!errors.review &&
-                      !!errors.review.workPeriod &&
-                      !!errors.review.workPeriod.from && (
-                        <StyledErrorMessage>
-                          Must select the month(s) you used the agency
-                        </StyledErrorMessage>
-                      )}
+                    {!!errors && !!errors.review && !!errors.review.lastUse && (
+                      <StyledErrorMessage>
+                        Must select the last month you used this {category}
+                      </StyledErrorMessage>
+                    )}
                     {!!errors && !!errors.review && !!errors.review.rate && (
                       <StyledErrorMessage>
                         Must select a rating for this {category}
@@ -730,8 +724,10 @@ class Review extends Component {
                 styleType="primary"
                 size="large"
                 loading={isSubmitting}
-                text="Publish your review"
-              />
+                backgroundColor={organizations[category].primary}
+              >
+                Publish your review
+              </Button>
             </FormWrapper>
           </form>
         </section>

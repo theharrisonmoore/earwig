@@ -104,10 +104,7 @@ const schemas = {
       18: Joi.string().required(),
     }),
     review: Joi.object({
-      workPeriod: Joi.object({
-        from: Joi.date().required(),
-        to: Joi.date().required(),
-      }),
+      lastUse: Joi.date().required(),
       rate: Joi.number().required(),
       overallReview: Joi.string().required(),
       voiceReview: Joi.any(),
@@ -133,10 +130,7 @@ const schemas = {
       12: Joi.string().required(),
     }),
     review: Joi.object({
-      workPeriod: Joi.object({
-        from: Joi.date().required(),
-        to: Joi.date().required(),
-      }),
+      lastUse: Joi.date().required(),
       rate: Joi.number().required(),
       overallReview: Joi.string().required(),
       voiceReview: Joi.any(),
@@ -168,10 +162,7 @@ const schemas = {
       18: Joi.string().required(),
     }),
     review: Joi.object({
-      workPeriod: Joi.object({
-        from: Joi.date().required(),
-        to: Joi.date().required(),
-      }),
+      lastUse: Joi.date().required(),
       rate: Joi.number().required(),
       overallReview: Joi.string().required(),
       voiceReview: Joi.any(),
@@ -193,10 +184,7 @@ const schemas = {
       9: Joi.string().required(),
     }),
     review: Joi.object({
-      workPeriod: Joi.object({
-        from: Joi.date().required(),
-        to: Joi.date().required(),
-      }),
+      lastUse: Joi.date().required(),
       rate: Joi.number().required(),
       overallReview: Joi.string().required(),
       voiceReview: Joi.any(),
@@ -262,8 +250,7 @@ module.exports = route => (req, res, next) => {
   const isValid = Joi.validate(req.body, schema);
 
   if (!isValid.error) {
-    next();
-  } else {
-    return next(boom.badRequest(isValid.error.details[0].message));
+    return next();
   }
+  return next(boom.badRequest(isValid.error.details[0].message));
 };

@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 
-import { handleLogout, authorization } from "./../../../helpers";
+import { Icon as AdminIcon } from "antd";
+import { handleLogout, authorization } from "../../../helpers";
 
 import {
   Wrapper,
@@ -8,15 +9,14 @@ import {
   MenuIcon,
   LogoutButton,
   PriorityIcon,
-  MenuWrapper
-} from "./Menu.style.js";
+  MenuWrapper,
+} from "./Menu.style";
 
 import { ToggleMenu } from "./Navbar.style";
-import { Icon as AdminIcon } from "antd";
 
-import CloseIcon from "./../../../assets/close-icon.svg";
+import Icon from "../Icon/Icon";
 
-import { colors } from "./../../../theme";
+import { colors } from "../../../theme";
 
 import {
   WELCOME_URL,
@@ -29,7 +29,7 @@ import {
   ADMIN,
   MY_REVIEWS_URL,
   INVITE_WORKERS_URL,
-} from "./../../../constants/naviagationUrls";
+} from "../../../constants/naviagationUrls";
 
 export default class Menu extends PureComponent {
   render() {
@@ -59,7 +59,7 @@ export default class Menu extends PureComponent {
           position="flex-end"
           isMobile={isMobile}
         >
-          <img src={CloseIcon} alt="close" />
+          <Icon icon="close" height="20px" width="20px" />
         </ToggleMenu>
         {authorization({ ...data, minimumLevel: "ADMIN" }) && (
           <MenuItem to={ADMIN} onClick={toggleMenu}>
@@ -120,7 +120,7 @@ export default class Menu extends PureComponent {
             {isWorker && (
               <MenuItem to={MY_REVIEWS_URL} onClick={toggleMenu}>
                 <MenuIcon icon="starComment" height="19" width="19" />
-                Reviews you've given
+                Reviews you&apos;ve given
               </MenuItem>
             )}
             {isWorker && (

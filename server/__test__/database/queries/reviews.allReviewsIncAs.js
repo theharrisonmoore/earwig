@@ -23,7 +23,7 @@ describe("Test getAllReviewsIncAnswers query", () => {
       expect(result[0].answers[0].answer).toBeDefined();
       expect(result[0]["Entity name"]).toBeDefined();
       expect(result[0]["Reviews given"]).toBeDefined();
-      expect(result[0]["Date from"]).toBeDefined();
+      expect(result[0]["Last Use"]).toBeDefined();
       expect(result[0]["Points earned"]).toBeDefined();
       expect(result[0]["People helped"]).toBeDefined();
       done();

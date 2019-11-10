@@ -1,153 +1,55 @@
 import React from "react";
 import { DatePicker } from "antd";
 import moment from "moment";
-import styled from "styled-components";
 
-import { organizations } from "../../../theme";
+import Icon from "../Icon/Icon";
 
-const StyledLabel = styled.label`
-  color: ${({ open, category }) =>
-    open ? organizations[category].primary : "black"};
-`;
+import { DateRangeWrapper } from "./AntdComponents.style";
 
 class DateRange extends React.Component {
   state = {
-    startValue: null,
-    endValue: null,
-    endOpen: false,
-    isOpen: false
+    lastUse: null,
   };
 
-  disabledStartDate = startValue => {
-    const endValue = this.state.endValue;
-
-    if (!startValue || !endValue) {
+  disabledDate = date => {
+    if (!date) {
       return (
-        startValue.valueOf() > moment().valueOf() ||
-        startValue.valueOf() <
+        date.valueOf() > moment().valueOf() ||
+        date.valueOf() <
           moment()
-            .subtract(12, "months")
+            .subtract(3, "years")
             .valueOf()
       );
     }
     return (
-      startValue.valueOf() > endValue.valueOf() ||
-      startValue.valueOf() <
+      date.valueOf() > moment().valueOf() ||
+      date.valueOf() <
         moment()
-          .subtract(12, "months")
+          .subtract(3, "years")
           .valueOf()
     );
   };
 
-  disabledEndDate = endValue => {
-    const startValue = this.state.startValue;
-    if (!endValue || !startValue) {
-      return (
-        endValue.valueOf() > moment().valueOf() ||
-        endValue.valueOf() <
-          moment()
-            .subtract(12, "months")
-            .valueOf()
-      );
-    }
-    return (
-      endValue.valueOf() <= startValue.valueOf() ||
-      endValue.valueOf() > moment().valueOf() ||
-      endValue.valueOf() < moment().subtract(12, "months") ||
-      endValue.valueOf() <
-        moment()
-          .subtract(12, "months")
-          .valueOf()
-    );
-  };
-
-  onChange = (field, value) => {
-    this.setState({
-      [field]: value
-    });
-  };
-
-  onStartChange = value => {
-    this.onChange("startValue", value);
-    this.props.handleChange("from", value && value.format("YYYY-MM-DD"));
-  };
-
-  onEndChange = value => {
-    this.onChange("endValue", value);
-    this.props.handleChange("to", value && value.format("YYYY-MM-DD"));
-  };
-
-  handleStartOpenChange = open => {
-    this.setState({ isOpen: open });
-    if (!open) {
-      this.setState({ endOpen: true });
-    }
-  };
-
-  handleEndOpenChange = open => {
-    this.setState({ endOpen: open });
+  onChange = date => {
+    this.setState({ lastUse: date });
+    this.props.handleChange(date && date.startOf("month").format("YYYY-MM-DD"));
   };
 
   render() {
-    const { startValue, endValue, endOpen } = this.state;
-    const { category } = this.props;
+    const { lastUse } = this.state;
     return (
-      <div
-        style={{
-          textAlign: "center",
-          margin: "1rem 0",
-          display: "flex",
-          justifyContent: "space-around"
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            fontWeight: "500"
-          }}
-        >
-          <StyledLabel
-            open={this.state.isOpen}
-            category={category}
-            htmlFor="start"
-          >
-            From
-          </StyledLabel>
-          <DatePicker.MonthPicker
-            disabledDate={this.disabledStartDate}
-            value={startValue || this.props.review.workPeriod.from}
-            placeholder="Start"
-            onChange={this.onStartChange}
-            onOpenChange={this.handleStartOpenChange}
-            id="start"
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            fontWeight: "500"
-          }}
-        >
-          <StyledLabel
-            open={this.state.endOpen}
-            category={category}
-            htmlFor="end"
-          >
-            To
-          </StyledLabel>
-          <DatePicker.MonthPicker
-            disabledDate={this.disabledEndDate}
-            value={endValue || this.props.review.workPeriod.to}
-            placeholder="End"
-            onChange={this.onEndChange}
-            open={endOpen}
-            onOpenChange={this.handleEndOpenChange}
-            id="end"
-          />
-        </div>
-      </div>
+      <DateRangeWrapper fill={lastUse || this.props.review.lastUse}>
+        <DatePicker.MonthPicker
+          disabledDate={this.disabledDate}
+          value={lastUse || this.props.review.lastUse || null}
+          placeholder="Choose month"
+          onChange={this.onChange}
+          allowClear={false}
+          style={{ width: "100%" }}
+          suffixIcon={<Icon icon="calendar" />}
+          format="MMM YYYY"
+        />
+      </DateRangeWrapper>
     );
   }
 }
