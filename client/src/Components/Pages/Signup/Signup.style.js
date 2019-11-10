@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { colors, breakpoints, organizations } from "../../../theme";
+import { colors, breakpoints } from "../../../theme";
 
 export const SignupWrapper = styled.div`
   display: flex;
@@ -45,6 +45,7 @@ export const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-bottom: 100px;
 
   & .paragraph {
     display: block;
@@ -56,6 +57,7 @@ export const ContentWrapper = styled.div`
 export const PurpleDiv = styled.div`
   width: 0%;
   background-color: ${colors.heliotrope};
+  padding-bottom: 100px;
 
   @media ${breakpoints.tablet} {
     width: 50%;
@@ -82,26 +84,13 @@ export const StyledInput = styled.label`
   border: 1px solid;
   border-radius: 3px;
   font-size: 1rem;
-  border: 2px solid
-    ${({ value, id, orgType }) => {
-      let color;
-      if (value.toLowerCase() === id.toLowerCase() && orgType) {
-        color =
-          (organizations[value] && organizations[value].primary) ||
-          organizations.worksite.primary;
-      }
-      if (
-        value.toLowerCase() === id &&
-        (value.toLowerCase() === "yes" || value.toLowerCase() === "other")
-      ) {
-        color = colors.green;
-      } else if (value.toLowerCase() === id && value.toLowerCase() === "no") {
-        color = colors.red;
-      }
-      return `border: 2px solid ${color};
-              color: ${color};
-             `;
-    }};
+  box-shadow: 0px 4px 13px rgba(173, 145, 183, 0.273438);
+  ${({ value, id }) =>
+    value.toLowerCase() === id.toLowerCase() &&
+    `background-color: #4A4A4A;
+      color: ${colors.white};
+      border: 1px solid #4A4A4A;
+      font-weight: bold`}
 `;
 
 export const ButtonsWrapper = styled.div`
@@ -144,4 +133,11 @@ export const Example = styled.img`
 
 export const ImageInput = styled.input`
   display: none;
+`;
+
+export const ModalText = styled.p`
+  font-weight: bold;
+  color: ${colors.dustyGray2};
+  text-align: center;
+  margin-bottom: 0;
 `;

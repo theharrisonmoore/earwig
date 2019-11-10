@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Rate } from "antd";
 
-import { organizations } from "./../../../theme";
+import { colors } from "./../../../theme";
 
 import {
   Wrapper,
@@ -82,7 +82,7 @@ export default class ReviewSection extends Component {
                 tooltips={["Bad", "Poor", "Average", "Great", "Excellent"]}
                 value={summary.avgRatings || summary.value}
                 style={{
-                  color: `${organizations[summary.category].primary}`,
+                  color: `${colors.stars}`,
                   fontSize: `${isMobile ? "2rem" : "3rem"}`
                 }}
               />
@@ -94,7 +94,7 @@ export default class ReviewSection extends Component {
                       style={{
                         color: `${
                           index === Math.floor(summary.avgRatings) - 1
-                            ? organizations[summary.category].primary
+                            ? colors.stars
                             : "#e8e8e8"
                         }`,
                         fontWeight: `${

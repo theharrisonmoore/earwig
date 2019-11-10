@@ -30,11 +30,13 @@ export const Subtitle = styled.h2`
   font-size: 1.25rem;
   color: ${colors.profileFontColor};
   margin-bottom: 2rem;
+  text-align: left;
 `;
 
 export const PurpleDiv = styled.div`
   width: 0%;
   background-color: ${colors.heliotrope};
+  padding-bottom: 100px;
 
   @media ${breakpoints.tablet} {
     width: 50%;
@@ -47,11 +49,12 @@ export const ContentWrapper = styled.div`
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   min-height: 100vh;
   max-width: 30rem;
   margin: 0 auto;
+  padding-bottom: 100px;
 
   & .paragraph {
     display: block;

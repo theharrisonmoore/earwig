@@ -2,21 +2,18 @@ import React from "react";
 
 import { Popover } from "antd";
 
-import {
-  PopoverLink,
-  PopoverDiv,
-  PopoverText,
-  PopoverBtn
-} from "./Popover.style";
+import Button from "../Button";
+
+import { PopoverDiv, PopoverText } from "./Popover.style";
 
 class PopoverComponent extends React.Component {
   state = {
-    popoverVisible: false
+    popoverVisible: false,
   };
 
   hide = () => {
     this.setState({
-      popoverVisible: false
+      popoverVisible: false,
     });
   };
 
@@ -24,9 +21,16 @@ class PopoverComponent extends React.Component {
     this.setState({ popoverVisible });
   };
 
+  componentDidMount() {
+    const { popoverOptions } = this.props;
+    const { loadAutomatically } = popoverOptions;
+
+    if (loadAutomatically) this.handleVisibleChange(loadAutomatically);
+  }
+
   render() {
     const { popoverOptions, category } = this.props;
-    const { text, linkText } = popoverOptions;
+    const { text, linkText, icon, margin, action } = popoverOptions;
 
     return (
       <Popover
@@ -34,9 +38,13 @@ class PopoverComponent extends React.Component {
         content={
           <PopoverDiv>
             <PopoverText>{text}</PopoverText>
-            <PopoverBtn onClick={this.hide} category={category}>
-              Got it!
-            </PopoverBtn>
+            <Button
+              onClick={action || this.hide}
+              category={category}
+              styleType="primary"
+              text="Okay"
+              margin="1rem auto"
+            />
           </PopoverDiv>
         }
         trigger="click"
@@ -44,7 +52,12 @@ class PopoverComponent extends React.Component {
         onVisibleChange={this.handleVisibleChange}
       >
         {linkText ? (
-          <PopoverLink category={category}>{linkText}</PopoverLink>
+          <Button
+            styleType="link"
+            icon={icon}
+            text={linkText}
+            margin={margin}
+          />
         ) : (
           <p>{this.props.children}</p>
         )}

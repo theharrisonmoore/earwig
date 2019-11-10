@@ -1,12 +1,13 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 import {
   colors,
   borders,
   shadows,
   breakpoints,
-  breakpointsMax
-} from "./../../../theme";
+  breakpointsMax,
+} from "../../../theme";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -79,4 +80,12 @@ export const ToggleMenu = styled.div`
   margin-bottom: 1rem;
   padding-top: ${props => (props.isMobile ? "0.5rem" : "1rem")};
   min-height: 1rem;
+`;
+
+export const LogoLink = styled(NavLink)`
+  color: ${colors.profileFontColor};
+
+  :hover {
+    color: ${colors.profileFontColor};
+  }
 `;
