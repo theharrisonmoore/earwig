@@ -4,12 +4,21 @@ import { Link } from "react-router-dom";
 import { organizations } from "../../../../theme";
 
 export const HeaderWrapper = styled.div`
+  position: fixed;
   background-color: ${({ category }) => organizations[category].primary};
   width: 100%;
-  height: 17rem;
+
+  height: ${({ shrink }) => (shrink ? "8.125rem" : "17rem")};
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: 0.4s height;
+  z-index: 1;
+
+  & + div {
+    padding-top: ${({ shrink }) => (shrink ? "8.125rem" : "17rem")};
+  }
 `;
 
 export const SearchBarContainer = styled.div`
@@ -59,10 +68,11 @@ export const Tab = styled(({ isActive, ...rest }) => <Link {...rest} />)`
 
 export const Heading = styled.h1`
   font-family: Roboto;
-  font-size: 52px;
-  line-height: 61px;
+  font-size: ${({ shrink }) => (shrink ? "0px" : "52px")};
+
+  line-height: ${({ shrink }) => (shrink ? "5px" : "61px")};
   text-align: center;
   letter-spacing: 0.631945px;
-
   color: #ffffff;
+  transition: 0.4s all;
 `;

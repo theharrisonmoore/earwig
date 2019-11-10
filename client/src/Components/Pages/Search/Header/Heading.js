@@ -2,6 +2,6 @@ import React from "react";
 
 import { Heading } from "./Header.style";
 
-export default ({ title }) => {
-  return <Heading>{title}</Heading>;
+export default ({ title, ...rest }) => {
+  return <Heading {...rest}>{title}</Heading>;
 };
