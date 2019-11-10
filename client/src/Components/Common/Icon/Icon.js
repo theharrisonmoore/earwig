@@ -66,6 +66,7 @@ import WelfareSafety from "./WelfareSafety";
 import Win from "./Win";
 import Worksite from "./Worksite";
 import WorksiteThanks from "./WorksiteThanks";
+import Reply from "./Reply";
 import Calendar from "./Calendar";
 
 const iconStyles = props => css`
@@ -141,6 +142,7 @@ const iconMap = {
   win: Win,
   worksite: Worksite,
   worksiteThanks: WorksiteThanks,
+  reply: Reply,
   calendar: Calendar,
 };
 

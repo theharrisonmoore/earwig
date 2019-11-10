@@ -1,16 +1,16 @@
 import styled, { css } from "styled-components";
 import SVG from "react-inlinesvg";
 import { NavLink } from "react-router-dom";
-import { Icon as AntIcon, Button } from "antd";
-import BlurredBackground from "./../../../assets/blurred-background.png";
+import { Icon as AntIcon } from "antd";
+import BlurredBackground from "../../../assets/blurred-background.png";
 
 import {
   organizations,
   colors,
   shadows,
   borders,
-  breakpoints
-} from "./../../../theme";
+  breakpoints,
+} from "../../../theme";
 import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
 export const Wrapper = styled.div`
@@ -134,7 +134,7 @@ export const InactiveButton = styled(OrgButton)`
 
   :hover {
     background: ${colors.white};
-    color: ${props => colors.inputBorder};
+    color: ${colors.inputBorder};
   }
 `;
 
@@ -159,7 +159,7 @@ export const ReviewDiv = styled.div`
 export const Level0Promo = styled(ReviewDiv)`
   padding: ${props =>
     props.isTablet || props.isMobile ? "2rem 1rem" : "2rem 7rem 0 7rem"};
-`
+`;
 
 export const GiveReviewTitle = styled.h3`
   font-size: 1.75rem;
@@ -221,10 +221,10 @@ const adminBorder = css`
 export const VoiceWrapper = styled.div`
   width: 200px;
 
-@media ${breakpoints.tablet} {
+  @media ${breakpoints.tablet} {
     min-width: 400px;
   }
-`
+`;
 
 export const CommentBubble = styled.p`
   background: ${({ bgColor }) => bgColor || colors.ghostGray};
@@ -323,7 +323,7 @@ export const AccountPromo = styled.div`
 
 export const BottomAccountPromo = styled(AccountPromo)`
   background-image: none;
-`
+`;
 
 export const AccountLink = styled(VerifyLink)`
   z-index: 2;
@@ -389,53 +389,6 @@ export const ButtonsWrapper = styled(ActionsDiv)`
   width: 90%;
 `;
 
-export const HelpfulButtonWrapper = styled.div`
-  position: relative;
-  margin-right: ${props => (props.isMobile ? "0.5rem" : "2rem")};
-
-  &::after {
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: ${({ number }) => number + "0%"};
-    left: 0;
-    z-index: 2;
-    bottom: 0;
-    pointer-events: none;
-    transition: 0.5s all ease;
-
-    @supports (mix-blend-mode: exclusion) {
-      mix-blend-mode: exclusion;
-      background: ${({ color }) => color};
-    }
-  }
-`;
-
-export const ActionsButton = styled(Button)`
-  background: ${({ bgcolor }) => bgcolor};
-  border: none;
-  font-weight: 700;
-  font-size: 1rem;
-  width: 100%;
-  padding: 0.5rem 1rem;
-  height: auto;
-  margin-right: ${props => (props.ismobile ? "0.5rem" : "2rem")};
-  position: relative;
-
-  transform: scale3d(
-    ${({ scale }) => scale || 1},
-    ${({ scale }) => scale || 1},
-    1
-  );
-
-  &:hover,
-  &:focus {
-    color: #fff;
-    background-color: ${({ bgcolor }) => bgcolor};
-    border-color: ${({ bgcolor }) => bgcolor};
-  }
-`;
-
 export const UserTrade = styled.p`
   font-style: italic;
   margin-left: 10px;
@@ -458,12 +411,17 @@ export const ReplyButton = styled.p`
   text-decoration: underline;
   border: none;
   background: none;
-  font-weight: 700;
+  font-weight: bold;
   font-size: 1rem;
   padding: 0.5rem 1rem;
   color: ${({ color }) => color};
   margin: 0.5rem;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+`;
+
+export const HelpfulButton = styled(ReplyButton)`
+  color: ${({ color, number }) => (number ? "black" : color)};
+  font-weight: ${({ number }) => (number ? "900" : "bold")};
 `;
 
 export const ActionButton = styled.button`
