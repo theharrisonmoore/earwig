@@ -21,15 +21,22 @@ export const Title = styled.h1`
   font-size: 2rem;
   font-weight: 400;
   line-height: 2.5rem;
-  text-align: left;
-  color: ${colors.profileFontColor};
+  text-align: center;
+  color: ${colors.white};
   margin-bottom: 1rem;
+  margin: 0 auto;
+
+  @media ${breakpoints.tablet} {
+    color: ${colors.heliotrope};
+  }
 `;
 
 export const Subtitle = styled.h2`
-  font-size: 1.25rem;
-  color: ${colors.profileFontColor};
+  font-size: 1.75rem;
+  color: ${colors.heliotrope};
   margin-bottom: 2rem;
+  text-align: center;
+  max-width: 14rem;
 `;
 
 export const PurpleDiv = styled.div`
@@ -42,27 +49,20 @@ export const PurpleDiv = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
+  position: relative;
   width: 100%;
   /* max-width: 25rem; */
   padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  max-width: 30rem;
   margin: 0 auto;
+  max-width: 30rem;
 
   & .paragraph {
     display: block;
     color: ${colors.profileFontColor};
     font-size: 1.8rem;
-  }
-
-  @media ${breakpoints.tablet} {
-    width: 50%;
-    padding: 1rem 3rem;
-    align-items: flex-start;
   }
 `;
 
@@ -90,4 +90,27 @@ export const ComingSoon = styled.span`
   font-size: 14px;
   width: 8rem;
   margin-left: 0.5rem;
+`;
+
+export const Header = styled.header`
+  margin: 0 auto;
+  padding: 6.5rem 1rem 2.5rem;
+  z-index: 1;
+  position: relative;
+  margin: 0 auto;
+
+  background-color: ${colors.heliotrope};
+
+  @media ${breakpoints.tablet} {
+    background-color: initial;
+    padding: 6.5rem 1rem 0.5rem;
+  }
+`;
+
+export const Body = styled.div`
+  width: 100%;
+
+  @media ${breakpoints.tablet} {
+    width: 50%;
+  }
 `;

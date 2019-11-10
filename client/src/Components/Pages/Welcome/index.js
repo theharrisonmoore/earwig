@@ -16,6 +16,8 @@ import {
   Text,
   ButtonText,
   ComingSoon,
+  Header,
+  Body,
 } from "./Welcome.style";
 
 // NAV ROUTES
@@ -32,134 +34,142 @@ export default class Welcome extends Component {
     const { verified, awaitingReview, isLoggedIn } = this.props;
 
     return (
-      <Wrapper>
-        <ContentWrapper>
-          <Title>
-            Thanks! <br />
-            Welcome to earwig
-          </Title>
-          {/* this should be extracted to a common component */}
-          {!isLoggedIn ? (
-            <Subtitle>
-              Without an account, you can still read reviews & ratings, although
-              the data is limited
-            </Subtitle>
-          ) : (
-            <Subtitle>What would you like to do?</Subtitle>
-          )}
+      <>
+        <Wrapper>
+          <Body>
+            <Header>
+              <Title>
+                Find out what you’re getting into before you get into it!
+              </Title>
+            </Header>
+            <ContentWrapper>
+              {/* this should be extracted to a common component */}
+              {!isLoggedIn ? (
+                <Subtitle>
+                  Without an account, you can still read reviews & ratings,
+                  although the data is limited
+                </Subtitle>
+              ) : (
+                <Subtitle>Give reviews! Read reviews! Be heard!</Subtitle>
+              )}
 
-          {!isLoggedIn ? (
-            <StyledLink to={SEARCH_URL}>
-              <Button alignContent left margin="0 0 1.5rem 0">
-                <Icon
-                  icon="search"
-                  margin="0 1rem 0 0"
-                  width="20px"
-                  height="20px"
-                />
-                Read reviews & ratings
-              </Button>
-            </StyledLink>
-          ) : (
-            <>
-              <StyledLink
-                to={
-                  verified || awaitingReview
-                    ? `${SEARCH_URL}/review`
-                    : UPLOAD_VERIFICATION_PHOTO
-                }
-              >
-                <Button alignContent left margin="0 0 0 0">
-                  <Icon
-                    icon="starComment"
-                    margin="0 1rem 0 0"
-                    width="20px"
-                    height="20px"
-                  />
-                  <ButtonText>
-                    <Text>Give a review</Text>
-                    {!verified && !awaitingReview && (
-                      <HintText>(Click here to get verified first)</HintText>
-                    )}
-                  </ButtonText>
-                </Button>
-              </StyledLink>
-              <StyledLink
-                // to={
-                //   verified || awaitingReview
-                //     ? `${SEARCH_URL}/profile`
-                //     : SEARCH_URL
-                // }
-                to={SEARCH_URL}
-              >
-                <Button alignContent left margin="0 0 0 0">
-                  <Icon
-                    icon="search"
-                    margin="0 1rem 0 0"
-                    width="20px"
-                    height="20px"
-                  />
-                  Read reviews & ratings
-                </Button>
-              </StyledLink>
-              <StyledLink
-                to={
-                  verified || awaitingReview
-                    ? ASK_QUESTION_URL
-                    : UPLOAD_VERIFICATION_PHOTO
-                }
-                disabled
-              >
-                <Button alignContent left disabled margin="0 0 0 0">
-                  <Icon
-                    icon="raiseHand"
-                    margin="0 1rem 0 0"
-                    width="20px"
-                    height="20px"
-                  />
-                  <ButtonText>
-                    <Text>
-                      Ask workers a question
-                      <ComingSoon>(coming soon)</ComingSoon>
-                    </Text>
-                    {/* will go in once this feature is built */}
-                    {/* {!verified && !awaitingReview && (
-                      <HintText>(Click here to get verified first)</HintText>
-                    )} */}
-                  </ButtonText>
-                </Button>
-              </StyledLink>
-              <StyledLink
-                to={
-                  verified || awaitingReview
-                    ? JOBS_URL
-                    : UPLOAD_VERIFICATION_PHOTO
-                }
-                disabled
-              >
-                <Button alignContent left disabled margin="0 0 1.5rem 0">
-                  <Icon
-                    icon="jobBoard"
-                    margin="0 1rem 0 0"
-                    width="20px"
-                    height="20px"
-                  />
-                  <ButtonText>
-                    <Text>
-                      Find a job <ComingSoon>(coming soon)</ComingSoon>
-                    </Text>
-                    {/* will go in once this feature is built */}
-                    {/* {!verified && !awaitingReview && (
+              {!isLoggedIn ? (
+                <StyledLink to={SEARCH_URL}>
+                  <Button alignContent left margin="0 0 1.5rem 0">
+                    <Icon
+                      icon="search"
+                      margin="0 1rem 0 0"
+                      width="20px"
+                      height="20px"
+                    />
+                    Read reviews & ratings
+                  </Button>
+                </StyledLink>
+              ) : (
+                <>
+                  <StyledLink
+                    to={
+                      verified || awaitingReview
+                        ? `${SEARCH_URL}/review`
+                        : UPLOAD_VERIFICATION_PHOTO
+                    }
+                  >
+                    <Button alignContent left margin="0 0 0 0">
+                      <Icon
+                        icon="starComment"
+                        margin="0 1rem 0 0"
+                        width="20px"
+                        height="20px"
+                      />
+                      <ButtonText>
+                        <Text>Give a review</Text>
+                        {!verified && !awaitingReview && (
+                          <HintText>
+                            (Click here to get verified first)
+                          </HintText>
+                        )}
+                      </ButtonText>
+                    </Button>
+                  </StyledLink>
+                  <StyledLink
+                    // to={
+                    //   verified || awaitingReview
+                    //     ? `${SEARCH_URL}/profile`
+                    //     : SEARCH_URL
+                    // }
+                    to={SEARCH_URL}
+                  >
+                    <Button alignContent left margin="0 0 0 0">
+                      <Icon
+                        icon="search"
+                        margin="0 1rem 0 0"
+                        width="20px"
+                        height="20px"
+                      />
+                      Read reviews & ratings
+                    </Button>
+                  </StyledLink>
+                  <StyledLink
+                    to={
+                      verified || awaitingReview
+                        ? ASK_QUESTION_URL
+                        : UPLOAD_VERIFICATION_PHOTO
+                    }
+                    disabled
+                  >
+                    <Button alignContent left disabled margin="0 0 0 0">
+                      <Icon
+                        icon="raiseHand"
+                        margin="0 1rem 0 0"
+                        width="20px"
+                        height="20px"
+                      />
+                      <ButtonText>
+                        <Text>
+                          Ask workers a question
+                          <ComingSoon>(coming soon)</ComingSoon>
+                        </Text>
+                        {/* will go in once this feature is built */}
+                        {/* {!verified && !awaitingReview && (
                       <HintText>(Click here to get verified first)</HintText>
                     )} */}
-                  </ButtonText>
-                </Button>
-              </StyledLink>
-            </>
-          )}
-        </ContentWrapper>
-        <PurpleDiv />
-      </Wrapper>
+                      </ButtonText>
+                    </Button>
+                  </StyledLink>
+                  <StyledLink
+                    to={
+                      verified || awaitingReview
+                        ? JOBS_URL
+                        : UPLOAD_VERIFICATION_PHOTO
+                    }
+                    disabled
+                  >
+                    <Button alignContent left disabled margin="0 0 1.5rem 0">
+                      <Icon
+                        icon="jobBoard"
+                        margin="0 1rem 0 0"
+                        width="20px"
+                        height="20px"
+                      />
+                      <ButtonText>
+                        <Text>
+                          Find a job <ComingSoon>(coming soon)</ComingSoon>
+                        </Text>
+                        {/* will go in once this feature is built */}
+                        {/* {!verified && !awaitingReview && (
+                      <HintText>(Click here to get verified first)</HintText>
+                    )} */}
+                      </ButtonText>
+                    </Button>
+                  </StyledLink>
+                </>
+              )}
+            </ContentWrapper>
+          </Body>
+
+          <PurpleDiv />
+        </Wrapper>
+      </>
     );
   }
 }
