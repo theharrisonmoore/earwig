@@ -7,7 +7,6 @@ import {
   MenuItem,
   MenuIcon,
   LogoutButton,
-  ComingSoon,
   PriorityIcon,
   MenuWrapper
 } from "./Menu.style.js";
@@ -20,7 +19,7 @@ import CloseIcon from "./../../../assets/close-icon.svg";
 import { colors } from "./../../../theme";
 
 import {
-  SEARCH_URL,
+  WELCOME_URL,
   PROFILE_URL,
   RESOURCES_URL,
   CONTACT_URL,
@@ -29,9 +28,7 @@ import {
   PRIVACY_AND_TERMS_URL,
   ADMIN,
   MY_REVIEWS_URL,
-  JOBS_URL,
   INVITE_WORKERS_URL,
-  ASK_QUESTION_URL,
 } from "./../../../constants/naviagationUrls";
 
 export default class Menu extends PureComponent {
@@ -80,7 +77,7 @@ export default class Menu extends PureComponent {
 
         {isLoggedIn ? (
           <MenuWrapper>
-            <MenuItem to={SEARCH_URL} onClick={toggleMenu}>
+            <MenuItem to={WELCOME_URL} onClick={toggleMenu}>
               <PriorityIcon icon="search" height="19" width="19" />
               Search
             </MenuItem>
@@ -157,12 +154,12 @@ export default class Menu extends PureComponent {
           </MenuWrapper>
         ) : (
           <MenuWrapper>
-            <MenuItem to={SEARCH_URL} onClick={toggleMenu}>
+            <MenuItem to={WELCOME_URL} onClick={toggleMenu}>
               <PriorityIcon icon="search" height="19" width="19" />
               Search
             </MenuItem>
             <MenuItem to={LOGIN_URL} onClick={toggleMenu}>
-              <MenuIcon icon="logoutLogin" height="19" width="19" />
+              <MenuIcon icon="user" height="19" width="19" />
               Log in to see more
             </MenuItem>
             <MenuItem to={PRIVACY_AND_TERMS_URL} onClick={toggleMenu}>
