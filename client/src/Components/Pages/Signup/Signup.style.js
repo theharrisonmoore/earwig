@@ -40,7 +40,7 @@ export const ContentWrapper = styled.div`
   max-width: 25rem;
   margin: 0 auto;
   padding: 1rem 1.5rem;
-  padding-top: 4rem;
+  padding-top: 5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,6 +51,10 @@ export const ContentWrapper = styled.div`
     display: block;
     color: ${colors.profileFontColor};
     font-size: 1.8rem;
+  }
+
+  @media ${breakpoints.tablet} {
+    padding-top: 6rem;
   }
 `;
 
@@ -140,4 +144,26 @@ export const ModalText = styled.p`
   color: ${colors.dustyGray2};
   text-align: center;
   margin-bottom: 0;
+`;
+
+export const LogIn = styled(Link)`
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  font-size: 1.125rem;
+  text-align: right;
+  color: ${colors.dustyGray1};
+
+  span {
+    color: ${colors.primary};
+    font-weight: bold;
+
+    :hover {
+      color: ${colors.primary};
+    }
+  }
+
+  :hover {
+    color: ${colors.dustyGray1};
+  }
 `;
