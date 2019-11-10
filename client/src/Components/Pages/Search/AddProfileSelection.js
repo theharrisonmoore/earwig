@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { Spin } from "antd";
 
+import Button from "../../Common/Button";
+
+import { organizations } from "../../../theme";
+
 import {
   SEARCH_URL,
   ADD_PROFILE_START_REVIEW_URL,
@@ -22,6 +26,7 @@ import {
   AddProfileLink,
   AddProfileButton,
   LinkTitle,
+  ButtonsWrpper,
 } from "./Search.style";
 
 export default class AddProfileSelection extends Component {
@@ -55,80 +60,59 @@ export default class AddProfileSelection extends Component {
           </HeadlineDiv>
           <LogosContainer>
             <Spin tip="Loading..." spinning={isLoading} />
-            <RowDiv>
-              <ItemDiv category="agency">
-                <AddProfileButton
-                  as="button"
+            <ButtonsWrpper>
+              <div>
+                <Button
+                  margin="1rem 0"
+                  styleType="primary"
+                  text="Agencies"
+                  backgroundColor={organizations.agency.primary}
+                  style={{ minWidth: "8.5rem" }}
                   onClick={e => {
                     this.addOrganisation(e, name, categories[0]);
                   }}
-                >
-                  <Icon
-                    icon="agency"
-                    width="50%"
-                    height="auto"
-                    color="white"
-                    margin="0 0 1rem 0"
-                  />
-                  <LinkTitle>Agency</LinkTitle>
-                </AddProfileButton>
-              </ItemDiv>
-              <ItemDiv category="payroll">
-                <AddProfileButton
-                  as="button"
+                />
+                <Button
+                  margin="1rem 0"
+                  styleType="primary"
+                  text="Payrolls"
+                  backgroundColor={organizations.payroll.primary}
+                  style={{ minWidth: "8.5rem" }}
                   onClick={e => {
                     this.addOrganisation(e, name, categories[1]);
                   }}
-                >
-                  <Icon
-                    icon="payroll"
-                    width="50%"
-                    height="auto"
-                    color="white"
-                    margin="0 0 1rem 0"
-                    cursor="pointer"
-                  />
-                  <LinkTitle>Payroll</LinkTitle>
-                </AddProfileButton>
-              </ItemDiv>
-            </RowDiv>
-            <RowDiv>
-              <ItemDiv category="worksite">
-                <AddProfileButton
-                  as="button"
+                />
+              </div>
+              <div>
+                <Button
+                  margin="1rem 0"
+                  styleType="primary"
+                  text="Worksites"
+                  backgroundColor={organizations.worksite.primary}
+                  style={{ minWidth: "8.5rem" }}
                   onClick={e => {
                     this.addOrganisation(e, name, categories[2]);
                   }}
-                  category="worksite"
-                >
-                  <Icon
-                    icon="worksite"
-                    width="50%"
-                    height="auto"
-                    color="white"
-                    margin="0 0 1rem 0"
-                  />
-                  <LinkTitle>Worksite</LinkTitle>
-                </AddProfileButton>
-              </ItemDiv>
-              <ItemDiv category="company">
-                <AddProfileButton
-                  as="button"
+                />
+                <Button
+                  margin="1rem 0"
+                  styleType="primary"
+                  text="Copmanies"
+                  backgroundColor={organizations.company.primary}
+                  style={{ minWidth: "8.5rem" }}
                   onClick={e => {
                     this.addOrganisation(e, name, categories[3]);
                   }}
-                >
-                  <Icon
-                    icon="company"
-                    width="50%"
-                    height="auto"
-                    color="white"
-                    margin="0 0 1rem 0"
-                  />
-                  <LinkTitle>Company</LinkTitle>
-                </AddProfileButton>
-              </ItemDiv>
-            </RowDiv>
+                />
+              </div>
+            </ButtonsWrpper>
+            <Button
+              margin="0.5rem auto"
+              styleType="secondary"
+              text="Cancel"
+              onClick={this.goBack}
+              style={{ width: "6rem" }}
+            />
           </LogosContainer>
           <AddProfileLink
             to={SEARCH_URL}
@@ -138,11 +122,7 @@ export default class AddProfileSelection extends Component {
             //   left: "50%",
             //   transform: "translateX(-50%)",
             // }}
-          >
-            <FooterDiv>
-              <H3 onClick={this.goBack}>Cancel and return to Search</H3>
-            </FooterDiv>
-          </AddProfileLink>
+          ></AddProfileLink>
         </MainDiv>
       </AddWrapper>
     );

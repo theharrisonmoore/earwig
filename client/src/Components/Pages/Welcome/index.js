@@ -84,11 +84,6 @@ export default class Welcome extends Component {
                     text="Copmanies"
                     backgroundColor={organizations.company.primary}
                     style={{ minWidth: "8.5rem" }}
-                    onClick={() => {
-                      this.props.history.push(
-                        SEARCH_URL.replace(":category?", "company")
-                      );
-                    }}
                   />
                 </Link>
               </div>

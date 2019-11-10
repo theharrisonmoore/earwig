@@ -267,7 +267,7 @@ export const HeadlineDiv = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-  padding-top: 2rem;
+  padding-top: 5rem;
   color: ${colors.profileFontColor};
   h2 {
     font-size: 2rem;
@@ -283,6 +283,7 @@ export const HeadlineDiv = styled.div`
 export const H2 = styled.h2`
   font-size: 2rem;
   opacity: 0.7;
+  margin-bottom: 0;
 `;
 
 export const H3 = styled.h3`
@@ -347,4 +348,18 @@ export const SubKey = styled(MainKey)`
   font-size: 18px;
   margin-top: 30px;
   margin-bottom: 0;
+`;
+
+export const ButtonsWrpper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  div {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+    max-width: 25rem;
+    width: 100%;
+  }
 `;
