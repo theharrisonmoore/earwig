@@ -5,27 +5,15 @@ import Button from "../../Common/Button";
 
 import { organizations } from "../../../theme";
 
-import {
-  SEARCH_URL,
-  ADD_PROFILE_START_REVIEW_URL,
-} from "../../../constants/naviagationUrls";
-
-import Icon from "../../Common/Icon/Icon";
+import { ADD_PROFILE_START_REVIEW_URL } from "../../../constants/naviagationUrls";
 
 // styles
 import {
   HeadlineDiv,
   H2,
-  RowDiv,
-  ItemDiv,
   LogosContainer,
-  FooterDiv,
-  H3,
   MainDiv,
   AddWrapper,
-  AddProfileLink,
-  AddProfileButton,
-  LinkTitle,
   ButtonsWrpper,
 } from "./Search.style";
 
@@ -114,15 +102,6 @@ export default class AddProfileSelection extends Component {
               style={{ width: "6rem" }}
             />
           </LogosContainer>
-          <AddProfileLink
-            to={SEARCH_URL}
-            // style={{
-            //   // position: "fixed",
-            //   bottom: "3rem",
-            //   left: "50%",
-            //   transform: "translateX(-50%)",
-            // }}
-          ></AddProfileLink>
         </MainDiv>
       </AddWrapper>
     );

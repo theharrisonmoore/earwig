@@ -133,24 +133,6 @@ export const LastReviewsContainer = styled.div`
   flex-direction: column;
 `;
 
-export const ItemDiv = styled.div`
-  display: flex;
-  max-width: 200px;
-  align-items: center;
-  width: 45%;
-  /* padding: ${props => (props.notMobile ? "0 2rem" : "0 1rem")}; */
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-  margin-left: auto;
-  margin-right: auto;
-  justify-content: ${props =>
-    props.notMobile && props.left ? "flex-end" : "flex-start"};
-  background: ${props =>
-    props.category && organizations[props.category].primary};
-  border-radius: 4px;
-  cursor: pointer;
-`;
-
 export const LegendTitle = styled.h2`
   color: ${props => organizations[props.orgType].primary};
   font-size: 1rem;
@@ -240,29 +222,6 @@ export const AddProfileLink = styled(Link)`
   }
 `;
 
-export const AddProfileButton = styled(Link)`
-  width: 100%;
-  background: none;
-  outline: none;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-
-  :hover {
-    text-decoration: none;
-  }
-`;
-
-export const LinkTitle = styled.h3`
-  font-weight: 700;
-  margin: 0;
-  font-size: 1.25rem;
-  color: white;
-`;
-
 export const HeadlineDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -284,35 +243,13 @@ export const H2 = styled.h2`
   font-size: 2rem;
   opacity: 0.7;
   margin-bottom: 0;
-`;
-
-export const H3 = styled.h3`
-  font-size: 1rem;
-  letter-spacing: 0.3px;
-  font-weight: 900;
-  cursor: pointer;
-`;
-
-export const P = styled.p`
-  font-size: 1rem;
-  font-style: italic;
+  max-width: 22rem;
 `;
 
 export const LogosContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-`;
-
-export const RowDiv = styled.div`
-  display: flex;
-  width: 100%;
-  max-width: 550px;
-  margin: 0 auto;
-`;
-
-export const FooterDiv = styled.footer`
-  /* flex-shrink: 0; */
 `;
 
 export const MainDiv = styled.div`
