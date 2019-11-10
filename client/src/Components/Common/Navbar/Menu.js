@@ -7,12 +7,12 @@ import {
   MenuItem,
   MenuIcon,
   LogoutButton,
-  PriorityMenuItem,
   ComingSoon,
-  PriorityIcon
+  PriorityIcon,
+  MenuWrapper
 } from "./Menu.style.js";
 
-import { ToggleMenu } from "./Navbar.style"
+import { ToggleMenu } from "./Navbar.style";
 import { Icon as AdminIcon } from "antd";
 
 import CloseIcon from "./../../../assets/close-icon.svg";
@@ -31,7 +31,7 @@ import {
   MY_REVIEWS_URL,
   JOBS_URL,
   INVITE_WORKERS_URL,
-  ASK_QUESTION_URL
+  ASK_QUESTION_URL,
 } from "./../../../constants/naviagationUrls";
 
 export default class Menu extends PureComponent {
@@ -50,44 +50,41 @@ export default class Menu extends PureComponent {
       isAdmin,
       awaitingReview,
       verified,
-      isLoggedIn
+      isLoggedIn,
     };
 
     const isWorker = awaitingReview || verified;
 
     return (
       <Wrapper isMobile={isMobile}>
-        <ToggleMenu onClick={toggleMenu} position="flex-end" isMobile={isMobile}>
+        <ToggleMenu
+          onClick={toggleMenu}
+          position="flex-end"
+          isMobile={isMobile}
+        >
           <img src={CloseIcon} alt="close" />
         </ToggleMenu>
         {authorization({ ...data, minimumLevel: "ADMIN" }) && (
-          <PriorityMenuItem to={ADMIN} onClick={toggleMenu}>
+          <MenuItem to={ADMIN} onClick={toggleMenu}>
             <AdminIcon
               type="dashboard"
               style={{
                 fontSize: "19px",
                 color: colors.white,
-                marginRight: "16px"
+                marginRight: "16px",
               }}
             />
             Admin Dashboard
-          </PriorityMenuItem>
+          </MenuItem>
         )}
 
         {isLoggedIn ? (
-          <>
-            <PriorityMenuItem
-              to={isWorker ? `${SEARCH_URL}/review` : PROFILE_URL}
-              onClick={toggleMenu}
-            >
-              <PriorityIcon icon="starComment" height="19" width="19" />
-              Give a review
-            </PriorityMenuItem>
-            <PriorityMenuItem to={SEARCH_URL} onClick={toggleMenu}>
+          <MenuWrapper>
+            <MenuItem to={SEARCH_URL} onClick={toggleMenu}>
               <PriorityIcon icon="search" height="19" width="19" />
-              Read reviews & ratings
-            </PriorityMenuItem>
-            <PriorityMenuItem
+              Search
+            </MenuItem>
+            {/* <MenuItem
               disabled
               to={isWorker ? ASK_QUESTION_URL : PROFILE_URL}
               onClick={toggleMenu}
@@ -96,33 +93,33 @@ export default class Menu extends PureComponent {
               <ComingSoon>
                 <p>Ask workers a question</p> <span>(coming soon)</span>
               </ComingSoon>
-            </PriorityMenuItem>
-            {isWorker && (
-              <PriorityMenuItem disabled to={JOBS_URL} onClick={toggleMenu}>
+            </MenuItem> */}
+            {/* {isWorker && (
+              <MenuItem disabled to={JOBS_URL} onClick={toggleMenu}>
                 <PriorityIcon disabled icon="jobBoard" height="19" width="19" />
                 <ComingSoon>
                   <p>Find a job</p> <span>(coming soon)</span>
                 </ComingSoon>
-              </PriorityMenuItem>
-            )}
+              </MenuItem>
+            )} */}
             {isWorker && (
-              <PriorityMenuItem to={INVITE_WORKERS_URL} onClick={toggleMenu}>
+              <MenuItem to={INVITE_WORKERS_URL} onClick={toggleMenu}>
                 <PriorityIcon icon="win" height="19" width="19" />
                 Invite workers to earwig
-              </PriorityMenuItem>
+              </MenuItem>
             )}
             <MenuItem to={PROFILE_URL} onClick={toggleMenu}>
               <MenuIcon icon="getVerified" height="19" width="19" />
               Your profile
             </MenuItem>
-            {isWorker && (
+            {/* {isWorker && (
               <MenuItem disabled to={PROFILE_URL} onClick={toggleMenu}>
                 <MenuIcon disabled icon="email" height="19" width="19" />
                 <ComingSoon purple>
                   <p>Your inbox</p> <span>(coming soon)</span>
                 </ComingSoon>
               </MenuItem>
-            )}
+            )} */}
             {isWorker && (
               <MenuItem to={MY_REVIEWS_URL} onClick={toggleMenu}>
                 <MenuIcon icon="starComment" height="19" width="19" />
@@ -132,7 +129,7 @@ export default class Menu extends PureComponent {
             {isWorker && (
               <MenuItem to={FAQ_URL} onClick={toggleMenu}>
                 <MenuIcon icon="faq" height="19" width="19" />
-                FAQ & explainer videos
+                FAQ & how to use earwig
               </MenuItem>
             )}
             {isWorker && (
@@ -157,13 +154,13 @@ export default class Menu extends PureComponent {
               <MenuIcon icon="logoutLogin" height="19" width="19" />
               Log out
             </LogoutButton>
-          </>
+          </MenuWrapper>
         ) : (
-          <>
-            <PriorityMenuItem to={SEARCH_URL} onClick={toggleMenu}>
+          <MenuWrapper>
+            <MenuItem to={SEARCH_URL} onClick={toggleMenu}>
               <PriorityIcon icon="search" height="19" width="19" />
-              Read reviews & ratings
-            </PriorityMenuItem>
+              Search
+            </MenuItem>
             <MenuItem to={LOGIN_URL} onClick={toggleMenu}>
               <MenuIcon icon="logoutLogin" height="19" width="19" />
               Log in to see more
@@ -172,7 +169,7 @@ export default class Menu extends PureComponent {
               <MenuIcon icon="privacyTerms" height="19" width="19" />
               Privacy & terms
             </MenuItem>
-          </>
+          </MenuWrapper>
         )}
       </Wrapper>
     );

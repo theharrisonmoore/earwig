@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import Icon from "./../Icon/Icon";
+import Icon from "../Icon/Icon";
 
-import { colors, shadows } from "./../../../theme";
+import { colors, shadows } from "../../../theme";
 
 export const Wrapper = styled.div`
   height: 100%;
@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
   background: ${colors.white};
   display: flex;
   padding-top: 0.5rem;
+  padding-left: 1rem;
   flex-direction: column;
   top: 0;
   left: 0;
@@ -40,11 +41,11 @@ export const Wrapper = styled.div`
 export const MenuItem = styled(NavLink)`
   display: flex;
   text-decoration: none;
-  border-style: solid;
+  /* border-style: solid;
   border-width: 0px 1px 1px 1px;
   border-color: ${colors.heliotrope};
-  border-radius: 3px;
-  color: ${colors.heliotrope};
+  border-radius: 3px; */
+  color: ${colors.primary};
   padding: 0.5rem;
   padding-left: 1rem;
   transition: all ease-in 0.2s;
@@ -52,6 +53,7 @@ export const MenuItem = styled(NavLink)`
   min-height: 54px;
   align-items: center;
   text-align: left;
+  font-size: 1.125rem;
   font-weight: bold;
   text-decoration: ${props => props.active && "underline"};
   cursor: ${props => props.disabled && "not-allowed"};
@@ -62,7 +64,7 @@ export const MenuItem = styled(NavLink)`
 
   :hover {
     padding-left: 1.5rem;
-    color: ${colors.heliotrope};
+    color: ${colors.primary};
   }
 `;
 
@@ -91,7 +93,7 @@ export const ComingSoon = styled.div`
   p {
     padding: 0;
     margin: 0;
-    color: ${props => (props.purple ? colors.heliotrope : colors.white)};
+    color: ${props => (props.purple ? colors.heliotrope : colors.primary)};
     width: 100%;
   }
 
@@ -99,7 +101,7 @@ export const ComingSoon = styled.div`
     font-weight: 300;
     font-size: 14px;
     width: 8rem;
-    color: ${props => (props.purple ? colors.heliotrope : colors.white)};
+    color: ${props => (props.purple ? colors.heliotrope : colors.primary)};
     text-align: center;
     margin: 0 auto;
   }
@@ -108,11 +110,7 @@ export const ComingSoon = styled.div`
 export const LogoutButton = styled.div`
   display: flex;
   text-decoration: none;
-  border-style: solid;
-  border-width: 0px 1px 1px 1px;
-  border-color: ${colors.heliotrope};
-  border-radius: 3px;
-  color: ${colors.heliotrope};
+  color: ${colors.primary};
   padding: 0.5rem;
   transition: all ease-in 0.2s;
   height: 3.5rem;
@@ -122,25 +120,31 @@ export const LogoutButton = styled.div`
   cursor: pointer;
   font-weight: bold;
   padding-left: 1rem;
+  font-size: 1.125rem;
 
   .menuIcon {
     margin-right: 1rem;
   }
 
   :hover {
-    text-decoration: underline;
-    padding-left: 1rem;
-    color: ${colors.heliotrope};
+    padding-left: 1.5rem;
+    color: ${colors.primary};
   }
 `;
 
 export const MenuIcon = styled(Icon)`
   margin-right: 1rem;
-  color: ${colors.heliotrope};
+  color: ${colors.primary};
 `;
 
 export const PriorityIcon = styled(Icon)`
   margin-right: 1rem;
-  color: ${colors.white};
+  color: ${colors.primary};
   opacity: ${props => props.disabled && "0.6"};
+`;
+
+export const MenuWrapper = styled.section`
+  display: flex;
+  padding-top: 1rem;
+  flex-direction: column;
 `;
