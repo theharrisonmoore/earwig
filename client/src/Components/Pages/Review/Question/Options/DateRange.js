@@ -20,7 +20,7 @@ class DateRange extends Component {
     const {
       handleChange,
       category,
-      state: { errors }
+      state: { errors },
     } = this.props;
 
     return (
@@ -30,14 +30,9 @@ class DateRange extends Component {
           {...this.props.state}
           category={category}
         />
-        {!!errors &&
-          !!errors.review &&
-          !!errors.review.workPeriod &&
-          !!errors.review.workPeriod.from && (
-            <StyledErrorMessage>
-              {errors.review.workPeriod.from}
-            </StyledErrorMessage>
-          )}
+        {!!errors && !!errors.review && !!errors.review.lastUse && (
+          <StyledErrorMessage>{errors.review.lastUse}</StyledErrorMessage>
+        )}
       </QuestionOptionsWrapper>
     );
   }
