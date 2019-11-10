@@ -695,7 +695,7 @@ export default class OverallReview extends Component {
     ) : (
       <>
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-          <SectionTitle>Overall ratings</SectionTitle>
+          <SectionTitle>Reviews</SectionTitle>
           <LightTitle>No reviews yet. Be the first…</LightTitle>
           {level === 1 && (
             <VerifyPromo>

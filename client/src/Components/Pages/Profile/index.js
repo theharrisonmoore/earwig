@@ -10,11 +10,11 @@ import HeaderSection from "./HeaderSection";
 import OverallReview from "./OverallReview";
 // import Loading from "./../../Common/AntdComponents/Loading";
 
-import { ITEMS } from "./../../../constants/promoItems";
-import { SIGNUP_URL } from "./../../../constants/naviagationUrls";
+import { ITEMS } from "../../../constants/promoItems";
+import { SIGNUP_URL } from "../../../constants/naviagationUrls";
 
-import Icon from "./../../Common/Icon/Icon";
-import Button from "./../../Common/Button";
+import Icon from "../../Common/Icon/Icon";
+import Button from "../../Common/Button";
 
 import {
   Wrapper,
@@ -24,7 +24,7 @@ import {
   AccountLink,
   AccountItem,
   Level0Promo,
-  BottomAccountPromo
+  BottomAccountPromo,
 } from "./Profile.style";
 
 export default class Profile extends Component {
@@ -43,7 +43,7 @@ export default class Profile extends Component {
     contractorAnswers: [],
     reviewsLast30Days: [],
     FilteredReviewMonths: [],
-    avgRatings: null
+    avgRatings: null,
   };
 
   myDivToFocus = React.createRef();
@@ -52,7 +52,7 @@ export default class Profile extends Component {
     if (this.myDivToFocus.current) {
       this.myDivToFocus.current.scrollIntoView({
         behavior: "smooth",
-        block: "start"
+        block: "start",
       });
     }
   };
@@ -82,8 +82,9 @@ export default class Profile extends Component {
             group => group._id === "Working on the site"
           );
           const [contractorQuestion] = worksiteQuestionsGroup.questions.filter(
-            question => question.text === "Who is the main contractor on site?"
+            question => question.text === "Who was the main contractor on site?"
           );
+          // question => question.text === "Who is the main contractor on site?"
           const orderedAnswers = contractorQuestion.answers.sort(
             (a, b) =>
               moment(a.updatedAt).valueOf() - moment(b.updatedAt).valueOf()
@@ -99,7 +100,7 @@ export default class Profile extends Component {
           organizationID,
           contractorAnswers,
           reviewsLast30Days,
-          FilteredReviewMonths
+          FilteredReviewMonths,
         });
       })
       .catch(err => {
@@ -134,12 +135,10 @@ export default class Profile extends Component {
     if (average > 0) {
       if (Number.isInteger(average)) {
         return average;
-      } else {
-        return average.toFixed(2);
       }
-    } else {
-      return "Free";
+      return average.toFixed(2);
     }
+    return "Free";
   };
 
   updateLastViewed = () => {
@@ -184,7 +183,7 @@ export default class Profile extends Component {
         this.setState({
           comments: res.data,
           commentsLoaded: true,
-          commentsQuestion: question
+          commentsQuestion: question,
         });
       })
       .catch(err => {
@@ -216,7 +215,7 @@ export default class Profile extends Component {
       return moment(review.createdAt).format("MMM");
     });
 
-    let reviewMonthsCount = {
+    const reviewMonthsCount = {
       Jan: 0,
       Feb: 0,
       Mar: 0,
@@ -228,7 +227,7 @@ export default class Profile extends Component {
       Sep: 0,
       Oct: 0,
       Nov: 0,
-      Dec: 0
+      Dec: 0,
     };
 
     if (FilteredReviewMonths.length === 0) return reviewMonthsCount;
@@ -251,7 +250,7 @@ export default class Profile extends Component {
       reviewsLast30Days,
       contractorAnswers,
       FilteredReviewMonths,
-      organizationID
+      organizationID,
     } = this.state;
 
     const {
@@ -262,7 +261,7 @@ export default class Profile extends Component {
       id,
       awaitingReview,
       history,
-      location
+      location,
     } = this.props;
 
     // if (!loaded) return <Loading />;
@@ -320,7 +319,7 @@ export default class Profile extends Component {
                 <AccountLink
                   to={{
                     pathname: SIGNUP_URL,
-                    state: { from: this.props.location }
+                    state: { from: this.props.location },
                   }}
                   category={category}
                 >
@@ -485,7 +484,7 @@ export default class Profile extends Component {
                 <AccountLink
                   to={{
                     pathname: SIGNUP_URL,
-                    state: { from: this.props.location }
+                    state: { from: this.props.location },
                   }}
                   category={category}
                 >

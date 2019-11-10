@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Rate } from "antd";
 
-import { organizations } from "./../../../theme";
+import { organizations } from "../../../theme";
 
 import {
   Wrapper,
@@ -9,12 +9,12 @@ import {
   QuestionWrapper,
   QuestionTitle,
   CategoryTitle,
-  LightTitle
+  LightTitle,
 } from "./ReviewSection.style";
 
-import YesNoAnswer from "./ProfileAnswers/YesNoAnswer.js";
-import ListAnswer from "./ProfileAnswers/ListAnswer.js";
-import PieAnswer from "./ProfileAnswers/PieAnswer.js";
+import YesNoAnswer from "./ProfileAnswers/YesNoAnswer";
+import ListAnswer from "./ProfileAnswers/ListAnswer";
+import PieAnswer from "./ProfileAnswers/PieAnswer";
 import ScatterAnswer from "./ProfileAnswers/ScatterAnswer";
 import SiteItemAnswer from "./ProfileAnswers/SiteItemAnswer";
 import CanteenItemAnswer from "./ProfileAnswers/CanteenItemAnswer";
@@ -37,7 +37,7 @@ export default class ReviewSection extends Component {
       toggleComments,
       summary,
       isMobile,
-      carParkingPrice
+      carParkingPrice,
     } = this.props;
 
     const { _id: sectionTitle, questions } = sectionDetails;
@@ -74,7 +74,10 @@ export default class ReviewSection extends Component {
         {sectionTitle === "Key ratings" && (
           <QuestionWrapper>
             <QuestionTitle>
-              <CategoryTitle>Overall rating</CategoryTitle>
+              <CategoryTitle>
+                {`${category[0].toUpperCase()}${category.slice(1)}`} rating by
+                workers
+              </CategoryTitle>
             </QuestionTitle>
             <>
               <Rate
@@ -82,8 +85,8 @@ export default class ReviewSection extends Component {
                 tooltips={["Bad", "Poor", "Average", "Great", "Excellent"]}
                 value={summary.avgRatings || summary.value}
                 style={{
-                  color: `${organizations[summary.category].primary}`,
-                  fontSize: `${isMobile ? "2rem" : "3rem"}`
+                  color: "#F8E71C",
+                  fontSize: `${isMobile ? "2rem" : "3rem"}`,
                 }}
               />
               <div style={{ dispay: "inline-block" }}>
@@ -94,7 +97,7 @@ export default class ReviewSection extends Component {
                       style={{
                         color: `${
                           index === Math.floor(summary.avgRatings) - 1
-                            ? organizations[summary.category].primary
+                            ? "#F8E71C"
                             : "#e8e8e8"
                         }`,
                         fontWeight: `${
@@ -106,7 +109,7 @@ export default class ReviewSection extends Component {
                         width: `${isMobile ? "32px" : "48px"}`,
                         display: "inline-block",
                         textAlign: "center",
-                        marginRight: "8px"
+                        marginRight: "8px",
                       }}
                     >
                       {option}
@@ -129,7 +132,7 @@ export default class ReviewSection extends Component {
                 "siteItem",
                 "canteenItem",
                 "payrollList",
-                "list"
+                "list",
               ].includes(question.profileType) && (
                 <div key={index}>
                   {question.profileType === "yesno" && (
