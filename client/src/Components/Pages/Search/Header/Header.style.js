@@ -15,6 +15,7 @@ export const HeaderWrapper = styled.div`
   justify-content: space-between;
   transition: 0.4s height;
   z-index: 1;
+  max-width: 57.5rem;
 
   & + div {
     padding-top: ${({ shrink }) => (shrink ? "8.125rem" : "17rem")};

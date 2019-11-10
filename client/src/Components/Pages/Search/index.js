@@ -6,6 +6,8 @@ import OrganisationsList from "./OrganisationsList";
 
 import { sortAndCategorizeOrgs } from "../../../helpers";
 
+import Layout from "../../Common/Layout";
+
 import {
   API_SEARCH_URL,
   API_GET_LAST_30D_ORGANISATIONS_IDS,
@@ -97,20 +99,22 @@ export default class Search extends Component {
     const { category = "agency" } = match.params;
 
     return (
-      <SearchWrapper data-testid="searchwrapper" isMobile={isMobile}>
-        <Header
-          orgsIds={orgsIds}
-          isMobile={isMobile}
-          isTablet={isTablet}
-          data={searchData[category]}
-          category={category}
-        />
+      <Layout type="center">
+        <SearchWrapper data-testid="searchwrapper" isMobile={isMobile}>
+          <Header
+            orgsIds={orgsIds}
+            isMobile={isMobile}
+            isTablet={isTablet}
+            data={searchData[category]}
+            category={category}
+          />
 
-        <OrganisationsList
-          sortedOrgs={sortedOrgs[category]}
-          loading={loading}
-        />
-      </SearchWrapper>
+          <OrganisationsList
+            sortedOrgs={sortedOrgs[category]}
+            loading={loading}
+          />
+        </SearchWrapper>
+      </Layout>
     );
   }
 }

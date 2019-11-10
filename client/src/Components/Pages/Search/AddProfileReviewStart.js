@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Modal, Spin } from "antd";
 
+import Layout from "../../Common/Layout";
+
 // constants
 import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
 import { CONTACT_URL } from "../../../constants/naviagationUrls";
@@ -72,30 +74,32 @@ export default class AddProfileReviewStart extends Component {
     const { isLoading } = this.state;
 
     return (
-      <AddWrapper>
-        <Spin tip="Loading..." spinning={isLoading}>
-          <MainDiv>
-            <HeadlineDiv>
-              <H2>Give {name} a review to add it to the earwig database</H2>
-              <div style={{ textAlign: "center" }}>
-                <Button
-                  margin="2rem auto"
-                  styleType="primary"
-                  text="Start your review"
-                  onClick={this.createNewOrg}
-                />
-              </div>
+      <Layout type="side">
+        <AddWrapper>
+          <Spin tip="Loading..." spinning={isLoading}>
+            <MainDiv>
+              <HeadlineDiv>
+                <H2>Give {name} a review to add it to the earwig database</H2>
+                <div style={{ textAlign: "center" }}>
+                  <Button
+                    margin="2rem auto"
+                    styleType="primary"
+                    text="Start your review"
+                    onClick={this.createNewOrg}
+                  />
+                </div>
 
-              <Button
-                margin="0 auto"
-                styleType="secondary"
-                text="Cancel"
-                onClick={this.goBack}
-              />
-            </HeadlineDiv>
-          </MainDiv>
-        </Spin>
-      </AddWrapper>
+                <Button
+                  margin="0 auto"
+                  styleType="secondary"
+                  text="Cancel"
+                  onClick={this.goBack}
+                />
+              </HeadlineDiv>
+            </MainDiv>
+          </Spin>
+        </AddWrapper>
+      </Layout>
     );
   }
 }

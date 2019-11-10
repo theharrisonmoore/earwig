@@ -1,13 +1,11 @@
 import styled from "styled-components";
 
-import { colors, organizations, breakpoints } from "../../../theme";
+import { colors, breakpoints } from "../../../theme";
 
 export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  background-color: ${props =>
-    props.orgType ? organizations[`${props.orgType}`].primary : colors.white};
   display: flex;
   overflow: scroll;
   position: absolute;
@@ -36,15 +34,6 @@ export const Subtitle = styled.h2`
   margin-bottom: 2rem;
   text-align: center;
   max-width: 14rem;
-`;
-
-export const PurpleDiv = styled.div`
-  width: 0%;
-  background-color: ${colors.heliotrope};
-
-  @media ${breakpoints.tablet} {
-    width: 50%;
-  }
 `;
 
 export const ContentWrapper = styled.div`

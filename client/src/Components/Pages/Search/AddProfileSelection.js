@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Spin } from "antd";
 
-import Button from "../../Common/Button";
-
 import { organizations } from "../../../theme";
+
+import Layout from "../../Common/Layout";
+import Button from "../../Common/Button";
 
 import { ADD_PROFILE_START_REVIEW_URL } from "../../../constants/naviagationUrls";
 
@@ -41,69 +42,71 @@ export default class AddProfileSelection extends Component {
 
     const categories = ["agency", "payroll", "worksite", "company"];
     return (
-      <AddWrapper>
-        <MainDiv>
-          <HeadlineDiv>
-            <H2>{name} is a ...</H2>
-          </HeadlineDiv>
-          <LogosContainer>
-            <Spin tip="Loading..." spinning={isLoading} />
-            <ButtonsWrpper>
-              <div>
-                <Button
-                  margin="1rem 0"
-                  styleType="primary"
-                  text="Agencies"
-                  backgroundColor={organizations.agency.primary}
-                  style={{ minWidth: "8.5rem" }}
-                  onClick={e => {
-                    this.addOrganisation(e, name, categories[0]);
-                  }}
-                />
-                <Button
-                  margin="1rem 0"
-                  styleType="primary"
-                  text="Payrolls"
-                  backgroundColor={organizations.payroll.primary}
-                  style={{ minWidth: "8.5rem" }}
-                  onClick={e => {
-                    this.addOrganisation(e, name, categories[1]);
-                  }}
-                />
-              </div>
-              <div>
-                <Button
-                  margin="1rem 0"
-                  styleType="primary"
-                  text="Worksites"
-                  backgroundColor={organizations.worksite.primary}
-                  style={{ minWidth: "8.5rem" }}
-                  onClick={e => {
-                    this.addOrganisation(e, name, categories[2]);
-                  }}
-                />
-                <Button
-                  margin="1rem 0"
-                  styleType="primary"
-                  text="Copmanies"
-                  backgroundColor={organizations.company.primary}
-                  style={{ minWidth: "8.5rem" }}
-                  onClick={e => {
-                    this.addOrganisation(e, name, categories[3]);
-                  }}
-                />
-              </div>
-            </ButtonsWrpper>
-            <Button
-              margin="0.5rem auto"
-              styleType="secondary"
-              text="Cancel"
-              onClick={this.goBack}
-              style={{ width: "6rem" }}
-            />
-          </LogosContainer>
-        </MainDiv>
-      </AddWrapper>
+      <Layout type="side">
+        <AddWrapper>
+          <MainDiv>
+            <HeadlineDiv>
+              <H2>{name} is a ...</H2>
+            </HeadlineDiv>
+            <LogosContainer>
+              <Spin tip="Loading..." spinning={isLoading} />
+              <ButtonsWrpper>
+                <div>
+                  <Button
+                    margin="1rem 0"
+                    styleType="primary"
+                    text="Agencies"
+                    backgroundColor={organizations.agency.primary}
+                    style={{ minWidth: "8.5rem" }}
+                    onClick={e => {
+                      this.addOrganisation(e, name, categories[0]);
+                    }}
+                  />
+                  <Button
+                    margin="1rem 0"
+                    styleType="primary"
+                    text="Payrolls"
+                    backgroundColor={organizations.payroll.primary}
+                    style={{ minWidth: "8.5rem" }}
+                    onClick={e => {
+                      this.addOrganisation(e, name, categories[1]);
+                    }}
+                  />
+                </div>
+                <div>
+                  <Button
+                    margin="1rem 0"
+                    styleType="primary"
+                    text="Worksites"
+                    backgroundColor={organizations.worksite.primary}
+                    style={{ minWidth: "8.5rem" }}
+                    onClick={e => {
+                      this.addOrganisation(e, name, categories[2]);
+                    }}
+                  />
+                  <Button
+                    margin="1rem 0"
+                    styleType="primary"
+                    text="Copmanies"
+                    backgroundColor={organizations.company.primary}
+                    style={{ minWidth: "8.5rem" }}
+                    onClick={e => {
+                      this.addOrganisation(e, name, categories[3]);
+                    }}
+                  />
+                </div>
+              </ButtonsWrpper>
+              <Button
+                margin="0.5rem auto"
+                styleType="secondary"
+                text="Cancel"
+                onClick={this.goBack}
+                style={{ width: "6rem" }}
+              />
+            </LogosContainer>
+          </MainDiv>
+        </AddWrapper>
+      </Layout>
     );
   }
 }
