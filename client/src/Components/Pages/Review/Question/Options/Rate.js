@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Rate } from "antd";
 
 import { QuestionOptionsWrapper, StyledErrorMessage } from "../Question.style";
-import { organizations } from "../../../../../theme";
+import { colors } from "../../../../../theme";
 import { isMobile } from "../../../../../helpers";
 
 class CustomRate extends Component {
@@ -29,7 +29,6 @@ class CustomRate extends Component {
     const { rate, hoverRate } = this.state;
     const {
       options,
-      category,
       state: { review, errors },
     } = this.props;
 
@@ -40,7 +39,7 @@ class CustomRate extends Component {
         <Rate
           onChange={value => this.setRateValue(value)}
           style={{
-            color: `${organizations[category].primary}`,
+            color: `${colors.stars}`,
             fontSize: `${isMobile(window.innerWidth) ? "2rem" : "3rem"}`,
           }}
           onHoverChange={this.handleHoverRate}
@@ -51,11 +50,7 @@ class CustomRate extends Component {
             <span
               key={option}
               style={{
-                color: `${
-                  index < rateValue
-                    ? organizations[category && category].primary
-                    : "#e8e8e8"
-                }`,
+                color: `${index < rateValue ? colors.stars : "#e8e8e8"}`,
                 fontWeight: `${index === rateValue - 1 ? "900" : "500"}`,
                 fontSize: `${
                   isMobile(window.innerWidth) ? "0.6rem" : "0.7rem"

@@ -2,11 +2,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 import * as Yup from "yup";
-import { Checkbox as AntCheckbox, Modal, Alert, Input, Icon } from "antd";
+import { Modal, Alert, Input } from "antd";
 
-import Logo from "./../../Common/Logo";
-import Select from "./../../Common/Select";
-import Button from "./../../Common/Button";
+import Logo from "../../Common/Logo";
+import Select from "../../Common/Select";
+import Button from "../../Common/Button";
+import Link from "../../Common/Link";
+import PopoverComponent from "../../Common/Popover";
 
 import {
   StyledFormik as Formik,
@@ -18,13 +20,13 @@ import {
   CheckboxWrapper,
   Checkbox,
   CheckboxLabel,
-  StyledField
+  StyledField,
+  AntCheckbox
 } from "../../Common/Formik/Formik.style";
 
 import {
-  StyledLink as Link,
+  // StyledLink as Link,
   SignupWrapper,
-  LinkSpan,
   ContentWrapper,
   PurpleDiv,
   OptionsWrapper,
@@ -34,17 +36,18 @@ import {
   SubHeading,
   Paragraph,
   Example,
-  ImageInput
+  ImageInput,
+  ModalText
 } from "./Signup.style";
 
-import example from "./../../../assets/example.png";
+import example from "../../../assets/example.png";
 
-import { API_SIGN_UP } from "./../../../apiUrls";
+import { API_SIGN_UP } from "../../../apiUrls";
 
 import {
   WELCOME_URL,
-  TERMS_OF_USE_URL
-} from "./../../../constants/naviagationUrls";
+  TERMS_OF_USE_URL, PRIVACY_URL
+} from "../../../constants/naviagationUrls";
 
 const { API_TRADE_URL } = require("../../../apiUrls");
 
@@ -53,13 +56,13 @@ function equalTo(ref, msg) {
   return this.test({
     name: "equalTo",
     exclusive: false,
-    message: msg || "Not match",
+    message: msg || "Passwords do not match",
     params: {
-      reference: ref.path
+      reference: ref.path,
     },
-    test: function(value) {
+    test(value) {
       return value === this.resolve(ref);
-    }
+    },
   });
 }
 
@@ -112,7 +115,7 @@ const signupSchema = Yup.object().shape({
       return false;
     }
     return true;
-  })
+  }),
 });
 
 const initialValues = {
@@ -125,7 +128,7 @@ const initialValues = {
   otherOrg: "",
   trade: "",
   city: "",
-  verificationImage: undefined
+  verificationImage: undefined,
 };
 
 const RadioButton = ({
@@ -151,7 +154,7 @@ const RadioButton = ({
         checked={id === value}
         onChange={onChange}
         onBlur={onBlur}
-        className={"radio-button"}
+        className="radio-button"
         {...props}
       />
       <StyledInput htmlFor={id} value={value} id={id} orgType={orgType}>
@@ -172,7 +175,9 @@ export default class Signup extends Component {
     ismodalVisible: false,
     newTrade: "",
     error: "",
-    errors: {}
+    errors: {},
+    isPopupVisible: false,
+    data: null,
   };
 
   handleSubmit = (values, { setSubmitting }) => {
@@ -197,17 +202,14 @@ export default class Signup extends Component {
           url: API_SIGN_UP,
           data: form,
           headers: {
-            "content-type": `multipart/form-data; boundary=${form._boundary}`
-          }
+            "content-type": `multipart/form-data; boundary=${form._boundary}`,
+          },
         })
           .then(({ data }) => {
-            this.props.handleChangeState({ ...data, isLoggedIn: true });
             if (isWorker === "yes") {
-              this.props.history.push({
-                pathname: "/intro",
-                state: { isWorker }
-              });
+              this.setState({ isPopupVisible: true, data });
             } else {
+              this.props.handleChangeState({ ...data, isLoggedIn: true });
               this.props.history.push(WELCOME_URL);
             }
           })
@@ -248,7 +250,7 @@ export default class Signup extends Component {
     const { searchTerm } = e.target.dataset;
     this.setState({
       ismodalVisible: true,
-      newTrade: searchTerm
+      newTrade: searchTerm,
     });
   };
 
@@ -256,7 +258,7 @@ export default class Signup extends Component {
     if (this.state.newTrade && this.state.newTrade.length >= 3) {
       this.setState(
         {
-          confirmLoading: true
+          confirmLoading: true,
         },
         () => {
           axios
@@ -267,20 +269,20 @@ export default class Signup extends Component {
               this.setState({
                 trades: [{ value: data._id, label: data.title }],
                 trade: data._id,
-                disableSelect: true
+                disableSelect: true,
               });
               setFieldValue("trade", data._id);
 
               this.setState(
                 {
-                  newTradeSuccess: true
+                  newTradeSuccess: true,
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       newTradeSuccess: false,
                       ismodalVisible: false,
-                      confirmLoading: false
+                      confirmLoading: false,
                     });
                   }, 1000);
                 }
@@ -290,13 +292,13 @@ export default class Signup extends Component {
               this.setState(
                 {
                   newTradeSuccess: false,
-                  newTradeError: err.response.data.error
+                  newTradeError: err.response.data.error,
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       ismodalVisible: false,
-                      confirmLoading: false
+                      confirmLoading: false,
                     });
                   }, 1000);
                 }
@@ -306,7 +308,7 @@ export default class Signup extends Component {
       );
     } else if (this.state.newTrade.length < 3) {
       this.setState({
-        newTradeError: "Trade must be at least 3 characters long"
+        newTradeError: "Trade must be at least 3 characters long",
       });
     }
   };
@@ -315,7 +317,7 @@ export default class Signup extends Component {
     this.setState({
       ismodalVisible: false,
       newTradeSuccess: false,
-      newTradeError: ""
+      newTradeError: "",
     });
   };
 
@@ -326,12 +328,12 @@ export default class Signup extends Component {
 
   handleImageChange = event => {
     const verificationImage = event.target.files && event.target.files[0];
-    var reader = new FileReader();
+    const reader = new FileReader();
 
     reader.onload = () => {
-      var dataURL = reader.result;
+      const dataURL = reader.result;
       this.setState({
-        verificationImage: dataURL
+        verificationImage: dataURL,
       });
     };
 
@@ -344,7 +346,10 @@ export default class Signup extends Component {
       ismodalVisible,
       confirmLoading,
       verificationImage,
-      newTrade
+      newTrade,
+      isPopupVisible,
+      isWorker,
+      data,
     } = this.state;
 
     return (
@@ -396,7 +401,7 @@ export default class Signup extends Component {
                       this.handleIsworker("yes");
                       handleChange(e);
                     }}
-                    option={"yes"}
+                    option="yes"
                   />
 
                   <Field
@@ -408,7 +413,7 @@ export default class Signup extends Component {
                       this.handleIsworker("no");
                       handleChange(e);
                     }}
-                    option={"no"}
+                    option="no"
                   />
                 </ButtonsWrapper>
 
@@ -433,7 +438,7 @@ export default class Signup extends Component {
                           this.handleOrgType("agency");
                           handleChange(e);
                         }}
-                        option={"agency"}
+                        option="agency"
                       />
 
                       <Field
@@ -446,7 +451,7 @@ export default class Signup extends Component {
                           this.handleOrgType("company");
                           handleChange(e);
                         }}
-                        option={"company"}
+                        option="company"
                       />
                       <Field
                         component={RadioButton}
@@ -512,7 +517,7 @@ export default class Signup extends Component {
                               <Select
                                 id="trade"
                                 name="trade"
-                                placeholder={"Select your trade"}
+                                placeholder="Select your trade"
                                 options={this.state.trades}
                                 handleChange={value => {
                                   form.setFieldValue("trade", value);
@@ -583,38 +588,32 @@ export default class Signup extends Component {
 
                     <SubHeading>Verification Photo</SubHeading>
                     <Paragraph>
-                      We need to verify you’re a genuine worker so the worker
-                      community is protected from fake reviews and spam by
-                      non-workers. Please upload a photo of your face holding
-                      your trade ID like the example below. Please no glare or
-                      blur!
-                      <br />
-                      <br />
-                      Don’t worry! Once we’ve verified you, we’ll delete your
-                      photo to protect your identity.
+                      Please upload a photo of your face holding your trade ID
+                      like the example below. Please no glare or blur!
+                    </Paragraph>
+                    <PopoverComponent
+                      popoverOptions={{
+                        text: `Any card or ticket that shows you are a worker, eg CSCS card.`,
+                        linkText: "What trade ID can I use?",
+                        icon: "info",
+                        margin: "0 0 0.5rem 0",
+                      }}
+                    />
+                    <Paragraph>
+                      Once we’ve verified you, we’ll delete the photo to protect
+                      your identity.
                     </Paragraph>
 
                     <Field name="verificationImage">
                       {({ field, form, onChange }) => (
                         <>
-                          <Example
-                            src={
-                              verificationImage ? verificationImage : example
-                            }
-                          />
                           <Button
                             as="label"
                             htmlFor="verificationImage"
-                            style={{ width: "70%", margin: "0 auto 1.25rem" }}
-                          >
-                            Upload photo
-                            {verificationImage && (
-                              <Icon
-                                type="check"
-                                style={{ color: "white", fontSize: "23px" }}
-                              />
-                            )}
-                          </Button>
+                            styleType="secondary"
+                            text="Upload photo"
+                            margin="1rem auto"
+                          />
                           <ImageInput
                             id="verificationImage"
                             type="file"
@@ -627,6 +626,7 @@ export default class Signup extends Component {
                             }}
                             accept="image/*"
                           />
+                          <Example src={verificationImage || example} />
                         </>
                       )}
                     </Field>
@@ -654,25 +654,69 @@ export default class Signup extends Component {
                   />
                   <CheckboxLabel htmlFor="checkbox">
                     I agree to the earwig{" "}
-                    <LinkSpan target="_blank" to={TERMS_OF_USE_URL}>
-                      Terms of Use.
-                    </LinkSpan>
+                    <Link
+                      target="_blank"
+                      to={TERMS_OF_USE_URL}
+                      text="Terms of Use"
+                      type="plain"
+                    />.{" "} By clicking Finish and log in you acknowledge our{" "}
+                    <Link
+                      target="_blank"
+                      to={PRIVACY_URL}
+                      text="Privacy Policy"
+                      type="plain"
+                    />.
                   </CheckboxLabel>
-                  <FormikErrorMessage name="checkbox" component="div" />
+                  
                 </CheckboxWrapper>
-
+                <FormikErrorMessage name="checkbox" component="div" />
                 {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
                 <Button
                   type="submit"
                   disabled={isSubmitting}
                   loading={isSubmitting}
-                >
-                  Create account
-                </Button>
+                  styleType="primary"
+                  text="Finish and log in"
+                  margin="1rem auto 2rem auto"
+                />
               </Form>
             )}
           </Formik>
-          <Link to={WELCOME_URL}>Continue without an account</Link>
+          <Link
+            to={WELCOME_URL}
+            type="primary"
+            text="Continue without an account"
+          />
+          <Modal
+            visible={isPopupVisible}
+            footer={null}
+            closable={false}
+            afterClose={() => {
+              this.props.handleChangeState({ ...data, isLoggedIn: true });
+              this.props.history.push({
+                pathname: "/intro",
+                state: { isWorker },
+              });
+            }}
+          >
+            <ModalText>
+              Thanks, we're checking your photo. Any reviews you give won't be
+              shown on earwig until we've checked your photo
+            </ModalText>
+            <Button
+              styleType="primary"
+              margin="1rem auto"
+              text="Okay"
+              onClick={() => {
+                this.props.handleChangeState({ ...data, isLoggedIn: true });
+                this.props.history.push({
+                  pathname: "/intro",
+                  state: { isWorker },
+                });
+              }
+              }
+            />
+          </Modal>
         </ContentWrapper>
       </SignupWrapper>
     );

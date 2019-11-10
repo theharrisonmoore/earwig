@@ -144,9 +144,9 @@ export default class index extends Component {
                   backgroundColor={colors.dodgerBlue}
                   border="none"
                   loading={isSubmitting}
-                >
-                  Log in
-                </Button>
+                  styleType="primary"
+                  text="Log in"
+                />
               </Form>
             )}
           </Formik>

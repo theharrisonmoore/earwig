@@ -58,6 +58,7 @@ export const ContentWrapper = styled.div`
   align-items: center;
   margin: 0 auto;
   max-width: 30rem;
+  justify-content: center;
 
   & .paragraph {
     display: block;

@@ -4,6 +4,9 @@ import moment from "moment";
 import { Checkbox, message, Modal } from "antd";
 import Loading from "../../Common/AntdComponents/Loading";
 import Button from "../../Common/Button";
+import Link from "../../Common/Link";
+
+import { organizations } from "../../../theme";
 
 import {
   UserAgreement,
@@ -16,7 +19,6 @@ import {
   FormWrapper,
   Level2Header,
   AgreementLabel,
-  LinkSpan,
   ReviewWrapper,
   ErrorsWrapper,
 } from "./Review.style";
@@ -24,7 +26,6 @@ import {
 import { StyledErrorMessage } from "./Question/Question.style";
 
 import Question from "./Question/index";
-import { organizations } from "../../../theme";
 
 import {
   validationSchema,
@@ -690,15 +691,13 @@ class Review extends Component {
                       style={{ pointerEvents: "none" }}
                     >
                       I agree to the earwig{" "}
-                      <LinkSpan
+                      <Link
                         target="_blank"
                         to={TERMS_OF_USE_URL}
-                        color={organizations[category].primary}
-                        style={{ pointerEvents: "auto" }}
-                      >
-                        Terms of Use.
-                      </LinkSpan>{" "}
-                      This review of my experience with this current or former{" "}
+                        text="Terms of Use"
+                        type="plain"
+                      />
+                      . This review of my experience with this current or former{" "}
                       {category} is truthful.
                     </AgreementLabel>
                   </Checkbox>
@@ -722,6 +721,7 @@ class Review extends Component {
               </UserAgreement>
               <Button
                 type="submit"
+                styleType="primary"
                 size="large"
                 loading={isSubmitting}
                 backgroundColor={organizations[category].primary}

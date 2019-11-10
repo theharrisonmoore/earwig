@@ -1,12 +1,9 @@
 import styled from "styled-components";
 
-import { colors, shadows, breakpoints } from "./../../../theme";
-import Icon from "./../../Common/Icon/Icon";
+import { colors, breakpoints } from "../../../theme";
+import Icon from "../../Common/Icon/Icon";
 
 export const UploadImageWrapper = styled.div`
-  width: 100%;
-
-  margin: 0 auto;
   display: flex;
 `;
 
@@ -20,13 +17,20 @@ export const EditIcon = styled(Icon)`
 
 export const ContentWrapper = styled.div`
   width: 100%;
+  max-width: 25rem;
   margin: 0 auto;
-  padding-bottom: 2rem;
-  padding: 2rem;
-  max-width: 400px;
+  padding: 1rem 1.5rem;
+  padding-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 100px;
 
-  @media ${breakpoints.tablet} {
-    width: 50%;
+  & .paragraph {
+    display: block;
+    color: ${colors.profileFontColor};
+    font-size: 1.8rem;
   }
 `;
 
@@ -39,9 +43,10 @@ export const SelectWrapper = styled.div`
 export const PurpleDiv = styled.div`
   width: 0%;
   background-color: ${colors.heliotrope};
+  padding-bottom: 100px;
 
   @media ${breakpoints.tablet} {
-    width: ${({ width }) => width || "50%"};
+    width: 50%;
   }
 `;
 
@@ -51,6 +56,7 @@ export const Heading = styled.h1`
   font-weight: 900;
   margin-bottom: 2rem;
 `;
+
 export const SubHeading = styled.h2`
   font-weight: 900;
   font-size: 1.125rem;
@@ -60,7 +66,8 @@ export const SubHeading = styled.h2`
 `;
 
 export const Example = styled.img`
-  width: 100%;
+  max-width: 70%;
+  margin: 1rem auto;
 `;
 
 export const Label = styled.label``;
@@ -73,34 +80,6 @@ export const Paragraph = styled.p`
   margin-bottom: 0.25rem;
 `;
 
-export const Button = styled.button`
-  position: relative;
-  background: ${colors.white};
-  border: 1px solid ${props => (props.error ? colors.red : colors.mineShaft2)};
-  box-shadow: ${shadows.buttonShadow};
-  border-radius: 3px;
-  /* height: 3.25rem; */
-  width: 100%;
-  font-weight: 900;
-  font-size: 1.125rem;
-  color: ${colors.profileFontColor};
-  margin-bottom: 2rem;
-  margin-top: ${({ marginTop }) => (marginTop ? "2rem" : "0")};
-  outline: none;
-  display: block;
-  padding: 0.75rem 0;
-  cursor: pointer;
-
-  &:active,
-  &:focus {
-    outline: none;
-  }
-
-  @media (max-width: 360px) {
-    font-size: 4.5vw;
-  }
-`;
-
 export const ImageInput = styled.input`
   display: none;
 `;
@@ -110,4 +89,11 @@ export const Error = styled.p`
   margin-bottom: -2rem;
   color: red;
   font-size: 1rem;
+`;
+
+export const ModalText = styled.p`
+  font-weight: bold;
+  color: ${colors.dustyGray2};
+  text-align: center;
+  margin-bottom: 0;
 `;

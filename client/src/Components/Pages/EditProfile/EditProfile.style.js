@@ -143,7 +143,7 @@ export const Row = styled.div`
 export const EditButton = styled.button`
   font-weight: 900;
   font-size: 1rem;
-  color: ${colors.purpleLinks};
+  color: ${colors.primary};
   background: none;
   border: none;
   outline: none;
@@ -155,7 +155,7 @@ export const EditButton = styled.button`
   &:focus,
   &:hover {
     outline: none;
-    color: ${colors.purpleLinks};
+    color: ${colors.primary};
   }
 `;
 
