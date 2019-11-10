@@ -22,6 +22,7 @@ const sharedStyles = css`
   justify-content: center;
   align-items: center;
   width: auto;
+  background: none;
 
   &:active {
     box-shadow: none;
