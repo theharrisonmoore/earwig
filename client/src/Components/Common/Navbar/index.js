@@ -11,7 +11,7 @@ import {
   WrapperH2,
   LogoLink,
 } from "./Navbar.style";
-import Menu from "./Menu.js";
+import Menu from "./Menu";
 import { colors } from "../../../theme";
 
 export default class Navbar extends Component {

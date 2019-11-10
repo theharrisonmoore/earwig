@@ -31,7 +31,6 @@ import {
   INVITE_WORKERS_URL,
   SEARCH_URL,
 } from "../../../constants/naviagationUrls";
-import Search from "../Icon/Search";
 
 export default class Menu extends PureComponent {
   render() {
