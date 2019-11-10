@@ -27,7 +27,7 @@ module.exports = (req, res, next) => {
       return { cleanedReviews, reviews };
     }).then(({ cleanedReviews }) => getAllQs().then((questions) => {
       //  initial headers
-      const allHeaders = ["Review date", "Overall star rating", "Overall Review", "earwig ID", "Unique User ID", "Town or City", "Points earned", "People helped", "Reviews given", "Trade", "Current agency", "Current payroll", "Current worksite", "Current company", "Entity type", "Entity name", "Date from", "Date to"];
+      const allHeaders = ["Review date", "Overall star rating", "Overall Review", "earwig ID", "Unique User ID", "Town or City", "Points earned", "People helped", "Reviews given", "Trade", "Current agency", "Current payroll", "Current worksite", "Current company", "Entity type", "Entity name", "Last Use", "Date to"];
 
       const sortedQs = questions.sort((a, b) => a.category.localeCompare(b.category));
 

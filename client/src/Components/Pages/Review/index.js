@@ -18,7 +18,7 @@ import {
   AgreementLabel,
   LinkSpan,
   ReviewWrapper,
-  ErrorsWrapper
+  ErrorsWrapper,
 } from "./Review.style";
 
 import { StyledErrorMessage } from "./Question/Question.style";
@@ -30,19 +30,19 @@ import {
   validationSchema,
   hasAgreed,
   rate,
-  workPeriod
+  lastUseSchema,
 } from "./validationSchema";
 import { STATIC_QUESTIONS } from "./staticQuestions";
 
 import {
   THANKYOU_URL,
-  TERMS_OF_USE_URL
+  TERMS_OF_USE_URL,
 } from "../../../constants/naviagationUrls";
 
 const {
   API_POST_REVIEW_URL,
   API_UPLOAD_AUDIO,
-  API_GET_AUDIO_URL
+  API_GET_AUDIO_URL,
 } = require("../../../apiUrls");
 
 class Review extends Component {
@@ -57,13 +57,10 @@ class Review extends Component {
     comments: {},
     answers: {},
     review: {
-      workPeriod: {
-        from: "",
-        to: ""
-      },
+      lastUse: "",
       rate: 0,
       overallReview: "",
-      voiceReview: ""
+      voiceReview: "",
     },
     hasAgreed: false,
     questions: [],
@@ -73,7 +70,7 @@ class Review extends Component {
     orgId: "",
     recording: false,
     audioFile: null,
-    voiceReviewUrl: ""
+    voiceReviewUrl: "",
   };
 
   componentDidMount() {
@@ -85,23 +82,22 @@ class Review extends Component {
 
     this.setState({
       organization: {
-        orgId
+        orgId,
       },
       user: { email },
-      reviewId
+      reviewId,
     });
 
     if (reviewId) {
       axios
         .get(`/api/review/${reviewId}/is-edatable`)
         .then(res => {
-          const { orgId } = res.data;
+          const { orgId: organisationId } = res.data;
           axios
-            .get(`/api/questions/${orgId}`)
-            .then(async res => {
+            .get(`/api/questions/${organisationId}`)
+            .then(async ({ getReviewAnswers: reviewDetails }) => {
               try {
                 const answers = {};
-                const { getReviewAnswers: reviewDetails } = res.data;
                 // fetch the audio url
                 if (
                   reviewDetails[0] &&
@@ -109,27 +105,24 @@ class Review extends Component {
                   reviewDetails[0].voiceReview.audio
                 ) {
                   const { data } = await axios.post(API_GET_AUDIO_URL, {
-                    filename: reviewDetails[0].voiceReview.audio
+                    filename: reviewDetails[0].voiceReview.audio,
                   });
                   this.setState({ voiceReviewUrl: data.audio });
                 }
 
                 const review = {
-                  workPeriod: {
-                    from: moment(reviewDetails[0].workPeriod.from),
-                    to: moment(reviewDetails[0].workPeriod.to)
-                  },
+                  lastUse: moment(reviewDetails[0].lastUse),
                   rate: reviewDetails[0].rate,
                   overallReview: reviewDetails[0].overallReview.text,
-                  voiceReview: reviewDetails[0].voiceReview.audio
+                  voiceReview: reviewDetails[0].voiceReview.audio,
                 };
 
                 reviewDetails[0].answers.forEach(answer => {
                   const {
                     answer: ans,
-                    question: [question]
+                    question: [question],
                   } = answer;
-                  const number = question.number;
+                  const { number } = question;
                   if (answers[number]) {
                     // think about this again;
                     answers[number] = ans;
@@ -146,7 +139,7 @@ class Review extends Component {
                     ),
                     dependant: group.questions.filter(
                       question => question.isDependent
-                    )
+                    ),
                   };
                 });
                 this.setState({
@@ -161,7 +154,7 @@ class Review extends Component {
                   review,
                   dropdownOptions:
                     res.data.dropDownListData &&
-                    res.data.dropDownListData[0].category
+                    res.data.dropDownListData[0].category,
                 });
               } catch (error) {
                 console.log("err", error);
@@ -196,7 +189,7 @@ class Review extends Component {
               main: group.questions.filter(question => !question.isDependent),
               dependant: group.questions.filter(
                 question => question.isDependent
-              )
+              ),
             };
           });
           this.setState({
@@ -207,7 +200,8 @@ class Review extends Component {
             email,
             // answers,
             dropdownOptions:
-              res.data.dropDownListData && res.data.dropDownListData[0].category
+              res.data.dropDownListData &&
+              res.data.dropDownListData[0].category,
           });
         })
         .catch(err => {
@@ -217,11 +211,11 @@ class Review extends Component {
             return Modal.error({
               title: "Error",
               content: error,
-              onOk: () => this.props.history.goBack()
+              onOk: () => this.props.history.goBack(),
             });
           }
           // server error 500
-          message.error(error || "Something went wrong");
+          return message.error(error || "Something went wrong");
         });
     }
   }
@@ -238,46 +232,47 @@ class Review extends Component {
         url: API_UPLOAD_AUDIO,
         data: form,
         headers: {
-          "content-type": `multipart/form-data; boundary=${form.boundary}`
-        }
+          "content-type": `multipart/form-data; boundary=${form.boundary}`,
+        },
       })
         .then(({ data }) => {
           return data.audio;
         })
         .catch(err => console.log(err));
     }
+    return undefined;
   };
 
   handleChange = e => {
     const { answers } = this.state;
     const { name, value } = e.target;
     this.setState({
-      answers: { ...answers, [name]: value }
+      answers: { ...answers, [name]: value },
     });
   };
 
   handleCheckBox = () => {
     this.setState(
       prevState => ({
-        hasAgreed: !prevState.hasAgreed
+        hasAgreed: !prevState.hasAgreed,
       }),
       () => {
         hasAgreed
           .validate(this.state.hasAgreed)
-          .then(res => {
+          .then(() => {
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
-                hasAgreed: ""
-              }
+                hasAgreed: "",
+              },
             }));
           })
           .catch(err => {
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
-                hasAgreed: err.message
-              }
+                hasAgreed: err.message,
+              },
             }));
           });
       }
@@ -287,8 +282,10 @@ class Review extends Component {
   handleReviewChange = e => {
     const { value, name } = e.target;
     const { type } = e.target.dataset;
-    this.setState({
-      [type]: { ...this.state[type], [name]: value }
+    this.setState(prevState => {
+      return {
+        [type]: { ...prevState[type], [name]: value },
+      };
     });
   };
 
@@ -302,7 +299,7 @@ class Review extends Component {
       answer = value;
     }
     this.setState({
-      answers: { ...answers, [number]: answer }
+      answers: { ...answers, [number]: answer },
     });
   };
 
@@ -314,14 +311,14 @@ class Review extends Component {
 
   handleImageUpload = (value, number) => {
     this.setState(prevState => ({
-      answers: { ...prevState.answers, [number]: value }
+      answers: { ...prevState.answers, [number]: value },
     }));
   };
 
   handleRateChage = value => {
     this.setState(
       prevState => ({
-        review: { ...prevState.review, rate: value }
+        review: { ...prevState.review, rate: value },
       }),
       () => {
         rate
@@ -330,62 +327,57 @@ class Review extends Component {
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
-                review: { ...oldState.errors.review, rate: "" }
-              }
+                review: { ...oldState.errors.review, rate: "" },
+              },
             }));
           })
           .catch(err => {
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
-                review: { ...oldState.errors.review, rate: err.message }
-              }
+                review: { ...oldState.errors.review, rate: err.message },
+              },
             }));
           });
       }
     );
   };
 
-  handleDateChage = (fromOrTo, value) => {
+  handleDateChage = date => {
     this.setState(
       prevState => {
         const { review } = prevState;
-        const { workPeriod } = review;
         return {
           review: {
             ...review,
-            workPeriod: { ...workPeriod, [fromOrTo]: value }
-          }
+            lastUse: date,
+          },
         };
       },
       () => {
-        workPeriod
-          .validate(this.state.review.workPeriod)
+        lastUseSchema
+          .validate(this.state.review.lastUse)
           .then(() => {
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
-                review: { ...oldState.errors.review, workPeriod: {} }
-              }
+                review: { ...oldState.errors.review, lastUse: null },
+              },
             }));
           })
           .catch(err => {
-            const workPeriod = {
-              from: err.message,
-              to: err.message
-            };
             this.setState(oldState => ({
               errors: {
                 ...oldState.errors,
-                review: { ...oldState.errors.review, workPeriod }
-              }
+                review: { ...oldState.errors.review, lastUse: err.message },
+              },
             }));
           });
       }
     );
   };
 
-  showNextQestion = (groupId, next, other, set, num) => {
+  showNextQestion = (groupId, next, other) => {
     const newGroups = { ...this.state.groupss };
     const group = { ...newGroups[groupId] };
     let newMain = [...group.main];
@@ -407,12 +399,16 @@ class Review extends Component {
       // eslint-disable-next-line array-callback-return
       newDependant.map(question => {
         if (question.type === "number") {
-          this.setState({
-            answers: { ...this.state.answers, [question.number]: null }
+          this.setState(prevState => {
+            return {
+              answers: { ...prevState.answers, [question.number]: null },
+            };
           });
         } else {
-          this.setState({
-            answers: { ...this.state.answers, [question.number]: "" }
+          this.setState(prevState => {
+            return {
+              answers: { ...prevState.answers, [question.number]: "" },
+            };
           });
         }
       });
@@ -434,12 +430,16 @@ class Review extends Component {
       // eslint-disable-next-line array-callback-return
       newDependant.map(question => {
         if (question.type === "number") {
-          this.setState({
-            answers: { ...this.state.answers, [question.number]: null }
+          this.setState(prevState => {
+            return {
+              answers: { ...prevState.answers, [question.number]: null },
+            };
           });
         } else {
-          this.setState({
-            answers: { ...this.state.answers, [question.number]: "" }
+          this.setState(prevState => {
+            return {
+              answers: { ...prevState.answers, [question.number]: "" },
+            };
           });
         }
       });
@@ -452,17 +452,14 @@ class Review extends Component {
 
   runValidation = values => {
     const { organization } = this.state;
-    let errs = {
+    const errs = {
       answers: {},
       review: {
-        workPeriod: {
-          from: "",
-          to: ""
-        },
+        lastUse: "",
         rate: "",
-        overallReview: ""
+        overallReview: "",
       },
-      hasAgreed: ""
+      hasAgreed: "",
     };
     return validationSchema[organization.category]
       .validate(values, { abortEarly: false })
@@ -475,9 +472,8 @@ class Review extends Component {
           if (err.path.includes("answers")) {
             const num = err.path.split(".")[1];
             errs.answers[num] = err.message;
-          } else if (err.path.includes("workPeriod")) {
-            const key = err.path.split(".")[2];
-            errs.review.workPeriod[key] = err.message;
+          } else if (err.path.includes("lastUse")) {
+            errs.review.lastUse = err.message;
           } else if (err.path.includes("rate")) {
             errs.review.rate = err.message;
           } else if (err.path.includes("hasAgreed")) {
@@ -497,7 +493,7 @@ class Review extends Component {
       answers: this.state.answers,
       comments: this.state.comments,
       review: this.state.review,
-      hasAgreed: this.state.hasAgreed
+      hasAgreed: this.state.hasAgreed,
     };
 
     this.runValidation(values).then(async resp => {
@@ -505,7 +501,7 @@ class Review extends Component {
         const review = {
           values,
           organization,
-          user
+          user,
         };
         if (this.state.isEditing) {
           const { orgId } = this.state;
@@ -517,13 +513,13 @@ class Review extends Component {
           // if there's an audio file submit and update answers with its correct filename
           axios
             .put(`/api/review/${this.state.reviewId}`, review)
-            .then(res => {
+            .then(() => {
               this.setState({ isSubmitting: false });
 
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,
                 orgId,
-                orgName: organization.name
+                orgName: organization.name,
               });
             })
             .catch(err => {
@@ -547,7 +543,7 @@ class Review extends Component {
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,
                 orgId: res.data,
-                orgName: organization.name
+                orgName: organization.name,
               });
             })
             .catch(err => {
@@ -567,16 +563,17 @@ class Review extends Component {
   handleRecord = ({ recordedAudio, audioFile }) => {
     this.setState({
       recordedAudio,
-      audioFile
+      audioFile,
     });
   };
+
   render() {
     const {
       groupss,
       organization: { name, category },
       errors,
       isSubmitting,
-      recording
+      recording,
     } = this.state;
     const { history, isMobile, id } = this.props;
     const staticQuestion = STATIC_QUESTIONS(category);
@@ -710,14 +707,11 @@ class Review extends Component {
                     <StyledErrorMessage>{errors.hasAgreed}</StyledErrorMessage>
                   )}
                   <ErrorsWrapper>
-                    {!!errors &&
-                      !!errors.review &&
-                      !!errors.review.workPeriod &&
-                      !!errors.review.workPeriod.from && (
-                        <StyledErrorMessage>
-                          Must select the month(s) you used the agency
-                        </StyledErrorMessage>
-                      )}
+                    {!!errors && !!errors.review && !!errors.review.lastUse && (
+                      <StyledErrorMessage>
+                        Must select the last month you used this {category}
+                      </StyledErrorMessage>
+                    )}
                     {!!errors && !!errors.review && !!errors.review.rate && (
                       <StyledErrorMessage>
                         Must select a rating for this {category}
@@ -731,8 +725,9 @@ class Review extends Component {
                 size="large"
                 loading={isSubmitting}
                 backgroundColor={organizations[category].primary}
-                children="Publish your review"
-              />
+              >
+                Publish your review
+              </Button>
             </FormWrapper>
           </form>
         </section>

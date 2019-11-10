@@ -30,7 +30,7 @@ class CustomRate extends Component {
     const {
       options,
       category,
-      state: { review, errors }
+      state: { review, errors },
     } = this.props;
 
     const rateValue = hoverRate || rate;
@@ -41,7 +41,7 @@ class CustomRate extends Component {
           onChange={value => this.setRateValue(value)}
           style={{
             color: `${organizations[category].primary}`,
-            fontSize: `${isMobile(window.innerWidth) ? "2rem" : "3rem"}`
+            fontSize: `${isMobile(window.innerWidth) ? "2rem" : "3rem"}`,
           }}
           onHoverChange={this.handleHoverRate}
           value={review.rate}
@@ -49,6 +49,7 @@ class CustomRate extends Component {
         <div style={{ dispay: "inline-block" }}>
           {options.map((option, index) => (
             <span
+              key={option}
               style={{
                 color: `${
                   index < rateValue
@@ -62,7 +63,7 @@ class CustomRate extends Component {
                 width: `${isMobile(window.innerWidth) ? "32px" : "48px"}`,
                 display: "inline-block",
                 textAlign: "center",
-                marginRight: "8px"
+                marginRight: "8px",
               }}
             >
               {option}

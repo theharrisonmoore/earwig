@@ -62,7 +62,7 @@ const getByOrg = async (req, res, next) => {
 const postReviewShort = async (req, res, next) => {
   const {
     review: {
-      rate, overallReview, workPeriod, voiceReview,
+      rate, overallReview, lastUse, voiceReview,
     },
   } = req.body.values;
   const { user, organization } = req.body;
@@ -78,7 +78,7 @@ const postReviewShort = async (req, res, next) => {
       overallReview: {
         text: overallReview,
       },
-      workPeriod,
+      lastUse,
       voiceReview: voiceReview || "voice/file", // temp until next sprint
     });
     await newReview.save();
@@ -92,7 +92,7 @@ const postReview = async (req, res, next) => {
   const {
     answers: questionsAnswers,
     review: {
-      rate, overallReview, workPeriod, voiceReview,
+      rate, overallReview, lastUse, voiceReview,
     },
     comments,
   } = req.body.values;
@@ -125,7 +125,7 @@ const postReview = async (req, res, next) => {
       overallReview: {
         text: overallReview,
       },
-      workPeriod,
+      lastUse,
       voiceReview: {
         audio: voiceReview,
       },
@@ -191,7 +191,7 @@ const updateReview = async (req, res, next) => {
   const {
     answers: questionsAnswers,
     review: {
-      rate, overallReview, workPeriod, voiceReview,
+      rate, overallReview, lastUse, voiceReview,
     },
   } = req.body.values;
   const { user } = req;
@@ -212,7 +212,7 @@ const updateReview = async (req, res, next) => {
     });
 
     await findReviewByIdAndUpdate(reviewId, {
-      rate, text: overallReview, workPeriod, audio: voiceReview || "",
+      rate, text: overallReview, lastUse, audio: voiceReview || "",
     });
 
     const reviewAnswers = Object.keys(questionsAnswers)

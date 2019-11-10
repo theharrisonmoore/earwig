@@ -32,10 +32,7 @@ describe("Test Review schema", () => {
     const review = {
       organization: companies[0],
       user: users[0],
-      workPeriod: {
-        from: "2019-01-01",
-        to: "2019-03-31",
-      },
+      lastUse: "2019-03-31",
       rate: 2,
       overallReview: {
         text: "I had problem gitting paid",
