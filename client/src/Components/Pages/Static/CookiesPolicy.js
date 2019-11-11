@@ -27,8 +27,8 @@ export default class CookiesPolicy extends Component {
               <Ol>
                 <Li>
                   Welcome to earwig. This website, located at{" "}
-                  <UnderlinedLink to="www.earwig.work">
-                    www.earwig.work
+                  <UnderlinedLink to="www.earwigwork.com">
+                    www.earwigwork.com
                   </UnderlinedLink>{" "}
                   <BoldWord> (Site)</BoldWord>
                   {"  "} is owned and operated by Subtap Limited{" "}

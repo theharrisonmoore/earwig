@@ -8,8 +8,8 @@ import {
   Li,
   UnderlinedLink,
   BoldWord,
-  BasicLink
-} from "./../../Common/StaticPages.style";
+  BasicLink,
+} from "../../Common/StaticPages.style";
 
 import {
   TERMS_OF_USE_URL,
@@ -17,8 +17,8 @@ import {
   PRIVACY_URL,
   COOKIES_POLICY_URL,
   SIGNUP_URL,
-  SEARCH_URL
-} from "./../../../constants/naviagationUrls";
+  SEARCH_URL,
+} from "../../../constants/naviagationUrls";
 
 export default class TermsOfUse extends Component {
   render() {
@@ -36,8 +36,11 @@ export default class TermsOfUse extends Component {
               <Ol>
                 <Li>
                   Welcome to earwig. Our website (located at ​
-                  <UnderlinedLink to="/">www.earwig.work</UnderlinedLink>) (<BoldWord>Site</BoldWord> or <BoldWord>earwig Platform</BoldWord>), is owned and
-                  operated by Subtap Limited (​<BoldWord>we​</BoldWord>, <BoldWord>our</BoldWord> or​ <BoldWord>us​</BoldWord>, as
+                  <UnderlinedLink to="/">www.earwigwork.com</UnderlinedLink>) (
+                  <BoldWord>Site</BoldWord> or{" "}
+                  <BoldWord>earwig Platform</BoldWord>), is owned and operated
+                  by Subtap Limited (​<BoldWord>we​</BoldWord>,{" "}
+                  <BoldWord>our</BoldWord> or​ <BoldWord>us​</BoldWord>, as
                   applicable). For further information about us and our contact
                   details, please see the contact information at the end of
                   these Terms.
@@ -70,11 +73,15 @@ export default class TermsOfUse extends Component {
                   Please read these Terms and the ​
                   <UnderlinedLink to={COMMUNITY_GUIDELINES_URL}>
                     ​Community Guidelines
-                  </UnderlinedLink>{" "} carefully before you start to use the earwig Platform, as
+                  </UnderlinedLink>{" "}
+                  carefully before you start to use the earwig Platform, as
                   these will apply to your use of the earwig Platform. We
                   recommend that you print or save a copy of these Terms and the
-                  ​{" "}<UnderlinedLink to={COMMUNITY_GUIDELINES_URL}>
-                    ​Community Guidelines</UnderlinedLink>{"  "} for future reference.
+                  ​{" "}
+                  <UnderlinedLink to={COMMUNITY_GUIDELINES_URL}>
+                    ​Community Guidelines
+                  </UnderlinedLink>
+                  {"  "} for future reference.
                 </Li>
                 <Li>
                   By accessing or using the earwig Platform, you confirm that
@@ -87,9 +94,11 @@ export default class TermsOfUse extends Component {
                   about you through the earwig Platform, please see our ​
                   <UnderlinedLink to={PRIVACY_URL}>
                     ​Privacy Policy
-                  </UnderlinedLink>{" "} and for information on how we use cookies and similar
+                  </UnderlinedLink>{" "}
+                  and for information on how we use cookies and similar
                   technologies in connection with the earwig Platform, please
-                  see our {"  "}<UnderlinedLink to={COOKIES_POLICY_URL}>
+                  see our {"  "}
+                  <UnderlinedLink to={COOKIES_POLICY_URL}>
                     ​Cookie Policy​
                   </UnderlinedLink>
                   .
@@ -98,7 +107,8 @@ export default class TermsOfUse extends Component {
                   We may revise these Terms and the ​
                   <UnderlinedLink to={COMMUNITY_GUIDELINES_URL}>
                     ​Community Guidelines
-                  </UnderlinedLink>{" "} from time to time for any reason, including to reflect changes
+                  </UnderlinedLink>{" "}
+                  from time to time for any reason, including to reflect changes
                   in relevant laws and regulatory requirements. For further
                   information regarding when and how changes we make may take
                   effect, please see paragraph 15 of these Terms.
@@ -161,7 +171,9 @@ export default class TermsOfUse extends Component {
                   that you have breached, or will breach, these Terms or the ​
                   <UnderlinedLink to={COMMUNITY_GUIDELINES_URL}>
                     ​Community Guidelines
-                  </UnderlinedLink>{" "} we may terminate or suspend your registration and/or access to the earwig Platform.
+                  </UnderlinedLink>{" "}
+                  we may terminate or suspend your registration and/or access to
+                  the earwig Platform.
                 </Li>
                 <Li>You can close your account at any time.</Li>
                 <Li>
@@ -216,7 +228,8 @@ export default class TermsOfUse extends Component {
                   comply with our ​
                   <UnderlinedLink to={COMMUNITY_GUIDELINES_URL}>
                     ​Community Guidelines
-                  </UnderlinedLink>. Please read the ​
+                  </UnderlinedLink>
+                  . Please read the ​
                   <UnderlinedLink to={COMMUNITY_GUIDELINES_URL}>
                     ​Community Guidelines
                   </UnderlinedLink>
@@ -252,7 +265,8 @@ export default class TermsOfUse extends Component {
                   Our interpretation of the ​{" "}
                   <UnderlinedLink to={COMMUNITY_GUIDELINES_URL}>
                     ​Community Guidelines
-                  </UnderlinedLink>{" "} and our decision as to whether or not to remove any reported
+                  </UnderlinedLink>{" "}
+                  and our decision as to whether or not to remove any reported
                   UGC is within our sole discretion. You understand and agree
                   that if we choose not to remove any reported UGC that you find
                   objectionable, that decision will not constitute a violation
@@ -265,7 +279,8 @@ export default class TermsOfUse extends Component {
                   these Terms, the ​
                   <UnderlinedLink to={COMMUNITY_GUIDELINES_URL}>
                     ​Community Guidelines
-                  </UnderlinedLink>{" "} and/or that we deem inappropriate.
+                  </UnderlinedLink>{" "}
+                  and/or that we deem inappropriate.
                 </Li>
                 <Li>
                   We reserve the right to suspend or terminate your account
@@ -475,7 +490,10 @@ export default class TermsOfUse extends Component {
               you of our{" "}
               <UnderlinedLink to={COMMUNITY_GUIDELINES_URL}>
                 ​Community Guidelines
-              </UnderlinedLink>{" "} or any liability we incur as a result of the use of the earwig Platform by you or any other person that uses your account as a result of your negligence.
+              </UnderlinedLink>{" "}
+              or any liability we incur as a result of the use of the earwig
+              Platform by you or any other person that uses your account as a
+              result of your negligence.
             </Li>
             <Li style={{ fontWeight: "900" }}>
               Our content
@@ -490,10 +508,24 @@ export default class TermsOfUse extends Component {
                   international copyright and other intellectual property laws.
                 </Li>
                 <Li>
-                  All references in these Terms to ‘content’ includes any information or other material found on or via the earwig Platform, including without limitation text, databases, graphics, audio files, videos, software and all other features found on or via the earwig Platform.
+                  All references in these Terms to ‘content’ includes any
+                  information or other material found on or via the earwig
+                  Platform, including without limitation text, databases,
+                  graphics, audio files, videos, software and all other features
+                  found on or via the earwig Platform.
                 </Li>
                 <Li>
-                  We make the earwig Platform and our content available through the earwig Platform for your personal, non-commercial use only. You may view the earwig Platform’s pages and content online, download and play on your personal device any audio files we make available for download from the Platform and print a copy of these Terms and store such Terms in electronic form on your computer for your records, provided you keep intact any and all copyright and proprietary notices. You may not otherwise reproduce, modify, copy or distribute or use any of the content on the earwig Platform other than as expressly permitted under these Terms without our prior written consent.
+                  We make the earwig Platform and our content available through
+                  the earwig Platform for your personal, non-commercial use
+                  only. You may view the earwig Platform’s pages and content
+                  online, download and play on your personal device any audio
+                  files we make available for download from the Platform and
+                  print a copy of these Terms and store such Terms in electronic
+                  form on your computer for your records, provided you keep
+                  intact any and all copyright and proprietary notices. You may
+                  not otherwise reproduce, modify, copy or distribute or use any
+                  of the content on the earwig Platform other than as expressly
+                  permitted under these Terms without our prior written consent.
                 </Li>
                 <Li>
                   You are not in any circumstances permitted to:
@@ -506,7 +538,9 @@ export default class TermsOfUse extends Component {
                       Platform in contravention of the provisions of our Terms;
                     </Li>
                     <Li>
-                      adapt, vary, edit, modify, distribute, translate or transpose, in part or in whole, any of the content on the earwig Platform;
+                      adapt, vary, edit, modify, distribute, translate or
+                      transpose, in part or in whole, any of the content on the
+                      earwig Platform;
                     </Li>
                     <Li>
                       scrape, harvest, mine, retrieve, meter or otherwise gather
@@ -585,8 +619,8 @@ export default class TermsOfUse extends Component {
               Links
               <Ol>
                 <Li>
-                  You acknowledge that the earwig Platform may include links
-                  to third-party websites. We do not review these third-party
+                  You acknowledge that the earwig Platform may include links to
+                  third-party websites. We do not review these third-party
                   websites nor have any control over them, and we are not
                   responsible for the websites or their content or availability.
                   We do not therefore endorse, or make any representations
@@ -688,7 +722,9 @@ export default class TermsOfUse extends Component {
                 <Li>
                   <span style={{ textDecoration: "underline" }}>
                     Severability.
-                  </span>{" "} If any part of these Terms is found to be unenforceable as a matter of law, all other parts of these Terms will not be
+                  </span>{" "}
+                  If any part of these Terms is found to be unenforceable as a
+                  matter of law, all other parts of these Terms will not be
                   affected and shall remain in force. For the avoidance of
                   doubt, should these Terms or any part of them be deemed void
                   or voidable, this shall not affect the validity of any licence
@@ -697,7 +733,8 @@ export default class TermsOfUse extends Component {
                 <Li>
                   <span style={{ textDecoration: "underline" }}>
                     Reliance on these Terms.
-                  </span>{" "} We intend to rely on these written Terms and any document
+                  </span>{" "}
+                  We intend to rely on these written Terms and any document
                   expressly referred to in them in relation to the subject
                   matter of any contract between us. We and you will be legally
                   bound by these Terms.
@@ -720,7 +757,8 @@ export default class TermsOfUse extends Component {
                 <Li>
                   <span style={{ textDecoration: "underline" }}>
                     References to ‘including’ and other similar expressions.
-                  </span>{" "}In these Terms, words that appear after the expression
+                  </span>{" "}
+                  In these Terms, words that appear after the expression
                   ‘include’, ‘including’, ‘other’, ‘for example’, ‘such as’ or
                   ‘in particular’ (or any similar expression) will not limit the
                   meaning of the words appearing before such expression.
@@ -729,14 +767,16 @@ export default class TermsOfUse extends Component {
                   <span style={{ textDecoration: "underline" }}>
                     You may not transfer your rights under these Terms to
                     someone else.
-                  </span>{" "}You may not assign, sub-license or otherwise transfer any of
+                  </span>{" "}
+                  You may not assign, sub-license or otherwise transfer any of
                   your rights under these Terms.
                 </Li>
                 <Li>
                   <span style={{ textDecoration: "underline" }}>
                     We may transfer our rights and obligations under these Terms
                     to someone else.
-                  </span>{" "}We may transfer our rights and obligations under these Terms
+                  </span>{" "}
+                  We may transfer our rights and obligations under these Terms
                   to someone else. ​ We may assign, novate or otherwise transfer
                   our rights and obligations under these Terms to another
                   organisation. We will contact you to let you know if we plan
@@ -744,10 +784,11 @@ export default class TermsOfUse extends Component {
                 </Li>
                 <Li>
                   <span style={{ textDecoration: "underline" }}>Waiver. </span>
-                  If you breach these Terms or violate the {" "}
+                  If you breach these Terms or violate the{" "}
                   <UnderlinedLink to={COMMUNITY_GUIDELINES_URL}>
                     ​Community Guidelines
-                  </UnderlinedLink>{" "} and we choose to ignore your breach or violation, we will
+                  </UnderlinedLink>{" "}
+                  and we choose to ignore your breach or violation, we will
                   still be entitled to use our rights and remedies at a later
                   date or in any other situation where you breach the Terms or
                   violate the{" "}
@@ -760,14 +801,16 @@ export default class TermsOfUse extends Component {
                   <span style={{ textDecoration: "underline" }}>
                     Electronic Commerce (EC Directive) Regulations 2002 (​ ECRs​
                     ).
-                  </span>{" "} You agree that, if you are not a consumer, we are not required
+                  </span>{" "}
+                  You agree that, if you are not a consumer, we are not required
                   to comply with the requirements set out in regulations 9 or 11
                   of the ECRs.
                 </Li>
                 <Li>
                   <span style={{ textDecoration: "underline" }}>
                     Exclusion of third party rights.
-                  </span>{" "} These Terms do not create any right enforceable by any person
+                  </span>{" "}
+                  These Terms do not create any right enforceable by any person
                   who is not a party to them (or any contract made under them),
                   except that the provisions of these Terms may be enforced by
                   any of our licensors subject to and in accordance with the ​
@@ -821,7 +864,10 @@ export default class TermsOfUse extends Component {
               <br />
               VAT registration number: 303514840
               <br />
-              Email address: <BasicLink href="mailto:hello@earwig.work">hello@earwig.work</BasicLink>
+              Email address:{" "}
+              <BasicLink href="mailto:hello@earwig.work">
+                hello@earwig.work
+              </BasicLink>
               <br />
               Postal address: 2 Western Street, Barnsley, S70 2BP
             </Li>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import paperIcon from "./../../../assets/paper-icon.svg";
+import paperIcon from "../../../assets/paper-icon.svg";
 import {
   Wrapper,
   ContentWrapper,
@@ -7,14 +7,14 @@ import {
   PageTitle,
   LargeLink,
   BlueDiv,
-  PurpleDiv
-} from "./../../Common/StaticPages.style";
+  PurpleDiv,
+} from "../../Common/StaticPages.style";
 
 import {
   COMMUNITY_GUIDELINES_URL,
   TERMS_OF_USE_URL,
   PRIVACY_URL,
-  COOKIES_POLICY_URL
+  COOKIES_POLICY_URL,
 } from "../../../constants/naviagationUrls";
 
 export default class PrivacyAndTerms extends Component {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import lampIcon from "./../../../assets/lamp-icon.svg";
+import lampIcon from "../../../assets/lamp-icon.svg";
 import {
   Wrapper,
   ContentWrapper,
@@ -7,10 +7,10 @@ import {
   LargeParagraph,
   PageTitle,
   BlueDiv,
-  PurpleDiv
-} from "./../../Common/StaticPages.style";
+  PurpleDiv,
+} from "../../Common/StaticPages.style";
 
-import CommentSection from "./../../Common/CommentSection";
+import CommentSection from "../../Common/CommentSection";
 
 export default class ShapeEarwig extends Component {
   render() {
