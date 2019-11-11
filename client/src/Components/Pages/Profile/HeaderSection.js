@@ -20,19 +20,17 @@ import {
   VerifyPromo,
   VerifyLink,
   InactiveButton,
-  IconWrapper,
   OrgLink,
-  ActionButton,
   ContractorDiv,
   ContractorText,
   ContractorListLink,
-  NoReview
+  NoReview,
 } from "./Profile.style";
 
-import { organizations, colors } from "./../../../theme";
+import { colors } from "../../../theme";
 
-import Icon from "./../../Common/Icon/Icon";
-import PopoverComponent from "./../../Common/Popover";
+import PopoverComponent from "../../Common/Popover";
+import Button from "../../Common/Button";
 
 const content = contractorAnswers => (
   <div style={{ maxHeight: "150px", overflow: "auto" }}>
@@ -53,7 +51,7 @@ export default class HeaderSection extends Component {
       contractorAnswers,
       reviewsLast30Days,
       orgId,
-      awaitingReview
+      awaitingReview,
     } = this.props;
     const {
       category,
@@ -61,7 +59,7 @@ export default class HeaderSection extends Component {
       email,
       phoneNumber,
       totalReviews,
-      websiteUrl
+      websiteUrl,
     } = summary;
     // if there are reviews less dating before 1 month user not allowed
     const reviewNotAllowed = reviewsLast30Days.length > 0;
@@ -73,83 +71,86 @@ export default class HeaderSection extends Component {
             <CompanyNameAndStars>
               <CompanyTitle>{name}</CompanyTitle>
               {level > 1 ? (
-            <ButtonDiv
-              isTablet={isTablet}
-              isMobile={isMobile}
-              organization={category}
-            >
-              {category !== "company" && (
-                <>
-                  <OrgLink href={`tel:${phoneNumber}`} hasDetails={phoneNumber}>
-                    <OrgButton
-                      category={category}
-                      isMobile={isMobile}
-                      hasDetails={phoneNumber}
-                    >
-                      Call
-                    </OrgButton>
-                  </OrgLink>
+                <ButtonDiv
+                  isTablet={isTablet}
+                  isMobile={isMobile}
+                  organization={category}
+                >
+                  {category !== "company" && (
+                    <>
+                      <OrgLink
+                        href={`tel:${phoneNumber}`}
+                        hasDetails={phoneNumber}
+                      >
+                        <OrgButton
+                          category={category}
+                          isMobile={isMobile}
+                          hasDetails={phoneNumber}
+                        >
+                          Call
+                        </OrgButton>
+                      </OrgLink>
 
-                  <OrgLink href={`mailto:${email}`} hasDetails={email}>
+                      <OrgLink href={`mailto:${email}`} hasDetails={email}>
+                        <OrgButton category={category} isMobile={isMobile}>
+                          Email
+                        </OrgButton>
+                      </OrgLink>
+                    </>
+                  )}
+
+                  <OrgLink
+                    href={`${websiteUrl}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    hasDetails={websiteUrl}
+                  >
                     <OrgButton category={category} isMobile={isMobile}>
-                      Email
+                      Website
                     </OrgButton>
                   </OrgLink>
-                </>
-              )}
+                </ButtonDiv>
+              ) : (
+                <ButtonDiv
+                  isTablet={isTablet}
+                  isMobile={isMobile}
+                  organization={category}
+                >
+                  {category !== "company" && (
+                    <>
+                      <InactiveButton
+                        category={category}
+                        isMobile={isMobile}
+                        hasDetails={phoneNumber}
+                      >
+                        Call
+                      </InactiveButton>
+                      <InactiveButton
+                        category={category}
+                        isMobile={isMobile}
+                        hasDetails={email}
+                      >
+                        Email
+                      </InactiveButton>
+                    </>
+                  )}
 
-              <OrgLink
-                href={`${websiteUrl}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                hasDetails={websiteUrl}
-              >
-                <OrgButton category={category} isMobile={isMobile}>
-                  Website
-                </OrgButton>
-              </OrgLink>
-            </ButtonDiv>
-          ) : (
-            <ButtonDiv
-              isTablet={isTablet}
-              isMobile={isMobile}
-              organization={category}
-            >
-              {category !== "company" && (
-                <>
                   <InactiveButton
                     category={category}
                     isMobile={isMobile}
-                    hasDetails={phoneNumber}
+                    hasDetails={websiteUrl}
                   >
-                    Call
+                    Website
                   </InactiveButton>
-                  <InactiveButton
-                    category={category}
-                    isMobile={isMobile}
-                    hasDetails={email}
-                  >
-                    Email
-                  </InactiveButton>
-                </>
+                </ButtonDiv>
               )}
-
-              <InactiveButton
-                category={category}
-                isMobile={isMobile}
-                hasDetails={websiteUrl}
-              >
-                Website
-              </InactiveButton>
-            </ButtonDiv>
-          )}
               <StarWrapper onClick={handleScroll}>
                 <Rate
                   disabled
                   value={summary.avgRatings || summary.value || 0}
                   style={{
                     color: `${colors.stars}`,
-                    fontSize: "0.75rem"
+                    fontSize: "0.75rem",
                   }}
                   className="last-reviewed-star-rate"
                 />
@@ -163,7 +164,7 @@ export default class HeaderSection extends Component {
               </StarWrapper>
             </CompanyNameAndStars>
           </CompanyDiv>
-          
+
           {/* contractor section */}
           {category === "worksite" && (
             <ContractorDiv>
@@ -185,7 +186,7 @@ export default class HeaderSection extends Component {
               {contractorAnswers[0] && (
                 <Popover
                   placement="bottom"
-                  title={"Contractors List"}
+                  title="Contractors List"
                   content={content(contractorAnswers)}
                   trigger="click"
                 >
@@ -207,65 +208,21 @@ export default class HeaderSection extends Component {
                     level === 1 && !awaitingReview
                       ? USER_PROFILE_URL
                       : `/organization/${orgId}/review`,
-                  state: { name, category }
+                  state: { name, category },
                 }}
               >
-                <ActionButton
-                  color={organizations[category].primary}
-                  disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
-                  isMobile={isMobile}
+                <Button
+                  styleType="primary"
                   style={{
-                    margin: "0 .5rem",
                     opacity: `${
                       reviewNotAllowed && reviewsLast30Days.length > 0 ? 0.5 : 1
-                    }`
+                    }`,
                   }}
-                >
-                  {!isMobile && (
-                    <Icon
-                      icon="starComment"
-                      margin="0 1rem 0 0"
-                      width="38"
-                      height="38"
-                      color={colors.white}
-                    />
-                  )}
-                  Review this {category || 'organisation'}
-                </ActionButton>
+                  text={`Review this ${category || "organisation"}`}
+                  disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
+                  margin="0 auto 0.5rem auto"
+                />
               </Link>
-              {/* <Link
-                to={{
-                  pathname:
-                    level === 1 && !awaitingReview
-                      ? USER_PROFILE_URL
-                      : `/organization/${orgId}/review`,
-                  state: { name, category }
-                }}
-              > */}
-              <PopoverComponent
-                category={category}
-                popoverOptions={{
-                  text: "This feature is coming soon. Stay tuned"
-                }}
-              >
-                <ActionButton
-                  color={organizations[category].primary}
-                  isMobile={isMobile}
-                  style={{ margin: "0 .5rem", opacity: "0.5" }}
-                >
-                  {!isMobile && (
-                    <Icon
-                      icon="raiseHand"
-                      margin="0 1rem 0 0"
-                      width="38"
-                      height="38"
-                      color={colors.white}
-                    />
-                  )}
-                  Ask workers a question
-                </ActionButton>
-              </PopoverComponent>
-              {/* </Link> */}
             </ActionButtonsDiv>
 
             {reviewNotAllowed && reviewsLast30Days.length > 0 && (
@@ -277,7 +234,9 @@ export default class HeaderSection extends Component {
                       reviewsLast30Days[0].date
                     ).format("DD.MM.YYYY")}`,
                     linkText: "Why can't I give a review?",
-                    icon: "info"
+                    icon: "info",
+                    margin: "0.5 auto",
+                    color: `${colors.white}`
                   }}
                 />
               </div>
@@ -290,7 +249,7 @@ export default class HeaderSection extends Component {
               Get verified as a worker to give reviews, comment on other reviews
               and search jobs
             </p>
-            <VerifyLink to={"/upload-verification-photo"} category={category}>
+            <VerifyLink to="/upload-verification-photo" category={category}>
               Get verified as a worker >
             </VerifyLink>
           </VerifyPromo>

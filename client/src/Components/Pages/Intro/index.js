@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 
-import { WELCOME_URL } from "./../../../constants/naviagationUrls";
-
 import { Link } from "react-router-dom";
+import { WELCOME_URL } from "../../../constants/naviagationUrls";
 
-import Logo from "./../../Common/Logo";
+import Logo from "../../Common/Logo";
 
 import {
   IntroWrapper,
@@ -15,10 +14,10 @@ import {
   PurpleDiv,
   BlueDiv,
   Title,
-  LogoWrapper
+  LogoWrapper,
 } from "./Intro.style";
 
-import Button from "./../../Common/Button";
+import Button from "../../Common/Button";
 
 export default class Intro extends Component {
   render() {

@@ -47,7 +47,7 @@ export const Header = styled.div`
   display: flex;
   flex-direction: column;
   padding: ${props =>
-    props.isTablet || props.isMobile ? "1.5rem 1rem" : "1.5rem 7rem"};
+    props.isTablet || props.isMobile ? "0.5rem 1rem" : "0.5rem 7rem"};
   background-color: ${props => organizations[`${props.category}`].primary};
   color: ${colors.white};
 `;
@@ -59,8 +59,8 @@ export const CompanyDetails = styled.div`
   flex-direction: ${props =>
     props.isTablet || props.isMobile ? "column" : "row"};
   align-items: center;
-  padding-bottom: ${props =>
-    props.isTablet || props.isMobile ? "2rem" : "1rem"};
+  /* padding-bottom: ${props =>
+    props.isTablet || props.isMobile ? "2rem" : "1rem"}; */
 `;
 
 export const CompanyDiv = styled.div`

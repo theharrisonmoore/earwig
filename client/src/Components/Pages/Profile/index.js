@@ -18,7 +18,6 @@ import Button from "../../Common/Button";
 
 import {
   Wrapper,
-  Banner,
   ReviewDiv,
   AccountPromo,
   AccountLink,
@@ -264,7 +263,7 @@ export default class Profile extends Component {
 
     // if (!loaded) return <Loading />;
 
-    const { category, name } = summary && summary;
+    const { category } = summary && summary;
     return (
       <Wrapper isMobile={isMobile}>
         <Skeleton loading={!loaded}>

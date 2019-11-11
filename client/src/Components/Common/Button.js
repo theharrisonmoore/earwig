@@ -15,7 +15,8 @@ const sharedStyles = css`
   outline: none;
   display: block;
   padding: 0 1rem;
-  cursor: pointer;
+  cursor: ${props =>
+    props.disabled || props.loading ? "not-allowed" : "pointer"};
   margin: ${props => props.margin || "2rem auto"};
   position: relative;
   display: flex;
@@ -36,6 +37,7 @@ const sharedStyles = css`
     left: 0px;
     background: ${colors.btnClick};
     box-shadow: none;
+    border-radius: 300px;
     }
   }
 
@@ -73,8 +75,8 @@ const primaryStyles = css`
 `;
 
 const secondaryStyles = css`
-  color: ${({color}) => color || colors.primary};
-  border: 1px solid ${({color}) => color || colors.primary};
+  color: ${({ color }) => color || colors.primary};
+  border: 1px solid ${({ color }) => color || colors.primary};
   background-color: ${({ backgroundColor }) => backgroundColor || colors.white};
 
   &:active {
@@ -88,7 +90,7 @@ const secondaryStyles = css`
 `;
 
 const linkStyles = css`
-  color: ${colors.primary};
+  color: ${({ color }) => color || colors.primary};
   outline: none;
   border: none;
   display: inline;
@@ -118,12 +120,13 @@ const Button = ({
   styleType,
   icon,
   color,
+  disabled,
   ...rest
 }) => {
   return (
     <>
       <ButtonElement
-        disabled={loading}
+        disabled={loading || disabled}
         danger={danger}
         backgroundColor={backgroundColor}
         left={left}
@@ -136,7 +139,13 @@ const Button = ({
             <ButtonSpinner color={spinnerColor} />
           ) : (
             icon && (
-              <Icon icon={icon} width="23" height="23" margin="0 0.5rem 0 0" />
+              <Icon
+                icon={icon}
+                width="23"
+                height="23"
+                margin="0 0.5rem 0 0"
+                color={color}
+              />
             )
           )}
           {text}
