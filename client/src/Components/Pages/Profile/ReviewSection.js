@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Rate } from "antd";
 
-import { organizations } from "../../../theme";
-
 import {
   Wrapper,
   SectionTitle,
