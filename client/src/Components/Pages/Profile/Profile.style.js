@@ -254,6 +254,7 @@ export const StarWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   cursor: pointer;
+
 `;
 
 export const Reviews = styled.p`

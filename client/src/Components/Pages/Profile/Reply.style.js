@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, organizations } from "../../../theme";
+import { colors } from "../../../theme";
 import { MOBILE_WIDTH } from "../../../constants/screenWidths";
 
 export const Banner = styled.div`

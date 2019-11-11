@@ -24,7 +24,6 @@ import {
   ContractorDiv,
   ContractorText,
   ContractorListLink,
-  NoReview,
 } from "./Profile.style";
 
 import { colors } from "../../../theme";
@@ -154,13 +153,9 @@ export default class HeaderSection extends Component {
                   }}
                   className="last-reviewed-star-rate"
                 />
-                {totalReviews === 0 ? (
-                  <NoReview>No reviews yet</NoReview>
-                ) : (
-                  <Reviews>
-                    {totalReviews} review{totalReviews !== 1 && "s"}
-                  </Reviews>
-                )}
+                <Reviews>
+                  {totalReviews} review{totalReviews !== 1 && "s"}
+                </Reviews>
               </StarWrapper>
             </CompanyNameAndStars>
           </CompanyDiv>
@@ -236,7 +231,7 @@ export default class HeaderSection extends Component {
                     linkText: "Why can't I give a review?",
                     icon: "info",
                     margin: "0.5 auto",
-                    color: `${colors.white}`
+                    color: `${colors.white}`,
                   }}
                 />
               </div>
