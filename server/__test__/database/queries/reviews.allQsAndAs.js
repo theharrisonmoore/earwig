@@ -8,7 +8,7 @@ const Review = require("../../../database/models/Review");
 describe("Test overallReview query", () => {
   beforeAll(async (done) => {
     await buildDB();
-    done()
+    done();
   });
 
   afterAll(() => {
@@ -18,12 +18,11 @@ describe("Test overallReview query", () => {
   test("Test with correct organization ID", async (done) => {
     const review = await Review.findOne();
     const organizationID = review.organization;
-    const organization = await Organization.findById(organizationID)
+    const organization = await Organization.findById(organizationID);
 
     allQsAndAs(organization.category, organizationID).then((result) => {
       expect(result).toBeDefined();
       expect(result[0].questions[0].answers).toBeDefined();
-      expect(result[0].questions[0].answers[0].organization).toEqual(organizationID)
       done();
     });
   });
