@@ -66,12 +66,11 @@ export default class Search extends Component {
 
   fetchOrgs = (category = "agency") => {
     const { searchData } = this.state;
-    if (!searchData[category].length) {
-      this.setState({ loading: true }, () => {
+    this.setState({ loading: true, category }, () => {
+      if (!searchData[category].length) {
         axiosCall(category)
           .then(({ data: [{ searchData: newData }] }) => {
             const sortedOrgs = sortAndCategorizeOrgs(newData);
-
             this.setState(prevState => {
               return {
                 searchData: { ...prevState.searchData, [category]: newData },
@@ -83,8 +82,10 @@ export default class Search extends Component {
           .finally(() => {
             this.setState({ loading: false });
           });
-      });
-    }
+      } else {
+        this.setState({ loading: false });
+      }
+    });
   };
 
   render() {

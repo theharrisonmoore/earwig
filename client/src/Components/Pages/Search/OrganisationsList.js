@@ -24,30 +24,14 @@ const OrganisationsList = ({ sortedOrgs, loading }) => {
       {loading ? (
         <SkeletonWrapper />
       ) : (
-        sortedOrgs.map(mainCategory =>
-          mainCategory.children.length > 0 ? (
-            <div key={mainCategory.key}>
-              <MainKey>{mainCategory.key}</MainKey>
-              {mainCategory.children.map(category =>
-                category.children.length > 0 ? (
-                  <div key={category.key}>
-                    <SubKey>{category.key}</SubKey>
-                    <div>
-                      {category.children.map(org => (
-                        <Suggestion
-                          organisation={org}
-                          key={org._id}
-                          withoutBorder
-                          noIcon
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ) : null
-              )}
-            </div>
-          ) : null
-        )
+        sortedOrgs.map(org => (
+          <div onShow>
+            {org.mainKey && <MainKey>{org.mainKey}</MainKey>}
+            {org.subKey && <SubKey>{org.subKey}</SubKey>}
+
+            <Suggestion organisation={org} key={org._id} withoutBorder noIcon />
+          </div>
+        ))
       )}
     </OrgsListWrapper>
   );
