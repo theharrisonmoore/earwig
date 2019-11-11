@@ -365,10 +365,10 @@ module.exports = async () => {
       label: "per timesheet",
       category: "payroll",
 
-      profileText: "Payroll charge",
+      profileText: "This payroll charges you",
       profileSection: "Key ratings",
       profileType: "list",
-      profileOrder: 2,
+      profileOrder: 1,
 
       group: {
         groupOrder: 0,
@@ -384,10 +384,10 @@ module.exports = async () => {
       options: ["CIS", "Ltd", "PAYE", "Umbrella"],
       category: "payroll",
 
-      profileText: "Pays using the following payroll types",
+      profileText: "This payroll pays you using the following payroll types",
       profileSection: "Key ratings",
       profileType: "barChart",
-      profileOrder: 3,
+      profileOrder: 2,
 
       group: {
         groupOrder: 0,
@@ -408,10 +408,10 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "payroll",
 
-      profileText: "Sends you terms and conditions before your work begins",
+      profileText: "Did this payroll send you a contract?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 9,
+      profileOrder: 7,
 
       group: {
         groupOrder: 0,
@@ -431,10 +431,10 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "payroll",
 
-      profileText: "Pays you within the timeframe you expect",
+      profileText: "Did this payroll send you a contract before your work started?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 5,
+      profileOrder: 8,
 
       group: {
         groupOrder: 0,
@@ -451,10 +451,10 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "payroll",
 
-      profileText: "Pays you the amount you expect",
+      profileText: "Were you paid on time?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 6,
+      profileOrder: 5,
 
       group: {
         groupOrder: 0,
@@ -471,7 +471,7 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "payroll",
 
-      profileText: "Pays you the amount you expect",
+      profileText: "Were you paid the amount you expected (including any overtime)?",
       profileSection: "Key ratings",
       profileType: "yesno",
       profileOrder: 6,
@@ -490,10 +490,10 @@ module.exports = async () => {
       text: "Were your payslips easily accessible?",
       options: ["Yes", "No", "I didn't check"],
       category: "payroll",
-      profileText: "Payslips are easily accessible",
+      profileText: "Were your payslips easily accessible?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 10,
+      profileOrder: 9,
       group: {
         groupOrder: 0,
         name: "general",
@@ -509,10 +509,10 @@ module.exports = async () => {
       options: ["Yes", "No", "I didn't check"],
       category: "payroll",
 
-      profileText: "Payslips show all the information you need",
+      profileText: "Did the payslips show all the information you needed?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 11,
+      profileOrder: 10,
 
       group: {
         groupOrder: 0,
@@ -530,10 +530,10 @@ module.exports = async () => {
       options: agencyNames,
       category: "payroll",
 
-      profileText: "Works with the following agencies",
+      profileText: "This payroll works with the following agencies",
       profileSection: "Key ratings",
       profileType: "list",
-      profileOrder: 4,
+      profileOrder: 3,
 
       group: {
         groupOrder: 1,
@@ -549,10 +549,10 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "payroll",
 
-      profileText: "Happy to use this payroll again overall",
+      profileText: "Overall, would you be happy to use this payroll again?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 1,
+      profileOrder: 4,
 
       group: {
         groupOrder: 1,

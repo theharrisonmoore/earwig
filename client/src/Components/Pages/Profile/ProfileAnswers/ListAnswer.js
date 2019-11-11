@@ -6,16 +6,16 @@ import {
   ListItem,
   Comment,
   ListComment,
-  PayrollItem
+  PayrollItem,
 } from "./ProfileAnswers.style";
 
-import { organizations } from "./../../../../theme";
+import { organizations } from "../../../../theme";
 
 export default class ListAnswer extends Component {
   decideColor = questionCategory => {
     if (questionCategory === "agency") return "payroll";
-    else if (questionCategory === "payroll") return "agency";
-    else return questionCategory;
+    if (questionCategory === "payroll") return "agency";
+    return questionCategory;
   };
 
   getAverage = answers => {
@@ -36,7 +36,7 @@ export default class ListAnswer extends Component {
   render() {
     const { question, toggleComments, category } = this.props;
 
-    if (question.profileText === "Payroll charge") {
+    if (question.profileText === "This payroll charges you") {
       return (
         <ListWrapper>
           <ListComment>
@@ -57,7 +57,7 @@ export default class ListAnswer extends Component {
           </ListComment>
         </ListWrapper>
       );
-    } else if (question.profileText === "Recommended nearby shops and cafés") {
+    } if (question.profileText === "Recommended nearby shops and cafés") {
       return (
         <ListWrapper style={{ paddingLeft: "2rem" }}>
           {question.answers.map((answer, index) => (
@@ -67,7 +67,7 @@ export default class ListAnswer extends Component {
           ))}
         </ListWrapper>
       );
-    } else {
+    } 
       return (
         <ListWrapper>
           {question.answers.map((answer, index) => (
@@ -89,6 +89,6 @@ export default class ListAnswer extends Component {
           ))}
         </ListWrapper>
       );
-    }
+    
   }
 }
