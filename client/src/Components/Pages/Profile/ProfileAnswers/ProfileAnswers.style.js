@@ -70,7 +70,7 @@ export const Comment = styled.button`
   padding: 0 0.5rem;
   box-shadow: none;
   outline: none;
-  background-color: none;
+  background: none;
   border-radius: 0.25rem;
   margin-right: auto;
   justify-self: flex-end;
