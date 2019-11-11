@@ -431,6 +431,7 @@ module.exports.allQsAndAs = (orgType, orgId, justContractor) => new Promise((res
         hasComment: 1,
         icon: 1,
         text: 1,
+        hintText: 1,
         options: 1,
         answers: {
           $filter: {

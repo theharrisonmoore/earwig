@@ -43,7 +43,8 @@ export default class ListAnswer extends Component {
             <PayrollItem color="payroll">
               £{this.getAverage(question.answers)} per timesheet
             </PayrollItem>
-            {question.answers.filter(answer => answer.comment).length > 0 ? (
+            {question.hasComment &&
+            question.answers.filter(answer => answer.comment).length > 0 ? (
               <Comment
                 onClick={() => toggleComments(question)}
                 active
@@ -57,7 +58,8 @@ export default class ListAnswer extends Component {
           </ListComment>
         </ListWrapper>
       );
-    } if (question.profileText === "Recommended nearby shops and cafés") {
+    }
+    if (question.profileText === "Recommended nearby shops and cafés") {
       return (
         <ListWrapper style={{ paddingLeft: "2rem" }}>
           {question.answers.map((answer, index) => (
@@ -67,28 +69,27 @@ export default class ListAnswer extends Component {
           ))}
         </ListWrapper>
       );
-    } 
-      return (
-        <ListWrapper>
-          {question.answers.map((answer, index) => (
-            <ListItem
-              color={
-                question.profileText === "Works with the following agencies"
-                  ? "agency"
-                  : question.category
-              }
-              key={index}
+    }
+    return (
+      <ListWrapper>
+        {question.answers.map((answer, index) => (
+          <ListItem
+            color={
+              question.profileText === "Works with the following agencies"
+                ? "agency"
+                : question.category
+            }
+            key={index}
+          >
+            <Link
+              to={`/profile/${answer.answer._id}`}
+              style={{ color: "inherit" }}
             >
-              <Link
-                to={`/profile/${answer.answer._id}`}
-                style={{ color: "inherit" }}
-              >
-                {answer.answer.name}
-              </Link>
-            </ListItem>
-          ))}
-        </ListWrapper>
-      );
-    
+              {answer.answer.name}
+            </Link>
+          </ListItem>
+        ))}
+      </ListWrapper>
+    );
   }
 }

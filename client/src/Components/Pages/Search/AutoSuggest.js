@@ -19,7 +19,6 @@ import Suggestion from "./OrganisationRow";
 // styles
 import {
   AutosuggestWrapper,
-  SymbolDiv,
   AddItemDetails,
   InnerDivSuggestions,
   AddItemBox,

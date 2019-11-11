@@ -14,11 +14,16 @@ export const QText = styled.p`
   font-size: 18px;
 `;
 
+export const Warning = styled.div`
+  display: flex;
+`;
+
 export const HintText = styled.p`
   margin: 0;
   font-style: italic;
   font-size: 16px;
-  color: ${colors.profileFontColor};
+  color: ${props =>
+    props.voiceWarn ? colors.warningText : colors.profileFontColor};
 `;
 
 export const QuestionOptionsWrapper = styled.div`

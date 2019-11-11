@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Pie } from "react-chartjs-2";
 
-import { pieColors, organizations } from "./../../../../theme";
+import { pieColors, organizations } from "../../../../theme";
 
 import { Comment, RightCommentWrapper } from "./ProfileAnswers.style";
 
@@ -22,8 +22,8 @@ export default class PieAnswer extends Component {
 
     const labelObject = this.createLabels(question.answers);
 
-    const totalLables = Object.entries(labelObject)
-    const labelArray = totalLables.map(label => `${label[0]} (${label[1]})`)
+    const totalLables = Object.entries(labelObject);
+    const labelArray = totalLables.map(label => `${label[0]} (${label[1]})`);
 
     const data = {
       labels: labelArray,
@@ -40,53 +40,57 @@ export default class PieAnswer extends Component {
             font: {
               weight: "700",
               size: "12",
-              family: "roboto"
-            }
+              family: "roboto",
+            },
           },
-          hoverBackgroundColor: pieColors[`${category}`]
-        }
-      ]
+          hoverBackgroundColor: pieColors[`${category}`],
+        },
+      ],
     };
 
     const options = {
       responsive: true,
       maintainAspectRatio: false,
-      height: "100px", 
+      height: "100px",
       legend: {
         display: true,
         position: "top",
         fullWidth: false,
-        align: 'start',
-        labels : {
-          align: 'start',
+        align: "start",
+        labels: {
+          align: "start",
         },
-        onClick: (e) => {}
+        onClick: e => {},
       },
-      tooltips: { 
-        callbacks: { 
+      tooltips: {
+        callbacks: {
           label: (tooltipItems, data) => {
-            return data.labels[tooltipItems.index]
-          }
-      } 
-    }
+            return data.labels[tooltipItems.index];
+          },
+        },
+      },
     };
 
     return (
-      <div style={{position: "relative", height: "50vh", paddingBottom: "32px"}}>
+      <div
+        style={{ position: "relative", height: "50vh", paddingBottom: "32px" }}
+      >
         <Pie data={data} options={options} />
-        <RightCommentWrapper>
-          {question.answers.filter(answer => answer.comment).length > 0 ? (
-            <Comment
-              onClick={() => toggleComments(question)}
-              active
-              color={organizations[category].primary}
-            >
-              Comments
-            </Comment>
-          ) : (
-            <Comment>Comments</Comment>
-          )}
-        </RightCommentWrapper>
+        {!!question.hasComment && (
+          <RightCommentWrapper>
+            {question.answers.filter(answer => answer.comment).length > 0 ? (
+              <Comment
+                onClick={() => toggleComments(question)}
+                active
+                color={organizations[category].primary}
+              >
+                Comments
+              </Comment>
+            ) : (
+              <Comment>Comments</Comment>
+            )}
+          </RightCommentWrapper>
+        )}
       </div>
     );
   }

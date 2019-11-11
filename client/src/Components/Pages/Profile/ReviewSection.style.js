@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, borders } from "./../../../theme";
+import { colors, borders } from "../../../theme";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -31,6 +31,13 @@ export const QuestionTitle = styled.h3`
   margin: 0;
   margin-bottom: 0.5rem;
   text-align: left;
+`;
+
+export const HintText = styled.p`
+  margin: 0;
+  font-style: italic;
+  font-size: 16px;
+  color: ${colors.profileFontColor};
 `;
 
 export const StarWrapper = styled(QuestionTitle)`

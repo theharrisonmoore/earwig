@@ -75,6 +75,7 @@ export const Comment = styled.button`
   justify-self: flex-end;
   cursor: ${props => (props.active ? "pointer" : "not-allowed !important")};
   background-color: #fff;
+  visibility: ${props => (props.hasComment ? "visible" : "hidden")};
 `;
 
 export const RightCommentWrapper = styled.div`
