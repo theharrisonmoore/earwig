@@ -626,7 +626,6 @@ module.exports = async () => {
       },
       hasComment: false,
     },
-    // double check the options
     {
       number: 4,
       next: 5,
@@ -956,7 +955,7 @@ module.exports = async () => {
       hasComment: false,
     },
     {
-      number: 20,
+      number: 19,
       type: "yesno",
       text: "Overall, would you be happy to work on this site again?",
       options: ["Yes", "No"],
