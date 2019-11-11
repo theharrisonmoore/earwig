@@ -66,7 +66,7 @@ export const Header = styled.header`
 
   @media ${breakpoints.tablet} {
     background-color: initial;
-    padding: 6.5rem 1rem 0.5rem;
+    padding: 12.5rem 1rem 0.5rem;
   }
 `;
 
