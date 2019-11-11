@@ -9,6 +9,7 @@ import { DateRangeWrapper } from "./AntdComponents.style";
 class DateRange extends React.Component {
   state = {
     lastUse: null,
+    focus: false,
   };
 
   disabledDate = date => {
@@ -35,10 +36,17 @@ class DateRange extends React.Component {
     this.props.handleChange(date && date.startOf("month").format("YYYY-MM-DD"));
   };
 
+  toggleFocus = () => {
+    this.setState(prevState => ({ focus: !prevState.focus }));
+  };
+
   render() {
-    const { lastUse } = this.state;
+    const { lastUse, focus } = this.state;
     return (
-      <DateRangeWrapper fill={lastUse || this.props.review.lastUse}>
+      <DateRangeWrapper
+        fill={lastUse || this.props.review.lastUse}
+        focus={focus}
+      >
         <DatePicker.MonthPicker
           disabledDate={this.disabledDate}
           value={lastUse || this.props.review.lastUse || null}
@@ -48,6 +56,8 @@ class DateRange extends React.Component {
           style={{ width: "100%" }}
           suffixIcon={<Icon icon="calendar" />}
           format="MMM YYYY"
+          onFocus={this.toggleFocus}
+          onBlur={this.toggleFocus}
         />
       </DateRangeWrapper>
     );
