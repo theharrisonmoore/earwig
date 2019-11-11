@@ -11,7 +11,7 @@ import Routes from "./Components";
 
 import ScrollToTop from "./Components/Common/ScrollToTop";
 
-import { isSMobile, isMobile, isTablet } from "./helpers";
+import { isSMobile, isMobile, isTablet, isDesktop } from "./helpers";
 
 import { API_USERS } from "./apiUrls";
 
@@ -24,6 +24,7 @@ export const initialState = {
   isSMobile: false,
   isMobile: false,
   isTablet: false,
+  isDesktop: false,
   id: "",
   trade: "",
   verified: false,
@@ -49,6 +50,7 @@ class App extends Component {
       isSMobile: isSMobile(window.innerWidth),
       isMobile: isMobile(window.innerWidth),
       isTablet: isTablet(window.innerWidth),
+      isDesktop: isDesktop(window.innerWidth),
     });
   }
 

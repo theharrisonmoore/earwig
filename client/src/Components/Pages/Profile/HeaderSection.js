@@ -238,7 +238,7 @@ export default class HeaderSection extends Component {
                       color={colors.white}
                     />
                   )}
-                  Give a review
+                  Review this {category || "organisation"}
                 </ActionButton>
               </Link>
               {/* <Link
@@ -285,6 +285,7 @@ export default class HeaderSection extends Component {
                       reviewsLast30Days[0].date
                     ).format("DD.MM.YYYY")}`,
                     linkText: "Why can't I give a review?",
+                    icon: "info",
                   }}
                 />
               </div>
@@ -298,7 +299,7 @@ export default class HeaderSection extends Component {
               and search jobs
             </p>
             <VerifyLink to="/upload-verification-photo" category={category}>
-              Get verified now &gt;
+              Get verified as a worker >
             </VerifyLink>
           </VerifyPromo>
         )}

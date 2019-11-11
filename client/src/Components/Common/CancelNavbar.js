@@ -49,11 +49,9 @@ const Cancel = styled.p`
   left: 7px;
   cursor: pointer;
   text-decoration: none;
-  border-bottom: 2px solid
-    ${({ cancelColor }) => (cancelColor ? cancelColor : colors.heliotrope)};
 
   color: ${({ cancelColor }) =>
-    cancelColor ? cancelColor : colors.heliotrope};
+    cancelColor ? cancelColor : colors.primary};
 
   @media ${breakpointsMax.mobileM} {
     font-size: 1rem;

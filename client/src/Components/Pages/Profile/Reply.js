@@ -331,6 +331,7 @@ export default class Reply extends Component {
                 backgroundColor={organizations[category].primary}
                 loading={submitting}
                 onClick={this.handleSubmit}
+                styleType="primary"
               >
                 Post reply
               </Button>

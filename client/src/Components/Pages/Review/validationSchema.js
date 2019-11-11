@@ -1,13 +1,8 @@
 import * as Yup from "yup";
 
-export const from = Yup.date()
-  .typeError("Must select the work period")
+export const lastUseSchema = Yup.date()
+  .typeError("Must select a valid date")
   .required("Required");
-
-export const workPeriod = Yup.object({
-  from,
-  to: from,
-});
 
 export const rate = Yup.number()
   .min(1, "Must select a rating")
@@ -21,7 +16,7 @@ export const hasAgreed = Yup.boolean()
 
 export const generalSectionSchema = {
   review: Yup.object({
-    workPeriod,
+    lastUse: lastUseSchema,
     rate,
     overallReview,
   }),

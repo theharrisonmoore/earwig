@@ -38,7 +38,7 @@ describe("Testing profile route", () => {
             expect(res).toBeDefined();
             expect(res.body).toBeDefined();
             expect(res.body.cleanedReviews[0]).toBeDefined();
-            expect(res.body.cleanedReviews[0]["Date from"]).toBeDefined();
+            expect(res.body.cleanedReviews[0]["Last Use"]).toBeDefined();
             expect(res.body.headers).toBeDefined();
             done(err);
           });

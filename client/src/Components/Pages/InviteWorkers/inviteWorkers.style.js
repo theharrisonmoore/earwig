@@ -7,6 +7,7 @@ export const InviteWrapper = styled.div`
   padding-top: 5rem;
   max-width: 17rem;
   margin: 0 auto;
+  padding-bottom: 100px;
 `;
 
 export const SocialIcons = styled.div`
@@ -69,7 +70,9 @@ export const Head3 = styled.h3`
 
 export const PromoParagraph = styled.p`
   font-size: 20px;
-  line-height: 1;
+  line-height: 19px;
   font-family: "Lato", sans-serif;
   margin: 2rem 0;
+  letter-spacing: 0.34px;
+  opacity: 0.8;
 `;

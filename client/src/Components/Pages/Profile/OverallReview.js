@@ -1,16 +1,18 @@
+/* eslint-disable no-param-reassign */
 import React, { Component } from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import { Collapse, Icon, message, Alert } from "antd";
+import { Collapse, Icon as AntdIcon, message, Alert } from "antd";
 import axios from "axios";
+
+import Icon from "../../Common/Icon/Icon";
 
 import { organizations } from "../../../theme";
 import {
   REPORT_CONTENT_URL,
   REPLY_URL,
 } from "../../../constants/naviagationUrls";
-import { isMobileDevice, authorization } from "../../../helpers";
-import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
+import { authorization } from "../../../helpers";
 
 import {
   CommentDiv,
@@ -23,17 +25,15 @@ import {
   StyledAntIcon,
   ActionsDiv,
   ButtonsWrapper,
-  ActionsButton,
   ReplyButton,
+  HelpfulButton,
   VerifyPromo,
   VerifyLink,
   UserTrade,
   UserDiv,
   UserAdditionalDetails,
-  HelpfulButtonWrapper,
 } from "./Profile.style";
 
-import HelpfulBubble from "../../Common/HelpfulBubble";
 import VoiceReview from "./ProfileAnswers/VoiceReview";
 
 import { SectionTitle } from "./ReviewSection.style";
@@ -42,31 +42,27 @@ const { Panel } = Collapse;
 
 export default class OverallReview extends Component {
   state = {
-    commentsOpen: false,
     activeReview: "",
-    activeReplies: [],
-    repliesLoaded: false,
     counters: {
       written: {},
       audio: {},
     },
     isMouseDown: false,
     writtenOrAudioReviews: [],
+    updatedUsers: {},
   };
 
-  timer = null;
-
-  pressingDown = e => {
+  toggleHelpful = e => {
     const { counters } = this.state;
-    const { id } = e.target;
+    const { id: reviewId } = e.target;
     // type = "audio" or "written"
-    const { type } = e.target.dataset;
+    const { type, organization, userId } = e.target.dataset;
 
-    const item = counters[type][id];
+    const item = counters[type][reviewId];
     const counter = item ? item.counter : 0;
     const sentNumber = item ? item.sentNumber : 0;
 
-    const updateCounter = counter >= 10 ? 10 : counter + 1;
+    const updateCounter = counter > 0 ? 0 : 1;
 
     this.setState(
       {
@@ -74,7 +70,7 @@ export default class OverallReview extends Component {
           ...counters,
           [type]: {
             ...counters[type],
-            [id]: {
+            [reviewId]: {
               counter: updateCounter,
               sentNumber,
               scaleValue: 1 + counter / 100,
@@ -85,12 +81,13 @@ export default class OverallReview extends Component {
         isMouseDown: true,
       },
       () => {
-        setTimeout(index => {
-          const { isMouseDown } = this.state;
-          if (isMouseDown) {
-            this.hold(id, type);
-          }
-        }, 500);
+        this.postHelpfulPoints({
+          points: updateCounter,
+          reviewId,
+          userId,
+          type,
+          organization,
+        });
       }
     );
   };
@@ -186,7 +183,7 @@ export default class OverallReview extends Component {
         userId,
         organization,
       })
-      .then(({ data }) => {
+      .then(({ data: { points: newPoints, helpedUsers: newHelpedUsers } }) => {
         const { counters } = this.state;
 
         this.setState({
@@ -197,12 +194,16 @@ export default class OverallReview extends Component {
               [reviewId]: {
                 counter: points,
                 sentNumber: points,
-                scaleValue: 1,
                 byUser: false,
               },
             },
           },
-          isMouseDown: false,
+          updatedUsers: {
+            [userId]: {
+              helpedUsers: newHelpedUsers,
+              points: newPoints,
+            },
+          },
         });
       })
       .catch(err => {
@@ -215,13 +216,14 @@ export default class OverallReview extends Component {
   togglePanel = key => {
     if (!key) return this.setState({ activeReview: "" });
 
-    const [id, type] = key.split("/");
+    const [reviewId, type] = key.split("/");
     const target = type === "written" ? "overallReview" : "voiceReview";
-    id
-      ? this.setState({ activeReview: key }, () => {
-          this.props.fetchOverallReplies(id, target);
-        })
-      : this.setState({ activeReview: "" });
+    if (reviewId) {
+      return this.setState({ activeReview: key }, () => {
+        this.props.fetchOverallReplies(reviewId, target);
+      });
+    }
+    return this.setState({ activeReview: "" });
   };
 
   goTOReply = e => {
@@ -283,8 +285,14 @@ export default class OverallReview extends Component {
 
         // check for writtenReview and add to array
         if (overallReview && overallReview.text) {
+          const repliesCount =
+            (review.overallReview.replies &&
+              review.overallReview.replies.length) ||
+            0;
+
           totalReviews.push({
             text: review.overallReview.text,
+            repliesCount,
             user: review.user,
             createdAt: review.createdAt,
             _id: review._id,
@@ -296,8 +304,12 @@ export default class OverallReview extends Component {
 
         // check for audioReview and add to array
         if (voiceReview && voiceReview.audio) {
+          const repliesCount =
+            (review.voiceReview.replies && review.voiceReview.replies.length) ||
+            0;
           totalReviews.push({
             text: review.voiceReview.audio,
+            repliesCount,
             user: review.user,
             createdAt: review.createdAt,
             _id: review._id,
@@ -315,7 +327,9 @@ export default class OverallReview extends Component {
         const pageYOffset =
           this.props.location.state && this.props.location.state.pageYOffset;
 
-        pageYOffset && window.scrollTo(0, pageYOffset);
+        if (pageYOffset) {
+          window.scrollTo(0, pageYOffset);
+        }
       }
     );
   }
@@ -357,8 +371,12 @@ export default class OverallReview extends Component {
     } = this.props;
 
     const { totalReviews } = summary;
-    const { activeReview, counters, writtenOrAudioReviews } = this.state;
-
+    const {
+      activeReview,
+      counters,
+      writtenOrAudioReviews,
+      updatedUsers,
+    } = this.state;
     const isAuthorized = authorization({
       isAdmin,
       verified,
@@ -389,8 +407,14 @@ export default class OverallReview extends Component {
                   </UserDiv>
                   <UserAdditionalDetails>
                     <p>
-                      Helped {review.user.helpedUsers} · Points{" "}
-                      {review.user.points}
+                      Helped{" "}
+                      {updatedUsers[review.user._id]
+                        ? updatedUsers[review.user._id].helpedUsers
+                        : review.user.helpedUsers}{" "}
+                      · Points{" "}
+                      {updatedUsers[review.user._id]
+                        ? updatedUsers[review.user._id].points
+                        : review.user.points}
                     </p>
                   </UserAdditionalDetails>
                   <BubbleAndDate>
@@ -412,70 +436,35 @@ export default class OverallReview extends Component {
                   <ActionsDiv>
                     <ButtonsWrapper>
                       {review.user._id !== userId && (
-                        <HelpfulButtonWrapper
-                          number={
-                            counters[review.category][review._id]
-                              ? counters[review.category][review._id].counter
-                              : 0
-                          }
-                          color={
-                            category !== "company"
-                              ? organizations[category].secondary
-                              : "#424242"
-                          }
-                          isMobile={isMobile}
-                        >
-                          <HelpfulBubble
+                        <>
+                          <HelpfulButton
+                            onClick={isAuthorized && this.toggleHelpful}
                             number={
-                              counters[review.category][review._id] &&
-                              counters[review.category][review._id].byUser
+                              counters[review.category][review._id]
                                 ? counters[review.category][review._id].counter
-                                : undefined
+                                : 0
                             }
-                            color={organizations[category].primary}
-                          />
-
-                          <ActionsButton
+                            id={review._id}
                             data-user-id={review.user._id}
                             data-type={review.category}
                             data-organization={review.organization}
+                            data-target={
+                              review.category === "written"
+                                ? "overallReview"
+                                : "voiceReview"
+                            }
+                            data-category={category}
                             type="primary"
-                            bgcolor={
-                              isAuthorized && review.user._id !== userId
+                            color={
+                              verified || awaitingReview
                                 ? organizations[category].primary
                                 : organizations[category].secondary
                             }
-                            id={review._id}
-                            onMouseDown={
-                              !isMobileDevice.any() &&
-                              isAuthorized &&
-                              this.pressingDown
-                            }
-                            onTouchStart={this.pressingDown}
-                            onTouchEnd={this.notPressingDown}
-                            onMouseUp={
-                              !isMobileDevice.any() &&
-                              isAuthorized &&
-                              this.notPressingDown
-                            }
-                            onMouseLeave={
-                              !isMobileDevice.any() &&
-                              isAuthorized &&
-                              this.notPressingDown
-                            }
-                            scale={1}
-                            disabled={
-                              !(
-                                verified ||
-                                awaitingReview ||
-                                review.user._id === userId
-                              )
-                            }
-                            isMobile={isMobile}
+                            disabled={!(verified || awaitingReview)}
                           >
-                            This is helpful
-                          </ActionsButton>
-                        </HelpfulButtonWrapper>
+                            Helpful
+                          </HelpfulButton>
+                        </>
                       )}
                       <ReplyButton
                         onClick={(verified || awaitingReview) && this.goTOReply}
@@ -519,162 +508,177 @@ export default class OverallReview extends Component {
                       <StyledAntIcon type="flag" />
                     </Link>
                   </ActionsDiv>
-                  <Collapse
-                    bordered={false}
-                    data-id={review._id}
-                    onChange={this.togglePanel}
-                    accordion
-                    activeKey={this.state.activeReview}
-                  >
-                    <Panel
-                      showArrow={false}
-                      header={
-                        <>
-                          {activeReview ===
-                            `${review._id}/${review.category}` &&
-                          activeOverallId === review._id ? (
-                            <Icon
-                              fontWeight={700}
-                              type="up"
-                              style={{
-                                color: organizations[category].primary,
-                                width: "15px",
-                                marginRight: "0.5rem",
-                                fontWeight: 700,
-                              }}
-                            />
-                          ) : (
-                            <ReplyIcon
-                              width="15px"
-                              fill={organizations[category].primary}
-                              style={{
-                                transform: "rotate(180deg)",
-                                marginRight: "0.5rem",
-                              }}
-                            />
-                          )}
-                          <span
-                            style={{
-                              fontWeight: 700,
-                              color: organizations[category].primary,
-                              marginBottom: "1rem",
-                            }}
-                          >
+                  {review.repliesCount ? (
+                    <Collapse
+                      bordered={false}
+                      data-id={review._id}
+                      onChange={this.togglePanel}
+                      accordion
+                      activeKey={this.state.activeReview}
+                    >
+                      <Panel
+                        showArrow={false}
+                        header={
+                          <>
                             {activeReview ===
                               `${review._id}/${review.category}` &&
-                            activeOverallId === review._id
-                              ? "Hide Replies"
-                              : "Read Replies"}
-                          </span>
-                        </>
-                      }
-                      key={`${review._id}/${review.category}`}
-                    >
-                      {overallReplies.map(reply => {
-                        return (
-                          <div
-                            key={reply.replies._id}
-                            style={{
-                              direction: `${reply.replies.displayName &&
-                                "rtl"}`,
-                            }}
-                          >
-                            {!verified && reply.replies.user._id === userId && (
-                              <Alert
-                                message="Your replies are visible only for you untill you get
-                    verified"
-                                type="warning"
+                            activeOverallId === review._id ? (
+                              <AntdIcon
+                                fontWeight={700}
+                                type="up"
                                 style={{
-                                  display: "inline-block",
-                                  marginBottom: "0.5rem",
+                                  color: organizations[category].primary,
+                                  width: "15px",
+                                  marginRight: "0.5rem",
+                                  fontWeight: 700,
                                 }}
-                                banner
+                              />
+                            ) : (
+                              <Icon
+                                icon="reply"
+                                width="15px"
+                                style={{
+                                  transform: "rotate(180deg)",
+                                  marginRight: "0.5rem",
+                                }}
+                                fill={organizations[category].primary}
                               />
                             )}
-
-                            <UserDiv>
-                              <UserID adminReply={!!reply.replies.displayName}>
-                                {" "}
-                                {reply.replies.displayName ||
-                                  reply.replies.user.userId}
-                              </UserID>
-
-                              <UserTrade>
-                                {!reply.replies.displayName &&
-                                  reply.replies.user.trade[0] &&
-                                  reply.replies.user.trade[0].title}
-                              </UserTrade>
-                            </UserDiv>
-                            {!reply.replies.displayName && (
-                              <UserAdditionalDetails>
-                                <p>
-                                  Helped {reply.replies.user.helpedUsers} ·
-                                  Points {reply.replies.user.points}
-                                </p>
-                              </UserAdditionalDetails>
-                            )}
+                            <span
+                              style={{
+                                fontWeight: 700,
+                                color: organizations[category].primary,
+                                marginBottom: "1rem",
+                              }}
+                            >
+                              {activeReview ===
+                                `${review._id}/${review.category}` &&
+                              activeOverallId === review._id
+                                ? "Hide Replies"
+                                : "Read Replies"}
+                            </span>
+                          </>
+                        }
+                        key={`${review._id}/${review.category}`}
+                      >
+                        {overallReplies.map(reply => {
+                          return (
                             <div
+                              key={reply.replies._id}
                               style={{
                                 position: "relative",
                                 marginBottom: "2rem",
+                                direction: `${reply.replies.displayName &&
+                                  "rtl"}`,
                               }}
                             >
-                              <BubbleAndDate>
-                                <CommentBubble
-                                  style={{ maxWidth: "100%" }}
-                                  bgColor={
-                                    reply.replies.displayName
-                                      ? "white"
-                                      : organizations[category].secondary
-                                  }
-                                  color={
-                                    reply.replies.displayName &&
-                                    organizations[category].primary
-                                  }
+                              {!verified && reply.replies.user._id === userId && (
+                                <Alert
+                                  message="Your replies are visible only for you untill you get
+                    verified"
+                                  type="warning"
+                                  style={{
+                                    display: "inline-block",
+                                    marginBottom: "0.5rem",
+                                  }}
+                                  banner
+                                />
+                              )}
+
+                              <UserDiv>
+                                <UserID
                                   adminReply={!!reply.replies.displayName}
-                                  category={category}
                                 >
-                                  {reply.replies.text}
-                                </CommentBubble>
-                                <CommentDate>
-                                  {reply.replies.createdAt &&
-                                    `${moment().diff(
-                                      reply.replies.createdAt,
-                                      "weeks"
-                                    )}w`}
-                                </CommentDate>
-                              </BubbleAndDate>
-                              <Link
+                                  {" "}
+                                  {reply.replies.displayName ||
+                                    reply.replies.user.userId}
+                                </UserID>
+
+                                <UserTrade>
+                                  {!reply.replies.displayName &&
+                                    reply.replies.user.trade[0] &&
+                                    reply.replies.user.trade[0].title}
+                                </UserTrade>
+                              </UserDiv>
+                              {!reply.replies.displayName && (
+                                <UserAdditionalDetails>
+                                  <p>
+                                    Helped{" "}
+                                    {updatedUsers[reply.replies.user._id]
+                                      ? updatedUsers[reply.replies.user._id]
+                                          .helpedUsers
+                                      : reply.replies.user.helpedUsers}{" "}
+                                    · Points{" "}
+                                    {updatedUsers[reply.replies.user._id]
+                                      ? updatedUsers[reply.replies.user._id]
+                                          .points
+                                      : reply.replies.user.points}
+                                  </p>
+                                </UserAdditionalDetails>
+                              )}
+                              <div
                                 style={{
-                                  [reply.replies.displayName
-                                    ? "left"
-                                    : "right"]: 0,
-                                  width: "10%",
-                                  position: "absolute",
-                                  top: "50%",
-                                  transform: "translateY(-50%)",
-                                }}
-                                to={{
-                                  pathname: REPORT_CONTENT_URL,
-                                  state: {
-                                    review: {
-                                      overallReview: review.overallReview,
-                                      user: review.user,
-                                    },
-                                    organization: summary,
-                                    reply: reply.replies,
-                                    target: "overallReply",
-                                  },
+                                  position: "relative",
+                                  marginBottom: "2rem",
                                 }}
                               >
-                                <StyledAntIcon type="flag" />
-                              </Link>
+                                <BubbleAndDate>
+                                  <CommentBubble
+                                    style={{ maxWidth: "100%" }}
+                                    bgColor={
+                                      reply.replies.displayName
+                                        ? "white"
+                                        : organizations[category].secondary
+                                    }
+                                    color={
+                                      reply.replies.displayName &&
+                                      organizations[category].primary
+                                    }
+                                    adminReply={!!reply.replies.displayName}
+                                    category={category}
+                                  >
+                                    {reply.replies.text}
+                                  </CommentBubble>
+                                  <CommentDate>
+                                    {reply.replies.createdAt &&
+                                      `${moment().diff(
+                                        reply.replies.createdAt,
+                                        "weeks"
+                                      )}w`}
+                                  </CommentDate>
+                                </BubbleAndDate>
+                                <Link
+                                  style={{
+                                    [reply.replies.displayName
+                                      ? "left"
+                                      : "right"]: 0,
+                                    width: "10%",
+                                    position: "absolute",
+                                    top: "50%",
+                                    transform: "translateY(-50%)",
+                                  }}
+                                  to={{
+                                    pathname: REPORT_CONTENT_URL,
+                                    state: {
+                                      review: {
+                                        overallReview: review.overallReview,
+                                        user: review.user,
+                                      },
+                                      organization: summary,
+                                      reply: reply.replies,
+                                      target: "overallReply",
+                                    },
+                                  }}
+                                >
+                                  <StyledAntIcon type="flag" />
+                                </Link>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
-                    </Panel>
-                  </Collapse>
+                          );
+                        })}
+                      </Panel>
+                    </Collapse>
+                  ) : null}
                 </CommentDiv>
               );
             }
@@ -687,7 +691,7 @@ export default class OverallReview extends Component {
               and search jobs
             </p>
             <VerifyLink to="/upload-verification-photo" category={category}>
-              Get verified now >
+              Get verified now &gt;
             </VerifyLink>
           </VerifyPromo>
         )}
@@ -704,7 +708,7 @@ export default class OverallReview extends Component {
                 reviews and search jobs
               </p>
               <VerifyLink to="/upload-verification-photo" category={category}>
-                Get verified now >
+                Get verified now &gt;
               </VerifyLink>
             </VerifyPromo>
           )}

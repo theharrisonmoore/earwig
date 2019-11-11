@@ -17,6 +17,11 @@ module.exports = async (req, res, next) => {
     return next(boom.badRequest("invalid arguments"));
   }
 
+  // currently the points must be 0 or 1
+  if (points !== 1 && points !== 0) {
+    return next(boom.badRequest("invalid arguments"));
+  }
+
 
   return updateHelpfulPoints({
     helpfulUser: userId,
@@ -27,8 +32,8 @@ module.exports = async (req, res, next) => {
     points,
     fromReferral: false,
   }).then(() => updateUserHelpfulPoints(userId))
-    .then(() => {
-      res.json({ updatedPoints: points });
+    .then((updateData) => {
+      res.json(updateData);
     })
     .catch((err) => {
       next(boom.badImplementation(err));

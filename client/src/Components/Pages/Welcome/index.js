@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 // COMMON
 import Button from "../../Common/Button";
-import Icon from "../../Common/Icon/Icon";
 
 // STYLING
 import {
@@ -11,11 +10,6 @@ import {
   Subtitle,
   ContentWrapper,
   PurpleDiv,
-  StyledLink,
-  HintText,
-  Text,
-  ButtonText,
-  ComingSoon,
 } from "./Welcome.style";
 
 // NAV ROUTES
@@ -49,112 +43,52 @@ export default class Welcome extends Component {
           )}
 
           {!isLoggedIn ? (
-            <StyledLink to={SEARCH_URL}>
-              <Button alignContent left margin="0 0 1.5rem 0">
-                <Icon
-                  icon="search"
-                  margin="0 1rem 0 0"
-                  width="20px"
-                  height="20px"
-                />
-                Read reviews & ratings
-              </Button>
-            </StyledLink>
+            <Button
+              margin="0.5rem 0"
+              styleType="primary"
+              text="Read reviews & ratings"
+              onClick={() => this.props.history.push(SEARCH_URL)}
+            />
           ) : (
             <>
-              <StyledLink
-                to={
+              <Button
+                margin="0.5rem 0"
+                styleType="primary"
+                text="Give a review"
+                onClick={() => {
                   verified || awaitingReview
-                    ? `${SEARCH_URL}/review`
-                    : UPLOAD_VERIFICATION_PHOTO
-                }
-              >
-                <Button alignContent left margin="0 0 0 0">
-                  <Icon
-                    icon="starComment"
-                    margin="0 1rem 0 0"
-                    width="20px"
-                    height="20px"
-                  />
-                  <ButtonText>
-                    <Text>Give a review</Text>
-                    {!verified && !awaitingReview && (
-                      <HintText>(Click here to get verified first)</HintText>
-                    )}
-                  </ButtonText>
-                </Button>
-              </StyledLink>
-              <StyledLink
-                // to={
-                //   verified || awaitingReview
-                //     ? `${SEARCH_URL}/profile`
-                //     : SEARCH_URL
-                // }
-                to={SEARCH_URL}
-              >
-                <Button alignContent left margin="0 0 0 0">
-                  <Icon
-                    icon="search"
-                    margin="0 1rem 0 0"
-                    width="20px"
-                    height="20px"
-                  />
-                  Read reviews & ratings
-                </Button>
-              </StyledLink>
-              <StyledLink
-                to={
-                  verified || awaitingReview
-                    ? ASK_QUESTION_URL
-                    : UPLOAD_VERIFICATION_PHOTO
-                }
+                    ? this.props.history.push(`${SEARCH_URL}/review`)
+                    : this.props.history.push(UPLOAD_VERIFICATION_PHOTO);
+                }}
+              />
+              <Button
+                margin="0.5rem 0"
+                styleType="primary"
+                text="Read reviews & ratings"
+                onClick={() => this.props.history.push(SEARCH_URL)}
+              />
+              <Button
+                margin="0.5rem 0"
                 disabled
-              >
-                <Button alignContent left disabled margin="0 0 0 0">
-                  <Icon
-                    icon="raiseHand"
-                    margin="0 1rem 0 0"
-                    width="20px"
-                    height="20px"
-                  />
-                  <ButtonText>
-                    <Text>
-                      Ask workers a question
-                      <ComingSoon>(coming soon)</ComingSoon>
-                    </Text>
-                    {/* will go in once this feature is built */}
-                    {/* {!verified && !awaitingReview && (
-                      <HintText>(Click here to get verified first)</HintText>
-                    )} */}
-                  </ButtonText>
-                </Button>
-              </StyledLink>
-              <StyledLink
-                to={
+                styleType="primary"
+                text="Ask workers a question (coming soon)"
+                onClick={() => {
                   verified || awaitingReview
-                    ? JOBS_URL
-                    : UPLOAD_VERIFICATION_PHOTO
-                }
+                    ? this.props.history.push(ASK_QUESTION_URL)
+                    : this.props.history.push(UPLOAD_VERIFICATION_PHOTO);
+                }}
+              />
+              <Button
+                margin="0.5rem 0"
                 disabled
-              >
-                <Button alignContent left disabled margin="0 0 1.5rem 0">
-                  <Icon
-                    icon="jobBoard"
-                    margin="0 1rem 0 0"
-                    width="20px"
-                    height="20px"
-                  />
-                  <ButtonText>
-                    <Text>
-                      Find a job <ComingSoon>(coming soon)</ComingSoon>
-                    </Text>
-                    {/* will go in once this feature is built */}
-                    {/* {!verified && !awaitingReview && (
-                      <HintText>(Click here to get verified first)</HintText>
-                    )} */}
-                  </ButtonText>
-                </Button>
-              </StyledLink>
+                styleType="primary"
+                text="Find a job (coming soon)"
+                onClick={() => {
+                  verified || awaitingReview
+                    ? this.props.history.push(JOBS_URL)
+                    : this.props.history.push(UPLOAD_VERIFICATION_PHOTO);
+                }}
+              />
             </>
           )}
         </ContentWrapper>

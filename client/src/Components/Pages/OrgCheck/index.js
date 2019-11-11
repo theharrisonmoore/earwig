@@ -327,10 +327,10 @@ export default class index extends Component {
               </Row>
               <Button
                 left
+                styleType="primary"
                 onClick={updating ? this.setCurrentOrgs : this.nothingToChange}
-              >
-                Yep, that's correct
-              </Button>
+                text="Yep, that's correct"
+              />
               {!updating && (
                 <StyledLink onClick={this.setSectionAsAgency}>
                   No, I need to change something

@@ -2,11 +2,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 import * as Yup from "yup";
-import { Checkbox as AntCheckbox, Modal, Alert, Input, Icon } from "antd";
+import { Modal, Alert, Input } from "antd";
 
 import Logo from "../../Common/Logo";
 import Select from "../../Common/Select";
 import Button from "../../Common/Button";
+import Link from "../../Common/Link";
+import PopoverComponent from "../../Common/Popover";
 
 import {
   StyledFormik as Formik,
@@ -19,12 +21,12 @@ import {
   Checkbox,
   CheckboxLabel,
   StyledField,
+  AntCheckbox,
 } from "../../Common/Formik/Formik.style";
 
 import {
-  StyledLink as Link,
+  // StyledLink as Link,
   SignupWrapper,
-  LinkSpan,
   ContentWrapper,
   PurpleDiv,
   OptionsWrapper,
@@ -35,6 +37,7 @@ import {
   Paragraph,
   Example,
   ImageInput,
+  ModalText,
 } from "./Signup.style";
 
 import example from "../../../assets/example.png";
@@ -44,6 +47,7 @@ import { API_SIGN_UP } from "../../../apiUrls";
 import {
   WELCOME_URL,
   TERMS_OF_USE_URL,
+  PRIVACY_URL,
 } from "../../../constants/naviagationUrls";
 
 const { API_TRADE_URL } = require("../../../apiUrls");
@@ -53,7 +57,7 @@ function equalTo(ref, msg) {
   return this.test({
     name: "equalTo",
     exclusive: false,
-    message: msg || "Not match",
+    message: msg || "Passwords do not match",
     params: {
       reference: ref.path,
     },
@@ -173,6 +177,8 @@ export default class Signup extends Component {
     newTrade: "",
     error: "",
     errors: {},
+    isPopupVisible: false,
+    data: null,
   };
 
   handleSubmit = (values, { setSubmitting }) => {
@@ -201,13 +207,14 @@ export default class Signup extends Component {
           },
         })
           .then(({ data }) => {
-            this.props.handleChangeState({ ...data, isLoggedIn: true });
             if (isWorker === "yes") {
-              this.props.history.push({
-                pathname: "/intro",
-                state: { isWorker },
-              });
+              // this.props.history.push({
+              //   pathname: "/intro",
+              //   state: { isWorker },
+              // });
+              this.setState({ isPopupVisible: true, data });
             } else {
+              this.props.handleChangeState({ ...data, isLoggedIn: true });
               this.props.history.push(WELCOME_URL);
             }
           })
@@ -345,6 +352,9 @@ export default class Signup extends Component {
       confirmLoading,
       verificationImage,
       newTrade,
+      isPopupVisible,
+      isWorker,
+      data,
     } = this.state;
 
     return (
@@ -583,34 +593,32 @@ export default class Signup extends Component {
 
                     <SubHeading>Verification Photo</SubHeading>
                     <Paragraph>
-                      We need to verify you’re a genuine worker so the worker
-                      community is protected from fake reviews and spam by
-                      non-workers. Please upload a photo of your face holding
-                      your trade ID like the example below. Please no glare or
-                      blur!
-                      <br />
-                      <br />
-                      Don’t worry! Once we’ve verified you, we’ll delete your
-                      photo to protect your identity.
+                      Please upload a photo of your face holding your trade ID
+                      like the example below. Please no glare or blur!
+                    </Paragraph>
+                    <PopoverComponent
+                      popoverOptions={{
+                        text: `Any card or ticket that shows you are a worker, eg CSCS card.`,
+                        linkText: "What trade ID can I use?",
+                        icon: "info",
+                        margin: "0 0 0.5rem 0",
+                      }}
+                    />
+                    <Paragraph>
+                      Once we’ve verified you, we’ll delete the photo to protect
+                      your identity.
                     </Paragraph>
 
                     <Field name="verificationImage">
                       {({ field, form, onChange }) => (
                         <>
-                          <Example src={verificationImage || example} />
                           <Button
                             as="label"
                             htmlFor="verificationImage"
-                            style={{ width: "70%", margin: "0 auto 1.25rem" }}
-                          >
-                            Upload photo
-                            {verificationImage && (
-                              <Icon
-                                type="check"
-                                style={{ color: "white", fontSize: "23px" }}
-                              />
-                            )}
-                          </Button>
+                            styleType="secondary"
+                            text="Upload photo"
+                            margin="1rem auto"
+                          />
                           <ImageInput
                             id="verificationImage"
                             type="file"
@@ -623,6 +631,7 @@ export default class Signup extends Component {
                             }}
                             accept="image/*"
                           />
+                          <Example src={verificationImage || example} />
                         </>
                       )}
                     </Field>
@@ -650,25 +659,69 @@ export default class Signup extends Component {
                   />
                   <CheckboxLabel htmlFor="checkbox">
                     I agree to the earwig{" "}
-                    <LinkSpan target="_blank" to={TERMS_OF_USE_URL}>
-                      Terms of Use.
-                    </LinkSpan>
+                    <Link
+                      target="_blank"
+                      to={TERMS_OF_USE_URL}
+                      text="Terms of Use"
+                      type="plain"
+                    />
+                    . By clicking Finish and log in you acknowledge our{" "}
+                    <Link
+                      target="_blank"
+                      to={PRIVACY_URL}
+                      text="Privacy Policy"
+                      type="plain"
+                    />
+                    .
                   </CheckboxLabel>
-                  <FormikErrorMessage name="checkbox" component="div" />
                 </CheckboxWrapper>
-
+                <FormikErrorMessage name="checkbox" component="div" />
                 {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
                 <Button
                   type="submit"
                   disabled={isSubmitting}
                   loading={isSubmitting}
-                >
-                  Create account
-                </Button>
+                  styleType="primary"
+                  text="Finish and log in"
+                  margin="1rem auto 2rem auto"
+                />
               </Form>
             )}
           </Formik>
-          <Link to={WELCOME_URL}>Continue without an account</Link>
+          <Link
+            to={WELCOME_URL}
+            type="primary"
+            text="Continue without an account"
+          />
+          <Modal
+            visible={isPopupVisible}
+            footer={null}
+            closable={false}
+            afterClose={() => {
+              this.props.handleChangeState({ ...data, isLoggedIn: true });
+              this.props.history.push({
+                pathname: "/intro",
+                state: { isWorker },
+              });
+            }}
+          >
+            <ModalText>
+              Thanks, we're checking your photo. Any reviews you give won't be
+              shown on earwig until we've checked your photo
+            </ModalText>
+            <Button
+              styleType="primary"
+              margin="1rem auto"
+              text="Okay"
+              onClick={() => {
+                this.props.handleChangeState({ ...data, isLoggedIn: true });
+                this.props.history.push({
+                  pathname: "/intro",
+                  state: { isWorker },
+                });
+              }}
+            />
+          </Modal>
         </ContentWrapper>
       </SignupWrapper>
     );

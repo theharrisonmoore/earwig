@@ -23,7 +23,7 @@ export default class Thanks extends Component {
           We’ll get back to you via email as soon as we can.
         </SmallParagraph>
 
-        <Button onClick={history.goBack}>Okay</Button>
+        <Button onClick={history.goBack} styleType="primary" text="Okay" />
       </div>
     );
   }
