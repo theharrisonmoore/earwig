@@ -328,7 +328,6 @@ export const BottomAccountPromo = styled(AccountPromo)`
 export const AccountLink = styled(VerifyLink)`
   z-index: 2;
   display: flex;
-  width: 300px;
   justify-content: flex-start;
 `;
 
