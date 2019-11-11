@@ -12,6 +12,9 @@ export const DateRangeWrapper = styled.div`
     position: relative;
     max-width: 300px;
     min-width: 250px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    padding-right: 0.75rem;
   }
 
   .ant-calendar-picker-input.ant-input {
@@ -20,6 +23,7 @@ export const DateRangeWrapper = styled.div`
     color: ${colors.profileFontColor};
     font-size: ${({ fill }) => (fill ? "16px" : "initial")};
     font-weight: ${({ fill }) => (fill ? "900" : "initial")};
+    border: none;
   }
 
   svg {
