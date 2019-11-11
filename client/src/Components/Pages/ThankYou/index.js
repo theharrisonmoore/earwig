@@ -93,11 +93,11 @@ export default class ThankYou extends Component {
               <Paragraph>
                 Each time you give a review, you:
                 <List>
-                  <li>Create awareness</li>
+                  <li>Strengthen the worker community</li>
 
                   <li>Improve working conditions</li>
 
-                  <li>Help workers feel secure</li>
+                  <li>Help workers choose great jobs</li>
                 </List>
               </Paragraph>
               <Thanks>Thank you!</Thanks>
@@ -211,11 +211,11 @@ export default class ThankYou extends Component {
             <Paragraph>
               Each time you give a review, you:
               <List>
-                <li>Create awareness</li>
+                <li>Strengthen the worker community</li>
 
                 <li>Improve working conditions</li>
 
-                <li>Help workers feel secure</li>
+                <li>Help workers choose great jobs</li>
               </List>
             </Paragraph>
             <Thanks>Thank you!</Thanks>
