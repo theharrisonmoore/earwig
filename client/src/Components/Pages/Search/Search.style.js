@@ -109,20 +109,14 @@ export const SearchWrapper = styled.div`
   flex-direction: column;
   height: 100%;
   padding: 0;
-  padding: ${props => (props.isMobile ? "0 1rem 0 1rem" : "0 8rem 0 8rem")};
-  padding-top: ${props => (props.isMobile ? "4rem" : "6rem")};
+  padding-top: ${props => (props.isMobile ? "3rem" : "4rem")};
+
   margin: 0;
   align-items: center;
+
   li {
     list-style-type: none;
   }
-`;
-
-export const FlexContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
 export const SearchLegendDiv = styled.div`
@@ -139,24 +133,6 @@ export const LastReviewsContainer = styled.div`
   flex-direction: column;
 `;
 
-export const ItemDiv = styled.div`
-  display: flex;
-  max-width: 200px;
-  align-items: center;
-  width: 45%;
-  /* padding: ${props => (props.notMobile ? "0 2rem" : "0 1rem")}; */
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-  margin-left: auto;
-  margin-right: auto;
-  justify-content: ${props =>
-    props.notMobile && props.left ? "flex-end" : "flex-start"};
-  background: ${props =>
-    props.category && organizations[props.category].primary};
-  border-radius: 4px;
-  cursor: pointer;
-`;
-
 export const LegendTitle = styled.h2`
   color: ${props => organizations[props.orgType].primary};
   font-size: 1rem;
@@ -164,7 +140,8 @@ export const LegendTitle = styled.h2`
 `;
 
 export const SuggestionBox = styled.div`
-  border: 0.2px solid ${colors.lightGray};
+  border: ${({ withoutBorder }) =>
+    withoutBorder ? "none" : `0.2px solid ${colors.lightGray}`};
   box-shadow: ${colors.searchBoxShadow};
   color: ${props => organizations[props.orgType].primary};
 `;
@@ -176,33 +153,6 @@ export const AddItemBox = styled.div`
   box-shadow: ${colors.searchBoxShadow};
   color: ${colors.black};
   margin-top: -1rem;
-`;
-
-export const ReviewsFrame = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 0.3rem;
-  color: ${props => organizations[props.orgType].primary};
-`;
-
-export const ReviewsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-`;
-
-export const InnerDivLastReviews = styled.div`
-  text-align: left;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding: 1rem 0;
-  @media ${breakpoints.tablet} {
-    border-bottom: 2px solid ${props => organizations[props.orgType].secondary};
-  }
 `;
 
 export const InnerDivSuggestions = styled.div`
@@ -220,16 +170,6 @@ export const SymbolDiv = styled.div`
     margin-right: 1rem;
     margin-bottom: 8px;
   }
-`;
-
-export const ArrowDiv = styled.div`
-  display: flex;
-  margin-left: auto;
-  align-items: center;
-  padding-right: 0.5rem;
-  /* svg {
-    margin-right: 1rem;
-  } */
 `;
 
 export const ImgDiv = styled.div`
@@ -282,34 +222,11 @@ export const AddProfileLink = styled(Link)`
   }
 `;
 
-export const AddProfileButton = styled(Link)`
-  width: 100%;
-  background: none;
-  outline: none;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-
-  :hover {
-    text-decoration: none;
-  }
-`;
-
-export const LinkTitle = styled.h3`
-  font-weight: 700;
-  margin: 0;
-  font-size: 1.25rem;
-  color: white;
-`;
-
 export const HeadlineDiv = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-  padding-top: 2rem;
+  padding-top: 5rem;
   color: ${colors.profileFontColor};
   h2 {
     font-size: 2rem;
@@ -325,35 +242,14 @@ export const HeadlineDiv = styled.div`
 export const H2 = styled.h2`
   font-size: 2rem;
   opacity: 0.7;
-`;
-
-export const H3 = styled.h3`
-  font-size: 1rem;
-  letter-spacing: 0.3px;
-  font-weight: 900;
-  cursor: pointer;
-`;
-
-export const P = styled.p`
-  font-size: 1rem;
-  font-style: italic;
+  margin-bottom: 0;
+  max-width: 22rem;
 `;
 
 export const LogosContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-`;
-
-export const RowDiv = styled.div`
-  display: flex;
-  width: 100%;
-  max-width: 550px;
-  margin: 0 auto;
-`;
-
-export const FooterDiv = styled.footer`
-  /* flex-shrink: 0; */
 `;
 
 export const MainDiv = styled.div`
@@ -372,14 +268,35 @@ export const AddWrapper = styled.div`
   padding-top: 4rem;
 `;
 
-export const HeaderParagraph = styled.p`
-  font-size: 1.5rem !important;
+export const OrgsListWrapper = styled.div`
   text-align: left;
-  font-style: normal !important;
-  /* max-width: 80%; */
-  /* margin: 0 auto; */
-  font-weight: 400;
-  line-height: 1.75rem !important;
-  margin-bottom: 0.5rem;
+  padding: 0 5% 6.5rem;
+`;
+
+export const MainKey = styled.p`
+  font-size: 26px;
+  line-height: 30px;
+  letter-spacing: 0.541667px;
+  margin-top: 35px;
+  color: #9b9b9b;
+`;
+
+export const SubKey = styled(MainKey)`
+  font-size: 18px;
+  margin-top: 30px;
+  margin-bottom: 0;
+`;
+
+export const ButtonsWrpper = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
+
+  div {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+    max-width: 25rem;
+    width: 100%;
+  }
 `;

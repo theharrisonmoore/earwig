@@ -1,27 +1,21 @@
 import React, { Component } from "react";
 import { Spin } from "antd";
 
-import {
-  SEARCH_URL,
-  ADD_PROFILE_START_REVIEW_URL,
-} from "../../../constants/naviagationUrls";
+import { organizations } from "../../../theme";
 
-import Icon from "../../Common/Icon/Icon";
+import Layout from "../../Common/Layout";
+import Button from "../../Common/Button";
+
+import { ADD_PROFILE_START_REVIEW_URL } from "../../../constants/naviagationUrls";
 
 // styles
 import {
   HeadlineDiv,
   H2,
-  RowDiv,
-  ItemDiv,
   LogosContainer,
-  FooterDiv,
-  H3,
   MainDiv,
   AddWrapper,
-  AddProfileLink,
-  AddProfileButton,
-  LinkTitle,
+  ButtonsWrpper,
 } from "./Search.style";
 
 export default class AddProfileSelection extends Component {
@@ -48,103 +42,71 @@ export default class AddProfileSelection extends Component {
 
     const categories = ["agency", "payroll", "worksite", "company"];
     return (
-      <AddWrapper>
-        <MainDiv>
-          <HeadlineDiv>
-            <H2>{name} is a ...</H2>
-          </HeadlineDiv>
-          <LogosContainer>
-            <Spin tip="Loading..." spinning={isLoading} />
-            <RowDiv>
-              <ItemDiv category="agency">
-                <AddProfileButton
-                  as="button"
-                  onClick={e => {
-                    this.addOrganisation(e, name, categories[0]);
-                  }}
-                >
-                  <Icon
-                    icon="agency"
-                    width="50%"
-                    height="auto"
-                    color="white"
-                    margin="0 0 1rem 0"
+      <Layout type="side">
+        <AddWrapper>
+          <MainDiv>
+            <HeadlineDiv>
+              <H2>{name} is a ...</H2>
+            </HeadlineDiv>
+            <LogosContainer>
+              <Spin tip="Loading..." spinning={isLoading} />
+              <ButtonsWrpper>
+                <div>
+                  <Button
+                    margin="1rem 0"
+                    styleType="primary"
+                    text="Agency"
+                    backgroundColor={organizations.agency.primary}
+                    style={{ minWidth: "8.5rem" }}
+                    onClick={e => {
+                      this.addOrganisation(e, name, categories[0]);
+                    }}
                   />
-                  <LinkTitle>Agency</LinkTitle>
-                </AddProfileButton>
-              </ItemDiv>
-              <ItemDiv category="payroll">
-                <AddProfileButton
-                  as="button"
-                  onClick={e => {
-                    this.addOrganisation(e, name, categories[1]);
-                  }}
-                >
-                  <Icon
-                    icon="payroll"
-                    width="50%"
-                    height="auto"
-                    color="white"
-                    margin="0 0 1rem 0"
-                    cursor="pointer"
+                  <Button
+                    margin="1rem 0"
+                    styleType="primary"
+                    text="Payroll"
+                    backgroundColor={organizations.payroll.primary}
+                    style={{ minWidth: "8.5rem" }}
+                    onClick={e => {
+                      this.addOrganisation(e, name, categories[1]);
+                    }}
                   />
-                  <LinkTitle>Payroll</LinkTitle>
-                </AddProfileButton>
-              </ItemDiv>
-            </RowDiv>
-            <RowDiv>
-              <ItemDiv category="worksite">
-                <AddProfileButton
-                  as="button"
-                  onClick={e => {
-                    this.addOrganisation(e, name, categories[2]);
-                  }}
-                  category="worksite"
-                >
-                  <Icon
-                    icon="worksite"
-                    width="50%"
-                    height="auto"
-                    color="white"
-                    margin="0 0 1rem 0"
+                </div>
+                <div>
+                  <Button
+                    margin="1rem 0"
+                    styleType="primary"
+                    text="Worksite"
+                    backgroundColor={organizations.worksite.primary}
+                    style={{ minWidth: "8.5rem" }}
+                    onClick={e => {
+                      this.addOrganisation(e, name, categories[2]);
+                    }}
                   />
-                  <LinkTitle>Worksite</LinkTitle>
-                </AddProfileButton>
-              </ItemDiv>
-              <ItemDiv category="company">
-                <AddProfileButton
-                  as="button"
-                  onClick={e => {
-                    this.addOrganisation(e, name, categories[3]);
-                  }}
-                >
-                  <Icon
-                    icon="company"
-                    width="50%"
-                    height="auto"
-                    color="white"
-                    margin="0 0 1rem 0"
+                  <Button
+                    margin="1rem 0"
+                    styleType="primary"
+                    text="company"
+                    backgroundColor={organizations.company.primary}
+                    style={{ minWidth: "8.5rem" }}
+                    onClick={e => {
+                      this.addOrganisation(e, name, categories[3]);
+                    }}
                   />
-                  <LinkTitle>Company</LinkTitle>
-                </AddProfileButton>
-              </ItemDiv>
-            </RowDiv>
-          </LogosContainer>
-          <AddProfileLink
-            to={SEARCH_URL}
-            // style={{
-            //   // position: "fixed",
-            //   bottom: "3rem",
-            //   left: "50%",
-            //   transform: "translateX(-50%)",
-            // }}
-          >
-            <FooterDiv>
-              <H3 onClick={this.goBack}>Cancel and return to Search</H3>
-            </FooterDiv>
-          </AddProfileLink>
-        </MainDiv>
-      </AddWrapper>
+                </div>
+              </ButtonsWrpper>
+              <Button
+                margin="0.5rem auto"
+                styleType="secondary"
+                text="Cancel"
+                onClick={this.goBack}
+                style={{ width: "6rem" }}
+              />
+            </LogosContainer>
+          </MainDiv>
+        </AddWrapper>
+      </Layout>
     );
   }
 }

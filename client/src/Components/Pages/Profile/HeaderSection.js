@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import { Icon as AntdIcon, Popover, Rate } from "antd";
 
-import { USER_PROFILE_URL } from "../../../constants/naviagationUrls";
+import {
+  USER_PROFILE_URL,
+  PRE_REVIEW,
+} from "../../../constants/naviagationUrls";
 
 import {
   Header,
@@ -202,7 +205,7 @@ export default class HeaderSection extends Component {
                   pathname:
                     level === 1 && !awaitingReview
                       ? USER_PROFILE_URL
-                      : `/organization/${orgId}/review`,
+                      : PRE_REVIEW.replace(":orgId", orgId),
                   state: { name, category },
                 }}
               >
@@ -245,7 +248,7 @@ export default class HeaderSection extends Component {
               and search jobs
             </p>
             <VerifyLink to="/upload-verification-photo" category={category}>
-              Get verified as a worker >
+              Get verified as a worker &gt;
             </VerifyLink>
           </VerifyPromo>
         )}

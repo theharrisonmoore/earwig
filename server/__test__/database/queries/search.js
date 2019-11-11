@@ -15,7 +15,7 @@ describe("Test for search query", () => {
   });
 
   test("test with valid request", (done) => {
-    searchQuery().then((result) => {
+    searchQuery("agency").then((result) => {
       expect(result).toBeDefined();
       expect(result.length).toBeDefined();
       expect(result[0].searchData).toBeDefined();

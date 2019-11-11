@@ -1,10 +1,11 @@
 // gets all organizations, includes number of reviews and average ratings for each entry
 const Organization = require("../models/Organization");
 
-module.exports = () => Organization.aggregate([
+module.exports = category => Organization.aggregate([
   {
     $match: {
       active: true,
+      category,
     },
   },
   {

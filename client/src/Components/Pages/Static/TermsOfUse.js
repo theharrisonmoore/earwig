@@ -214,7 +214,7 @@ export default class TermsOfUse extends Component {
                   construction industry to submit, post and publish reviews,
                   experiences and other feedback on and relating to construction
                   companies, worksites and recruitment agencies{" "}
-                  <UnderlinedLink to={SEARCH_URL}>
+                  <UnderlinedLink to={SEARCH_URL.replace(":category?")}>
                     (​ Reviews​ ).
                   </UnderlinedLink>{" "}
                 </Li>
