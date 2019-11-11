@@ -228,7 +228,7 @@ export const VoiceWrapper = styled.div`
 
 export const CommentBubble = styled.p`
   background: ${({ bgColor }) => bgColor || colors.ghostGray};
-  color: ${({ color }) => color && color};
+  color: ${({ color }) => color || colors.profileFontColor};
   border-radius: 1.125rem;
   align-self: flex-start;
   justify-content: flex-start;

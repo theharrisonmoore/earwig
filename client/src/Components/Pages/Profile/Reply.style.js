@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-import { colors, organizations } from "./../../../theme";
-import { MOBILE_WIDTH } from "./../../../constants/screenWidths";
+import { colors, organizations } from "../../../theme";
+import { MOBILE_WIDTH } from "../../../constants/screenWidths";
 
 export const Banner = styled.div`
-  background: ${props => organizations[`${props.category}`].primary};
+  background: ${colors.white};
   width: 100%;
   height: 4rem;
-  color: ${colors.white};
+  color: ${colors.profileFontColor};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,6 +15,7 @@ export const Banner = styled.div`
   position: fixed;
   z-index: 2;
   padding: 1rem 2rem;
+  border: 1px solid ${colors.sectionBorder};
 
   p {
     margin-bottom: 0;
@@ -35,7 +36,8 @@ export const Cancel = styled.p`
   position: absolute;
   left: 16px;
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration: none;
+  color: ${colors.primary};
 
   @media (max-width: ${MOBILE_WIDTH}px) {
     left: 8px;
