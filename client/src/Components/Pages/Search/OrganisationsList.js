@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Skeleton } from "antd";
+import { Skeleton, Spin } from "antd";
 
 import { OrgsListWrapper, MainKey, SubKey } from "./Search.style";
 
@@ -8,13 +8,15 @@ import Suggestion from "./OrganisationRow";
 
 const SkeletonWrapper = () => {
   return (
-    <div style={{ width: "300px" }}>
-      <Skeleton loading active style={{ width: "300px" }}></Skeleton>
-      <Skeleton loading active></Skeleton>
-      <Skeleton loading active></Skeleton>
-      <Skeleton loading active></Skeleton>
-      <Skeleton loading active></Skeleton>
-    </div>
+    <Spin tip="loading...">
+      <div style={{ width: "300px" }}>
+        <Skeleton loading active style={{ width: "300px" }}></Skeleton>
+        <Skeleton loading active></Skeleton>
+        <Skeleton loading active></Skeleton>
+        <Skeleton loading active></Skeleton>
+        <Skeleton loading active></Skeleton>
+      </div>
+    </Spin>
   );
 };
 

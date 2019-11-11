@@ -55,7 +55,7 @@ export default class AddProfileSelection extends Component {
                   <Button
                     margin="1rem 0"
                     styleType="primary"
-                    text="Agencies"
+                    text="Agency"
                     backgroundColor={organizations.agency.primary}
                     style={{ minWidth: "8.5rem" }}
                     onClick={e => {
@@ -65,7 +65,7 @@ export default class AddProfileSelection extends Component {
                   <Button
                     margin="1rem 0"
                     styleType="primary"
-                    text="Payrolls"
+                    text="Payroll"
                     backgroundColor={organizations.payroll.primary}
                     style={{ minWidth: "8.5rem" }}
                     onClick={e => {
@@ -77,7 +77,7 @@ export default class AddProfileSelection extends Component {
                   <Button
                     margin="1rem 0"
                     styleType="primary"
-                    text="Worksites"
+                    text="Worksite"
                     backgroundColor={organizations.worksite.primary}
                     style={{ minWidth: "8.5rem" }}
                     onClick={e => {
@@ -87,7 +87,7 @@ export default class AddProfileSelection extends Component {
                   <Button
                     margin="1rem 0"
                     styleType="primary"
-                    text="companies"
+                    text="company"
                     backgroundColor={organizations.company.primary}
                     style={{ minWidth: "8.5rem" }}
                     onClick={e => {

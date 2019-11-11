@@ -270,7 +270,7 @@ export const AddWrapper = styled.div`
 
 export const OrgsListWrapper = styled.div`
   text-align: left;
-  padding: 0 5% 3rem;
+  padding: 0 5% 6.5rem;
 `;
 
 export const MainKey = styled.p`
