@@ -30,7 +30,7 @@ class PopoverComponent extends React.Component {
 
   render() {
     const { popoverOptions, category } = this.props;
-    const { text, linkText, icon, margin, action } = popoverOptions;
+    const { text, linkText, icon, margin, action, color } = popoverOptions;
 
     return (
       <Popover
@@ -57,6 +57,7 @@ class PopoverComponent extends React.Component {
             icon={icon}
             text={linkText}
             margin={margin}
+            color={color}
           />
         ) : (
           <p>{this.props.children}</p>

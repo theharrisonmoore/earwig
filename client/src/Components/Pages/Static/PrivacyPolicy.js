@@ -6,10 +6,10 @@ import {
   Ol,
   Li,
   UnderlinedLink,
-  BoldWord
-} from "./../../Common/StaticPages.style";
+  BoldWord,
+} from "../../Common/StaticPages.style";
 
-import { COOKIES_POLICY_URL } from "./../../../constants/naviagationUrls";
+import { COOKIES_POLICY_URL } from "../../../constants/naviagationUrls";
 
 export default class PrivacyPolicy extends Component {
   render() {
@@ -18,31 +18,39 @@ export default class PrivacyPolicy extends Component {
         <ContentWrapper>
           <SmallTitle>EARWIG</SmallTitle>
           <SmallTitle>PRIVACY POLICY</SmallTitle>
-          <Ol showFirstNumber={true}>
+          <Ol showFirstNumber>
             <Li>
               <span style={{ fontWeight: "900", display: "block" }}>
                 INTRODUCTION
               </span>{" "}
-              Welcome to earwig. Subtap Limited (<BoldWord>we</BoldWord>, <BoldWord>us</BoldWord>, <BoldWord>our</BoldWord> or <BoldWord>Subtap Limited</BoldWord>),
-              the owner and operator of earwig, is committed to protecting and
-              respecting your privacy. This Privacy Policy explains: (i) why and
-              how we may use the personal information that we have obtained from
-              interactions you (or others) may have with us as a business,
-              including when you visit our website currently located at ​
-              <UnderlinedLink to="/">www.earwig.work</UnderlinedLink> (<BoldWord>Site</BoldWord> or <BoldWord>earwig Platform</BoldWord>)
+              Welcome to earwig. Subtap Limited (<BoldWord>we</BoldWord>,{" "}
+              <BoldWord>us</BoldWord>, <BoldWord>our</BoldWord> or{" "}
+              <BoldWord>Subtap Limited</BoldWord>), the owner and operator of
+              earwig, is committed to protecting and respecting your privacy.
+              This Privacy Policy explains: (i) why and how we may use the
+              personal information that we have obtained from interactions you
+              (or others) may have with us as a business, including when you
+              visit our website currently located at ​
+              <UnderlinedLink to="/">www.earwigwork.com</UnderlinedLink> (
+              <BoldWord>Site</BoldWord> or <BoldWord>earwig Platform</BoldWord>)
               or when you contact us; (ii) with whom we share your personal
               information; and (iii) the rights you have in connection with the
-              information we use. Please read the following carefully. 
+              information we use. Please read the following carefully.
               <br />
               <br />
-              Subtap Limited is the controller of your personal information. This means
-              that Subtap Limited decides why and how your personal information
-              is processed. Please see the section at the end of this Privacy
-              Policy for our contact and legal information. 
+              Subtap Limited is the controller of your personal information.
+              This means that Subtap Limited decides why and how your personal
+              information is processed. Please see the section at the end of
+              this Privacy Policy for our contact and legal information.
               <br />
               <br />
-              This Privacy Policy may change from time to time so please check this Privacy Policy occasionally to ensure that you are happy with any changes. For more information on changes to our Privacy Policy, please see
-              paragraph 11 (<BoldWord>Changes to this Privacy Policy</BoldWord>). This Privacy Policy was last updated on the date set out at the end of this Privacy Policy.
+              This Privacy Policy may change from time to time so please check
+              this Privacy Policy occasionally to ensure that you are happy with
+              any changes. For more information on changes to our Privacy
+              Policy, please see paragraph 11 (
+              <BoldWord>Changes to this Privacy Policy</BoldWord>). This Privacy
+              Policy was last updated on the date set out at the end of this
+              Privacy Policy.
             </Li>
             <Li>
               <span style={{ fontWeight: "900", display: "block" }}>
@@ -144,7 +152,7 @@ export default class PrivacyPolicy extends Component {
                 style={{
                   fontWeight: "700",
                   display: "block",
-                  textDecoration: "underline"
+                  textDecoration: "underline",
                 }}
               >
                 Where you have provided CONSENT
@@ -170,7 +178,7 @@ export default class PrivacyPolicy extends Component {
                 style={{
                   fontWeight: "700",
                   display: "block",
-                  textDecoration: "underline"
+                  textDecoration: "underline",
                 }}
               >
                 Where necessary to comply with our LEGAL OBLIGATIONS
@@ -209,7 +217,7 @@ export default class PrivacyPolicy extends Component {
                 style={{
                   fontWeight: "700",
                   display: "block",
-                  textDecoration: "underline"
+                  textDecoration: "underline",
                 }}
               >
                 Where there is a LEGITIMATE INTEREST{" "}
@@ -222,7 +230,7 @@ export default class PrivacyPolicy extends Component {
                   style={{
                     fontWeight: "700",
                     display: "block",
-                    textDecoration: "underline"
+                    textDecoration: "underline",
                   }}
                 >
                   Processing necessary for us to verify our users
@@ -232,7 +240,7 @@ export default class PrivacyPolicy extends Component {
                   style={{
                     fontWeight: "700",
                     display: "block",
-                    textDecoration: "underline"
+                    textDecoration: "underline",
                   }}
                 >
                   Processing necessary for us to promote our business and
@@ -266,7 +274,7 @@ export default class PrivacyPolicy extends Component {
                   style={{
                     fontWeight: "700",
                     display: "block",
-                    textDecoration: "underline"
+                    textDecoration: "underline",
                   }}
                 >
                   Processing necessary for us to respond to changing market
@@ -288,7 +296,7 @@ export default class PrivacyPolicy extends Component {
                   style={{
                     fontWeight: "700",
                     display: "block",
-                    textDecoration: "underline"
+                    textDecoration: "underline",
                   }}
                 >
                   Processing necessary for us to operate the administrative and
@@ -333,7 +341,7 @@ export default class PrivacyPolicy extends Component {
                   style={{
                     fontWeight: "700",
                     display: "block",
-                    textDecoration: "underline"
+                    textDecoration: "underline",
                   }}
                 >
                   Processing necessary for us to provide the earwig Platform to
@@ -348,7 +356,7 @@ export default class PrivacyPolicy extends Component {
                 style={{
                   fontWeight: "900",
                   display: "block",
-                  textDecoration: "underline"
+                  textDecoration: "underline",
                 }}
               >
                 Where necessary for us to carry out PRE-CONTRACT STEPS you have
@@ -368,7 +376,7 @@ export default class PrivacyPolicy extends Component {
                 style={{
                   fontWeight: "900",
                   display: "block",
-                  textDecoration: "underline"
+                  textDecoration: "underline",
                 }}
               >
                 Where there is a LEGAL REQUIREMENT
@@ -607,8 +615,8 @@ export default class PrivacyPolicy extends Component {
               your password may access your account. Avoid using the same
               password for multiple online accounts. We will never ask you to
               confirm any account or credit card details via email. If you
-              receive an email claiming to be from annsummers.com asking you to
-              do so, please ignore it and do not respond.
+              receive an email claiming to be from www.earwigwork.com asking you
+              to do so, please ignore it and do not respond.
               <br />
               The earwig Platform and social media pages may contain links to
               other websites run by other organisations which we do not control.

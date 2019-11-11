@@ -37,7 +37,8 @@ import {
   Paragraph,
   Example,
   ImageInput,
-  ModalText
+  ModalText,
+  LogIn,
 } from "./Signup.style";
 
 import example from "../../../assets/example.png";
@@ -46,7 +47,7 @@ import { API_SIGN_UP } from "../../../apiUrls";
 
 import {
   WELCOME_URL,
-  TERMS_OF_USE_URL, PRIVACY_URL
+  TERMS_OF_USE_URL, PRIVACY_URL, LOGIN_URL,
 } from "../../../constants/naviagationUrls";
 
 const { API_TRADE_URL } = require("../../../apiUrls");
@@ -356,6 +357,7 @@ export default class Signup extends Component {
       <SignupWrapper>
         <PurpleDiv />
         <ContentWrapper>
+          <LogIn to={LOGIN_URL}>Already signed up? <span>Log in</span></LogIn>
           <Logo />
           <Formik
             initialValues={initialValues}
@@ -371,7 +373,7 @@ export default class Signup extends Component {
                 </Label>
 
                 <Label htmlFor="password">
-                  New password
+                  Create a password
                   <Field type="password" name="password" />
                   <FormikErrorMessage
                     name="password"
@@ -517,7 +519,7 @@ export default class Signup extends Component {
                               <Select
                                 id="trade"
                                 name="trade"
-                                placeholder="Select your trade"
+                                placeholder="Choose your trade"
                                 options={this.state.trades}
                                 handleChange={value => {
                                   form.setFieldValue("trade", value);
@@ -581,7 +583,7 @@ export default class Signup extends Component {
                     </SelectWrapper>
 
                     <Label htmlFor="city">
-                      Your town or city
+                      Town or city
                       <Field type="city" name="city" />
                       <FormikErrorMessage name="city" component="p" id="city" />
                     </Label>

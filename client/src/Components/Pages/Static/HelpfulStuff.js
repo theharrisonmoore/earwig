@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import linkIcon from "./../../../assets/link-icon.svg";
+import linkIcon from "../../../assets/link-icon.svg";
 import {
   Wrapper,
   ContentWrapper,
   MainIcon,
   SubTitle,
   SmallParagraph,
-  PageTitle
-} from "./../../Common/StaticPages.style";
+  PageTitle,
+} from "../../Common/StaticPages.style";
 
-import CommentSection from "./../../Common/CommentSection";
+import CommentSection from "../../Common/CommentSection";
 
 export default class HelpfulStuff extends Component {
   render() {
