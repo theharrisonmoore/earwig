@@ -265,7 +265,7 @@ export const Reviews = styled.p`
 `;
 
 export const NoReview = styled.span`
-  color: ${colors.dustyGray1};
+  color: ${colors.white};
 `;
 
 export const VerifyPromo = styled.div`
