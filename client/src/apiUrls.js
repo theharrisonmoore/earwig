@@ -18,7 +18,7 @@ const API_UPLOAD_WORKSITE_IMAGE_URL = `${API_PREFIX}${UPLOAD_WORKSITE_IMAGE_URL}
 const REPORT_CONTENT_URL = "/report-content";
 const API_REPORT_CONTENT_URL = `${API_PREFIX}${REPORT_CONTENT_URL}`;
 
-const SEARCH_URL = "/search";
+const SEARCH_URL = "/search/:category";
 const API_SEARCH_URL = `${API_PREFIX}${SEARCH_URL}`;
 
 const ADD_ORGANIZATION_URL = "/add-organization";

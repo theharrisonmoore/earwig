@@ -189,3 +189,63 @@ export const isIphone = () => {
 
   return iOSPlatform && iOSUserAgent;
 };
+
+export const sortAndCategorizeOrgs = arrayOfOrgs => {
+  const sorted = arrayOfOrgs.sort((a, b) => {
+    const nameA = a.name.toUpperCase();
+    const nameB = b.name.toUpperCase();
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+
+    // names must be equal
+    return 0;
+  });
+
+  const newArray = sorted.reduce(
+    (prev, org) => {
+      const { lastMainKey, lastSubKey, orgs } = prev;
+      const newOrgs = [...orgs];
+      const newOrg = { ...org };
+
+      const firstLetter = org.name[0].toUpperCase();
+      const newSubKey = firstLetter;
+
+      let newMainKey = prev.lastMainKey;
+
+      const code = firstLetter.charCodeAt();
+
+      if (code >= 48 && code <= 57) {
+        // numbers
+        newMainKey = "0-9";
+      } else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+        // letters
+        newMainKey = "A-Z";
+      } else {
+        // others
+        newMainKey = "Others";
+      }
+
+      if (lastMainKey !== newMainKey) {
+        newOrg.mainKey = newMainKey;
+      }
+
+      if (lastSubKey !== newSubKey) {
+        newOrg.subKey = newSubKey;
+      }
+      newOrgs.push(newOrg);
+
+      return {
+        lastMainKey: newMainKey,
+        lastSubKey: newSubKey,
+        orgs: newOrgs,
+      };
+    },
+    { lastMainKey: "", lastSubKey: "", orgs: [] }
+  );
+
+  return newArray.orgs;
+};

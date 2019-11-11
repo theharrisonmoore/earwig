@@ -1,4 +1,5 @@
-export const SEARCH_URL = "/search";
+export const SEARCH_URL = "/search/:category?";
+export const PURE_SEARCH_URL = "/search";
 export const ADD_PROFILE_URL = "/add-profile";
 export const ADD_PROFILE_START_REVIEW_URL = "/add-profile-start-review";
 export const USER_PROFILE_URL = "/my-profile";
@@ -42,3 +43,4 @@ export const ORG_STATUS_URL_SIGNUP = "/getting-to-know-you";
 export const ORG_STATUS_URL_LOGIN = "/update";
 export const WELCOME_URL = "/welcome";
 export const UPLOAD_VERIFICATION_PHOTO = "/upload-verification-photo";
+export const PRE_REVIEW = "/pre-review/:orgId";

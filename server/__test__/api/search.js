@@ -16,7 +16,7 @@ describe("testing search route", () => {
 
   test("test valid request", (done) => {
     request(app)
-      .get("/api/search")
+      .get("/api/search/agency")
       .expect("Content-Type", /json/)
       .expect(200)
       .end((err, res) => {
