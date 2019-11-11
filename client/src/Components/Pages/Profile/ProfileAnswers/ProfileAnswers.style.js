@@ -62,19 +62,19 @@ export const NoHalf = styled.div`
 `;
 
 export const Comment = styled.button`
-  border: ${props =>
-    props.active
-      ? `1px solid ${props.color}`
-      : `1px solid ${colors.lightGray}`};
-  color: ${props => (props.active ? `${props.color}` : `${colors.lightGray}`)};
+  border: none;
+  color: ${props =>
+    props.active ? `${colors.primary}` : `${colors.lightGray}`};
+  font-weight: ${props => (props.active ? `bold` : `normal`)};
   margin-left: 0.5rem;
   padding: 0 0.5rem;
-  box-shadow: ${shadows.buttonShadow};
+  box-shadow: none;
+  outline: none;
+  background-color: none;
   border-radius: 0.25rem;
   margin-right: auto;
   justify-self: flex-end;
   cursor: ${props => (props.active ? "pointer" : "not-allowed !important")};
-  background-color: #fff;
 `;
 
 export const RightCommentWrapper = styled.div`
