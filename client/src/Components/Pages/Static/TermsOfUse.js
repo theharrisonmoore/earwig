@@ -36,7 +36,7 @@ export default class TermsOfUse extends Component {
               <Ol>
                 <Li>
                   Welcome to earwig. Our website (located at ​
-                  <UnderlinedLink to="/">www.earwig.work</UnderlinedLink>) (
+                  <UnderlinedLink to="/">www.earwigwork.com</UnderlinedLink>) (
                   <BoldWord>Site</BoldWord> or{" "}
                   <BoldWord>earwig Platform</BoldWord>), is owned and operated
                   by Subtap Limited (​<BoldWord>we​</BoldWord>,{" "}

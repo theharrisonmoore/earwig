@@ -6,8 +6,6 @@ import Loading from "../../Common/AntdComponents/Loading";
 import Button from "../../Common/Button";
 import Link from "../../Common/Link";
 
-import { organizations } from "../../../theme";
-
 import {
   UserAgreement,
   CheckboxWrapper,
@@ -724,10 +722,8 @@ class Review extends Component {
                 styleType="primary"
                 size="large"
                 loading={isSubmitting}
-                backgroundColor={organizations[category].primary}
-              >
-                Publish your review
-              </Button>
+                text="Publish your review"
+              />
             </FormWrapper>
           </form>
         </section>

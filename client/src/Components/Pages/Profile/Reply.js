@@ -11,7 +11,7 @@ import {
   ReplyWrapper,
   CommentsWrapper,
   Banner,
-  Cancel
+  Cancel,
 } from "./Reply.style";
 import {
   BannerTitle,
@@ -19,17 +19,17 @@ import {
   UserTrade,
   UserAdditionalDetails,
   UserID,
-  CommentBubble
+  CommentBubble,
 } from "./Profile.style";
 
-import { organizations } from "./../../../theme";
+import { organizations } from "../../../theme";
 
-import { API_ADD_COMMENT_ON_REVIEW_URL } from "./../../../apiUrls";
+import { API_ADD_COMMENT_ON_REVIEW_URL } from "../../../apiUrls";
 
 import { highlightMentions } from "../../../helpers";
 
-import Loading from "./../../Common/AntdComponents/Loading";
-import Button from "./../../Common/Button";
+import Loading from "../../Common/AntdComponents/Loading";
+import Button from "../../Common/Button";
 
 export default class Reply extends Component {
   state = {
@@ -39,7 +39,7 @@ export default class Reply extends Component {
     errors: {},
     loaded: false,
     submitting: false,
-    focus: false
+    focus: false,
   };
 
   handleChangeUserName = ({ target }) => {
@@ -62,16 +62,16 @@ export default class Reply extends Component {
   validate = () => {
     const { isAdmin } = this.props;
 
-    let schema = yup.object().shape({
+    const schema = yup.object().shape({
       comment: yup.string().min(1, "comment is required!"),
-      user: isAdmin ? yup.string().required("user is required!") : null
+      user: isAdmin ? yup.string().required("user is required!") : null,
     });
 
     return schema
       .validate(
         {
           comment: this.state.commentContentState,
-          user: this.state.user
+          user: this.state.user,
         },
         { abortEarly: false }
       )
@@ -94,7 +94,7 @@ export default class Reply extends Component {
             text: this.state.commentContentState,
             displayName: this.state.user,
             reviewId,
-            target
+            target,
           };
           axios
             .post(API_ADD_COMMENT_ON_REVIEW_URL, data)
@@ -104,7 +104,7 @@ export default class Reply extends Component {
                   commentContentState: "",
                   user: "",
                   errors: {},
-                  submitting: false
+                  submitting: false,
                 },
                 () => this.fetchOverallReplies(reviewId, target)
               );
@@ -122,6 +122,7 @@ export default class Reply extends Component {
   };
 
   inputWrapper = React.createRef();
+
   fixedDiv = React.createRef();
 
   fetchOverallReplies = (id, target) => {
@@ -134,7 +135,7 @@ export default class Reply extends Component {
                 replies: data,
                 activeOverallId: id,
                 loaded: true,
-                reviewId: id
+                reviewId: id,
               },
               () => {
                 window.scrollTo(0, document.body.scrollHeight);
@@ -150,7 +151,7 @@ export default class Reply extends Component {
           replies: [],
           activeOverallId: "",
           loaded: true,
-          reviewId: id
+          reviewId: id,
         });
   };
 
@@ -180,7 +181,7 @@ export default class Reply extends Component {
       loaded,
       submitting,
       focus,
-      commentContentState
+      commentContentState,
     } = this.state;
     const { isAdmin } = this.props;
     const { category } = this.props.location.state;
@@ -206,13 +207,13 @@ export default class Reply extends Component {
       <>
         <Banner category={category}>
           <BannerTitle>Replying</BannerTitle>
-          <Cancel onClick={this.goBack}>Back</Cancel>
+          <Cancel onClick={this.goBack}>Cancel</Cancel>
         </Banner>
         <Wrapper
           style={{
             position: "relative",
             minHeight: "100vh",
-            paddingBottom: "9rem"
+            paddingBottom: "9rem",
           }}
         >
           <CommentsWrapper>
@@ -230,7 +231,7 @@ export default class Reply extends Component {
                       type="warning"
                       style={{
                         display: "inline-block",
-                        marginBottom: "0.5rem"
+                        marginBottom: "0.5rem",
                       }}
                       banner
                     />
@@ -284,7 +285,7 @@ export default class Reply extends Component {
                 width: "100%",
                 background: "white",
                 paddingBottom: focus ? "0.5rem" : "2rem",
-                maxWidth: "30rem"
+                maxWidth: "30rem",
               }}
             >
               {isAdmin && (
@@ -306,7 +307,7 @@ export default class Reply extends Component {
                   style={{ width: "100%" }}
                   onChange={this.onChange}
                   onSelect={this.onSelect}
-                  placeholder={"Write your reply…"}
+                  placeholder="Write your reply…"
                   value={commentContentState}
                 >
                   {uniqueUsers.map((user, index) => {
@@ -322,19 +323,16 @@ export default class Reply extends Component {
             <div
               style={{
                 paddingBottom: focus ? "5rem" : "2rem",
-                width: "100%"
+                width: "100%",
               }}
             >
               <Button
-                style={{ maxWidth: "30rem", margin: "0 auto" }}
-                category={category}
-                backgroundColor={organizations[category].primary}
+                margin= "0 auto"
                 loading={submitting}
                 onClick={this.handleSubmit}
                 styleType="primary"
-              >
-                Post reply
-              </Button>
+                text="Post reply"
+              />
             </div>
             {this.state.errors.comment && (
               <Error>{this.state.errors.comment}</Error>

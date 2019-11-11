@@ -46,9 +46,11 @@ export const Header = styled.div`
   box-shadow: ${shadows.headerShadow};
   display: flex;
   flex-direction: column;
-  margin-top: 2.75rem;
+  align-items: center;
   padding: ${props =>
-    props.isTablet || props.isMobile ? "1.5rem 1rem" : "1.5rem 7rem"};
+    props.isTablet || props.isMobile ? "0.5rem 1rem" : "0.5rem 7rem"};
+  background-color: ${props => organizations[`${props.category}`].primary};
+  color: ${colors.white};
 `;
 
 export const CompanyDetails = styled.div`
@@ -58,8 +60,8 @@ export const CompanyDetails = styled.div`
   flex-direction: ${props =>
     props.isTablet || props.isMobile ? "column" : "row"};
   align-items: center;
-  padding-bottom: ${props =>
-    props.isTablet || props.isMobile ? "2rem" : "1rem"};
+  /* padding-bottom: ${props =>
+    props.isTablet || props.isMobile ? "2rem" : "1rem"}; */
 `;
 
 export const CompanyDiv = styled.div`
@@ -76,6 +78,8 @@ export const CompanyTitle = styled.h2`
   font-weight: 600;
   margin: 0;
   text-transform: capitalize;
+  color: ${colors.white};
+  text-align: center;
 `;
 
 export const ButtonDiv = styled.div`
@@ -90,28 +94,24 @@ export const OrgLink = styled.a`
 `;
 
 export const OrgButton = styled.button`
-  border: ${props => organizations[`${props.category}`].primary} solid 2px;
+  border: ${colors.white} solid 2px;
   box-sizing: border-box;
-  color: ${props => organizations[`${props.category}`].primary};
-  background: ${colors.white};
+  color: ${colors.white};
+  background: none;
   transition: all ease-in 0.1s;
   width: ${props => (props.isMobile ? "5rem" : "7rem")};
   height: 2.5rem;
-  border-radius: 0.25rem;
-  box-shadow: ${shadows.buttonShadow};
-  margin: 0 0.5rem;
+  border-radius: 22.25px;
+  margin: 1rem 0.5rem;
   cursor: pointer;
   position: relative;
+  outline: none;
 
   :hover {
-    background: ${props => organizations[`${props.category}`].primary};
     color: ${colors.white};
   }
 
   &:active {
-    box-shadow: none;
-    border: none;
-
     ::after {
       content: "";
       position: absolute;
@@ -120,7 +120,7 @@ export const OrgButton = styled.button`
       bottom: 0px;
       left: 0px;
       background: ${colors.btnClick};
-      box-shadow: none;
+      border-radius: 22.25px;
     }
   }
 `;
@@ -189,6 +189,7 @@ export const CommentDiv = styled.div`
   width: 100%;
   position: relative;
   display: ${props => props.noReview && "none"};
+  color: ${colors.white};
 `;
 
 export const BubbleAndDate = styled.div`
@@ -228,7 +229,7 @@ export const VoiceWrapper = styled.div`
 
 export const CommentBubble = styled.p`
   background: ${({ bgColor }) => bgColor || colors.ghostGray};
-  color: ${({ color }) => color && color};
+  color: ${({ color }) => color || colors.profileFontColor};
   border-radius: 1.125rem;
   align-self: flex-start;
   justify-content: flex-start;
@@ -252,20 +253,21 @@ export const StarWrapper = styled.div`
   display: flex;
   text-align: left;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   cursor: pointer;
+
 `;
 
 export const Reviews = styled.p`
   margin: 0;
   margin-left: 1rem;
-  border-bottom: 2px solid ${props => organizations[props.category].primary};
+  border-bottom: 2px solid ${colors.white};
   font-weight: 600;
-  color: ${props => organizations[`${props.category}`].primary};
+  color: ${colors.white};
 `;
 
 export const NoReview = styled.span`
-  color: ${colors.dustyGray1};
+  color: ${colors.white};
 `;
 
 export const VerifyPromo = styled.div`
@@ -321,14 +323,9 @@ export const AccountPromo = styled.div`
   }
 `;
 
-export const BottomAccountPromo = styled(AccountPromo)`
-  background-image: none;
-`;
-
 export const AccountLink = styled(VerifyLink)`
   z-index: 2;
   display: flex;
-  width: 300px;
   justify-content: flex-start;
 `;
 
@@ -408,19 +405,20 @@ export const UserAdditionalDetails = styled.div`
 `;
 
 export const ReplyButton = styled.p`
-  text-decoration: underline;
   border: none;
   background: none;
   font-weight: bold;
   font-size: 1rem;
-  padding: 0.5rem 1rem;
-  color: ${({ color }) => color};
-  margin: 0.5rem;
+  padding: 0 0.5rem;
+  color: ${colors.primary};
+  margin-right: 1rem;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  opacity: ${({ disabled }) => disabled && "0.5" };
+  text-decoration: none;
 `;
 
 export const HelpfulButton = styled(ReplyButton)`
-  color: ${({ color, number }) => (number ? "black" : color)};
+  color: ${({ number }) => (number ? "black" : colors.primary)};
   font-weight: ${({ number }) => (number ? "900" : "bold")};
 `;
 

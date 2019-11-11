@@ -131,7 +131,7 @@ export default class Login extends Component {
         <Link
           to={WELCOME_URL}
           type="primary"
-          text="Continue without an account"
+          text="Continue without signing up"
         />
       </LoginWrapper>
     );

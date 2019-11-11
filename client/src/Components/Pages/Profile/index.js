@@ -18,13 +18,11 @@ import Button from "../../Common/Button";
 
 import {
   Wrapper,
-  Banner,
   ReviewDiv,
   AccountPromo,
   AccountLink,
   AccountItem,
   Level0Promo,
-  BottomAccountPromo,
 } from "./Profile.style";
 
 export default class Profile extends Component {
@@ -266,16 +264,9 @@ export default class Profile extends Component {
 
     // if (!loaded) return <Loading />;
 
-    const { category, name } = summary && summary;
+    const { category } = summary && summary;
     return (
       <Wrapper isMobile={isMobile}>
-        <Skeleton loading={!loaded}>
-          <Banner category={category}>
-            <p style={{ padding: "10px 5px", textAlign: "center" }}>
-              <span>{category}:</span> {name}
-            </p>
-          </Banner>
-        </Skeleton>
         <Skeleton loading={!loaded}>
           <HeaderSection
             isTablet={isTablet}
@@ -326,7 +317,7 @@ export default class Profile extends Component {
                   <Button
                     text="Sign up to see more"
                     styleType="primary"
-                    margin="1rem 0"
+                    margin="1rem auto"
                   />
                 </AccountLink>
               </AccountPromo>
@@ -480,18 +471,19 @@ export default class Profile extends Component {
           />
           {level < 1 && (
             <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-              <BottomAccountPromo>
-                <p>Create an account to see all reviews</p>
-                <AccountLink
-                  to={{
-                    pathname: SIGNUP_URL,
-                    state: { from: this.props.location },
-                  }}
-                  category={category}
-                >
-                  Create an account now >
-                </AccountLink>
-              </BottomAccountPromo>
+              <AccountLink
+                to={{
+                  pathname: SIGNUP_URL,
+                  state: { from: this.props.location },
+                }}
+                category={category}
+              >
+                <Button
+                  text="Sign up to see more"
+                  styleType="primary"
+                  margin="0 auto"
+                />
+              </AccountLink>
             </ReviewDiv>
           )}
           {/* COMMENTS BOX */}

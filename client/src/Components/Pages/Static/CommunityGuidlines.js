@@ -25,7 +25,7 @@ export default class CommunityGuidlines extends Component {
                 <Li>
                   These Community Guidelines set out the rules you must follow
                   if you wish to submit any content to our website (located at ​
-                  <UnderlinedLink to="/">www.earwig.work</UnderlinedLink>) (<BoldWord>Site</BoldWord> or <BoldWord>earwig Platform</BoldWord>).
+                  <UnderlinedLink to="/">www.earwigwork.com</UnderlinedLink>) (<BoldWord>Site</BoldWord> or <BoldWord>earwig Platform</BoldWord>).
                 </Li>
                 <Li>
                   By using the earwig Platform ​ you accept, and agree to abide
