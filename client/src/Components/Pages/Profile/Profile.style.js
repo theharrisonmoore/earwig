@@ -321,10 +321,6 @@ export const AccountPromo = styled.div`
   }
 `;
 
-export const BottomAccountPromo = styled(AccountPromo)`
-  background-image: none;
-`;
-
 export const AccountLink = styled(VerifyLink)`
   z-index: 2;
   display: flex;

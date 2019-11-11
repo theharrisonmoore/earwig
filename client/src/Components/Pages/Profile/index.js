@@ -24,7 +24,6 @@ import {
   AccountLink,
   AccountItem,
   Level0Promo,
-  BottomAccountPromo,
 } from "./Profile.style";
 
 export default class Profile extends Component {

@@ -86,7 +86,7 @@ export default class HeaderSection extends Component {
                   disabled
                   value={summary.avgRatings || summary.value || 0}
                   style={{
-                    color: `${organizations[summary.category].primary}`,
+                    color: `${colors.stars}`,
                     fontSize: "0.75rem"
                   }}
                   className="last-reviewed-star-rate"
