@@ -47,7 +47,6 @@ export default class OverallReview extends Component {
       written: {},
       audio: {},
     },
-    isMouseDown: false,
     writtenOrAudioReviews: [],
     updatedUsers: {},
   };
@@ -73,12 +72,10 @@ export default class OverallReview extends Component {
             [reviewId]: {
               counter: updateCounter,
               sentNumber,
-              scaleValue: 1 + counter / 100,
               byUser: true,
             },
           },
         },
-        isMouseDown: true,
       },
       () => {
         this.postHelpfulPoints({
@@ -90,89 +87,6 @@ export default class OverallReview extends Component {
         });
       }
     );
-  };
-
-  hold = (id, type) => {
-    const { counters, isMouseDown } = this.state;
-
-    const item = counters[type][id];
-    const counter = item ? item.counter : 0;
-
-    if ((item && counter >= 10) || !isMouseDown) {
-      return this.setState({ isMouseDown: false });
-    }
-
-    clearInterval(this.timer);
-
-    this.timer = setInterval(() => {
-      const { counters, isMouseDown } = this.state;
-      const item = counters[type][id];
-      const counter = item ? item.counter : 0;
-      const sentNumber = item ? item.sentNumber : 0;
-
-      if ((item && counter >= 10) || !isMouseDown) {
-        clearInterval(this.timer);
-        return this.setState({ isMouseDown: false });
-      }
-
-      this.setState({
-        counters: {
-          ...counters,
-          [type]: {
-            ...counters[type],
-            [id]: {
-              counter: counter + 1,
-              sentNumber,
-              scaleValue: 1 + counter / 100,
-              byUser: true,
-            },
-          },
-        },
-        isMouseDown: true,
-      });
-    }, 300);
-  };
-
-  notPressingDown = e => {
-    const { counters } = this.state;
-    const reviewId = e.target.id;
-    const { type, organization, userId } = e.target.dataset;
-
-    const item = counters[type][reviewId];
-    const counter = item ? item.counter : 0;
-    const sentNumber = item ? item.sentNumber : 0;
-
-    clearInterval(this.timer);
-    if (item && counter !== sentNumber) {
-      this.setState(
-        {
-          counters: {
-            ...counters,
-            [type]: {
-              ...counters[type],
-              [reviewId]: {
-                counter,
-                sentNumber: counter,
-                scaleValue: 1,
-                byUser: true,
-              },
-            },
-          },
-          isMouseDown: false,
-        },
-        () => {
-          this.postHelpfulPoints({
-            points: counter,
-            reviewId,
-            userId,
-            type,
-            organization,
-          });
-        }
-      );
-    } else {
-      this.setState({ isMouseDown: false });
-    }
   };
 
   postHelpfulPoints = ({ points, reviewId, userId, type, organization }) => {
@@ -251,14 +165,12 @@ export default class OverallReview extends Component {
             prev.audio[currReview.review] = {
               counter: currReview.points,
               sentNumber: currReview.points,
-              scaleValue: 1,
               byUser: false,
             };
           } else if (currReview.target === "overallReview") {
             prev.written[currReview.review] = {
               counter: currReview.points,
               sentNumber: currReview.points,
-              scaleValue: 1,
               byUser: false,
             };
           }
