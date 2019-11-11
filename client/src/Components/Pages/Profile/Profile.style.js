@@ -46,9 +46,10 @@ export const Header = styled.div`
   box-shadow: ${shadows.headerShadow};
   display: flex;
   flex-direction: column;
-  margin-top: 2.75rem;
   padding: ${props =>
     props.isTablet || props.isMobile ? "1.5rem 1rem" : "1.5rem 7rem"};
+  background-color: ${props => organizations[`${props.category}`].primary};
+  color: ${colors.white};
 `;
 
 export const CompanyDetails = styled.div`
@@ -76,6 +77,8 @@ export const CompanyTitle = styled.h2`
   font-weight: 600;
   margin: 0;
   text-transform: capitalize;
+  color: ${colors.white};
+  text-align: center;
 `;
 
 export const ButtonDiv = styled.div`
@@ -90,28 +93,24 @@ export const OrgLink = styled.a`
 `;
 
 export const OrgButton = styled.button`
-  border: ${props => organizations[`${props.category}`].primary} solid 2px;
+  border: ${colors.white} solid 2px;
   box-sizing: border-box;
-  color: ${props => organizations[`${props.category}`].primary};
-  background: ${colors.white};
+  color: ${colors.white};
+  background: none;
   transition: all ease-in 0.1s;
   width: ${props => (props.isMobile ? "5rem" : "7rem")};
   height: 2.5rem;
-  border-radius: 0.25rem;
-  box-shadow: ${shadows.buttonShadow};
-  margin: 0 0.5rem;
+  border-radius: 22.25px;
+  margin: 1rem 0.5rem;
   cursor: pointer;
   position: relative;
+  outline: none;
 
   :hover {
-    background: ${props => organizations[`${props.category}`].primary};
     color: ${colors.white};
   }
 
   &:active {
-    box-shadow: none;
-    border: none;
-
     ::after {
       content: "";
       position: absolute;
@@ -120,7 +119,7 @@ export const OrgButton = styled.button`
       bottom: 0px;
       left: 0px;
       background: ${colors.btnClick};
-      box-shadow: none;
+      border-radius: 22.25px;
     }
   }
 `;
@@ -189,6 +188,7 @@ export const CommentDiv = styled.div`
   width: 100%;
   position: relative;
   display: ${props => props.noReview && "none"};
+  color: ${colors.white};
 `;
 
 export const BubbleAndDate = styled.div`
@@ -252,16 +252,16 @@ export const StarWrapper = styled.div`
   display: flex;
   text-align: left;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   cursor: pointer;
 `;
 
 export const Reviews = styled.p`
   margin: 0;
   margin-left: 1rem;
-  border-bottom: 2px solid ${props => organizations[props.category].primary};
+  border-bottom: 2px solid ${colors.white};
   font-weight: 600;
-  color: ${props => organizations[`${props.category}`].primary};
+  color: ${colors.white};
 `;
 
 export const NoReview = styled.span`

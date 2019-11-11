@@ -67,41 +67,12 @@ export default class HeaderSection extends Component {
     const reviewNotAllowed = reviewsLast30Days.length > 0;
 
     return (
-      <Header isTablet={isTablet} isMobile={isMobile}>
+      <Header isTablet={isTablet} isMobile={isMobile} category={category}>
         <CompanyDetails isTablet={isTablet} isMobile={isMobile} level={level}>
           <CompanyDiv isMobile={isMobile}>
-            <IconWrapper>
-              <Icon
-                icon={category}
-                margin="0 1rem 0 0"
-                width="59"
-                height="57"
-                color={organizations[category].primary}
-              />
-            </IconWrapper>
             <CompanyNameAndStars>
               <CompanyTitle>{name}</CompanyTitle>
-              <StarWrapper onClick={handleScroll}>
-                <Rate
-                  disabled
-                  value={summary.avgRatings || summary.value || 0}
-                  style={{
-                    color: `${colors.stars}`,
-                    fontSize: "0.75rem"
-                  }}
-                  className="last-reviewed-star-rate"
-                />
-                {totalReviews === 0 ? (
-                  <NoReview>No reviews yet</NoReview>
-                ) : (
-                  <Reviews category={category}>
-                    {totalReviews} review{totalReviews !== 1 && "s"}
-                  </Reviews>
-                )}
-              </StarWrapper>
-            </CompanyNameAndStars>
-          </CompanyDiv>
-          {level > 1 ? (
+              {level > 1 ? (
             <ButtonDiv
               isTablet={isTablet}
               isMobile={isMobile}
@@ -172,6 +143,27 @@ export default class HeaderSection extends Component {
               </InactiveButton>
             </ButtonDiv>
           )}
+              <StarWrapper onClick={handleScroll}>
+                <Rate
+                  disabled
+                  value={summary.avgRatings || summary.value || 0}
+                  style={{
+                    color: `${colors.stars}`,
+                    fontSize: "0.75rem"
+                  }}
+                  className="last-reviewed-star-rate"
+                />
+                {totalReviews === 0 ? (
+                  <NoReview>No reviews yet</NoReview>
+                ) : (
+                  <Reviews>
+                    {totalReviews} review{totalReviews !== 1 && "s"}
+                  </Reviews>
+                )}
+              </StarWrapper>
+            </CompanyNameAndStars>
+          </CompanyDiv>
+          
           {/* contractor section */}
           {category === "worksite" && (
             <ContractorDiv>

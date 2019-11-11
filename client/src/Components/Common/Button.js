@@ -73,8 +73,8 @@ const primaryStyles = css`
 `;
 
 const secondaryStyles = css`
-  color: ${colors.primary};
-  border: 1px solid ${colors.primary};
+  color: ${({color}) => color || colors.primary};
+  border: 1px solid ${({color}) => color || colors.primary};
   background-color: ${({ backgroundColor }) => backgroundColor || colors.white};
 
   &:active {
@@ -117,6 +117,7 @@ const Button = ({
   left,
   styleType,
   icon,
+  color,
   ...rest
 }) => {
   return (
@@ -127,6 +128,7 @@ const Button = ({
         backgroundColor={backgroundColor}
         left={left}
         styleType={styleType}
+        color={color}
         {...rest}
       >
         <span style={{ display: "flex", alignItems: "center" }}>

@@ -268,13 +268,6 @@ export default class Profile extends Component {
     return (
       <Wrapper isMobile={isMobile}>
         <Skeleton loading={!loaded}>
-          <Banner category={category}>
-            <p style={{ padding: "10px 5px", textAlign: "center" }}>
-              <span>{category}:</span> {name}
-            </p>
-          </Banner>
-        </Skeleton>
-        <Skeleton loading={!loaded}>
           <HeaderSection
             isTablet={isTablet}
             isMobile={isMobile}
