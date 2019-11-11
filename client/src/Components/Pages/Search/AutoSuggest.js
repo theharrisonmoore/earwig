@@ -8,26 +8,21 @@ import Autosuggest from "react-autosuggest";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import createTrie from "autosuggest-trie";
-import { Rate, Spin } from "antd";
+import { Spin } from "antd";
 import swal from "sweetalert2";
-
-import PopOverWrapper from "./PopOverWrapper";
 
 import { ADD_PROFILE_URL } from "../../../constants/naviagationUrls";
 import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
+
+import Suggestion from "./OrganisationRow";
 
 // styles
 import {
   AutosuggestWrapper,
   SymbolDiv,
-  OrganisationDetailsDiv,
   AddItemDetails,
-  ReviewDetailsDiv,
   InnerDivSuggestions,
-  ArrowDiv,
-  SuggestionBox,
   AddItemBox,
-  ProfileLink,
   AddProfileLink,
   IconDiv,
 } from "./Search.style";
@@ -35,11 +30,6 @@ import {
 import Icon from "../../Common/Icon/Icon";
 import SearchIcon from "../../../assets/search-icon.svg";
 import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
-
-// UI helper functions
-import { SVGCreator } from "../../../helpers";
-
-import { organizationIcons, organizations } from "../../../theme";
 
 // functions
 
@@ -80,14 +70,8 @@ class AutosuggestComponent extends Component {
   state = {
     value: "",
     suggestions: [],
-    target: "profile",
     isLoaded: true,
   };
-
-  componentDidMount() {
-    const { target } = this.props.match.params;
-    this.setState({ target: target || "profile" });
-  }
 
   componentDidUpdate(prevProps) {
     const { showOtherSections } = this.props;
@@ -161,88 +145,21 @@ class AutosuggestComponent extends Component {
 
   // when users clicks on back arrow icon it deletes the input
   delSearchInput = () => {
-    const { handleCancelIconClick } = this.props;
     this.setState({ value: "" });
-    if (this.props.origin !== "checkOrg") {
-      handleCancelIconClick();
-    }
   };
 
-  // renders individual suggestions
   renderSuggestion = suggestion => {
-    // check if no suggestion is available and returns so that renderSuggestionsContainer function is still being called (gets deactivated otherwise)
-
-    // also need to check if button to see if we make it a link or not
-    // THIS RELATES TO THE ORGCHECK COMPONENT
-    const { isButton, storeOrg, noIcon, orgsIds } = this.props;
-    const { target } = this.state;
-    const url =
-      target === "profile"
-        ? `/profile/${suggestion._id}`
-        : `/organization/${suggestion._id}/review`;
-
-    const disabled =
-      target === "review" && orgsIds && orgsIds.includes(suggestion._id);
-
+    const { isButton, storeOrg, noIcon } = this.props;
     if (suggestion.isEmpty) {
       return null;
     }
-
     return (
-      <PopOverWrapper disabled={disabled}>
-        <ProfileLink
-          as={isButton || disabled ? "div" : undefined}
-          to={isButton || disabled ? undefined : url}
-          onClick={() => !disabled && isButton && storeOrg(suggestion)}
-        >
-          <SuggestionBox orgType={suggestion.category}>
-            <InnerDivSuggestions>
-              <SymbolDiv>
-                {!noIcon && (
-                  <Icon
-                    icon="search"
-                    height="1.5rem"
-                    width="1.5rem"
-                    margin="0 1rem 0 0"
-                  />
-                )}
-                <Icon
-                  icon={suggestion.category}
-                  height="1.5rem"
-                  width="1.5rem"
-                  margin="0 1rem 0 0"
-                />
-              </SymbolDiv>
-              <OrganisationDetailsDiv>
-                <h3
-                  style={{
-                    color: organizations[suggestion.category].primary,
-                    textTransform: "capitalize",
-                  }}
-                >
-                  {suggestion.name}
-                </h3>
-                <ReviewDetailsDiv>
-                  <Rate
-                    disabled
-                    value={suggestion.avgRatings || suggestion.value || 0}
-                    style={{
-                      color: `${organizations[suggestion.category].primary}`,
-                      fontSize: "0.75rem",
-                      textTransform: "capitalize",
-                    }}
-                    className="last-reviewed-star-rate"
-                  />
-                  <p>{suggestion.totalReviews} reviews</p>
-                </ReviewDetailsDiv>
-              </OrganisationDetailsDiv>
-              <ArrowDiv>
-                {SVGCreator(`${organizationIcons[suggestion.category].arrow}`)}
-              </ArrowDiv>
-            </InnerDivSuggestions>
-          </SuggestionBox>
-        </ProfileLink>
-      </PopOverWrapper>
+      <Suggestion
+        organisation={suggestion}
+        isButton={isButton}
+        storeOrg={storeOrg}
+        noIcon={noIcon}
+      />
     );
   };
 
