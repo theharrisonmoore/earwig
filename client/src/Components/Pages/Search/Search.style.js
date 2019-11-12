@@ -190,6 +190,7 @@ export const OrganisationDetailsDiv = styled.div`
 export const AddItemDetails = styled.div`
   display: flex;
   flex-direction: column;
+  padding-left: 30px;
   h3 {
     font-weight: 700;
     font-size: 1rem;

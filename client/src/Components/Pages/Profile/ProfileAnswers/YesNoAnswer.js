@@ -44,11 +44,12 @@ export default class YesNoAnswer extends Component {
             onClick={() => toggleComments(question)}
             active
             color={organizations[category].primary}
+            hasComment={question.hasComment}
           >
             Comments
           </Comment>
         ) : (
-          <Comment>Comments</Comment>
+          <Comment hasComment={question.hasComment}>Comments</Comment>
         )}
       </YesNoWrapper>
     );

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Chart, Bar } from "react-chartjs-2";
 import "chartjs-plugin-datalabels";
 
-import { organizations } from "../../../../theme";
+import { colors } from "../../../../theme";
 
 // Globally disable datalabels
 Chart.defaults.global.plugins.datalabels.display = false;
@@ -11,7 +11,7 @@ export default class BarChartAnswer extends Component {
   createDataObj = question => {
     // create object
 
-    let optionsObj = question.options.reduce((acc, option) => {
+    const optionsObj = question.options.reduce((acc, option) => {
       acc[option] = 0;
       return acc;
     }, Object.create(null));
@@ -31,7 +31,7 @@ export default class BarChartAnswer extends Component {
   };
 
   render() {
-    const { category, question } = this.props;
+    const { question } = this.props;
 
     this.createDataObj(question);
 
@@ -39,35 +39,35 @@ export default class BarChartAnswer extends Component {
 
     const options = {
       legend: {
-        display: false
+        display: false,
       },
       scales: {
         yAxes: [
           {
             ticks: {
-              display: false
+              display: false,
             },
             gridLines: {
               display: false,
-              drawBorder: false
-            }
-          }
+              drawBorder: false,
+            },
+          },
         ],
         xAxes: [
           {
             gridLines: {
-              display: false
-            }
-          }
-        ]
-      }
+              display: false,
+            },
+          },
+        ],
+      },
     };
 
     const data = {
       labels: question.options,
       datasets: [
         {
-          backgroundColor: organizations[`${category}`].primary,
+          backgroundColor: colors.dustyGray2,
           data: Object.values(labelObject),
           datalabels: {
             display: true,
@@ -77,16 +77,16 @@ export default class BarChartAnswer extends Component {
             align: "bottom",
             clip: true,
             formatter: value => {
-              return value + "%";
+              return `${value}%`;
             },
             font: {
               weight: "900",
               size: "16",
-              family: "roboto"
-            }
-          }
-        }
-      ]
+              family: "roboto",
+            },
+          },
+        },
+      ],
     };
 
     return (

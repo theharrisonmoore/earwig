@@ -19,7 +19,6 @@ import Suggestion from "./OrganisationRow";
 // styles
 import {
   AutosuggestWrapper,
-  SymbolDiv,
   AddItemDetails,
   InnerDivSuggestions,
   AddItemBox,
@@ -30,7 +29,6 @@ import {
 import Icon from "../../Common/Icon/Icon";
 import SearchIcon from "../../../assets/search-icon.svg";
 import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
-import addItemIcon from "../../../assets/add-item-icon.svg";
 
 // functions
 
@@ -175,11 +173,8 @@ class AutosuggestComponent extends Component {
             <AddProfileLink as="button" onClick={this.handleAddNewOrg}>
               <AddItemBox>
                 <InnerDivSuggestions>
-                  <SymbolDiv>
-                    <img src={addItemIcon} alt="" />
-                  </SymbolDiv>
                   <AddItemDetails>
-                    <h3>Add {query}</h3>
+                    <h3>&quot;{query}&quot; (Create new)</h3>
                   </AddItemDetails>
                 </InnerDivSuggestions>
               </AddItemBox>
@@ -197,11 +192,8 @@ class AutosuggestComponent extends Component {
             >
               <AddItemBox>
                 <InnerDivSuggestions>
-                  <SymbolDiv>
-                    <img src={addItemIcon} alt="" />
-                  </SymbolDiv>
                   <AddItemDetails>
-                    <h3>Add {query}</h3>
+                    <h3>&quot;{query}&quot; (Create new)</h3>
                   </AddItemDetails>
                 </InnerDivSuggestions>
               </AddItemBox>

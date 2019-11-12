@@ -60,6 +60,8 @@ const colorCodes = {
   athens1: "#EDEFF2",
   athens2: "#F0F2F4",
   alto: "#D8D8D8",
+  brown: "#f8a791",
+  orange: "#FFB751",
 
   // shadows color
   cocoaBrown: "#2A1E22",
@@ -104,6 +106,8 @@ export const colors = {
   inputBorder: colorCodes.dustyGray1,
   purpleLinks: colorCodes.heliotrope,
   lightGray: colorCodes.dustyGray2,
+  strikedOutItem: colorCodes.brown,
+  warningText: colorCodes.orange,
 };
 
 // shadows

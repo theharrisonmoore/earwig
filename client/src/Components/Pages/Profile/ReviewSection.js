@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Rate } from "antd";
 
-import { colors } from "./../../../theme";
+import { colors } from "../../../theme";
 
 import {
   Wrapper,
@@ -9,12 +9,13 @@ import {
   QuestionWrapper,
   QuestionTitle,
   CategoryTitle,
-  LightTitle
+  LightTitle,
+  HintText,
 } from "./ReviewSection.style";
 
-import YesNoAnswer from "./ProfileAnswers/YesNoAnswer.js";
-import ListAnswer from "./ProfileAnswers/ListAnswer.js";
-import PieAnswer from "./ProfileAnswers/PieAnswer.js";
+import YesNoAnswer from "./ProfileAnswers/YesNoAnswer";
+import ListAnswer from "./ProfileAnswers/ListAnswer";
+import PieAnswer from "./ProfileAnswers/PieAnswer";
 import ScatterAnswer from "./ProfileAnswers/ScatterAnswer";
 import SiteItemAnswer from "./ProfileAnswers/SiteItemAnswer";
 import CanteenItemAnswer from "./ProfileAnswers/CanteenItemAnswer";
@@ -37,7 +38,7 @@ export default class ReviewSection extends Component {
       toggleComments,
       summary,
       isMobile,
-      carParkingPrice
+      carParkingPrice,
     } = this.props;
 
     const { _id: sectionTitle, questions } = sectionDetails;
@@ -74,7 +75,10 @@ export default class ReviewSection extends Component {
         {sectionTitle === "Key ratings" && (
           <QuestionWrapper>
             <QuestionTitle>
-              <CategoryTitle>Overall rating</CategoryTitle>
+              <CategoryTitle>
+                {`${category[0].toUpperCase()}${category.slice(1)}`} rating by
+                workers
+              </CategoryTitle>
             </QuestionTitle>
             <>
               <Rate
@@ -83,7 +87,7 @@ export default class ReviewSection extends Component {
                 value={summary.avgRatings || summary.value}
                 style={{
                   color: `${colors.stars}`,
-                  fontSize: `${isMobile ? "2rem" : "3rem"}`
+                  fontSize: `${isMobile ? "2rem" : "3rem"}`,
                 }}
               />
               <div style={{ dispay: "inline-block" }}>
@@ -106,7 +110,7 @@ export default class ReviewSection extends Component {
                         width: `${isMobile ? "32px" : "48px"}`,
                         display: "inline-block",
                         textAlign: "center",
-                        marginRight: "8px"
+                        marginRight: "8px",
                       }}
                     >
                       {option}
@@ -129,7 +133,7 @@ export default class ReviewSection extends Component {
                 "siteItem",
                 "canteenItem",
                 "payrollList",
-                "list"
+                "list",
               ].includes(question.profileType) && (
                 <div key={index}>
                   {question.profileType === "yesno" && (
@@ -138,6 +142,7 @@ export default class ReviewSection extends Component {
                       // hide={this.onlyNeutralAnswers(question.answers)}
                     >
                       <QuestionTitle>{question.profileText}</QuestionTitle>
+                      <HintText>{question.hintText}</HintText>
                       {this.onlyNeutralAnswers(question.answers) === false ? (
                         <YesNoAnswer
                           category={category}
@@ -155,6 +160,7 @@ export default class ReviewSection extends Component {
                   {question.profileType === "pieChart" && (
                     <QuestionWrapper key={index}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
+                      <HintText>{question.hintText}</HintText>
                       {question.answers.length > 0 ? (
                         <PieAnswer
                           category={category}
@@ -172,6 +178,7 @@ export default class ReviewSection extends Component {
                   {question.profileType === "dotChart" && (
                     <QuestionWrapper key={index}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
+                      <HintText>{question.hintText}</HintText>
                       {question.answers.length > 0 ? (
                         <ScatterAnswer
                           category={category}
@@ -189,6 +196,7 @@ export default class ReviewSection extends Component {
                   {question.profileType === "barChart" && (
                     <QuestionWrapper key={index}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
+                      <HintText>{question.hintText}</HintText>
                       {question.answers.length > 0 ? (
                         <BarChartAnswer
                           category={category}
@@ -248,6 +256,7 @@ export default class ReviewSection extends Component {
                           <QuestionTitle>
                             Pays using the following payrolls
                           </QuestionTitle>
+                          <HintText>{question.hintText}</HintText>
                           {question.answers.length > 0 ? (
                             <PayrollAnswer
                               questions={payrollQuestions}
@@ -266,6 +275,7 @@ export default class ReviewSection extends Component {
                   {question.profileType === "list" && (
                     <QuestionWrapper key={index}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
+                      <HintText>{question.hintText}</HintText>
                       {question.answers.length > 0 ? (
                         <ListAnswer
                           category={category}
@@ -292,6 +302,7 @@ export default class ReviewSection extends Component {
               return (
                 <QuestionWrapper key={question._id}>
                   <QuestionTitle>{question.profileText}</QuestionTitle>
+                  <HintText>{question.hintText}</HintText>
                   {question.answers.length > 0 ? (
                     <ImageSlider
                       category={category}

@@ -80,8 +80,9 @@ export default class Profile extends Component {
             group => group._id === "Working on the site"
           );
           const [contractorQuestion] = worksiteQuestionsGroup.questions.filter(
-            question => question.text === "Who is the main contractor on site?"
+            question => question.text === "Who was the main contractor on site?"
           );
+          // question => question.text === "Who is the main contractor on site?"
           const orderedAnswers = contractorQuestion.answers.sort(
             (a, b) =>
               moment(a.updatedAt).valueOf() - moment(b.updatedAt).valueOf()

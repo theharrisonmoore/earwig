@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { Select, Icon, Divider } from "antd";
+import { Select, Divider } from "antd";
 import "antd/dist/antd.css";
 
-const Option = Select.Option;
+const { Option } = Select;
 
 const Label = styled.label`
   display: block;
@@ -14,11 +14,11 @@ const Label = styled.label`
 class CustomizedSelects extends React.Component {
   state = {
     open: false,
-    searchTerm: ""
+    searchTerm: "",
   };
 
   handleOpen = () => {
-    this.setState({ open: !this.state.open });
+    this.setState(prevState => ({ open: !prevState.open }));
   };
 
   handleSearchChange = value => {
@@ -50,13 +50,14 @@ class CustomizedSelects extends React.Component {
         <Select
           placeholder={disabled ? options[0] && options[0].name : placeholder}
           onSelect={handleChange}
+          notFoundContent=""
           open={this.state.open}
           onDropdownVisibleChange={this.handleOpen}
           disabled={disabled}
           showSearch={showSearch}
           onSearch={this.handleSearchChange}
           style={{
-            width: "100%"
+            width: "100%",
           }}
           value={value || searchTerm || undefined}
           filterOption={this.filterOption}
@@ -69,14 +70,23 @@ class CustomizedSelects extends React.Component {
                   return false;
                 }}
               >
-                <div
-                  style={{ padding: "8px", cursor: "pointer" }}
-                  onClick={addHandler}
-                  data-search-term={searchTerm}
-                >
-                  <Icon type="plus" /> Add item: {searchTerm}
-                </div>
-                <Divider style={{ margin: "4px 0" }} />
+                {!!searchTerm && (
+                  <>
+                    <div
+                      style={{
+                        padding: "8px",
+                        paddingLeft: "32px",
+                        cursor: "pointer",
+                        fontWeight: "bold",
+                      }}
+                      onClick={addHandler}
+                      data-search-term={searchTerm}
+                    >
+                      &quot;{searchTerm}&quot; (Create new)
+                    </div>
+                    <Divider style={{ margin: "4px 0" }} />
+                  </>
+                )}
                 {menu}
               </div>
             ) : (
@@ -85,7 +95,7 @@ class CustomizedSelects extends React.Component {
           }
           {...rest}
         >
-          {options &&
+          {!!options &&
             options.map(item => (
               <Option value={item.value || JSON.stringify(item)} key={item._id}>
                 {item.label || item.name}

@@ -4,7 +4,7 @@ import PopoverComponent from "../../Common/Popover";
 export const STATIC_QUESTIONS = category => [
   {
     number: 21,
-    text: `Select the month(s) you used this ${category}?`,
+    text: `When did you last use this ${category}?`,
     type: "dateRange",
     category,
   },
@@ -13,6 +13,7 @@ export const STATIC_QUESTIONS = category => [
     text: "Please write a review of this agency or share a voice review below",
     type: "overallReview",
     category,
+    label: "Talk about what's most important to you at work...",
     hintText: (
       <PopoverComponent
         popoverOptions={{
@@ -59,9 +60,8 @@ export const STATIC_QUESTIONS = category => [
   },
   {
     number: 24,
-    text: "Share a voice review",
-    hintText:
-      "30 seconds max. Bear in mind that people may be able to identify you from your voice.",
+    text: "Share a voice review of this agency",
+    hintText: "People may be able to identify you by your voice",
     type: "voiceReview",
   },
 ];

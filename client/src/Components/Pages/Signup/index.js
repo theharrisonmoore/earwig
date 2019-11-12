@@ -21,7 +21,7 @@ import {
   Checkbox,
   CheckboxLabel,
   StyledField,
-  AntCheckbox
+  AntCheckbox,
 } from "../../Common/Formik/Formik.style";
 
 import {
@@ -47,7 +47,9 @@ import { API_SIGN_UP } from "../../../apiUrls";
 
 import {
   WELCOME_URL,
-  TERMS_OF_USE_URL, PRIVACY_URL, LOGIN_URL,
+  TERMS_OF_USE_URL,
+  PRIVACY_URL,
+  LOGIN_URL,
 } from "../../../constants/naviagationUrls";
 
 const { API_TRADE_URL } = require("../../../apiUrls");
@@ -208,6 +210,10 @@ export default class Signup extends Component {
         })
           .then(({ data }) => {
             if (isWorker === "yes") {
+              // this.props.history.push({
+              //   pathname: "/intro",
+              //   state: { isWorker },
+              // });
               this.setState({ isPopupVisible: true, data });
             } else {
               this.props.handleChangeState({ ...data, isLoggedIn: true });
@@ -357,7 +363,9 @@ export default class Signup extends Component {
       <SignupWrapper>
         <PurpleDiv />
         <ContentWrapper>
-          <LogIn to={LOGIN_URL}>Already signed up? <span>Log in</span></LogIn>
+          <LogIn to={LOGIN_URL}>
+            Already signed up? <span>Log in</span>
+          </LogIn>
           <Logo />
           <Formik
             initialValues={initialValues}
@@ -661,15 +669,16 @@ export default class Signup extends Component {
                       to={TERMS_OF_USE_URL}
                       text="Terms of Use"
                       type="plain"
-                    />.{" "} By clicking Finish and log in you acknowledge our{" "}
+                    />
+                    . By clicking Finish and log in you acknowledge our{" "}
                     <Link
                       target="_blank"
                       to={PRIVACY_URL}
                       text="Privacy Policy"
                       type="plain"
-                    />.
+                    />
+                    .
                   </CheckboxLabel>
-                  
                 </CheckboxWrapper>
                 <FormikErrorMessage name="checkbox" component="div" />
                 {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
@@ -715,8 +724,7 @@ export default class Signup extends Component {
                   pathname: "/intro",
                   state: { isWorker },
                 });
-              }
-              }
+              }}
             />
           </Modal>
         </ContentWrapper>

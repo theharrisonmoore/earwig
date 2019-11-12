@@ -368,7 +368,7 @@ module.exports.allQsAndAs = (orgType, orgId, justContractor) => new Promise((res
 
   if (orgType === "worksite" && justContractor) {
     match = {
-      $match: { category: orgType, text: "Who is the main contractor on site?" },
+      $match: { category: orgType, text: "Who was the main contractor on site?" },
     };
   }
 
@@ -431,6 +431,7 @@ module.exports.allQsAndAs = (orgType, orgId, justContractor) => new Promise((res
         hasComment: 1,
         icon: 1,
         text: 1,
+        hintText: 1,
         options: 1,
         answers: {
           $filter: {

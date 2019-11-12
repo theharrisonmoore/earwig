@@ -5,15 +5,15 @@ import {
   SiteItem,
   SiteAnswer,
   Comment,
-  RightCommentWrapper
+  RightCommentWrapper,
 } from "./ProfileAnswers.style";
 
-import Icon from "./../../../Common/Icon/Icon";
-import { organizations } from "./../../../../theme";
+import Icon from "../../../Common/Icon/Icon";
+import { organizations } from "../../../../theme";
 
 export default class SiteItemAnswer extends Component {
   getAverage = answers => {
-    //start count at 1 to give benefit to yes
+    // start count at 1 to give benefit to yes
     let count = 1;
     answers.map(answer =>
       answer.answer === "Yes" ? (count += 1) : (count -= 1)
@@ -28,7 +28,7 @@ export default class SiteItemAnswer extends Component {
       toggleComments,
       isMobile,
       carParkingPrice,
-      category
+      category,
     } = this.props;
     const averageResponse = this.getAverage(question.answers);
 
@@ -63,19 +63,22 @@ export default class SiteItemAnswer extends Component {
               <p>{question.profileText}</p>
             </SiteAnswer>
           )}
-          <RightCommentWrapper>
-            {question.answers.filter(answer => answer.comment).length > 0 ? (
-              <Comment
-                onClick={() => toggleComments(question)}
-                active
-                color={organizations[category].primary}
-              >
-                Comments
-              </Comment>
-            ) : (
-              <Comment>Comments</Comment>
-            )}
-          </RightCommentWrapper>
+          {question.hasComment && (
+            <RightCommentWrapper>
+              {question.answers.filter(answer => answer.comment).length > 0 ? (
+                <Comment
+                  onClick={() => toggleComments(question)}
+                  active
+                  color={organizations[category].primary}
+                >
+                  {console.log("question", question)}
+                  Comments
+                </Comment>
+              ) : (
+                <Comment>Comments{console.log("question", question)}</Comment>
+              )}
+            </RightCommentWrapper>
+          )}
         </SiteItem>
       </ListWrapper>
     );

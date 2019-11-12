@@ -478,6 +478,8 @@ export default class OverallReview extends Component {
                             <div
                               key={reply.replies._id}
                               style={{
+                                position: "relative",
+                                marginBottom: "2rem",
                                 direction: `${reply.replies.displayName &&
                                   "rtl"}`,
                               }}
@@ -609,7 +611,7 @@ export default class OverallReview extends Component {
     ) : (
       <>
         <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-          <SectionTitle>Overall ratings</SectionTitle>
+          <SectionTitle>Reviews</SectionTitle>
           <LightTitle>No reviews yet. Be the first…</LightTitle>
           {level === 1 && (
             <VerifyPromo>

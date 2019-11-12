@@ -75,6 +75,7 @@ export const Comment = styled.button`
   margin-right: auto;
   justify-self: flex-end;
   cursor: ${props => (props.active ? "pointer" : "not-allowed !important")};
+  visibility: ${props => (props.hasComment ? "visible" : "hidden")};
 `;
 
 export const RightCommentWrapper = styled.div`
@@ -216,7 +217,7 @@ export const CommentBubble = styled.p`
 export const SiteItem = styled.div`
   margin: 0;
   color: ${props =>
-    props.itemAvailable ? `${colors.green}` : `${colors.red}`};
+    props.itemAvailable ? `${colors.green}` : `${colors.strikedOutItem}`};
   font-weight: 900;
   display: flex;
   align-items: center;
@@ -238,7 +239,8 @@ export const SiteAnswer = styled.div`
 `;
 
 export const SiteIcon = styled(SVG)`
-  fill: ${props => (props.itemAvailable ? `${colors.green}` : `${colors.red}`)};
+  fill: ${props =>
+    props.itemAvailable ? `${colors.green}` : `${colors.strikedOutItem}`};
   width: 1rem;
   margin-right: 1rem;
 `;
@@ -246,7 +248,7 @@ export const SiteIcon = styled(SVG)`
 export const CanteenSubList = styled.p`
   padding-left: 3rem;
   color: ${props =>
-    props.itemAvailable ? `${colors.green}` : `${colors.red}`};
+    props.itemAvailable ? `${colors.green}` : `${colors.strikedOutItem}`};
   font-weight: 900;
   display: ${props => (props.hide ? "none" : "block")};
   text-decoration: ${props => !props.itemAvailable && "line-through"};

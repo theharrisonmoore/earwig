@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, organizations, borders } from "../../../../theme";
+import { colors, borders } from "../../../../theme";
 
 export const QuestionWrapper = styled.div.attrs({ className: "" })`
   font-size: 18px;
@@ -14,11 +14,17 @@ export const QText = styled.p`
   font-size: 18px;
 `;
 
+export const Warning = styled.div`
+  display: flex;
+  padding-bottom: 0.5rem;
+`;
+
 export const HintText = styled.p`
   margin: 0;
   font-style: italic;
   font-size: 16px;
-  color: ${colors.profileFontColor};
+  color: ${props =>
+    props.voiceWarn ? colors.warningText : colors.profileFontColor};
 `;
 
 export const QuestionOptionsWrapper = styled.div`
@@ -154,15 +160,27 @@ export const InputWrapper = styled.div`
 
   .radio-button:checked + .yesno {
     box-shadow: none;
+    color: white;
+    transition: all 0.3s;
     border: 3px solid
       ${props => {
         if (props.option.toLowerCase() === "yes") {
           return colors.green;
-        } else if (props.option.toLowerCase() === "no") {
+        }
+        if (props.option.toLowerCase() === "no") {
           return colors.red;
         }
-        return organizations[props.orgType].primary;
+        return colors.profileFontColor;
       }};
+    background-color: ${props => {
+      if (props.option.toLowerCase() === "yes") {
+        return colors.green;
+      }
+      if (props.option.toLowerCase() === "no") {
+        return colors.red;
+      }
+      return colors.profileFontColor;
+    }};
   }
 `;
 

@@ -31,8 +31,6 @@ export default class EditProfileSection extends Component {
     oldPassword: "",
     newPassword: "",
     reNewPassword: "",
-    verificationImage: "",
-    imageFile: "",
     newUsername: "",
     newTrade: "",
     newCity: "",
@@ -292,6 +290,11 @@ export default class EditProfileSection extends Component {
       confirmLoading,
       currentTradeName,
       newTrade,
+      oldPassword,
+      newPassword,
+      newUsername,
+      reNewPassword,
+      newCity,
     } = this.state;
 
     return (
@@ -320,6 +323,7 @@ export default class EditProfileSection extends Component {
                     type="text"
                     name="newUsername"
                     id="newUsername"
+                    value={newUsername}
                     onChange={this.handleInput}
                     onBlur={this.onBlurValidation}
                   />
@@ -335,6 +339,7 @@ export default class EditProfileSection extends Component {
                     type="password"
                     name="oldPassword"
                     id="oldPassword"
+                    value={oldPassword}
                     onChange={this.handleInput}
                     onBlur={this.onBlurValidation}
                   />
@@ -346,6 +351,7 @@ export default class EditProfileSection extends Component {
                     type="password"
                     name="newPassword"
                     id="newPassword"
+                    value={newPassword}
                     onChange={this.handleInput}
                     onBlur={this.onBlurValidation}
                   />
@@ -359,6 +365,7 @@ export default class EditProfileSection extends Component {
                     type="password"
                     name="reNewPassword"
                     id="reNewPassword"
+                    value={reNewPassword}
                     onChange={this.handleInput}
                     onBlur={this.onBlurValidation}
                   />
@@ -437,6 +444,7 @@ export default class EditProfileSection extends Component {
                   type="text"
                   name="newCity"
                   id="newCity"
+                  value={newCity}
                   onChange={this.handleInput}
                   onBlur={this.onBlurValidation}
                 />

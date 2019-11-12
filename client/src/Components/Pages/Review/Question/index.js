@@ -2,13 +2,15 @@ import React, { Component } from "react";
 
 import QuestionOptions from "./Options";
 import PopoverComponent from "../../../Common/Popover";
-import { QuestionWrapper, QText, HintText } from "./Question.style";
+import { QuestionWrapper, QText, HintText, Warning } from "./Question.style";
 
 import { isIphone } from "../../../../helpers/index";
 
 import UploadAudio2 from "./NewUploadAudio";
 
 import UploadAudio3 from "./UploadAudio3";
+
+import Icon from "../../../Common/Icon/Icon";
 
 class Question extends Component {
   render() {
@@ -57,7 +59,19 @@ class Question extends Component {
     return (
       <QuestionWrapper>
         <QText>{text}</QText>
-        <HintText>{hintText}</HintText>
+        <Warning>
+          {type && type === "voiceReview" && (
+            <Icon
+              icon="warning"
+              margin="0 1rem 0 0"
+              height="1.5rem"
+              width="1.5rem"
+            />
+          )}
+          <HintText voiceWarn={type && type === "voiceReview"}>
+            {hintText}
+          </HintText>
+        </Warning>
         {text === "What hourly rate were you paid?" && (
           <PopoverComponent
             category={category}
