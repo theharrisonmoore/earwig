@@ -865,8 +865,8 @@ export default class TermsOfUse extends Component {
               VAT registration number: 303514840
               <br />
               Email address:{" "}
-              <BasicLink href="mailto:hello@earwig.work">
-                hello@earwig.work
+              <BasicLink href="mailto:admin@earwigwork.com">
+                admin@earwigwork.com
               </BasicLink>
               <br />
               Postal address: 2 Western Street, Barnsley, S70 2BP

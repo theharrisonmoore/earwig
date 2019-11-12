@@ -204,7 +204,7 @@ export default class CookiesPolicy extends Component {
                 </Li>
                 <Li>
                   Alternatively you can unsubscribe from our mailing list by
-                  contacting us at hello@earwig.work
+                  contacting us at admin@earwigwork.com
                 </Li>
               </Ol>
             </Li>
@@ -235,7 +235,8 @@ export default class CookiesPolicy extends Component {
                     </Li>
                     <Li>
                       Our email address for data protection queries is
-                      hello@earwig.work, alternatively you can use via the Site.
+                      admin@earwigwork.com, alternatively you can use via the
+                      Site.
                     </Li>
                   </Ol>
                 </Li>
