@@ -7,7 +7,7 @@ import axios from "axios";
 
 import Icon from "../../Common/Icon/Icon";
 
-import { organizations } from "../../../theme";
+import { organizations, colors } from "../../../theme";
 import {
   REPORT_CONTENT_URL,
   REPLY_URL,
@@ -439,7 +439,7 @@ export default class OverallReview extends Component {
                                 fontWeight={700}
                                 type="up"
                                 style={{
-                                  color: organizations[category].primary,
+                                  color: colors.primary,
                                   width: "15px",
                                   marginRight: "0.5rem",
                                   fontWeight: 700,
@@ -453,13 +453,13 @@ export default class OverallReview extends Component {
                                   transform: "rotate(180deg)",
                                   marginRight: "0.5rem",
                                 }}
-                                fill={organizations[category].primary}
+                                fill={colors.primary}
                               />
                             )}
                             <span
                               style={{
                                 fontWeight: 700,
-                                color: organizations[category].primary,
+                                color: colors.primary,
                                 marginBottom: "1rem",
                               }}
                             >
