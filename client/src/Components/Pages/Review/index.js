@@ -94,8 +94,9 @@ class Review extends Component {
           const { orgId: organisationId } = res.data;
           axios
             .get(`/api/questions/${organisationId}`)
-            .then(async ({ getReviewAnswers: reviewDetails }) => {
+            .then(async ({ data: reviewData }) => {
               try {
+                const { getReviewAnswers: reviewDetails } = reviewData;
                 const answers = {};
                 // fetch the audio url
                 if (
@@ -129,8 +130,9 @@ class Review extends Component {
                     answers[number] = ans;
                   }
                 });
+
                 const groupss = {};
-                res.data.groups.forEach(group => {
+                reviewData.groups.forEach(group => {
                   groupss[group._id] = {
                     title: group.group.text,
                     main: group.questions.filter(
@@ -143,17 +145,17 @@ class Review extends Component {
                 });
                 this.setState({
                   isEditing: true,
-                  groups: res.data,
+                  groups: reviewData,
                   groupss,
                   isLoading: false,
-                  organization: res.data.organization,
+                  organization: reviewData.organization,
                   email,
                   answers,
                   orgId,
                   review,
                   dropdownOptions:
-                    res.data.dropDownListData &&
-                    res.data.dropDownListData[0].category,
+                    reviewData.dropDownListData &&
+                    reviewData.dropDownListData[0].category,
                 });
               } catch (error) {
                 console.log("err", error);
@@ -567,6 +569,7 @@ class Review extends Component {
   };
 
   render() {
+    console.log("this.state", this.state);
     const {
       groupss,
       organization: { name, category },
