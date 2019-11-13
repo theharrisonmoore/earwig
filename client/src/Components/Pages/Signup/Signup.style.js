@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 import { colors, breakpoints } from "../../../theme";
 
-import { MOBILE_WIDTH } from "../../../constants/screenWidths";
-
 export const SignupWrapper = styled.div`
   display: flex;
 `;
