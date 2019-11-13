@@ -43,7 +43,20 @@ const content = contractorAnswers => (
 );
 
 export default class HeaderSection extends Component {
+  state = {
+    headerHeight: 0,
+  };
+
+  componentDidMount() {
+    const headerHeight = this.container.clientHeight;
+    this.setState({ headerHeight });
+    // console.log("this", this.container);
+    // setHeaderHeight(this.container.clientWidth);
+  }
+
   render() {
+    const { headerHeight } = this.state;
+
     const {
       isTablet,
       isMobile,
@@ -54,6 +67,7 @@ export default class HeaderSection extends Component {
       reviewsLast30Days,
       orgId,
       awaitingReview,
+      shrinkHeader,
     } = this.props;
     const {
       category,
@@ -67,11 +81,23 @@ export default class HeaderSection extends Component {
     const reviewNotAllowed = reviewsLast30Days.length > 0;
 
     return (
-      <Header isTablet={isTablet} isMobile={isMobile} category={category}>
-        <CompanyDetails isTablet={isTablet} isMobile={isMobile} level={level}>
+      <Header
+        isTablet={isTablet}
+        isMobile={isMobile}
+        category={category}
+        shrink={shrinkHeader}
+        ref={el => (this.container = el)}
+        height={headerHeight}
+      >
+        <CompanyTitle>{name}</CompanyTitle>
+        <CompanyDetails
+          isTablet={isTablet}
+          isMobile={isMobile}
+          level={level}
+          shrink={shrinkHeader}
+        >
           <CompanyDiv isMobile={isMobile}>
             <CompanyNameAndStars>
-              <CompanyTitle>{name}</CompanyTitle>
               {level > 1 ? (
                 <ButtonDiv
                   isTablet={isTablet}

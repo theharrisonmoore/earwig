@@ -44,19 +44,27 @@ export const Banner = styled.div`
 
 export const Header = styled.div`
   box-shadow: ${shadows.headerShadow};
+  position: fixed;
   display: flex;
+  z-index: 999;
   flex-direction: column;
   align-items: center;
   padding: ${props =>
     props.isTablet || props.isMobile ? "0.5rem 1rem" : "0.5rem 7rem"};
   background-color: ${props => organizations[`${props.category}`].primary};
   color: ${colors.white};
+  width: 100vw;
+  height: auto;
+
+  & + div {
+    padding-top: ${({ height }) => `${height + 32}px`};
+  }
 `;
 
 export const CompanyDetails = styled.div`
   /* border-bottom: ${props =>
     props.level > 0 ? `${borders.commentBox}` : "none"}; */
-  display: flex;
+  display: ${({ shrink }) => (shrink ? "none" : "flex")};
   flex-direction: ${props =>
     props.isTablet || props.isMobile ? "column" : "row"};
   align-items: center;

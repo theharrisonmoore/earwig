@@ -42,6 +42,7 @@ export default class Profile extends Component {
     reviewsLast30Days: [],
     FilteredReviewMonths: [],
     avgRatings: null,
+    shrinkHeader: false,
   };
 
   myDivToFocus = React.createRef();
@@ -152,6 +153,8 @@ export default class Profile extends Component {
   componentDidMount() {
     this.fetchData();
     this.updateLastViewed();
+    document.addEventListener("scroll", this.checkScroll);
+    this.checkScroll();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -160,6 +163,21 @@ export default class Profile extends Component {
     if (organizationID !== this.state.organizationID) {
       this.fetchData();
     }
+  }
+
+  checkScroll = () => {
+    if (
+      document.body.scrollTop > 60 ||
+      document.documentElement.scrollTop > 60
+    ) {
+      this.setState({ shrinkHeader: true });
+    } else {
+      this.setState({ shrinkHeader: false });
+    }
+  };
+
+  componentWillUnmount() {
+    document.removeEventListener("scroll", this.checkScroll);
   }
 
   toggleComments = question => {
@@ -249,6 +267,7 @@ export default class Profile extends Component {
       contractorAnswers,
       FilteredReviewMonths,
       organizationID,
+      shrinkHeader,
     } = this.state;
 
     const {
@@ -279,6 +298,7 @@ export default class Profile extends Component {
             contractorAnswers={contractorAnswers}
             awaitingReview={awaitingReview}
             FilteredReviewMonths={FilteredReviewMonths}
+            shrinkHeader={shrinkHeader}
           />
         </Skeleton>
         {/* BASIC VIEW FOR LOGGED OUT USERS */}
