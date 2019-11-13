@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import * as Yup from "yup";
-import { Modal, Alert, Input } from "antd";
+import { Modal, Alert, Input, Divider } from "antd";
 
 import Logo from "../../Common/Logo";
 import Select from "../../Common/Select";
@@ -126,7 +126,7 @@ const initialValues = {
   password: "",
   rePassword: "",
   checkbox: false,
-  isWorker: "yes",
+  isWorker: null,
   orgType: "agency",
   otherOrg: "",
   trade: "",
@@ -173,18 +173,18 @@ const CustomCheckbox = ({ field, ...props }) => (
 
 export default class Signup extends Component {
   state = {
-    isWorker: "yes",
+    isWorker: null,
     orgType: "agency",
     ismodalVisible: false,
     newTrade: "",
     error: "",
-    errors: {},
     isPopupVisible: false,
     data: null,
   };
 
-  handleSubmit = (values, { setSubmitting }) => {
+  handleSubmit = (_values, { setSubmitting }) => {
     const { referral } = this.props.match.params;
+    const values = { ..._values };
     const form = new FormData();
     const { isWorker } = this.state;
 
@@ -196,7 +196,9 @@ export default class Signup extends Component {
       setSubmitting(true);
 
       Object.entries(values).forEach(pair => {
-        pair[1] && form.append(pair[0], pair[1]);
+        if (pair[1]) {
+          form.append(pair[0], pair[1]);
+        }
       });
 
       this.setState({ error: "" }, () => {
@@ -344,7 +346,7 @@ export default class Signup extends Component {
       });
     };
 
-    verificationImage && reader.readAsDataURL(verificationImage);
+    if (verificationImage) reader.readAsDataURL(verificationImage);
   };
 
   render() {
@@ -372,7 +374,7 @@ export default class Signup extends Component {
             validationSchema={signupSchema}
             onSubmit={this.handleSubmit}
           >
-            {({ isSubmitting, handleChange, values, setFieldValue }) => (
+            {({ isSubmitting, handleChange, setFieldValue }) => (
               <Form style={{ width: "100%" }}>
                 <Label htmlFor="email">
                   Email
@@ -434,7 +436,7 @@ export default class Signup extends Component {
                 />
 
                 {/* start of orgs options */}
-                {this.state.isWorker === "no" && (
+                {isWorker && isWorker === "no" && (
                   <>
                     <Label htmlFor="orgType">Do you work for an:</Label>
                     <ButtonsWrapper style={{ display: "flex" }}>
@@ -516,13 +518,13 @@ export default class Signup extends Component {
                     )}
                   </>
                 )}
-                {this.state.isWorker === "yes" && (
+                {isWorker && isWorker === "yes" && (
                   <>
                     <SelectWrapper>
                       <Label htmlFor="trade">
                         Trade
                         <Field name="trade">
-                          {({ field, form, onChange }) => (
+                          {({ form }) => (
                             <>
                               <Select
                                 id="trade"
@@ -615,7 +617,7 @@ export default class Signup extends Component {
                     </Paragraph>
 
                     <Field name="verificationImage">
-                      {({ field, form, onChange }) => (
+                      {({ form }) => (
                         <>
                           <Button
                             as="label"
@@ -655,49 +657,59 @@ export default class Signup extends Component {
                   </>
                 )}
                 {/* end of orgs options */}
-                <CheckboxWrapper>
-                  <Checkbox
-                    id="checkbox"
-                    type="checkbox"
-                    name="checkbox"
-                    component={CustomCheckbox}
-                  />
-                  <CheckboxLabel htmlFor="checkbox">
-                    I agree to the earwig{" "}
-                    <Link
-                      target="_blank"
-                      to={TERMS_OF_USE_URL}
-                      text="Terms of Use"
-                      type="plain"
+                {isWorker && (
+                  <>
+                    <Divider style={{ marginTop: "2rem" }} />
+
+                    <CheckboxWrapper>
+                      <Checkbox
+                        id="checkbox"
+                        type="checkbox"
+                        name="checkbox"
+                        component={CustomCheckbox}
+                      />
+                      <CheckboxLabel htmlFor="checkbox">
+                        I agree to the earwig{" "}
+                        <Link
+                          target="_blank"
+                          to={TERMS_OF_USE_URL}
+                          text="Terms of Use"
+                          type="plain"
+                        />
+                        . By clicking Finish and log in you acknowledge our{" "}
+                        <Link
+                          target="_blank"
+                          to={PRIVACY_URL}
+                          text="Privacy Policy"
+                          type="plain"
+                        />
+                        .
+                      </CheckboxLabel>
+                    </CheckboxWrapper>
+                    <FormikErrorMessage name="checkbox" component="div" />
+                    {error && (
+                      <GeneralErrorMessage>{error}</GeneralErrorMessage>
+                    )}
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      loading={isSubmitting}
+                      styleType="primary"
+                      text="Finish and log in"
+                      margin="1rem auto 2rem auto"
                     />
-                    . By clicking Finish and log in you acknowledge our{" "}
-                    <Link
-                      target="_blank"
-                      to={PRIVACY_URL}
-                      text="Privacy Policy"
-                      type="plain"
-                    />
-                    .
-                  </CheckboxLabel>
-                </CheckboxWrapper>
-                <FormikErrorMessage name="checkbox" component="div" />
-                {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  loading={isSubmitting}
-                  styleType="primary"
-                  text="Finish and log in"
-                  margin="1rem auto 2rem auto"
-                />
+                  </>
+                )}
               </Form>
             )}
           </Formik>
-          <Link
-            to={WELCOME_URL}
-            type="primary"
-            text="Continue without an account"
-          />
+          {isWorker && (
+            <Link
+              to={WELCOME_URL}
+              type="primary"
+              text="Continue without an account"
+            />
+          )}
           <Modal
             visible={isPopupVisible}
             footer={null}
@@ -711,8 +723,8 @@ export default class Signup extends Component {
             }}
           >
             <ModalText>
-              Thanks, we're checking your photo. Any reviews you give won't be
-              shown on earwig until we've checked your photo
+              Thanks, we&apos;re checking your photo. Any reviews you give
+              won&apos;t be shown on earwig until we&apos;ve checked your photo
             </ModalText>
             <Button
               styleType="primary"
