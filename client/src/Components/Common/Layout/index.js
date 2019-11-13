@@ -2,7 +2,9 @@ import React from "react";
 import Center from "./Center";
 import Side from "./Side";
 
-export default ({ type, ...rest }) => {
+// type = center | side
+// for type = side => position = right | left
+export default ({ type, position, ...rest }) => {
   const Component = type === "center" ? Center : Side;
-  return <Component {...rest} />;
+  return <Component position={position} {...rest} />;
 };
