@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 
 import { Skeleton, Spin } from "antd";
 
@@ -20,23 +20,31 @@ const SkeletonWrapper = () => {
   );
 };
 
-const OrganisationsList = ({ sortedOrgs, loading }) => {
-  return (
-    <OrgsListWrapper>
-      {loading ? (
-        <SkeletonWrapper />
-      ) : (
-        sortedOrgs.map(org => (
-          <div onShow>
-            {org.mainKey && <MainKey>{org.mainKey}</MainKey>}
-            {org.subKey && <SubKey>{org.subKey}</SubKey>}
+class OrganisationsList extends Component {
+  render() {
+    const { sortedOrgs, loading } = this.props;
+    return (
+      <OrgsListWrapper>
+        {loading ? (
+          <SkeletonWrapper />
+        ) : (
+          sortedOrgs.map(org => (
+            <div onShow>
+              {org.mainKey && <MainKey>{org.mainKey}</MainKey>}
+              {org.subKey && <SubKey>{org.subKey}</SubKey>}
 
-            <Suggestion organisation={org} key={org._id} withoutBorder noIcon />
-          </div>
-        ))
-      )}
-    </OrgsListWrapper>
-  );
-};
+              <Suggestion
+                organisation={org}
+                key={org._id}
+                withoutBorder
+                noIcon
+              />
+            </div>
+          ))
+        )}
+      </OrgsListWrapper>
+    );
+  }
+}
 
 export default OrganisationsList;
