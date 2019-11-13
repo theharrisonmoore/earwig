@@ -6,8 +6,6 @@ import {
   MainIcon,
   PageTitle,
   LargeLink,
-  BlueDiv,
-  PurpleDiv,
 } from "../../Common/StaticPages.style";
 
 import Layout from "../../Common/Layout";
