@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { Icon as AntdIcon, Popover, Rate } from "antd";
@@ -27,6 +27,7 @@ import {
   ContractorDiv,
   ContractorText,
   ContractorListLink,
+  PopOverWrapper,
 } from "./Profile.style";
 
 import { colors } from "../../../theme";
@@ -43,6 +44,44 @@ const content = contractorAnswers => (
 );
 
 export default class HeaderSection extends Component {
+  state = {
+    shrink: false,
+  };
+
+  headerRef = createRef();
+
+  componentDidMount() {
+    document.addEventListener("scroll", this.checkScroll);
+    this.checkScroll();
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("scroll", this.checkScroll);
+  }
+
+  checkScroll = () => {
+    if (
+      document.body.scrollTop > 60 ||
+      document.documentElement.scrollTop > 60
+    ) {
+      this.setState({ shrink: true });
+    } else {
+      this.setState({ shrink: false });
+    }
+
+    setTimeout(() => {
+      const headerHeight = this.headerRef.current.clientHeight;
+      if (
+        document.body.scrollTop > 60 ||
+        document.documentElement.scrollTop > 60
+      ) {
+        this.setState({ shrink: true, headerHeight });
+      } else {
+        this.setState({ shrink: false, headerHeight });
+      }
+    }, 400);
+  };
+
   render() {
     const {
       isTablet,
@@ -66,8 +105,15 @@ export default class HeaderSection extends Component {
     // if there are reviews less dating before 1 month user not allowed
     const reviewNotAllowed = reviewsLast30Days.length > 0;
 
+    const { shrink, headerHeight } = this.state;
     return (
-      <Header isTablet={isTablet} isMobile={isMobile} category={category}>
+      <Header
+        isTablet={isTablet}
+        isMobile={isMobile}
+        category={category}
+        ref={this.headerRef}
+        headerHeight={headerHeight}
+      >
         <CompanyDetails isTablet={isTablet} isMobile={isMobile} level={level}>
           <CompanyDiv isMobile={isMobile}>
             <CompanyNameAndStars>
@@ -77,24 +123,35 @@ export default class HeaderSection extends Component {
                   isTablet={isTablet}
                   isMobile={isMobile}
                   organization={category}
+                  shrink={shrink}
                 >
                   {category !== "company" && (
                     <>
                       <OrgLink
                         href={`tel:${phoneNumber}`}
                         hasDetails={phoneNumber}
+                        shrink={shrink}
                       >
                         <OrgButton
                           category={category}
                           isMobile={isMobile}
                           hasDetails={phoneNumber}
+                          shrink={shrink}
                         >
                           Call
                         </OrgButton>
                       </OrgLink>
 
-                      <OrgLink href={`mailto:${email}`} hasDetails={email}>
-                        <OrgButton category={category} isMobile={isMobile}>
+                      <OrgLink
+                        href={`mailto:${email}`}
+                        hasDetails={email}
+                        shrink={shrink}
+                      >
+                        <OrgButton
+                          category={category}
+                          isMobile={isMobile}
+                          shrink={shrink}
+                        >
                           Email
                         </OrgButton>
                       </OrgLink>
@@ -106,8 +163,13 @@ export default class HeaderSection extends Component {
                     target="_blank"
                     rel="noopener noreferrer"
                     hasDetails={websiteUrl}
+                    shrink={shrink}
                   >
-                    <OrgButton category={category} isMobile={isMobile}>
+                    <OrgButton
+                      category={category}
+                      isMobile={isMobile}
+                      shrink={shrink}
+                    >
                       Website
                     </OrgButton>
                   </OrgLink>
@@ -146,7 +208,7 @@ export default class HeaderSection extends Component {
                   </InactiveButton>
                 </ButtonDiv>
               )}
-              <StarWrapper onClick={handleScroll}>
+              <StarWrapper onClick={handleScroll} shrink={shrink}>
                 <Rate
                   disabled
                   value={summary.avgRatings || summary.value || 0}
@@ -224,7 +286,7 @@ export default class HeaderSection extends Component {
             </ActionButtonsDiv>
 
             {reviewNotAllowed && reviewsLast30Days.length > 0 && (
-              <div style={{ textAlign: "center" }}>
+              <PopOverWrapper shrink={shrink}>
                 <PopoverComponent
                   category={category}
                   popoverOptions={{
@@ -237,7 +299,7 @@ export default class HeaderSection extends Component {
                     color: `${colors.white}`,
                   }}
                 />
-              </div>
+              </PopOverWrapper>
             )}
           </>
         )}
