@@ -10,11 +10,8 @@ import {
   IndividComment,
   ReplyWrapper,
   CommentsWrapper,
-  Banner,
-  Cancel,
 } from "./Reply.style";
 import {
-  BannerTitle,
   UserDiv,
   UserTrade,
   UserAdditionalDetails,
@@ -22,14 +19,15 @@ import {
   CommentBubble,
 } from "./Profile.style";
 
-import { organizations } from "../../../theme";
+import { organizations, colors } from "../../../theme";
 
 import { API_ADD_COMMENT_ON_REVIEW_URL } from "../../../apiUrls";
-
 import { highlightMentions } from "../../../helpers";
 
 import Loading from "../../Common/AntdComponents/Loading";
 import Button from "../../Common/Button";
+import Layout from "../../Common/Layout";
+import CancelNavbar from "../../Common/CancelNavbar";
 
 export default class Reply extends Component {
   state = {
@@ -88,7 +86,7 @@ export default class Reply extends Component {
     const { reviewId, target } = this.props.location.state;
 
     this.validate().then(res => {
-      res &&
+      if (res) {
         this.setState({ errors: {}, submitting: true }, () => {
           const data = {
             text: this.state.commentContentState,
@@ -98,7 +96,7 @@ export default class Reply extends Component {
           };
           axios
             .post(API_ADD_COMMENT_ON_REVIEW_URL, data)
-            .then(({ data }) => {
+            .then(() => {
               this.setState(
                 {
                   commentContentState: "",
@@ -118,6 +116,7 @@ export default class Reply extends Component {
               message.error(error || "Something went wrong");
             });
         });
+      }
     });
   };
 
@@ -126,33 +125,31 @@ export default class Reply extends Component {
   fixedDiv = React.createRef();
 
   fetchOverallReplies = (id, target) => {
-    id
-      ? axios
-          .get(`/api/reviews/${target}/replies/${id}`)
-          .then(({ data }) => {
-            this.setState(
-              {
-                replies: data,
-                activeOverallId: id,
-                loaded: true,
-                reviewId: id,
-              },
-              () => {
-                window.scrollTo(0, document.body.scrollHeight);
-              }
-            );
-          })
-          .catch(err => {
-            const error =
-              err.response && err.response.data && err.response.data.error;
-            message.error(error || "Something went wrong");
-          })
-      : this.setState({
-          replies: [],
-          activeOverallId: "",
-          loaded: true,
-          reviewId: id,
+    if (id) {
+      axios
+        .get(`/api/reviews/${target}/replies/${id}`)
+        .then(({ data }) => {
+          this.setState(
+            {
+              replies: data,
+              loaded: true,
+            },
+            () => {
+              window.scrollTo(0, document.body.scrollHeight);
+            }
+          );
+        })
+        .catch(err => {
+          const error =
+            err.response && err.response.data && err.response.data.error;
+          message.error(error || "Something went wrong");
         });
+    } else {
+      this.setState({
+        replies: [],
+        loaded: true,
+      });
+    }
   };
 
   componentDidMount() {
@@ -204,11 +201,12 @@ export default class Reply extends Component {
       return <Loading />;
     }
     return (
-      <>
-        <Banner category={category}>
-          <BannerTitle>Replying</BannerTitle>
-          <Cancel onClick={this.goBack}>Cancel</Cancel>
-        </Banner>
+      <Layout type="center">
+        <CancelNavbar
+          history={history}
+          title="Replying"
+          titleColor={colors.profileFontColor}
+        />
         <Wrapper
           style={{
             position: "relative",
@@ -310,9 +308,9 @@ export default class Reply extends Component {
                   placeholder="Write your reply…"
                   value={commentContentState}
                 >
-                  {uniqueUsers.map((user, index) => {
+                  {uniqueUsers.map(user => {
                     return (
-                      <Mentions.Option key={index} value={user}>
+                      <Mentions.Option key={user} value={user}>
                         {user}
                       </Mentions.Option>
                     );
@@ -327,7 +325,7 @@ export default class Reply extends Component {
               }}
             >
               <Button
-                margin= "0 auto"
+                margin="0 auto"
                 loading={submitting}
                 onClick={this.handleSubmit}
                 styleType="primary"
@@ -339,7 +337,7 @@ export default class Reply extends Component {
             )}
           </ReplyWrapper>
         </Wrapper>
-      </>
+      </Layout>
     );
   }
 }
