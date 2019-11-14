@@ -124,7 +124,7 @@ export const OrgButton = styled.button`
   position: relative;
   outline: none;
 
-  height: ${({ shrink }) => (shrink ? "0" : "intial")};
+  height: ${({ shrink }) => (shrink ? "0" : "2.5rem")};
   opacity: ${({ shrink }) => (shrink ? "0" : "1")};
   transition: 0.4s all;
 
@@ -148,15 +148,11 @@ export const OrgButton = styled.button`
 
 export const InactiveButton = styled(OrgButton)`
   cursor: not-allowed !important;
-  opacity: 0.3;
   outline: none;
   box-shadow: none;
   display: ${props => props.hasDetails === undefined && "none"};
-
-  :hover {
-    background: ${colors.white};
-    color: ${colors.inputBorder};
-  }
+  
+  opacity: ${({ shrink }) => (shrink ? "0" : "0.3")};
 `;
 
 export const ActionButtonsDiv = styled.div`
