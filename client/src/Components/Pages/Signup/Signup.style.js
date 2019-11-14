@@ -46,6 +46,7 @@ export const ContentWrapper = styled.div`
   align-items: center;
   justify-content: center;
   padding-bottom: 100px;
+  min-height: 100vh;
 
   & .paragraph {
     display: block;
@@ -90,6 +91,7 @@ export const StyledInput = styled.label`
   font-size: 1rem;
   box-shadow: 0px 4px 13px rgba(173, 145, 183, 0.273438);
   ${({ value, id }) =>
+    value &&
     value.toLowerCase() === id.toLowerCase() &&
     `background-color: #4A4A4A;
       color: ${colors.white};
