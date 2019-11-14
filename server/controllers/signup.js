@@ -18,6 +18,8 @@ const addToMailchimpList = require("../helpers/3dParty/mailchimp");
 const { tokenMaxAge } = require("./../constants");
 
 module.exports = async (req, res, next) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
   try {
     const {
       email, password, referral, isWorker, orgType, trade, city, otherOrg,
@@ -60,34 +62,22 @@ module.exports = async (req, res, next) => {
     }
 
     // start a mongodb session
-    const session = await mongoose.startSession();
-    session.startTransaction();
+
     // create new user
-    const user = await addNew(newUserData, session);
+    const [user] = await addNew(newUserData, session);
 
     // if in production add email to list
     if (process.env.NODE_ENV === "production") {
-      try {
-        const resp = await addToMailchimpList(email);
-        const { data } = resp;
+      const resp = await addToMailchimpList(email);
+      const { data } = resp;
 
-        if (data.errors.length) {
-          throw boom.badData(data.errors[0].error);
-        }
-        await createAccountEmails(email);
-        if (fieldName === "verificationImage") {
+      if (data.errors.length) {
+        throw boom.badData(data.errors[0].error);
+      }
+      await createAccountEmails(email);
+      if (fieldName === "verificationImage") {
         // send an email to the admin.
-          await verificationPhotoEmail();
-        }
-        await session.commitTransaction();
-        session.endSession();
-      } catch (err) {
-        await session.abortTransaction();
-        session.endSession();
-        if (err.isBoom && !err.isServer) {
-          return next(err);
-        }
-        return next(boom.badImplementation(err));
+        await verificationPhotoEmail();
       }
     }
 
@@ -109,10 +99,16 @@ module.exports = async (req, res, next) => {
     });
 
     res.cookie("token", token, { maxAge: tokenMaxAge.number, httpOnly: true });
-
+    await session.commitTransaction();
+    session.endSession();
     // send the user info
     return res.json(userInfo);
   } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    if (error.isBoom && !error.isServer) {
+      return next(error);
+    }
     return next(boom.badImplementation(error));
   }
 };
