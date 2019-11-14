@@ -1,51 +1,47 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Route, Switch } from "react-router-dom";
-
 import { Modal } from "antd";
 
-import {
-  Banner,
-  Cancel,
-  ContentWrapper,
-  Wrapper,
-  PurpleDiv
-} from "./ResetPassword.style";
+import { ContentWrapper, Wrapper } from "./ResetPassword.style";
+
+import Layout from "../../Common/Layout";
+import CancelNavbar from "../../Common/CancelNavbar";
 
 import {
   ResetPassword as ResetPasswordContent,
   SetPassword,
   PasswordSent,
-  PasswordDone
+  PasswordDone,
 } from "./Content";
 
 import {
   RESET_PASSWORD_URL,
   SET_PASSWORD_URL,
   PASSWORD_SENT_URL,
-  PASSWORD_DONE_URL
-} from "./../../../constants/naviagationUrls";
+  PASSWORD_DONE_URL,
+} from "../../../constants/naviagationUrls";
 
-import { API_RESET_PASSWORD, API_SET_PASSWORD } from "./../../../apiUrls";
+import { API_RESET_PASSWORD, API_SET_PASSWORD } from "../../../apiUrls";
 
 export default class ResetPassword extends Component {
   state = {
     error: "",
-    loading: false
+    loading: false,
   };
 
   handleSubmitSet = (values, { setSubmitting }, token) => {
     this.setState({ loading: true }, () => {
       axios
         .post(API_SET_PASSWORD, { ...values, token })
-        .then(({ data }) => {
+        .then(() => {
           this.setState({ loading: false }, () => {
             Modal.success({
               title: "Done!",
               content: "You successfully updated your password",
               onOk: () => {
                 this.props.history.push(PASSWORD_DONE_URL);
-              }
+              },
             });
           });
         })
@@ -60,7 +56,7 @@ export default class ResetPassword extends Component {
     this.setState({ loading: true }, () => {
       axios
         .post(API_RESET_PASSWORD, values)
-        .then(({ data }) => {
+        .then(() => {
           this.setState({ loading: false }, () => {
             Modal.success({
               title: "Done!",
@@ -68,7 +64,7 @@ export default class ResetPassword extends Component {
                 "Instructions to reset your password have been sent to the email address provided",
               onOk: () => {
                 this.props.history.push(PASSWORD_SENT_URL);
-              }
+              },
             });
           });
         })
@@ -81,15 +77,13 @@ export default class ResetPassword extends Component {
 
   render() {
     const { error, loading } = this.state;
-    const { history } = this.props;
-
+    const { history, match } = this.props;
+    const { path, isExact } = match;
+    const shouldShowNavbar = path !== RESET_PASSWORD_URL || isExact;
     return (
-      <>
+      <Layout type="side" position="right">
         <Wrapper>
-          <Banner>
-            <Cancel onClick={history.goBack}>Cancel</Cancel>
-          </Banner>
-          <PurpleDiv />
+          {shouldShowNavbar && <CancelNavbar history={history} />}
           <ContentWrapper>
             <Switch>
               <Route
@@ -138,7 +132,7 @@ export default class ResetPassword extends Component {
             </Switch>
           </ContentWrapper>
         </Wrapper>
-      </>
+      </Layout>
     );
   }
 }

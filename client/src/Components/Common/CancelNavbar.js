@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { colors, shadows, breakpointsMax } from "./../../theme";
+import { colors, shadows, breakpointsMax } from "../../theme";
 
 const NavbarWrapper = styled.div`
   width: 100%;
@@ -12,14 +12,13 @@ const NavbarWrapper = styled.div`
   text-transform: capitalize;
   position: fixed;
   z-index: 2;
-  background-color: ${({ backgroundColor }) =>
-    backgroundColor ? backgroundColor : colors.white};
+  background-color: ${({ backgroundColor }) => backgroundColor || colors.white};
   /* box-shadow: ${shadows.headerShadow}; */
   border-bottom: 1px solid ${colors.lightGray};
-  width: 100%;
   height: 11vh;
   min-height: 8vh;
   text-decoration: none;
+  left: 0;
 
   /* & + * {
     padding-top: 11vh;
@@ -37,7 +36,7 @@ const NavbarWrapper = styled.div`
 const NavbarTitle = styled.p`
   font-size: 1.125rem;
   font-weight: 900;
-  color: ${({ titleColor }) => (titleColor ? titleColor : colors.white)};
+  color: ${({ titleColor }) => titleColor || colors.white};
 `;
 
 const Cancel = styled.p`
@@ -50,8 +49,7 @@ const Cancel = styled.p`
   cursor: pointer;
   text-decoration: none;
 
-  color: ${({ cancelColor }) =>
-    cancelColor ? cancelColor : colors.primary};
+  color: ${({ cancelColor }) => cancelColor || colors.primary};
 
   @media ${breakpointsMax.mobileM} {
     font-size: 1rem;
@@ -70,12 +68,12 @@ const CancelNavbar = ({
   titleColor,
   cancelColor,
   CancelText,
-  customAction
+  customAction,
 }) => {
   return (
     <NavbarWrapper backgroundColor={backgroundColor}>
       <Cancel
-        onClick={customAction ? customAction : history.goBack}
+        onClick={customAction || history.goBack}
         cancelColor={cancelColor}
       >
         {CancelText || "Cancel"}
