@@ -13,7 +13,8 @@ export const STATIC_QUESTIONS = category => [
   },
   {
     number: 22,
-    text: "Please write a review of this agency or share a voice review below",
+    text: `Please write a review of this ${category ||
+      "organisation"} or share a voice review below`,
     type: "overallReview",
     category,
     label: "Talk about what's most important to you at work...",
