@@ -12,7 +12,7 @@ export const HeaderWrapper = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+
   transition: 0.4s height;
   z-index: 1;
   max-width: 57.5rem;
@@ -76,4 +76,6 @@ export const Heading = styled.h1`
   letter-spacing: 0.631945px;
   color: #ffffff;
   transition: 0.4s all;
+  margin-top: ${({ shrink }) => (shrink ? "0" : "1.75rem")};
+  margin-bottom: ${({ shrink }) => (shrink ? "0.5rem" : "2rem")};
 `;
