@@ -76,6 +76,7 @@ export const Options = styled.div`
     display: block;
     color: ${colors.profileFontColor};
     font-size: 1rem;
+    margin-bottom: 0.75rem;
   }
 
   .ant-checkbox-wrapper-checked {
