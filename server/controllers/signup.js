@@ -7,6 +7,7 @@
 
 const boom = require("boom");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 
 const { findByEmail, addNew, checkValidReferral } = require("./../database/queries/user");
 const createAccountEmails = require("./../helpers/emails/createAccountEmail");
@@ -24,7 +25,7 @@ module.exports = async (req, res, next) => {
     const uploadedFileName = req.file && req.file.uploadedFileName;
 
     const newUserData = {
-      email,
+      email: email.toLowerCase(),
       password,
     };
 
@@ -58,19 +59,34 @@ module.exports = async (req, res, next) => {
       return next(boom.conflict("Email already taken"));
     }
 
+    // start a mongodb session
+    const session = await mongoose.startSession();
+    session.startTransaction();
     // create new user
-    const user = await addNew(newUserData);
+    const user = await addNew(newUserData, session);
 
     // if in production add email to list
     if (process.env.NODE_ENV === "production") {
       try {
-        await addToMailchimpList(email);
+        const resp = await addToMailchimpList(email);
+        const { data } = resp;
+
+        if (data.errors.length) {
+          throw boom.badData(data.errors[0].error);
+        }
         await createAccountEmails(email);
         if (fieldName === "verificationImage") {
-          // send an email to the admin.
+        // send an email to the admin.
           await verificationPhotoEmail();
         }
+        await session.commitTransaction();
+        session.endSession();
       } catch (err) {
+        await session.abortTransaction();
+        session.endSession();
+        if (err.isBoom && !err.isServer) {
+          return next(err);
+        }
         return next(boom.badImplementation(err));
       }
     }
