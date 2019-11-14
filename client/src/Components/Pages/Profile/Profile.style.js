@@ -31,6 +31,7 @@ export const Banner = styled.div`
   align-items: center;
   text-transform: capitalize;
   position: fixed;
+
   z-index: 2;
 
   p {
@@ -43,6 +44,7 @@ export const Banner = styled.div`
 `;
 
 export const Header = styled.div`
+  position: fixed;
   box-shadow: ${shadows.headerShadow};
   display: flex;
   flex-direction: column;
@@ -51,6 +53,14 @@ export const Header = styled.div`
     props.isTablet || props.isMobile ? "0.5rem 1rem" : "0.5rem 7rem"};
   background-color: ${props => organizations[`${props.category}`].primary};
   color: ${colors.white};
+  width: 100%;
+  max-width: 57.5rem;
+  z-index: 1;
+  transition: 0.4s all;
+
+  + * {
+    padding-top: ${({ headerHeight }) => headerHeight}px !important;
+  }
 `;
 
 export const CompanyDetails = styled.div`
@@ -87,10 +97,18 @@ export const ButtonDiv = styled.div`
   display: ${props => (props.organization === "worksite" ? "none" : "flex")};
   justify-content: center;
   align-items: center;
+  height: ${({ shrink }) => (shrink ? "1px" : "auto")};
+  opacity: ${({ shrink }) => (shrink ? "0" : "1")};
+
+  transition: 0.4s all;
 `;
 
 export const OrgLink = styled.a`
   display: ${props => props.hasDetails === null && "none"};
+  height: ${({ shrink }) => (shrink ? "0" : "intial")};
+  opacity: ${({ shrink }) => (shrink ? "0" : "1")};
+
+  transition: 0.4s all;
 `;
 
 export const OrgButton = styled.button`
@@ -106,6 +124,10 @@ export const OrgButton = styled.button`
   cursor: pointer;
   position: relative;
   outline: none;
+
+  height: ${({ shrink }) => (shrink ? "0" : "2.5rem")};
+  opacity: ${({ shrink }) => (shrink ? "0" : "1")};
+  transition: 0.4s all;
 
   :hover {
     color: ${colors.white};
@@ -127,15 +149,11 @@ export const OrgButton = styled.button`
 
 export const InactiveButton = styled(OrgButton)`
   cursor: not-allowed !important;
-  opacity: 0.3;
   outline: none;
   box-shadow: none;
   display: ${props => props.hasDetails === undefined && "none"};
 
-  :hover {
-    background: ${colors.white};
-    color: ${colors.inputBorder};
-  }
+  opacity: ${({ shrink }) => (shrink ? "0" : "0.3")};
 `;
 
 export const ActionButtonsDiv = styled.div`
@@ -255,7 +273,9 @@ export const StarWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   cursor: pointer;
-
+  height: ${({ shrink }) => (shrink ? "0" : "intial")};
+  opacity: ${({ shrink }) => (shrink ? "0" : "1")};
+  transition: 0.4s all;
 `;
 
 export const Reviews = styled.p`
@@ -413,7 +433,7 @@ export const ReplyButton = styled.p`
   color: ${colors.primary};
   margin-right: 1rem;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-  opacity: ${({ disabled }) => disabled && "0.5" };
+  opacity: ${({ disabled }) => disabled && "0.5"};
   text-decoration: none;
 `;
 
@@ -515,4 +535,11 @@ export const BorderedWrapper = styled.div`
     border-left: 3px solid ${colors.heliotrope};
     border-right: 3px solid ${colors.heliotrope};
   }
+`;
+
+export const PopOverWrapper = styled.div`
+  text-align: center;
+  height: ${({ shrink }) => (shrink ? "0" : "intial")};
+  opacity: ${({ shrink }) => (shrink ? "0" : "1")};
+  transition: 0.4s all;
 `;

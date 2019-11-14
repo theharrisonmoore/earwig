@@ -2,9 +2,9 @@ import React from "react";
 
 import { Wrapper, SideContent } from "./Layout.style";
 
-export default ({ children }) => {
+export default ({ children, position }) => {
   return (
-    <Wrapper>
+    <Wrapper position={position}>
       <SideContent>{children}</SideContent>
     </Wrapper>
   );

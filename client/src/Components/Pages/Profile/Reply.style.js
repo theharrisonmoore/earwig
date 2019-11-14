@@ -3,47 +3,6 @@ import styled from "styled-components";
 import { colors } from "../../../theme";
 import { MOBILE_WIDTH } from "../../../constants/screenWidths";
 
-export const Banner = styled.div`
-  background: ${colors.white};
-  width: 100%;
-  height: 4rem;
-  color: ${colors.profileFontColor};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: capitalize;
-  position: fixed;
-  z-index: 2;
-  padding: 1rem 2rem;
-  border: 1px solid ${colors.sectionBorder};
-
-  p {
-    margin-bottom: 0;
-
-    span {
-      font-weight: 700;
-    }
-  }
-
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    height: 3rem;
-  }
-`;
-
-export const Cancel = styled.p`
-  font-size: 1.125rem;
-  font-weight: 700;
-  position: absolute;
-  left: 16px;
-  cursor: pointer;
-  text-decoration: none;
-  color: ${colors.primary};
-
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    left: 8px;
-  }
-`;
-
 export const Wrapper = styled.div`
   width: 100%;
   max-width: 30rem;

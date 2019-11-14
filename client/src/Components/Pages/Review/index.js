@@ -2,9 +2,12 @@ import React, { Component } from "react";
 import axios from "axios";
 import moment from "moment";
 import { Checkbox, message, Modal } from "antd";
+
+// Common components
 import Loading from "../../Common/AntdComponents/Loading";
 import Button from "../../Common/Button";
 import Link from "../../Common/Link";
+import Layout from "../../Common/Layout";
 
 import {
   UserAgreement,
@@ -588,149 +591,157 @@ class Review extends Component {
     }
 
     return (
-      <ReviewWrapper>
-        <Header orgType={category} style={{ marginBottom: "3rem" }}>
-          <Content>
-            <Paragraph
-              style={{ paddingRight: "1.5rem" }}
-              cancel
-              bold
-              onClick={() => history.goBack()}
-            >
-              Cancel
-            </Paragraph>
-            <Organization>
-              <div>
-                <Paragraph style={{ paddingRight: ".5rem" }}>
-                  You’re giving a review about:
-                </Paragraph>
-              </div>
-              <div>
-                {!isMobile && (
-                  <Paragraph capitalized>{category}: &nbsp;</Paragraph>
-                )}
-                <OrgName> {name}</OrgName>
-              </div>
-            </Organization>
-          </Content>
-        </Header>
-
-        <section className="review-body">
-          <form onSubmit={this.handleSubmit}>
-            <FormWrapper>
-              <Question
-                question={staticQuestion[0]}
-                category={this.state.organization.category}
-                handleChange={this.handleDateChage}
-                state={this.state}
-              />
-              <div>
-                {Object.keys(groupss).map(groupId => {
-                  const group = groupss[groupId];
-                  if (group && group.title) {
-                    return (
-                      <div key={groupId}>
-                        <GroupTitle>{group.title}</GroupTitle>
-                        {group.main.map(question => {
-                          return (
-                            <Question
-                              key={question._id}
-                              question={question}
-                              showNextQestion={this.showNextQestion}
-                              groupId={groupId}
-                              dropdownOptions={this.state.dropdownOptions}
-                              handleChange={this.handleChange}
-                              state={this.state}
-                              handleSliderChange={this.handleSliderChange}
-                              handleReviewChange={this.handleReviewChange}
-                              handleAddNewOrgChange={this.handleAddNewOrgChange}
-                            />
-                          );
-                        })}
-                      </div>
-                    );
-                  }
-                  return null;
-                })}
-              </div>
-              <div className="questions">
-                <Question
-                  question={staticQuestion[2]}
-                  category={this.state.organization.category}
-                  handleChange={this.handleRateChage}
-                  state={this.state}
-                  runValidation={this.runValidation}
-                />
-                <Question
-                  question={staticQuestion[1]}
-                  category={this.state.organization.category}
-                  handleChange={this.handleReviewChange}
-                  state={this.state}
-                />
-                {/* The voice questions */}
-                <Question
-                  question={staticQuestion[3]}
-                  category={this.state.organization.category}
-                  state={this.state}
-                  recording={recording}
-                  handleRecord={this.handleRecord}
-                  id={id}
-                  voiceReviewUrl={this.state.voiceReviewUrl}
-                />
-              </div>
-              <UserAgreement>
-                <Level2Header>Submit your review</Level2Header>
-                <CheckboxWrapper>
-                  <Checkbox
-                    onChange={this.handleCheckBox}
-                    style={{ marginTop: "4px" }}
-                    checked={this.state.hasAgreed}
-                    value={this.state.hasAgreed}
-                  >
-                    <AgreementLabel
-                      htmlFor="agreement"
-                      style={{ pointerEvents: "none" }}
-                    >
-                      I agree to the earwig{" "}
-                      <Link
-                        target="_blank"
-                        to={TERMS_OF_USE_URL}
-                        text="Terms of Use"
-                        type="plain"
-                      />
-                      . This review of my experience with this current or former{" "}
-                      {category} is truthful.
-                    </AgreementLabel>
-                  </Checkbox>
-
-                  {!!errors && !!errors.hasAgreed && (
-                    <StyledErrorMessage>{errors.hasAgreed}</StyledErrorMessage>
+      <Layout type="center">
+        <ReviewWrapper>
+          <Header orgType={category} style={{ marginBottom: "3rem" }}>
+            <Content>
+              <Paragraph
+                style={{ paddingRight: "1.5rem" }}
+                cancel
+                bold
+                onClick={() => history.goBack()}
+              >
+                Cancel
+              </Paragraph>
+              <Organization>
+                <div>
+                  <Paragraph style={{ paddingRight: ".5rem" }}>
+                    You’re giving a review about:
+                  </Paragraph>
+                </div>
+                <div>
+                  {!isMobile && (
+                    <Paragraph capitalized>{category}: &nbsp;</Paragraph>
                   )}
-                  <ErrorsWrapper>
-                    {!!errors && !!errors.review && !!errors.review.lastUse && (
+                  <OrgName> {name}</OrgName>
+                </div>
+              </Organization>
+            </Content>
+          </Header>
+
+          <section className="review-body">
+            <form onSubmit={this.handleSubmit}>
+              <FormWrapper>
+                <Question
+                  question={staticQuestion[0]}
+                  category={this.state.organization.category}
+                  handleChange={this.handleDateChage}
+                  state={this.state}
+                />
+                <div>
+                  {Object.keys(groupss).map(groupId => {
+                    const group = groupss[groupId];
+                    if (group && group.title) {
+                      return (
+                        <div key={groupId}>
+                          <GroupTitle>{group.title}</GroupTitle>
+                          {group.main.map(question => {
+                            return (
+                              <Question
+                                key={question._id}
+                                question={question}
+                                showNextQestion={this.showNextQestion}
+                                groupId={groupId}
+                                dropdownOptions={this.state.dropdownOptions}
+                                handleChange={this.handleChange}
+                                state={this.state}
+                                handleSliderChange={this.handleSliderChange}
+                                handleReviewChange={this.handleReviewChange}
+                                handleAddNewOrgChange={
+                                  this.handleAddNewOrgChange
+                                }
+                              />
+                            );
+                          })}
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
+                <div className="questions">
+                  <Question
+                    question={staticQuestion[2]}
+                    category={this.state.organization.category}
+                    handleChange={this.handleRateChage}
+                    state={this.state}
+                    runValidation={this.runValidation}
+                  />
+                  <Question
+                    question={staticQuestion[1]}
+                    category={this.state.organization.category}
+                    handleChange={this.handleReviewChange}
+                    state={this.state}
+                  />
+                  {/* The voice questions */}
+                  <Question
+                    question={staticQuestion[3]}
+                    category={this.state.organization.category}
+                    state={this.state}
+                    recording={recording}
+                    handleRecord={this.handleRecord}
+                    id={id}
+                    voiceReviewUrl={this.state.voiceReviewUrl}
+                  />
+                </div>
+                <UserAgreement>
+                  <Level2Header>Submit your review</Level2Header>
+                  <CheckboxWrapper>
+                    <Checkbox
+                      onChange={this.handleCheckBox}
+                      style={{ marginTop: "4px" }}
+                      checked={this.state.hasAgreed}
+                      value={this.state.hasAgreed}
+                    >
+                      <AgreementLabel
+                        htmlFor="agreement"
+                        style={{ pointerEvents: "none" }}
+                      >
+                        I agree to the earwig{" "}
+                        <Link
+                          target="_blank"
+                          to={TERMS_OF_USE_URL}
+                          text="Terms of Use"
+                          type="plain"
+                        />
+                        . This review of my experience with this current or
+                        former {category} is truthful.
+                      </AgreementLabel>
+                    </Checkbox>
+
+                    {!!errors && !!errors.hasAgreed && (
                       <StyledErrorMessage>
-                        Must select the last month you used this {category}
+                        {errors.hasAgreed}
                       </StyledErrorMessage>
                     )}
-                    {!!errors && !!errors.review && !!errors.review.rate && (
-                      <StyledErrorMessage>
-                        Must select a rating for this {category}
-                      </StyledErrorMessage>
-                    )}
-                  </ErrorsWrapper>
-                </CheckboxWrapper>
-              </UserAgreement>
-              <Button
-                type="submit"
-                styleType="primary"
-                size="large"
-                loading={isSubmitting}
-                text="Publish your review"
-              />
-            </FormWrapper>
-          </form>
-        </section>
-      </ReviewWrapper>
+                    <ErrorsWrapper>
+                      {!!errors &&
+                        !!errors.review &&
+                        !!errors.review.lastUse && (
+                          <StyledErrorMessage>
+                            Must select the last month you used this {category}
+                          </StyledErrorMessage>
+                        )}
+                      {!!errors && !!errors.review && !!errors.review.rate && (
+                        <StyledErrorMessage>
+                          Must select a rating for this {category}
+                        </StyledErrorMessage>
+                      )}
+                    </ErrorsWrapper>
+                  </CheckboxWrapper>
+                </UserAgreement>
+                <Button
+                  type="submit"
+                  styleType="primary"
+                  size="large"
+                  loading={isSubmitting}
+                  text="Publish your review"
+                />
+              </FormWrapper>
+            </form>
+          </section>
+        </ReviewWrapper>
+      </Layout>
     );
   }
 }
