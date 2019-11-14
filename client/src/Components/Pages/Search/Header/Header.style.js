@@ -27,7 +27,7 @@ export const SearchBarContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 auto 2rem;
+  margin: ${({ shrink }) => (shrink ? "0 auto 1rem" : "0 auto 2rem")};
   max-width: 21rem;
 
   .react-autosuggest__input {
