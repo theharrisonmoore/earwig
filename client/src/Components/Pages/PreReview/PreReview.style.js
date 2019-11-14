@@ -14,7 +14,7 @@ export const Body = styled.div`
 
 export const Header = styled.header`
   margin: 0 auto;
-  padding: 4.5rem 1rem 2.5rem;
+  padding: 2.5rem 1rem 2.5rem;
   z-index: 1;
   position: relative;
   margin: 0 auto;
@@ -30,7 +30,7 @@ export const Header = styled.header`
 
 export const Title = styled.h1`
   margin-top: 6rem;
-  max-width: 350px;
+  max-width: 450px;
   font-size: 2rem;
   font-weight: 400;
   line-height: 2.5rem;
@@ -43,11 +43,12 @@ export const SubTitile = styled.p`
   font-size: 18px;
   color: ${colors.white};
   max-width: 450px;
-  margin: 2rem auto;
+  margin: 2rem auto 0;
 `;
 
 export const Content = styled.div`
   margin: 0rem auto;
+  padding-bottom: 4rem;
 
   @media ${breakpoints.tablet} {
     margin: 1rem auto;

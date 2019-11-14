@@ -45,7 +45,11 @@ export default class Welcome extends Component {
                   although the data is limited
                 </Subtitle>
               ) : (
-                <Subtitle>Give reviews! Read reviews! Be heard!</Subtitle>
+                <Subtitle>
+                  Give reviews!
+                  <br /> Read reviews!
+                  <br /> Be heard!
+                </Subtitle>
               )}
               <ButtonsWrpper>
                 <div>
