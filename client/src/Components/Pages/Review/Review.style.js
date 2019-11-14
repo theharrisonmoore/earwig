@@ -6,7 +6,7 @@ import {
   organizations,
   size,
   breakpoints,
-  breakpointsMax
+  breakpointsMax,
 } from "../../../theme";
 
 export const ReviewWrapper = styled.div`
@@ -55,6 +55,7 @@ export const OrganizationPhone = styled.div`
 
 export const Header = styled.section`
   width: 100%;
+  max-width: 57.5rem;
   display: flex;
   justify-content: center;
   background-color: ${props => organizations[props.orgType].primary};
@@ -291,9 +292,9 @@ export const ErrorsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 1rem;
-`
+`;
 
 export const ErrorsTitle = styled.h4`
   font-size: 1rem;
-  color: ${colors.red}
-`
+  color: ${colors.red};
+`;

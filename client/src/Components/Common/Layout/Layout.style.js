@@ -3,10 +3,14 @@ import { colors, breakpoints } from "../../../theme";
 
 export const Wrapper = styled.div`
   background-color: ${colors.dustyGray2}26;
+  display: flex;
+  flex-direction: ${({ position }) =>
+    position === "right" ? "row-reverse" : "left"};
 `;
 
 export const CenterContent = styled.main`
   max-width: 57.5rem;
+  width: 100%;
   background-color: ${colors.white};
   margin: 0 auto;
 `;

@@ -2,12 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import { message } from "antd";
 
-import {
-  Wrapper,
-  ContentWrapper,
-  PurpleDiv,
-} from "../../Common/StaticPages.style";
+import { Wrapper, ContentWrapper } from "../../Common/StaticPages.style";
 
+import Layout from "../../Common/Layout";
 import Loading from "../../Common/AntdComponents/Loading";
 import SelectReason from "./SelectReason";
 import Thanks from "./Thanks";
@@ -66,7 +63,7 @@ export default class ReportContent extends Component {
     const { activePage, loading } = this.state;
     const { history, isMobile } = this.props;
     return (
-      <>
+      <Layout type="side" position="right">
         <CancelNavbar
           history={history}
           title="Reporting content"
@@ -77,7 +74,6 @@ export default class ReportContent extends Component {
             <Loading />
           ) : (
             <>
-              <PurpleDiv width="50%" />
               <ContentWrapper>
                 <div style={{ maxWidth: "300px", margin: "0 auto" }}>
                   {activePage === "selectReason" ? (
@@ -99,7 +95,7 @@ export default class ReportContent extends Component {
             </>
           )}
         </Wrapper>
-      </>
+      </Layout>
     );
   }
 }

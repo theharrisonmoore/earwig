@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
-import { colors, shadows, breakpoints } from "../../../theme";
-
 import { Button as AntdButton } from "antd";
+import { colors, shadows, breakpoints } from "../../../theme";
 
 export const ContentWrapper = styled.div`
   width: 100%;
@@ -23,43 +22,9 @@ export const ContentWrapper = styled.div`
   }
 `;
 
-export const Banner = styled.div`
-  width: 100%;
-  color: ${colors.white};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: capitalize;
-  position: fixed;
-  z-index: 2;
-  background-color: ${colors.white};
-  box-shadow: ${shadows.headerShadow};
-  border-bottom: 1px solid ${colors.lightGray};
-  width: 100%;
-  height: 11vh;
-  min-height: 8vh;
-
-  p {
-    margin-bottom: 0;
-
-    span {
-      font-weight: 700;
-    }
-  }
-`;
-
 export const BannerTitle = styled.p`
   font-size: 1.125rem;
   font-weight: 900;
-`;
-
-export const Cancel = styled.p`
-  font-size: 1.125rem;
-  font-weight: 700;
-  position: absolute;
-  left: 7px;
-  cursor: pointer;
-  color: ${colors.heliotrope};
 `;
 
 export const Description = styled.p`
@@ -76,15 +41,6 @@ export const Description = styled.p`
 export const Wrapper = styled.div`
   width: 100%;
   display: flex;
-`;
-
-export const PurpleDiv = styled.div`
-  width: 0%;
-  background-color: ${colors.heliotrope};
-
-  @media ${breakpoints.tablet} {
-    width: 50%;
-  }
 `;
 
 export const Button = styled(AntdButton)`
