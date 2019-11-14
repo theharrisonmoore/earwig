@@ -272,7 +272,10 @@ export const AddWrapper = styled.div`
 
 export const OrgsListWrapper = styled.div`
   text-align: left;
-  padding: 0 5% 6.5rem;
+  padding: 0 0 6.5rem 0;
+  width: 100%;
+  max-width: 25rem;
+  margin: 0 auto;
 `;
 
 export const MainKey = styled.p`
@@ -281,12 +284,14 @@ export const MainKey = styled.p`
   letter-spacing: 0.541667px;
   margin-top: 35px;
   color: #9b9b9b;
+  padding-left: 0.75rem;
 `;
 
 export const SubKey = styled(MainKey)`
   font-size: 18px;
   margin-top: 30px;
   margin-bottom: 0;
+  padding-left: 0.75rem;
 `;
 
 export const ButtonsWrpper = styled.div`
