@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import moment from "moment";
 import { Icon as AntdIcon, Popover, Rate } from "antd";
 
 import {

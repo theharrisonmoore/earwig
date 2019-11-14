@@ -54,25 +54,27 @@ class Question extends Component {
       text:
         "We’re asking this because it will be useful to track over time how much agencies are paying workers",
       linkText: "Why are we asking this?",
+      icon: "info",
+      margin: "0 0 0.5rem 0",
     };
 
     return (
       <QuestionWrapper>
         <QText>{text}</QText>
-        <Warning>
-          {type && type === "voiceReview" && (
+        {type && type === "voiceReview" && (
+          <Warning>
             <Icon
               icon="warning"
               margin="0 1rem 0 0"
               height="1.5rem"
               width="1.5rem"
             />
-          )}
-          <HintText voiceWarn={type && type === "voiceReview"}>
-            {hintText}
-          </HintText>
-        </Warning>
-        {text === "What hourly rate were you paid?" && (
+            <HintText voiceWarn={type && type === "voiceReview"}>
+              {hintText}
+            </HintText>
+          </Warning>
+        )}
+        {text === "What hourly rate did this agency pay you?" && (
           <PopoverComponent
             category={category}
             popoverOptions={popoverOptions}
