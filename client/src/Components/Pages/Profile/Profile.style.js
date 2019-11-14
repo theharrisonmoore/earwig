@@ -97,6 +97,7 @@ export const ButtonDiv = styled.div`
   display: ${props => (props.organization === "worksite" ? "none" : "flex")};
   justify-content: center;
   align-items: center;
+  height: ${({ shrink }) => (shrink ? "1px" : "auto")};
   opacity: ${({ shrink }) => (shrink ? "0" : "1")};
 
   transition: 0.4s all;
@@ -151,7 +152,7 @@ export const InactiveButton = styled(OrgButton)`
   outline: none;
   box-shadow: none;
   display: ${props => props.hasDetails === undefined && "none"};
-  
+
   opacity: ${({ shrink }) => (shrink ? "0" : "0.3")};
 `;
 
