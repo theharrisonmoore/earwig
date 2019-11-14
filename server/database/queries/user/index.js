@@ -31,7 +31,7 @@ module.exports.deleteUserFields = (userId, data) => User.findByIdAndUpdate(
 
 module.exports.findByEmail = email => User.findOne({ email: email.toLowerCase() });
 
-module.exports.addNew = userData => User.create(userData);
+module.exports.addNew = (userData, session) => User.create([userData], { session });
 
 module.exports.getAllUsers = getAllUsers;
 
