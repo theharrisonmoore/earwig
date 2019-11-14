@@ -28,7 +28,7 @@ class Question extends Component {
       name,
       label,
       hasComment,
-      next,
+      next
     } = this.props.question;
 
     const {
@@ -47,7 +47,7 @@ class Question extends Component {
       handleRecord,
       handleAddNewOrgChange,
       id,
-      voiceReviewUrl,
+      voiceReviewUrl
     } = this.props;
 
     const popoverOptions = {
@@ -55,12 +55,15 @@ class Question extends Component {
         "We’re asking this because it will be useful to track over time how much agencies are paying workers",
       linkText: "Why are we asking this?",
       icon: "info",
-      margin: "0 0 0.5rem 0",
+      margin: "0 0 0.5rem 0"
     };
 
     return (
       <QuestionWrapper>
         <QText>{text}</QText>
+        {hintText && type && type !== "voiceReview" && (
+          <HintText>{hintText}</HintText>
+        )}
         {type && type === "voiceReview" && (
           <Warning>
             <Icon
