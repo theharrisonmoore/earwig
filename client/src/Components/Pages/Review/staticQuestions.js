@@ -46,7 +46,7 @@ export const STATIC_QUESTIONS = category => [
           linkText:
             "How can you make your reviews helpful for workers and earn rewards?",
           icon: "info",
-          margin: "0 0 0.5rem 0",
+          margin: "0 0 0.25rem 0",
         }}
       />
     ),

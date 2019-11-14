@@ -4,19 +4,18 @@ import { colors, borders } from "../../../../theme";
 
 export const QuestionWrapper = styled.div.attrs({ className: "" })`
   font-size: 18px;
-  margin-bottom: 1rem;
+  margin-bottom: 2.25rem;
   color: ${colors.profileFontColor};
 `;
 
 export const QText = styled.p`
-  margin: 0;
+  margin: 0 0 0.25rem;
   font-weight: 900;
   font-size: 18px;
 `;
 
 export const Warning = styled.div`
   display: flex;
-  padding-bottom: 0.5rem;
 `;
 
 export const HintText = styled.p`
@@ -29,7 +28,6 @@ export const HintText = styled.p`
 
 export const QuestionOptionsWrapper = styled.div`
   font-size: 16px;
-  margin: 1rem 0;
   display: flex;
   flex-direction: column;
 `;
@@ -45,7 +43,7 @@ export const Options = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   font-size: 16px;
-  margin-bottom: 1rem;
+
   justify-content: ${({ options }) =>
     options === 4 ? "flex-end" : "space-between"};
   .choices {
@@ -53,7 +51,6 @@ export const Options = styled.div`
     display: flex;
     justify-content: space-between;
     margin-right: 1rem;
-    margin-bottom: 0.5rem;
   }
 
   .choices-3 div:last-child label {
@@ -214,9 +211,9 @@ export const SliderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-right: 1rem;
-  margin-bottom: 0.5rem;
   flex-wrap: wrap;
 
+  min-height: 7.75rem;
   .ant-slider-with-marks {
     margin-top: 45px;
     margin-bottom: 0;
@@ -270,6 +267,7 @@ export const SliderWrapper = styled.div`
     opacity: 0.8;
     width: 100%;
     visibility: ${({ visibility }) => (visibility ? "intial" : "hidden")};
+    margin-bottom: 0.75rem;
   }
 `;
 

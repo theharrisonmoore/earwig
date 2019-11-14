@@ -6,7 +6,7 @@ import {
   organizations,
   size,
   breakpoints,
-  breakpointsMax
+  breakpointsMax,
 } from "../../../theme";
 
 export const ReviewWrapper = styled.div`
@@ -291,9 +291,9 @@ export const ErrorsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 1rem;
-`
+`;
 
 export const ErrorsTitle = styled.h4`
   font-size: 1rem;
-  color: ${colors.red}
-`
+  color: ${colors.red};
+`;

@@ -107,6 +107,7 @@ class YesNo extends Component {
               data-type="comments"
               value={state.comments[question.number]}
               name={question.number}
+              style={{ margin: "0.25rem 0 0" }}
             />
           )}
         </Options>
