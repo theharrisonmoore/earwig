@@ -105,6 +105,7 @@ export default class Search extends Component {
           <OrganisationsList
             sortedOrgs={sortedOrgs[category]}
             loading={loading}
+            category={category}
           />
         </SearchWrapper>
       </Layout>

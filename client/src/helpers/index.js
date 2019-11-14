@@ -207,6 +207,7 @@ export const sortAndCategorizeOrgs = arrayOfOrgs => {
 
   const newArray = sorted.reduce(
     (prev, org) => {
+      let height = 74;
       const { lastMainKey, lastSubKey, orgs } = prev;
       const newOrgs = [...orgs];
       const newOrg = { ...org };
@@ -231,11 +232,15 @@ export const sortAndCategorizeOrgs = arrayOfOrgs => {
 
       if (lastMainKey !== newMainKey) {
         newOrg.mainKey = newMainKey;
+        height += 60;
       }
 
       if (lastSubKey !== newSubKey) {
         newOrg.subKey = newSubKey;
+        height += 104;
       }
+
+      newOrg.height = height;
       newOrgs.push(newOrg);
 
       return {
