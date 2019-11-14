@@ -4,7 +4,10 @@ import PopoverComponent from "../../Common/Popover";
 export const STATIC_QUESTIONS = category => [
   {
     number: 21,
-    text: `When did you last use this ${category}?`,
+    text:
+      category === "company"
+        ? `When did you last work for this ${category}?`
+        : `When did you last use this ${category}?`,
     type: "dateRange",
     category,
   },

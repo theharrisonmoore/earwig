@@ -19,6 +19,7 @@ import {
   AgreementLabel,
   ReviewWrapper,
   ErrorsWrapper,
+  GroupTitle
 } from "./Review.style";
 
 import { StyledErrorMessage } from "./Question/Question.style";
@@ -569,7 +570,6 @@ class Review extends Component {
   };
 
   render() {
-    console.log("this.state", this.state);
     const {
       groupss,
       organization: { name, category },
@@ -630,7 +630,7 @@ class Review extends Component {
                   if (group && group.title) {
                     return (
                       <div key={groupId}>
-                        <h2>{group.title}</h2>
+                        <GroupTitle>{group.title}</GroupTitle>
                         {group.main.map(question => {
                           return (
                             <Question

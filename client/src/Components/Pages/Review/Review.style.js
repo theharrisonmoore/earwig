@@ -295,5 +295,9 @@ export const ErrorsWrapper = styled.div`
 
 export const ErrorsTitle = styled.h4`
   font-size: 1rem;
-  color: ${colors.red}
+  color: ${colors.red};
+`
+
+export const GroupTitle = styled.h2`
+border-bottom: 1px solid ${colors.ghostGray};
 `
