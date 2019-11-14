@@ -84,6 +84,8 @@ export const ToggleMenu = styled.div`
 
 export const LogoLink = styled(NavLink)`
   color: ${colors.profileFontColor};
+  display: flex;
+  align-items: center;
 
   :hover {
     color: ${colors.profileFontColor};
