@@ -15,6 +15,7 @@ import { SIGNUP_URL } from "../../../constants/naviagationUrls";
 
 import Icon from "../../Common/Icon/Icon";
 import Button from "../../Common/Button";
+import Layout from "../../Common/Layout";
 
 import {
   Wrapper,
@@ -266,64 +267,65 @@ export default class Profile extends Component {
 
     const { category } = summary && summary;
     return (
-      <Wrapper isMobile={isMobile}>
-        <Skeleton loading={!loaded}>
-          <HeaderSection
-            isTablet={isTablet}
-            isMobile={isMobile}
-            summary={summary}
-            level={level}
-            reviewsLast30Days={reviewsLast30Days}
-            handleScroll={this.handleScroll}
-            orgId={organizationID}
-            contractorAnswers={contractorAnswers}
-            awaitingReview={awaitingReview}
-            FilteredReviewMonths={FilteredReviewMonths}
-          />
-        </Skeleton>
-        {/* BASIC VIEW FOR LOGGED OUT USERS */}
-        <Skeleton loading={!loaded}>
-          {level < 1 && (
-            <Level0Promo isTablet={isTablet} isMobile={isMobile}>
-              <ReviewSection
-                category={category}
-                sectionDetails={{ _id: "Key ratings" }}
-                summary={summary}
-                loaded={loaded}
-              />
-              <AccountPromo>
-                <p>Create an account to see more detail, including:</p>
-                <div>
-                  {ITEMS[category] &&
-                    ITEMS[category].map((item, index) => (
-                      <AccountItem key={index}>
-                        <Icon
-                          icon={item.img}
-                          margin="0 1rem 0 0"
-                          height="2rem"
-                          width="2rem"
-                        />
-                        {item.text}
-                      </AccountItem>
-                    ))}
-                </div>
-                <AccountLink
-                  to={{
-                    pathname: SIGNUP_URL,
-                    state: { from: this.props.location },
-                  }}
+      <Layout type="center">
+        <Wrapper isMobile={isMobile}>
+          <Skeleton loading={!loaded}>
+            <HeaderSection
+              isTablet={isTablet}
+              isMobile={isMobile}
+              summary={summary}
+              level={level}
+              reviewsLast30Days={reviewsLast30Days}
+              handleScroll={this.handleScroll}
+              orgId={organizationID}
+              contractorAnswers={contractorAnswers}
+              awaitingReview={awaitingReview}
+              FilteredReviewMonths={FilteredReviewMonths}
+            />
+          </Skeleton>
+          {/* BASIC VIEW FOR LOGGED OUT USERS */}
+          <Skeleton loading={!loaded}>
+            {level < 1 && (
+              <Level0Promo isTablet={isTablet} isMobile={isMobile}>
+                <ReviewSection
                   category={category}
-                >
-                  <Button
-                    text="Sign up to see more"
-                    styleType="primary"
-                    margin="1rem auto"
-                  />
-                </AccountLink>
-              </AccountPromo>
-            </Level0Promo>
-          )}
-          {/* {reviewDetails.length < 1 && (
+                  sectionDetails={{ _id: "Key ratings" }}
+                  summary={summary}
+                  loaded={loaded}
+                />
+                <AccountPromo>
+                  <p>Create an account to see more detail, including:</p>
+                  <div>
+                    {ITEMS[category] &&
+                      ITEMS[category].map((item, index) => (
+                        <AccountItem key={index}>
+                          <Icon
+                            icon={item.img}
+                            margin="0 1rem 0 0"
+                            height="2rem"
+                            width="2rem"
+                          />
+                          {item.text}
+                        </AccountItem>
+                      ))}
+                  </div>
+                  <AccountLink
+                    to={{
+                      pathname: SIGNUP_URL,
+                      state: { from: this.props.location },
+                    }}
+                    category={category}
+                  >
+                    <Button
+                      text="Sign up to see more"
+                      styleType="primary"
+                      margin="1rem auto"
+                    />
+                  </AccountLink>
+                </AccountPromo>
+              </Level0Promo>
+            )}
+            {/* {reviewDetails.length < 1 && (
             <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
               <ReviewSection
                 category={category}
@@ -334,57 +336,12 @@ export default class Profile extends Component {
             </ReviewDiv>
           )} */}
 
-          {level > 0 && (
-            <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-              {/* KEY RATINGS SECTION */}
-              {reviewDetails.map(
-                (section, index) =>
-                  section._id === "Key ratings" && (
-                    <ReviewSection
-                      key={index}
-                      category={category}
-                      sectionDetails={section}
-                      toggleComments={this.toggleComments}
-                      summary={summary}
-                      isMobile={isMobile}
-                    />
-                  )
-              )}
-
-              {/* OTHER SECTIONS */}
-              {reviewDetails.map(
-                (section, index) =>
-                  section._id === "Detailed ratings" && (
-                    <ReviewSection
-                      key={index}
-                      category={category}
-                      sectionDetails={section}
-                      toggleComments={this.toggleComments}
-                      summary={summary}
-                      isMobile={isMobile}
-                    />
-                  )
-              )}
-
-              {reviewDetails.map(
-                (section, index) =>
-                  section._id === "Getting on to site" && (
-                    <ReviewSection
-                      key={index}
-                      category={category}
-                      sectionDetails={section}
-                      toggleComments={this.toggleComments}
-                      summary={summary}
-                      isMobile={isMobile}
-                      carParkingPrice={this.getCarCost}
-                    />
-                  )
-              )}
-
-              {level > 0 &&
-                reviewDetails.map(
+            {level > 0 && (
+              <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
+                {/* KEY RATINGS SECTION */}
+                {reviewDetails.map(
                   (section, index) =>
-                    section._id === "Working on the site" && (
+                    section._id === "Key ratings" && (
                       <ReviewSection
                         key={index}
                         category={category}
@@ -396,113 +353,159 @@ export default class Profile extends Component {
                     )
                 )}
 
-              {reviewDetails.map(
-                (section, index) =>
-                  section._id === "The site welfare" && (
-                    <ReviewSection
-                      key={index}
-                      category={category}
-                      sectionDetails={section}
-                      toggleComments={this.toggleComments}
-                      summary={summary}
-                      isMobile={isMobile}
-                    />
-                  )
-              )}
+                {/* OTHER SECTIONS */}
+                {reviewDetails.map(
+                  (section, index) =>
+                    section._id === "Detailed ratings" && (
+                      <ReviewSection
+                        key={index}
+                        category={category}
+                        sectionDetails={section}
+                        toggleComments={this.toggleComments}
+                        summary={summary}
+                        isMobile={isMobile}
+                      />
+                    )
+                )}
 
-              {reviewDetails.map(
-                (section, index) =>
-                  section._id === "Supervisors & employees" && (
-                    <ReviewSection
-                      key={index}
-                      category={category}
-                      sectionDetails={section}
-                      toggleComments={this.toggleComments}
-                      summary={summary}
-                      isMobile={isMobile}
-                    />
-                  )
-              )}
+                {reviewDetails.map(
+                  (section, index) =>
+                    section._id === "Getting on to site" && (
+                      <ReviewSection
+                        key={index}
+                        category={category}
+                        sectionDetails={section}
+                        toggleComments={this.toggleComments}
+                        summary={summary}
+                        isMobile={isMobile}
+                        carParkingPrice={this.getCarCost}
+                      />
+                    )
+                )}
 
-              {reviewDetails.map(
-                (section, index) =>
-                  section._id === "Tools & materials" && (
-                    <ReviewSection
-                      key={index}
-                      category={category}
-                      sectionDetails={section}
-                      toggleComments={this.toggleComments}
-                      summary={summary}
-                      isMobile={isMobile}
-                    />
-                  )
-              )}
+                {level > 0 &&
+                  reviewDetails.map(
+                    (section, index) =>
+                      section._id === "Working on the site" && (
+                        <ReviewSection
+                          key={index}
+                          category={category}
+                          sectionDetails={section}
+                          toggleComments={this.toggleComments}
+                          summary={summary}
+                          isMobile={isMobile}
+                        />
+                      )
+                  )}
 
-              {/* MONTHLY REVIEWS
+                {reviewDetails.map(
+                  (section, index) =>
+                    section._id === "The site welfare" && (
+                      <ReviewSection
+                        key={index}
+                        category={category}
+                        sectionDetails={section}
+                        toggleComments={this.toggleComments}
+                        summary={summary}
+                        isMobile={isMobile}
+                      />
+                    )
+                )}
+
+                {reviewDetails.map(
+                  (section, index) =>
+                    section._id === "Supervisors & employees" && (
+                      <ReviewSection
+                        key={index}
+                        category={category}
+                        sectionDetails={section}
+                        toggleComments={this.toggleComments}
+                        summary={summary}
+                        isMobile={isMobile}
+                      />
+                    )
+                )}
+
+                {reviewDetails.map(
+                  (section, index) =>
+                    section._id === "Tools & materials" && (
+                      <ReviewSection
+                        key={index}
+                        category={category}
+                        sectionDetails={section}
+                        toggleComments={this.toggleComments}
+                        summary={summary}
+                        isMobile={isMobile}
+                      />
+                    )
+                )}
+
+                {/* MONTHLY REVIEWS
             {level > 0 && (
               <MonthlyReviews
                 category={category}
                 reviewsByMonth={this.reviewsByMonth()}
               />
             )} */}
-            </ReviewDiv>
-          )}
-          {/* OVERALL RATINGS SECTION */}
-          {/* HIDDEN DIV TO SCROLL SECTION INTO VIEW */}
-          <div ref={this.myDivToFocus} />
-          <OverallReview
-            summary={summary}
-            isTablet={isTablet}
-            isMobile={isMobile}
-            category={category}
-            activeOverallId={this.state.activeOverallId}
-            overallReplies={this.state.overallReplies}
-            fetchOverallReplies={this.fetchOverallReplies}
-            verified={verified}
-            level={level}
-            isAdmin={isAdmin}
-            orgId={organizationID}
-            id={id}
-            awaitingReview={awaitingReview}
-            FilteredReviewMonths={FilteredReviewMonths}
-            history={history}
-            location={location}
-            loaded={loaded}
-          />
-          {level < 1 && (
-            <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-              <AccountLink
-                to={{
-                  pathname: SIGNUP_URL,
-                  state: { from: this.props.location },
-                }}
-                category={category}
-              >
-                <Button
-                  text="Sign up to see more"
-                  styleType="primary"
-                  margin="0 auto"
-                />
-              </AccountLink>
-            </ReviewDiv>
-          )}
-          {/* COMMENTS BOX */}
-          {commentsOpen && (
-            <CommentsBox
-              organization={summary}
-              question={commentsQuestion}
-              comments={comments}
-              commentsLoaded={commentsLoaded}
-              toggleComments={this.toggleComments}
+              </ReviewDiv>
+            )}
+            {/* OVERALL RATINGS SECTION */}
+            {/* HIDDEN DIV TO SCROLL SECTION INTO VIEW */}
+            <div ref={this.myDivToFocus} />
+            <OverallReview
+              summary={summary}
+              isTablet={isTablet}
               isMobile={isMobile}
-              fetchComments={this.fetchComments}
               category={category}
+              activeOverallId={this.state.activeOverallId}
+              overallReplies={this.state.overallReplies}
+              fetchOverallReplies={this.fetchOverallReplies}
               verified={verified}
+              level={level}
               isAdmin={isAdmin}
+              orgId={organizationID}
+              id={id}
+              awaitingReview={awaitingReview}
+              FilteredReviewMonths={FilteredReviewMonths}
+              history={history}
+              location={location}
+              loaded={loaded}
             />
-          )}
-        </Skeleton>
-      </Wrapper>
+            {level < 1 && (
+              <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
+                <AccountLink
+                  to={{
+                    pathname: SIGNUP_URL,
+                    state: { from: this.props.location },
+                  }}
+                  category={category}
+                >
+                  <Button
+                    text="Sign up to see more"
+                    styleType="primary"
+                    margin="0 auto"
+                  />
+                </AccountLink>
+              </ReviewDiv>
+            )}
+            {/* COMMENTS BOX */}
+            {commentsOpen && (
+              <CommentsBox
+                organization={summary}
+                question={commentsQuestion}
+                comments={comments}
+                commentsLoaded={commentsLoaded}
+                toggleComments={this.toggleComments}
+                isMobile={isMobile}
+                fetchComments={this.fetchComments}
+                category={category}
+                verified={verified}
+                isAdmin={isAdmin}
+              />
+            )}
+          </Skeleton>
+        </Wrapper>
+      </Layout>
     );
   }
 }

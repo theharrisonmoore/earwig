@@ -55,6 +55,7 @@ export const OrganizationPhone = styled.div`
 
 export const Header = styled.section`
   width: 100%;
+  max-width: 57.5rem;
   display: flex;
   justify-content: center;
   background-color: ${props => organizations[props.orgType].primary};

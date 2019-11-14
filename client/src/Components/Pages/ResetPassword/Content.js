@@ -18,12 +18,7 @@ import Logo from "../../Common/Logo";
 
 import Button from "../../Common/Button";
 
-export const ResetPassword = ({
-  error,
-  handleSubmitReset,
-  history,
-  loading,
-}) => {
+export const ResetPassword = ({ error, handleSubmitReset }) => {
   const resetSchema = Yup.object().shape({
     email: Yup.string()
       .email("Invalid email")
@@ -67,7 +62,7 @@ export const ResetPassword = ({
   );
 };
 
-export const SetPassword = ({ error, handleSubmitSet, match, loading }) => {
+export const SetPassword = ({ error, handleSubmitSet, match }) => {
   const setPasswordSchema = Yup.object().shape({
     password: Yup.string()
       .min(6)
