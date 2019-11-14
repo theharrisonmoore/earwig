@@ -254,7 +254,7 @@ export default class ReviewSection extends Component {
                       {payrollQuestions && (
                         <QuestionWrapper>
                           <QuestionTitle>
-                            Pays using the following payrolls
+                            {question.profileText}
                           </QuestionTitle>
                           <HintText>{question.hintText}</HintText>
                           {question.answers.length > 0 ? (
