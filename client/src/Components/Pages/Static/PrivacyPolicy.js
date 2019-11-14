@@ -861,7 +861,7 @@ export default class PrivacyPolicy extends Component {
               Western Street, Barnsley, S70 2BP.
               <br />
               Our email address for data protection queries is
-              hello@earwig.work, alternatively you can contact us via the earwig
+              admin@earwigwork.com, alternatively you can contact us via the earwig
               Platform.
             </Li>
             <span style={{ fontWeight: "900", display: "block" }}>

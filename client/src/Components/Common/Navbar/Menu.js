@@ -29,7 +29,6 @@ import {
   ADMIN,
   MY_REVIEWS_URL,
   INVITE_WORKERS_URL,
-  SEARCH_URL,
 } from "../../../constants/naviagationUrls";
 
 export default class Menu extends PureComponent {
@@ -78,10 +77,7 @@ export default class Menu extends PureComponent {
 
         {isLoggedIn ? (
           <MenuWrapper>
-            <MenuItem
-              to={SEARCH_URL.replace(":category?", "")}
-              onClick={toggleMenu}
-            >
+            <MenuItem to={WELCOME_URL} onClick={toggleMenu}>
               <PriorityIcon icon="search" height="19" width="19" />
               Search
             </MenuItem>
