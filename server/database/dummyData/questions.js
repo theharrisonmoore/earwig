@@ -538,7 +538,7 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "wages",
-        text: "Getting yor wages",
+        text: "Getting your wages",
       },
       hasComment: false,
     },
