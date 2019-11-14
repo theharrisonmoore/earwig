@@ -86,7 +86,7 @@ export default class Welcome extends Component {
                     <Button
                       margin="0.5rem 0"
                       styleType="primary"
-                      text="companies"
+                      text="Companies"
                       backgroundColor={organizations.company.primary}
                       style={{ minWidth: "8.5rem" }}
                     />
