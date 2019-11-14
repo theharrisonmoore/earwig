@@ -113,7 +113,7 @@ export default class SideMenu extends Component {
             )
           )}
           <Menu.Item style={{ textAlign: "left" }}>
-            <Link to={SEARCH_URL.replace(":category?")}>
+            <Link to={SEARCH_URL.replace(":category?", "")}>
               <Icon type="search" />
               <span>Vist Website</span>
             </Link>

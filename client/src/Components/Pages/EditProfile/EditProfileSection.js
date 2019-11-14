@@ -155,9 +155,14 @@ export default class EditProfileSection extends Component {
 
   handleInput = event => {
     const { name, value } = event.target;
-    const { fields } = this.state;
-    fields[name] = value;
-    this.setState({ fields });
+    this.setState(state => {
+      return {
+        fields: {
+          ...state.fields,
+          [name]: value,
+        },
+      };
+    });
   };
 
   handleSubmit = event => {
@@ -290,11 +295,7 @@ export default class EditProfileSection extends Component {
       confirmLoading,
       currentTradeName,
       newTrade,
-      oldPassword,
-      newPassword,
-      newUsername,
-      reNewPassword,
-      newCity,
+      fields,
     } = this.state;
 
     return (
@@ -323,7 +324,7 @@ export default class EditProfileSection extends Component {
                     type="text"
                     name="newUsername"
                     id="newUsername"
-                    value={newUsername}
+                    value={fields.newUsername}
                     onChange={this.handleInput}
                     onBlur={this.onBlurValidation}
                   />
@@ -339,7 +340,7 @@ export default class EditProfileSection extends Component {
                     type="password"
                     name="oldPassword"
                     id="oldPassword"
-                    value={oldPassword}
+                    value={fields.oldPassword}
                     onChange={this.handleInput}
                     onBlur={this.onBlurValidation}
                   />
@@ -351,7 +352,7 @@ export default class EditProfileSection extends Component {
                     type="password"
                     name="newPassword"
                     id="newPassword"
-                    value={newPassword}
+                    value={fields.newPassword}
                     onChange={this.handleInput}
                     onBlur={this.onBlurValidation}
                   />
@@ -365,7 +366,7 @@ export default class EditProfileSection extends Component {
                     type="password"
                     name="reNewPassword"
                     id="reNewPassword"
-                    value={reNewPassword}
+                    value={fields.reNewPassword}
                     onChange={this.handleInput}
                     onBlur={this.onBlurValidation}
                   />
@@ -444,7 +445,7 @@ export default class EditProfileSection extends Component {
                   type="text"
                   name="newCity"
                   id="newCity"
-                  value={newCity}
+                  value={fields.newCity}
                   onChange={this.handleInput}
                   onBlur={this.onBlurValidation}
                 />
