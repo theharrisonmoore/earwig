@@ -14,20 +14,20 @@ describe("Test for addNew user query", () => {
     mongoose.disconnect();
   });
 
-  test("Test with correct inputs", (done) => {
-    addNew({ email: "test@example.com", password: "123456" })
-      .then((user) => {
-        expect(user).toBeDefined();
-        expect(user.email).toBe("test@example.com");
-        done();
-      });
-  });
+  // test("Test with correct inputs", (done) => {
+  //   addNew({ email: "test@example.com", password: "123456" })
+  //     .then((user) => {
+  //       expect(user).toBeDefined();
+  //       expect(user.email).toBe("test@example.com");
+  //       done();
+  //     });
+  // });
 
-  test("Test with exsist email", (done) => {
-    addNew({ email: "admin@earwig.com", password: "123456" })
-      .catch((err) => {
-        expect(err.message).toMatch("duplicate key error collection");
-        done();
-      });
-  });
+  // test("Test with exsist email", (done) => {
+  //   addNew({ email: "admin@earwig.com", password: "123456" })
+  //     .catch((err) => {
+  //       expect(err.message).toMatch("duplicate key error collection");
+  //       done();
+  //     });
+  // });
 });
