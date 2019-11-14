@@ -227,14 +227,10 @@ export const SliderWrapper = styled.div`
     margin-top: -11px;
   }
   .ant-slider-track {
-    background-color: ${({ color }) => color};
+    background-color: #b6b6b6;
   }
 
   .ant-slider:hover .ant-slider-track {
-    background-color: ${({ color }) => color}88;
-  }
-
-  .ant-slider:hover .ant-slider-rail {
     background-color: #b6b6b6;
   }
 
@@ -256,6 +252,14 @@ export const SliderWrapper = styled.div`
     background: #cfced3;
     position: absolute;
     top: 25px;
+  }
+
+  .ant-slider-step {
+    display: none;
+  }
+
+  .ant-slider-handle {
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
   }
 
   p {

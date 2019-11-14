@@ -45,16 +45,7 @@ class Number extends Component {
           >
             {answers[number] || answers[number] === 0 ? (
               <p>
-                £
-                <span
-                  style={{
-                    color: organizations[category].primary,
-                    fontWeight: "700",
-                  }}
-                >
-                  {answers[number]}
-                </span>{" "}
-                {label}
+                £<span>{answers[number]}</span> {label}
               </p>
             ) : null}
 

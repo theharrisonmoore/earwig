@@ -67,8 +67,7 @@ export const CompanyDetails = styled.div`
   /* border-bottom: ${props =>
     props.level > 0 ? `${borders.commentBox}` : "none"}; */
   display: flex;
-  flex-direction: ${props =>
-    props.isTablet || props.isMobile ? "column" : "row"};
+  flex-direction: column;
   align-items: center;
   /* padding-bottom: ${props =>
     props.isTablet || props.isMobile ? "2rem" : "1rem"}; */
@@ -500,15 +499,15 @@ export const ActionButton = styled.button`
 
 export const ContractorDiv = styled.div`
   width: 100%;
+  height: ${({ shrink }) => (shrink ? "0" : "intial")};
+  opacity: ${({ shrink }) => (shrink ? "0" : "1")};
+  transition: 0.4s all;
 `;
 
 export const ContractorText = styled.p`
   font-size: 18px;
-
   letter-spacing: 0.3px;
-
   color: ${colors.profileFontColor};
-
   .contactor-name {
     font-weight: 700;
   }
