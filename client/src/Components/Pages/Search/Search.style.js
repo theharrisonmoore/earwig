@@ -257,6 +257,7 @@ export const MainDiv = styled.div`
   /* flex-grow: 1;
   flex-shrink: 0; */
   width: 90%;
+  margin: 0 auto;
 `;
 
 export const AddWrapper = styled.div`
