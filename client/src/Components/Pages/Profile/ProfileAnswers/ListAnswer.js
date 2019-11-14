@@ -75,7 +75,8 @@ export default class ListAnswer extends Component {
         {question.answers.map((answer, index) => (
           <ListItem
             color={
-              question.profileText === "Works with the following agencies"
+              question.profileText ===
+              "This payroll works with the following agencies"
                 ? "agency"
                 : question.category
             }
