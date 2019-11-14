@@ -68,10 +68,10 @@ export default class GiveReview extends Component {
           <PopoverComponent
             category={category}
             popoverOptions={{
-              text: `It seems that you've already reviewed this organisation in the last 30 days. You can review each organisation once a month. Date of last review: ${moment(
-                reviewsLast30Days[0].date
-              ).format("DD.MM.YYYY")}`,
-              linkText: "Why can't I give a review?",
+              text: `You recently reviewed this ${category ||
+                "organisation"}. Please leave four weeks between reviews.`,
+              linkText: `Why can't I review this ${category ||
+                "organisation"} today?`,
             }}
           />
         )}
