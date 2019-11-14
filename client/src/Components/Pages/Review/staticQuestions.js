@@ -64,7 +64,7 @@ export const STATIC_QUESTIONS = category => [
   },
   {
     number: 24,
-    text: "Share a voice review of this agency",
+    text: `Share a voice review of this ${category || "organisation"}`,
     hintText: "People may be able to identify you by your voice",
     type: "voiceReview",
   },
