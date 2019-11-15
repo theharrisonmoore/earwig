@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { organizations } from "../../../../theme";
+import { organizations, breakpointsMax } from "../../../../theme";
 
 export const HeaderWrapper = styled.div`
   position: fixed;
@@ -32,6 +32,10 @@ export const SearchBarContainer = styled.div`
   .react-autosuggest__input {
     border-radius: 5rem;
     border: none;
+  }
+
+  @media ${breakpointsMax.mobileXL} {
+    padding: 0 1rem;
   }
 `;
 
