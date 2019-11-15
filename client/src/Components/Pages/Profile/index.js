@@ -121,7 +121,7 @@ export default class Profile extends Component {
         )
       );
 
-    if (!carSection || carSection.length < 1) return;
+    if (!carSection || carSection.length < 1) return "N/A";
 
     // work out the average cost from the answers
     const costsArr = carSection[0][0].answers.map(answer => answer.answer);

@@ -50,11 +50,13 @@ module.exports = async () => {
       number: 1,
       next: 2,
       type: "yesno",
-      text: "Did this agency give you correct information about the hours you would work?",
+      text:
+        "Did this agency give you correct information about the hours you would work?",
       options: ["Yes", "No"],
       category: "agency",
 
-      profileText: "Did this agency give you correct information about the hours you would work?",
+      profileText:
+        "Did this agency give you correct information about the hours you would work?",
       profileSection: "Key ratings",
       profileType: "yesno",
       profileOrder: 5,
@@ -70,10 +72,12 @@ module.exports = async () => {
       number: 2,
       next: 3,
       type: "yesno",
-      text: "Did this agency give you correct information about the rate you would be paid?",
+      text:
+        "Did this agency give you correct information about the rate you would be paid?",
       options: ["Yes", "No"],
       category: "agency",
-      profileText: "Did this agency give you correct information about the rate you would be paid?",
+      profileText:
+        "Did this agency give you correct information about the rate you would be paid?",
       profileSection: "Key ratings",
       profileType: "yesno",
       profileOrder: 6,
@@ -88,7 +92,8 @@ module.exports = async () => {
       number: 3,
       next: 4,
       type: "yesno",
-      text: "Did this agency give you correct information about the type of work you would do?",
+      text:
+        "Did this agency give you correct information about the type of work you would do?",
       options: ["Yes", "No"],
       category: "agency",
 
@@ -109,7 +114,8 @@ module.exports = async () => {
       number: 4,
       next: 5,
       type: "yesno",
-      text: "Did this agency give you correct information about the date your job would end?",
+      text:
+        "Did this agency give you correct information about the date your job would end?",
       options: ["Yes", "No"],
       category: "agency",
 
@@ -284,7 +290,8 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "agency",
 
-      profileText: "Were you paid the amount you expected (including any overtime)?",
+      profileText:
+        "Were you paid the amount you expected (including any overtime)?",
       profileSection: "Key ratings",
       profileType: "yesno",
       profileOrder: 10,
@@ -433,7 +440,8 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "payroll",
 
-      profileText: "Did this payroll send you a contract before your work started?",
+      profileText:
+        "Did this payroll send you a contract before your work started?",
       profileSection: "Key ratings",
       profileType: "yesno",
       profileOrder: 8,
@@ -473,7 +481,8 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "payroll",
 
-      profileText: "Were you paid the amount you expected (including any overtime)?",
+      profileText:
+        "Were you paid the amount you expected (including any overtime)?",
       profileSection: "Key ratings",
       profileType: "yesno",
       profileOrder: 6,
@@ -600,7 +609,7 @@ module.exports = async () => {
       options: ["Yes", "No", "Don't know"],
       category: "worksite",
 
-      profileText: "Car parking within 10 mins walk of this site (£X)",
+      profileText: "Car parking within 10 mins walk of this site",
       profileSection: "Getting on to site",
       profileType: "siteItem",
       profileOrder: 2,
@@ -632,7 +641,8 @@ module.exports = async () => {
       number: 4,
       next: 5,
       type: "radio",
-      text: "At this site, were you offered storage for your personal belongings?",
+      text:
+        "At this site, were you offered storage for your personal belongings?",
       hintText: "eg Lockers, cloak room, etc.",
       options: ["Yes", "No", "Yes, but I didn't need it"],
       category: "worksite",
@@ -655,7 +665,8 @@ module.exports = async () => {
       number: 5,
       next: 6,
       type: "yesno",
-      text: "Did you have to use fingerprint scanners or eye recognition to access this site?",
+      text:
+        "Did you have to use fingerprint scanners or eye recognition to access this site?",
       options: ["Yes", "No"],
       category: "worksite",
 
@@ -898,7 +909,8 @@ module.exports = async () => {
       number: 16,
       next: 17,
       type: "radio",
-      text: "Were there shops to buy hot food within 10 minutes walk of this site?",
+      text:
+        "Were there shops to buy hot food within 10 minutes walk of this site?",
       options: ["Yes", "No", "I didn't check"],
       category: "worksite",
 
@@ -940,7 +952,8 @@ module.exports = async () => {
       number: 18,
       next: 19,
       type: "open",
-      text: "Is there a shop or café near this site that you would recommend to other workers?",
+      text:
+        "Is there a shop or café near this site that you would recommend to other workers?",
       label: "",
       category: "worksite",
 
@@ -1009,7 +1022,8 @@ module.exports = async () => {
       options: ["Yes", "No", "Yes, but I didn't need it"],
       category: "company",
 
-      profileText: "Did this company offer you access equipment when you needed it?",
+      profileText:
+        "Did this company offer you access equipment when you needed it?",
       profileSection: "Tools & materials",
       profileType: "yesno",
       profileOrder: 2,
@@ -1046,11 +1060,13 @@ module.exports = async () => {
       number: 4,
       next: 5,
       type: "radio",
-      text: "Did this company offer you secure storage for your tools overnight?",
+      text:
+        "Did this company offer you secure storage for your tools overnight?",
       options: ["Yes", "No", "Yes, but I didn't need it"],
       category: "company",
 
-      profileText: "Did this company offer you secure storage for your tools overnight?",
+      profileText:
+        "Did this company offer you secure storage for your tools overnight?",
       profileSection: "Tools & materials",
       profileType: "yesno",
       profileOrder: 4,
@@ -1068,7 +1084,8 @@ module.exports = async () => {
       number: 5,
       next: 6,
       type: "yesno",
-      text: "Did you feel the supervisor shared all the information you needed to do a good job?",
+      text:
+        "Did you feel the supervisor shared all the information you needed to do a good job?",
       options: ["Yes", "No"],
       category: "company",
 
@@ -1109,11 +1126,13 @@ module.exports = async () => {
       number: 7,
       next: 8,
       type: "yesno",
-      text: "Did you feel the company’s other employees treated you with respect?",
+      text:
+        "Did you feel the company’s other employees treated you with respect?",
       options: ["Yes", "No", "I didn't meet them"],
       category: "company",
 
-      profileText: "Did you feel the company’s other employees treated you with respect?",
+      profileText:
+        "Did you feel the company’s other employees treated you with respect?",
       profileSection: "Supervisors & employees",
       profileType: "yesno",
       profileOrder: 3,
