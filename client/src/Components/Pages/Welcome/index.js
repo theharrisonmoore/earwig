@@ -45,7 +45,11 @@ export default class Welcome extends Component {
                   although the data is limited
                 </Subtitle>
               ) : (
-                <Subtitle>Give reviews! Read reviews! Be heard!</Subtitle>
+                <Subtitle>
+                  Give reviews!
+                  <br /> Read reviews!
+                  <br /> Be heard!
+                </Subtitle>
               )}
               <ButtonsWrpper>
                 <div>
@@ -82,7 +86,7 @@ export default class Welcome extends Component {
                     <Button
                       margin="0.5rem 0"
                       styleType="primary"
-                      text="companies"
+                      text="Companies"
                       backgroundColor={organizations.company.primary}
                       style={{ minWidth: "8.5rem" }}
                     />

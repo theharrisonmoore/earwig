@@ -61,17 +61,16 @@ class Question extends Component {
     return (
       <QuestionWrapper>
         <QText>{text}</QText>
-        {hintText && type && type !== "voiceReview" && (
-          <HintText>{hintText}</HintText>
-        )}
-        {type && type === "voiceReview" && (
+        {hintText && (
           <Warning>
-            <Icon
-              icon="warning"
-              margin="0 1rem 0 0"
-              height="1.5rem"
-              width="1.5rem"
-            />
+            {type && type === "voiceReview" && (
+              <Icon
+                icon="warning"
+                margin="0 1rem 0 0"
+                height="1.5rem"
+                width="1.5rem"
+              />
+            )}
             <HintText voiceWarn={type && type === "voiceReview"}>
               {hintText}
             </HintText>

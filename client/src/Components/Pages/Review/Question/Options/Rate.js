@@ -41,6 +41,7 @@ class CustomRate extends Component {
           style={{
             color: colors.profileFontColor,
             fontSize: `${isMobile(window.innerWidth) ? "2rem" : "3rem"}`,
+            marginTop: "-1rem",
           }}
           onHoverChange={this.handleHoverRate}
           value={review.rate}

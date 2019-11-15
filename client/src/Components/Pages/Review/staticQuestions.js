@@ -43,12 +43,12 @@ export const STATIC_QUESTIONS = category => [
                 new job. More detail = more helpful.
               </p>
               <p>
-                <span style={{ fontWeight: "bold" }}>Try to be balanced.</span>
+                <span style={{ fontWeight: "bold" }}>Try to be balanced. </span>
                 Even if you loved working on a job, there was probably some room
                 for improvement somewhere and this is useful for others to know.
               </p>
               <p>
-                <span style={{ fontWeight: "bold" }}>Be authentic.</span>
+                <span style={{ fontWeight: "bold" }}>Be authentic. </span>
                 Communicate your true self and opinions. If your reviews speak
                 about specific situations that are interesting and relevant,
                 then you’re bound to help more people.
@@ -58,7 +58,7 @@ export const STATIC_QUESTIONS = category => [
           linkText:
             "How can you make your reviews helpful for workers and earn rewards?",
           icon: "info",
-          margin: "0 0 0.5rem 0",
+          margin: "0 0 0.25rem 0",
         }}
       />
     ),

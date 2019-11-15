@@ -22,7 +22,8 @@ import {
   AgreementLabel,
   ReviewWrapper,
   ErrorsWrapper,
-  GroupTitle
+  GroupTitle,
+  GroupSection,
 } from "./Review.style";
 
 import { StyledErrorMessage } from "./Question/Question.style";
@@ -633,7 +634,7 @@ class Review extends Component {
                     const group = groupss[groupId];
                     if (group && group.title) {
                       return (
-                        <div key={groupId}>
+                        <GroupSection key={groupId}>
                           <GroupTitle>{group.title}</GroupTitle>
                           {group.main.map(question => {
                             return (
@@ -653,7 +654,7 @@ class Review extends Component {
                               />
                             );
                           })}
-                        </div>
+                        </GroupSection>
                       );
                     }
                     return null;
@@ -685,7 +686,7 @@ class Review extends Component {
                   />
                 </div>
                 <UserAgreement>
-                  <Level2Header>Submit your review</Level2Header>
+                  <Level2Header>Publish your review</Level2Header>
                   <CheckboxWrapper>
                     <Checkbox
                       onChange={this.handleCheckBox}

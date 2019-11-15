@@ -1,4 +1,4 @@
-const addToMailchimp = email => new Promise(async (reslove, reject) => {
+const addToMailchimp = (email) => {
   // eslint-disable-next-line global-require
   const axios = require("axios");
   const data = {
@@ -19,20 +19,7 @@ const addToMailchimp = email => new Promise(async (reslove, reject) => {
     },
     data,
   };
-  // TODO: refactor this function
-  try {
-    const resp = await axios(options);
-    const { errors } = resp.data;
-    if (!errors.length) {
-      return reslove("Successfully added");
-    }
-    return reject(errors[0]);
-  } catch (error) {
-    if (error.response.status === 400) {
-      return reject(error);
-    }
-    return reject(error);
-  }
-});
+  return axios(options);
+};
 
 module.exports = addToMailchimp;

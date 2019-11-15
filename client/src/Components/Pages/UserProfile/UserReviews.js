@@ -14,12 +14,15 @@ import Icon from "../../Common/Icon/Icon";
 
 const Paragraph = styled.p`
   margin: 0 auto;
-  margin-top: 3.5rem;
+  margin-top: 2rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid ${colors.veryLightGray};
   width: 90%;
   text-align: center;
-  margin-bottom: 3rem;
+
+  @media ${breakpoints.tablet} {
+    margin-top: 3.5rem;
+  }
 `;
 
 const BorderedWrapper = styled.div`
@@ -33,7 +36,6 @@ const BorderedWrapper = styled.div`
     max-width: 500px;
     margin: 0 auto;
     width: 90%;
-    margin-top: 1rem;
   }
 
   @media ${breakpoints.tablet} {

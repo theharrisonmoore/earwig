@@ -9,7 +9,7 @@ import {
   QuestionOptionsWrapper,
   Options,
   StyledErrorMessage,
-  SliderWrapper,
+  SliderWrapper
 } from "../Question.style";
 
 const marksStyle = {
@@ -17,11 +17,11 @@ const marksStyle = {
   top: "-60px",
   fontSize: "14px",
   color: "#4A4A4A",
-  opacity: "0.8",
+  opacity: "0.8"
 };
 
 class Number extends Component {
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     if (Map(this.props.state.answers).equals(Map(nextProps.state.answers))) {
       return false;
     }
@@ -40,21 +40,14 @@ class Number extends Component {
       <QuestionOptionsWrapper>
         <Options style={{ alignItems: "center" }}>
           <SliderWrapper
-            visibility={answers[number]}
+            visibility={answers[number] || answers[number] === 0}
             color={organizations[category].primary}
           >
-            <p>
-              £
-              <span
-                style={{
-                  color: organizations[category].primary,
-                  fontWeight: "700",
-                }}
-              >
-                {answers[number]}
-              </span>{" "}
-              {label}
-            </p>
+            {answers[number] || answers[number] === 0 ? (
+              <p>
+                £<span>{answers[number]}</span> {label}
+              </p>
+            ) : null}
 
             <Slider
               tooltipVisible={false}
@@ -65,28 +58,28 @@ class Number extends Component {
               marks={{
                 0: {
                   style: marksStyle,
-                  label: <strong>£0</strong>,
+                  label: <strong>£0</strong>
                 },
                 10: {
                   style: marksStyle,
-                  label: <strong>£10</strong>,
+                  label: <strong>£10</strong>
                 },
                 20: {
                   style: marksStyle,
-                  label: <strong>£20</strong>,
+                  label: <strong>£20</strong>
                 },
                 30: {
                   style: marksStyle,
-                  label: <strong>£30</strong>,
+                  label: <strong>£30</strong>
                 },
                 40: {
                   style: marksStyle,
-                  label: <strong>£40</strong>,
+                  label: <strong>£40</strong>
                 },
                 50: {
                   style: marksStyle,
-                  label: <strong>£50+</strong>,
-                },
+                  label: <strong>£50+</strong>
+                }
               }}
               max={50}
             />

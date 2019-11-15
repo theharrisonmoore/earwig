@@ -142,7 +142,9 @@ export default class ReviewSection extends Component {
                       // hide={this.onlyNeutralAnswers(question.answers)}
                     >
                       <QuestionTitle>{question.profileText}</QuestionTitle>
-                      <HintText>{question.hintText}</HintText>
+                      {question.hintText && (
+                        <HintText>{question.hintText}</HintText>
+                      )}
                       {this.onlyNeutralAnswers(question.answers) === false ? (
                         <YesNoAnswer
                           category={category}
@@ -160,7 +162,9 @@ export default class ReviewSection extends Component {
                   {question.profileType === "pieChart" && (
                     <QuestionWrapper key={index}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
-                      <HintText>{question.hintText}</HintText>
+                      {question.hintText && (
+                        <HintText>{question.hintText}</HintText>
+                      )}
                       {question.answers.length > 0 ? (
                         <PieAnswer
                           category={category}
@@ -178,7 +182,9 @@ export default class ReviewSection extends Component {
                   {question.profileType === "dotChart" && (
                     <QuestionWrapper key={index}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
-                      <HintText>{question.hintText}</HintText>
+                      {question.hintText && (
+                        <HintText>{question.hintText}</HintText>
+                      )}
                       {question.answers.length > 0 ? (
                         <ScatterAnswer
                           category={category}
@@ -196,7 +202,9 @@ export default class ReviewSection extends Component {
                   {question.profileType === "barChart" && (
                     <QuestionWrapper key={index}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
-                      <HintText>{question.hintText}</HintText>
+                      {question.hintText && (
+                        <HintText>{question.hintText}</HintText>
+                      )}
                       {question.answers.length > 0 ? (
                         <BarChartAnswer
                           category={category}
@@ -256,7 +264,9 @@ export default class ReviewSection extends Component {
                           <QuestionTitle>
                             {question.profileText}
                           </QuestionTitle>
-                          <HintText>{question.hintText}</HintText>
+                          {question.hintText && (
+                            <HintText>{question.hintText}</HintText>
+                          )}
                           {question.answers.length > 0 ? (
                             <PayrollAnswer
                               questions={payrollQuestions}
@@ -275,7 +285,9 @@ export default class ReviewSection extends Component {
                   {question.profileType === "list" && (
                     <QuestionWrapper key={index}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
-                      <HintText>{question.hintText}</HintText>
+                      {question.hintText && (
+                        <HintText>{question.hintText}</HintText>
+                      )}
                       {question.answers.length > 0 ? (
                         <ListAnswer
                           category={category}
