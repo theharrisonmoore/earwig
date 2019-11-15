@@ -125,7 +125,6 @@ export const SubHeading = styled.h2`
 `;
 
 export const Paragraph = styled.p`
-  font-style: italic;
   font-size: 1rem;
   text-align: left;
   color: ${colors.dustyGray};

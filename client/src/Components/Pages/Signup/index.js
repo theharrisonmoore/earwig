@@ -650,9 +650,8 @@ export default class Signup extends Component {
                     />
                     <SubHeading>Protecting you from blacklisting</SubHeading>
                     <Paragraph>
-                      To protect your identity, we’ll randomly assign you an
-                      earwig Username, which is the only thing shown beside your
-                      reviews and activity.
+                      To hide your identity, we’ll randomly assign you a
+                      username, which is the only thing shown on earwig.
                     </Paragraph>
                   </>
                 )}

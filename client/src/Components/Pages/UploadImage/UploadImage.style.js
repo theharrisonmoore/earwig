@@ -73,7 +73,6 @@ export const Example = styled.img`
 export const Label = styled.label``;
 
 export const Paragraph = styled.p`
-  font-style: italic;
   font-size: 1rem;
   text-align: left;
   color: ${colors.dustyGray};

@@ -6,7 +6,7 @@ import {
   shadows,
   borders,
   organizations,
-  breakpoints,
+  breakpoints
 } from "../../../theme";
 
 export const Wrapper = styled.div`
@@ -131,8 +131,9 @@ export const SectionTitle = styled.h1`
   font-size: ${({ verified }) => (verified ? "1.125rem" : "2.125rem")};
   color: ${colors.profileFontColor};
   margin-top: 0;
-  display: inline-block;
-  width: 100%;
+  /* display: inline-block; */
+  /* width: 100%; */
+  text-align: left;
 `;
 
 export const Paragraph = styled.p`

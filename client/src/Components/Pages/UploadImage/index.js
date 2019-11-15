@@ -33,7 +33,7 @@ const {
   API_UPLOAD_VERIFICATION_IMAGE_URL,
 } = require("../../../apiUrls");
 
-const placeholder = "Select your trade";
+const placeholder = "Choose your trade";
 
 export default class UploadImage extends Component {
   state = {
@@ -116,7 +116,7 @@ export default class UploadImage extends Component {
     if (!this.state.imageFile) {
       this.setState({ error: "Please upload image" });
     } else if (!this.state.tradeId) {
-      this.setState({ error: "Please select your trade" });
+      this.setState({ error: "Please choose your trade" });
     } else if (!this.state.city) {
       this.setState({ error: "Please enter your city/town" });
     } else {
@@ -340,9 +340,8 @@ export default class UploadImage extends Component {
             <Example src={image || example} />
             <SubHeading>Protecting you from blacklisting</SubHeading>
             <Paragraph>
-              To protect your identity, we’ll randomly assign you an earwig
-              Username, which is the only thing shown beside your reviews and
-              activity.
+              To hide your identity, we’ll randomly assign you a username, which
+              is the only thing shown on earwig.
             </Paragraph>
             {error && <Error>{error}</Error>}
             <Button
@@ -365,7 +364,8 @@ export default class UploadImage extends Component {
             }}
           >
             <ModalText>
-              Thanks, we're checking your photo. Any reviews you give won't be shown on earwig until we've checked your photo
+              Thanks, we're checking your photo. Any reviews you give won't be
+              shown on earwig until we've checked your photo
             </ModalText>
             <Button
               styleType="primary"
