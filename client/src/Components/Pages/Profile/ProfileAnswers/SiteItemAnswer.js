@@ -5,7 +5,7 @@ import {
   SiteItem,
   SiteAnswer,
   Comment,
-  RightCommentWrapper,
+  RightCommentWrapper
 } from "./ProfileAnswers.style";
 
 import Icon from "../../../Common/Icon/Icon";
@@ -28,7 +28,7 @@ export default class SiteItemAnswer extends Component {
       toggleComments,
       isMobile,
       carParkingPrice,
-      category,
+      category
     } = this.props;
     const averageResponse = this.getAverage(question.answers);
 
@@ -36,7 +36,7 @@ export default class SiteItemAnswer extends Component {
       <ListWrapper>
         <SiteItem itemAvailable={averageResponse}>
           {question.profileText ===
-          "Car parking within 10 mins walk of site" ? (
+          "Car parking within 10 mins walk of this site" ? (
             <SiteAnswer itemAvailable={averageResponse}>
               <Icon
                 icon={question.icon}
