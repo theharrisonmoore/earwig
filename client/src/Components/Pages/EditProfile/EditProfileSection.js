@@ -312,14 +312,12 @@ export default class EditProfileSection extends Component {
                   use your real name or any name that could identify you
                 </SubTitle>
                 <Paragraph>
-                  Your earwig Username is shown beside your reviews and
-                  activity, and is publicly visible
+                  Your username is shown beside your reviews and activity, and
+                  is publicly visible
                 </Paragraph>
-                <CurrentValue>Current earwig Username: {userId}</CurrentValue>
+                <CurrentValue>Current username: {userId}</CurrentValue>
                 <InputDiv>
-                  <InputLabel htmlFor="newUsername">
-                    New earwig Username
-                  </InputLabel>
+                  <InputLabel htmlFor="newUsername">New username</InputLabel>
                   <Input
                     type="text"
                     name="newUsername"

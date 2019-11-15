@@ -154,7 +154,7 @@ export default class index extends Component {
                 onClick={this.deleteUser}
                 disabled={isDeleting}
                 loading={isDeleting}
-                styleType="secondary"
+                styleType="danger"
                 text="Permanently delete your account"
               />
             </div>
