@@ -22,7 +22,7 @@ const sharedStyles = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: auto;
+  width: ${({ width }) => width || "auto"};
   background: none;
 
   &:active {
@@ -121,6 +121,7 @@ const Button = ({
   icon,
   color,
   disabled,
+  width,
   ...rest
 }) => {
   return (
@@ -132,6 +133,7 @@ const Button = ({
         left={left}
         styleType={styleType}
         color={color}
+        width={width}
         {...rest}
       >
         <span style={{ display: "flex", alignItems: "center" }}>

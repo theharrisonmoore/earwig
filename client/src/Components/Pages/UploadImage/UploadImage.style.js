@@ -81,6 +81,7 @@ export const Paragraph = styled.p`
 
 export const ImageInput = styled.input`
   display: none;
+  width: auto;
 `;
 
 export const Error = styled.p`
