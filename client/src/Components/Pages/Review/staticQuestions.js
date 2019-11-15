@@ -1,13 +1,21 @@
 import React from "react";
 import PopoverComponent from "../../Common/Popover";
 
+const decideText = category => {
+  switch (category) {
+    case "company":
+      return `When did you last work for this ${category}?`;
+    case "worksite":
+      return `When did you last work on this ${category}?`;
+    default:
+      return `When did you last use this ${category}?`;
+  }
+};
+
 export const STATIC_QUESTIONS = category => [
   {
     number: 21,
-    text:
-      category === "company"
-        ? `When did you last work for this ${category}?`
-        : `When did you last use this ${category}?`,
+    text: decideText(category),
     type: "dateRange",
     category,
   },
