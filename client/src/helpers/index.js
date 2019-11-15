@@ -190,17 +190,46 @@ export const isIphone = () => {
   return iOSPlatform && iOSUserAgent;
 };
 
+const getOrder = code => {
+  let order = 0;
+  if (code >= 48 && code <= 57) {
+    // numbers
+    order = 2;
+  } else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+    // letters
+    order = 1;
+  } else {
+    // others
+    order = 3;
+  }
+  return order;
+};
+
 export const sortAndCategorizeOrgs = arrayOfOrgs => {
   const sorted = arrayOfOrgs.sort((a, b) => {
     const nameA = a.name.toUpperCase();
     const nameB = b.name.toUpperCase();
-    if (nameA < nameB) {
+
+    const codeA = nameA[0].charCodeAt();
+    const codeB = nameB[0].charCodeAt();
+
+    const orderA = getOrder(codeA);
+    const orderB = getOrder(codeB);
+
+    if (orderA < orderB) {
       return -1;
     }
-    if (nameA > nameB) {
+    if (orderA > orderB) {
       return 1;
     }
+    // if orderA === orderB
 
+    if (codeA < codeB) {
+      return -1;
+    }
+    if (codeA > codeB) {
+      return 1;
+    }
     // names must be equal
     return 0;
   });
