@@ -3,12 +3,7 @@ import { colors } from "../../../theme";
 
 export const DateRangeWrapper = styled.div`
   text-align: center;
-<<<<<<< HEAD
   margin: 0;
-||||||| merged common ancestors
-  margin: 1rem 0;
-=======
->>>>>>> develop
   display: flex;
 
   .ant-calendar-picker div {
