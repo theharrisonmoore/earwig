@@ -23,7 +23,7 @@ export const Header = styled.header`
   background-color: ${({ category }) => organizations[category].primary};
 
   @media ${breakpoints.tablet} {
-    padding: 4.5rem 1rem 0.5rem;
+    padding: 4.5rem 1rem 2.5rem;
     text-align: center;
   }
 `;
