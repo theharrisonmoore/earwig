@@ -22,7 +22,7 @@ const sharedStyles = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: auto;
+  width: ${({ width }) => width || "auto"};
   background: none;
 
   &:active {
@@ -88,6 +88,20 @@ const secondaryStyles = css`
     }
   }
 `;
+const dangerStyles = css`
+  color: ${({ color }) => color || colors.white};
+  border: 1px solid ${({ color }) => color || "#D0021B"};
+  background-color: ${({ backgroundColor }) => backgroundColor || "#D0021B"};
+
+  &:active {
+    ::after {
+      left: -1px;
+      top: -1px;
+      width: calc(100% + 2px);
+      height: calc(100% + 2px);
+    }
+  }
+`;
 
 const linkStyles = css`
   color: ${({ color }) => color || colors.primary};
@@ -103,6 +117,7 @@ const ButtonElement = styled.button`
   ${props => props.styleType === "primary" && primaryStyles}
   ${props => props.styleType === "secondary" && secondaryStyles}
   ${props => props.styleType === "link" && linkStyles}
+  ${props => props.styleType === "danger" && dangerStyles}
 `;
 /**
  * @example <Button loading={loading} onClick={this.handleSubmit} spinnerColor="red" styleType="primary">
@@ -121,6 +136,7 @@ const Button = ({
   icon,
   color,
   disabled,
+  width,
   ...rest
 }) => {
   return (
@@ -132,6 +148,7 @@ const Button = ({
         left={left}
         styleType={styleType}
         color={color}
+        width={width}
         {...rest}
       >
         <span style={{ display: "flex", alignItems: "center" }}>

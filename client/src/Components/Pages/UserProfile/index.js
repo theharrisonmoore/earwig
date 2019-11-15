@@ -6,7 +6,7 @@ import { Skeleton } from "antd";
 
 import {
   EDIT_PROFILE_URL,
-  UPLOAD_VERIFICATION_URL,
+  UPLOAD_VERIFICATION_URL
 } from "../../../constants/naviagationUrls";
 
 import Link from "../../Common/Link";
@@ -30,7 +30,7 @@ import {
   Paragraph,
   ReviewDiv,
   AgencyTitle,
-  ReviewText,
+  ReviewText
 } from "./UserProfile.style";
 
 import Icon from "../../Common/Icon/Icon";
@@ -39,7 +39,7 @@ export default class index extends Component {
   state = {
     reviewCount: 0,
     userReviews: [],
-    loaded: false,
+    loaded: false
   };
 
   componentDidMount() {
@@ -47,7 +47,7 @@ export default class index extends Component {
       this.setState({
         userReviews: res.data,
         reviewCount: res.data.length,
-        loaded: true,
+        loaded: true
       });
     });
   }
@@ -59,11 +59,10 @@ export default class index extends Component {
       points,
       helpedUsers,
       isSMobile,
-      awaitingReview,
+      awaitingReview
     } = this.props;
 
     const { reviewCount, userReviews, loaded } = this.state;
-  
 
     // if (isWorker) {
     return (
@@ -90,9 +89,8 @@ export default class index extends Component {
                 </Verified>
               )}
             </IDWrapper>
-            
-              <Link to={EDIT_PROFILE_URL} text="Edit profile" type="primary" />
-            
+
+            <Link to={EDIT_PROFILE_URL} text="Edit profile" type="primary" />
           </TopSection>
           <BottomSection isSMobile={isSMobile}>
             <StatWrapper>
@@ -144,7 +142,7 @@ export default class index extends Component {
               title={false}
               paragraph={{
                 rows: 5,
-                width: ["50%", "80%", "70%", "40%", "70%"],
+                width: ["50%", "80%", "70%", "40%", "70%"]
               }}
             >
               {userReviews.length > 0 ? (
@@ -181,13 +179,12 @@ export default class index extends Component {
         ) : (
           <MainSection>
             <SectionTitle>
-              Wait! You're not yet verified as a worker
+              Wait! You’re not yet verified as a worker
             </SectionTitle>
 
             <Paragraph>
-              If you want to search jobs, help other workers by giving reviews
-              and comment on other reviews, you need to get verified as a
-              genuine worker. <br />
+              If you want to give reviews, earn points and reply to comments,
+              you first need to get verified as a worker. <br />
               <br />
               This protects the worker community from fake reviews and spam by
               non-workers.

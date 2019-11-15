@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
-import CancelNavbar from "./../../Common/CancelNavbar";
+import CancelNavbar from "../../Common/CancelNavbar";
 
 // nagivation routes
 import {
   EDIT_TRADE_URL,
   EDIT_CITY_URL,
   EDIT_ID_URL,
-  EDIT_PASSWORD_URL
-} from "./../../../constants/naviagationUrls";
+  EDIT_PASSWORD_URL,
+} from "../../../constants/naviagationUrls";
 
 import {
   EditWrapper,
@@ -20,12 +21,32 @@ import {
   Row,
   EditButton,
   DeleteButton,
-  Option
+  Option,
 } from "./EditProfile.style";
 
+// API ROUTES
+const { API_USERS_TRADE } = require("../../../apiUrls");
+
 export default class EditProfile extends Component {
+  state = {
+    currentTradeName: "",
+  };
+
+  componentDidMount() {
+    axios
+      .get(API_USERS_TRADE)
+      .then(({ data }) => {
+        this.setState({
+          currentTradeName: (data && data.title) || null,
+        });
+      })
+      .catch(err => {
+        console.log("err", err);
+      });
+  }
+
   render() {
-    const { userId, history, verified, awaitingReview } = this.props;
+    const { userId, city, history, verified, awaitingReview } = this.props;
 
     const isWorker = awaitingReview || verified;
 
@@ -59,7 +80,10 @@ export default class EditProfile extends Component {
                 </Section>
                 <Section>
                   <Row>
-                    <Option>Trade</Option>
+                    <Option>
+                      Trade:&nbsp;
+                      {this.state.currentTradeName}
+                    </Option>
                     <NavLink to={EDIT_TRADE_URL}>
                       <EditButton type="button">Change</EditButton>
                     </NavLink>
@@ -67,7 +91,7 @@ export default class EditProfile extends Component {
                 </Section>
                 <Section>
                   <Row>
-                    <Option>Town or City</Option>
+                    <Option>Town or City:&nbsp;{city}</Option>
                     <NavLink to={EDIT_CITY_URL}>
                       <EditButton type="button">Change</EditButton>
                     </NavLink>

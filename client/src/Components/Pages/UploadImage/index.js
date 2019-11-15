@@ -33,7 +33,7 @@ const {
   API_UPLOAD_VERIFICATION_IMAGE_URL,
 } = require("../../../apiUrls");
 
-const placeholder = "Select your trade";
+const placeholder = "Choose your trade";
 
 export default class UploadImage extends Component {
   state = {
@@ -116,7 +116,7 @@ export default class UploadImage extends Component {
     if (!this.state.imageFile) {
       this.setState({ error: "Please upload image" });
     } else if (!this.state.tradeId) {
-      this.setState({ error: "Please select your trade" });
+      this.setState({ error: "Please choose your trade" });
     } else if (!this.state.city) {
       this.setState({ error: "Please enter your city/town" });
     } else {
@@ -252,7 +252,7 @@ export default class UploadImage extends Component {
           <Heading>Verification</Heading>
           <form onSubmit={this.handleSubmit} style={{ width: "100%" }}>
             <SelectWrapper>
-              <SubHeading>Your trade</SubHeading>
+              <SubHeading>Trade</SubHeading>
               <Select
                 placeholder={placeholder}
                 options={this.state.trades}
@@ -304,7 +304,7 @@ export default class UploadImage extends Component {
               </div>
             </SelectWrapper>
             <SelectWrapper>
-              <SubHeading>Your town or city</SubHeading>
+              <SubHeading>Town or city</SubHeading>
               <Input onChange={this.addTownHandler} size="large" />
             </SelectWrapper>
             <SubHeading>Verification Photo</SubHeading>
@@ -330,6 +330,7 @@ export default class UploadImage extends Component {
               margin="1rem auto"
               styleType="secondary"
               text="Upload photo"
+              width="160px"
             />
             <ImageInput
               id="image-input"
@@ -340,9 +341,8 @@ export default class UploadImage extends Component {
             <Example src={image || example} />
             <SubHeading>Protecting you from blacklisting</SubHeading>
             <Paragraph>
-              To protect your identity, we’ll randomly assign you an earwig
-              Username, which is the only thing shown beside your reviews and
-              activity.
+              To hide your identity, we’ll randomly assign you a username, which
+              is the only thing shown on earwig.
             </Paragraph>
             {error && <Error>{error}</Error>}
             <Button
@@ -365,7 +365,8 @@ export default class UploadImage extends Component {
             }}
           >
             <ModalText>
-              Thanks, we're checking your photo. Any reviews you give won't be shown on earwig until we've checked your photo
+              Thanks, we're checking your photo. Any reviews you give won't be
+              shown on earwig until we've checked your photo
             </ModalText>
             <Button
               styleType="primary"
