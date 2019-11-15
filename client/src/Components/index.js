@@ -145,7 +145,7 @@ export default function index(props) {
           isTablet={isTablet}
           Component={Search}
           navbar
-          title="Read reviews & ratings"
+          title="Search"
         />
         <PrivateRoute
           minimumLevel="LEVEL2"

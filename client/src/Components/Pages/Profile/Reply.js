@@ -206,6 +206,7 @@ export default class Reply extends Component {
           history={history}
           title="Replying"
           titleColor={colors.profileFontColor}
+          CancelText="Back"
         />
         <Wrapper
           style={{

@@ -48,9 +48,9 @@ export default class SearchHeader extends Component {
 
         <SearchBarContainer shrink={shrink}>
           <AutosuggestComponent
-            iconTop="20px"
+            iconTop={shrink ? "14px" : "20px"}
             bool={() => true}
-            height="4.5rem"
+            height={`${shrink ? "3.5rem" : "4.5rem"}`}
             width="80%"
             data={data}
             placeholderText={`Search for ${

@@ -229,7 +229,7 @@ export default class HeaderSection extends Component {
 
           {/* contractor section */}
           {category === "worksite" && (
-            <ContractorDiv>
+            <ContractorDiv shrink={shrink}>
               <ContractorText>
                 Main Contractor:{" "}
                 <span className="contactor-name">

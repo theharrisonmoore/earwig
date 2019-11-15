@@ -7,6 +7,7 @@ import {
   size,
   breakpoints,
   breakpointsMax,
+  borders,
 } from "../../../theme";
 
 export const ReviewWrapper = styled.div`
@@ -193,9 +194,14 @@ export const FormWrapper = styled.div`
 export const UserAgreement = styled.div``;
 
 export const Level2Header = styled.h2`
-  border-bottom: 1px solid ${colors.lightGray};
+  border-bottom: ${borders.commentBox};
   display: inline-block;
   color: ${colors.profileFontColor};
+  padding-top: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: normal;
+  width: 100%;
+  text-align: left;
 `;
 
 export const AgreementLabel = styled.label`
@@ -297,4 +303,15 @@ export const ErrorsWrapper = styled.div`
 export const ErrorsTitle = styled.h4`
   font-size: 1rem;
   color: ${colors.red};
+`;
+
+export const GroupTitle = styled.h2`
+  border-bottom: ${borders.commentBox};
+  font-size: 1.75rem;
+  font-weight: normal;
+  color: ${colors.profileFontColor};
+`;
+
+export const GroupSection = styled.div`
+  padding-bottom: 1rem;
 `;

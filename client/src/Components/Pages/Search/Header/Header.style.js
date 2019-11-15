@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { organizations } from "../../../../theme";
+import { organizations, breakpointsMax } from "../../../../theme";
 
 export const HeaderWrapper = styled.div`
   position: fixed;
@@ -12,7 +12,7 @@ export const HeaderWrapper = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+
   transition: 0.4s height;
   z-index: 1;
   max-width: 57.5rem;
@@ -27,12 +27,15 @@ export const SearchBarContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 auto 2rem;
+  margin: ${({ shrink }) => (shrink ? "0 auto 1rem" : "0 auto 2rem")};
   max-width: 23.5rem;
-
   .react-autosuggest__input {
     border-radius: 5rem;
     border: none;
+  }
+
+  @media ${breakpointsMax.mobileXL} {
+    padding: 0 1rem;
   }
 `;
 
@@ -76,4 +79,6 @@ export const Heading = styled.h1`
   letter-spacing: 0.631945px;
   color: #ffffff;
   transition: 0.4s all;
+  margin-top: ${({ shrink }) => (shrink ? "0" : "1.75rem")};
+  margin-bottom: ${({ shrink }) => (shrink ? "0.5rem" : "2rem")};
 `;
