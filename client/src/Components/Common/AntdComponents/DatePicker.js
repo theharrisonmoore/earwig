@@ -53,7 +53,7 @@ class DateRange extends React.Component {
           placeholder="Choose month"
           onChange={this.onChange}
           allowClear={false}
-          style={{ width: "100%" }}
+          style={{ width: "100%", paddingTop: "0" }}
           suffixIcon={<Icon icon="calendar" />}
           format="MMM YYYY"
           onFocus={this.toggleFocus}

@@ -92,7 +92,8 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "agency",
 
-      profileText: "Did this agency give you correct information about the type of work you would do?",
+      profileText:
+        "Did this agency give you correct information about the type of work you would do?",
       profileSection: "Key ratings",
       profileType: "yesno",
       profileOrder: 7,
@@ -112,7 +113,8 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "agency",
 
-      profileText: "Did this agency give you correct information about the date your job would end?",
+      profileText:
+        "Did this agency give you correct information about the date your job would end?",
       profileSection: "Key ratings",
       profileType: "yesno",
       profileOrder: 8,
@@ -1070,7 +1072,8 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "company",
 
-      profileText: "Did you feel the supervisor shared all the information you needed to do a good job?",
+      profileText:
+        "Did you feel the supervisor shared all the information you needed to do a good job?",
       profileSection: "Supervisors & employees",
       profileType: "yesno",
       profileOrder: 1,
@@ -1150,7 +1153,7 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "company",
 
-      profileText: "Overall, would you be happy to use this agency again?",
+      profileText: "Overall, would you be happy to work for this company again?",
       profileSection: "Key ratings",
       profileType: "yesno",
       profileOrder: 1,

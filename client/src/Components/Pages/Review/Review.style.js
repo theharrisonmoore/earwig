@@ -7,7 +7,7 @@ import {
   size,
   breakpoints,
   breakpointsMax,
-  borders,
+  borders
 } from "../../../theme";
 
 export const ReviewWrapper = styled.div`

@@ -262,7 +262,7 @@ export default class ReviewSection extends Component {
                       {payrollQuestions && (
                         <QuestionWrapper>
                           <QuestionTitle>
-                            Pays using the following payrolls
+                            {question.profileText}
                           </QuestionTitle>
                           {question.hintText && (
                             <HintText>{question.hintText}</HintText>
@@ -314,7 +314,6 @@ export default class ReviewSection extends Component {
               return (
                 <QuestionWrapper key={question._id}>
                   <QuestionTitle>{question.profileText}</QuestionTitle>
-                  <HintText>{question.hintText}</HintText>
                   {question.answers.length > 0 ? (
                     <ImageSlider
                       category={category}

@@ -1,16 +1,28 @@
 import React from "react";
 import PopoverComponent from "../../Common/Popover";
 
+const decideText = category => {
+  switch (category) {
+    case "company":
+      return `When did you last work for this ${category}?`;
+    case "worksite":
+      return `When did you last work on this ${category}?`;
+    default:
+      return `When did you last use this ${category}?`;
+  }
+};
+
 export const STATIC_QUESTIONS = category => [
   {
     number: 21,
-    text: `When did you last use this ${category}?`,
+    text: decideText(category),
     type: "dateRange",
     category,
   },
   {
     number: 22,
-    text: "Please write a review of this agency or share a voice review below",
+    text: `Please write a review of this ${category ||
+      "organisation"} or share a voice review below`,
     type: "overallReview",
     category,
     label: "Talk about what's most important to you at work...",
@@ -60,7 +72,7 @@ export const STATIC_QUESTIONS = category => [
   },
   {
     number: 24,
-    text: "Share a voice review of this agency",
+    text: `Share a voice review of this ${category || "organisation"}`,
     hintText: "People may be able to identify you by your voice",
     type: "voiceReview",
   },

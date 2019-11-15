@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import React, { Component, createRef } from "react";
 import { Link } from "react-router-dom";
-import moment from "moment";
 import { Icon as AntdIcon, Popover, Rate } from "antd";
 
 import {
@@ -292,10 +291,10 @@ export default class HeaderSection extends Component {
                 <PopoverComponent
                   category={category}
                   popoverOptions={{
-                    text: `It seems that you've already reviewed this organisation in the last 30 days. You can review each organisation once a month. Date of last review: ${moment(
-                      reviewsLast30Days[0].date
-                    ).format("DD.MM.YYYY")}`,
-                    linkText: "Why can't I give a review?",
+                    text: `You recently reviewed this ${category ||
+                      "organisation"}. Please leave four weeks between reviews.`,
+                    linkText: `Why can't I review this ${category ||
+                      "organisation"} today?`,
                     icon: "info",
                     margin: "0.5 auto",
                     color: `${colors.white}`

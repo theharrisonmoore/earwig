@@ -28,7 +28,7 @@ class Question extends Component {
       name,
       label,
       hasComment,
-      next,
+      next
     } = this.props.question;
 
     const {
@@ -47,14 +47,15 @@ class Question extends Component {
       handleRecord,
       handleAddNewOrgChange,
       id,
-      voiceReviewUrl,
+      voiceReviewUrl
     } = this.props;
 
     const popoverOptions = {
       text:
         "We’re asking this because it will be useful to track over time how much agencies are paying workers",
       linkText: "Why are we asking this?",
-      margin: "-1rem 0 0",
+      icon: "info",
+      margin: "0 0 0.5rem 0"
     };
 
     return (
@@ -75,7 +76,7 @@ class Question extends Component {
             </HintText>
           </Warning>
         )}
-        {text === "What hourly rate were you paid?" && (
+        {text === "What hourly rate did this agency pay you?" && (
           <PopoverComponent
             category={category}
             popoverOptions={popoverOptions}

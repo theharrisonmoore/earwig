@@ -16,6 +16,7 @@ export const QText = styled.p`
 
 export const Warning = styled.div`
   display: flex;
+  padding: 0.5rem 0;
 `;
 
 export const HintText = styled.p`

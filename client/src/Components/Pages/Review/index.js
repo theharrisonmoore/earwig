@@ -574,7 +574,6 @@ class Review extends Component {
   };
 
   render() {
-    console.log("this.state", this.state);
     const {
       groupss,
       organization: { name, category },
