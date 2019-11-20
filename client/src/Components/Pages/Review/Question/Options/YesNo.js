@@ -70,7 +70,7 @@ class YesNo extends Component {
                         }
                         showNextQestion(groupId, nextQ, other, number);
                       }
-                      handleChange(e);
+                      // handleChange(e);
 
                       // toggle showCommetn on and off (only show it when asnwer is "No")
                       if (e.target.value === "No") {
