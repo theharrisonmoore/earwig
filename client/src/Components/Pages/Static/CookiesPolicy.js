@@ -256,16 +256,7 @@ export default class CookiesPolicy extends Component {
                 <th>Type and Expiry</th>
                 <th>Category and Purpose</th>
               </tr>
-              <tr>
-                <td>PHP SESSION</td>
-                <td>PHPSESSID</td>
-                <td>First party cookie Session cookie</td>
-                <td>
-                  <strong>Strictly necessary</strong>: This cookie is essential
-                  as it stores technical information needed to make the Site
-                  function correctly during browsing.
-                </td>
-              </tr>
+
               <tr>
                 <td>JSON Web Token </td>
                 <td>JWT</td>
