@@ -12,7 +12,7 @@ import {
 class YesNo extends Component {
   state = { showComment: false };
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     if (
       Map(this.props.state.answers).equals(Map(nextProps.state.answers)) &&
       Map(this.props.state.comments).equals(Map(nextProps.state.comments))
@@ -40,7 +40,7 @@ class YesNo extends Component {
       <QuestionOptionsWrapper>
         <Options options={options.length}>
           <div className={`choices choices-${options.length}`}>
-            {options.map((option, i, arr) => {
+            {options.map(option => {
               return (
                 <InputWrapper
                   option={option}
