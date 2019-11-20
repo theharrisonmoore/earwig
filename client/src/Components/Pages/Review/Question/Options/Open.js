@@ -17,7 +17,7 @@ class Open extends Component {
           <Input
             name={question.number}
             value={answers[number]}
-            onChange={handleChange}
+            onChange={e => handleChange(question.number, e.target.value)}
             size="large"
             placeholder={label}
             style={{

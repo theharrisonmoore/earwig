@@ -54,8 +54,8 @@ class YesNo extends Component {
                     type="radio"
                     value={option}
                     className="radio-button"
-                    // onChange={handleChange}
-                    onChange={e => {
+                    onChange={() => handleChange(number, option)}
+                    onClick={e => {
                       if (typeof next === "object" && next !== null) {
                         let nextQ = next.yes;
                         let other = next.no;

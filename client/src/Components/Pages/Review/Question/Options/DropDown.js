@@ -82,8 +82,7 @@ class DropDown extends Component {
               // disableSelect: true,
               dropdownOptions: [...dropdownOptions, addedOrg],
             });
-
-            handleAddNewOrgChange(JSON.stringify(addedOrg), number);
+            handleAddNewOrgChange(number, addedOrg);
 
             this.setState(
               {
@@ -188,7 +187,11 @@ class DropDown extends Component {
             options={dropdownOptions}
             handleChange={value => {
               this.setState({ newOrg: value });
-              handleAddNewOrgChange(value, number);
+              const selectedOrg = {
+                _id: value[1],
+                name: value[0],
+              };
+              handleAddNewOrgChange(number, selectedOrg);
             }}
             value={newOrg}
             // disabled={this.state.disableSelect}

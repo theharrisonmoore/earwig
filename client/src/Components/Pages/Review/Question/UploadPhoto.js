@@ -81,8 +81,8 @@ export default class UploadImage extends Component {
                 timer: 1500,
               }).then(() => {
                 this.props.handleSliderChange(
-                  res.data.image,
-                  this.props.number
+                  this.props.number,
+                  res.data.image
                 );
               });
             })

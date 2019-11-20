@@ -96,11 +96,16 @@ class CustomizedSelects extends React.Component {
           {...rest}
         >
           {!!options &&
-            options.map(item => (
-              <Option value={item.value || JSON.stringify(item)} key={item._id}>
-                {item.label || item.name}
-              </Option>
-            ))}
+            options.map(item => {
+              return (
+                <Option
+                  value={item.value || Object.values(item)}
+                  key={item._id}
+                >
+                  {item.label || item.name}
+                </Option>
+              );
+            })}
         </Select>
       </>
     );

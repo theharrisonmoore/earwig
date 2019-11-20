@@ -249,14 +249,14 @@ class Review extends Component {
     return undefined;
   };
 
-  handleChange = e => {
-    const { answers } = this.state;
-    const { name, value } = e.target;
-    this.setState({
-      answers: { ...answers, [name]: value },
-    });
+  // handle answers change + add new org during the review
+  handleChange = (number, value) => {
+    this.setState(prevState => ({
+      answers: { ...prevState.answers, [number]: value },
+    }));
   };
 
+  // review handlers (general review handlers)
   handleCheckBox = () => {
     this.setState(
       prevState => ({
@@ -293,32 +293,6 @@ class Review extends Component {
         [type]: { ...prevState[type], [name]: value },
       };
     });
-  };
-
-  handleSliderChange = (value, number) => {
-    let answer = null;
-    const { answers } = this.state;
-    if (typeof value !== "number" && value.includes("===")) {
-      const [name, _id] = value.split("===");
-      answer = { name, _id };
-    } else {
-      answer = value;
-    }
-    this.setState({
-      answers: { ...answers, [number]: answer },
-    });
-  };
-
-  handleAddNewOrgChange = (value, number) => {
-    const { answers } = this.state;
-    const answer = JSON.parse(value);
-    this.setState({ answers: { ...answers, [number]: answer } });
-  };
-
-  handleImageUpload = (value, number) => {
-    this.setState(prevState => ({
-      answers: { ...prevState.answers, [number]: value },
-    }));
   };
 
   handleRateChage = value => {
@@ -646,11 +620,9 @@ class Review extends Component {
                                 dropdownOptions={this.state.dropdownOptions}
                                 handleChange={this.handleChange}
                                 state={this.state}
-                                handleSliderChange={this.handleSliderChange}
+                                handleSliderChange={this.handleChange}
                                 handleReviewChange={this.handleReviewChange}
-                                handleAddNewOrgChange={
-                                  this.handleAddNewOrgChange
-                                }
+                                handleAddNewOrgChange={this.handleChange}
                               />
                             );
                           })}

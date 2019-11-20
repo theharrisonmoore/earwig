@@ -10,7 +10,7 @@ import {
   Options,
   StyledErrorMessage,
   StyledCheckList,
-  StyledButton
+  StyledButton,
 } from "../Question.style";
 
 class CheckList extends Component {
@@ -26,13 +26,12 @@ class CheckList extends Component {
   getStyle = () => {
     if (this.state.clicked) {
       return {
-        border: `3px solid ${colors.green}`
-      };
-    } else {
-      return {
-        border: "3px solid transparent"
+        border: `3px solid ${colors.green}`,
       };
     }
+    return {
+      border: "3px solid transparent",
+    };
   };
 
   render() {
@@ -50,9 +49,9 @@ class CheckList extends Component {
                 onChange={checkedList => {
                   this.setState({
                     checkedList,
-                    clicked: false
+                    clicked: false,
                   });
-                  handleSliderChange(checkedList, number);
+                  handleSliderChange(number, checkedList);
                 }}
               />
             </div>
@@ -64,12 +63,12 @@ class CheckList extends Component {
                   e.preventDefault();
                   this.setState({
                     checkedList: [],
-                    clicked: true
+                    clicked: true,
                   });
-                  handleSliderChange("I didn't check", number);
+                  handleSliderChange(number, "I didn't check");
                 }}
               >
-                I didn't check
+                I didn&apos;t check
               </StyledButton>
             </div>
           </StyledCheckList>
