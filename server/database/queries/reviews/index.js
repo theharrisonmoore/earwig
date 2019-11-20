@@ -261,6 +261,14 @@ module.exports.basicReview = organizationID => Organization.aggregate([
             user: { $arrayElemAt: ["$user", 0] },
           },
         },
+        {
+          $sort: {
+            createdAt: -1,
+          },
+        },
+        {
+          $limit: 3,
+        },
       ],
       as: "reviews",
     },
