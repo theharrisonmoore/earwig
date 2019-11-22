@@ -169,62 +169,77 @@ class AutosuggestComponent extends Component {
         <div
           {...containerProps}
           id="scroll-div"
-          style={{ height: "500px", overscrollBehaviorY: "none" }}
+          style={{
+            overscrollBehaviorY: "contain",
+            background: "transparent",
+          }}
         >
-          {children}
-          <div className="my-suggestions-container-footer" />
-          {this.props.origin === "checkOrg" ? (
-            <AddProfileLink as="button" onClick={this.handleAddNewOrg}>
-              <AddItemBox>
-                <InnerDivSuggestions>
-                  <AddItemDetails>
-                    <h3>&quot;{query}&quot; (Create new)</h3>
-                  </AddItemDetails>
-                </InnerDivSuggestions>
-              </AddItemBox>
-            </AddProfileLink>
-          ) : (
-            <AddProfileLink
-              to={{
-                pathname: `${ADD_PROFILE_URL}`,
-                state: {
-                  name: `${query}`,
-                  referrerUrl: this.props.location.pathname,
-                  section: this.props.section,
-                },
-              }}
-            >
-              <AddItemBox>
-                <InnerDivSuggestions>
-                  <AddItemDetails>
-                    <h3>&quot;{query}&quot; (Create new)</h3>
-                  </AddItemDetails>
-                </InnerDivSuggestions>
-              </AddItemBox>
-            </AddProfileLink>
-          )}
+          <div style={{ background: "#fff" }}>
+            {children}
+            <div className="my-suggestions-container-footer" />
+            {this.props.origin === "checkOrg" ? (
+              <AddProfileLink as="button" onClick={this.handleAddNewOrg}>
+                <AddItemBox>
+                  <InnerDivSuggestions>
+                    <AddItemDetails>
+                      <h3>&quot;{query}&quot; (Create new)</h3>
+                    </AddItemDetails>
+                  </InnerDivSuggestions>
+                </AddItemBox>
+              </AddProfileLink>
+            ) : (
+              <AddProfileLink
+                to={{
+                  pathname: `${ADD_PROFILE_URL}`,
+                  state: {
+                    name: `${query}`,
+                    referrerUrl: this.props.location.pathname,
+                    section: this.props.section,
+                  },
+                }}
+              >
+                <AddItemBox>
+                  <InnerDivSuggestions>
+                    <AddItemDetails>
+                      <h3>&quot;{query}&quot; (Create new)</h3>
+                    </AddItemDetails>
+                  </InnerDivSuggestions>
+                </AddItemBox>
+              </AddProfileLink>
+            )}
+          </div>
+          {/* space holder to allow scrolling when keyboard is aktive on mobile */}
+          <div
+            style={{ backgroundColor: "#transparent", height: "8rem" }}
+          ></div>
         </div>
       );
     }
     return <div {...containerProps}>{children}</div>;
   };
 
+  onFocus = () => {
+    const { isMobile } = this.props;
+    if (
+      isMobile &&
+      (document.body.scrollTop <= 60 ||
+        document.documentElement.scrollTop <= 60)
+    ) {
+      // shrink the header
+      window.scroll(0, 61);
+    }
+  };
+
   render() {
     const { value, suggestions } = this.state;
-    const {
-      height,
-      width,
-      placeholderText,
-      isMobile,
-      iconTop,
-      noIcon,
-    } = this.props;
+    const { height, width, placeholderText, iconTop, noIcon } = this.props;
 
     const inputProps = {
       placeholder: `${placeholderText}`,
       value,
       onChange: this.onChange,
       onKeyPress: this.onKeyPress,
+      onFocus: this.onFocus,
     };
 
     // decide the number of suggestions rendered
@@ -243,30 +258,17 @@ class AutosuggestComponent extends Component {
               )}
             </IconDiv>
           )}
-          {/* on mobile disable shouldRenderSuggestions as we don't want automatic suggestion rendering as it hides most of the screen */}
-          {isMobile ? (
-            <Autosuggest
-              suggestions={filteredSuggestions}
-              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-              getSuggestionValue={getSuggestionValue}
-              renderSuggestion={this.renderSuggestion}
-              inputProps={inputProps}
-              renderSuggestionsContainer={this.renderSuggestionsContainer}
-              focusInputOnSuggestionClick={false}
-            />
-          ) : (
-            <Autosuggest
-              suggestions={filteredSuggestions}
-              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-              getSuggestionValue={getSuggestionValue}
-              renderSuggestion={this.renderSuggestion}
-              inputProps={inputProps}
-              renderSuggestionsContainer={this.renderSuggestionsContainer}
-              focusInputOnSuggestionClick={false}
-            />
-          )}
+
+          <Autosuggest
+            suggestions={filteredSuggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={this.renderSuggestion}
+            inputProps={inputProps}
+            renderSuggestionsContainer={this.renderSuggestionsContainer}
+            focusInputOnSuggestionClick={false}
+          />
         </Spin>
       </AutosuggestWrapper>
     );

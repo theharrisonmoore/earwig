@@ -26,16 +26,7 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
   width: 100%;
   outline: none;
 
-  #scroll-div::-webkit-scrollbar {
-    width: 10px;
-    background-color: #F5F5F5;
-  }
 
-  #scroll-div::-webkit-scrollbar-thumb {
-    background-color: #68686840;
-    border: 2px solid #68686840;
-    border-radius: 50rem;
-  }
   .${classNames.container} {
     position: relative;
     display: flex;
@@ -157,6 +148,7 @@ export const SuggestionBox = styled.div`
     withoutBorder ? "none" : `0.2px solid ${colors.lightGray}`};
   box-shadow: ${colors.searchBoxShadow};
   color: ${props => organizations[props.orgType].primary};
+  border-color: ${colors.white};
 `;
 
 export const AddItemBox = styled.div`
