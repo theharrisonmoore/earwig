@@ -25,11 +25,24 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
   /* width: ${props => props.width}; */
   width: 100%;
   outline: none;
+
+  #scroll-div::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+  }
+
+  #scroll-div::-webkit-scrollbar-thumb {
+    background-color: #68686840;
+    border: 2px solid #68686840;
+    border-radius: 50rem;
+  }
   .${classNames.container} {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+
   }
   .${classNames.containerOpen} {
     border: ${borders.searchBox};

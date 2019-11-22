@@ -166,7 +166,11 @@ class AutosuggestComponent extends Component {
   renderSuggestionsContainer = ({ containerProps, children, query }) => {
     if (query && query.length > 0) {
       return (
-        <div {...containerProps}>
+        <div
+          {...containerProps}
+          id="scroll-div"
+          style={{ height: "500px", overscrollBehaviorY: "none" }}
+        >
           {children}
           <div className="my-suggestions-container-footer" />
           {this.props.origin === "checkOrg" ? (
@@ -212,7 +216,6 @@ class AutosuggestComponent extends Component {
       width,
       placeholderText,
       isMobile,
-      bool,
       iconTop,
       noIcon,
     } = this.props;
@@ -225,7 +228,7 @@ class AutosuggestComponent extends Component {
     };
 
     // decide the number of suggestions rendered
-    const suggestionLimit = 10;
+    const suggestionLimit = 5;
     const filteredSuggestions = suggestions.slice(0, suggestionLimit);
 
     return (
@@ -259,7 +262,6 @@ class AutosuggestComponent extends Component {
               onSuggestionsClearRequested={this.onSuggestionsClearRequested}
               getSuggestionValue={getSuggestionValue}
               renderSuggestion={this.renderSuggestion}
-              shouldRenderSuggestions={() => bool}
               inputProps={inputProps}
               renderSuggestionsContainer={this.renderSuggestionsContainer}
               focusInputOnSuggestionClick={false}
