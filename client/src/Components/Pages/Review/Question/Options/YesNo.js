@@ -12,7 +12,7 @@ import {
 class YesNo extends Component {
   state = { showComment: false };
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     if (
       Map(this.props.state.answers).equals(Map(nextProps.state.answers)) &&
       Map(this.props.state.comments).equals(Map(nextProps.state.comments))
@@ -40,7 +40,7 @@ class YesNo extends Component {
       <QuestionOptionsWrapper>
         <Options options={options.length}>
           <div className={`choices choices-${options.length}`}>
-            {options.map((option, i, arr) => {
+            {options.map(option => {
               return (
                 <InputWrapper
                   option={option}
@@ -54,8 +54,8 @@ class YesNo extends Component {
                     type="radio"
                     value={option}
                     className="radio-button"
-                    // onChange={handleChange}
-                    onChange={e => {
+                    onChange={handleChange}
+                    onClick={e => {
                       if (typeof next === "object" && next !== null) {
                         let nextQ = next.yes;
                         let other = next.no;
@@ -70,7 +70,7 @@ class YesNo extends Component {
                         }
                         showNextQestion(groupId, nextQ, other, number);
                       }
-                      handleChange(e);
+                      // handleChange(e);
 
                       // toggle showCommetn on and off (only show it when asnwer is "No")
                       if (e.target.value === "No") {

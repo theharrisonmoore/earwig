@@ -66,6 +66,7 @@ export const Header = styled.section`
   margin: 0;
   position: fixed;
   z-index: 100;
+  max-width: 57.5rem;
 
   @media (max-width: ${size.mobileL}) {
     font-size: 1rem;
