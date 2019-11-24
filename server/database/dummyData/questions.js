@@ -990,121 +990,32 @@ module.exports = async () => {
     },
 
     /* ============================= company ================================== */
-
-    {
-      number: 1,
-      type: "yesno",
-      text: "Was this company’s materials store well organised?",
-      options: ["Yes", "No", "I didn't check"],
-      category: "company",
-
-      profileText: "Was this company’s materials store well organised?",
-      profileSection: "Tools & materials",
-      profileType: "yesno",
-      profileOrder: 1,
-
-      group: {
-        groupOrder: 0,
-        name: "toolsAndMaterials",
-        text: "Tools & materials",
-      },
-      hasComment: true,
-    },
-    {
-      number: 2,
-      next: {
-        yes: 3,
-        no: 4,
-      },
-      type: "yesno",
-      text: "Did this company offer you access equipment when you needed it?",
-      hintText: "eg stepladders, harnesses, lifters, etc.",
-      options: ["Yes", "No", "Yes, but I didn't need it"],
-      category: "company",
-
-      profileText:
-        "Did this company offer you access equipment when you needed it?",
-      profileSection: "Tools & materials",
-      profileType: "yesno",
-      profileOrder: 2,
-
-      group: {
-        groupOrder: 0,
-        name: "toolsAndMaterials",
-        text: "Tools & materials",
-      },
-      hasComment: true,
-    },
-    {
-      number: 3,
-      next: 4,
-      isDependent: true,
-      type: "radio",
-      text: "Was the access equipment in safe condition?",
-      options: ["Yes", "No", "I didn't check"],
-      category: "company",
-
-      profileText: "Was the access equipment in safe condition?",
-      profileSection: "Tools & materials",
-      profileType: "yesno",
-      profileOrder: 3,
-
-      group: {
-        groupOrder: 0,
-        name: "toolsAndMaterials",
-        text: "Tools & materials",
-      },
-      hasComment: true,
-    },
-    {
-      number: 4,
-      next: 5,
-      type: "radio",
-      text:
-        "Did this company offer you secure storage for your tools overnight?",
-      options: ["Yes", "No", "Yes, but I didn't need it"],
-      category: "company",
-
-      profileText:
-        "Did this company offer you secure storage for your tools overnight?",
-      profileSection: "Tools & materials",
-      profileType: "yesno",
-      profileOrder: 4,
-
-      group: {
-        groupOrder: 0,
-        name: "toolsAndMaterials",
-        text: "Tools & materials",
-      },
-      hasComment: true,
-    },
-
     // supervisors & employees
     {
-      number: 5,
-      next: 6,
+      number: 1,
+      next: 2,
       type: "yesno",
       text:
-        "Did you feel the supervisor shared all the information you needed to do a good job?",
+        "Did you feel the supervisor shared all the information you needed to complete your tasks?",
       options: ["Yes", "No"],
       category: "company",
 
       profileText:
-        "Did you feel the supervisor shared all the information you needed to do a good job?",
+        "Did you feel the supervisor shared all the information you needed to complete your tasks?",
       profileSection: "Supervisors & employees",
       profileType: "yesno",
       profileOrder: 1,
 
       group: {
-        groupOrder: 1,
+        groupOrder: 0,
         name: "supervisorsAndEmployees",
         text: "Supervisors & employees",
       },
       hasComment: true,
     },
     {
-      number: 6,
-      next: 7,
+      number: 2,
+      next: 3,
       type: "yesno",
       text: "Did you feel the supervisor treated you with respect?",
       options: ["Yes", "No"],
@@ -1116,15 +1027,15 @@ module.exports = async () => {
       profileOrder: 2,
 
       group: {
-        groupOrder: 1,
+        groupOrder: 0,
         name: "supervisorsAndEmployees",
         text: "Supervisors & employees",
       },
       hasComment: true,
     },
     {
-      number: 7,
-      next: 8,
+      number: 3,
+      next: 4,
       type: "yesno",
       text:
         "Did you feel the company’s other employees treated you with respect?",
@@ -1138,35 +1049,85 @@ module.exports = async () => {
       profileOrder: 3,
 
       group: {
-        groupOrder: 1,
+        groupOrder: 0,
         name: "supervisorsAndEmployees",
         text: "Supervisors & employees",
       },
       hasComment: true,
     },
+
+    // Tools & materials
     {
-      number: 8,
-      next: 9,
+      number: 4,
+      next: 5,
       type: "yesno",
-      text: "Did you feel valued working for this company?",
-      options: ["Yes", "No"],
+      text: "Did this company offer you all the equipment and materials you needed to complete your tasks?",
+      hintText: "eg stepladders, harnesses, lifters, etc.",
+      options: ["Yes", "No", "Yes, but I didn't need it"],
       category: "company",
 
-      profileText: "Did you feel valued working for this company?",
-      profileSection: "Supervisors & employees",
+      profileText:
+        "Did this company offer you all the equipment and materials you needed to complete your tasks?",
+      profileSection: "Tools & materials",
+      profileType: "yesno",
+      profileOrder: 2,
+
+      group: {
+        groupOrder: 1,
+        name: "toolsAndMaterials",
+        text: "Tools & materials",
+      },
+      hasComment: true,
+    },
+    {
+      number: 5,
+      next: 6,
+      type: "radio",
+      text:
+        "Did this company offer you secure storage for your tools overnight?",
+      options: ["Yes", "No", "Yes, but I didn't need it"],
+      category: "company",
+
+      profileText:
+        "Did this company offer you secure storage for your tools overnight?",
+      profileSection: "Tools & materials",
       profileType: "yesno",
       profileOrder: 4,
 
       group: {
         groupOrder: 1,
-        name: "supervisorsAndEmployees",
-        text: "Supervisors & employees",
+        name: "toolsAndMaterials",
+        text: "Tools & materials",
       },
       hasComment: true,
     },
+    {
+      number: 6,
+      next: 7,
+      type: "yesno",
+      text:
+        "Did you feel this company asked you to work unsafely?",
+      options: ["Yes", "No"],
+      category: "company",
+
+      profileText:
+        "Did you feel this company asked you to work unsafely?",
+      profileSection: "Tools & materials",
+      profileType: "yesno",
+      profileOrder: 4,
+
+      group: {
+        groupOrder: 1,
+        name: "toolsAndMaterials",
+        text: "Tools & materials",
+      },
+      hasComment: true,
+    },
+
+
     // new section (overall)
     {
-      number: 9,
+      number: 7,
       type: "yesno",
       text: "Overall, would you be happy to work for this company again?",
       options: ["Yes", "No"],
