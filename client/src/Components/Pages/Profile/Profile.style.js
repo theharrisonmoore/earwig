@@ -16,7 +16,7 @@ import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: ${props => (props.isMobile ? "3rem" : "4rem")};
+  padding-top: ${props => (props.isMobile ? "11rem" : "12rem")};
   text-align: left;
   padding-bottom: 100px;
   font-size: 1rem;
@@ -50,12 +50,12 @@ export const Header = styled.div`
   flex-direction: column;
   align-items: center;
   position: absolute;
-  top: ${props => (props.isMobile ? "3rem" : "4rem")};
+  top: 0;
   bottom: 0;
   color: ${colors.white};
   width: 100%;
   max-width: 57.5rem;
-  z-index: 1000;
+  z-index: 100;
   transition: 0.4s all;
 
   + * {
@@ -66,6 +66,12 @@ export const Header = styled.div`
 export const ColoredDiv = styled.div`
   background-color: ${props => organizations[`${props.category}`].primary};
   width: 100%;
+  margin-top: ${({ holdNavbarSpace, isMobile }) => {
+    if (holdNavbarSpace) {
+      return isMobile ? "3rem" : "4rem";
+    }
+    return 0;
+  }};
 `;
 
 export const TabsDivFullWidth = styled.div`
@@ -73,8 +79,9 @@ export const TabsDivFullWidth = styled.div`
   width: 100%;
   position: -webkit-sticky;
   position: sticky;
-  top: ${props => (props.isMobile ? "3rem" : "4rem")};
+  top: 0;
   background-color: ${colors.white};
+  z-index: 1;
 `;
 
 export const TabsDiv = styled.div`
@@ -216,7 +223,10 @@ export const InactiveButton = styled(OrgButton)`
 export const ActionButtonsDiv = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  padding-top: 0.75rem;
+  background-color: ${colors.white};
+  width: 100%;
 
   @media ${breakpoints.mobileL} {
     justify-content: center;
@@ -227,13 +237,13 @@ export const ReviewDiv = styled.div`
   display: flex;
   flex-direction: column;
   padding: ${props =>
-    props.isTablet || props.isMobile ? "2rem 1rem" : "2rem 7rem"};
+    props.isTablet || props.isMobile ? "0rem 1rem" : "0rem 7rem"};
   text-align: left;
 `;
 
 export const Level0PromoWrapper = styled(ReviewDiv)`
   padding: ${props =>
-    props.isTablet || props.isMobile ? "2rem 1rem" : "2rem 7rem 0 7rem"};
+    props.isTablet || props.isMobile ? "0rem 1rem" : "2rem 7rem 0 7rem"};
 `;
 
 export const GiveReviewTitle = styled.h3`

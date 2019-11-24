@@ -269,6 +269,7 @@ export default class Profile extends Component {
               isMobile={isMobile}
               summary={summary}
               level={level}
+              location={location}
               reviewsLast30Days={reviewsLast30Days}
               handleScroll={this.handleScroll}
               orgId={organizationID}

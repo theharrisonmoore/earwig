@@ -2,7 +2,7 @@
 import React, { Component, createRef } from "react";
 import { Link } from "react-router-dom";
 import { Icon as AntdIcon, Popover, Rate } from "antd";
-
+import SignUpSection from "./SignUpSection";
 import Icon from "../../Common/Icon/Icon";
 
 import {
@@ -48,9 +48,19 @@ const content = contractorAnswers => (
   </div>
 );
 
-const ColoredBanner = ({ category, name, summary }) => {
+const ColoredBanner = ({
+  category,
+  name,
+  summary,
+  holdNavbarSpace,
+  isMobile,
+}) => {
   return (
-    <ColoredDiv category={category}>
+    <ColoredDiv
+      category={category}
+      holdNavbarSpace={holdNavbarSpace}
+      isMobile={isMobile}
+    >
       <CompanyNameAndStars>
         <CompanyTitle>{name}</CompanyTitle>
         <Rate
@@ -93,6 +103,10 @@ export default class HeaderSection extends Component {
   headerRef = createRef();
 
   componentDidMount() {
+    const { level } = this.props;
+    if (level === 2 || level === 1) {
+      document.querySelector("#navbar").style.position = "relative";
+    }
     // document.addEventListener("scroll", this.checkScroll);
     // this.checkScroll();
   }
@@ -140,6 +154,7 @@ export default class HeaderSection extends Component {
       reviewsLast30Days,
       orgId,
       awaitingReview,
+      location,
     } = this.props;
     const {
       category,
@@ -160,32 +175,43 @@ export default class HeaderSection extends Component {
         // ref={this.headerRef}
         // headerHeight={headerHeight}
       >
-        <ColoredBanner category={category} name={name} summary={summary} />
-        <TabsWrapper setActiveTab={this.setActiveTab} activeTab={activeTab} />
-
-        <ActionButtonsDiv>
-          <Link
-            to={{
-              pathname:
-                level === 1 && !awaitingReview
-                  ? USER_PROFILE_URL
-                  : PRE_REVIEW.replace(":orgId", orgId),
-              state: { name, category },
-            }}
-          >
-            <Button
-              styleType="primary"
-              style={{
-                opacity: `${
-                  reviewNotAllowed && reviewsLast30Days.length > 0 ? 0.5 : 1
-                }`,
+        <ColoredBanner
+          category={category}
+          name={name}
+          summary={summary}
+          holdNavbarSpace={level !== 2 && level !== 1}
+          isMobile={isMobile}
+        />
+        {(level === 2 || level === 1) && (
+          <TabsWrapper setActiveTab={this.setActiveTab} activeTab={activeTab} />
+        )}
+        {level === 2 || level === 1 ? (
+          <ActionButtonsDiv>
+            <Link
+              to={{
+                pathname:
+                  level === 1 && !awaitingReview
+                    ? USER_PROFILE_URL
+                    : PRE_REVIEW.replace(":orgId", orgId),
+                state: { name, category },
               }}
-              text={`Review this ${category || "organisation"}`}
-              disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
-              margin="0 auto 0.5rem auto"
-            />
-          </Link>
-        </ActionButtonsDiv>
+            >
+              <Button
+                styleType="primary"
+                style={{
+                  opacity: `${
+                    reviewNotAllowed && reviewsLast30Days.length > 0 ? 0.5 : 1
+                  }`,
+                }}
+                text={`Review this ${category || "organisation"}`}
+                disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
+                margin="0 auto 0.5rem auto"
+              />
+            </Link>
+          </ActionButtonsDiv>
+        ) : (
+          <SignUpSection category={category} location={location} />
+        )}
       </Header>
     );
   }
