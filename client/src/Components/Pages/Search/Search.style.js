@@ -25,11 +25,15 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
   /* width: ${props => props.width}; */
   width: 100%;
   outline: none;
+
+
   .${classNames.container} {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+
   }
   .${classNames.containerOpen} {
     border: ${borders.searchBox};
@@ -144,6 +148,7 @@ export const SuggestionBox = styled.div`
     withoutBorder ? "none" : `0.2px solid ${colors.lightGray}`};
   box-shadow: ${colors.searchBoxShadow};
   color: ${props => organizations[props.orgType].primary};
+  border-color: ${colors.white};
 `;
 
 export const AddItemBox = styled.div`
