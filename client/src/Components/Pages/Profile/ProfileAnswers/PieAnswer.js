@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { Pie } from "react-chartjs-2";
 
-import { pieColors, organizations } from "../../../../theme";
-
-import { Comment, RightCommentWrapper } from "./ProfileAnswers.style";
+import { pieColors } from "../../../../theme";
 
 export default class PieAnswer extends Component {
   createLabels = answers => {
@@ -18,7 +16,7 @@ export default class PieAnswer extends Component {
   };
 
   render() {
-    const { question, category, toggleComments } = this.props;
+    const { question, category } = this.props;
 
     const labelObject = this.createLabels(question.answers);
 
@@ -76,21 +74,6 @@ export default class PieAnswer extends Component {
         style={{ position: "relative", height: "50vh", paddingBottom: "32px" }}
       >
         <Pie data={data} options={options} />
-        {!!question.hasComment && (
-          <RightCommentWrapper>
-            {question.answers.filter(answer => answer.comment).length > 0 ? (
-              <Comment
-                onClick={() => toggleComments(question)}
-                active
-                color={organizations[category].primary}
-              >
-                Comments
-              </Comment>
-            ) : (
-              <Comment>Comments</Comment>
-            )}
-          </RightCommentWrapper>
-        )}
       </div>
     );
   }
