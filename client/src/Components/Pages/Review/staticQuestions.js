@@ -25,7 +25,7 @@ export const STATIC_QUESTIONS = category => [
       "organisation"} or share a voice review below`,
     type: "overallReview",
     category,
-    label: "Talk about what's most important to you at work...",
+    label: "What was good? What was bad?",
     hintText: (
       <PopoverComponent
         popoverOptions={{
