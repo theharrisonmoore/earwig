@@ -250,11 +250,11 @@ class Review extends Component {
   };
 
   handleChange = e => {
-    const { answers } = this.state;
     const { name, value } = e.target;
-    this.setState({
-      answers: { ...answers, [name]: value },
-    });
+
+    this.setState(prevState => ({
+      answers: { ...prevState.answers, [name]: value },
+    }));
   };
 
   handleCheckBox = () => {
@@ -383,10 +383,21 @@ class Review extends Component {
     );
   };
 
+  // groupId => e.g. wages, general, overall
+  // next => Q number
+  // other => Q number
   showNextQestion = (groupId, next, other) => {
-    const newGroups = { ...this.state.groupss };
+    // copy of all questions groups
+    const { groupss } = this.state;
+    const newGroups = { ...groupss };
+
+    // copy of the specific group
     const group = { ...newGroups[groupId] };
+
+    // main questions copy
     let newMain = [...group.main];
+
+    // dependant questions copy
     let newDependant = [...group.dependant];
 
     // hide the quesions when the option change
@@ -401,25 +412,9 @@ class Review extends Component {
       } else {
         other = null;
       }
-
-      // eslint-disable-next-line array-callback-return
-      newDependant.map(question => {
-        if (question.type === "number") {
-          this.setState(prevState => {
-            return {
-              answers: { ...prevState.answers, [question.number]: null },
-            };
-          });
-        } else {
-          this.setState(prevState => {
-            return {
-              answers: { ...prevState.answers, [question.number]: "" },
-            };
-          });
-        }
-      });
     }
 
+    // show the questions
     while (typeof next !== "object" && next !== null) {
       // eslint-disable-next-line no-loop-func
       const nextQ = newDependant.find(question => question.number === next);
@@ -433,27 +428,21 @@ class Review extends Component {
       } else {
         next = null;
       }
-      // eslint-disable-next-line array-callback-return
-      newDependant.map(question => {
-        if (question.type === "number") {
-          this.setState(prevState => {
-            return {
-              answers: { ...prevState.answers, [question.number]: null },
-            };
-          });
-        } else {
-          this.setState(prevState => {
-            return {
-              answers: { ...prevState.answers, [question.number]: "" },
-            };
-          });
-        }
-      });
     }
+
+    // Delete the dependent questions answers when the answer change
+    const { answers } = this.state;
+    let cleanAnswers = { ...answers };
+
+    newDependant.forEach(question => {
+      const { [question.number]: omitedAnswer, ...rest } = cleanAnswers;
+      cleanAnswers = rest;
+    });
+
     group.main = newMain.sort((a, b) => a.number - b.number);
     group.dependant = newDependant;
     newGroups[groupId] = group;
-    this.setState({ groupss: newGroups });
+    this.setState({ groupss: newGroups, answers: cleanAnswers });
   };
 
   runValidation = values => {
