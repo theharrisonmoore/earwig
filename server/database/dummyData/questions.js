@@ -547,9 +547,9 @@ module.exports = async () => {
       profileOrder: 3,
 
       group: {
-        groupOrder: 1,
-        name: "wages",
-        text: "Getting your wages",
+        groupOrder: 0,
+        name: "general",
+        text: "General",
       },
       hasComment: false,
     },
@@ -714,7 +714,7 @@ module.exports = async () => {
       label: "Choose main contractor",
 
       profileText: "Main contractor",
-      profileSection: "Working on the site",
+      profileSection: "Working on this site",
       profileType: "siteItem",
       profileOrder: 1,
 
@@ -735,14 +735,14 @@ module.exports = async () => {
       category: "worksite",
 
       profileText: "Were the work areas tidy?",
-      profileSection: "Working on the site",
+      profileSection: "Working on this site",
       profileType: "yesno",
       profileOrder: 2,
 
       group: {
         groupOrder: 1,
         name: "onTheSite",
-        text: "Working on the site",
+        text: "Working on this site",
       },
       hasComment: true,
     },
@@ -757,14 +757,14 @@ module.exports = async () => {
       category: "worksite",
 
       profileText: "Did you find it easy to get around this site?",
-      profileSection: "Working on the site",
+      profileSection: "Working on this site",
       profileType: "yesno",
       profileOrder: 3,
 
       group: {
         groupOrder: 1,
         name: "onTheSite",
-        text: "Working on the site",
+        text: "Working on this site",
       },
       hasComment: true,
     },
@@ -778,14 +778,14 @@ module.exports = async () => {
       category: "worksite",
 
       profileText: "Did you feel it was safe to work on this site?",
-      profileSection: "Working on the site",
+      profileSection: "Working on this site",
       profileType: "yesno",
       profileOrder: 4,
 
       group: {
         groupOrder: 1,
         name: "onTheSite",
-        text: "Working on the site",
+        text: "Working on this site",
       },
       hasComment: true,
     },
@@ -808,7 +808,7 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "onTheSite",
-        text: "Working on the site",
+        text: "Working on this site",
       },
       hasComment: false,
     },
