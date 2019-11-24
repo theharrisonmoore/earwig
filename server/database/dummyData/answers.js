@@ -293,13 +293,6 @@ module.exports = async () => {
       review: reviews[6],
       organization: reviews[6].organization,
     },
-    {
-      question: companyQuestions[7],
-      answer: "Yes",
-      user: users[0],
-      review: reviews[6],
-      organization: reviews[6].organization,
-    },
     /* ================ company 2 ========================= */
 
     {
@@ -346,13 +339,6 @@ module.exports = async () => {
     },
     {
       question: companyQuestions[6],
-      answer: "No",
-      user: users[1],
-      review: reviews[7],
-      organization: reviews[7].organization,
-    },
-    {
-      question: companyQuestions[7],
       answer: "No",
       user: users[1],
       review: reviews[7],
