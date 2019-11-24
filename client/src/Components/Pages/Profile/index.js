@@ -42,12 +42,11 @@ export default class Profile extends Component {
     contractorAnswers: [],
     reviewsLast30Days: [],
     FilteredReviewMonths: [],
-    avgRatings: null,
   };
 
   myDivToFocus = React.createRef();
 
-  handleScroll = event => {
+  handleScroll = () => {
     if (this.myDivToFocus.current) {
       this.myDivToFocus.current.scrollIntoView({
         behavior: "smooth",
@@ -127,7 +126,7 @@ export default class Profile extends Component {
     const costsArr = carSection[0][0].answers.map(answer => answer.answer);
 
     const average =
-      costsArr.reduce((accum, curr, i, arr) => {
+      costsArr.reduce((accum, curr) => {
         return accum + curr;
       }, 0) / costsArr.length;
 
@@ -155,10 +154,10 @@ export default class Profile extends Component {
     this.updateLastViewed();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const organizationID = window.location.href.split("/")[4];
-
-    if (organizationID !== this.state.organizationID) {
+  componentDidUpdate(prevProps) {
+    const { profileID: prevProfileID } = prevProps.match.params;
+    const { profileID: currentProfileID } = this.props.match.params;
+    if (prevProfileID !== currentProfileID) {
       this.fetchData();
     }
   }
@@ -193,18 +192,20 @@ export default class Profile extends Component {
   };
 
   fetchOverallReplies = (id, target) => {
-    id && target
-      ? axios
-          .get(`/api/reviews/${target}/replies/${id}`)
-          .then(({ data }) => {
-            this.setState({ overallReplies: data, activeOverallId: id });
-          })
-          .catch(err => {
-            const error =
-              err.response && err.response.data && err.response.data.error;
-            message.error(error || "Something went wrong");
-          })
-      : this.setState({ overallReplies: [], activeOverallId: "" });
+    if (id && target) {
+      axios
+        .get(`/api/reviews/${target}/replies/${id}`)
+        .then(({ data }) => {
+          this.setState({ overallReplies: data, activeOverallId: id });
+        })
+        .catch(err => {
+          const error =
+            err.response && err.response.data && err.response.data.error;
+          message.error(error || "Something went wrong");
+        });
+    } else {
+      this.setState({ overallReplies: [], activeOverallId: "" });
+    }
   };
 
   reviewsByMonth = () => {
@@ -231,7 +232,9 @@ export default class Profile extends Component {
 
     if (FilteredReviewMonths.length === 0) return reviewMonthsCount;
 
-    reviewMonths.map(month => (reviewMonthsCount[month] += 1));
+    reviewMonths.forEach(month => {
+      reviewMonthsCount[month] += 1;
+    });
 
     return reviewMonthsCount;
   };
@@ -297,8 +300,8 @@ export default class Profile extends Component {
                   <p>Create an account to see more detail, including:</p>
                   <div>
                     {ITEMS[category] &&
-                      ITEMS[category].map((item, index) => (
-                        <AccountItem key={index}>
+                      ITEMS[category].map(item => (
+                        <AccountItem key={item.text}>
                           <Icon
                             icon={item.img}
                             margin="0 1rem 0 0"
@@ -340,10 +343,10 @@ export default class Profile extends Component {
               <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
                 {/* KEY RATINGS SECTION */}
                 {reviewDetails.map(
-                  (section, index) =>
+                  section =>
                     section._id === "Key ratings" && (
                       <ReviewSection
-                        key={index}
+                        key={section._id}
                         category={category}
                         sectionDetails={section}
                         toggleComments={this.toggleComments}
@@ -355,10 +358,10 @@ export default class Profile extends Component {
 
                 {/* OTHER SECTIONS */}
                 {reviewDetails.map(
-                  (section, index) =>
+                  section =>
                     section._id === "Detailed ratings" && (
                       <ReviewSection
-                        key={index}
+                        key={section._id}
                         category={category}
                         sectionDetails={section}
                         toggleComments={this.toggleComments}
@@ -369,10 +372,10 @@ export default class Profile extends Component {
                 )}
 
                 {reviewDetails.map(
-                  (section, index) =>
+                  section =>
                     section._id === "Getting on to site" && (
                       <ReviewSection
-                        key={index}
+                        key={section._id}
                         category={category}
                         sectionDetails={section}
                         toggleComments={this.toggleComments}
@@ -385,10 +388,10 @@ export default class Profile extends Component {
 
                 {level > 0 &&
                   reviewDetails.map(
-                    (section, index) =>
+                    section =>
                       section._id === "Working on the site" && (
                         <ReviewSection
-                          key={index}
+                          key={section._id}
                           category={category}
                           sectionDetails={section}
                           toggleComments={this.toggleComments}
@@ -399,10 +402,10 @@ export default class Profile extends Component {
                   )}
 
                 {reviewDetails.map(
-                  (section, index) =>
+                  section =>
                     section._id === "The site welfare" && (
                       <ReviewSection
-                        key={index}
+                        key={section._id}
                         category={category}
                         sectionDetails={section}
                         toggleComments={this.toggleComments}
@@ -413,10 +416,10 @@ export default class Profile extends Component {
                 )}
 
                 {reviewDetails.map(
-                  (section, index) =>
+                  section =>
                     section._id === "Supervisors & employees" && (
                       <ReviewSection
-                        key={index}
+                        key={section._id}
                         category={category}
                         sectionDetails={section}
                         toggleComments={this.toggleComments}
@@ -427,10 +430,10 @@ export default class Profile extends Component {
                 )}
 
                 {reviewDetails.map(
-                  (section, index) =>
+                  section =>
                     section._id === "Tools & materials" && (
                       <ReviewSection
-                        key={index}
+                        key={section._id}
                         category={category}
                         sectionDetails={section}
                         toggleComments={this.toggleComments}
