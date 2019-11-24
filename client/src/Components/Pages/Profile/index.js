@@ -3,28 +3,19 @@ import axios from "axios";
 import moment from "moment";
 import { message, Skeleton } from "antd";
 
-import ReviewSection from "./ReviewSection";
+import DetailedAnswers from "./DetailedAnswers";
+import SignUpSection from "./SignUpSection";
+import Level0Promo from "./Level0Promo";
+
 // import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
 import CommentsBox from "./ProfileAnswers/CommentsBox";
 import HeaderSection from "./HeaderSection";
 import OverallReview from "./OverallReview";
 // import Loading from "./../../Common/AntdComponents/Loading";
 
-import { ITEMS } from "../../../constants/promoItems";
-import { SIGNUP_URL } from "../../../constants/naviagationUrls";
-
-import Icon from "../../Common/Icon/Icon";
-import Button from "../../Common/Button";
 import Layout from "../../Common/Layout";
 
-import {
-  Wrapper,
-  ReviewDiv,
-  AccountPromo,
-  AccountLink,
-  AccountItem,
-  Level0Promo,
-} from "./Profile.style";
+import { Wrapper, ReviewDiv } from "./Profile.style";
 
 export default class Profile extends Component {
   state = {
@@ -289,169 +280,28 @@ export default class Profile extends Component {
           {/* BASIC VIEW FOR LOGGED OUT USERS */}
           <Skeleton loading={!loaded}>
             {level < 1 && (
-              <Level0Promo isTablet={isTablet} isMobile={isMobile}>
-                <ReviewSection
-                  category={category}
-                  sectionDetails={{ _id: "Key ratings" }}
-                  summary={summary}
-                  loaded={loaded}
-                />
-                <AccountPromo>
-                  <p>Create an account to see more detail, including:</p>
-                  <div>
-                    {ITEMS[category] &&
-                      ITEMS[category].map(item => (
-                        <AccountItem key={item.text}>
-                          <Icon
-                            icon={item.img}
-                            margin="0 1rem 0 0"
-                            height="2rem"
-                            width="2rem"
-                          />
-                          {item.text}
-                        </AccountItem>
-                      ))}
-                  </div>
-                  <AccountLink
-                    to={{
-                      pathname: SIGNUP_URL,
-                      state: { from: this.props.location },
-                    }}
-                    category={category}
-                  >
-                    <Button
-                      text="Sign up to see more"
-                      styleType="primary"
-                      margin="1rem auto"
-                    />
-                  </AccountLink>
-                </AccountPromo>
-              </Level0Promo>
-            )}
-            {/* {reviewDetails.length < 1 && (
-            <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-              <ReviewSection
+              <Level0Promo
+                isMobile={isMobile}
+                isTablet={isTablet}
                 category={category}
-                sectionDetails={{ _id: "Key ratings" }}
                 summary={summary}
                 loaded={loaded}
+                location={location}
               />
-            </ReviewDiv>
-          )} */}
-
-            {level > 0 && (
-              <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-                {/* KEY RATINGS SECTION */}
-                {reviewDetails.map(
-                  section =>
-                    section._id === "Key ratings" && (
-                      <ReviewSection
-                        key={section._id}
-                        category={category}
-                        sectionDetails={section}
-                        toggleComments={this.toggleComments}
-                        summary={summary}
-                        isMobile={isMobile}
-                      />
-                    )
-                )}
-
-                {/* OTHER SECTIONS */}
-                {reviewDetails.map(
-                  section =>
-                    section._id === "Detailed ratings" && (
-                      <ReviewSection
-                        key={section._id}
-                        category={category}
-                        sectionDetails={section}
-                        toggleComments={this.toggleComments}
-                        summary={summary}
-                        isMobile={isMobile}
-                      />
-                    )
-                )}
-
-                {reviewDetails.map(
-                  section =>
-                    section._id === "Getting on to site" && (
-                      <ReviewSection
-                        key={section._id}
-                        category={category}
-                        sectionDetails={section}
-                        toggleComments={this.toggleComments}
-                        summary={summary}
-                        isMobile={isMobile}
-                        carParkingPrice={this.getCarCost}
-                      />
-                    )
-                )}
-
-                {level > 0 &&
-                  reviewDetails.map(
-                    section =>
-                      section._id === "Working on the site" && (
-                        <ReviewSection
-                          key={section._id}
-                          category={category}
-                          sectionDetails={section}
-                          toggleComments={this.toggleComments}
-                          summary={summary}
-                          isMobile={isMobile}
-                        />
-                      )
-                  )}
-
-                {reviewDetails.map(
-                  section =>
-                    section._id === "The site welfare" && (
-                      <ReviewSection
-                        key={section._id}
-                        category={category}
-                        sectionDetails={section}
-                        toggleComments={this.toggleComments}
-                        summary={summary}
-                        isMobile={isMobile}
-                      />
-                    )
-                )}
-
-                {reviewDetails.map(
-                  section =>
-                    section._id === "Supervisors & employees" && (
-                      <ReviewSection
-                        key={section._id}
-                        category={category}
-                        sectionDetails={section}
-                        toggleComments={this.toggleComments}
-                        summary={summary}
-                        isMobile={isMobile}
-                      />
-                    )
-                )}
-
-                {reviewDetails.map(
-                  section =>
-                    section._id === "Tools & materials" && (
-                      <ReviewSection
-                        key={section._id}
-                        category={category}
-                        sectionDetails={section}
-                        toggleComments={this.toggleComments}
-                        summary={summary}
-                        isMobile={isMobile}
-                      />
-                    )
-                )}
-
-                {/* MONTHLY REVIEWS
-            {level > 0 && (
-              <MonthlyReviews
-                category={category}
-                reviewsByMonth={this.reviewsByMonth()}
-              />
-            )} */}
-              </ReviewDiv>
             )}
+
+            {level > 0 && (
+              <DetailedAnswers
+                isTablet={isTablet}
+                isMobile={isMobile}
+                reviewDetails={reviewDetails}
+                category={category}
+                summary={summary}
+                toggleComments={this.toggleComments}
+                getCarCost={this.getCarCost}
+              />
+            )}
+
             {/* OVERALL RATINGS SECTION */}
             {/* HIDDEN DIV TO SCROLL SECTION INTO VIEW */}
             <div ref={this.myDivToFocus} />
@@ -476,19 +326,7 @@ export default class Profile extends Component {
             />
             {level < 1 && (
               <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-                <AccountLink
-                  to={{
-                    pathname: SIGNUP_URL,
-                    state: { from: this.props.location },
-                  }}
-                  category={category}
-                >
-                  <Button
-                    text="Sign up to see more"
-                    styleType="primary"
-                    margin="0 auto"
-                  />
-                </AccountLink>
+                <SignUpSection category={category} location={location} />
               </ReviewDiv>
             )}
             {/* COMMENTS BOX */}

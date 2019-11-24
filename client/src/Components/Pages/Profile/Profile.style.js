@@ -173,7 +173,7 @@ export const ReviewDiv = styled.div`
   text-align: left;
 `;
 
-export const Level0Promo = styled(ReviewDiv)`
+export const Level0PromoWrapper = styled(ReviewDiv)`
   padding: ${props =>
     props.isTablet || props.isMobile ? "2rem 1rem" : "2rem 7rem 0 7rem"};
 `;
