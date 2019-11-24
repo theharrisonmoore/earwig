@@ -20,6 +20,7 @@ export const Wrapper = styled.div`
   text-align: left;
   padding-bottom: 100px;
   font-size: 1rem;
+  position: relative;
 `;
 
 export const Banner = styled.div`
@@ -44,14 +45,13 @@ export const Banner = styled.div`
 `;
 
 export const Header = styled.div`
-  position: fixed;
   box-shadow: ${shadows.headerShadow};
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: ${props =>
-    props.isTablet || props.isMobile ? "0.5rem 1rem" : "0.5rem 7rem"};
-  background-color: ${props => organizations[`${props.category}`].primary};
+  position: absolute;
+  top: ${props => (props.isMobile ? "3rem" : "4rem")};
+  bottom: 0;
   color: ${colors.white};
   width: 100%;
   max-width: 57.5rem;
@@ -61,6 +61,64 @@ export const Header = styled.div`
   + * {
     padding-top: ${({ headerHeight }) => headerHeight}px !important;
   }
+`;
+
+export const ColoredDiv = styled.div`
+  background-color: ${props => organizations[`${props.category}`].primary};
+  width: 100%;
+`;
+
+export const TabsDivFullWidth = styled.div`
+  border-bottom: 1px solid ${colors.dustyGray2};
+  width: 100%;
+  position: -webkit-sticky;
+  position: sticky;
+  top: ${props => (props.isMobile ? "3rem" : "4rem")};
+  background-color: ${colors.white};
+`;
+
+export const TabsDiv = styled.div`
+  display: flex;
+  max-width: 376px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+`;
+
+export const Tab = styled.div`
+  display: flex;
+  color: ${colors.primary};
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 0 0;
+  width: 50%;
+  position: relative;
+  cursor: pointer;
+
+  * {
+    pointer-events: none;
+  }
+`;
+
+export const TabTitle = styled.span`
+  font-size: 1rem;
+  margin-top: 0.25rem;
+
+  font-weight: ${({ isActive }) => (isActive ? "500" : "normal")};
+`;
+
+export const Underline = styled.div`
+  position: absolute;
+  content: "";
+  width: 50%;
+  height: 5px;
+  background-color: ${colors.primary};
+  margin-left: ${({ left }) => (left ? 0 : "50%")};
+  border: 0;
+  display: block;
+  z-index: 1;
+  bottom: 0;
+  transition: 400ms all;
 `;
 
 export const CompanyDetails = styled.div`
@@ -83,8 +141,8 @@ export const CompanyDiv = styled.div`
 `;
 
 export const CompanyTitle = styled.h2`
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 1.125rem;
+  font-weight: 500;
   margin: 0;
   text-transform: capitalize;
   color: ${colors.white};
@@ -192,8 +250,10 @@ export const SVGIcon = styled(SVG)`
 
 export const CompanyNameAndStars = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 4.5%;
 `;
 
 export const CommentDiv = styled.div`
