@@ -55,7 +55,7 @@ export const Header = styled.div`
   color: ${colors.white};
   width: 100%;
   max-width: 57.5rem;
-  z-index: 1;
+  z-index: 1000;
   transition: 0.4s all;
 
   + * {
