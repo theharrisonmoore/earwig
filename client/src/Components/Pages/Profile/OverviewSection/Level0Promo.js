@@ -1,10 +1,14 @@
 import React from "react";
 
-import { ITEMS } from "../../../constants/promoItems";
-import SignUpSection from "./SignUpSection";
-import Icon from "../../Common/Icon/Icon";
+import { ITEMS } from "../../../../constants/promoItems";
+import SignUpSection from "../SignUpSection";
+import Icon from "../../../Common/Icon/Icon";
 
-import { AccountPromo, AccountItem, Level0PromoWrapper } from "./Profile.style";
+import {
+  AccountPromo,
+  AccountItem,
+  Level0PromoWrapper,
+} from "../Profile.style";
 
 const Level0Promo = ({ isMobile, isTablet, category, location }) => {
   return (

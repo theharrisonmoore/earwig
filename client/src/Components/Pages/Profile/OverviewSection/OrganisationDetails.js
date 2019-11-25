@@ -13,7 +13,7 @@ import {
   ContractorDiv,
   ContractorText,
   ContractorListLink,
-} from "./Profile.style";
+} from "../Profile.style";
 
 const ContractorsList = ({ contractorAnswers }) => (
   <div style={{ maxHeight: "150px", overflow: "auto" }}>

@@ -88,45 +88,11 @@ const TabsWrapper = ({ setActiveTab, activeTab }) => {
 };
 
 export default class HeaderSection extends Component {
-  state = {
-    shrink: false,
-  };
-
   headerRef = createRef();
 
   componentDidMount() {
     document.querySelector("#navbar").style.position = "relative";
-
-    // document.addEventListener("scroll", this.checkScroll);
-    // this.checkScroll();
   }
-
-  componentWillUnmount() {
-    document.removeEventListener("scroll", this.checkScroll);
-  }
-
-  checkScroll = () => {
-    if (
-      document.body.scrollTop > 60 ||
-      document.documentElement.scrollTop > 60
-    ) {
-      this.setState({ shrink: true });
-    } else {
-      this.setState({ shrink: false });
-    }
-
-    setTimeout(() => {
-      const headerHeight = this.headerRef.current.clientHeight;
-      if (
-        document.body.scrollTop > 60 ||
-        document.documentElement.scrollTop > 60
-      ) {
-        this.setState({ shrink: true, headerHeight });
-      } else {
-        this.setState({ shrink: false, headerHeight });
-      }
-    }, 400);
-  };
 
   render() {
     const {
@@ -134,8 +100,6 @@ export default class HeaderSection extends Component {
       isMobile,
       summary,
       level,
-      handleScroll,
-      contractorAnswers,
       reviewsLast30Days,
       orgId,
       awaitingReview,
@@ -143,24 +107,15 @@ export default class HeaderSection extends Component {
       setActiveTab,
       activeTab = "overview",
     } = this.props;
-    const {
-      category,
-      name,
-      email,
-      phoneNumber,
-      totalReviews,
-      websiteUrl,
-    } = summary;
+    const { category, name } = summary;
     // if there are reviews less dating before 1 month user not allowed
     const reviewNotAllowed = reviewsLast30Days.length > 0;
 
-    const { shrink, headerHeight } = this.state;
     return (
       <Header
         isTablet={isTablet}
         isMobile={isMobile}
         // ref={this.headerRef}
-        // headerHeight={headerHeight}
       >
         <ColoredBanner
           category={category}

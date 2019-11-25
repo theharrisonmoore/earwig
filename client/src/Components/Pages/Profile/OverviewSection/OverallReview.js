@@ -5,14 +5,14 @@ import { Link, withRouter } from "react-router-dom";
 import { Collapse, Icon as AntdIcon, message, Alert } from "antd";
 import axios from "axios";
 
-import Icon from "../../Common/Icon/Icon";
+import Icon from "../../../Common/Icon/Icon";
 
-import { organizations, colors } from "../../../theme";
+import { organizations, colors } from "../../../../theme";
 import {
   REPORT_CONTENT_URL,
   REPLY_URL,
-} from "../../../constants/naviagationUrls";
-import { authorization } from "../../../helpers";
+} from "../../../../constants/naviagationUrls";
+import { authorization } from "../../../../helpers";
 
 import {
   CommentDiv,
@@ -30,11 +30,11 @@ import {
   UserTrade,
   UserDiv,
   UserAdditionalDetails,
-} from "./Profile.style";
+} from "../Profile.style";
 
-import VoiceReview from "./ProfileAnswers/VoiceReview";
+import VoiceReview from "../ProfileAnswers/VoiceReview";
 
-import { SectionTitle } from "./ReviewSection.style";
+import { SectionTitle } from "../DetailedSection/ReviewSection.style";
 
 const { Panel } = Collapse;
 
