@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+import backgroundDesktop from "../../../assets/welcome_page_image_desktop.jpg";
+import backgroundMobile from "../../../assets/welcome_page_image_mobile.jpg";
+
 import { colors, breakpoints } from "../../../theme";
 
 export const Wrapper = styled.div`
@@ -8,8 +11,21 @@ export const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
   overflow: scroll;
-  position: absolute;
+  // position: absolute;
   top: 0;
+  border: 3px solid red;
+  justify-content: center;
+`;
+
+export const HTML = styled.html`
+  background-image: url(${backgroundMobile});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  @media ${breakpoints.mobileXL} {
+    background-image: url(${backgroundDesktop});
+  }
 `;
 
 export const Title = styled.h1`
