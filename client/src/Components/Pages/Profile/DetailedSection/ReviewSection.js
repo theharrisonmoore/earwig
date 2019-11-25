@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Rate } from "antd";
 
-import { colors } from "../../../theme";
+import { colors } from "../../../../theme";
 
 import {
   Wrapper,
@@ -13,15 +13,15 @@ import {
   HintText,
 } from "./ReviewSection.style";
 
-import YesNoAnswer from "./ProfileAnswers/YesNoAnswer";
-import ListAnswer from "./ProfileAnswers/ListAnswer";
-import PieAnswer from "./ProfileAnswers/PieAnswer";
-import ScatterAnswer from "./ProfileAnswers/ScatterAnswer";
-import SiteItemAnswer from "./ProfileAnswers/SiteItemAnswer";
-import CanteenItemAnswer from "./ProfileAnswers/CanteenItemAnswer";
-import BarChartAnswer from "./ProfileAnswers/BarChartAnswer";
-import PayrollAnswer from "./ProfileAnswers/PayrollAnswer";
-import ImageSlider from "./ProfileAnswers/ImageSlider";
+import YesNoAnswer from "../ProfileAnswers/YesNoAnswer";
+import ListAnswer from "../ProfileAnswers/ListAnswer";
+import PieAnswer from "../ProfileAnswers/PieAnswer";
+import ScatterAnswer from "../ProfileAnswers/ScatterAnswer";
+import SiteItemAnswer from "../ProfileAnswers/SiteItemAnswer";
+import CanteenItemAnswer from "../ProfileAnswers/CanteenItemAnswer";
+import BarChartAnswer from "../ProfileAnswers/BarChartAnswer";
+import PayrollAnswer from "../ProfileAnswers/PayrollAnswer";
+import ImageSlider from "../ProfileAnswers/ImageSlider";
 
 export default class ReviewSection extends Component {
   onlyNeutralAnswers = answers => {
@@ -261,9 +261,7 @@ export default class ReviewSection extends Component {
                       {/* PAYROLL LIST */}
                       {payrollQuestions && (
                         <QuestionWrapper>
-                          <QuestionTitle>
-                            {question.profileText}
-                          </QuestionTitle>
+                          <QuestionTitle>{question.profileText}</QuestionTitle>
                           {question.hintText && (
                             <HintText>{question.hintText}</HintText>
                           )}

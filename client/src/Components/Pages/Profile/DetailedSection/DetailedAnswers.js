@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ReviewDiv } from "./Profile.style";
+import { ReviewDiv } from "../Profile.style";
 import ReviewSection from "./ReviewSection";
 
 const DetailedAnswers = ({
