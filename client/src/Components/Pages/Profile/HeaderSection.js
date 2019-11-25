@@ -62,7 +62,7 @@ const ColoredBanner = ({
       isMobile={isMobile}
     >
       <CompanyNameAndStars>
-        <CompanyTitle>{name}</CompanyTitle>
+        <CompanyTitle white>{name}</CompanyTitle>
         <Rate
           disabled
           value={summary.avgRatings || summary.value || 0}
@@ -103,10 +103,8 @@ export default class HeaderSection extends Component {
   headerRef = createRef();
 
   componentDidMount() {
-    const { level } = this.props;
-    if (level === 2 || level === 1) {
-      document.querySelector("#navbar").style.position = "relative";
-    }
+    document.querySelector("#navbar").style.position = "relative";
+
     // document.addEventListener("scroll", this.checkScroll);
     // this.checkScroll();
   }
@@ -138,11 +136,6 @@ export default class HeaderSection extends Component {
     }, 400);
   };
 
-  setActiveTab = e => {
-    const { tab } = e.target.dataset;
-    this.setState({ activeTab: tab });
-  };
-
   render() {
     const {
       isTablet,
@@ -155,6 +148,8 @@ export default class HeaderSection extends Component {
       orgId,
       awaitingReview,
       location,
+      setActiveTab,
+      activeTab = "overview",
     } = this.props;
     const {
       category,
@@ -167,7 +162,7 @@ export default class HeaderSection extends Component {
     // if there are reviews less dating before 1 month user not allowed
     const reviewNotAllowed = reviewsLast30Days.length > 0;
 
-    const { shrink, headerHeight, activeTab = "overview" } = this.state;
+    const { shrink, headerHeight } = this.state;
     return (
       <Header
         isTablet={isTablet}
@@ -183,7 +178,7 @@ export default class HeaderSection extends Component {
           isMobile={isMobile}
         />
         {(level === 2 || level === 1) && (
-          <TabsWrapper setActiveTab={this.setActiveTab} activeTab={activeTab} />
+          <TabsWrapper setActiveTab={setActiveTab} activeTab={activeTab} />
         )}
         {level === 2 || level === 1 ? (
           <ActionButtonsDiv>
@@ -210,7 +205,7 @@ export default class HeaderSection extends Component {
             </Link>
           </ActionButtonsDiv>
         ) : (
-          <SignUpSection category={category} location={location} />
+          <SignUpSection category={category} location={location} sticky />
         )}
       </Header>
     );
@@ -221,51 +216,33 @@ export default class HeaderSection extends Component {
 // <CompanyDiv isMobile={isMobile}>
 //   <CompanyNameAndStars>
 //     <CompanyTitle>{name}</CompanyTitle>
-//     {level > 1 ? (
-//       <ButtonDiv
-//         isTablet={isTablet}
-//         isMobile={isMobile}
-//         organization={category}
-//         shrink={shrink}
-//       >
-//         {category !== "company" && (
-//           <>
-//             <OrgLink
-//               href={`tel:${phoneNumber}`}
-//               hasDetails={phoneNumber}
-//               shrink={shrink}
-//             >
-//               <OrgButton
-//                 category={category}
-//                 isMobile={isMobile}
-//                 hasDetails={phoneNumber}
-//                 shrink={shrink}
-//               >
-//                 Call
-//               </OrgButton>
-//             </OrgLink>
-
-//             <OrgLink
-//               href={`mailto:${email}`}
-//               hasDetails={email}
-//               shrink={shrink}
-//             >
-//               <OrgButton
-//                 category={category}
-//                 isMobile={isMobile}
-//                 shrink={shrink}
-//               >
-//                 Email
-//               </OrgButton>
-//             </OrgLink>
-//           </>
-//         )}
+// {level > 1 ? (
+//   <ButtonDiv
+//     isTablet={isTablet}
+//     isMobile={isMobile}
+//     organization={category}
+//     shrink={shrink}
+//   >
+//     {category !== "company" && (
+//       <>
+//         <OrgLink
+//           href={`tel:${phoneNumber}`}
+//           hasDetails={phoneNumber}
+//           shrink={shrink}
+//         >
+//           <OrgButton
+//             category={category}
+//             isMobile={isMobile}
+//             hasDetails={phoneNumber}
+//             shrink={shrink}
+//           >
+//             Call
+//           </OrgButton>
+//         </OrgLink>
 
 //         <OrgLink
-//           href={`${websiteUrl}`}
-//           target="_blank"
-//           rel="noopener noreferrer"
-//           hasDetails={websiteUrl}
+//           href={`mailto:${email}`}
+//           hasDetails={email}
 //           shrink={shrink}
 //         >
 //           <OrgButton
@@ -273,48 +250,66 @@ export default class HeaderSection extends Component {
 //             isMobile={isMobile}
 //             shrink={shrink}
 //           >
-//             Website
+//             Email
 //           </OrgButton>
 //         </OrgLink>
-//       </ButtonDiv>
-//     ) : (
-//       <ButtonDiv
-//         isTablet={isTablet}
+//       </>
+//     )}
+
+//     <OrgLink
+//       href={`${websiteUrl}`}
+//       target="_blank"
+//       rel="noopener noreferrer"
+//       hasDetails={websiteUrl}
+//       shrink={shrink}
+//     >
+//       <OrgButton
+//         category={category}
 //         isMobile={isMobile}
-//         organization={category}
 //         shrink={shrink}
 //       >
-//         {category !== "company" && (
-//           <>
-//             <InactiveButton
-//               category={category}
-//               isMobile={isMobile}
-//               hasDetails={phoneNumber}
-//               shrink={shrink}
-//             >
-//               Call
-//             </InactiveButton>
-//             <InactiveButton
-//               category={category}
-//               isMobile={isMobile}
-//               hasDetails={email}
-//               shrink={shrink}
-//             >
-//               Email
-//             </InactiveButton>
-//           </>
-//         )}
-
+//         Website
+//       </OrgButton>
+//     </OrgLink>
+//   </ButtonDiv>
+// ) : (
+//   <ButtonDiv
+//     isTablet={isTablet}
+//     isMobile={isMobile}
+//     organization={category}
+//     shrink={shrink}
+//   >
+//     {category !== "company" && (
+//       <>
 //         <InactiveButton
 //           category={category}
 //           isMobile={isMobile}
-//           hasDetails={websiteUrl}
+//           hasDetails={phoneNumber}
 //           shrink={shrink}
 //         >
-//           Website
+//           Call
 //         </InactiveButton>
-//       </ButtonDiv>
+//         <InactiveButton
+//           category={category}
+//           isMobile={isMobile}
+//           hasDetails={email}
+//           shrink={shrink}
+//         >
+//           Email
+//         </InactiveButton>
+//       </>
 //     )}
+
+//     <InactiveButton
+//       category={category}
+//       isMobile={isMobile}
+//       hasDetails={websiteUrl}
+//       shrink={shrink}
+//     >
+//       Website
+//     </InactiveButton>
+//   </ButtonDiv>
+// )}
 //     <StarWrapper onClick={handleScroll} shrink={shrink}>
 //       <Rate
 //         disabled

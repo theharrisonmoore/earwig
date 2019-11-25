@@ -16,6 +16,7 @@ import OverallReview from "./OverallReview";
 import Layout from "../../Common/Layout";
 
 import { Wrapper, ReviewDiv } from "./Profile.style";
+import OrganisationDetails from "./OrganisationDetails";
 
 export default class Profile extends Component {
   state = {
@@ -33,9 +34,15 @@ export default class Profile extends Component {
     contractorAnswers: [],
     reviewsLast30Days: [],
     FilteredReviewMonths: [],
+    activeTab: "overview",
   };
 
   myDivToFocus = React.createRef();
+
+  setActiveTab = e => {
+    const { tab } = e.target.dataset;
+    this.setState({ activeTab: tab });
+  };
 
   handleScroll = () => {
     if (this.myDivToFocus.current) {
@@ -259,7 +266,8 @@ export default class Profile extends Component {
 
     // if (!loaded) return <Loading />;
 
-    const { category } = summary && summary;
+    const { category, name, phoneNumber, email, websiteUrl } =
+      summary && summary;
     return (
       <Layout type="center">
         <Wrapper isMobile={isMobile}>
@@ -276,8 +284,21 @@ export default class Profile extends Component {
               contractorAnswers={contractorAnswers}
               awaitingReview={awaitingReview}
               FilteredReviewMonths={FilteredReviewMonths}
+              setActiveTab={this.setActiveTab}
             />
           </Skeleton>
+          {/* ORGANISATION INFORMATION AND CONTACT DETAILS */}
+
+          <OrganisationDetails
+            isMobile={isMobile}
+            isTablet={isTablet}
+            name={name}
+            email={email}
+            phoneNumber={phoneNumber}
+            websiteUrl={websiteUrl}
+            summary={summary}
+            category={category}
+          />
           {/* BASIC VIEW FOR LOGGED OUT USERS */}
           <Skeleton loading={!loaded}>
             {level < 1 && (

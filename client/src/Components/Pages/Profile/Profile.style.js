@@ -57,6 +57,7 @@ export const Header = styled.div`
   max-width: 57.5rem;
   z-index: 100;
   transition: 0.4s all;
+  pointer-events: none;
 
   + * {
     padding-top: ${({ headerHeight }) => headerHeight}px !important;
@@ -101,6 +102,7 @@ export const Tab = styled.div`
   width: 50%;
   position: relative;
   cursor: pointer;
+  pointer-events: all !important;
 
   * {
     pointer-events: none;
@@ -152,8 +154,8 @@ export const CompanyTitle = styled.h2`
   font-weight: 500;
   margin: 0;
   text-transform: capitalize;
-  color: ${colors.white};
-  text-align: center;
+  color: ${({ white }) => (white ? colors.white : colors.profileFontColor)};
+  margin: 0.25rem 0;
 `;
 
 export const ButtonDiv = styled.div`
@@ -169,16 +171,12 @@ export const ButtonDiv = styled.div`
 
 export const OrgLink = styled.a`
   display: ${props => props.hasDetails === null && "none"};
-  height: ${({ shrink }) => (shrink ? "0" : "intial")};
-  opacity: ${({ shrink }) => (shrink ? "0" : "1")};
-
-  transition: 0.4s all;
+  font-weight: normal;
+  font-size: 15px;
 `;
 
 export const OrgButton = styled.button`
-  border: ${colors.white} solid 2px;
-  box-sizing: border-box;
-  color: ${colors.white};
+  color: ${colors.primary};
   background: none;
   transition: all ease-in 0.1s;
   width: ${props => (props.isMobile ? "5rem" : "7rem")};
@@ -189,12 +187,11 @@ export const OrgButton = styled.button`
   position: relative;
   outline: none;
 
-  height: ${({ shrink }) => (shrink ? "0" : "2.5rem")};
-  opacity: ${({ shrink }) => (shrink ? "0" : "1")};
+  height: 2.5rem;
   transition: 0.4s all;
 
   :hover {
-    color: ${colors.white};
+    font-weight: 700;
   }
 
   &:active {
@@ -416,6 +413,11 @@ export const AccountLink = styled(VerifyLink)`
   z-index: 2;
   display: flex;
   justify-content: flex-start;
+  position: ${({ sticky }) => (sticky ? "-webkit-sticky" : "-webkit-static")};
+  position: ${({ sticky }) => (sticky ? "sticky" : "static")};
+  top: 0;
+  width: 100%;
+  background-color: ${colors.white};
 `;
 
 export const AccountItem = styled.div`
@@ -611,4 +613,45 @@ export const PopOverWrapper = styled.div`
   height: ${({ shrink }) => (shrink ? "0" : "intial")};
   opacity: ${({ shrink }) => (shrink ? "0" : "1")};
   transition: 0.4s all;
+`;
+
+const dividerHieght = 14;
+export const OrganisationDetailsWrapper = styled(ReviewDiv)`
+  position: relative;
+  padding-top: calc(${dividerHieght}px + 1rem);
+  padding-bottom: 1.25rem;
+
+  :after {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 100%;
+    border-bottom: ${dividerHieght}px solid ${colors.alto};
+    top: 0;
+    left: 0;
+  }
+`;
+
+export const InfoRow = styled.div`
+  width: 100%;
+  display: flex;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0;
+`;
+
+export const LeftInfo = styled.div`
+  width: 30%;
+  display: flex;
+  align-items: center;
+  color: ${colors.profileFontColor};
+  font-weight: 500;
+  font-size: 15px;
+`;
+
+export const RightInfo = styled.div`
+  width: 70%;
+  display: flex;
+  align-items: center;
 `;

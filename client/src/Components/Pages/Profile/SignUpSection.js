@@ -5,9 +5,10 @@ import { SIGNUP_URL } from "../../../constants/naviagationUrls";
 
 import { AccountLink } from "./Profile.style";
 
-const SignUpSection = ({ category, location }) => {
+const SignUpSection = ({ category, location, sticky }) => {
   return (
     <AccountLink
+      sticky={sticky}
       to={{
         pathname: SIGNUP_URL,
         state: { from: location },
