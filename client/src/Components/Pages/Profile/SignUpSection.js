@@ -1,8 +1,9 @@
 import React from "react";
 
+import { withRouter } from "react-router-dom";
+
 import Button from "../../Common/Button";
 import { SIGNUP_URL } from "../../../constants/naviagationUrls";
-
 import { AccountLink } from "./Profile.style";
 
 const SignUpSection = ({ category, location, sticky }) => {
@@ -24,4 +25,4 @@ const SignUpSection = ({ category, location, sticky }) => {
   );
 };
 
-export default SignUpSection;
+export default withRouter(SignUpSection);

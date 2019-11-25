@@ -103,7 +103,6 @@ export default class HeaderSection extends Component {
       reviewsLast30Days,
       orgId,
       awaitingReview,
-      location,
       setActiveTab,
       activeTab = "overview",
     } = this.props;
@@ -152,7 +151,7 @@ export default class HeaderSection extends Component {
             </Link>
           </ActionButtonsDiv>
         ) : (
-          <SignUpSection category={category} location={location} sticky />
+          <SignUpSection category={category} sticky />
         )}
       </Header>
     );

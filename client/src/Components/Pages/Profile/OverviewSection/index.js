@@ -23,7 +23,6 @@ const OverviewSection = ({
   awaitingReview,
   FilteredReviewMonths,
   history,
-  location,
   loaded,
 }) => {
   const { category, name, phoneNumber, email, websiteUrl } = summary && summary;
@@ -63,7 +62,6 @@ const OverviewSection = ({
           awaitingReview={awaitingReview}
           FilteredReviewMonths={FilteredReviewMonths}
           history={history}
-          location={location}
           loaded={loaded}
         />
       </Skeleton>
@@ -77,7 +75,6 @@ const OverviewSection = ({
             category={category}
             summary={summary}
             loaded={loaded}
-            location={location}
           />
         )}
 

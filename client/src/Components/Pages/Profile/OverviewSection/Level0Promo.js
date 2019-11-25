@@ -29,7 +29,7 @@ const Level0Promo = ({ isMobile, isTablet, category, location }) => {
               </AccountItem>
             ))}
         </div>
-        <SignUpSection category={category} location={location} />
+        <SignUpSection category={category} />
       </AccountPromo>
     </Level0PromoWrapper>
   );

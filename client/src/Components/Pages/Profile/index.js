@@ -188,7 +188,6 @@ export default class Profile extends Component {
       id,
       awaitingReview,
       history,
-      location,
     } = this.props;
 
     // if (!loaded) return <Loading />;
@@ -202,7 +201,6 @@ export default class Profile extends Component {
               isMobile={isMobile}
               summary={summary}
               level={level}
-              location={location}
               reviewsLast30Days={reviewsLast30Days}
               handleScroll={this.handleScroll}
               orgId={organizationID}
@@ -231,7 +229,6 @@ export default class Profile extends Component {
               awaitingReview={awaitingReview}
               FilteredReviewMonths={FilteredReviewMonths}
               history={history}
-              location={location}
               loaded={loaded}
             />
           ) : (
