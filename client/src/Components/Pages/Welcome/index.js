@@ -14,14 +14,15 @@ import {
   ContentWrapper,
   Header,
   Body,
-  ButtonsWrpper,
-  HTML,
+  ButtonsWrapper,
+  LogoContainer,
+  Logo
 } from "./Welcome.style";
 
 // NAV ROUTES
 import {
   // GIVE_REVIEW_URL,
-  SEARCH_URL,
+  SEARCH_URL
 } from "../../../constants/naviagationUrls";
 import { organizations } from "../../../theme";
 
@@ -32,72 +33,78 @@ export default class Welcome extends Component {
     return (
       <Layout type="center">
         <Wrapper>
-          <HTML>
-            <Body>
-              <Header>
-                <Title>
-                  Find out what you’re getting into before you get into it!
-                </Title>
-              </Header>
-              <ContentWrapper>
-                {/* this should be extracted to a common component */}
-                {!isLoggedIn ? (
-                  <Subtitle>
-                    Without an account, you can still read reviews & ratings,
-                    although the data is limited
-                  </Subtitle>
-                ) : (
-                  <Subtitle>
-                    Give reviews!
-                    <br /> Read reviews!
-                    <br /> Be heard!
-                  </Subtitle>
-                )}
-                <ButtonsWrpper>
-                  <div>
-                    <Link to={SEARCH_URL.replace(":category?", "agency")}>
-                      <Button
-                        margin="0.5rem 0"
-                        styleType="primary"
-                        text="Agencies"
-                        backgroundColor={organizations.agency.primary}
-                        style={{ minWidth: "8.5rem" }}
-                      />
-                    </Link>
-                    <Link to={SEARCH_URL.replace(":category?", "payroll")}>
-                      <Button
-                        margin="0.5rem 0"
-                        styleType="primary"
-                        text="Payrolls"
-                        backgroundColor={organizations.payroll.primary}
-                        style={{ minWidth: "8.5rem" }}
-                      />
-                    </Link>
-                  </div>
-                  <div>
-                    <Link to={SEARCH_URL.replace(":category?", "worksite")}>
-                      <Button
-                        margin="0.5rem 0"
-                        styleType="primary"
-                        text="Worksites"
-                        backgroundColor={organizations.worksite.primary}
-                        style={{ minWidth: "8.5rem" }}
-                      />
-                    </Link>
-                    <Link to={SEARCH_URL.replace(":category?", "company")}>
-                      <Button
-                        margin="0.5rem 0"
-                        styleType="primary"
-                        text="Companies"
-                        backgroundColor={organizations.company.primary}
-                        style={{ minWidth: "8.5rem" }}
-                      />
-                    </Link>
-                  </div>
-                </ButtonsWrpper>
-              </ContentWrapper>
-            </Body>
-          </HTML>
+          <Body>
+            <LogoContainer>
+              <Logo />
+            </LogoContainer>
+            <Header>
+              <Title>Hello! Welcome to earwig.</Title>
+            </Header>
+            <ContentWrapper>
+              {/* this should be extracted to a common component */}
+              {!isLoggedIn ? (
+                <Subtitle>
+                  Get worker reviews about agencies, payrolls, worksites and
+                  companies
+                </Subtitle>
+              ) : (
+                <Subtitle>
+                  Give reviews!
+                  <br /> Read reviews!
+                  <br /> Be heard!
+                </Subtitle>
+              )}
+              <ButtonsWrapper>
+                <div>
+                  <Link to={SEARCH_URL.replace(":category?", "agency")}>
+                    <Button
+                      borderRadius="none"
+                      margin="0.5rem 0"
+                      styleType="primary"
+                      text="Agencies"
+                      backgroundColor={organizations.agency.primary}
+                      style={{ minWidth: "7rem" }}
+                    />
+                  </Link>
+                  <Link to={SEARCH_URL.replace(":category?", "payroll")}>
+                    <Button
+                      borderRadius="none"
+                      margin="0.5rem 0"
+                      styleType="primary"
+                      text="Payrolls"
+                      backgroundColor={organizations.payroll.primary}
+                      style={{ minWidth: "7rem" }}
+                    />
+                  </Link>
+
+                  <Link to={SEARCH_URL.replace(":category?", "worksite")}>
+                    <Button
+                      borderRadius="none"
+                      margin="0.5rem 0"
+                      styleType="primary"
+                      text="Worksites"
+                      backgroundColor={organizations.worksite.primary}
+                      style={{ minWidth: "7rem" }}
+                    />
+                  </Link>
+                  <Link to={SEARCH_URL.replace(":category?", "company")}>
+                    <Button
+                      borderRadius="none"
+                      margin="0.5rem 0"
+                      styleType="primary"
+                      text="Companies"
+                      backgroundColor={organizations.company.primary}
+                      style={{ minWidth: "7rem" }}
+                    />
+                  </Link>
+                </div>
+              </ButtonsWrapper>
+              <Subtitle>
+                earwig is empowering construction workers to own their work
+                culture
+              </Subtitle>
+            </ContentWrapper>
+          </Body>
         </Wrapper>
       </Layout>
     );

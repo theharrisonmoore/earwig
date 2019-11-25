@@ -3,6 +3,8 @@ import styled from "styled-components";
 import backgroundDesktop from "../../../assets/welcome_page_image_desktop.jpg";
 import backgroundMobile from "../../../assets/welcome_page_image_mobile.jpg";
 
+import earwigLogoWhite from "../../../assets/earwig-logo-white.png";
+
 import { colors, breakpoints } from "../../../theme";
 
 export const Wrapper = styled.div`
@@ -11,52 +13,14 @@ export const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
   overflow: scroll;
-  // position: absolute;
+  position: absolute;
   top: 0;
-  border: 3px solid red;
   justify-content: center;
-`;
-
-export const HTML = styled.html`
-  background-image: url(${backgroundMobile});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-
-  @media ${breakpoints.mobileXL} {
-    background-image: url(${backgroundDesktop});
-  }
-`;
-
-export const Title = styled.h1`
-  margin-top: 6rem;
-  max-width: 300px;
-  font-size: 2rem;
-  font-weight: 400;
-  line-height: 2.5rem;
-  text-align: center;
-  color: ${colors.white};
-  margin-bottom: 1rem;
-  margin: 0 auto;
-
-  @media ${breakpoints.tablet} {
-    color: ${colors.heliotrope};
-  }
-`;
-
-export const Subtitle = styled.h2`
-  font-size: 1.75rem;
-  color: ${colors.heliotrope};
-  margin-bottom: 2rem;
-  text-align: center;
-  max-width: 14rem;
 `;
 
 export const ContentWrapper = styled.div`
   position: relative;
   width: 100%;
-  /* max-width: 25rem; */
-  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,38 +37,74 @@ export const ContentWrapper = styled.div`
 
 export const Header = styled.header`
   margin: 0 auto;
-  padding: 6.5rem 1rem 2.5rem;
   z-index: 1;
-  position: relative;
   margin: 0 auto;
-
-  background-color: ${colors.heliotrope};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 6.5rem;
 
   @media ${breakpoints.tablet} {
     background-color: initial;
-    padding: 12.5rem 1rem 0.5rem;
+    padding-top: 7.5rem;
   }
+`;
+
+export const Title = styled.h1`
+  // max-width: 300px;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 2.5rem;
+  text-align: center;
+  color: ${colors.white};
+  margin-bottom: 1rem;
+  margin: 0 auto;
+`;
+
+export const Subtitle = styled.h2`
+  font-size: 1.5rem;
+  color: ${colors.white};
+  // margin-bottom: 2rem;
+  text-align: center;
+  // max-width: 14rem;
 `;
 
 export const Body = styled.div`
   width: 100%;
+  background-image: url(${backgroundMobile});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 
-  @media ${breakpoints.tablet} {
-    width: 50%;
+  @media ${breakpoints.mobileXL} {
+    background-image: url(${backgroundDesktop});
   }
 `;
 
-export const ButtonsWrpper = styled.div`
+export const LogoContainer = styled.div`
+  padding-top: 6rem;
+`;
+
+export const Logo = styled.img`
+  content: url(${earwigLogoWhite});
+  vertical-align: middle;
+  border-style: none;
+  min-width: 10.5rem;
+  max-width: 15.5rem;
+`;
+
+export const ButtonsWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   width: 100%;
-  padding-bottom: 5rem;
+  // padding-bottom: 5rem;
 
   div {
     display: flex;
     justify-content: space-around;
     margin: 0 auto;
-    max-width: 25rem;
+    // max-width: 25rem;
+    // border: 2px solid red;
     width: 100%;
   }
 `;

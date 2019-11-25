@@ -7,7 +7,7 @@ import { ButtonSpinner } from "./AntdComponents/Loading";
 import Icon from "./Icon/Icon";
 
 const sharedStyles = css`
-  border-radius: 300px;
+  border-radius: ${props => props.borderRadius || "300px"};
   /* width: ${props => props.width || "100%"}; */
   min-height: 45px;
   font-weight: bold;
