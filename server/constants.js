@@ -6,7 +6,7 @@ module.exports = {
       "Key ratings",
       "Detailed ratings",
       "Getting on to site",
-      "Working on the site",
+      "Working on this site",
       "The site welfare",
       "Supervisors & employees",
       "Tools & materials",

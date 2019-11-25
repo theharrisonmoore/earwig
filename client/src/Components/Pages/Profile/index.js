@@ -78,7 +78,7 @@ export default class Profile extends Component {
           reviewDetails.length
         ) {
           const [worksiteQuestionsGroup] = reviewDetails.filter(
-            group => group._id === "Working on the site"
+            group => group._id === "Working on this site"
           );
           const [contractorQuestion] = worksiteQuestionsGroup.questions.filter(
             question => question.text === "Who was the main contractor on site?"
@@ -386,7 +386,7 @@ export default class Profile extends Component {
                 {level > 0 &&
                   reviewDetails.map(
                     (section, index) =>
-                      section._id === "Working on the site" && (
+                      section._id === "Working on this site" && (
                         <ReviewSection
                           key={index}
                           category={category}
