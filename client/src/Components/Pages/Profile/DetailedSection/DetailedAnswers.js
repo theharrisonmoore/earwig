@@ -9,7 +9,6 @@ const DetailedAnswers = ({
   reviewDetails,
   summary,
   toggleComments,
-  getCarCost,
 }) => {
   const { category } = summary;
 
@@ -53,7 +52,7 @@ const DetailedAnswers = ({
               toggleComments={toggleComments}
               summary={summary}
               isMobile={isMobile}
-              carParkingPrice={getCarCost}
+              reviewDetails={reviewDetails}
             />
           )
       )}

@@ -45,25 +45,28 @@ const OverviewSection = ({
       )}
 
       {/* Reviews Section */}
-      <OverallReview
-        summary={summary}
-        isTablet={isTablet}
-        isMobile={isMobile}
-        category={category}
-        activeOverallId={activeOverallId}
-        overallReplies={overallReplies}
-        fetchOverallReplies={fetchOverallReplies}
-        verified={verified}
-        level={level}
-        isAdmin={isAdmin}
-        orgId={organizationID}
-        id={id}
-        awaitingReview={awaitingReview}
-        FilteredReviewMonths={FilteredReviewMonths}
-        history={history}
-        location={location}
-        loaded={loaded}
-      />
+
+      <Skeleton loading={!loaded}>
+        <OverallReview
+          summary={summary}
+          isTablet={isTablet}
+          isMobile={isMobile}
+          category={category}
+          activeOverallId={activeOverallId}
+          overallReplies={overallReplies}
+          fetchOverallReplies={fetchOverallReplies}
+          verified={verified}
+          level={level}
+          isAdmin={isAdmin}
+          orgId={organizationID}
+          id={id}
+          awaitingReview={awaitingReview}
+          FilteredReviewMonths={FilteredReviewMonths}
+          history={history}
+          location={location}
+          loaded={loaded}
+        />
+      </Skeleton>
 
       {/* BASIC VIEW FOR LOGGED OUT USERS */}
       <Skeleton loading={!loaded}>

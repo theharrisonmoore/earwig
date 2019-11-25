@@ -9,7 +9,6 @@ const DetailedSection = ({
   reviewDetails,
   summary,
   toggleComments,
-  getCarCost,
 }) => {
   return (
     <>
@@ -20,7 +19,6 @@ const DetailedSection = ({
           reviewDetails={reviewDetails}
           summary={summary}
           toggleComments={toggleComments}
-          getCarCost={getCarCost}
         />
       )}
     </>

@@ -1,14 +1,10 @@
 import React, { Component } from "react";
-import { Rate } from "antd";
-
-import { colors } from "../../../../theme";
 
 import {
   Wrapper,
   SectionTitle,
   QuestionWrapper,
   QuestionTitle,
-  CategoryTitle,
   LightTitle,
   HintText,
 } from "./ReviewSection.style";
@@ -38,9 +34,8 @@ export default class ReviewSection extends Component {
       toggleComments,
       summary,
       isMobile,
-      carParkingPrice,
+      reviewDetails,
     } = this.props;
-
     const { _id: sectionTitle, questions } = sectionDetails;
 
     let canteenQuestions =
@@ -72,7 +67,8 @@ export default class ReviewSection extends Component {
         {sectionTitle !== "Key ratings" && (
           <SectionTitle>{sectionTitle}</SectionTitle>
         )}
-        {sectionTitle === "Key ratings" && (
+
+        {/* {sectionTitle === "Key ratings" && (
           <QuestionWrapper>
             <QuestionTitle>
               <CategoryTitle>
@@ -120,7 +116,7 @@ export default class ReviewSection extends Component {
               </div>
             </>
           </QuestionWrapper>
-        )}
+        )} */}
 
         {questions &&
           questions.map(
@@ -229,7 +225,7 @@ export default class ReviewSection extends Component {
                           toggleComments={toggleComments}
                           profileType={question.profileType}
                           isMobile={isMobile}
-                          carParkingPrice={carParkingPrice}
+                          reviewDetails={reviewDetails}
                         />
                       ) : (
                         <LightTitle>

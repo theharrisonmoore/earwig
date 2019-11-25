@@ -5,11 +5,13 @@ import {
   SiteItem,
   SiteAnswer,
   Comment,
-  RightCommentWrapper
+  RightCommentWrapper,
 } from "./ProfileAnswers.style";
 
 import Icon from "../../../Common/Icon/Icon";
 import { organizations } from "../../../../theme";
+
+import { getCarCost } from "../utils";
 
 export default class SiteItemAnswer extends Component {
   getAverage = answers => {
@@ -27,9 +29,11 @@ export default class SiteItemAnswer extends Component {
       question,
       toggleComments,
       isMobile,
-      carParkingPrice,
-      category
+      category,
+      reviewDetails,
     } = this.props;
+
+    const carParkingPrice = getCarCost(reviewDetails);
     const averageResponse = this.getAverage(question.answers);
 
     return (
@@ -46,7 +50,7 @@ export default class SiteItemAnswer extends Component {
               />
               {averageResponse ? (
                 <p>
-                  {question.profileText} (£{carParkingPrice()}){" "}
+                  {question.profileText} (£{carParkingPrice}){" "}
                 </p>
               ) : (
                 <p>{question.profileText}</p>
