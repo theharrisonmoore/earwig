@@ -194,7 +194,7 @@ export default class Profile extends Component {
 
     return (
       <Layout type="center">
-        <Wrapper isMobile={isMobile}>
+        <Wrapper isMobile={isMobile} showTabs={level > 0}>
           <Skeleton loading={!loaded}>
             <HeaderSection
               isTablet={isTablet}

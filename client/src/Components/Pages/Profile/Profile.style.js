@@ -16,7 +16,10 @@ import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: ${props => (props.isMobile ? "11.5rem" : "12.5rem")};
+  padding-top: ${({ showTabs, isMobile }) =>
+    isMobile
+      ? `calc(11.5rem - ${showTabs ? "0px" : "48px"})`
+      : `calc(12.5rem - ${showTabs ? "0px" : "48px"})`};
   text-align: left;
   padding-bottom: 100px;
   font-size: 1rem;
@@ -45,7 +48,6 @@ export const Banner = styled.div`
 `;
 
 export const Header = styled.div`
-  box-shadow: ${shadows.headerShadow};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,12 +69,7 @@ export const Header = styled.div`
 export const ColoredDiv = styled.div`
   background-color: ${props => organizations[`${props.category}`].primary};
   width: 100%;
-  margin-top: ${({ holdNavbarSpace, isMobile }) => {
-    if (holdNavbarSpace) {
-      return isMobile ? "3rem" : "4rem";
-    }
-    return 0;
-  }};
+  margin-top: 0;
 `;
 
 export const TabsDivFullWidth = styled.div`
@@ -589,17 +586,15 @@ export const ActionButton = styled.button`
 
 export const ContractorDiv = styled.div`
   width: 100%;
-  height: ${({ shrink }) => (shrink ? "0" : "intial")};
-  opacity: ${({ shrink }) => (shrink ? "0" : "1")};
-  transition: 0.4s all;
+  font-family: Roboto;
 `;
 
 export const ContractorText = styled.p`
-  font-size: 18px;
+  font-size: 15px;
   letter-spacing: 0.3px;
   color: ${colors.profileFontColor};
   .contactor-name {
-    font-weight: 700;
+    font-weight: 500;
   }
 `;
 
