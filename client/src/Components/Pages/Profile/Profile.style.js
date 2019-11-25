@@ -16,7 +16,7 @@ import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: ${props => (props.isMobile ? "11rem" : "12rem")};
+  padding-top: ${props => (props.isMobile ? "11.5rem" : "12.5rem")};
   text-align: left;
   padding-bottom: 100px;
   font-size: 1rem;
@@ -230,17 +230,38 @@ export const ActionButtonsDiv = styled.div`
   }
 `;
 
+const dividerHieght = 14;
+const dividerStyle = `
+:after {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 100%;
+  border-bottom: ${dividerHieght}px solid ${colors.alto};
+  top: 0;
+  left: 0;
+}
+`;
+
 export const ReviewDiv = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: ${props =>
-    props.isTablet || props.isMobile ? "0rem 1rem" : "0rem 7rem"};
+    props.isTablet || props.isMobile
+      ? `calc(${dividerHieght}px + 1.25rem) 1rem 0`
+      : `calc(${dividerHieght}px + 1.25rem) 7rem 0`};
   text-align: left;
+
+  ${dividerStyle}
 `;
 
-export const Level0PromoWrapper = styled(ReviewDiv)`
+export const Level0PromoWrapper = styled.div`
   padding: ${props =>
     props.isTablet || props.isMobile ? "0rem 1rem" : "2rem 7rem 0 7rem"};
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 `;
 
 export const GiveReviewTitle = styled.h3`
@@ -615,21 +636,12 @@ export const PopOverWrapper = styled.div`
   transition: 0.4s all;
 `;
 
-const dividerHieght = 14;
 export const OrganisationDetailsWrapper = styled(ReviewDiv)`
   position: relative;
   padding-top: calc(${dividerHieght}px + 1rem);
   padding-bottom: 1.25rem;
 
-  :after {
-    position: absolute;
-    content: "";
-    display: block;
-    width: 100%;
-    border-bottom: ${dividerHieght}px solid ${colors.alto};
-    top: 0;
-    left: 0;
-  }
+  ${dividerStyle}
 `;
 
 export const InfoRow = styled.div`

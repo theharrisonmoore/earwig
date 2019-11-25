@@ -1,4 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+import { Icon as AntdIcon, Popover } from "antd";
 
 import {
   OrganisationDetailsWrapper,
@@ -6,9 +9,19 @@ import {
   InfoRow,
   RightInfo,
   LeftInfo,
-  OrgButton,
   OrgLink,
+  ContractorDiv,
+  ContractorText,
+  ContractorListLink,
 } from "./Profile.style";
+
+const ContractorsList = ({ contractorAnswers }) => (
+  <div style={{ maxHeight: "150px", overflow: "auto" }}>
+    {contractorAnswers.map(item => (
+      <Link to={`/profile/${item._id}`}>{item.name}</Link>
+    ))}
+  </div>
+);
 
 const OrganisationDetails = ({
   name,
@@ -18,11 +31,48 @@ const OrganisationDetails = ({
   isMobile,
   isTablet,
   category,
-  summary,
+  contractorAnswers,
 }) => {
   return (
     <OrganisationDetailsWrapper isMobile={isMobile} isTablet={isTablet}>
       <CompanyTitle>{name}</CompanyTitle>
+
+      {/* contractor section */}
+      {category === "worksite" && (
+        <ContractorDiv>
+          <ContractorText>
+            Main Contractor:{" "}
+            <span className="contactor-name">
+              {contractorAnswers[0] && contractorAnswers[0].name ? (
+                <Link
+                  to={`/profile/${contractorAnswers[0]._id}`}
+                  style={{ color: "black", textDecoration: "underline" }}
+                >
+                  {contractorAnswers[0] && contractorAnswers[0].name}
+                </Link>
+              ) : (
+                "No answers yet"
+              )}
+            </span>
+          </ContractorText>
+          {contractorAnswers[0] && (
+            <Popover
+              placement="bottom"
+              title="Contractors List"
+              content={
+                <ContractorsList contractorAnswers={contractorAnswers} />
+              }
+              trigger="click"
+            >
+              <ContractorListLink>
+                More main contractors on this site
+              </ContractorListLink>
+              <AntdIcon style={{ color: "black" }} type="caret-down" />
+            </Popover>
+          )}
+        </ContractorDiv>
+      )}
+
       {category !== "worksite" && (
         <InfoRow>
           <LeftInfo>Website:</LeftInfo>

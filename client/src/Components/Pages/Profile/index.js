@@ -3,20 +3,16 @@ import axios from "axios";
 import moment from "moment";
 import { message, Skeleton } from "antd";
 
-import DetailedAnswers from "./DetailedAnswers";
-import SignUpSection from "./SignUpSection";
-import Level0Promo from "./Level0Promo";
-
 // import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
 import CommentsBox from "./ProfileAnswers/CommentsBox";
 import HeaderSection from "./HeaderSection";
-import OverallReview from "./OverallReview";
+import OverviewSection from "./OverviewSection";
+import DetailedSection from "./DetailedSection";
+
 // import Loading from "./../../Common/AntdComponents/Loading";
 
 import Layout from "../../Common/Layout";
-
-import { Wrapper, ReviewDiv } from "./Profile.style";
-import OrganisationDetails from "./OrganisationDetails";
+import { Wrapper } from "./Profile.style";
 
 export default class Profile extends Component {
   state = {
@@ -251,6 +247,9 @@ export default class Profile extends Component {
       contractorAnswers,
       FilteredReviewMonths,
       organizationID,
+      activeTab,
+      activeOverallId,
+      overallReplies,
     } = this.state;
 
     const {
@@ -266,8 +265,10 @@ export default class Profile extends Component {
 
     // if (!loaded) return <Loading />;
 
-    const { category, name, phoneNumber, email, websiteUrl } =
-      summary && summary;
+    if (!loaded) {
+      return null;
+    }
+
     return (
       <Layout type="center">
         <Wrapper isMobile={isMobile}>
@@ -284,61 +285,24 @@ export default class Profile extends Component {
               contractorAnswers={contractorAnswers}
               awaitingReview={awaitingReview}
               FilteredReviewMonths={FilteredReviewMonths}
+              activeTab={activeTab}
               setActiveTab={this.setActiveTab}
             />
           </Skeleton>
-          {/* ORGANISATION INFORMATION AND CONTACT DETAILS */}
-
-          <OrganisationDetails
-            isMobile={isMobile}
-            isTablet={isTablet}
-            name={name}
-            email={email}
-            phoneNumber={phoneNumber}
-            websiteUrl={websiteUrl}
-            summary={summary}
-            category={category}
-          />
-          {/* BASIC VIEW FOR LOGGED OUT USERS */}
-          <Skeleton loading={!loaded}>
-            {level < 1 && (
-              <Level0Promo
-                isMobile={isMobile}
-                isTablet={isTablet}
-                category={category}
-                summary={summary}
-                loaded={loaded}
-                location={location}
-              />
-            )}
-
-            {level > 0 && (
-              <DetailedAnswers
-                isTablet={isTablet}
-                isMobile={isMobile}
-                reviewDetails={reviewDetails}
-                category={category}
-                summary={summary}
-                toggleComments={this.toggleComments}
-                getCarCost={this.getCarCost}
-              />
-            )}
-
-            {/* OVERALL RATINGS SECTION */}
-            {/* HIDDEN DIV TO SCROLL SECTION INTO VIEW */}
-            <div ref={this.myDivToFocus} />
-            <OverallReview
-              summary={summary}
-              isTablet={isTablet}
+          {activeTab === "overview" ? (
+            <OverviewSection
               isMobile={isMobile}
-              category={category}
-              activeOverallId={this.state.activeOverallId}
-              overallReplies={this.state.overallReplies}
+              isTablet={isTablet}
+              summary={summary}
+              contractorAnswers={contractorAnswers}
+              //
+              activeOverallId={activeOverallId}
+              overallReplies={overallReplies}
               fetchOverallReplies={this.fetchOverallReplies}
               verified={verified}
               level={level}
               isAdmin={isAdmin}
-              orgId={organizationID}
+              organizationID={organizationID}
               id={id}
               awaitingReview={awaitingReview}
               FilteredReviewMonths={FilteredReviewMonths}
@@ -346,27 +310,32 @@ export default class Profile extends Component {
               location={location}
               loaded={loaded}
             />
-            {level < 1 && (
-              <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-                <SignUpSection category={category} location={location} />
-              </ReviewDiv>
-            )}
-            {/* COMMENTS BOX */}
-            {commentsOpen && (
-              <CommentsBox
-                organization={summary}
-                question={commentsQuestion}
-                comments={comments}
-                commentsLoaded={commentsLoaded}
-                toggleComments={this.toggleComments}
-                isMobile={isMobile}
-                fetchComments={this.fetchComments}
-                category={category}
-                verified={verified}
-                isAdmin={isAdmin}
-              />
-            )}
-          </Skeleton>
+          ) : (
+            <DetailedSection
+              level={level}
+              isMobile={isMobile}
+              isTablet={isTablet}
+              reviewDetails={reviewDetails}
+              summary={summary}
+              toggleComments={this.toggleComments}
+              getCarCost={this.getCarCost}
+            />
+          )}
+
+          {/* COMMENTS BOX */}
+          {commentsOpen && (
+            <CommentsBox
+              organization={summary}
+              question={commentsQuestion}
+              comments={comments}
+              commentsLoaded={commentsLoaded}
+              toggleComments={this.toggleComments}
+              isMobile={isMobile}
+              fetchComments={this.fetchComments}
+              verified={verified}
+              isAdmin={isAdmin}
+            />
+          )}
         </Wrapper>
       </Layout>
     );

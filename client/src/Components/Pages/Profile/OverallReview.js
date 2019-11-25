@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import React, { Component } from "react";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Collapse, Icon as AntdIcon, message, Alert } from "antd";
 import axios from "axios";
 
@@ -38,7 +38,7 @@ import { SectionTitle } from "./ReviewSection.style";
 
 const { Panel } = Collapse;
 
-export default class OverallReview extends Component {
+class OverallReview extends Component {
   state = {
     activeReview: "",
     counters: {
@@ -295,7 +295,7 @@ export default class OverallReview extends Component {
 
     return FilteredReviewMonths[0] && FilteredReviewMonths[0].createdAt ? (
       <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-        <SectionTitle>Reviews ({totalReviews})</SectionTitle>
+        <SectionTitle>Reviews by workers ({totalReviews})</SectionTitle>
         {/* check if any written comments */}
         {this.checkWrittenComments(summary.reviews) === false && (
           <LightTitle>No written reviews yet. Be the first...</LightTitle>
@@ -604,3 +604,5 @@ export default class OverallReview extends Component {
     );
   }
 }
+
+export default withRouter(OverallReview);

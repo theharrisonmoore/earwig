@@ -7,11 +7,12 @@ const DetailedAnswers = ({
   isTablet,
   isMobile,
   reviewDetails,
-  category,
   summary,
   toggleComments,
   getCarCost,
 }) => {
+  const { category } = summary;
+
   return (
     <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
       {/* KEY RATINGS SECTION */}

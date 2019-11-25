@@ -40,14 +40,6 @@ import { colors } from "../../../theme";
 import PopoverComponent from "../../Common/Popover";
 import Button from "../../Common/Button";
 
-const content = contractorAnswers => (
-  <div style={{ maxHeight: "150px", overflow: "auto" }}>
-    {contractorAnswers.map(item => (
-      <Link to={`/profile/${item._id}`}>{item.name}</Link>
-    ))}
-  </div>
-);
-
 const ColoredBanner = ({
   category,
   name,

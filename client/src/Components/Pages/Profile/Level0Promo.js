@@ -1,28 +1,14 @@
 import React from "react";
 
 import { ITEMS } from "../../../constants/promoItems";
-import ReviewSection from "./ReviewSection";
 import SignUpSection from "./SignUpSection";
 import Icon from "../../Common/Icon/Icon";
 
 import { AccountPromo, AccountItem, Level0PromoWrapper } from "./Profile.style";
 
-const Level0Promo = ({
-  isMobile,
-  isTablet,
-  category,
-  summary,
-  loaded,
-  location,
-}) => {
+const Level0Promo = ({ isMobile, isTablet, category, location }) => {
   return (
     <Level0PromoWrapper isTablet={isTablet} isMobile={isMobile}>
-      <ReviewSection
-        category={category}
-        sectionDetails={{ _id: "Key ratings" }}
-        summary={summary}
-        loaded={loaded}
-      />
       <AccountPromo>
         <p>Create an account to see more detail, including:</p>
         <div>
