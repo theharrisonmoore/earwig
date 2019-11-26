@@ -6,7 +6,7 @@ import {
   shadows,
   borders,
   organizations,
-  breakpoints
+  breakpoints,
 } from "../../../theme";
 
 export const Wrapper = styled.div`
@@ -47,12 +47,12 @@ export const TopSection = styled.div`
 export const BottomSection = styled.div`
   display: flex;
   justify-content: space-around;
-  flex-direction: ${props => (props.isSMobile ? "column" : "row")};
 `;
 
 export const StatWrapper = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
 `;
 
 export const StatTitle = styled.p`

@@ -380,7 +380,7 @@ export default class EditProfileSection extends Component {
                   <Select
                     id="newTrade"
                     name="newTrade"
-                    placeholder="Select your trade"
+                    placeholder="Choose your trade"
                     options={this.state.trades}
                     handleChange={value => {
                       this.handleChange(value);

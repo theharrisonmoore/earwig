@@ -37,13 +37,19 @@ const plainStyles = css`
   }
 `;
 
+const orgColored = css`
+  display: block;
+  color: ${({ color }) => color};
+`;
+
 const LinkElement = styled(ReactLink)`
   ${sharedStyles}
   ${props => props.type === "primary" && primaryStyles}
   ${props => props.type === "plain" && plainStyles}
+  ${props => props.type === "colored" && orgColored}
 `;
 /**
- * @example <Link to="/landing" styleType="primary" text="Sign out" />
+ * @example <Link to="/landing" type="primary" text="Sign out" />
  */
 
 const Link = ({ disabled, color, type, text, to, align, margin, ...rest }) => {
