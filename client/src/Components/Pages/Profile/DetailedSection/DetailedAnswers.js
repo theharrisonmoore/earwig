@@ -58,7 +58,7 @@ const DetailedAnswers = ({
       )}
       {reviewDetails.map(
         section =>
-          section._id === "Working on the site" && (
+          section._id === "Working on this site" && (
             <ReviewSection
               key={section._id}
               category={category}

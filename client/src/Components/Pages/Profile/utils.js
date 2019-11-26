@@ -2,7 +2,7 @@ import moment from "moment";
 
 export const getContractorsFromReviews = reviewDetails => {
   const [worksiteQuestionsGroup] = reviewDetails.filter(
-    group => group._id === "Working on the site"
+    group => group._id === "Working on this site"
   );
   const [contractorQuestion] = worksiteQuestionsGroup.questions.filter(
     question => question.text === "Who was the main contractor on site?"
