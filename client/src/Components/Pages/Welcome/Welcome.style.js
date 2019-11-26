@@ -8,6 +8,7 @@ import downwardArrow from "../../../assets/downward-arrow.svg";
 import { colors, shadows, breakpoints } from "../../../theme";
 
 export const Wrapper = styled.div`
+  font-family: Roboto;
   width: 100%;
   height: 100%;
   min-height: 100vh;

@@ -7,12 +7,9 @@ export const HeaderWrapper = styled.div`
   position: fixed;
   background-color: ${({ category }) => organizations[category].primary};
   width: 100%;
-
-  height: ${({ shrink }) => (shrink ? "8.125rem" : "17rem")};
-
+  height: ${({ shrink }) => (shrink ? "1.125rem" : "9rem")};
   display: flex;
   flex-direction: column;
-
   transition: 0.4s height;
   z-index: 1;
   max-width: 57.5rem;
@@ -30,6 +27,7 @@ export const SearchBarContainer = styled.div`
   margin: ${({ shrink }) => (shrink ? "0 auto 1rem" : "0 auto 2rem")};
   max-width: 23.5rem;
   .react-autosuggest__input {
+    margin-top: 1rem;
     border-radius: 5rem;
     border: none;
   }
