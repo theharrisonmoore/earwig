@@ -39,7 +39,7 @@ class CustomRate extends Component {
         <Rate
           onChange={value => this.setRateValue(value)}
           style={{
-            color: colors.profileFontColor,
+            color: colors.stars,
             fontSize: `${isMobile(window.innerWidth) ? "2rem" : "3rem"}`,
             marginTop: "-1rem",
           }}
@@ -51,9 +51,7 @@ class CustomRate extends Component {
             <span
               key={option}
               style={{
-                color: `${
-                  index === rateValue - 1 ? colors.profileFontColor : "#e8e8e8"
-                }`,
+                color: `${index === rateValue - 1 ? colors.stars : "#e8e8e8"}`,
                 fontWeight: `${index === rateValue - 1 ? "900" : "500"}`,
                 fontSize: `${
                   isMobile(window.innerWidth) ? "0.6rem" : "0.7rem"

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Map } from "immutable";
-import { Input } from "antd";
 
 import {
   QuestionOptionsWrapper,
@@ -10,8 +9,6 @@ import {
 } from "../Question.style";
 
 class YesNo extends Component {
-  state = { showComment: false };
-
   shouldComponentUpdate(nextProps) {
     if (
       Map(this.props.state.answers).equals(Map(nextProps.state.answers)) &&
@@ -27,7 +24,6 @@ class YesNo extends Component {
       options,
       number,
       category,
-      hasComment,
       groupId,
       next,
       showNextQestion,
@@ -71,17 +67,6 @@ class YesNo extends Component {
                         showNextQestion(groupId, nextQ, other, number);
                       }
                       // handleChange(e);
-
-                      // toggle showCommetn on and off (only show it when asnwer is "No")
-                      if (e.target.value === "No") {
-                        this.setState({
-                          showComment: true,
-                        });
-                      } else {
-                        this.setState({
-                          showComment: true,
-                        });
-                      }
                     }}
                     checked={
                       !!(
@@ -100,16 +85,6 @@ class YesNo extends Component {
               );
             })}
           </div>
-          {hasComment && this.state.showComment && (
-            <Input.TextArea
-              placeholder="Add comment (optional)"
-              onChange={this.props.handleReviewChange}
-              data-type="comments"
-              value={state.comments[question.number]}
-              name={question.number}
-              style={{ margin: "0.25rem 0 0" }}
-            />
-          )}
         </Options>
       </QuestionOptionsWrapper>
     );

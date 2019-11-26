@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
-import { YesNoWrapper, YesHalf, NoHalf, Comment } from "./ProfileAnswers.style";
-import { organizations } from "../../../../theme";
+import { YesNoWrapper, YesHalf, NoHalf } from "./ProfileAnswers.style";
 
 export default class YesNoAnswer extends Component {
   countYesNo = answers => {
@@ -23,7 +22,7 @@ export default class YesNoAnswer extends Component {
   };
 
   render() {
-    const { question, toggleComments, category } = this.props;
+    const { question } = this.props;
 
     const answerObj = this.countYesNo(question.answers);
 
@@ -40,18 +39,6 @@ export default class YesNoAnswer extends Component {
         <NoHalf width={answerObj.noPercentage}>
           <p>No ({answerObj.noCount})</p>
         </NoHalf>
-        {question.answers.filter(answer => answer.comment).length > 0 ? (
-          <Comment
-            onClick={() => toggleComments(question)}
-            active
-            color={organizations[category].primary}
-            hasComment={question.hasComment}
-          >
-            Comments
-          </Comment>
-        ) : (
-          <Comment hasComment={question.hasComment}>Comments</Comment>
-        )}
       </YesNoWrapper>
     );
   }

@@ -624,7 +624,11 @@ class Review extends Component {
                     if (group && group.title) {
                       return (
                         <GroupSection key={groupId}>
-                          <GroupTitle>{group.title}</GroupTitle>
+                          <GroupTitle>
+                            {group.title.toLowerCase().includes("general")
+                              ? ""
+                              : group.title}
+                          </GroupTitle>
                           {group.main.map(question => {
                             return (
                               <Question
