@@ -44,14 +44,9 @@ export default class InviteWorkers extends Component {
     }
     return (
       <InviteWrapper>
-        <Icon
-          icon="win"
-          color={organizations.agency.primary}
-          height="50"
-          width="50"
-          margin="1rem 0 0.5rem 0"
-        />
-        <Head3>Your network is powerful!</Head3>
+        <Icon icon="win" height="50" width="50" margin="1rem 0 0.5rem 0" />
+
+        <Head3>Together we are powerful!</Head3>
         <PromoParagraph>
           The more workers use earwig, the more valuable it becomes for you and
           the worker community.
