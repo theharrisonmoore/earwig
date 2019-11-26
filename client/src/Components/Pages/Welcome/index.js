@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 // COMMON
-// import Button from "../../Common/Button";
 import Layout from "../../Common/Layout";
 
 // STYLING
@@ -20,13 +19,13 @@ import {
   Logo,
   DownArrow,
   FooterTitle,
-  Button,
+  Button
 } from "./Welcome.style";
 
 // NAV ROUTES
 import {
   // GIVE_REVIEW_URL,
-  SEARCH_URL,
+  SEARCH_URL
 } from "../../../constants/naviagationUrls";
 import { organizations } from "../../../theme";
 

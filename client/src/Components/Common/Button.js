@@ -74,18 +74,6 @@ const primaryStyles = css`
   box-shadow: ${shadows.buttonShadow};
 `;
 
-const landingStyles = css`
-  font-size: 0.9rem;
-  color: ${colors.white};
-  border: none;
-  background-color: ${({ backgroundColor }) =>
-    backgroundColor || colors.primary};
-  box-shadow: ${shadows.buttonShadow};
-  width: calc(100% / 4);
-  height: 100%;
-  float: left;
-`;
-
 const secondaryStyles = css`
   color: ${({ color }) => color || colors.primary};
   border: 1px solid ${({ color }) => color || colors.primary};

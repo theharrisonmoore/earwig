@@ -86,9 +86,6 @@ export default class Navbar extends Component {
                 </Button>
               </NavLink>
             )}
-            <LogoLink to={WELCOME_URL}>
-              <Icon icon="logo" width="59px" />
-            </LogoLink>
           </SideDiv>
           {/* MOBILE VERSION */}
         </Wrapper>
@@ -117,11 +114,7 @@ export default class Navbar extends Component {
           </SideDiv>
         )}
         <WrapperH2 style={{ fontWeight: "900" }}>{text && text}</WrapperH2>
-        <SideDiv position="flex-end">
-          <LogoLink to={WELCOME_URL}>
-            <Icon icon="logo" width="59px" color={colors.profileFontColor} />
-          </LogoLink>
-        </SideDiv>
+        <SideDiv position="flex-end"></SideDiv>
       </Wrapper>
     );
   }
