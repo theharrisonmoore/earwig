@@ -75,6 +75,9 @@ class Question extends Component {
             </HintText>
           </Warning>
         )}
+
+        {/* overallReview tooltip */}
+        {/* {type === overallReview && <ToolTip text={hintText} icon="info" />} */}
         {text === "What hourly rate did this agency pay you?" && (
           <PopoverComponent
             category={category}

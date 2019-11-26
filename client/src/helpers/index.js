@@ -207,8 +207,13 @@ const getOrder = code => {
 
 export const sortAndCategorizeOrgs = arrayOfOrgs => {
   const sorted = arrayOfOrgs.sort((a, b) => {
-    const nameA = a.name.toUpperCase();
-    const nameB = b.name.toUpperCase();
+    const last = String.fromCharCode(0xffff);
+    function ignoreSpecialChars(x) {
+      return x.replace(/\W|[1-9]/g, last);
+    }
+
+    const nameA = ignoreSpecialChars(a.name.toUpperCase());
+    const nameB = ignoreSpecialChars(b.name.toUpperCase());
 
     const codeA = nameA[0].charCodeAt();
     const codeB = nameB[0].charCodeAt();
@@ -224,12 +229,13 @@ export const sortAndCategorizeOrgs = arrayOfOrgs => {
     }
     // if orderA === orderB
 
-    if (codeA < codeB) {
+    if (nameA < nameB) {
       return -1;
     }
-    if (codeA > codeB) {
+    if (nameA > nameB) {
       return 1;
     }
+
     // names must be equal
     return 0;
   });
