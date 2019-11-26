@@ -5,7 +5,6 @@ import facebookMsgIcon from "../../../assets/messenger-logo.svg";
 import emailIcon from "../../../assets/email-logo.svg";
 
 import Icon from "../../Common/Icon/Icon";
-import { organizations } from "../../../theme";
 import { isMobileDevice } from "../../../helpers";
 
 import {
