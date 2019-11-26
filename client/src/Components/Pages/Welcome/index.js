@@ -19,13 +19,13 @@ import {
   Logo,
   DownArrow,
   FooterTitle,
-  Button
+  Button,
 } from "./Welcome.style";
 
 // NAV ROUTES
 import {
   // GIVE_REVIEW_URL,
-  SEARCH_URL
+  SEARCH_URL,
 } from "../../../constants/naviagationUrls";
 import { organizations } from "../../../theme";
 
@@ -40,7 +40,7 @@ const createButtonContent = text => (
 export default class Welcome extends Component {
   render() {
     return (
-      <Layout type="center">
+      <Layout type="center" maxWidth="100%">
         <Wrapper>
           <Body>
             <LogoContainer>

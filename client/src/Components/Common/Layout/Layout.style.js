@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
 `;
 
 export const CenterContent = styled.main`
-  // max-width: 57.5rem;
+  max-width: ${props => props.maxWidth || "56rem"}
   width: 100%;
   background-color: ${colors.white};
   margin: 0 auto;
