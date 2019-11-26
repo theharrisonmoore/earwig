@@ -70,6 +70,8 @@ import Worksite from "./Worksite";
 import WorksiteThanks from "./WorksiteThanks";
 import Reply from "./Reply";
 import Calendar from "./Calendar";
+import Overview from "./Overview";
+import Detailed from "./Detailed";
 
 const iconStyles = props => css`
   width: ${props.width || "100%"};
@@ -148,6 +150,8 @@ const iconMap = {
   worksiteThanks: WorksiteThanks,
   reply: Reply,
   calendar: Calendar,
+  overview: Overview,
+  detailed: Detailed,
 };
 
 const styledIconMap = Object.keys(iconMap).reduce((accum, curr) => {

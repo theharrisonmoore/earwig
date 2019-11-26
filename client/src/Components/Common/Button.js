@@ -24,6 +24,7 @@ const sharedStyles = css`
   align-items: center;
   width: ${({ width }) => width || "auto"};
   background: none;
+  pointer-events: all !important;
 
   &:active {
     box-shadow: none;

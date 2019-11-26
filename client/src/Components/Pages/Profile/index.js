@@ -1,30 +1,19 @@
 import React, { Component } from "react";
 import axios from "axios";
-import moment from "moment";
 import { message, Skeleton } from "antd";
 
-import ReviewSection from "./ReviewSection";
 // import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
 import CommentsBox from "./ProfileAnswers/CommentsBox";
 import HeaderSection from "./HeaderSection";
-import OverallReview from "./OverallReview";
+import OverviewSection from "./OverviewSection";
+import DetailedSection from "./DetailedSection";
+
 // import Loading from "./../../Common/AntdComponents/Loading";
 
-import { ITEMS } from "../../../constants/promoItems";
-import { SIGNUP_URL } from "../../../constants/naviagationUrls";
-
-import Icon from "../../Common/Icon/Icon";
-import Button from "../../Common/Button";
 import Layout from "../../Common/Layout";
+import { Wrapper } from "./Profile.style";
 
-import {
-  Wrapper,
-  ReviewDiv,
-  AccountPromo,
-  AccountLink,
-  AccountItem,
-  Level0Promo,
-} from "./Profile.style";
+import { getContractorsFromReviews } from "./utils";
 
 export default class Profile extends Component {
   state = {
@@ -42,12 +31,17 @@ export default class Profile extends Component {
     contractorAnswers: [],
     reviewsLast30Days: [],
     FilteredReviewMonths: [],
-    avgRatings: null,
+    activeTab: "overview",
   };
 
   myDivToFocus = React.createRef();
 
-  handleScroll = event => {
+  setActiveTab = e => {
+    const { tab } = e.target.dataset;
+    this.setState({ activeTab: tab });
+  };
+
+  handleScroll = () => {
     if (this.myDivToFocus.current) {
       this.myDivToFocus.current.scrollIntoView({
         behavior: "smooth",
@@ -77,18 +71,7 @@ export default class Profile extends Component {
           summary[0].category === "worksite" &&
           reviewDetails.length
         ) {
-          const [worksiteQuestionsGroup] = reviewDetails.filter(
-            group => group._id === "Working on this site"
-          );
-          const [contractorQuestion] = worksiteQuestionsGroup.questions.filter(
-            question => question.text === "Who was the main contractor on site?"
-          );
-          // question => question.text === "Who is the main contractor on site?"
-          const orderedAnswers = contractorQuestion.answers.sort(
-            (a, b) =>
-              moment(a.updatedAt).valueOf() - moment(b.updatedAt).valueOf()
-          );
-          contractorAnswers = orderedAnswers.map(item => item.answer);
+          contractorAnswers = getContractorsFromReviews(reviewDetails);
         }
 
         this.setState({
@@ -109,37 +92,6 @@ export default class Profile extends Component {
       });
   };
 
-  getCarCost = () => {
-    const { reviewDetails } = this.state;
-
-    // get the car parking cost question
-    const carSection = reviewDetails
-      .filter(section => section._id === null)
-      .map(item =>
-        item.questions.filter(
-          question => question.text === "How much did car parking cost per day?"
-        )
-      );
-
-    if (!carSection || carSection.length < 1) return "N/A";
-
-    // work out the average cost from the answers
-    const costsArr = carSection[0][0].answers.map(answer => answer.answer);
-
-    const average =
-      costsArr.reduce((accum, curr, i, arr) => {
-        return accum + curr;
-      }, 0) / costsArr.length;
-
-    if (average > 0) {
-      if (Number.isInteger(average)) {
-        return average;
-      }
-      return average.toFixed(2);
-    }
-    return "Free";
-  };
-
   updateLastViewed = () => {
     const organizationID = window.location.href.split("/")[4];
 
@@ -155,10 +107,10 @@ export default class Profile extends Component {
     this.updateLastViewed();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const organizationID = window.location.href.split("/")[4];
-
-    if (organizationID !== this.state.organizationID) {
+  componentDidUpdate(prevProps) {
+    const { profileID: prevProfileID } = prevProps.match.params;
+    const { profileID: currentProfileID } = this.props.match.params;
+    if (prevProfileID !== currentProfileID) {
       this.fetchData();
     }
   }
@@ -193,47 +145,20 @@ export default class Profile extends Component {
   };
 
   fetchOverallReplies = (id, target) => {
-    id && target
-      ? axios
-          .get(`/api/reviews/${target}/replies/${id}`)
-          .then(({ data }) => {
-            this.setState({ overallReplies: data, activeOverallId: id });
-          })
-          .catch(err => {
-            const error =
-              err.response && err.response.data && err.response.data.error;
-            message.error(error || "Something went wrong");
-          })
-      : this.setState({ overallReplies: [], activeOverallId: "" });
-  };
-
-  reviewsByMonth = () => {
-    const { FilteredReviewMonths } = this.state;
-
-    const reviewMonths = FilteredReviewMonths.map(review => {
-      return moment(review.createdAt).format("MMM");
-    });
-
-    const reviewMonthsCount = {
-      Jan: 0,
-      Feb: 0,
-      Mar: 0,
-      Apr: 0,
-      May: 0,
-      Jun: 0,
-      Jul: 0,
-      Aug: 0,
-      Sep: 0,
-      Oct: 0,
-      Nov: 0,
-      Dec: 0,
-    };
-
-    if (FilteredReviewMonths.length === 0) return reviewMonthsCount;
-
-    reviewMonths.map(month => (reviewMonthsCount[month] += 1));
-
-    return reviewMonthsCount;
+    if (id && target) {
+      axios
+        .get(`/api/reviews/${target}/replies/${id}`)
+        .then(({ data }) => {
+          this.setState({ overallReplies: data, activeOverallId: id });
+        })
+        .catch(err => {
+          const error =
+            err.response && err.response.data && err.response.data.error;
+          message.error(error || "Something went wrong");
+        });
+    } else {
+      this.setState({ overallReplies: [], activeOverallId: "" });
+    }
   };
 
   render() {
@@ -250,6 +175,9 @@ export default class Profile extends Component {
       contractorAnswers,
       FilteredReviewMonths,
       organizationID,
+      activeTab,
+      activeOverallId,
+      overallReplies,
     } = this.state;
 
     const {
@@ -260,15 +188,13 @@ export default class Profile extends Component {
       id,
       awaitingReview,
       history,
-      location,
     } = this.props;
 
     // if (!loaded) return <Loading />;
 
-    const { category } = summary && summary;
     return (
       <Layout type="center">
-        <Wrapper isMobile={isMobile}>
+        <Wrapper isMobile={isMobile} showTabs={level > 0}>
           <Skeleton loading={!loaded}>
             <HeaderSection
               isTablet={isTablet}
@@ -281,229 +207,55 @@ export default class Profile extends Component {
               contractorAnswers={contractorAnswers}
               awaitingReview={awaitingReview}
               FilteredReviewMonths={FilteredReviewMonths}
+              activeTab={activeTab}
+              setActiveTab={this.setActiveTab}
             />
           </Skeleton>
-          {/* BASIC VIEW FOR LOGGED OUT USERS */}
-          <Skeleton loading={!loaded}>
-            {level < 1 && (
-              <Level0Promo isTablet={isTablet} isMobile={isMobile}>
-                <ReviewSection
-                  category={category}
-                  sectionDetails={{ _id: "Key ratings" }}
-                  summary={summary}
-                  loaded={loaded}
-                />
-                <AccountPromo>
-                  <p>Create an account to see more detail, including:</p>
-                  <div>
-                    {ITEMS[category] &&
-                      ITEMS[category].map((item, index) => (
-                        <AccountItem key={index}>
-                          <Icon
-                            icon={item.img}
-                            margin="0 1rem 0 0"
-                            height="2rem"
-                            width="2rem"
-                          />
-                          {item.text}
-                        </AccountItem>
-                      ))}
-                  </div>
-                  <AccountLink
-                    to={{
-                      pathname: SIGNUP_URL,
-                      state: { from: this.props.location },
-                    }}
-                    category={category}
-                  >
-                    <Button
-                      text="Sign up to see more"
-                      styleType="primary"
-                      margin="1rem auto"
-                    />
-                  </AccountLink>
-                </AccountPromo>
-              </Level0Promo>
-            )}
-            {/* {reviewDetails.length < 1 && (
-            <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-              <ReviewSection
-                category={category}
-                sectionDetails={{ _id: "Key ratings" }}
-                summary={summary}
-                loaded={loaded}
-              />
-            </ReviewDiv>
-          )} */}
-
-            {level > 0 && (
-              <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-                {/* KEY RATINGS SECTION */}
-                {reviewDetails.map(
-                  (section, index) =>
-                    section._id === "Key ratings" && (
-                      <ReviewSection
-                        key={index}
-                        category={category}
-                        sectionDetails={section}
-                        toggleComments={this.toggleComments}
-                        summary={summary}
-                        isMobile={isMobile}
-                      />
-                    )
-                )}
-
-                {/* OTHER SECTIONS */}
-                {reviewDetails.map(
-                  (section, index) =>
-                    section._id === "Detailed ratings" && (
-                      <ReviewSection
-                        key={index}
-                        category={category}
-                        sectionDetails={section}
-                        toggleComments={this.toggleComments}
-                        summary={summary}
-                        isMobile={isMobile}
-                      />
-                    )
-                )}
-
-                {reviewDetails.map(
-                  (section, index) =>
-                    section._id === "Getting on to site" && (
-                      <ReviewSection
-                        key={index}
-                        category={category}
-                        sectionDetails={section}
-                        toggleComments={this.toggleComments}
-                        summary={summary}
-                        isMobile={isMobile}
-                        carParkingPrice={this.getCarCost}
-                      />
-                    )
-                )}
-
-                {level > 0 &&
-                  reviewDetails.map(
-                    (section, index) =>
-                      section._id === "Working on this site" && (
-                        <ReviewSection
-                          key={index}
-                          category={category}
-                          sectionDetails={section}
-                          toggleComments={this.toggleComments}
-                          summary={summary}
-                          isMobile={isMobile}
-                        />
-                      )
-                  )}
-
-                {reviewDetails.map(
-                  (section, index) =>
-                    section._id === "The site welfare" && (
-                      <ReviewSection
-                        key={index}
-                        category={category}
-                        sectionDetails={section}
-                        toggleComments={this.toggleComments}
-                        summary={summary}
-                        isMobile={isMobile}
-                      />
-                    )
-                )}
-
-                {reviewDetails.map(
-                  (section, index) =>
-                    section._id === "Supervisors & employees" && (
-                      <ReviewSection
-                        key={index}
-                        category={category}
-                        sectionDetails={section}
-                        toggleComments={this.toggleComments}
-                        summary={summary}
-                        isMobile={isMobile}
-                      />
-                    )
-                )}
-
-                {reviewDetails.map(
-                  (section, index) =>
-                    section._id === "Tools & materials" && (
-                      <ReviewSection
-                        key={index}
-                        category={category}
-                        sectionDetails={section}
-                        toggleComments={this.toggleComments}
-                        summary={summary}
-                        isMobile={isMobile}
-                      />
-                    )
-                )}
-
-                {/* MONTHLY REVIEWS
-            {level > 0 && (
-              <MonthlyReviews
-                category={category}
-                reviewsByMonth={this.reviewsByMonth()}
-              />
-            )} */}
-              </ReviewDiv>
-            )}
-            {/* OVERALL RATINGS SECTION */}
-            {/* HIDDEN DIV TO SCROLL SECTION INTO VIEW */}
-            <div ref={this.myDivToFocus} />
-            <OverallReview
-              summary={summary}
-              isTablet={isTablet}
+          {activeTab === "overview" ? (
+            <OverviewSection
               isMobile={isMobile}
-              category={category}
-              activeOverallId={this.state.activeOverallId}
-              overallReplies={this.state.overallReplies}
+              isTablet={isTablet}
+              summary={summary}
+              contractorAnswers={contractorAnswers}
+              //
+              activeOverallId={activeOverallId}
+              overallReplies={overallReplies}
               fetchOverallReplies={this.fetchOverallReplies}
               verified={verified}
               level={level}
               isAdmin={isAdmin}
-              orgId={organizationID}
+              organizationID={organizationID}
               id={id}
               awaitingReview={awaitingReview}
               FilteredReviewMonths={FilteredReviewMonths}
               history={history}
-              location={location}
               loaded={loaded}
             />
-            {level < 1 && (
-              <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-                <AccountLink
-                  to={{
-                    pathname: SIGNUP_URL,
-                    state: { from: this.props.location },
-                  }}
-                  category={category}
-                >
-                  <Button
-                    text="Sign up to see more"
-                    styleType="primary"
-                    margin="0 auto"
-                  />
-                </AccountLink>
-              </ReviewDiv>
-            )}
-            {/* COMMENTS BOX */}
-            {commentsOpen && (
-              <CommentsBox
-                organization={summary}
-                question={commentsQuestion}
-                comments={comments}
-                commentsLoaded={commentsLoaded}
-                toggleComments={this.toggleComments}
-                isMobile={isMobile}
-                fetchComments={this.fetchComments}
-                category={category}
-                verified={verified}
-                isAdmin={isAdmin}
-              />
-            )}
-          </Skeleton>
+          ) : (
+            <DetailedSection
+              level={level}
+              isMobile={isMobile}
+              isTablet={isTablet}
+              reviewDetails={reviewDetails}
+              summary={summary}
+              toggleComments={this.toggleComments}
+            />
+          )}
+
+          {/* COMMENTS BOX */}
+          {commentsOpen && (
+            <CommentsBox
+              organization={summary}
+              question={commentsQuestion}
+              comments={comments}
+              commentsLoaded={commentsLoaded}
+              toggleComments={this.toggleComments}
+              isMobile={isMobile}
+              fetchComments={this.fetchComments}
+              verified={verified}
+              isAdmin={isAdmin}
+            />
+          )}
         </Wrapper>
       </Layout>
     );

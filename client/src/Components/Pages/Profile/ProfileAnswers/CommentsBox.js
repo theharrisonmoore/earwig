@@ -4,38 +4,38 @@ import * as yup from "yup";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import Loading from "./../../../Common/AntdComponents/Loading";
+import Loading from "../../../Common/AntdComponents/Loading";
 
-import Icon from "./../../../Common/Icon/Icon";
+import Icon from "../../../Common/Icon/Icon";
 
 import {
   Wrapper,
   CommentsDiv,
   CommentsHeader,
   CommentsTitle,
-  Error
+  Error,
 } from "./ProfileAnswers.style";
 
 import { IndividComment } from "../Reply.style";
 
-import { organizations } from "./../../../../theme";
+import { organizations } from "../../../../theme";
 
 import {
   StyledAntIcon,
   StyledReplyIcon,
   UserID,
-  CommentBubble
-} from "./../Profile.style";
+  CommentBubble,
+} from "../Profile.style";
 
-import { REPORT_CONTENT_URL } from "./../../../../constants/naviagationUrls";
-import { isMobileDevice, highlightMentions } from "./../../../../helpers";
-import { API_ADD_COMMENT_ON_QUESTION_URL } from "./../../../../apiUrls";
+import { REPORT_CONTENT_URL } from "../../../../constants/naviagationUrls";
+import { isMobileDevice, highlightMentions } from "../../../../helpers";
+import { API_ADD_COMMENT_ON_QUESTION_URL } from "../../../../apiUrls";
 
 export default class CommentsBox extends Component {
   state = {
     commentContentState: "",
     user: "",
-    errors: {}
+    errors: {},
   };
 
   handleChangeUserName = ({ target }) => {
@@ -49,16 +49,16 @@ export default class CommentsBox extends Component {
 
   validate = () => {
     const { isAdmin } = this.props;
-    let schema = yup.object().shape({
+    const schema = yup.object().shape({
       comment: yup.string().min(1, "comment is required!"),
-      user: isAdmin ? yup.string().required("user is required!") : null
+      user: isAdmin ? yup.string().required("user is required!") : null,
     });
 
     return schema
       .validate(
         {
           comment: toString(this.state.commentContentState),
-          user: this.state.user
+          user: this.state.user,
         },
         { abortEarly: false }
       )
@@ -86,26 +86,26 @@ export default class CommentsBox extends Component {
 
   handleSubmit = () => {
     this.validate().then(res => {
-      res &&
+      if (res) {
         this.setState({ errors: {} }, () => {
           const { organization, question } = this.props;
           const data = {
             text: this.state.commentContentState,
             displayName: this.state.user,
             question: question._id,
-            organization: organization._id
+            organization: organization._id,
           };
           axios
             .post(API_ADD_COMMENT_ON_QUESTION_URL, data)
             .then(({ data }) => {
               const question = {
                 ...this.props.question,
-                _id: this.props.question._id
+                _id: this.props.question._id,
               };
               this.setState(
                 {
                   commentContentState: "",
-                  errors: {}
+                  errors: {},
                 },
                 () => this.props.fetchComments(question)
               );
@@ -116,10 +116,12 @@ export default class CommentsBox extends Component {
               message.error(error || "Something went wrong");
             });
         });
+      }
     });
   };
 
   inputWrapper = React.createRef();
+
   fixedDiv = React.createRef();
 
   render() {
@@ -130,10 +132,11 @@ export default class CommentsBox extends Component {
       commentsLoaded,
       isMobile,
       organization,
-      category,
       isAdmin,
-      verified
+      verified,
     } = this.props;
+
+    const { category } = organization;
 
     const users =
       (comments &&
@@ -197,7 +200,7 @@ export default class CommentsBox extends Component {
                         [comment.displayName ? "left" : "right"]: 0,
                         position: "absolute",
                         border: 0,
-                        bottom: "2rem"
+                        bottom: "2rem",
                       }}
                       to={{
                         pathname: REPORT_CONTENT_URL,
@@ -205,8 +208,8 @@ export default class CommentsBox extends Component {
                           comment,
                           question,
                           organization,
-                          target: "questionComment"
-                        }
+                          target: "questionComment",
+                        },
                       }}
                     >
                       <StyledAntIcon type="flag" />
@@ -246,7 +249,7 @@ export default class CommentsBox extends Component {
                       onFocus={this.handleFocus}
                       onBlur={this.handleBlur}
                       onSelect={this.onSelect}
-                      placeholder={"Add a reply… use @ to mention"}
+                      placeholder="Add a reply… use @ to mention"
                       value={this.state.commentContentState}
                     >
                       {uniqueUsers.map((user, index) => {

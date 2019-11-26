@@ -1,18 +1,18 @@
 /* eslint-disable no-param-reassign */
 import React, { Component } from "react";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Collapse, Icon as AntdIcon, message, Alert } from "antd";
 import axios from "axios";
 
-import Icon from "../../Common/Icon/Icon";
+import Icon from "../../../Common/Icon/Icon";
 
-import { organizations, colors } from "../../../theme";
+import { organizations, colors } from "../../../../theme";
 import {
   REPORT_CONTENT_URL,
-  REPLY_URL
-} from "../../../constants/naviagationUrls";
-import { authorization } from "../../../helpers";
+  REPLY_URL,
+} from "../../../../constants/naviagationUrls";
+import { authorization } from "../../../../helpers";
 
 import {
   CommentDiv,
@@ -29,24 +29,24 @@ import {
   HelpfulButton,
   UserTrade,
   UserDiv,
-  UserAdditionalDetails
-} from "./Profile.style";
+  UserAdditionalDetails,
+} from "../Profile.style";
 
-import VoiceReview from "./ProfileAnswers/VoiceReview";
+import VoiceReview from "../ProfileAnswers/VoiceReview";
 
-import { SectionTitle } from "./ReviewSection.style";
+import { SectionTitle } from "../DetailedSection/ReviewSection.style";
 
 const { Panel } = Collapse;
 
-export default class OverallReview extends Component {
+class OverallReview extends Component {
   state = {
     activeReview: "",
     counters: {
       written: {},
-      audio: {}
+      audio: {},
     },
     writtenOrAudioReviews: [],
-    updatedUsers: {}
+    updatedUsers: {},
   };
 
   toggleHelpful = e => {
@@ -70,10 +70,10 @@ export default class OverallReview extends Component {
             [reviewId]: {
               counter: updateCounter,
               sentNumber,
-              byUser: true
-            }
-          }
-        }
+              byUser: true,
+            },
+          },
+        },
       },
       () => {
         this.postHelpfulPoints({
@@ -81,7 +81,7 @@ export default class OverallReview extends Component {
           reviewId,
           userId,
           type,
-          organization
+          organization,
         });
       }
     );
@@ -93,7 +93,7 @@ export default class OverallReview extends Component {
       .patch(`/api/review/${reviewId}/${target}/helpful-points`, {
         points,
         userId,
-        organization
+        organization,
       })
       .then(({ data: { points: newPoints, helpedUsers: newHelpedUsers } }) => {
         const { counters } = this.state;
@@ -106,16 +106,16 @@ export default class OverallReview extends Component {
               [reviewId]: {
                 counter: points,
                 sentNumber: points,
-                byUser: false
-              }
-            }
+                byUser: false,
+              },
+            },
           },
           updatedUsers: {
             [userId]: {
               helpedUsers: newHelpedUsers,
-              points: newPoints
-            }
-          }
+              points: newPoints,
+            },
+          },
         });
       })
       .catch(err => {
@@ -149,8 +149,8 @@ export default class OverallReview extends Component {
         target,
         category,
         orgId,
-        pageYOffset
-      }
+        pageYOffset,
+      },
     });
   };
 
@@ -163,13 +163,13 @@ export default class OverallReview extends Component {
             prev.audio[currReview.review] = {
               counter: currReview.points,
               sentNumber: currReview.points,
-              byUser: false
+              byUser: false,
             };
           } else if (currReview.target === "overallReview") {
             prev.written[currReview.review] = {
               counter: currReview.points,
               sentNumber: currReview.points,
-              byUser: false
+              byUser: false,
             };
           }
 
@@ -178,7 +178,7 @@ export default class OverallReview extends Component {
         { written: {}, audio: {} }
       );
       this.setState({
-        counters: newCounters
+        counters: newCounters,
       });
     });
   };
@@ -208,7 +208,7 @@ export default class OverallReview extends Component {
             _id: review._id,
             category: "written",
             review,
-            organization: review.organization
+            organization: review.organization,
           });
         }
 
@@ -224,14 +224,14 @@ export default class OverallReview extends Component {
             createdAt: review.createdAt,
             _id: review._id,
             category: "audio",
-            organization: review.organization
+            organization: review.organization,
           });
         }
       });
 
     this.setState(
       {
-        writtenOrAudioReviews: totalReviews
+        writtenOrAudioReviews: totalReviews,
       },
       () => {
         const pageYOffset =
@@ -276,7 +276,7 @@ export default class OverallReview extends Component {
       orgId,
       awaitingReview,
       FilteredReviewMonths,
-      id: userId
+      id: userId,
     } = this.props;
 
     const { totalReviews } = summary;
@@ -284,18 +284,18 @@ export default class OverallReview extends Component {
       activeReview,
       counters,
       writtenOrAudioReviews,
-      updatedUsers
+      updatedUsers,
     } = this.state;
     const isAuthorized = authorization({
       isAdmin,
       verified,
       awaitingReview,
-      minimumLevel: "LEVEL2"
+      minimumLevel: "LEVEL2",
     });
 
     return FilteredReviewMonths[0] && FilteredReviewMonths[0].createdAt ? (
       <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-        <SectionTitle>Reviews ({totalReviews})</SectionTitle>
+        <SectionTitle>Reviews by workers ({totalReviews})</SectionTitle>
         {/* check if any written comments */}
         {this.checkWrittenComments(summary.reviews) === false && (
           <LightTitle>No written reviews yet. Be the first...</LightTitle>
@@ -404,14 +404,14 @@ export default class OverallReview extends Component {
                           review: {
                             overallReview:
                               review.review && review.review.overallReview,
-                            user: review.user
+                            user: review.user,
                           },
                           organization: summary,
                           target:
                             review.category === "written"
                               ? "overallReview"
-                              : "voiceReview"
-                        }
+                              : "voiceReview",
+                        },
                       }}
                     >
                       <StyledAntIcon type="flag" />
@@ -439,7 +439,7 @@ export default class OverallReview extends Component {
                                   color: colors.primary,
                                   width: "15px",
                                   marginRight: "0.5rem",
-                                  fontWeight: 700
+                                  fontWeight: 700,
                                 }}
                               />
                             ) : (
@@ -448,7 +448,7 @@ export default class OverallReview extends Component {
                                 width="15px"
                                 style={{
                                   transform: "rotate(180deg)",
-                                  marginRight: "0.5rem"
+                                  marginRight: "0.5rem",
                                 }}
                                 fill={colors.primary}
                               />
@@ -457,7 +457,7 @@ export default class OverallReview extends Component {
                               style={{
                                 fontWeight: 700,
                                 color: colors.primary,
-                                marginBottom: "1rem"
+                                marginBottom: "1rem",
                               }}
                             >
                               {activeReview ===
@@ -478,7 +478,7 @@ export default class OverallReview extends Component {
                                 position: "relative",
                                 marginBottom: "2rem",
                                 direction: `${reply.replies.displayName &&
-                                  "rtl"}`
+                                  "rtl"}`,
                               }}
                             >
                               {!verified && reply.replies.user._id === userId && (
@@ -488,7 +488,7 @@ export default class OverallReview extends Component {
                                   type="warning"
                                   style={{
                                     display: "inline-block",
-                                    marginBottom: "0.5rem"
+                                    marginBottom: "0.5rem",
                                   }}
                                   banner
                                 />
@@ -528,7 +528,7 @@ export default class OverallReview extends Component {
                               <div
                                 style={{
                                   position: "relative",
-                                  marginBottom: "2rem"
+                                  marginBottom: "2rem",
                                 }}
                               >
                                 <BubbleAndDate>
@@ -564,19 +564,19 @@ export default class OverallReview extends Component {
                                     width: "10%",
                                     position: "absolute",
                                     top: "50%",
-                                    transform: "translateY(-50%)"
+                                    transform: "translateY(-50%)",
                                   }}
                                   to={{
                                     pathname: REPORT_CONTENT_URL,
                                     state: {
                                       review: {
                                         overallReview: review.overallReview,
-                                        user: review.user
+                                        user: review.user,
                                       },
                                       organization: summary,
                                       reply: reply.replies,
-                                      target: "overallReply"
-                                    }
+                                      target: "overallReply",
+                                    },
                                   }}
                                 >
                                   <StyledAntIcon type="flag" />
@@ -604,3 +604,5 @@ export default class OverallReview extends Component {
     );
   }
 }
+
+export default withRouter(OverallReview);

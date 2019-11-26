@@ -16,10 +16,14 @@ import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: ${props => (props.isMobile ? "3rem" : "4rem")};
+  padding-top: ${({ showTabs, isMobile }) =>
+    isMobile
+      ? `calc(13.25rem - ${showTabs ? "0px" : "60px"})`
+      : `calc(13.25rem - ${showTabs ? "0px" : "60px"})`};
   text-align: left;
   padding-bottom: 100px;
   font-size: 1rem;
+  position: relative;
 `;
 
 export const Banner = styled.div`
@@ -44,23 +48,83 @@ export const Banner = styled.div`
 `;
 
 export const Header = styled.div`
-  position: fixed;
-  box-shadow: ${shadows.headerShadow};
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: ${props =>
-    props.isTablet || props.isMobile ? "0.5rem 1rem" : "0.5rem 7rem"};
-  background-color: ${props => organizations[`${props.category}`].primary};
+  position: absolute;
+  top: 0;
+  bottom: 0;
   color: ${colors.white};
   width: 100%;
   max-width: 57.5rem;
-  z-index: 1000;
+  z-index: 100;
   transition: 0.4s all;
+  pointer-events: none;
 
   + * {
     padding-top: ${({ headerHeight }) => headerHeight}px !important;
   }
+`;
+
+export const ColoredDiv = styled.div`
+  background-color: ${props => organizations[`${props.category}`].primary};
+  width: 100%;
+  margin-top: 0;
+`;
+
+export const TabsDivFullWidth = styled.div`
+  border-bottom: 1px solid ${colors.dustyGray2};
+  width: 100%;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: ${colors.white};
+  z-index: 1;
+`;
+
+export const TabsDiv = styled.div`
+  display: flex;
+  max-width: 376px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+`;
+
+export const Tab = styled.div`
+  display: flex;
+  color: ${colors.primary};
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 0;
+  width: 50%;
+  position: relative;
+  cursor: pointer;
+  pointer-events: all !important;
+
+  * {
+    pointer-events: none;
+  }
+`;
+
+export const TabTitle = styled.span`
+  font-size: 1rem;
+  margin-top: 0.25rem;
+
+  font-weight: ${({ isActive }) => (isActive ? "500" : "normal")};
+`;
+
+export const Underline = styled.div`
+  position: absolute;
+  content: "";
+  width: 50%;
+  height: 5px;
+  background-color: ${colors.primary};
+  margin-left: ${({ left }) => (left ? 0 : "50%")};
+  border: 0;
+  display: block;
+  z-index: 1;
+  bottom: 0;
+  transition: 400ms all;
 `;
 
 export const CompanyDetails = styled.div`
@@ -83,12 +147,12 @@ export const CompanyDiv = styled.div`
 `;
 
 export const CompanyTitle = styled.h2`
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 1.125rem;
+  font-weight: 500;
   margin: 0;
   text-transform: capitalize;
-  color: ${colors.white};
-  text-align: center;
+  color: ${({ white }) => (white ? colors.white : colors.profileFontColor)};
+  margin: 0.25rem 0;
 `;
 
 export const ButtonDiv = styled.div`
@@ -104,16 +168,12 @@ export const ButtonDiv = styled.div`
 
 export const OrgLink = styled.a`
   display: ${props => props.hasDetails === null && "none"};
-  height: ${({ shrink }) => (shrink ? "0" : "intial")};
-  opacity: ${({ shrink }) => (shrink ? "0" : "1")};
-
-  transition: 0.4s all;
+  font-weight: normal;
+  font-size: 15px;
 `;
 
 export const OrgButton = styled.button`
-  border: ${colors.white} solid 2px;
-  box-sizing: border-box;
-  color: ${colors.white};
+  color: ${colors.primary};
   background: none;
   transition: all ease-in 0.1s;
   width: ${props => (props.isMobile ? "5rem" : "7rem")};
@@ -124,12 +184,11 @@ export const OrgButton = styled.button`
   position: relative;
   outline: none;
 
-  height: ${({ shrink }) => (shrink ? "0" : "2.5rem")};
-  opacity: ${({ shrink }) => (shrink ? "0" : "1")};
+  height: 2.5rem;
   transition: 0.4s all;
 
   :hover {
-    color: ${colors.white};
+    font-weight: 700;
   }
 
   &:active {
@@ -158,24 +217,49 @@ export const InactiveButton = styled(OrgButton)`
 export const ActionButtonsDiv = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  padding-top: 0.75rem;
+  background-color: ${colors.white};
+  width: 100%;
+  border-bottom: 1px solid ${colors.dustyGray2};
 
   @media ${breakpoints.mobileL} {
     justify-content: center;
   }
 `;
 
+const dividerHieght = 14;
+const dividerStyle = `
+:after {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 100%;
+  border-bottom: ${dividerHieght}px solid ${colors.alto};
+  top: 0;
+  left: 0;
+}
+`;
+
 export const ReviewDiv = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: ${props =>
-    props.isTablet || props.isMobile ? "2rem 1rem" : "2rem 7rem"};
+    props.isTablet || props.isMobile
+      ? `calc(${dividerHieght}px + 1.25rem) 1rem 0`
+      : `calc(${dividerHieght}px + 1.25rem) 7rem 0`};
   text-align: left;
+
+  ${dividerStyle}
 `;
 
-export const Level0Promo = styled(ReviewDiv)`
+export const Level0PromoWrapper = styled.div`
   padding: ${props =>
-    props.isTablet || props.isMobile ? "2rem 1rem" : "2rem 7rem 0 7rem"};
+    props.isTablet || props.isMobile ? "0rem 1rem" : "2rem 7rem 0 7rem"};
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 `;
 
 export const GiveReviewTitle = styled.h3`
@@ -192,8 +276,10 @@ export const SVGIcon = styled(SVG)`
 
 export const CompanyNameAndStars = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 4.5%;
 `;
 
 export const CommentDiv = styled.div`
@@ -346,6 +432,14 @@ export const AccountLink = styled(VerifyLink)`
   z-index: 2;
   display: flex;
   justify-content: flex-start;
+  position: ${({ sticky }) => (sticky ? "-webkit-sticky" : "-webkit-static")};
+  position: ${({ sticky }) => (sticky ? "sticky" : "static")};
+  top: 0;
+  width: 100%;
+  background-color: ${colors.white};
+  position: sticky;
+  border-bottom: ${({ sticky }) =>
+    sticky ? `1px solid ${colors.dustyGray2}` : "none"};
 `;
 
 export const AccountItem = styled.div`
@@ -496,17 +590,15 @@ export const ActionButton = styled.button`
 
 export const ContractorDiv = styled.div`
   width: 100%;
-  height: ${({ shrink }) => (shrink ? "0" : "intial")};
-  opacity: ${({ shrink }) => (shrink ? "0" : "1")};
-  transition: 0.4s all;
+  font-family: Roboto;
 `;
 
 export const ContractorText = styled.p`
-  font-size: 18px;
+  font-size: 15px;
   letter-spacing: 0.3px;
   color: ${colors.profileFontColor};
   .contactor-name {
-    font-weight: 700;
+    font-weight: 500;
   }
 `;
 
@@ -541,4 +633,36 @@ export const PopOverWrapper = styled.div`
   height: ${({ shrink }) => (shrink ? "0" : "intial")};
   opacity: ${({ shrink }) => (shrink ? "0" : "1")};
   transition: 0.4s all;
+`;
+
+export const OrganisationDetailsWrapper = styled(ReviewDiv)`
+  position: relative;
+  padding-top: calc(${dividerHieght}px + 1rem);
+  padding-bottom: 1.25rem;
+
+  ${dividerStyle}
+`;
+
+export const InfoRow = styled.div`
+  width: 100%;
+  display: flex;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0;
+`;
+
+export const LeftInfo = styled.div`
+  width: 30%;
+  display: flex;
+  align-items: center;
+  color: ${colors.profileFontColor};
+  font-weight: 500;
+  font-size: 15px;
+`;
+
+export const RightInfo = styled.div`
+  width: 70%;
+  display: flex;
+  align-items: center;
 `;
