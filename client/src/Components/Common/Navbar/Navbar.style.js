@@ -9,7 +9,7 @@ import {
   breakpointsMax,
 } from "../../../theme";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div.attrs({ id: "navbar" })`
   display: flex;
   position: fixed;
   height: ${props => props.height};

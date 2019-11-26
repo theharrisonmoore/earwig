@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: ${({ position }) =>
     position === "right" ? "row-reverse" : "left"};
+  min-height: 100vh;
 `;
 
 export const CenterContent = styled.main`

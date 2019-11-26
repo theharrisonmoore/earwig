@@ -4,19 +4,27 @@ import { ListWrapper, SiteItem, SiteAnswer } from "./ProfileAnswers.style";
 
 import Icon from "../../../Common/Icon/Icon";
 
+import { getCarCost } from "../utils";
+
 export default class SiteItemAnswer extends Component {
   getAverage = answers => {
     // start count at 1 to give benefit to yes
     let count = 1;
-    answers.map(answer =>
-      answer.answer === "Yes" ? (count += 1) : (count -= 1)
-    );
+    answers.forEach(answer => {
+      if (answer.answer === "Yes") {
+        count += 1;
+      } else {
+        count -= 1;
+      }
+    });
 
     return count > 0;
   };
 
   render() {
-    const { question, isMobile, carParkingPrice } = this.props;
+    const { question, isMobile, reviewDetails } = this.props;
+
+    const carParkingPrice = getCarCost(reviewDetails);
     const averageResponse = this.getAverage(question.answers);
 
     return (
@@ -33,7 +41,7 @@ export default class SiteItemAnswer extends Component {
               />
               {averageResponse ? (
                 <p>
-                  {question.profileText} (£{carParkingPrice()}){" "}
+                  {question.profileText} (£{carParkingPrice}){" "}
                 </p>
               ) : (
                 <p>{question.profileText}</p>

@@ -1,27 +1,23 @@
 import React, { Component } from "react";
-import { Rate } from "antd";
-
-import { colors } from "../../../theme";
 
 import {
   Wrapper,
   SectionTitle,
   QuestionWrapper,
   QuestionTitle,
-  CategoryTitle,
   LightTitle,
   HintText,
 } from "./ReviewSection.style";
 
-import YesNoAnswer from "./ProfileAnswers/YesNoAnswer";
-import ListAnswer from "./ProfileAnswers/ListAnswer";
-import PieAnswer from "./ProfileAnswers/PieAnswer";
-import ScatterAnswer from "./ProfileAnswers/ScatterAnswer";
-import SiteItemAnswer from "./ProfileAnswers/SiteItemAnswer";
-import CanteenItemAnswer from "./ProfileAnswers/CanteenItemAnswer";
-import BarChartAnswer from "./ProfileAnswers/BarChartAnswer";
-import PayrollAnswer from "./ProfileAnswers/PayrollAnswer";
-import ImageSlider from "./ProfileAnswers/ImageSlider";
+import YesNoAnswer from "../ProfileAnswers/YesNoAnswer";
+import ListAnswer from "../ProfileAnswers/ListAnswer";
+import PieAnswer from "../ProfileAnswers/PieAnswer";
+import ScatterAnswer from "../ProfileAnswers/ScatterAnswer";
+import SiteItemAnswer from "../ProfileAnswers/SiteItemAnswer";
+import CanteenItemAnswer from "../ProfileAnswers/CanteenItemAnswer";
+import BarChartAnswer from "../ProfileAnswers/BarChartAnswer";
+import PayrollAnswer from "../ProfileAnswers/PayrollAnswer";
+import ImageSlider from "../ProfileAnswers/ImageSlider";
 
 export default class ReviewSection extends Component {
   onlyNeutralAnswers = answers => {
@@ -38,9 +34,8 @@ export default class ReviewSection extends Component {
       toggleComments,
       summary,
       isMobile,
-      carParkingPrice,
+      reviewDetails,
     } = this.props;
-
     const { _id: sectionTitle, questions } = sectionDetails;
 
     let canteenQuestions =
@@ -72,7 +67,8 @@ export default class ReviewSection extends Component {
         {sectionTitle !== "Key ratings" && (
           <SectionTitle>{sectionTitle}</SectionTitle>
         )}
-        {sectionTitle === "Key ratings" && (
+
+        {/* {sectionTitle === "Key ratings" && (
           <QuestionWrapper>
             <QuestionTitle>
               <CategoryTitle>
@@ -120,7 +116,7 @@ export default class ReviewSection extends Component {
               </div>
             </>
           </QuestionWrapper>
-        )}
+        )} */}
 
         {questions &&
           questions.map(
@@ -229,7 +225,7 @@ export default class ReviewSection extends Component {
                           toggleComments={toggleComments}
                           profileType={question.profileType}
                           isMobile={isMobile}
-                          carParkingPrice={carParkingPrice}
+                          reviewDetails={reviewDetails}
                         />
                       ) : (
                         <LightTitle>
@@ -261,9 +257,7 @@ export default class ReviewSection extends Component {
                       {/* PAYROLL LIST */}
                       {payrollQuestions && (
                         <QuestionWrapper>
-                          <QuestionTitle>
-                            {question.profileText}
-                          </QuestionTitle>
+                          <QuestionTitle>{question.profileText}</QuestionTitle>
                           {question.hintText && (
                             <HintText>{question.hintText}</HintText>
                           )}
