@@ -9,9 +9,6 @@ import {
   size,
 } from "../../../../theme";
 
-const titleFontSize = "18px";
-const titleFontWeight = "bold";
-
 const generalFontSize = "15px";
 const generalFontWeight = "normal";
 
