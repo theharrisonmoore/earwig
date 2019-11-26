@@ -224,24 +224,21 @@ export default class ReviewSection extends Component {
                     </QuestionWrapper>
                   )}
                   {question.profileType === "siteItem" && (
-                    <QuestionWrapper
-                      key={index}
-                      hide={this.onlyNeutralAnswers(question.answers)}
-                    >
-                      {question.answers.length > 0 ? (
-                        <SiteItemAnswer
-                          category={category}
-                          question={question}
-                          toggleComments={toggleComments}
-                          profileType={question.profileType}
-                          isMobile={isMobile}
-                          reviewDetails={reviewDetails}
-                        />
-                      ) : (
+                    <QuestionWrapper key={index}>
+                      {/* {question.answers.length > 0 ? ( */}
+                      <SiteItemAnswer
+                        category={category}
+                        question={question}
+                        toggleComments={toggleComments}
+                        profileType={question.profileType}
+                        isMobile={isMobile}
+                        reviewDetails={reviewDetails}
+                      />
+                      {/* ) : (
                         <LightTitle bar>
                           <p>No answers yet</p>
                         </LightTitle>
-                      )}
+                      )} */}
                     </QuestionWrapper>
                   )}
                   {question.profileType === "canteenItem" && (
@@ -325,7 +322,7 @@ export default class ReviewSection extends Component {
                       organization={summary}
                     />
                   ) : (
-                    <LightTitle>
+                    <LightTitle image bar>
                       <p>No images yet</p>
                     </LightTitle>
                   )}

@@ -5,6 +5,7 @@ import { ListWrapper, SiteItem, SiteAnswer } from "./ProfileAnswers.style";
 import Icon from "../../../Common/Icon/Icon";
 
 import { getCarCost } from "../utils";
+import { LightTitle } from "../DetailedSection/ReviewSection.style";
 
 export default class SiteItemAnswer extends Component {
   getAverage = answers => {
@@ -39,12 +40,20 @@ export default class SiteItemAnswer extends Component {
                 height={isMobile ? "50" : "2rem"}
                 width={isMobile ? "50" : "2rem"}
               />
-              {averageResponse ? (
-                <p>
-                  {question.profileText} (£{carParkingPrice}){" "}
-                </p>
+              {question.answers.length > 0 ? (
+                <>
+                  {averageResponse ? (
+                    <p>
+                      {question.profileText} (£{carParkingPrice}){" "}
+                    </p>
+                  ) : (
+                    <p>{question.profileText}</p>
+                  )}
+                </>
               ) : (
-                <p>{question.profileText}</p>
+                <LightTitle bar>
+                  <p>No answers yet</p>
+                </LightTitle>
               )}
             </SiteAnswer>
           ) : (
@@ -55,7 +64,13 @@ export default class SiteItemAnswer extends Component {
                 height={isMobile ? "50" : "2rem"}
                 width={isMobile ? "50" : "2rem"}
               />
-              <p>{question.profileText}</p>
+              {question.answers.length > 0 ? (
+                <p>{question.profileText}</p>
+              ) : (
+                <LightTitle bar>
+                  <p>No answers yet</p>
+                </LightTitle>
+              )}
             </SiteAnswer>
           )}
         </SiteItem>

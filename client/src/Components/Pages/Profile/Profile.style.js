@@ -245,11 +245,24 @@ export const ReviewDiv = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: ${props =>
-    props.isTablet || props.isMobile
-      ? `calc(${dividerHieght}px + 1.25rem) 1rem 0`
-      : `calc(${dividerHieght}px + 1.25rem) 7rem 0`};
+  padding: calc(${dividerHieght}px + 1.25rem) 1rem 0;
   text-align: left;
+
+  @media ${breakpoints.mobileM} {
+    padding: calc(${dividerHieght}px + 1.25rem) 2rem 0;
+  }
+
+  @media ${breakpoints.mobileL} {
+    padding: calc(${dividerHieght}px + 1.25rem) 4rem 0;
+  }
+
+  @media ${breakpoints.mobileXL} {
+    padding: calc(${dividerHieght}px + 1.25rem) 7rem 0;
+  }
+
+  @media ${breakpoints.tablet} {
+    padding: calc(${dividerHieght}px + 1.25rem) 10rem 0;
+  }
 
   ${dividerStyle}
 `;

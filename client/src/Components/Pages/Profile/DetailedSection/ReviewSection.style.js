@@ -64,7 +64,16 @@ export const LightTitle = styled.div`
   color: ${colors.profileFontColor};
   border: ${({ bar }) => (bar ? `1px solid ${colors.inputBorder}80` : "none")};
   text-align: ${({ bar }) => (bar ? `center` : "left")};
-  padding: ${({ large }) => (large ? "0.75rem 0" : "0")};
+  padding: ${({ large, image }) => {
+    if (image) {
+      return "5rem";
+    }
+    if (large) {
+      return "0.75rem 0";
+    }
+    return "0";
+  }};
+  width: 100%;
 
   p {
     margin-bottom: 0;
