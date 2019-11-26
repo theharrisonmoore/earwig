@@ -288,11 +288,20 @@ export const CommentDiv = styled.div`
   display: flex;
   flex-direction: column;
   /* flex: initial; */
-  margin-bottom: 1rem;
+  padding: 1.5rem 0 1rem;
   width: 100%;
   position: relative;
   display: ${props => props.noReview && "none"};
   color: ${colors.white};
+  border-bottom: 1px solid ${colors.dustyGray1}40;
+
+  .ant-collapse .ant-collapse-item {
+    border: none;
+  }
+
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    padding: 7px 14px 10px !important;
+  }
 `;
 
 export const BubbleAndDate = styled.div`
@@ -489,7 +498,6 @@ export const ActionsDiv = styled.div`
   align-items: center;
   width: 100%;
   margin: 0 auto;
-  margin-bottom: 1rem;
 `;
 
 export const ButtonsWrapper = styled(ActionsDiv)`
