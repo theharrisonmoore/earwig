@@ -1,5 +1,8 @@
 import React from "react";
 import PopoverComponent from "../../Common/Popover";
+import { Text } from "../../Common/ToolTip";
+import Icon from "../../Common/Icon/Icon";
+import { colors } from "../../../theme";
 
 const decideText = category => {
   switch (category) {
@@ -55,12 +58,23 @@ export const STATIC_QUESTIONS = category => [
               </p>
             </>
           ),
-          linkText:
-            "How can you make your reviews helpful for workers and earn rewards?",
-          icon: "info",
-          margin: "0 0 0.25rem 0",
         }}
-      />
+      >
+        <div style={{ display: "flex" }}>
+          <div style={{ position: "relative", top: "1.5px" }}>
+            <Icon
+              icon="info"
+              width="23"
+              height="23"
+              margin="0 0.5rem 0 0"
+              color={colors.primary}
+            />
+          </div>
+          <Text>
+            How can you make your reviews helpful for workers and earn rewards?
+          </Text>
+        </div>
+      </PopoverComponent>
     ),
   },
   {
