@@ -2,6 +2,12 @@ import styled from "styled-components";
 
 import { colors, borders } from "../../../../theme";
 
+const titleFontSize = "18px";
+const titleFontWeight = "bold";
+
+const generalFontSize = "15px";
+const generalFontWeight = "normal";
+
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -10,12 +16,12 @@ export const Wrapper = styled.div`
 `;
 
 export const SectionTitle = styled.h2`
-  font-size: 1.75rem;
+  font-size: ${({ sub }) => (sub ? generalFontSize : titleFontSize)};
   color: ${colors.profileFontColor};
-  border-bottom: ${borders.commentBox};
+  border-bottom: ${({ bordered }) => (bordered ? borders.commentBox : "none")};
   margin: 0;
-  margin-bottom: 1.75rem;
-  font-weight: medium;
+  margin-bottom: 1rem;
+  font-weight: ${titleFontWeight};
 `;
 
 export const QuestionWrapper = styled.div`
@@ -25,9 +31,9 @@ export const QuestionWrapper = styled.div`
 `;
 
 export const QuestionTitle = styled.h3`
-  font-size: 1.125rem;
+  font-size: ${generalFontSize};
   color: ${colors.profileFontColor};
-  font-weight: bold;
+  font-weight: ${generalFontWeight};
   margin: 0;
   margin-bottom: 0.5rem;
   text-align: left;
@@ -36,7 +42,7 @@ export const QuestionTitle = styled.h3`
 export const HintText = styled.p`
   margin: 0;
   font-style: italic;
-  font-size: 16px;
+  font-size: ${generalFontSize};
   color: ${colors.profileFontColor};
 `;
 

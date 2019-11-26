@@ -65,7 +65,9 @@ export default class ReviewSection extends Component {
       // Question - Title, AggregatedAnswer, Comment Box
       <Wrapper>
         {sectionTitle !== "Key ratings" && (
-          <SectionTitle>{sectionTitle}</SectionTitle>
+          <SectionTitle sub bordered>
+            {sectionTitle}
+          </SectionTitle>
         )}
 
         {/* {sectionTitle === "Key ratings" && (
