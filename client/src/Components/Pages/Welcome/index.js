@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 // COMMON
-import Button from "../../Common/Button";
+// import Button from "../../Common/Button";
 import Layout from "../../Common/Layout";
 
 // STYLING
@@ -20,6 +20,7 @@ import {
   Logo,
   DownArrow,
   FooterTitle,
+  Button,
 } from "./Welcome.style";
 
 // NAV ROUTES
@@ -39,8 +40,6 @@ const createButtonContent = text => (
 
 export default class Welcome extends Component {
   render() {
-    // const { isLoggedIn } = this.props;
-
     return (
       <Layout type="center">
         <Wrapper>
@@ -59,57 +58,35 @@ export default class Welcome extends Component {
                 </Subtitle>
               </SubtitleWrapper>
               <ButtonsWrapper>
-                <div>
-                  <Link to={SEARCH_URL.replace(":category?", "agency")}>
-                    <Button
-                      borderRadius="none"
-                      margin="0.5rem 0"
-                      styleType="primary"
-                      text={createButtonContent("Agencies")}
-                      backgroundColor={organizations.agency.primary}
-                      style={{ minWidth: "7rem" }}
-                    />
-                  </Link>
-                  <Link to={SEARCH_URL.replace(":category?", "payroll")}>
-                    <Button
-                      borderRadius="none"
-                      margin="0.5rem 0"
-                      styleType="primary"
-                      text={createButtonContent("Payrolls")}
-                      backgroundColor={organizations.payroll.primary}
-                      style={{ minWidth: "7rem" }}
-                    />
-                  </Link>
+                <Link to={SEARCH_URL.replace(":category?", "agency")}>
+                  <Button backgroundColor={organizations.agency.primary}>
+                    {createButtonContent("Agencies")}
+                  </Button>
+                </Link>
+                <Link to={SEARCH_URL.replace(":category?", "payroll")}>
+                  <Button backgroundColor={organizations.payroll.primary}>
+                    {createButtonContent("Payrolls")}
+                  </Button>
+                </Link>
 
-                  <Link to={SEARCH_URL.replace(":category?", "worksite")}>
-                    <Button
-                      borderRadius="none"
-                      margin="0.5rem 0"
-                      styleType="primary"
-                      text={createButtonContent("Worksites")}
-                      backgroundColor={organizations.worksite.primary}
-                      style={{ minWidth: "7rem" }}
-                    />
-                  </Link>
-                  <Link to={SEARCH_URL.replace(":category?", "company")}>
-                    <Button
-                      borderRadius="none"
-                      margin="0.5rem 0"
-                      styleType="primary"
-                      text={createButtonContent("Companies")}
-                      backgroundColor={organizations.company.primary}
-                      style={{ minWidth: "7rem" }}
-                    />
-                  </Link>
-                </div>
+                <Link to={SEARCH_URL.replace(":category?", "worksite")}>
+                  <Button backgroundColor={organizations.worksite.primary}>
+                    {createButtonContent("Worksites")}
+                  </Button>
+                </Link>
+                <Link to={SEARCH_URL.replace(":category?", "company")}>
+                  <Button backgroundColor={organizations.company.primary}>
+                    {createButtonContent("Companies")}
+                  </Button>
+                </Link>
               </ButtonsWrapper>
-              <FooterTitle>
-                <Subtitle>
-                  earwig is empowering construction workers to own their work
-                  culture
-                </Subtitle>
-              </FooterTitle>
             </ContentWrapper>
+            <FooterTitle>
+              <Subtitle>
+                earwig is empowering construction workers to own their work
+                culture
+              </Subtitle>
+            </FooterTitle>
           </Body>
         </Wrapper>
       </Layout>

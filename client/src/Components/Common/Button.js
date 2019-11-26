@@ -7,7 +7,7 @@ import { ButtonSpinner } from "./AntdComponents/Loading";
 import Icon from "./Icon/Icon";
 
 const sharedStyles = css`
-  border-radius: ${props => props.borderRadius || "300px"};
+  border-radius: 300px;
   /* width: ${props => props.width || "100%"}; */
   min-height: 45px;
   font-weight: bold;
@@ -72,6 +72,18 @@ const primaryStyles = css`
   background-color: ${({ backgroundColor }) =>
     backgroundColor || colors.primary};
   box-shadow: ${shadows.buttonShadow};
+`;
+
+const landingStyles = css`
+  font-size: 0.9rem;
+  color: ${colors.white};
+  border: none;
+  background-color: ${({ backgroundColor }) =>
+    backgroundColor || colors.primary};
+  box-shadow: ${shadows.buttonShadow};
+  width: calc(100% / 4);
+  height: 100%;
+  float: left;
 `;
 
 const secondaryStyles = css`
