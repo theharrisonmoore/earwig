@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  overflow: scroll;
+  overflow: auto;
   top: 0;
   display: flex;
   justify-content: center;
@@ -77,7 +77,7 @@ export const SubtitleWrapper = styled.section`
 
 export const FooterTitle = styled.section`
   position: absolute;
-  bottom: 0;
+  bottom: 2rem;
   width: 100%;
   height: calc(100vh - 82%);
   width: 75%;
@@ -144,14 +144,15 @@ export const Button = styled.button`
   height: 100%;
   float: left;
   outline: none;
-  cursor: "pointer";
+  cursor: pointer;
 
   &:active {
     box-shadow: none;
+  }
 
     ::after {
       content: "";
-      position: absolute;
+      display: block;
       top: 0px;
       right: 0px;
       bottom: 0px;
