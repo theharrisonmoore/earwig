@@ -12,10 +12,26 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  display: flex;
   overflow: scroll;
   top: 0;
+  display: flex;
   justify-content: center;
+`;
+
+export const Body = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-image: url(${backgroundMobile});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  @media ${breakpoints.mobileXL} {
+    background-image: url(${backgroundDesktop});
+  }
 `;
 
 export const ContentWrapper = styled.div`
@@ -23,16 +39,16 @@ export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin: 0 auto;
   max-width: 33rem;
-  justify-content: center;
 `;
 
 export const Header = styled.header`
   padding-top: 2rem;
-
+  width: 95%;
   // desktop
-  @media ${breakpoints.tablet} {
+  @media ${breakpoints.mobileXL} {
     padding-top: 3.5rem;
   }
 `;
@@ -49,8 +65,14 @@ export const Title = styled.h1`
 `;
 
 export const SubtitleWrapper = styled.section`
+  width: 75%;
   margin-top: -0.5rem;
   padding-bottom: 1rem;
+
+  // desktop
+  @media ${breakpoints.mobileXL} {
+    width: 95%;
+  }
 `;
 
 export const FooterTitle = styled.section`
@@ -58,24 +80,18 @@ export const FooterTitle = styled.section`
   bottom: 0;
   width: 100%;
   height: calc(100vh - 82%);
+  width: 75%;
+
+  // desktop
+  @media ${breakpoints.mobileXL} {
+    width: 95%;
+  }
 `;
 
 export const Subtitle = styled.h2`
   font-size: 1rem;
   font-weight: 500;
   color: ${colors.white};
-`;
-
-export const Body = styled.div`
-  width: 100%;
-  background-image: url(${backgroundMobile});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-
-  @media ${breakpoints.mobileXL} {
-    background-image: url(${backgroundDesktop});
-  }
 `;
 
 export const LogoContainer = styled.div`
