@@ -325,7 +325,13 @@ class OverallReview extends Component {
               return (
                 <CommentDiv key={`${review._id}comment${review.category}`}>
                   <BubbleAndDate>
-                    <CommentBubble bgColor={organizations[category].secondary}>
+                    <CommentBubble
+                      bgColor={
+                        review.category === "audio"
+                          ? "transparent"
+                          : organizations[category].secondary
+                      }
+                    >
                       {review.category === "written" && review.text}
                       {review.category === "audio" && (
                         <VoiceReview
@@ -337,6 +343,14 @@ class OverallReview extends Component {
                     <CommentDate>
                       {moment().diff(review.createdAt, "weeks")}w
                     </CommentDate>
+                    {review.category === "audio" && (
+                      <Icon
+                        icon="voiceRecord"
+                        width="36px"
+                        height="48px"
+                        color={colors.profileFontColor}
+                      />
+                    )}
                   </BubbleAndDate>
                   <RatingWithUserInfo style={{ display: "flex" }}>
                     <Rate

@@ -306,6 +306,7 @@ export const CommentDiv = styled.div`
 
 export const BubbleAndDate = styled.div`
   display: flex;
+  align-items: center;
   margin-bottom: 0.625rem;
 `;
 
@@ -359,6 +360,12 @@ export const CommentDate = styled.p`
   margin: 0;
   text-align: right;
   align-self: flex-end;
+  color: ${colors.profileFontColor}
+  font-size: 18px;
+  opacity: 0.6;
+  letter-spacing: 2.5px;
+  margin-bottom: -1rem;
+  margin-left: -0.5rem;
 `;
 
 export const StarWrapper = styled.div`

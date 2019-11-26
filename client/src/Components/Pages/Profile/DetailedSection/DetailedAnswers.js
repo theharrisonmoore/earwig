@@ -62,7 +62,7 @@ const DetailedAnswers = ({
 
       {reviewDetails.map(
         section =>
-          section._id === "Detailed ratings" && (
+          section._id === "The site welfare" && (
             <ReviewSection
               key={section._id}
               category={category}
@@ -76,7 +76,7 @@ const DetailedAnswers = ({
 
       {reviewDetails.map(
         section =>
-          section._id === "The site welfare" && (
+          section._id === "Detailed ratings" && (
             <ReviewSection
               key={section._id}
               category={category}
@@ -87,6 +87,7 @@ const DetailedAnswers = ({
             />
           )
       )}
+
       {reviewDetails.map(
         section =>
           section._id === "Supervisors & employees" && (
