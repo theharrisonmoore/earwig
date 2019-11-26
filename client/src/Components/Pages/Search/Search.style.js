@@ -5,7 +5,7 @@ import {
   colors,
   shadows,
   organizations,
-  breakpoints,
+  breakpoints
 } from "../../../theme";
 
 export const classNames = {
@@ -17,7 +17,7 @@ export const classNames = {
   suggestionsContainerOpen: "react-autosuggest__suggestions-container--open",
   suggestionsList: "react-autosuggest__suggestions-list",
   suggestions: "react-autosuggest__suggestion",
-  suggestionHighlighted: "react-autosuggest__suggestion--highlighted",
+  suggestionHighlighted: "react-autosuggest__suggestion--highlighted"
 };
 
 export const AutosuggestWrapper = styled.div.attrs(classNames)`
@@ -27,12 +27,12 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
   outline: none;
 
 
+
   .${classNames.container} {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-
 
   }
   .${classNames.containerOpen} {
@@ -42,31 +42,38 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
     font-weight: 300;
     font-size: 1rem;
     width: 100%;
+
   }
   .${classNames.containerFocussed} {
     outline: none;
+
   }
   input {
     text-indent: ${props => (props.noIcon ? "0px" : "45px")};
   }
+
   .${classNames.containerInputOpen} {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+
   }
   .${classNames.suggestionsContainer} {
     display: none;
+
   }
   .${classNames.suggestionsContainerOpen} {
     display: block;
     position: absolute;
-    margin-top: ${props => props.height};
+    margin-top: 77px;
     width: 100%;
     z-index: 2;
     background-color: ${colors.white};
     max-height: 80vh;
     overflow-y: auto;
   }
+
   .${classNames.suggestionsList} {
+
   }
   .${classNames.suggestions} {
     box-shadow: ${shadows.autocompleteSuggestionShadow};
@@ -277,7 +284,7 @@ export const AddWrapper = styled.div`
 
 export const OrgsListWrapper = styled.div`
   text-align: left;
-  padding: 0 0 2.5rem 0;
+  padding: 0 0 6.5rem 0;
   width: 100%;
   max-width: 25rem;
   margin: 0 auto;
