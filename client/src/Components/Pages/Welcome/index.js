@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 // COMMON
-import Button from "../../Common/Button";
 import Layout from "../../Common/Layout";
 
 // STYLING
@@ -11,10 +10,16 @@ import {
   Wrapper,
   Title,
   Subtitle,
+  SubtitleWrapper,
   ContentWrapper,
   Header,
   Body,
-  ButtonsWrpper,
+  ButtonsWrapper,
+  LogoContainer,
+  Logo,
+  DownArrow,
+  FooterTitle,
+  Button,
 } from "./Welcome.style";
 
 // NAV ROUTES
@@ -24,76 +29,63 @@ import {
 } from "../../../constants/naviagationUrls";
 import { organizations } from "../../../theme";
 
+const createButtonContent = text => (
+  <span>
+    {text}
+    <br></br>
+    <DownArrow />
+  </span>
+);
+
 export default class Welcome extends Component {
   render() {
-    const { isLoggedIn } = this.props;
-
     return (
-      <Layout type="side">
+      <Layout type="center" maxWidth="100%">
         <Wrapper>
           <Body>
+            <LogoContainer>
+              <Logo />
+            </LogoContainer>
             <Header>
-              <Title>
-                Find out what you’re getting into before you get into it!
-              </Title>
+              <Title>Hello! Welcome to earwig.</Title>
             </Header>
             <ContentWrapper>
-              {/* this should be extracted to a common component */}
-              {!isLoggedIn ? (
+              <SubtitleWrapper>
                 <Subtitle>
-                  Without an account, you can still read reviews & ratings,
-                  although the data is limited
+                  Get worker reviews about agencies, payrolls, worksites and
+                  companies
                 </Subtitle>
-              ) : (
-                <Subtitle>
-                  Give reviews!
-                  <br /> Read reviews!
-                  <br /> Be heard!
-                </Subtitle>
-              )}
-              <ButtonsWrpper>
-                <div>
-                  <Link to={SEARCH_URL.replace(":category?", "agency")}>
-                    <Button
-                      margin="0.5rem 0"
-                      styleType="primary"
-                      text="Agencies"
-                      backgroundColor={organizations.agency.primary}
-                      style={{ minWidth: "8.5rem" }}
-                    />
-                  </Link>
-                  <Link to={SEARCH_URL.replace(":category?", "payroll")}>
-                    <Button
-                      margin="0.5rem 0"
-                      styleType="primary"
-                      text="Payrolls"
-                      backgroundColor={organizations.payroll.primary}
-                      style={{ minWidth: "8.5rem" }}
-                    />
-                  </Link>
-                </div>
-                <div>
-                  <Link to={SEARCH_URL.replace(":category?", "worksite")}>
-                    <Button
-                      margin="0.5rem 0"
-                      styleType="primary"
-                      text="Worksites"
-                      backgroundColor={organizations.worksite.primary}
-                      style={{ minWidth: "8.5rem" }}
-                    />
-                  </Link>
-                  <Link to={SEARCH_URL.replace(":category?", "company")}>
-                    <Button
-                      margin="0.5rem 0"
-                      styleType="primary"
-                      text="Companies"
-                      backgroundColor={organizations.company.primary}
-                      style={{ minWidth: "8.5rem" }}
-                    />
-                  </Link>
-                </div>
-              </ButtonsWrpper>
+              </SubtitleWrapper>
+              <ButtonsWrapper>
+                <Link to={SEARCH_URL.replace(":category?", "agency")}>
+                  <Button backgroundColor={organizations.agency.primary}>
+                    {createButtonContent("Agencies")}
+                  </Button>
+                </Link>
+                <Link to={SEARCH_URL.replace(":category?", "payroll")}>
+                  <Button backgroundColor={organizations.payroll.primary}>
+                    {createButtonContent("Payrolls")}
+                  </Button>
+                </Link>
+
+                <Link to={SEARCH_URL.replace(":category?", "worksite")}>
+                  <Button backgroundColor={organizations.worksite.primary}>
+                    {createButtonContent("Worksites")}
+                  </Button>
+                </Link>
+                <Link to={SEARCH_URL.replace(":category?", "company")}>
+                  <Button backgroundColor={organizations.company.primary}>
+                    {createButtonContent("Companies")}
+                  </Button>
+                </Link>
+              </ButtonsWrapper>
             </ContentWrapper>
+            <FooterTitle>
+              <Subtitle>
+                earwig is empowering construction workers to own their work
+                culture
+              </Subtitle>
+            </FooterTitle>
           </Body>
         </Wrapper>
       </Layout>
