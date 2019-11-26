@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 import backgroundDesktop from "../../../assets/welcome_page_image_desktop.jpg";
 import backgroundMobile from "../../../assets/welcome_page_image_mobile.jpg";
-
 import earwigLogoWhite from "../../../assets/earwig-logo-white.png";
+import downwardArrow from "../../../assets/downward-arrow.svg";
 
 import { colors, breakpoints } from "../../../theme";
 
@@ -13,61 +13,54 @@ export const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
   overflow: scroll;
-  position: absolute;
   top: 0;
   justify-content: center;
 `;
 
 export const ContentWrapper = styled.div`
-  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  max-width: 30rem;
+  max-width: 33rem;
   justify-content: center;
-
-  & .paragraph {
-    display: block;
-    color: ${colors.profileFontColor};
-    font-size: 1.8rem;
-  }
 `;
 
 export const Header = styled.header`
-  margin: 0 auto;
-  z-index: 1;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 6.5rem;
+  padding-top: 2.5rem;
 
   @media ${breakpoints.tablet} {
-    background-color: initial;
-    padding-top: 7.5rem;
+    padding-top: 3.5rem;
   }
 `;
 
 export const Title = styled.h1`
-  // max-width: 300px;
   font-size: 2rem;
   font-weight: 700;
-  line-height: 2.5rem;
-  text-align: center;
   color: ${colors.white};
-  margin-bottom: 1rem;
-  margin: 0 auto;
+`;
+
+export const SubtitleWrapper = styled.section`
+  padding-top: 0.5rem;
+
+  @media ${breakpoints.tablet} {
+    padding-top: 1rem;
+  }
+`;
+
+export const FooterTitle = styled.section`
+  padding-top: 4rem;
+
+  @media ${breakpoints.tablet} {
+    padding-top: 16rem;
+  }
 `;
 
 export const Subtitle = styled.h2`
-  font-size: 1.5rem;
+  font-size: 1rem;
+  font-weight: 400;
   color: ${colors.white};
-  // margin-bottom: 2rem;
-  text-align: center;
-  // max-width: 14rem;
 `;
 
 export const Body = styled.div`
@@ -88,23 +81,23 @@ export const LogoContainer = styled.div`
 
 export const Logo = styled.img`
   content: url(${earwigLogoWhite});
-  vertical-align: middle;
-  border-style: none;
   min-width: 10.5rem;
   max-width: 15.5rem;
 `;
 
+export const DownArrow = styled.img`
+  content: url(${downwardArrow});
+  min-width: 0.5rem;
+  max-width: 0.5rem;
+  margin-top: -0.5rem;
+`;
+
 export const ButtonsWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  // padding-bottom: 5rem;
+  max-width: 35rem;
+  margin-top: 1rem;
 
   div {
     display: flex;
     justify-content: space-around;
-    margin: 0 auto;
-    // max-width: 25rem;
-    // border: 2px solid red;
-    width: 100%;
   }
 `;

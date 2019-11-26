@@ -11,24 +11,35 @@ import {
   Wrapper,
   Title,
   Subtitle,
+  SubtitleWrapper,
   ContentWrapper,
   Header,
   Body,
   ButtonsWrapper,
   LogoContainer,
-  Logo
+  Logo,
+  DownArrow,
+  FooterTitle,
 } from "./Welcome.style";
 
 // NAV ROUTES
 import {
   // GIVE_REVIEW_URL,
-  SEARCH_URL
+  SEARCH_URL,
 } from "../../../constants/naviagationUrls";
 import { organizations } from "../../../theme";
 
+const createButtonContent = text => (
+  <span>
+    {text}
+    <br></br>
+    <DownArrow />
+  </span>
+);
+
 export default class Welcome extends Component {
   render() {
-    const { isLoggedIn } = this.props;
+    // const { isLoggedIn } = this.props;
 
     return (
       <Layout type="center">
@@ -41,19 +52,12 @@ export default class Welcome extends Component {
               <Title>Hello! Welcome to earwig.</Title>
             </Header>
             <ContentWrapper>
-              {/* this should be extracted to a common component */}
-              {!isLoggedIn ? (
+              <SubtitleWrapper>
                 <Subtitle>
                   Get worker reviews about agencies, payrolls, worksites and
                   companies
                 </Subtitle>
-              ) : (
-                <Subtitle>
-                  Give reviews!
-                  <br /> Read reviews!
-                  <br /> Be heard!
-                </Subtitle>
-              )}
+              </SubtitleWrapper>
               <ButtonsWrapper>
                 <div>
                   <Link to={SEARCH_URL.replace(":category?", "agency")}>
@@ -61,7 +65,7 @@ export default class Welcome extends Component {
                       borderRadius="none"
                       margin="0.5rem 0"
                       styleType="primary"
-                      text="Agencies"
+                      text={createButtonContent("Agencies")}
                       backgroundColor={organizations.agency.primary}
                       style={{ minWidth: "7rem" }}
                     />
@@ -71,7 +75,7 @@ export default class Welcome extends Component {
                       borderRadius="none"
                       margin="0.5rem 0"
                       styleType="primary"
-                      text="Payrolls"
+                      text={createButtonContent("Payrolls")}
                       backgroundColor={organizations.payroll.primary}
                       style={{ minWidth: "7rem" }}
                     />
@@ -82,7 +86,7 @@ export default class Welcome extends Component {
                       borderRadius="none"
                       margin="0.5rem 0"
                       styleType="primary"
-                      text="Worksites"
+                      text={createButtonContent("Worksites")}
                       backgroundColor={organizations.worksite.primary}
                       style={{ minWidth: "7rem" }}
                     />
@@ -92,17 +96,19 @@ export default class Welcome extends Component {
                       borderRadius="none"
                       margin="0.5rem 0"
                       styleType="primary"
-                      text="Companies"
+                      text={createButtonContent("Companies")}
                       backgroundColor={organizations.company.primary}
                       style={{ minWidth: "7rem" }}
                     />
                   </Link>
                 </div>
               </ButtonsWrapper>
-              <Subtitle>
-                earwig is empowering construction workers to own their work
-                culture
-              </Subtitle>
+              <FooterTitle>
+                <Subtitle>
+                  earwig is empowering construction workers to own their work
+                  culture
+                </Subtitle>
+              </FooterTitle>
             </ContentWrapper>
           </Body>
         </Wrapper>
