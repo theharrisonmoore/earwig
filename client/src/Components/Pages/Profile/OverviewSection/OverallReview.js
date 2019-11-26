@@ -25,13 +25,12 @@ import {
   StyledAntIcon,
   ActionsDiv,
   ButtonsWrapper,
-  ReplyButton,
-  HelpfulButton,
   UserTrade,
   UserDiv,
   UserAdditionalDetails,
 } from "../Profile.style";
 
+import Button from "../../../Common/Button";
 import VoiceReview from "../ProfileAnswers/VoiceReview";
 
 import { SectionTitle } from "../DetailedSection/ReviewSection.style";
@@ -346,13 +345,8 @@ class OverallReview extends Component {
                     <ButtonsWrapper>
                       {review.user._id !== userId && (
                         <>
-                          <HelpfulButton
+                          <Button
                             onClick={isAuthorized && this.toggleHelpful}
-                            number={
-                              counters[review.category][review._id]
-                                ? counters[review.category][review._id].counter
-                                : 0
-                            }
                             id={review._id}
                             data-user-id={review.user._id}
                             data-type={review.category}
@@ -363,19 +357,26 @@ class OverallReview extends Component {
                                 : "voiceReview"
                             }
                             data-category={category}
-                            type="primary"
-                            color={
-                              verified || awaitingReview
-                                ? organizations[category].primary
-                                : organizations[category].secondary
-                            }
                             disabled={!(verified || awaitingReview)}
-                          >
-                            Helpful
-                          </HelpfulButton>
+                            text="Helpful"
+                            styleType="secondary"
+                            color={
+                              counters[review.category][review._id] &&
+                              counters[review.category][review._id].counter > 0
+                                ? colors.white
+                                : colors.primary
+                            }
+                            backgroundColor={
+                              counters[review.category][review._id] &&
+                              counters[review.category][review._id].counter > 0
+                                ? colors.profileFontColor
+                                : colors.white
+                            }
+                            margin="2rem 1rem 2rem 0"
+                          />
                         </>
                       )}
-                      <ReplyButton
+                      <Button
                         onClick={(verified || awaitingReview) && this.goTOReply}
                         data-target={
                           review.category === "written"
@@ -385,16 +386,12 @@ class OverallReview extends Component {
                         data-category={category}
                         data-org-id={orgId}
                         data-review-id={review._id}
-                        type="primary"
-                        color={
-                          verified || awaitingReview
-                            ? organizations[category].primary
-                            : organizations[category].secondary
-                        }
                         disabled={!(verified || awaitingReview)}
-                      >
-                        Reply
-                      </ReplyButton>
+                        text="Reply"
+                        styleType="secondary"
+                        color={colors.primary}
+                        margin="2rem 0"
+                      />
                     </ButtonsWrapper>
                     <Link
                       style={{ right: 0, width: "10%" }}

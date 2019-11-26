@@ -517,24 +517,6 @@ export const UserAdditionalDetails = styled.div`
   }
 `;
 
-export const ReplyButton = styled.p`
-  border: none;
-  background: none;
-  font-weight: bold;
-  font-size: 1rem;
-  padding: 0 0.5rem;
-  color: ${colors.primary};
-  margin-right: 1rem;
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-  opacity: ${({ disabled }) => disabled && "0.5"};
-  text-decoration: none;
-`;
-
-export const HelpfulButton = styled(ReplyButton)`
-  color: ${({ number }) => (number ? "black" : colors.primary)};
-  font-weight: ${({ number }) => (number ? "900" : "bold")};
-`;
-
 export const ActionButton = styled.button`
   background: ${({ color }) => color};
   box-shadow: 0px 4px 13px rgba(173, 145, 183, 0.273438);
