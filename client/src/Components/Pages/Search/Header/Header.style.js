@@ -7,7 +7,7 @@ export const HeaderWrapper = styled.div`
   position: fixed;
   background-color: ${({ category }) => organizations[category].primary};
   width: 100%;
-  height: ${({ shrink }) => (shrink ? "1.125rem" : "9rem")};
+  height: ${({ shrink }) => (shrink ? "8rem" : "9.5rem")};
   display: flex;
   flex-direction: column;
   transition: 0.4s height;
@@ -15,7 +15,7 @@ export const HeaderWrapper = styled.div`
   max-width: 57.5rem;
 
   & + div {
-    padding-top: ${({ shrink }) => (shrink ? "8.125rem" : "17rem")};
+    padding-top: ${({ shrink }) => (shrink ? "6rem" : "9rem")};
   }
 `;
 

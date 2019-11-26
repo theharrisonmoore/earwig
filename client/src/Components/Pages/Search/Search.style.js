@@ -277,7 +277,7 @@ export const AddWrapper = styled.div`
 
 export const OrgsListWrapper = styled.div`
   text-align: left;
-  padding: 0 0 6.5rem 0;
+  padding: 0 0 2.5rem 0;
   width: 100%;
   max-width: 25rem;
   margin: 0 auto;
