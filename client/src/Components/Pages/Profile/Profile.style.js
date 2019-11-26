@@ -297,7 +297,7 @@ export const CommentDiv = styled.div`
 
 export const BubbleAndDate = styled.div`
   display: flex;
-  margin-bottom: 1rem;
+  margin-bottom: 0.625rem;
 `;
 
 const adminTitle = css`
@@ -647,4 +647,12 @@ export const RightInfo = styled.div`
   width: 70%;
   display: flex;
   align-items: center;
+`;
+
+export const UserInfoWrapper = styled.div`
+  margin-left: 1rem;
+`;
+
+export const RatingWithUserInfo = styled.div`
+  display: flex;
 `;

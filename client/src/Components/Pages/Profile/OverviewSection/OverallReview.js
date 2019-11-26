@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import moment from "moment";
 import { Link, withRouter } from "react-router-dom";
-import { Collapse, Icon as AntdIcon, message, Alert } from "antd";
+import { Collapse, Icon as AntdIcon, message, Alert, Rate } from "antd";
 import axios from "axios";
 
 import Icon from "../../../Common/Icon/Icon";
@@ -28,6 +28,8 @@ import {
   UserTrade,
   UserDiv,
   UserAdditionalDetails,
+  UserInfoWrapper,
+  RatingWithUserInfo,
 } from "../Profile.style";
 
 import Button from "../../../Common/Button";
@@ -36,6 +38,22 @@ import VoiceReview from "../ProfileAnswers/VoiceReview";
 import { SectionTitle } from "../DetailedSection/ReviewSection.style";
 
 const { Panel } = Collapse;
+
+const UserInfo = ({ userId, trade, helpedUsers, points }) => {
+  return (
+    <UserInfoWrapper>
+      <UserDiv>
+        <UserID>{userId}</UserID>
+        <UserTrade>{trade}</UserTrade>
+      </UserDiv>
+      <UserAdditionalDetails>
+        <p>
+          Helped {helpedUsers} · Points {points}
+        </p>
+      </UserAdditionalDetails>
+    </UserInfoWrapper>
+  );
+};
 
 class OverallReview extends Component {
   state = {
@@ -208,6 +226,7 @@ class OverallReview extends Component {
             category: "written",
             review,
             organization: review.organization,
+            rate: review.rate,
           });
         }
 
@@ -224,6 +243,7 @@ class OverallReview extends Component {
             _id: review._id,
             category: "audio",
             organization: review.organization,
+            rate: review.rate,
           });
         }
       });
@@ -304,27 +324,6 @@ class OverallReview extends Component {
             if (this.checkIfReviewExist(review)) {
               return (
                 <CommentDiv key={`${review._id}comment${review.category}`}>
-                  <UserDiv>
-                    <UserID>{review.user && review.user.userId}</UserID>
-                    <UserTrade>
-                      {review.user &&
-                        review.user.trade &&
-                        review.user.trade.length > 0 &&
-                        review.user.trade[0].title}
-                    </UserTrade>
-                  </UserDiv>
-                  <UserAdditionalDetails>
-                    <p>
-                      Helped{" "}
-                      {updatedUsers[review.user._id]
-                        ? updatedUsers[review.user._id].helpedUsers
-                        : review.user.helpedUsers}{" "}
-                      · Points{" "}
-                      {updatedUsers[review.user._id]
-                        ? updatedUsers[review.user._id].points
-                        : review.user.points}
-                    </p>
-                  </UserAdditionalDetails>
                   <BubbleAndDate>
                     <CommentBubble bgColor={organizations[category].secondary}>
                       {review.category === "written" && review.text}
@@ -339,7 +338,36 @@ class OverallReview extends Component {
                       {moment().diff(review.createdAt, "weeks")}w
                     </CommentDate>
                   </BubbleAndDate>
-                  {/* FLAG ICON */}
+                  <RatingWithUserInfo style={{ display: "flex" }}>
+                    <Rate
+                      disabled
+                      value={review.rate || 0}
+                      style={{
+                        color: `${colors.stars}`,
+                        fontSize: "1rem",
+                      }}
+                      className="last-reviewed-star-rate"
+                    />
+                    <UserInfo
+                      userId={review.user && review.user.userId}
+                      trade={
+                        review.user &&
+                        review.user.trade &&
+                        review.user.trade.length > 0 &&
+                        review.user.trade[0].title
+                      }
+                      helpedUsers={
+                        updatedUsers[review.user._id]
+                          ? updatedUsers[review.user._id].helpedUsers
+                          : review.user.helpedUsers
+                      }
+                      points={
+                        updatedUsers[review.user._id]
+                          ? updatedUsers[review.user._id].points
+                          : review.user.points
+                      }
+                    />
+                  </RatingWithUserInfo>
                   {/*  BUTTONS SECTION */}
                   <ActionsDiv>
                     <ButtonsWrapper>
@@ -372,7 +400,7 @@ class OverallReview extends Component {
                                 ? colors.profileFontColor
                                 : colors.white
                             }
-                            margin="2rem 1rem 2rem 0"
+                            margin="0.75rem 1rem 0.75rem 0"
                           />
                         </>
                       )}
@@ -390,9 +418,10 @@ class OverallReview extends Component {
                         text="Reply"
                         styleType="secondary"
                         color={colors.primary}
-                        margin="2rem 0"
+                        margin="0.75rem 0"
                       />
                     </ButtonsWrapper>
+                    {/* FLAG ICON */}
                     <Link
                       style={{ right: 0, width: "10%" }}
                       to={{
