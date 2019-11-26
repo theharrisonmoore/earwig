@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import { Link as ScrollLink, Element } from "react-scroll";
-import quesstionIcon from "../../../assets/question-mark.svg";
 import {
   Wrapper,
   ContentWrapper,
-  MainIcon,
   SmallParagraph,
   Iframe,
-  PageTitle,
   BlueDiv,
   PurpleDiv,
   SubTitleGroup,
@@ -25,7 +22,7 @@ import {
   COMMUNITY_GUIDELINES_URL,
   CONTACT_URL,
   DELETE_PROFILE_URL,
-} from "../../../constants/naviagationUrls.js";
+} from "../../../constants/naviagationUrls";
 
 export default class FAQ extends Component {
   render() {
@@ -39,9 +36,6 @@ export default class FAQ extends Component {
           width="50%"
           style={{ padding: "3rem 4vw", paddingTop: "6rem" }}
         >
-          <PageTitle>FAQ & explainer videos</PageTitle>
-          <MainIcon src={quesstionIcon} />
-
           <SubTitleGroup>
             <ScrollLink
               to="getting-started"

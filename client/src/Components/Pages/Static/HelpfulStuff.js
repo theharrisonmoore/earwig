@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import linkIcon from "../../../assets/link-icon.svg";
 import {
   Wrapper,
   ContentWrapper,
-  MainIcon,
   SubTitle,
   SmallParagraph,
-  PageTitle,
 } from "../../Common/StaticPages.style";
 
 import CommentSection from "../../Common/CommentSection";
@@ -17,8 +14,6 @@ export default class HelpfulStuff extends Component {
     return (
       <Wrapper>
         <ContentWrapper style={{ margin: "0 auto" }}>
-          <PageTitle>More helpful stuff for workers</PageTitle>
-          <MainIcon src={linkIcon} />
           <a
             href="https://www.moneysavingexpert.com/"
             target="_blank"

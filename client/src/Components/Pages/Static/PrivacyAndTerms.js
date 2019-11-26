@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import paperIcon from "../../../assets/paper-icon.svg";
 import {
   Wrapper,
   ContentWrapper,
-  MainIcon,
-  PageTitle,
   LargeLink,
 } from "../../Common/StaticPages.style";
 
@@ -25,8 +22,6 @@ export default class PrivacyAndTerms extends Component {
           <ContentWrapper
             style={{ maxWidth: "32rem", margin: "0 auto", paddingTop: "6rem" }}
           >
-            <PageTitle>Privacy & terms</PageTitle>
-            <MainIcon src={paperIcon} />
             <LargeLink
               primary
               target="_blank"
