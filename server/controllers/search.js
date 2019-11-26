@@ -6,5 +6,5 @@ module.exports = (req, res, next) => {
 
   searchQuery(category)
     .then(result => res.json(result))
-    .catch(() => next(boom.badImplementation()));
+    .catch(err => next(boom.badImplementation(err)));
 };
