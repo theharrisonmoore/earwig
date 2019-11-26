@@ -151,7 +151,15 @@ export default class ReviewSection extends Component {
                           isMobile={isMobile}
                         />
                       ) : (
-                        <LightTitle>
+                        <LightTitle
+                          bar
+                          large={
+                            question.profileText &&
+                            question.profileText.includes(
+                              "Overall, would you be happy"
+                            )
+                          }
+                        >
                           <p>No answers yet</p>
                         </LightTitle>
                       )}
@@ -171,7 +179,7 @@ export default class ReviewSection extends Component {
                           isMobile={isMobile}
                         />
                       ) : (
-                        <LightTitle>
+                        <LightTitle bar>
                           <p>No answers yet</p>
                         </LightTitle>
                       )}
@@ -191,7 +199,7 @@ export default class ReviewSection extends Component {
                           isMobile={isMobile}
                         />
                       ) : (
-                        <LightTitle>
+                        <LightTitle bar>
                           <p>No answers yet</p>
                         </LightTitle>
                       )}
@@ -209,7 +217,7 @@ export default class ReviewSection extends Component {
                           question={question}
                         />
                       ) : (
-                        <LightTitle>
+                        <LightTitle bar>
                           <p>No answers yet</p>
                         </LightTitle>
                       )}
@@ -230,7 +238,7 @@ export default class ReviewSection extends Component {
                           reviewDetails={reviewDetails}
                         />
                       ) : (
-                        <LightTitle>
+                        <LightTitle bar>
                           <p>No answers yet</p>
                         </LightTitle>
                       )}
@@ -270,7 +278,7 @@ export default class ReviewSection extends Component {
                               isMobile={isMobile}
                             />
                           ) : (
-                            <LightTitle>
+                            <LightTitle bar>
                               <p>No answers yet</p>
                             </LightTitle>
                           )}
@@ -292,7 +300,7 @@ export default class ReviewSection extends Component {
                           isMobile={isMobile}
                         />
                       ) : (
-                        <LightTitle>
+                        <LightTitle bar>
                           <p>No answers yet</p>
                         </LightTitle>
                       )}
