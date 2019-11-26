@@ -18,8 +18,8 @@ export const Wrapper = styled.div`
   flex-direction: column;
   padding-top: ${({ showTabs, isMobile }) =>
     isMobile
-      ? `calc(11.5rem - ${showTabs ? "0px" : "48px"})`
-      : `calc(12.5rem - ${showTabs ? "0px" : "48px"})`};
+      ? `calc(13.25rem - ${showTabs ? "0px" : "60px"})`
+      : `calc(13.25rem - ${showTabs ? "0px" : "60px"})`};
   text-align: left;
   padding-bottom: 100px;
   font-size: 1rem;
@@ -95,7 +95,7 @@ export const Tab = styled.div`
   color: ${colors.primary};
   flex-direction: column;
   align-items: center;
-  padding: 0.75rem 0 0;
+  padding: 0.75rem 0;
   width: 50%;
   position: relative;
   cursor: pointer;
@@ -221,6 +221,7 @@ export const ActionButtonsDiv = styled.div`
   padding-top: 0.75rem;
   background-color: ${colors.white};
   width: 100%;
+  border-bottom: 1px solid ${colors.dustyGray2};
 
   @media ${breakpoints.mobileL} {
     justify-content: center;
@@ -436,6 +437,9 @@ export const AccountLink = styled(VerifyLink)`
   top: 0;
   width: 100%;
   background-color: ${colors.white};
+  position: sticky;
+  border-bottom: ${({ sticky }) =>
+    sticky ? `1px solid ${colors.dustyGray2}` : "none"};
 `;
 
 export const AccountItem = styled.div`
