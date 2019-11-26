@@ -5,7 +5,7 @@ import {
   colors,
   shadows,
   organizations,
-  breakpoints
+  breakpoints,
 } from "../../../theme";
 
 export const classNames = {
@@ -17,7 +17,7 @@ export const classNames = {
   suggestionsContainerOpen: "react-autosuggest__suggestions-container--open",
   suggestionsList: "react-autosuggest__suggestions-list",
   suggestions: "react-autosuggest__suggestion",
-  suggestionHighlighted: "react-autosuggest__suggestion--highlighted"
+  suggestionHighlighted: "react-autosuggest__suggestion--highlighted",
 };
 
 export const AutosuggestWrapper = styled.div.attrs(classNames)`
@@ -64,7 +64,7 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
   .${classNames.suggestionsContainerOpen} {
     display: block;
     position: absolute;
-    margin-top: 77px;
+    margin-top: 72px;
     width: 100%;
     z-index: 2;
     background-color: ${colors.white};
