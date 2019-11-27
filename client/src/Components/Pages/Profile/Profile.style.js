@@ -245,38 +245,42 @@ const dividerStyle = `
 }
 `;
 
+const sharedReviewSectionStyle = `
+padding: calc(${dividerHieght}px + 1.25rem) 1rem 0;
+
+@media ${breakpoints.mobileM} {
+  padding: calc(${dividerHieght}px + 1.25rem) 2rem 0;
+}
+
+@media ${breakpoints.mobileL} {
+  padding: calc(${dividerHieght}px + 1.25rem) 4rem 0;
+}
+
+@media ${breakpoints.mobileXL} {
+  padding: calc(${dividerHieght}px + 1.25rem) 7rem 0;
+}
+
+@media ${breakpoints.tablet} {
+  padding: calc(${dividerHieght}px + 1.25rem) 10rem 0;
+}
+`;
+
 export const ReviewDiv = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: calc(${dividerHieght}px + 1.25rem) 1rem 0;
   text-align: left;
-
-  @media ${breakpoints.mobileM} {
-    padding: calc(${dividerHieght}px + 1.25rem) 2rem 0;
-  }
-
-  @media ${breakpoints.mobileL} {
-    padding: calc(${dividerHieght}px + 1.25rem) 4rem 0;
-  }
-
-  @media ${breakpoints.mobileXL} {
-    padding: calc(${dividerHieght}px + 1.25rem) 7rem 0;
-  }
-
-  @media ${breakpoints.tablet} {
-    padding: calc(${dividerHieght}px + 1.25rem) 10rem 0;
-  }
-
+  ${sharedReviewSectionStyle}
   ${dividerStyle}
 `;
 
 export const Level0PromoWrapper = styled.div`
-  padding: ${props =>
-    props.isTablet || props.isMobile ? "0rem 1rem" : "2rem 7rem 0 7rem"};
   display: flex;
   flex-direction: column;
   text-align: left;
+  ${sharedReviewSectionStyle}
+
+  margin-top: 1rem;
 `;
 
 export const GiveReviewTitle = styled.h3`
