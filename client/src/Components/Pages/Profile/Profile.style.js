@@ -9,7 +9,7 @@ import {
   colors,
   shadows,
   borders,
-  breakpoints
+  breakpoints,
 } from "../../../theme";
 import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
@@ -680,7 +680,7 @@ export const RightInfo = styled.div`
 `;
 
 export const UserInfoWrapper = styled.div`
-  margin-left: 1rem;
+  margin-left: 0.625rem;
 `;
 
 export const RatingWithUserInfo = styled.div`
