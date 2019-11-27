@@ -650,7 +650,7 @@ export const PopOverWrapper = styled.div`
 export const OrganisationDetailsWrapper = styled(ReviewDiv)`
   position: relative;
   padding-top: calc(${dividerHieght}px + 1rem);
-  padding-bottom: 1.25rem;
+  padding-bottom: 1.25rem !important;
 
   ${dividerStyle}
 `;
