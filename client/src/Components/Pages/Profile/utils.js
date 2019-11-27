@@ -2,7 +2,7 @@ import moment from "moment";
 
 export const getContractorsFromReviews = reviewDetails => {
   const [worksiteQuestionsGroup] = reviewDetails.filter(
-    group => group._id === "Working on this site"
+    group => group._id === "Working on the site"
   );
   const [contractorQuestion] = worksiteQuestionsGroup.questions.filter(
     question => question.text === "Who was the main contractor on site?"
@@ -31,7 +31,7 @@ export const reviewsByMonth = FilteredReviewMonths => {
     Sep: 0,
     Oct: 0,
     Nov: 0,
-    Dec: 0,
+    Dec: 0
   };
 
   if (FilteredReviewMonths.length === 0) return reviewMonthsCount;
