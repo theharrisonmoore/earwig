@@ -1,94 +1,179 @@
 import styled from "styled-components";
 
-import { colors, breakpoints } from "../../../theme";
+import backgroundDesktop from "../../../assets/welcome_page_image_desktop.jpg";
+import backgroundMobile from "../../../assets/welcome_page_image_mobile.jpg";
+import earwigLogoWhite from "../../../assets/earwig-logo-white.png";
+import downwardArrow from "../../../assets/downward-arrow.svg";
+
+import { colors, shadows, breakpoints } from "../../../theme";
 
 export const Wrapper = styled.div`
+  font-family: Roboto;
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  display: flex;
-  overflow: scroll;
-  position: absolute;
+  overflow: auto;
   top: 0;
-`;
-
-export const Title = styled.h1`
-  margin-top: 6rem;
-  max-width: 300px;
-  font-size: 2rem;
-  font-weight: 400;
-  line-height: 2.5rem;
-  text-align: center;
-  color: ${colors.white};
-  margin-bottom: 1rem;
-  margin: 0 auto;
-
-  @media ${breakpoints.tablet} {
-    color: ${colors.heliotrope};
-  }
-`;
-
-export const Subtitle = styled.h2`
-  font-size: 1.75rem;
-  color: ${colors.heliotrope};
-  margin-bottom: 2rem;
-  text-align: center;
-  max-width: 14rem;
-`;
-
-export const ContentWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  /* max-width: 25rem; */
-  padding: 1rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
-  max-width: 30rem;
   justify-content: center;
-
-  & .paragraph {
-    display: block;
-    color: ${colors.profileFontColor};
-    font-size: 1.8rem;
-  }
-`;
-
-export const Header = styled.header`
-  margin: 0 auto;
-  padding: 6.5rem 1rem 2.5rem;
-  z-index: 1;
-  position: relative;
-  margin: 0 auto;
-
-  background-color: ${colors.heliotrope};
-
-  @media ${breakpoints.tablet} {
-    background-color: initial;
-    padding: 12.5rem 1rem 0.5rem;
-  }
 `;
 
 export const Body = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  @media ${breakpoints.tablet} {
-    width: 50%;
+  background-image: url(${backgroundMobile});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  @media ${breakpoints.mobileXL} {
+    background-image: url(${backgroundDesktop});
   }
 `;
 
-export const ButtonsWrpper = styled.div`
+export const ContentWrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  padding-bottom: 5rem;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 33rem;
+`;
 
-  div {
-    display: flex;
-    justify-content: space-around;
-    margin: 0 auto;
-    max-width: 25rem;
-    width: 100%;
+export const Header = styled.header`
+  padding-top: 2rem;
+  width: 95%;
+  // desktop
+  @media ${breakpoints.mobileXL} {
+    padding-top: 3.5rem;
+  }
+`;
+
+export const Title = styled.h1`
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: ${colors.white};
+
+  // desktop
+  @media ${breakpoints.mobileXL} {
+    font-size: 2rem;
+  }
+`;
+
+export const SubtitleWrapper = styled.section`
+  width: 75%;
+  margin-top: -0.5rem;
+  padding-bottom: 1rem;
+
+  // desktop
+  @media ${breakpoints.mobileXL} {
+    width: 95%;
+  }
+`;
+
+export const FooterTitle = styled.section`
+  position: absolute;
+  bottom: 2rem;
+  width: 100%;
+  height: calc(100vh - 82%);
+  width: 75%;
+
+  // desktop
+  @media ${breakpoints.mobileXL} {
+    width: 95%;
+  }
+`;
+
+export const Subtitle = styled.h2`
+  font-size: 1rem;
+  font-weight: 500;
+  color: ${colors.white};
+`;
+
+export const LogoContainer = styled.div`
+  padding-top: 4rem;
+
+  // desktop
+  @media ${breakpoints.mobileXL} {
+    padding-top: 6rem;
+  }
+`;
+
+export const Logo = styled.img`
+  content: url(${earwigLogoWhite});
+  min-width: 2.5rem;
+  max-width: 7.5rem;
+
+  // desktop
+  @media ${breakpoints.mobileXL} {
+    min-width: 6.5rem;
+    max-width: 11.5rem;
+  }
+`;
+
+export const DownArrow = styled.img`
+  content: url(${downwardArrow});
+  min-width: 0.5rem;
+  max-width: 0.5rem;
+  margin-top: -0.5rem;
+`;
+
+export const ButtonsWrapper = styled.div`
+  width: 100%;
+  height: 50px;
+
+  // desktop
+  @media ${breakpoints.mobileXL} {
+    max-width: 30rem;
+    height: 75px;
+  }
+`;
+
+export const Button = styled.button`
+  font-size: 0.9rem;
+  color: ${colors.white};
+  border: none;
+  background-color: ${({ backgroundColor }) =>
+    backgroundColor || colors.primary};
+  box-shadow: ${shadows.buttonShadow};
+  width: calc(100% / 4);
+  height: 100%;
+  float: left;
+  outline: none;
+  cursor: pointer;
+
+  &:active {
+    box-shadow: none;
+  }
+
+    ::after {
+      content: "";
+      display: block;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      background: ${colors.btnClick};
+      box-shadow: none;
+      border-radius: 300px;
+    }
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  // desktop
+  @media ${breakpoints.mobileXL} {
+    font-size: 1rem;
   }
 `;

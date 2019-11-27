@@ -2,6 +2,7 @@ import React from "react";
 
 import { ReviewDiv } from "../Profile.style";
 import ReviewSection from "./ReviewSection";
+import { SectionTitle } from "./ReviewSection.style";
 
 const DetailedAnswers = ({
   isTablet,
@@ -14,6 +15,7 @@ const DetailedAnswers = ({
 
   return (
     <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
+      <SectionTitle>Detailed answers by workers</SectionTitle>
       {/* KEY RATINGS SECTION */}
       {reviewDetails.map(
         section =>
@@ -31,19 +33,6 @@ const DetailedAnswers = ({
       {/* OTHER SECTIONS */}
       {reviewDetails.map(
         section =>
-          section._id === "Detailed ratings" && (
-            <ReviewSection
-              key={section._id}
-              category={category}
-              sectionDetails={section}
-              toggleComments={toggleComments}
-              summary={summary}
-              isMobile={isMobile}
-            />
-          )
-      )}
-      {reviewDetails.map(
-        section =>
           section._id === "Getting on to site" && (
             <ReviewSection
               key={section._id}
@@ -56,6 +45,7 @@ const DetailedAnswers = ({
             />
           )
       )}
+
       {reviewDetails.map(
         section =>
           section._id === "Working on this site" && (
@@ -69,6 +59,7 @@ const DetailedAnswers = ({
             />
           )
       )}
+
       {reviewDetails.map(
         section =>
           section._id === "The site welfare" && (
@@ -82,6 +73,21 @@ const DetailedAnswers = ({
             />
           )
       )}
+
+      {reviewDetails.map(
+        section =>
+          section._id === "Detailed ratings" && (
+            <ReviewSection
+              key={section._id}
+              category={category}
+              sectionDetails={section}
+              toggleComments={toggleComments}
+              summary={summary}
+              isMobile={isMobile}
+            />
+          )
+      )}
+
       {reviewDetails.map(
         section =>
           section._id === "Supervisors & employees" && (

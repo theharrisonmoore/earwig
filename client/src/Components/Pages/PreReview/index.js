@@ -27,7 +27,7 @@ export default class PreReview extends Component {
     }
 
     return (
-      <Layout type="center">
+      <Layout type="center" maxWidth="57rem">
         <Wrapper>
           <Body>
             <Header category={category}>

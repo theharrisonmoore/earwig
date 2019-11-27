@@ -4,14 +4,6 @@ import AutosuggestComponent from "../AutoSuggest";
 
 import { HeaderWrapper, SearchBarContainer } from "./Header.style";
 import Tabs from "./Tabs";
-import Heading from "./Heading";
-
-const orgs = {
-  agency: { text: "Agencies", to: "agency" },
-  payroll: { text: "Payrolls", to: "payroll" },
-  worksite: { text: "Worksites", to: "worksite" },
-  company: { text: "Companies", to: "company" },
-};
 
 export default class SearchHeader extends Component {
   state = {
@@ -44,11 +36,9 @@ export default class SearchHeader extends Component {
     return (
       <HeaderWrapper category={category} shrink={shrink}>
         <Tabs category={category} />
-        <Heading title={orgs[category].text} shrink={shrink} />
-
         <SearchBarContainer shrink={shrink}>
           <AutosuggestComponent
-            iconTop={shrink ? "14px" : "20px"}
+            iconTop={shrink ? "28px" : "34px"}
             bool={() => true}
             height={`${shrink ? "3.5rem" : "4.5rem"}`}
             width="80%"

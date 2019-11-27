@@ -9,7 +9,7 @@ import {
   colors,
   shadows,
   borders,
-  breakpoints,
+  breakpoints
 } from "../../../theme";
 import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
@@ -245,11 +245,24 @@ export const ReviewDiv = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: ${props =>
-    props.isTablet || props.isMobile
-      ? `calc(${dividerHieght}px + 1.25rem) 1rem 0`
-      : `calc(${dividerHieght}px + 1.25rem) 7rem 0`};
+  padding: calc(${dividerHieght}px + 1.25rem) 1rem 0;
   text-align: left;
+
+  @media ${breakpoints.mobileM} {
+    padding: calc(${dividerHieght}px + 1.25rem) 2rem 0;
+  }
+
+  @media ${breakpoints.mobileL} {
+    padding: calc(${dividerHieght}px + 1.25rem) 4rem 0;
+  }
+
+  @media ${breakpoints.mobileXL} {
+    padding: calc(${dividerHieght}px + 1.25rem) 7rem 0;
+  }
+
+  @media ${breakpoints.tablet} {
+    padding: calc(${dividerHieght}px + 1.25rem) 10rem 0;
+  }
 
   ${dividerStyle}
 `;
@@ -288,16 +301,26 @@ export const CommentDiv = styled.div`
   display: flex;
   flex-direction: column;
   /* flex: initial; */
-  margin-bottom: 1rem;
+  padding: 1.5rem 0 1rem;
   width: 100%;
   position: relative;
   display: ${props => props.noReview && "none"};
   color: ${colors.white};
+  border-bottom: 1px solid ${colors.dustyGray1}40;
+
+  .ant-collapse .ant-collapse-item {
+    border: none;
+  }
+
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    padding: 7px 14px 10px !important;
+  }
 `;
 
 export const BubbleAndDate = styled.div`
   display: flex;
-  margin-bottom: 1rem;
+  align-items: center;
+  margin-bottom: 0.625rem;
 `;
 
 const adminTitle = css`
@@ -350,6 +373,12 @@ export const CommentDate = styled.p`
   margin: 0;
   text-align: right;
   align-self: flex-end;
+  color: ${colors.profileFontColor}
+  font-size: 18px;
+  opacity: 0.6;
+  letter-spacing: 2.5px;
+  margin-bottom: -1rem;
+  margin-left: -0.5rem;
 `;
 
 export const StarWrapper = styled.div`
@@ -489,7 +518,6 @@ export const ActionsDiv = styled.div`
   align-items: center;
   width: 100%;
   margin: 0 auto;
-  margin-bottom: 1rem;
 `;
 
 export const ButtonsWrapper = styled(ActionsDiv)`
@@ -502,6 +530,8 @@ export const ButtonsWrapper = styled(ActionsDiv)`
 export const UserTrade = styled.p`
   font-style: italic;
   margin-left: 10px;
+  color: ${colors.profileFontColor};
+  margin-bottom: 0;
 `;
 
 export const UserDiv = styled.div`
@@ -509,30 +539,12 @@ export const UserDiv = styled.div`
 `;
 
 export const UserAdditionalDetails = styled.div`
-  margin-top: -15px;
+  margin-top: -10px;
 
   p {
     font-size: 0.8rem;
     color: ${colors.dustyGray2};
   }
-`;
-
-export const ReplyButton = styled.p`
-  border: none;
-  background: none;
-  font-weight: bold;
-  font-size: 1rem;
-  padding: 0 0.5rem;
-  color: ${colors.primary};
-  margin-right: 1rem;
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-  opacity: ${({ disabled }) => disabled && "0.5"};
-  text-decoration: none;
-`;
-
-export const HelpfulButton = styled(ReplyButton)`
-  color: ${({ number }) => (number ? "black" : colors.primary)};
-  font-weight: ${({ number }) => (number ? "900" : "bold")};
 `;
 
 export const ActionButton = styled.button`
@@ -638,7 +650,7 @@ export const PopOverWrapper = styled.div`
 export const OrganisationDetailsWrapper = styled(ReviewDiv)`
   position: relative;
   padding-top: calc(${dividerHieght}px + 1rem);
-  padding-bottom: 1.25rem;
+  padding-bottom: 1.25rem !important;
 
   ${dividerStyle}
 `;
@@ -665,4 +677,13 @@ export const RightInfo = styled.div`
   width: 70%;
   display: flex;
   align-items: center;
+`;
+
+export const UserInfoWrapper = styled.div`
+  margin-left: 1rem;
+`;
+
+export const RatingWithUserInfo = styled.div`
+  display: flex;
+  padding-top: 0.5rem;
 `;

@@ -27,12 +27,12 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
   outline: none;
 
 
+
   .${classNames.container} {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-
 
   }
   .${classNames.containerOpen} {
@@ -42,31 +42,38 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
     font-weight: 300;
     font-size: 1rem;
     width: 100%;
+
   }
   .${classNames.containerFocussed} {
     outline: none;
+
   }
   input {
     text-indent: ${props => (props.noIcon ? "0px" : "45px")};
   }
+
   .${classNames.containerInputOpen} {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+
   }
   .${classNames.suggestionsContainer} {
     display: none;
+
   }
   .${classNames.suggestionsContainerOpen} {
     display: block;
     position: absolute;
-    margin-top: ${props => props.height};
+    margin-top: 72px;
     width: 100%;
     z-index: 2;
     background-color: ${colors.white};
     max-height: 80vh;
     overflow-y: auto;
   }
+
   .${classNames.suggestionsList} {
+
   }
   .${classNames.suggestions} {
     box-shadow: ${shadows.autocompleteSuggestionShadow};

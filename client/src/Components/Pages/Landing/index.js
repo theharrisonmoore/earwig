@@ -21,15 +21,15 @@ import {
   AwardDiv,
   AwardsWrapper,
   AwardTitle,
-  LabelTitle
+  LabelTitle,
 } from "./Landing.style";
 
-import LogoBetaWhite from "./../../../assets/logo-beta-white.svg";
+import LogoBetaWhite from "../../../assets/logo-beta-white.svg";
 
-import { colors } from "./../../../theme";
+import { colors } from "../../../theme";
 
-import Icon from "./../../Common/Icon/Icon";
-import Button from "./../../Common/Button";
+import Icon from "../../Common/Icon/Icon";
+import Button from "../../Common/Button";
 
 import {
   StyledFormik as Formik,
@@ -38,14 +38,14 @@ import {
   StyledFormikErrorMessage as FormikErrorMessage,
   Label,
   GeneralErrorMessage,
-  StyledField
-} from "./../../Common/Formik/Formik.style";
+  StyledField,
+} from "../../Common/Formik/Formik.style";
 
 import {
   SIGNUP_URL,
   RESET_PASSWORD_URL,
-  WELCOME_URL
-} from "./../../../constants/naviagationUrls";
+  WELCOME_URL,
+} from "../../../constants/naviagationUrls";
 
 const initalValues = { email: "", password: "" };
 
@@ -53,12 +53,12 @@ const loginSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email")
     .required("Required"),
-  password: Yup.string().required("Required")
+  password: Yup.string().required("Required"),
 });
 
 export default class index extends Component {
   state = {
-    error: ""
+    error: "",
   };
 
   handleSubmit = (values, { setSubmitting }) => {

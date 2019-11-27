@@ -65,7 +65,9 @@ export default class ReviewSection extends Component {
       // Question - Title, AggregatedAnswer, Comment Box
       <Wrapper>
         {sectionTitle !== "Key ratings" && (
-          <SectionTitle>{sectionTitle}</SectionTitle>
+          <SectionTitle sub bordered>
+            {sectionTitle}
+          </SectionTitle>
         )}
 
         {/* {sectionTitle === "Key ratings" && (
@@ -149,7 +151,15 @@ export default class ReviewSection extends Component {
                           isMobile={isMobile}
                         />
                       ) : (
-                        <LightTitle>
+                        <LightTitle
+                          bar
+                          large={
+                            question.profileText &&
+                            question.profileText.includes(
+                              "Overall, would you be happy"
+                            )
+                          }
+                        >
                           <p>No answers yet</p>
                         </LightTitle>
                       )}
@@ -169,7 +179,7 @@ export default class ReviewSection extends Component {
                           isMobile={isMobile}
                         />
                       ) : (
-                        <LightTitle>
+                        <LightTitle bar>
                           <p>No answers yet</p>
                         </LightTitle>
                       )}
@@ -189,7 +199,7 @@ export default class ReviewSection extends Component {
                           isMobile={isMobile}
                         />
                       ) : (
-                        <LightTitle>
+                        <LightTitle bar>
                           <p>No answers yet</p>
                         </LightTitle>
                       )}
@@ -207,31 +217,28 @@ export default class ReviewSection extends Component {
                           question={question}
                         />
                       ) : (
-                        <LightTitle>
+                        <LightTitle bar>
                           <p>No answers yet</p>
                         </LightTitle>
                       )}
                     </QuestionWrapper>
                   )}
                   {question.profileType === "siteItem" && (
-                    <QuestionWrapper
-                      key={index}
-                      hide={this.onlyNeutralAnswers(question.answers)}
-                    >
-                      {question.answers.length > 0 ? (
-                        <SiteItemAnswer
-                          category={category}
-                          question={question}
-                          toggleComments={toggleComments}
-                          profileType={question.profileType}
-                          isMobile={isMobile}
-                          reviewDetails={reviewDetails}
-                        />
-                      ) : (
-                        <LightTitle>
+                    <QuestionWrapper key={index}>
+                      {/* {question.answers.length > 0 ? ( */}
+                      <SiteItemAnswer
+                        category={category}
+                        question={question}
+                        toggleComments={toggleComments}
+                        profileType={question.profileType}
+                        isMobile={isMobile}
+                        reviewDetails={reviewDetails}
+                      />
+                      {/* ) : (
+                        <LightTitle bar>
                           <p>No answers yet</p>
                         </LightTitle>
-                      )}
+                      )} */}
                     </QuestionWrapper>
                   )}
                   {question.profileType === "canteenItem" && (
@@ -268,7 +275,7 @@ export default class ReviewSection extends Component {
                               isMobile={isMobile}
                             />
                           ) : (
-                            <LightTitle>
+                            <LightTitle bar>
                               <p>No answers yet</p>
                             </LightTitle>
                           )}
@@ -290,7 +297,7 @@ export default class ReviewSection extends Component {
                           isMobile={isMobile}
                         />
                       ) : (
-                        <LightTitle>
+                        <LightTitle bar>
                           <p>No answers yet</p>
                         </LightTitle>
                       )}
@@ -315,7 +322,7 @@ export default class ReviewSection extends Component {
                       organization={summary}
                     />
                   ) : (
-                    <LightTitle>
+                    <LightTitle image bar>
                       <p>No images yet</p>
                     </LightTitle>
                   )}

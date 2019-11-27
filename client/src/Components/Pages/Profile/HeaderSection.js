@@ -71,6 +71,10 @@ export default class HeaderSection extends Component {
     document.querySelector("#navbar").style.position = "relative";
   }
 
+  componentWillUnmount() {
+    document.querySelector("#navbar").style.position = "fixed";
+  }
+
   render() {
     const {
       isTablet,
