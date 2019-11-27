@@ -155,7 +155,7 @@ export const SuggestionBox = styled.div`
     withoutBorder ? "none" : `0.2px solid ${colors.lightGray}`};
   box-shadow: ${colors.searchBoxShadow};
   color: ${props => organizations[props.orgType].primary};
-  border-color: ${colors.white};
+  border-color: ${colors.lightGray};
 `;
 
 export const AddItemBox = styled.div`
