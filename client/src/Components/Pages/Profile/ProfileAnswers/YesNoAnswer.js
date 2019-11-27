@@ -23,14 +23,13 @@ export default class YesNoAnswer extends Component {
 
   render() {
     const { question } = this.props;
-
     const answerObj = this.countYesNo(question.answers);
 
     return (
       <YesNoWrapper
         large={
-          question.profileText ===
-          "Overall, would you be happy to use this agency again?"
+          question.profileText &&
+          question.profileText.includes("Overall, would you be happy")
         }
       >
         <YesHalf width={answerObj.yesPercentage}>

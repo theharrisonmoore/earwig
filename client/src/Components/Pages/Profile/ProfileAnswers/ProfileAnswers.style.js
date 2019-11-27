@@ -9,11 +9,15 @@ import {
   size,
 } from "../../../../theme";
 
+const generalFontSize = "15px";
+const generalFontWeight = "normal";
+
 export const YesNoWrapper = styled.div`
   width: 100%;
   display: flex;
   height: ${props => (props.large ? "4rem" : "2rem")};
-  font-weight: 500;
+  font-weight: ${generalFontWeight};
+  font-size: ${generalFontSize};
 `;
 
 export const YesHalf = styled.div`
@@ -98,7 +102,7 @@ export const ListItem = styled.p`
       ? organizations[props.color].primary
       : colors.profileFontColor};
 
-  font-weight: 900;
+  font-weight: ${generalFontWeight};
   font-size: 1rem;
   /* width: "100%"; */
   line-height: 2rem;
@@ -218,16 +222,17 @@ export const SiteItem = styled.div`
   margin: 0;
   color: ${props =>
     props.itemAvailable ? `${colors.green}` : `${colors.strikedOutItem}`};
-  font-weight: 900;
+  font-weight: ${generalFontWeight};
   display: flex;
   align-items: center;
+  font-size: ${generalFontSize};
 `;
 
 export const SiteAnswer = styled.div`
   margin: 0;
   /* color: ${props =>
     props.itemAvailable ? `${colors.green}` : `${colors.red}`}; */
-  font-weight: 900;
+  font-weight: ${generalFontWeight};
   text-decoration: ${props => !props.itemAvailable && "line-through"};
   display: flex;
   align-items: center;
@@ -249,7 +254,8 @@ export const CanteenSubList = styled.p`
   padding-left: 3rem;
   color: ${props =>
     props.itemAvailable ? `${colors.green}` : `${colors.strikedOutItem}`};
-  font-weight: 900;
+  font-weight: ${generalFontWeight};
+  font-size: ${generalFontSize};
   display: ${props => (props.hide ? "none" : "block")};
   text-decoration: ${props => !props.itemAvailable && "line-through"};
 `;
