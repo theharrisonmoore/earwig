@@ -9,7 +9,7 @@ const DetailedAnswers = ({
   isMobile,
   reviewDetails,
   summary,
-  toggleComments,
+  toggleComments
 }) => {
   const { category } = summary;
 
@@ -48,7 +48,7 @@ const DetailedAnswers = ({
 
       {reviewDetails.map(
         section =>
-          section._id === "Working on this site" && (
+          section._id === "Working on the site" && (
             <ReviewSection
               key={section._id}
               category={category}
