@@ -7,7 +7,7 @@ import Icon from "../../Common/Icon/Icon";
 
 import {
   USER_PROFILE_URL,
-  PRE_REVIEW,
+  PRE_REVIEW
 } from "../../../constants/naviagationUrls";
 
 import {
@@ -20,7 +20,7 @@ import {
   Underline,
   ActionButtonsDiv,
   CompanyNameAndStars,
-  CompanyTitle,
+  CompanyTitle
 } from "./Profile.style";
 
 import { colors } from "../../../theme";
@@ -37,7 +37,7 @@ const ColoredBanner = ({ category, name, summary, isMobile }) => {
           value={summary.avgRatings || summary.value || 0}
           style={{
             color: `${colors.stars}`,
-            fontSize: "0.75rem",
+            fontSize: "0.75rem"
           }}
           className="last-reviewed-star-rate"
         />
@@ -72,7 +72,11 @@ export default class HeaderSection extends Component {
   }
 
   componentWillUnmount() {
-    document.querySelector("#navbar").style.position = "fixed";
+    const navbar = document.querySelector("#navbar");
+
+    if (navbar) {
+      navbar.style.position = "fixed";
+    }
   }
 
   render() {
@@ -85,7 +89,7 @@ export default class HeaderSection extends Component {
       orgId,
       awaitingReview,
       setActiveTab,
-      activeTab = "overview",
+      activeTab = "overview"
     } = this.props;
     const { category, name } = summary;
     // if there are reviews less dating before 1 month user not allowed
@@ -114,7 +118,7 @@ export default class HeaderSection extends Component {
                   level === 1 && !awaitingReview
                     ? USER_PROFILE_URL
                     : PRE_REVIEW.replace(":orgId", orgId),
-                state: { name, category },
+                state: { name, category }
               }}
             >
               <Button
@@ -122,7 +126,7 @@ export default class HeaderSection extends Component {
                 style={{
                   opacity: `${
                     reviewNotAllowed && reviewsLast30Days.length > 0 ? 0.5 : 1
-                  }`,
+                  }`
                 }}
                 text={`Review this ${category || "organisation"}`}
                 disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
