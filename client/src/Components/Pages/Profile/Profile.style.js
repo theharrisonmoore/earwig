@@ -170,6 +170,10 @@ export const OrgLink = styled.a`
   display: ${props => props.hasDetails === null && "none"};
   font-weight: normal;
   font-size: 15px;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const OrgButton = styled.button`
