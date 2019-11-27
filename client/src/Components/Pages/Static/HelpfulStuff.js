@@ -4,6 +4,8 @@ import {
   ContentWrapper,
   SubTitle,
   SmallParagraph,
+  BlueDiv,
+  PurpleDiv,
 } from "../../Common/StaticPages.style";
 
 import CommentSection from "../../Common/CommentSection";
@@ -13,7 +15,8 @@ export default class HelpfulStuff extends Component {
     const { isLoggedIn } = this.props;
     return (
       <Wrapper>
-        <ContentWrapper style={{ margin: "0 auto" }}>
+        <PurpleDiv width="25%" />
+        <ContentWrapper style={{ margin: "0 auto" }} width="50%">
           <a
             href="https://www.moneysavingexpert.com/"
             target="_blank"
@@ -132,6 +135,7 @@ export default class HelpfulStuff extends Component {
             isLoggedIn={isLoggedIn}
           />
         </ContentWrapper>
+        <BlueDiv width="25%" />
       </Wrapper>
     );
   }

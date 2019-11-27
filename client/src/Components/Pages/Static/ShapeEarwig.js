@@ -15,6 +15,7 @@ export default class ShapeEarwig extends Component {
 
     return (
       <Wrapper>
+        <PurpleDiv width="25%" />
         <ContentWrapper
           width="50%"
           style={{ maxWidth: "32rem", margin: "0 auto", paddingTop: "6rem" }}
@@ -28,7 +29,6 @@ export default class ShapeEarwig extends Component {
             isLoggedIn={isLoggedIn}
           />
         </ContentWrapper>
-        <PurpleDiv width="25%" />
         <BlueDiv width="25%" />
       </Wrapper>
     );

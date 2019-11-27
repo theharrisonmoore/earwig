@@ -31,7 +31,6 @@ export default class FAQ extends Component {
     return (
       <Wrapper>
         <PurpleDiv width="25%" />
-        <BlueDiv width="25%" />
         <ContentWrapper
           width="50%"
           style={{ padding: "3rem 4vw", paddingTop: "6rem" }}
@@ -460,6 +459,7 @@ export default class FAQ extends Component {
             isLoggedIn={isLoggedIn}
           />
         </ContentWrapper>
+        <BlueDiv width="25%" />
       </Wrapper>
     );
   }
