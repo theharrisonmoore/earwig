@@ -9,7 +9,7 @@ import {
   colors,
   shadows,
   borders,
-  breakpoints,
+  breakpoints
 } from "../../../theme";
 import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
@@ -530,6 +530,8 @@ export const ButtonsWrapper = styled(ActionsDiv)`
 export const UserTrade = styled.p`
   font-style: italic;
   margin-left: 10px;
+  color: ${colors.profileFontColor};
+  margin-bottom: 0;
 `;
 
 export const UserDiv = styled.div`
@@ -537,7 +539,7 @@ export const UserDiv = styled.div`
 `;
 
 export const UserAdditionalDetails = styled.div`
-  margin-top: -15px;
+  margin-top: -10px;
 
   p {
     font-size: 0.8rem;
@@ -683,4 +685,5 @@ export const UserInfoWrapper = styled.div`
 
 export const RatingWithUserInfo = styled.div`
   display: flex;
+  padding-top: 0.5rem;
 `;
