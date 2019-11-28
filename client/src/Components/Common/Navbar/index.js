@@ -3,13 +3,16 @@ import { NavLink } from "react-router-dom";
 import { Button, Icon as AntIcon } from "antd";
 
 import Icon from "../Icon/Icon";
-import { ADMIN } from "../../../constants/naviagationUrls";
+import { ADMIN, WELCOME_URL } from "../../../constants/naviagationUrls";
 import { Wrapper, ToggleMenu, SideDiv, WrapperH2 } from "./Navbar.style";
 import Menu from "./Menu";
+import { colors } from "../../../theme";
+
+import { MenuItem } from "./Menu.style";
 
 export default class Navbar extends Component {
   state = {
-    menuOpen: false
+    menuOpen: false,
   };
 
   toggleMenu = () => {
@@ -27,7 +30,7 @@ export default class Navbar extends Component {
       history,
       handleChangeState,
       verified,
-      awaitingReview
+      awaitingReview,
     } = this.props;
 
     let text = title;
@@ -73,7 +76,7 @@ export default class Navbar extends Component {
                     type="dashboard"
                     style={{
                       fontSize: "24px",
-                      color: "#FFFFFF"
+                      color: "#FFFFFF",
                     }}
                   />
                 </Button>
@@ -107,7 +110,16 @@ export default class Navbar extends Component {
           </SideDiv>
         )}
         <WrapperH2 style={{ fontWeight: "900" }}>{text && text}</WrapperH2>
-        <SideDiv position="flex-end"></SideDiv>
+        <SideDiv position="flex-end">
+          <MenuItem to={WELCOME_URL}>
+            <Icon
+              icon="search"
+              height="22"
+              width="22"
+              color={colors.profileFontColor}
+            />
+          </MenuItem>
+        </SideDiv>
       </Wrapper>
     );
   }
