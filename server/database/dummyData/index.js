@@ -99,19 +99,6 @@ if (process.env.NODE_ENV === "production") {
       console.log("err", err);
       mongoose.disconnect();
     });
-} else if (process.env.NODE_ENV !== "test") {
-  buildDummyData()
-    .then(() => {
-    // eslint-disable-next-line no-console
-      console.log("Done!: Dev DB has been built successfully");
-      // close the connection after build
-      mongoose.disconnect();
-    })
-    .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.log("err", err);
-      mongoose.disconnect();
-    });
 }
 
 module.exports = buildDummyData;
