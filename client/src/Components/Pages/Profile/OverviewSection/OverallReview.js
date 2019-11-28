@@ -358,7 +358,7 @@ class OverallReview extends Component {
                       value={review.rate || 0}
                       style={{
                         color: `${colors.stars}`,
-                        fontSize: "1rem",
+                        fontSize: "0.8rem",
                       }}
                       className="last-reviewed-star-rate"
                     />

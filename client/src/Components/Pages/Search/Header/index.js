@@ -7,28 +7,28 @@ import Tabs from "./Tabs";
 
 export default class SearchHeader extends Component {
   state = {
-    shrink: false,
+    shrink: true,
   };
 
-  componentDidMount() {
-    document.addEventListener("scroll", this.checkScroll);
-    this.checkScroll();
-  }
+  // componentDidMount() {
+  //   document.addEventListener("scroll", this.checkScroll);
+  //   this.checkScroll();
+  // }
 
-  componentWillUnmount() {
-    document.removeEventListener("scroll", this.checkScroll);
-  }
+  // componentWillUnmount() {
+  //   document.removeEventListener("scroll", this.checkScroll);
+  // }
 
-  checkScroll = () => {
-    if (
-      document.body.scrollTop > 60 ||
-      document.documentElement.scrollTop > 60
-    ) {
-      this.setState({ shrink: true });
-    } else {
-      this.setState({ shrink: false });
-    }
-  };
+  // checkScroll = () => {
+  //   if (
+  //     document.body.scrollTop > 60 ||
+  //     document.documentElement.scrollTop > 60
+  //   ) {
+  //     this.setState({ shrink: true });
+  //   } else {
+  //     this.setState({ shrink: false });
+  //   }
+  // };
 
   render() {
     const { isMobile, isTablet, data, category } = this.props;
