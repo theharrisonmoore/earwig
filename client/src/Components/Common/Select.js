@@ -21,22 +21,52 @@ class CustomizedSelects extends React.Component {
     this.setState(prevState => ({ open: !prevState.open }), this.scrollToTop);
   };
 
-  scrollToTop = () => {
-    const { id, srollToTop } = this.props;
-    const element = document.querySelector(`#${id}`);
-    if (element && srollToTop) {
-      const isSmoothScrollSupported =
-        "scrollBehavior" in document.documentElement.style;
-
-      if (isSmoothScrollSupported) {
-        element.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-          inline: "nearest",
-        });
-      } else {
-        element.scrollIntoView(true);
+  isElementFixed = element => {
+    if (element) {
+      const elementStyle = window.getComputedStyle(element);
+      if (elementStyle) {
+        const { position } = elementStyle;
+        if (position === "fixed") {
+          return true;
+        }
       }
+    }
+    return false;
+  };
+
+  scrollToTop = () => {
+    const { id, scrollToTop } = this.props;
+    const element = document.querySelector(`#${id}`);
+    let topOffset = 30;
+    if (scrollToTop && element) {
+      // Fixed Elements
+      const navbar = document.querySelector("#navbar");
+      const cancelNavbar = document.querySelector("#cancel-navbar");
+      const reviewHeader = document.querySelector("#review-header");
+
+      // add fixed elements offset to the page offset
+      if (navbar && this.isElementFixed(navbar)) {
+        topOffset += navbar.offsetHeight;
+      }
+
+      if (cancelNavbar && this.isElementFixed(cancelNavbar)) {
+        topOffset += cancelNavbar.offsetHeight;
+      }
+      if (reviewHeader && this.isElementFixed(reviewHeader)) {
+        topOffset += reviewHeader.offsetHeight;
+      }
+
+      // get current element positon on the viewport
+      const elementPosition = element.getBoundingClientRect().top;
+      // current window scroll value
+      const windowScroll = document.documentElement.scrollTop;
+      // offset to be scrolled
+      const offsetPosition = windowScroll + elementPosition - topOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
     }
   };
 
@@ -46,6 +76,23 @@ class CustomizedSelects extends React.Component {
 
   filterOption = (input, option) =>
     option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+
+  addMarginToPage = () => {
+    document.body.style.marginBottom = "20rem";
+  };
+
+  removeMarginFromPage = () => {
+    document.body.style.marginBottom = "0";
+  };
+
+  onFocus = () => {
+    this.addMarginToPage();
+    this.scrollToTop();
+  };
+
+  onBlur = () => {
+    this.removeMarginFromPage();
+  };
 
   render() {
     const {
@@ -81,6 +128,8 @@ class CustomizedSelects extends React.Component {
           value={value || searchTerm || undefined}
           filterOption={this.filterOption}
           size="large"
+          onBlur={this.onBlur}
+          onFocus={this.onFocus}
           dropdownRender={menu =>
             isCreateNew ? (
               <div

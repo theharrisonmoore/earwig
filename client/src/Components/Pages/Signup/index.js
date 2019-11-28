@@ -540,7 +540,7 @@ export default class Signup extends Component {
                                 isCreateNew
                                 showSearch
                                 addHandler={this.showModal}
-                                srollToTop
+                                scrollToTop
                                 // onBlur={this.showModal}
                               />
                             </>
