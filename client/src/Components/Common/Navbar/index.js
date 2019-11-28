@@ -31,12 +31,14 @@ export default class Navbar extends Component {
       handleChangeState,
       verified,
       awaitingReview,
+      match,
     } = this.props;
 
     let text = title;
     if (url === "/search/review") {
       text = "Give review";
     }
+    const { path: currentPath } = match;
 
     const { menuOpen } = this.state;
     if (!isMobile) {
@@ -111,14 +113,16 @@ export default class Navbar extends Component {
         )}
         <WrapperH2 style={{ fontWeight: "900" }}>{text && text}</WrapperH2>
         <SideDiv position="flex-end">
-          <MenuItem to={WELCOME_URL}>
-            <Icon
-              icon="search"
-              height="22"
-              width="22"
-              color={colors.profileFontColor}
-            />
-          </MenuItem>
+          {currentPath !== WELCOME_URL && (
+            <MenuItem to={WELCOME_URL}>
+              <Icon
+                icon="search"
+                height="22"
+                width="22"
+                color={colors.profileFontColor}
+              />
+            </MenuItem>
+          )}
         </SideDiv>
       </Wrapper>
     );
