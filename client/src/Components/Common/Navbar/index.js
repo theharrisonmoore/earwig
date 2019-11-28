@@ -84,6 +84,16 @@ export default class Navbar extends Component {
                 </Button>
               </NavLink>
             )}
+            {currentPath !== WELCOME_URL && (
+              <MenuItem to={WELCOME_URL} extraRightPadding>
+                <Icon
+                  icon="search"
+                  height="22"
+                  width="22"
+                  color={colors.profileFontColor}
+                />
+              </MenuItem>
+            )}
           </SideDiv>
           {/* MOBILE VERSION */}
         </Wrapper>
@@ -114,7 +124,7 @@ export default class Navbar extends Component {
         <WrapperH2 style={{ fontWeight: "900" }}>{text && text}</WrapperH2>
         <SideDiv position="flex-end">
           {currentPath !== WELCOME_URL && (
-            <MenuItem to={WELCOME_URL}>
+            <MenuItem to={WELCOME_URL} extraRightPadding>
               <Icon
                 icon="search"
                 height="22"
