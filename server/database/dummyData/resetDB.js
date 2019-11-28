@@ -22,18 +22,26 @@ const resetDB = async () => {
   await Review.deleteMany();
   return Helpfulness.deleteMany();
 };
-const resetDBProd = async () => {
+
+const resetDBDev = async () => {
+  // check it's not atlas formal dev and prod link
   await User.deleteMany();
-  // await Answer.deleteMany();
+  await Answer.deleteMany();
   await Trade.deleteMany();
-  // await Comment.deleteMany();
-  await Job.deleteMany();
+  await Comment.deleteMany();
   await Organization.deleteMany();
   await Question.deleteMany();
-  return MailList.deleteMany();
-  // return Review.deleteMany();
+  await Review.deleteMany();
+  return Helpfulness.deleteMany();
 };
 
-module.exports = { resetDBProd };
+const resetDBProd = async () => {
+  await Answer.deleteMany();
+  await Comment.deleteMany();
+  await Helpfulness.deleteMany();
+  await Question.deleteMany();
+  await Review.deleteMany();
+  return User.deleteMany();
+};
 
-module.exports = resetDB;
+module.exports = { resetDB, resetDBProd, resetDBDev };

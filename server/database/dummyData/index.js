@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 
 const dbConnection = require("./../dbConnection");
-const resetDb = require("./resetDB");
-const resetDBProd = require("./resetDB");
+const { resetDb, resetDBDev, resetDBProd } = require("./resetDB");
 
 const trades = require("./trades");
 const questions = require("./questions");
@@ -21,7 +20,10 @@ const realTrades = require("./../productionData/trades");
 
 const buildDummyData = () => new Promise((resolve, reject) => {
   dbConnection()
-    .then(async () => {
+    .then(async (res) => {
+      if (res.connection.host.includes("hvkjd")) {
+        throw new Error("Don't do this, this script is not meant to be used on dev or prod db");
+      }
       // delete all documents from models
       await resetDb();
       await trades();
@@ -33,25 +35,35 @@ const buildDummyData = () => new Promise((resolve, reject) => {
       await comments();
       await answers();
       await mailList();
-      await helpfulness();
+      return helpfulness();
     })
     .then(resolve)
     .catch(reject);
 });
+const buildDevelopmentData = () => new Promise((resolve, reject) => {
+  dbConnection()
+    .then(async (res) => {
+      if (res.connection.host.includes("hvkjd")) {
+        throw new Error("Don't do this, this script is not meant to be used on dev or prod db");
+      }
+      await resetDBDev();
+
+      await realTrades();
+      await realOrganizations();
+      await questions();
+      return users();
+    })
+    .then(resolve)
+    .catch(reject);
+});
+
 const buildProdctionData = () => new Promise((resolve, reject) => {
   dbConnection()
     .then(async () => {
       // delete all documents from models
       await resetDBProd();
-      await realTrades();
-      await realOrganizations();
       await questions();
-      await users();
-      // await reviews();
-      await jobs();
-      // await comments();
-      // await answers();
-      await mailList();
+      return users();
     })
     .then(resolve)
     .catch(reject);
@@ -68,7 +80,25 @@ if (process.env.NODE_ENV === "production") {
     console.log("Done!: Production DB has been built successfully");
     // close the connection after build
     mongoose.disconnect();
-  });
+  })
+    .catch((err) => {
+    // eslint-disable-next-line no-console
+      console.log("err", err);
+      mongoose.disconnect();
+    });
+} else if (process.env.NODE_ENV === "development") {
+  buildDevelopmentData()
+    .then(() => {
+    // eslint-disable-next-line no-console
+      console.log("Done!: Dev DB has been built successfully");
+      // close the connection after build
+      mongoose.disconnect();
+    })
+    .catch((err) => {
+      // eslint-disable-next-line no-console
+      console.log("err", err);
+      mongoose.disconnect();
+    });
 } else if (process.env.NODE_ENV !== "test") {
   buildDummyData()
     .then(() => {
@@ -80,6 +110,7 @@ if (process.env.NODE_ENV === "production") {
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log("err", err);
+      mongoose.disconnect();
     });
 }
 
