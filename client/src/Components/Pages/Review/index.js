@@ -576,6 +576,7 @@ class Review extends Component {
     const { isLoading } = this.state;
     if (isLoading) return <Loading />;
 
+    const { orgId } = this.props.match.params;
     if (!this.state && !this.state.groups[0]) {
       return null;
     }
@@ -589,7 +590,7 @@ class Review extends Component {
                 style={{ paddingRight: "1.5rem" }}
                 cancel
                 bold
-                onClick={() => history.goBack()}
+                onClick={() => history.push(`/profile/${orgId}`)}
               >
                 Cancel
               </Paragraph>
