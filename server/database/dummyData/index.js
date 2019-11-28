@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const dbConnection = require("./../dbConnection");
-const { resetDb, resetDBDev, resetDBProd } = require("./resetDB");
+const { resetDB, resetDBDev, resetDBProd } = require("./resetDB");
 
 const trades = require("./trades");
 const questions = require("./questions");
@@ -25,7 +25,7 @@ const buildDummyData = () => new Promise((resolve, reject) => {
         throw new Error("Don't do this, this script is not meant to be used on dev or prod db");
       }
       // delete all documents from models
-      await resetDb();
+      await resetDB();
       await trades();
       await organizations();
       await questions();
