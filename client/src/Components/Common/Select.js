@@ -18,7 +18,26 @@ class CustomizedSelects extends React.Component {
   };
 
   handleOpen = () => {
-    this.setState(prevState => ({ open: !prevState.open }));
+    this.setState(prevState => ({ open: !prevState.open }), this.scrollToTop);
+  };
+
+  scrollToTop = () => {
+    const { id, srollToTop } = this.props;
+    const element = document.querySelector(`#${id}`);
+    if (element && srollToTop) {
+      const isSmoothScrollSupported =
+        "scrollBehavior" in document.documentElement.style;
+
+      if (isSmoothScrollSupported) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+          inline: "nearest",
+        });
+      } else {
+        element.scrollIntoView(true);
+      }
+    }
   };
 
   handleSearchChange = value => {
