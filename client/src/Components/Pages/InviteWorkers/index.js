@@ -17,6 +17,7 @@ import {
   PromoParagraph,
   WhatsappShare,
   EmailShare,
+  Image,
 } from "./inviteWorkers.style";
 
 export default class InviteWorkers extends Component {
@@ -66,7 +67,7 @@ export default class InviteWorkers extends Component {
             >>> ${referralLink}
 If the link isn’t working, copy and paste it into your browser.`}
           >
-            <img src={emailIcon} alt="" />
+            <Image src={emailIcon} alt="" />
             Email
           </EmailShare>
           <WhatsappShare
@@ -74,12 +75,12 @@ If the link isn’t working, copy and paste it into your browser.`}
             title="Mate, never choose a bad construction job again! Have you heard about earwig? It’s the first construction worker voice platform that lets us give and get feedback about every agency, payroll company, worksite and employer in the industry so we can avoid bad jobs and choose the best. It was set-up by a sparky who’s used agencies for 7 years. I’ve joined up. You should too mate. It’s free and secure."
             separator=": "
           >
-            <img src={whatsAppIcon} alt="" />
+            <Image src={whatsAppIcon} alt="" />
             WhatsApp
           </WhatsappShare>
 
           <FbShare onClick={() => this.fbSendBrowser(referralLink)}>
-            <img src={facebookMsgIcon} alt="" />
+            <Image src={facebookMsgIcon} alt="" />
             Facebook
           </FbShare>
         </SocialIcons>
