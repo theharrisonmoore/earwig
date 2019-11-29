@@ -74,51 +74,48 @@ Yup.addMethod(Yup.string, "equalTo", equalTo);
 const signupSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email")
-    .required("Required"),
+    .required("You must add an email"),
   password: Yup.string()
     .min(6)
-    .required("Required"),
+    .required("You must add a password"),
   rePassword: Yup.string()
-    .required("Required")
+    .required("Your passwords did not match")
     .equalTo(Yup.ref("password")),
   checkbox: Yup.boolean()
-    .required("Required")
-    .oneOf([true], "Must accept Terms and Conditions"),
+    .required("You must agree to the earwig Terms of use")
+    .oneOf([true], "You must agree to the earwig Terms of use"),
   isWorker: Yup.string()
-    .required("Required")
-    .oneOf(["yes", "no"], "Must select an option"),
+    .required("You must select if you are a worker")
+    .oneOf(["yes", "no"], "You must select if you are a worker"),
   orgType: Yup.string()
-    .required("Required")
+    .required("You must select an organisation type")
     .oneOf(
       ["agency", "payroll", "company", "mainContractor", "other"],
       "Invalid organisation type"
     ),
   otherOrg: Yup.string(),
-  trade: Yup.string().test("trade", "Required", function(trade) {
+  trade: Yup.string().test("trade", "You must choose your trade", function(
+    trade
+  ) {
     const isWorker = this.resolve(Yup.ref("isWorker"));
     if (isWorker === "yes" && !trade) {
       return false;
     }
     return true;
   }),
-  city: Yup.string().test("city", "Required", function(city) {
-    const isWorker = this.resolve(Yup.ref("isWorker"));
+  city: Yup.string(),
+  verificationImage: Yup.mixed().test(
+    "verificationImage",
+    "You must upload a verification photo",
+    function(verificationImage) {
+      const isWorker = this.resolve(Yup.ref("isWorker"));
 
-    if (isWorker === "yes" && !city) {
-      return false;
+      if (isWorker === "yes" && !verificationImage) {
+        return false;
+      }
+      return true;
     }
-    return true;
-  }),
-  verificationImage: Yup.mixed().test("verificationImage", "Required", function(
-    verificationImage
-  ) {
-    const isWorker = this.resolve(Yup.ref("isWorker"));
-
-    if (isWorker === "yes" && !verificationImage) {
-      return false;
-    }
-    return true;
-  })
+  )
 });
 
 const initialValues = {

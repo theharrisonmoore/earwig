@@ -1,7 +1,6 @@
 const Joi = require("joi");
 const boom = require("boom");
 
-
 // define all routes schema here
 const schemas = {
   login: {
@@ -45,16 +44,18 @@ const schemas = {
     orgType: Joi.string().when("isWorker", {
       is: "no",
       then: Joi.string()
-        .valid(["agency", "payroll", "company", "mainContractor", "other"],
-          "invalid organisation type").required(),
+        .valid(
+          ["agency", "payroll", "company", "mainContractor", "other"],
+          "invalid organisation type",
+        )
+        .required(),
       otherwise: Joi.allow("").optional(),
     }),
-    otherOrg: Joi.string()
-      .when("orgType", {
-        is: "other",
-        then: Joi.string().min(3),
-        otherwise: Joi.allow("").optional(),
-      }),
+    otherOrg: Joi.string().when("orgType", {
+      is: "other",
+      then: Joi.string().min(3),
+      otherwise: Joi.allow("").optional(),
+    }),
   },
   editProfile: {
     oldPassword: Joi.string(),
