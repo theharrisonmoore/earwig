@@ -218,7 +218,7 @@ export default class UserReviews extends Component {
                 ) : (
                   <div>
                     You have no reivews yet. You can add your review from&nbsp;
-                    <Link to="/search">here</Link>
+                    <Link to="/welcome">here</Link>
                   </div>
                 )}
               </>
