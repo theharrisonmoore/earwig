@@ -21,7 +21,7 @@ import {
   Checkbox,
   CheckboxLabel,
   StyledField,
-  AntCheckbox
+  AntCheckbox,
 } from "../../Common/Formik/Formik.style";
 
 import {
@@ -38,7 +38,7 @@ import {
   Example,
   ImageInput,
   ModalText,
-  LogIn
+  LogIn,
 } from "./Signup.style";
 
 import example from "../../../assets/example.png";
@@ -49,7 +49,7 @@ import {
   WELCOME_URL,
   TERMS_OF_USE_URL,
   PRIVACY_URL,
-  LOGIN_URL
+  LOGIN_URL,
 } from "../../../constants/naviagationUrls";
 
 const { API_TRADE_URL } = require("../../../apiUrls");
@@ -61,11 +61,11 @@ function equalTo(ref, msg) {
     exclusive: false,
     message: msg || "Passwords do not match",
     params: {
-      reference: ref.path
+      reference: ref.path,
     },
     test(value) {
       return value === this.resolve(ref);
-    }
+    },
   });
 }
 
@@ -115,7 +115,7 @@ const signupSchema = Yup.object().shape({
       }
       return true;
     }
-  )
+  ),
 });
 
 const initialValues = {
@@ -128,7 +128,7 @@ const initialValues = {
   otherOrg: "",
   trade: "",
   city: "",
-  verificationImage: undefined
+  verificationImage: undefined,
 };
 
 const RadioButton = ({
@@ -176,7 +176,7 @@ export default class Signup extends Component {
     newTrade: "",
     error: "",
     isPopupVisible: false,
-    data: null
+    data: null,
   };
 
   handleSubmit = (_values, { setSubmitting }) => {
@@ -204,8 +204,8 @@ export default class Signup extends Component {
           url: API_SIGN_UP,
           data: form,
           headers: {
-            "content-type": `multipart/form-data; boundary=${form._boundary}`
-          }
+            "content-type": `multipart/form-data; boundary=${form._boundary}`,
+          },
         })
           .then(({ data }) => {
             if (isWorker === "yes") {
@@ -256,7 +256,7 @@ export default class Signup extends Component {
     const { searchTerm } = e.target.dataset;
     this.setState({
       ismodalVisible: true,
-      newTrade: searchTerm
+      newTrade: searchTerm,
     });
   };
 
@@ -264,7 +264,7 @@ export default class Signup extends Component {
     if (this.state.newTrade && this.state.newTrade.length >= 3) {
       this.setState(
         {
-          confirmLoading: true
+          confirmLoading: true,
         },
         () => {
           axios
@@ -275,20 +275,20 @@ export default class Signup extends Component {
               this.setState({
                 trades: [{ value: data._id, label: data.title }],
                 trade: data._id,
-                disableSelect: true
+                disableSelect: true,
               });
               setFieldValue("trade", data._id);
 
               this.setState(
                 {
-                  newTradeSuccess: true
+                  newTradeSuccess: true,
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       newTradeSuccess: false,
                       ismodalVisible: false,
-                      confirmLoading: false
+                      confirmLoading: false,
                     });
                   }, 1000);
                 }
@@ -298,13 +298,13 @@ export default class Signup extends Component {
               this.setState(
                 {
                   newTradeSuccess: false,
-                  newTradeError: err.response.data.error
+                  newTradeError: err.response.data.error,
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       ismodalVisible: false,
-                      confirmLoading: false
+                      confirmLoading: false,
                     });
                   }, 1000);
                 }
@@ -314,7 +314,7 @@ export default class Signup extends Component {
       );
     } else if (this.state.newTrade.length < 3) {
       this.setState({
-        newTradeError: "Trade must be at least 3 characters long"
+        newTradeError: "Trade must be at least 3 characters long",
       });
     }
   };
@@ -323,7 +323,7 @@ export default class Signup extends Component {
     this.setState({
       ismodalVisible: false,
       newTradeSuccess: false,
-      newTradeError: ""
+      newTradeError: "",
     });
   };
 
@@ -339,7 +339,7 @@ export default class Signup extends Component {
     reader.onload = () => {
       const dataURL = reader.result;
       this.setState({
-        verificationImage: dataURL
+        verificationImage: dataURL,
       });
     };
 
@@ -355,7 +355,7 @@ export default class Signup extends Component {
       newTrade,
       isPopupVisible,
       isWorker,
-      data
+      data,
     } = this.state;
 
     return (
@@ -371,333 +371,346 @@ export default class Signup extends Component {
             validationSchema={signupSchema}
             onSubmit={this.handleSubmit}
           >
-            {({ isSubmitting, handleChange, setFieldValue }) => (
-              <Form style={{ width: "100%" }}>
-                <Label htmlFor="email">
-                  Email
-                  <StyledField type="email" name="email" id="email" />
-                  <FormikErrorMessage name="email" component="p" />
-                </Label>
+            {({ errors, isSubmitting, handleChange, setFieldValue }) => {
+              return (
+                <Form style={{ width: "100%" }}>
+                  <Label htmlFor="email">
+                    Email
+                    <StyledField type="email" name="email" id="email" />
+                    <FormikErrorMessage name="email" component="p" />
+                  </Label>
 
-                <Label htmlFor="password">
-                  Create a password
-                  <Field type="password" name="password" />
-                  <FormikErrorMessage
-                    name="password"
-                    component="p"
-                    id="password"
-                  />
-                </Label>
-
-                <Label htmlFor="rePassword">
-                  Confirm new password
-                  <Field type="password" name="rePassword" />
-                  <FormikErrorMessage
-                    name="rePassword"
-                    component="div"
-                    id="rePassword"
-                  />
-                </Label>
-
-                <Label htmlFor="isWorker">Are you are worker?</Label>
-                <ButtonsWrapper style={{ display: "flex" }}>
-                  <Field
-                    component={RadioButton}
-                    name="isWorker"
-                    id="yes"
-                    label="Yes"
-                    onChange={e => {
-                      this.handleIsworker("yes");
-                      handleChange(e);
-                    }}
-                    option="yes"
-                  />
-
-                  <Field
-                    component={RadioButton}
-                    name="isWorker"
-                    id="no"
-                    label="No"
-                    onChange={e => {
-                      this.handleIsworker("no");
-                      handleChange(e);
-                    }}
-                    option="no"
-                  />
-                </ButtonsWrapper>
-
-                <FormikErrorMessage
-                  name="isWorker"
-                  component="div"
-                  id="isWorker"
-                />
-
-                {/* start of orgs options */}
-                {isWorker && isWorker === "no" && (
-                  <>
-                    <Label htmlFor="orgType">Do you work for an:</Label>
-                    <ButtonsWrapper style={{ display: "flex" }}>
-                      <Field
-                        component={RadioButton}
-                        name="orgType"
-                        orgType
-                        id="agency"
-                        label="Agency"
-                        onChange={e => {
-                          this.handleOrgType("agency");
-                          handleChange(e);
-                        }}
-                        option="agency"
-                      />
-
-                      <Field
-                        component={RadioButton}
-                        name="orgType"
-                        orgType
-                        id="company"
-                        label="Company"
-                        onChange={e => {
-                          this.handleOrgType("company");
-                          handleChange(e);
-                        }}
-                        option="company"
-                      />
-                      <Field
-                        component={RadioButton}
-                        name="orgType"
-                        orgType
-                        id="payroll"
-                        label="Payroll"
-                        onChange={e => {
-                          this.handleOrgType("payroll");
-                          handleChange(e);
-                        }}
-                        option="payroll"
-                      />
-                      <Field
-                        component={RadioButton}
-                        name="orgType"
-                        orgType
-                        id="mainContractor"
-                        label="Main contractor"
-                        onChange={e => {
-                          this.handleOrgType("mainContractor");
-                          handleChange(e);
-                        }}
-                        option="mainContractor"
-                      />
-                      <Field
-                        component={RadioButton}
-                        name="orgType"
-                        id="other"
-                        label="Other"
-                        onChange={e => {
-                          this.handleOrgType("other");
-                          handleChange(e);
-                        }}
-                        option="other"
-                      />
-                    </ButtonsWrapper>
+                  <Label htmlFor="password">
+                    Create a password
+                    <Field type="password" name="password" />
                     <FormikErrorMessage
-                      name="orgType"
+                      name="password"
+                      component="p"
+                      id="password"
+                    />
+                  </Label>
+
+                  <Label htmlFor="rePassword">
+                    Confirm new password
+                    <Field type="password" name="rePassword" />
+                    <FormikErrorMessage
+                      name="rePassword"
                       component="div"
-                      id="orgType"
+                      id="rePassword"
                     />
-                    {this.state.orgType === "other" && (
-                      <>
-                        <Field name="otherOrg" />
-                        <FormikErrorMessage
-                          name="otherOrg"
-                          component="p"
-                          id="otherOrg"
-                        />
-                      </>
-                    )}
-                  </>
-                )}
-                {isWorker && isWorker === "yes" && (
-                  <>
-                    <SelectWrapper>
-                      <Label htmlFor="trade">
-                        Trade
-                        <Field name="trade">
-                          {({ form }) => (
-                            <>
-                              <Select
-                                id="trade"
-                                name="trade"
-                                placeholder="Choose your trade"
-                                options={this.state.trades}
-                                handleChange={value => {
-                                  form.setFieldValue("trade", value);
-                                  this.handleChange(value);
-                                }}
-                                value={this.state.trade}
-                                disabled={this.state.disableSelect}
-                                isCreateNew
-                                showSearch
-                                addHandler={this.showModal}
-                                // onBlur={this.showModal}
-                              />
-                            </>
-                          )}
-                        </Field>
-                        <FormikErrorMessage
-                          name="trade"
-                          component="div"
-                          id="trade"
-                        />
-                        <div>
-                          <div>
-                            <Modal
-                              title="Add new trade"
-                              visible={ismodalVisible}
-                              onOk={() => this.handleOk(setFieldValue)}
-                              confirmLoading={confirmLoading}
-                              onCancel={this.handleCancel}
-                            >
-                              {this.state.newTradeError && (
-                                <>
-                                  <Alert
-                                    message={this.state.newTradeError}
-                                    type="error"
-                                    showIcon
-                                  />
-                                  <br />
-                                </>
-                              )}
-                              {this.state.newTradeSuccess && (
-                                <>
-                                  <Alert
-                                    message="Trade added successfully"
-                                    type="success"
-                                    showIcon
-                                  />
-                                  <br />
-                                </>
-                              )}
-                              <Input
-                                autoFocus
-                                placeholder="Add your trade..."
-                                allowClear
-                                onChange={this.addNewTradeHandler}
-                                value={newTrade}
-                              />
-                            </Modal>
-                          </div>
-                        </div>
-                      </Label>
-                    </SelectWrapper>
+                  </Label>
 
-                    <Label htmlFor="city">
-                      Town or city
-                      <Field type="city" name="city" />
-                      <FormikErrorMessage name="city" component="p" id="city" />
-                    </Label>
-
-                    <SubHeading>Verification Photo</SubHeading>
-                    <Paragraph>
-                      Please upload a photo of your face holding your trade ID
-                      like the example below. Please no glare or blur!
-                    </Paragraph>
-                    <PopoverComponent
-                      popoverOptions={{
-                        text: `Any card or ticket that shows you are a worker, eg CSCS card.`,
-                        linkText: "What trade ID can I use?",
-                        icon: "info",
-                        margin: "0 0 0.5rem 0"
+                  <Label htmlFor="isWorker">Are you are worker?</Label>
+                  <ButtonsWrapper style={{ display: "flex" }}>
+                    <Field
+                      component={RadioButton}
+                      name="isWorker"
+                      id="yes"
+                      label="Yes"
+                      onChange={e => {
+                        this.handleIsworker("yes");
+                        handleChange(e);
                       }}
+                      option="yes"
                     />
-                    <Paragraph>
-                      Once we’ve verified you, we’ll delete the photo to protect
-                      your identity.
-                    </Paragraph>
 
-                    <Field name="verificationImage">
-                      {({ form }) => (
+                    <Field
+                      component={RadioButton}
+                      name="isWorker"
+                      id="no"
+                      label="No"
+                      onChange={e => {
+                        this.handleIsworker("no");
+                        handleChange(e);
+                      }}
+                      option="no"
+                    />
+                  </ButtonsWrapper>
+
+                  <FormikErrorMessage
+                    name="isWorker"
+                    component="div"
+                    id="isWorker"
+                  />
+
+                  {/* start of orgs options */}
+                  {isWorker && isWorker === "no" && (
+                    <>
+                      <Label htmlFor="orgType">Do you work for an:</Label>
+                      <ButtonsWrapper style={{ display: "flex" }}>
+                        <Field
+                          component={RadioButton}
+                          name="orgType"
+                          orgType
+                          id="agency"
+                          label="Agency"
+                          onChange={e => {
+                            this.handleOrgType("agency");
+                            handleChange(e);
+                          }}
+                          option="agency"
+                        />
+
+                        <Field
+                          component={RadioButton}
+                          name="orgType"
+                          orgType
+                          id="company"
+                          label="Company"
+                          onChange={e => {
+                            this.handleOrgType("company");
+                            handleChange(e);
+                          }}
+                          option="company"
+                        />
+                        <Field
+                          component={RadioButton}
+                          name="orgType"
+                          orgType
+                          id="payroll"
+                          label="Payroll"
+                          onChange={e => {
+                            this.handleOrgType("payroll");
+                            handleChange(e);
+                          }}
+                          option="payroll"
+                        />
+                        <Field
+                          component={RadioButton}
+                          name="orgType"
+                          orgType
+                          id="mainContractor"
+                          label="Main contractor"
+                          onChange={e => {
+                            this.handleOrgType("mainContractor");
+                            handleChange(e);
+                          }}
+                          option="mainContractor"
+                        />
+                        <Field
+                          component={RadioButton}
+                          name="orgType"
+                          id="other"
+                          label="Other"
+                          onChange={e => {
+                            this.handleOrgType("other");
+                            handleChange(e);
+                          }}
+                          option="other"
+                        />
+                      </ButtonsWrapper>
+                      <FormikErrorMessage
+                        name="orgType"
+                        component="div"
+                        id="orgType"
+                      />
+                      {this.state.orgType === "other" && (
                         <>
-                          <Button
-                            as="label"
-                            htmlFor="verificationImage"
-                            styleType="secondary"
-                            text="Upload photo"
-                            margin="1rem auto"
+                          <Field name="otherOrg" />
+                          <FormikErrorMessage
+                            name="otherOrg"
+                            component="p"
+                            id="otherOrg"
                           />
-                          <ImageInput
-                            id="verificationImage"
-                            type="file"
-                            onChange={event => {
-                              form.setFieldValue(
-                                "verificationImage",
-                                event.currentTarget.files[0]
-                              );
-                              this.handleImageChange(event);
-                            }}
-                            accept="image/*"
-                          />
-                          <Example src={verificationImage || example} />
                         </>
                       )}
-                    </Field>
+                    </>
+                  )}
+                  {isWorker && isWorker === "yes" && (
+                    <>
+                      <SelectWrapper>
+                        <Label htmlFor="trade">
+                          Trade
+                          <Field name="trade">
+                            {({ form }) => (
+                              <>
+                                <Select
+                                  id="trade"
+                                  name="trade"
+                                  placeholder="Choose your trade"
+                                  options={this.state.trades}
+                                  handleChange={value => {
+                                    form.setFieldValue("trade", value);
+                                    this.handleChange(value);
+                                  }}
+                                  value={this.state.trade}
+                                  disabled={this.state.disableSelect}
+                                  isCreateNew
+                                  showSearch
+                                  addHandler={this.showModal}
+                                  // onBlur={this.showModal}
+                                />
+                              </>
+                            )}
+                          </Field>
+                          <FormikErrorMessage
+                            name="trade"
+                            component="div"
+                            id="trade"
+                          />
+                          <div>
+                            <div>
+                              <Modal
+                                title="Add new trade"
+                                visible={ismodalVisible}
+                                onOk={() => this.handleOk(setFieldValue)}
+                                confirmLoading={confirmLoading}
+                                onCancel={this.handleCancel}
+                              >
+                                {this.state.newTradeError && (
+                                  <>
+                                    <Alert
+                                      message={this.state.newTradeError}
+                                      type="error"
+                                      showIcon
+                                    />
+                                    <br />
+                                  </>
+                                )}
+                                {this.state.newTradeSuccess && (
+                                  <>
+                                    <Alert
+                                      message="Trade added successfully"
+                                      type="success"
+                                      showIcon
+                                    />
+                                    <br />
+                                  </>
+                                )}
+                                <Input
+                                  autoFocus
+                                  placeholder="Add your trade..."
+                                  allowClear
+                                  onChange={this.addNewTradeHandler}
+                                  value={newTrade}
+                                />
+                              </Modal>
+                            </div>
+                          </div>
+                        </Label>
+                      </SelectWrapper>
 
-                    <FormikErrorMessage
-                      name="verificationImage"
-                      component="span"
-                      id="verificationImage"
-                    />
-                    <SubHeading>Protecting you from blacklisting</SubHeading>
-                    <Paragraph>
-                      To hide your identity, we’ll randomly assign you a
-                      username, which is the only thing shown on earwig.
-                    </Paragraph>
-                  </>
-                )}
-                {/* end of orgs options */}
-                {isWorker && (
-                  <>
-                    <Divider style={{ marginTop: "2rem" }} />
+                      <Label htmlFor="city">
+                        Town or city
+                        <Field type="city" name="city" />
+                        <FormikErrorMessage
+                          name="city"
+                          component="p"
+                          id="city"
+                        />
+                      </Label>
 
-                    <CheckboxWrapper>
-                      <Checkbox
-                        id="checkbox"
-                        type="checkbox"
-                        name="checkbox"
-                        component={CustomCheckbox}
+                      <SubHeading>Verification Photo</SubHeading>
+                      <Paragraph>
+                        Please upload a photo of your face holding your trade ID
+                        like the example below. Please no glare or blur!
+                      </Paragraph>
+                      <PopoverComponent
+                        popoverOptions={{
+                          text: `Any card or ticket that shows you are a worker, eg CSCS card.`,
+                          linkText: "What trade ID can I use?",
+                          icon: "info",
+                          margin: "0 0 0.5rem 0",
+                        }}
                       />
-                      <CheckboxLabel htmlFor="checkbox">
-                        I agree to the earwig{" "}
-                        <Link
-                          target="_blank"
-                          to={TERMS_OF_USE_URL}
-                          text="Terms of Use"
-                          type="plain"
+                      <Paragraph>
+                        Once we’ve verified you, we’ll delete the photo to
+                        protect your identity.
+                      </Paragraph>
+
+                      <Field name="verificationImage">
+                        {({ form }) => (
+                          <>
+                            <Button
+                              as="label"
+                              htmlFor="verificationImage"
+                              styleType="secondary"
+                              text="Upload photo"
+                              margin="1rem auto"
+                            />
+                            <ImageInput
+                              id="verificationImage"
+                              type="file"
+                              onChange={event => {
+                                form.setFieldValue(
+                                  "verificationImage",
+                                  event.currentTarget.files[0]
+                                );
+                                this.handleImageChange(event);
+                              }}
+                              accept="image/*"
+                            />
+                            <Example src={verificationImage || example} />
+                          </>
+                        )}
+                      </Field>
+
+                      <FormikErrorMessage
+                        name="verificationImage"
+                        component="span"
+                        id="verificationImage"
+                      />
+                      <SubHeading>Protecting you from blacklisting</SubHeading>
+                      <Paragraph>
+                        To hide your identity, we’ll randomly assign you a
+                        username, which is the only thing shown on earwig.
+                      </Paragraph>
+                    </>
+                  )}
+                  {/* end of orgs options */}
+                  {isWorker && (
+                    <>
+                      <Divider style={{ marginTop: "2rem" }} />
+
+                      <CheckboxWrapper>
+                        <Checkbox
+                          id="checkbox"
+                          type="checkbox"
+                          name="checkbox"
+                          component={CustomCheckbox}
                         />
-                        . By clicking Finish and log in you acknowledge our{" "}
-                        <Link
-                          target="_blank"
-                          to={PRIVACY_URL}
-                          text="Privacy Policy"
-                          type="plain"
-                        />
-                        .
-                      </CheckboxLabel>
-                    </CheckboxWrapper>
-                    <FormikErrorMessage name="checkbox" component="div" />
-                    {error && (
-                      <GeneralErrorMessage>{error}</GeneralErrorMessage>
-                    )}
-                    <Button
-                      type="submit"
-                      disabled={isSubmitting}
-                      loading={isSubmitting}
-                      styleType="primary"
-                      text="Finish and log in"
-                      margin="1rem auto 2rem auto"
-                    />
-                  </>
-                )}
-              </Form>
-            )}
+                        <CheckboxLabel htmlFor="checkbox">
+                          I agree to the earwig{" "}
+                          <Link
+                            target="_blank"
+                            to={TERMS_OF_USE_URL}
+                            text="Terms of Use"
+                            type="plain"
+                          />
+                          . By clicking Finish and log in you acknowledge our{" "}
+                          <Link
+                            target="_blank"
+                            to={PRIVACY_URL}
+                            text="Privacy Policy"
+                            type="plain"
+                          />
+                          .
+                        </CheckboxLabel>
+                      </CheckboxWrapper>
+                      <FormikErrorMessage name="checkbox" component="div" />
+                      {/* server errors */}
+                      {error && (
+                        <GeneralErrorMessage>{error}</GeneralErrorMessage>
+                      )}
+                      {/* formik errors */}
+                      {Object.values(errors).length > 0 && (
+                        <GeneralErrorMessage>
+                          {Object.values(errors)[0]}
+                        </GeneralErrorMessage>
+                      )}
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting}
+                        loading={isSubmitting}
+                        styleType="primary"
+                        text="Finish and log in"
+                        margin="1rem auto 2rem auto"
+                      />
+                    </>
+                  )}
+                </Form>
+              );
+            }}
           </Formik>
           {isWorker && (
             <Link
@@ -714,7 +727,7 @@ export default class Signup extends Component {
               this.props.handleChangeState({ ...data, isLoggedIn: true });
               this.props.history.push({
                 pathname: "/intro",
-                state: { isWorker }
+                state: { isWorker },
               });
             }}
           >
@@ -730,7 +743,7 @@ export default class Signup extends Component {
                 this.props.handleChangeState({ ...data, isLoggedIn: true });
                 this.props.history.push({
                   pathname: "/intro",
-                  state: { isWorker }
+                  state: { isWorker },
                 });
               }}
             />
