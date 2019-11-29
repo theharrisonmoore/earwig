@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { Select, Icon, Divider } from "antd";
+import { Select, Divider } from "antd";
 import "antd/dist/antd.css";
 
-const Option = Select.Option;
+const { Option } = Select;
 
 const Label = styled.label`
   display: block;
@@ -14,11 +14,60 @@ const Label = styled.label`
 class CustomizedSelects extends React.Component {
   state = {
     open: false,
-    searchTerm: ""
+    searchTerm: "",
   };
 
   handleOpen = () => {
-    this.setState({ open: !this.state.open });
+    this.setState(prevState => ({ open: !prevState.open }), this.scrollToTop);
+  };
+
+  isElementFixed = element => {
+    if (element) {
+      const elementStyle = window.getComputedStyle(element);
+      if (elementStyle) {
+        const { position } = elementStyle;
+        if (position === "fixed") {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  scrollToTop = () => {
+    const { id, scrollToTop } = this.props;
+    const element = document.querySelector(`#${id}`);
+    let topOffset = 30;
+    if (scrollToTop && element) {
+      // Fixed Elements
+      const navbar = document.querySelector("#navbar");
+      const cancelNavbar = document.querySelector("#cancel-navbar");
+      const reviewHeader = document.querySelector("#review-header");
+
+      // add fixed elements offset to the page offset
+      if (navbar && this.isElementFixed(navbar)) {
+        topOffset += navbar.offsetHeight;
+      }
+
+      if (cancelNavbar && this.isElementFixed(cancelNavbar)) {
+        topOffset += cancelNavbar.offsetHeight;
+      }
+      if (reviewHeader && this.isElementFixed(reviewHeader)) {
+        topOffset += reviewHeader.offsetHeight;
+      }
+
+      // get current element positon on the viewport
+      const elementPosition = element.getBoundingClientRect().top;
+      // current window scroll value
+      const windowScroll = document.documentElement.scrollTop;
+      // offset to be scrolled
+      const offsetPosition = windowScroll + elementPosition - topOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
   };
 
   handleSearchChange = value => {
@@ -27,6 +76,23 @@ class CustomizedSelects extends React.Component {
 
   filterOption = (input, option) =>
     option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+
+  addMarginToPage = () => {
+    document.body.style.marginBottom = "20rem";
+  };
+
+  removeMarginFromPage = () => {
+    document.body.style.marginBottom = "0";
+  };
+
+  onFocus = () => {
+    this.addMarginToPage();
+    this.scrollToTop();
+  };
+
+  onBlur = () => {
+    this.removeMarginFromPage();
+  };
 
   render() {
     const {
@@ -50,17 +116,20 @@ class CustomizedSelects extends React.Component {
         <Select
           placeholder={disabled ? options[0] && options[0].name : placeholder}
           onSelect={handleChange}
+          notFoundContent=""
           open={this.state.open}
           onDropdownVisibleChange={this.handleOpen}
           disabled={disabled}
           showSearch={showSearch}
           onSearch={this.handleSearchChange}
           style={{
-            width: "100%"
+            width: "100%",
           }}
           value={value || searchTerm || undefined}
           filterOption={this.filterOption}
           size="large"
+          onBlur={this.onBlur}
+          onFocus={this.onFocus}
           dropdownRender={menu =>
             isCreateNew ? (
               <div
@@ -69,14 +138,23 @@ class CustomizedSelects extends React.Component {
                   return false;
                 }}
               >
-                <div
-                  style={{ padding: "8px", cursor: "pointer" }}
-                  onClick={addHandler}
-                  data-search-term={searchTerm}
-                >
-                  <Icon type="plus" /> Add item: {searchTerm}
-                </div>
-                <Divider style={{ margin: "4px 0" }} />
+                {!!searchTerm && (
+                  <>
+                    <div
+                      style={{
+                        padding: "8px",
+                        paddingLeft: "32px",
+                        cursor: "pointer",
+                        fontWeight: "bold",
+                      }}
+                      onClick={addHandler}
+                      data-search-term={searchTerm}
+                    >
+                      &quot;{searchTerm}&quot; (Create new)
+                    </div>
+                    <Divider style={{ margin: "4px 0" }} />
+                  </>
+                )}
                 {menu}
               </div>
             ) : (
@@ -85,7 +163,7 @@ class CustomizedSelects extends React.Component {
           }
           {...rest}
         >
-          {options &&
+          {!!options &&
             options.map(item => (
               <Option value={item.value || JSON.stringify(item)} key={item._id}>
                 {item.label || item.name}

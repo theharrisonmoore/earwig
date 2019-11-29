@@ -8,26 +8,20 @@ import Autosuggest from "react-autosuggest";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import createTrie from "autosuggest-trie";
-import { Rate, Spin } from "antd";
+import { Spin } from "antd";
 import swal from "sweetalert2";
-
-import PopOverWrapper from "./PopOverWrapper";
 
 import { ADD_PROFILE_URL } from "../../../constants/naviagationUrls";
 import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
 
+import Suggestion from "./OrganisationRow";
+
 // styles
 import {
   AutosuggestWrapper,
-  SymbolDiv,
-  OrganisationDetailsDiv,
   AddItemDetails,
-  ReviewDetailsDiv,
   InnerDivSuggestions,
-  ArrowDiv,
-  SuggestionBox,
   AddItemBox,
-  ProfileLink,
   AddProfileLink,
   IconDiv,
 } from "./Search.style";
@@ -35,12 +29,6 @@ import {
 import Icon from "../../Common/Icon/Icon";
 import SearchIcon from "../../../assets/search-icon.svg";
 import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
-import addItemIcon from "../../../assets/add-item-icon.svg";
-
-// UI helper functions
-import { SVGCreator } from "../../../helpers";
-
-import { organizationIcons, organizations } from "../../../theme";
 
 // functions
 
@@ -81,14 +69,8 @@ class AutosuggestComponent extends Component {
   state = {
     value: "",
     suggestions: [],
-    target: "profile",
     isLoaded: true,
   };
-
-  componentDidMount() {
-    const { target } = this.props.match.params;
-    this.setState({ target: target || "profile" });
-  }
 
   componentDidUpdate(prevProps) {
     const { showOtherSections } = this.props;
@@ -162,88 +144,21 @@ class AutosuggestComponent extends Component {
 
   // when users clicks on back arrow icon it deletes the input
   delSearchInput = () => {
-    const { handleCancelIconClick } = this.props;
     this.setState({ value: "" });
-    if (this.props.origin !== "checkOrg") {
-      handleCancelIconClick();
-    }
   };
 
-  // renders individual suggestions
   renderSuggestion = suggestion => {
-    // check if no suggestion is available and returns so that renderSuggestionsContainer function is still being called (gets deactivated otherwise)
-
-    // also need to check if button to see if we make it a link or not
-    // THIS RELATES TO THE ORGCHECK COMPONENT
-    const { isButton, storeOrg, noIcon, orgsIds } = this.props;
-    const { target } = this.state;
-    const url =
-      target === "profile"
-        ? `/profile/${suggestion._id}`
-        : `/organization/${suggestion._id}/review`;
-
-    const disabled =
-      target === "review" && orgsIds && orgsIds.includes(suggestion._id);
-
+    const { isButton, storeOrg, noIcon } = this.props;
     if (suggestion.isEmpty) {
       return null;
     }
-
     return (
-      <PopOverWrapper disabled={disabled}>
-        <ProfileLink
-          as={isButton || disabled ? "div" : undefined}
-          to={isButton || disabled ? undefined : url}
-          onClick={() => !disabled && isButton && storeOrg(suggestion)}
-        >
-          <SuggestionBox orgType={suggestion.category}>
-            <InnerDivSuggestions>
-              <SymbolDiv>
-                {!noIcon && (
-                  <Icon
-                    icon="search"
-                    height="1.5rem"
-                    width="1.5rem"
-                    margin="0 1rem 0 0"
-                  />
-                )}
-                <Icon
-                  icon={suggestion.category}
-                  height="1.5rem"
-                  width="1.5rem"
-                  margin="0 1rem 0 0"
-                />
-              </SymbolDiv>
-              <OrganisationDetailsDiv>
-                <h3
-                  style={{
-                    color: organizations[suggestion.category].primary,
-                    textTransform: "capitalize",
-                  }}
-                >
-                  {suggestion.name}
-                </h3>
-                <ReviewDetailsDiv>
-                  <Rate
-                    disabled
-                    value={suggestion.avgRatings || suggestion.value || 0}
-                    style={{
-                      color: `${organizations[suggestion.category].primary}`,
-                      fontSize: "0.75rem",
-                      textTransform: "capitalize",
-                    }}
-                    className="last-reviewed-star-rate"
-                  />
-                  <p>{suggestion.totalReviews} reviews</p>
-                </ReviewDetailsDiv>
-              </OrganisationDetailsDiv>
-              <ArrowDiv>
-                {SVGCreator(`${organizationIcons[suggestion.category].arrow}`)}
-              </ArrowDiv>
-            </InnerDivSuggestions>
-          </SuggestionBox>
-        </ProfileLink>
-      </PopOverWrapper>
+      <Suggestion
+        organisation={suggestion}
+        isButton={isButton}
+        storeOrg={storeOrg}
+        noIcon={noIcon}
+      />
     );
   };
 
@@ -251,72 +166,84 @@ class AutosuggestComponent extends Component {
   renderSuggestionsContainer = ({ containerProps, children, query }) => {
     if (query && query.length > 0) {
       return (
-        <div {...containerProps}>
-          {children}
-          <div className="my-suggestions-container-footer" />
-          {this.props.origin === "checkOrg" ? (
-            <AddProfileLink as="button" onClick={this.handleAddNewOrg}>
-              <AddItemBox>
-                <InnerDivSuggestions>
-                  <SymbolDiv>
-                    <img src={addItemIcon} alt="" />
-                  </SymbolDiv>
-                  <AddItemDetails>
-                    <h3>Add {query}</h3>
-                  </AddItemDetails>
-                </InnerDivSuggestions>
-              </AddItemBox>
-            </AddProfileLink>
-          ) : (
-            <AddProfileLink
-              to={{
-                pathname: `${ADD_PROFILE_URL}`,
-                state: {
-                  name: `${query}`,
-                  referrerUrl: this.props.location.pathname,
-                  section: this.props.section,
-                },
-              }}
-            >
-              <AddItemBox>
-                <InnerDivSuggestions>
-                  <SymbolDiv>
-                    <img src={addItemIcon} alt="" />
-                  </SymbolDiv>
-                  <AddItemDetails>
-                    <h3>Add {query}</h3>
-                  </AddItemDetails>
-                </InnerDivSuggestions>
-              </AddItemBox>
-            </AddProfileLink>
-          )}
+        <div
+          {...containerProps}
+          id="scroll-div"
+          style={{
+            overscrollBehaviorY: "contain",
+            background: "transparent",
+          }}
+        >
+          <div style={{ background: "#fff" }}>
+            {children}
+            <div className="my-suggestions-container-footer" />
+            {this.props.origin === "checkOrg" ? (
+              <AddProfileLink as="button" onClick={this.handleAddNewOrg}>
+                <AddItemBox>
+                  <InnerDivSuggestions>
+                    <AddItemDetails>
+                      <h3>&quot;{query}&quot; (Create new)</h3>
+                    </AddItemDetails>
+                  </InnerDivSuggestions>
+                </AddItemBox>
+              </AddProfileLink>
+            ) : (
+              <AddProfileLink
+                to={{
+                  pathname: `${ADD_PROFILE_URL}`,
+                  state: {
+                    name: `${query}`,
+                    referrerUrl: this.props.location.pathname,
+                    section: this.props.section,
+                  },
+                }}
+              >
+                <AddItemBox>
+                  <InnerDivSuggestions>
+                    <AddItemDetails>
+                      <h3>&quot;{query}&quot; (Create new)</h3>
+                    </AddItemDetails>
+                  </InnerDivSuggestions>
+                </AddItemBox>
+              </AddProfileLink>
+            )}
+          </div>
+          {/* space holder to allow scrolling when keyboard is aktive on mobile */}
+          <div
+            style={{ backgroundColor: "#transparent", height: "8rem" }}
+          ></div>
         </div>
       );
     }
     return <div {...containerProps}>{children}</div>;
   };
 
+  onFocus = () => {
+    const { isMobile } = this.props;
+    if (
+      isMobile &&
+      (document.body.scrollTop <= 60 ||
+        document.documentElement.scrollTop <= 60)
+    ) {
+      // shrink the header
+      window.scroll(0, 61);
+    }
+  };
+
   render() {
     const { value, suggestions } = this.state;
-    const {
-      height,
-      width,
-      placeholderText,
-      isMobile,
-      bool,
-      iconTop,
-      noIcon,
-    } = this.props;
+    const { height, width, placeholderText, iconTop, noIcon } = this.props;
 
     const inputProps = {
       placeholder: `${placeholderText}`,
       value,
       onChange: this.onChange,
       onKeyPress: this.onKeyPress,
+      onFocus: this.onFocus,
     };
 
     // decide the number of suggestions rendered
-    const suggestionLimit = 10;
+    const suggestionLimit = 5;
     const filteredSuggestions = suggestions.slice(0, suggestionLimit);
 
     return (
@@ -331,31 +258,17 @@ class AutosuggestComponent extends Component {
               )}
             </IconDiv>
           )}
-          {/* on mobile disable shouldRenderSuggestions as we don't want automatic suggestion rendering as it hides most of the screen */}
-          {isMobile ? (
-            <Autosuggest
-              suggestions={filteredSuggestions}
-              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-              getSuggestionValue={getSuggestionValue}
-              renderSuggestion={this.renderSuggestion}
-              inputProps={inputProps}
-              renderSuggestionsContainer={this.renderSuggestionsContainer}
-              focusInputOnSuggestionClick={false}
-            />
-          ) : (
-            <Autosuggest
-              suggestions={filteredSuggestions}
-              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-              getSuggestionValue={getSuggestionValue}
-              renderSuggestion={this.renderSuggestion}
-              shouldRenderSuggestions={() => bool}
-              inputProps={inputProps}
-              renderSuggestionsContainer={this.renderSuggestionsContainer}
-              focusInputOnSuggestionClick={false}
-            />
-          )}
+
+          <Autosuggest
+            suggestions={filteredSuggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={this.renderSuggestion}
+            inputProps={inputProps}
+            renderSuggestionsContainer={this.renderSuggestionsContainer}
+            focusInputOnSuggestionClick={false}
+          />
         </Spin>
       </AutosuggestWrapper>
     );

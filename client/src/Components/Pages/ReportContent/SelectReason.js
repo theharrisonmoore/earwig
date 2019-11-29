@@ -84,6 +84,8 @@ export default class SelectReason extends Component {
             placeholder="Choose a reason"
             value={this.props.reason}
             dropdownClassName="full-text-select"
+            id="report-reason"
+            scrollToTop
           />
         </SelectWrapper>
         <LargeParagraph
@@ -98,9 +100,12 @@ export default class SelectReason extends Component {
           onChange={handleTextAreaChange}
           value={description}
         />
-        <Button onClick={handleSubmit} loading={loading}>
-          Send report
-        </Button>
+        <Button
+          onClick={handleSubmit}
+          loading={loading}
+          styleType="primary"
+          text="Send report"
+        />
       </div>
     );
   }

@@ -1,19 +1,21 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 import {
   colors,
   borders,
   shadows,
   breakpoints,
-  breakpointsMax
-} from "./../../../theme";
+  breakpointsMax,
+} from "../../../theme";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div.attrs({ id: "navbar" })`
   display: flex;
   position: fixed;
   height: ${props => props.height};
   border-bottom: 1px solid ${colors.lightGray};
-  padding: 0.5rem 1.25rem;
+  // padding: 0.5rem 1.25rem;
+  padding: 0.5rem 0;
   justify-content: space-between;
   width: 100%;
   align-items: center;
@@ -76,7 +78,18 @@ export const ToggleMenu = styled.div`
   width: 100%;
   justify-content: ${props => props.position};
   padding-right: 1rem;
+  padding-left: 1.25rem;
   margin-bottom: 1rem;
   padding-top: ${props => (props.isMobile ? "0.5rem" : "1rem")};
   min-height: 1rem;
+`;
+
+export const LogoLink = styled(NavLink)`
+  color: ${colors.profileFontColor};
+  display: flex;
+  align-items: center;
+
+  :hover {
+    color: ${colors.profileFontColor};
+  }
 `;

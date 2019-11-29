@@ -2,13 +2,15 @@ import React, { Component } from "react";
 
 import QuestionOptions from "./Options";
 import PopoverComponent from "../../../Common/Popover";
-import { QuestionWrapper, QText, HintText } from "./Question.style";
+import { QuestionWrapper, QText, HintText, Warning } from "./Question.style";
 
 import { isIphone } from "../../../../helpers/index";
 
 import UploadAudio2 from "./NewUploadAudio";
 
 import UploadAudio3 from "./UploadAudio3";
+
+import Icon from "../../../Common/Icon/Icon";
 
 class Question extends Component {
   render() {
@@ -25,7 +27,6 @@ class Question extends Component {
       category,
       name,
       label,
-      hasComment,
       next,
     } = this.props.question;
 
@@ -52,13 +53,32 @@ class Question extends Component {
       text:
         "We’re asking this because it will be useful to track over time how much agencies are paying workers",
       linkText: "Why are we asking this?",
+      icon: "info",
+      margin: "0 0 0.5rem 0",
     };
 
     return (
       <QuestionWrapper>
         <QText>{text}</QText>
-        <HintText>{hintText}</HintText>
-        {text === "What hourly rate were you paid?" && (
+        {hintText && (
+          <Warning>
+            {type && type === "voiceReview" && (
+              <Icon
+                icon="warning"
+                margin="0 1rem 0 0"
+                height="1.5rem"
+                width="1.5rem"
+              />
+            )}
+            <HintText voiceWarn={type && type === "voiceReview"}>
+              {hintText}
+            </HintText>
+          </Warning>
+        )}
+
+        {/* overallReview tooltip */}
+        {/* {type === overallReview && <ToolTip text={hintText} icon="info" />} */}
+        {text === "What hourly rate did this agency pay you?" && (
           <PopoverComponent
             category={category}
             popoverOptions={popoverOptions}
@@ -102,7 +122,6 @@ class Question extends Component {
           setFieldValue={setFieldValue}
           dropdownOptions={dropdownOptions}
           label={label}
-          hasComment={hasComment}
           handleChange={handleChange}
           handleSliderChange={handleSliderChange}
           question={this.props.question}

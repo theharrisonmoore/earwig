@@ -52,6 +52,8 @@ export const isMobile = width => width <= MOBILE_WIDTH;
 
 export const isTablet = width => width <= TABLET_WIDTH && width > MOBILE_WIDTH;
 
+export const isDesktop = width => width > TABLET_WIDTH;
+
 const levels = {
   LEVEL0: 0, // not logged in user
   LEVEL1: 1, // just logged in user
@@ -186,4 +188,104 @@ export const isIphone = () => {
     /iPad|iPhone|iPod|MacIntel/.test(navigator.platform);
 
   return iOSPlatform && iOSUserAgent;
+};
+
+const getOrder = code => {
+  let order = 0;
+  if (code >= 48 && code <= 57) {
+    // numbers
+    order = 2;
+  } else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+    // letters
+    order = 1;
+  } else {
+    // others
+    order = 3;
+  }
+  return order;
+};
+
+export const sortAndCategorizeOrgs = arrayOfOrgs => {
+  const sorted = arrayOfOrgs.sort((a, b) => {
+    const last = String.fromCharCode(0xffff);
+    function ignoreSpecialChars(x) {
+      return x.replace(/\W|[1-9]/g, last);
+    }
+
+    const nameA = ignoreSpecialChars(a.name.toUpperCase());
+    const nameB = ignoreSpecialChars(b.name.toUpperCase());
+
+    const codeA = nameA[0].charCodeAt();
+    const codeB = nameB[0].charCodeAt();
+
+    const orderA = getOrder(codeA);
+    const orderB = getOrder(codeB);
+
+    if (orderA < orderB) {
+      return -1;
+    }
+    if (orderA > orderB) {
+      return 1;
+    }
+    // if orderA === orderB
+
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+
+    // names must be equal
+    return 0;
+  });
+
+  const newArray = sorted.reduce(
+    (prev, org) => {
+      let height = 74;
+      const { lastMainKey, lastSubKey, orgs } = prev;
+      const newOrgs = [...orgs];
+      const newOrg = { ...org };
+
+      const firstLetter = org.name[0].toUpperCase();
+      const newSubKey = firstLetter;
+
+      let newMainKey = prev.lastMainKey;
+
+      const code = firstLetter.charCodeAt();
+
+      if (code >= 48 && code <= 57) {
+        // numbers
+        newMainKey = "0-9";
+      } else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+        // letters
+        newMainKey = "A-Z";
+      } else {
+        // others
+        newMainKey = "Others";
+      }
+
+      if (lastMainKey !== newMainKey) {
+        newOrg.mainKey = newMainKey;
+        height += 60;
+      }
+
+      if (lastSubKey !== newSubKey) {
+        newOrg.subKey = newSubKey;
+        height += 104;
+      }
+
+      newOrg.height = height;
+      newOrgs.push(newOrg);
+
+      return {
+        lastMainKey: newMainKey,
+        lastSubKey: newSubKey,
+        orgs: newOrgs,
+      };
+    },
+    { lastMainKey: "", lastSubKey: "", orgs: [] }
+  );
+
+  return newArray.orgs;
 };

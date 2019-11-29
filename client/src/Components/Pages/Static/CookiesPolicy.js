@@ -27,8 +27,8 @@ export default class CookiesPolicy extends Component {
               <Ol>
                 <Li>
                   Welcome to earwig. This website, located at{" "}
-                  <UnderlinedLink to="www.earwig.work">
-                    www.earwig.work
+                  <UnderlinedLink to="www.earwigwork.com">
+                    www.earwigwork.com
                   </UnderlinedLink>{" "}
                   <BoldWord> (Site)</BoldWord>
                   {"  "} is owned and operated by Subtap Limited{" "}
@@ -204,7 +204,7 @@ export default class CookiesPolicy extends Component {
                 </Li>
                 <Li>
                   Alternatively you can unsubscribe from our mailing list by
-                  contacting us at hello@earwig.work
+                  contacting us at admin@earwigwork.com
                 </Li>
               </Ol>
             </Li>
@@ -235,7 +235,8 @@ export default class CookiesPolicy extends Component {
                     </Li>
                     <Li>
                       Our email address for data protection queries is
-                      hello@earwig.work, alternatively you can use via the Site.
+                      admin@earwigwork.com, alternatively you can use via the
+                      Site.
                     </Li>
                   </Ol>
                 </Li>
@@ -255,16 +256,7 @@ export default class CookiesPolicy extends Component {
                 <th>Type and Expiry</th>
                 <th>Category and Purpose</th>
               </tr>
-              <tr>
-                <td>PHP SESSION</td>
-                <td>PHPSESSID</td>
-                <td>First party cookie Session cookie</td>
-                <td>
-                  <strong>Strictly necessary</strong>: This cookie is essential
-                  as it stores technical information needed to make the Site
-                  function correctly during browsing.
-                </td>
-              </tr>
+
               <tr>
                 <td>JSON Web Token </td>
                 <td>JWT</td>

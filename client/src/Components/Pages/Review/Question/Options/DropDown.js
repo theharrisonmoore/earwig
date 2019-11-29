@@ -9,14 +9,13 @@ import Select from "../../../../Common/Select";
 
 class DropDown extends Component {
   state = {
-    placeholder: "",
     newOrg: "",
     ismodalVisible: false,
     dropdownOptions: [],
     confirmLoading: false,
     newOrgSuccess: false,
     newOrgError: "",
-    disableSelect: false
+    // disableSelect: false,
   };
 
   componentDidMount() {
@@ -51,7 +50,7 @@ class DropDown extends Component {
     const { searchTerm } = e.target.dataset;
     this.setState({
       ismodalVisible: true,
-      newOrg: searchTerm
+      newOrg: searchTerm,
     });
   };
 
@@ -63,32 +62,32 @@ class DropDown extends Component {
     if (this.state.newOrg && this.state.newOrg.length >= 3) {
       this.setState(
         {
-          confirmLoading: true
+          confirmLoading: true,
         },
         async () => {
           try {
             const res = await axios.post("/api/organizations", {
               name: this.state.newOrg,
               active: false,
-              category: this.addedOrgCategory(category)
+              category: this.addedOrgCategory(category),
             });
             const { data } = res;
             const addedOrg = {
               _id: data._id,
-              name: data.name
+              name: data.name,
             };
 
             this.setState({
               newOrg: data.name,
-              disableSelect: true,
-              dropdownOptions: [...dropdownOptions, addedOrg]
+              // disableSelect: true,
+              dropdownOptions: [...dropdownOptions, addedOrg],
             });
 
             handleAddNewOrgChange(JSON.stringify(addedOrg), number);
 
             this.setState(
               {
-                newOrgSuccess: true
+                newOrgSuccess: true,
               },
               () => {
                 setTimeout(() => {
@@ -96,7 +95,7 @@ class DropDown extends Component {
                     newOrgSuccess: false,
                     ismodalVisible: false,
                     confirmLoading: false,
-                    newOrg: data.name
+                    newOrg: data.name,
                   });
                 }, 1000);
               }
@@ -105,13 +104,13 @@ class DropDown extends Component {
             this.setState(
               {
                 newOrgSuccess: false,
-                newOrgError: err.response.data.error
+                newOrgError: err.response.data.error,
               },
               () => {
                 setTimeout(() => {
                   this.setState({
                     ismodalVisible: false,
-                    confirmLoading: false
+                    confirmLoading: false,
                   });
                 }, 1000);
               }
@@ -121,7 +120,7 @@ class DropDown extends Component {
       );
     } else if (this.state.newOrg.length < 3) {
       this.setState({
-        newOrgError: "Organization name must be at least 3 characters long"
+        newOrgError: "Organization name must be at least 3 characters long",
       });
     }
   };
@@ -131,7 +130,7 @@ class DropDown extends Component {
     const { dropdownOptions } = this.state;
     this.setState({
       dropdownOptions: [...dropdownOptions, { [name]: value }],
-      newOrg: value
+      newOrg: value,
     });
   };
 
@@ -140,7 +139,7 @@ class DropDown extends Component {
       ismodalVisible: false,
       newOrgSuccess: false,
       newOrgError: "",
-      newOrg: ""
+      newOrg: "",
     });
   };
 
@@ -170,13 +169,12 @@ class DropDown extends Component {
   };
 
   render() {
-    const { number, handleAddNewOrgChange, category, question } = this.props;
-    const { profileText } = question;
+    const { number, handleAddNewOrgChange, category, label } = this.props;
     const {
       ismodalVisible,
       confirmLoading,
       newOrg,
-      dropdownOptions
+      dropdownOptions,
     } = this.state;
 
     return (
@@ -184,11 +182,7 @@ class DropDown extends Component {
         <Options>
           <Select
             showSearch
-            placeholder={
-              profileText === "Main contractor"
-                ? "Select main contractor"
-                : "Select your organization"
-            }
+            placeholder={label}
             id="newOrg"
             name="newOrg"
             options={dropdownOptions}
@@ -200,6 +194,7 @@ class DropDown extends Component {
             // disabled={this.state.disableSelect}
             isCreateNew
             addHandler={this.showModal}
+            scrollToTop
           />
           <div>
             <Modal

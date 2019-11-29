@@ -2,7 +2,9 @@ const boom = require("boom");
 const searchQuery = require("../database/queries/search");
 
 module.exports = (req, res, next) => {
-  searchQuery()
+  const { category } = req.params;
+
+  searchQuery(category)
     .then(result => res.json(result))
-    .catch(() => next(boom.badImplementation()));
+    .catch(err => next(boom.badImplementation(err)));
 };

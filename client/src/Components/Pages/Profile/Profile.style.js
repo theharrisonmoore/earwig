@@ -1,25 +1,29 @@
 import styled, { css } from "styled-components";
 import SVG from "react-inlinesvg";
 import { NavLink } from "react-router-dom";
-import { Icon as AntIcon, Button } from "antd";
-import BlurredBackground from "./../../../assets/blurred-background.png";
+import { Icon as AntIcon } from "antd";
+import BlurredBackground from "../../../assets/blurred-background.png";
 
 import {
   organizations,
   colors,
   shadows,
   borders,
-  breakpoints
-} from "./../../../theme";
+  breakpoints,
+} from "../../../theme";
 import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: ${props => (props.isMobile ? "3rem" : "4rem")};
+  padding-top: ${({ showTabs, isMobile }) =>
+    isMobile
+      ? `calc(13.25rem - ${showTabs ? "0px" : "60px"})`
+      : `calc(13.25rem - ${showTabs ? "0px" : "60px"})`};
   text-align: left;
-  padding-bottom: 2rem;
+  padding-bottom: 100px;
   font-size: 1rem;
+  position: relative;
 `;
 
 export const Banner = styled.div`
@@ -31,6 +35,7 @@ export const Banner = styled.div`
   align-items: center;
   text-transform: capitalize;
   position: fixed;
+
   z-index: 2;
 
   p {
@@ -43,23 +48,93 @@ export const Banner = styled.div`
 `;
 
 export const Header = styled.div`
-  box-shadow: ${shadows.headerShadow};
   display: flex;
   flex-direction: column;
-  margin-top: 2.75rem;
-  padding: ${props =>
-    props.isTablet || props.isMobile ? "1.5rem 1rem" : "1.5rem 7rem"};
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  color: ${colors.white};
+  width: 100%;
+  max-width: 57.5rem;
+  z-index: 100;
+  transition: 0.4s all;
+  pointer-events: none;
+
+  + * {
+    padding-top: ${({ headerHeight }) => headerHeight}px !important;
+  }
+`;
+
+export const ColoredDiv = styled.div`
+  background-color: ${props => organizations[`${props.category}`].primary};
+  width: 100%;
+  margin-top: 0;
+`;
+
+export const TabsDivFullWidth = styled.div`
+  border-bottom: 1px solid ${colors.dustyGray2};
+  width: 100%;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: ${colors.white};
+  z-index: 1;
+`;
+
+export const TabsDiv = styled.div`
+  display: flex;
+  max-width: 376px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+`;
+
+export const Tab = styled.div`
+  display: flex;
+  color: ${colors.primary};
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 0;
+  width: 50%;
+  position: relative;
+  cursor: pointer;
+  pointer-events: all !important;
+
+  * {
+    pointer-events: none;
+  }
+`;
+
+export const TabTitle = styled.span`
+  font-size: 1rem;
+  margin-top: 0.25rem;
+
+  font-weight: ${({ isActive }) => (isActive ? "500" : "normal")};
+`;
+
+export const Underline = styled.div`
+  position: absolute;
+  content: "";
+  width: 50%;
+  height: 5px;
+  background-color: ${colors.primary};
+  margin-left: ${({ left }) => (left ? 0 : "50%")};
+  border: 0;
+  display: block;
+  z-index: 1;
+  bottom: 0;
+  transition: 400ms all;
 `;
 
 export const CompanyDetails = styled.div`
   /* border-bottom: ${props =>
     props.level > 0 ? `${borders.commentBox}` : "none"}; */
   display: flex;
-  flex-direction: ${props =>
-    props.isTablet || props.isMobile ? "column" : "row"};
+  flex-direction: column;
   align-items: center;
-  padding-bottom: ${props =>
-    props.isTablet || props.isMobile ? "2rem" : "1rem"};
+  /* padding-bottom: ${props =>
+    props.isTablet || props.isMobile ? "2rem" : "1rem"}; */
 `;
 
 export const CompanyDiv = styled.div`
@@ -72,10 +147,12 @@ export const CompanyDiv = styled.div`
 `;
 
 export const CompanyTitle = styled.h2`
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 1.125rem;
+  font-weight: 500;
   margin: 0;
   text-transform: capitalize;
+  color: ${({ white }) => (white ? colors.white : colors.profileFontColor)};
+  margin: 0.25rem 0;
 `;
 
 export const ButtonDiv = styled.div`
@@ -83,35 +160,42 @@ export const ButtonDiv = styled.div`
   display: ${props => (props.organization === "worksite" ? "none" : "flex")};
   justify-content: center;
   align-items: center;
+  height: ${({ shrink }) => (shrink ? "1px" : "auto")};
+  opacity: ${({ shrink }) => (shrink ? "0" : "1")};
+
+  transition: 0.4s all;
 `;
 
 export const OrgLink = styled.a`
   display: ${props => props.hasDetails === null && "none"};
+  font-weight: normal;
+  font-size: 15px;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const OrgButton = styled.button`
-  border: ${props => organizations[`${props.category}`].primary} solid 2px;
-  box-sizing: border-box;
-  color: ${props => organizations[`${props.category}`].primary};
-  background: ${colors.white};
+  color: ${colors.primary};
+  background: none;
   transition: all ease-in 0.1s;
   width: ${props => (props.isMobile ? "5rem" : "7rem")};
   height: 2.5rem;
-  border-radius: 0.25rem;
-  box-shadow: ${shadows.buttonShadow};
-  margin: 0 0.5rem;
+  border-radius: 22.25px;
+  margin: 1rem 0.5rem;
   cursor: pointer;
   position: relative;
+  outline: none;
+
+  height: 2.5rem;
+  transition: 0.4s all;
 
   :hover {
-    background: ${props => organizations[`${props.category}`].primary};
-    color: ${colors.white};
+    font-weight: 700;
   }
 
   &:active {
-    box-shadow: none;
-    border: none;
-
     ::after {
       content: "";
       position: absolute;
@@ -120,46 +204,84 @@ export const OrgButton = styled.button`
       bottom: 0px;
       left: 0px;
       background: ${colors.btnClick};
-      box-shadow: none;
+      border-radius: 22.25px;
     }
   }
 `;
 
 export const InactiveButton = styled(OrgButton)`
   cursor: not-allowed !important;
-  opacity: 0.3;
   outline: none;
   box-shadow: none;
   display: ${props => props.hasDetails === undefined && "none"};
 
-  :hover {
-    background: ${colors.white};
-    color: ${props => colors.inputBorder};
-  }
+  opacity: ${({ shrink }) => (shrink ? "0" : "0.3")};
 `;
 
 export const ActionButtonsDiv = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  padding-top: 0.75rem;
+  background-color: ${colors.white};
+  width: 100%;
+  border-bottom: 1px solid ${colors.dustyGray2};
 
   @media ${breakpoints.mobileL} {
     justify-content: center;
   }
 `;
 
-export const ReviewDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: ${props =>
-    props.isTablet || props.isMobile ? "2rem 1rem" : "2rem 7rem"};
-  text-align: left;
+const dividerHieght = 14;
+const dividerStyle = `
+:after {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 100%;
+  border-bottom: ${dividerHieght}px solid ${colors.alto};
+  top: 0;
+  left: 0;
+}
 `;
 
-export const Level0Promo = styled(ReviewDiv)`
-  padding: ${props =>
-    props.isTablet || props.isMobile ? "2rem 1rem" : "2rem 7rem 0 7rem"};
-`
+const sharedReviewSectionStyle = `
+padding: calc(${dividerHieght}px + 1.25rem) 1rem 0;
+
+@media ${breakpoints.mobileM} {
+  padding: calc(${dividerHieght}px + 1.25rem) 2rem 0;
+}
+
+@media ${breakpoints.mobileL} {
+  padding: calc(${dividerHieght}px + 1.25rem) 4rem 0;
+}
+
+@media ${breakpoints.mobileXL} {
+  padding: calc(${dividerHieght}px + 1.25rem) 7rem 0;
+}
+
+@media ${breakpoints.tablet} {
+  padding: calc(${dividerHieght}px + 1.25rem) 10rem 0;
+}
+`;
+
+export const ReviewDiv = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  ${sharedReviewSectionStyle}
+  ${dividerStyle}
+`;
+
+export const Level0PromoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  ${sharedReviewSectionStyle}
+
+  margin-top: 1rem;
+`;
 
 export const GiveReviewTitle = styled.h3`
   font-size: 1.75rem;
@@ -175,8 +297,10 @@ export const SVGIcon = styled(SVG)`
 
 export const CompanyNameAndStars = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 4.5%;
 `;
 
 export const CommentDiv = styled.div`
@@ -185,15 +309,26 @@ export const CommentDiv = styled.div`
   display: flex;
   flex-direction: column;
   /* flex: initial; */
-  margin-bottom: 1rem;
+  padding: 1.5rem 0 1rem;
   width: 100%;
   position: relative;
   display: ${props => props.noReview && "none"};
+  color: ${colors.white};
+  border-bottom: 1px solid ${colors.dustyGray1}40;
+
+  .ant-collapse .ant-collapse-item {
+    border: none;
+  }
+
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    padding: 7px 14px 10px !important;
+  }
 `;
 
 export const BubbleAndDate = styled.div`
   display: flex;
-  margin-bottom: 1rem;
+  align-items: center;
+  margin-bottom: 0.625rem;
 `;
 
 const adminTitle = css`
@@ -221,14 +356,14 @@ const adminBorder = css`
 export const VoiceWrapper = styled.div`
   width: 200px;
 
-@media ${breakpoints.tablet} {
+  @media ${breakpoints.tablet} {
     min-width: 400px;
   }
-`
+`;
 
 export const CommentBubble = styled.p`
   background: ${({ bgColor }) => bgColor || colors.ghostGray};
-  color: ${({ color }) => color && color};
+  color: ${({ color }) => color || colors.profileFontColor};
   border-radius: 1.125rem;
   align-self: flex-start;
   justify-content: flex-start;
@@ -246,26 +381,35 @@ export const CommentDate = styled.p`
   margin: 0;
   text-align: right;
   align-self: flex-end;
+  color: ${colors.profileFontColor}
+  font-size: 18px;
+  opacity: 0.6;
+  letter-spacing: 2.5px;
+  margin-bottom: -1rem;
+  margin-left: -0.5rem;
 `;
 
 export const StarWrapper = styled.div`
   display: flex;
   text-align: left;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   cursor: pointer;
+  height: ${({ shrink }) => (shrink ? "0" : "intial")};
+  opacity: ${({ shrink }) => (shrink ? "0" : "1")};
+  transition: 0.4s all;
 `;
 
 export const Reviews = styled.p`
   margin: 0;
   margin-left: 1rem;
-  border-bottom: 2px solid ${props => organizations[props.category].primary};
+  border-bottom: 2px solid ${colors.white};
   font-weight: 600;
-  color: ${props => organizations[`${props.category}`].primary};
+  color: ${colors.white};
 `;
 
 export const NoReview = styled.span`
-  color: ${colors.dustyGray1};
+  color: ${colors.white};
 `;
 
 export const VerifyPromo = styled.div`
@@ -321,15 +465,18 @@ export const AccountPromo = styled.div`
   }
 `;
 
-export const BottomAccountPromo = styled(AccountPromo)`
-  background-image: none;
-`
-
 export const AccountLink = styled(VerifyLink)`
   z-index: 2;
   display: flex;
-  width: 300px;
   justify-content: flex-start;
+  position: ${({ sticky }) => (sticky ? "-webkit-sticky" : "-webkit-static")};
+  position: ${({ sticky }) => (sticky ? "sticky" : "static")};
+  top: 0;
+  width: 100%;
+  background-color: ${colors.white};
+  position: sticky;
+  border-bottom: ${({ sticky }) =>
+    sticky ? `1px solid ${colors.dustyGray2}` : "none"};
 `;
 
 export const AccountItem = styled.div`
@@ -379,7 +526,6 @@ export const ActionsDiv = styled.div`
   align-items: center;
   width: 100%;
   margin: 0 auto;
-  margin-bottom: 1rem;
 `;
 
 export const ButtonsWrapper = styled(ActionsDiv)`
@@ -389,56 +535,11 @@ export const ButtonsWrapper = styled(ActionsDiv)`
   width: 90%;
 `;
 
-export const HelpfulButtonWrapper = styled.div`
-  position: relative;
-  margin-right: ${props => (props.isMobile ? "0.5rem" : "2rem")};
-
-  &::after {
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: ${({ number }) => number + "0%"};
-    left: 0;
-    z-index: 2;
-    bottom: 0;
-    pointer-events: none;
-    transition: 0.5s all ease;
-
-    @supports (mix-blend-mode: exclusion) {
-      mix-blend-mode: exclusion;
-      background: ${({ color }) => color};
-    }
-  }
-`;
-
-export const ActionsButton = styled(Button)`
-  background: ${({ bgcolor }) => bgcolor};
-  border: none;
-  font-weight: 700;
-  font-size: 1rem;
-  width: 100%;
-  padding: 0.5rem 1rem;
-  height: auto;
-  margin-right: ${props => (props.ismobile ? "0.5rem" : "2rem")};
-  position: relative;
-
-  transform: scale3d(
-    ${({ scale }) => scale || 1},
-    ${({ scale }) => scale || 1},
-    1
-  );
-
-  &:hover,
-  &:focus {
-    color: #fff;
-    background-color: ${({ bgcolor }) => bgcolor};
-    border-color: ${({ bgcolor }) => bgcolor};
-  }
-`;
-
 export const UserTrade = styled.p`
   font-style: italic;
   margin-left: 10px;
+  color: ${colors.profileFontColor};
+  margin-bottom: 0;
 `;
 
 export const UserDiv = styled.div`
@@ -446,24 +547,12 @@ export const UserDiv = styled.div`
 `;
 
 export const UserAdditionalDetails = styled.div`
-  margin-top: -15px;
+  margin-top: -10px;
 
   p {
     font-size: 0.8rem;
     color: ${colors.dustyGray2};
   }
-`;
-
-export const ReplyButton = styled.p`
-  text-decoration: underline;
-  border: none;
-  background: none;
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  color: ${({ color }) => color};
-  margin: 0.5rem;
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;
 
 export const ActionButton = styled.button`
@@ -521,17 +610,15 @@ export const ActionButton = styled.button`
 
 export const ContractorDiv = styled.div`
   width: 100%;
+  font-family: Roboto;
 `;
 
 export const ContractorText = styled.p`
-  font-size: 18px;
-
+  font-size: 15px;
   letter-spacing: 0.3px;
-
   color: ${colors.profileFontColor};
-
   .contactor-name {
-    font-weight: 700;
+    font-weight: 500;
   }
 `;
 
@@ -559,4 +646,52 @@ export const BorderedWrapper = styled.div`
     border-left: 3px solid ${colors.heliotrope};
     border-right: 3px solid ${colors.heliotrope};
   }
+`;
+
+export const PopOverWrapper = styled.div`
+  text-align: center;
+  height: ${({ shrink }) => (shrink ? "0" : "intial")};
+  opacity: ${({ shrink }) => (shrink ? "0" : "1")};
+  transition: 0.4s all;
+`;
+
+export const OrganisationDetailsWrapper = styled(ReviewDiv)`
+  position: relative;
+  padding-top: calc(${dividerHieght}px + 1rem);
+  padding-bottom: 1.25rem !important;
+
+  ${dividerStyle}
+`;
+
+export const InfoRow = styled.div`
+  width: 100%;
+  display: flex;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0;
+`;
+
+export const LeftInfo = styled.div`
+  width: 30%;
+  display: flex;
+  align-items: center;
+  color: ${colors.profileFontColor};
+  font-weight: 500;
+  font-size: 15px;
+`;
+
+export const RightInfo = styled.div`
+  width: 70%;
+  display: flex;
+  align-items: center;
+`;
+
+export const UserInfoWrapper = styled.div`
+  margin-left: 0.625rem;
+`;
+
+export const RatingWithUserInfo = styled.div`
+  display: flex;
+  padding-top: 0.5rem;
 `;

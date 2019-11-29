@@ -12,13 +12,13 @@ import {
   UploadIcon,
   Thumbnail,
   IconWrapper,
-  ThumbnailWrapper
+  ThumbnailWrapper,
 } from "./UploadPhoto.style";
 
 export default class UploadImage extends Component {
   state = {
     image: "",
-    exifData: null
+    exifData: null,
   };
 
   handleImageChange = event => {
@@ -32,14 +32,14 @@ export default class UploadImage extends Component {
         Swal.showLoading();
         reader.onload = e => {
           // GET EXIF DATA FROM IMAGE
-          var exifObj = piexif.load(e.target.result);
+          const exifObj = piexif.load(e.target.result);
           const exifData = {};
-          for (var ifd in exifObj) {
+          for (const ifd in exifObj) {
             if (ifd === "thumbnail") {
               continue;
             }
-            for (var tag in exifObj[ifd]) {
-              exifData[piexif.TAGS[ifd][tag]["name"]] = exifObj[ifd][tag];
+            for (const tag in exifObj[ifd]) {
+              exifData[piexif.TAGS[ifd][tag].name] = exifObj[ifd][tag];
             }
           }
           this.setState({ exifData });
@@ -54,15 +54,15 @@ export default class UploadImage extends Component {
               image.type.split("/")[1]
             }`,
             {
-              type: image.type
+              type: image.type,
             }
           );
 
           const form = new FormData();
 
-          var dataURL = reader.result;
+          const dataURL = reader.result;
           this.setState({
-            image: dataURL
+            image: dataURL,
           });
           form.append("worksiteImage", newImageFile);
           axios({
@@ -70,15 +70,15 @@ export default class UploadImage extends Component {
             url: API_UPLOAD_WORKSITE_IMAGE_URL,
             data: form,
             headers: {
-              "content-type": `multipart/form-data; boundary=${form._boundary}`
-            }
+              "content-type": `multipart/form-data; boundary=${form._boundary}`,
+            },
           })
             .then(res => {
               Swal.fire({
                 type: "success",
                 title: "Done!",
                 showConfirmButton: false,
-                timer: 1500
+                timer: 1500,
               }).then(() => {
                 this.props.handleSliderChange(
                   res.data.image,
@@ -90,11 +90,11 @@ export default class UploadImage extends Component {
               Swal.fire({
                 type: "error",
                 title: "Oops...",
-                text: err.response.data.error
+                text: err.response.data.error,
               });
             });
         };
-      }
+      },
     });
     reader.readAsDataURL(image);
   };

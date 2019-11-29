@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 
 import { SideMenuWrapper, StyledButton as Button } from "./SideMenu.style";
 
-import { handleLogout } from "./../../../../helpers";
+import { handleLogout } from "../../../../helpers";
 
 import { menuElements } from "../../../../constants/adminRoutes";
 
-import { SEARCH_URL } from "./../../../../constants/naviagationUrls";
+import { SEARCH_URL } from "../../../../constants/naviagationUrls";
 
-const SubMenu = Menu.SubMenu;
+const { SubMenu } = Menu;
 
 const rootSubmenuKeys = menuElements.reduce((accu, current) => {
   if (current.items) {
@@ -23,12 +23,12 @@ export default class SideMenu extends Component {
   state = {
     collapsed: false,
     openKeys: [],
-    menuWidth: 0
+    menuWidth: 0,
   };
 
   toggleCollapsed = () => {
     this.setState({
-      collapsed: !this.state.collapsed
+      collapsed: !this.state.collapsed,
     });
   };
 
@@ -41,7 +41,7 @@ export default class SideMenu extends Component {
       this.setState({ openKeys });
     } else {
       this.setState({
-        openKeys: latestOpenKey ? [latestOpenKey] : []
+        openKeys: latestOpenKey ? [latestOpenKey] : [],
       });
     }
   };
@@ -75,7 +75,7 @@ export default class SideMenu extends Component {
           onOpenChange={this.onOpenChange}
           openKeys={
             this.state.openKeys || [
-              "/" + pathname.split("/admin")[1].split("/")[1]
+              `/${pathname.split("/admin")[1].split("/")[1]}`,
             ]
           }
         >
@@ -113,7 +113,7 @@ export default class SideMenu extends Component {
             )
           )}
           <Menu.Item style={{ textAlign: "left" }}>
-            <Link to={SEARCH_URL}>
+            <Link to={SEARCH_URL.replace(":category?", "")}>
               <Icon type="search" />
               <span>Vist Website</span>
             </Link>

@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import moment from "moment";
-import axios from "axios";
-import swal from "sweetalert2";
 
 import { Spin } from "antd";
-
-import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
 
 import {
   ReviewButtonsDiv,
@@ -26,40 +22,13 @@ export default class GiveReview extends Component {
 
   handleClick = () => {
     const { state } = this.props;
-    const { shouldCreateNew, name, category } = state;
-    const newOrg = { name, category };
 
-    if (shouldCreateNew) {
-      this.setState({ isLoading: true }, () => {
-        axios
-          .post(API_ADD_ORGANIZATION_URL, newOrg)
-          .then(({ data }) => {
-            this.setState({ isLoading: false });
+    const { orgId } = state;
 
-            const { _id: orgId } = data;
-            this.props.history.push({
-              pathname: `/organization/${orgId}/review`,
-              state,
-            });
-          })
-          .catch(() => {
-            this.setState({ isLoading: false });
-            swal.fire({
-              type: "error",
-              title: "Oops...",
-              text: `${name} already exists. Please contact us directly with your request.`,
-              footer: '<a href="/contact">Contact</a>',
-            });
-          });
-      });
-    } else {
-      const { orgId } = state;
-
-      this.props.history.push({
-        pathname: `/organization/${orgId || state.orgId}/review`,
-        state,
-      });
-    }
+    this.props.history.push({
+      pathname: `/organization/${orgId || state.orgId}/review`,
+      state,
+    });
   };
 
   render() {
@@ -99,10 +68,10 @@ export default class GiveReview extends Component {
           <PopoverComponent
             category={category}
             popoverOptions={{
-              text: `It seems that you've already reviewed this organisation in the last 30 days. You can review each organisation once a month. Date of last review: ${moment(
-                reviewsLast30Days[0].date
-              ).format("DD.MM.YYYY")}`,
-              linkText: "Why can't I give a review?",
+              text: `You recently reviewed this ${category ||
+                "organisation"}. Please leave four weeks between reviews.`,
+              linkText: `Why can't I review this ${category ||
+                "organisation"} today?`,
             }}
           />
         )}

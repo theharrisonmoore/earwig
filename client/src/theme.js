@@ -36,6 +36,9 @@ export const breakpointsMax = {
 };
 
 const colorCodes = {
+  // primary
+  primary: "#1C77C3",
+
   // organizations
   heliotrope: "#8B51FC",
   dodgerBlue: "#37B6FD",
@@ -57,9 +60,14 @@ const colorCodes = {
   athens1: "#EDEFF2",
   athens2: "#F0F2F4",
   alto: "#D8D8D8",
+  brown: "#f8a791",
+  orange: "#FFB751",
 
   // shadows color
   cocoaBrown: "#2A1E22",
+
+  // stars
+  stars: "#F8E71C",
 
   // transparent
   ghostWhite: "rgba(255, 255, 255, 0.7)",
@@ -98,12 +106,14 @@ export const colors = {
   inputBorder: colorCodes.dustyGray1,
   purpleLinks: colorCodes.heliotrope,
   lightGray: colorCodes.dustyGray2,
+  strikedOutItem: colorCodes.brown,
+  warningText: colorCodes.orange,
 };
 
 // shadows
 export const shadows = {
-  buttonShadow: "0px 4px 13px rgba(173, 145, 183, 0.273438)",
-  activeButtonShadow: "0px 2px 9px rgba(173, 145, 183, 0.273438)",
+  buttonShadow: "0px 2px 4px rgba(0, 0, 0, 0.462658)",
+  activeButtonShadow: "0px 1px 2px rgba(0, 0, 0, 0.462658)",
   sectionShadow: "0px 12px 16px -13px rgba(173,145,183,0.273438)",
   searchShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
   commentShadow: "0px 3px 4px rgba(152, 152, 152, 0.5);",

@@ -1,20 +1,15 @@
 import React, { Component } from "react";
-import { ErrorMessage } from "formik";
 import { Input } from "antd";
 
 import { colors } from "../../../../../theme";
 
-import {
-  QuestionOptionsWrapper,
-  Options,
-  StyledErrorMessage
-} from "../Question.style";
+import { QuestionOptionsWrapper, Options } from "../Question.style";
 
 class Open extends Component {
   render() {
     const { props } = this;
     const { number, label, handleChange, question, state } = props;
-    let { answers } = state && state;
+    const { answers } = state && state;
 
     return (
       <QuestionOptionsWrapper>
@@ -27,13 +22,10 @@ class Open extends Component {
             placeholder={label}
             style={{
               border: `1px solid ${colors.dustyGray1}`,
-              marginBottom: "0.5rem"
+              marginBottom: "0.5rem",
             }}
           />
         </Options>
-        <ErrorMessage name={`questions[${number}]`}>
-          {msg => <StyledErrorMessage>{msg}</StyledErrorMessage>}
-        </ErrorMessage>
       </QuestionOptionsWrapper>
     );
   }

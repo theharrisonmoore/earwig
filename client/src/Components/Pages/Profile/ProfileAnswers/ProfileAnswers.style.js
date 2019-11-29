@@ -9,11 +9,15 @@ import {
   size,
 } from "../../../../theme";
 
+const generalFontSize = "15px";
+const generalFontWeight = "normal";
+
 export const YesNoWrapper = styled.div`
   width: 100%;
   display: flex;
   height: ${props => (props.large ? "4rem" : "2rem")};
-  font-weight: 500;
+  font-weight: ${generalFontWeight};
+  font-size: ${generalFontSize};
 `;
 
 export const YesHalf = styled.div`
@@ -62,19 +66,20 @@ export const NoHalf = styled.div`
 `;
 
 export const Comment = styled.button`
-  border: ${props =>
-    props.active
-      ? `1px solid ${props.color}`
-      : `1px solid ${colors.lightGray}`};
-  color: ${props => (props.active ? `${props.color}` : `${colors.lightGray}`)};
+  border: none;
+  color: ${props =>
+    props.active ? `${colors.primary}` : `${colors.lightGray}`};
+  font-weight: ${props => (props.active ? `bold` : `normal`)};
   margin-left: 0.5rem;
   padding: 0 0.5rem;
-  box-shadow: ${shadows.buttonShadow};
+  box-shadow: none;
+  outline: none;
+  background: none;
   border-radius: 0.25rem;
   margin-right: auto;
   justify-self: flex-end;
   cursor: ${props => (props.active ? "pointer" : "not-allowed !important")};
-  background-color: #fff;
+  visibility: ${props => (props.hasComment ? "visible" : "hidden")};
 `;
 
 export const RightCommentWrapper = styled.div`
@@ -97,7 +102,7 @@ export const ListItem = styled.p`
       ? organizations[props.color].primary
       : colors.profileFontColor};
 
-  font-weight: 900;
+  font-weight: ${generalFontWeight};
   font-size: 1rem;
   /* width: "100%"; */
   line-height: 2rem;
@@ -216,17 +221,18 @@ export const CommentBubble = styled.p`
 export const SiteItem = styled.div`
   margin: 0;
   color: ${props =>
-    props.itemAvailable ? `${colors.green}` : `${colors.red}`};
-  font-weight: 900;
+    props.itemAvailable ? `${colors.green}` : `${colors.strikedOutItem}`};
+  font-weight: ${generalFontWeight};
   display: flex;
   align-items: center;
+  font-size: ${generalFontSize};
 `;
 
 export const SiteAnswer = styled.div`
   margin: 0;
   /* color: ${props =>
     props.itemAvailable ? `${colors.green}` : `${colors.red}`}; */
-  font-weight: 900;
+  font-weight: ${generalFontWeight};
   text-decoration: ${props => !props.itemAvailable && "line-through"};
   display: flex;
   align-items: center;
@@ -238,7 +244,8 @@ export const SiteAnswer = styled.div`
 `;
 
 export const SiteIcon = styled(SVG)`
-  fill: ${props => (props.itemAvailable ? `${colors.green}` : `${colors.red}`)};
+  fill: ${props =>
+    props.itemAvailable ? `${colors.green}` : `${colors.strikedOutItem}`};
   width: 1rem;
   margin-right: 1rem;
 `;
@@ -246,8 +253,9 @@ export const SiteIcon = styled(SVG)`
 export const CanteenSubList = styled.p`
   padding-left: 3rem;
   color: ${props =>
-    props.itemAvailable ? `${colors.green}` : `${colors.red}`};
-  font-weight: 900;
+    props.itemAvailable ? `${colors.green}` : `${colors.strikedOutItem}`};
+  font-weight: ${generalFontWeight};
+  font-size: ${generalFontSize};
   display: ${props => (props.hide ? "none" : "block")};
   text-decoration: ${props => !props.itemAvailable && "line-through"};
 `;

@@ -3,14 +3,14 @@ import React, { Component } from "react";
 import {
   ListWrapper,
   CanteenItem,
-  CanteenSubList
+  CanteenSubList,
 } from "./ProfileAnswers.style";
 
-import Icon from "./../../../Common/Icon/Icon";
+import Icon from "../../../Common/Icon/Icon";
 
 export default class CanteenItemAnswer extends Component {
   getAverage = answers => {
-    //start count at 1 to give benefit to yes
+    // start count at 1 to give benefit to yes
     let count = 1;
     answers.map(answer =>
       answer.answer === "Yes" ? (count += 1) : (count -= 1)
@@ -20,15 +20,14 @@ export default class CanteenItemAnswer extends Component {
   };
 
   getSelectedItems = (answers, option) => {
-    let totalAnswers = [];
-
-    answers.map(userAnswers =>
-      userAnswers.answer === "I didn't check"
+    const totalAnswers = [];
+    answers.map(userAnswers => {
+      return userAnswers.answer === "I didn't check"
         ? totalAnswers.push(userAnswers.answer)
         : userAnswers.answer.map(individAnswer =>
             totalAnswers.push(individAnswer)
-          )
-    );
+          );
+    });
 
     return totalAnswers.includes(option);
   };
@@ -45,7 +44,7 @@ export default class CanteenItemAnswer extends Component {
     const { questions, isMobile } = this.props;
 
     const canteenHeader = questions.filter(
-      question => question.profileText === "Canteen:"
+      question => question.profileText === "Canteen on this site with:"
     );
 
     const hasCanteen = this.getAverage(canteenHeader[0].answers);
@@ -64,7 +63,10 @@ export default class CanteenItemAnswer extends Component {
               <p>Canteen</p>
             </CanteenItem>
             {questions
-              .filter(question => question.profileText !== "Canteen:")
+              .filter(
+                question =>
+                  question.profileText !== "Canteen on this site with:"
+              )
               .map((question, index) =>
                 question.profileText === "heated" ? (
                   <CanteenSubList

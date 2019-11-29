@@ -27,6 +27,7 @@ import Hamburger from "./Hamburger";
 import HelpfulLinks from "./HelpfulLinks";
 import HelpingHand from "./HelpingHand";
 import HotFood from "./HotFood";
+import Info from "./Info";
 import JobBoard from "./JobBoard";
 import Lockers from "./Lockers";
 import Logo from "./Logo";
@@ -61,11 +62,16 @@ import TrophyIcon2 from "./TrophyIcon2";
 import TrustRating from "./TrustRating";
 import User from "./User";
 import VoiceRecord from "./VoiceRecord";
+import Warning from "./Warning";
 import Water from "./Water";
 import WelfareSafety from "./WelfareSafety";
 import Win from "./Win";
 import Worksite from "./Worksite";
 import WorksiteThanks from "./WorksiteThanks";
+import Reply from "./Reply";
+import Calendar from "./Calendar";
+import Overview from "./Overview";
+import Detailed from "./Detailed";
 
 const iconStyles = props => css`
   width: ${props.width || "100%"};
@@ -101,6 +107,7 @@ const iconMap = {
   hotFood: HotFood,
   helpfulLinks: HelpfulLinks,
   helpingHand: HelpingHand,
+  info: Info,
   jobBoard: JobBoard,
   lockers: Lockers,
   logo: Logo,
@@ -135,11 +142,16 @@ const iconMap = {
   trustRating: TrustRating,
   user: User,
   voiceRecord: VoiceRecord,
+  warning: Warning,
   water: Water,
   welfareSafety: WelfareSafety,
   win: Win,
   worksite: Worksite,
-  worksiteThanks: WorksiteThanks
+  worksiteThanks: WorksiteThanks,
+  reply: Reply,
+  calendar: Calendar,
+  overview: Overview,
+  detailed: Detailed,
 };
 
 const styledIconMap = Object.keys(iconMap).reduce((accum, curr) => {
@@ -149,6 +161,7 @@ const styledIconMap = Object.keys(iconMap).reduce((accum, curr) => {
     throw new Error(`Icon ${curr} not found`);
   }
 
+  // eslint-disable-next-line no-param-reassign
   accum[curr] = styled(IconSvg)(iconStyles);
   return accum;
 }, {});

@@ -1,26 +1,23 @@
 import React, { Component } from "react";
-import { Rate } from "antd";
-
-import { organizations } from "./../../../theme";
 
 import {
   Wrapper,
   SectionTitle,
   QuestionWrapper,
   QuestionTitle,
-  CategoryTitle,
-  LightTitle
+  LightTitle,
+  HintText,
 } from "./ReviewSection.style";
 
-import YesNoAnswer from "./ProfileAnswers/YesNoAnswer.js";
-import ListAnswer from "./ProfileAnswers/ListAnswer.js";
-import PieAnswer from "./ProfileAnswers/PieAnswer.js";
-import ScatterAnswer from "./ProfileAnswers/ScatterAnswer";
-import SiteItemAnswer from "./ProfileAnswers/SiteItemAnswer";
-import CanteenItemAnswer from "./ProfileAnswers/CanteenItemAnswer";
-import BarChartAnswer from "./ProfileAnswers/BarChartAnswer";
-import PayrollAnswer from "./ProfileAnswers/PayrollAnswer";
-import ImageSlider from "./ProfileAnswers/ImageSlider";
+import YesNoAnswer from "../ProfileAnswers/YesNoAnswer";
+import ListAnswer from "../ProfileAnswers/ListAnswer";
+import PieAnswer from "../ProfileAnswers/PieAnswer";
+import ScatterAnswer from "../ProfileAnswers/ScatterAnswer";
+import SiteItemAnswer from "../ProfileAnswers/SiteItemAnswer";
+import CanteenItemAnswer from "../ProfileAnswers/CanteenItemAnswer";
+import BarChartAnswer from "../ProfileAnswers/BarChartAnswer";
+import PayrollAnswer from "../ProfileAnswers/PayrollAnswer";
+import ImageSlider from "../ProfileAnswers/ImageSlider";
 
 export default class ReviewSection extends Component {
   onlyNeutralAnswers = answers => {
@@ -37,9 +34,8 @@ export default class ReviewSection extends Component {
       toggleComments,
       summary,
       isMobile,
-      carParkingPrice
+      reviewDetails,
     } = this.props;
-
     const { _id: sectionTitle, questions } = sectionDetails;
 
     let canteenQuestions =
@@ -69,12 +65,18 @@ export default class ReviewSection extends Component {
       // Question - Title, AggregatedAnswer, Comment Box
       <Wrapper>
         {sectionTitle !== "Key ratings" && (
-          <SectionTitle>{sectionTitle}</SectionTitle>
+          <SectionTitle sub bordered>
+            {sectionTitle}
+          </SectionTitle>
         )}
-        {sectionTitle === "Key ratings" && (
+
+        {/* {sectionTitle === "Key ratings" && (
           <QuestionWrapper>
             <QuestionTitle>
-              <CategoryTitle>Overall rating</CategoryTitle>
+              <CategoryTitle>
+                {`${category[0].toUpperCase()}${category.slice(1)}`} rating by
+                workers
+              </CategoryTitle>
             </QuestionTitle>
             <>
               <Rate
@@ -82,8 +84,8 @@ export default class ReviewSection extends Component {
                 tooltips={["Bad", "Poor", "Average", "Great", "Excellent"]}
                 value={summary.avgRatings || summary.value}
                 style={{
-                  color: `${organizations[summary.category].primary}`,
-                  fontSize: `${isMobile ? "2rem" : "3rem"}`
+                  color: `${colors.stars}`,
+                  fontSize: `${isMobile ? "2rem" : "3rem"}`,
                 }}
               />
               <div style={{ dispay: "inline-block" }}>
@@ -94,7 +96,7 @@ export default class ReviewSection extends Component {
                       style={{
                         color: `${
                           index === Math.floor(summary.avgRatings) - 1
-                            ? organizations[summary.category].primary
+                            ? colors.stars
                             : "#e8e8e8"
                         }`,
                         fontWeight: `${
@@ -106,7 +108,7 @@ export default class ReviewSection extends Component {
                         width: `${isMobile ? "32px" : "48px"}`,
                         display: "inline-block",
                         textAlign: "center",
-                        marginRight: "8px"
+                        marginRight: "8px",
                       }}
                     >
                       {option}
@@ -116,7 +118,7 @@ export default class ReviewSection extends Component {
               </div>
             </>
           </QuestionWrapper>
-        )}
+        )} */}
 
         {questions &&
           questions.map(
@@ -129,7 +131,7 @@ export default class ReviewSection extends Component {
                 "siteItem",
                 "canteenItem",
                 "payrollList",
-                "list"
+                "list",
               ].includes(question.profileType) && (
                 <div key={index}>
                   {question.profileType === "yesno" && (
@@ -138,6 +140,9 @@ export default class ReviewSection extends Component {
                       // hide={this.onlyNeutralAnswers(question.answers)}
                     >
                       <QuestionTitle>{question.profileText}</QuestionTitle>
+                      {question.hintText && (
+                        <HintText>{question.hintText}</HintText>
+                      )}
                       {this.onlyNeutralAnswers(question.answers) === false ? (
                         <YesNoAnswer
                           category={category}
@@ -146,7 +151,15 @@ export default class ReviewSection extends Component {
                           isMobile={isMobile}
                         />
                       ) : (
-                        <LightTitle>
+                        <LightTitle
+                          bar
+                          large={
+                            question.profileText &&
+                            question.profileText.includes(
+                              "Overall, would you be happy"
+                            )
+                          }
+                        >
                           <p>No answers yet</p>
                         </LightTitle>
                       )}
@@ -155,6 +168,9 @@ export default class ReviewSection extends Component {
                   {question.profileType === "pieChart" && (
                     <QuestionWrapper key={index}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
+                      {question.hintText && (
+                        <HintText>{question.hintText}</HintText>
+                      )}
                       {question.answers.length > 0 ? (
                         <PieAnswer
                           category={category}
@@ -163,7 +179,7 @@ export default class ReviewSection extends Component {
                           isMobile={isMobile}
                         />
                       ) : (
-                        <LightTitle>
+                        <LightTitle bar>
                           <p>No answers yet</p>
                         </LightTitle>
                       )}
@@ -172,6 +188,9 @@ export default class ReviewSection extends Component {
                   {question.profileType === "dotChart" && (
                     <QuestionWrapper key={index}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
+                      {question.hintText && (
+                        <HintText>{question.hintText}</HintText>
+                      )}
                       {question.answers.length > 0 ? (
                         <ScatterAnswer
                           category={category}
@@ -180,7 +199,7 @@ export default class ReviewSection extends Component {
                           isMobile={isMobile}
                         />
                       ) : (
-                        <LightTitle>
+                        <LightTitle bar>
                           <p>No answers yet</p>
                         </LightTitle>
                       )}
@@ -189,37 +208,37 @@ export default class ReviewSection extends Component {
                   {question.profileType === "barChart" && (
                     <QuestionWrapper key={index}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
+                      {question.hintText && (
+                        <HintText>{question.hintText}</HintText>
+                      )}
                       {question.answers.length > 0 ? (
                         <BarChartAnswer
                           category={category}
                           question={question}
                         />
                       ) : (
-                        <LightTitle>
+                        <LightTitle bar>
                           <p>No answers yet</p>
                         </LightTitle>
                       )}
                     </QuestionWrapper>
                   )}
                   {question.profileType === "siteItem" && (
-                    <QuestionWrapper
-                      key={index}
-                      hide={this.onlyNeutralAnswers(question.answers)}
-                    >
-                      {question.answers.length > 0 ? (
-                        <SiteItemAnswer
-                          category={category}
-                          question={question}
-                          toggleComments={toggleComments}
-                          profileType={question.profileType}
-                          isMobile={isMobile}
-                          carParkingPrice={carParkingPrice}
-                        />
-                      ) : (
-                        <LightTitle>
+                    <QuestionWrapper key={index}>
+                      {/* {question.answers.length > 0 ? ( */}
+                      <SiteItemAnswer
+                        category={category}
+                        question={question}
+                        toggleComments={toggleComments}
+                        profileType={question.profileType}
+                        isMobile={isMobile}
+                        reviewDetails={reviewDetails}
+                      />
+                      {/* ) : (
+                        <LightTitle bar>
                           <p>No answers yet</p>
                         </LightTitle>
-                      )}
+                      )} */}
                     </QuestionWrapper>
                   )}
                   {question.profileType === "canteenItem" && (
@@ -245,9 +264,10 @@ export default class ReviewSection extends Component {
                       {/* PAYROLL LIST */}
                       {payrollQuestions && (
                         <QuestionWrapper>
-                          <QuestionTitle>
-                            Pays using the following payrolls
-                          </QuestionTitle>
+                          <QuestionTitle>{question.profileText}</QuestionTitle>
+                          {question.hintText && (
+                            <HintText>{question.hintText}</HintText>
+                          )}
                           {question.answers.length > 0 ? (
                             <PayrollAnswer
                               questions={payrollQuestions}
@@ -255,7 +275,7 @@ export default class ReviewSection extends Component {
                               isMobile={isMobile}
                             />
                           ) : (
-                            <LightTitle>
+                            <LightTitle bar>
                               <p>No answers yet</p>
                             </LightTitle>
                           )}
@@ -266,6 +286,9 @@ export default class ReviewSection extends Component {
                   {question.profileType === "list" && (
                     <QuestionWrapper key={index}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
+                      {question.hintText && (
+                        <HintText>{question.hintText}</HintText>
+                      )}
                       {question.answers.length > 0 ? (
                         <ListAnswer
                           category={category}
@@ -274,7 +297,7 @@ export default class ReviewSection extends Component {
                           isMobile={isMobile}
                         />
                       ) : (
-                        <LightTitle>
+                        <LightTitle bar>
                           <p>No answers yet</p>
                         </LightTitle>
                       )}
@@ -299,7 +322,7 @@ export default class ReviewSection extends Component {
                       organization={summary}
                     />
                   ) : (
-                    <LightTitle>
+                    <LightTitle image bar>
                       <p>No images yet</p>
                     </LightTitle>
                   )}

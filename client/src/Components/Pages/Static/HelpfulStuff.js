@@ -1,24 +1,22 @@
 import React, { Component } from "react";
-import linkIcon from "./../../../assets/link-icon.svg";
 import {
   Wrapper,
   ContentWrapper,
-  MainIcon,
   SubTitle,
   SmallParagraph,
-  PageTitle
-} from "./../../Common/StaticPages.style";
+  BlueDiv,
+  PurpleDiv,
+} from "../../Common/StaticPages.style";
 
-import CommentSection from "./../../Common/CommentSection";
+import CommentSection from "../../Common/CommentSection";
 
 export default class HelpfulStuff extends Component {
   render() {
     const { isLoggedIn } = this.props;
     return (
       <Wrapper>
-        <ContentWrapper style={{ margin: "0 auto" }}>
-          <PageTitle>More helpful stuff for workers</PageTitle>
-          <MainIcon src={linkIcon} />
+        <PurpleDiv width="25%" />
+        <ContentWrapper style={{ margin: "0 auto" }} width="50%">
           <a
             href="https://www.moneysavingexpert.com/"
             target="_blank"
@@ -137,6 +135,7 @@ export default class HelpfulStuff extends Component {
             isLoggedIn={isLoggedIn}
           />
         </ContentWrapper>
+        <BlueDiv width="25%" />
       </Wrapper>
     );
   }

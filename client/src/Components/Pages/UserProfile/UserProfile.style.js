@@ -10,10 +10,17 @@ import {
 } from "../../../theme";
 
 export const Wrapper = styled.div`
-  margin-bottom: 2rem;
+  padding-bottom: 100px;
   display: flex;
   flex-direction: column;
   font-size: 1rem;
+  min-height: 100vh;
+
+  @media ${breakpoints.laptop} {
+    margin: 0 16rem;
+    border-left: 2px solid ${colors.profileFontColor};
+    border-right: 2px solid ${colors.profileFontColor};
+  }
 `;
 
 export const Header = styled.div`
@@ -23,23 +30,29 @@ export const Header = styled.div`
   color: ${colors.profileFontColor};
   box-shadow: ${shadows.headerShadow};
   margin-bottom: 2rem;
+
+  @media ${breakpoints.laptop} {
+    margin-bottom: 3rem;
+    padding: 7rem 6rem 3rem 6rem;
+  }
 `;
 
 export const TopSection = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
+  align-items: center;
 `;
 
 export const BottomSection = styled.div`
   display: flex;
   justify-content: space-around;
-  flex-direction: ${props => (props.isSMobile ? "column" : "row")};
 `;
 
 export const StatWrapper = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
 `;
 
 export const StatTitle = styled.p`
@@ -100,6 +113,11 @@ export const MainSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media ${breakpoints.laptop} {
+    margin-bottom: 3rem;
+    padding: 0 6rem;
+  }
 `;
 
 export const VerifiedSection = styled(MainSection)`
@@ -109,12 +127,13 @@ export const VerifiedSection = styled(MainSection)`
 `;
 
 export const SectionTitle = styled.h1`
-  font-weight: 900;
-  font-size: 1.375rem;
+  font-weight: normal;
+  font-size: ${({ verified }) => (verified ? "1.125rem" : "2.125rem")};
   color: ${colors.profileFontColor};
   margin-top: 0;
-  display: inline-block;
-  width: 100%;
+  /* display: inline-block; */
+  /* width: 100%; */
+  text-align: left;
 `;
 
 export const Paragraph = styled.p`
@@ -226,7 +245,7 @@ export const MiniHeader = styled.div`
   }
 
   a {
-    color: ${colors.purpleLinks};
+    color: ${colors.primary};
   }
 `;
 

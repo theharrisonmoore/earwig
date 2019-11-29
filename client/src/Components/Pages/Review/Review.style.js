@@ -6,12 +6,14 @@ import {
   organizations,
   size,
   breakpoints,
-  breakpointsMax
+  breakpointsMax,
+  borders,
 } from "../../../theme";
 
 export const ReviewWrapper = styled.div`
   font-family: "Roboto", sans-serif;
   text-align: left;
+  padding-bottom: 100px;
 
   .review-body {
     max-width: 40rem;
@@ -54,6 +56,7 @@ export const OrganizationPhone = styled.div`
 
 export const Header = styled.section`
   width: 100%;
+  /* max-width: 57.5rem; */
   display: flex;
   justify-content: center;
   background-color: ${props => organizations[props.orgType].primary};
@@ -63,6 +66,7 @@ export const Header = styled.section`
   margin: 0;
   position: fixed;
   z-index: 100;
+  max-width: 57.5rem;
 
   @media (max-width: ${size.mobileL}) {
     font-size: 1rem;
@@ -191,9 +195,14 @@ export const FormWrapper = styled.div`
 export const UserAgreement = styled.div``;
 
 export const Level2Header = styled.h2`
-  border-bottom: 1px solid ${colors.lightGray};
+  border-bottom: ${borders.commentBox};
   display: inline-block;
   color: ${colors.profileFontColor};
+  padding-top: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: normal;
+  width: 100%;
+  text-align: left;
 `;
 
 export const AgreementLabel = styled.label`
@@ -290,9 +299,20 @@ export const ErrorsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 1rem;
-`
+`;
 
 export const ErrorsTitle = styled.h4`
   font-size: 1rem;
-  color: ${colors.red}
-`
+  color: ${colors.red};
+`;
+
+export const GroupTitle = styled.h2`
+  border-bottom: ${borders.commentBox};
+  font-size: 1.75rem;
+  font-weight: normal;
+  color: ${colors.profileFontColor};
+`;
+
+export const GroupSection = styled.div`
+  padding-bottom: 1rem;
+`;

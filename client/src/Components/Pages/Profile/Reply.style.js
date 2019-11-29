@@ -1,46 +1,7 @@
 import styled from "styled-components";
 
-import { colors, organizations } from "./../../../theme";
-import { MOBILE_WIDTH } from "./../../../constants/screenWidths";
-
-export const Banner = styled.div`
-  background: ${props => organizations[`${props.category}`].primary};
-  width: 100%;
-  height: 4rem;
-  color: ${colors.white};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: capitalize;
-  position: fixed;
-  z-index: 2;
-  padding: 1rem 2rem;
-
-  p {
-    margin-bottom: 0;
-
-    span {
-      font-weight: 700;
-    }
-  }
-
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    height: 3rem;
-  }
-`;
-
-export const Cancel = styled.p`
-  font-size: 1.125rem;
-  font-weight: 700;
-  position: absolute;
-  left: 16px;
-  cursor: pointer;
-  text-decoration: underline;
-
-  @media (max-width: ${MOBILE_WIDTH}px) {
-    left: 8px;
-  }
-`;
+import { colors } from "../../../theme";
+import { MOBILE_WIDTH } from "../../../constants/screenWidths";
 
 export const Wrapper = styled.div`
   width: 100%;

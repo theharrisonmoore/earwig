@@ -3,9 +3,9 @@ import axios from "axios";
 import { Modal, Alert } from "antd";
 
 // COMMON
-import CancelNavbar from "./../../Common/CancelNavbar";
-import Button from "./../../Common/Button";
-import Select from "./../../Common/Select";
+import CancelNavbar from "../../Common/CancelNavbar";
+import Button from "../../Common/Button";
+import Select from "../../Common/Select";
 
 // STYLING
 import {
@@ -18,7 +18,7 @@ import {
   InputLabel,
   Input,
   FieldError,
-  InputDiv
+  InputDiv,
 } from "./EditProfile.style";
 
 // API ROUTES
@@ -31,8 +31,6 @@ export default class EditProfileSection extends Component {
     oldPassword: "",
     newPassword: "",
     reNewPassword: "",
-    verificationImage: "",
-    imageFile: "",
     newUsername: "",
     newTrade: "",
     newCity: "",
@@ -42,7 +40,7 @@ export default class EditProfileSection extends Component {
     fields: {},
     ismodalVisible: false,
     currentTradeName: "",
-    section: null
+    section: null,
   };
 
   componentDidMount() {
@@ -70,7 +68,7 @@ export default class EditProfileSection extends Component {
     const { searchTerm } = e.target.dataset;
     this.setState({
       ismodalVisible: true,
-      newTrade: searchTerm
+      newTrade: searchTerm,
     });
   };
 
@@ -79,7 +77,7 @@ export default class EditProfileSection extends Component {
     if (this.state.newTrade && this.state.newTrade.length >= 3) {
       this.setState(
         {
-          confirmLoading: true
+          confirmLoading: true,
         },
         () => {
           axios
@@ -91,19 +89,19 @@ export default class EditProfileSection extends Component {
                 trades: [{ value: data._id, label: data.title }],
                 tradeId: data._id,
                 disableSelect: true,
-                fields: { ...fields, newTrade: data._id }
+                fields: { ...fields, newTrade: data._id },
               });
 
               this.setState(
                 {
-                  newTradeSuccess: true
+                  newTradeSuccess: true,
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       newTradeSuccess: false,
                       ismodalVisible: false,
-                      confirmLoading: false
+                      confirmLoading: false,
                     });
                   }, 1000);
                 }
@@ -113,13 +111,13 @@ export default class EditProfileSection extends Component {
               this.setState(
                 {
                   newTradeSuccess: false,
-                  newTradeError: err.response.data.error
+                  newTradeError: err.response.data.error,
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       ismodalVisible: false,
-                      confirmLoading: false
+                      confirmLoading: false,
                     });
                   }, 1000);
                 }
@@ -129,7 +127,7 @@ export default class EditProfileSection extends Component {
       );
     } else if (this.state.newTrade.length < 3) {
       this.setState({
-        newTradeError: "Trade must be at least 3 characters long"
+        newTradeError: "Trade must be at least 3 characters long",
       });
     }
   };
@@ -137,7 +135,7 @@ export default class EditProfileSection extends Component {
   addNewTradeHandler = e => {
     const { name, value } = e.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -146,7 +144,7 @@ export default class EditProfileSection extends Component {
       ismodalVisible: false,
       newTradeSuccess: false,
       newTradeError: "",
-      newTrade: ""
+      newTrade: "",
     });
   };
 
@@ -157,9 +155,14 @@ export default class EditProfileSection extends Component {
 
   handleInput = event => {
     const { name, value } = event.target;
-    const { fields } = this.state;
-    fields[name] = value;
-    this.setState({ fields });
+    this.setState(state => {
+      return {
+        fields: {
+          ...state.fields,
+          [name]: value,
+        },
+      };
+    });
   };
 
   handleSubmit = event => {
@@ -180,7 +183,7 @@ export default class EditProfileSection extends Component {
         .catch(err => {
           this.setState({
             serverError: err.response.data.error,
-            isSubmitting: false
+            isSubmitting: false,
           });
         });
     } else {
@@ -267,7 +270,8 @@ export default class EditProfileSection extends Component {
     requiredFields.map(type => {
       if (fieldNames.includes(type) === false) {
         return (errors[type] = "Required");
-      } else return null;
+      }
+      return null;
     });
 
     // check for any other errors with the fields submitted
@@ -278,7 +282,7 @@ export default class EditProfileSection extends Component {
     });
 
     this.setState({ errors });
-    return Object.entries(errors).length > 0 ? false : true;
+    return !(Object.entries(errors).length > 0);
   };
 
   render() {
@@ -290,7 +294,8 @@ export default class EditProfileSection extends Component {
       ismodalVisible,
       confirmLoading,
       currentTradeName,
-      newTrade
+      newTrade,
+      fields,
     } = this.state;
 
     return (
@@ -307,18 +312,17 @@ export default class EditProfileSection extends Component {
                   use your real name or any name that could identify you
                 </SubTitle>
                 <Paragraph>
-                  Your earwig Username is shown beside your reviews and
-                  activity, and is publicly visible
+                  Your username is shown beside your reviews and activity, and
+                  is publicly visible
                 </Paragraph>
-                <CurrentValue>Current earwig Username: {userId}</CurrentValue>
+                <CurrentValue>Current username: {userId}</CurrentValue>
                 <InputDiv>
-                  <InputLabel htmlFor="newUsername">
-                    New earwig Username
-                  </InputLabel>
+                  <InputLabel htmlFor="newUsername">New username</InputLabel>
                   <Input
                     type="text"
                     name="newUsername"
                     id="newUsername"
+                    value={fields.newUsername}
                     onChange={this.handleInput}
                     onBlur={this.onBlurValidation}
                   />
@@ -334,6 +338,7 @@ export default class EditProfileSection extends Component {
                     type="password"
                     name="oldPassword"
                     id="oldPassword"
+                    value={fields.oldPassword}
                     onChange={this.handleInput}
                     onBlur={this.onBlurValidation}
                   />
@@ -345,6 +350,7 @@ export default class EditProfileSection extends Component {
                     type="password"
                     name="newPassword"
                     id="newPassword"
+                    value={fields.newPassword}
                     onChange={this.handleInput}
                     onBlur={this.onBlurValidation}
                   />
@@ -358,6 +364,7 @@ export default class EditProfileSection extends Component {
                     type="password"
                     name="reNewPassword"
                     id="reNewPassword"
+                    value={fields.reNewPassword}
                     onChange={this.handleInput}
                     onBlur={this.onBlurValidation}
                   />
@@ -373,7 +380,7 @@ export default class EditProfileSection extends Component {
                   <Select
                     id="newTrade"
                     name="newTrade"
-                    placeholder={"Select your trade"}
+                    placeholder="Choose your trade"
                     options={this.state.trades}
                     handleChange={value => {
                       this.handleChange(value);
@@ -383,6 +390,7 @@ export default class EditProfileSection extends Component {
                     isCreateNew
                     showSearch
                     addHandler={this.showModal}
+                    scrollToTop
                   />
                   <FieldError>{errors.newTrade}</FieldError>
                 </InputDiv>
@@ -436,6 +444,7 @@ export default class EditProfileSection extends Component {
                   type="text"
                   name="newCity"
                   id="newCity"
+                  value={fields.newCity}
                   onChange={this.handleInput}
                   onBlur={this.onBlurValidation}
                 />
@@ -450,12 +459,9 @@ export default class EditProfileSection extends Component {
                 onClick={this.handleSubmit}
                 disabled={isSubmitting}
                 loading={isSubmitting}
-              >
-                {section === "earwigId" && "Save new Username"}
-                {section === "password" && "Save new password"}
-                {section === "trade" && "Save new trade"}
-                {section === "city" && "Save new town or city"}
-              </Button>
+                styleType="primary"
+                text="Save"
+              ></Button>
             </div>
           </BorderedWrapper>
         </EditWrapper>

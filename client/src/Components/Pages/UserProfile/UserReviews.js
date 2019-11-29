@@ -8,18 +8,21 @@ import { Popconfirm, message, Modal } from "antd";
 
 import { Wrapper } from "./UserProfile.style";
 
-import { colors, breakpoints } from "../../../theme";
+import { colors, breakpoints, organizations } from "../../../theme";
 
-import Icon from "../../Common/Icon/Icon";
+import CommonLink from "../../Common/Link";
 
 const Paragraph = styled.p`
   margin: 0 auto;
-  margin-top: 3.5rem;
+  margin-top: 2rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid ${colors.veryLightGray};
   width: 90%;
   text-align: center;
-  margin-bottom: 3rem;
+
+  @media ${breakpoints.tablet} {
+    margin-top: 3.5rem;
+  }
 `;
 
 const BorderedWrapper = styled.div`
@@ -33,7 +36,6 @@ const BorderedWrapper = styled.div`
     max-width: 500px;
     margin: 0 auto;
     width: 90%;
-    margin-top: 1rem;
   }
 
   @media ${breakpoints.tablet} {
@@ -81,10 +83,10 @@ const Cancel = styled.p`
   cursor: pointer;
   text-decoration: none;
   /* pointer-events: none; */
-  border-bottom: 2px solid
-    ${({ cancelColor }) => cancelColor || colors.heliotrope};
+  /* border-bottom: 2px solid
+    ${({ cancelColor }) => cancelColor || colors.heliotrope}; */
 
-  color: ${({ cancelColor }) => cancelColor || colors.heliotrope};
+  color: ${colors.primary};
 `;
 
 // const LinkBtn = styled.button`
@@ -154,6 +156,7 @@ export default class UserReviews extends Component {
 
   render() {
     const { reviews, isLoading } = this.state;
+    console.log("reviews", reviews);
 
     return (
       <Wrapper>
@@ -175,16 +178,18 @@ export default class UserReviews extends Component {
                   reviews.map(review => {
                     return (
                       <ReviewItem data-id={review._id}>
-                        <Icon
-                          icon={review.organization.category}
-                          margin="0 1rem 0 0"
-                          height="2rem"
-                          width="2rem"
-                          color="grey"
+                        <CommonLink
+                          to={`/profile/${review && review.organization._id}`}
+                          type="colored"
+                          text={review.organization.name}
+                          style={{ width: "50%" }}
+                          color={
+                            organizations[
+                              review && review.organization.category
+                            ].primary
+                          }
                         />
-                        <p style={{ width: "50%" }}>
-                          {review.organization.name}
-                        </p>
+
                         <p style={{ width: "15%" }}>
                           {moment(review.createdAt).format("ll")}
                         </p>

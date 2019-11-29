@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import { Map } from "immutable";
-import { Input } from "antd";
 
 import {
   QuestionOptionsWrapper,
   InputWrapper,
   Options,
-  StyledInput
+  StyledInput,
 } from "../Question.style";
 
 class YesNo extends Component {
-  state = { showComment: false };
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     if (
       Map(this.props.state.answers).equals(Map(nextProps.state.answers)) &&
       Map(this.props.state.comments).equals(Map(nextProps.state.comments))
@@ -20,25 +18,25 @@ class YesNo extends Component {
     }
     return true;
   }
+
   render() {
     const {
       options,
       number,
       category,
-      hasComment,
       groupId,
       next,
       showNextQestion,
       handleChange,
       question,
-      state
+      state,
     } = this.props;
 
     return (
       <QuestionOptionsWrapper>
         <Options options={options.length}>
           <div className={`choices choices-${options.length}`}>
-            {options.map((option, i, arr) => {
+            {options.map(option => {
               return (
                 <InputWrapper
                   option={option}
@@ -52,44 +50,34 @@ class YesNo extends Component {
                     type="radio"
                     value={option}
                     className="radio-button"
-                    // onChange={handleChange}
-                    onChange={e => {
+                    onChange={handleChange}
+                    onClick={e => {
                       if (typeof next === "object" && next !== null) {
-                        let nextQ = next["yes"];
-                        let other = next["no"];
+                        let nextQ = next.yes;
+                        let other = next.no;
                         if (
                           option === "No" ||
                           option.includes("know") ||
                           option.includes("need") ||
                           option.includes("check")
                         ) {
-                          nextQ = next["no"];
-                          other = next["yes"];
+                          nextQ = next.no;
+                          other = next.yes;
                         }
                         showNextQestion(groupId, nextQ, other, number);
                       }
-                      handleChange(e);
-
-                      // toggle showCommetn on and off (only show it when asnwer is "No")
-                      if (e.target.value === "No") {
-                        this.setState({
-                          showComment: true
-                        });
-                      } else {
-                        this.setState({
-                          showComment: true
-                        });
-                      }
+                      // handleChange(e);
                     }}
                     checked={
-                      state.answers && state.answers[question.number] === option
-                        ? true
-                        : false
+                      !!(
+                        state.answers &&
+                        state.answers[question.number] === option
+                      )
                     }
                   />
                   <StyledInput
                     htmlFor={`${option}-${question.number}`}
-                    className={`yesno options-3`}
+                    className="yesno options-3"
                   >
                     {option}
                   </StyledInput>
@@ -97,15 +85,6 @@ class YesNo extends Component {
               );
             })}
           </div>
-          {hasComment && this.state.showComment && (
-            <Input.TextArea
-              placeholder="Add a comment..."
-              onChange={this.props.handleReviewChange}
-              data-type="comments"
-              value={state.comments[question.number]}
-              name={question.number}
-            />
-          )}
         </Options>
       </QuestionOptionsWrapper>
     );

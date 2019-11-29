@@ -27,15 +27,9 @@ const reviewSchema = new Schema({
     ref: "users",
     required: true,
   },
-  workPeriod: {
-    from: {
-      type: Date,
-      required: true,
-    },
-    to: {
-      type: Date,
-      required: true,
-    },
+  lastUse: {
+    type: Date,
+    required: true,
   },
   rate: {
     type: Number,

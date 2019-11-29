@@ -16,6 +16,7 @@ const dbConnection = async () => mongoose.disconnect().then(() => mongoose.conne
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
+  useUnifiedTopology: true,
 }));
 
 module.exports = dbConnection;

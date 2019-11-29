@@ -1,27 +1,30 @@
 import React from "react";
 
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { colors, shadows } from "../../theme";
 import { ButtonSpinner } from "./AntdComponents/Loading";
+import Icon from "./Icon/Icon";
 
-const ButtonElement = styled.button`
-  color: ${colors.white};
-  border: none;
-  box-shadow: ${shadows.buttonShadow};
+const sharedStyles = css`
   border-radius: 300px;
-  width: ${props => props.width || "100%"};
-
-  font-weight: 900;
+  /* width: ${props => props.width || "100%"}; */
+  min-height: 45px;
+  font-weight: bold;
   font-size: 1.125rem;
-  background-color: ${({ backgroundColor }) =>
-    backgroundColor || colors.heliotrope};
   outline: none;
   display: block;
-  padding: 0.75rem 0;
-  cursor: pointer;
+  padding: 0 1rem;
+  cursor: ${props =>
+    props.disabled || props.loading ? "not-allowed" : "pointer"};
   margin: ${props => props.margin || "2rem auto"};
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: ${({ width }) => width || "auto"};
+  background: none;
+  pointer-events: all !important;
 
   &:active {
     box-shadow: none;
@@ -35,6 +38,7 @@ const ButtonElement = styled.button`
     left: 0px;
     background: ${colors.btnClick};
     box-shadow: none;
+    border-radius: 300px;
     }
   }
 
@@ -53,42 +57,117 @@ const ButtonElement = styled.button`
     :hover,
     :active {
       color: ${colors.red};
+      border: 1px solid ${colors.red};
     }
 `}
 
   ${({ alignContent }) =>
-    alignContent
-      ? "display: flex; align-items: center; padding-left: 1.5rem;"
-      : ""}
+    alignContent ? "display: flex; align-items: center; " : ""}
 
   ${({ left }) => (left ? "margin-left: auto;" : "")}
 `;
+
+const primaryStyles = css`
+  color: ${colors.white};
+  border: none;
+  background-color: ${({ backgroundColor }) =>
+    backgroundColor || colors.primary};
+  box-shadow: ${shadows.buttonShadow};
+`;
+
+const secondaryStyles = css`
+  color: ${({ color }) => color || colors.primary};
+  border: 1px solid ${({ color }) => color || colors.primary};
+  background-color: ${({ backgroundColor }) => backgroundColor || colors.white};
+
+  &:active {
+    ::after {
+      left: -1px;
+      top: -1px;
+      width: calc(100% + 2px);
+      height: calc(100% + 2px);
+    }
+  }
+`;
+const dangerStyles = css`
+  color: ${({ color }) => color || colors.white};
+  border: 1px solid ${({ color }) => color || "#D0021B"};
+  background-color: ${({ backgroundColor }) => backgroundColor || "#D0021B"};
+
+  &:active {
+    ::after {
+      left: -1px;
+      top: -1px;
+      width: calc(100% + 2px);
+      height: calc(100% + 2px);
+    }
+  }
+`;
+
+const linkStyles = css`
+  color: ${({ color }) => color || colors.primary};
+  outline: none;
+  border: none;
+  display: inline;
+  text-align: left;
+  padding-left: 0;
+`;
+
+const ButtonElement = styled.button`
+  ${sharedStyles}
+  ${props => props.styleType === "primary" && primaryStyles}
+  ${props => props.styleType === "secondary" && secondaryStyles}
+  ${props => props.styleType === "link" && linkStyles}
+  ${props => props.styleType === "danger" && dangerStyles}
+`;
 /**
- * @example <Button loading={loading} onClick={this.handleSubmit} spinnerColor="red">
+ * @example <Button loading={loading} onClick={this.handleSubmit} spinnerColor="red" styleType="primary">
               Send
             </Button>
  */
 
 const Button = ({
   loading,
-  children,
+  text,
   spinnerColor,
   backgroundColor,
   danger,
   left,
+  styleType,
+  icon,
+  color,
+  disabled,
+  width,
   ...rest
 }) => {
   return (
     <>
       <ButtonElement
-        disabled={loading}
+        disabled={loading || disabled}
         danger={danger}
         backgroundColor={backgroundColor}
         left={left}
+        styleType={styleType}
+        color={color}
+        width={width}
         {...rest}
       >
-        {loading && <ButtonSpinner color={spinnerColor} />}
-        {children}
+        <span style={{ display: "flex", alignItems: "center" }}>
+          {loading ? (
+            <ButtonSpinner color={spinnerColor} />
+          ) : (
+            icon && (
+              <Icon
+                icon={icon}
+                width="23"
+                height="23"
+                margin="0 0.5rem 0 0"
+                color={color}
+              />
+            )
+          )}
+          {text}
+        </span>
       </ButtonElement>
     </>
   );

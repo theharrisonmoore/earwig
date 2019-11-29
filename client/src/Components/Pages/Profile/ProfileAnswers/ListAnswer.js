@@ -4,18 +4,15 @@ import { Link } from "react-router-dom";
 import {
   ListWrapper,
   ListItem,
-  Comment,
   ListComment,
-  PayrollItem
+  PayrollItem,
 } from "./ProfileAnswers.style";
-
-import { organizations } from "./../../../../theme";
 
 export default class ListAnswer extends Component {
   decideColor = questionCategory => {
     if (questionCategory === "agency") return "payroll";
-    else if (questionCategory === "payroll") return "agency";
-    else return questionCategory;
+    if (questionCategory === "payroll") return "agency";
+    return questionCategory;
   };
 
   getAverage = answers => {
@@ -34,30 +31,20 @@ export default class ListAnswer extends Component {
   };
 
   render() {
-    const { question, toggleComments, category } = this.props;
+    const { question } = this.props;
 
-    if (question.profileText === "Payroll charge") {
+    if (question.profileText === "This payroll charges you") {
       return (
         <ListWrapper>
           <ListComment>
             <PayrollItem color="payroll">
               £{this.getAverage(question.answers)} per timesheet
             </PayrollItem>
-            {question.answers.filter(answer => answer.comment).length > 0 ? (
-              <Comment
-                onClick={() => toggleComments(question)}
-                active
-                color={organizations[category].primary}
-              >
-                Comments
-              </Comment>
-            ) : (
-              <Comment>Comments</Comment>
-            )}
           </ListComment>
         </ListWrapper>
       );
-    } else if (question.profileText === "Recommended nearby shops and cafés") {
+    }
+    if (question.profileText === "Recommended nearby shops and cafés") {
       return (
         <ListWrapper style={{ paddingLeft: "2rem" }}>
           {question.answers.map((answer, index) => (
@@ -67,28 +54,28 @@ export default class ListAnswer extends Component {
           ))}
         </ListWrapper>
       );
-    } else {
-      return (
-        <ListWrapper>
-          {question.answers.map((answer, index) => (
-            <ListItem
-              color={
-                question.profileText === "Works with the following agencies"
-                  ? "agency"
-                  : question.category
-              }
-              key={index}
-            >
-              <Link
-                to={`/profile/${answer.answer._id}`}
-                style={{ color: "inherit" }}
-              >
-                {answer.answer.name}
-              </Link>
-            </ListItem>
-          ))}
-        </ListWrapper>
-      );
     }
+    return (
+      <ListWrapper>
+        {question.answers.map((answer, index) => (
+          <ListItem
+            color={
+              question.profileText ===
+              "This payroll works with the following agencies"
+                ? "agency"
+                : question.category
+            }
+            key={index}
+          >
+            <Link
+              to={`/profile/${answer.answer._id}`}
+              style={{ color: "inherit" }}
+            >
+              {answer.answer.name}
+            </Link>
+          </ListItem>
+        ))}
+      </ListWrapper>
+    );
   }
 }

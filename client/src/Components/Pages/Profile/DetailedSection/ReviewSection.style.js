@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-import { colors, borders } from "./../../../theme";
+import { colors, borders } from "../../../../theme";
+
+const titleFontSize = "18px";
+const titleFontWeight = "bold";
+
+const generalFontSize = "15px";
+const generalFontWeight = "normal";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -10,12 +16,12 @@ export const Wrapper = styled.div`
 `;
 
 export const SectionTitle = styled.h2`
-  font-size: 1.75rem;
+  font-size: ${({ sub }) => (sub ? generalFontSize : titleFontSize)};
   color: ${colors.profileFontColor};
-  border-bottom: ${borders.commentBox};
+  border-bottom: ${({ bordered }) => (bordered ? borders.commentBox : "none")};
   margin: 0;
-  margin-bottom: 1.75rem;
-  font-weight: medium;
+  margin-bottom: 1rem;
+  font-weight: ${titleFontWeight};
 `;
 
 export const QuestionWrapper = styled.div`
@@ -25,12 +31,19 @@ export const QuestionWrapper = styled.div`
 `;
 
 export const QuestionTitle = styled.h3`
-  font-size: 1.125rem;
+  font-size: ${generalFontSize};
   color: ${colors.profileFontColor};
-  font-weight: bold;
+  font-weight: ${generalFontWeight};
   margin: 0;
   margin-bottom: 0.5rem;
   text-align: left;
+`;
+
+export const HintText = styled.p`
+  margin: 0;
+  font-style: italic;
+  font-size: ${generalFontSize};
+  color: ${colors.profileFontColor};
 `;
 
 export const StarWrapper = styled(QuestionTitle)`
@@ -49,6 +62,18 @@ export const LightTitle = styled.div`
   font-weight: 500;
   font-size: 1rem;
   color: ${colors.profileFontColor};
+  border: ${({ bar }) => (bar ? `1px solid ${colors.inputBorder}80` : "none")};
+  text-align: ${({ bar }) => (bar ? `center` : "left")};
+  padding: ${({ large, image }) => {
+    if (image) {
+      return "5rem";
+    }
+    if (large) {
+      return "0.75rem 0";
+    }
+    return "0";
+  }};
+  width: 100%;
 
   p {
     margin-bottom: 0;

@@ -2,22 +2,22 @@ import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-import { colors } from "./../../../theme";
-import Button from "./../Button";
+import { colors } from "../../../theme";
+import Button from "../Button";
 
 import {
   Wrapper,
   CommentTitle,
   CommentBox,
-  LogInPrompt
+  LogInPrompt,
 } from "./CommentBox.style";
 
-import { LOGIN_URL } from "./../../../constants/naviagationUrls";
+import { LOGIN_URL } from "../../../constants/naviagationUrls";
 
 export default class index extends Component {
   state = {
     message: "",
-    loading: null
+    loading: null,
   };
 
   handleInput = event => {
@@ -41,7 +41,7 @@ export default class index extends Component {
             text:
               "Thanks for getting in touch. If required, we'll get back to you via email as soon as we can.",
             confirmButtonText: "Okay",
-            confirmButtonColor: colors.heliotrope
+            confirmButtonColor: colors.heliotrope,
           }).then(() => window.location.reload());
         })
         .catch(err => {
@@ -54,7 +54,7 @@ export default class index extends Component {
               err.response.data.error === "no credentials"
                 ? "Only logged in users are authorized to send messages. Please log in first."
                 : err.response.data.error,
-            confirmButtonText: "Close"
+            confirmButtonText: "Close",
           });
         });
     } else {
@@ -62,7 +62,7 @@ export default class index extends Component {
         type: "error",
         title: "Message empty",
         text: "Please write a message before sending",
-        confirmButtonText: "Close"
+        confirmButtonText: "Close",
       });
     }
   };
@@ -79,9 +79,12 @@ export default class index extends Component {
               placeholder="Enter your comments here..."
               onChange={this.handleInput}
             />
-            <Button loading={loading} onClick={this.handleSubmit}>
-              Send
-            </Button>
+            <Button
+              loading={loading}
+              onClick={this.handleSubmit}
+              styleType="primary"
+              text="Send message"
+            />
           </>
         ) : (
           <LogInPrompt to={LOGIN_URL}>

@@ -21,16 +21,17 @@ const marksStyle = {
 };
 
 class Number extends Component {
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     if (Map(this.props.state.answers).equals(Map(nextProps.state.answers))) {
       return false;
     }
     return true;
   }
+
   render() {
     const { props } = this;
     const { number, label, handleSliderChange, state, category } = props;
-    let { answers } = state && state;
+    const { answers } = state && state;
     if (!props && !props.options) {
       return null;
     }
@@ -39,21 +40,14 @@ class Number extends Component {
       <QuestionOptionsWrapper>
         <Options style={{ alignItems: "center" }}>
           <SliderWrapper
-            visibility={answers[number]}
+            visibility={answers[number] || answers[number] === 0}
             color={organizations[category].primary}
           >
-            <p>
-              £
-              <span
-                style={{
-                  color: organizations[category].primary,
-                  fontWeight: "700"
-                }}
-              >
-                {answers[number]}
-              </span>{" "}
-              {label}
-            </p>
+            {answers[number] || answers[number] === 0 ? (
+              <p>
+                £<span>{answers[number]}</span> {label}
+              </p>
+            ) : null}
 
             <Slider
               tooltipVisible={false}

@@ -35,6 +35,7 @@ import {
   ORG_STATUS_URL_SIGNUP,
   ORG_STATUS_URL_LOGIN,
   INVITE_WORKERS_URL,
+  PRE_REVIEW,
 } from "../constants/naviagationUrls";
 
 import Landing from "./Pages/Landing";
@@ -62,6 +63,7 @@ import EditProfileSection from "./Pages/EditProfile/EditProfileSection";
 import OrgCheck from "./Pages/OrgCheck";
 import Welcome from "./Pages/Welcome";
 import InviteWorkers from "./Pages/InviteWorkers";
+import PreReview from "./Pages/PreReview";
 
 import {
   FAQ,
@@ -87,7 +89,6 @@ export default function index(props) {
           {...props}
           Component={Review}
         />
-
         <PrivateRoute
           exact
           minimumLevel="LEVEL1"
@@ -95,7 +96,6 @@ export default function index(props) {
           {...props}
           Component={Review}
         />
-
         <PrivateRoute
           exact
           minimumLevel="LEVEL2"
@@ -104,7 +104,6 @@ export default function index(props) {
           Component={Thankyou}
           navbar
         />
-
         <PrivateRoute
           exact
           minimumLevel="LEVEL2"
@@ -113,7 +112,6 @@ export default function index(props) {
           Component={InviteWorkers}
           navbar
         />
-
         <PrivateRoute
           exact
           minimumLevel="LEVEL1"
@@ -121,7 +119,6 @@ export default function index(props) {
           {...props}
           Component={UploadImage}
         />
-
         <PrivateRoute
           exact
           minimumLevel="LEVEL0"
@@ -138,7 +135,6 @@ export default function index(props) {
           {...props}
           Component={Admin}
         />
-
         {/* target could be 'profile' or `review` */}
         <PrivateRoute
           exact
@@ -149,9 +145,8 @@ export default function index(props) {
           isTablet={isTablet}
           Component={Search}
           navbar
-          title="Read reviews & ratings"
+          title="Search"
         />
-
         <PrivateRoute
           minimumLevel="LEVEL2"
           path={ADD_PROFILE_URL}
@@ -161,7 +156,6 @@ export default function index(props) {
           Component={AddProfileSelection}
           navbar
         />
-
         <PrivateRoute
           minimumLevel="LEVEL2"
           path={ADD_PROFILE_START_REVIEW_URL}
@@ -171,7 +165,6 @@ export default function index(props) {
           Component={AddProfileStartReview}
           navbar
         />
-
         <PrivateRoute
           minimumLevel="LEVEL1"
           path={EDIT_PROFILE_URL}
@@ -181,9 +174,7 @@ export default function index(props) {
           isTablet={isTablet}
           Component={EditProfile}
         />
-
         {/* SUB EDIT PROFILE SECTIONS */}
-
         <PrivateRoute
           minimumLevel="LEVEL1"
           path={EDIT_ID_URL}
@@ -194,7 +185,6 @@ export default function index(props) {
           Component={EditProfileSection}
           section="earwigId"
         />
-
         <PrivateRoute
           minimumLevel="LEVEL1"
           path={EDIT_PASSWORD_URL}
@@ -205,7 +195,6 @@ export default function index(props) {
           Component={EditProfileSection}
           section="password"
         />
-
         <PrivateRoute
           minimumLevel="LEVEL1"
           path={EDIT_TRADE_URL}
@@ -216,7 +205,6 @@ export default function index(props) {
           Component={EditProfileSection}
           section="trade"
         />
-
         <PrivateRoute
           minimumLevel="LEVEL1"
           path={EDIT_CITY_URL}
@@ -227,7 +215,6 @@ export default function index(props) {
           Component={EditProfileSection}
           section="city"
         />
-
         <PrivateRoute
           minimumLevel="LEVEL1"
           path={DELETE_PROFILE_URL}
@@ -236,9 +223,7 @@ export default function index(props) {
           isTablet={isTablet}
           Component={DeleteProfile}
         />
-
         {/* END OF SUB EDIT PROFILE SECTIONS */}
-
         <PrivateRoute
           minimumLevel="LEVEL1"
           path={USER_PROFILE_URL}
@@ -259,7 +244,6 @@ export default function index(props) {
           navbar
           title="Reviews you've given"
         />
-
         <PrivateRoute
           minimumLevel="LEVEL0"
           path={CONFIRM_EMAIL_URL}
@@ -268,7 +252,6 @@ export default function index(props) {
           isTablet={isTablet}
           Component={JoinMailList}
         />
-
         <PrivateRoute
           minimumLevel="LEVEL0"
           path={FAQ_URL}
@@ -277,9 +260,8 @@ export default function index(props) {
           isTablet={isTablet}
           Component={FAQ}
           navbar
-          title="FAQ & explainer videos"
+          title="FAQ & how to use earwig"
         />
-
         <PrivateRoute
           minimumLevel="LEVEL0"
           path={RESOURCES_URL}
@@ -290,7 +272,6 @@ export default function index(props) {
           navbar
           title="Helpful stuff"
         />
-
         <PrivateRoute
           minimumLevel="LEVEL0"
           path={CONTACT_URL}
@@ -301,7 +282,6 @@ export default function index(props) {
           navbar
           title="Shape earwig"
         />
-
         <PrivateRoute
           minimumLevel="LEVEL0"
           path={PRIVACY_AND_TERMS_URL}
@@ -312,7 +292,6 @@ export default function index(props) {
           navbar
           title="Privacy & terms"
         />
-
         <PrivateRoute
           minimumLevel="LEVEL0"
           path={PRIVACY_URL}
@@ -323,7 +302,6 @@ export default function index(props) {
           navbar
           title="Privacy Policy"
         />
-
         <PrivateRoute
           minimumLevel="LEVEL0"
           path={COMMUNITY_GUIDELINES_URL}
@@ -334,7 +312,6 @@ export default function index(props) {
           navbar
           title="Community Guidlines"
         />
-
         <PrivateRoute
           minimumLevel="LEVEL0"
           path={TERMS_OF_USE_URL}
@@ -345,7 +322,6 @@ export default function index(props) {
           navbar
           title="Terms Of Use"
         />
-
         <PrivateRoute
           minimumLevel="LEVEL0"
           path={COOKIES_POLICY_URL}
@@ -356,7 +332,6 @@ export default function index(props) {
           navbar
           title="Privacy Policy"
         />
-
         <PrivateRoute
           minimumLevel="LEVEL1"
           path={REPORT_CONTENT_URL}
@@ -373,7 +348,6 @@ export default function index(props) {
           isTablet={isTablet}
           Component={Reply}
         />
-
         <PrivateRoute
           minimumLevel="LEVEL2"
           path={INTRO_URL}
@@ -382,7 +356,6 @@ export default function index(props) {
           isTablet={isTablet}
           Component={Intro}
         />
-
         <PrivateRoute
           minimumLevel="LEVEL1"
           path={ORG_STATUS_URL_SIGNUP}
@@ -392,7 +365,6 @@ export default function index(props) {
           type="sign-up"
           Component={OrgCheck}
         />
-
         <PrivateRoute
           minimumLevel="LEVEL1"
           path={ORG_STATUS_URL_LOGIN}
@@ -403,7 +375,6 @@ export default function index(props) {
           Component={OrgCheck}
           loggingIn
         />
-
         <Route
           exact
           path="/"
@@ -419,7 +390,6 @@ export default function index(props) {
             )
           }
         />
-
         <PrivateRoute
           minimumLevel="LEVEL0"
           path={WELCOME_URL}
@@ -428,6 +398,14 @@ export default function index(props) {
           isTablet={isTablet}
           Component={Welcome}
           navbar
+        />
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={PRE_REVIEW}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={PreReview}
         />
 
         <Route
@@ -445,7 +423,6 @@ export default function index(props) {
             )
           }
         />
-
         <Route
           exact
           path={LOGIN_URL}
@@ -461,7 +438,6 @@ export default function index(props) {
             )
           }
         />
-
         <Route
           path={RESET_PASSWORD_URL}
           render={linkProps =>
@@ -476,7 +452,6 @@ export default function index(props) {
             )
           }
         />
-
         {/* 404 Error Page -need to be created */}
         <Route render={() => <h1>Page Not Found</h1>} />
       </Switch>
