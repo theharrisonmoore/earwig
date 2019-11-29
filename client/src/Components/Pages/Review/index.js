@@ -584,7 +584,11 @@ class Review extends Component {
     return (
       <Layout type="center">
         <ReviewWrapper>
-          <Header orgType={category} style={{ marginBottom: "3rem" }}>
+          <Header
+            orgType={category}
+            style={{ marginBottom: "3rem" }}
+            id="review-header"
+          >
             <Content>
               <Paragraph
                 style={{ paddingRight: "1.5rem" }}

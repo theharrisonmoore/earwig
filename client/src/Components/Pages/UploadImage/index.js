@@ -262,6 +262,8 @@ export default class UploadImage extends Component {
                 isCreateNew
                 showSearch
                 addHandler={this.showModal}
+                id="trade"
+                scrollToTop
               />
               <div>
                 <div>
