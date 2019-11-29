@@ -4,7 +4,7 @@ import { EmailShareButton, WhatsappShareButton } from "react-share";
 import { colors } from "../../../theme";
 
 export const InviteWrapper = styled.div`
-  padding-top: 5rem;
+  /* padding-top: 5rem; */
   max-width: 20rem;
   margin: 0 auto;
   padding-bottom: 100px;
@@ -21,13 +21,15 @@ const SocialButtonsSharedStyle = css`
   cursor: pointer;
   flex-direction: column;
   align-items: center;
-  height: 55px;
+  height: 45px;
   width: 90px;
   border-radius: 300px;
   background-color: ${colors.primary};
   color: ${colors.white};
   font-weight: 700;
   margin-right: 12px;
+  font-size: 12px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
 `;
 
 export const FbShare = styled.div`
@@ -64,6 +66,6 @@ export const PromoParagraph = styled.p`
 `;
 
 export const Image = styled.img`
-  width: 23px;
-  height: 23px;
+  width: 20px;
+  height: 20px;
 `;
