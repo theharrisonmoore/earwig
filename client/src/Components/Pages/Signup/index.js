@@ -689,15 +689,20 @@ export default class Signup extends Component {
                       </CheckboxWrapper>
                       <FormikErrorMessage name="checkbox" component="div" />
                       {/* server errors */}
+
                       {error && (
                         <GeneralErrorMessage>{error}</GeneralErrorMessage>
                       )}
                       {/* formik errors */}
-                      {Object.values(errors).length > 0 && (
-                        <GeneralErrorMessage>
-                          {Object.values(errors)[0]}
-                        </GeneralErrorMessage>
-                      )}
+                      {Object.values(errors).length > 0 &&
+                        !(
+                          Object.values(errors)[0] ===
+                          "You must agree to the earwig Terms of use"
+                        ) && (
+                          <GeneralErrorMessage>
+                            {Object.values(errors)[0]}
+                          </GeneralErrorMessage>
+                        )}
                       <Button
                         type="submit"
                         disabled={isSubmitting}
