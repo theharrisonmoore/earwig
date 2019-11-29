@@ -9,7 +9,7 @@ import {
   MenuIcon,
   LogoutButton,
   PriorityIcon,
-  MenuWrapper
+  MenuWrapper,
 } from "./Menu.style";
 
 import { ToggleMenu } from "./Navbar.style";
@@ -21,14 +21,14 @@ import { colors } from "../../../theme";
 import {
   WELCOME_URL,
   PROFILE_URL,
-  RESOURCES_URL,
+  // RESOURCES_URL,
   CONTACT_URL,
   FAQ_URL,
   LOGIN_URL,
   PRIVACY_AND_TERMS_URL,
   ADMIN,
   MY_REVIEWS_URL,
-  INVITE_WORKERS_URL
+  INVITE_WORKERS_URL,
 } from "../../../constants/naviagationUrls";
 
 export default class Menu extends PureComponent {
@@ -41,13 +41,13 @@ export default class Menu extends PureComponent {
       awaitingReview,
       verified,
       history,
-      handleChangeState
+      handleChangeState,
     } = this.props;
     const data = {
       isAdmin,
       awaitingReview,
       verified,
-      isLoggedIn
+      isLoggedIn,
     };
 
     const isWorker = awaitingReview || verified;
@@ -68,7 +68,7 @@ export default class Menu extends PureComponent {
               style={{
                 fontSize: "19px",
                 color: colors.white,
-                marginRight: "16px"
+                marginRight: "16px",
               }}
             />
             Admin Dashboard
