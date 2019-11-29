@@ -71,7 +71,7 @@ const CancelNavbar = ({
   customAction,
 }) => {
   return (
-    <NavbarWrapper backgroundColor={backgroundColor}>
+    <NavbarWrapper backgroundColor={backgroundColor} id="cancel-navbar">
       <Cancel
         onClick={customAction || history.goBack}
         cancelColor={cancelColor}

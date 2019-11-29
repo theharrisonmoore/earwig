@@ -84,6 +84,8 @@ export default class SelectReason extends Component {
             placeholder="Choose a reason"
             value={this.props.reason}
             dropdownClassName="full-text-select"
+            id="report-reason"
+            scrollToTop
           />
         </SelectWrapper>
         <LargeParagraph

@@ -47,6 +47,8 @@ export const MenuItem = styled(NavLink)`
   border-radius: 3px; */
   color: ${colors.primary};
   padding: 0.5rem;
+  padding-right: ${({ extraRightPadding }) =>
+    extraRightPadding ? "1.25rem" : "0.5rem"}
   padding-left: 1rem;
   transition: all ease-in 0.2s;
   height: 3.5rem;
