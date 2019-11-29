@@ -33,7 +33,7 @@ export default class FAQ extends Component {
         <PurpleDiv width="25%" />
         <ContentWrapper
           width="50%"
-          style={{ padding: "3rem 4vw", paddingTop: "6rem" }}
+          style={{ padding: "3rem 4vw", paddingTop: "3rem" }}
         >
           <SubTitleGroup>
             <ScrollLink

@@ -18,7 +18,7 @@ export default class ShapeEarwig extends Component {
         <PurpleDiv width="25%" />
         <ContentWrapper
           width="50%"
-          style={{ maxWidth: "32rem", margin: "0 auto", paddingTop: "6rem" }}
+          style={{ maxWidth: "32rem", margin: "0 auto", paddingTop: "3rem" }}
         >
           <LargeParagraph>
             Have you got an idea for a new earwig feature or review question?

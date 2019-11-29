@@ -21,7 +21,7 @@ export default class PrivacyAndTerms extends Component {
         <PurpleDiv width="25%" />
         <ContentWrapper
           width="50%"
-          style={{ maxWidth: "32rem", margin: "0 auto", paddingTop: "6rem" }}
+          style={{ maxWidth: "32rem", margin: "0 auto", paddingTop: "3rem" }}
         >
           <LargeLink
             primary
