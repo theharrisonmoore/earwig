@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { message, Skeleton } from "antd";
 
-// import MonthlyReviews from "./ProfileAnswers/MonthlyReviews";
-import CommentsBox from "./ProfileAnswers/CommentsBox";
 import HeaderSection from "./HeaderSection";
 import OverviewSection from "./OverviewSection";
 import DetailedSection from "./DetailedSection";
@@ -115,6 +113,7 @@ export default class Profile extends Component {
     }
   }
 
+  // comments are disabled (will keep this until the testing finish)
   toggleComments = question => {
     const { commentsOpen } = this.state;
     // reset loading state and toggle comments box
@@ -166,10 +165,6 @@ export default class Profile extends Component {
       summary,
       reviewDetails,
       loaded,
-      commentsOpen,
-      commentsQuestion,
-      comments,
-      commentsLoaded,
       level,
       reviewsLast30Days,
       contractorAnswers,
@@ -217,7 +212,6 @@ export default class Profile extends Component {
               isTablet={isTablet}
               summary={summary}
               contractorAnswers={contractorAnswers}
-              //
               activeOverallId={activeOverallId}
               overallReplies={overallReplies}
               fetchOverallReplies={this.fetchOverallReplies}
@@ -238,22 +232,6 @@ export default class Profile extends Component {
               isTablet={isTablet}
               reviewDetails={reviewDetails}
               summary={summary}
-              toggleComments={this.toggleComments}
-            />
-          )}
-
-          {/* COMMENTS BOX */}
-          {commentsOpen && (
-            <CommentsBox
-              organization={summary}
-              question={commentsQuestion}
-              comments={comments}
-              commentsLoaded={commentsLoaded}
-              toggleComments={this.toggleComments}
-              isMobile={isMobile}
-              fetchComments={this.fetchComments}
-              verified={verified}
-              isAdmin={isAdmin}
             />
           )}
         </Wrapper>

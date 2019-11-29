@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import moment from "moment";
 import { Scatter } from "react-chartjs-2";
 
-import { organizations } from "./../../../../theme";
-
-import { Comment, RightCommentWrapper } from "./ProfileAnswers.style";
+import { organizations } from "../../../../theme";
 
 export default class ScatterAnswer extends Component {
   // displayName: "ScatterExample",
@@ -12,14 +10,14 @@ export default class ScatterAnswer extends Component {
   createData = answers => {
     const dataArr = answers.map(answer => ({
       x: moment(answer.createdAt),
-      y: answer.answer
+      y: answer.answer,
     }));
 
     return dataArr;
   };
 
   render() {
-    const { category, question, toggleComments } = this.props;
+    const { category, question } = this.props;
 
     const minDate = Number(
       moment(question.answers[0].createdAt)
@@ -49,14 +47,14 @@ export default class ScatterAnswer extends Component {
           pointHoverBorderWidth: 4,
           pointRadius: 4,
           pointHitRadius: 20,
-          data: this.createData(question.answers)
-        }
-      ]
+          data: this.createData(question.answers),
+        },
+      ],
     };
 
     const options = {
       legend: {
-        display: false
+        display: false,
       },
       scales: {
         xAxes: [
@@ -65,29 +63,16 @@ export default class ScatterAnswer extends Component {
             time: {
               unit: "month",
               min: minDate,
-              max: maxDate
-            }
-          }
-        ]
-      }
+              max: maxDate,
+            },
+          },
+        ],
+      },
     };
 
     return (
       <div>
         <Scatter data={data} options={options} />
-        <RightCommentWrapper>
-          {question.answers.filter(answer => answer.comment).length > 0 ? (
-            <Comment
-              onClick={() => toggleComments(question)}
-              active
-              color={organizations[category].primary}
-            >
-              Comments
-            </Comment>
-          ) : (
-            <Comment>Comments</Comment>
-          )}
-        </RightCommentWrapper>
       </div>
     );
   }

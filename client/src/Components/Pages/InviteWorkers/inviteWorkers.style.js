@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { EmailShareButton, WhatsappShareButton } from "react-share";
 
-import { organizations, colors } from "../../../theme";
+import { colors } from "../../../theme";
 
 export const InviteWrapper = styled.div`
-  padding-top: 5rem;
-  max-width: 17rem;
+  /* padding-top: 5rem; */
+  max-width: 20rem;
   margin: 0 auto;
   padding-bottom: 100px;
 `;
@@ -15,45 +15,33 @@ export const SocialIcons = styled.div`
   justify-content: space-between;
 `;
 
-export const FbShare = styled.div`
+const SocialButtonsSharedStyle = css`
   display: flex;
   justify-content: center;
   cursor: pointer;
   flex-direction: column;
   align-items: center;
-  height: 55px;
-  width: 80px;
-  border-radius: 6px;
-  background-color: ${organizations.agency.primary};
+  height: 45px;
+  width: 90px;
+  border-radius: 300px;
+  background-color: ${colors.primary};
   color: ${colors.white};
   font-weight: 700;
+  margin-right: 12px;
+  font-size: 12px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+`;
+
+export const FbShare = styled.div`
+  ${SocialButtonsSharedStyle}
+  margin-right: 0;
 `;
 
 export const WhatsappShare = styled(WhatsappShareButton)`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  background-color: ${organizations.agency.primary};
-  width: 80px;
-  height: 55px;
-  border-radius: 6px;
-  color: ${colors.white};
-  font-weight: 700;
+  ${SocialButtonsSharedStyle}
 `;
 export const EmailShare = styled(EmailShareButton)`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  background-color: ${organizations.agency.primary};
-  width: 80px;
-  height: 55px;
-  border-radius: 6px;
-  color: ${colors.white};
-  font-weight: 700;
+  ${SocialButtonsSharedStyle}
 `;
 
 export const ShareParagraph = styled.p`
@@ -78,6 +66,6 @@ export const PromoParagraph = styled.p`
 `;
 
 export const Image = styled.img`
-  width: 23px;
-  height: 23px;
+  width: 20px;
+  height: 20px;
 `;
