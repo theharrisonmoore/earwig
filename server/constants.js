@@ -1,21 +1,22 @@
 module.exports = {
   database: {
     ORGANIZATIONS_TYPE: ["company", "agency", "payroll", "worksite"],
-    SHORT_ID_CHARACTERS: "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@",
+    SHORT_ID_CHARACTERS:
+      "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@",
     PROFILE_SECTIONS: [
       "Key ratings",
       "Detailed ratings",
       "Getting on to site",
-      "Working on this site",
+      "Working on the site",
       "The site welfare",
       "Supervisors & employees",
-      "Tools & materials",
-    ],
+      "Tools & materials"
+    ]
   },
   tokenMaxAge: {
     string: "30d",
-    number: 2592000000,
+    number: 2592000000
   },
   referralPoints: 1,
-  resetTokenMaxAge: 3600000,
+  resetTokenMaxAge: 3600000
 };

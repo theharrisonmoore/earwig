@@ -59,7 +59,7 @@ module.exports = async () => {
         "Did this agency give you correct information about the hours you would work?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 5,
+      profileOrder: 3,
 
       group: {
         groupOrder: 0,
@@ -80,7 +80,7 @@ module.exports = async () => {
         "Did this agency give you correct information about the rate you would be paid?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 6,
+      profileOrder: 4,
       group: {
         groupOrder: 0,
         name: "general",
@@ -101,7 +101,7 @@ module.exports = async () => {
         "Did this agency give you correct information about the type of work you would do?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 7,
+      profileOrder: 5,
 
       group: {
         groupOrder: 0,
@@ -123,7 +123,7 @@ module.exports = async () => {
         "Did this agency give you correct information about the date your job would end?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 8,
+      profileOrder: 6,
 
       group: {
         groupOrder: 0,
@@ -185,7 +185,7 @@ module.exports = async () => {
       profileText: "This agency pays you using the following payroll types",
       profileSection: "Key ratings",
       profileType: "barChart",
-      profileOrder: 1,
+      profileOrder: 11,
 
       group: {
         groupOrder: 1,
@@ -207,7 +207,7 @@ module.exports = async () => {
       profileText: "Did this agency send you a contract?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 4,
+      profileOrder: 2,
 
       group: {
         groupOrder: 1,
@@ -232,7 +232,7 @@ module.exports = async () => {
       profileText: "This agency works with the following payroll companies",
       profileSection: "Key ratings",
       profileType: "payrollList",
-      profileOrder: 2,
+      profileOrder: 12,
 
       group: {
         groupOrder: 1,
@@ -273,7 +273,7 @@ module.exports = async () => {
       profileText: "Were you paid on time?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 9,
+      profileOrder: 7,
 
       group: {
         groupOrder: 1,
@@ -294,7 +294,7 @@ module.exports = async () => {
         "Were you paid the amount you expected (including any overtime)?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 10,
+      profileOrder: 8,
 
       group: {
         groupOrder: 1,
@@ -314,7 +314,7 @@ module.exports = async () => {
       profileText: "Were your payslips easily accessible?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 11,
+      profileOrder: 9,
 
       group: {
         groupOrder: 1,
@@ -334,7 +334,7 @@ module.exports = async () => {
       profileText: "Did the payslips show all the information you needed?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 12,
+      profileOrder: 10,
 
       group: {
         groupOrder: 1,
@@ -354,7 +354,7 @@ module.exports = async () => {
       profileText: "Overall, would you be happy to use this agency again?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 3,
+      profileOrder: 1,
 
       group: {
         groupOrder: 2,
@@ -377,7 +377,7 @@ module.exports = async () => {
       profileText: "This payroll charges you",
       profileSection: "Key ratings",
       profileType: "list",
-      profileOrder: 1,
+      profileOrder: 8,
 
       group: {
         groupOrder: 0,
@@ -396,7 +396,7 @@ module.exports = async () => {
       profileText: "This payroll pays you using the following payroll types",
       profileSection: "Key ratings",
       profileType: "barChart",
-      profileOrder: 2,
+      profileOrder: 9,
 
       group: {
         groupOrder: 0,
@@ -420,7 +420,7 @@ module.exports = async () => {
       profileText: "Did this payroll send you a contract?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 7,
+      profileOrder: 4,
 
       group: {
         groupOrder: 0,
@@ -444,7 +444,7 @@ module.exports = async () => {
         "Did this payroll send you a contract before your work started?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 8,
+      profileOrder: 5,
 
       group: {
         groupOrder: 0,
@@ -464,7 +464,7 @@ module.exports = async () => {
       profileText: "Were you paid on time?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 5,
+      profileOrder: 2,
 
       group: {
         groupOrder: 0,
@@ -485,7 +485,7 @@ module.exports = async () => {
         "Were you paid the amount you expected (including any overtime)?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 6,
+      profileOrder: 3,
 
       group: {
         groupOrder: 0,
@@ -504,7 +504,7 @@ module.exports = async () => {
       profileText: "Were your payslips easily accessible?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 9,
+      profileOrder: 6,
       group: {
         groupOrder: 0,
         name: "general",
@@ -523,7 +523,7 @@ module.exports = async () => {
       profileText: "Did the payslips show all the information you needed?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 10,
+      profileOrder: 7,
 
       group: {
         groupOrder: 0,
@@ -544,7 +544,7 @@ module.exports = async () => {
       profileText: "This payroll works with the following agencies",
       profileSection: "Key ratings",
       profileType: "list",
-      profileOrder: 3,
+      profileOrder: 10,
 
       group: {
         groupOrder: 0,
@@ -563,7 +563,7 @@ module.exports = async () => {
       profileText: "Overall, would you be happy to use this payroll again?",
       profileSection: "Key ratings",
       profileType: "yesno",
-      profileOrder: 4,
+      profileOrder: 1,
 
       group: {
         groupOrder: 1,
@@ -586,7 +586,7 @@ module.exports = async () => {
       profileText: "Public transport within 10 mins walk of site",
       profileSection: "Getting on to site",
       profileType: "siteItem",
-      profileOrder: 1,
+      profileOrder: 2,
 
       group: {
         groupOrder: 0,
@@ -612,7 +612,7 @@ module.exports = async () => {
       profileText: "Car parking within 10 mins walk of this site",
       profileSection: "Getting on to site",
       profileType: "siteItem",
-      profileOrder: 2,
+      profileOrder: 3,
 
       group: {
         groupOrder: 0,
@@ -650,7 +650,7 @@ module.exports = async () => {
       profileText: "Storage for your personal belongings at this site",
       profileSection: "Getting on to site",
       profileType: "siteItem",
-      profileOrder: 3,
+      profileOrder: 4,
 
       group: {
         groupOrder: 0,
@@ -673,7 +673,7 @@ module.exports = async () => {
       profileText: "Fingerprint scanners/eye-recognition to access this site",
       profileSection: "Getting on to site",
       profileType: "siteItem",
-      profileOrder: 4,
+      profileOrder: 5,
 
       group: {
         groupOrder: 0,
@@ -695,7 +695,7 @@ module.exports = async () => {
       profileText: "5-point PPE must be worn at all times on this site",
       profileSection: "Getting on to site",
       profileType: "siteItem",
-      profileOrder: 5,
+      profileOrder: 6,
 
       group: {
         groupOrder: 0,
@@ -714,9 +714,9 @@ module.exports = async () => {
       label: "Choose main contractor",
 
       profileText: "Main contractor",
-      profileSection: "Working on this site",
-      profileType: "siteItem",
-      profileOrder: 1,
+      profileSection: "Working on the site",
+      // profileType: "siteItem",
+      // profileOrder: 1,
 
       group: {
         groupOrder: 0,
@@ -735,14 +735,14 @@ module.exports = async () => {
       category: "worksite",
 
       profileText: "Were the work areas tidy?",
-      profileSection: "Working on this site",
+      profileSection: "Working on the site",
       profileType: "yesno",
-      profileOrder: 2,
+      profileOrder: 7,
 
       group: {
         groupOrder: 1,
         name: "onTheSite",
-        text: "Working on this site",
+        text: "Working on the site",
       },
       hasComment: true,
     },
@@ -757,14 +757,14 @@ module.exports = async () => {
       category: "worksite",
 
       profileText: "Did you find it easy to get around this site?",
-      profileSection: "Working on this site",
+      profileSection: "Working on the site",
       profileType: "yesno",
-      profileOrder: 3,
+      profileOrder: 8,
 
       group: {
         groupOrder: 1,
         name: "onTheSite",
-        text: "Working on this site",
+        text: "Working on the site",
       },
       hasComment: true,
     },
@@ -778,14 +778,14 @@ module.exports = async () => {
       category: "worksite",
 
       profileText: "Did you feel it was safe to work on this site?",
-      profileSection: "Working on this site",
+      profileSection: "Working on the site",
       profileType: "yesno",
-      profileOrder: 4,
+      profileOrder: 9,
 
       group: {
         groupOrder: 1,
         name: "onTheSite",
-        text: "Working on this site",
+        text: "Working on the site",
       },
       hasComment: true,
     },
@@ -801,14 +801,14 @@ module.exports = async () => {
       category: "worksite",
 
       profileText: "Photos of this site",
-      profileSection: "Key ratings",
+      profileSection: "Working on the site",
       profileType: "image",
-      profileOrder: 2,
+      profileOrder: 10,
 
       group: {
         groupOrder: 1,
         name: "onTheSite",
-        text: "Working on this site",
+        text: "Working on the site",
       },
       hasComment: false,
     },
@@ -825,7 +825,7 @@ module.exports = async () => {
       profileText: "Were the toilets well maintained?",
       profileSection: "The site welfare",
       profileType: "yesno",
-      profileOrder: 1,
+      profileOrder: 11,
 
       group: {
         groupOrder: 2,
@@ -845,7 +845,7 @@ module.exports = async () => {
       profileText: "Prayer room on this site",
       profileSection: "The site welfare",
       profileType: "siteItem",
-      profileOrder: 3,
+      profileOrder: 12,
 
       group: {
         groupOrder: 2,
@@ -870,7 +870,7 @@ module.exports = async () => {
       profileText: "Canteen on this site with:",
       profileSection: "The site welfare",
       profileType: "canteenItem",
-      profileOrder: 4,
+      profileOrder: 13,
 
       group: {
         groupOrder: 2,
@@ -917,7 +917,7 @@ module.exports = async () => {
       profileText: "Shops for hot food within 10 mins walk of this site",
       profileSection: "The site welfare",
       profileType: "siteItem",
-      profileOrder: 5,
+      profileOrder: 14,
 
       group: {
         groupOrder: 2,
@@ -938,7 +938,7 @@ module.exports = async () => {
       profileText: "Can buy hot food and a drink for less than £5",
       profileSection: "The site welfare",
       profileType: "siteItem",
-      profileOrder: 6,
+      profileOrder: 15,
 
       group: {
         groupOrder: 2,
@@ -960,7 +960,7 @@ module.exports = async () => {
       profileText: "Recommended nearby shops and cafés",
       profileSection: "The site welfare",
       profileType: "list",
-      profileOrder: 7,
+      profileOrder: 16,
 
       group: {
         groupOrder: 2,
@@ -989,7 +989,9 @@ module.exports = async () => {
       hasComment: false,
     },
 
+
     /* ============================= company ================================== */
+
     // supervisors & employees
     {
       number: 1,
@@ -1004,7 +1006,7 @@ module.exports = async () => {
         "Did you feel the supervisor shared all the information you needed to complete your tasks?",
       profileSection: "Supervisors & employees",
       profileType: "yesno",
-      profileOrder: 1,
+      profileOrder: 2,
 
       group: {
         groupOrder: 0,
@@ -1024,7 +1026,7 @@ module.exports = async () => {
       profileText: "Did you feel the supervisor treated you with respect?",
       profileSection: "Supervisors & employees",
       profileType: "yesno",
-      profileOrder: 2,
+      profileOrder: 3,
 
       group: {
         groupOrder: 0,
@@ -1046,7 +1048,7 @@ module.exports = async () => {
         "Did you feel the company’s other employees treated you with respect?",
       profileSection: "Supervisors & employees",
       profileType: "yesno",
-      profileOrder: 3,
+      profileOrder: 4,
 
       group: {
         groupOrder: 0,
@@ -1070,7 +1072,7 @@ module.exports = async () => {
         "Did this company offer you all the equipment and materials you needed to complete your tasks?",
       profileSection: "Tools & materials",
       profileType: "yesno",
-      profileOrder: 2,
+      profileOrder: 5,
 
       group: {
         groupOrder: 1,
@@ -1092,7 +1094,7 @@ module.exports = async () => {
         "Did this company offer you secure storage for your tools overnight?",
       profileSection: "Tools & materials",
       profileType: "yesno",
-      profileOrder: 4,
+      profileOrder: 6,
 
       group: {
         groupOrder: 1,
@@ -1114,7 +1116,7 @@ module.exports = async () => {
         "Did you feel this company asked you to work unsafely?",
       profileSection: "Tools & materials",
       profileType: "yesno",
-      profileOrder: 4,
+      profileOrder: 7,
 
       group: {
         groupOrder: 1,

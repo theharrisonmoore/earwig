@@ -62,3 +62,8 @@ export const PromoParagraph = styled.p`
   letter-spacing: 0.34px;
   opacity: 0.8;
 `;
+
+export const Image = styled.img`
+  width: 23px;
+  height: 23px;
+`;

@@ -390,6 +390,7 @@ export default class EditProfileSection extends Component {
                     isCreateNew
                     showSearch
                     addHandler={this.showModal}
+                    scrollToTop
                   />
                   <FieldError>{errors.newTrade}</FieldError>
                 </InputDiv>

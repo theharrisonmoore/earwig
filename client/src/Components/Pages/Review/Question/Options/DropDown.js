@@ -194,6 +194,7 @@ class DropDown extends Component {
             // disabled={this.state.disableSelect}
             isCreateNew
             addHandler={this.showModal}
+            scrollToTop
           />
           <div>
             <Modal
