@@ -9,7 +9,7 @@ import {
   MenuIcon,
   LogoutButton,
   PriorityIcon,
-  MenuWrapper,
+  MenuWrapper
 } from "./Menu.style";
 
 import { ToggleMenu } from "./Navbar.style";
@@ -28,7 +28,7 @@ import {
   PRIVACY_AND_TERMS_URL,
   ADMIN,
   MY_REVIEWS_URL,
-  INVITE_WORKERS_URL,
+  INVITE_WORKERS_URL
 } from "../../../constants/naviagationUrls";
 
 export default class Menu extends PureComponent {
@@ -41,13 +41,13 @@ export default class Menu extends PureComponent {
       awaitingReview,
       verified,
       history,
-      handleChangeState,
+      handleChangeState
     } = this.props;
     const data = {
       isAdmin,
       awaitingReview,
       verified,
-      isLoggedIn,
+      isLoggedIn
     };
 
     const isWorker = awaitingReview || verified;
@@ -68,7 +68,7 @@ export default class Menu extends PureComponent {
               style={{
                 fontSize: "19px",
                 color: colors.white,
-                marginRight: "16px",
+                marginRight: "16px"
               }}
             />
             Admin Dashboard
@@ -130,9 +130,13 @@ export default class Menu extends PureComponent {
               </MenuItem>
             )}
             {isWorker && (
-              <MenuItem to={RESOURCES_URL} onClick={toggleMenu}>
+              <MenuItem
+                to="//www.earwigwork.com/blog"
+                target="_blank"
+                onClick={toggleMenu}
+              >
                 <MenuIcon icon="helpfulLinks" height="19" width="19" />
-                Stuff you might find helpful
+                Helpfull Stuff
               </MenuItem>
             )}
             {isWorker && (
