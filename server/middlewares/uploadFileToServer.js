@@ -19,7 +19,7 @@ module.exports = fieldName => (req, res, next) => {
       const [fileName] = file.originalname.split(".");
 
       if (fieldName === "worksiteImage") {
-        cb(null, `${fileName}-${Date.now()}.${extention}`);
+        cb(null, `temp-${fileName}-${Date.now()}.${extention}`);
       } else {
         cb(null, `${fileName}-${Date.now()}.${"mp3"}`);
       }

@@ -1,7 +1,8 @@
 const boom = require("boom");
+const sharp = require("sharp");
 
+const fs = require("fs").promises;
 const { admin } = require("../config");
-
 
 /**
  * function returns a middleware
@@ -25,8 +26,9 @@ module.exports = (required, isVoice, fieldName) => async (req, res, next) => {
       gzip: true,
     };
 
+    const { size } = req.file;
+
     if (isVoice) {
-      const { size } = req.file;
       options.metadata = {
         contentType: "application/octet-stream",
         acceptRanges: "bytes",
@@ -34,11 +36,21 @@ module.exports = (required, isVoice, fieldName) => async (req, res, next) => {
         contentRange: `bytes 0-${size - 1}/${size}`,
       };
     }
-    const [file] = await bucket.upload(req.file.path, options);
-    req.file.uploadedFileName = file.name;
-    req.fieldName = fieldName;
-    return next();
+
+    const newPath = req.file.path.replace("temp-", "");
+
+    return sharp(req.file.path).resize(1024, 1024, {
+      fit: sharp.fit.inside,
+      withoutEnlargement: true,
+    }).toBuffer(async (err, buffer) => {
+      await fs.writeFile(newPath, buffer);
+
+      const [file] = await bucket.upload(newPath, options);
+      req.file.uploadedFileName = file.name;
+      req.fieldName = fieldName;
+      return next();
+    });
   } catch (error) {
-    next(boom.badImplementation(error));
+    return next(boom.badImplementation(error));
   }
 };
