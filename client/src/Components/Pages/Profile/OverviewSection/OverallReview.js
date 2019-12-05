@@ -526,8 +526,7 @@ class OverallReview extends Component {
                             >
                               {level < 3 && reply.replies.user._id === userId && (
                                 <Alert
-                                  message="Your replies are visible only for you untill you get
-                    verified"
+                                  message="Your replies are only visible to you until we've checked your verification photo."
                                   type="warning"
                                   style={{
                                     display: "inline-block",
