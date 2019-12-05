@@ -22,14 +22,13 @@ export default class Profile extends Component {
     commentsQuestion: null,
     comments: null,
     commentsLoaded: false,
-    level: 0,
     organizationID: "",
     overallReplies: [],
     activeOverallId: "",
     contractorAnswers: [],
     reviewsLast30Days: [],
     FilteredReviewMonths: [],
-    activeTab: "overview"
+    activeTab: "overview",
   };
 
   myDivToFocus = React.createRef();
@@ -43,7 +42,7 @@ export default class Profile extends Component {
     if (this.myDivToFocus.current) {
       this.myDivToFocus.current.scrollIntoView({
         behavior: "smooth",
-        block: "start"
+        block: "start",
       });
     }
   };
@@ -54,7 +53,7 @@ export default class Profile extends Component {
     axios
       .get(`/api/profile/${organizationID}`)
       .then(res => {
-        const { summary, reviewDetails, level, reviewsLast30Days } = res.data;
+        const { summary, reviewDetails, reviewsLast30Days } = res.data;
 
         const { reviews } = summary[0];
 
@@ -75,12 +74,11 @@ export default class Profile extends Component {
         this.setState({
           summary: summary[0],
           reviewDetails,
-          level,
           loaded: true,
           organizationID,
           contractorAnswers,
           reviewsLast30Days,
-          FilteredReviewMonths
+          FilteredReviewMonths,
         });
       })
       .catch(err => {
@@ -133,7 +131,7 @@ export default class Profile extends Component {
         this.setState({
           comments: res.data,
           commentsLoaded: true,
-          commentsQuestion: question
+          commentsQuestion: question,
         });
       })
       .catch(err => {
@@ -165,14 +163,13 @@ export default class Profile extends Component {
       summary,
       reviewDetails,
       loaded,
-      level,
       reviewsLast30Days,
       contractorAnswers,
       FilteredReviewMonths,
       organizationID,
       activeTab,
       activeOverallId,
-      overallReplies
+      overallReplies,
     } = this.state;
 
     const {
@@ -182,7 +179,8 @@ export default class Profile extends Component {
       isAdmin,
       id,
       awaitingReview,
-      history
+      history,
+      level,
     } = this.props;
 
     // if (!loaded) return <Loading />;
