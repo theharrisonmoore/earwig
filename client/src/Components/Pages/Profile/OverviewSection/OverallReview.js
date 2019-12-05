@@ -305,7 +305,8 @@ class OverallReview extends Component {
       writtenOrAudioReviews,
       updatedUsers,
     } = this.state;
-    const isAuthorized = authorization({
+
+    const { isAuthorized } = authorization({
       isAdmin,
       verified,
       awaitingReview,
