@@ -68,7 +68,7 @@ export default class Reply extends Component {
     return schema
       .validate(
         {
-          comment: this.state.commentContentState,
+          comment: this.state.commentContentState.trim(),
           user: this.state.user,
         },
         { abortEarly: false }
@@ -89,7 +89,7 @@ export default class Reply extends Component {
       if (res) {
         this.setState({ errors: {}, submitting: true }, () => {
           const data = {
-            text: this.state.commentContentState,
+            text: this.state.commentContentState.trim(),
             displayName: this.state.user,
             reviewId,
             target,

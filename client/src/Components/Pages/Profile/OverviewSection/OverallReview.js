@@ -306,11 +306,11 @@ class OverallReview extends Component {
       updatedUsers,
     } = this.state;
 
-    const { isAuthorized } = authorization({
+    const { isAuthorized, level } = authorization({
       isAdmin,
       verified,
       awaitingReview,
-      minimumLevel: "LEVEL2",
+      minimumLevel: "LEVEL3",
     });
 
     return FilteredReviewMonths[0] && FilteredReviewMonths[0].createdAt ? (
@@ -389,7 +389,9 @@ class OverallReview extends Component {
                       {review.user._id !== userId && (
                         <>
                           <Button
-                            onClick={isAuthorized && this.toggleHelpful}
+                            onClick={
+                              isAuthorized ? this.toggleHelpful : undefined
+                            }
                             id={review._id}
                             data-user-id={review.user._id}
                             data-type={review.category}
@@ -400,7 +402,7 @@ class OverallReview extends Component {
                                 : "voiceReview"
                             }
                             data-category={category}
-                            disabled={!(verified || awaitingReview)}
+                            disabled={level < 2}
                             text="Helpful"
                             styleType="secondary"
                             color={
@@ -420,7 +422,7 @@ class OverallReview extends Component {
                         </>
                       )}
                       <Button
-                        onClick={(verified || awaitingReview) && this.goTOReply}
+                        onClick={level >= 2 ? this.goTOReply : undefined}
                         data-target={
                           review.category === "written"
                             ? "overallReview"
@@ -429,7 +431,7 @@ class OverallReview extends Component {
                         data-category={category}
                         data-org-id={orgId}
                         data-review-id={review._id}
-                        disabled={!(verified || awaitingReview)}
+                        disabled={level < 2}
                         text="Reply"
                         styleType="secondary"
                         color={colors.primary}
@@ -522,7 +524,7 @@ class OverallReview extends Component {
                                   "rtl"}`,
                               }}
                             >
-                              {!verified && reply.replies.user._id === userId && (
+                              {level < 3 && reply.replies.user._id === userId && (
                                 <Alert
                                   message="Your replies are visible only for you untill you get
                     verified"
