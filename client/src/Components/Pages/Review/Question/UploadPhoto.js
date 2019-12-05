@@ -25,82 +25,87 @@ export default class UploadImage extends Component {
   handleImageChange = event => {
     const image = event.target.files && event.target.files[0];
 
-    const reader = new FileReader();
+    if (image) {
+      const reader = new FileReader();
 
-    Swal.fire({
-      title: "Uploading!",
-      onBeforeOpen: () => {
-        Swal.showLoading();
-        reader.onload = e => {
-          // GET EXIF DATA FROM IMAGE
-          let Orientation = 1;
-          if (e.target.result && !e.target.result.includes("data:image/png")) {
-            const exifObj = piexif.load(e.target.result);
-            const exifData = {};
-            for (const ifd in exifObj) {
-              if (ifd === "thumbnail") {
-                continue;
+      Swal.fire({
+        title: "Uploading!",
+        onBeforeOpen: () => {
+          Swal.showLoading();
+          reader.onload = e => {
+            // GET EXIF DATA FROM IMAGE
+            let Orientation = 1;
+            if (
+              e.target.result &&
+              !e.target.result.includes("data:image/png")
+            ) {
+              const exifObj = piexif.load(e.target.result);
+              const exifData = {};
+              for (const ifd in exifObj) {
+                if (ifd === "thumbnail") {
+                  continue;
+                }
+                for (const tag in exifObj[ifd]) {
+                  exifData[piexif.TAGS[ifd][tag].name] = exifObj[ifd][tag];
+                }
               }
-              for (const tag in exifObj[ifd]) {
-                exifData[piexif.TAGS[ifd][tag].name] = exifObj[ifd][tag];
+              this.setState({ exifData });
+
+              // get the orientation data
+              // eslint-disable-next-line prefer-destructuring
+              Orientation = exifData.Orientation;
+            }
+            // rename the image to include the orientation data
+            const newImageFile = new File(
+              [image],
+              `${image.name.split(".")[0]}_orient:${Orientation || 1}.${
+                image.type.split("/")[1]
+              }`,
+              {
+                type: image.type,
               }
-            }
-            this.setState({ exifData });
+            );
 
-            // get the orientation data
-            // eslint-disable-next-line prefer-destructuring
-            Orientation = exifData.Orientation;
-          }
-          // rename the image to include the orientation data
-          const newImageFile = new File(
-            [image],
-            `${image.name.split(".")[0]}_orient:${Orientation || 1}.${
-              image.type.split("/")[1]
-            }`,
-            {
-              type: image.type,
-            }
-          );
+            const form = new FormData();
 
-          const form = new FormData();
-
-          const dataURL = reader.result;
-          this.setState({
-            image: dataURL,
-          });
-          form.append("worksiteImage", newImageFile);
-          axios({
-            method: "post",
-            url: API_UPLOAD_WORKSITE_IMAGE_URL,
-            data: form,
-            headers: {
-              "content-type": `multipart/form-data; boundary=${form._boundary}`,
-            },
-          })
-            .then(res => {
-              Swal.fire({
-                type: "success",
-                title: "Done!",
-                showConfirmButton: false,
-                timer: 1500,
-              }).then(() => {
-                this.props.handleSliderChange(
-                  res.data.image,
-                  this.props.number
-                );
-              });
-            })
-            .catch(err => {
-              Swal.fire({
-                type: "error",
-                title: "Oops...",
-                text: err.response.data.error,
-              });
+            const dataURL = reader.result;
+            this.setState({
+              image: dataURL,
             });
-        };
-      },
-    });
-    reader.readAsDataURL(image);
+            form.append("worksiteImage", newImageFile);
+            axios({
+              method: "post",
+              url: API_UPLOAD_WORKSITE_IMAGE_URL,
+              data: form,
+              headers: {
+                "content-type": `multipart/form-data; boundary=${form._boundary}`,
+              },
+            })
+              .then(res => {
+                Swal.fire({
+                  type: "success",
+                  title: "Done!",
+                  showConfirmButton: false,
+                  timer: 1500,
+                }).then(() => {
+                  this.props.handleSliderChange(
+                    res.data.image,
+                    this.props.number
+                  );
+                });
+              })
+              .catch(err => {
+                Swal.fire({
+                  type: "error",
+                  title: "Oops...",
+                  text: err.response.data.error,
+                });
+              });
+          };
+        },
+      });
+      reader.readAsDataURL(image);
+    }
   };
 
   render() {
