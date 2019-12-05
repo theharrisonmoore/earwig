@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -32,21 +33,24 @@ export default class UploadImage extends Component {
         Swal.showLoading();
         reader.onload = e => {
           // GET EXIF DATA FROM IMAGE
-          const exifObj = piexif.load(e.target.result);
-          const exifData = {};
-          for (const ifd in exifObj) {
-            if (ifd === "thumbnail") {
-              continue;
+          let Orientation = 1;
+          if (e.target.result && !e.target.result.includes("data:image/png")) {
+            const exifObj = piexif.load(e.target.result);
+            const exifData = {};
+            for (const ifd in exifObj) {
+              if (ifd === "thumbnail") {
+                continue;
+              }
+              for (const tag in exifObj[ifd]) {
+                exifData[piexif.TAGS[ifd][tag].name] = exifObj[ifd][tag];
+              }
             }
-            for (const tag in exifObj[ifd]) {
-              exifData[piexif.TAGS[ifd][tag].name] = exifObj[ifd][tag];
-            }
+            this.setState({ exifData });
+
+            // get the orientation data
+            // eslint-disable-next-line prefer-destructuring
+            Orientation = exifData.Orientation;
           }
-          this.setState({ exifData });
-
-          // get the orientation data
-          const { Orientation } = exifData;
-
           // rename the image to include the orientation data
           const newImageFile = new File(
             [image],

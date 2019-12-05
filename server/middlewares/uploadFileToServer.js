@@ -7,8 +7,6 @@ const boom = require("boom");
  */
 
 module.exports = fieldName => (req, res, next) => {
-  console.log("fieldName", fieldName);
-
   // storage config
   const storage = multer.diskStorage({
     destination(destinationReq, file, cb) {
@@ -17,17 +15,14 @@ module.exports = fieldName => (req, res, next) => {
     filename(fileReq, file, cb) {
       const extention = file.originalname.split(".")[file.originalname.split(".").length - 1];
 
-      console.log("file", file);
 
-      let fileName;
+      const [fileName] = file.originalname.split(".");
 
       if (fieldName === "worksiteImage") {
-        fileName = `${file.originalname.split(".")[0]}`;
+        cb(null, `${fileName}-${Date.now()}.${extention}`);
       } else {
-        fileName = file.originalname.split(".")[0];
+        cb(null, `${fileName}-${Date.now()}.${"mp3"}`);
       }
-      // const fileName = file.originalname.split(".")[0];
-      cb(null, `${fileName}-${Date.now()}.${"mp3"}`);
     },
   });
 
