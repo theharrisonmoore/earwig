@@ -11,14 +11,13 @@ module.exports = (req, res, next) => {
     if (err) return next(boom.badImplementation("Error while uploading photo"));
 
     if (filePath.includes("temp-")) {
-      fs.unlink(
+      return fs.unlink(
         filePath.replace("temp-", ""), (err2) => {
           if (err2) return next(boom.badImplementation("Error while uploading photo"));
           return next();
         },
       );
-    } else {
-      return next();
     }
+    return next();
   });
 };

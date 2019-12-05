@@ -36,20 +36,24 @@ module.exports = (required, isVoice, fieldName) => async (req, res, next) => {
         contentRange: `bytes 0-${size - 1}/${size}`,
       };
     }
-
+    let file;
     const newPath = req.file.path.replace("temp-", "");
 
-    return sharp(req.file.path).resize(1024, 1024, {
-      fit: sharp.fit.inside,
-      withoutEnlargement: true,
-    }).toBuffer(async (err, buffer) => {
-      await fs.writeFile(newPath, buffer);
+    if (!isVoice) {
+      const buffer = await sharp(req.file.path).resize(1024, 1024, {
+        fit: sharp.fit.inside,
+        withoutEnlargement: true,
+      }).toBuffer();
 
-      const [file] = await bucket.upload(newPath, options);
-      req.file.uploadedFileName = file.name;
-      req.fieldName = fieldName;
-      return next();
-    });
+      await fs.writeFile(newPath, buffer);
+      file = await bucket.upload(newPath, options);
+    } else {
+      file = await bucket.upload(req.file.path, options);
+    }
+    req.file.uploadedFileName = file[0].name;
+    req.fieldName = fieldName;
+    req.isVoice = isVoice;
+    return next();
   } catch (error) {
     return next(boom.badImplementation(error));
   }
