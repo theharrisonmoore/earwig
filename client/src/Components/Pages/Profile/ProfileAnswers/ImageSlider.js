@@ -104,9 +104,11 @@ class Slider extends React.Component {
       <>
         {isOpen && (
           <Lightbox
-            mainSrc={images[activeIndex]}
-            nextSrc={images[(activeIndex + 1) % images.length]}
-            prevSrc={images[(activeIndex + images.length - 1) % images.length]}
+            mainSrc={images[activeIndex].link}
+            nextSrc={images[(activeIndex + 1) % images.length].link}
+            prevSrc={
+              images[(activeIndex + images.length - 1) % images.length].link
+            }
             onCloseRequest={this.onCloseRequest}
             onMovePrevRequest={this.onMovePrevRequest}
             onMoveNextRequest={this.onMoveNextRequest}
