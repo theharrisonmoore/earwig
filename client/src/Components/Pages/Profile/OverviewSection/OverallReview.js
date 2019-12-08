@@ -5,6 +5,8 @@ import { Link, withRouter } from "react-router-dom";
 import { Collapse, Icon as AntdIcon, message, Alert, Rate } from "antd";
 import axios from "axios";
 
+import { getVerifiedUsers, getVerifiedRepliesCount } from "../utils";
+
 import Icon from "../../../Common/Icon/Icon";
 
 import { organizations, colors } from "../../../../theme";
@@ -208,27 +210,20 @@ class OverallReview extends Component {
 
     if (summary)
       summary.reviews.forEach(review => {
-        const verifiedUsers = [];
-        [
+        const verifiedUsers = getVerifiedUsers([
           ...review.overallReview.allRepliesUsers,
           review.voiceReview.allRepliesUsers,
-        ].forEach(user => {
-          if (user.verified) {
-            verifiedUsers.push(user._id);
-          }
-        });
+        ]);
 
         const { overallReview, voiceReview } = review;
 
         // check for writtenReview and add to array
         if (overallReview && overallReview.text) {
-          const repliesCount =
-            (
-              review.overallReview.replies &&
-              review.overallReview.replies.filter(({ user }) =>
-                verifiedUsers.includes(user)
-              )
-            ).length || 0;
+          const repliesCount = getVerifiedRepliesCount(
+            review.overallReview.replies,
+            verifiedUsers
+          );
+
           totalReviews.push({
             text: review.overallReview.text,
             repliesCount,
@@ -244,13 +239,11 @@ class OverallReview extends Component {
 
         // check for audioReview and add to array
         if (voiceReview && voiceReview.audio) {
-          const repliesCount =
-            (
-              review.voiceReview.replies &&
-              review.voiceReview.replies.filter(({ user }) =>
-                verifiedUsers.includes(user)
-              )
-            ).length || 0;
+          const repliesCount = getVerifiedRepliesCount(
+            review.voiceReview.replies,
+            verifiedUsers
+          );
+
           totalReviews.push({
             text: review.voiceReview.audio,
             repliesCount,
