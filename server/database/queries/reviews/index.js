@@ -285,11 +285,27 @@ module.exports.basicReview = organizationID => Organization.aggregate([
         },
         {
           $limit: 3,
+        }, {
+          $lookup: {
+            from: "users",
+            localField: "voiceReview.replies.user",
+            foreignField: "_id",
+            as: "voiceReview.allRepliesUsers",
+          },
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "overallReview.replies.user",
+            foreignField: "_id",
+            as: "overallReview.allRepliesUsers",
+          },
         },
       ],
       as: "reviews",
     },
   },
+
   {
     $addFields: {
       // store the total number of reviews
@@ -308,6 +324,8 @@ module.exports.basicReview = organizationID => Organization.aggregate([
       websiteURL: 0,
       phoneNumber: 0,
       email: 0,
+      "reviews.overallReview.allRepliesUsers.password": 0,
+      "reviews.voiceReview.allRepliesUsers.password": 0,
     },
   },
 ]);

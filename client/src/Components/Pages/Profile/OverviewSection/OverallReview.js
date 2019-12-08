@@ -217,8 +217,7 @@ class OverallReview extends Component {
         if (review.voiceReview.allRepliesUsers) {
           replies = [...replies, ...review.voiceReview.allRepliesUsers];
         }
-        const verifiedUsers = getVerifiedUsers([replies]);
-
+        const verifiedUsers = getVerifiedUsers(replies);
         const { overallReview, voiceReview } = review;
 
         // check for writtenReview and add to array
