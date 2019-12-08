@@ -13,7 +13,7 @@ const schemas = {
     tradeId: Joi.string()
       .length(24)
       .required(),
-    city: Joi.string().required(),
+    city: Joi.string().allow(""),
   },
   signup: {
     email: Joi.string()
@@ -33,11 +33,7 @@ const schemas = {
     isWorker: Joi.string()
       .valid(["yes", "no"], "Must select an option")
       .required("Required"),
-    city: Joi.string().when("isWorker", {
-      is: true,
-      then: Joi.string().required("city is required"),
-      otherwise: Joi.allow("").optional(),
-    }),
+    city: Joi.string().allow(""),
     trade: Joi.string()
       .when("isWorker", { is: "no", then: Joi.allow("").optional() })
       .when("isWorker", { is: "yes", then: Joi.required("trade is required") }),
@@ -68,7 +64,7 @@ const schemas = {
       .optional(),
     newUsername: Joi.string().max(15),
     newTrade: Joi.any(),
-    newCity: Joi.string(),
+    newCity: Joi.string().allow(""),
   },
   addTrade: {
     trade: Joi.string()
