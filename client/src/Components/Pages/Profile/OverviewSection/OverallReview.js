@@ -208,15 +208,27 @@ class OverallReview extends Component {
 
     if (summary)
       summary.reviews.forEach(review => {
+        const verifiedUsers = [];
+        [
+          ...review.overallReview.allRepliesUsers,
+          review.voiceReview.allRepliesUsers,
+        ].forEach(user => {
+          if (user.verified) {
+            verifiedUsers.push(user._id);
+          }
+        });
+
         const { overallReview, voiceReview } = review;
 
         // check for writtenReview and add to array
         if (overallReview && overallReview.text) {
           const repliesCount =
-            (review.overallReview.replies &&
-              review.overallReview.replies.length) ||
-            0;
-
+            (
+              review.overallReview.replies &&
+              review.overallReview.replies.filter(({ user }) =>
+                verifiedUsers.includes(user)
+              )
+            ).length || 0;
           totalReviews.push({
             text: review.overallReview.text,
             repliesCount,
@@ -233,8 +245,12 @@ class OverallReview extends Component {
         // check for audioReview and add to array
         if (voiceReview && voiceReview.audio) {
           const repliesCount =
-            (review.voiceReview.replies && review.voiceReview.replies.length) ||
-            0;
+            (
+              review.voiceReview.replies &&
+              review.voiceReview.replies.filter(({ user }) =>
+                verifiedUsers.includes(user)
+              )
+            ).length || 0;
           totalReviews.push({
             text: review.voiceReview.audio,
             repliesCount,

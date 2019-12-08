@@ -145,6 +145,23 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
     {
       $unwind: { path: "$reviews", preserveNullAndEmptyArrays: true },
     },
+    {
+      $lookup: {
+        from: "users",
+        localField: "reviews.overallReview.replies.user",
+        foreignField: "_id",
+        as: "reviews.overallReview.allRepliesUsers",
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "reviews.voiceReview.replies.user",
+        foreignField: "_id",
+        as: "reviews.voiceReview.allRepliesUsers",
+      },
+    },
+
 
     // {
     //   $project: {
@@ -170,7 +187,6 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
         as: "reviews.user.trade",
       },
     },
-
     {
       $project: {
         "reviews.user.email": 0,
@@ -178,9 +194,10 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
         "reviews.user.password": 0,
         "reviews.user.createdAt": 0,
         "reviews.user.updatedAt": 0,
+        "reviews.overallReview.allRepliesUsers.password": 0,
+        "reviews.voiceReview.allRepliesUsers.password": 0,
       },
     },
-
     {
       $group: {
         _id: "$_id",
