@@ -60,7 +60,7 @@ export default class CanteenItemAnswer extends Component {
                 height={isMobile ? "50" : "2rem"}
                 width={isMobile ? "50" : "2rem"}
               />
-              <p>Canteen</p>
+              <p>Canteen on this site</p>
             </CanteenItem>
             {questions
               .filter(
@@ -102,7 +102,7 @@ export default class CanteenItemAnswer extends Component {
               height="1.5rem"
               width="1.5rem"
             />
-            <p>Canteen</p>
+            <p>Canteen on this site</p>
           </CanteenItem>
         )}
       </ListWrapper>
