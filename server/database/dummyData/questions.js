@@ -64,9 +64,9 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "general",
-        text: "General",
+        text: "General"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 2,
@@ -84,9 +84,9 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "general",
-        text: "General",
+        text: "General"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 3,
@@ -106,9 +106,9 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "general",
-        text: "General",
+        text: "General"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 4,
@@ -128,9 +128,9 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "general",
-        text: "General",
+        text: "General"
       },
-      hasComment: true,
+      hasComment: true
     },
     // new section ( add popup for this Q.)
     {
@@ -150,15 +150,15 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "wages",
-        text: "Getting your wages",
+        text: "Getting your wages"
       },
-      hasComment: false,
+      hasComment: false
     },
     {
       number: 6,
       next: {
         yes: 9,
-        no: 7,
+        no: 7
       },
       type: "yesno",
       text: "Were you paid via a payroll company?",
@@ -167,9 +167,9 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "wages",
-        text: "Getting your wages",
+        text: "Getting your wages"
       },
-      hasComment: false,
+      hasComment: false
     },
     // //////////////////////
     // No branch
@@ -190,9 +190,9 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "wages",
-        text: "Getting your wages",
+        text: "Getting your wages"
       },
-      hasComment: false,
+      hasComment: false
     },
     {
       number: 8,
@@ -212,9 +212,9 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "wages",
-        text: "Getting your wages",
+        text: "Getting your wages"
       },
-      hasComment: false,
+      hasComment: false
     },
 
     // ///////////////////////
@@ -237,9 +237,9 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "wages",
-        text: "Getting your wages",
+        text: "Getting your wages"
       },
-      hasComment: false,
+      hasComment: false
     },
     {
       number: 10,
@@ -256,9 +256,9 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "wages",
-        text: "Getting your wages",
+        text: "Getting your wages"
       },
-      hasComment: false,
+      hasComment: false
     },
 
     // //////////////////
@@ -278,9 +278,9 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "wages",
-        text: "Getting your wages",
+        text: "Getting your wages"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 12,
@@ -299,9 +299,9 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "wages",
-        text: "Getting your wages",
+        text: "Getting your wages"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 13,
@@ -319,9 +319,9 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "wages",
-        text: "Getting your wages",
+        text: "Getting your wages"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 14,
@@ -339,9 +339,9 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "wages",
-        text: "Getting your wages",
+        text: "Getting your wages"
       },
-      hasComment: true,
+      hasComment: true
     },
     // new section (overall rating)
     {
@@ -359,9 +359,9 @@ module.exports = async () => {
       group: {
         groupOrder: 2,
         name: "overall",
-        text: "Overall rating",
+        text: "Overall rating"
       },
-      hasComment: false,
+      hasComment: false
     },
 
     /* =========================== questionsPayroll ==================================== */
@@ -382,8 +382,8 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "general",
-        text: "General",
-      },
+        text: "General"
+      }
     },
     {
       number: 2,
@@ -401,15 +401,15 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "general",
-        text: "General",
+        text: "General"
       },
-      hasComment: false,
+      hasComment: false
     },
     {
       number: 3,
       next: {
         yes: 4,
-        no: 5,
+        no: 5
       },
       type: "yesno",
       text: "Did this payroll send you a contract?",
@@ -425,9 +425,9 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "general",
-        text: "General",
+        text: "General"
       },
-      hasComment: true,
+      hasComment: true
     },
 
     {
@@ -449,9 +449,9 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "general",
-        text: "General",
+        text: "General"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 5,
@@ -469,9 +469,9 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "general",
-        text: "General",
+        text: "General"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 6,
@@ -490,9 +490,9 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "general",
-        text: "General",
+        text: "General"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 7,
@@ -508,9 +508,9 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "general",
-        text: "General",
+        text: "General"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 8,
@@ -528,9 +528,9 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "general",
-        text: "General",
+        text: "General"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 9,
@@ -549,9 +549,9 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "general",
-        text: "General",
+        text: "General"
       },
-      hasComment: false,
+      hasComment: false
     },
     {
       number: 10,
@@ -568,9 +568,9 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "overall",
-        text: "Overall rating",
+        text: "Overall rating"
       },
-      hasComment: false,
+      hasComment: false
     },
 
     /* =============================== worksite =============================== */
@@ -591,18 +591,18 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "getToSite",
-        text: "Getting on to site",
+        text: "Getting on to site"
       },
 
       hasComment: false,
-      icon: "bus",
+      icon: "bus"
     },
     {
       number: 2,
       next: {
         yes: 3,
         no: 4,
-        idk: 4,
+        idk: 4
       },
       type: "radio",
       text: "Was there car parking within 10 minutes walk of this site?",
@@ -617,10 +617,10 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "getToSite",
-        text: "Getting on to site",
+        text: "Getting on to site"
       },
       hasComment: false,
-      icon: "parkingSign",
+      icon: "parkingSign"
     },
     {
       number: 3,
@@ -633,9 +633,9 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "getToSite",
-        text: "Getting on to site",
+        text: "Getting on to site"
       },
-      hasComment: false,
+      hasComment: false
     },
     {
       number: 4,
@@ -655,10 +655,10 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "getToSite",
-        text: "Getting on to site",
+        text: "Getting on to site"
       },
       hasComment: false,
-      icon: "lockers",
+      icon: "lockers"
     },
 
     {
@@ -678,10 +678,10 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "getToSite",
-        text: "Getting on to site",
+        text: "Getting on to site"
       },
       hasComment: false,
-      icon: "fingerprint",
+      icon: "fingerprint"
     },
     {
       number: 6,
@@ -700,10 +700,10 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "getToSite",
-        text: "Getting on to site",
+        text: "Getting on to site"
       },
       hasComment: false,
-      icon: "gasmask",
+      icon: "gasmask"
     },
     {
       number: 7,
@@ -721,9 +721,9 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "getToSite",
-        text: "Getting on to site",
+        text: "Getting on to site"
       },
-      hasComment: false,
+      hasComment: false
     },
 
     {
@@ -742,9 +742,9 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "onTheSite",
-        text: "Working on the site",
+        text: "Working on the site"
       },
-      hasComment: true,
+      hasComment: true
     },
 
     {
@@ -764,9 +764,9 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "onTheSite",
-        text: "Working on the site",
+        text: "Working on the site"
       },
-      hasComment: true,
+      hasComment: true
     },
 
     {
@@ -785,9 +785,9 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "onTheSite",
-        text: "Working on the site",
+        text: "Working on the site"
       },
-      hasComment: true,
+      hasComment: true
     },
 
     {
@@ -808,9 +808,9 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "onTheSite",
-        text: "Working on the site",
+        text: "Working on the site"
       },
-      hasComment: false,
+      hasComment: false
     },
 
     // new section (The site welfare)
@@ -830,9 +830,9 @@ module.exports = async () => {
       group: {
         groupOrder: 2,
         name: "siteWelfare",
-        text: "The site welfare",
+        text: "The site welfare"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 13,
@@ -850,17 +850,17 @@ module.exports = async () => {
       group: {
         groupOrder: 2,
         name: "siteWelfare",
-        text: "The site welfare",
+        text: "The site welfare"
       },
       hasComment: false,
-      icon: "prayerRoom",
+      icon: "prayerRoom"
     },
     {
       number: 14,
       next: {
         yes: 15,
         no: 16,
-        idk: 16,
+        idk: 16
       },
       type: "radio",
       text: "Did this site have a canteen or space to take a break?",
@@ -875,9 +875,9 @@ module.exports = async () => {
       group: {
         groupOrder: 2,
         name: "siteWelfare",
-        text: "The site welfare",
+        text: "The site welfare"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 15,
@@ -891,7 +891,7 @@ module.exports = async () => {
         "Tables and chairs",
         "Microwave",
         "Kettle/boiling water",
-        "Fridge",
+        "Fridge"
       ],
       category: "worksite",
 
@@ -901,9 +901,9 @@ module.exports = async () => {
       group: {
         groupOrder: 2,
         name: "siteWelfare",
-        text: "The site welfare",
+        text: "The site welfare"
       },
-      hasComment: false,
+      hasComment: false
     },
     {
       number: 16,
@@ -922,10 +922,10 @@ module.exports = async () => {
       group: {
         groupOrder: 2,
         name: "siteWelfare",
-        text: "The site welfare",
+        text: "The site welfare"
       },
       hasComment: false,
-      icon: "hotFood",
+      icon: "hotFood"
     },
     {
       number: 17,
@@ -943,10 +943,10 @@ module.exports = async () => {
       group: {
         groupOrder: 2,
         name: "siteWelfare",
-        text: "The site welfare",
+        text: "The site welfare"
       },
       hasComment: false,
-      icon: "cheapFood",
+      icon: "cheapFood"
     },
     {
       number: 18,
@@ -965,9 +965,9 @@ module.exports = async () => {
       group: {
         groupOrder: 2,
         name: "siteWelfare",
-        text: "The site welfare",
+        text: "The site welfare"
       },
-      hasComment: false,
+      hasComment: false
     },
     {
       number: 19,
@@ -984,11 +984,10 @@ module.exports = async () => {
       group: {
         groupOrder: 3,
         name: "overall",
-        text: "Overall rating",
+        text: "Overall rating"
       },
-      hasComment: false,
+      hasComment: false
     },
-
 
     /* ============================= company ================================== */
 
@@ -1011,9 +1010,9 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "supervisorsAndEmployees",
-        text: "Supervisors & employees",
+        text: "Supervisors & employees"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 2,
@@ -1031,9 +1030,9 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "supervisorsAndEmployees",
-        text: "Supervisors & employees",
+        text: "Supervisors & employees"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 3,
@@ -1053,9 +1052,9 @@ module.exports = async () => {
       group: {
         groupOrder: 0,
         name: "supervisorsAndEmployees",
-        text: "Supervisors & employees",
+        text: "Supervisors & employees"
       },
-      hasComment: true,
+      hasComment: true
     },
 
     // Tools & materials
@@ -1063,8 +1062,8 @@ module.exports = async () => {
       number: 4,
       next: 5,
       type: "yesno",
-      text: "Did this company offer you all the equipment and materials you needed to complete your tasks?",
-      hintText: "eg stepladders, harnesses, lifters, etc.",
+      text:
+        "Did this company offer you all the equipment and materials you needed to complete your tasks?",
       options: ["Yes", "No", "Yes, but I didn't need it"],
       category: "company",
 
@@ -1077,9 +1076,9 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "toolsAndMaterials",
-        text: "Tools & materials",
+        text: "Tools & materials"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 5,
@@ -1099,21 +1098,19 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "toolsAndMaterials",
-        text: "Tools & materials",
+        text: "Tools & materials"
       },
-      hasComment: true,
+      hasComment: true
     },
     {
       number: 6,
       next: 7,
       type: "yesno",
-      text:
-        "Did you feel this company asked you to work unsafely?",
+      text: "Did you feel this company asked you to work unsafely?",
       options: ["Yes", "No"],
       category: "company",
 
-      profileText:
-        "Did you feel this company asked you to work unsafely?",
+      profileText: "Did you feel this company asked you to work unsafely?",
       profileSection: "Tools & materials",
       profileType: "yesno",
       profileOrder: 7,
@@ -1121,11 +1118,10 @@ module.exports = async () => {
       group: {
         groupOrder: 1,
         name: "toolsAndMaterials",
-        text: "Tools & materials",
+        text: "Tools & materials"
       },
-      hasComment: true,
+      hasComment: true
     },
-
 
     // new section (overall)
     {
@@ -1135,7 +1131,8 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "company",
 
-      profileText: "Overall, would you be happy to work for this company again?",
+      profileText:
+        "Overall, would you be happy to work for this company again?",
       profileSection: "Key ratings",
       profileType: "yesno",
       profileOrder: 1,
@@ -1143,10 +1140,10 @@ module.exports = async () => {
       group: {
         groupOrder: 2,
         name: "overall",
-        text: "Overall rating",
+        text: "Overall rating"
       },
-      hasComment: false,
-    },
+      hasComment: false
+    }
   ];
   return Question.create(questions);
 };
