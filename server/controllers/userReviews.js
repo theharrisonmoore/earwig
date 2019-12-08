@@ -10,7 +10,7 @@ const getUserReviews = async (req, res, next) => {
     const userReviews = await getUserReviewsQuery(user._id);
     res.send(userReviews);
   } catch (err) {
-    next(boom.badImplementation());
+    next(boom.badImplementation(err));
   }
 };
 

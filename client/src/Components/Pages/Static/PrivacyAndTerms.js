@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import paperIcon from "../../../assets/paper-icon.svg";
 import {
   Wrapper,
   ContentWrapper,
-  MainIcon,
-  PageTitle,
   LargeLink,
+  BlueDiv,
+  PurpleDiv,
 } from "../../Common/StaticPages.style";
-
-import Layout from "../../Common/Layout";
 
 import {
   COMMUNITY_GUIDELINES_URL,
@@ -20,33 +17,32 @@ import {
 export default class PrivacyAndTerms extends Component {
   render() {
     return (
-      <Layout type="side" position="right">
-        <Wrapper>
-          <ContentWrapper
-            style={{ maxWidth: "32rem", margin: "0 auto", paddingTop: "6rem" }}
+      <Wrapper>
+        <PurpleDiv width="25%" />
+        <ContentWrapper
+          width="50%"
+          style={{ maxWidth: "32rem", margin: "0 auto", paddingTop: "3rem" }}
+        >
+          <LargeLink
+            primary
+            target="_blank"
+            to={COMMUNITY_GUIDELINES_URL}
+            style={{ marginTop: "40px" }}
           >
-            <PageTitle>Privacy & terms</PageTitle>
-            <MainIcon src={paperIcon} />
-            <LargeLink
-              primary
-              target="_blank"
-              to={COMMUNITY_GUIDELINES_URL}
-              style={{ marginTop: "40px" }}
-            >
-              earwig Community Guidelines
-            </LargeLink>
-            <LargeLink primary target="_blank" to={TERMS_OF_USE_URL}>
-              Terms of Use
-            </LargeLink>
-            <LargeLink primary target="_blank" to={PRIVACY_URL}>
-              Privacy Policy
-            </LargeLink>
-            <LargeLink primary target="_blank" to={COOKIES_POLICY_URL}>
-              Cookies Policy
-            </LargeLink>
-          </ContentWrapper>
-        </Wrapper>
-      </Layout>
+            earwig Community Guidelines
+          </LargeLink>
+          <LargeLink primary target="_blank" to={TERMS_OF_USE_URL}>
+            Terms of Use
+          </LargeLink>
+          <LargeLink primary target="_blank" to={PRIVACY_URL}>
+            Privacy Policy
+          </LargeLink>
+          <LargeLink primary target="_blank" to={COOKIES_POLICY_URL}>
+            Cookies Policy
+          </LargeLink>
+        </ContentWrapper>
+        <BlueDiv width="25%" />
+      </Wrapper>
     );
   }
 }

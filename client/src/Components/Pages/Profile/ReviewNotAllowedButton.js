@@ -6,7 +6,7 @@ import Button from "../../Common/Button";
 import { SIGNUP_URL } from "../../../constants/naviagationUrls";
 import { AccountLink } from "./Profile.style";
 
-const SignUpSection = ({ category, location, sticky }) => {
+const ReviewNotAllowedButton = ({ category, location, sticky }) => {
   return (
     <AccountLink
       sticky={sticky}
@@ -25,4 +25,4 @@ const SignUpSection = ({ category, location, sticky }) => {
   );
 };
 
-export default withRouter(SignUpSection);
+export default withRouter(ReviewNotAllowedButton);

@@ -52,6 +52,8 @@ export default class Menu extends PureComponent {
 
     const isWorker = awaitingReview || verified;
 
+    const { isAuthorized } = authorization({ ...data, minimumLevel: "ADMIN" });
+
     return (
       <Wrapper isMobile={isMobile}>
         <ToggleMenu
@@ -61,7 +63,7 @@ export default class Menu extends PureComponent {
         >
           <Icon icon="close" height="20px" width="20px" />
         </ToggleMenu>
-        {authorization({ ...data, minimumLevel: "ADMIN" }) && (
+        {isAuthorized && (
           <MenuItem to={ADMIN} onClick={toggleMenu}>
             <AdminIcon
               type="dashboard"

@@ -9,7 +9,7 @@ import {
   colors,
   shadows,
   borders,
-  breakpoints,
+  breakpoints
 } from "../../../theme";
 import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
@@ -153,6 +153,10 @@ export const CompanyTitle = styled.h2`
   text-transform: capitalize;
   color: ${({ white }) => (white ? colors.white : colors.profileFontColor)};
   margin: 0.25rem 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 `;
 
 export const ButtonDiv = styled.div`
@@ -300,7 +304,8 @@ export const CompanyNameAndStars = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 1.25rem 4.5%;
+  padding: 0 4.5%;
+  height: 5rem;
 `;
 
 export const CommentDiv = styled.div`

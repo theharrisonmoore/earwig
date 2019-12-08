@@ -260,7 +260,7 @@ export default function index(props) {
           isTablet={isTablet}
           Component={FAQ}
           navbar
-          title="FAQ & explainer videos"
+          title="FAQ & how to use earwig"
         />
         <PrivateRoute
           minimumLevel="LEVEL0"
