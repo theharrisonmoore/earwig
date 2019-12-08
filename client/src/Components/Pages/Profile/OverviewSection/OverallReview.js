@@ -134,7 +134,7 @@ class OverallReview extends Component {
               [reviewId]: {
                 counter: points,
                 sentNumber: points,
-                byUser: false,
+                byUser: true,
               },
             },
           },
@@ -426,7 +426,8 @@ class OverallReview extends Component {
                           disabled={level < 2}
                           active={
                             counters[review.category][review._id] &&
-                            counters[review.category][review._id].counter > 0
+                            counters[review.category][review._id].counter > 0 &&
+                            counters[review.category][review._id].byUser
                           }
                         >
                           <Icon

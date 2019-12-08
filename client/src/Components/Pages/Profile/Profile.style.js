@@ -705,16 +705,19 @@ const IconsWrapper = styled.div`
 
 const rotate = keyframes`
   0% {
-    transform: rotate(0deg) scale(0, 0);
+    transform: rotate(0deg) scale(1, 1);
   }
-  100% {
+  50% {
     transform: rotate(10deg) scale(1.2, 1.2);
   }
+  100% {
+    transform: rotate(0deg) scale(1, 1);
+  }
 `;
-
+// alternate
 const animation = () =>
   css`
-    ${rotate} 0.5s ease alternate;
+    ${rotate} 0.5s ease;
   `;
 
 export const LikeWrapper = styled(IconsWrapper)`
@@ -724,9 +727,10 @@ export const LikeWrapper = styled(IconsWrapper)`
   border: none;
   outline: none;
   animation-fill-mode: none;
+  transition: 0.5s all;
 
   :hover {
-    transform: rotate(10deg) scale(1.2, 1.2);
+    transform: rotate(10deg);
   }
 `;
 
