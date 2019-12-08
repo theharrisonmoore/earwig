@@ -43,17 +43,26 @@ const { Panel } = Collapse;
 
 const UserInfo = ({ userId, trade, helpedUsers, points }) => {
   return (
-    <UserInfoWrapper>
-      <UserDiv>
-        <UserID>{userId}</UserID>
-        <UserTrade>{trade}</UserTrade>
-      </UserDiv>
-      <UserAdditionalDetails>
-        <p>
-          Helped {helpedUsers} · Points {points}
-        </p>
-      </UserAdditionalDetails>
-    </UserInfoWrapper>
+    <>
+      <Icon
+        icon="getVerified"
+        color={colors.black2}
+        height="25"
+        width="25"
+        margin="0 0 0 0.5rem"
+      />
+      <UserInfoWrapper>
+        <UserDiv>
+          <UserID>{userId}</UserID>
+          <UserTrade>{trade}</UserTrade>
+        </UserDiv>
+        <UserAdditionalDetails>
+          <p>
+            Helped {helpedUsers} · Points {points}
+          </p>
+        </UserAdditionalDetails>
+      </UserInfoWrapper>
+    </>
   );
 };
 
