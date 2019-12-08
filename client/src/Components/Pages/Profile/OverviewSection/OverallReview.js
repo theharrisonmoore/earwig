@@ -528,7 +528,7 @@ class OverallReview extends Component {
                                 `${review._id}/${review.category}` &&
                               activeOverallId === review._id
                                 ? "Hide Replies"
-                                : "Read Replies"}
+                                : `Read Replies (${review.repliesCount})`}
                             </span>
                           </>
                         }
