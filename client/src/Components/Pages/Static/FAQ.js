@@ -204,11 +204,9 @@ export default class FAQ extends Component {
             </SectionHeading>
           </Element>
           <SmallParagraph>
-            If you want to search jobs, help other workers by giving reviews and
-            comment on other reviews, you need to{" "}
-            <NormalLink to={UPLOAD_VERIFICATION_PHOTO}>
-              g​et verified​
-            </NormalLink>{" "}
+            If you want to give reviews and help other workers by replying to
+            them and giving them points, you need to{" "}
+            <NormalLink to={UPLOAD_VERIFICATION_PHOTO}>get verified</NormalLink>{" "}
             as a genuine worker. This means all reviews are credible and
             protects the worker community from fake reviews and spam by
             non-workers.
@@ -353,8 +351,8 @@ export default class FAQ extends Component {
             job, there was probably some room for improvement somewhere and this
             is useful for others to know. Likewise, even if your experience was
             bad overall, there are probably some things that went well. Others
-            will find your reviews more realist="true"ic if they’re not utterly
-            positive (or utterly negative.
+            will find your reviews more realistic if they’re not utterly
+            positive (or utterly negative).
             <br />
             <br />
             <strong>Be authentic.​</strong> Communicate your true self and
@@ -387,10 +385,9 @@ export default class FAQ extends Component {
             </SectionHeading>
           </Element>
           <SmallParagraph>
-            You can edit any of your reviews (including written, voice and photo
-            content) that have been published on earwig in the last 30 days,
-            unless the agency, payroll, or construction company has responded,
-            or your review has been marked helpful by other workers.
+            You can edit your reviews within four weeks, unless workers have
+            found them helpful and given you points, or unless the agency,
+            payroll or company has replied.
             <br />
             <br />
             You can delete your reviews at any time. Be aware that you lose the
