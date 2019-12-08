@@ -27,7 +27,7 @@ class Question extends Component {
       category,
       name,
       label,
-      next,
+      next
     } = this.props.question;
 
     const {
@@ -47,14 +47,18 @@ class Question extends Component {
       handleAddNewOrgChange,
       id,
       voiceReviewUrl,
+      state,
+      history
     } = this.props;
+
+    console.log("question hist", history);
 
     const popoverOptions = {
       text:
         "We’re asking this because it will be useful to track over time how much agencies are paying workers",
       linkText: "Why are we asking this?",
       icon: "info",
-      margin: "0 0 0.5rem 0",
+      margin: "0 0 0.5rem 0"
     };
 
     return (
@@ -82,6 +86,8 @@ class Question extends Component {
           <PopoverComponent
             category={category}
             popoverOptions={popoverOptions}
+            history={history}
+            currentState={state}
           />
         )}
         {type === "voiceReview" && (

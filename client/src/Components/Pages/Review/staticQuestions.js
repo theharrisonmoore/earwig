@@ -15,12 +15,12 @@ const decideText = category => {
   }
 };
 
-export const STATIC_QUESTIONS = category => [
+export const STATIC_QUESTIONS = (category, history, state) => [
   {
     number: 21,
     text: decideText(category),
     type: "dateRange",
-    category,
+    category
   },
   {
     number: 22,
@@ -57,8 +57,10 @@ export const STATIC_QUESTIONS = category => [
                 then you’re bound to help more people.
               </p>
             </>
-          ),
+          )
         }}
+        history={history}
+        currentState={state}
       >
         <div style={{ display: "flex" }}>
           <div style={{ position: "relative", top: "1.5px" }}>
@@ -75,19 +77,19 @@ export const STATIC_QUESTIONS = category => [
           </Text>
         </div>
       </PopoverComponent>
-    ),
+    )
   },
   {
     number: 23,
     text: `How would you rate this ${category}`,
     type: "rate",
     options: ["Bad", "Poor", "Average", "Great", "Excellent"],
-    category,
+    category
   },
   {
     number: 24,
     text: `Share a voice review of this ${category || "organisation"}`,
     hintText: "People may be able to identify you by your voice",
-    type: "voiceReview",
-  },
+    type: "voiceReview"
+  }
 ];

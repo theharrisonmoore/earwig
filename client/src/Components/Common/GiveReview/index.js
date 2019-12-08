@@ -8,7 +8,7 @@ import {
   ReviewType,
   Time,
   ReviewButton,
-  FullLink,
+  FullLink
 } from "./GiveReview.style";
 
 import PopoverComponent from "../Popover/index";
@@ -27,7 +27,7 @@ export default class GiveReview extends Component {
 
     this.props.history.push({
       pathname: `/organization/${orgId || state.orgId}/review`,
-      state,
+      state
     });
   };
 
@@ -38,6 +38,7 @@ export default class GiveReview extends Component {
       isTablet,
       reviewNotAllowed,
       reviewsLast30Days,
+      history
     } = this.props;
     const { isLoading } = this.state;
 
@@ -71,8 +72,9 @@ export default class GiveReview extends Component {
               text: `You recently reviewed this ${category ||
                 "organisation"}. Please leave four weeks between reviews.`,
               linkText: `Why can't I review this ${category ||
-                "organisation"} today?`,
+                "organisation"} today?`
             }}
+            history={history}
           />
         )}
       </ReviewButtonsDiv>

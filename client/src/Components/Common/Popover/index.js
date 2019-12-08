@@ -8,12 +8,12 @@ import { PopoverDiv, PopoverText } from "./Popover.style";
 
 class PopoverComponent extends React.Component {
   state = {
-    popoverVisible: false,
+    popoverVisible: false
   };
 
   hide = () => {
     this.setState({
-      popoverVisible: false,
+      popoverVisible: false
     });
   };
 
@@ -22,10 +22,30 @@ class PopoverComponent extends React.Component {
   };
 
   componentDidMount() {
-    const { popoverOptions } = this.props;
+    this.hide();
+    console.log(this.state);
+    const { popoverOptions, history, currentState } = this.props;
     const { loadAutomatically } = popoverOptions;
+    console.log("hist pop", history, currentState);
 
     if (loadAutomatically) this.handleVisibleChange(loadAutomatically);
+
+    window.onpopstate = () => {
+      this.hide();
+      if (history) {
+        history.push({
+          pathname: window.location.pathname,
+          state: currentState
+        });
+      }
+    };
+  }
+
+  componentWillUnmount() {
+    const { history } = this.props;
+    if (history) {
+      history.goForward();
+    }
   }
 
   render() {
