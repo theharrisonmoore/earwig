@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import React, { Component, createRef } from "react";
 import { Link } from "react-router-dom";
-import { Rate } from "antd";
 import ReviewNotAllowedButton from "./ReviewNotAllowedButton";
 import Icon from "../../Common/Icon/Icon";
 
@@ -27,7 +26,7 @@ import { colors } from "../../../theme";
 
 import Button from "../../Common/Button";
 
-const ColoredBanner = ({ category, name, summary, isMobile }) => {
+const ColoredBanner = ({ category, name, isMobile }) => {
   return (
     <ColoredDiv category={category} isMobile={isMobile}>
       <CompanyNameAndStars>

@@ -192,7 +192,6 @@ export default class Profile extends Component {
             <HeaderSection
               isTablet={isTablet}
               isMobile={isMobile}
-              summary={summary}
               level={level}
               reviewsLast30Days={reviewsLast30Days}
               handleScroll={this.handleScroll}
