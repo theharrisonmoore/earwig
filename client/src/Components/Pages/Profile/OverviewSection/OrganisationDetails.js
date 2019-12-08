@@ -1,6 +1,9 @@
 import React from "react";
 
+import { Rate } from "antd";
 import ContractorsList from "./ContractorsList";
+
+import { colors } from "../../../../theme";
 
 import {
   OrganisationDetailsWrapper,
@@ -20,11 +23,27 @@ const OrganisationDetails = ({
   isTablet,
   category,
   contractorAnswers,
+  rate,
 }) => {
   return (
     <OrganisationDetailsWrapper isMobile={isMobile} isTablet={isTablet}>
       <CompanyTitle>{name}</CompanyTitle>
 
+      <InfoRow>
+        <LeftInfo>Overall rating</LeftInfo>
+        <RightInfo>
+          <Rate
+            disabled
+            value={rate}
+            style={{
+              color: `${colors.stars}`,
+              fontSize: "0.75rem",
+              minWidth: "78px",
+            }}
+            className="last-reviewed-star-rate"
+          />
+        </RightInfo>
+      </InfoRow>
       {/* contractor section */}
       {category === "worksite" && (
         <ContractorsList contractorAnswers={contractorAnswers} />

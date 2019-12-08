@@ -32,7 +32,7 @@ const ColoredBanner = ({ category, name, summary, isMobile }) => {
     <ColoredDiv category={category} isMobile={isMobile}>
       <CompanyNameAndStars>
         <CompanyTitle white>{name}</CompanyTitle>
-        <Rate
+        {/* <Rate
           disabled
           value={summary.avgRatings || summary.value || 0}
           style={{
@@ -41,7 +41,7 @@ const ColoredBanner = ({ category, name, summary, isMobile }) => {
             minWidth: "78px",
           }}
           className="last-reviewed-star-rate"
-        />
+        /> */}
       </CompanyNameAndStars>
     </ColoredDiv>
   );

@@ -9,7 +9,7 @@ import {
   colors,
   shadows,
   borders,
-  breakpoints
+  breakpoints,
 } from "../../../theme";
 import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
@@ -678,7 +678,7 @@ export const InfoRow = styled.div`
 `;
 
 export const LeftInfo = styled.div`
-  width: 30%;
+  width: 40%;
   display: flex;
   align-items: center;
   color: ${colors.profileFontColor};
@@ -687,7 +687,7 @@ export const LeftInfo = styled.div`
 `;
 
 export const RightInfo = styled.div`
-  width: 70%;
+  width: 60%;
   display: flex;
   align-items: center;
 `;
