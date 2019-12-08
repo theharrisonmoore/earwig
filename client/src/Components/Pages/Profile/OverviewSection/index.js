@@ -30,7 +30,7 @@ const OverviewSection = ({
   return (
     <>
       {/* ORGANISATION INFORMATION AND CONTACT DETAILS */}
-      {level > 0 && (
+      {level >= 3 && (
         <OrganisationDetails
           isMobile={isMobile}
           isTablet={isTablet}
@@ -55,7 +55,6 @@ const OverviewSection = ({
           overallReplies={overallReplies}
           fetchOverallReplies={fetchOverallReplies}
           verified={verified}
-          level={level}
           isAdmin={isAdmin}
           orgId={organizationID}
           id={id}
@@ -83,7 +82,7 @@ const OverviewSection = ({
 
         {/* {level < 1 && (
           <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-            <SignUpSection category={category} location={location} />
+            <ReviewNotAllowedButton category={category} location={location} />
           </ReviewDiv>
         )} */}
       </Skeleton>

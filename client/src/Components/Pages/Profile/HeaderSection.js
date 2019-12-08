@@ -2,12 +2,12 @@
 import React, { Component, createRef } from "react";
 import { Link } from "react-router-dom";
 import { Rate } from "antd";
-import SignUpSection from "./SignUpSection";
+import ReviewNotAllowedButton from "./ReviewNotAllowedButton";
 import Icon from "../../Common/Icon/Icon";
 
 import {
   USER_PROFILE_URL,
-  PRE_REVIEW
+  PRE_REVIEW,
 } from "../../../constants/naviagationUrls";
 
 import {
@@ -20,7 +20,7 @@ import {
   Underline,
   ActionButtonsDiv,
   CompanyNameAndStars,
-  CompanyTitle
+  CompanyTitle,
 } from "./Profile.style";
 
 import { colors } from "../../../theme";
@@ -38,7 +38,7 @@ const ColoredBanner = ({ category, name, summary, isMobile }) => {
           style={{
             color: `${colors.stars}`,
             fontSize: "0.75rem",
-            minWidth: "78px"
+            minWidth: "78px",
           }}
           className="last-reviewed-star-rate"
         />
@@ -88,9 +88,8 @@ export default class HeaderSection extends Component {
       level,
       reviewsLast30Days,
       orgId,
-      awaitingReview,
       setActiveTab,
-      activeTab = "overview"
+      activeTab = "overview",
     } = this.props;
     const { category, name } = summary;
     // if there are reviews less dating before 1 month user not allowed
@@ -108,18 +107,18 @@ export default class HeaderSection extends Component {
           summary={summary}
           isMobile={isMobile}
         />
-        {(level === 2 || level === 1) && (
+        {level > 0 && (
           <TabsWrapper setActiveTab={setActiveTab} activeTab={activeTab} />
         )}
-        {level === 2 || level === 1 ? (
+        {level > 0 ? (
           <ActionButtonsDiv>
             <Link
               to={{
                 pathname:
-                  level === 1 && !awaitingReview
+                  level <= 1
                     ? USER_PROFILE_URL
                     : PRE_REVIEW.replace(":orgId", orgId),
-                state: { name, category }
+                state: { name, category },
               }}
             >
               <Button
@@ -127,7 +126,7 @@ export default class HeaderSection extends Component {
                 style={{
                   opacity: `${
                     reviewNotAllowed && reviewsLast30Days.length > 0 ? 0.5 : 1
-                  }`
+                  }`,
                 }}
                 text={`Review this ${category || "organisation"}`}
                 disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
@@ -136,7 +135,7 @@ export default class HeaderSection extends Component {
             </Link>
           </ActionButtonsDiv>
         ) : (
-          <SignUpSection category={category} sticky />
+          <ReviewNotAllowedButton category={category} sticky />
         )}
       </Header>
     );
