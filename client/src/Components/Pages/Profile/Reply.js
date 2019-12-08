@@ -68,7 +68,7 @@ export default class Reply extends Component {
     return schema
       .validate(
         {
-          comment: this.state.commentContentState,
+          comment: this.state.commentContentState.trim(),
           user: this.state.user,
         },
         { abortEarly: false }
@@ -89,7 +89,7 @@ export default class Reply extends Component {
       if (res) {
         this.setState({ errors: {}, submitting: true }, () => {
           const data = {
-            text: this.state.commentContentState,
+            text: this.state.commentContentState.trim(),
             displayName: this.state.user,
             reviewId,
             target,
@@ -225,8 +225,7 @@ export default class Reply extends Component {
                 >
                   {!verified && reply.replies.user._id === id && (
                     <Alert
-                      message="Your replies are visible only for you untill you get
-                    verified"
+                      message="Your replies are only visible to you until we've checked your verification photo."
                       type="warning"
                       style={{
                         display: "inline-block",
