@@ -131,6 +131,7 @@ export default class HeaderSection extends Component {
                 text={`Review this ${category || "organisation"}`}
                 disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
                 margin="0 auto 0.5rem auto"
+                backgroundColor={colors.secondary}
               />
             </Link>
           </ActionButtonsDiv>
