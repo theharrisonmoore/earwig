@@ -38,6 +38,7 @@ const ColoredBanner = ({ category, name, summary, isMobile }) => {
           style={{
             color: `${colors.stars}`,
             fontSize: "0.75rem",
+            minWidth: "78px",
           }}
           className="last-reviewed-star-rate"
         />

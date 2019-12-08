@@ -50,7 +50,7 @@ export default ({
       render: (text, record) => {
         return (
           <Link to={`${GENERAL_ORGS_PROFILE_URL}/${record._id}`}>
-            <span style={{ fontWeight: "700", textTransform: "capitalize" }}>
+            <span style={{ fontWeight: "700" }}>
               <Highlighter
                 highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
                 searchWords={[searchText]}
