@@ -24,7 +24,6 @@ import {
   CommentDate,
   BubbleAndDate,
   ReviewDiv,
-  StyledAntIcon,
   ActionsDiv,
   ButtonsWrapper,
   UserTrade,
@@ -33,9 +32,9 @@ import {
   UserInfoWrapper,
   RatingWithUserInfo,
   LikeWrapper,
+  CommentIconWrapper,
 } from "../Profile.style";
 
-import Button from "../../../Common/Button";
 import VoiceReview from "../ProfileAnswers/VoiceReview";
 
 import { SectionTitle } from "../DetailedSection/ReviewSection.style";
@@ -410,6 +409,7 @@ class OverallReview extends Component {
                     <ButtonsWrapper>
                       {review.user._id !== userId && (
                         <LikeWrapper
+                          as="button"
                           onClick={
                             isAuthorized ? this.toggleHelpful : undefined
                           }
@@ -424,6 +424,10 @@ class OverallReview extends Component {
                           }
                           data-category={category}
                           disabled={level < 2}
+                          active={
+                            counters[review.category][review._id] &&
+                            counters[review.category][review._id].counter > 0
+                          }
                         >
                           <Icon
                             icon="like"
@@ -431,14 +435,14 @@ class OverallReview extends Component {
                               counters[review.category][review._id] &&
                               counters[review.category][review._id].counter > 0
                                 ? colors.primary
-                                : colors.profileFontColor
+                                : colors.gray
                             }
                             width="27"
                             height="27"
                           />
                         </LikeWrapper>
                       )}
-                      <Button
+                      <CommentIconWrapper
                         onClick={level >= 2 ? this.goTOReply : undefined}
                         data-target={
                           review.category === "written"
@@ -449,11 +453,14 @@ class OverallReview extends Component {
                         data-org-id={orgId}
                         data-review-id={review._id}
                         disabled={level < 2}
-                        text="Reply"
-                        styleType="secondary"
-                        color={colors.primary}
-                        margin="0.75rem 0"
-                      />
+                      >
+                        <Icon
+                          icon="comment"
+                          fill={colors.gray}
+                          width="27"
+                          height="27"
+                        />
+                      </CommentIconWrapper>
                     </ButtonsWrapper>
                     {/* FLAG ICON */}
                     <Link
@@ -474,7 +481,12 @@ class OverallReview extends Component {
                         },
                       }}
                     >
-                      <StyledAntIcon type="flag" />
+                      <Icon
+                        icon="flag"
+                        fill={colors.gray}
+                        width="27"
+                        height="27"
+                      />
                     </Link>
                   </ActionsDiv>
                   {review.repliesCount ? (
@@ -638,7 +650,12 @@ class OverallReview extends Component {
                                     },
                                   }}
                                 >
-                                  <StyledAntIcon type="flag" />
+                                  <Icon
+                                    icon="flag"
+                                    fill={colors.gray}
+                                    width="27"
+                                    height="27"
+                                  />
                                 </Link>
                               </div>
                             </div>

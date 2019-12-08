@@ -1,7 +1,6 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import SVG from "react-inlinesvg";
 import { NavLink } from "react-router-dom";
-import { Icon as AntIcon } from "antd";
 import BlurredBackground from "../../../assets/blurred-background.png";
 
 import {
@@ -490,12 +489,6 @@ export const AccountItem = styled.div`
   margin: 1.25rem 0;
 `;
 
-export const StyledAntIcon = styled(AntIcon)`
-  font-size: 1.5rem;
-  color: ${colors.gray};
-  cursor: pointer;
-`;
-
 export const IconWrapper = styled.div`
   min-width: 70px;
 `;
@@ -701,11 +694,42 @@ export const RatingWithUserInfo = styled.div`
   padding-top: 0.5rem;
 `;
 
-export const LikeWrapper = styled.div`
+const IconsWrapper = styled.div`
   cursor: pointer;
   margin: 0.75rem 1rem 0.75rem 0;
 
   * {
     pointer-events: none;
   }
+`;
+
+const rotate = keyframes`
+  0% {
+    transform: rotate(0deg) scale(0, 0);
+  }
+  100% {
+    transform: rotate(10deg) scale(1.2, 1.2);
+  }
+`;
+
+const animation = () =>
+  css`
+    ${rotate} 0.5s ease alternate;
+  `;
+
+export const LikeWrapper = styled(IconsWrapper)`
+  margin: 0.75rem 1rem 0.75rem 0;
+  animation: ${({ active }) => (active ? animation : "none")};
+  background: none;
+  border: none;
+  outline: none;
+  animation-fill-mode: none;
+
+  :hover {
+    transform: rotate(10deg) scale(1.2, 1.2);
+  }
+`;
+
+export const CommentIconWrapper = styled(IconsWrapper)`
+  margin: 0.75rem 1rem 0.75rem 3rem;
 `;
