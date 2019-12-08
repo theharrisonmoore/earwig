@@ -32,6 +32,7 @@ import {
   UserAdditionalDetails,
   UserInfoWrapper,
   RatingWithUserInfo,
+  LikeWrapper,
 } from "../Profile.style";
 
 import Button from "../../../Common/Button";
@@ -408,39 +409,34 @@ class OverallReview extends Component {
                   <ActionsDiv>
                     <ButtonsWrapper>
                       {review.user._id !== userId && (
-                        <>
-                          <Button
-                            onClick={
-                              isAuthorized ? this.toggleHelpful : undefined
-                            }
-                            id={review._id}
-                            data-user-id={review.user._id}
-                            data-type={review.category}
-                            data-organization={review.organization}
-                            data-target={
-                              review.category === "written"
-                                ? "overallReview"
-                                : "voiceReview"
-                            }
-                            data-category={category}
-                            disabled={level < 2}
-                            text="Helpful"
-                            styleType="secondary"
-                            color={
+                        <LikeWrapper
+                          onClick={
+                            isAuthorized ? this.toggleHelpful : undefined
+                          }
+                          id={review._id}
+                          data-user-id={review.user._id}
+                          data-type={review.category}
+                          data-organization={review.organization}
+                          data-target={
+                            review.category === "written"
+                              ? "overallReview"
+                              : "voiceReview"
+                          }
+                          data-category={category}
+                          disabled={level < 2}
+                        >
+                          <Icon
+                            icon="like"
+                            fill={
                               counters[review.category][review._id] &&
                               counters[review.category][review._id].counter > 0
-                                ? colors.white
-                                : colors.primary
+                                ? colors.primary
+                                : colors.profileFontColor
                             }
-                            backgroundColor={
-                              counters[review.category][review._id] &&
-                              counters[review.category][review._id].counter > 0
-                                ? colors.profileFontColor
-                                : colors.white
-                            }
-                            margin="0.75rem 1rem 0.75rem 0"
+                            width="27"
+                            height="27"
                           />
-                        </>
+                        </LikeWrapper>
                       )}
                       <Button
                         onClick={level >= 2 ? this.goTOReply : undefined}

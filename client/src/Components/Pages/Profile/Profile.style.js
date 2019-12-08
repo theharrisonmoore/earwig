@@ -700,3 +700,12 @@ export const RatingWithUserInfo = styled.div`
   display: flex;
   padding-top: 0.5rem;
 `;
+
+export const LikeWrapper = styled.div`
+  cursor: pointer;
+  margin: 0.75rem 1rem 0.75rem 0;
+
+  * {
+    pointer-events: none;
+  }
+`;
