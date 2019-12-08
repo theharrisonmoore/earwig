@@ -210,11 +210,14 @@ class OverallReview extends Component {
 
     if (summary)
       summary.reviews.forEach(review => {
-        const verifiedUsers = getVerifiedUsers([
-          ...review.overallReview.allRepliesUsers,
-          review.voiceReview.allRepliesUsers,
-        ]);
-
+        let replies = [];
+        if (review.overallReview.allRepliesUsers) {
+          replies = [...replies, ...review.overallReview.allRepliesUsers];
+        }
+        if (review.voiceReview.allRepliesUsers) {
+          replies = [...replies, ...review.voiceReview.allRepliesUsers];
+        }
+        const verifiedUsers = getVerifiedUsers(replies);
         const { overallReview, voiceReview } = review;
 
         // check for writtenReview and add to array
