@@ -12,6 +12,24 @@ class DateRange extends React.Component {
     focus: false,
   };
 
+  static getDerivedStateFromProps(props) {
+    if (props.isCurrentlyWorking) {
+      return {
+        lastUse: moment(),
+      };
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps) {
+    const { lastUse } = this.state;
+    if (prevProps.isCurrentlyWorking !== this.props.isCurrentlyWorking) {
+      this.props.handleChange(
+        lastUse && lastUse.startOf("month").format("YYYY-MM-DD")
+      );
+    }
+  }
+
   disabledDate = date => {
     if (!date) {
       return (
@@ -42,9 +60,12 @@ class DateRange extends React.Component {
 
   render() {
     const { lastUse, focus } = this.state;
+    const { isCurrentlyWorking } = this.props;
     return (
       <DateRangeWrapper
-        fill={lastUse || this.props.review.lastUse}
+        fill={
+          lastUse || this.props.review.lastUse || this.props.isCurrentlyWorking
+        }
         focus={focus}
       >
         <DatePicker.MonthPicker
@@ -58,6 +79,7 @@ class DateRange extends React.Component {
           format="MMM YYYY"
           onFocus={this.toggleFocus}
           onBlur={this.toggleFocus}
+          disabled={isCurrentlyWorking}
         />
       </DateRangeWrapper>
     );
