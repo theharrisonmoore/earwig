@@ -8,12 +8,13 @@ import Organizations from "./Organizations";
 import Trades from "./Trades";
 import { ContentWrapper, AdminWrapper } from "./Admin.style";
 
-import { routes } from "./../../../constants/adminRoutes";
+import { routes } from "../../../constants/adminRoutes";
+
 const { USERS, REVIEWS, ORGANIZATIONS, TRADES, DASHBOARD } = routes;
 
 export default class Admin extends Component {
   state = {
-    menuWidth: 0
+    menuWidth: 0,
   };
 
   menuSizeObserver = width => {

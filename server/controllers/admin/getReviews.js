@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
     .then((reviews) => {
       res.json(reviews);
     })
-    .catch(() => {
-      next(boom.badImplementation());
+    .catch((err) => {
+      next(boom.badImplementation(err));
     });
 };

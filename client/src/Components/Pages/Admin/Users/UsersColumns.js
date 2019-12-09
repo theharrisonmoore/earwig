@@ -1,13 +1,13 @@
 import React from "react";
 
-import { Tag, Button, Icon, Popover } from "antd";
+import { Tag, Button, Icon } from "antd";
 import Highlighter from "react-highlight-words";
 
 export default ({
   deletHandler,
   viewHandler,
   getColumnSearchProps,
-  searchText
+  searchText,
 }) => {
   const tableColumns = [
     {
@@ -24,7 +24,7 @@ export default ({
           />
         </span>
       ),
-      ...getColumnSearchProps("userId")
+      ...getColumnSearchProps("userId"),
     },
     {
       title: "Email",
@@ -38,7 +38,7 @@ export default ({
           textToHighlight={text.toString()}
         />
       ),
-      ...getColumnSearchProps("email")
+      ...getColumnSearchProps("email"),
     },
     {
       title: "City/town",
@@ -52,7 +52,49 @@ export default ({
           textToHighlight={text.toString()}
         />
       ),
-      ...getColumnSearchProps("city")
+      ...getColumnSearchProps("city"),
+    },
+    {
+      title: "# of reviews",
+      dataIndex: "numOfReviews",
+      key: "numOfReviews",
+      render: (text = "error") => (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text.toString()}
+        />
+      ),
+      ...getColumnSearchProps("numOfReviews"),
+    },
+    {
+      title: "points",
+      dataIndex: "points",
+      key: "points",
+      render: (text = "error") => (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text.toString()}
+        />
+      ),
+      ...getColumnSearchProps("points"),
+    },
+    {
+      title: "helpedUsers",
+      dataIndex: "helpedUsers",
+      key: "helpedUsers",
+      render: (text = "error") => (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text.toString()}
+        />
+      ),
+      ...getColumnSearchProps("helpedUsers"),
     },
     {
       title: "Trade",
@@ -66,7 +108,7 @@ export default ({
           textToHighlight={text.toString()}
         />
       ),
-      ...getColumnSearchProps("trade")
+      ...getColumnSearchProps("trade"),
     },
 
     {
@@ -81,64 +123,63 @@ export default ({
             ? "red"
             : "gold";
         return <Tag color={color}>{text.toUpperCase()}</Tag>;
-      }
-    },
-    {
-      title: "Works For",
-      dataIndex: "worksFor",
-      key: "worksFor",
-      render: text => (
-        <Highlighter
-          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
-          searchWords={[searchText]}
-          autoEscape
-          textToHighlight={text.toString()}
-        />
-      ),
-      ...getColumnSearchProps("worksFor")
-    },
-    {
-      title: "Current Org",
-      dataIndex: "currentOrg",
-      key: "currentOrg",
-      render: text => {
-        if (text !== "N/A") {
-          return (
-            <Popover
-              placement="topLeft"
-              content={
-                <div>
-                  <p>Current agency: {text.agency && text.agency.name}</p>
-                  <p>Current company: {text.company && text.company.name}</p>
-                  <p>Current worksite: {text.worksite && text.worksite.name}</p>
-                  <p>Current payroll: {text.payroll && text.payroll.name}</p>
-                </div>
-              }
-            >
-              <div
-                style={{
-                  color: "#1890ff",
-                  cursor: "pointer",
-                  textDecoration: "underline"
-                }}
-              >
-                Current Orgs.
-              </div>
-            </Popover>
-          );
-        } else {
-          return (
-            <Highlighter
-              highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
-              searchWords={[searchText]}
-              autoEscape
-              textToHighlight={text.toString()}
-            />
-          );
-        }
       },
-      ...getColumnSearchProps("currentOrg")
     },
+    // {
+    //   title: "Works For",
+    //   dataIndex: "worksFor",
+    //   key: "worksFor",
+    //   render: text => (
+    //     <Highlighter
+    //       highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+    //       searchWords={[searchText]}
+    //       autoEscape
+    //       textToHighlight={text.toString()}
+    //     />
+    //   ),
+    //   ...getColumnSearchProps("worksFor"),
+    // },
+    // {
+    //   title: "Current Org",
+    //   dataIndex: "currentOrg",
+    //   key: "currentOrg",
+    //   render: text => {
+    //     if (text !== "N/A") {
+    //       return (
+    //         <Popover
+    //           placement="topLeft"
+    //           content={
+    //             <div>
+    //               <p>Current agency: {text.agency && text.agency.name}</p>
+    //               <p>Current company: {text.company && text.company.name}</p>
+    //               <p>Current worksite: {text.worksite && text.worksite.name}</p>
+    //               <p>Current payroll: {text.payroll && text.payroll.name}</p>
+    //             </div>
+    //           }
+    //         >
+    //           <div
+    //             style={{
+    //               color: "#1890ff",
+    //               cursor: "pointer",
+    //               textDecoration: "underline",
+    //             }}
+    //           >
+    //             Current Orgs.
+    //           </div>
+    //         </Popover>
+    //       );
+    //     }
+    //     return (
+    //       <Highlighter
+    //         highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+    //         searchWords={[searchText]}
+    //         autoEscape
+    //         textToHighlight={text.toString()}
+    //       />
+    //     );
+    //   },
+    //   ...getColumnSearchProps("currentOrg"),
+    // },
     {
       title: "Action",
       key: "action",
@@ -152,7 +193,7 @@ export default ({
                   record.status !== "awaiting review"
                     ? "felx-start"
                     : "space-between"
-                }`
+                }`,
               }}
             >
               <Button
@@ -174,8 +215,8 @@ export default ({
             </div>
           </div>
         );
-      }
-    }
+      },
+    },
   ];
 
   return tableColumns;
