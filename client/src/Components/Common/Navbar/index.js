@@ -69,7 +69,7 @@ export default class Navbar extends Component {
               </>
             )}
           </SideDiv>
-          <WrapperH2 style={{ fontWeight: "900" }}>{text && text}</WrapperH2>
+          <WrapperH2>{text && text}</WrapperH2>
           <SideDiv position="flex-end" isDesktop={!isMobile}>
             {isAdmin && (
               <NavLink to={ADMIN}>

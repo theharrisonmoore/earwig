@@ -38,6 +38,7 @@ module.exports = ({ awaitingReview, organisation }) => {
         organization: "$organization.name",
         orgType: "$organization.category",
         userId: "$user.userId",
+        email: "$user.email",
         orgId: "$organization._id",
         key: "$_id",
       },

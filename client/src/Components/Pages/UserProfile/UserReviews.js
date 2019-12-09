@@ -156,15 +156,14 @@ export default class UserReviews extends Component {
 
   render() {
     const { reviews, isLoading } = this.state;
-    console.log("reviews", reviews);
 
     return (
       <Wrapper>
         <BorderedWrapper>
           <Paragraph>
-            You can edit any of your reviews within 4 weeks, unless the agency,
-            payroll, or company has responded, or workers have found them
-            helpful.
+            You can edit your reviews within four weeks, unless workers have
+            found them helpful and given you points, or unless the agency,
+            payroll or company has replied.
             <br />
             <br /> You can delete your reviews at any time.
           </Paragraph>
@@ -220,8 +219,8 @@ export default class UserReviews extends Component {
                   })
                 ) : (
                   <div>
-                    You have no reivews yet. You can add your review from&nbsp;
-                    <Link to="/search">here</Link>
+                    You haven&apos;t given any reviews yet.&nbsp;
+                    <Link to="/welcome">Give a review now</Link>
                   </div>
                 )}
               </>

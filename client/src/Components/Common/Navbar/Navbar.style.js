@@ -34,7 +34,9 @@ export const MenuWrapper = styled.div``;
 export const WrapperH2 = styled.h2`
   margin: 0;
   font-size: 1rem;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
+  width: 100%;
+  font-weight: 900;
 
   @media ${breakpointsMax.mobileS} {
     font-size: 0.9rem;
