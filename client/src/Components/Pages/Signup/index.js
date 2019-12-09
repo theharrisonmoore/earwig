@@ -361,6 +361,10 @@ export default class Signup extends Component {
       data,
     } = this.state;
 
+    const {
+      location: { state: { orgId, redirectToProfile } = {} } = {},
+    } = this.props;
+
     return (
       <SignupWrapper>
         <PurpleDiv />
@@ -717,7 +721,8 @@ export default class Signup extends Component {
             afterClose={() => {
               this.props.handleChangeState({ ...data, isLoggedIn: true });
               this.props.history.push({
-                pathname: "/intro",
+                pathname:
+                  redirectToProfile && orgId ? `/profile/${orgId}` : "/intro",
                 state: { isWorker },
               });
             }}
@@ -733,7 +738,8 @@ export default class Signup extends Component {
               onClick={() => {
                 this.props.handleChangeState({ ...data, isLoggedIn: true });
                 this.props.history.push({
-                  pathname: "/intro",
+                  pathname:
+                    redirectToProfile && orgId ? `/profile/${orgId}` : "/intro",
                   state: { isWorker },
                 });
               }}
