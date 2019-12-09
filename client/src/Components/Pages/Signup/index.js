@@ -607,7 +607,7 @@ export default class Signup extends Component {
                     <PopoverComponent
                       popoverOptions={{
                         text: `Any card or ticket that shows you are a worker, eg CSCS card.`,
-                        linkText: "What trade ID can I use?",
+                        linkText: "Learn more",
                         icon: "info",
                         margin: "0 0 0.5rem 0",
                       }}

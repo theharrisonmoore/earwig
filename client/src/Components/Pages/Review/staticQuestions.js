@@ -70,9 +70,7 @@ export const STATIC_QUESTIONS = category => [
               color={colors.primary}
             />
           </div>
-          <Text>
-            How can you make your reviews helpful for workers and earn rewards?
-          </Text>
+          <Text>Learn more</Text>
         </div>
       </PopoverComponent>
     ),
