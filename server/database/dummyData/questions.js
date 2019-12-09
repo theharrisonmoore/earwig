@@ -110,28 +110,28 @@ module.exports = async () => {
       },
       hasComment: true,
     },
-    {
-      number: 4,
-      next: 5,
-      type: "yesno",
-      text:
-        "Did this agency give you correct information about the date your job would end?",
-      options: ["Yes", "No"],
-      category: "agency",
+    // {
+    //   number: 4,
+    //   next: 5,
+    //   type: "yesno",
+    //   text:
+    //     "Did this agency give you correct information about the date your job would end?",
+    //   options: ["Yes", "No"],
+    //   category: "agency",
 
-      profileText:
-        "Did this agency give you correct information about the date your job would end?",
-      profileSection: "Key ratings",
-      profileType: "yesno",
-      profileOrder: 6,
+    //   profileText:
+    //     "Did this agency give you correct information about the date your job would end?",
+    //   profileSection: "Key ratings",
+    //   profileType: "yesno",
+    //   profileOrder: 6,
 
-      group: {
-        groupOrder: 0,
-        name: "general",
-        text: "General",
-      },
-      hasComment: true,
-    },
+    //   group: {
+    //     groupOrder: 0,
+    //     name: "general",
+    //     text: "General",
+    //   },
+    //   hasComment: true,
+    // },
     // new section ( add popup for this Q.)
     {
       number: 5,
@@ -347,11 +347,11 @@ module.exports = async () => {
     {
       number: 15,
       type: "yesno",
-      text: "Overall, would you be happy to use this agency again?",
+      text: "Overall, would you recommend this agency to a friend?",
       options: ["Yes", "No"],
       category: "agency",
 
-      profileText: "Overall, would you be happy to use this agency again?",
+      profileText: "Overall, would you recommend this agency to a friend?",
       profileSection: "Key ratings",
       profileType: "yesno",
       profileOrder: 1,
@@ -556,11 +556,11 @@ module.exports = async () => {
     {
       number: 10,
       type: "yesno",
-      text: "Overall, would you be happy to use this payroll again?",
+      text: "Overall, would you recommend this payroll to a friend?",
       options: ["Yes", "No"],
       category: "payroll",
 
-      profileText: "Overall, would you be happy to use this payroll again?",
+      profileText: "Overall, would you recommend this payroll to a friend?",
       profileSection: "Key ratings",
       profileType: "yesno",
       profileOrder: 1,
@@ -972,11 +972,11 @@ module.exports = async () => {
     {
       number: 19,
       type: "yesno",
-      text: "Overall, would you be happy to work on this site again?",
+      text: "Overall, would you recommend this worksite to a friend?",
       options: ["Yes", "No"],
       category: "worksite",
 
-      profileText: "Overall, would you be happy to work on this site again?",
+      profileText: "Overall, would you recommend this worksite to a friend?",
       profileSection: "Key ratings",
       profileType: "yesno",
       profileOrder: 1,
@@ -1127,12 +1127,12 @@ module.exports = async () => {
     {
       number: 7,
       type: "yesno",
-      text: "Overall, would you be happy to work for this company again?",
+      text: "Overall, would you recommend this company to a friend?",
       options: ["Yes", "No"],
       category: "company",
 
       profileText:
-        "Overall, would you be happy to work for this company again?",
+        "Overall, would you recommend this company to a friend?",
       profileSection: "Key ratings",
       profileType: "yesno",
       profileOrder: 1,
