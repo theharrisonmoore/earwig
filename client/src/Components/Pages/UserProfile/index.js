@@ -6,7 +6,8 @@ import { Skeleton } from "antd";
 
 import {
   EDIT_PROFILE_URL,
-  UPLOAD_VERIFICATION_URL
+  UPLOAD_VERIFICATION_URL,
+  MY_REVIEWS_URL,
 } from "../../../constants/naviagationUrls";
 
 import Link from "../../Common/Link";
@@ -30,7 +31,7 @@ import {
   Paragraph,
   ReviewDiv,
   AgencyTitle,
-  ReviewText
+  ReviewText,
 } from "./UserProfile.style";
 
 import Icon from "../../Common/Icon/Icon";
@@ -39,7 +40,7 @@ export default class index extends Component {
   state = {
     reviewCount: 0,
     userReviews: [],
-    loaded: false
+    loaded: false,
   };
 
   componentDidMount() {
@@ -47,7 +48,7 @@ export default class index extends Component {
       this.setState({
         userReviews: res.data,
         reviewCount: res.data.length,
-        loaded: true
+        loaded: true,
       });
     });
   }
@@ -59,7 +60,7 @@ export default class index extends Component {
       points,
       helpedUsers,
       isSMobile,
-      awaitingReview
+      awaitingReview,
     } = this.props;
 
     const { reviewCount, userReviews, loaded } = this.state;
@@ -102,7 +103,11 @@ export default class index extends Component {
                   paragraph={false}
                   active
                 >
-                  {reviewCount} reviews
+                  <Link
+                    to={MY_REVIEWS_URL}
+                    text={`${reviewCount} reviews`}
+                    type="primary"
+                  />
                 </Skeleton>
               </Stat>
             </StatWrapper>
@@ -128,7 +133,11 @@ export default class index extends Component {
                   paragraph={false}
                   active
                 >
-                  {points} points
+                  <Link
+                    to={MY_REVIEWS_URL}
+                    text={`${points} points`}
+                    type="primary"
+                  />
                 </Skeleton>
               </Stat>
             </StatWrapper>
@@ -142,7 +151,7 @@ export default class index extends Component {
               title={false}
               paragraph={{
                 rows: 5,
-                width: ["50%", "80%", "70%", "40%", "70%"]
+                width: ["50%", "80%", "70%", "40%", "70%"],
               }}
             >
               {userReviews.length > 0 ? (

@@ -64,8 +64,8 @@ export const StatTitle = styled.p`
 export const Stat = styled.p`
   margin: 0;
   color: ${colors.lightGray};
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 1.125rem;
+  font-weight: 700;
   padding-left: 4px;
 `;
 
