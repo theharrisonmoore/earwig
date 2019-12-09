@@ -73,6 +73,15 @@ export const IDWrapper = styled.div`
   display: flex;
   flex-direction: column;
   text-align: left;
+
+  border: 1px solid red;
+`;
+
+export const UsernameIconDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid blue;
 `;
 
 export const Verified = styled.div`
@@ -103,6 +112,9 @@ export const EditInfo = styled.button`
 `;
 
 export const IDText = styled.p`
+  font-size: 1.125rem;
+  margin-top: 1rem;
+  margin-left: 0.5rem;
   font-weight: bold;
   color: ${colors.lightGray};
 `;

@@ -32,6 +32,7 @@ import {
   ReviewDiv,
   AgencyTitle,
   ReviewText,
+  UsernameIconDiv,
 } from "./UserProfile.style";
 
 import Icon from "../../Common/Icon/Icon";
@@ -71,15 +72,19 @@ export default class index extends Component {
         <Header>
           <TopSection>
             <IDWrapper>
-              <IDText>Username: {userId}</IDText>
-              {verified ? (
-                <Verified>
+              <UsernameIconDiv>
+                {verified && (
                   <Icon
                     icon="getVerified"
                     width="20"
                     height="20"
-                    margin="0 0.5rem 0 0"
+                    margin="0 0 0 0"
                   />
+                )}
+                <IDText>{userId}</IDText>
+              </UsernameIconDiv>
+              {verified ? (
+                <Verified>
                   <p>Verified</p>
                 </Verified>
               ) : (
