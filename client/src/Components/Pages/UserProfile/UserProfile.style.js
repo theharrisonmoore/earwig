@@ -71,22 +71,27 @@ export const Stat = styled.p`
 
 export const IDWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  text-align: left;
-
-  border: 1px solid red;
+  // border: 1px solid red;
 `;
 
-export const UsernameIconDiv = styled.div`
+export const UsernameStatusDiv = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   border: 1px solid blue;
 `;
 
 export const Verified = styled.div`
-  display: flex;
   font-weight: 900;
+  margin: -1rem auto 0 0.25rem;
+`;
+
+export const IDText = styled.p`
+  font-size: 1.125rem;
+  margin-right: auto;
+  margin-top: -0.25rem;
+  margin-left: 0.25rem;
+  font-weight: bold;
+  color: ${colors.lightGray};
 `;
 
 export const EditInfo = styled.button`
@@ -109,14 +114,6 @@ export const EditInfo = styled.button`
     outline: none;
     text-decoration: none;
   }
-`;
-
-export const IDText = styled.p`
-  font-size: 1.125rem;
-  margin-top: 1rem;
-  margin-left: 0.5rem;
-  font-weight: bold;
-  color: ${colors.lightGray};
 `;
 
 export const MainSection = styled.div`

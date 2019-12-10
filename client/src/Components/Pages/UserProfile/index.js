@@ -32,7 +32,7 @@ import {
   ReviewDiv,
   AgencyTitle,
   ReviewText,
-  UsernameIconDiv,
+  UsernameStatusDiv,
 } from "./UserProfile.style";
 
 import Icon from "../../Common/Icon/Icon";
@@ -58,6 +58,7 @@ export default class index extends Component {
     const {
       userId,
       verified,
+      trade,
       points,
       helpedUsers,
       isSMobile,
@@ -72,28 +73,30 @@ export default class index extends Component {
         <Header>
           <TopSection>
             <IDWrapper>
-              <UsernameIconDiv>
-                {verified && (
-                  <Icon
-                    icon="getVerified"
-                    width="20"
-                    height="20"
-                    margin="0 0 0 0"
-                  />
-                )}
-                <IDText>{userId}</IDText>
-              </UsernameIconDiv>
-              {verified ? (
-                <Verified>
-                  <p>Verified</p>
-                </Verified>
-              ) : (
-                <Verified>
-                  <p>
-                    {awaitingReview ? "Verification pending" : "Unverified"}
-                  </p>
-                </Verified>
+              {verified && (
+                <Icon
+                  icon="getVerified"
+                  width="20"
+                  height="20"
+                  margin="0 0 0 0"
+                />
               )}
+              <UsernameStatusDiv>
+                <IDText>{userId}</IDText>
+                {verified ? (
+                  <Verified>
+                    <p>{trade ? "Verified worker" : "Registered user"}</p>
+                  </Verified>
+                ) : (
+                  <Verified>
+                    <p>
+                      {awaitingReview
+                        ? "Verification pending"
+                        : `${trade ? "Unverified worker" : "Registered user"}`}
+                    </p>
+                  </Verified>
+                )}
+              </UsernameStatusDiv>
             </IDWrapper>
 
             <Link to={EDIT_PROFILE_URL} text="Edit profile" type="primary" />
