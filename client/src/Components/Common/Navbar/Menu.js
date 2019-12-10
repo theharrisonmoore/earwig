@@ -27,7 +27,6 @@ import {
   LOGIN_URL,
   PRIVACY_AND_TERMS_URL,
   ADMIN,
-  MY_REVIEWS_URL,
   INVITE_WORKERS_URL,
 } from "../../../constants/naviagationUrls";
 
