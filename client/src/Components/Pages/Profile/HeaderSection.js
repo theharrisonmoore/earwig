@@ -3,6 +3,7 @@ import React, { Component, createRef } from "react";
 import { Link } from "react-router-dom";
 import ReviewNotAllowedButton from "./ReviewNotAllowedButton";
 import Icon from "../../Common/Icon/Icon";
+import GeneralTabs from "../../Common/GeneralTabs";
 
 import {
   USER_PROFILE_URL,
@@ -46,23 +47,23 @@ const ColoredBanner = ({ category, name, isMobile }) => {
   );
 };
 
-const TabsWrapper = ({ setActiveTab, activeTab }) => {
-  return (
-    <TabsDivFullWidth>
-      <TabsDiv onClick={setActiveTab}>
-        <Tab isActive={activeTab === "overview"} data-tab="overview">
-          <Icon icon="overview" width="19" height="19" />
-          <TabTitle isActive>Overview</TabTitle>
-        </Tab>
-        <Tab isActive={activeTab === "detailed"} data-tab="detailed">
-          <Icon icon="detailed" width="19" height="19" />
-          <TabTitle>Detailed</TabTitle>
-        </Tab>
-        <Underline left={activeTab === "overview"} />
-      </TabsDiv>
-    </TabsDivFullWidth>
-  );
-};
+// const TabsWrapper = ({ setActiveTab, activeTab }) => {
+//   return (
+//     <TabsDivFullWidth>
+//       <TabsDiv onClick={setActiveTab}>
+//         <Tab isActive={activeTab === "overview"} data-tab="overview">
+//           <Icon icon="overview" width="19" height="19" />
+//           <TabTitle isActive>Overview</TabTitle>
+//         </Tab>
+//         <Tab isActive={activeTab === "detailed"} data-tab="detailed">
+//           <Icon icon="detailed" width="19" height="19" />
+//           <TabTitle>Detailed</TabTitle>
+//         </Tab>
+//         <Underline left={activeTab === "overview"} />
+//       </TabsDiv>
+//     </TabsDivFullWidth>
+//   );
+// };
 
 export default class HeaderSection extends Component {
   headerRef = createRef();
@@ -102,7 +103,7 @@ export default class HeaderSection extends Component {
       >
         <ColoredBanner category={category} name={name} isMobile={isMobile} />
         {level > 0 && (
-          <TabsWrapper setActiveTab={setActiveTab} activeTab={activeTab} />
+          <GeneralTabs setActiveTab={setActiveTab} activeTab={activeTab} />
         )}
         {level > 0 ? (
           <ActionButtonsDiv>

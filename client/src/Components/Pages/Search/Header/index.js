@@ -4,6 +4,7 @@ import AutosuggestComponent from "../AutoSuggest";
 
 import { HeaderWrapper, SearchBarContainer } from "./Header.style";
 import Tabs from "./Tabs";
+import GeneralTabs from "../../../Common/GeneralTabs";
 
 export default class SearchHeader extends Component {
   state = {
@@ -31,7 +32,7 @@ export default class SearchHeader extends Component {
   // };
 
   render() {
-    const { isMobile, isTablet, data, category } = this.props;
+    const { isMobile, isTablet, data, category, setActiveTab, activeTab = "overview" } = this.props;
     const { shrink } = this.state;
     return (
       <HeaderWrapper category={category} shrink={shrink}>
@@ -50,6 +51,7 @@ export default class SearchHeader extends Component {
             isTablet={isTablet}
           />
         </SearchBarContainer>
+        <GeneralTabs setActiveTab={setActiveTab} activeTab={activeTab} />
       </HeaderWrapper>
     );
   }

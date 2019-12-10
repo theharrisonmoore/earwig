@@ -36,6 +36,7 @@ export default class Search extends Component {
       company: [],
       agency: [],
     },
+    activeTab: "overview",
   };
 
   componentDidMount() {
@@ -88,8 +89,13 @@ export default class Search extends Component {
     });
   };
 
+  setActiveTab = e => {
+    const { tab } = e.target.dataset;
+    this.setState({ activeTab: tab });
+  };
+
   render() {
-    const { searchData, sortedOrgs, loading } = this.state;
+    const { searchData, sortedOrgs, loading, activeTab } = this.state;
     const { isMobile, isTablet, match } = this.props;
     const { category = "agency" } = match.params;
     return (
@@ -100,6 +106,8 @@ export default class Search extends Component {
             isTablet={isTablet}
             data={searchData[category]}
             category={category}
+            activeTab={activeTab}
+            setActiveTab={this.setActiveTab}
           />
 
           <OrganisationsList
