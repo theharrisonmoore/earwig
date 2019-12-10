@@ -42,6 +42,7 @@ export const Tab = styled.div`
 export const TabTitle = styled.span`
   font-size: 1rem;
   margin-top: 0.25rem;
+  text-transform: capitalize;
 
   font-weight: ${({ isActive }) => (isActive ? "500" : "normal")};
 `;
@@ -60,19 +61,19 @@ export const Underline = styled.div`
   transition: 400ms all;
 `;
 
-const GeneralTabs = ({ setActiveTab, activeTab }) => {
+const GeneralTabs = ({ setActiveTab, activeTab, tabOne, tabTwo }) => {
   return (
     <TabsDivFullWidth>
       <TabsDiv onClick={setActiveTab}>
-        <Tab isActive={activeTab === "overview"} data-tab="overview">
-          <Icon icon="overview" width="19" height="19" />
-          <TabTitle isActive>Overview</TabTitle>
+        <Tab isActive={activeTab === tabOne} data-tab={tabOne}>
+          <Icon icon={tabOne} width="19" height="19" />
+          <TabTitle isActive={activeTab === tabOne}>{tabOne}</TabTitle>
         </Tab>
-        <Tab isActive={activeTab === "detailed"} data-tab="detailed">
-          <Icon icon="detailed" width="19" height="19" />
-          <TabTitle>Detailed</TabTitle>
+        <Tab isActive={activeTab === tabTwo} data-tab={tabTwo}>
+          <Icon icon={tabTwo} width="19" height="19" />
+          <TabTitle isActive={activeTab === tabTwo}>{tabTwo}</TabTitle>
         </Tab>
-        <Underline left={activeTab === "overview"} />
+        <Underline left={activeTab === tabOne} />
       </TabsDiv>
     </TabsDivFullWidth>
   );

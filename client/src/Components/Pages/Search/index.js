@@ -36,7 +36,7 @@ export default class Search extends Component {
       company: [],
       agency: [],
     },
-    activeTab: "overview",
+    activeTab: "all",
   };
 
   componentDidMount() {

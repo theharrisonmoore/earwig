@@ -32,7 +32,7 @@ export default class SearchHeader extends Component {
   // };
 
   render() {
-    const { isMobile, isTablet, data, category, setActiveTab, activeTab = "overview" } = this.props;
+    const { isMobile, isTablet, data, category, setActiveTab, activeTab = "all" } = this.props;
     const { shrink } = this.state;
     return (
       <HeaderWrapper category={category} shrink={shrink}>
@@ -51,7 +51,7 @@ export default class SearchHeader extends Component {
             isTablet={isTablet}
           />
         </SearchBarContainer>
-        <GeneralTabs setActiveTab={setActiveTab} activeTab={activeTab} />
+        <GeneralTabs setActiveTab={setActiveTab} activeTab={activeTab} tabOne="all" tabTwo="recent" />
       </HeaderWrapper>
     );
   }
