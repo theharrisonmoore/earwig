@@ -278,7 +278,7 @@ export const VerifySection = styled.div`
 export const BorderedSubSectionWrapper = styled.div`
   max-width: 700px;
   margin: 0 auto;
-  padding: 3rem 0;
+  padding: ${({ padding }) => padding || "3rem 0"} ;
   border: none;
   // min-height: 100vh;
 
@@ -296,7 +296,7 @@ export const BorderedSubSectionWrapper = styled.div`
 
 export const SubSectionTitleParagraph = styled.p`
   margin: 0 auto;
-  margin-top: 2rem;
+  margin-top: ${({ marginTop }) => marginTop || "2rem"};
   // padding-bottom: 2rem;
   border-bottom: 1px solid ${colors.veryLightGray};
   width: 90%;
