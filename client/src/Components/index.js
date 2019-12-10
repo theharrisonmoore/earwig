@@ -66,7 +66,7 @@ import OrgCheck from "./Pages/OrgCheck";
 import Welcome from "./Pages/Welcome";
 import InviteWorkers from "./Pages/InviteWorkers";
 import PreReview from "./Pages/PreReview";
-import VerificationRequired from "./Pages/AddProfileAfterVerified";
+import AddProfileAfterSignUp from "./Pages/AddProfileAfterSignUp";
 
 import {
   FAQ,
@@ -172,7 +172,7 @@ export default function index(props) {
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
-          Component={VerificationRequired}
+          Component={AddProfileAfterSignUp}
         />
         <PrivateRoute
           minimumLevel="LEVEL0"

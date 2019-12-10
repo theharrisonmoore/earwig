@@ -56,7 +56,6 @@ class Review extends Component {
     groupss: {},
     organization: { category: "agency", name: "", orgId: "" },
     reviewId: "",
-    user: { email: "" },
     dropdownList: [],
     comments: {},
     answers: {},
@@ -78,21 +77,24 @@ class Review extends Component {
   };
 
   componentDidMount() {
-    const { orgId, reviewId } = this.props.match.params;
-    if (!orgId && !reviewId) {
+    const {
+      createNewProfile,
+      match: { params: { category, name, orgId, reviewId } } = {},
+    } = this.props;
+    if (!createNewProfile && !orgId && !reviewId) {
       this.props.history.push("/search");
     }
-    const { email } = this.props;
 
+    const { email } = this.props;
     this.setState({
       organization: {
         orgId,
       },
-      user: { email },
       reviewId,
     });
-
-    if (reviewId) {
+    if (createNewProfile) {
+      this.getProfileQuestions({ category, createNewProfile, name });
+    } else if (reviewId) {
       axios
         .get(`/api/review/${reviewId}/is-edatable`)
         .then(res => {
@@ -185,46 +187,50 @@ class Review extends Component {
           }
         });
     } else {
-      axios
-        .get(`/api/questions/${orgId}`)
-        .then(res => {
-          const groupss = {};
-          res.data.groups.forEach(group => {
-            groupss[group._id] = {
-              title: group.group.text,
-              main: group.questions.filter(question => !question.isDependent),
-              dependant: group.questions.filter(
-                question => question.isDependent
-              ),
-            };
-          });
-          this.setState({
-            groups: res.data,
-            groupss,
-            isLoading: false,
-            organization: res.data.organization,
-            email,
-            // answers,
-            dropdownOptions:
-              res.data.dropDownListData &&
-              res.data.dropDownListData[0].category,
-          });
-        })
-        .catch(err => {
-          const error =
-            err.response && err.response.data && err.response.data.error;
-          if (err.response && err.response.status === 409) {
-            return Modal.error({
-              title: "Error",
-              content: error,
-              onOk: () => this.props.history.goBack(),
-            });
-          }
-          // server error 500
-          return message.error(error || "Something went wrong");
-        });
+      this.getProfileQuestions({ category, createNewProfile, name, orgId });
     }
   }
+
+  getProfileQuestions = ({ category, createNewProfile, orgId, name }) => {
+    axios
+      .get(
+        createNewProfile
+          ? `/api/questions/new/${category}/${name}`
+          : `/api/questions/${orgId}`
+      )
+      .then(res => {
+        const groupss = {};
+        res.data.groups.forEach(group => {
+          groupss[group._id] = {
+            title: group.group.text,
+            main: group.questions.filter(question => !question.isDependent),
+            dependant: group.questions.filter(question => question.isDependent),
+          };
+        });
+        this.setState({
+          groups: res.data,
+          groupss,
+          isLoading: false,
+          organization: res.data.organization,
+          // answers,
+          dropdownOptions:
+            res.data.dropDownListData && res.data.dropDownListData[0].category,
+        });
+      })
+      .catch(err => {
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        if (err.response && err.response.status === 409) {
+          return Modal.error({
+            title: "Error",
+            content: error,
+            onOk: () => this.props.history.goBack(),
+          });
+        }
+        // server error 500
+        return message.error(error || "Something went wrong");
+      });
+  };
 
   submitAudio = () => {
     const { audioFile } = this.state;
@@ -483,7 +489,8 @@ class Review extends Component {
     e.preventDefault();
     this.setState({ isSubmitting: true });
     const { organization, audioFile } = this.state;
-    const { user } = this.state;
+    const { createNewProfile } = this.props;
+
     const values = {
       answers: this.state.answers,
       comments: this.state.comments,
@@ -496,7 +503,7 @@ class Review extends Component {
         const review = {
           values,
           organization,
-          user,
+          createNewProfile,
         };
         if (this.state.isEditing) {
           const { orgId } = this.state;
