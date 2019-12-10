@@ -11,7 +11,6 @@ import createTrie from "autosuggest-trie";
 import { Spin } from "antd";
 import swal from "sweetalert2";
 
-import { chownSync } from "fs";
 import { ADD_PROFILE_URL } from "../../../constants/naviagationUrls";
 import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
 
