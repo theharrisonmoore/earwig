@@ -1,10 +1,20 @@
 import React, { Component } from "react";
 
+// common profile styles
 import {
-  Wrapper,
   BorderedSubSectionWrapper,
   SubSectionTitleParagraph,
 } from "./UserProfile.style";
+
+// individual styles
+import {
+  Wrapper,
+  ProgressSection,
+  Tracker,
+  ProgressInTracker,
+  ZeroNum,
+  ProgressNum,
+} from "./UserPoints.style";
 
 export default class UserPoints extends Component {
   render() {
@@ -12,13 +22,22 @@ export default class UserPoints extends Component {
       <Wrapper>
         <BorderedSubSectionWrapper>
           <SubSectionTitleParagraph>
-            You can edit your reviews within four weeks, unless workers have
-            found them helpful and given you points, or unless the agency,
-            payroll or company has replied.
+            You earn points when workers like your reviews. Make your reviews
+            helpful to earn more points. You also earn points when workers
+            sign-up using your magic referral links.
             <br />
-            <br /> You can delete your reviews at any time.
+            Build your network to earn more points.
           </SubSectionTitleParagraph>
         </BorderedSubSectionWrapper>
+        <ProgressSection>
+          <ZeroNum>0</ZeroNum>
+          <Tracker>
+            {/* <ProgressNum progress={50}>50</ProgressNum> */}
+            <ProgressNum progress={50}>50</ProgressNum>
+            <ProgressNum progress={100}>100</ProgressNum>
+            {/* <ProgressInTracker progress={25} /> */}
+          </Tracker>
+        </ProgressSection>
       </Wrapper>
     );
   }

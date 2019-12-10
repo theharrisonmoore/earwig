@@ -255,7 +255,7 @@ export default function index(props) {
           isTablet={isTablet}
           Component={UserPoints}
           navbar
-          title="Reviews you've given"
+          title="Points you've earned"
         />
         <PrivateRoute
           minimumLevel="LEVEL0"

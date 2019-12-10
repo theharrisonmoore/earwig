@@ -280,7 +280,7 @@ export const BorderedSubSectionWrapper = styled.div`
   margin: 0 auto;
   padding: 3rem 0;
   border: none;
-  min-height: 100vh;
+  // min-height: 100vh;
 
   & > div {
     max-width: 500px;
@@ -288,16 +288,16 @@ export const BorderedSubSectionWrapper = styled.div`
     width: 90%;
   }
 
-  @media ${breakpoints.tablet} {
-    border-left: 3px solid ${colors.heliotrope};
-    border-right: 3px solid ${colors.heliotrope};
-  }
+  // @media ${breakpoints.tablet} {
+  //   border-left: 3px solid ${colors.heliotrope};
+  //   border-right: 3px solid ${colors.heliotrope};
+  // }
 `;
 
 export const SubSectionTitleParagraph = styled.p`
   margin: 0 auto;
   margin-top: 2rem;
-  padding-bottom: 2rem;
+  // padding-bottom: 2rem;
   border-bottom: 1px solid ${colors.veryLightGray};
   width: 90%;
   text-align: center;
