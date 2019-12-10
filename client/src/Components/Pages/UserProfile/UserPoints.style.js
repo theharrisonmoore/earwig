@@ -16,7 +16,8 @@ export const Wrapper = styled.div`
 
 export const ProgressSection = styled.section`
   // border: 1px solid black;
-  margin-top: -20px;
+  margin-top: -35px;
+  height: 70vh;
 `;
 
 export const ZeroNum = styled.div`
@@ -29,16 +30,16 @@ export const ZeroNum = styled.div`
 `;
 
 export const Tracker = styled.div`
-  height: 300px;
+  height: 75%;
   margin: 15px auto;
   background: ${colors.veryLightGray}
-  width: 1px;
+  width: 3px;
   position: relative;
   display: flex;
   justify-content: center;
 
-  @media ${breakpoints.laptop} {
-    height: 550px;
+  @media ${breakpoints.mobileL} {
+    height: 85%;
   }
 `;
 
@@ -48,17 +49,31 @@ export const ProgressNum = styled.div`
   justify-content: center;
   width: 37px;
   height: 37px;
-  border: ${borders.buttonBox};
+  border: 1.5px solid ${colors.veryLightGray};
   border-radius: 50%
   background: white;
   position: absolute;
   top: ${({ progress }) => progress - 5}%;
 `;
 
+export const CompetitionContainer = styled.div`
+  position: absolute;
+  width: 100vw;
+  top: ${({ progress }) => progress - 5}%;
+  color: ${colors.black};
+`;
+
+export const CompetitionDiv = styled.div`
+  margin-left: 180px;
+  margin-top: 5px;
+  font-weight: 500;
+  // border: 1px solid green;
+`;
+
 // renders user progress dynamically
 export const YourProgressDiv = styled.div`
   width: 280px;
-  margin-top: -20px;
+  margin-top: -10px;
   display: flex;
   justify-content: flex-start;
   position: absolute;

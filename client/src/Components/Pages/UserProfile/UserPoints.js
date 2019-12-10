@@ -15,6 +15,8 @@ import {
   ProgressTriangle,
   ZeroNum,
   ProgressNum,
+  CompetitionContainer,
+  CompetitionDiv,
 } from "./UserPoints.style";
 
 export default class UserPoints extends Component {
@@ -33,8 +35,14 @@ export default class UserPoints extends Component {
         <ProgressSection>
           <ZeroNum>0</ZeroNum>
           <Tracker>
-            {/* <ProgressNum progress={50}>50</ProgressNum> */}
             <ProgressNum progress={50}>50</ProgressNum>
+            <CompetitionContainer progress={50}>
+              {/* <ProgressNum progress={50}>50</ProgressNum> */}
+              <CompetitionDiv>
+                <p>Enter competition</p>
+                <p>Tooltip</p>
+              </CompetitionDiv>
+            </CompetitionContainer>
             <ProgressNum progress={100}>100</ProgressNum>
             <YourProgressDiv progress={30}>
               You've earned <br /> 30 points
