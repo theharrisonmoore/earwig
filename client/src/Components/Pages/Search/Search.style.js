@@ -120,7 +120,6 @@ export const SearchWrapper = styled.div`
   flex-direction: column;
   height: 100%;
   padding: 0;
-  padding-top: ${props => (props.isMobile ? "3rem" : "4rem")};
 
   margin: 0;
   align-items: center;

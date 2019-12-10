@@ -11,6 +11,18 @@ export default class SearchHeader extends Component {
     shrink: true,
   };
 
+  componentDidMount() {
+    document.querySelector("#navbar").style.position = "relative";
+  }
+
+  componentWillUnmount() {
+    const navbar = document.querySelector("#navbar");
+
+    if (navbar) {
+      navbar.style.position = "fixed";
+    }
+  }
+
   // componentDidMount() {
   //   document.addEventListener("scroll", this.checkScroll);
   //   this.checkScroll();

@@ -36,6 +36,12 @@ export default class Search extends Component {
       company: [],
       agency: [],
     },
+    recentReviews: {
+      worksite: [],
+      payroll: [],
+      company: [],
+      agency: [],
+    },
     activeTab: "all",
   };
 
@@ -92,10 +98,20 @@ export default class Search extends Component {
   setActiveTab = e => {
     const { tab } = e.target.dataset;
     this.setState({ activeTab: tab });
+
+    if (tab === "recent") {
+      this.filterRecentReviews();
+    }
   };
 
+  filterRecentReviews = () => {
+    const { category, sortedOrgs } = this.state;
+    const hasReviews = sortedOrgs[category].filter(org => org.totalReviews > 0)
+    this.setState({ recentReviews: { [category]: hasReviews }})
+  }
+
   render() {
-    const { searchData, sortedOrgs, loading, activeTab } = this.state;
+    const { searchData, sortedOrgs, loading, activeTab, recentReviews } = this.state;
     const { isMobile, isTablet, match } = this.props;
     const { category = "agency" } = match.params;
     return (
@@ -109,12 +125,20 @@ export default class Search extends Component {
             activeTab={activeTab}
             setActiveTab={this.setActiveTab}
           />
-
-          <OrganisationsList
-            sortedOrgs={sortedOrgs[category]}
-            loading={loading}
-            category={category}
-          />
+          {activeTab === "all" ? (
+            <OrganisationsList
+              sortedOrgs={sortedOrgs[category]}
+              loading={loading}
+              category={category}
+            />
+          ) : (
+            <OrganisationsList
+              sortedOrgs={recentReviews[category]}
+              loading={loading}
+              category={category}
+            />
+          )
+          }
         </SearchWrapper>
       </Layout>
     );

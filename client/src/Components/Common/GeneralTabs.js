@@ -13,6 +13,7 @@ export const TabsDivFullWidth = styled.div`
   top: 0;
   background-color: ${colors.white};
   z-index: 2 !important;
+  margin: 0;
 `;
 
 export const TabsDiv = styled.div`
