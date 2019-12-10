@@ -72,6 +72,9 @@ import Reply from "./Reply";
 import Calendar from "./Calendar";
 import Overview from "./Overview";
 import Detailed from "./Detailed";
+import Like from "./Like";
+import Comment from "./Comment";
+import Flag from "./Flag";
 
 const iconStyles = props => css`
   width: ${props.width || "100%"};
@@ -152,6 +155,9 @@ const iconMap = {
   calendar: Calendar,
   overview: Overview,
   detailed: Detailed,
+  like: Like,
+  comment: Comment,
+  flag: Flag,
 };
 
 const styledIconMap = Object.keys(iconMap).reduce((accum, curr) => {

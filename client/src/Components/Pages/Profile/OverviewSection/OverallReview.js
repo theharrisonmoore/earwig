@@ -24,7 +24,6 @@ import {
   CommentDate,
   BubbleAndDate,
   ReviewDiv,
-  StyledAntIcon,
   ActionsDiv,
   ButtonsWrapper,
   UserTrade,
@@ -32,9 +31,10 @@ import {
   UserAdditionalDetails,
   UserInfoWrapper,
   RatingWithUserInfo,
+  LikeWrapper,
+  CommentIconWrapper,
 } from "../Profile.style";
 
-import Button from "../../../Common/Button";
 import VoiceReview from "../ProfileAnswers/VoiceReview";
 
 import { SectionTitle } from "../DetailedSection/ReviewSection.style";
@@ -43,17 +43,26 @@ const { Panel } = Collapse;
 
 const UserInfo = ({ userId, trade, helpedUsers, points }) => {
   return (
-    <UserInfoWrapper>
-      <UserDiv>
-        <UserID>{userId}</UserID>
-        <UserTrade>{trade}</UserTrade>
-      </UserDiv>
-      <UserAdditionalDetails>
-        <p>
-          Helped {helpedUsers} · Points {points}
-        </p>
-      </UserAdditionalDetails>
-    </UserInfoWrapper>
+    <>
+      <Icon
+        icon="getVerified"
+        color={colors.black2}
+        height="25"
+        width="25"
+        margin="0 0 0 0.5rem"
+      />
+      <UserInfoWrapper>
+        <UserDiv>
+          <UserID>{userId}</UserID>
+          <UserTrade>{trade}</UserTrade>
+        </UserDiv>
+        <UserAdditionalDetails>
+          <p>
+            Helped {helpedUsers} · Points {points}
+          </p>
+        </UserAdditionalDetails>
+      </UserInfoWrapper>
+    </>
   );
 };
 
@@ -125,7 +134,7 @@ class OverallReview extends Component {
               [reviewId]: {
                 counter: points,
                 sentNumber: points,
-                byUser: false,
+                byUser: true,
               },
             },
           },
@@ -399,41 +408,42 @@ class OverallReview extends Component {
                   <ActionsDiv>
                     <ButtonsWrapper>
                       {review.user._id !== userId && (
-                        <>
-                          <Button
-                            onClick={
-                              isAuthorized ? this.toggleHelpful : undefined
-                            }
-                            id={review._id}
-                            data-user-id={review.user._id}
-                            data-type={review.category}
-                            data-organization={review.organization}
-                            data-target={
-                              review.category === "written"
-                                ? "overallReview"
-                                : "voiceReview"
-                            }
-                            data-category={category}
-                            disabled={level < 2}
-                            text="Helpful"
-                            styleType="secondary"
-                            color={
+                        <LikeWrapper
+                          as="button"
+                          onClick={
+                            isAuthorized ? this.toggleHelpful : undefined
+                          }
+                          id={review._id}
+                          data-user-id={review.user._id}
+                          data-type={review.category}
+                          data-organization={review.organization}
+                          data-target={
+                            review.category === "written"
+                              ? "overallReview"
+                              : "voiceReview"
+                          }
+                          data-category={category}
+                          disabled={level < 2}
+                          active={
+                            counters[review.category][review._id] &&
+                            counters[review.category][review._id].counter > 0 &&
+                            counters[review.category][review._id].byUser
+                          }
+                        >
+                          <Icon
+                            icon="like"
+                            fill={
                               counters[review.category][review._id] &&
                               counters[review.category][review._id].counter > 0
-                                ? colors.white
-                                : colors.primary
+                                ? colors.primary
+                                : colors.gray
                             }
-                            backgroundColor={
-                              counters[review.category][review._id] &&
-                              counters[review.category][review._id].counter > 0
-                                ? colors.profileFontColor
-                                : colors.white
-                            }
-                            margin="0.75rem 1rem 0.75rem 0"
+                            width="27"
+                            height="27"
                           />
-                        </>
+                        </LikeWrapper>
                       )}
-                      <Button
+                      <CommentIconWrapper
                         onClick={level >= 2 ? this.goTOReply : undefined}
                         data-target={
                           review.category === "written"
@@ -444,11 +454,14 @@ class OverallReview extends Component {
                         data-org-id={orgId}
                         data-review-id={review._id}
                         disabled={level < 2}
-                        text="Reply"
-                        styleType="secondary"
-                        color={colors.primary}
-                        margin="0.75rem 0"
-                      />
+                      >
+                        <Icon
+                          icon="comment"
+                          fill={colors.gray}
+                          width="27"
+                          height="27"
+                        />
+                      </CommentIconWrapper>
                     </ButtonsWrapper>
                     {/* FLAG ICON */}
                     <Link
@@ -469,7 +482,12 @@ class OverallReview extends Component {
                         },
                       }}
                     >
-                      <StyledAntIcon type="flag" />
+                      <Icon
+                        icon="flag"
+                        fill={colors.gray}
+                        width="27"
+                        height="27"
+                      />
                     </Link>
                   </ActionsDiv>
                   {review.repliesCount ? (
@@ -519,7 +537,7 @@ class OverallReview extends Component {
                                 `${review._id}/${review.category}` &&
                               activeOverallId === review._id
                                 ? "Hide Replies"
-                                : "Read Replies"}
+                                : `Read Replies (${review.repliesCount})`}
                             </span>
                           </>
                         }
@@ -633,7 +651,12 @@ class OverallReview extends Component {
                                     },
                                   }}
                                 >
-                                  <StyledAntIcon type="flag" />
+                                  <Icon
+                                    icon="flag"
+                                    fill={colors.gray}
+                                    width="27"
+                                    height="27"
+                                  />
                                 </Link>
                               </div>
                             </div>

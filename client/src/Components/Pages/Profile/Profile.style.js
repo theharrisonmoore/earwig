@@ -1,7 +1,6 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import SVG from "react-inlinesvg";
 import { NavLink } from "react-router-dom";
-import { Icon as AntIcon } from "antd";
 import BlurredBackground from "../../../assets/blurred-background.png";
 
 import {
@@ -9,7 +8,7 @@ import {
   colors,
   shadows,
   borders,
-  breakpoints
+  breakpoints,
 } from "../../../theme";
 import { ReactComponent as ReplyIcon } from "../../../assets/reply-icon.svg";
 
@@ -493,12 +492,6 @@ export const AccountItem = styled.div`
   margin: 1.25rem 0;
 `;
 
-export const StyledAntIcon = styled(AntIcon)`
-  font-size: 1.5rem;
-  color: ${colors.gray};
-  cursor: pointer;
-`;
-
 export const IconWrapper = styled.div`
   min-width: 70px;
 `;
@@ -681,7 +674,7 @@ export const InfoRow = styled.div`
 `;
 
 export const LeftInfo = styled.div`
-  width: 30%;
+  width: 40%;
   display: flex;
   align-items: center;
   color: ${colors.profileFontColor};
@@ -690,7 +683,7 @@ export const LeftInfo = styled.div`
 `;
 
 export const RightInfo = styled.div`
-  width: 70%;
+  width: 60%;
   display: flex;
   align-items: center;
 `;
@@ -702,4 +695,48 @@ export const UserInfoWrapper = styled.div`
 export const RatingWithUserInfo = styled.div`
   display: flex;
   padding-top: 0.5rem;
+`;
+
+const IconsWrapper = styled.div`
+  cursor: pointer;
+  margin: 0.75rem 1rem 0.75rem 0;
+
+  * {
+    pointer-events: none;
+  }
+`;
+
+const rotate = keyframes`
+  0% {
+    transform: rotate(0deg) scale(1, 1);
+  }
+  50% {
+    transform: rotate(10deg) scale(1.2, 1.2);
+  }
+  100% {
+    transform: rotate(0deg) scale(1, 1);
+  }
+`;
+// alternate
+const animation = () =>
+  css`
+    ${rotate} 0.5s ease;
+  `;
+
+export const LikeWrapper = styled(IconsWrapper)`
+  margin: 0.75rem 1rem 0.75rem 0;
+  animation: ${({ active }) => (active ? animation : "none")};
+  background: none;
+  border: none;
+  outline: none;
+  animation-fill-mode: none;
+  transition: 0.5s all;
+
+  :hover {
+    transform: rotate(10deg);
+  }
+`;
+
+export const CommentIconWrapper = styled(IconsWrapper)`
+  margin: 0.75rem 1rem 0.75rem 3rem;
 `;
