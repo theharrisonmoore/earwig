@@ -71,24 +71,23 @@ export const Stat = styled.p`
 
 export const IDWrapper = styled.div`
   display: flex;
-  // border: 1px solid red;
 `;
 
 export const UsernameStatusDiv = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid blue;
 `;
 
 export const Verified = styled.div`
-  font-weight: 900;
+  font-weight: 500;
+  font-size: 1.125rem;
   margin: -1rem auto 0 0.25rem;
 `;
 
 export const IDText = styled.p`
   font-size: 1.125rem;
   margin-right: auto;
-  margin-top: -0.25rem;
+  margin-top: -0.2rem;
   margin-left: 0.25rem;
   font-weight: bold;
   color: ${colors.lightGray};
@@ -272,4 +271,38 @@ export const VerifyParagraph = styled.p`
 
 export const VerifySection = styled.div`
   padding-top: 5rem;
+`;
+
+// subsection styles (user reviews and user points)
+
+export const BorderedSubSectionWrapper = styled.div`
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 0;
+  border: none;
+  min-height: 100vh;
+
+  & > div {
+    max-width: 500px;
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  @media ${breakpoints.tablet} {
+    border-left: 3px solid ${colors.heliotrope};
+    border-right: 3px solid ${colors.heliotrope};
+  }
+`;
+
+export const SubSectionTitleParagraph = styled.p`
+  margin: 0 auto;
+  margin-top: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid ${colors.veryLightGray};
+  width: 90%;
+  text-align: center;
+
+  @media ${breakpoints.tablet} {
+    margin-top: 3.5rem;
+  }
 `;

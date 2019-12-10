@@ -8,6 +8,7 @@ import {
   EDIT_PROFILE_URL,
   UPLOAD_VERIFICATION_URL,
   MY_REVIEWS_URL,
+  MY_POINTS_URL,
 } from "../../../constants/naviagationUrls";
 
 import Link from "../../Common/Link";
@@ -92,7 +93,7 @@ export default class index extends Component {
                     <p>
                       {awaitingReview
                         ? "Verification pending"
-                        : `${trade ? "Unverified worker" : "Registered user"}`}
+                        : `${trade ? "Unverified" : "Registered user"}`}
                     </p>
                   </Verified>
                 )}
@@ -142,7 +143,7 @@ export default class index extends Component {
                   active
                 >
                   <Link
-                    to={MY_REVIEWS_URL}
+                    to={MY_POINTS_URL}
                     text={`${points} points`}
                     type="primary"
                   />

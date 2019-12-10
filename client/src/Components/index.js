@@ -36,6 +36,8 @@ import {
   ORG_STATUS_URL_LOGIN,
   INVITE_WORKERS_URL,
   PRE_REVIEW,
+  MY_REVIEWS_URL,
+  MY_POINTS_URL,
 } from "../constants/naviagationUrls";
 
 import Landing from "./Pages/Landing";
@@ -48,6 +50,7 @@ import EditProfile from "./Pages/EditProfile";
 import DeleteProfile from "./Pages/DeleteProfile";
 import UserProfile from "./Pages/UserProfile";
 import UserReviews from "./Pages/UserProfile/UserReviews";
+import UserPoints from "./Pages/UserProfile/UserPoints";
 import Review from "./Pages/Review";
 import Profile from "./Pages/Profile";
 import Admin from "./Pages/Admin";
@@ -236,11 +239,21 @@ export default function index(props) {
         />
         <PrivateRoute
           minimumLevel="LEVEL1"
-          path="/my-reviews"
+          path={MY_REVIEWS_URL}
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
           Component={UserReviews}
+          navbar
+          title="Reviews you've given"
+        />
+        <PrivateRoute
+          minimumLevel="LEVEL1"
+          path={MY_POINTS_URL}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={UserPoints}
           navbar
           title="Reviews you've given"
         />
