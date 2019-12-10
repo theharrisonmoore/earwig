@@ -31,31 +31,34 @@ export default class AddProfileSelection extends Component {
     this.props.history.push("/search");
   };
 
-  addOrganisation = (e, orgName, orgCategory) => {
+  addOrganisation = (e, name, category) => {
     const { level } = this.props;
     e.preventDefault();
     this.setState({ isLoading: true });
 
     this.props.history.push(
-      level >= 3 ? ADD_PROFILE_START_REVIEW_URL : VERIFICATION_REQUIRED,
-      {
-        orgName,
-        orgCategory,
-      }
+      level >= 3
+        ? `/add-profile-start-review/${category}/${name}`
+        : `/verification-required/${category}/${name}`
     );
   };
 
   render() {
-    const { name } = this.props.location.state;
+    const { match: { params: { name } } = {} } = this.props;
     const { isLoading } = this.state;
-
     const categories = ["agency", "payroll", "worksite", "company"];
+
+    if (!name) {
+      this.goBack();
+      return null;
+    }
+
     return (
       <Layout type="side">
         <AddWrapper>
           <MainDiv>
             <HeadlineDiv>
-              <H2>{name} is a ...</H2>
+              <H2>Just double checking, {name} is a…</H2>
             </HeadlineDiv>
             <LogosContainer>
               <Spin tip="Loading..." spinning={isLoading} />

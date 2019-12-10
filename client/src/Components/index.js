@@ -26,6 +26,7 @@ import {
   SEARCH_URL,
   ADD_PROFILE_URL,
   ADD_PROFILE_START_REVIEW_URL,
+  ADD_REVIEW_TO_NEW_PROFILE,
   VERIFICATION_REQUIRED,
   ADMIN,
   CONFIRM_EMAIL_URL,
@@ -65,7 +66,7 @@ import OrgCheck from "./Pages/OrgCheck";
 import Welcome from "./Pages/Welcome";
 import InviteWorkers from "./Pages/InviteWorkers";
 import PreReview from "./Pages/PreReview";
-import VerificationRequired from "./Pages/VerificationRequired";
+import VerificationRequired from "./Pages/AddProfileAfterVerified";
 
 import {
   FAQ,
@@ -90,6 +91,14 @@ export default function index(props) {
           path="/organization/:orgId/review"
           {...props}
           Component={Review}
+        />
+        <PrivateRoute
+          exact
+          minimumLevel="LEVEL2"
+          path={ADD_REVIEW_TO_NEW_PROFILE}
+          Component={Review}
+          createNewProfile
+          {...props}
         />
         <PrivateRoute
           exact
@@ -156,7 +165,6 @@ export default function index(props) {
           isMobile={isMobile}
           isTablet={isTablet}
           Component={AddProfileSelection}
-          navbar
         />
         <PrivateRoute
           minimumLevel="LEVEL0"
@@ -165,7 +173,6 @@ export default function index(props) {
           isMobile={isMobile}
           isTablet={isTablet}
           Component={VerificationRequired}
-          navbar
         />
         <PrivateRoute
           minimumLevel="LEVEL0"

@@ -190,7 +190,7 @@ class AutosuggestComponent extends Component {
             ) : (
               <AddProfileLink
                 to={{
-                  pathname: `${ADD_PROFILE_URL}`,
+                  pathname: ADD_PROFILE_URL.replace(":name", query),
                   state: {
                     name: `${query}`,
                     referrerUrl: this.props.location.pathname,

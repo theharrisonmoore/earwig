@@ -31,10 +31,7 @@ export default class AddProfileReviewStart extends Component {
 
   createNewOrg = () => {
     this.setState({ isLoading: true }, () => {
-      const {
-        orgName: name,
-        orgCategory: category,
-      } = this.props.location.state;
+      const { match: { params: { name, category } } = {} } = this.props;
 
       const newOrg = { name, category };
       axios
@@ -75,7 +72,8 @@ export default class AddProfileReviewStart extends Component {
   };
 
   render() {
-    const { location: { state: { orgName: name } = {} } = {} } = this.props;
+    const { match: { params: { name } } = {} } = this.props;
+
     const { isLoading } = this.state;
 
     return (

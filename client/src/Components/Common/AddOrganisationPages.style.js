@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
 import { colors } from "../../theme";
 
 export const HeadlineDiv = styled.div`
@@ -19,10 +21,16 @@ export const HeadlineDiv = styled.div`
 `;
 
 export const H2 = styled.h2`
-  font-size: 2rem;
+  font-size: 24px;
   opacity: 0.7;
-  margin-bottom: 0;
   max-width: 22rem;
+  margin: 0 auto;
+`;
+
+export const SubHeading = styled.h4`
+  font-size: 15px
+  opacity: 0.7;
+  ${margin => margin};
 `;
 
 export const MainDiv = styled.div`
@@ -60,4 +68,9 @@ export const LogosContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
+`;
+
+export const StyledLink = styled(Link)`
+  color: ${colors.primary};
+  font-weight: 500;
 `;
