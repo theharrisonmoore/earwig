@@ -31,7 +31,7 @@ export const reviewsByMonth = FilteredReviewMonths => {
     Sep: 0,
     Oct: 0,
     Nov: 0,
-    Dec: 0
+    Dec: 0,
   };
 
   if (FilteredReviewMonths.length === 0) return reviewMonthsCount;
@@ -71,4 +71,18 @@ export const getCarCost = (reviewDetails = []) => {
     return average.toFixed(2);
   }
   return "Free";
+};
+
+export const getVerifiedUsers = usersArray => {
+  return usersArray.filter(user => user.verified).map(({ _id }) => _id);
+};
+
+export const getVerifiedRepliesCount = (replies, verifiedUsers) => {
+  if (!replies || replies.length === 0) {
+    return 0;
+  }
+  const verifiedReplies = replies.filter(({ user }) =>
+    verifiedUsers.includes(user)
+  );
+  return verifiedReplies.length;
 };

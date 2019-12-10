@@ -20,7 +20,6 @@ module.exports = async (req, res, next) => {
 
     let summary;
     let reviewDetails;
-    let level;
     let reviewsLast30Days = [];
     // let newReviewDetails;
 
@@ -44,8 +43,6 @@ module.exports = async (req, res, next) => {
       //   .catch(err => next(boom.badImplementation(err)));
 
       reviewDetails = await allQsAndAs(organization.category, organizationID).catch(err => next(boom.badImplementation(err)));
-
-      level = user.verified ? 2 : 1;
     } else {
       summary = await basicReview(organizationID).catch(err => next(boom.badImplementation(err)));
 
@@ -60,14 +57,11 @@ module.exports = async (req, res, next) => {
       } else {
         reviewDetails = [];
       }
-
-      level = 0;
     }
 
     return res.json({
       summary,
       reviewDetails,
-      level,
       reviewsLast30Days,
     });
   } catch (error) {

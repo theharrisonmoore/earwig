@@ -71,8 +71,7 @@ export const authorization = ({
 }) => {
   const minimumLevelValue = levels[minimumLevel];
 
-  let userLevel;
-
+  let userLevel = 0;
   if (isAdmin) {
     userLevel = levels.ADMIN;
   } else if (verified) {
@@ -85,7 +84,10 @@ export const authorization = ({
     userLevel = levels.LEVEL0;
   }
 
-  return userLevel >= minimumLevelValue;
+  return {
+    isAuthorized: userLevel >= minimumLevelValue,
+    level: userLevel,
+  };
 };
 
 export const handleLogout = (history, handleChangeState) => {

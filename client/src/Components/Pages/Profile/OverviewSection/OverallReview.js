@@ -5,6 +5,8 @@ import { Link, withRouter } from "react-router-dom";
 import { Collapse, Icon as AntdIcon, message, Alert, Rate } from "antd";
 import axios from "axios";
 
+import { getVerifiedUsers, getVerifiedRepliesCount } from "../utils";
+
 import Icon from "../../../Common/Icon/Icon";
 
 import { organizations, colors } from "../../../../theme";
@@ -208,14 +210,22 @@ class OverallReview extends Component {
 
     if (summary)
       summary.reviews.forEach(review => {
+        let replies = [];
+        if (review.overallReview.allRepliesUsers) {
+          replies = [...replies, ...review.overallReview.allRepliesUsers];
+        }
+        if (review.voiceReview.allRepliesUsers) {
+          replies = [...replies, ...review.voiceReview.allRepliesUsers];
+        }
+        const verifiedUsers = getVerifiedUsers(replies);
         const { overallReview, voiceReview } = review;
 
         // check for writtenReview and add to array
         if (overallReview && overallReview.text) {
-          const repliesCount =
-            (review.overallReview.replies &&
-              review.overallReview.replies.length) ||
-            0;
+          const repliesCount = getVerifiedRepliesCount(
+            review.overallReview.replies,
+            verifiedUsers
+          );
 
           totalReviews.push({
             text: review.overallReview.text,
@@ -232,9 +242,11 @@ class OverallReview extends Component {
 
         // check for audioReview and add to array
         if (voiceReview && voiceReview.audio) {
-          const repliesCount =
-            (review.voiceReview.replies && review.voiceReview.replies.length) ||
-            0;
+          const repliesCount = getVerifiedRepliesCount(
+            review.voiceReview.replies,
+            verifiedUsers
+          );
+
           totalReviews.push({
             text: review.voiceReview.audio,
             repliesCount,
@@ -305,11 +317,12 @@ class OverallReview extends Component {
       writtenOrAudioReviews,
       updatedUsers,
     } = this.state;
-    const isAuthorized = authorization({
+
+    const { isAuthorized, level } = authorization({
       isAdmin,
       verified,
       awaitingReview,
-      minimumLevel: "LEVEL2",
+      minimumLevel: "LEVEL3",
     });
 
     return FilteredReviewMonths[0] && FilteredReviewMonths[0].createdAt ? (
@@ -388,7 +401,9 @@ class OverallReview extends Component {
                       {review.user._id !== userId && (
                         <>
                           <Button
-                            onClick={isAuthorized && this.toggleHelpful}
+                            onClick={
+                              isAuthorized ? this.toggleHelpful : undefined
+                            }
                             id={review._id}
                             data-user-id={review.user._id}
                             data-type={review.category}
@@ -399,7 +414,7 @@ class OverallReview extends Component {
                                 : "voiceReview"
                             }
                             data-category={category}
-                            disabled={!(verified || awaitingReview)}
+                            disabled={level < 2}
                             text="Helpful"
                             styleType="secondary"
                             color={
@@ -419,7 +434,7 @@ class OverallReview extends Component {
                         </>
                       )}
                       <Button
-                        onClick={(verified || awaitingReview) && this.goTOReply}
+                        onClick={level >= 2 ? this.goTOReply : undefined}
                         data-target={
                           review.category === "written"
                             ? "overallReview"
@@ -428,7 +443,7 @@ class OverallReview extends Component {
                         data-category={category}
                         data-org-id={orgId}
                         data-review-id={review._id}
-                        disabled={!(verified || awaitingReview)}
+                        disabled={level < 2}
                         text="Reply"
                         styleType="secondary"
                         color={colors.primary}
@@ -521,10 +536,9 @@ class OverallReview extends Component {
                                   "rtl"}`,
                               }}
                             >
-                              {!verified && reply.replies.user._id === userId && (
+                              {level < 3 && reply.replies.user._id === userId && (
                                 <Alert
-                                  message="Your replies are visible only for you untill you get
-                    verified"
+                                  message="Your replies are only visible to you until we've checked your verification photo."
                                   type="warning"
                                   style={{
                                     display: "inline-block",
