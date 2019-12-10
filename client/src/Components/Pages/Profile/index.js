@@ -201,6 +201,7 @@ export default class Profile extends Component {
               FilteredReviewMonths={FilteredReviewMonths}
               activeTab={activeTab}
               setActiveTab={this.setActiveTab}
+              summary={summary}
             />
           </Skeleton>
           {activeTab === "overview" ? (

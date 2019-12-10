@@ -83,7 +83,7 @@ export default class HeaderSection extends Component {
     const {
       isTablet,
       isMobile,
-      summary,
+      summary = {},
       level,
       reviewsLast30Days,
       orgId,
@@ -100,12 +100,7 @@ export default class HeaderSection extends Component {
         isMobile={isMobile}
         // ref={this.headerRef}
       >
-        <ColoredBanner
-          category={category}
-          name={name}
-          summary={summary}
-          isMobile={isMobile}
-        />
+        <ColoredBanner category={category} name={name} isMobile={isMobile} />
         {level > 0 && (
           <TabsWrapper setActiveTab={setActiveTab} activeTab={activeTab} />
         )}
