@@ -80,8 +80,8 @@ export default class Menu extends PureComponent {
         {isLoggedIn ? (
           <MenuWrapper>
             <MenuItem to={WELCOME_URL} onClick={toggleMenu}>
-              <PriorityIcon icon="search" height="19" width="19" />
-              Search
+              <PriorityIcon icon="home" height="19" width="19" />
+              Home
             </MenuItem>
             {/* <MenuItem
               disabled
@@ -104,7 +104,7 @@ export default class Menu extends PureComponent {
             {isWorker && (
               <MenuItem to={INVITE_WORKERS_URL} onClick={toggleMenu}>
                 <PriorityIcon icon="win" height="19" width="19" />
-                Invite workers to earwig
+                Build your network
               </MenuItem>
             )}
             <MenuItem to={PROFILE_URL} onClick={toggleMenu}>
@@ -119,12 +119,12 @@ export default class Menu extends PureComponent {
                 </ComingSoon>
               </MenuItem>
             )} */}
-            {isWorker && (
+            {/* {isWorker && (
               <MenuItem to={MY_REVIEWS_URL} onClick={toggleMenu}>
                 <MenuIcon icon="starComment" height="19" width="19" />
                 Reviews you&apos;ve given
               </MenuItem>
-            )}
+            )} */}
             {isWorker && (
               <MenuItem to={FAQ_URL} onClick={toggleMenu}>
                 <MenuIcon icon="faq" height="19" width="19" />
@@ -134,7 +134,8 @@ export default class Menu extends PureComponent {
             {isWorker && (
               <MenuItem to={RESOURCES_URL} onClick={toggleMenu}>
                 <MenuIcon icon="helpfulLinks" height="19" width="19" />
-                Stuff you might find helpful
+                Helpful stuff 
+                <MenuIcon icon="newWindow" height="12" width="12" margin="0 0 0 0.5rem" />
               </MenuItem>
             )}
             {isWorker && (
@@ -157,8 +158,8 @@ export default class Menu extends PureComponent {
         ) : (
           <MenuWrapper>
             <MenuItem to={WELCOME_URL} onClick={toggleMenu}>
-              <PriorityIcon icon="search" height="19" width="19" />
-              Search
+              <PriorityIcon icon="home" height="19" width="19" />
+              Home
             </MenuItem>
             <MenuItem to={LOGIN_URL} onClick={toggleMenu}>
               <MenuIcon icon="user" height="19" width="19" />
