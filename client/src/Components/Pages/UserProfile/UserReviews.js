@@ -89,11 +89,6 @@ const Cancel = styled.p`
   color: ${colors.primary};
 `;
 
-// const LinkBtn = styled.button`
-//   outline: none;
-//   border
-// `
-
 export default class UserReviews extends Component {
   state = {
     reviews: [],
