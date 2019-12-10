@@ -51,8 +51,6 @@ class Question extends Component {
       history
     } = this.props;
 
-    console.log("question hist", history);
-
     const popoverOptions = {
       text:
         "We’re asking this because it will be useful to track over time how much agencies are paying workers",

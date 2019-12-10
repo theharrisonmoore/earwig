@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Prompt } from 'react-router';
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Modal, Input, Alert } from "antd";
@@ -48,7 +49,8 @@ export default class UploadImage extends Component {
     disableSelect: false,
     city: "",
     loading: false,
-    isPopupVisible: false
+    isPopupVisible: false,
+    browserBackAttempt: true,
   };
 
   componentDidMount() {
@@ -135,7 +137,7 @@ export default class UploadImage extends Component {
         }
       })
         .then(() => {
-          this.setState({ loading: false, isPopupVisible: true });
+          this.setState({ loading: false, isPopupVisible: true, browserBackAttempt: false });
         })
         .catch(err => {
           this.setState({ loading: false }, () => {
@@ -236,7 +238,8 @@ export default class UploadImage extends Component {
       image,
       loading,
       newTrade,
-      isPopupVisible
+      isPopupVisible,
+      browserBackAttempt
     } = this.state;
     return (
       <UploadImageWrapper className="test">
@@ -382,6 +385,7 @@ export default class UploadImage extends Component {
             />
           </Modal>
         </ContentWrapper>
+        <Prompt when={browserBackAttempt} message="Are you sure you want to leave this page? You will lose any unsaved data."/>
       </UploadImageWrapper>
     );
   }

@@ -1,5 +1,6 @@
 // Render Prop
 import React, { Component } from "react";
+import { Prompt } from 'react-router';
 import axios from "axios";
 import * as Yup from "yup";
 import { Modal, Alert, Input, Divider } from "antd";
@@ -21,7 +22,7 @@ import {
   Checkbox,
   CheckboxLabel,
   StyledField,
-  AntCheckbox
+  AntCheckbox,
 } from "../../Common/Formik/Formik.style";
 
 import {
@@ -38,7 +39,7 @@ import {
   Example,
   ImageInput,
   ModalText,
-  LogIn
+  LogIn,
 } from "./Signup.style";
 
 import example from "../../../assets/example.png";
@@ -49,7 +50,7 @@ import {
   WELCOME_URL,
   TERMS_OF_USE_URL,
   PRIVACY_URL,
-  LOGIN_URL
+  LOGIN_URL,
 } from "../../../constants/naviagationUrls";
 
 const { API_TRADE_URL } = require("../../../apiUrls");
@@ -61,11 +62,11 @@ function equalTo(ref, msg) {
     exclusive: false,
     message: msg || "Passwords do not match",
     params: {
-      reference: ref.path
+      reference: ref.path,
     },
     test(value) {
       return value === this.resolve(ref);
-    }
+    },
   });
 }
 
@@ -118,7 +119,7 @@ const signupSchema = Yup.object().shape({
       return false;
     }
     return true;
-  })
+  }),
 });
 
 const initialValues = {
@@ -131,7 +132,7 @@ const initialValues = {
   otherOrg: "",
   trade: "",
   city: "",
-  verificationImage: undefined
+  verificationImage: undefined,
 };
 
 const RadioButton = ({
@@ -179,7 +180,8 @@ export default class Signup extends Component {
     newTrade: "",
     error: "",
     isPopupVisible: false,
-    data: null
+    data: null,
+    browserBackAttempt: true,
   };
 
   handleSubmit = (_values, { setSubmitting }) => {
@@ -207,8 +209,8 @@ export default class Signup extends Component {
           url: API_SIGN_UP,
           data: form,
           headers: {
-            "content-type": `multipart/form-data; boundary=${form._boundary}`
-          }
+            "content-type": `multipart/form-data; boundary=${form._boundary}`,
+          },
         })
           .then(({ data }) => {
             if (isWorker === "yes") {
@@ -216,9 +218,9 @@ export default class Signup extends Component {
               //   pathname: "/intro",
               //   state: { isWorker },
               // });
-              this.setState({ isPopupVisible: true, data });
+              this.setState({ isPopupVisible: true, data, browserBackAttempt: false });
             } else {
-              this.props.handleChangeState({ ...data, isLoggedIn: true });
+              this.props.handleChangeState({ ...data, isLoggedIn: true, browserBackAttempt: false });
               this.props.history.push(WELCOME_URL);
             }
           })
@@ -241,6 +243,9 @@ export default class Signup extends Component {
   };
 
   componentDidMount() {
+    const { history } = this.props;
+    console.log("HIST", history.location.state);
+
     axios.get(API_TRADE_URL).then(res => {
       const { data } = res;
       const trades = data.reduce((accu, current) => {
@@ -259,7 +264,7 @@ export default class Signup extends Component {
     const { searchTerm } = e.target.dataset;
     this.setState({
       ismodalVisible: true,
-      newTrade: searchTerm
+      newTrade: searchTerm,
     });
   };
 
@@ -267,7 +272,7 @@ export default class Signup extends Component {
     if (this.state.newTrade && this.state.newTrade.length >= 3) {
       this.setState(
         {
-          confirmLoading: true
+          confirmLoading: true,
         },
         () => {
           axios
@@ -278,20 +283,20 @@ export default class Signup extends Component {
               this.setState({
                 trades: [{ value: data._id, label: data.title }],
                 trade: data._id,
-                disableSelect: true
+                disableSelect: true,
               });
               setFieldValue("trade", data._id);
 
               this.setState(
                 {
-                  newTradeSuccess: true
+                  newTradeSuccess: true,
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       newTradeSuccess: false,
                       ismodalVisible: false,
-                      confirmLoading: false
+                      confirmLoading: false,
                     });
                   }, 1000);
                 }
@@ -301,13 +306,13 @@ export default class Signup extends Component {
               this.setState(
                 {
                   newTradeSuccess: false,
-                  newTradeError: err.response.data.error
+                  newTradeError: err.response.data.error,
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       ismodalVisible: false,
-                      confirmLoading: false
+                      confirmLoading: false,
                     });
                   }, 1000);
                 }
@@ -317,7 +322,7 @@ export default class Signup extends Component {
       );
     } else if (this.state.newTrade.length < 3) {
       this.setState({
-        newTradeError: "Trade must be at least 3 characters long"
+        newTradeError: "Trade must be at least 3 characters long",
       });
     }
   };
@@ -326,7 +331,7 @@ export default class Signup extends Component {
     this.setState({
       ismodalVisible: false,
       newTradeSuccess: false,
-      newTradeError: ""
+      newTradeError: "",
     });
   };
 
@@ -342,7 +347,7 @@ export default class Signup extends Component {
     reader.onload = () => {
       const dataURL = reader.result;
       this.setState({
-        verificationImage: dataURL
+        verificationImage: dataURL,
       });
     };
 
@@ -358,7 +363,8 @@ export default class Signup extends Component {
       newTrade,
       isPopupVisible,
       isWorker,
-      data
+      data,
+      browserBackAttempt
     } = this.state;
 
     const { history } = this.props;
@@ -611,7 +617,7 @@ export default class Signup extends Component {
                         text: `Any card or ticket that shows you are a worker, eg CSCS card.`,
                         linkText: "What trade ID can I use?",
                         icon: "info",
-                        margin: "0 0 0.5rem 0"
+                        margin: "0 0 0.5rem 0",
                       }}
                       history={history}
                       currentState={this.state}
@@ -722,7 +728,7 @@ export default class Signup extends Component {
               this.props.handleChangeState({ ...data, isLoggedIn: true });
               this.props.history.push({
                 pathname: "/intro",
-                state: { isWorker }
+                state: { isWorker },
               });
             }}
           >
@@ -738,12 +744,13 @@ export default class Signup extends Component {
                 this.props.handleChangeState({ ...data, isLoggedIn: true });
                 this.props.history.push({
                   pathname: "/intro",
-                  state: { isWorker }
+                  state: { isWorker },
                 });
               }}
             />
           </Modal>
         </ContentWrapper>
+        <Prompt when={browserBackAttempt} message="Are you sure you want to leave this page? You will lose any unsaved data."/>
       </SignupWrapper>
     );
   }

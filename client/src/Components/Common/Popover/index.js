@@ -8,7 +8,8 @@ import { PopoverDiv, PopoverText } from "./Popover.style";
 
 class PopoverComponent extends React.Component {
   state = {
-    popoverVisible: false
+    popoverVisible: false,
+    currentUrl: "/"
   };
 
   hide = () => {
@@ -22,31 +23,30 @@ class PopoverComponent extends React.Component {
   };
 
   componentDidMount() {
-    this.hide();
-    console.log(this.state);
-    const { popoverOptions, history, currentState } = this.props;
+    this.setState({ currentUrl: window.location.pathname });
+    const { popoverOptions } = this.props;
     const { loadAutomatically } = popoverOptions;
-    console.log("hist pop", history, currentState);
+    // console.log("hist pop", history, currentState);
 
     if (loadAutomatically) this.handleVisibleChange(loadAutomatically);
-
-    window.onpopstate = () => {
-      this.hide();
-      if (history) {
-        history.push({
-          pathname: window.location.pathname,
-          state: currentState
-        });
-      }
-    };
   }
 
-  componentWillUnmount() {
-    const { history } = this.props;
-    if (history) {
-      history.goForward();
+  componentDidUpdate() {
+    window.onpopstate = e => {
+      const { popoverVisible } = this.state;
+      if (popoverVisible) {
+        this.hide();
+      }
     }
   }
+
+  // componentWillUnmount() {
+  //   const { history } = this.props;
+  //   if (history) {
+  //     console.log("window", window.location.pathname);
+  //     history.goForward();
+  //   }
+  // }
 
   render() {
     const { popoverOptions, category } = this.props;
