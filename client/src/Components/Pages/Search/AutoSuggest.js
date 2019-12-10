@@ -11,6 +11,7 @@ import createTrie from "autosuggest-trie";
 import { Spin } from "antd";
 import swal from "sweetalert2";
 
+import { chownSync } from "fs";
 import { ADD_PROFILE_URL } from "../../../constants/naviagationUrls";
 import { API_ADD_ORGANIZATION_URL } from "../../../apiUrls";
 
@@ -72,6 +73,8 @@ class AutosuggestComponent extends Component {
     isLoaded: true,
   };
 
+  addNewRef = React.createRef();
+
   componentDidUpdate(prevProps) {
     const { showOtherSections } = this.props;
     if (prevProps.showOtherSections !== showOtherSections) {
@@ -122,6 +125,7 @@ class AutosuggestComponent extends Component {
 
   // the onChange handler sets the users input and prevents that the value is undefined
   onChange = (event, { newValue }) => {
+    console.log("NEW", newValue);
     this.setState({ value: typeof newValue !== "undefined" ? newValue : "" });
   };
 
@@ -132,7 +136,14 @@ class AutosuggestComponent extends Component {
 
     if (e.key === "Enter") {
       if (suggestions[0].isEmpty) {
-        return null;
+        return this.props.history.push({
+          pathname: "/add-profile",
+          state: {
+            name: `${value}`,
+            referrerUrl: this.props.location.pathname,
+            section: this.props.section,
+          },
+        });
       }
       return this.props.history.push(`/profile/${suggestions[0]._id}`);
     }
@@ -238,7 +249,7 @@ class AutosuggestComponent extends Component {
       placeholder: `${placeholderText}`,
       value,
       onChange: this.onChange,
-      onKeyPress: this.onKeyPress,
+      onKeyUp: this.onKeyPress,
       onFocus: this.onFocus,
     };
 
