@@ -2,23 +2,18 @@ import React from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
-import { Tag, Button } from "antd";
+import { Button } from "antd";
 import Highlighter from "react-highlight-words";
-import { routes } from "./../../../../constants/adminRoutes";
+import { routes } from "../../../../constants/adminRoutes";
 
-import { GENERAL_ORGS_PROFILE_URL } from "./../../../../constants/naviagationUrls";
+import { GENERAL_ORGS_PROFILE_URL } from "../../../../constants/naviagationUrls";
 
-export default ({
-  deletHandler,
-  viewHandler,
-  getColumnSearchProps,
-  searchText
-}) => {
+export default ({ deletHandler, getColumnSearchProps, searchText }) => {
   return [
     {
       title: "Username",
       dataIndex: "userId",
-      key: "user.userIduserId",
+      key: "userId",
       render: text => (
         <span style={{ fontWeight: "700" }}>
           <Highlighter
@@ -29,7 +24,23 @@ export default ({
           />
         </span>
       ),
-      ...getColumnSearchProps("userId")
+      ...getColumnSearchProps("userId"),
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      render: text => (
+        <span style={{ fontWeight: "700" }}>
+          <Highlighter
+            highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+            searchWords={[searchText]}
+            autoEscape
+            textToHighlight={text && text.toString()}
+          />
+        </span>
+      ),
+      ...getColumnSearchProps("email"),
     },
     {
       title: "Organization",
@@ -47,7 +58,7 @@ export default ({
           </span>
         </Link>
       ),
-      ...getColumnSearchProps("organization")
+      ...getColumnSearchProps("organization"),
     },
     {
       title: "Org. type",
@@ -56,50 +67,29 @@ export default ({
       filters: [
         {
           text: "Agency",
-          value: "agency"
+          value: "agency",
         },
         {
           text: "Worksite",
-          value: "worksite"
+          value: "worksite",
         },
         {
           text: "Company",
-          value: "company"
+          value: "company",
         },
         {
           text: "Payroll",
-          value: "payroll"
-        }
+          value: "payroll",
+        },
       ],
-      onFilter: (value, record) => record["orgType"].indexOf(value) === 0
+      onFilter: (value, record) => record.orgType.indexOf(value) === 0,
     },
     {
       title: "Rate",
       dataIndex: "rate",
       key: "rate",
       sorter: (a, b) => a.rate - b.rate,
-      sortDirections: ["descend", "ascend"]
-    },
-    {
-      title: "Status",
-      dataIndex: "isVerified",
-      key: "isVerified",
-      render: text => {
-        const color = text === true ? "green" : "gold";
-        const status = text === true ? "Verified" : "Unverified";
-        return <Tag color={color}>{status}</Tag>;
-      },
-      filters: [
-        {
-          text: "Verified",
-          value: true
-        },
-        {
-          text: "Unverified",
-          value: false
-        }
-      ],
-      onFilter: (value, record) => record["isVerified"] === value
+      sortDirections: ["descend", "ascend"],
     },
     {
       title: "Date",
@@ -109,7 +99,7 @@ export default ({
         <span>{value && moment(value).format("DD MMM YYYY")}</span>
       ),
       sorter: (a, b) => moment(a.date) - moment(b.date),
-      sortDirections: ["descend", "ascend"]
+      sortDirections: ["descend", "ascend"],
     },
     {
       title: "Action",
@@ -121,7 +111,7 @@ export default ({
             <div
               style={{
                 display: "flex",
-                justifyContent: "space-between"
+                justifyContent: "space-between",
               }}
             >
               <Button
@@ -144,8 +134,8 @@ export default ({
                       rating: text && text.rate,
                       overallRev: text && text.overallReview,
                       revID: text && text._id,
-                      isVerified: text && text.isVerified
-                    }
+                      isVerified: text && text.isVerified,
+                    },
                   }}
                 >
                   View
@@ -154,7 +144,7 @@ export default ({
             </div>
           </div>
         );
-      }
-    }
+      },
+    },
   ];
 };
