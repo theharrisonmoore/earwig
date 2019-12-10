@@ -9,13 +9,12 @@ const {
   getAgenciesAndPayrollsNames,
   getReviewDetails,
   findReviewByIdAndUpdate,
-
 } = require("../database/queries/review");
 
 // const { getOrgsReviewedLast30D } = require("./../database/queries/reviews");
 
 const { findByEmail } = require("../database/queries/user");
-
+const { createOrganization } = require("./organization").service;
 const Review = require("../database/models/Review");
 const Answer = require("../database/models/Answer");
 const Comment = require("../database/models/Comment");
@@ -96,27 +95,36 @@ const postReviewShort = async (req, res, next) => {
 
 const postReview = async (req, res, next) => {
   const {
+    organization,
+    createNewProfile,
+    values,
+  } = req.body;
+  const {
     answers: questionsAnswers,
     review: {
       rate, overallReview, lastUse, voiceReview,
     },
     comments,
-    createNewProfile,
-  } = req.body.values;
-  const { organization } = req.body;
+  } = values;
   const { user } = req;
+  const { category, name } = organization;
 
   if (!user) {
     next(boom.badImplementation("User is undefined"));
   }
+  let organizationData = {};
   try {
-    const organizationData = await getOrganization(organization.category, organization.name);
+    if (createNewProfile) {
+      organizationData = await createOrganization({ category, name });
+    } else {
+      organizationData = await getOrganization(category, name);
+    }
     const userData = await findByEmail(user.email);
-    const questions = await getQuestionsByOrgCategory(organization.category);
+    const questions = await getQuestionsByOrgCategory(category);
 
     // TODO: refactor this code
     if (!organizationData || !userData || !questions) {
-      next(boom.badImplementation("Bad data"));
+      next(boom.badData());
     }
     const questionsObject = {};
     questions.forEach((q) => {

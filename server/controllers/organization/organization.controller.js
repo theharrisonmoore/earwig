@@ -16,7 +16,7 @@ const addNewOrg = async (req, res, next) => {
     if (user.role !== "admin" && process.env.NODE_ENV === "production") {
       await emailAdminTheNewProfile(user, addedOrg);
     }
-    res.json(addedOrg);
+    return res.json(addedOrg);
   } catch (error) {
     if (error.message === "organisation already exists") {
       return next(boom.conflict(error.message));
