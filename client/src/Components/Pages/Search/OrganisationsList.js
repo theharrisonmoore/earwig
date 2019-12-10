@@ -2,7 +2,7 @@ import React, { Component, createRef } from "react";
 
 import { Skeleton, Spin } from "antd";
 
-import { OrgsListWrapper, MainKey, SubKey } from "./Search.style";
+import { OrgsListWrapper, MainKey, SubKey, NoDataTitle } from "./Search.style";
 
 import Suggestion from "./OrganisationRow";
 
@@ -80,6 +80,8 @@ class OrganisationsList extends Component {
           <SkeletonWrapper />
         ) : (
           <>
+          {sortedOrgs.length > 0 ? 
+          <>
             <div ref={this.listRef}>
               {sortedOrgs.slice(0, rederedListLength).map(org => (
                 <div key={org._id}>
@@ -104,6 +106,11 @@ class OrganisationsList extends Component {
                 ) * approxDivHeight}px`,
               }}
             />
+          </> :
+          <>
+            <NoDataTitle>No organisations found</NoDataTitle>
+          </>
+          }
           </>
         )}
       </OrgsListWrapper>

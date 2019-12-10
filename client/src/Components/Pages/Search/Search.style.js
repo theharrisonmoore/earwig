@@ -318,3 +318,9 @@ export const ButtonsWrpper = styled.div`
     width: 100%;
   }
 `;
+
+export const NoDataTitle = styled.p`
+  font-size: 1.5rem;
+  padding-top: 2rem;
+  color: ${colors.dustyGray1};
+`

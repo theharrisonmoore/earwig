@@ -48,7 +48,7 @@ export default class SearchHeader extends Component {
     const { shrink } = this.state;
     return (
       <HeaderWrapper category={category} shrink={shrink}>
-        <Tabs category={category} />
+        <Tabs category={category} setActiveTab={setActiveTab} />
         <SearchBarContainer shrink={shrink}>
           <AutosuggestComponent
             iconTop={shrink ? "28px" : "34px"}
