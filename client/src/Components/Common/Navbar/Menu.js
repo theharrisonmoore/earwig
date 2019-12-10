@@ -21,7 +21,7 @@ import { colors } from "../../../theme";
 import {
   WELCOME_URL,
   PROFILE_URL,
-  RESOURCES_URL,
+  // RESOURCES_URL,
   CONTACT_URL,
   FAQ_URL,
   LOGIN_URL,
@@ -131,7 +131,11 @@ export default class Menu extends PureComponent {
               </MenuItem>
             )}
             {isWorker && (
-              <MenuItem to={RESOURCES_URL} onClick={toggleMenu}>
+              <MenuItem
+                to="//www.earwigwork.com/blog"
+                target="_blank"
+                onClick={toggleMenu}
+              >
                 <MenuIcon icon="helpfulLinks" height="19" width="19" />
                 Helpful stuff 
                 <MenuIcon icon="newWindow" height="12" width="12" margin="0 0 0 0.5rem" />
