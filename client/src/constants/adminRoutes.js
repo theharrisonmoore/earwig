@@ -47,18 +47,6 @@ export const menuElements = [
     title: "Reviews",
     icon: "file-search",
     route: "/reviews",
-    items: [
-      {
-        title: "All Reviews",
-        icon: "file-search",
-        route: "/",
-      },
-      {
-        title: "Verify awaiting reviews",
-        icon: "file-done",
-        route: "/verify",
-      },
-    ],
   },
   {
     title: "Trades",

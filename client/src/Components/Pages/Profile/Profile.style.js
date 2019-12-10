@@ -24,6 +24,9 @@ export const Wrapper = styled.div`
   padding-bottom: 100px;
   font-size: 1rem;
   position: relative;
+  & * {
+    z-index: 1;
+  }
 `;
 
 export const Banner = styled.div`
@@ -79,7 +82,7 @@ export const TabsDivFullWidth = styled.div`
   position: sticky;
   top: 0;
   background-color: ${colors.white};
-  z-index: 1;
+  z-index: 2 !important;
 `;
 
 export const TabsDiv = styled.div`

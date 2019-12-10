@@ -21,14 +21,6 @@ module.exports = (awaitingReview) => {
         as: "trade",
       },
     },
-    // {
-    //   $lookup: {
-    //     from: "organizations",
-    //     localField: "trade",
-    //     foreignField: "_id",
-    //     as: "trade",
-    //   },
-    // },
     {
       $lookup: {
         from: "organizations",
@@ -62,6 +54,27 @@ module.exports = (awaitingReview) => {
       },
     },
     {
+      $lookup: {
+        from: "reviews",
+        let: { user_id: "$_id" },
+        pipeline: [
+          {
+            $match: {
+              $expr:
+                {
+                  $and:
+                   [
+                     { $eq: ["$$user_id", "$user"] },
+                   ],
+                },
+
+            },
+          },
+        ],
+        as: "numOfReviews",
+      },
+    },
+    {
       $project: {
         status: {
           $cond: {
@@ -83,6 +96,9 @@ module.exports = (awaitingReview) => {
         trade: { $arrayElemAt: ["$trade", 0] },
         worksFor: { $ifNull: ["$worksFor", "N/A"] },
         verified: 1,
+        points: 1,
+        numOfReviews: { $size: "$numOfReviews" },
+        helpedUsers: 1,
         awaitingReview: 1,
         currentAgency: { $arrayElemAt: ["$currentAgency", 0] },
         currentCompany: { $arrayElemAt: ["$currentCompany", 0] },

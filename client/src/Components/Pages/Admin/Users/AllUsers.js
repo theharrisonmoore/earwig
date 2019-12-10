@@ -12,7 +12,7 @@ export default class AllUsers extends Component {
     data: [],
     visible: false,
     id: "",
-    searchText: ""
+    searchText: "",
   };
 
   getColumnSearchProps = dataIndex => ({
@@ -20,7 +20,7 @@ export default class AllUsers extends Component {
       setSelectedKeys,
       selectedKeys,
       confirm,
-      clearFilters
+      clearFilters,
     }) => (
       <div style={{ padding: 8 }}>
         <Input
@@ -69,7 +69,7 @@ export default class AllUsers extends Component {
       if (visible) {
         setTimeout(() => this.searchInput.select());
       }
-    }
+    },
   });
 
   handleSearch = (selectedKeys, confirm) => {
@@ -85,13 +85,13 @@ export default class AllUsers extends Component {
   showDrawer = id => {
     this.setState({
       visible: true,
-      id
+      id,
     });
   };
 
   closeDrawer = () => {
     this.setState({
-      visible: false
+      visible: false,
     });
   };
 
@@ -105,7 +105,7 @@ export default class AllUsers extends Component {
         return new Promise((resolve, reject) => {
           axios
             .delete(`/api/admin/users`, {
-              data: { id }
+              data: { id },
             })
             .then(() => {
               message.success("Deleted");
@@ -119,7 +119,7 @@ export default class AllUsers extends Component {
               this.fetchData();
             });
         });
-      }
+      },
     });
   };
 
@@ -155,7 +155,7 @@ export default class AllUsers extends Component {
             deletHandler: this.showDeleteConfirm,
             viewHandler: this.showDrawer,
             getColumnSearchProps: this.getColumnSearchProps,
-            searchText: this.state.searchText
+            searchText: this.state.searchText,
           })}
           dataSource={this.state.data}
           style={{ backgroundColor: "#ffffff" }}

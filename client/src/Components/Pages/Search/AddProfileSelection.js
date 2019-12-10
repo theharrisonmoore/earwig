@@ -87,7 +87,7 @@ export default class AddProfileSelection extends Component {
                   <Button
                     margin="1rem 0"
                     styleType="primary"
-                    text="company"
+                    text="Company"
                     backgroundColor={organizations.company.primary}
                     style={{ minWidth: "8.5rem" }}
                     onClick={e => {
