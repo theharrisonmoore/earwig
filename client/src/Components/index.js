@@ -26,6 +26,7 @@ import {
   SEARCH_URL,
   ADD_PROFILE_URL,
   ADD_PROFILE_START_REVIEW_URL,
+  VERIFICATION_REQUIRED,
   ADMIN,
   CONFIRM_EMAIL_URL,
   INTRO_URL,
@@ -53,8 +54,8 @@ import Profile from "./Pages/Profile";
 import Admin from "./Pages/Admin";
 import Search from "./Pages/Search";
 import JoinMailList from "./Pages/JoinMailList";
-import AddProfileSelection from "./Pages/Search/AddProfileSelection";
-import AddProfileStartReview from "./Pages/Search/AddProfileReviewStart";
+import AddProfileSelection from "./Pages/AddProfileSelection";
+import AddProfileStartReview from "./Pages/AddProfileReviewStart";
 import Intro from "./Pages/Intro";
 import PrivateRoute from "./Common/PrivateRoute";
 import Reply from "./Pages/Profile/Reply";
@@ -64,6 +65,7 @@ import OrgCheck from "./Pages/OrgCheck";
 import Welcome from "./Pages/Welcome";
 import InviteWorkers from "./Pages/InviteWorkers";
 import PreReview from "./Pages/PreReview";
+import VerificationRequired from "./Pages/VerificationRequired";
 
 import {
   FAQ,
@@ -148,7 +150,7 @@ export default function index(props) {
           title="Search"
         />
         <PrivateRoute
-          minimumLevel="LEVEL2"
+          minimumLevel="LEVEL0"
           path={ADD_PROFILE_URL}
           {...props}
           isMobile={isMobile}
@@ -157,7 +159,16 @@ export default function index(props) {
           navbar
         />
         <PrivateRoute
-          minimumLevel="LEVEL2"
+          minimumLevel="LEVEL0"
+          path={VERIFICATION_REQUIRED}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={VerificationRequired}
+          navbar
+        />
+        <PrivateRoute
+          minimumLevel="LEVEL0"
           path={ADD_PROFILE_START_REVIEW_URL}
           {...props}
           isMobile={isMobile}

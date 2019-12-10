@@ -13,9 +13,14 @@ import { CONTACT_URL } from "../../../constants/naviagationUrls";
 import Button from "../../Common/Button";
 
 // styles
-import { HeadlineDiv, H2, MainDiv, AddWrapper } from "./Search.style";
+import {
+  HeadlineDiv,
+  H2,
+  MainDiv,
+  AddWrapper,
+} from "../../Common/AddOrganisationPages.style";
 
-export default class AddProfileReviewStart extends Component {
+export default class VerificationRequired extends Component {
   state = {
     isLoading: false,
   };
@@ -70,16 +75,23 @@ export default class AddProfileReviewStart extends Component {
   };
 
   render() {
-    const { orgName: name } = this.props.location.state;
+    const {
+      location: { state: { orgName: name, orgCategory } = {} } = {},
+    } = this.props;
+
     const { isLoading } = this.state;
 
+    console.log({ orgCategory });
     return (
       <Layout type="side">
         <AddWrapper>
           <Spin tip="Loading..." spinning={isLoading}>
             <MainDiv>
               <HeadlineDiv>
-                <H2>Give {name} a review to add it to the earwig database</H2>
+                <H2>
+                  Hold up! You need to be a verified worker to create a new
+                  agency in our database.
+                </H2>
                 <div style={{ textAlign: "center" }}>
                   <Button
                     margin="2rem auto"

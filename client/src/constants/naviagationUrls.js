@@ -2,6 +2,7 @@ export const SEARCH_URL = "/search/:category?";
 export const PURE_SEARCH_URL = "/search";
 export const ADD_PROFILE_URL = "/add-profile";
 export const ADD_PROFILE_START_REVIEW_URL = "/add-profile-start-review";
+export const VERIFICATION_REQUIRED = "/verification-required";
 export const USER_PROFILE_URL = "/my-profile";
 export const PROFILE_URL = "/my-profile";
 export const ORGS_PROFILE_URL = "/profile/:profileID";

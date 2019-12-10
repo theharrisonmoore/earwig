@@ -6,17 +6,21 @@ import { organizations } from "../../../theme";
 import Layout from "../../Common/Layout";
 import Button from "../../Common/Button";
 
-import { ADD_PROFILE_START_REVIEW_URL } from "../../../constants/naviagationUrls";
+import {
+  ADD_PROFILE_START_REVIEW_URL,
+  VERIFICATION_REQUIRED,
+} from "../../../constants/naviagationUrls";
 
 // styles
+
 import {
   HeadlineDiv,
   H2,
-  LogosContainer,
   MainDiv,
   AddWrapper,
+  LogosContainer,
   ButtonsWrpper,
-} from "./Search.style";
+} from "../../Common/AddOrganisationPages.style";
 
 export default class AddProfileSelection extends Component {
   state = {
@@ -28,12 +32,17 @@ export default class AddProfileSelection extends Component {
   };
 
   addOrganisation = (e, orgName, orgCategory) => {
+    const { level } = this.props;
     e.preventDefault();
     this.setState({ isLoading: true });
-    this.props.history.push(ADD_PROFILE_START_REVIEW_URL, {
-      orgName,
-      orgCategory,
-    });
+
+    this.props.history.push(
+      level >= 3 ? ADD_PROFILE_START_REVIEW_URL : VERIFICATION_REQUIRED,
+      {
+        orgName,
+        orgCategory,
+      }
+    );
   };
 
   render() {
