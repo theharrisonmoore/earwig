@@ -47,13 +47,12 @@ export default class Welcome extends Component {
               <Logo />
             </LogoContainer>
             <Header>
-              <Title>Hello! Welcome to earwig.</Title>
+              <Title>Welcome!</Title>
             </Header>
             <ContentWrapper>
               <SubtitleWrapper>
                 <Subtitle>
-                  Get worker reviews about agencies, payrolls, worksites and
-                  companies
+                Get workers reviews about agencies, payrolls, worksites and companies
                 </Subtitle>
               </SubtitleWrapper>
               <ButtonsWrapper>
@@ -82,8 +81,7 @@ export default class Welcome extends Component {
             </ContentWrapper>
             <FooterTitle>
               <Subtitle>
-                earwig is empowering construction workers to own their work
-                culture
+              Empowering construction workers to own their work culture
               </Subtitle>
             </FooterTitle>
           </Body>

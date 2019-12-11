@@ -26,6 +26,7 @@ import GetVerified from "./GetVerified";
 import Hamburger from "./Hamburger";
 import HelpfulLinks from "./HelpfulLinks";
 import HelpingHand from "./HelpingHand";
+import Home from "./Home";
 import HotFood from "./HotFood";
 import Info from "./Info";
 import JobBoard from "./JobBoard";
@@ -35,6 +36,7 @@ import LogoBeta from "./LogoBeta";
 import LogoutLogin from "./LogoutLogin";
 import MedalIcon1 from "./MedalIcon1";
 import MedalIcon2 from "./MedalIcon2";
+import NewWindow from "./NewWindow";
 import NumberOne from "./NumberOne";
 import OrganisationalRatings from "./OrganisationalRatings";
 import OrHorizontal from "./OrHorizontal";
@@ -107,6 +109,7 @@ const iconMap = {
   gasmask: Gasmask,
   getVerified: GetVerified,
   hamburger: Hamburger,
+  home: Home,
   hotFood: HotFood,
   helpfulLinks: HelpfulLinks,
   helpingHand: HelpingHand,
@@ -118,6 +121,7 @@ const iconMap = {
   logoutLogin: LogoutLogin,
   medalIcon1: MedalIcon1,
   medalIcon2: MedalIcon2,
+  newWindow: NewWindow,
   numberOne: NumberOne,
   organisationalRatings: OrganisationalRatings,
   orHorizontal: OrHorizontal,

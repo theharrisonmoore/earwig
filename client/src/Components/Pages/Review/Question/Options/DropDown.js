@@ -195,6 +195,7 @@ class DropDown extends Component {
             isCreateNew
             addHandler={this.showModal}
             scrollToTop
+            width="calc(85% - 1rem)"
           />
           <div>
             <Modal

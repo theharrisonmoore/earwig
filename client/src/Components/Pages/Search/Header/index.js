@@ -38,7 +38,7 @@ export default class SearchHeader extends Component {
         <Tabs category={category} />
         <SearchBarContainer shrink={shrink}>
           <AutosuggestComponent
-            iconTop={shrink ? "28px" : "34px"}
+            iconTop={shrink ? "32px" : "34px"}
             bool={() => true}
             height={`${shrink ? "3.5rem" : "4.5rem"}`}
             width="80%"
