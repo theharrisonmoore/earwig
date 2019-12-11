@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import Layout from "../../Common/Layout";
 
 // constants
-import { SIGNUP_URL, LOGIN_URL } from "../../../constants/naviagationUrls";
+import {
+  SIGNUP_URL,
+  LOGIN_URL,
+  UPLOAD_VERIFICATION_PHOTO,
+} from "../../../constants/naviagationUrls";
 
 // common component
 import Button from "../../Common/Button";
@@ -20,7 +24,7 @@ import {
 } from "../../Common/AddOrganisationPages.style";
 
 export default props => {
-  const { match: { params: { category, name } } = {}, history } = props;
+  const { match: { params: { category, name } } = {}, history, level } = props;
 
   return (
     <Layout type="side">
@@ -37,7 +41,7 @@ export default props => {
           </SubHeading>
           <Link
             to={{
-              pathname: SIGNUP_URL,
+              pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
               state: {
                 category,
                 name,

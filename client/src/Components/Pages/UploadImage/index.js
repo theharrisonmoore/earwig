@@ -228,6 +228,35 @@ export default class UploadImage extends Component {
     this.setState({ newTrade: value, newTradeError: "" });
   };
 
+  handleModalOk = () => {
+    const {
+      location: {
+        state: {
+          orgId,
+          redirectToProfile,
+          category,
+          name,
+          redirectToCreateProfile,
+        } = {},
+      } = {},
+    } = this.props;
+
+    this.props.handleChangeState({ awaitingReview: true });
+    if (redirectToProfile && orgId) {
+      this.props.history.push({
+        pathname: `/profile/${orgId}`,
+      });
+    } else if (redirectToCreateProfile && name && category) {
+      this.props.history.push({
+        pathname: `/add-profile-sign-up/${category}/${name}`,
+      });
+    } else {
+      this.props.history.push({
+        pathname: "/intro",
+      });
+    }
+  };
+
   render() {
     const {
       ismodalVisible,
@@ -238,6 +267,7 @@ export default class UploadImage extends Component {
       newTrade,
       isPopupVisible,
     } = this.state;
+
     return (
       <UploadImageWrapper className="test">
         <PurpleDiv />
@@ -361,10 +391,7 @@ export default class UploadImage extends Component {
             visible={isPopupVisible}
             footer={null}
             closable={false}
-            afterClose={() => {
-              this.props.handleChangeState({ awaitingReview: true });
-              this.props.history.push(INTRO_URL);
-            }}
+            afterClose={this.handleModalOk}
           >
             <ModalText>
               Thanks, we're checking your photo. Any reviews you give won't be
@@ -374,10 +401,7 @@ export default class UploadImage extends Component {
               styleType="primary"
               margin="1rem auto"
               text="Okay"
-              onClick={() => {
-                this.props.handleChangeState({ awaitingReview: true });
-                this.props.history.push(INTRO_URL);
-              }}
+              onClick={this.handleModalOk}
             />
           </Modal>
         </ContentWrapper>

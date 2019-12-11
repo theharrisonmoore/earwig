@@ -173,6 +173,7 @@ export default class UserReviews extends Component {
               <div>Loading...</div>
             ) : (
               <>
+                {console.log({ reviews })}
                 {reviews.length ? (
                   reviews.map(review => {
                     return (
