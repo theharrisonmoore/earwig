@@ -2,7 +2,6 @@
 import React, { Component, createRef } from "react";
 import { Link } from "react-router-dom";
 import ReviewNotAllowedButton from "./ReviewNotAllowedButton";
-import Icon from "../../Common/Icon/Icon";
 import GeneralTabs from "../../Common/GeneralTabs";
 
 import {
@@ -13,11 +12,6 @@ import {
 import {
   Header,
   ColoredDiv,
-  TabsDivFullWidth,
-  TabsDiv,
-  Tab,
-  TabTitle,
-  Underline,
   ActionButtonsDiv,
   CompanyNameAndStars,
   CompanyTitle,

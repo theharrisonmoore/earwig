@@ -108,7 +108,7 @@ class OrganisationsList extends Component {
             />
           </> :
           <>
-            <NoDataTitle>No organisations found</NoDataTitle>
+            <NoDataTitle>No relevant reviews found</NoDataTitle>
           </>
           }
           </>
