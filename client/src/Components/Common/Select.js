@@ -2,14 +2,33 @@ import React from "react";
 import styled from "styled-components";
 import { Select, Divider } from "antd";
 import "antd/dist/antd.css";
+import Icon from "./Icon/Icon"
+
+import { colors } from "../../theme"
 
 const { Option } = Select;
+
 
 const Label = styled.label`
   display: block;
   text-align: left;
   margin-bottom: 0.25rem;
 `;
+
+const SelectDiv = styled.div`
+  position: relative;
+  width: ${({ width }) => width || "100%" };
+
+  .selectIcon {
+    position: absolute;
+    right: 1rem;
+    top: 29%;
+
+    :hover {
+      cursor: pointer;
+    }
+  }
+` 
 
 class CustomizedSelects extends React.Component {
   state = {
@@ -105,17 +124,19 @@ class CustomizedSelects extends React.Component {
       isCreateNew,
       showSearch,
       value,
+      width,
       ...rest
     } = this.props;
 
     const { searchTerm } = this.state;
 
     return (
-      <>
+      <SelectDiv width={width}>
         {label && <Label onClick={this.handleOpen}>{label}</Label>}
         <Select
           placeholder={disabled ? options[0] && options[0].name : placeholder}
           onSelect={handleChange}
+          showArrow={false}
           notFoundContent=""
           open={this.state.open}
           onDropdownVisibleChange={this.handleOpen}
@@ -168,9 +189,10 @@ class CustomizedSelects extends React.Component {
               <Option value={item.value || JSON.stringify(item)} key={item._id}>
                 {item.label || item.name}
               </Option>
-            ))}
+            ))}  
         </Select>
-      </>
+        <Icon icon="search" height="19px" width="19px" className="selectIcon" color={colors.dustyGray1} onClick={this.handleOpen} />
+      </SelectDiv>
     );
   }
 }
