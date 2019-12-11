@@ -20,7 +20,7 @@ import {
 } from "../../Common/AddOrganisationPages.style";
 
 export default props => {
-  const { match: { params: { category } } = {}, history } = props;
+  const { match: { params: { category, name } } = {}, history } = props;
 
   return (
     <Layout type="side">
@@ -35,7 +35,17 @@ export default props => {
           <SubHeading margin="2rem auto">
             You only need to get verified once :)
           </SubHeading>
-          <Link to={SIGNUP_URL} style={{ textAlign: "center" }}>
+          <Link
+            to={{
+              pathname: SIGNUP_URL,
+              state: {
+                category,
+                name,
+                redirectToCreateProfile: true,
+              },
+            }}
+            style={{ textAlign: "center" }}
+          >
             <Button
               margin="2rem auto"
               styleType="primary"
@@ -50,7 +60,19 @@ export default props => {
             onClick={history.goBack}
           />
           <SubHeading margin="6rem auto 4rem">
-            Already verified?<StyledLink to={LOGIN_URL}> Log in</StyledLink>
+            Already verified?
+            <StyledLink
+              to={{
+                pathname: LOGIN_URL,
+                state: {
+                  category,
+                  name,
+                  redirectToCreateProfile: true,
+                },
+              }}
+            >
+              Log in
+            </StyledLink>
           </SubHeading>
         </MainDiv>
       </AddWrapper>

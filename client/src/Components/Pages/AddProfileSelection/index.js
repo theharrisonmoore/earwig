@@ -37,7 +37,7 @@ export default class AddProfileSelection extends Component {
     this.setState({ isLoading: true });
 
     this.props.history.push(
-      level >= 3
+      level >= 2
         ? `/add-profile-start-review/${category}/${name}`
         : `/verification-required/${category}/${name}`
     );

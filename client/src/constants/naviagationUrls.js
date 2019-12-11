@@ -5,6 +5,8 @@ export const ADD_PROFILE_START_REVIEW_URL =
   "/add-profile-start-review/:category(agency|payroll|company|worksite)/:name";
 export const VERIFICATION_REQUIRED =
   "/verification-required/:category(agency|payroll|company|worksite)/:name";
+export const ADD_PROFILE_AFTER_SIGN_UP =
+  "/add-profile-sign-up/:category(agency|payroll|company|worksite)/:name";
 export const ADD_REVIEW_TO_NEW_PROFILE =
   "/organization/review/new/:category(agency|payroll|company|worksite)/:name";
 

@@ -38,6 +38,7 @@ import {
   ORG_STATUS_URL_LOGIN,
   INVITE_WORKERS_URL,
   PRE_REVIEW,
+  ADD_PROFILE_AFTER_SIGN_UP,
 } from "../constants/naviagationUrls";
 
 import Landing from "./Pages/Landing";
@@ -67,6 +68,7 @@ import Welcome from "./Pages/Welcome";
 import InviteWorkers from "./Pages/InviteWorkers";
 import PreReview from "./Pages/PreReview";
 import AddProfileAfterSignUp from "./Pages/AddProfileAfterSignUp";
+import VerificationRequired from "./Pages/VerificationRequired";
 
 import {
   FAQ,
@@ -168,11 +170,20 @@ export default function index(props) {
         />
         <PrivateRoute
           minimumLevel="LEVEL0"
-          path={VERIFICATION_REQUIRED}
+          path={ADD_PROFILE_AFTER_SIGN_UP}
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
           Component={AddProfileAfterSignUp}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={VERIFICATION_REQUIRED}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={VerificationRequired}
         />
         <PrivateRoute
           minimumLevel="LEVEL0"

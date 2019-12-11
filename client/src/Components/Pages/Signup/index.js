@@ -349,6 +349,37 @@ export default class Signup extends Component {
     if (verificationImage) reader.readAsDataURL(verificationImage);
   };
 
+  handleModalOk = () => {
+    const { isWorker, data } = this.state;
+    const {
+      location: {
+        state: {
+          orgId,
+          redirectToProfile,
+          category,
+          name,
+          redirectToCreateProfile,
+        } = {},
+      } = {},
+    } = this.props;
+
+    this.props.handleChangeState({ ...data, isLoggedIn: true });
+    if (redirectToProfile && orgId) {
+      this.props.history.push({
+        pathname: `/profile/${orgId}`,
+      });
+    } else if (redirectToCreateProfile && isWorker) {
+      this.props.history.push({
+        pathname: `/add-profile-sign-up/${category}/${name}`,
+      });
+    } else {
+      this.props.history.push({
+        pathname: "/intro",
+        state: { isWorker },
+      });
+    }
+  };
+
   render() {
     const {
       error,
@@ -358,12 +389,7 @@ export default class Signup extends Component {
       newTrade,
       isPopupVisible,
       isWorker,
-      data,
     } = this.state;
-
-    const {
-      location: { state: { orgId, redirectToProfile } = {} } = {},
-    } = this.props;
 
     return (
       <SignupWrapper>
@@ -718,14 +744,7 @@ export default class Signup extends Component {
             visible={isPopupVisible}
             footer={null}
             closable={false}
-            afterClose={() => {
-              this.props.handleChangeState({ ...data, isLoggedIn: true });
-              this.props.history.push({
-                pathname:
-                  redirectToProfile && orgId ? `/profile/${orgId}` : "/intro",
-                state: { isWorker },
-              });
-            }}
+            afterClose={this.handleModalOk}
           >
             <ModalText>
               Thanks, we&apos;re checking your photo. Any reviews you give
@@ -735,14 +754,7 @@ export default class Signup extends Component {
               styleType="primary"
               margin="1rem auto"
               text="Okay"
-              onClick={() => {
-                this.props.handleChangeState({ ...data, isLoggedIn: true });
-                this.props.history.push({
-                  pathname:
-                    redirectToProfile && orgId ? `/profile/${orgId}` : "/intro",
-                  state: { isWorker },
-                });
-              }}
+              onClick={this.handleModalOk}
             />
           </Modal>
         </ContentWrapper>

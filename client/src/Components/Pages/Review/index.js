@@ -601,7 +601,9 @@ class Review extends Component {
                 style={{ paddingRight: "1.5rem" }}
                 cancel
                 bold
-                onClick={() => history.push(`/profile/${orgId}`)}
+                onClick={() =>
+                  orgId ? history.push(`/profile/${orgId}`) : history.goBack()
+                }
               >
                 Cancel
               </Paragraph>
