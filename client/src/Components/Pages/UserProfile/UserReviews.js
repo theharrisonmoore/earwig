@@ -12,7 +12,7 @@ import {
   SubSectionTitleParagraph,
 } from "./UserProfile.style";
 
-import { colors, breakpoints, organizations } from "../../../theme";
+import { colors, organizations } from "../../../theme";
 
 import CommonLink from "../../Common/Link";
 
@@ -78,7 +78,9 @@ export default class UserReviews extends Component {
       });
       const res = await axios.get("/api/reviews");
       this.setState({
-        reviews: res.data.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)),
+        reviews: res.data.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        ),
         isLoading: false,
       });
     } catch (error) {
