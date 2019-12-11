@@ -1,32 +1,31 @@
 import styled from "styled-components";
-import {
-  colors,
-  shadows,
-  borders,
-  organizations,
-  breakpoints,
-} from "../../../theme";
+import { colors, breakpoints } from "../../../theme";
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 1rem;
-  min-height: 100vh;
+  height: 100vh;
+  font-family: Roboto;
 `;
 
 export const ProgressSection = styled.section`
   // border: 1px solid black;
   margin-top: -35px;
   height: 70vh;
+
+  @media ${breakpoints.mobileM} {
+    margin-top: -50px;
+  }
 `;
 
 export const ZeroNum = styled.div`
-  padding: 2rem 0 1.2rem 0;
-  font-weight: 300;
+  padding: 3.8rem 0 1.2rem 0;
+  font-weight: 500;
   height: 37px;
   width: 37px;
   margin: 0 auto;
-  color: ${colors.black};
+  color: ${({ color }) => color || colors.lightGray};
 `;
 
 export const Tracker = styled.div`
@@ -43,13 +42,22 @@ export const Tracker = styled.div`
   }
 `;
 
+export const ExtendedTracker = styled.div`
+  height: 150px;
+  margin: -20px auto;
+  overflow: hidden;
+  background: ${colors.veryLightGray}
+  width: 3px;
+`;
+
 export const ProgressNum = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 37px;
   height: 37px;
-  border: 1.5px solid ${colors.veryLightGray};
+  border: 1.5px solid ${colors.gray};
+  color: ${colors.gray}
   border-radius: 50%
   background: white;
   position: absolute;
@@ -58,16 +66,13 @@ export const ProgressNum = styled.div`
 
 export const CompetitionContainer = styled.div`
   position: absolute;
-  width: 100vw;
-  top: ${({ progress }) => progress - 5}%;
   color: ${colors.black};
-`;
-
-export const CompetitionDiv = styled.div`
-  margin-left: 180px;
+  width: 150px;
+  font-weight: 700;
+  top: ${({ progress }) => progress - 5}%;
+  margin-left: 100px;
   margin-top: 5px;
-  font-weight: 500;
-  // border: 1px solid green;
+  text-align: left;
 `;
 
 // renders user progress dynamically
@@ -78,7 +83,8 @@ export const YourProgressDiv = styled.div`
   justify-content: flex-start;
   position: absolute;
   top: ${({ progress }) => progress - 5}%;
-  color: ${colors.veryLightGray};
+  color: ${colors.lightGray};
+  text-align: right;
 `;
 
 export const ProgressTriangle = styled.div`
@@ -86,7 +92,7 @@ export const ProgressTriangle = styled.div`
   height: 0;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
-  border-top: 35px solid ${colors.red};
+  border-top: 35px solid #ed254e;
   position: absolute;
   top: ${({ progress }) => progress - 5}%;
 `;

@@ -278,9 +278,8 @@ export const VerifySection = styled.div`
 export const BorderedSubSectionWrapper = styled.div`
   max-width: 700px;
   margin: 0 auto;
-  padding: ${({ padding }) => padding || "3rem 0"} ;
+  padding: ${({ padding }) => padding || "3rem 0"};
   border: none;
-  // min-height: 100vh;
 
   & > div {
     max-width: 500px;
@@ -297,10 +296,11 @@ export const BorderedSubSectionWrapper = styled.div`
 export const SubSectionTitleParagraph = styled.p`
   margin: 0 auto;
   margin-top: ${({ marginTop }) => marginTop || "2rem"};
-  // padding-bottom: 2rem;
+  padding-bottom: 2rem;
   border-bottom: 1px solid ${colors.veryLightGray};
   width: 90%;
   text-align: center;
+  color: ${colors.lightGray};
 
   @media ${breakpoints.tablet} {
     margin-top: 3.5rem;
