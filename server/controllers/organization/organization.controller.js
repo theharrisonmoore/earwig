@@ -12,7 +12,7 @@ const addNewOrg = async (req, res, next) => {
   }
 
   try {
-    const addedOrg = createOrganization({ name, category });
+    const addedOrg = createOrganization({ name, category, userId: user._id });
     if (user.role !== "admin" && process.env.NODE_ENV === "production") {
       await emailAdminTheNewProfile(user, addedOrg);
     }

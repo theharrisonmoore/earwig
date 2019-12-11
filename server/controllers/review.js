@@ -115,7 +115,7 @@ const postReview = async (req, res, next) => {
   let organizationData = {};
   try {
     if (createNewProfile) {
-      organizationData = await createOrganization({ category, name });
+      organizationData = await createOrganization({ category, name, userId: user._id });
     } else {
       organizationData = await getOrganization(category, name);
     }
