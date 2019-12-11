@@ -50,6 +50,7 @@ import {
   TERMS_OF_USE_URL,
   PRIVACY_URL,
   LOGIN_URL,
+  INTRO_URL,
 } from "../../../constants/naviagationUrls";
 
 const { API_TRADE_URL } = require("../../../apiUrls");
@@ -374,7 +375,7 @@ export default class Signup extends Component {
       });
     } else {
       this.props.history.push({
-        pathname: "/intro",
+        pathname: INTRO_URL,
         state: { isWorker },
       });
     }

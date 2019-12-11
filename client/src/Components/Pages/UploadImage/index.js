@@ -252,7 +252,7 @@ export default class UploadImage extends Component {
       });
     } else {
       this.props.history.push({
-        pathname: "/intro",
+        pathname: INTRO_URL,
       });
     }
   };

@@ -6,13 +6,7 @@ import { organizations } from "../../../theme";
 import Layout from "../../Common/Layout";
 import Button from "../../Common/Button";
 
-import {
-  ADD_PROFILE_START_REVIEW_URL,
-  VERIFICATION_REQUIRED,
-} from "../../../constants/naviagationUrls";
-
 // styles
-
 import {
   HeadlineDiv,
   H2,
