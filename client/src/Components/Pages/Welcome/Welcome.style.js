@@ -54,14 +54,11 @@ export const Header = styled.header`
 `;
 
 export const Title = styled.h1`
-  font-size: 1.7rem;
-  font-weight: 700;
+  font-size: 3.125rem;
+  font-weight: 500;
   color: ${colors.white};
-
-  // desktop
-  @media ${breakpoints.mobileXL} {
-    font-size: 2rem;
-  }
+  margin: 0;
+  margin-bottom: 0.25rem;
 `;
 
 export const SubtitleWrapper = styled.section`
@@ -77,7 +74,7 @@ export const SubtitleWrapper = styled.section`
 
 export const FooterTitle = styled.section`
   position: absolute;
-  bottom: 2rem;
+  bottom: 1.5rem;
   width: 100%;
   height: calc(100vh - 82%);
   width: 75%;
@@ -90,7 +87,7 @@ export const FooterTitle = styled.section`
 
 export const Subtitle = styled.h2`
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: normal;
   color: ${colors.white};
 `;
 

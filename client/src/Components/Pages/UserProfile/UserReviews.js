@@ -106,7 +106,7 @@ export default class UserReviews extends Component {
       });
       const res = await axios.get("/api/reviews");
       this.setState({
-        reviews: res.data,
+        reviews: res.data.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)),
         isLoading: false,
       });
     } catch (error) {

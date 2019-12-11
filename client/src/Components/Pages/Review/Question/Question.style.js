@@ -84,6 +84,10 @@ export const Options = styled.div`
     color: ${colors.green};
     font-weight: 900;
   }
+
+  .ant-select-selection {
+    position: relative;
+  }
 `;
 
 export const CommentsIcon = styled.div`
