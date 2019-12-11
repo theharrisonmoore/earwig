@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import React, { Component, createRef } from "react";
 import { Link } from "react-router-dom";
-import { Rate } from "antd";
 import ReviewNotAllowedButton from "./ReviewNotAllowedButton";
 import Icon from "../../Common/Icon/Icon";
 
@@ -27,12 +26,12 @@ import { colors } from "../../../theme";
 
 import Button from "../../Common/Button";
 
-const ColoredBanner = ({ category, name, summary, isMobile }) => {
+const ColoredBanner = ({ category, name, isMobile }) => {
   return (
     <ColoredDiv category={category} isMobile={isMobile}>
       <CompanyNameAndStars>
         <CompanyTitle white>{name}</CompanyTitle>
-        <Rate
+        {/* <Rate
           disabled
           value={summary.avgRatings || summary.value || 0}
           style={{
@@ -41,7 +40,7 @@ const ColoredBanner = ({ category, name, summary, isMobile }) => {
             minWidth: "78px",
           }}
           className="last-reviewed-star-rate"
-        />
+        /> */}
       </CompanyNameAndStars>
     </ColoredDiv>
   );
@@ -84,7 +83,7 @@ export default class HeaderSection extends Component {
     const {
       isTablet,
       isMobile,
-      summary,
+      summary = {},
       level,
       reviewsLast30Days,
       orgId,
@@ -101,12 +100,7 @@ export default class HeaderSection extends Component {
         isMobile={isMobile}
         // ref={this.headerRef}
       >
-        <ColoredBanner
-          category={category}
-          name={name}
-          summary={summary}
-          isMobile={isMobile}
-        />
+        <ColoredBanner category={category} name={name} isMobile={isMobile} />
         {level > 0 && (
           <TabsWrapper setActiveTab={setActiveTab} activeTab={activeTab} />
         )}
@@ -131,6 +125,7 @@ export default class HeaderSection extends Component {
                 text={`Review this ${category || "organisation"}`}
                 disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
                 margin="0 auto 0.5rem auto"
+                backgroundColor={colors.secondary}
               />
             </Link>
           </ActionButtonsDiv>

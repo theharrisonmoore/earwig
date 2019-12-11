@@ -38,6 +38,8 @@ export const breakpointsMax = {
 const colorCodes = {
   // primary
   primary: "#1C77C3",
+  // red buttons background
+  secondary: "#ED254E",
 
   // organizations
   heliotrope: "#8B51FC",

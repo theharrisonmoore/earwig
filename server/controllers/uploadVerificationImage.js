@@ -29,7 +29,9 @@ module.exports = async (req, res, next) => {
         await verificationPhotoEmail();
       }
       res.send();
-    }).catch((err) => {
+    })
+    .catch((err) => {
+      console.log("errrr", err);
       next(boom.badImplementation(err));
     });
 };

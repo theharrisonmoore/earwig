@@ -34,6 +34,7 @@ export const ReplyWrapper = styled.div`
   text-align: left;
   position: fixed;
   width: 70%;
+  max-width: 30rem;
   bottom: 0;
   background: white;
   padding: 2rem 4rem;
