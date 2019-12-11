@@ -10,13 +10,13 @@ export const HeadlineDiv = styled.div`
   padding-top: 5rem;
   color: ${colors.profileFontColor};
   h2 {
-    font-size: 2rem;
+    font-size: 24px;
     font-weight: 300;
     line-height: 2.5rem;
   }
   p {
     font-style: italic;
-    font-size: 1rem;
+    font-size: 15px;
   }
 `;
 

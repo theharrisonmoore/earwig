@@ -192,7 +192,6 @@ export default function index(props) {
           isMobile={isMobile}
           isTablet={isTablet}
           Component={AddProfileStartReview}
-          navbar
         />
         <PrivateRoute
           minimumLevel="LEVEL1"

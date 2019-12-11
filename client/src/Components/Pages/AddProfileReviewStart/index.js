@@ -78,7 +78,7 @@ export default class AddProfileReviewStart extends Component {
           <Spin tip="Loading..." spinning={isLoading}>
             <MainDiv>
               <HeadlineDiv>
-                <H2>Give {name} a review to add it to the earwig database</H2>
+                <H2>Great! Now please review {name} to finish</H2>
                 <Link
                   style={{ textAlign: "center" }}
                   to={`/organization/review/new/${category}/${name}`}
@@ -89,13 +89,6 @@ export default class AddProfileReviewStart extends Component {
                     text="Start your review"
                   />
                 </Link>
-
-                <Button
-                  margin="0 auto"
-                  styleType="secondary"
-                  text="Cancel"
-                  onClick={this.goBack}
-                />
               </HeadlineDiv>
             </MainDiv>
           </Spin>
