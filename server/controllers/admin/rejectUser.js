@@ -29,13 +29,13 @@ module.exports = async (req, res, next) => {
     } else {
     // update user state
       await updateUserById(id, updateData);
-      // delete verification photo from google storage
-      await deleteFile(user.verificationPhoto);
       await deleteDataAndProfilesAddedByUser(user._id);
       if (process.env.NODE_ENV === "production") {
-      // send rejection email
+        // send rejection email
         await rejectionEmail(user.email);
       }
+      // delete verification photo from google storage
+      await deleteFile(user.verificationPhoto);
 
       res.json();
     }

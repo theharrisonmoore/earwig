@@ -197,8 +197,11 @@ const postReview = async (req, res, next) => {
     await Answer.insertMany(allAnswers);
 
     res.send(organizationData._id);
-  } catch (err) {
-    next(boom.badImplementation(err));
+  } catch (error) {
+    if (error.message === "organisation already exists") {
+      return next(boom.conflict(`${name} already exists`));
+    }
+    return next(boom.badImplementation(error));
   }
 };
 
