@@ -5,6 +5,7 @@ const Answer = require("./../../models/Answer");
 const Review = require("./../../models/Review");
 const Trade = require("./../../models/Trade");
 const Helpfulness = require("./../../models/Helpfulness");
+const Organization = require("./../../models/Organization");
 
 const updateUserHelpfulPoints = require("./updateUserHelpfulPoints");
 const getAllUsers = require("./allUsers");
@@ -43,21 +44,40 @@ module.exports.getUserById = (id, withoutPassword) => (
     : User.findById(id)
 );
 
-module.exports.deleteUserCompletely = async (userId) => {
+
+module.exports.deleteDataAddedByUser = async (userId) => {
   // delete the users' comments
-  await Comment.deleteMany({
+
+  const deleteUserComment = Comment.deleteMany({
     user: userId,
   });
   // delete the users' answers
-  await Answer.deleteMany({
+  const deleteUserAnsweres = Answer.deleteMany({
     user: userId,
   });
   // delete the users' reviews
-  await Review.deleteMany({
+  const deleteUserReviews = Review.deleteMany({
     user: userId,
   });
+
+  await deleteUserAnsweres;
+  await deleteUserComment;
+  await deleteUserReviews;
+};
+
+module.exports.deleteUserCompletely = async (userId) => {
+  await this.deleteDataAddedByUser();
   // delete the user
   return User.findByIdAndDelete(userId);
+};
+
+module.exports.deleteDataAndProfilesAddedByUser = async (userId) => {
+  await this.deleteDataAddedByUser();
+  const deleteUserProfiles = Organization.deleteMany({
+    createdBy: userId,
+  });
+
+  await deleteUserProfiles;
 };
 
 module.exports.latestReviews = userId => new Promise((resolve, reject) => {

@@ -7,11 +7,11 @@
 
 const boom = require("boom");
 const rejectionEmail = require("./../../helpers/emails/rejectionEmail");
-
+const { deleteDataAndProfilesAddedByUser } = require("./../../database/queries/user");
 const { updateUserById, getUserById } = require("./../../database/queries/user");
 const deleteFile = require("./../../helpers/deleteFile");
 
-module.exports = ((req, res, next) => {
+module.exports = async (req, res, next) => {
   const { id } = req.body;
   const updateData = {
     awaitingReview: false,
@@ -19,42 +19,31 @@ module.exports = ((req, res, next) => {
     verificationPhoto: undefined,
   };
 
-  getUserById(id)
-    .then((user) => {
-      if (!user) {
-        next(boom.notFound("user not found!"));
-      } else if (!user.verificationPhoto) {
-        next(boom.badData("the user has no verification image"));
-      } else {
-        // update user state
-        updateUserById(id, updateData)
-          .then(() => {
-            // delete verification photo from google storage
-            deleteFile(user.verificationPhoto)
-              .then(() => {
-                if (process.env.NODE_ENV !== "test") {
-                  // send rejection email
-                  rejectionEmail(user.email)
-                    .then(() => {
-                      res.json();
-                    }).catch(() => {
-                      next(boom.badImplementation());
-                    });
-                } else {
-                  res.json();
-                }
-              })
-              .catch((err) => {
-                if (err.message === "file is no longer available") {
-                  next(boom.badData(err));
-                } else {
-                  next(boom.badImplementation());
-                }
-              });
-          })
-          .catch(() => {
-            next(boom.badImplementation());
-          });
+  try {
+    const user = await getUserById(id);
+
+    if (!user) {
+      next(boom.notFound("user not found!"));
+    } else if (!user.verificationPhoto) {
+      next(boom.badData("the user has no verification image"));
+    } else {
+    // update user state
+      await updateUserById(id, updateData);
+      // delete verification photo from google storage
+      await deleteFile(user.verificationPhoto);
+      await deleteDataAndProfilesAddedByUser(user._id);
+      if (process.env.NODE_ENV === "production") {
+      // send rejection email
+        await rejectionEmail(user.email);
       }
-    });
-});
+
+      res.json();
+    }
+  } catch (error) {
+    if (error.message === "file is no longer available") {
+      next(boom.badData(error));
+    } else {
+      next(boom.badImplementation());
+    }
+  }
+};
