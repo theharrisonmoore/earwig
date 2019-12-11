@@ -368,7 +368,7 @@ export default class Signup extends Component {
       this.props.history.push({
         pathname: `/profile/${orgId}`,
       });
-    } else if (redirectToCreateProfile && isWorker) {
+    } else if (redirectToCreateProfile && isWorker && name && category) {
       this.props.history.push({
         pathname: `/add-profile-sign-up/${category}/${name}`,
       });
@@ -391,11 +391,34 @@ export default class Signup extends Component {
       isWorker,
     } = this.state;
 
+    const {
+      location: {
+        state: {
+          orgId,
+          redirectToProfile,
+          category,
+          name,
+          redirectToCreateProfile,
+        } = {},
+      } = {},
+    } = this.props;
+
     return (
       <SignupWrapper>
         <PurpleDiv />
         <ContentWrapper>
-          <LogIn to={LOGIN_URL}>
+          <LogIn
+            to={{
+              pathname: LOGIN_URL,
+              state: {
+                orgId,
+                redirectToProfile,
+                category,
+                name,
+                redirectToCreateProfile,
+              },
+            }}
+          >
             Already signed up? <span>Log in</span>
           </LogIn>
           <Logo />
