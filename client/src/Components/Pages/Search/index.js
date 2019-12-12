@@ -97,10 +97,14 @@ export default class Search extends Component {
 
   filterRecentReviews = () => {
     const { category, sortedOrgs, recentReviews } = this.state;
-    const hasReviews = sortedOrgs[category].filter(org => org.totalReviews > 0);
-    this.setState({
-      recentReviews: { ...recentReviews, [category]: hasReviews },
-    });
+    if (!recentReviews[category].length) {
+      const hasReviews = sortedOrgs[category].filter(
+        org => org.totalReviews > 0
+      );
+      this.setState({
+        recentReviews: { ...recentReviews, [category]: hasReviews },
+      });
+    }
   };
 
   render() {
