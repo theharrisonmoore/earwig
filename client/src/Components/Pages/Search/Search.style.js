@@ -120,7 +120,6 @@ export const SearchWrapper = styled.div`
   flex-direction: column;
   height: 100%;
   padding: 0;
-  padding-top: ${props => (props.isMobile ? "3rem" : "4rem")};
 
   margin: 0;
   align-items: center;
@@ -257,4 +256,25 @@ export const SubKey = styled(MainKey)`
   margin-top: 30px;
   margin-bottom: 0;
   padding-left: 0.75rem;
+`;
+
+export const ButtonsWrpper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  div {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+    max-width: 25rem;
+    width: 100%;
+  }
+`;
+
+export const NoDataTitle = styled.p`
+  font-size: 1.5rem;
+  padding-top: 2rem;
+  color: ${colors.dustyGray1};
+  padding-left: 1rem;
 `;

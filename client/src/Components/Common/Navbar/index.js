@@ -87,9 +87,9 @@ export default class Navbar extends Component {
             {currentPath !== WELCOME_URL && (
               <MenuItem to={WELCOME_URL} extraRightPadding>
                 <Icon
-                  icon="search"
-                  height="22"
-                  width="22"
+                  icon="home"
+                  height="26"
+                  width="26"
                   color={colors.profileFontColor}
                 />
               </MenuItem>
@@ -126,7 +126,7 @@ export default class Navbar extends Component {
           {currentPath !== WELCOME_URL && (
             <MenuItem to={WELCOME_URL} extraRightPadding>
               <Icon
-                icon="search"
+                icon="home"
                 height="22"
                 width="22"
                 color={colors.profileFontColor}

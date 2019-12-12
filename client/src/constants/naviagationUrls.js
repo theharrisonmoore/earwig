@@ -44,6 +44,7 @@ export const TERMS_OF_USE_URL = "/terms-of-use";
 export const COOKIES_POLICY_URL = "/cookies-policy";
 export const PRIVACY_AND_TERMS_URL = "/privacy-and-terms";
 export const MY_REVIEWS_URL = "/my-reviews";
+export const MY_POINTS_URL = "/my-points";
 export const ASK_QUESTION_URL = "/ask-question";
 export const JOBS_URL = "/jobs";
 export const INVITE_WORKERS_URL = "/invite-workers";

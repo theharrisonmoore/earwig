@@ -6,43 +6,15 @@ import { Link } from "react-router-dom";
 
 import { Popconfirm, message, Modal } from "antd";
 
-import { Wrapper } from "./UserProfile.style";
+import {
+  Wrapper,
+  BorderedSubSectionWrapper,
+  SubSectionTitleParagraph,
+} from "./UserProfile.style";
 
-import { colors, breakpoints, organizations } from "../../../theme";
+import { colors, organizations } from "../../../theme";
 
 import CommonLink from "../../Common/Link";
-
-const Paragraph = styled.p`
-  margin: 0 auto;
-  margin-top: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid ${colors.veryLightGray};
-  width: 90%;
-  text-align: center;
-
-  @media ${breakpoints.tablet} {
-    margin-top: 3.5rem;
-  }
-`;
-
-const BorderedWrapper = styled.div`
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 3rem 0;
-  border: none;
-  min-height: 100vh;
-
-  & > div {
-    max-width: 500px;
-    margin: 0 auto;
-    width: 90%;
-  }
-
-  @media ${breakpoints.tablet} {
-    border-left: 3px solid ${colors.heliotrope};
-    border-right: 3px solid ${colors.heliotrope};
-  }
-`;
 
 const ReviewItem = styled.div`
   display: flex;
@@ -89,11 +61,6 @@ const Cancel = styled.p`
   color: ${colors.primary};
 `;
 
-// const LinkBtn = styled.button`
-//   outline: none;
-//   border
-// `
-
 export default class UserReviews extends Component {
   state = {
     reviews: [],
@@ -111,7 +78,9 @@ export default class UserReviews extends Component {
       });
       const res = await axios.get("/api/reviews");
       this.setState({
-        reviews: res.data,
+        reviews: res.data.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        ),
         isLoading: false,
       });
     } catch (error) {
@@ -159,14 +128,14 @@ export default class UserReviews extends Component {
 
     return (
       <Wrapper>
-        <BorderedWrapper>
-          <Paragraph>
+        <BorderedSubSectionWrapper>
+          <SubSectionTitleParagraph>
             You can edit your reviews within four weeks, unless workers have
             found them helpful and given you points, or unless the agency,
             payroll or company has replied.
             <br />
             <br /> You can delete your reviews at any time.
-          </Paragraph>
+          </SubSectionTitleParagraph>
 
           <div>
             {isLoading ? (
@@ -220,14 +189,14 @@ export default class UserReviews extends Component {
                   })
                 ) : (
                   <div>
-                    You haven&apos;t given any reviews yet.&nbsp;
-                    <Link to="/welcome">Give a review now</Link>
+                    You haven&apos;t given any reviews yet.&nbsp; <br /> <br />
+                    <Link to="/welcome">Get Started</Link>
                   </div>
                 )}
               </>
             )}
           </div>
-        </BorderedWrapper>
+        </BorderedSubSectionWrapper>
       </Wrapper>
     );
   }

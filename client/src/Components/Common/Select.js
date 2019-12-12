@@ -1,7 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { Select, Divider } from "antd";
+import { Prompt } from "react-router-dom";
+
 import "antd/dist/antd.css";
+import Icon from "./Icon/Icon";
+
+import { colors } from "../../theme";
 
 const { Option } = Select;
 
@@ -9,6 +14,21 @@ const Label = styled.label`
   display: block;
   text-align: left;
   margin-bottom: 0.25rem;
+`;
+
+const SelectDiv = styled.div`
+  position: relative;
+  width: ${({ width }) => width || "100%"};
+
+  .selectIcon {
+    position: absolute !important;
+    right: 1rem;
+    top: 29%;
+
+    :hover {
+      cursor: pointer;
+    }
+  }
 `;
 
 class CustomizedSelects extends React.Component {
@@ -105,17 +125,20 @@ class CustomizedSelects extends React.Component {
       isCreateNew,
       showSearch,
       value,
+      width,
+      ismodalVisible,
       ...rest
     } = this.props;
 
     const { searchTerm } = this.state;
 
     return (
-      <>
+      <SelectDiv width={width}>
         {label && <Label onClick={this.handleOpen}>{label}</Label>}
         <Select
           placeholder={disabled ? options[0] && options[0].name : placeholder}
           onSelect={handleChange}
+          showArrow={false}
           notFoundContent=""
           open={this.state.open}
           onDropdownVisibleChange={this.handleOpen}
@@ -170,7 +193,19 @@ class CustomizedSelects extends React.Component {
               </Option>
             ))}
         </Select>
-      </>
+        <Icon
+          icon="search"
+          height="19px"
+          width="19px"
+          className="selectIcon"
+          color={colors.dustyGray1}
+          onClick={this.handleOpen}
+        />
+        <Prompt
+          when={ismodalVisible}
+          message="Are you sure you want to leave this page? You will lose any unsaved data."
+        />
+      </SelectDiv>
     );
   }
 }

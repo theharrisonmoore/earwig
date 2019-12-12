@@ -8,6 +8,7 @@ import LeftArrow from "./LeftArrow";
 import RightArrow from "./RightArrow";
 import Agency from "./Agency";
 import AgencyThanks from "./AgencyThanks";
+import All from "./All";
 import Arrow from "./Arrow";
 import Bus from "./Bus";
 import Canteen from "./Canteen";
@@ -26,6 +27,7 @@ import GetVerified from "./GetVerified";
 import Hamburger from "./Hamburger";
 import HelpfulLinks from "./HelpfulLinks";
 import HelpingHand from "./HelpingHand";
+import Home from "./Home";
 import HotFood from "./HotFood";
 import Info from "./Info";
 import JobBoard from "./JobBoard";
@@ -35,6 +37,7 @@ import LogoBeta from "./LogoBeta";
 import LogoutLogin from "./LogoutLogin";
 import MedalIcon1 from "./MedalIcon1";
 import MedalIcon2 from "./MedalIcon2";
+import NewWindow from "./NewWindow";
 import NumberOne from "./NumberOne";
 import OrganisationalRatings from "./OrganisationalRatings";
 import OrHorizontal from "./OrHorizontal";
@@ -50,6 +53,7 @@ import PointsEarned from "./PointsEarned";
 import PrayerRoom from "./PrayerRoom";
 import PrivacyTerms from "./PrivacyTerms";
 import RaiseHand from "./RaiseHand";
+import Recent from "./Recent";
 import ReportFlag from "./ReportFlag";
 import Search from "./Search";
 import ShapeEarwig from "./ShapeEarwig";
@@ -72,6 +76,9 @@ import Reply from "./Reply";
 import Calendar from "./Calendar";
 import Overview from "./Overview";
 import Detailed from "./Detailed";
+import Like from "./Like";
+import Comment from "./Comment";
+import Flag from "./Flag";
 
 const iconStyles = props => css`
   width: ${props.width || "100%"};
@@ -88,6 +95,7 @@ const iconMap = {
   addComment: AddComment,
   agency: Agency,
   agencyThanks: AgencyThanks,
+  all: All,
   arrow: Arrow,
   bus: Bus,
   canteen: Canteen,
@@ -104,6 +112,7 @@ const iconMap = {
   gasmask: Gasmask,
   getVerified: GetVerified,
   hamburger: Hamburger,
+  home: Home,
   hotFood: HotFood,
   helpfulLinks: HelpfulLinks,
   helpingHand: HelpingHand,
@@ -115,6 +124,7 @@ const iconMap = {
   logoutLogin: LogoutLogin,
   medalIcon1: MedalIcon1,
   medalIcon2: MedalIcon2,
+  newWindow: NewWindow,
   numberOne: NumberOne,
   organisationalRatings: OrganisationalRatings,
   orHorizontal: OrHorizontal,
@@ -130,6 +140,7 @@ const iconMap = {
   prayerRoom: PrayerRoom,
   privacyTerms: PrivacyTerms,
   raiseHand: RaiseHand,
+  recent: Recent,
   reportFlag: ReportFlag,
   search: Search,
   shapeEarwig: ShapeEarwig,
@@ -152,6 +163,9 @@ const iconMap = {
   calendar: Calendar,
   overview: Overview,
   detailed: Detailed,
+  like: Like,
+  comment: Comment,
+  flag: Flag,
 };
 
 const styledIconMap = Object.keys(iconMap).reduce((accum, curr) => {

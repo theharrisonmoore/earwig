@@ -173,7 +173,7 @@ const postReview = async (req, res, next) => {
     const reviewAnswers = Object.keys(questionsAnswers)
       .sort((a, b) => a - b)
       .map((qAnswer) => {
-        if (questionsAnswers[qAnswer]) {
+        if (questionsAnswers[qAnswer] || questionsAnswers[qAnswer] === 0) {
           const answer = {
             user: userData,
             review: currentReview,
