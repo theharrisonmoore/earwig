@@ -24,7 +24,7 @@ import {
   // RESOURCES_URL,
   CONTACT_URL,
   FAQ_URL,
-  LOGIN_URL,
+  SIGNUP_URL,
   PRIVACY_AND_TERMS_URL,
   ADMIN,
   INVITE_WORKERS_URL,
@@ -164,9 +164,9 @@ export default class Menu extends PureComponent {
               <PriorityIcon icon="home" height="19" width="19" />
               Home
             </MenuItem>
-            <MenuItem to={LOGIN_URL} onClick={toggleMenu}>
+            <MenuItem to={SIGNUP_URL} onClick={toggleMenu}>
               <MenuIcon icon="user" height="19" width="19" />
-              Log in to see more
+              Sign up for more
             </MenuItem>
             <MenuItem to={PRIVACY_AND_TERMS_URL} onClick={toggleMenu}>
               <MenuIcon icon="privacyTerms" height="19" width="19" />

@@ -4,11 +4,22 @@
  */
 
 const boom = require("boom");
-const { deleteUserCompletely } = require("./../../database/queries/user");
+const { deleteUserCompletely, getUserById, deleteUserCompletelyWithProfiles } = require("./../../database/queries/user");
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   const { id } = req.body;
-  deleteUserCompletely(id)
-    .then(() => res.json({ success: "User successfully deleted" }))
-    .catch(err => next(boom.badImplementation(err)));
+  try {
+    const user = await getUserById(id);
+    if (!user) {
+      return boom.notFound("User not found");
+    }
+    if (!user.verified) {
+      await deleteUserCompletelyWithProfiles(id);
+    } else {
+      await deleteUserCompletely(id);
+    }
+    return res.json({ success: "User successfully deleted" });
+  } catch (error) {
+    return next(boom.badImplementation(error));
+  }
 };

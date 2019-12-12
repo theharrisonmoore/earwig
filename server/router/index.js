@@ -35,7 +35,7 @@ const logoutController = require("./../controllers/logout");
 const getWorksiteImgsController = require("./../controllers/getWorksiteImgs");
 const reportContentController = require("./../controllers/reportContent");
 
-const addOrganizationController = require("../controllers/organizations");
+const { controller: addOrganizationController } = require("../controllers/organization");
 
 const thinkingofDeletingController = require("../controllers/thinkingOfDeleting");
 const addCommentOnQuestion = require("../controllers/addCommentOnQuestion");
@@ -109,6 +109,7 @@ router.get(USERS, authentication, userInfoController);
 router.get("/review/:id/is-edatable", authentication, authorization("LEVEL3"), checkIfEditReview);
 
 router.get("/questions/:id", authentication, authorization("LEVEL2"), getByOrg);
+router.get("/questions/new/:catgeory/:name", authentication, authorization("LEVEL2"), getByOrg);
 router.post(REVIEW_URL, authentication, authorization("LEVEL2"), postReview);
 router.put("/review/:id", authentication, authorization("LEVEL3"), updateReview);
 router.post("/short-review", authentication, authorization("LEVEL3"), postReviewShort);

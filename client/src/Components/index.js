@@ -26,6 +26,8 @@ import {
   SEARCH_URL,
   ADD_PROFILE_URL,
   ADD_PROFILE_START_REVIEW_URL,
+  ADD_REVIEW_TO_NEW_PROFILE,
+  VERIFICATION_REQUIRED,
   ADMIN,
   CONFIRM_EMAIL_URL,
   INTRO_URL,
@@ -36,6 +38,7 @@ import {
   ORG_STATUS_URL_LOGIN,
   INVITE_WORKERS_URL,
   PRE_REVIEW,
+  ADD_PROFILE_AFTER_SIGN_UP,
   MY_REVIEWS_URL,
   MY_POINTS_URL,
 } from "../constants/naviagationUrls";
@@ -56,8 +59,8 @@ import Profile from "./Pages/Profile";
 import Admin from "./Pages/Admin";
 import Search from "./Pages/Search";
 import JoinMailList from "./Pages/JoinMailList";
-import AddProfileSelection from "./Pages/Search/AddProfileSelection";
-import AddProfileStartReview from "./Pages/Search/AddProfileReviewStart";
+import AddProfileSelection from "./Pages/AddProfileSelection";
+import AddProfileStartReview from "./Pages/AddProfileReviewStart";
 import Intro from "./Pages/Intro";
 import PrivateRoute from "./Common/PrivateRoute";
 import Reply from "./Pages/Profile/Reply";
@@ -67,6 +70,8 @@ import OrgCheck from "./Pages/OrgCheck";
 import Welcome from "./Pages/Welcome";
 import InviteWorkers from "./Pages/InviteWorkers";
 import PreReview from "./Pages/PreReview";
+import AddProfileAfterSignUp from "./Pages/AddProfileAfterSignUp";
+import VerificationRequired from "./Pages/VerificationRequired";
 
 import {
   FAQ,
@@ -91,6 +96,14 @@ export default function index(props) {
           path="/organization/:orgId/review"
           {...props}
           Component={Review}
+        />
+        <PrivateRoute
+          exact
+          minimumLevel="LEVEL2"
+          path={ADD_REVIEW_TO_NEW_PROFILE}
+          Component={Review}
+          createNewProfile
+          {...props}
         />
         <PrivateRoute
           exact
@@ -151,22 +164,37 @@ export default function index(props) {
           title="Search"
         />
         <PrivateRoute
-          minimumLevel="LEVEL2"
+          minimumLevel="LEVEL0"
           path={ADD_PROFILE_URL}
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
           Component={AddProfileSelection}
-          navbar
         />
         <PrivateRoute
-          minimumLevel="LEVEL2"
+          minimumLevel="LEVEL0"
+          path={ADD_PROFILE_AFTER_SIGN_UP}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={AddProfileAfterSignUp}
+        />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={VERIFICATION_REQUIRED}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={VerificationRequired}
+        />
+        <PrivateRoute
+          minimumLevel="LEVEL0"
           path={ADD_PROFILE_START_REVIEW_URL}
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
           Component={AddProfileStartReview}
-          navbar
         />
         <PrivateRoute
           minimumLevel="LEVEL1"

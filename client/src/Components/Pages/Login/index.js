@@ -47,6 +47,18 @@ export default class Login extends Component {
   };
 
   handleSubmit = (values, { setSubmitting }) => {
+    const {
+      location: {
+        state: {
+          orgId,
+          redirectToProfile,
+          category,
+          name,
+          redirectToCreateProfile,
+        } = {},
+      } = {},
+    } = this.props;
+
     axios
       .post("/api/login", values)
       .then(({ data }) => {
@@ -56,7 +68,18 @@ export default class Login extends Component {
           $userId: data.userId,
         });
         this.props.handleChangeState({ ...data, isLoggedIn: true });
-        this.props.history.push(WELCOME_URL);
+
+        if (redirectToProfile && orgId) {
+          this.props.history.push({
+            pathname: `/profile/${orgId}`,
+          });
+        } else if (redirectToCreateProfile && category && name) {
+          this.props.history.push({
+            pathname: `/add-profile-sign-up/${category}/${name}`,
+          });
+        } else {
+          this.props.history.push(WELCOME_URL);
+        }
       })
       .catch(err => {
         this.setState({ error: err.response.data.error });

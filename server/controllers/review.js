@@ -9,22 +9,27 @@ const {
   getAgenciesAndPayrollsNames,
   getReviewDetails,
   findReviewByIdAndUpdate,
-
 } = require("../database/queries/review");
 
 // const { getOrgsReviewedLast30D } = require("./../database/queries/reviews");
 
 const { findByEmail } = require("../database/queries/user");
-
+const { createOrganization } = require("./organization").service;
 const Review = require("../database/models/Review");
 const Answer = require("../database/models/Answer");
 const Comment = require("../database/models/Comment");
 
 const getByOrg = async (req, res, next) => {
   const { _id: userId } = req.user;
-  const { id: orgId } = req.params;
+  const { id: orgId, catgeory, name } = req.params;
+  let orgCategory = catgeory;
+  let orgName = name;
+  if (!orgCategory) {
+    const { category: _category, name: _name } = await getOrganizationById(orgId);
+    orgCategory = _category;
+    orgName = _name;
+  }
 
-  const { category, name } = await getOrganizationById(orgId);
 
   try {
     // if (!req.query.edit) {
@@ -37,22 +42,22 @@ const getByOrg = async (req, res, next) => {
     //   }
     // }
     let dropDownListData;
-    if (category === "agency") {
+    if (orgCategory === "agency") {
       dropDownListData = await getOrgsNamesByType("payroll");
-    } else if (category === "payroll") {
+    } else if (orgCategory === "payroll") {
       dropDownListData = await getOrgsNamesByType("agency");
-    } else if (category === "worksite") {
+    } else if (orgCategory === "worksite") {
       dropDownListData = await getOrgsNamesByType("company");
     }
 
     const getReviewAnswers = await getReviewDetails(orgId, userId);
 
-    const groups = await getQuetionsByOrg(category);
+    const groups = await getQuetionsByOrg(orgCategory);
     return res.json({
       groups,
       dropDownListData,
       getReviewAnswers,
-      organization: { name, category },
+      organization: { name: orgName, category: orgCategory },
     });
   } catch (err) {
     return next(boom.badImplementation(err));
@@ -90,26 +95,36 @@ const postReviewShort = async (req, res, next) => {
 
 const postReview = async (req, res, next) => {
   const {
+    organization,
+    createNewProfile,
+    values,
+  } = req.body;
+  const {
     answers: questionsAnswers,
     review: {
       rate, overallReview, lastUse, voiceReview,
     },
     comments,
-  } = req.body.values;
-  const { organization } = req.body;
+  } = values;
   const { user } = req;
+  const { category, name } = organization;
 
   if (!user) {
     next(boom.badImplementation("User is undefined"));
   }
+  let organizationData = {};
   try {
-    const organizationData = await getOrganization(organization.category, organization.name);
+    if (createNewProfile) {
+      organizationData = await createOrganization({ category, name, userId: user._id });
+    } else {
+      organizationData = await getOrganization(category, name);
+    }
     const userData = await findByEmail(user.email);
-    const questions = await getQuestionsByOrgCategory(organization.category);
+    const questions = await getQuestionsByOrgCategory(category);
 
     // TODO: refactor this code
     if (!organizationData || !userData || !questions) {
-      next(boom.badImplementation("Bad data"));
+      next(boom.badData());
     }
     const questionsObject = {};
     questions.forEach((q) => {
@@ -182,8 +197,11 @@ const postReview = async (req, res, next) => {
     await Answer.insertMany(allAnswers);
 
     res.send(organizationData._id);
-  } catch (err) {
-    next(boom.badImplementation(err));
+  } catch (error) {
+    if (error.message === "organisation already exists") {
+      return next(boom.conflict(`${name} already exists`));
+    }
+    return next(boom.badImplementation(error));
   }
 };
 
