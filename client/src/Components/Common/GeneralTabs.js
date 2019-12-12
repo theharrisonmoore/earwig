@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 import Icon from "./Icon/Icon";
 
@@ -12,7 +12,7 @@ export const TabsDivFullWidth = styled.div`
   position: sticky;
   top: 0;
   background-color: ${colors.white};
-  z-index: 2 !important;
+  z-index: ${({ zIndex }) => zIndex || "2"} !important;
   margin: 0;
 `;
 
@@ -62,9 +62,9 @@ export const Underline = styled.div`
   transition: 400ms all;
 `;
 
-const GeneralTabs = ({ setActiveTab, activeTab, tabOne, tabTwo }) => {
+const GeneralTabs = ({ setActiveTab, activeTab, tabOne, tabTwo, zIndex }) => {
   return (
-    <TabsDivFullWidth>
+    <TabsDivFullWidth zIndex={zIndex}>
       <TabsDiv onClick={setActiveTab}>
         <Tab isActive={activeTab === tabOne} data-tab={tabOne}>
           <Icon icon={tabOne} width="19" height="19" />
