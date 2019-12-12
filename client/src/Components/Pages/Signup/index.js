@@ -411,7 +411,6 @@ export default class Signup extends Component {
       newTrade,
       isPopupVisible,
       isWorker,
-      data,
       isPasswordVisible,
       browserBackAttempt,
     } = this.state;
@@ -433,7 +432,7 @@ export default class Signup extends Component {
       <SignupWrapper>
         <PurpleDiv width="50%" />
         <ContentWrapper>
-          <CancelLink history={this.props.history} CancelText="Back" />
+          <CancelLink history={history} CancelText="Back" />
           <LogIn
             to={{
               pathname: LOGIN_URL,
