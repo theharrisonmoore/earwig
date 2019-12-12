@@ -119,8 +119,6 @@ export default class UploadImage extends Component {
       this.setState({ error: "Please upload image" });
     } else if (!this.state.tradeId) {
       this.setState({ error: "Please choose your trade" });
-    } else if (!this.state.city) {
-      this.setState({ error: "Please enter your city/town" });
     } else {
       this.setState({ error: "", loading: true });
 

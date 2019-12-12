@@ -18,14 +18,9 @@ import {
 
 import { IndividComment } from "../Reply.style";
 
-import { organizations } from "../../../../theme";
+import { organizations, colors } from "../../../../theme";
 
-import {
-  StyledAntIcon,
-  StyledReplyIcon,
-  UserID,
-  CommentBubble,
-} from "../Profile.style";
+import { StyledReplyIcon, UserID, CommentBubble } from "../Profile.style";
 
 import { REPORT_CONTENT_URL } from "../../../../constants/naviagationUrls";
 import { isMobileDevice, highlightMentions } from "../../../../helpers";
@@ -212,7 +207,12 @@ export default class CommentsBox extends Component {
                         },
                       }}
                     >
-                      <StyledAntIcon type="flag" />
+                      <Icon
+                        icon="flag"
+                        fill={colors.gray}
+                        width="27"
+                        height="27"
+                      />
                     </Link>
                   </IndividComment>
                 ))}

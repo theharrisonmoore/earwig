@@ -30,6 +30,8 @@ import Icon from "../../Common/Icon/Icon";
 import SearchIcon from "../../../assets/search-icon.svg";
 import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
 
+import { colors } from "../../../theme.js"
+
 // functions
 
 // gets called when a suggestion gets clicked
@@ -262,9 +264,9 @@ class AutosuggestComponent extends Component {
           {!noIcon && (
             <IconDiv iconTop={iconTop} onClick={this.delSearchInput}>
               {value.length > 0 ? (
-                <Icon icon="close" height="32px" width="32px" />
+                <Icon icon="close" height="24px" width="24px" color={colors.dustyGray1} />
               ) : (
-                <Icon icon="search" height="32px" width="32px" />
+                <Icon icon="search" height="24px" width="24px" color={colors.dustyGray1} />
               )}
             </IconDiv>
           )}
