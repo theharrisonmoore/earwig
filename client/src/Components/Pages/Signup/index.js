@@ -1,6 +1,6 @@
 // Render Prop
 import React, { Component } from "react";
-import { Prompt } from "react-router";
+import { Prompt } from "react-router-dom";
 import axios from "axios";
 import * as Yup from "yup";
 import { Modal, Alert, Input, Divider } from "antd";
@@ -573,6 +573,7 @@ export default class Signup extends Component {
                                   showSearch
                                   addHandler={this.showModal}
                                   // onBlur={this.showModal}
+                                  ismodalVisible={ismodalVisible}
                                 />
                               </>
                             )}

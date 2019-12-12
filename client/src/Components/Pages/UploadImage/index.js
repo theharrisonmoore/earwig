@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Prompt } from "react-router";
+import { Prompt } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Modal, Input, Alert } from "antd";
@@ -271,6 +271,7 @@ export default class UploadImage extends Component {
                 addHandler={this.showModal}
                 id="trade"
                 scrollToTop
+                ismodalVisible={ismodalVisible}
               />
               <div>
                 <div>
