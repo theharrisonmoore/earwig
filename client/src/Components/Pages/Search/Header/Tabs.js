@@ -11,7 +11,7 @@ export default class Tabs extends Component {
       { text: "Companies", to: "company" },
     ];
 
-    const { category } = this.props;
+    const { category, setActiveTab } = this.props;
 
     return (
       <TabsWrapper>
@@ -21,6 +21,7 @@ export default class Tabs extends Component {
             category={org.to}
             key={org.to}
             isActive={org.to === category}
+            onClick={() => setActiveTab("all")}
           >
             {org.text}
           </Tab>

@@ -36,6 +36,13 @@ export default class Search extends Component {
       company: [],
       agency: [],
     },
+    recentReviews: {
+      worksite: [],
+      payroll: [],
+      company: [],
+      agency: [],
+    },
+    activeTab: "all",
   };
 
   componentDidMount() {
@@ -43,17 +50,6 @@ export default class Search extends Component {
     const { category = "agency" } = match.params;
 
     this.fetchOrgs(category);
-
-    // axios
-    //   .get(API_GET_LAST_30D_ORGANISATIONS_IDS)
-    //   .then(({ data: { orgsIds } }) => {
-    //     this.setState({ orgsIds });
-    //   })
-    //   .catch(err => {
-    //     const error =
-    //       err.response && err.response.data && err.response.data.error;
-    //     message.error(error || "Something went wrong");
-    //   });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -88,8 +84,31 @@ export default class Search extends Component {
     });
   };
 
+  setActiveTab = e => {
+    const { tab } = e.target.dataset;
+    this.setState({ activeTab: tab });
+
+    if (tab === "recent") {
+      this.filterRecentReviews();
+    }
+  };
+
+  filterRecentReviews = () => {
+    const { category, sortedOrgs, recentReviews } = this.state;
+    const hasReviews = sortedOrgs[category].filter(org => org.totalReviews > 0);
+    this.setState({
+      recentReviews: { ...recentReviews, [category]: hasReviews },
+    });
+  };
+
   render() {
-    const { searchData, sortedOrgs, loading } = this.state;
+    const {
+      searchData,
+      sortedOrgs,
+      loading,
+      activeTab,
+      recentReviews,
+    } = this.state;
     const { isMobile, isTablet, match } = this.props;
     const { category = "agency" } = match.params;
     return (
@@ -100,13 +119,23 @@ export default class Search extends Component {
             isTablet={isTablet}
             data={searchData[category]}
             category={category}
+            activeTab={activeTab}
+            setActiveTab={this.setActiveTab}
           />
-
-          <OrganisationsList
-            sortedOrgs={sortedOrgs[category]}
-            loading={loading}
-            category={category}
-          />
+          {activeTab === "all" ? (
+            <OrganisationsList
+              sortedOrgs={sortedOrgs[category]}
+              loading={loading}
+              category={category}
+            />
+          ) : (
+            <OrganisationsList
+              sortedOrgs={recentReviews[category]}
+              loading={loading}
+              category={category}
+              recentReviews
+            />
+          )}
         </SearchWrapper>
       </Layout>
     );

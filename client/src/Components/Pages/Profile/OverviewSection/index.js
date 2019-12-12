@@ -40,6 +40,7 @@ const OverviewSection = ({
           websiteUrl={websiteUrl}
           category={category}
           contractorAnswers={contractorAnswers}
+          rate={summary.avgRatings || summary.value || 0}
         />
       )}
 
