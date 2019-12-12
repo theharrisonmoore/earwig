@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { colors, breakpointsMax, breakpoints } from "../../theme";
+import { colors, breakpoints } from "../../theme";
 
 export const Cancel = styled.p`
   position: absolute;
