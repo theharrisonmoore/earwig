@@ -56,7 +56,9 @@ export default class Search extends Component {
     const { category = "agency" } = this.props.match.params;
     const { loading } = this.state;
     if (prevState.category !== category && !loading) {
-      this.fetchOrgs(category);
+      this.setState({ activeTab: "all" }, () => {
+        this.fetchOrgs(category);
+      });
     }
   }
 
