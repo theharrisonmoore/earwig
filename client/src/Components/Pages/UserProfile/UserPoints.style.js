@@ -25,7 +25,7 @@ export const ZeroNum = styled.div`
   height: 37px;
   width: 37px;
   margin: 0 auto;
-  color: ${({ color }) => color || colors.lightGray};
+  color: ${({ color }) => (color ? "white" : colors.lightGray)};
 `;
 
 export const Tracker = styled.div`

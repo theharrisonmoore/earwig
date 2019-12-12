@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import axios from "axios";
-import moment from "moment";
 import { Skeleton } from "antd";
 
 import {
@@ -27,12 +25,8 @@ import {
   Verified,
   IDText,
   MainSection,
-  VerifiedSection,
   SectionTitle,
   Paragraph,
-  ReviewDiv,
-  AgencyTitle,
-  ReviewText,
   UsernameStatusDiv,
 } from "./UserProfile.style";
 
@@ -48,7 +42,7 @@ export default class index extends Component {
   componentDidMount() {
     axios.get("/api/user-reviews").then(res => {
       this.setState({
-        userReviews: res.data,
+        // userReviews: res.data,
         reviewCount: res.data.length,
         loaded: true,
       });
@@ -66,9 +60,8 @@ export default class index extends Component {
       awaitingReview,
     } = this.props;
 
-    const { reviewCount, userReviews, loaded } = this.state;
+    const { reviewCount, loaded } = this.state;
 
-    // if (isWorker) {
     return (
       <Wrapper>
         <Header>
@@ -152,49 +145,7 @@ export default class index extends Component {
             </StatWrapper>
           </BottomSection>
         </Header>
-        {verified ? (
-          <VerifiedSection>
-            <SectionTitle verified>Your impact</SectionTitle>
-            <Skeleton
-              loading={!loaded}
-              title={false}
-              paragraph={{
-                rows: 5,
-                width: ["50%", "80%", "70%", "40%", "70%"],
-              }}
-            >
-              {userReviews.length > 0 ? (
-                userReviews.map((review, index) => (
-                  <NavLink
-                    to={`/profile/${review.organization[0]._id}`}
-                    key={index}
-                  >
-                    <ReviewDiv>
-                      <Icon
-                        icon={review.organization[0].category}
-                        width="18"
-                        height="18"
-                        margin="0 0.5rem 0 0"
-                        // fill={colors.lightGray}
-                      />
-                      <ReviewText>
-                        You reviewed{" "}
-                        <AgencyTitle type={review.organization[0].category}>
-                          {review.organization[0].name}
-                        </AgencyTitle>
-                      </ReviewText>
-                      <ReviewText>
-                        {moment().diff(review.createdAt, "weeks")}w
-                      </ReviewText>
-                    </ReviewDiv>
-                  </NavLink>
-                ))
-              ) : (
-                <p>You have not completed any reviews yet</p>
-              )}
-            </Skeleton>
-          </VerifiedSection>
-        ) : (
+        {!verified && (
           <MainSection>
             <SectionTitle>
               Wait! You’re not yet verified as a worker

@@ -24,7 +24,11 @@ import {
 export default class UserPoints extends Component {
   render() {
     const { points } = this.props;
-    if (!points) return <div>Error loading your points...</div>;
+
+    // check if points are of falsy values
+    if ([null, false, undefined].includes(points))
+      return <div>Error loading your points...</div>;
+
     return (
       <Wrapper>
         <BorderedSubSectionWrapper padding="1.5rem 0">
@@ -37,7 +41,7 @@ export default class UserPoints extends Component {
           </SubSectionTitleParagraph>
         </BorderedSubSectionWrapper>
         <ProgressSection>
-          <ZeroNum color={points === 0 && "white"}>0</ZeroNum>
+          <ZeroNum color={points === 0}>0</ZeroNum>
           <Tracker>
             {points !== 50 && <ProgressNum progress={50}>50</ProgressNum>}
             <CompetitionContainer progress={50}>
@@ -53,12 +57,12 @@ export default class UserPoints extends Component {
             </CompetitionContainer>
             {points !== 100 && <ProgressNum progress={100}>100</ProgressNum>}
             <YourProgressDiv progress={points}>
-              You've earned <br /> {points} points
+              You've earned <br /> {points} {points === 1 ? "point" : "points"}
             </YourProgressDiv>
             <ProgressTriangle progress={points} />
           </Tracker>
         </ProgressSection>
-        <ExtendedTracker></ExtendedTracker>
+        <ExtendedTracker />
       </Wrapper>
     );
   }
