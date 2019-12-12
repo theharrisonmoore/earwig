@@ -6,7 +6,6 @@ import * as Yup from "yup";
 import { Modal, Alert, Input, Divider } from "antd";
 
 import Logo from "../../Common/Logo";
-import Icon from "../../Common/Icon/Icon";
 import CancelLink from "../../Common/CancelLink";
 
 import Select from "../../Common/Select";
