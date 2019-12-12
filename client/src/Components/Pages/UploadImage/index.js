@@ -228,6 +228,22 @@ export default class UploadImage extends Component {
     });
   };
 
+  getTooltipText = () => {
+    return (
+      <>
+        <p>
+          earwig is free for workers. All we ask is that you get verified as a
+          genuine worker. This means all reviews are credible and protects the
+          worker community from fake reviews and spam by non-workers.
+        </p>
+        <p>
+          You can hold up any card or ticket that shows you are a worker, eg
+          CSCS card.
+        </p>
+      </>
+    );
+  };
+
   addNewTradeHandler = event => {
     const { value } = event.target;
     this.setState({ newTrade: value, newTradeError: "" });
@@ -351,7 +367,7 @@ export default class UploadImage extends Component {
             </Paragraph>
             <PopoverComponent
               popoverOptions={{
-                text: `Any card or ticket that shows you are a worker, eg CSCS card.`,
+                text: this.getTooltipText(),
                 linkText: "Learn more",
                 icon: "info",
                 margin: "0 0 0.5rem 0",
