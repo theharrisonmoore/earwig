@@ -194,10 +194,11 @@ export const StyledButton = styled.button`
   text-align: center;
   color: ${colors.lightGray};
   background-color: ${colors.white};
-  box-shadow: 0 0 0 1px ${colors.lightGray};
+  box-shadow: 0 0 0 2px ${colors.lightGray};
   display: inline-block;
-  padding: 1px 1rem;
+  padding: 1px 0.25rem;
   margin-right: 0.5rem;
+  border-radius: 3px;
 `;
 
 export const StyledCheckList = styled.div`
