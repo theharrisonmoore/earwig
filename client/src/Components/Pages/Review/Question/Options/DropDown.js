@@ -196,6 +196,7 @@ class DropDown extends Component {
             addHandler={this.showModal}
             scrollToTop
             width="calc(85% - 1rem)"
+            ismodalVisible={ismodalVisible}
           />
           <div>
             <Modal

@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Select, Divider } from "antd";
+import { Prompt } from "react-router-dom";
+
 import "antd/dist/antd.css";
 import Icon from "./Icon/Icon";
 
@@ -124,6 +126,7 @@ class CustomizedSelects extends React.Component {
       showSearch,
       value,
       width,
+      ismodalVisible,
       ...rest
     } = this.props;
 
@@ -197,6 +200,10 @@ class CustomizedSelects extends React.Component {
           className="selectIcon"
           color={colors.dustyGray1}
           onClick={this.handleOpen}
+        />
+        <Prompt
+          when={ismodalVisible}
+          message="Are you sure you want to leave this page? You will lose any unsaved data."
         />
       </SelectDiv>
     );
