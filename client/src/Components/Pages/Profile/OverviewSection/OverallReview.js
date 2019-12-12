@@ -5,7 +5,7 @@ import { Link, withRouter } from "react-router-dom";
 import { Collapse, Icon as AntdIcon, message, Alert, Rate } from "antd";
 import axios from "axios";
 
-import { getVerifiedUsers, getVerifiedRepliesCount } from "../utils";
+import { getVerifiedUsers, getVerifiedRepliesCount, checkAdminReply } from "../utils";
 
 import Icon from "../../../Common/Icon/Icon";
 
@@ -228,6 +228,9 @@ class OverallReview extends Component {
         }
         const verifiedUsers = getVerifiedUsers(replies);
         const { overallReview, voiceReview } = review;
+        
+        // check if admin has replied to the review
+        review.adminReplied = checkAdminReply(replies);
 
         // check for writtenReview and add to array
         if (overallReview && overallReview.text) {
@@ -246,6 +249,7 @@ class OverallReview extends Component {
             review,
             organization: review.organization,
             rate: review.rate,
+            adminReplied: review.adminReplied
           });
         }
 
@@ -443,7 +447,7 @@ class OverallReview extends Component {
                           />
                         </LikeWrapper>
                       )}
-                      <CommentIconWrapper
+                      {review.adminReplied !== true && <CommentIconWrapper
                         onClick={level >= 2 ? this.goTOReply : undefined}
                         data-target={
                           review.category === "written"
@@ -462,6 +466,7 @@ class OverallReview extends Component {
                           height="27"
                         />
                       </CommentIconWrapper>
+            }
                     </ButtonsWrapper>
                     {/* FLAG ICON */}
                     <Link

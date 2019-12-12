@@ -738,5 +738,5 @@ export const LikeWrapper = styled(IconsWrapper)`
 `;
 
 export const CommentIconWrapper = styled(IconsWrapper)`
-  margin: 0.75rem 1rem 0.75rem 3rem;
+  margin: 0.75rem 1rem 0.75rem 1.5rem;
 `;
