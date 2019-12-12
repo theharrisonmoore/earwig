@@ -22,10 +22,6 @@ const schemas = {
     password: Joi.string()
       .min(6)
       .required(),
-    rePassword: Joi.any()
-      .valid(Joi.ref("password"))
-      .required()
-      .options({ language: { any: { allowOnly: "must match password" } } }),
     checkbox: Joi.boolean()
       .valid(true)
       .error(() => "You should agree Earwig terms of user"),
@@ -33,7 +29,6 @@ const schemas = {
     isWorker: Joi.string()
       .valid(["yes", "no"], "Must select an option")
       .required("Required"),
-    city: Joi.string().allow(""),
     trade: Joi.string()
       .when("isWorker", { is: "no", then: Joi.allow("").optional() })
       .when("isWorker", { is: "yes", then: Joi.required("trade is required") }),

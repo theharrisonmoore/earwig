@@ -6,6 +6,8 @@ import * as Yup from "yup";
 import { Modal, Alert, Input, Divider } from "antd";
 
 import Logo from "../../Common/Logo";
+import CancelLink from "../../Common/CancelLink";
+
 import Select from "../../Common/Select";
 import Button from "../../Common/Button";
 import Link from "../../Common/Link";
@@ -26,7 +28,6 @@ import {
 } from "../../Common/Formik/Formik.style";
 
 import {
-  // StyledLink as Link,
   SignupWrapper,
   ContentWrapper,
   PurpleDiv,
@@ -80,9 +81,6 @@ const signupSchema = Yup.object().shape({
   password: Yup.string()
     .min(6)
     .required("You must add a password"),
-  rePassword: Yup.string()
-    .required("Your passwords did not match")
-    .equalTo(Yup.ref("password")),
   checkbox: Yup.boolean()
     .required("You must agree to the earwig Terms of use")
     .oneOf([true], "You must agree to the earwig Terms of use"),
@@ -105,7 +103,6 @@ const signupSchema = Yup.object().shape({
     }
     return true;
   }),
-  city: Yup.string(),
   verificationImage: Yup.mixed().test(
     "verificationImage",
     "You must upload a verification photo",
@@ -123,13 +120,11 @@ const signupSchema = Yup.object().shape({
 const initialValues = {
   email: "",
   password: "",
-  rePassword: "",
   checkbox: false,
   isWorker: null,
   orgType: "agency",
   otherOrg: "",
   trade: "",
-  city: "",
   verificationImage: undefined,
 };
 
@@ -179,6 +174,7 @@ export default class Signup extends Component {
     error: "",
     isPopupVisible: false,
     data: null,
+    isPasswordVisible: false,
     browserBackAttempt: true,
   };
 
@@ -212,10 +208,6 @@ export default class Signup extends Component {
         })
           .then(({ data }) => {
             if (isWorker === "yes") {
-              // this.props.history.push({
-              //   pathname: "/intro",
-              //   state: { isWorker },
-              // });
               this.setState({
                 isPopupVisible: true,
                 data,
@@ -249,9 +241,6 @@ export default class Signup extends Component {
   };
 
   componentDidMount() {
-    const { history } = this.props;
-    console.log("HIST", history.location.state);
-
     axios.get(API_TRADE_URL).then(res => {
       const { data } = res;
       const trades = data.reduce((accu, current) => {
@@ -360,6 +349,28 @@ export default class Signup extends Component {
     if (verificationImage) reader.readAsDataURL(verificationImage);
   };
 
+  togglePasswordVisibility = () => {
+    this.setState(prevState => ({
+      isPasswordVisible: !prevState.isPasswordVisible,
+    }));
+  };
+
+  getTooltipText = () => {
+    return (
+      <>
+        <p>
+          earwig is free for workers. All we ask is that you get verified as a
+          genuine worker. This means all reviews are credible and protects the
+          worker community from fake reviews and spam by non-workers.
+        </p>
+        <p>
+          You can hold up any card or ticket that shows you are a worker, eg
+          CSCS card.
+        </p>
+      </>
+    );
+  };
+
   handleModalOk = () => {
     const { isWorker, data } = this.state;
     const {
@@ -400,6 +411,7 @@ export default class Signup extends Component {
       newTrade,
       isPopupVisible,
       isWorker,
+      isPasswordVisible,
       browserBackAttempt,
     } = this.state;
 
@@ -418,8 +430,9 @@ export default class Signup extends Component {
 
     return (
       <SignupWrapper>
-        <PurpleDiv />
+        <PurpleDiv width="50%" />
         <ContentWrapper>
+          <CancelLink history={history} CancelText="Back" />
           <LogIn
             to={{
               pathname: LOGIN_URL,
@@ -451,7 +464,10 @@ export default class Signup extends Component {
 
                   <Label htmlFor="password">
                     Create a password
-                    <Field type="password" name="password" />
+                    <Field
+                      type={isPasswordVisible ? "text" : "password"}
+                      name="password"
+                    />
                     <FormikErrorMessage
                       name="password"
                       component="p"
@@ -459,16 +475,19 @@ export default class Signup extends Component {
                     />
                   </Label>
 
-                  <Label htmlFor="rePassword">
-                    Confirm new password
-                    <Field type="password" name="rePassword" />
-                    <FormikErrorMessage
-                      name="rePassword"
-                      component="div"
-                      id="rePassword"
+                  <CheckboxWrapper>
+                    <Checkbox
+                      id="passwordCheckbox"
+                      type="checkbox"
+                      name="passwordCheckbox"
+                      value={this.state.isPasswordVisible}
+                      component={CustomCheckbox}
+                      onChange={this.togglePasswordVisibility}
                     />
-                  </Label>
-
+                    <CheckboxLabel htmlFor="passwordCheckbox">
+                      Show password
+                    </CheckboxLabel>
+                  </CheckboxWrapper>
                   <Label htmlFor="isWorker">Are you are worker?</Label>
                   <ButtonsWrapper style={{ display: "flex" }}>
                     <Field
@@ -660,35 +679,20 @@ export default class Signup extends Component {
                         </Label>
                       </SelectWrapper>
 
-                      <Label htmlFor="city">
-                        Town or city
-                        <Field type="city" name="city" />
-                        <FormikErrorMessage
-                          name="city"
-                          component="p"
-                          id="city"
-                        />
-                      </Label>
-
-                      <SubHeading>Verification Photo</SubHeading>
+                      <SubHeading>Upload a verification photo</SubHeading>
                       <Paragraph>
                         Please upload a photo of your face holding your trade ID
-                        like the example below. Please no glare or blur!
+                        like the example below. Once we’ve verified you, we’ll
+                        delete the photo to protect your anonymity.
                       </Paragraph>
                       <PopoverComponent
                         popoverOptions={{
-                          text: `Any card or ticket that shows you are a worker, eg CSCS card.`,
+                          text: this.getTooltipText(),
                           linkText: "Learn more",
                           icon: "info",
                           margin: "0 0 0.5rem 0",
                         }}
-                        history={history}
-                        currentState={this.state}
                       />
-                      <Paragraph>
-                        Once we’ve verified you, we’ll delete the photo to
-                        protect your identity.
-                      </Paragraph>
 
                       <Field name="verificationImage">
                         {({ form }) => (
@@ -749,7 +753,7 @@ export default class Signup extends Component {
                             text="Terms of Use"
                             type="plain"
                           />
-                          . By clicking Finish and log in you acknowledge our{" "}
+                          . By clicking Done I acknowledge the earwig{" "}
                           <Link
                             target="_blank"
                             to={PRIVACY_URL}
@@ -780,7 +784,7 @@ export default class Signup extends Component {
                         disabled={isSubmitting}
                         loading={isSubmitting}
                         styleType="primary"
-                        text="Finish and log in"
+                        text="Done"
                         margin="1rem auto 2rem auto"
                       />
                     </>
@@ -789,13 +793,7 @@ export default class Signup extends Component {
               );
             }}
           </Formik>
-          {isWorker && (
-            <Link
-              to={WELCOME_URL}
-              type="primary"
-              text="Continue without signing up"
-            />
-          )}
+
           <Modal
             visible={isPopupVisible}
             footer={null}

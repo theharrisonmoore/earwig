@@ -9,6 +9,7 @@ import { colors } from "../../../theme";
 import Select from "../../Common/Select";
 import Button from "../../Common/Button";
 import PopoverComponent from "../../Common/Popover";
+import CancelLink from "../../Common/CancelLink";
 
 import {
   UploadImageWrapper,
@@ -227,6 +228,22 @@ export default class UploadImage extends Component {
     });
   };
 
+  getTooltipText = () => {
+    return (
+      <>
+        <p>
+          earwig is free for workers. All we ask is that you get verified as a
+          genuine worker. This means all reviews are credible and protects the
+          worker community from fake reviews and spam by non-workers.
+        </p>
+        <p>
+          You can hold up any card or ticket that shows you are a worker, eg
+          CSCS card.
+        </p>
+      </>
+    );
+  };
+
   addNewTradeHandler = event => {
     const { value } = event.target;
     this.setState({ newTrade: value, newTradeError: "" });
@@ -277,6 +294,7 @@ export default class UploadImage extends Component {
       <UploadImageWrapper className="test">
         <PurpleDiv />
         <ContentWrapper>
+          <CancelLink history={this.props.history} CancelText="Back" />
           <EditIcon
             icon="getVerified"
             height="25"
@@ -341,28 +359,21 @@ export default class UploadImage extends Component {
                 </div>
               </div>
             </SelectWrapper>
-            <SelectWrapper>
-              <SubHeading>Town or city</SubHeading>
-              <Input onChange={this.addTownHandler} size="large" />
-            </SelectWrapper>
-            <SubHeading>Verification Photo</SubHeading>
+            <SubHeading>Upload a verification photo</SubHeading>
             <Paragraph>
               Please upload a photo of your face holding your trade ID like the
-              example below. Please no glare or blur!
+              example below. Once we’ve verified you, we’ll delete the photo to
+              protect your anonymity.
             </Paragraph>
             <PopoverComponent
               popoverOptions={{
-                text: `Any card or ticket that shows you are a worker, eg CSCS card.`,
+                text: this.getTooltipText(),
                 linkText: "Learn more",
                 icon: "info",
                 margin: "0 0 0.5rem 0",
               }}
               history={this.props.history}
             />
-            <Paragraph>
-              Once we’ve verified you, we’ll delete the photo to protect your
-              identity.
-            </Paragraph>
             <Button
               as="label"
               htmlFor="image-input"
