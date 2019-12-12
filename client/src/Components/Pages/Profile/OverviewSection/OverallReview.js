@@ -220,10 +220,10 @@ class OverallReview extends Component {
     if (summary)
       summary.reviews.forEach(review => {
         let replies = [];
-        if (review.overallReview.allRepliesUsers) {
+        if (review.overallReview && review.overallReview.allRepliesUsers) {
           replies = [...replies, ...review.overallReview.allRepliesUsers];
         }
-        if (review.voiceReview.allRepliesUsers) {
+        if (review.voiceReview && review.voiceReview.allRepliesUsers) {
           replies = [...replies, ...review.voiceReview.allRepliesUsers];
         }
         const verifiedUsers = getVerifiedUsers(replies);

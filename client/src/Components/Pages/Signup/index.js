@@ -52,6 +52,7 @@ import {
   TERMS_OF_USE_URL,
   PRIVACY_URL,
   LOGIN_URL,
+  INTRO_URL,
 } from "../../../constants/naviagationUrls";
 
 const { API_TRADE_URL } = require("../../../apiUrls");
@@ -370,6 +371,37 @@ export default class Signup extends Component {
     );
   };
 
+  handleModalOk = () => {
+    const { isWorker, data } = this.state;
+    const {
+      location: {
+        state: {
+          orgId,
+          redirectToProfile,
+          category,
+          name,
+          redirectToCreateProfile,
+        } = {},
+      } = {},
+    } = this.props;
+
+    this.props.handleChangeState({ ...data, isLoggedIn: true });
+    if (redirectToProfile && orgId) {
+      this.props.history.push({
+        pathname: `/profile/${orgId}`,
+      });
+    } else if (redirectToCreateProfile && isWorker && name && category) {
+      this.props.history.push({
+        pathname: `/add-profile-sign-up/${category}/${name}`,
+      });
+    } else {
+      this.props.history.push({
+        pathname: INTRO_URL,
+        state: { isWorker },
+      });
+    }
+  };
+
   render() {
     const {
       error,
@@ -384,12 +416,36 @@ export default class Signup extends Component {
       browserBackAttempt,
     } = this.state;
 
+    const {
+      location: {
+        state: {
+          orgId,
+          redirectToProfile,
+          category,
+          name,
+          redirectToCreateProfile,
+        } = {},
+      } = {},
+      history,
+    } = this.props;
+
     return (
       <SignupWrapper>
         <PurpleDiv width="50%" />
         <ContentWrapper>
           <CancelLink history={this.props.history} CancelText="Back" />
-          <LogIn to={LOGIN_URL}>
+          <LogIn
+            to={{
+              pathname: LOGIN_URL,
+              state: {
+                orgId,
+                redirectToProfile,
+                category,
+                name,
+                redirectToCreateProfile,
+              },
+            }}
+          >
             Already signed up? <span>Log in</span>
           </LogIn>
           <Logo />
@@ -743,13 +799,7 @@ export default class Signup extends Component {
             visible={isPopupVisible}
             footer={null}
             closable={false}
-            afterClose={() => {
-              this.props.handleChangeState({ ...data, isLoggedIn: true });
-              this.props.history.push({
-                pathname: "/intro",
-                state: { isWorker },
-              });
-            }}
+            afterClose={this.handleModalOk}
           >
             <ModalText>
               Thanks, we&apos;re checking your photo. Any reviews you give
@@ -759,13 +809,7 @@ export default class Signup extends Component {
               styleType="primary"
               margin="1rem auto"
               text="Okay"
-              onClick={() => {
-                this.props.handleChangeState({ ...data, isLoggedIn: true });
-                this.props.history.push({
-                  pathname: "/intro",
-                  state: { isWorker },
-                });
-              }}
+              onClick={this.handleModalOk}
             />
           </Modal>
         </ContentWrapper>

@@ -1,8 +1,9 @@
 const Organization = require("../../models/Organization");
 
-module.exports.addNew = ({ name, category }) => Organization.create({
+module.exports.addNew = ({ name, category, userId }) => Organization.create({
   name,
   category,
+  createdBy: userId,
 });
 
 // function to add multiple orgs at once - expects an array of objects
