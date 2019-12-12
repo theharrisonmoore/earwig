@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import logoSrc from "./../../assets/logo-beta-new.svg";
+import logoSrc from "../../assets/logo.svg";
 
 const Image = styled.img`
   vertical-align: middle;

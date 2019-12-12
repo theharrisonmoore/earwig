@@ -385,8 +385,6 @@ export default class Signup extends Component {
       browserBackAttempt,
     } = this.state;
 
-    const { history } = this.props;
-
     return (
       <SignupWrapper>
         <PurpleDiv width="50%" />
@@ -395,8 +393,7 @@ export default class Signup extends Component {
           <LogIn to={LOGIN_URL}>
             Already signed up? <span>Log in</span>
           </LogIn>
-          {/* <Logo /> */}
-          <Icon icon="logo" width="160" margin="0 0.5rem 0 0" />
+          <Logo />
           <Formik
             initialValues={initialValues}
             validationSchema={signupSchema}
