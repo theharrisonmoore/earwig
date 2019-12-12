@@ -13,7 +13,7 @@ class PopoverComponent extends React.Component {
 
   hide = () => {
     this.setState({
-      popoverVisible: false,
+      popoverVisible: false
     });
   };
 
@@ -24,8 +24,16 @@ class PopoverComponent extends React.Component {
   componentDidMount() {
     const { popoverOptions } = this.props;
     const { loadAutomatically } = popoverOptions;
-
     if (loadAutomatically) this.handleVisibleChange(loadAutomatically);
+  }
+
+  componentDidUpdate() {
+    window.onpopstate = e => {
+      const { popoverVisible } = this.state;
+      if (popoverVisible) {
+        this.hide();
+      }
+    }
   }
 
   render() {

@@ -2,12 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { Select, Divider } from "antd";
 import "antd/dist/antd.css";
-import Icon from "./Icon/Icon"
+import Icon from "./Icon/Icon";
 
-import { colors } from "../../theme"
+import { colors } from "../../theme";
 
 const { Option } = Select;
-
 
 const Label = styled.label`
   display: block;
@@ -17,10 +16,10 @@ const Label = styled.label`
 
 const SelectDiv = styled.div`
   position: relative;
-  width: ${({ width }) => width || "100%" };
+  width: ${({ width }) => width || "100%"};
 
   .selectIcon {
-    position: absolute;
+    position: absolute !important;
     right: 1rem;
     top: 29%;
 
@@ -28,7 +27,7 @@ const SelectDiv = styled.div`
       cursor: pointer;
     }
   }
-` 
+`;
 
 class CustomizedSelects extends React.Component {
   state = {
@@ -189,9 +188,16 @@ class CustomizedSelects extends React.Component {
               <Option value={item.value || JSON.stringify(item)} key={item._id}>
                 {item.label || item.name}
               </Option>
-            ))}  
+            ))}
         </Select>
-        <Icon icon="search" height="19px" width="19px" className="selectIcon" color={colors.dustyGray1} onClick={this.handleOpen} />
+        <Icon
+          icon="search"
+          height="19px"
+          width="19px"
+          className="selectIcon"
+          color={colors.dustyGray1}
+          onClick={this.handleOpen}
+        />
       </SelectDiv>
     );
   }
