@@ -8,6 +8,7 @@ import LeftArrow from "./LeftArrow";
 import RightArrow from "./RightArrow";
 import Agency from "./Agency";
 import AgencyThanks from "./AgencyThanks";
+import All from "./All";
 import Arrow from "./Arrow";
 import Bus from "./Bus";
 import Canteen from "./Canteen";
@@ -52,6 +53,7 @@ import PointsEarned from "./PointsEarned";
 import PrayerRoom from "./PrayerRoom";
 import PrivacyTerms from "./PrivacyTerms";
 import RaiseHand from "./RaiseHand";
+import Recent from "./Recent";
 import ReportFlag from "./ReportFlag";
 import Search from "./Search";
 import ShapeEarwig from "./ShapeEarwig";
@@ -93,6 +95,7 @@ const iconMap = {
   addComment: AddComment,
   agency: Agency,
   agencyThanks: AgencyThanks,
+  all: All,
   arrow: Arrow,
   bus: Bus,
   canteen: Canteen,
@@ -137,6 +140,7 @@ const iconMap = {
   prayerRoom: PrayerRoom,
   privacyTerms: PrivacyTerms,
   raiseHand: RaiseHand,
+  recent: Recent,
   reportFlag: ReportFlag,
   search: Search,
   shapeEarwig: ShapeEarwig,

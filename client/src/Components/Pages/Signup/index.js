@@ -1,5 +1,6 @@
 // Render Prop
 import React, { Component } from "react";
+import { Prompt } from 'react-router';
 import axios from "axios";
 import * as Yup from "yup";
 import { Modal, Alert, Input, Divider } from "antd";
@@ -177,6 +178,7 @@ export default class Signup extends Component {
     error: "",
     isPopupVisible: false,
     data: null,
+    browserBackAttempt: true,
   };
 
   handleSubmit = (_values, { setSubmitting }) => {
@@ -213,9 +215,9 @@ export default class Signup extends Component {
               //   pathname: "/intro",
               //   state: { isWorker },
               // });
-              this.setState({ isPopupVisible: true, data });
+              this.setState({ isPopupVisible: true, data, browserBackAttempt: false });
             } else {
-              this.props.handleChangeState({ ...data, isLoggedIn: true });
+              this.props.handleChangeState({ ...data, isLoggedIn: true, browserBackAttempt: false });
               this.props.history.push(WELCOME_URL);
             }
           })
@@ -238,6 +240,9 @@ export default class Signup extends Component {
   };
 
   componentDidMount() {
+    const { history } = this.props;
+    console.log("HIST", history.location.state);
+
     axios.get(API_TRADE_URL).then(res => {
       const { data } = res;
       const trades = data.reduce((accu, current) => {
@@ -356,7 +361,10 @@ export default class Signup extends Component {
       isPopupVisible,
       isWorker,
       data,
+      browserBackAttempt
     } = this.state;
+
+    const { history } = this.props;
 
     return (
       <SignupWrapper>
@@ -608,10 +616,12 @@ export default class Signup extends Component {
                       <PopoverComponent
                         popoverOptions={{
                           text: `Any card or ticket that shows you are a worker, eg CSCS card.`,
-                          linkText: "What trade ID can I use?",
+                          linkText: "Learn more",
                           icon: "info",
                           margin: "0 0 0.5rem 0",
                         }}
+                        history={history}
+                        currentState={this.state}
                       />
                       <Paragraph>
                         Once we’ve verified you, we’ll delete the photo to
@@ -754,6 +764,7 @@ export default class Signup extends Component {
             />
           </Modal>
         </ContentWrapper>
+        <Prompt when={browserBackAttempt} message="Are you sure you want to leave this page? You will lose any unsaved data."/>
       </SignupWrapper>
     );
   }

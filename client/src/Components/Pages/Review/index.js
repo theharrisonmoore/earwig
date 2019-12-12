@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Prompt } from "react-router";
 import axios from "axios";
 import moment from "moment";
 import { Checkbox, message, Modal } from "antd";
@@ -75,9 +76,21 @@ class Review extends Component {
     recording: false,
     audioFile: null,
     voiceReviewUrl: "",
+    browserBackAttempt: true,
   };
 
   componentDidMount() {
+
+    // add warning for any refresh of the page
+    window.onbeforeunload = e => {
+      // Cancel the event as stated by the standard.
+      e.preventDefault();
+      // Chrome requires returnValue to be set.
+      e.returnValue = "";
+      // return something to trigger a dialog
+      return null; 
+    };
+
     const { orgId, reviewId } = this.props.match.params;
     if (!orgId && !reviewId) {
       this.props.history.push("/search");
@@ -226,6 +239,12 @@ class Review extends Component {
     }
   }
 
+  componentDidUpdate() {
+    window.onpopstate = () => {
+      this.setState({ browserBackAttempt: true })
+    }
+  }
+
   submitAudio = () => {
     const { audioFile } = this.state;
     if (audioFile) {
@@ -296,16 +315,13 @@ class Review extends Component {
   };
 
   handleSliderChange = (value, number) => {
-    let answer = null;
-    const { answers } = this.state;
-    if (typeof value !== "number" && value.includes("===")) {
-      const [name, _id] = value.split("===");
-      answer = { name, _id };
-    } else {
-      answer = value;
-    }
-    this.setState({
-      answers: { ...answers, [number]: answer },
+    this.setState(prevState => {
+      return {
+        answers: {
+          ...prevState.answers,
+          [number]: value,
+        },
+      };
     });
   };
 
@@ -509,7 +525,7 @@ class Review extends Component {
           axios
             .put(`/api/review/${this.state.reviewId}`, review)
             .then(() => {
-              this.setState({ isSubmitting: false });
+              this.setState({ isSubmitting: false, browserBackAttempt: false });
 
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,
@@ -534,7 +550,7 @@ class Review extends Component {
           axios
             .post(API_POST_REVIEW_URL, review)
             .then(res => {
-              this.setState({ isSubmitting: false });
+              this.setState({ isSubmitting: false, browserBackAttempt: false });
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,
                 orgId: res.data,
@@ -569,9 +585,10 @@ class Review extends Component {
       errors,
       isSubmitting,
       recording,
+      browserBackAttempt
     } = this.state;
     const { history, isMobile, id } = this.props;
-    const staticQuestion = STATIC_QUESTIONS(category);
+    const staticQuestion = STATIC_QUESTIONS(category, history, this.state);
 
     const { isLoading } = this.state;
     if (isLoading) return <Loading />;
@@ -622,6 +639,7 @@ class Review extends Component {
                   category={this.state.organization.category}
                   handleChange={this.handleDateChage}
                   state={this.state}
+                  history={history}
                 />
                 <div>
                   {Object.keys(groupss).map(groupId => {
@@ -649,6 +667,7 @@ class Review extends Component {
                                 handleAddNewOrgChange={
                                   this.handleAddNewOrgChange
                                 }
+                                history={history}
                               />
                             );
                           })}
@@ -665,12 +684,14 @@ class Review extends Component {
                     handleChange={this.handleRateChage}
                     state={this.state}
                     runValidation={this.runValidation}
+                    history={history}
                   />
                   <Question
                     question={staticQuestion[1]}
                     category={this.state.organization.category}
                     handleChange={this.handleReviewChange}
                     state={this.state}
+                    history={history}
                   />
                   {/* The voice questions */}
                   <Question
@@ -681,6 +702,7 @@ class Review extends Component {
                     handleRecord={this.handleRecord}
                     id={id}
                     voiceReviewUrl={this.state.voiceReviewUrl}
+                    history={history}
                   />
                 </div>
                 <UserAgreement>
@@ -740,6 +762,7 @@ class Review extends Component {
             </form>
           </section>
         </ReviewWrapper>
+        <Prompt when={browserBackAttempt} message="Are you sure you want to leave this review? You will lose any answers you have provided so far."/>
       </Layout>
     );
   }
