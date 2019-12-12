@@ -64,7 +64,7 @@ export default props => {
             onClick={history.goBack}
           />
           <SubHeading margin="6rem auto 4rem">
-            Already verified?
+            Already verified?{" "}
             <StyledLink
               to={{
                 pathname: LOGIN_URL,
