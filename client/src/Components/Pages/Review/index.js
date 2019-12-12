@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Prompt } from "react-router";
+import { Prompt } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import { Checkbox, message, Modal } from "antd";
@@ -80,7 +80,6 @@ class Review extends Component {
   };
 
   componentDidMount() {
-
     // add warning for any refresh of the page
     window.onbeforeunload = e => {
       // Cancel the event as stated by the standard.
@@ -88,7 +87,7 @@ class Review extends Component {
       // Chrome requires returnValue to be set.
       e.returnValue = "";
       // return something to trigger a dialog
-      return null; 
+      return null;
     };
 
     const { orgId, reviewId } = this.props.match.params;
@@ -241,8 +240,8 @@ class Review extends Component {
 
   componentDidUpdate() {
     window.onpopstate = () => {
-      this.setState({ browserBackAttempt: true })
-    }
+      this.setState({ browserBackAttempt: true });
+    };
   }
 
   submitAudio = () => {
@@ -585,7 +584,7 @@ class Review extends Component {
       errors,
       isSubmitting,
       recording,
-      browserBackAttempt
+      browserBackAttempt,
     } = this.state;
     const { history, isMobile, id } = this.props;
     const staticQuestion = STATIC_QUESTIONS(category, history, this.state);
@@ -762,7 +761,10 @@ class Review extends Component {
             </form>
           </section>
         </ReviewWrapper>
-        <Prompt when={browserBackAttempt} message="Are you sure you want to leave this review? You will lose any answers you have provided so far."/>
+        <Prompt
+          when={browserBackAttempt}
+          message="Are you sure you want to leave this review? You will lose any answers you have provided so far."
+        />
       </Layout>
     );
   }

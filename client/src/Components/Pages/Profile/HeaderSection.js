@@ -97,7 +97,13 @@ export default class HeaderSection extends Component {
       >
         <ColoredBanner category={category} name={name} isMobile={isMobile} />
         {level > 0 && (
-          <GeneralTabs setActiveTab={setActiveTab} activeTab={activeTab} tabOne="overview" tabTwo="detailed" />
+          <GeneralTabs
+            setActiveTab={setActiveTab}
+            activeTab={activeTab}
+            tabOne="overview"
+            tabTwo="detailed"
+            zIndex="2"
+          />
         )}
         {level > 0 ? (
           <ActionButtonsDiv>
