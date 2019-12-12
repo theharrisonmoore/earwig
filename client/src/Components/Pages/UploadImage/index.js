@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Prompt } from "react-router";
+import { Prompt } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Modal, Input, Alert } from "antd";

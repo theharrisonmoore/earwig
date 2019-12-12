@@ -1,6 +1,6 @@
 // Render Prop
 import React, { Component } from "react";
-import { Prompt } from "react-router";
+import { Prompt } from "react-router-dom";
 import axios from "axios";
 import * as Yup from "yup";
 import { Modal, Alert, Input, Divider } from "antd";
