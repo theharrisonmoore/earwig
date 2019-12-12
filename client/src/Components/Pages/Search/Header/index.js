@@ -75,6 +75,7 @@ export default class SearchHeader extends Component {
           activeTab={activeTab}
           tabOne="all"
           tabTwo="recent"
+          zIndex="1"
         />
       </HeaderWrapper>
     );
