@@ -345,3 +345,30 @@ export const Input = styled.input`
   border: 1px solid ${colors.inputBorder};
   outline: none;
 `;
+
+export const CheckboxWrapper = styled.div`
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: #fff;
+    border: 2px solid ${colors.gray};
+  }
+
+  .ant-checkbox-checked .ant-checkbox-inner::after {
+    border: 3px solid ${colors.gray};
+    border-top: 0;
+    border-left: 0;
+  }
+
+  .ant-checkbox-checked .ant-checkbox-inner::after {
+    border: 3px solid ${colors.gray};
+    border-top: 0;
+    border-left: 0;
+    width: 9px;
+    height: 15px;
+  }
+
+  .ant-checkbox-inner {
+    width: 22px;
+    height: 22px;
+    border: 2px solid ${colors.gray};
+  }
+`;
