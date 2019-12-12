@@ -8,6 +8,7 @@ import { colors } from "../../../theme";
 import Select from "../../Common/Select";
 import Button from "../../Common/Button";
 import PopoverComponent from "../../Common/Popover";
+import CancelLink from "../../Common/CancelLink";
 
 import {
   UploadImageWrapper,
@@ -242,6 +243,7 @@ export default class UploadImage extends Component {
       <UploadImageWrapper className="test">
         <PurpleDiv />
         <ContentWrapper>
+          <CancelLink history={this.props.history} CancelText="Back" />
           <EditIcon
             icon="getVerified"
             height="25"
@@ -305,14 +307,15 @@ export default class UploadImage extends Component {
                 </div>
               </div>
             </SelectWrapper>
-            <SelectWrapper>
+            {/* <SelectWrapper>
               <SubHeading>Town or city</SubHeading>
               <Input onChange={this.addTownHandler} size="large" />
-            </SelectWrapper>
-            <SubHeading>Verification Photo</SubHeading>
+            </SelectWrapper> */}
+            <SubHeading>Upload a verification photo</SubHeading>
             <Paragraph>
               Please upload a photo of your face holding your trade ID like the
-              example below. Please no glare or blur!
+              example below. Once we’ve verified you, we’ll delete the photo to
+              protect your anonymity.
             </Paragraph>
             <PopoverComponent
               popoverOptions={{
@@ -322,10 +325,6 @@ export default class UploadImage extends Component {
                 margin: "0 0 0.5rem 0",
               }}
             />
-            <Paragraph>
-              Once we’ve verified you, we’ll delete the photo to protect your
-              identity.
-            </Paragraph>
             <Button
               as="label"
               htmlFor="image-input"
