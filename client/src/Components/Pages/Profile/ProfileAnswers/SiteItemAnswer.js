@@ -44,7 +44,11 @@ export default class SiteItemAnswer extends Component {
                 <>
                   {averageResponse ? (
                     <p>
-                      {question.profileText} (£{carParkingPrice}){" "}
+                      {question.profileText}
+
+                      {carParkingPrice === "N/A"
+                        ? null
+                        : `(£${carParkingPrice}) `}
                     </p>
                   ) : (
                     <p>{question.profileText}</p>

@@ -315,16 +315,13 @@ class Review extends Component {
   };
 
   handleSliderChange = (value, number) => {
-    let answer = null;
-    const { answers } = this.state;
-    if (typeof value !== "number" && value.includes("===")) {
-      const [name, _id] = value.split("===");
-      answer = { name, _id };
-    } else {
-      answer = value;
-    }
-    this.setState({
-      answers: { ...answers, [number]: answer },
+    this.setState(prevState => {
+      return {
+        answers: {
+          ...prevState.answers,
+          [number]: value,
+        },
+      };
     });
   };
 
