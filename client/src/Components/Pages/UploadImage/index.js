@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Prompt } from 'react-router';
+import { Prompt } from "react-router";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Modal, Input, Alert } from "antd";
@@ -22,7 +22,7 @@ import {
   Error,
   EditIcon,
   PurpleDiv,
-  ModalText
+  ModalText,
 } from "./UploadImage.style";
 
 import example from "../../../assets/example.png";
@@ -31,7 +31,7 @@ import { INTRO_URL } from "../../../constants/naviagationUrls";
 
 const {
   API_TRADE_URL,
-  API_UPLOAD_VERIFICATION_IMAGE_URL
+  API_UPLOAD_VERIFICATION_IMAGE_URL,
 } = require("../../../apiUrls");
 
 const placeholder = "Choose your trade";
@@ -58,7 +58,7 @@ export default class UploadImage extends Component {
       Swal.fire({
         type: "warning",
         title: "Already verified",
-        text: "you are already verified!"
+        text: "you are already verified!",
       }).then(() => {
         this.props.history.goBack();
       });
@@ -66,7 +66,7 @@ export default class UploadImage extends Component {
       Swal.fire({
         type: "warning",
         title: "We are currently verifying your account",
-        text: "Please come back soon!"
+        text: "Please come back soon!",
       }).then(() => {
         this.props.history.goBack();
       });
@@ -97,13 +97,13 @@ export default class UploadImage extends Component {
     reader.onload = () => {
       const dataURL = reader.result;
       this.setState({
-        image: dataURL
+        image: dataURL,
       });
     };
 
     this.setState(
       {
-        imageFile: image
+        imageFile: image,
       },
       () => {
         // eslint-disable-next-line no-unused-expressions
@@ -131,18 +131,22 @@ export default class UploadImage extends Component {
         url: API_UPLOAD_VERIFICATION_IMAGE_URL,
         data: form,
         headers: {
-          "content-type": `multipart/form-data; boundary=${form._boundary}`
-        }
+          "content-type": `multipart/form-data; boundary=${form._boundary}`,
+        },
       })
         .then(() => {
-          this.setState({ loading: false, isPopupVisible: true, browserBackAttempt: false });
+          this.setState({
+            loading: false,
+            isPopupVisible: true,
+            browserBackAttempt: false,
+          });
         })
         .catch(err => {
           this.setState({ loading: false }, () => {
             Swal.fire({
               type: "error",
               title: "Oops...",
-              text: err.response.data.error
+              text: err.response.data.error,
             });
           });
         });
@@ -153,7 +157,7 @@ export default class UploadImage extends Component {
     const { searchTerm } = e.target.dataset;
     this.setState({
       ismodalVisible: true,
-      newTrade: searchTerm
+      newTrade: searchTerm,
     });
   };
 
@@ -161,7 +165,7 @@ export default class UploadImage extends Component {
     if (this.state.newTrade && this.state.newTrade.length >= 3) {
       this.setState(
         {
-          confirmLoading: true
+          confirmLoading: true,
         },
         () => {
           axios
@@ -172,19 +176,19 @@ export default class UploadImage extends Component {
               this.setState({
                 trades: [{ value: data._id, label: data.title }],
                 tradeId: data._id,
-                disableSelect: true
+                disableSelect: true,
               });
 
               this.setState(
                 {
-                  newTradeSuccess: true
+                  newTradeSuccess: true,
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       newTradeSuccess: false,
                       ismodalVisible: false,
-                      confirmLoading: false
+                      confirmLoading: false,
                     });
                   }, 1000);
                 }
@@ -194,13 +198,13 @@ export default class UploadImage extends Component {
               this.setState(
                 {
                   newTradeSuccess: false,
-                  newTradeError: err.response.data.error
+                  newTradeError: err.response.data.error,
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       ismodalVisible: false,
-                      confirmLoading: false
+                      confirmLoading: false,
                     });
                   }, 1000);
                 }
@@ -210,7 +214,7 @@ export default class UploadImage extends Component {
       );
     } else if (this.state.newTrade.length < 3) {
       this.setState({
-        newTradeError: "Trade must be 3 charachters length at least"
+        newTradeError: "Trade must be 3 charachters length at least",
       });
     }
   };
@@ -219,7 +223,7 @@ export default class UploadImage extends Component {
     this.setState({
       ismodalVisible: false,
       newTradeSuccess: false,
-      newTradeError: ""
+      newTradeError: "",
     });
   };
 
@@ -237,7 +241,7 @@ export default class UploadImage extends Component {
       loading,
       newTrade,
       isPopupVisible,
-      browserBackAttempt
+      browserBackAttempt,
     } = this.state;
     return (
       <UploadImageWrapper className="test">
@@ -265,6 +269,7 @@ export default class UploadImage extends Component {
                 addHandler={this.showModal}
                 id="trade"
                 scrollToTop
+                ismodalVisible={ismodalVisible}
               />
               <div>
                 <div>
@@ -320,7 +325,7 @@ export default class UploadImage extends Component {
                 text: `Any card or ticket that shows you are a worker, eg CSCS card.`,
                 linkText: "Learn more",
                 icon: "info",
-                margin: "0 0 0.5rem 0"
+                margin: "0 0 0.5rem 0",
               }}
               history={this.props.history}
             />
@@ -383,7 +388,10 @@ export default class UploadImage extends Component {
             />
           </Modal>
         </ContentWrapper>
-        <Prompt when={browserBackAttempt} message="Are you sure you want to leave this page? You will lose any unsaved data."/>
+        <Prompt
+          when={browserBackAttempt}
+          message="Are you sure you want to leave this page? You will lose any unsaved data."
+        />
       </UploadImageWrapper>
     );
   }
