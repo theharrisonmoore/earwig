@@ -4,8 +4,10 @@ export const getContractorsFromReviews = reviewDetails => {
   const [worksiteQuestionsGroup] = reviewDetails.filter(
     group => group._id === "Working on the site"
   );
-  const [contractorQuestion] = worksiteQuestionsGroup.questions.filter(
-    question => question.text === "Who was the main contractor on site?"
+  const [
+    contractorQuestion,
+  ] = worksiteQuestionsGroup.questions.filter(question =>
+    question.text.includes("main contractor")
   );
   // question => question.text === "Who is the main contractor on site?"
   const orderedAnswers = contractorQuestion.answers.sort(
@@ -54,7 +56,12 @@ export const getCarCost = (reviewDetails = []) => {
       )
     );
 
-  if (!carSection || carSection.length < 1) return "N/A";
+  if (
+    !carSection ||
+    carSection.length < 1 ||
+    carSection[0][0].answers.length < 1
+  )
+    return "N/A";
 
   // work out the average cost from the answers
   const costsArr = carSection[0][0].answers.map(answer => answer.answer);

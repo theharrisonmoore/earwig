@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import { Map } from "immutable";
 
-import {
-  QuestionOptionsWrapper,
-  InputWrapper,
-  Options,
-  StyledInput,
-} from "../Question.style";
+import YesNoOption from "./YesNoOption";
+import { QuestionOptionsWrapper, Options } from "../Question.style";
 
 class YesNo extends Component {
   shouldComponentUpdate(nextProps) {
@@ -38,50 +34,33 @@ class YesNo extends Component {
           <div className={`choices choices-${options.length}`}>
             {options.map(option => {
               return (
-                <InputWrapper
+                <YesNoOption
                   option={option}
-                  orgType={category}
-                  options={question.options.length}
-                  key={option}
-                >
-                  <input
-                    name={question.number}
-                    id={`${option}-${question.number}`}
-                    type="radio"
-                    value={option}
-                    className="radio-button"
-                    onChange={handleChange}
-                    onClick={e => {
-                      if (typeof next === "object" && next !== null) {
-                        let nextQ = next.yes;
-                        let other = next.no;
-                        if (
-                          option === "No" ||
-                          option.includes("know") ||
-                          option.includes("need") ||
-                          option.includes("check")
-                        ) {
-                          nextQ = next.no;
-                          other = next.yes;
-                        }
-                        showNextQestion(groupId, nextQ, other, number);
+                  category={category}
+                  question={question}
+                  handleChange={handleChange}
+                  handleClick={() => {
+                    if (typeof next === "object" && next !== null) {
+                      let nextQ = next.yes;
+                      let other = next.no;
+                      if (
+                        option === "No" ||
+                        option.includes("know") ||
+                        option.includes("need") ||
+                        option.includes("check")
+                      ) {
+                        nextQ = next.no;
+                        other = next.yes;
                       }
-                      // handleChange(e);
-                    }}
-                    checked={
-                      !!(
-                        state.answers &&
-                        state.answers[question.number] === option
-                      )
+                      showNextQestion(groupId, nextQ, other, number);
                     }
-                  />
-                  <StyledInput
-                    htmlFor={`${option}-${question.number}`}
-                    className="yesno options-3"
-                  >
-                    {option}
-                  </StyledInput>
-                </InputWrapper>
+                  }}
+                  isChecked={
+                    !!(
+                      state.answers && state.answers[question.number] === option
+                    )
+                  }
+                />
               );
             })}
           </div>

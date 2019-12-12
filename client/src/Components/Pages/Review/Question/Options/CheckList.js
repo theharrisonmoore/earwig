@@ -10,13 +10,13 @@ import {
   Options,
   StyledErrorMessage,
   StyledCheckList,
-  StyledButton
+  StyledButton,
 } from "../Question.style";
 
 class CheckList extends Component {
-  state = { checkedList: [], clicked: false, rate: 0, hoverRate: undefined };
+  state = { checkedList: [], clicked: false };
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     if (Map(this.props.state.answers).equals(Map(nextProps.state.answers))) {
       return false;
     }
@@ -26,13 +26,12 @@ class CheckList extends Component {
   getStyle = () => {
     if (this.state.clicked) {
       return {
-        border: `3px solid ${colors.green}`
-      };
-    } else {
-      return {
-        border: "3px solid transparent"
+        border: `3px solid ${colors.green}`,
       };
     }
+    return {
+      border: "3px solid transparent",
+    };
   };
 
   render() {
@@ -50,7 +49,7 @@ class CheckList extends Component {
                 onChange={checkedList => {
                   this.setState({
                     checkedList,
-                    clicked: false
+                    clicked: false,
                   });
                   handleSliderChange(checkedList, number);
                 }}
@@ -64,7 +63,7 @@ class CheckList extends Component {
                   e.preventDefault();
                   this.setState({
                     checkedList: [],
-                    clicked: true
+                    clicked: true,
                   });
                   handleSliderChange("I didn't check", number);
                 }}

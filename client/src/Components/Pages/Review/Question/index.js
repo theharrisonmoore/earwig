@@ -54,7 +54,7 @@ class Question extends Component {
     const popoverOptions = {
       text:
         "We’re asking this because it will be useful to track over time how much agencies are paying workers",
-      linkText: "Why are we asking this?",
+      linkText: "Learn more",
       icon: "info",
       margin: "0 0 0.5rem 0"
     };
