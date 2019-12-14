@@ -115,6 +115,11 @@ export default class HeaderSection extends Component {
                     : PRE_REVIEW.replace(":orgId", orgId),
                 state: { name, category },
               }}
+              onClick={e =>
+                reviewNotAllowed &&
+                reviewsLast30Days.length > 0 &&
+                e.preventDefault()
+              }
             >
               <Button
                 styleType="primary"
