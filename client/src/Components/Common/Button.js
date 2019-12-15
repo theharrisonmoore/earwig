@@ -26,6 +26,10 @@ const sharedStyles = css`
   background: none;
   pointer-events: all !important;
 
+  *{
+    ${({ disabled }) => disabled && "pointer-events: none"}
+  }
+
   &:active {
     box-shadow: none;
 
