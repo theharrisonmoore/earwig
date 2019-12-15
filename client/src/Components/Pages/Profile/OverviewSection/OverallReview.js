@@ -5,7 +5,11 @@ import { Link, withRouter } from "react-router-dom";
 import { Collapse, Icon as AntdIcon, message, Alert, Rate } from "antd";
 import axios from "axios";
 
-import { getVerifiedUsers, getVerifiedRepliesCount, checkAdminReply } from "../utils";
+import {
+  getVerifiedUsers,
+  getVerifiedRepliesCount,
+  checkAdminReply,
+} from "../utils";
 
 import Icon from "../../../Common/Icon/Icon";
 
@@ -228,7 +232,7 @@ class OverallReview extends Component {
         }
         const verifiedUsers = getVerifiedUsers(replies);
         const { overallReview, voiceReview } = review;
-        
+
         // check if admin has replied to the review
         review.adminReplied = checkAdminReply(replies);
 
@@ -249,7 +253,7 @@ class OverallReview extends Component {
             review,
             organization: review.organization,
             rate: review.rate,
-            adminReplied: review.adminReplied
+            adminReplied: review.adminReplied,
           });
         }
 
@@ -447,26 +451,27 @@ class OverallReview extends Component {
                           />
                         </LikeWrapper>
                       )}
-                      {review.adminReplied !== true && <CommentIconWrapper
-                        onClick={level >= 2 ? this.goTOReply : undefined}
-                        data-target={
-                          review.category === "written"
-                            ? "overallReview"
-                            : "voiceReview"
-                        }
-                        data-category={category}
-                        data-org-id={orgId}
-                        data-review-id={review._id}
-                        disabled={level < 2}
-                      >
-                        <Icon
-                          icon="comment"
-                          fill={colors.gray}
-                          width="27"
-                          height="27"
-                        />
-                      </CommentIconWrapper>
-            }
+                      {review.adminReplied !== true && (
+                        <CommentIconWrapper
+                          onClick={level >= 2 ? this.goTOReply : undefined}
+                          data-target={
+                            review.category === "written"
+                              ? "overallReview"
+                              : "voiceReview"
+                          }
+                          data-category={category}
+                          data-org-id={orgId}
+                          data-review-id={review._id}
+                          disabled={level < 2}
+                        >
+                          <Icon
+                            icon="comment"
+                            fill={colors.gray}
+                            width="27"
+                            height="27"
+                          />
+                        </CommentIconWrapper>
+                      )}
                     </ButtonsWrapper>
                     {/* FLAG ICON */}
                     <Link
@@ -486,6 +491,7 @@ class OverallReview extends Component {
                               : "voiceReview",
                         },
                       }}
+                      disabled={level < 1}
                     >
                       <Icon
                         icon="flag"

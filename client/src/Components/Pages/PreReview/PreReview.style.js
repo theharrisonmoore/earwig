@@ -20,7 +20,8 @@ export const Header = styled.header`
   margin: 0 auto;
   text-align: left;
 
-  background-color: ${({ category }) => organizations[category].primary};
+  background-color: ${({ category }) =>
+    (organizations[category] && organizations[category].primary) || "#FFF"};
 
   @media ${breakpoints.tablet} {
     padding: 4.5rem 1rem 2.5rem;
