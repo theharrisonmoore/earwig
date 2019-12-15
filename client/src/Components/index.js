@@ -122,7 +122,7 @@ export default function index(props) {
         />
         <PrivateRoute
           exact
-          minimumLevel="LEVEL2"
+          minimumLevel="LEVEL3"
           path={INVITE_WORKERS_URL}
           {...props}
           Component={InviteWorkers}
@@ -314,7 +314,7 @@ export default function index(props) {
           title="Helpful stuff"
         />
         <PrivateRoute
-          minimumLevel="LEVEL0"
+          minimumLevel="LEVEL3"
           path={CONTACT_URL}
           {...props}
           isMobile={isMobile}
