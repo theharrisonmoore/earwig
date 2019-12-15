@@ -408,8 +408,8 @@ export default class UploadImage extends Component {
             afterClose={this.handleModalOk}
           >
             <ModalText>
-              Thanks, we're checking your photo. Any reviews you give won't be
-              shown on earwig until we've checked your photo
+              Thanks, we&apos;re checking your photo. Any reviews you give
+              won&apos;t be shown on earwig until we&apos;ve checked your photo
             </ModalText>
             <Button
               styleType="primary"

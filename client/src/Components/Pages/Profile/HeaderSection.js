@@ -113,7 +113,7 @@ export default class HeaderSection extends Component {
                   level <= 1
                     ? USER_PROFILE_URL
                     : PRE_REVIEW.replace(":orgId", orgId),
-                state: { name, category },
+                state: { name, category, redirectToProfile: true, orgId },
               }}
               disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
             >

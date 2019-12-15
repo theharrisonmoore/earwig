@@ -57,6 +57,15 @@ export default class index extends Component {
       helpedUsers,
       isSMobile,
       awaitingReview,
+      location: {
+        state: {
+          orgId,
+          redirectToProfile,
+          category,
+          name,
+          redirectToCreateProfile,
+        } = {},
+      } = {},
       level,
     } = this.props;
 
@@ -162,7 +171,18 @@ export default class index extends Component {
             </Paragraph>
 
             <Button
-              onClick={() => this.props.history.push(UPLOAD_VERIFICATION_URL)}
+              onClick={() =>
+                this.props.history.push({
+                  pathname: UPLOAD_VERIFICATION_URL,
+                  state: {
+                    orgId,
+                    redirectToProfile,
+                    category,
+                    name,
+                    redirectToCreateProfile,
+                  },
+                })
+              }
               text="Get verified as a worker"
               styleType="primary"
             />
