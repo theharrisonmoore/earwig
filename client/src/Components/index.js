@@ -266,7 +266,7 @@ export default function index(props) {
           title="Your profile"
         />
         <PrivateRoute
-          minimumLevel="LEVEL1"
+          minimumLevel="LEVEL3"
           path={MY_REVIEWS_URL}
           {...props}
           isMobile={isMobile}
@@ -276,7 +276,7 @@ export default function index(props) {
           title="Reviews you've given"
         />
         <PrivateRoute
-          minimumLevel="LEVEL1"
+          minimumLevel="LEVEL3"
           path={MY_POINTS_URL}
           {...props}
           isMobile={isMobile}
