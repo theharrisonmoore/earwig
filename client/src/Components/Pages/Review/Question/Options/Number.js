@@ -78,7 +78,7 @@ class Number extends Component {
                 handleSliderChange(undefined, number);
               }}
             >
-              Don't know
+              Don&apos;t know
             </StyledButton>
           )}
           <SliderWrapper
