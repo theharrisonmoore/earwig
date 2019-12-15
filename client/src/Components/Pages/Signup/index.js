@@ -219,7 +219,7 @@ export default class Signup extends Component {
                 isLoggedIn: true,
                 browserBackAttempt: false,
               });
-              this.props.history.push(WELCOME_URL);
+              this.handleModalOk();
             }
           })
           .catch(err => {
@@ -390,15 +390,22 @@ export default class Signup extends Component {
       this.props.history.push({
         pathname: `/profile/${orgId}`,
       });
-    } else if (redirectToCreateProfile && isWorker && name && category) {
+    } else if (
+      redirectToCreateProfile &&
+      isWorker === "yes" &&
+      name &&
+      category
+    ) {
       this.props.history.push({
         pathname: `/add-profile-sign-up/${category}/${name}`,
       });
-    } else {
+    } else if (isWorker === "yes") {
       this.props.history.push({
         pathname: INTRO_URL,
         state: { isWorker },
       });
+    } else {
+      this.props.history.push(WELCOME_URL);
     }
   };
 
