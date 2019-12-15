@@ -726,11 +726,6 @@ export default class Signup extends Component {
                         component="span"
                         id="verificationImage"
                       />
-                      <SubHeading>Protecting you from blacklisting</SubHeading>
-                      <Paragraph>
-                        To hide your identity, we’ll randomly assign you a
-                        username, which is the only thing shown on earwig.
-                      </Paragraph>
                     </>
                   )}
                   {/* end of orgs options */}
