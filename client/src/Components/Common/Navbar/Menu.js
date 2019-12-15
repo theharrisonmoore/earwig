@@ -41,6 +41,7 @@ export default class Menu extends PureComponent {
       verified,
       history,
       handleChangeState,
+      level,
     } = this.props;
     const data = {
       isAdmin,
@@ -100,7 +101,7 @@ export default class Menu extends PureComponent {
                 </ComingSoon>
               </MenuItem>
             )} */}
-            {isWorker && (
+            {level >= 3 && (
               <MenuItem to={INVITE_WORKERS_URL} onClick={toggleMenu}>
                 <PriorityIcon icon="win" height="19" width="19" />
                 Build your network
@@ -130,18 +131,23 @@ export default class Menu extends PureComponent {
                 FAQ & how to use earwig
               </MenuItem>
             )}
-            {isWorker && (
+            {level >= 3 && (
               <MenuItem
                 to="//www.earwigwork.com/blog"
                 target="_blank"
                 onClick={toggleMenu}
               >
                 <MenuIcon icon="helpfulLinks" height="19" width="19" />
-                Helpful stuff 
-                <MenuIcon icon="newWindow" height="12" width="12" margin="0 0 0 0.5rem" />
+                Helpful stuff
+                <MenuIcon
+                  icon="newWindow"
+                  height="12"
+                  width="12"
+                  margin="0 0 0 0.5rem"
+                />
               </MenuItem>
             )}
-            {isWorker && (
+            {level >= 3 && (
               <MenuItem to={CONTACT_URL} onClick={toggleMenu}>
                 <MenuIcon icon="shapeEarwig" height="19" width="19" />
                 Shape earwig
