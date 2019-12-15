@@ -27,7 +27,6 @@ export default class PreReview extends Component {
     const { name, category } = locationState;
     const { orgId } = match.params;
 
-    // TODO if one of these are missed should send a request to backend to load info
     if (!name || !category) {
       axios
         .get(`/api/organizations/${orgId}`)
@@ -45,8 +44,21 @@ export default class PreReview extends Component {
     }
   }
 
-  render() {
+  goBack = () => {
     const { match, history, location } = this.props;
+    const { state: locationState = {} } = location;
+    const { name, category } = locationState;
+    const { orgId } = match.params;
+
+    if (name && category) {
+      history.goBack();
+    } else {
+      history.push(`/profile/${orgId}`);
+    }
+  };
+
+  render() {
+    const { match, location } = this.props;
     const { state: locationState = {} } = location;
     const { name: _name, category: _category } = locationState;
     const { category = _category, name = _name } = this.state;
@@ -74,11 +86,7 @@ export default class PreReview extends Component {
               <Button styleType="primary" text="Start your review" />
             </Link>
 
-            <Button
-              styleType="secondary"
-              text="Cancel"
-              onClick={history.goBack}
-            />
+            <Button styleType="secondary" text="Cancel" onClick={this.goBack} />
           </Content>
         </Wrapper>
       </Layout>
