@@ -289,6 +289,7 @@ export default class UploadImage extends Component {
       isPopupVisible,
       browserBackAttempt,
     } = this.state;
+    const { level } = this.props;
 
     return (
       <UploadImageWrapper className="test">
@@ -424,7 +425,7 @@ export default class UploadImage extends Component {
           </Modal>
         </ContentWrapper>
         <Prompt
-          when={browserBackAttempt}
+          when={browserBackAttempt && level < 2}
           message="Are you sure you want to leave this page? You will lose any unsaved data."
         />
       </UploadImageWrapper>
