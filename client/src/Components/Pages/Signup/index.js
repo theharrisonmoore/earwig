@@ -122,7 +122,7 @@ const initialValues = {
   password: "",
   checkbox: false,
   isWorker: null,
-  orgType: "agency",
+  orgType: null,
   otherOrg: "",
   trade: "",
   verificationImage: undefined,
@@ -504,6 +504,7 @@ export default class Signup extends Component {
                       label="Yes"
                       onChange={e => {
                         this.handleIsworker("yes");
+                        setFieldValue("orgType", null);
                         handleChange(e);
                       }}
                       option="yes"
@@ -516,6 +517,7 @@ export default class Signup extends Component {
                       label="No"
                       onChange={e => {
                         this.handleIsworker("no");
+                        setFieldValue("orgType", null);
                         handleChange(e);
                       }}
                       option="no"

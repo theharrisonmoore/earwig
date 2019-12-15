@@ -35,7 +35,6 @@ import Icon from "../../Common/Icon/Icon";
 export default class index extends Component {
   state = {
     reviewCount: 0,
-    userReviews: [],
     loaded: false,
   };
 
@@ -67,6 +66,7 @@ export default class index extends Component {
           redirectToCreateProfile,
         } = {},
       } = {},
+      level,
     } = this.props;
 
     const { reviewCount, loaded } = this.state;
@@ -114,8 +114,9 @@ export default class index extends Component {
                   paragraph={false}
                   active
                 >
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                   <Link
-                    to={MY_REVIEWS_URL}
+                    to={level >= 3 ? MY_REVIEWS_URL : "#"}
                     text={`${reviewCount} reviews`}
                     type="primary"
                   />
@@ -144,8 +145,9 @@ export default class index extends Component {
                   paragraph={false}
                   active
                 >
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                   <Link
-                    to={MY_POINTS_URL}
+                    to={level >= 3 ? MY_POINTS_URL : "#"}
                     text={`${points} points`}
                     type="primary"
                   />
