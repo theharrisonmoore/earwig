@@ -3,7 +3,16 @@ import { NavLink } from "react-router-dom";
 import { Button, Icon as AntIcon } from "antd";
 
 import Icon from "../Icon/Icon";
-import { ADMIN, WELCOME_URL } from "../../../constants/naviagationUrls";
+import Link from "../Link";
+
+import {
+  ADMIN,
+  WELCOME_URL,
+  MY_REVIEWS_URL,
+  MY_POINTS_URL,
+  PROFILE_URL,
+} from "../../../constants/naviagationUrls";
+
 import { Wrapper, ToggleMenu, SideDiv, WrapperH2 } from "./Navbar.style";
 import Menu from "./Menu";
 import { colors } from "../../../theme";
@@ -65,9 +74,15 @@ export default class Navbar extends Component {
               </>
             ) : (
               <>
-                <ToggleMenu isMobile={isMobile} onClick={this.toggleMenu}>
-                  <Icon icon="hamburger" width="1.5rem" height="1.5rem" />
-                </ToggleMenu>
+                {[MY_POINTS_URL, MY_REVIEWS_URL].includes(currentPath) ? (
+                  <ToggleMenu isMobile={isMobile}>
+                    <Link to={PROFILE_URL} type="primary" text="Back" />
+                  </ToggleMenu>
+                ) : (
+                  <ToggleMenu isMobile={isMobile} onClick={this.toggleMenu}>
+                    <Icon icon="hamburger" width="1.5rem" height="1.5rem" />
+                  </ToggleMenu>
+                )}
               </>
             )}
           </SideDiv>
@@ -118,9 +133,15 @@ export default class Navbar extends Component {
           </>
         ) : (
           <SideDiv position="flex-start">
-            <ToggleMenu onClick={this.toggleMenu}>
-              <Icon icon="hamburger" width="1.5rem" height="1.5rem" />
-            </ToggleMenu>
+            {[MY_POINTS_URL, MY_REVIEWS_URL].includes(currentPath) ? (
+              <ToggleMenu isMobile={isMobile}>
+                <Link to={PROFILE_URL} type="primary" text="Back" />
+              </ToggleMenu>
+            ) : (
+              <ToggleMenu isMobile={isMobile} onClick={this.toggleMenu}>
+                <Icon icon="hamburger" width="1.5rem" height="1.5rem" />
+              </ToggleMenu>
+            )}
           </SideDiv>
         )}
         <WrapperH2 style={{ fontWeight: "900" }}>{text && text}</WrapperH2>
