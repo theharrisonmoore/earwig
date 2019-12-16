@@ -5,7 +5,7 @@ const newEntityAdded = (userDetails, orgInfo) => {
   const html = `
   <div>
     <p style="font-weight: 700;">Dear earwig Admin,</p>
-    <p>A user has just created a new entity profile.</p>
+    <p>A user has just created a new <span style="font-weight: 700;">${orgInfo.category}</span> profile.</p>
     
     <a href="${config.server.domain}/profile/${orgInfo._id}" style="color: #8c6bfc">view ${orgInfo.name} profile</a>
 

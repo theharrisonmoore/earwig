@@ -12,6 +12,7 @@ const {
 } = require("../database/queries/review");
 
 // const { getOrgsReviewedLast30D } = require("./../database/queries/reviews");
+const sendEmail = require("../helpers/emails");
 
 const { findByEmail } = require("../database/queries/user");
 const { createOrganization } = require("./organization").service;
@@ -195,6 +196,8 @@ const postReview = async (req, res, next) => {
 
     const allAnswers = [...reviewAnswers].filter(answer => answer !== null);
     await Answer.insertMany(allAnswers);
+
+    await sendEmail.newReviewPublished(user, organizationData);
 
     res.send(organizationData._id);
   } catch (error) {

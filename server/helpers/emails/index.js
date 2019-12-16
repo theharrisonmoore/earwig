@@ -11,6 +11,8 @@ const resetPasswordMailing = require("./templates/resetPasswordMailing");
 const verificationPhotoEmail = require("./templates/verificationPhotoEmail");
 const feedbackEmail = require("./templates/feedbackEmail");
 const thinkOfAccountDeletingEmail = require("./templates/thinkOfAccountDeletingEmail");
+const newReviewPublished = require("./templates/newReviewPublished");
+const newTradeAdded = require("./templates/newTradeAdded");
 
 
 module.exports = {
@@ -23,4 +25,6 @@ module.exports = {
   verificationPhotoEmail,
   feedbackEmail,
   thinkOfAccountDeletingEmail,
+  newReviewPublished,
+  newTradeAdded,
 };
