@@ -1,9 +1,9 @@
 const joi = require("joi");
 
 const envVarsSchema = joi.object({
-  SENTRY_DSN: joi.string().required(),
-  MAILCHIMP_LIST_URL: joi.string().required(),
-  MAILCHIMP_LIST_APIKEY: joi.string().required(),
+  SENTRY_DSN: joi.string().when("NODE_ENV", { is: "test", then: joi.string(), otherwise: joi.string().required() }),
+  MAILCHIMP_LIST_URL: joi.string().when("NODE_ENV", { is: "test", then: joi.string(), otherwise: joi.string().required() }),
+  MAILCHIMP_LIST_APIKEY: joi.string().when("NODE_ENV", { is: "test", then: joi.string(), otherwise: joi.string().required() }),
 }).unknown()
   .required();
 

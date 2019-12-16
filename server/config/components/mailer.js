@@ -2,13 +2,13 @@
 const joi = require("joi");
 
 const envVarsSchema = joi.object({
-  EMAIL: joi.string().required(),
-  REPORT_EMAIL: joi.string().required(),
-  HELP_EMAIL: joi.string().required(),
-  DELETE_EMAIL: joi.string().required(),
-  PROFILE_EMAIL: joi.string().required(),
-  EMAIL_PASSWORD: joi.string().required(),
-  REPORT_RECEIVER_EMAIL: joi.string().required(),
+  EMAIL: joi.string().when("NODE_ENV", { is: "test", then: joi.string(), otherwise: joi.string().required() }),
+  REPORT_EMAIL: joi.string().when("NODE_ENV", { is: "test", then: joi.string(), otherwise: joi.string().required() }),
+  HELP_EMAIL: joi.string().when("NODE_ENV", { is: "test", then: joi.string(), otherwise: joi.string().required() }),
+  DELETE_EMAIL: joi.string().when("NODE_ENV", { is: "test", then: joi.string(), otherwise: joi.string().required() }),
+  PROFILE_EMAIL: joi.string().when("NODE_ENV", { is: "test", then: joi.string(), otherwise: joi.string().required() }),
+  EMAIL_PASSWORD: joi.string().when("NODE_ENV", { is: "test", then: joi.string(), otherwise: joi.string().required() }),
+  REPORT_RECEIVER_EMAIL: joi.string().when("NODE_ENV", { is: "test", then: joi.string(), otherwise: joi.string().required() }),
 }).unknown()
   .required();
 
