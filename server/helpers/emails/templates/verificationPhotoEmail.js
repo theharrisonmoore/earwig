@@ -11,7 +11,7 @@ const verificationPhotoEmail = () => {
   </div>
 `;
 
-  const { email } = config.email;
+  const { email } = config;
   const user = email.main;
   const pass = email.password;
   const subject = "A user has uploaded a photo for verification";

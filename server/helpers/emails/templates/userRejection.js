@@ -25,7 +25,7 @@ module.exports = (to) => {
 `;
 
 
-  const { email } = config.email;
+  const { email } = config;
   const user = email.main;
   const pass = email.password;
   const from = email.main;
@@ -34,7 +34,7 @@ module.exports = (to) => {
   const attachments = [
     {
       filename: "logo.png",
-      path: `${__dirname}/../../assets/logo.png`,
+      path: `${__dirname}/../../../assets/logo.png`,
       cid: "earwig-logo",
     },
   ];

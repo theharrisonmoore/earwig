@@ -30,7 +30,7 @@ module.exports = async (req, res, next) => {
   
   </div>`;
 
-    const { email } = config.email;
+    const { email } = config;
 
     const adminUser = email.main;
     const pass = email.password;

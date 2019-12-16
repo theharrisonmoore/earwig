@@ -14,10 +14,10 @@ const addToMailchimp = (email) => {
   };
 
   const options = {
-    url: config.thirdParty.mailchimp.listUrl,
+    url: config.thirdParty.mailChimp.listUrl,
     method: "POST",
     headers: {
-      Authorization: `apikey ${config.thirdParty.mailchimp.apiKey}`,
+      Authorization: `apikey ${config.thirdParty.mailChimp.apiKey}`,
     },
     data,
   };

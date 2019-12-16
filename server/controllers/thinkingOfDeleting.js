@@ -27,7 +27,7 @@ module.exports = async (req, res, next) => {
 </div>  `;
 
 
-  const { email } = config.email;
+  const { email } = config;
 
   const to = email.main;
   const adminUser = email.main;

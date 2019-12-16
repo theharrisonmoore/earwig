@@ -12,7 +12,7 @@ const newEntityAdded = (userDetails, orgInfo) => {
   </div>
 `;
 
-  const { email } = config.email;
+  const { email } = config;
   const user = email.main;
   const pass = email.password;
   const from = email.main;
