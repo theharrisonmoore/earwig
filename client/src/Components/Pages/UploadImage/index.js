@@ -289,6 +289,7 @@ export default class UploadImage extends Component {
       isPopupVisible,
       browserBackAttempt,
     } = this.state;
+    const { level } = this.props;
 
     return (
       <UploadImageWrapper className="test">
@@ -389,11 +390,6 @@ export default class UploadImage extends Component {
               accept="image/*"
             />
             <Example src={image || example} />
-            <SubHeading>Protecting you from blacklisting</SubHeading>
-            <Paragraph>
-              To hide your identity, we’ll randomly assign you a username, which
-              is the only thing shown on earwig.
-            </Paragraph>
             {error && <Error>{error}</Error>}
             <Button
               marginTop
@@ -402,7 +398,7 @@ export default class UploadImage extends Component {
               disabled={loading}
               loading={loading}
               styleType="primary"
-              text="Finish verification"
+              text="Done"
             />
           </form>
           <Modal
@@ -412,8 +408,8 @@ export default class UploadImage extends Component {
             afterClose={this.handleModalOk}
           >
             <ModalText>
-              Thanks, we're checking your photo. Any reviews you give won't be
-              shown on earwig until we've checked your photo
+              Thanks, we&apos;re checking your photo. Any reviews you give
+              won&apos;t be shown on earwig until we&apos;ve checked your photo
             </ModalText>
             <Button
               styleType="primary"
@@ -424,7 +420,7 @@ export default class UploadImage extends Component {
           </Modal>
         </ContentWrapper>
         <Prompt
-          when={browserBackAttempt}
+          when={browserBackAttempt && level < 2}
           message="Are you sure you want to leave this page? You will lose any unsaved data."
         />
       </UploadImageWrapper>

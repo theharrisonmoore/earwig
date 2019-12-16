@@ -29,7 +29,7 @@ export const validationSchema = {
       1: Yup.string(),
       2: Yup.string(),
       3: Yup.string(),
-      4: Yup.string(),
+      // 4: Yup.string(),
       5: Yup.number()
         .nullable()
         .typeError("Must be a number")
@@ -105,14 +105,14 @@ export const validationSchema = {
       13: Yup.string(),
       14: Yup.string(),
 
-      // yes branch -  15 checklist question
-      15: Yup.mixed().when("1", {
-        is: "Yes",
-        then: Yup.mixed(),
-      }),
+      // // yes branch -  15 checklist question
+      // 15: Yup.mixed().when("1", {
+      //   is: "Yes",
+      //   then: Yup.mixed(),
+      // }),
 
       16: Yup.string(),
-      17: Yup.string(),
+      // 17: Yup.string(),
       18: Yup.string(),
       19: Yup.string(),
     }),

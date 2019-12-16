@@ -122,7 +122,7 @@ const initialValues = {
   password: "",
   checkbox: false,
   isWorker: null,
-  orgType: "agency",
+  orgType: null,
   otherOrg: "",
   trade: "",
   verificationImage: undefined,
@@ -219,7 +219,7 @@ export default class Signup extends Component {
                 isLoggedIn: true,
                 browserBackAttempt: false,
               });
-              this.props.history.push(WELCOME_URL);
+              this.handleModalOk();
             }
           })
           .catch(err => {
@@ -390,15 +390,22 @@ export default class Signup extends Component {
       this.props.history.push({
         pathname: `/profile/${orgId}`,
       });
-    } else if (redirectToCreateProfile && isWorker && name && category) {
+    } else if (
+      redirectToCreateProfile &&
+      isWorker === "yes" &&
+      name &&
+      category
+    ) {
       this.props.history.push({
         pathname: `/add-profile-sign-up/${category}/${name}`,
       });
-    } else {
+    } else if (isWorker === "yes") {
       this.props.history.push({
         pathname: INTRO_URL,
         state: { isWorker },
       });
+    } else {
+      this.props.history.push(WELCOME_URL);
     }
   };
 
@@ -497,6 +504,7 @@ export default class Signup extends Component {
                       label="Yes"
                       onChange={e => {
                         this.handleIsworker("yes");
+                        setFieldValue("orgType", null);
                         handleChange(e);
                       }}
                       option="yes"
@@ -509,6 +517,7 @@ export default class Signup extends Component {
                       label="No"
                       onChange={e => {
                         this.handleIsworker("no");
+                        setFieldValue("orgType", null);
                         handleChange(e);
                       }}
                       option="no"
@@ -726,11 +735,6 @@ export default class Signup extends Component {
                         component="span"
                         id="verificationImage"
                       />
-                      <SubHeading>Protecting you from blacklisting</SubHeading>
-                      <Paragraph>
-                        To hide your identity, we’ll randomly assign you a
-                        username, which is the only thing shown on earwig.
-                      </Paragraph>
                     </>
                   )}
                   {/* end of orgs options */}

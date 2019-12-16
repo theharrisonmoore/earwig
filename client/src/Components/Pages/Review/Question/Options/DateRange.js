@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { Checkbox } from "antd";
 
-import { QuestionOptionsWrapper, StyledErrorMessage } from "../Question.style";
+import {
+  QuestionOptionsWrapper,
+  StyledErrorMessage,
+  CheckboxWrapper,
+} from "../Question.style";
 import CustomRangePicker from "../../../../Common/AntdComponents/DatePicker";
 
 class DateRange extends Component {
@@ -37,15 +41,17 @@ class DateRange extends Component {
 
     return (
       <QuestionOptionsWrapper>
-        <Checkbox
-          style={{
-            padding: "20px 0 10px",
-          }}
-          onChange={this.handleCheckBox}
-          checked={this.state.isCurrentlyWorking}
-        >
-          <strong>{this.getCheckboxText(category)}</strong>
-        </Checkbox>
+        <CheckboxWrapper>
+          <Checkbox
+            style={{
+              padding: "20px 0 10px",
+            }}
+            onChange={this.handleCheckBox}
+            checked={this.state.isCurrentlyWorking}
+          >
+            <strong>{this.getCheckboxText(category)}</strong>
+          </Checkbox>
+        </CheckboxWrapper>
         <CustomRangePicker
           handleChange={handleChange}
           {...this.props.state}
