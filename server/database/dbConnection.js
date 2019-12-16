@@ -6,12 +6,9 @@ const config = require("../config");
 // require("dotenv").config();
 require("env2")("./.env");
 
-let { mongoURI } = config.mongodb;
+const { mongodbUrl, env } = config;
 
-if (config.env === "test") {
-  // change mongoURI to testing database URI
-  mongoURI = config.mongodb.mongoTestURI;
-}
+const mongoURI = mongodbUrl[env];
 
 // create DB connection
 const dbConnection = async () => mongoose.disconnect().then(() => mongoose.connect(mongoURI, {
