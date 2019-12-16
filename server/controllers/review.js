@@ -290,6 +290,19 @@ const getAgencesAndPayrollsNames = async (req, res, next) => {
   }
 };
 
+const getOrgById = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const organisation = await getOrganizationById(id);
+    if (!organisation) {
+      return next(boom.notFound("organisation not found!"));
+    }
+    return res.json({ organisation });
+  } catch (error) {
+    return next(boom.badImplementation(error));
+  }
+};
+
 module.exports = {
   getByOrg,
   postReview,
@@ -297,4 +310,5 @@ module.exports = {
   getAgencesAndPayrollsNames,
   postReviewShort,
   updateReview,
+  getOrgById,
 };

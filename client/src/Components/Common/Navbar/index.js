@@ -32,6 +32,7 @@ export default class Navbar extends Component {
       verified,
       awaitingReview,
       match,
+      level,
     } = this.props;
 
     let text = title;
@@ -59,6 +60,7 @@ export default class Navbar extends Component {
                   handleChangeState={handleChangeState}
                   verified={verified}
                   awaitingReview={awaitingReview}
+                  level={level}
                 />
               </>
             ) : (

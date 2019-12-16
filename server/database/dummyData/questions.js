@@ -90,7 +90,7 @@ module.exports = async () => {
     },
     {
       number: 3,
-      next: 4,
+      next: 5,
       type: "yesno",
       text:
         "Did this agency give you correct information about the type of work you would do?",
@@ -857,11 +857,7 @@ module.exports = async () => {
     },
     {
       number: 14,
-      next: {
-        yes: 15,
-        no: 16,
-        idk: 16,
-      },
+      next: 16,
       type: "radio",
       text: "Did this site have a canteen or space to take a break?",
       options: ["Yes", "No", "I didn't check"],
@@ -907,7 +903,7 @@ module.exports = async () => {
     // },
     {
       number: 16,
-      next: 17,
+      next: 18,
       type: "radio",
       text:
         "Were there shops to buy hot food within 10 minutes walk of this site?",
@@ -1131,8 +1127,7 @@ module.exports = async () => {
       options: ["Yes", "No"],
       category: "company",
 
-      profileText:
-        "Overall, would you recommend this company to a friend?",
+      profileText: "Overall, would you recommend this company to a friend?",
       profileSection: "Key ratings",
       profileType: "yesno",
       profileOrder: 1,

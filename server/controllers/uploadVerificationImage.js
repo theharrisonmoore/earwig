@@ -24,7 +24,8 @@ module.exports = async (req, res, next) => {
     city,
   })
     .then(async () => {
-      if (fieldName === "verificationImage") {
+      if (fieldName === "verificationImage"
+      && process.env.NODE_ENV === "production") {
         // send an email to admin
         await sendEmail.verificationPhotoEmail();
       }

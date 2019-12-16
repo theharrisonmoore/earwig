@@ -24,7 +24,7 @@ const PrivateRoute = ({
         render={LinkProps =>
           isAuthorized ? (
             <>
-              {navbar && <Navbar {...LinkProps} {...rest} />}
+              {navbar && <Navbar {...LinkProps} level={level} {...rest} />}
               <Component {...LinkProps} level={level} {...rest} />
             </>
           ) : (
