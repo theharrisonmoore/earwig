@@ -1,6 +1,8 @@
 const { verify } = require("jsonwebtoken");
 const boom = require("boom");
 
+const config = require("../config");
+
 const { getUserById } = require("./../database/queries/user");
 
 module.exports = (req, res, next) => {
@@ -13,7 +15,7 @@ module.exports = (req, res, next) => {
   }
 
   // verify the token
-  return verify(cookies.token, process.env.SECRET, (err, decoded) => {
+  return verify(cookies.token, config.server.secret, (err, decoded) => {
     // if not valid send unauthorized error
     if (err) {
       res.clearCookie("token");

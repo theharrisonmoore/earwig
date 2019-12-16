@@ -15,7 +15,7 @@
 
 const boom = require("boom");
 
-const reportMailing = require("./../helpers/emails/reportMailing");
+const sendEmail = require("./../helpers/emails");
 
 module.exports = (req, res, next) => {
   const {
@@ -31,24 +31,20 @@ module.exports = (req, res, next) => {
   } = req.body;
   const { user } = req;
 
-  if (process.env.NODE_ENV !== "test") {
-    reportMailing({
-      reason,
-      description,
-      target,
-      question,
-      organization,
-      review,
-      comment,
-      user,
-      reply,
-      image,
-    }).then(() => {
-      res.json({ message: "sent" });
-    }).catch(() => {
-      next(boom.badImplementation());
-    });
-  } else {
-    res.json({ message: "suppose to be sent" });
-  }
+  sendEmail.reportMailing({
+    reason,
+    description,
+    target,
+    question,
+    organization,
+    review,
+    comment,
+    user,
+    reply,
+    image,
+  }).then(() => {
+    res.json({ message: "sent" });
+  }).catch((err) => {
+    next(boom.badImplementation(err));
+  });
 };

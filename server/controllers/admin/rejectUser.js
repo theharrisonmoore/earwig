@@ -6,7 +6,7 @@
  */
 
 const boom = require("boom");
-const rejectionEmail = require("./../../helpers/emails/rejectionEmail");
+const sendEmail = require("./../../helpers/emails");
 const { deleteDataAndProfilesAddedByUser } = require("./../../database/queries/user");
 const { updateUserById, getUserById } = require("./../../database/queries/user");
 const deleteFile = require("./../../helpers/deleteFile");
@@ -30,10 +30,9 @@ module.exports = async (req, res, next) => {
     // update user state
       await updateUserById(id, updateData);
       await deleteDataAndProfilesAddedByUser(user._id);
-      if (process.env.NODE_ENV === "production") {
-        // send rejection email
-        await rejectionEmail(user.email);
-      }
+      // send rejection email
+      await sendEmail.userRejection(user.email);
+
       // delete verification photo from google storage
       await deleteFile(user.verificationPhoto);
 

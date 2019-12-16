@@ -1,13 +1,17 @@
 const boom = require("boom");
 
 const mailer = require("./../helpers/emails/mailer");
+const { isProduction } = require("./../helpers/checkEnv");
+const config = require("../config");
+
 
 module.exports = async (req, res, next) => {
-  const { user } = req;
+  try {
+    const { user } = req;
 
-  const { message, page } = req.body;
+    const { message, page } = req.body;
 
-  const html = `<div style="text-align: left;">
+    const html = `<div style="text-align: left;">
   <p style="font-weight: 700;">Hi Harrison,</p>
   <p>A user has sent a message on the following earwig page: ${page} </p>
   <p>Here is their message:</p>
@@ -26,22 +30,27 @@ module.exports = async (req, res, next) => {
   
   </div>`;
 
-  const to = process.env.EMAIL;
-  const adminUser = process.env.EMAIL;
-  const pass = process.env.EMAIL_PASSWORD;
-  const subject = "earwig user wants to connect";
-  const from = process.env.HELP_EMAIL;
+    const { email } = config.email;
 
-  if (process.env.NODE_ENV === "production") {
-    await mailer({
-      from,
-      to,
-      subject,
-      html,
-      user: adminUser,
-      pass,
-    }).catch(err => next(boom.badImplementation(err)));
+    const adminUser = email.main;
+    const pass = email.password;
+    const from = email.aliases.help;
+    const to = email.main;
+    const subject = "earwig user wants to connect";
+
+    if (isProduction()) {
+      await mailer({
+        from,
+        to,
+        subject,
+        html,
+        user: adminUser,
+        pass,
+      });
+    }
+
+    return res.json({ message: "Message sent" });
+  } catch (err) {
+    next(boom.badImplementation(err));
   }
-
-  return res.json({ message: "Message sent" });
 };

@@ -1,8 +1,8 @@
-const mailer = require("./mailer");
+const mailer = require("../mailer");
+const config = require("../../../config");
 
 module.exports = (to) => {
-  const domain = process.env.DOMAIN;
-  const link = `${domain}/upload-verification-photo`;
+  const link = `${config.server.domain}/upload-verification-photo`;
 
   const html = `
   <div style="text-align: center;">
@@ -24,10 +24,12 @@ module.exports = (to) => {
   </div>  
 `;
 
-  const user = process.env.EMAIL;
-  const pass = process.env.EMAIL_PASSWORD;
+
+  const { email } = config.email;
+  const user = email.main;
+  const pass = email.password;
+  const from = email.main;
   const subject = "Your verification has been unsuccessful";
-  const from = process.env.EMAIL; // hello
 
   const attachments = [
     {

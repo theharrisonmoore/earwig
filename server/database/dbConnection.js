@@ -1,14 +1,16 @@
 const mongoose = require("mongoose");
 
+const config = require("../config");
+
 // read the config file
 // require("dotenv").config();
 require("env2")("./.env");
 
-let mongoURI = process.env.MONGO_URI;
+let { mongoURI } = config.mongodb;
 
-if (process.env.NODE_ENV === "test") {
+if (config.env === "test") {
   // change mongoURI to testing database URI
-  mongoURI = process.env.MONGOURI_TEST;
+  mongoURI = config.mongodb.mongoTestURI;
 }
 
 // create DB connection

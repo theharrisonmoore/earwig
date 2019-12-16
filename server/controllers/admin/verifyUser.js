@@ -5,7 +5,7 @@
  */
 
 const boom = require("boom");
-const approvalEmail = require("./../../helpers/emails/approvalEmail");
+const sendEmail = require("./../../helpers/emails");
 
 
 const {
@@ -61,11 +61,8 @@ module.exports = async (req, res, next) => {
       await updateUserHelpfulPoints(user.referral);
     }
 
-
-    if (process.env.NODE_ENV !== "test") {
-      // send aprroval email
-      await approvalEmail(user.email);
-    }
+    // send aprroval email
+    await sendEmail.approvalEmail(user.email);
 
     return res.json({});
   } catch (error) {

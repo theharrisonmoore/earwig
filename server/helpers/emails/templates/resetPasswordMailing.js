@@ -1,7 +1,8 @@
-const mailer = require("./mailer");
+const mailer = require("../mailer");
+const config = require("../../../config");
 
 module.exports = (to, token, userId) => {
-  const domain = process.env.DOMAIN;
+  const { domain } = config.server;
   const link = `${domain}/reset-password/set/${token}`;
 
   const html = `
@@ -26,10 +27,11 @@ module.exports = (to, token, userId) => {
   </div>  
 `;
 
-  const user = process.env.EMAIL;
-  const pass = process.env.EMAIL_PASSWORD;
+  const { email } = config.email;
+  const user = email.main;
+  const pass = email.password;
+  const from = email.main;
   const subject = "Reset Your Password";
-  const from = process.env.EMAIL;
 
   const attachments = [
     {

@@ -1,6 +1,8 @@
 const boom = require("boom");
 
 const mailer = require("./../helpers/emails/mailer");
+const config = require("../config");
+const { isProduction } = require("../helpers/checkEnv");
 
 module.exports = async (req, res, next) => {
   const { user } = req;
@@ -24,13 +26,16 @@ module.exports = async (req, res, next) => {
   <p style="margin-bottom: 0;">The earwig Bot</p>
 </div>  `;
 
-  const to = process.env.EMAIL;
-  const adminUser = process.env.EMAIL;
-  const pass = process.env.EMAIL_PASSWORD;
-  const subject = "earwig user deleting account";
-  const from = process.env.DELETE_EMAIL;
 
-  if (process.env.NODE_ENV === "production") {
+  const { email } = config.email;
+
+  const to = email.main;
+  const adminUser = email.main;
+  const pass = email.password;
+  const subject = "earwig user deleting account";
+  const from = email.aliases.delete;
+
+  if (isProduction()) {
     await mailer({
       from,
       to,

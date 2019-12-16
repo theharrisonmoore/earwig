@@ -1,6 +1,5 @@
 const boom = require("boom");
 
-const emailAdminTheNewProfile = require("../../helpers/emails/emailAdminTheNewProfile");
 const { createOrganization } = require("./organization.service");
 
 const addNewOrg = async (req, res, next) => {
@@ -12,10 +11,8 @@ const addNewOrg = async (req, res, next) => {
   }
 
   try {
-    const addedOrg = await createOrganization({ name, category, userId: user._id });
-    if (user.role !== "admin" && process.env.NODE_ENV === "production") {
-      await emailAdminTheNewProfile(user, addedOrg);
-    }
+    const addedOrg = await createOrganization({ name, category, user });
+
     return res.json(addedOrg);
   } catch (error) {
     if (error.message === "organisation already exists") {

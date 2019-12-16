@@ -1,3 +1,5 @@
+const config = require("../../config");
+
 const addToMailchimp = (email) => {
   // eslint-disable-next-line global-require
   const axios = require("axios");
@@ -12,10 +14,10 @@ const addToMailchimp = (email) => {
   };
 
   const options = {
-    url: process.env.MAILCHIMP_LIST_URL,
+    url: config.thirdParty.mailchimp.listUrl,
     method: "POST",
     headers: {
-      Authorization: `apikey ${process.env.MAILCHIMP_LIST_APIKEY}`,
+      Authorization: `apikey ${config.thirdParty.mailchimp.apiKey}`,
     },
     data,
   };

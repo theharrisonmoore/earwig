@@ -1,7 +1,9 @@
-const mailer = require("./mailer");
+const mailer = require("../mailer");
+const config = require("../../../config");
+
 
 module.exports = (to) => {
-  const domain = process.env.DOMAIN;
+  const { domain } = config.server;
   const giveReviewLink = `${domain}/search/review`;
   const viewProfileLink = `${domain}/search/profile`;
   const introLink = `${domain}/intro`;
@@ -41,10 +43,11 @@ module.exports = (to) => {
   </div>  
 `;
 
-  const user = process.env.EMAIL;
-  const pass = process.env.EMAIL_PASSWORD;
+  const { email } = config.email;
+  const user = email.main;
+  const pass = email.password;
+  const from = email.main;
   const subject = "Your verification has been successful";
-  const from = process.env.EMAIL; // hello
 
   const attachments = [
     {
