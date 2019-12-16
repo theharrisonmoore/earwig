@@ -29,7 +29,7 @@ export default class YesNoAnswer extends Component {
       <YesNoWrapper
         large={
           question.profileText &&
-          question.profileText.includes("Overall, would you be happy")
+          question.profileText.includes("Overall, would you recommend")
         }
       >
         <YesHalf width={answerObj.yesPercentage}>
