@@ -9,6 +9,8 @@ const userRejection = require("./templates/userRejection");
 const reportMailing = require("./templates/reportMailing");
 const resetPasswordMailing = require("./templates/resetPasswordMailing");
 const verificationPhotoEmail = require("./templates/verificationPhotoEmail");
+const feedbackEmail = require("./templates/feedbackEmail");
+const thinkOfAccountDeletingEmail = require("./templates/thinkOfAccountDeletingEmail");
 
 
 module.exports = {
@@ -19,4 +21,6 @@ module.exports = {
   reportMailing,
   resetPasswordMailing,
   verificationPhotoEmail,
+  feedbackEmail,
+  thinkOfAccountDeletingEmail,
 };
