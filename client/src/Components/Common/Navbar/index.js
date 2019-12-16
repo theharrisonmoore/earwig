@@ -10,7 +10,7 @@ import {
   WELCOME_URL,
   MY_REVIEWS_URL,
   MY_POINTS_URL,
-  PROFILE_URL
+  PROFILE_URL,
 } from "../../../constants/naviagationUrls";
 
 import { Wrapper, ToggleMenu, SideDiv, WrapperH2 } from "./Navbar.style";
@@ -21,7 +21,7 @@ import { MenuItem } from "./Menu.style";
 
 export default class Navbar extends Component {
   state = {
-    menuOpen: false
+    menuOpen: false,
   };
 
   toggleMenu = () => {
@@ -41,7 +41,7 @@ export default class Navbar extends Component {
       verified,
       awaitingReview,
       match,
-      level
+      level,
     } = this.props;
 
     let text = title;
@@ -95,7 +95,7 @@ export default class Navbar extends Component {
                     type="dashboard"
                     style={{
                       fontSize: "24px",
-                      color: "#FFFFFF"
+                      color: "#FFFFFF",
                     }}
                   />
                 </Button>
@@ -133,9 +133,15 @@ export default class Navbar extends Component {
           </>
         ) : (
           <SideDiv position="flex-start">
-            <ToggleMenu onClick={this.toggleMenu}>
-              <Icon icon="hamburger" width="1.5rem" height="1.5rem" />
-            </ToggleMenu>
+            {[MY_POINTS_URL, MY_REVIEWS_URL].includes(currentPath) ? (
+              <ToggleMenu isMobile={isMobile}>
+                <Link to={PROFILE_URL} type="primary" text="Back" />
+              </ToggleMenu>
+            ) : (
+              <ToggleMenu isMobile={isMobile} onClick={this.toggleMenu}>
+                <Icon icon="hamburger" width="1.5rem" height="1.5rem" />
+              </ToggleMenu>
+            )}
           </SideDiv>
         )}
         <WrapperH2 style={{ fontWeight: "900" }}>{text && text}</WrapperH2>
