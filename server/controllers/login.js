@@ -12,6 +12,7 @@ const jwt = require("jsonwebtoken");
 const boom = require("boom");
 const { compare } = require("bcryptjs");
 const { tokenMaxAge } = require("./../constants");
+const config = require("../config");
 
 const { findByEmail } = require("./../database/queries/user");
 
@@ -47,7 +48,7 @@ module.exports = (req, res, next) => {
           // create token for 30 day
           const token = jwt.sign(
             { id: user._id },
-            process.env.SECRET,
+            config.server.secret,
             { expiresIn: tokenMaxAge.string },
           );
           res.cookie("token", token, { maxAge: tokenMaxAge.number, httpOnly: true });
@@ -55,6 +56,6 @@ module.exports = (req, res, next) => {
           // send the user info
           return res.json(userInfo);
         })
-        .catch(() => next(boom.badImplementation()));
+        .catch(err => next(boom.badImplementation(err)));
     });
 };
