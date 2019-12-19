@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Prompt } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Modal, Input, Alert } from "antd";
@@ -8,6 +9,7 @@ import { colors } from "../../../theme";
 import Select from "../../Common/Select";
 import Button from "../../Common/Button";
 import PopoverComponent from "../../Common/Popover";
+import CancelLink from "../../Common/CancelLink";
 
 import {
   UploadImageWrapper,
@@ -49,6 +51,7 @@ export default class UploadImage extends Component {
     city: "",
     loading: false,
     isPopupVisible: false,
+    browserBackAttempt: true,
   };
 
   componentDidMount() {
@@ -117,8 +120,6 @@ export default class UploadImage extends Component {
       this.setState({ error: "Please upload image" });
     } else if (!this.state.tradeId) {
       this.setState({ error: "Please choose your trade" });
-    } else if (!this.state.city) {
-      this.setState({ error: "Please enter your city/town" });
     } else {
       this.setState({ error: "", loading: true });
 
@@ -135,7 +136,11 @@ export default class UploadImage extends Component {
         },
       })
         .then(() => {
-          this.setState({ loading: false, isPopupVisible: true });
+          this.setState({
+            loading: false,
+            isPopupVisible: true,
+            browserBackAttempt: false,
+          });
         })
         .catch(err => {
           this.setState({ loading: false }, () => {
@@ -223,9 +228,54 @@ export default class UploadImage extends Component {
     });
   };
 
+  getTooltipText = () => {
+    return (
+      <>
+        <p>
+          earwig is free for workers. All we ask is that you get verified as a
+          genuine worker. This means all reviews are credible and protects the
+          worker community from fake reviews and spam by non-workers.
+        </p>
+        <p>
+          You can hold up any card or ticket that shows you are a worker, eg
+          CSCS card.
+        </p>
+      </>
+    );
+  };
+
   addNewTradeHandler = event => {
     const { value } = event.target;
     this.setState({ newTrade: value, newTradeError: "" });
+  };
+
+  handleModalOk = () => {
+    const {
+      location: {
+        state: {
+          orgId,
+          redirectToProfile,
+          category,
+          name,
+          redirectToCreateProfile,
+        } = {},
+      } = {},
+    } = this.props;
+
+    this.props.handleChangeState({ awaitingReview: true });
+    if (redirectToProfile && orgId) {
+      this.props.history.push({
+        pathname: `/profile/${orgId}`,
+      });
+    } else if (redirectToCreateProfile && name && category) {
+      this.props.history.push({
+        pathname: `/add-profile-sign-up/${category}/${name}`,
+      });
+    } else {
+      this.props.history.push({
+        pathname: INTRO_URL,
+      });
+    }
   };
 
   render() {
@@ -237,11 +287,15 @@ export default class UploadImage extends Component {
       loading,
       newTrade,
       isPopupVisible,
+      browserBackAttempt,
     } = this.state;
+    const { level } = this.props;
+
     return (
       <UploadImageWrapper className="test">
         <PurpleDiv />
         <ContentWrapper>
+          <CancelLink history={this.props.history} CancelText="Back" />
           <EditIcon
             icon="getVerified"
             height="25"
@@ -264,6 +318,7 @@ export default class UploadImage extends Component {
                 addHandler={this.showModal}
                 id="trade"
                 scrollToTop
+                ismodalVisible={ismodalVisible}
               />
               <div>
                 <div>
@@ -305,27 +360,21 @@ export default class UploadImage extends Component {
                 </div>
               </div>
             </SelectWrapper>
-            <SelectWrapper>
-              <SubHeading>Town or city</SubHeading>
-              <Input onChange={this.addTownHandler} size="large" />
-            </SelectWrapper>
-            <SubHeading>Verification Photo</SubHeading>
+            <SubHeading>Upload a verification photo</SubHeading>
             <Paragraph>
               Please upload a photo of your face holding your trade ID like the
-              example below. Please no glare or blur!
+              example below. Once we’ve verified you, we’ll delete the photo to
+              protect your anonymity.
             </Paragraph>
             <PopoverComponent
               popoverOptions={{
-                text: `Any card or ticket that shows you are a worker, eg CSCS card.`,
-                linkText: "What trade ID can I use?",
+                text: this.getTooltipText(),
+                linkText: "Learn more",
                 icon: "info",
                 margin: "0 0 0.5rem 0",
               }}
+              history={this.props.history}
             />
-            <Paragraph>
-              Once we’ve verified you, we’ll delete the photo to protect your
-              identity.
-            </Paragraph>
             <Button
               as="label"
               htmlFor="image-input"
@@ -341,11 +390,6 @@ export default class UploadImage extends Component {
               accept="image/*"
             />
             <Example src={image || example} />
-            <SubHeading>Protecting you from blacklisting</SubHeading>
-            <Paragraph>
-              To hide your identity, we’ll randomly assign you a username, which
-              is the only thing shown on earwig.
-            </Paragraph>
             {error && <Error>{error}</Error>}
             <Button
               marginTop
@@ -354,33 +398,31 @@ export default class UploadImage extends Component {
               disabled={loading}
               loading={loading}
               styleType="primary"
-              text="Finish verification"
+              text="Done"
             />
           </form>
           <Modal
             visible={isPopupVisible}
             footer={null}
             closable={false}
-            afterClose={() => {
-              this.props.handleChangeState({ awaitingReview: true });
-              this.props.history.push(INTRO_URL);
-            }}
+            afterClose={this.handleModalOk}
           >
             <ModalText>
-              Thanks, we're checking your photo. Any reviews you give won't be
-              shown on earwig until we've checked your photo
+              Thanks, we&apos;re checking your photo. Any reviews you give
+              won&apos;t be shown on earwig until we&apos;ve checked your photo
             </ModalText>
             <Button
               styleType="primary"
               margin="1rem auto"
               text="Okay"
-              onClick={() => {
-                this.props.handleChangeState({ awaitingReview: true });
-                this.props.history.push(INTRO_URL);
-              }}
+              onClick={this.handleModalOk}
             />
           </Modal>
         </ContentWrapper>
+        <Prompt
+          when={browserBackAttempt && level < 2}
+          message="Are you sure you want to leave this page? You will lose any unsaved data."
+        />
       </UploadImageWrapper>
     );
   }

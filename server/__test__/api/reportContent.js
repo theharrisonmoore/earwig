@@ -45,7 +45,7 @@ describe("Tesing for get report content", () => {
           .expect("Content-Type", /json/)
           .expect(200)
           .end((err, res) => {
-            expect(res.body.message).toBe("suppose to be sent");
+            expect(res.body.message).toBe("sent");
             done(err);
           });
       });

@@ -6,6 +6,7 @@ const {
   getAgencesAndPayrollsNames,
   postReviewShort,
   updateReview,
+  getOrgById,
 } = require("../controllers/review");
 
 const adminRouter = require("./admin");
@@ -35,7 +36,7 @@ const logoutController = require("./../controllers/logout");
 const getWorksiteImgsController = require("./../controllers/getWorksiteImgs");
 const reportContentController = require("./../controllers/reportContent");
 
-const addOrganizationController = require("../controllers/organizations");
+const { controller: addOrganizationController } = require("../controllers/organization");
 
 const thinkingofDeletingController = require("../controllers/thinkingOfDeleting");
 const addCommentOnQuestion = require("../controllers/addCommentOnQuestion");
@@ -106,15 +107,17 @@ router.delete("/reviews", authentication, deleteReview);
 // get user info from the cookies and send it to fron-end
 router.get(USERS, authentication, userInfoController);
 
-router.get("/review/:id/is-edatable", authentication, authorization("LEVEL3"), checkIfEditReview);
+router.get("/review/:id/is-edatable", authentication, authorization("LEVEL2"), checkIfEditReview);
 
 router.get("/questions/:id", authentication, authorization("LEVEL2"), getByOrg);
+router.get("/questions/new/:catgeory/:name", authentication, authorization("LEVEL2"), getByOrg);
 router.post(REVIEW_URL, authentication, authorization("LEVEL2"), postReview);
-router.put("/review/:id", authentication, authorization("LEVEL3"), updateReview);
+router.put("/review/:id", authentication, authorization("LEVEL2"), updateReview);
 router.post("/short-review", authentication, authorization("LEVEL3"), postReviewShort);
 
-// Add new payroll and agency
+router.get("/organizations/:id", authentication, getOrgById);
 router.get("/organizations", authentication, authorization("LEVEL3"), getOrgsByType);
+// Add new payroll and agency
 router.post("/organizations", authentication, authorization("LEVEL2"), addOrganizationController);
 router.get("/agency-payroll", authentication, authorization("LEVEL3"), getAgencesAndPayrollsNames);
 

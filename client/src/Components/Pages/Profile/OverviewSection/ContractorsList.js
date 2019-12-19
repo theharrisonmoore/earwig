@@ -34,7 +34,7 @@ export default ({ contractorAnswers }) => {
           )}
         </span>
       </ContractorText>
-      {contractorAnswers[0] && (
+      {contractorAnswers && contractorAnswers.length > 1 && (
         <Popover
           placement="bottom"
           title="Contractors List"

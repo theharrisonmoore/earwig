@@ -84,6 +84,10 @@ export const Options = styled.div`
     color: ${colors.green};
     font-weight: 900;
   }
+
+  .ant-select-selection {
+    position: relative;
+  }
 `;
 
 export const CommentsIcon = styled.div`
@@ -190,10 +194,11 @@ export const StyledButton = styled.button`
   text-align: center;
   color: ${colors.lightGray};
   background-color: ${colors.white};
-  box-shadow: 0 0 0 1px ${colors.lightGray};
+  box-shadow: 0 0 0 2px ${colors.lightGray};
   display: inline-block;
-  padding: 1px 1rem;
+  padding: 1px 0.25rem;
   margin-right: 0.5rem;
+  border-radius: 3px;
 `;
 
 export const StyledCheckList = styled.div`
@@ -312,7 +317,6 @@ export const VoiceIconWrapper = styled.div`
 export const VoiceWrapper = styled.div`
   display: flex;
   align-items: center;
-  min-width: 350px;
 
   video,
   audio {
@@ -340,4 +344,31 @@ export const Input = styled.input`
   width: 100%;
   border: 1px solid ${colors.inputBorder};
   outline: none;
+`;
+
+export const CheckboxWrapper = styled.div`
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: #fff;
+    border: 2px solid ${colors.gray};
+  }
+
+  .ant-checkbox-checked .ant-checkbox-inner::after {
+    border: 3px solid ${colors.gray};
+    border-top: 0;
+    border-left: 0;
+  }
+
+  .ant-checkbox-checked .ant-checkbox-inner::after {
+    border: 3px solid ${colors.gray};
+    border-top: 0;
+    border-left: 0;
+    width: 9px;
+    height: 15px;
+  }
+
+  .ant-checkbox-inner {
+    width: 22px;
+    height: 22px;
+    border: 2px solid ${colors.gray};
+  }
 `;

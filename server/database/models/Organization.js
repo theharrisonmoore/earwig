@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const constants = require("./../../constants");
 
 const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
 const organizationSchema = new Schema(
   {
@@ -34,6 +35,10 @@ const organizationSchema = new Schema(
     active: {
       type: Boolean,
       default: true,
+    },
+    createdBy: {
+      type: ObjectId,
+      ref: "users",
     },
   },
   {

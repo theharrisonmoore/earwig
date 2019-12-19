@@ -1,6 +1,8 @@
 const { verify } = require("jsonwebtoken");
 const boom = require("boom");
 
+const config = require("../config");
+
 const { getUserById } = require("../database/queries/user");
 
 module.exports = (req, res, next) => {
@@ -11,9 +13,10 @@ module.exports = (req, res, next) => {
   if (!cookies || !cookies.token) {
     return next();
   }
+  console.log("secret", config.server.secret);
 
   // verify the token
-  return verify(cookies.token, process.env.SECRET, (err, decoded) => {
+  return verify(cookies.token, config.server.secret, (err, decoded) => {
     // if not valid then clear and proceed as a user who's not logged in
     if (err) {
       res.clearCookie("token");

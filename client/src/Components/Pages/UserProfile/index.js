@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import axios from "axios";
-import moment from "moment";
 import { Skeleton } from "antd";
 
 import {
   EDIT_PROFILE_URL,
-  UPLOAD_VERIFICATION_URL
+  UPLOAD_VERIFICATION_URL,
+  MY_REVIEWS_URL,
+  MY_POINTS_URL,
 } from "../../../constants/naviagationUrls";
 
 import Link from "../../Common/Link";
@@ -25,12 +25,9 @@ import {
   Verified,
   IDText,
   MainSection,
-  VerifiedSection,
   SectionTitle,
   Paragraph,
-  ReviewDiv,
-  AgencyTitle,
-  ReviewText
+  UsernameStatusDiv,
 } from "./UserProfile.style";
 
 import Icon from "../../Common/Icon/Icon";
@@ -38,16 +35,15 @@ import Icon from "../../Common/Icon/Icon";
 export default class index extends Component {
   state = {
     reviewCount: 0,
-    userReviews: [],
-    loaded: false
+    loaded: false,
   };
 
   componentDidMount() {
     axios.get("/api/user-reviews").then(res => {
       this.setState({
-        userReviews: res.data,
+        // userReviews: res.data,
         reviewCount: res.data.length,
-        loaded: true
+        loaded: true,
       });
     });
   }
@@ -56,38 +52,54 @@ export default class index extends Component {
     const {
       userId,
       verified,
+      trade,
       points,
       helpedUsers,
       isSMobile,
-      awaitingReview
+      awaitingReview,
+      location: {
+        state: {
+          orgId,
+          redirectToProfile,
+          category,
+          name,
+          redirectToCreateProfile,
+        } = {},
+      } = {},
+      level,
     } = this.props;
 
-    const { reviewCount, userReviews, loaded } = this.state;
+    const { reviewCount, loaded } = this.state;
 
-    // if (isWorker) {
     return (
       <Wrapper>
         <Header>
           <TopSection>
             <IDWrapper>
-              <IDText>Username: {userId}</IDText>
-              {verified ? (
-                <Verified>
-                  <Icon
-                    icon="getVerified"
-                    width="20"
-                    height="20"
-                    margin="0 0.5rem 0 0"
-                  />
-                  <p>Verified</p>
-                </Verified>
-              ) : (
-                <Verified>
-                  <p>
-                    {awaitingReview ? "Verification pending" : "Unverified"}
-                  </p>
-                </Verified>
+              {verified && (
+                <Icon
+                  icon="getVerified"
+                  width="20"
+                  height="20"
+                  margin="0 0 0 0"
+                />
               )}
+              <UsernameStatusDiv>
+                <IDText>{userId}</IDText>
+                {verified ? (
+                  <Verified>
+                    <p>{trade ? "Verified worker" : "Registered user"}</p>
+                  </Verified>
+                ) : (
+                  <Verified>
+                    <p>
+                      {awaitingReview
+                        ? "Verification pending"
+                        : `${trade ? "Unverified" : "Registered user"}`}
+                    </p>
+                  </Verified>
+                )}
+              </UsernameStatusDiv>
             </IDWrapper>
 
             <Link to={EDIT_PROFILE_URL} text="Edit profile" type="primary" />
@@ -102,7 +114,12 @@ export default class index extends Component {
                   paragraph={false}
                   active
                 >
-                  {reviewCount} reviews
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                  <Link
+                    to={level >= 3 ? MY_REVIEWS_URL : "#"}
+                    text={`${reviewCount} reviews`}
+                    type="primary"
+                  />
                 </Skeleton>
               </Stat>
             </StatWrapper>
@@ -128,55 +145,18 @@ export default class index extends Component {
                   paragraph={false}
                   active
                 >
-                  {points} points
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                  <Link
+                    to={level >= 3 ? MY_POINTS_URL : "#"}
+                    text={`${points} points`}
+                    type="primary"
+                  />
                 </Skeleton>
               </Stat>
             </StatWrapper>
           </BottomSection>
         </Header>
-        {verified ? (
-          <VerifiedSection>
-            <SectionTitle verified>Your impact</SectionTitle>
-            <Skeleton
-              loading={!loaded}
-              title={false}
-              paragraph={{
-                rows: 5,
-                width: ["50%", "80%", "70%", "40%", "70%"]
-              }}
-            >
-              {userReviews.length > 0 ? (
-                userReviews.map((review, index) => (
-                  <NavLink
-                    to={`/profile/${review.organization[0]._id}`}
-                    key={index}
-                  >
-                    <ReviewDiv>
-                      <Icon
-                        icon={review.organization[0].category}
-                        width="18"
-                        height="18"
-                        margin="0 0.5rem 0 0"
-                        // fill={colors.lightGray}
-                      />
-                      <ReviewText>
-                        You reviewed{" "}
-                        <AgencyTitle type={review.organization[0].category}>
-                          {review.organization[0].name}
-                        </AgencyTitle>
-                      </ReviewText>
-                      <ReviewText>
-                        {moment().diff(review.createdAt, "weeks")}w
-                      </ReviewText>
-                    </ReviewDiv>
-                  </NavLink>
-                ))
-              ) : (
-                <p>You have not completed any reviews yet</p>
-              )}
-            </Skeleton>
-          </VerifiedSection>
-        ) : (
+        {!verified && (
           <MainSection>
             <SectionTitle>
               Wait! You’re not yet verified as a worker
@@ -191,7 +171,18 @@ export default class index extends Component {
             </Paragraph>
 
             <Button
-              onClick={() => this.props.history.push(UPLOAD_VERIFICATION_URL)}
+              onClick={() =>
+                this.props.history.push({
+                  pathname: UPLOAD_VERIFICATION_URL,
+                  state: {
+                    orgId,
+                    redirectToProfile,
+                    category,
+                    name,
+                    redirectToCreateProfile,
+                  },
+                })
+              }
               text="Get verified as a worker"
               styleType="primary"
             />

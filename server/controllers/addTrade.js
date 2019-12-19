@@ -6,6 +6,8 @@
 const boom = require("boom");
 const { addTrade, findTradeByTitle } = require("./../database/queries");
 
+const sendEmail = require("../helpers/emails");
+
 module.exports = async (req, res, next) => {
   const { trade } = req.body;
   try {
@@ -17,8 +19,10 @@ module.exports = async (req, res, next) => {
 
     const newTrade = await addTrade({ title: trade });
 
+    await sendEmail.newTradeAdded({ newTrade });
+
     return res.json(newTrade);
   } catch (error) {
-    return next(boom.badImplementation());
+    return next(boom.badImplementation(error));
   }
 };

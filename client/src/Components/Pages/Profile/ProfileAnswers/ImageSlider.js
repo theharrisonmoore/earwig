@@ -6,7 +6,8 @@ import Lightbox from "lightbox-react";
 
 import { SliderWrapper, ImgWrapper, Image } from "./ProfileAnswers.style";
 
-import { StyledAntIcon } from "../Profile.style";
+import { colors } from "../../../../theme";
+import Icon from "../../../Common/Icon/Icon";
 
 import { REPORT_CONTENT_URL } from "../../../../constants/naviagationUrls";
 
@@ -104,9 +105,11 @@ class Slider extends React.Component {
       <>
         {isOpen && (
           <Lightbox
-            mainSrc={images[activeIndex]}
-            nextSrc={images[(activeIndex + 1) % images.length]}
-            prevSrc={images[(activeIndex + images.length - 1) % images.length]}
+            mainSrc={images[activeIndex].link}
+            nextSrc={images[(activeIndex + 1) % images.length].link}
+            prevSrc={
+              images[(activeIndex + images.length - 1) % images.length].link
+            }
             onCloseRequest={this.onCloseRequest}
             onMovePrevRequest={this.onMovePrevRequest}
             onMoveNextRequest={this.onMoveNextRequest}
@@ -190,7 +193,7 @@ class Slider extends React.Component {
                 },
               }}
             >
-              <StyledAntIcon type="flag" />
+              <Icon icon="flag" fill={colors.gray} width="27" height="27" />
             </Link>
           </div>
         ) : (

@@ -1,4 +1,4 @@
-const { admin } = require("./../config");
+const { admin } = require("../services/firebase");
 
 module.exports = fileName => new Promise(async (resolve, reject) => {
   // These options will allow temporary read access to the file

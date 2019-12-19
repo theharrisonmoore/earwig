@@ -6,17 +6,15 @@ import { organizations } from "../../../theme";
 import Layout from "../../Common/Layout";
 import Button from "../../Common/Button";
 
-import { ADD_PROFILE_START_REVIEW_URL } from "../../../constants/naviagationUrls";
-
 // styles
 import {
   HeadlineDiv,
   H2,
-  LogosContainer,
   MainDiv,
   AddWrapper,
+  LogosContainer,
   ButtonsWrpper,
-} from "./Search.style";
+} from "../../Common/AddOrganisationPages.style";
 
 export default class AddProfileSelection extends Component {
   state = {
@@ -27,26 +25,34 @@ export default class AddProfileSelection extends Component {
     this.props.history.push("/search");
   };
 
-  addOrganisation = (e, orgName, orgCategory) => {
+  addOrganisation = (e, name, category) => {
+    const { level } = this.props;
     e.preventDefault();
     this.setState({ isLoading: true });
-    this.props.history.push(ADD_PROFILE_START_REVIEW_URL, {
-      orgName,
-      orgCategory,
-    });
+
+    this.props.history.push(
+      level >= 2
+        ? `/add-profile-start-review/${category}/${name}`
+        : `/verification-required/${category}/${name}`
+    );
   };
 
   render() {
-    const { name } = this.props.location.state;
+    const { match: { params: { name } } = {} } = this.props;
     const { isLoading } = this.state;
-
     const categories = ["agency", "payroll", "worksite", "company"];
+
+    if (!name) {
+      this.goBack();
+      return null;
+    }
+
     return (
       <Layout type="side">
         <AddWrapper>
           <MainDiv>
             <HeadlineDiv>
-              <H2>{name} is a ...</H2>
+              <H2>Just double checking, {name} is a…</H2>
             </HeadlineDiv>
             <LogosContainer>
               <Spin tip="Loading..." spinning={isLoading} />
@@ -87,7 +93,7 @@ export default class AddProfileSelection extends Component {
                   <Button
                     margin="1rem 0"
                     styleType="primary"
-                    text="company"
+                    text="Company"
                     backgroundColor={organizations.company.primary}
                     style={{ minWidth: "8.5rem" }}
                     onClick={e => {

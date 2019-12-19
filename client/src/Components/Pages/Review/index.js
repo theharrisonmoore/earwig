@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Prompt } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import { Checkbox, message, Modal } from "antd";
@@ -56,7 +57,6 @@ class Review extends Component {
     groupss: {},
     organization: { category: "agency", name: "", orgId: "" },
     reviewId: "",
-    user: { email: "" },
     dropdownList: [],
     comments: {},
     answers: {},
@@ -75,24 +75,38 @@ class Review extends Component {
     recording: false,
     audioFile: null,
     voiceReviewUrl: "",
+    browserBackAttempt: true,
   };
 
   componentDidMount() {
-    const { orgId, reviewId } = this.props.match.params;
-    if (!orgId && !reviewId) {
+    // add warning for any refresh of the page
+    window.onbeforeunload = e => {
+      // Cancel the event as stated by the standard.
+      e.preventDefault();
+      // Chrome requires returnValue to be set.
+      e.returnValue = "";
+      // return something to trigger a dialog
+      return null;
+    };
+
+    const {
+      createNewProfile,
+      match: { params: { category, name, orgId, reviewId } } = {},
+    } = this.props;
+    if (!createNewProfile && !orgId && !reviewId) {
       this.props.history.push("/search");
     }
-    const { email } = this.props;
 
+    const { email } = this.props;
     this.setState({
       organization: {
         orgId,
       },
-      user: { email },
       reviewId,
     });
-
-    if (reviewId) {
+    if (createNewProfile) {
+      this.getProfileQuestions({ category, createNewProfile, name });
+    } else if (reviewId) {
       axios
         .get(`/api/review/${reviewId}/is-edatable`)
         .then(res => {
@@ -185,45 +199,55 @@ class Review extends Component {
           }
         });
     } else {
-      axios
-        .get(`/api/questions/${orgId}`)
-        .then(res => {
-          const groupss = {};
-          res.data.groups.forEach(group => {
-            groupss[group._id] = {
-              title: group.group.text,
-              main: group.questions.filter(question => !question.isDependent),
-              dependant: group.questions.filter(
-                question => question.isDependent
-              ),
-            };
-          });
-          this.setState({
-            groups: res.data,
-            groupss,
-            isLoading: false,
-            organization: res.data.organization,
-            email,
-            // answers,
-            dropdownOptions:
-              res.data.dropDownListData &&
-              res.data.dropDownListData[0].category,
-          });
-        })
-        .catch(err => {
-          const error =
-            err.response && err.response.data && err.response.data.error;
-          if (err.response && err.response.status === 409) {
-            return Modal.error({
-              title: "Error",
-              content: error,
-              onOk: () => this.props.history.goBack(),
-            });
-          }
-          // server error 500
-          return message.error(error || "Something went wrong");
-        });
+      this.getProfileQuestions({ category, createNewProfile, name, orgId });
     }
+  }
+
+  getProfileQuestions = ({ category, createNewProfile, orgId, name }) => {
+    axios
+      .get(
+        createNewProfile
+          ? `/api/questions/new/${category}/${name}`
+          : `/api/questions/${orgId}`
+      )
+      .then(res => {
+        const groupss = {};
+        res.data.groups.forEach(group => {
+          groupss[group._id] = {
+            title: group.group.text,
+            main: group.questions.filter(question => !question.isDependent),
+            dependant: group.questions.filter(question => question.isDependent),
+          };
+        });
+        this.setState({
+          groups: res.data,
+          groupss,
+          isLoading: false,
+          organization: res.data.organization,
+          // answers,
+          dropdownOptions:
+            res.data.dropDownListData && res.data.dropDownListData[0].category,
+        });
+      })
+      .catch(err => {
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        if (err.response && err.response.status === 409) {
+          return Modal.error({
+            title: "Error",
+            content: error,
+            onOk: () => this.props.history.goBack(),
+          });
+        }
+        // server error 500
+        return message.error(error || "Something went wrong");
+      });
+  };
+
+  componentDidUpdate() {
+    window.onpopstate = () => {
+      this.setState({ browserBackAttempt: true });
+    };
   }
 
   submitAudio = () => {
@@ -296,16 +320,13 @@ class Review extends Component {
   };
 
   handleSliderChange = (value, number) => {
-    let answer = null;
-    const { answers } = this.state;
-    if (typeof value !== "number" && value.includes("===")) {
-      const [name, _id] = value.split("===");
-      answer = { name, _id };
-    } else {
-      answer = value;
-    }
-    this.setState({
-      answers: { ...answers, [number]: answer },
+    this.setState(prevState => {
+      return {
+        answers: {
+          ...prevState.answers,
+          [number]: value,
+        },
+      };
     });
   };
 
@@ -483,7 +504,8 @@ class Review extends Component {
     e.preventDefault();
     this.setState({ isSubmitting: true });
     const { organization, audioFile } = this.state;
-    const { user } = this.state;
+    const { createNewProfile } = this.props;
+
     const values = {
       answers: this.state.answers,
       comments: this.state.comments,
@@ -496,7 +518,7 @@ class Review extends Component {
         const review = {
           values,
           organization,
-          user,
+          createNewProfile,
         };
         if (this.state.isEditing) {
           const { orgId } = this.state;
@@ -509,7 +531,7 @@ class Review extends Component {
           axios
             .put(`/api/review/${this.state.reviewId}`, review)
             .then(() => {
-              this.setState({ isSubmitting: false });
+              this.setState({ isSubmitting: false, browserBackAttempt: false });
 
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,
@@ -534,7 +556,7 @@ class Review extends Component {
           axios
             .post(API_POST_REVIEW_URL, review)
             .then(res => {
-              this.setState({ isSubmitting: false });
+              this.setState({ isSubmitting: false, browserBackAttempt: false });
               this.props.history.push(THANKYOU_URL, {
                 orgType: organization.category,
                 orgId: res.data,
@@ -569,9 +591,10 @@ class Review extends Component {
       errors,
       isSubmitting,
       recording,
+      browserBackAttempt,
     } = this.state;
     const { history, isMobile, id } = this.props;
-    const staticQuestion = STATIC_QUESTIONS(category);
+    const staticQuestion = STATIC_QUESTIONS(category, history, this.state);
 
     const { isLoading } = this.state;
     if (isLoading) return <Loading />;
@@ -594,7 +617,9 @@ class Review extends Component {
                 style={{ paddingRight: "1.5rem" }}
                 cancel
                 bold
-                onClick={() => history.push(`/profile/${orgId}`)}
+                onClick={() =>
+                  orgId ? history.push(`/profile/${orgId}`) : history.goBack()
+                }
               >
                 Cancel
               </Paragraph>
@@ -622,6 +647,7 @@ class Review extends Component {
                   category={this.state.organization.category}
                   handleChange={this.handleDateChage}
                   state={this.state}
+                  history={history}
                 />
                 <div>
                   {Object.keys(groupss).map(groupId => {
@@ -649,6 +675,7 @@ class Review extends Component {
                                 handleAddNewOrgChange={
                                   this.handleAddNewOrgChange
                                 }
+                                history={history}
                               />
                             );
                           })}
@@ -665,12 +692,14 @@ class Review extends Component {
                     handleChange={this.handleRateChage}
                     state={this.state}
                     runValidation={this.runValidation}
+                    history={history}
                   />
                   <Question
                     question={staticQuestion[1]}
                     category={this.state.organization.category}
                     handleChange={this.handleReviewChange}
                     state={this.state}
+                    history={history}
                   />
                   {/* The voice questions */}
                   <Question
@@ -681,6 +710,7 @@ class Review extends Component {
                     handleRecord={this.handleRecord}
                     id={id}
                     voiceReviewUrl={this.state.voiceReviewUrl}
+                    history={history}
                   />
                 </div>
                 <UserAgreement>
@@ -740,6 +770,10 @@ class Review extends Component {
             </form>
           </section>
         </ReviewWrapper>
+        <Prompt
+          when={browserBackAttempt}
+          message="Are you sure you want to leave this review? You will lose any answers you have provided so far."
+        />
       </Layout>
     );
   }

@@ -78,6 +78,7 @@ export const CheckboxWrapper = styled.div.attrs({
   display: flex;
   align-items: center;
   padding: 1rem 0;
+  padding-top: 0;
 `;
 
 export const Checkbox = styled(Field).attrs({

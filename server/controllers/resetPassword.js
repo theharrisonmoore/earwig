@@ -2,14 +2,14 @@ const boom = require("boom");
 const crypto = require("crypto");
 const { findByEmail, updateUserById } = require("./../database/queries/user");
 const { resetTokenMaxAge } = require("./../constants");
-const resetPasswordMailing = require("../helpers/emails/resetPasswordMailing");
+const sendEmail = require("../helpers/emails");
 
 module.exports = async (req, res, next) => {
   const { email } = req.body;
   let userId;
   crypto.randomBytes(32, (err, buffer) => {
     if (err) {
-      return next(boom.badImplementation());
+      return next(boom.badImplementation(err));
     }
     const token = buffer.toString("hex");
     return findByEmail(email)
@@ -29,13 +29,13 @@ module.exports = async (req, res, next) => {
         return updateUserById(user._id, updateData);
       })
       // send the token via email
-      .then(() => resetPasswordMailing(email, token, userId))
+      .then(() => sendEmail.resetPasswordMailing(email, token, userId))
       .then(() => {
         //  send success message
         res.json({ success: true });
       })
-      .catch(() => {
-        next(boom.badImplementation());
+      .catch((error) => {
+        next(boom.badImplementation(error));
       });
   });
 };

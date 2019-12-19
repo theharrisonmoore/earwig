@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ITEMS } from "../../../../constants/promoItems";
-import SignUpSection from "../SignUpSection";
+import ReviewNotAllowedButton from "../ReviewNotAllowedButton";
 import Icon from "../../../Common/Icon/Icon";
 
 import {
@@ -10,7 +10,7 @@ import {
   Level0PromoWrapper,
 } from "../Profile.style";
 
-const Level0Promo = ({ isMobile, isTablet, category, location }) => {
+const Level0Promo = ({ isMobile, isTablet, category }) => {
   return (
     <Level0PromoWrapper isTablet={isTablet} isMobile={isMobile}>
       <AccountPromo>
@@ -29,7 +29,7 @@ const Level0Promo = ({ isMobile, isTablet, category, location }) => {
               </AccountItem>
             ))}
         </div>
-        <SignUpSection category={category} />
+        <ReviewNotAllowedButton category={category} />
       </AccountPromo>
     </Level0PromoWrapper>
   );

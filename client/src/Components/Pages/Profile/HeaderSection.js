@@ -1,68 +1,63 @@
 /* eslint-disable no-undef */
 import React, { Component, createRef } from "react";
 import { Link } from "react-router-dom";
-import { Rate } from "antd";
-import SignUpSection from "./SignUpSection";
-import Icon from "../../Common/Icon/Icon";
+import ReviewNotAllowedButton from "./ReviewNotAllowedButton";
+import GeneralTabs from "../../Common/GeneralTabs";
 
 import {
   USER_PROFILE_URL,
-  PRE_REVIEW
+  PRE_REVIEW,
 } from "../../../constants/naviagationUrls";
 
 import {
   Header,
   ColoredDiv,
-  TabsDivFullWidth,
-  TabsDiv,
-  Tab,
-  TabTitle,
-  Underline,
   ActionButtonsDiv,
   CompanyNameAndStars,
-  CompanyTitle
+  CompanyTitle,
 } from "./Profile.style";
 
 import { colors } from "../../../theme";
 
 import Button from "../../Common/Button";
 
-const ColoredBanner = ({ category, name, summary, isMobile }) => {
+const ColoredBanner = ({ category, name, isMobile }) => {
   return (
     <ColoredDiv category={category} isMobile={isMobile}>
       <CompanyNameAndStars>
         <CompanyTitle white>{name}</CompanyTitle>
-        <Rate
+        {/* <Rate
           disabled
           value={summary.avgRatings || summary.value || 0}
           style={{
             color: `${colors.stars}`,
-            fontSize: "0.75rem"
+            fontSize: "0.75rem",
+            minWidth: "78px",
           }}
           className="last-reviewed-star-rate"
-        />
+        /> */}
       </CompanyNameAndStars>
     </ColoredDiv>
   );
 };
 
-const TabsWrapper = ({ setActiveTab, activeTab }) => {
-  return (
-    <TabsDivFullWidth>
-      <TabsDiv onClick={setActiveTab}>
-        <Tab isActive={activeTab === "overview"} data-tab="overview">
-          <Icon icon="overview" width="19" height="19" />
-          <TabTitle isActive>Overview</TabTitle>
-        </Tab>
-        <Tab isActive={activeTab === "detailed"} data-tab="detailed">
-          <Icon icon="detailed" width="19" height="19" />
-          <TabTitle>Detailed</TabTitle>
-        </Tab>
-        <Underline left={activeTab === "overview"} />
-      </TabsDiv>
-    </TabsDivFullWidth>
-  );
-};
+// const TabsWrapper = ({ setActiveTab, activeTab }) => {
+//   return (
+//     <TabsDivFullWidth>
+//       <TabsDiv onClick={setActiveTab}>
+//         <Tab isActive={activeTab === "overview"} data-tab="overview">
+//           <Icon icon="overview" width="19" height="19" />
+//           <TabTitle isActive>Overview</TabTitle>
+//         </Tab>
+//         <Tab isActive={activeTab === "detailed"} data-tab="detailed">
+//           <Icon icon="detailed" width="19" height="19" />
+//           <TabTitle>Detailed</TabTitle>
+//         </Tab>
+//         <Underline left={activeTab === "overview"} />
+//       </TabsDiv>
+//     </TabsDivFullWidth>
+//   );
+// };
 
 export default class HeaderSection extends Component {
   headerRef = createRef();
@@ -83,13 +78,12 @@ export default class HeaderSection extends Component {
     const {
       isTablet,
       isMobile,
-      summary,
+      summary = {},
       level,
       reviewsLast30Days,
       orgId,
-      awaitingReview,
       setActiveTab,
-      activeTab = "overview"
+      activeTab = "overview",
     } = this.props;
     const { category, name } = summary;
     // if there are reviews less dating before 1 month user not allowed
@@ -101,41 +95,49 @@ export default class HeaderSection extends Component {
         isMobile={isMobile}
         // ref={this.headerRef}
       >
-        <ColoredBanner
-          category={category}
-          name={name}
-          summary={summary}
-          isMobile={isMobile}
-        />
-        {(level === 2 || level === 1) && (
-          <TabsWrapper setActiveTab={setActiveTab} activeTab={activeTab} />
+        <ColoredBanner category={category} name={name} isMobile={isMobile} />
+        {level > 0 && (
+          <GeneralTabs
+            setActiveTab={setActiveTab}
+            activeTab={activeTab}
+            tabOne="overview"
+            tabTwo="detailed"
+            zIndex="2"
+          />
         )}
-        {level === 2 || level === 1 ? (
+        {level > 0 ? (
           <ActionButtonsDiv>
             <Link
               to={{
                 pathname:
-                  level === 1 && !awaitingReview
+                  level <= 1
                     ? USER_PROFILE_URL
                     : PRE_REVIEW.replace(":orgId", orgId),
-                state: { name, category }
+                state: { name, category, redirectToProfile: true, orgId },
               }}
+              onClick={e =>
+                reviewNotAllowed &&
+                reviewsLast30Days.length > 0 &&
+                e.preventDefault()
+              }
+              disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
             >
               <Button
                 styleType="primary"
                 style={{
                   opacity: `${
                     reviewNotAllowed && reviewsLast30Days.length > 0 ? 0.5 : 1
-                  }`
+                  }`,
                 }}
                 text={`Review this ${category || "organisation"}`}
                 disabled={reviewNotAllowed && reviewsLast30Days.length > 0}
                 margin="0 auto 0.5rem auto"
+                backgroundColor={colors.secondary}
               />
             </Link>
           </ActionButtonsDiv>
         ) : (
-          <SignUpSection category={category} sticky />
+          <ReviewNotAllowedButton category={category} sticky />
         )}
       </Header>
     );

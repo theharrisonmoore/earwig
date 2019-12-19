@@ -1,5 +1,3 @@
-
-
 const nodemailer = require("nodemailer");
 
 module.exports = ({
@@ -22,6 +20,9 @@ module.exports = ({
   });
 
   // send mail with defined transport object
+  if (!(process.env.NODE_ENV === "production" && user.role !== "admin")) {
+    return Promise.resolve();
+  }
   return transporter.sendMail({
     from, // sender address
     to, // list of receivers

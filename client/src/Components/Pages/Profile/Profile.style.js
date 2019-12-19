@@ -1,7 +1,6 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import SVG from "react-inlinesvg";
 import { NavLink } from "react-router-dom";
-import { Icon as AntIcon } from "antd";
 import BlurredBackground from "../../../assets/blurred-background.png";
 
 import {
@@ -24,6 +23,9 @@ export const Wrapper = styled.div`
   padding-bottom: 100px;
   font-size: 1rem;
   position: relative;
+  & * {
+    z-index: 1;
+  }
 `;
 
 export const Banner = styled.div`
@@ -79,7 +81,7 @@ export const TabsDivFullWidth = styled.div`
   position: sticky;
   top: 0;
   background-color: ${colors.white};
-  z-index: 1;
+  z-index: 2 !important;
 `;
 
 export const TabsDiv = styled.div`
@@ -153,6 +155,10 @@ export const CompanyTitle = styled.h2`
   text-transform: capitalize;
   color: ${({ white }) => (white ? colors.white : colors.profileFontColor)};
   margin: 0.25rem 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 `;
 
 export const ButtonDiv = styled.div`
@@ -300,7 +306,8 @@ export const CompanyNameAndStars = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 1.25rem 4.5%;
+  padding: 0 4.5%;
+  height: 5rem;
 `;
 
 export const CommentDiv = styled.div`
@@ -485,12 +492,6 @@ export const AccountItem = styled.div`
   margin: 1.25rem 0;
 `;
 
-export const StyledAntIcon = styled(AntIcon)`
-  font-size: 1.5rem;
-  color: ${colors.gray};
-  cursor: pointer;
-`;
-
 export const IconWrapper = styled.div`
   min-width: 70px;
 `;
@@ -673,7 +674,7 @@ export const InfoRow = styled.div`
 `;
 
 export const LeftInfo = styled.div`
-  width: 30%;
+  width: 40%;
   display: flex;
   align-items: center;
   color: ${colors.profileFontColor};
@@ -682,7 +683,7 @@ export const LeftInfo = styled.div`
 `;
 
 export const RightInfo = styled.div`
-  width: 70%;
+  width: 60%;
   display: flex;
   align-items: center;
 `;
@@ -694,4 +695,48 @@ export const UserInfoWrapper = styled.div`
 export const RatingWithUserInfo = styled.div`
   display: flex;
   padding-top: 0.5rem;
+`;
+
+const IconsWrapper = styled.div`
+  cursor: pointer;
+  margin: 0.75rem 1rem 0.75rem 0;
+
+  * {
+    pointer-events: none;
+  }
+`;
+
+const rotate = keyframes`
+  0% {
+    transform: rotate(0deg) scale(1, 1);
+  }
+  50% {
+    transform: rotate(10deg) scale(1.2, 1.2);
+  }
+  100% {
+    transform: rotate(0deg) scale(1, 1);
+  }
+`;
+// alternate
+const animation = () =>
+  css`
+    ${rotate} 0.5s ease;
+  `;
+
+export const LikeWrapper = styled(IconsWrapper)`
+  margin: 0.75rem 1rem 0.75rem 0;
+  animation: ${({ active }) => (active ? animation : "none")};
+  background: none;
+  border: none;
+  outline: none;
+  animation-fill-mode: none;
+  transition: 0.5s all;
+
+  :hover {
+    transform: rotate(10deg);
+  }
+`;
+
+export const CommentIconWrapper = styled(IconsWrapper)`
+  margin: 0.75rem 1rem 0.75rem 1.5rem;
 `;

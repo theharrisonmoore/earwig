@@ -1,7 +1,15 @@
 export const SEARCH_URL = "/search/:category?";
 export const PURE_SEARCH_URL = "/search";
-export const ADD_PROFILE_URL = "/add-profile";
-export const ADD_PROFILE_START_REVIEW_URL = "/add-profile-start-review";
+export const ADD_PROFILE_URL = "/add-profile/:name";
+export const ADD_PROFILE_START_REVIEW_URL =
+  "/add-profile-start-review/:category(agency|payroll|company|worksite)/:name";
+export const VERIFICATION_REQUIRED =
+  "/verification-required/:category(agency|payroll|company|worksite)/:name";
+export const ADD_PROFILE_AFTER_SIGN_UP =
+  "/add-profile-sign-up/:category(agency|payroll|company|worksite)/:name";
+export const ADD_REVIEW_TO_NEW_PROFILE =
+  "/organization/review/new/:category(agency|payroll|company|worksite)/:name";
+
 export const USER_PROFILE_URL = "/my-profile";
 export const PROFILE_URL = "/my-profile";
 export const ORGS_PROFILE_URL = "/profile/:profileID";
@@ -36,6 +44,7 @@ export const TERMS_OF_USE_URL = "/terms-of-use";
 export const COOKIES_POLICY_URL = "/cookies-policy";
 export const PRIVACY_AND_TERMS_URL = "/privacy-and-terms";
 export const MY_REVIEWS_URL = "/my-reviews";
+export const MY_POINTS_URL = "/my-points";
 export const ASK_QUESTION_URL = "/ask-question";
 export const JOBS_URL = "/jobs";
 export const INVITE_WORKERS_URL = "/invite-workers";

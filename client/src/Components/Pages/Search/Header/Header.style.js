@@ -4,19 +4,20 @@ import { Link } from "react-router-dom";
 import { organizations, breakpointsMax } from "../../../../theme";
 
 export const HeaderWrapper = styled.div`
-  position: fixed;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
   background-color: ${({ category }) => organizations[category].primary};
   width: 100%;
-  height: ${({ shrink }) => (shrink ? "8rem" : "9.5rem")};
   display: flex;
   flex-direction: column;
   transition: 0.4s height;
   z-index: 1;
   max-width: 57.5rem;
 
-  & + div {
+  /* & + div {
     padding-top: ${({ shrink }) => (shrink ? "6rem" : "9rem")};
-  }
+  } */
 `;
 
 export const SearchBarContainer = styled.div`

@@ -4,8 +4,10 @@ export const getContractorsFromReviews = reviewDetails => {
   const [worksiteQuestionsGroup] = reviewDetails.filter(
     group => group._id === "Working on the site"
   );
-  const [contractorQuestion] = worksiteQuestionsGroup.questions.filter(
-    question => question.text === "Who was the main contractor on site?"
+  const [
+    contractorQuestion,
+  ] = worksiteQuestionsGroup.questions.filter(question =>
+    question.text.includes("main contractor")
   );
   // question => question.text === "Who is the main contractor on site?"
   const orderedAnswers = contractorQuestion.answers.sort(
@@ -31,7 +33,7 @@ export const reviewsByMonth = FilteredReviewMonths => {
     Sep: 0,
     Oct: 0,
     Nov: 0,
-    Dec: 0
+    Dec: 0,
   };
 
   if (FilteredReviewMonths.length === 0) return reviewMonthsCount;
@@ -54,7 +56,12 @@ export const getCarCost = (reviewDetails = []) => {
       )
     );
 
-  if (!carSection || carSection.length < 1) return "N/A";
+  if (
+    !carSection ||
+    carSection.length < 1 ||
+    carSection[0][0].answers.length < 1
+  )
+    return "N/A";
 
   // work out the average cost from the answers
   const costsArr = carSection[0][0].answers.map(answer => answer.answer);
@@ -71,4 +78,23 @@ export const getCarCost = (reviewDetails = []) => {
     return average.toFixed(2);
   }
   return "Free";
+};
+
+export const getVerifiedUsers = usersArray => {
+  return usersArray.filter(user => user.verified).map(({ _id }) => _id);
+};
+
+export const checkAdminReply = usersArray => {
+  const adminReplies = usersArray.filter(user => user.isAdmin);
+  return adminReplies.length > 0;
+}
+
+export const getVerifiedRepliesCount = (replies, verifiedUsers) => {
+  if (!replies || replies.length === 0) {
+    return 0;
+  }
+  const verifiedReplies = replies.filter(({ user }) =>
+    verifiedUsers.includes(user)
+  );
+  return verifiedReplies.length;
 };

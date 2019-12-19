@@ -1,4 +1,5 @@
-const mailer = require("./mailer");
+const mailer = require("../mailer");
+const config = require("../../../config");
 
 module.exports = ({
   reason, description, target, question, organization, review, user, comment, reply, image,
@@ -29,7 +30,7 @@ module.exports = ({
           <span style="font-weight: 700">Comment words: </span><span style="font-weight: 100; padding: 0 11px; border-radius: 10px; background: #ababab29; display: block">"${comment.text}"</span>
           <br />
 
-          <span style="font-weight: 700;">Organization:</span> <a href="${process.env.DOMAIN}/profile/${organization._id}">${organization.name}</a> 
+          <span style="font-weight: 700;">Organization:</span> <a href="${config.server.domain}/profile/${organization._id}">${organization.name}</a> 
           <br />
 
         </p>
@@ -67,7 +68,7 @@ module.exports = ({
           <br />
           ${overallReview}
 
-          <span style="font-weight: 700;">Organization:</span> <a href="${process.env.DOMAIN}/profile/${organization._id}">${organization.name}</a> 
+          <span style="font-weight: 700;">Organization:</span> <a href="${config.server.domain}/profile/${organization._id}">${organization.name}</a> 
           <br />
 
         </p>
@@ -107,7 +108,7 @@ module.exports = ({
           <span style="font-weight: 700">Reply words: </span><pre style="font-weight: 100; padding: 0 11px; border-radius: 10px; background: #ababab29; display: block">"${reply.text}"</pre>
           <br />
 
-          <span style="font-weight: 700;">Organization:</span> <a href="${process.env.DOMAIN}/profile/${organization._id}">${organization.name}</a> 
+          <span style="font-weight: 700;">Organization:</span> <a href="${config.server.domain}/profile/${organization._id}">${organization.name}</a> 
           <br />
 
         </p>
@@ -141,7 +142,7 @@ module.exports = ({
           <img src="${image}" style="background: white;"/>
           <br />
 
-          <span style="font-weight: 700;">Organization:</span> <a href="${process.env.DOMAIN}/profile/${organization._id}">${organization.name}</a> 
+          <span style="font-weight: 700;">Organization:</span> <a href="${config.server.domain}/profile/${organization._id}">${organization.name}</a> 
           <br />
 
         </p>
@@ -155,16 +156,18 @@ module.exports = ({
   `;
   }
 
-  const earwig = process.env.EMAIL;
-  const pass = process.env.EMAIL_PASSWORD;
-  const subject = "Content reported on earwig";
 
-  const from = process.env.REPORT_EMAIL;
-  const to = process.env.REPORT_RECEIVER_EMAIL;
+  const { email } = config;
+
+  const earwig = email.main;
+  const pass = email.password;
+  const from = email.aliases.reportSend;
+  const subject = "Content reported on earwig";
+  const to = email.aliases.reportRecive;
 
   const attachments = [{
     filename: "logo.png",
-    path: `${__dirname}/../../assets/logo.png`,
+    path: `${__dirname}/../../../assets/logo.png`,
     cid: "earwig-logo",
   }];
 

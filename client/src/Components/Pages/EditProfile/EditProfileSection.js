@@ -391,6 +391,7 @@ export default class EditProfileSection extends Component {
                     showSearch
                     addHandler={this.showModal}
                     scrollToTop
+                    ismodalVisible={ismodalVisible}
                   />
                   <FieldError>{errors.newTrade}</FieldError>
                 </InputDiv>

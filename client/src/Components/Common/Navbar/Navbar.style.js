@@ -34,7 +34,9 @@ export const MenuWrapper = styled.div``;
 export const WrapperH2 = styled.h2`
   margin: 0;
   font-size: 1rem;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
+  width: 100%;
+  font-weight: 900;
 
   @media ${breakpointsMax.mobileS} {
     font-size: 0.9rem;
@@ -79,7 +81,7 @@ export const ToggleMenu = styled.div`
   justify-content: ${props => props.position};
   padding-right: 1rem;
   padding-left: 1.25rem;
-  margin-bottom: 1rem;
+  padding-bottom: 1rem;
   padding-top: ${props => (props.isMobile ? "0.5rem" : "1rem")};
   min-height: 1rem;
 `;

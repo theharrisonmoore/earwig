@@ -6,23 +6,21 @@ import Button from "../../Common/Button";
 import { SIGNUP_URL } from "../../../constants/naviagationUrls";
 import { AccountLink } from "./Profile.style";
 
-const SignUpSection = ({ category, location, sticky }) => {
+const ReviewNotAllowedButton = ({ category, sticky, match }) => {
+  const { params: { profileID } = {} } = match;
+
   return (
     <AccountLink
       sticky={sticky}
       to={{
         pathname: SIGNUP_URL,
-        state: { from: location },
+        state: { orgId: profileID, redirectToProfile: true },
       }}
       category={category}
     >
-      <Button
-        text="Sign up to see more"
-        styleType="primary"
-        margin="1rem auto"
-      />
+      <Button text="Sign up for more" styleType="primary" margin="1rem auto" />
     </AccountLink>
   );
 };
 
-export default withRouter(SignUpSection);
+export default withRouter(ReviewNotAllowedButton);

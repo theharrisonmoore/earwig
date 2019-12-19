@@ -18,7 +18,6 @@ const worksiteImgs = async (req, res, next) => {
       const imgObj = { link, orientation };
 
       links.push(imgObj);
-
     }
 
     res.send({ images: links });

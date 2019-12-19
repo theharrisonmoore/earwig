@@ -8,7 +8,7 @@
  */
 
 const boom = require("boom");
-const verificationPhotoEmail = require("../helpers/emails/verificationPhotoEmail");
+const sendEmail = require("../helpers/emails");
 
 const { updateUserById } = require("./../database/queries/user");
 
@@ -24,12 +24,14 @@ module.exports = async (req, res, next) => {
     city,
   })
     .then(async () => {
-      if (fieldName === "verificationImage") {
+      if (fieldName === "verificationImage"
+      && process.env.NODE_ENV === "production") {
         // send an email to admin
-        await verificationPhotoEmail();
+        await sendEmail.verificationPhotoEmail();
       }
       res.send();
-    }).catch((err) => {
+    })
+    .catch((err) => {
       next(boom.badImplementation(err));
     });
 };

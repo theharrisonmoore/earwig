@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const dbConnection = require("./../dbConnection");
 const { resetDB, resetDBDev, resetDBProd } = require("./resetDB");
 
+const config = require("../../config");
+
 const trades = require("./trades");
 const questions = require("./questions");
 const organizations = require("./organizations");
@@ -74,7 +76,7 @@ const buildProdctionData = () => new Promise((resolve, reject) => {
 // if it is "test" that mean we run the the build script in terminal
 // invoke the build function
 
-if (process.env.NODE_ENV === "production") {
+if (config.env === "production") {
   buildProdctionData().then(() => {
     // eslint-disable-next-line no-console
     console.log("Done!: Production DB has been built successfully");
@@ -86,7 +88,7 @@ if (process.env.NODE_ENV === "production") {
       console.log("err", err);
       mongoose.disconnect();
     });
-} else if (process.env.NODE_ENV === "development") {
+} else if (config.env === "development") {
   buildDevelopmentData()
     .then(() => {
     // eslint-disable-next-line no-console

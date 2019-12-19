@@ -15,7 +15,7 @@ const decideText = category => {
   }
 };
 
-export const STATIC_QUESTIONS = category => [
+export const STATIC_QUESTIONS = (category, history, state) => [
   {
     number: 21,
     text: decideText(category),
@@ -59,6 +59,8 @@ export const STATIC_QUESTIONS = category => [
             </>
           ),
         }}
+        history={history && history}
+        currentState={state && state}
       >
         <div style={{ display: "flex" }}>
           <div style={{ position: "relative", top: "1.5px" }}>
@@ -70,9 +72,7 @@ export const STATIC_QUESTIONS = category => [
               color={colors.primary}
             />
           </div>
-          <Text>
-            How can you make your reviews helpful for workers and earn rewards?
-          </Text>
+          <Text>Learn more</Text>
         </div>
       </PopoverComponent>
     ),
