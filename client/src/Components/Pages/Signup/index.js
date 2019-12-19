@@ -88,11 +88,18 @@ const signupSchema = Yup.object().shape({
     .required("You must select if you are a worker")
     .oneOf(["yes", "no"], "You must select if you are a worker"),
   orgType: Yup.string()
-    .required("You must select an organisation type")
-    .oneOf(
-      ["agency", "payroll", "company", "mainContractor", "other"],
-      "Invalid organisation type"
-    ),
+    .when("isWorker", {
+      is: "yes",
+      then: Yup.string().nullable(),
+      otherwise: Yup.string()
+        .required("You must select an organisation type")
+        .oneOf(
+          ["agency", "payroll", "company", "mainContractor", "other"],
+          "Must select organisation"
+        ),
+    })
+
+    .nullable(),
   otherOrg: Yup.string(),
   trade: Yup.string().test("trade", "You must choose your trade", function(
     trade
