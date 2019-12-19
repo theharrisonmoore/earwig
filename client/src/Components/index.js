@@ -43,7 +43,7 @@ import {
   MY_POINTS_URL,
 } from "../constants/naviagationUrls";
 
-import Landing from "./Pages/Landing";
+// import Landing from "./Pages/Landing";
 import ReportContent from "./Pages/ReportContent";
 import UploadImage from "./Pages/UploadImage";
 import Login from "./Pages/Login";
@@ -421,7 +421,7 @@ export default function index(props) {
           path="/"
           render={linkProps =>
             !isLoggedIn ? (
-              <Landing
+              <Welcome
                 {...props}
                 {...linkProps}
                 handleChangeState={handleChangeState}
