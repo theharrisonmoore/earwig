@@ -30,7 +30,7 @@ import Icon from "../../Common/Icon/Icon";
 import SearchIcon from "../../../assets/search-icon.svg";
 import PlaceholderArrow from "../../../assets/placeholder-arrow.svg";
 
-import { colors } from "../../../theme.js"
+import { colors } from "../../../theme";
 
 // functions
 
@@ -138,7 +138,7 @@ class AutosuggestComponent extends Component {
     if (e.key === "Enter") {
       if (suggestions[0].isEmpty) {
         return this.props.history.push({
-          pathname: "/add-profile",
+          pathname: ADD_PROFILE_URL.replace(":name", value),
           state: {
             name: `${value}`,
             referrerUrl: this.props.location.pathname,
@@ -264,9 +264,19 @@ class AutosuggestComponent extends Component {
           {!noIcon && (
             <IconDiv iconTop={iconTop} onClick={this.delSearchInput}>
               {value.length > 0 ? (
-                <Icon icon="close" height="24px" width="24px" color={colors.dustyGray1} />
+                <Icon
+                  icon="close"
+                  height="24px"
+                  width="24px"
+                  color={colors.dustyGray1}
+                />
               ) : (
-                <Icon icon="search" height="24px" width="24px" color={colors.dustyGray1} />
+                <Icon
+                  icon="search"
+                  height="24px"
+                  width="24px"
+                  color={colors.dustyGray1}
+                />
               )}
             </IconDiv>
           )}
