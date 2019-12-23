@@ -15,32 +15,43 @@ const generalFontWeight = "normal";
 export const YesNoWrapper = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: column;
   height: ${props => (props.large ? "4rem" : "2rem")};
   font-weight: ${generalFontWeight};
   font-size: ${generalFontSize};
+  border: 2px solid black;
 `;
 
-export const YesHalf = styled.div`
+export const AnswerBar = styled.div`
   width: ${({ width }) => {
     if (width < 25) return "25%";
     if (width > 75) return "75%";
     return `${width}%`;
   }};
   background-color: ${props => (props.width === 0 ? colors.red : colors.green)};
+  background-color: ${props =>
+    props.width === 0 ? colors.red : colors[props.background]};
   border-right: none;
   color: ${colors.white};
   padding: 0;
   padding-left: 0.5rem;
-  display: flex;
-  align-items: center;
+  // align-items: center;
   font-size: 15px;
-  position: relative;
+  // position: relative;
 
   p {
     margin: 0;
-    position: absolute;
+    // position: absolute;
   }
 `;
+
+export const AnswerWrapper = styled.div`
+  display: flex;
+`;
+
+export const AnswerText = styled.p``;
+
+export const AnswerCount = styled.p``;
 
 export const NoHalf = styled.div`
   width: ${({ width }) => {
@@ -49,19 +60,20 @@ export const NoHalf = styled.div`
     return `${width}%`;
   }};
   background-color: ${props => (props.width === 0 ? colors.green : colors.red)};
+
   border-left: none;
   color: ${colors.white};
   padding: 0;
   padding-right: 0.5rem;
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  // justify-content: flex-end;
+  // align-items: center;
   font-size: 15px;
-  position: relative;
+  // position: relative;
 
   p {
     margin: 0;
-    position: absolute;
+    // position: absolute;
   }
 `;
 

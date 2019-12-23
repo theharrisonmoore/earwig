@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 
-import { YesNoWrapper, YesHalf, NoHalf } from "./ProfileAnswers.style";
+import {
+  YesNoWrapper,
+  AnswerWrapper,
+  AnswerBar,
+  AnswerText,
+  AnswerCount,
+  NoHalf,
+} from "./ProfileAnswers.style";
 
 export default class YesNoAnswer extends Component {
   countYesNo = answers => {
@@ -32,12 +39,18 @@ export default class YesNoAnswer extends Component {
           question.profileText.includes("Overall, would you recommend")
         }
       >
-        <YesHalf width={answerObj.yesPercentage}>
-          <p>Yes ({answerObj.yesCount})</p>
-        </YesHalf>
-        <NoHalf width={answerObj.noPercentage}>
-          <p>No ({answerObj.noCount})</p>
-        </NoHalf>
+        {/* yes */}
+        <AnswerWrapper>
+          <AnswerText>Yes</AnswerText>
+          <AnswerBar background="green" width={answerObj.yesPercentage} />
+          <AnswerCount> {answerObj.yesCount}</AnswerCount>
+        </AnswerWrapper>
+        {/* no */}
+        <AnswerWrapper>
+          <AnswerText>No</AnswerText>
+          <AnswerBar background="red" width={answerObj.noPercentage} />
+          <AnswerCount> {answerObj.noCount}</AnswerCount>
+        </AnswerWrapper>
       </YesNoWrapper>
     );
   }
