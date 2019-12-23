@@ -207,7 +207,7 @@ const getOrder = code => {
   return order;
 };
 
-export const sortAndCategorizeOrgs = arrayOfOrgs => {
+export const sortOrganisations = arrayOfOrgs => {
   const sorted = arrayOfOrgs.sort((a, b) => {
     const last = String.fromCharCode(0xffff);
     function ignoreSpecialChars(x) {
@@ -242,6 +242,11 @@ export const sortAndCategorizeOrgs = arrayOfOrgs => {
     return 0;
   });
 
+  return sorted;
+};
+
+export const sortAndCategorizeOrgs = arrayOfOrgs => {
+  const sorted = sortOrganisations(arrayOfOrgs);
   const newArray = sorted.reduce(
     (prev, org) => {
       let height = 74;
