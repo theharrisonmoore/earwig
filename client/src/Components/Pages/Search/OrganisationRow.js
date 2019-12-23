@@ -31,7 +31,9 @@ const Suggestion = props => {
       <ProfileLink
         as={isButton}
         to={isButton || url}
-        onClick={() => storeOrg(organisation)}
+        onClick={() =>
+          storeOrg instanceof Function ? storeOrg(organisation) : undefined
+        }
       >
         <SuggestionBox
           orgType={organisation.category}
