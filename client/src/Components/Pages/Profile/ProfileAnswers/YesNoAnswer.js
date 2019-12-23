@@ -2,11 +2,12 @@ import React, { Component } from "react";
 
 import {
   YesNoWrapper,
-  AnswerWrapper,
+  AnswerTextWrapper,
+  AnswerBarWrapper,
+  AnswerCountWrapper,
   AnswerBar,
   AnswerText,
   AnswerCount,
-  NoHalf,
 } from "./ProfileAnswers.style";
 
 export default class YesNoAnswer extends Component {
@@ -28,29 +29,32 @@ export default class YesNoAnswer extends Component {
     return answerObj;
   };
 
+  decideLarge = question =>
+    question.profileText &&
+    question.profileText.includes("Overall, would you recommend");
+
   render() {
     const { question } = this.props;
     const answerObj = this.countYesNo(question.answers);
 
     return (
-      <YesNoWrapper
-        large={
-          question.profileText &&
-          question.profileText.includes("Overall, would you recommend")
-        }
-      >
-        {/* yes */}
-        <AnswerWrapper>
+      <YesNoWrapper large={this.decideLarge(question)}>
+        {/* answer text yes / no */}
+        <AnswerTextWrapper large={this.decideLarge(question)}>
           <AnswerText>Yes</AnswerText>
-          <AnswerBar background="green" width={answerObj.yesPercentage} />
-          <AnswerCount> {answerObj.yesCount}</AnswerCount>
-        </AnswerWrapper>
-        {/* no */}
-        <AnswerWrapper>
           <AnswerText>No</AnswerText>
+        </AnswerTextWrapper>
+        {/* answer bars */}
+        <AnswerBarWrapper large={this.decideLarge(question)}>
+          <AnswerBar background="green" width={answerObj.yesPercentage} />
           <AnswerBar background="red" width={answerObj.noPercentage} />
+        </AnswerBarWrapper>
+
+        {/* answer counts */}
+        <AnswerCountWrapper large={this.decideLarge(question)}>
+          <AnswerCount> {answerObj.yesCount}</AnswerCount>
           <AnswerCount> {answerObj.noCount}</AnswerCount>
-        </AnswerWrapper>
+        </AnswerCountWrapper>
       </YesNoWrapper>
     );
   }

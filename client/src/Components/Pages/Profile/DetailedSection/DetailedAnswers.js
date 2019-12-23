@@ -12,7 +12,6 @@ const DetailedAnswers = ({
   toggleComments,
 }) => {
   const { category } = summary;
-  console.log("details", reviewDetails);
   return (
     <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
       <SectionTitle>Detailed answers by workers</SectionTitle>

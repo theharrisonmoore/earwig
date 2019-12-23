@@ -15,8 +15,7 @@ const generalFontWeight = "normal";
 export const YesNoWrapper = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: column;
-  height: ${props => (props.large ? "4rem" : "2rem")};
+  height: ${props => (props.large ? "40px" : "24px")};
   font-weight: ${generalFontWeight};
   font-size: ${generalFontSize};
   border: 2px solid black;
@@ -28,9 +27,8 @@ export const AnswerBar = styled.div`
     if (width > 75) return "75%";
     return `${width}%`;
   }};
-  background-color: ${props => (props.width === 0 ? colors.red : colors.green)};
-  background-color: ${props =>
-    props.width === 0 ? colors.red : colors[props.background]};
+
+  background-color: ${props => colors[props.background]};
   border-right: none;
   color: ${colors.white};
   padding: 0;
@@ -45,37 +43,49 @@ export const AnswerBar = styled.div`
   }
 `;
 
-export const AnswerWrapper = styled.div`
+const AnswerContainer = styled.div`
   display: flex;
+  flex-direction: column;
 `;
+
+export const AnswerTextWrapper = styled(AnswerContainer)``;
+
+export const AnswerBarWrapper = styled(AnswerContainer)`
+  height: ${props => (props.large ? "32px" : "16px")};
+`;
+
+export const AnswerCountWrapper = styled(AnswerContainer)``;
 
 export const AnswerText = styled.p``;
 
 export const AnswerCount = styled.p``;
 
-export const NoHalf = styled.div`
-  width: ${({ width }) => {
-    if (width < 25) return "25%";
-    if (width > 75) return "75%";
-    return `${width}%`;
-  }};
-  background-color: ${props => (props.width === 0 ? colors.green : colors.red)};
+// export const NoHalf = styled.div`
+//   width: ${({ width }) => {
+//     if (width < 25) return "25%";
+//     if (width > 75) return "75%";
+//     return `${width}%`;
+//   }};
+//   background-color: ${props => (props.width === 0 ? colors.green : colors.red)};
 
-  border-left: none;
-  color: ${colors.white};
-  padding: 0;
-  padding-right: 0.5rem;
-  display: flex;
-  // justify-content: flex-end;
-  // align-items: center;
-  font-size: 15px;
-  // position: relative;
+//   border-left: none;
+//   color: ${colors.white};
+//   padding: 0;
+//   padding-right: 0.5rem;
+//   display: flex;
+//   // justify-content: flex-end;
+//   // align-items: center;
+//   font-size: 15px;
+//   // position: relative;
 
-  p {
-    margin: 0;
-    // position: absolute;
-  }
-`;
+//   p {
+//     margin: 0;
+//     // position: absolute;
+//   }
+// `;
+
+// background-color: ${props =>
+//   props.width === 0 ? colors.red : colors[props.background]};
 
 export const Comment = styled.button`
   border: none;
