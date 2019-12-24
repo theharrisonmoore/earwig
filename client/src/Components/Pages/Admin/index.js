@@ -20,7 +20,6 @@ export default class Admin extends Component {
   };
 
   onCollapse = () => {
-    console.log();
     this.setState(prevState => ({ collapsed: !prevState.collapsed }));
   };
 

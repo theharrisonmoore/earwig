@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Menu, Icon } from "antd";
 import { Link } from "react-router-dom";
 
-import { SideMenuWrapper, StyledButton as Button } from "./SideMenu.style";
+import { StyledButton as Button } from "./SideMenu.style";
 
 import { handleLogout } from "../../../../helpers";
 
@@ -42,11 +42,11 @@ export default class SideMenu extends Component {
     const { pathname } = this.props.location;
     const { handleChangeState, history } = this.props;
     return (
-      <SideMenuWrapper style={{ height: "100%" }}>
+      <>
         <Button
           type="primary"
           onClick={this.props.toggleCollapsed}
-          style={{ marginBottom: 16 }}
+          style={{ marginBottom: 16, zIndex: "2" }}
         >
           <Icon type={this.props.collapsed ? "menu-unfold" : "menu-fold"} />
         </Button>
@@ -110,7 +110,7 @@ export default class SideMenu extends Component {
             <span>Log out</span>
           </Menu.Item>
         </Menu>
-      </SideMenuWrapper>
+      </>
     );
   }
 }
