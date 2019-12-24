@@ -83,6 +83,7 @@ class DropDown extends Component {
                 ...dropdownOptions,
                 addedOrg,
               ]),
+              addedOrg,
             });
 
             handleAddNewOrgChange(addedOrg, number);
