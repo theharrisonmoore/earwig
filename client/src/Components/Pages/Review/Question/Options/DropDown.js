@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { Modal, Alert } from "antd";
 import axios from "axios";
 import ReactSelect from "../../../../Common/ReactSelect";
+import { sortOrganisations } from "../../../../../helpers";
+
 import { QuestionOptionsWrapper, Options, Input } from "../Question.style";
 
 class DropDown extends Component {
@@ -19,7 +21,7 @@ class DropDown extends Component {
   componentDidMount() {
     const { dropdownOptions } = this.props;
 
-    this.setState({ dropdownOptions });
+    this.setState({ dropdownOptions: sortOrganisations(dropdownOptions) });
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -77,8 +79,10 @@ class DropDown extends Component {
             this.setState({
               newOrg: data.name,
               // disableSelect: true,
-              dropdownOptions: [...dropdownOptions, addedOrg],
-              addedOrg,
+              dropdownOptions: sortOrganisations([
+                ...dropdownOptions,
+                addedOrg,
+              ]),
             });
 
             handleAddNewOrgChange(addedOrg, number);

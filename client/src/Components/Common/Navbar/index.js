@@ -129,6 +129,7 @@ export default class Navbar extends Component {
               handleChangeState={handleChangeState}
               verified={verified}
               awaitingReview={awaitingReview}
+              level={level}
             />
           </>
         ) : (
