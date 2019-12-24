@@ -13,79 +13,52 @@ const generalFontSize = "15px";
 const generalFontWeight = "normal";
 
 export const YesNoWrapper = styled.div`
-  width: 100%;
   display: flex;
-  height: ${props => (props.large ? "40px" : "24px")};
-  font-weight: ${generalFontWeight};
-  font-size: ${generalFontSize};
-  border: 2px solid black;
+  flex-direction: column;
+  border: 1px solid red;
+  justify-content: center;
+  align-items: flex-start;
+  height: ${props => (props.large ? "70px" : "48px")};
+`;
+
+export const Row = styled.div`
+  display: flex;
+  width: 300px;
+  height: 40px;
+  border: 1px solid blue;
 `;
 
 export const AnswerBar = styled.div`
   width: ${({ width }) => {
+    console.log("width", width);
     if (width < 25) return "25%";
     if (width > 75) return "75%";
     return `${width}%`;
   }};
-
   background-color: ${props => colors[props.background]};
-  border-right: none;
   color: ${colors.white};
-  padding: 0;
-  padding-left: 0.5rem;
-  // align-items: center;
-  font-size: 15px;
-  // position: relative;
-
-  p {
-    margin: 0;
-    // position: absolute;
-  }
+  height: ${props => (props.large ? "22px" : "14px")};
+  align-self: center;
 `;
 
-const AnswerContainer = styled.div`
+export const AnswerText = styled.div`
+  border: 1px solid black;
+  height: ${props => (props.large ? "22px" : "14px")};
   display: flex;
+  align-self: center;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: ${props => (props.large ? "2.5rem" : "1.5rem")};
+  font-size: ${props => (props.large ? "20px" : "12px")};
 `;
 
-export const AnswerTextWrapper = styled(AnswerContainer)``;
-
-export const AnswerBarWrapper = styled(AnswerContainer)`
-  height: ${props => (props.large ? "32px" : "16px")};
+export const AnswerCount = styled.div`
+  color: ${colors.profileFontColor};
+  align-self: center;
+  margin-left: 0.4rem;
+  font-size: ${props => (props.large ? "20px" : "12px")};
 `;
-
-export const AnswerCountWrapper = styled(AnswerContainer)``;
-
-export const AnswerText = styled.p``;
-
-export const AnswerCount = styled.p``;
-
-// export const NoHalf = styled.div`
-//   width: ${({ width }) => {
-//     if (width < 25) return "25%";
-//     if (width > 75) return "75%";
-//     return `${width}%`;
-//   }};
-//   background-color: ${props => (props.width === 0 ? colors.green : colors.red)};
-
-//   border-left: none;
-//   color: ${colors.white};
-//   padding: 0;
-//   padding-right: 0.5rem;
-//   display: flex;
-//   // justify-content: flex-end;
-//   // align-items: center;
-//   font-size: 15px;
-//   // position: relative;
-
-//   p {
-//     margin: 0;
-//     // position: absolute;
-//   }
-// `;
-
-// background-color: ${props =>
-//   props.width === 0 ? colors.red : colors[props.background]};
 
 export const Comment = styled.button`
   border: none;
