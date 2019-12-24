@@ -179,7 +179,7 @@ class DropDown extends Component {
     return (
       <QuestionOptionsWrapper>
         <ReactSelect
-          style={{ width: "calc(85% - 1rem)" }}
+          width="calc(85% - 1rem)"
           showSearch
           placeholder={label}
           id="newOrg"

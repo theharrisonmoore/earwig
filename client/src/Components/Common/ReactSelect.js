@@ -1,34 +1,68 @@
 import React, { Component } from "react";
-import CreatableSelect from "react-select/creatable";
 import Select from "react-virtualized-select";
+import { components } from "react-select";
+import AsyncCreatableSelect from "react-select/async-creatable";
 
-import withSelect from "./withSelect";
+import "react-virtualized-select/styles.css";
 
-// import "react-select/dist/react-select.css";
 // import "react-virtualized-select/styles.css";
 
+import withSelect from "./withSelect";
+import Icon from "./Icon/Icon";
+
+import { colors } from "../../theme";
+
+const DropdownIndicator = props => {
+  return (
+    <components.DropdownIndicator {...props}>
+      <Icon
+        icon="search"
+        height="19px"
+        width="19px"
+        className="selectIcon"
+        color={colors.dustyGray1}
+      />
+    </components.DropdownIndicator>
+  );
+};
+
 class ReactSelect extends Component {
-  filterOption = ({ label }, searchWord) =>
-    label.toLowerCase().indexOf(searchWord.toLowerCase()) >= 0;
+  filterColors = inputValue => {
+    return this.props.options
+      .filter(i => i.name.toLowerCase().includes(inputValue.toLowerCase()))
+      .map(item => ({
+        ...item,
+        value: item._id,
+        label: item.name,
+      }));
+  };
+
+  promiseOptions = inputValue => {
+    return new Promise(resolve => {
+      resolve(this.filterColors(inputValue));
+    });
+  };
 
   render() {
-    const { options, placeholder, addHandler, value } = this.props;
+    const { placeholder, addHandler, value } = this.props;
+
     return (
-      <Select
+      <AsyncCreatableSelect
         placeholder={placeholder}
-        options={options.map(item => ({
-          ...item,
-          value: item._id,
-          label: item.name,
-        }))}
-        selectComponent={CreatableSelect}
-        filterOption={this.filterOption}
         onCreateOption={addHandler}
         onBlur={this.props.onBlur}
         onFocus={this.props.onFocus}
         value={value}
-        // styles={{ menu: base => ({ ...base, position: "relative" }) }}
+        components={{ DropdownIndicator, IndicatorSeparator: null }}
+        styles={{ menu: base => ({ ...base, position: "relative" }) }}
         onChange={this.props.handleChange}
+        loadOptions={this.promiseOptions}
+        cacheOptions
+        menuIsOpen={this.props.open}
+        closeMenuOnScroll
+        noOptionsMessage={() => "Input to search"}
+        // keep this dummy function to auto clear the input value on blur
+        onInputChange={() => {}}
       />
     );
   }

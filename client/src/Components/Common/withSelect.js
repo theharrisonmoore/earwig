@@ -76,12 +76,19 @@ export default WrappedComponent => {
         // offset to be scrolled
         const offsetPosition = windowScroll + elementPosition - topOffset;
 
-        let i = windowScroll;
-        const int = setInterval(() => {
-          window.scrollTo(0, i);
-          i += 20;
-          if (i >= offsetPosition) clearInterval(int);
-        }, 10);
+        if ("scrollBehavior" in document.documentElement.style) {
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        } else {
+          let i = windowScroll;
+          const int = setInterval(() => {
+            window.scrollTo(0, i);
+            i += 20;
+            if (i >= offsetPosition) clearInterval(int);
+          }, 10);
+        }
       }
     };
 
