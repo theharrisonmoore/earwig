@@ -1,11 +1,6 @@
 import React, { Component } from "react";
-import Select from "react-virtualized-select";
 import { components } from "react-select";
 import AsyncCreatableSelect from "react-select/async-creatable";
-
-import "react-virtualized-select/styles.css";
-
-// import "react-virtualized-select/styles.css";
 
 import withSelect from "./withSelect";
 import Icon from "./Icon/Icon";
