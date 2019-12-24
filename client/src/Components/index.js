@@ -416,21 +416,6 @@ export default function index(props) {
           Component={OrgCheck}
           loggingIn
         />
-        <Route
-          exact
-          path="/"
-          render={linkProps =>
-            !isLoggedIn ? (
-              <Welcome
-                {...props}
-                {...linkProps}
-                handleChangeState={handleChangeState}
-              />
-            ) : (
-              <Redirect to={isAdmin ? ADMIN : HOME_PAGE} />
-            )
-          }
-        />
         <PrivateRoute
           minimumLevel="LEVEL0"
           path={HOME_PAGE}
@@ -439,7 +424,21 @@ export default function index(props) {
           isTablet={isTablet}
           Component={Welcome}
           navbar
+          exact
+          handleChangeState={handleChangeState}
         />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={HOME_PAGE}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={Welcome}
+          navbar
+          exact
+        />
+
         <PrivateRoute
           minimumLevel="LEVEL0"
           path={PRE_REVIEW}
