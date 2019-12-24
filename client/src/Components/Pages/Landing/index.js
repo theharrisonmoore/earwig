@@ -44,7 +44,7 @@ import {
 import {
   SIGNUP_URL,
   RESET_PASSWORD_URL,
-  WELCOME_URL,
+  HOME_PAGE,
 } from "../../../constants/naviagationUrls";
 
 const initalValues = { email: "", password: "" };
@@ -66,7 +66,7 @@ export default class index extends Component {
       .post("/api/login", values)
       .then(({ data }) => {
         this.props.handleChangeState({ ...data, isLoggedIn: true });
-        this.props.history.push(WELCOME_URL);
+        this.props.history.push(HOME_PAGE);
       })
       .catch(err => {
         this.setState({ error: err.response.data.error });
@@ -156,7 +156,7 @@ export default class index extends Component {
           <Link to={SIGNUP_URL}>Create an account</Link>
         </p>
         <Icon icon="orWhite" margin="2rem 0 2rem 0" width="280" height="58" />
-        <Link to={WELCOME_URL}>Continue without an account</Link>
+        <Link to={HOME_PAGE}>Continue without an account</Link>
         {isMobile || isTablet ? (
           <VideoWrapper style={{ marginTop: "3rem" }}>
             <Video
@@ -168,7 +168,7 @@ export default class index extends Component {
           </VideoWrapper>
         ) : null}
         <WhiteWrapper>
-          <SectionTitle>earwig's promises</SectionTitle>
+          <SectionTitle>earwig&apos;s promises</SectionTitle>
           <PromiseParagraph>
             You’ll only see verified worker-led information <br />
             Your reviews will always be seen by industry <br />
@@ -176,7 +176,7 @@ export default class index extends Component {
           </PromiseParagraph>
         </WhiteWrapper>
         <AwardsWrapper>
-          <SectionTitle color={colors.white}>earwig's awards</SectionTitle>
+          <SectionTitle color={colors.white}>earwig&apos;s awards</SectionTitle>
           <AwardDiv isMobile={isMobile}>
             <Award isMobile={isMobile}>
               <Icon

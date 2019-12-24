@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import axios from "axios";
 
 // COMMON
-import Icon from "./../../Common/Icon/Icon";
-import CancelNavbar from "./../../Common/CancelNavbar";
-import Loading from "./../../Common/AntdComponents/Loading";
-import Button from "./../../Common/Button";
+import Icon from "../../Common/Icon/Icon";
+import CancelNavbar from "../../Common/CancelNavbar";
+import Loading from "../../Common/AntdComponents/Loading";
+import Button from "../../Common/Button";
 
 // STYLING
 import {
@@ -20,22 +20,22 @@ import {
   Row,
   OrgText,
   ConfirmQuestion,
-  StyledLink
-} from "./OrgCheck.style.js";
+  StyledLink,
+} from "./OrgCheck.style";
 
-import { organizations, colors } from "./../../../theme";
+import { organizations, colors } from "../../../theme";
 
 // API ROUTES
 import {
   API_SEARCH_URL,
   API_SET_ORGS,
-  API_GET_USER_ORGS
+  API_GET_USER_ORGS,
 } from "../../../apiUrls";
 
 // NAV ROUTES
-import { WELCOME_URL } from "../../../constants/naviagationUrls";
+import { HOME_PAGE } from "../../../constants/naviagationUrls";
 
-import AutosuggestComponent from "../../Pages/Search/AutoSuggest";
+import AutosuggestComponent from "../Search/AutoSuggest";
 
 export const axiosCall = async () => {
   const response = await axios.get(API_SEARCH_URL);
@@ -48,14 +48,14 @@ export default class index extends Component {
       agency: "None",
       payroll: "None",
       worksite: "None",
-      company: "None"
+      company: "None",
     },
     signUp: true,
     section: "agency",
     data: null,
     isLoaded: false,
     loggingIn: false,
-    updating: true
+    updating: true,
   };
 
   componentDidMount() {
@@ -63,7 +63,7 @@ export default class index extends Component {
       .then(({ data }) => {
         this.setState({
           data: data[0].searchData,
-          isLoaded: true
+          isLoaded: true,
         });
       })
       .catch(err => {
@@ -86,7 +86,7 @@ export default class index extends Component {
             fields,
             loggingIn,
             section: "confirm",
-            updating: false
+            updating: false,
           });
         })
         .catch(err => console.log(err));
@@ -147,7 +147,7 @@ export default class index extends Component {
 
     this.setState(prevState => ({
       fields: { ...prevState.fields, [section]: value },
-      data: [...prevState.data, value]
+      data: [...prevState.data, value],
     }));
     this.sectionChange("forward");
   };
@@ -161,7 +161,7 @@ export default class index extends Component {
       currentAgency: fields.agency,
       currentPayroll: fields.payroll,
       currentWorksite: fields.worksite,
-      currentCompany: fields.company
+      currentCompany: fields.company,
     };
 
     const answers = Object.entries(currentOrgs);
@@ -172,13 +172,13 @@ export default class index extends Component {
 
     axios
       .post(API_SET_ORGS, currentOrgs)
-      .then(() => history.push(WELCOME_URL))
+      .then(() => history.push(HOME_PAGE))
       .catch(err => console.log(err));
   };
 
   nothingToChange = () => {
     const { history } = this.props;
-    history.push(WELCOME_URL);
+    history.push(HOME_PAGE);
   };
 
   decideColor = () => {
