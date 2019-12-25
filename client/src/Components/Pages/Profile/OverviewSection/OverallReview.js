@@ -350,8 +350,10 @@ class OverallReview extends Component {
           Reviews by workers ({writtenOrAudioReviews.length})
         </SectionTitle>
         {/* check if any written comments */}
-        {this.checkWrittenComments(summary.reviews) === false && (
-          <LightTitle>No written reviews yet. Be the first...</LightTitle>
+        {writtenOrAudioReviews.length === 0 && (
+          <LightTitle>
+            No written or audio reviews yet. Be the first...
+          </LightTitle>
         )}
         {writtenOrAudioReviews &&
           writtenOrAudioReviews.map(review => {
