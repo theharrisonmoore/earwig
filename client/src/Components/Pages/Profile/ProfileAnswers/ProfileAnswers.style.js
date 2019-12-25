@@ -9,7 +9,7 @@ import {
   size,
 } from "../../../../theme";
 
-const generalFontSize = "15px";
+const generalFontSize = "1rem";
 const generalFontWeight = "normal";
 
 export const YesNoWrapper = styled.div`
@@ -18,19 +18,13 @@ export const YesNoWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  height: ${props => (props.large ? "70px" : "48px")};
+  height: ${props => (props.large ? "4.4rem" : "3rem")};
 `;
 
 export const Row = styled.div`
   // border: 1px solid blue;
   display: flex;
   min-width: 75%;
-`;
-
-export const Line = styled.div`
-  border: 1px solid blue;
-  height: ${props => (props.large ? "70px" : "48px")};
-  margin-top: 4rem;
 `;
 
 export const AnswerBar = styled.div`
@@ -42,23 +36,24 @@ export const AnswerBar = styled.div`
   }};
   background-color: ${props => colors[props.background]};
   color: ${colors.white};
-  height: ${props => (props.large ? "22px" : "14px")};
+  height: ${props => (props.large ? "1.4rem" : "1rem")};
   align-self: center;
 `;
 
 export const AnswerText = styled.div`
   // border: 1px solid black;
-  height: ${props => (props.large ? "22px" : "14px")};
+  height: ${props => (props.large ? "1.4rem" : "1rem")};
   display: flex;
   align-self: center;
   flex-direction: column;
   align-items: flex-end;
   border-right: 1px solid ${colors.lightGray};
   padding-bottom: 1.5em;
-  padding-right: 0.5em;
+  padding-right: 0.2rem;
+  margin-left: ${props => (props.large ? "-0.6rem" : "-1.4rem")};
   justify-content: center;
-  min-width: ${props => (props.large ? "3rem" : "3rem")};
-  font-size: ${props => (props.large ? "20px" : "12px")};
+  min-width: 3rem;
+  font-size: ${props => (props.large ? "1.25rem" : "0.75rem")};
 
   p {
     margin-top: 2.5em;
@@ -66,10 +61,21 @@ export const AnswerText = styled.div`
 `;
 
 export const AnswerCount = styled.div`
-  color: ${colors.profileFontColor};
+  color: ${colors.gray};
   align-self: center;
-  margin-left: 0.4rem;
-  font-size: ${props => (props.large ? "20px" : "12px")};
+  // border: 1px solid black;
+  margin-top: ${props => (!props.hasData ? "0.7em" : "0")};
+  margin-left: ${props => {
+    if (!props.hasData && props.large) {
+      return `2.8rem`;
+    }
+    if (!props.hasData && !props.large) {
+      return `1.8rem`;
+    }
+    return `0.2rem`;
+  }};
+  position: ${props => (!props.hasData ? "absolute" : "relative")};
+  font-size: ${props => (props.large ? "1.25rem" : "0.75rem")};
 `;
 
 export const Comment = styled.button`

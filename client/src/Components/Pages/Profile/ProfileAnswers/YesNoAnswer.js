@@ -35,6 +35,9 @@ export default class YesNoAnswer extends Component {
   render() {
     const { question, zeroAnswers } = this.props;
     const answerObj = this.countYesNo(question.answers);
+
+    console.log(answerObj);
+
     return (
       <YesNoWrapper large={this.decideLarge(question)}>
         <Row>
@@ -48,8 +51,11 @@ export default class YesNoAnswer extends Component {
               width={answerObj.yesPercentage}
             />
           )}
-          <AnswerCount large={this.decideLarge(question)}>
-            {answerObj.yesCount}
+          <AnswerCount
+            hasData={!zeroAnswers}
+            large={this.decideLarge(question)}
+          >
+            {zeroAnswers ? "No answers yet" : answerObj.yesCount}
           </AnswerCount>
         </Row>
         <Row>
@@ -63,8 +69,11 @@ export default class YesNoAnswer extends Component {
               width={answerObj.noPercentage}
             />
           )}
-          <AnswerCount large={this.decideLarge(question)}>
-            {answerObj.noCount}
+          <AnswerCount
+            large={this.decideLarge(question)}
+            hasData={!zeroAnswers}
+          >
+            {zeroAnswers ? "" : answerObj.noCount}
           </AnswerCount>
         </Row>
       </YesNoWrapper>
