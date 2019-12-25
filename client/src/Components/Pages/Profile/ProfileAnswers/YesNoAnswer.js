@@ -6,6 +6,7 @@ import {
   AnswerBar,
   AnswerText,
   AnswerCount,
+  Line,
 } from "./ProfileAnswers.style";
 
 export default class YesNoAnswer extends Component {
@@ -32,30 +33,36 @@ export default class YesNoAnswer extends Component {
     question.profileText.includes("Overall, would you recommend");
 
   render() {
-    const { question } = this.props;
+    const { question, zeroAnswers } = this.props;
     const answerObj = this.countYesNo(question.answers);
-
     return (
       <YesNoWrapper large={this.decideLarge(question)}>
         <Row>
-          <AnswerText large={this.decideLarge(question)}>Yes</AnswerText>
-
-          <AnswerBar
-            large={this.decideLarge(question)}
-            background="green"
-            width={answerObj.yesPercentage}
-          />
+          <AnswerText large={this.decideLarge(question)}>
+            <p>Yes </p>
+          </AnswerText>
+          {!zeroAnswers && (
+            <AnswerBar
+              large={this.decideLarge(question)}
+              background="green"
+              width={answerObj.yesPercentage}
+            />
+          )}
           <AnswerCount large={this.decideLarge(question)}>
             {answerObj.yesCount}
           </AnswerCount>
         </Row>
         <Row>
-          <AnswerText large={this.decideLarge(question)}>No</AnswerText>
-          <AnswerBar
-            large={this.decideLarge(question)}
-            background="red"
-            width={answerObj.noPercentage}
-          />
+          <AnswerText large={this.decideLarge(question)}>
+            <p>No </p>
+          </AnswerText>
+          {!zeroAnswers && (
+            <AnswerBar
+              large={this.decideLarge(question)}
+              background="red"
+              width={answerObj.noPercentage}
+            />
+          )}
           <AnswerCount large={this.decideLarge(question)}>
             {answerObj.noCount}
           </AnswerCount>

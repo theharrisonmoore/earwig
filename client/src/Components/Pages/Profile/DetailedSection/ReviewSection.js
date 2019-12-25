@@ -21,7 +21,6 @@ import ImageSlider from "../ProfileAnswers/ImageSlider";
 
 export default class ReviewSection extends Component {
   onlyNeutralAnswers = answers => {
-    console.log("answers", answers);
     const yesOrNo = answers.filter(
       answer => answer.answer === "Yes" || answer.answer === "No",
     );
@@ -144,7 +143,14 @@ export default class ReviewSection extends Component {
                       {question.hintText && (
                         <HintText>{question.hintText}</HintText>
                       )}
-                      {this.onlyNeutralAnswers(question.answers) === false ? (
+                      <YesNoAnswer
+                        category={category}
+                        question={question}
+                        toggleComments={toggleComments}
+                        isMobile={isMobile}
+                        zeroAnswers={this.onlyNeutralAnswers(question.answers)}
+                      />
+                      {/* {this.onlyNeutralAnswers(question.answers) === false ? (
                         <YesNoAnswer
                           category={category}
                           question={question}
@@ -152,7 +158,7 @@ export default class ReviewSection extends Component {
                           isMobile={isMobile}
                         />
                       ) : (
-                        <LightTitle
+                        <ZeroYesNoAnswers
                           bar
                           large={
                             question.profileText &&
@@ -162,8 +168,8 @@ export default class ReviewSection extends Component {
                           }
                         >
                           <p>No answers yet</p>
-                        </LightTitle>
-                      )}
+                        </ZeroYesNoAnswers>
+                      )} */}
                     </QuestionWrapper>
                   )}
                   {question.profileType === "pieChart" && (

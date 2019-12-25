@@ -13,19 +13,24 @@ const generalFontSize = "15px";
 const generalFontWeight = "normal";
 
 export const YesNoWrapper = styled.div`
+  // border: 1px solid red;
   display: flex;
   flex-direction: column;
-  border: 1px solid red;
   justify-content: center;
   align-items: flex-start;
   height: ${props => (props.large ? "70px" : "48px")};
 `;
 
 export const Row = styled.div`
+  // border: 1px solid blue;
   display: flex;
-  width: 300px;
-  height: 40px;
+  min-width: 75%;
+`;
+
+export const Line = styled.div`
   border: 1px solid blue;
+  height: ${props => (props.large ? "70px" : "48px")};
+  margin-top: 4rem;
 `;
 
 export const AnswerBar = styled.div`
@@ -42,15 +47,22 @@ export const AnswerBar = styled.div`
 `;
 
 export const AnswerText = styled.div`
-  border: 1px solid black;
+  // border: 1px solid black;
   height: ${props => (props.large ? "22px" : "14px")};
   display: flex;
   align-self: center;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
+  border-right: 1px solid ${colors.lightGray};
+  padding-bottom: 1.5em;
+  padding-right: 0.5em;
   justify-content: center;
-  min-width: ${props => (props.large ? "2.5rem" : "1.5rem")};
+  min-width: ${props => (props.large ? "3rem" : "3rem")};
   font-size: ${props => (props.large ? "20px" : "12px")};
+
+  p {
+    margin-top: 2.5em;
+  }
 `;
 
 export const AnswerCount = styled.div`
