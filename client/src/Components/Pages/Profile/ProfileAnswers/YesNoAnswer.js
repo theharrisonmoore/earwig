@@ -6,7 +6,6 @@ import {
   AnswerBar,
   AnswerText,
   AnswerCount,
-  Line,
 } from "./ProfileAnswers.style";
 
 export default class YesNoAnswer extends Component {
@@ -28,15 +27,44 @@ export default class YesNoAnswer extends Component {
     return answerObj;
   };
 
+  // decides if a question should be rendered as large (overall) question
   decideLarge = question =>
     question.profileText &&
     question.profileText.includes("Overall, would you recommend");
 
+  // determines percentage of yes/no counts of question related to next limit
+  // First, numbers should be counted 1-9
+  // Beyond 9, numbers should be counted 1-19
+  // Beyond 19, numbers should be counted 1-29 ...
+
+  decideLimit = (yesCount, noCount) => {
+    // check if input number is positive
+    if (yesCount < 0 || noCount < 0) {
+      return undefined;
+    }
+
+    // first find next biggest number of biggest input divisible by 10 without remainder
+    // e.g. (2, 3) -> 10, (2, 12) -> 20
+    const biggestNumber = Math.max(yesCount, noCount);
+
+    const getCounter = () => {
+      let counter = 1;
+      // by increasing counter by 1 in each step
+      while ((biggestNumber + counter) % 10 > 0) {
+        counter += 1;
+      }
+      return counter;
+    };
+    // second calculate next possible limit
+    // e.g. 2 -> 9, 12 -> 19, 99 -> 99
+    const limit = biggestNumber + getCounter() - 1;
+    return limit;
+  };
+
   render() {
     const { question, zeroAnswers } = this.props;
     const answerObj = this.countYesNo(question.answers);
-
-    console.log(answerObj);
+    const { yesCount, noCount } = answerObj;
 
     return (
       <YesNoWrapper large={this.decideLarge(question)}>
@@ -48,7 +76,8 @@ export default class YesNoAnswer extends Component {
             <AnswerBar
               large={this.decideLarge(question)}
               background="green"
-              width={answerObj.yesPercentage}
+              // barWidth = (answerCount * 100) / limit;
+              width={(yesCount * 100) / this.decideLimit(yesCount, noCount)}
             />
           )}
           <AnswerCount
@@ -66,7 +95,8 @@ export default class YesNoAnswer extends Component {
             <AnswerBar
               large={this.decideLarge(question)}
               background="red"
-              width={answerObj.noPercentage}
+              // width={answerObj.noPercentage}
+              width={(noCount * 100) / this.decideLimit(yesCount, noCount)}
             />
           )}
           <AnswerCount

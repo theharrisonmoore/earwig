@@ -24,14 +24,13 @@ export const YesNoWrapper = styled.div`
 export const Row = styled.div`
   // border: 1px solid blue;
   display: flex;
-  min-width: 75%;
+  width: 80%;
 `;
 
 export const AnswerBar = styled.div`
   width: ${({ width }) => {
-    console.log("width", width);
+    if (width < 10) return "2%";
     if (width < 25) return "25%";
-    if (width > 75) return "75%";
     return `${width}%`;
   }};
   background-color: ${props => colors[props.background]};
