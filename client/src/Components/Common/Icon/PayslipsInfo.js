@@ -11,9 +11,8 @@ const PayslipsInfo = props => (
   >
     {" "}
     <image
-      id="image0"
-      width="50px"
-      height="50px"
+      width="45px"
+      height="45px"
       xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAtCAQAAAB2OuFVAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
 AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAJcEhZ
 cwAACxMAAAsTAQCanBgAAAAHdElNRQfjDBoUGhVgj4zqAAAD00lEQVRIx73X/0/VdRTH8ce9XLwX

@@ -7,13 +7,13 @@ import {
   shadows,
   borders,
   size,
+  breakpoints,
 } from "../../../../theme";
 
 const generalFontSize = "1rem";
 const generalFontWeight = "normal";
 
 export const YesNoWrapper = styled.div`
-  // border: 1px solid red;
   margin-top: -0.5rem;
   display: flex;
   flex-direction: column;
@@ -23,9 +23,12 @@ export const YesNoWrapper = styled.div`
 `;
 
 export const Row = styled.div`
-  // border: 1px solid blue;
   display: flex;
-  width: 80%;
+  min-width: 240px;
+
+  @media ${breakpoints.tablet} {
+    min-width: 400px;
+  }
 `;
 
 export const AnswerBar = styled.div`
@@ -41,7 +44,6 @@ export const AnswerBar = styled.div`
 `;
 
 export const AnswerText = styled.div`
-  // border: 1px solid black;
   height: ${props => (props.large ? "1.4rem" : "1rem")};
   display: flex;
   align-self: center;
@@ -51,20 +53,23 @@ export const AnswerText = styled.div`
   border-right: 1px solid ${colors.lightGray};
   padding-bottom: 1.9em;
   padding-right: 0.2rem;
-  margin-left: ${props => (props.large ? "-0.6rem" : "-1.4rem")};
+  margin-left: ${props => (props.large ? "-1.4rem" : "-1.7rem")};
   justify-content: center;
   min-width: 3rem;
-  font-size: ${props => (props.large ? "1rem" : "0.75rem")};
+  font-size: ${props => (props.large ? "0.8rem" : "0.6rem")};
 
   p {
     margin-top: 2.9em;
+  }
+
+  @media ${breakpoints.tablet} {
+    font-size: ${props => (props.large ? "1rem" : "0.8rem")};
   }
 `;
 
 export const AnswerCount = styled.div`
   color: ${colors.dustyGray3};
   align-self: center;
-  // border: 1px solid black;
   margin-top: ${props => (!props.hasData ? "0.7em" : "0")};
   margin-left: ${props => {
     if (!props.hasData && props.large) {
@@ -76,7 +81,11 @@ export const AnswerCount = styled.div`
     return `0.2rem`;
   }};
   position: ${props => (!props.hasData ? "absolute" : "relative")};
-  font-size: ${props => (props.large ? "1rem" : "0.75rem")};
+  font-size: ${props => (props.large ? "0.8rem" : "0.6rem")};
+
+  @media ${breakpoints.tablet} {
+    font-size: ${props => (props.large ? "1rem" : "0.8rem")};
+  }
 `;
 
 export const Comment = styled.button`

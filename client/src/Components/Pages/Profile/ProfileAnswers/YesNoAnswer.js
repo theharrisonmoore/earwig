@@ -80,7 +80,7 @@ export default class YesNoAnswer extends Component {
             hasData={!zeroAnswers}
             large={this.decideLarge(question)}
           >
-            {zeroAnswers ? "No answers yet" : answerObj.yesCount}
+            {zeroAnswers ? "No answers yet" : yesCount}
           </AnswerCount>
         </Row>
         <Row>
@@ -98,7 +98,7 @@ export default class YesNoAnswer extends Component {
             large={this.decideLarge(question)}
             hasData={!zeroAnswers}
           >
-            {zeroAnswers ? "" : answerObj.noCount}
+            {zeroAnswers ? "" : noCount}
           </AnswerCount>
         </Row>
       </YesNoWrapper>

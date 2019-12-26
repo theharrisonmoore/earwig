@@ -9,9 +9,8 @@ const PayslipsAccessible = props => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g opacity="0.501">
-      <rect width="40" height="45" fill="url(#pattern0)" />
-    </g>
+    <rect width="40" height="45" fill="url(#pattern0)" />
+
     <defs>
       <pattern
         id="pattern0"

@@ -205,30 +205,23 @@ export default class Profile extends Component {
             />
           </Skeleton>
           {activeTab === "overview" ? (
-            // <OverviewSection
-            //   isMobile={isMobile}
-            //   isTablet={isTablet}
-            //   summary={summary}
-            //   contractorAnswers={contractorAnswers}
-            //   activeOverallId={activeOverallId}
-            //   overallReplies={overallReplies}
-            //   fetchOverallReplies={this.fetchOverallReplies}
-            //   verified={verified}
-            //   level={level}
-            //   isAdmin={isAdmin}
-            //   organizationID={organizationID}
-            //   id={id}
-            //   awaitingReview={awaitingReview}
-            //   FilteredReviewMonths={FilteredReviewMonths}
-            //   history={history}
-            //   loaded={loaded}
-            // />
-            <DetailedSection
-              level={level}
+            <OverviewSection
               isMobile={isMobile}
               isTablet={isTablet}
-              reviewDetails={reviewDetails}
               summary={summary}
+              contractorAnswers={contractorAnswers}
+              activeOverallId={activeOverallId}
+              overallReplies={overallReplies}
+              fetchOverallReplies={this.fetchOverallReplies}
+              verified={verified}
+              level={level}
+              isAdmin={isAdmin}
+              organizationID={organizationID}
+              id={id}
+              awaitingReview={awaitingReview}
+              FilteredReviewMonths={FilteredReviewMonths}
+              history={history}
+              loaded={loaded}
             />
           ) : (
             <DetailedSection

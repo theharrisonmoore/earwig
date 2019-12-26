@@ -4,6 +4,7 @@ import {
   Wrapper,
   SectionTitle,
   QuestionWrapper,
+  YesNoQuestionWrapper,
   IconContainer,
   QuestionContainer,
   QuestionTitle,
@@ -125,7 +126,6 @@ export default class ReviewSection extends Component {
 
         {questions &&
           questions.map((question, index) => {
-            console.log(question);
             return (
               [
                 "yesno",
@@ -139,13 +139,13 @@ export default class ReviewSection extends Component {
               ].includes(question.profileType) && (
                 <div key={index}>
                   {question.profileType === "yesno" && (
-                    <QuestionWrapper
+                    <YesNoQuestionWrapper
                       key={index}
                       // hide={this.onlyNeutralAnswers(question.answers)}
                     >
                       <IconContainer>
                         {question.icon && (
-                          <Icon icon={question.icon} width="55" height="55" />
+                          <Icon icon={question.icon} width="45" height="45" />
                         )}
                       </IconContainer>
                       <QuestionContainer>
@@ -164,7 +164,7 @@ export default class ReviewSection extends Component {
                           )}
                         />
                       </QuestionContainer>
-                    </QuestionWrapper>
+                    </YesNoQuestionWrapper>
                   )}
                   {question.profileType === "pieChart" && (
                     <QuestionWrapper key={index}>
