@@ -96,6 +96,10 @@ import Materials from "./Materials";
 import OtherEmployees from "./OtherEmployees";
 import Respect from "./Respect";
 import SharedInfo from "./SharedInfo";
+import ToiletsClean from "./ToiletsClean";
+import SafeSite from "./SafeSite";
+import GetAround from "./GetAround";
+import TidySite from "./TidySite";
 
 const iconStyles = props => css`
   width: ${props.width || "100%"};
@@ -200,6 +204,10 @@ const iconMap = {
   otherEmployees: OtherEmployees,
   respect: Respect,
   sharedInfo: SharedInfo,
+  toiletsClean: ToiletsClean,
+  safeSite: SafeSite,
+  getAround: GetAround,
+  tidySite: TidySite,
 };
 
 const styledIconMap = Object.keys(iconMap).reduce((accum, curr) => {

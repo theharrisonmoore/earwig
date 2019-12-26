@@ -757,6 +757,7 @@ module.exports = async () => {
         text: "Working on the site",
       },
       hasComment: true,
+      icon: "tidySite",
     },
 
     {
@@ -764,7 +765,7 @@ module.exports = async () => {
       next: 10,
       type: "yesno",
       text: "Did you find it easy to get around this site?",
-      hintText: "eg Gateways, walkways, signage, etc.",
+      hintText: "ie Gateways, walkways, signage",
       options: ["Yes", "No"],
       category: "worksite",
 
@@ -779,6 +780,7 @@ module.exports = async () => {
         text: "Working on the site",
       },
       hasComment: true,
+      icon: "getAround",
     },
 
     {
@@ -800,6 +802,7 @@ module.exports = async () => {
         text: "Working on the site",
       },
       hasComment: true,
+      icon: "safeSite",
     },
 
     {
@@ -845,6 +848,7 @@ module.exports = async () => {
         text: "The site welfare",
       },
       hasComment: true,
+      icon: "toiletsClean",
     },
     {
       number: 13,
