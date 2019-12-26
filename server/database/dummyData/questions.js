@@ -266,7 +266,7 @@ module.exports = async () => {
       icon: "timesheetCharge",
     },
 
-    // //////////////////
+    // ////////////////
     {
       number: 11,
       next: 12,
@@ -394,6 +394,7 @@ module.exports = async () => {
         name: "general",
         text: "General",
       },
+      icon: "timesheetCharge",
     },
     {
       number: 2,
@@ -438,6 +439,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "contract",
     },
 
     {
@@ -483,6 +485,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "paidOnTime",
     },
     {
       number: 6,
@@ -504,6 +507,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "amountExpected",
     },
     {
       number: 7,
@@ -522,6 +526,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "payslipsAccessible",
     },
     {
       number: 8,
@@ -542,6 +547,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "payslipsInfo",
     },
     {
       number: 9,
