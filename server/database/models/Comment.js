@@ -23,6 +23,11 @@ const commentSchema = new Schema({
     type: String,
     required: true,
   },
+  review: {
+    type: ObjectId,
+    ref: "reviews",
+    required: true,
+  },
   displayName: String,
 }, {
   timestamps: true,
