@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { Map } from "immutable";
 
 import YesNoOption from "./YesNoOption";
-import { QuestionOptionsWrapper, Options } from "../Question.style";
+import {
+  QuestionOptionsWrapper,
+  Options,
+  CommentIconWrapper,
+} from "../Question.style";
+import Icon from "../../../../Common/Icon/Icon";
 
 class YesNo extends Component {
   shouldComponentUpdate(nextProps) {
@@ -26,6 +31,8 @@ class YesNo extends Component {
       handleChange,
       question,
       state,
+      toggleShowComment,
+      hasComment,
     } = this.props;
 
     return (
@@ -64,6 +71,11 @@ class YesNo extends Component {
               );
             })}
           </div>
+          {hasComment && (
+            <CommentIconWrapper type="button" onClick={toggleShowComment}>
+              <Icon icon="comment" width="27" height="27" opacity="0.5" />
+            </CommentIconWrapper>
+          )}
         </Options>
       </QuestionOptionsWrapper>
     );
