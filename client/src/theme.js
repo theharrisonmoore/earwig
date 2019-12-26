@@ -56,6 +56,7 @@ const colorCodes = {
   tundora: "#4A4A4A",
   dustyGray1: "#979797",
   dustyGray2: "#9B9B9B",
+  dustyGray3: "#767676",
   veryLightGray: "#CDCDCD",
   black: "#000000",
   black2: "#363636",

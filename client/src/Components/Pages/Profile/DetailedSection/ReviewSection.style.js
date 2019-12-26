@@ -2,11 +2,11 @@ import styled from "styled-components";
 
 import { colors, borders } from "../../../../theme";
 
-const titleFontSize = "18px";
+const titleFontSize = "20px";
 const titleFontWeight = "bold";
 
 const generalFontSize = "15px";
-const generalFontWeight = "normal";
+// const generalFontWeight = "normal";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -17,7 +17,8 @@ export const Wrapper = styled.div`
 
 export const SectionTitle = styled.h2`
   font-size: ${({ sub }) => (sub ? generalFontSize : titleFontSize)};
-  color: ${colors.profileFontColor};
+  color: ${colors.dustyGray3};
+  opacity: 0.9;
   border-bottom: ${({ bordered }) => (bordered ? borders.commentBox : "none")};
   margin: 0;
   margin-bottom: 1rem;
@@ -31,19 +32,21 @@ export const QuestionWrapper = styled.div`
 `;
 
 export const QuestionTitle = styled.h3`
-  font-size: ${generalFontSize};
-  color: ${colors.profileFontColor};
-  font-weight: ${generalFontWeight};
+  font-size: 1.2rem;
+  color: ${colors.dustyGray3};
+  font-weight: 500;
   margin: 0;
   margin-bottom: 0.5rem;
   text-align: left;
+  opacity: 0.8;
 `;
 
 export const HintText = styled.p`
   margin: 0;
   font-style: italic;
   font-size: ${generalFontSize};
-  color: ${colors.profileFontColor};
+  color: ${colors.dustyGray3};
+  opacity: 0.8;
 `;
 
 export const StarWrapper = styled(QuestionTitle)`
@@ -54,14 +57,14 @@ export const CategoryTitle = styled.h2`
   font-size: 1.75rem;
   font-weight: medium;
   margin: 0;
-  color: ${colors.profileFontColor};
+  color: ${colors.dustyGray3};
 `;
 
 export const LightTitle = styled.div`
   opacity: 0.5;
   font-weight: 500;
   font-size: 1rem;
-  color: ${colors.profileFontColor};
+  color: ${colors.dustyGray3};
   border: ${({ bar }) => (bar ? `1px solid ${colors.inputBorder}80` : "none")};
   text-align: ${({ bar }) => (bar ? `center` : "left")};
   padding: ${({ large, image }) => {

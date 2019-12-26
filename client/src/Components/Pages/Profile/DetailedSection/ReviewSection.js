@@ -8,6 +8,7 @@ import {
   LightTitle,
   HintText,
 } from "./ReviewSection.style";
+import Icon from "../../../Common/Icon/Icon";
 
 import YesNoAnswer from "../ProfileAnswers/YesNoAnswer";
 import ListAnswer from "../ProfileAnswers/ListAnswer";
@@ -121,8 +122,9 @@ export default class ReviewSection extends Component {
         )} */}
 
         {questions &&
-          questions.map(
-            (question, index) =>
+          questions.map((question, index) => {
+            console.log(question);
+            return (
               [
                 "yesno",
                 "pieChart",
@@ -140,6 +142,9 @@ export default class ReviewSection extends Component {
                       // hide={this.onlyNeutralAnswers(question.answers)}
                     >
                       <QuestionTitle>{question.profileText}</QuestionTitle>
+                      {question.icon && (
+                        <Icon icon={question.icon} width="19" height="19" />
+                      )}
                       {question.hintText && (
                         <HintText>{question.hintText}</HintText>
                       )}
@@ -150,26 +155,6 @@ export default class ReviewSection extends Component {
                         isMobile={isMobile}
                         zeroAnswers={this.onlyNeutralAnswers(question.answers)}
                       />
-                      {/* {this.onlyNeutralAnswers(question.answers) === false ? (
-                        <YesNoAnswer
-                          category={category}
-                          question={question}
-                          toggleComments={toggleComments}
-                          isMobile={isMobile}
-                        />
-                      ) : (
-                        <ZeroYesNoAnswers
-                          bar
-                          large={
-                            question.profileText &&
-                            question.profileText.includes(
-                              "Overall, would you be happy",
-                            )
-                          }
-                        >
-                          <p>No answers yet</p>
-                        </ZeroYesNoAnswers>
-                      )} */}
                     </QuestionWrapper>
                   )}
                   {question.profileType === "pieChart" && (
@@ -311,8 +296,9 @@ export default class ReviewSection extends Component {
                     </QuestionWrapper>
                   )}
                 </div>
-              ),
-          )}
+              )
+            );
+          })}
 
         {/* site images */}
         {questions &&

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import {
   YesNoWrapper,
   Row,
@@ -33,10 +32,7 @@ export default class YesNoAnswer extends Component {
     question.profileText.includes("Overall, would you recommend");
 
   // determines percentage of yes/no counts of question related to next limit
-  // First, numbers should be counted 1-9
-  // Beyond 9, numbers should be counted 1-19
-  // Beyond 19, numbers should be counted 1-29 ...
-
+  // e.g. Beyond 9, numbers should be counted 1-19 and so on
   decideLimit = (yesCount, noCount) => {
     // check if input number is positive
     if (yesCount < 0 || noCount < 0) {
@@ -95,7 +91,6 @@ export default class YesNoAnswer extends Component {
             <AnswerBar
               large={this.decideLarge(question)}
               background="red"
-              // width={answerObj.noPercentage}
               width={(noCount * 100) / this.decideLimit(yesCount, noCount)}
             />
           )}

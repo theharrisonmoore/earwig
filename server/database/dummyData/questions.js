@@ -67,6 +67,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "correctHours",
     },
     {
       number: 2,
@@ -87,6 +88,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "correctRate",
     },
     {
       number: 3,
@@ -109,6 +111,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "correctWork",
     },
     // {
     //   number: 4,
@@ -215,6 +218,7 @@ module.exports = async () => {
         text: "Getting your wages",
       },
       hasComment: false,
+      icon: "contract",
     },
 
     // ///////////////////////
@@ -259,6 +263,7 @@ module.exports = async () => {
         text: "Getting your wages",
       },
       hasComment: false,
+      icon: "timesheetCharge",
     },
 
     // //////////////////
@@ -281,6 +286,7 @@ module.exports = async () => {
         text: "Getting your wages",
       },
       hasComment: true,
+      icon: "paidOnTime",
     },
     {
       number: 12,
@@ -302,6 +308,7 @@ module.exports = async () => {
         text: "Getting your wages",
       },
       hasComment: true,
+      icon: "amountExpected",
     },
     {
       number: 13,
@@ -322,6 +329,7 @@ module.exports = async () => {
         text: "Getting your wages",
       },
       hasComment: true,
+      icon: "payslipsAccessible",
     },
     {
       number: 14,
@@ -342,6 +350,7 @@ module.exports = async () => {
         text: "Getting your wages",
       },
       hasComment: true,
+      icon: "payslipsInfo",
     },
     // new section (overall rating)
     {
@@ -362,6 +371,7 @@ module.exports = async () => {
         text: "Overall rating",
       },
       hasComment: false,
+      icon: "overall",
     },
 
     /* =========================== questionsPayroll ==================================== */
@@ -452,6 +462,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "contractBefore",
     },
     {
       number: 5,

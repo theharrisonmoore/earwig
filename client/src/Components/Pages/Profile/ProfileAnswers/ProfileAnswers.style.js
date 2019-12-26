@@ -46,21 +46,22 @@ export const AnswerText = styled.div`
   align-self: center;
   flex-direction: column;
   align-items: flex-end;
+  color: ${colors.dustyGray3};
   border-right: 1px solid ${colors.lightGray};
-  padding-bottom: 1.5em;
+  padding-bottom: 1.9em;
   padding-right: 0.2rem;
   margin-left: ${props => (props.large ? "-0.6rem" : "-1.4rem")};
   justify-content: center;
   min-width: 3rem;
-  font-size: ${props => (props.large ? "1.25rem" : "0.75rem")};
+  font-size: ${props => (props.large ? "1rem" : "0.75rem")};
 
   p {
-    margin-top: 2.5em;
+    margin-top: 2.9em;
   }
 `;
 
 export const AnswerCount = styled.div`
-  color: ${colors.gray};
+  color: ${colors.dustyGray3};
   align-self: center;
   // border: 1px solid black;
   margin-top: ${props => (!props.hasData ? "0.7em" : "0")};
@@ -74,7 +75,7 @@ export const AnswerCount = styled.div`
     return `0.2rem`;
   }};
   position: ${props => (!props.hasData ? "absolute" : "relative")};
-  font-size: ${props => (props.large ? "1.25rem" : "0.75rem")};
+  font-size: ${props => (props.large ? "1rem" : "0.75rem")};
 `;
 
 export const Comment = styled.button`
