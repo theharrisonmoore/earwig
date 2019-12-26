@@ -115,7 +115,7 @@ class OverallReview extends Component {
           type,
           organization,
         });
-      }
+      },
     );
   };
 
@@ -207,7 +207,7 @@ class OverallReview extends Component {
 
           return prev;
         },
-        { written: {}, audio: {} }
+        { written: {}, audio: {} },
       );
       this.setState({
         counters: newCounters,
@@ -240,7 +240,7 @@ class OverallReview extends Component {
         if (overallReview && overallReview.text) {
           const repliesCount = getVerifiedRepliesCount(
             review.overallReview.replies,
-            verifiedUsers
+            verifiedUsers,
           );
 
           totalReviews.push({
@@ -261,7 +261,7 @@ class OverallReview extends Component {
         if (voiceReview && voiceReview.audio) {
           const repliesCount = getVerifiedRepliesCount(
             review.voiceReview.replies,
-            verifiedUsers
+            verifiedUsers,
           );
 
           totalReviews.push({
@@ -277,6 +277,8 @@ class OverallReview extends Component {
         }
       });
 
+    console.log("total Reviews", totalReviews);
+
     this.setState(
       {
         writtenOrAudioReviews: totalReviews,
@@ -288,13 +290,13 @@ class OverallReview extends Component {
         if (pageYOffset) {
           window.scrollTo(0, pageYOffset);
         }
-      }
+      },
     );
   }
 
   checkWrittenComments = reviews => {
     const writtenReviews = reviews.filter(
-      review => review.overallReview.text.length > 0
+      review => review.overallReview.text.length > 0,
     );
 
     return writtenReviews.length > 0;
@@ -327,7 +329,7 @@ class OverallReview extends Component {
       id: userId,
     } = this.props;
 
-    const { totalReviews } = summary;
+    // const { totalReviews } = summary;
     const {
       activeReview,
       counters,
@@ -344,10 +346,14 @@ class OverallReview extends Component {
 
     return FilteredReviewMonths[0] && FilteredReviewMonths[0].createdAt ? (
       <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-        <SectionTitle>Reviews by workers ({totalReviews})</SectionTitle>
+        <SectionTitle>
+          Reviews by workers ({writtenOrAudioReviews.length})
+        </SectionTitle>
         {/* check if any written comments */}
-        {this.checkWrittenComments(summary.reviews) === false && (
-          <LightTitle>No written reviews yet. Be the first...</LightTitle>
+        {writtenOrAudioReviews.length === 0 && (
+          <LightTitle>
+            No written or audio reviews yet. Be the first...
+          </LightTitle>
         )}
         {writtenOrAudioReviews &&
           writtenOrAudioReviews.map(review => {
@@ -635,7 +641,7 @@ class OverallReview extends Component {
                                     {reply.replies.createdAt &&
                                       `${moment().diff(
                                         reply.replies.createdAt,
-                                        "weeks"
+                                        "weeks",
                                       )}w`}
                                   </CommentDate>
                                 </BubbleAndDate>
