@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Menu, Icon } from "antd";
 import { Link } from "react-router-dom";
 
-import { SideMenuWrapper, StyledButton as Button } from "./SideMenu.style";
+import { StyledButton as Button } from "./SideMenu.style";
 
 import { handleLogout } from "../../../../helpers";
 
@@ -21,15 +21,7 @@ const rootSubmenuKeys = menuElements.reduce((accu, current) => {
 
 export default class SideMenu extends Component {
   state = {
-    collapsed: false,
     openKeys: [],
-    menuWidth: 0,
-  };
-
-  toggleCollapsed = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
   };
 
   onOpenChange = openKeys => {
@@ -46,24 +38,17 @@ export default class SideMenu extends Component {
     }
   };
 
-  componentDidMount() {
-    const resizeObserver = new ResizeObserver(entries => {
-      this.props.menuSizeObserver(entries[0].contentRect.width);
-    });
-    resizeObserver.observe(document.querySelector("#watcher"));
-  }
-
   render() {
     const { pathname } = this.props.location;
     const { handleChangeState, history } = this.props;
     return (
-      <SideMenuWrapper style={{ height: "100%" }}>
+      <>
         <Button
           type="primary"
-          onClick={this.toggleCollapsed}
-          style={{ marginBottom: 16 }}
+          onClick={this.props.toggleCollapsed}
+          style={{ marginBottom: 16, zIndex: "2" }}
         >
-          <Icon type={this.state.collapsed ? "menu-unfold" : "menu-fold"} />
+          <Icon type={this.props.collapsed ? "menu-unfold" : "menu-fold"} />
         </Button>
 
         <Menu
@@ -71,7 +56,6 @@ export default class SideMenu extends Component {
           defaultOpenKeys={[menuElements[0].title]}
           mode="inline"
           theme="dark"
-          inlineCollapsed={this.state.collapsed}
           onOpenChange={this.onOpenChange}
           openKeys={
             this.state.openKeys || [
@@ -126,8 +110,7 @@ export default class SideMenu extends Component {
             <span>Log out</span>
           </Menu.Item>
         </Menu>
-        <div id="watcher" style={{ height: "1px", widht: "100%" }} />
-      </SideMenuWrapper>
+      </>
     );
   }
 }
