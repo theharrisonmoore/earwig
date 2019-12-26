@@ -11,9 +11,11 @@ module.exports = (req, res, next) => {
         const newReviewObj = review;
 
         review.answers.forEach((answer) => {
-          const { question } = answer;
+          const { question, comment } = answer;
+
           if (question && question.category && question.text) {
             newReviewObj[`${question.category}: ${question.text}`] = answer.answer;
+            newReviewObj[`${question.category}: ${question.text}: Comment`] = comment || "-";
           }
         });
 
@@ -31,7 +33,7 @@ module.exports = (req, res, next) => {
       const sortedQs = questions.sort((a, b) => a.category.localeCompare(b.category));
 
       sortedQs.forEach((question) => {
-        const newQs = [`${question.category}: ${question.text}`];
+        const newQs = [`${question.category}: ${question.text}`, `${question.category}: ${question.text}: Comment`];
         allHeaders.push(...newQs);
       });
 

@@ -24,6 +24,36 @@ module.exports = () => Review.aggregate([
         {
           $unwind: { path: "$question", preserveNullAndEmptyArrays: true },
         },
+        {
+          $lookup: {
+            from: "comments",
+            let: { reviewId: "$$reviewId", question: "$question._id" },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $and: [
+                      {
+                        $eq: ["$question", "$$question"],
+                      },
+                      {
+                        $eq: ["$review", "$$reviewId"],
+                      },
+                    ],
+                  },
+                },
+              },
+            ],
+            as: "comment",
+          },
+        },
+        {
+          $unwind: { path: "$comment", preserveNullAndEmptyArrays: true },
+        }, {
+          $addFields: {
+            comment: "$comment.text",
+          },
+        },
       ],
       as: "answers",
     },
