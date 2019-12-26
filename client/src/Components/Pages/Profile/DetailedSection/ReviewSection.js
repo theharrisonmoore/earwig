@@ -4,6 +4,8 @@ import {
   Wrapper,
   SectionTitle,
   QuestionWrapper,
+  IconContainer,
+  QuestionContainer,
   QuestionTitle,
   LightTitle,
   HintText,
@@ -141,20 +143,27 @@ export default class ReviewSection extends Component {
                       key={index}
                       // hide={this.onlyNeutralAnswers(question.answers)}
                     >
-                      <QuestionTitle>{question.profileText}</QuestionTitle>
-                      {question.icon && (
-                        <Icon icon={question.icon} width="19" height="19" />
-                      )}
-                      {question.hintText && (
-                        <HintText>{question.hintText}</HintText>
-                      )}
-                      <YesNoAnswer
-                        category={category}
-                        question={question}
-                        toggleComments={toggleComments}
-                        isMobile={isMobile}
-                        zeroAnswers={this.onlyNeutralAnswers(question.answers)}
-                      />
+                      <IconContainer>
+                        {question.icon && (
+                          <Icon icon={question.icon} width="55" height="55" />
+                        )}
+                      </IconContainer>
+                      <QuestionContainer>
+                        <QuestionTitle>{question.profileText}</QuestionTitle>
+
+                        {question.hintText && (
+                          <HintText>{question.hintText}</HintText>
+                        )}
+                        <YesNoAnswer
+                          category={category}
+                          question={question}
+                          toggleComments={toggleComments}
+                          isMobile={isMobile}
+                          zeroAnswers={this.onlyNeutralAnswers(
+                            question.answers,
+                          )}
+                        />
+                      </QuestionContainer>
                     </QuestionWrapper>
                   )}
                   {question.profileType === "pieChart" && (

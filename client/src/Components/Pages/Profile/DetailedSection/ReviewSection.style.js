@@ -16,9 +16,9 @@ export const Wrapper = styled.div`
 `;
 
 export const SectionTitle = styled.h2`
-  font-size: ${({ sub }) => (sub ? generalFontSize : titleFontSize)};
+  // font-size: ${({ sub }) => (sub ? generalFontSize : titleFontSize)};
+  font-size: ${titleFontSize};
   color: ${colors.dustyGray3};
-  opacity: 0.9;
   border-bottom: ${({ bordered }) => (bordered ? borders.commentBox : "none")};
   margin: 0;
   margin-bottom: 1rem;
@@ -27,18 +27,29 @@ export const SectionTitle = styled.h2`
 
 export const QuestionWrapper = styled.div`
   display: ${props => (props.hide ? "none" : "flex")};
+  border: 1px solid black;
+`;
+
+export const QuestionContainer = styled.div`
+  display: ${props => (props.hide ? "none" : "flex")};
   flex-direction: column;
   padding: 1.125rem 0;
+  border: 1px solid red;
+`;
+
+export const IconContainer = styled.div`
+  padding-top: 1.125rem;
+  padding-right: 0.5rem;
+  border: 1px solid blue;
 `;
 
 export const QuestionTitle = styled.h3`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: ${colors.dustyGray3};
   font-weight: 500;
   margin: 0;
   margin-bottom: 0.5rem;
   text-align: left;
-  opacity: 0.8;
 `;
 
 export const HintText = styled.p`
@@ -46,7 +57,6 @@ export const HintText = styled.p`
   font-style: italic;
   font-size: ${generalFontSize};
   color: ${colors.dustyGray3};
-  opacity: 0.8;
 `;
 
 export const StarWrapper = styled(QuestionTitle)`

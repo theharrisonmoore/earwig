@@ -14,6 +14,7 @@ const generalFontWeight = "normal";
 
 export const YesNoWrapper = styled.div`
   // border: 1px solid red;
+  margin-top: -0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
