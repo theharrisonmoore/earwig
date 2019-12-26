@@ -90,6 +90,12 @@ import PayslipsInfo from "./PayslipsInfo";
 import PayslipsAccessible from "./PayslipsAccessible";
 import ContractBefore from "./ContractBefore";
 import TimesheetCharge from "./TimesheetCharge";
+import SafetySeriously from "./SafetySeriously";
+import SecureTools from "./SecureTools";
+import Materials from "./Materials";
+import OtherEmployees from "./OtherEmployees";
+import Respect from "./Respect";
+import SharedInfo from "./SharedInfo";
 
 const iconStyles = props => css`
   width: ${props.width || "100%"};
@@ -188,6 +194,12 @@ const iconMap = {
   payslipsAccessible: PayslipsAccessible,
   contractBefore: ContractBefore,
   timesheetCharge: TimesheetCharge,
+  safetySeriously: SafetySeriously,
+  secureTools: SecureTools,
+  materials: Materials,
+  otherEmployees: OtherEmployees,
+  respect: Respect,
+  sharedInfo: SharedInfo,
 };
 
 const styledIconMap = Object.keys(iconMap).reduce((accum, curr) => {

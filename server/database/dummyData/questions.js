@@ -582,6 +582,7 @@ module.exports = async () => {
         text: "Overall rating",
       },
       hasComment: false,
+      icon: "overall",
     },
 
     /* =============================== worksite =============================== */
@@ -994,6 +995,7 @@ module.exports = async () => {
         text: "Overall rating",
       },
       hasComment: false,
+      icon: "overall",
     },
 
     /* ============================= company ================================== */
@@ -1020,6 +1022,7 @@ module.exports = async () => {
         text: "Supervisors & employees",
       },
       hasComment: true,
+      icon: "sharedInfo",
     },
     {
       number: 2,
@@ -1040,6 +1043,7 @@ module.exports = async () => {
         text: "Supervisors & employees",
       },
       hasComment: true,
+      icon: "respect",
     },
     {
       number: 3,
@@ -1062,6 +1066,7 @@ module.exports = async () => {
         text: "Supervisors & employees",
       },
       hasComment: true,
+      icon: "otherEmployees",
     },
 
     // Tools & materials
@@ -1086,6 +1091,7 @@ module.exports = async () => {
         text: "Tools & materials",
       },
       hasComment: true,
+      icon: "materials",
     },
     {
       number: 5,
@@ -1108,16 +1114,18 @@ module.exports = async () => {
         text: "Tools & materials",
       },
       hasComment: true,
+      icon: "secureTools",
     },
     {
       number: 6,
       next: 7,
       type: "yesno",
-      text: "Did you feel this company asked you to work unsafely?",
+      text: "Did you feel this company took your safety on side seriously?",
       options: ["Yes", "No"],
       category: "company",
 
-      profileText: "Did you feel this company asked you to work unsafely?",
+      profileText:
+        "Did you feel this company took your safety on side seriously?",
       profileSection: "Tools & materials",
       profileType: "yesno",
       profileOrder: 7,
@@ -1128,6 +1136,7 @@ module.exports = async () => {
         text: "Tools & materials",
       },
       hasComment: true,
+      icon: "safetySeriously",
     },
 
     // new section (overall)
@@ -1149,6 +1158,7 @@ module.exports = async () => {
         text: "Overall rating",
       },
       hasComment: false,
+      icon: "overall",
     },
   ];
   return Question.create(questions);
