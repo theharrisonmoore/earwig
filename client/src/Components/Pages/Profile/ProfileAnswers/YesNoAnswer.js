@@ -44,7 +44,7 @@ export default class YesNoAnswer extends Component {
     const biggestNumber = Math.max(yesCount, noCount);
 
     const getCounter = () => {
-      let counter = 1;
+      let counter = 0;
       // by increasing counter by 1 in each step
       while ((biggestNumber + counter) % 10 > 0) {
         counter += 1;
