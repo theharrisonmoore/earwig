@@ -386,7 +386,7 @@ module.exports = async () => {
 
       profileText: "This payroll charges you",
       profileSection: "Key ratings",
-      profileType: "list",
+      profileType: "yesno",
       profileOrder: 8,
 
       group: {

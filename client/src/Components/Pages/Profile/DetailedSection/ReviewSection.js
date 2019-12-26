@@ -145,7 +145,7 @@ export default class ReviewSection extends Component {
                     >
                       <IconContainer>
                         {question.icon && (
-                          <Icon icon={question.icon} width="45" height="45" />
+                          <Icon icon={question.icon} width="40" height="40" />
                         )}
                       </IconContainer>
                       <QuestionContainer>
