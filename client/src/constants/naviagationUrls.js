@@ -1,3 +1,4 @@
+export const HOME_PAGE = "/";
 export const SEARCH_URL = "/search/:category?";
 export const PURE_SEARCH_URL = "/search";
 export const ADD_PROFILE_URL = "/add-profile/:name";
@@ -50,6 +51,5 @@ export const JOBS_URL = "/jobs";
 export const INVITE_WORKERS_URL = "/invite-workers";
 export const ORG_STATUS_URL_SIGNUP = "/getting-to-know-you";
 export const ORG_STATUS_URL_LOGIN = "/update";
-export const WELCOME_URL = "/welcome";
 export const UPLOAD_VERIFICATION_PHOTO = "/upload-verification-photo";
 export const PRE_REVIEW = "/pre-review/:orgId";

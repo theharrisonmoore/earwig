@@ -19,7 +19,7 @@ import Icon from "../Icon/Icon";
 import { colors } from "../../../theme";
 
 import {
-  WELCOME_URL,
+  HOME_PAGE,
   PROFILE_URL,
   // RESOURCES_URL,
   CONTACT_URL,
@@ -79,7 +79,7 @@ export default class Menu extends PureComponent {
 
         {isLoggedIn ? (
           <MenuWrapper>
-            <MenuItem to={WELCOME_URL} onClick={toggleMenu}>
+            <MenuItem to={HOME_PAGE} onClick={toggleMenu}>
               <PriorityIcon icon="home" height="19" width="19" />
               Home
             </MenuItem>
@@ -166,7 +166,7 @@ export default class Menu extends PureComponent {
           </MenuWrapper>
         ) : (
           <MenuWrapper>
-            <MenuItem to={WELCOME_URL} onClick={toggleMenu}>
+            <MenuItem to={HOME_PAGE} onClick={toggleMenu}>
               <PriorityIcon icon="home" height="19" width="19" />
               Home
             </MenuItem>
