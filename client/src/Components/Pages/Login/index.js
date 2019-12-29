@@ -21,7 +21,7 @@ import {
 import {
   SIGNUP_URL,
   RESET_PASSWORD_URL,
-  WELCOME_URL,
+  HOME_PAGE,
 } from "../../../constants/naviagationUrls";
 
 import {
@@ -78,7 +78,7 @@ export default class Login extends Component {
             pathname: `/add-profile-sign-up/${category}/${name}`,
           });
         } else {
-          this.props.history.push(WELCOME_URL);
+          this.props.history.push(HOME_PAGE);
         }
       })
       .catch(err => {
@@ -152,7 +152,7 @@ export default class Login extends Component {
           />
         </p>
         <Link
-          to={WELCOME_URL}
+          to={HOME_PAGE}
           type="primary"
           text="Continue without signing up"
         />

@@ -332,8 +332,7 @@ class Review extends Component {
 
   handleAddNewOrgChange = (value, number) => {
     const { answers } = this.state;
-    const answer = JSON.parse(value);
-    this.setState({ answers: { ...answers, [number]: answer } });
+    this.setState({ answers: { ...answers, [number]: value } });
   };
 
   handleImageUpload = (value, number) => {

@@ -190,7 +190,7 @@ export default class UserReviews extends Component {
                 ) : (
                   <div>
                     You haven&apos;t given any reviews yet.&nbsp; <br /> <br />
-                    <Link to="/welcome">Get Started</Link>
+                    <Link to="/">Get Started</Link>
                   </div>
                 )}
               </>

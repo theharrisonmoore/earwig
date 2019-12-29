@@ -48,7 +48,7 @@ import example from "../../../assets/example.png";
 import { API_SIGN_UP } from "../../../apiUrls";
 
 import {
-  WELCOME_URL,
+  HOME_PAGE,
   TERMS_OF_USE_URL,
   PRIVACY_URL,
   LOGIN_URL,
@@ -412,7 +412,7 @@ export default class Signup extends Component {
         state: { isWorker },
       });
     } else {
-      this.props.history.push(WELCOME_URL);
+      this.props.history.push(HOME_PAGE);
     }
   };
 

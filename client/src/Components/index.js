@@ -18,7 +18,7 @@ import {
   EDIT_PASSWORD_URL,
   EDIT_ID_URL,
   EDIT_TRADE_URL,
-  WELCOME_URL,
+  HOME_PAGE,
   RESOURCES_URL,
   CONTACT_URL,
   FAQ_URL,
@@ -416,30 +416,29 @@ export default function index(props) {
           Component={OrgCheck}
           loggingIn
         />
-        <Route
-          exact
-          path="/"
-          render={linkProps =>
-            !isLoggedIn ? (
-              <Welcome
-                {...props}
-                {...linkProps}
-                handleChangeState={handleChangeState}
-              />
-            ) : (
-              <Redirect to={isAdmin ? ADMIN : WELCOME_URL} />
-            )
-          }
-        />
         <PrivateRoute
           minimumLevel="LEVEL0"
-          path={WELCOME_URL}
+          path={HOME_PAGE}
           {...props}
           isMobile={isMobile}
           isTablet={isTablet}
           Component={Welcome}
           navbar
+          exact
+          handleChangeState={handleChangeState}
         />
+
+        <PrivateRoute
+          minimumLevel="LEVEL0"
+          path={HOME_PAGE}
+          {...props}
+          isMobile={isMobile}
+          isTablet={isTablet}
+          Component={Welcome}
+          navbar
+          exact
+        />
+
         <PrivateRoute
           minimumLevel="LEVEL0"
           path={PRE_REVIEW}
@@ -460,7 +459,7 @@ export default function index(props) {
                 handleChangeState={handleChangeState}
               />
             ) : (
-              <Redirect to={isAdmin ? ADMIN : WELCOME_URL} />
+              <Redirect to={isAdmin ? ADMIN : HOME_PAGE} />
             )
           }
         />
@@ -475,7 +474,7 @@ export default function index(props) {
                 handleChangeState={handleChangeState}
               />
             ) : (
-              <Redirect to={isAdmin ? ADMIN : WELCOME_URL} />
+              <Redirect to={isAdmin ? ADMIN : HOME_PAGE} />
             )
           }
         />
@@ -489,7 +488,7 @@ export default function index(props) {
                 handleChangeState={handleChangeState}
               />
             ) : (
-              <Redirect to={isAdmin ? ADMIN : WELCOME_URL} />
+              <Redirect to={isAdmin ? ADMIN : HOME_PAGE} />
             )
           }
         />
