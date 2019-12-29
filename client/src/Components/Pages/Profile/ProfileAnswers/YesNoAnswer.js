@@ -2,14 +2,11 @@ import React, { Component } from "react";
 
 import {
   YesNoWrapper,
-  Comment,
   Row,
   AnswerBar,
   AnswerText,
   AnswerCount,
 } from "./ProfileAnswers.style";
-
-import { organizations } from "../../../../theme";
 
 export default class YesNoAnswer extends Component {
   countYesNo = answers => {
@@ -62,7 +59,7 @@ export default class YesNoAnswer extends Component {
   };
 
   render() {
-    const { question, toggleComments, category, zeroAnswers } = this.props;
+    const { question, zeroAnswers } = this.props;
 
     const answerObj = this.countYesNo(question.answers);
     const { yesCount, noCount } = answerObj;
@@ -106,18 +103,6 @@ export default class YesNoAnswer extends Component {
             {zeroAnswers ? "" : noCount}
           </AnswerCount>
         </Row>
-        {question.answers.filter(answer => answer.comment).length > 0 ? (
-          <Comment
-            onClick={() => toggleComments(question)}
-            active
-            color={organizations[category].primary}
-            hasComment={question.hasComment}
-          >
-            Comments
-          </Comment>
-        ) : (
-          <Comment hasComment={question.hasComment}>Comments</Comment>
-        )}
       </YesNoWrapper>
     );
   }

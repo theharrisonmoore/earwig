@@ -1,19 +1,11 @@
 import React, { Component } from "react";
 
-import {
-  ListWrapper,
-  SiteItem,
-  SiteAnswer,
-  Comment,
-  RightCommentWrapper,
-} from "./ProfileAnswers.style";
+import { ListWrapper, SiteItem, SiteAnswer } from "./ProfileAnswers.style";
 
 import Icon from "../../../Common/Icon/Icon";
 
 import { getCarCost } from "../utils";
 import { LightTitle } from "../DetailedSection/ReviewSection.style";
-
-import { organizations } from "../../../../theme";
 
 export default class SiteItemAnswer extends Component {
   getAverage = answers => {
@@ -31,13 +23,7 @@ export default class SiteItemAnswer extends Component {
   };
 
   render() {
-    const {
-      question,
-      isMobile,
-      reviewDetails,
-      toggleComments,
-      category,
-    } = this.props;
+    const { question, isMobile, reviewDetails } = this.props;
 
     const carParkingPrice = getCarCost(reviewDetails);
     const averageResponse = this.getAverage(question.answers);
@@ -90,21 +76,6 @@ export default class SiteItemAnswer extends Component {
                 </LightTitle>
               )}
             </SiteAnswer>
-          )}
-          {question.hasComment && (
-            <RightCommentWrapper>
-              {question.answers.filter(answer => answer.comment).length > 0 ? (
-                <Comment
-                  onClick={() => toggleComments(question)}
-                  active
-                  color={organizations[category].primary}
-                >
-                  Comments
-                </Comment>
-              ) : (
-                <Comment>Comments</Comment>
-              )}
-            </RightCommentWrapper>
           )}
         </SiteItem>
       </ListWrapper>

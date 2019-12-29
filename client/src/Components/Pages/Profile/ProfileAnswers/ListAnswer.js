@@ -5,11 +5,8 @@ import {
   ListWrapper,
   ListItem,
   ListComment,
-  Comment,
   PayrollItem,
 } from "./ProfileAnswers.style";
-
-import { organizations } from "../../../../theme";
 
 export default class ListAnswer extends Component {
   decideColor = questionCategory => {
@@ -34,7 +31,7 @@ export default class ListAnswer extends Component {
   };
 
   render() {
-    const { question, toggleComments, category } = this.props;
+    const { question } = this.props;
 
     if (question.profileText === "This payroll charges you") {
       return (
@@ -43,18 +40,6 @@ export default class ListAnswer extends Component {
             <PayrollItem color="payroll">
               £{this.getAverage(question.answers)} per timesheet
             </PayrollItem>
-            {question.hasComment &&
-            question.answers.filter(answer => answer.comment).length > 0 ? (
-              <Comment
-                onClick={() => toggleComments(question)}
-                active
-                color={organizations[category].primary}
-              >
-                Comments
-              </Comment>
-            ) : (
-              <Comment>Comments</Comment>
-            )}
           </ListComment>
         </ListWrapper>
       );

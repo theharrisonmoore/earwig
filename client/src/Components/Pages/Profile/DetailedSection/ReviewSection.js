@@ -44,6 +44,8 @@ export default class ReviewSection extends Component {
       reviewDetails,
     } = this.props;
 
+    const { _id: organizationID } = summary;
+
     const { _id: sectionTitle, questions } = sectionDetails;
 
     let canteenQuestions =
@@ -159,6 +161,7 @@ export default class ReviewSection extends Component {
                         <YesNoAnswer
                           category={category}
                           question={question}
+                          organizationID={organizationID}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
                           zeroAnswers={this.onlyNeutralAnswers(
@@ -178,6 +181,7 @@ export default class ReviewSection extends Component {
                         <PieAnswer
                           category={category}
                           question={question}
+                          organizationID={organizationID}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
                         />
@@ -198,6 +202,7 @@ export default class ReviewSection extends Component {
                         <ScatterAnswer
                           category={category}
                           question={question}
+                          organizationID={organizationID}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
                         />
@@ -218,6 +223,7 @@ export default class ReviewSection extends Component {
                         <BarChartAnswer
                           category={category}
                           question={question}
+                          organizationID={organizationID}
                         />
                       ) : (
                         <LightTitle bar>
@@ -232,6 +238,7 @@ export default class ReviewSection extends Component {
                       <SiteItemAnswer
                         category={category}
                         question={question}
+                        organizationID={organizationID}
                         toggleComments={toggleComments}
                         profileType={question.profileType}
                         isMobile={isMobile}
@@ -296,6 +303,7 @@ export default class ReviewSection extends Component {
                         <ListAnswer
                           category={category}
                           question={question}
+                          organizationID={organizationID}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
                         />
@@ -322,6 +330,7 @@ export default class ReviewSection extends Component {
                     <ImageSlider
                       category={category}
                       question={question}
+                      organizationID={organizationID}
                       organization={summary}
                     />
                   ) : (
