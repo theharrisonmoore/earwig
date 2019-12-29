@@ -4,10 +4,14 @@ import {
   Wrapper,
   SectionTitle,
   QuestionWrapper,
+  YesNoQuestionWrapper,
+  IconContainer,
+  QuestionContainer,
   QuestionTitle,
   LightTitle,
   HintText,
 } from "./ReviewSection.style";
+import Icon from "../../../Common/Icon/Icon";
 
 import ProfileAnswers from "../ProfileAnswers";
 
@@ -137,35 +141,32 @@ export default class ReviewSection extends Component {
               ].includes(question.profileType) && (
                 <div key={question._id}>
                   {question.profileType === "yesno" && (
-                    <QuestionWrapper
+                    <YesNoQuestionWrapper
                       key={question.profileText}
                       // hide={this.onlyNeutralAnswers(question.answers)}
                     >
-                      <QuestionTitle>{question.profileText}</QuestionTitle>
-                      {question.hintText && (
-                        <HintText>{question.hintText}</HintText>
-                      )}
-                      {this.onlyNeutralAnswers(question.answers) === false ? (
+                      <IconContainer>
+                        {question.icon && (
+                          <Icon icon={question.icon} width="40" height="40" />
+                        )}
+                      </IconContainer>
+                      <QuestionContainer>
+                        <QuestionTitle>{question.profileText}</QuestionTitle>
+
+                        {question.hintText && (
+                          <HintText>{question.hintText}</HintText>
+                        )}
                         <YesNoAnswer
                           category={category}
                           question={question}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
+                          zeroAnswers={this.onlyNeutralAnswers(
+                            question.answers
+                          )}
                         />
-                      ) : (
-                        <LightTitle
-                          bar
-                          large={
-                            question.profileText &&
-                            question.profileText.includes(
-                              "Overall, would you be happy"
-                            )
-                          }
-                        >
-                          <p>No answers yet</p>
-                        </LightTitle>
-                      )}
-                    </QuestionWrapper>
+                      </QuestionContainer>
+                    </YesNoQuestionWrapper>
                   )}
                   {question.profileType === "pieChart" && (
                     <QuestionWrapper key={`${question._id}pieChart`}>
@@ -308,6 +309,7 @@ export default class ReviewSection extends Component {
                 </div>
               )
           )}
+
         {/* site images */}
         {questions &&
           questions
