@@ -9,16 +9,19 @@ import {
   HintText,
 } from "./ReviewSection.style";
 
-import YesNoAnswer from "../ProfileAnswers/YesNoAnswer";
-import ListAnswer from "../ProfileAnswers/ListAnswer";
-import PieAnswer from "../ProfileAnswers/PieAnswer";
-import ScatterAnswer from "../ProfileAnswers/ScatterAnswer";
-import SiteItemAnswer from "../ProfileAnswers/SiteItemAnswer";
-import CanteenItemAnswer from "../ProfileAnswers/CanteenItemAnswer";
-import BarChartAnswer from "../ProfileAnswers/BarChartAnswer";
-import PayrollAnswer from "../ProfileAnswers/PayrollAnswer";
-import ImageSlider from "../ProfileAnswers/ImageSlider";
+import ProfileAnswers from "../ProfileAnswers";
 
+const {
+  YesNoAnswer,
+  ListAnswer,
+  PieAnswer,
+  ScatterAnswer,
+  SiteItemAnswer,
+  CanteenItemAnswer,
+  BarChartAnswer,
+  PayrollAnswer,
+  ImageSlider,
+} = ProfileAnswers;
 export default class ReviewSection extends Component {
   onlyNeutralAnswers = answers => {
     const yesOrNo = answers.filter(
@@ -70,7 +73,6 @@ export default class ReviewSection extends Component {
             {sectionTitle}
           </SectionTitle>
         )}
-
         {/* {sectionTitle === "Key ratings" && (
           <QuestionWrapper>
             <QuestionTitle>
@@ -120,7 +122,6 @@ export default class ReviewSection extends Component {
             </>
           </QuestionWrapper>
         )} */}
-
         {questions &&
           questions.map(
             question =>
@@ -307,7 +308,6 @@ export default class ReviewSection extends Component {
                 </div>
               )
           )}
-
         {/* site images */}
         {questions &&
           questions

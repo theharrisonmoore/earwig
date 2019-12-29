@@ -7,6 +7,8 @@ import { ReviewDiv } from "../Profile.style";
 import ReviewSection from "./ReviewSection";
 import { SectionTitle } from "./ReviewSection.style";
 
+import RepliesAndCommentsCollaps from "../../../Common/RepliesAndCommentsCollaps";
+
 class DetailedAnswers extends Component {
   state = {
     commentsOpen: false,
