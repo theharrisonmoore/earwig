@@ -11,6 +11,7 @@ import ScatterAnswer from "./ScatterAnswer";
 import SiteItemAnswer from "./SiteItemAnswer";
 import VoiceReview from "./VoiceReview";
 import YesNoAnswer from "./YesNoAnswer";
+import CanteenSubItemAnswer from "./CanteenSubItemAnswer";
 
 const withComments = WrapprdComponent => {
   return class WrapprdComponentWithComments extends Component {
@@ -37,4 +38,5 @@ export default {
   SiteItemAnswer: withComments(SiteItemAnswer),
   VoiceReview: withComments(VoiceReview),
   YesNoAnswer: withComments(YesNoAnswer),
+  CanteenSubItemAnswer: withComments(CanteenSubItemAnswer),
 };

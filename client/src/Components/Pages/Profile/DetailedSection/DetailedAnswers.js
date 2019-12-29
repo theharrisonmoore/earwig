@@ -39,7 +39,6 @@ class DetailedAnswers extends Component {
           commentsLoaded: true,
           commentsQuestion: question,
         });
-        console.log(res.data, "-------------");
       })
       .catch(err => {
         const error =
