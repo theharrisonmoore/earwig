@@ -18,10 +18,6 @@ export default class Profile extends Component {
     summary: [],
     reviewDetails: [],
     loaded: false,
-    commentsOpen: false,
-    commentsQuestion: null,
-    comments: null,
-    commentsLoaded: false,
     organizationID: "",
     overallReplies: [],
     activeOverallId: "",
@@ -110,36 +106,6 @@ export default class Profile extends Component {
       this.fetchData();
     }
   }
-
-  // comments are disabled (will keep this until the testing finish)
-  toggleComments = question => {
-    const { commentsOpen } = this.state;
-    // reset loading state and toggle comments box
-    this.setState({ commentsLoaded: false, commentsOpen: !commentsOpen });
-    this.fetchComments(question);
-  };
-
-  fetchComments = question => {
-    const { summary } = this.state;
-    const { _id: organizationID } = summary;
-    const { _id: questionID } = question;
-
-    // fetch comments
-    axios
-      .post("/api/comments", { organizationID, questionID })
-      .then(res => {
-        this.setState({
-          comments: res.data,
-          commentsLoaded: true,
-          commentsQuestion: question,
-        });
-      })
-      .catch(err => {
-        const error =
-          err.response && err.response.data && err.response.data.error;
-        message.error(error || "Something went wrong");
-      });
-  };
 
   fetchOverallReplies = (id, target) => {
     if (id && target) {

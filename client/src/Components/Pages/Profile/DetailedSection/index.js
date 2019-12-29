@@ -8,7 +8,6 @@ const DetailedSection = ({
   isTablet,
   reviewDetails,
   summary,
-  toggleComments,
 }) => {
   return (
     <>
@@ -18,7 +17,6 @@ const DetailedSection = ({
           isMobile={isMobile}
           reviewDetails={reviewDetails}
           summary={summary}
-          toggleComments={toggleComments}
         />
       )}
     </>

@@ -36,6 +36,7 @@ export default class ReviewSection extends Component {
       isMobile,
       reviewDetails,
     } = this.props;
+
     const { _id: sectionTitle, questions } = sectionDetails;
 
     let canteenQuestions =
@@ -122,7 +123,7 @@ export default class ReviewSection extends Component {
 
         {questions &&
           questions.map(
-            (question, index) =>
+            question =>
               [
                 "yesno",
                 "pieChart",
@@ -133,10 +134,10 @@ export default class ReviewSection extends Component {
                 "payrollList",
                 "list",
               ].includes(question.profileType) && (
-                <div key={index}>
+                <div key={question._id}>
                   {question.profileType === "yesno" && (
                     <QuestionWrapper
-                      key={index}
+                      key={question.profileText}
                       // hide={this.onlyNeutralAnswers(question.answers)}
                     >
                       <QuestionTitle>{question.profileText}</QuestionTitle>
@@ -166,7 +167,7 @@ export default class ReviewSection extends Component {
                     </QuestionWrapper>
                   )}
                   {question.profileType === "pieChart" && (
-                    <QuestionWrapper key={index}>
+                    <QuestionWrapper key={`${question._id}pieChart`}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
                       {question.hintText && (
                         <HintText>{question.hintText}</HintText>
@@ -186,7 +187,7 @@ export default class ReviewSection extends Component {
                     </QuestionWrapper>
                   )}
                   {question.profileType === "dotChart" && (
-                    <QuestionWrapper key={index}>
+                    <QuestionWrapper key={`${question._id}dotChart`}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
                       {question.hintText && (
                         <HintText>{question.hintText}</HintText>
@@ -206,7 +207,7 @@ export default class ReviewSection extends Component {
                     </QuestionWrapper>
                   )}
                   {question.profileType === "barChart" && (
-                    <QuestionWrapper key={index}>
+                    <QuestionWrapper key={`${question._id}barChart`}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
                       {question.hintText && (
                         <HintText>{question.hintText}</HintText>
@@ -224,7 +225,7 @@ export default class ReviewSection extends Component {
                     </QuestionWrapper>
                   )}
                   {question.profileType === "siteItem" && (
-                    <QuestionWrapper key={index}>
+                    <QuestionWrapper key={`${question._id}siteItem`}>
                       {/* {question.answers.length > 0 ? ( */}
                       <SiteItemAnswer
                         category={category}
@@ -242,7 +243,7 @@ export default class ReviewSection extends Component {
                     </QuestionWrapper>
                   )}
                   {question.profileType === "canteenItem" && (
-                    <div key={index}>
+                    <div key={`${question._id}canteenItem`}>
                       {/* CANTEEN SECTION */}
                       {canteenQuestions && (
                         <>
@@ -260,7 +261,7 @@ export default class ReviewSection extends Component {
                     </div>
                   )}
                   {question.profileType === "payrollList" && (
-                    <div key={index}>
+                    <div key={`${question._id}payrollList`}>
                       {/* PAYROLL LIST */}
                       {payrollQuestions && (
                         <QuestionWrapper>
@@ -284,7 +285,7 @@ export default class ReviewSection extends Component {
                     </div>
                   )}
                   {question.profileType === "list" && (
-                    <QuestionWrapper key={index}>
+                    <QuestionWrapper key={`${question._id}list`}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
                       {question.hintText && (
                         <HintText>{question.hintText}</HintText>
@@ -311,7 +312,7 @@ export default class ReviewSection extends Component {
         {questions &&
           questions
             .filter(question => question.type === "image")
-            .map((question, index) => {
+            .map(question => {
               return (
                 <QuestionWrapper key={question._id}>
                   <QuestionTitle>{question.profileText}</QuestionTitle>

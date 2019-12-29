@@ -115,7 +115,7 @@ class OverallReview extends Component {
           type,
           organization,
         });
-      },
+      }
     );
   };
 
@@ -207,7 +207,7 @@ class OverallReview extends Component {
 
           return prev;
         },
-        { written: {}, audio: {} },
+        { written: {}, audio: {} }
       );
       this.setState({
         counters: newCounters,
@@ -240,7 +240,7 @@ class OverallReview extends Component {
         if (overallReview && overallReview.text) {
           const repliesCount = getVerifiedRepliesCount(
             review.overallReview.replies,
-            verifiedUsers,
+            verifiedUsers
           );
 
           totalReviews.push({
@@ -261,7 +261,7 @@ class OverallReview extends Component {
         if (voiceReview && voiceReview.audio) {
           const repliesCount = getVerifiedRepliesCount(
             review.voiceReview.replies,
-            verifiedUsers,
+            verifiedUsers
           );
 
           totalReviews.push({
@@ -290,13 +290,13 @@ class OverallReview extends Component {
         if (pageYOffset) {
           window.scrollTo(0, pageYOffset);
         }
-      },
+      }
     );
   }
 
   checkWrittenComments = reviews => {
     const writtenReviews = reviews.filter(
-      review => review.overallReview.text.length > 0,
+      review => review.overallReview.text.length > 0
     );
 
     return writtenReviews.length > 0;
@@ -641,7 +641,7 @@ class OverallReview extends Component {
                                     {reply.replies.createdAt &&
                                       `${moment().diff(
                                         reply.replies.createdAt,
-                                        "weeks",
+                                        "weeks"
                                       )}w`}
                                   </CommentDate>
                                 </BubbleAndDate>
