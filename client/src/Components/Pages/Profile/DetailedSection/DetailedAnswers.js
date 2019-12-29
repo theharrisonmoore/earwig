@@ -9,10 +9,9 @@ const DetailedAnswers = ({
   isMobile,
   reviewDetails,
   summary,
-  toggleComments
+  toggleComments,
 }) => {
   const { category } = summary;
-
   return (
     <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
       <SectionTitle>Detailed answers by workers</SectionTitle>
@@ -28,7 +27,7 @@ const DetailedAnswers = ({
               summary={summary}
               isMobile={isMobile}
             />
-          )
+          ),
       )}
       {/* OTHER SECTIONS */}
       {reviewDetails.map(
@@ -43,7 +42,7 @@ const DetailedAnswers = ({
               isMobile={isMobile}
               reviewDetails={reviewDetails}
             />
-          )
+          ),
       )}
 
       {reviewDetails.map(
@@ -57,7 +56,7 @@ const DetailedAnswers = ({
               summary={summary}
               isMobile={isMobile}
             />
-          )
+          ),
       )}
 
       {reviewDetails.map(
@@ -71,7 +70,7 @@ const DetailedAnswers = ({
               summary={summary}
               isMobile={isMobile}
             />
-          )
+          ),
       )}
 
       {reviewDetails.map(
@@ -85,7 +84,7 @@ const DetailedAnswers = ({
               summary={summary}
               isMobile={isMobile}
             />
-          )
+          ),
       )}
 
       {reviewDetails.map(
@@ -99,7 +98,7 @@ const DetailedAnswers = ({
               summary={summary}
               isMobile={isMobile}
             />
-          )
+          ),
       )}
       {reviewDetails.map(
         section =>
@@ -112,7 +111,7 @@ const DetailedAnswers = ({
               summary={summary}
               isMobile={isMobile}
             />
-          )
+          ),
       )}
       {/* MONTHLY REVIEWS
 {level > 0 && (

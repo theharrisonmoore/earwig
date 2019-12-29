@@ -7,61 +7,84 @@ import {
   shadows,
   borders,
   size,
+  breakpoints,
 } from "../../../../theme";
 
-const generalFontSize = "15px";
+const generalFontSize = "1rem";
 const generalFontWeight = "normal";
 
 export const YesNoWrapper = styled.div`
-  width: 100%;
+  margin-top: -0.5rem;
   display: flex;
-  height: ${props => (props.large ? "4rem" : "2rem")};
-  font-weight: ${generalFontWeight};
-  font-size: ${generalFontSize};
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: ${props => (props.large ? "4.4rem" : "3rem")};
 `;
 
-export const YesHalf = styled.div`
-  width: ${({ width }) => {
-    if (width < 25) return "25%";
-    if (width > 75) return "75%";
-    return `${width}%`;
-  }};
-  background-color: ${props => (props.width === 0 ? colors.red : colors.green)};
-  border-right: none;
-  color: ${colors.white};
-  padding: 0;
-  padding-left: 0.5rem;
+export const Row = styled.div`
   display: flex;
-  align-items: center;
-  font-size: 15px;
-  position: relative;
+  min-width: 240px;
 
-  p {
-    margin: 0;
-    position: absolute;
+  @media ${breakpoints.tablet} {
+    min-width: 400px;
   }
 `;
 
-export const NoHalf = styled.div`
+export const AnswerBar = styled.div`
   width: ${({ width }) => {
+    if (width < 10) return "2%";
     if (width < 25) return "25%";
-    if (width > 75) return "75%";
     return `${width}%`;
   }};
-  background-color: ${props => (props.width === 0 ? colors.green : colors.red)};
-  border-left: none;
+  background-color: ${props => colors[props.background]};
   color: ${colors.white};
-  padding: 0;
-  padding-right: 0.5rem;
+  height: ${props => (props.large ? "1.4rem" : "1rem")};
+  align-self: center;
+`;
+
+export const AnswerText = styled.div`
+  height: ${props => (props.large ? "1.4rem" : "1rem")};
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  font-size: 15px;
-  position: relative;
+  align-self: center;
+  flex-direction: column;
+  align-items: flex-end;
+  color: ${colors.dustyGray3};
+  border-right: 1px solid ${colors.lightGray};
+  padding-bottom: 1.9em;
+  padding-right: 0.2rem;
+  margin-left: ${props => (props.large ? "-1.4rem" : "-1.7rem")};
+  justify-content: center;
+  min-width: 3rem;
+  font-size: ${props => (props.large ? "0.8rem" : "0.6rem")};
 
   p {
-    margin: 0;
-    position: absolute;
+    margin-top: 2.9em;
+  }
+
+  @media ${breakpoints.tablet} {
+    font-size: ${props => (props.large ? "1rem" : "0.8rem")};
+  }
+`;
+
+export const AnswerCount = styled.div`
+  color: ${colors.dustyGray3};
+  align-self: center;
+  margin-top: ${props => (!props.hasData ? "0.7em" : "0")};
+  margin-left: ${props => {
+    if (!props.hasData && props.large) {
+      return `2.8rem`;
+    }
+    if (!props.hasData && !props.large) {
+      return `1.8rem`;
+    }
+    return `0.2rem`;
+  }};
+  position: ${props => (!props.hasData ? "absolute" : "relative")};
+  font-size: ${props => (props.large ? "0.8rem" : "0.6rem")};
+
+  @media ${breakpoints.tablet} {
+    font-size: ${props => (props.large ? "1rem" : "0.8rem")};
   }
 `;
 

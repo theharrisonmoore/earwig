@@ -277,7 +277,6 @@ class OverallReview extends Component {
         }
       });
 
-    console.log("total Reviews", totalReviews);
 
     this.setState(
       {

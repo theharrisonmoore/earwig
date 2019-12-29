@@ -79,6 +79,27 @@ import Detailed from "./Detailed";
 import Like from "./Like";
 import Comment from "./Comment";
 import Flag from "./Flag";
+import Overall from "./Overall";
+import AmountExpected from "./AmountExpected";
+import Contract from "./Contract";
+import CorrectHours from "./CorrectHours";
+import CorrectRate from "./CorrectRate";
+import CorrectWork from "./CorrectWork";
+import PaidOnTime from "./PaidOnTime";
+import PayslipsInfo from "./PayslipsInfo";
+import PayslipsAccessible from "./PayslipsAccessible";
+import ContractBefore from "./ContractBefore";
+import TimesheetCharge from "./TimesheetCharge";
+import SafetySeriously from "./SafetySeriously";
+import SecureTools from "./SecureTools";
+import Materials from "./Materials";
+import OtherEmployees from "./OtherEmployees";
+import Respect from "./Respect";
+import SharedInfo from "./SharedInfo";
+import ToiletsClean from "./ToiletsClean";
+import SafeSite from "./SafeSite";
+import GetAround from "./GetAround";
+import TidySite from "./TidySite";
 
 const iconStyles = props => css`
   width: ${props.width || "100%"};
@@ -166,6 +187,27 @@ const iconMap = {
   like: Like,
   comment: Comment,
   flag: Flag,
+  overall: Overall,
+  amountExpected: AmountExpected,
+  contract: Contract,
+  correctHours: CorrectHours,
+  correctRate: CorrectRate,
+  correctWork: CorrectWork,
+  paidOnTime: PaidOnTime,
+  payslipsInfo: PayslipsInfo,
+  payslipsAccessible: PayslipsAccessible,
+  contractBefore: ContractBefore,
+  timesheetCharge: TimesheetCharge,
+  safetySeriously: SafetySeriously,
+  secureTools: SecureTools,
+  materials: Materials,
+  otherEmployees: OtherEmployees,
+  respect: Respect,
+  sharedInfo: SharedInfo,
+  toiletsClean: ToiletsClean,
+  safeSite: SafeSite,
+  getAround: GetAround,
+  tidySite: TidySite,
 };
 
 const styledIconMap = Object.keys(iconMap).reduce((accum, curr) => {
