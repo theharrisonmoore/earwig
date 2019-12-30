@@ -28,7 +28,9 @@ module.exports.addCommentOnOverallReview = (id, data, target) => Review.findById
 });
 
 // used in admin panel to change isVerified status of review
-module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate({ _id: id }, { isVerified: bool }, { new: true });
+module.exports.approveRejectReview = (id, bool) => Review.findOneAndUpdate(
+  { _id: id }, { isVerified: bool }, { new: true },
+);
 
 // used in admin panel to delete an answer of a review
 module.exports.deleteAnswer = id => Answer.deleteOne({ _id: id });
@@ -488,45 +490,71 @@ module.exports.allQsAndAs = (orgType, orgId, justContractor) => new Promise((res
     .catch(err => reject(err));
 });
 
-module.exports.allComments = (organizationID, questionID) => new Promise((resolve, reject) => {
-  Comment.aggregate([
-    {
-      $match: {
-        $and: [
-          {
-            organization: mongoose.Types.ObjectId(organizationID),
-          },
-          {
-            question: mongoose.Types.ObjectId(questionID),
-          },
-        ],
+module.exports.getFirstLevelCommentsOnQuestion = (organizationID, questionID) => new Promise(
+  (resolve, reject) => {
+    Comment.aggregate([
+      {
+        $match: {
+          $and: [
+            {
+              organization: mongoose.Types.ObjectId(organizationID),
+            },
+            {
+              question: mongoose.Types.ObjectId(questionID),
+            }, {
+              parentComment: { $exists: false },
+            },
+          ],
+        },
       },
-    },
-    {
-      $lookup: {
-        from: "users",
-        localField: "user",
-        foreignField: "_id",
-        as: "user",
+      {
+        $lookup: {
+          from: "users",
+          localField: "user",
+          foreignField: "_id",
+          as: "user",
+        },
       },
-    },
-    {
-      $unwind: "$user",
-    },
-    {
-      $project: {
-        userId: "$user.userId",
-        organization: 1,
-        text: 1,
-        displayName: 1,
+      {
+        $unwind: "$user",
       },
-    },
-  ])
-    .then((result) => {
-      resolve(result);
-    })
-    .catch(err => reject(err));
-});
+      {
+        $lookup: {
+          from: "trades",
+          localField: "user.trade",
+          foreignField: "_id",
+          as: "trade",
+        },
+      },
+      {
+        $unwind: "$trade",
+      }, {
+        $lookup: {
+          from: "comments",
+          localField: "_id",
+          foreignField: "parentComment",
+          as: "subComments",
+        },
+      },
+      {
+        $project: {
+          userId: "$user.userId",
+          organization: 1,
+          text: 1,
+          displayName: 1,
+          trade: "$trade.title",
+          points: "$user.points",
+          helpedUsers: "$user.helpedUsers",
+          repliesCount: { $size: "$subComments" },
+        },
+      },
+    ])
+      .then((result) => {
+        resolve(result);
+      })
+      .catch(err => reject(err));
+  },
+);
 
 // gets all reviews given by 1 user for 1 organisation and sets a flag depending
 // returns true if review is less than 1 month old

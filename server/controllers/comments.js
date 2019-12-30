@@ -1,11 +1,11 @@
 const boom = require("boom");
 
-const { allComments } = require("./../database/queries/reviews");
+const { getFirstLevelCommentsOnQuestion } = require("./../database/queries/reviews");
 
 module.exports = (req, res, next) => {
   const { organizationID, questionID } = req.body;
 
-  allComments(organizationID, questionID)
+  getFirstLevelCommentsOnQuestion(organizationID, questionID)
     .then(comments => res.json(comments))
     .catch(err => next(boom.badImplementation(err)));
 };
