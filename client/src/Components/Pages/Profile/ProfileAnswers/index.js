@@ -7,7 +7,7 @@ import RepliesAndCommentsCollaps from "../../../Common/RepliesAndCommentsCollaps
 
 import BarChartAnswer from "./BarChartAnswer";
 import CanteenItemAnswer from "./CanteenItemAnswer";
-import CommentsBox from "./CommentsBox";
+// import CommentsBox from "./CommentsBox";
 import ImageSlider from "./ImageSlider";
 import ListAnswer from "./ListAnswer";
 import PayrollAnswer from "./PayrollAnswer";
@@ -87,7 +87,7 @@ const withComments = WrapprdComponent => {
 export default {
   BarChartAnswer: withComments(BarChartAnswer),
   CanteenItemAnswer: withComments(CanteenItemAnswer),
-  CommentsBox: withComments(CommentsBox),
+  // CommentsBox: withComments(CommentsBox),
   ImageSlider: withComments(ImageSlider),
   ListAnswer: withComments(ListAnswer),
   PayrollAnswer: withComments(PayrollAnswer),
