@@ -125,13 +125,7 @@ class OverallReview extends Component {
     const { history } = this.props;
     history.push({
       pathname: REPLY_URL,
-      state: {
-        reviewId,
-        target,
-        category,
-        orgId,
-        pageYOffset,
-      },
+      search: `?reviewId=${reviewId}&target=${target}&category=${category}&orgId=${orgId}&pageYOffset=${pageYOffset}`,
     });
   };
 

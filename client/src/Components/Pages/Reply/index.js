@@ -3,6 +3,8 @@ import { Mentions, Input, message } from "antd";
 import * as yup from "yup";
 import axios from "axios";
 
+import queryString from "query-string";
+
 import UserInfo from "../../Common/UserInfo";
 import InvisibleCommentAlert from "../../Common/InvisibleCommentAlert";
 
@@ -80,7 +82,7 @@ export default class Reply extends Component {
   };
 
   handleSubmit = () => {
-    const { reviewId, target } = this.props.location.state;
+    const { reviewId, target } = queryString.parse(this.props.location.search);
 
     this.validate().then(res => {
       if (res) {
@@ -150,9 +152,9 @@ export default class Reply extends Component {
   };
 
   componentDidMount() {
-    if (this.props.location && this.props.location.state) {
-      const { reviewId, target } = this.props.location.state;
-      // target equal "overallReview" OR "voiceReview";
+    const { reviewId, target } = queryString.parse(this.props.location.search);
+    if (reviewId && target) {
+      // target equal "overallReview" OR "voiceReview" OR "comment";
       this.fetchOverallReplies(reviewId, target);
     } else {
       this.goBack();
@@ -160,13 +162,23 @@ export default class Reply extends Component {
   }
 
   goBack = () => {
-    const { orgId, pageYOffset } = this.props.location.state;
+    const { orgId, pageYOffset } = queryString.parse(
+      this.props.location.search
+    );
+
     this.props.history.replace(`/profile/${orgId}`, { pageYOffset });
   };
 
   render() {
-    const { verified, history, location, id } = this.props;
-    if (!location || !location.state) {
+    const { verified, history, id } = this.props;
+    const {
+      reviewId,
+      target,
+      category,
+      orgId,
+      pageYOffset,
+    } = queryString.parse(this.props.location.search);
+    if (!reviewId || !target || !category || !orgId || !pageYOffset) {
       return history.goBack();
     }
 
@@ -178,7 +190,6 @@ export default class Reply extends Component {
       commentContentState,
     } = this.state;
     const { isAdmin } = this.props;
-    const { category } = this.props.location.state;
 
     const users =
       replies &&
