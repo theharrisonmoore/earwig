@@ -6,7 +6,7 @@ import axios from "axios";
 import UserInfo from "../../Common/UserInfo";
 import InvisibleCommentAlert from "../../Common/InvisibleCommentAlert";
 
-import { Error } from "./ProfileAnswers/ProfileAnswers.style";
+import { Error } from "../Profile/ProfileAnswers/ProfileAnswers.style";
 
 import {
   Wrapper,
@@ -14,7 +14,7 @@ import {
   ReplyWrapper,
   CommentsWrapper,
 } from "./Reply.style";
-import { CommentBubble } from "./Profile.style";
+import { CommentBubble } from "../Profile/Profile.style";
 
 import { organizations, colors } from "../../../theme";
 
