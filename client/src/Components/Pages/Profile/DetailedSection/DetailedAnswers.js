@@ -6,7 +6,7 @@ import { SectionTitle } from "./ReviewSection.style";
 
 class DetailedAnswers extends Component {
   render() {
-    const { isTablet, isMobile, reviewDetails, summary } = this.props;
+    const { isTablet, isMobile, reviewDetails, summary, level } = this.props;
 
     const { category } = summary;
 
@@ -18,6 +18,7 @@ class DetailedAnswers extends Component {
           section =>
             section._id === "Key ratings" && (
               <ReviewSection
+                level={level}
                 key={section._id}
                 category={category}
                 sectionDetails={section}
@@ -32,6 +33,7 @@ class DetailedAnswers extends Component {
           section =>
             section._id === "Getting on to site" && (
               <ReviewSection
+                level={level}
                 key={section._id}
                 category={category}
                 sectionDetails={section}
@@ -47,6 +49,7 @@ class DetailedAnswers extends Component {
           section =>
             section._id === "Working on the site" && (
               <ReviewSection
+                level={level}
                 key={section._id}
                 category={category}
                 sectionDetails={section}
@@ -61,6 +64,7 @@ class DetailedAnswers extends Component {
           section =>
             section._id === "The site welfare" && (
               <ReviewSection
+                level={level}
                 key={section._id}
                 category={category}
                 sectionDetails={section}
@@ -75,6 +79,7 @@ class DetailedAnswers extends Component {
           section =>
             section._id === "Detailed ratings" && (
               <ReviewSection
+                level={level}
                 key={section._id}
                 category={category}
                 sectionDetails={section}
@@ -89,6 +94,7 @@ class DetailedAnswers extends Component {
           section =>
             section._id === "Supervisors & employees" && (
               <ReviewSection
+                level={level}
                 key={section._id}
                 category={category}
                 sectionDetails={section}
@@ -102,6 +108,7 @@ class DetailedAnswers extends Component {
           section =>
             section._id === "Tools & materials" && (
               <ReviewSection
+                level={level}
                 key={section._id}
                 category={category}
                 sectionDetails={section}

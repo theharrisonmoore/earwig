@@ -42,9 +42,10 @@ export default class ReviewSection extends Component {
       summary,
       isMobile,
       reviewDetails,
+      level,
     } = this.props;
 
-    const { _id: organizationID } = summary;
+    const { _id: organizationID, name: organizationName } = summary;
 
     const { _id: sectionTitle, questions } = sectionDetails;
 
@@ -162,11 +163,13 @@ export default class ReviewSection extends Component {
                           category={category}
                           question={question}
                           organizationID={organizationID}
+                          organizationName={organizationName}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
                           zeroAnswers={this.onlyNeutralAnswers(
                             question.answers
                           )}
+                          level={level}
                         />
                       </QuestionContainer>
                     </YesNoQuestionWrapper>
@@ -182,8 +185,10 @@ export default class ReviewSection extends Component {
                           category={category}
                           question={question}
                           organizationID={organizationID}
+                          organizationName={organizationName}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
+                          level={level}
                         />
                       ) : (
                         <LightTitle bar>
@@ -203,8 +208,10 @@ export default class ReviewSection extends Component {
                           category={category}
                           question={question}
                           organizationID={organizationID}
+                          organizationName={organizationName}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
+                          level={level}
                         />
                       ) : (
                         <LightTitle bar>
@@ -224,6 +231,8 @@ export default class ReviewSection extends Component {
                           category={category}
                           question={question}
                           organizationID={organizationID}
+                          organizationName={organizationName}
+                          level={level}
                         />
                       ) : (
                         <LightTitle bar>
@@ -239,10 +248,12 @@ export default class ReviewSection extends Component {
                         category={category}
                         question={question}
                         organizationID={organizationID}
+                        organizationName={organizationName}
                         toggleComments={toggleComments}
                         profileType={question.profileType}
                         isMobile={isMobile}
                         reviewDetails={reviewDetails}
+                        level={level}
                       />
                       {/* ) : (
                         <LightTitle bar>
@@ -262,6 +273,7 @@ export default class ReviewSection extends Component {
                                 questions={canteenQuestions}
                                 toggleComments={toggleComments}
                                 isMobile={isMobile}
+                                level={level}
                               />
                             </QuestionWrapper>
                           )}
@@ -283,6 +295,7 @@ export default class ReviewSection extends Component {
                               questions={payrollQuestions}
                               toggleComments={toggleComments}
                               isMobile={isMobile}
+                              level={level}
                             />
                           ) : (
                             <LightTitle bar>
@@ -304,8 +317,10 @@ export default class ReviewSection extends Component {
                           category={category}
                           question={question}
                           organizationID={organizationID}
+                          organizationName={organizationName}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
+                          level={level}
                         />
                       ) : (
                         <LightTitle bar>
@@ -331,7 +346,9 @@ export default class ReviewSection extends Component {
                       category={category}
                       question={question}
                       organizationID={organizationID}
+                      organizationName={organizationName}
                       organization={summary}
+                      level={level}
                     />
                   ) : (
                     <LightTitle image bar>

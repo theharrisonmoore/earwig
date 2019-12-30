@@ -3,8 +3,10 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import { message } from "antd";
+import { checkAdminReply } from "../utils";
 import RepliesAndCommentsCollaps from "../../../Common/RepliesAndCommentsCollaps";
 
+import OverallReviewsContent from "../OverviewSection/OverallReviewsContent";
 import BarChartAnswer from "./BarChartAnswer";
 import CanteenItemAnswer from "./CanteenItemAnswer";
 // import CommentsBox from "./CommentsBox";
@@ -17,6 +19,8 @@ import SiteItemAnswer from "./SiteItemAnswer";
 import VoiceReview from "./VoiceReview";
 import YesNoAnswer from "./YesNoAnswer";
 import CanteenSubItemAnswer from "./CanteenSubItemAnswer";
+
+import { organizations } from "../../../../theme";
 
 // custom HOC to append the comments for each question
 const withComments = WrapprdComponent => {
@@ -45,8 +49,12 @@ const withComments = WrapprdComponent => {
       axios
         .post("/api/comments", { organizationID, questionID })
         .then(res => {
+          const comments = res.data.map(comment => ({
+            ...comment,
+            adminReplied: checkAdminReply(comment.repliedUsers),
+          }));
           this.setState({
-            comments: res.data,
+            comments,
             loading: false,
           });
         })
@@ -61,10 +69,14 @@ const withComments = WrapprdComponent => {
       const {
         question: { commentsCount, _id: questionID } = {},
         organizationID,
+        organizationName,
+        category,
+        level,
       } = this.props;
 
-      const { isActive } = this.state;
+      const { isActive, comments } = this.state;
 
+      const activeKey = isActive && questionID;
       return (
         <div>
           <WrapprdComponent {...this.props} />
@@ -72,11 +84,48 @@ const withComments = WrapprdComponent => {
             <RepliesAndCommentsCollaps
               id={`${organizationID}/${questionID}`}
               isActive={isActive}
-              panelKey={`${organizationID}/${questionID}`}
+              panelKey={questionID}
               count={commentsCount}
               onToggle={this.toggleComments}
+              activeKey={activeKey}
               comments
-            />
+            >
+              {comments.map(comment => (
+                <>
+                  <OverallReviewsContent
+                    key={`${comment._id}comment`}
+                    bgColor={organizations[category].secondary}
+                    written
+                    text={comment.text}
+                    time={comment.createdAt}
+                    owner={{}}
+                    helpedUsers={comment.helpedUsers}
+                    userPoints={comment.userPoints}
+                    // _id
+                    userId={comment.userId}
+                    category={category}
+                    level={level}
+                    reviewId={comment.review}
+                    reviewCategory="comment"
+                    reviewOrganizationId={comment.organization}
+                    adminReplied={comment.adminReplied}
+                    updatedUsers={{}}
+                    repliesCount={comment.repliesCount}
+                    // overallReplies={overallReplies}
+                    activeKey={activeKey}
+                    // overallReview={overallReview}
+                    orgId={organizationID}
+                    orgName={organizationName}
+                    togglePanel={this.togglePanel}
+                    toggleHelpful={this.toggleHelpful}
+                    goTOReply={this.goTOReply}
+                    ownerTrade={comment.trade}
+                    ownerId={comment.userId}
+                    ownerUserId={comment.userUserId}
+                  />
+                </>
+              ))}
+            </RepliesAndCommentsCollaps>
           ) : null}
         </div>
       );

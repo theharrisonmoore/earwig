@@ -17,6 +17,7 @@ const DetailedSection = ({
           isMobile={isMobile}
           reviewDetails={reviewDetails}
           summary={summary}
+          level={level}
         />
       )}
     </>

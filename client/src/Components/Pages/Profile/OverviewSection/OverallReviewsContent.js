@@ -32,19 +32,16 @@ export default ({
   helpedUsers,
   userPoints,
   userId,
-  isAuthorized,
   category,
   level,
   reviewId,
   reviewCategory,
   reviewOrganizationId,
-  counters,
   adminReplied,
   updatedUsers,
   repliesCount,
   overallReplies,
-  activeReview,
-  activeOverallId,
+  activeKey,
   overallReview,
   orgId,
   orgName,
@@ -55,17 +52,11 @@ export default ({
   ownerTrade,
   ownerId,
   ownerUserId,
+  isOpen,
+  isLiked,
+  isLikedByUser,
+  showRate,
 }) => {
-  const isActive =
-    activeReview === `${reviewId}/${reviewCategory}` &&
-    activeOverallId === reviewId;
-
-  const isLiked =
-    counters[reviewCategory][reviewId] &&
-    counters[reviewCategory][reviewId].counter > 0;
-
-  const isLikedByUser = isLiked && counters[reviewCategory][reviewId].byUser;
-
   return (
     <CommentDiv>
       <BubbleAndDate>
@@ -84,7 +75,7 @@ export default ({
         )}
       </BubbleAndDate>
       <RatingWithUserInfo style={{ display: "flex" }}>
-        <Rate rate={rate} />
+        {showRate && <Rate rate={rate} />}
         <UserInfo
           userId={ownerUserId}
           trade={ownerTrade}
@@ -97,7 +88,7 @@ export default ({
       <ActionButtonsWrapper
         loggedinUserID={userId}
         ownerID={ownerId}
-        onClickHelpful={isAuthorized ? toggleHelpful : undefined}
+        onClickHelpful={level >= 1 ? toggleHelpful : undefined}
         reviewId={reviewId}
         reviewCategory={reviewCategory}
         reviewOrganizationId={reviewOrganizationId}
@@ -115,10 +106,10 @@ export default ({
       {repliesCount ? (
         <RepliesAndCommentsCollaps
           id={reviewId}
-          isActive={isActive}
+          isOpen={isOpen}
           panelKey={`${reviewId}/${reviewCategory}`}
           count={repliesCount}
-          activeKey={activeReview}
+          activeKey={activeKey}
           onToggle={togglePanel}
         >
           <Replies

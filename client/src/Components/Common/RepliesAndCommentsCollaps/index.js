@@ -17,7 +17,7 @@ class RepliesAndCommentsCollaps extends Component {
     const {
       children,
       id,
-      isActive,
+      isOpen,
       panelKey,
       count,
       activeKey,
@@ -39,7 +39,7 @@ class RepliesAndCommentsCollaps extends Component {
             key={panelKey}
             header={
               <>
-                {isActive ? (
+                {isOpen ? (
                   <AntdIcon
                     fontWeight={700}
                     type="up"
@@ -68,7 +68,7 @@ class RepliesAndCommentsCollaps extends Component {
                     marginBottom: "1rem",
                   }}
                 >
-                  {isActive
+                  {isOpen
                     ? `Hide ${comments ? "more" : `Replies`}`
                     : `Read ${comments ? "more" : `Replies`} (${count})`}
                 </span>

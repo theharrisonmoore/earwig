@@ -528,7 +528,8 @@ module.exports.getFirstLevelCommentsOnQuestion = (organizationID, questionID) =>
       },
       {
         $unwind: "$trade",
-      }, {
+      },
+      {
         $lookup: {
           from: "comments",
           localField: "_id",
@@ -537,8 +538,17 @@ module.exports.getFirstLevelCommentsOnQuestion = (organizationID, questionID) =>
         },
       },
       {
+        $lookup: {
+          from: "users",
+          localField: "subComments.user",
+          foreignField: "_id",
+          as: "repliedUsers",
+        },
+      },
+      {
         $project: {
-          userId: "$user.userId",
+          userId: "$user._id",
+          userUserId: "$user.userId",
           organization: 1,
           text: 1,
           displayName: 1,
@@ -546,6 +556,9 @@ module.exports.getFirstLevelCommentsOnQuestion = (organizationID, questionID) =>
           points: "$user.points",
           helpedUsers: "$user.helpedUsers",
           repliesCount: { $size: "$subComments" },
+          createdAt: 1,
+          review: 1,
+          repliedUsers: 1,
         },
       },
     ])

@@ -22,7 +22,7 @@ import { SectionTitle } from "../DetailedSection/ReviewSection.style";
 
 class OverallReview extends Component {
   state = {
-    activeReview: "",
+    activeKey: "",
     counters: {
       written: {},
       audio: {},
@@ -107,16 +107,16 @@ class OverallReview extends Component {
   };
 
   togglePanel = key => {
-    if (!key) return this.setState({ activeReview: "" });
+    if (!key) return this.setState({ activeKey: "" });
 
     const [reviewId, type] = key.split("/");
     const target = type === "written" ? "overallReview" : "voiceReview";
     if (reviewId) {
-      return this.setState({ activeReview: key }, () => {
+      return this.setState({ activeKey: key }, () => {
         this.props.fetchOverallReplies(reviewId, target);
       });
     }
-    return this.setState({ activeReview: "" });
+    return this.setState({ activeKey: "" });
   };
 
   goTOReply = e => {
@@ -172,18 +172,24 @@ class OverallReview extends Component {
 
     if (summary)
       summary.reviews.forEach(review => {
-        let replies = [];
+        let repliedUsers = [];
         if (review.overallReview && review.overallReview.allRepliesUsers) {
-          replies = [...replies, ...review.overallReview.allRepliesUsers];
+          repliedUsers = [
+            ...repliedUsers,
+            ...review.overallReview.allRepliesUsers,
+          ];
         }
         if (review.voiceReview && review.voiceReview.allRepliesUsers) {
-          replies = [...replies, ...review.voiceReview.allRepliesUsers];
+          repliedUsers = [
+            ...repliedUsers,
+            ...review.voiceReview.allRepliesUsers,
+          ];
         }
-        const verifiedUsers = getVerifiedUsers(replies);
+        const verifiedUsers = getVerifiedUsers(repliedUsers);
         const { overallReview, voiceReview } = review;
 
         // check if admin has replied to the review
-        review.adminReplied = checkAdminReply(replies);
+        review.adminReplied = checkAdminReply(repliedUsers);
 
         // check for writtenReview and add to array
         if (overallReview && overallReview.text) {
@@ -277,14 +283,13 @@ class OverallReview extends Component {
 
     const { name: orgName, _id: orgId } = summary;
     const {
-      activeReview,
+      activeKey,
       counters,
       writtenOrAudioReviews,
       updatedUsers,
     } = this.state;
 
-    console.log({ summary });
-    const { isAuthorized, level } = authorization({
+    const { level } = authorization({
       isAdmin,
       verified,
       awaitingReview,
@@ -338,6 +343,18 @@ class OverallReview extends Component {
                 ? updatedUsers[ownerId].points
                 : ownerPoints;
 
+              const isOpen =
+                activeKey === `${reviewId}/${reviewCategory}` &&
+                activeOverallId === reviewId;
+
+              const isLiked =
+                counters[reviewCategory] &&
+                counters[reviewCategory][reviewId] &&
+                counters[reviewCategory][reviewId].counter > 0;
+
+              const isLikedByUser =
+                isLiked && counters[reviewCategory][reviewId].byUser;
+
               return (
                 <OverallReviewsContent
                   key={`${review._id}comment${reviewCategory}`}
@@ -354,19 +371,16 @@ class OverallReview extends Component {
                   userPoints={userPoints}
                   // _id
                   userId={userId}
-                  isAuthorized={isAuthorized}
                   category={category}
                   level={level}
                   reviewId={reviewId}
                   reviewCategory={reviewCategory}
                   reviewOrganizationId={reviewOrganizationId}
-                  counters={counters}
                   adminReplied={adminReplied}
                   updatedUsers={updatedUsers}
                   repliesCount={repliesCount}
                   overallReplies={overallReplies}
-                  activeReview={activeReview}
-                  activeOverallId={activeOverallId}
+                  activeKey={activeKey}
                   overallReview={overallReview}
                   orgId={orgId}
                   orgName={orgName}
@@ -376,6 +390,10 @@ class OverallReview extends Component {
                   ownerTrade={ownerTrade}
                   ownerId={ownerId}
                   ownerUserId={ownerUserId}
+                  isOpen={isOpen}
+                  isLiked={isLiked}
+                  isLikedByUser={isLikedByUser}
+                  showRate
                 />
               );
             }
