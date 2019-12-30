@@ -1,9 +1,10 @@
 /* eslint-disable no-param-reassign */
 import React, { Component } from "react";
-import moment from "moment";
-import { Link, withRouter } from "react-router-dom";
-import { message, Alert, Rate } from "antd";
+import { withRouter } from "react-router-dom";
+import { message } from "antd";
 import axios from "axios";
+
+import OverallReviewsContent from "./OverallReviewsContent";
 
 import {
   getVerifiedUsers,
@@ -11,63 +12,13 @@ import {
   checkAdminReply,
 } from "../utils";
 
-import Icon from "../../../Common/Icon/Icon";
-import RepliesAndCommentsCollaps from "../../../Common/RepliesAndCommentsCollaps";
-
-import { organizations, colors } from "../../../../theme";
-import {
-  REPORT_CONTENT_URL,
-  REPLY_URL,
-} from "../../../../constants/naviagationUrls";
+import { organizations } from "../../../../theme";
+import { REPLY_URL } from "../../../../constants/naviagationUrls";
 import { authorization } from "../../../../helpers";
 
-import {
-  CommentDiv,
-  UserID,
-  LightTitle,
-  CommentBubble,
-  CommentDate,
-  BubbleAndDate,
-  ReviewDiv,
-  ActionsDiv,
-  ButtonsWrapper,
-  UserTrade,
-  UserDiv,
-  UserAdditionalDetails,
-  UserInfoWrapper,
-  RatingWithUserInfo,
-  LikeWrapper,
-  CommentIconWrapper,
-} from "../Profile.style";
-
-import VoiceReview from "../ProfileAnswers/VoiceReview";
+import { LightTitle, ReviewDiv } from "../Profile.style";
 
 import { SectionTitle } from "../DetailedSection/ReviewSection.style";
-
-const UserInfo = ({ userId, trade, helpedUsers, points }) => {
-  return (
-    <>
-      <Icon
-        icon="getVerified"
-        color={colors.black2}
-        height="25"
-        width="25"
-        margin="0 0 0 0.5rem"
-      />
-      <UserInfoWrapper>
-        <UserDiv>
-          <UserID>{userId}</UserID>
-          <UserTrade>{trade}</UserTrade>
-        </UserDiv>
-        <UserAdditionalDetails>
-          <p>
-            Helped {helpedUsers} · Points {points}
-          </p>
-        </UserAdditionalDetails>
-      </UserInfoWrapper>
-    </>
-  );
-};
 
 class OverallReview extends Component {
   state = {
@@ -85,7 +36,6 @@ class OverallReview extends Component {
     const { id: reviewId } = e.target;
     // type = "audio" or "written"
     const { type, organization, userId } = e.target.dataset;
-
     const item = counters[type][reviewId];
     const counter = item ? item.counter : 0;
     const sentNumber = item ? item.sentNumber : 0;
@@ -320,13 +270,12 @@ class OverallReview extends Component {
       activeOverallId,
       verified,
       isAdmin,
-      orgId,
       awaitingReview,
       FilteredReviewMonths,
       id: userId,
     } = this.props;
 
-    // const { totalReviews } = summary;
+    const { name: orgName, _id: orgId } = summary;
     const {
       activeReview,
       counters,
@@ -334,6 +283,7 @@ class OverallReview extends Component {
       updatedUsers,
     } = this.state;
 
+    console.log({ summary });
     const { isAuthorized, level } = authorization({
       isAdmin,
       verified,
@@ -355,287 +305,78 @@ class OverallReview extends Component {
         {writtenOrAudioReviews &&
           writtenOrAudioReviews.map(review => {
             if (this.checkIfReviewExist(review)) {
+              const {
+                repliesCount,
+                adminReplied,
+                category: reviewCategory,
+                _id: reviewId,
+                organization: reviewOrganizationId,
+                review: { overallReview } = {},
+                rate = 0,
+                user: owner = {},
+                text: reviewText,
+              } = review;
+
+              const {
+                _id: ownerId,
+                helpedUsers: OwnerHelpedUsers,
+                points: ownerPoints,
+                userId: ownerUserId,
+              } = owner;
+
+              const isAudio = reviewCategory === "audio";
+              const isWritten = reviewCategory === "written";
+
+              const ownerTrade =
+                owner.trade && owner.trade.length > 0 && owner.trade[0].title;
+
+              const helpedUsers = updatedUsers[ownerId]
+                ? updatedUsers[ownerId].helpedUsers
+                : OwnerHelpedUsers;
+
+              const userPoints = updatedUsers[ownerId]
+                ? updatedUsers[ownerId].points
+                : ownerPoints;
+
               return (
-                <CommentDiv key={`${review._id}comment${review.category}`}>
-                  <BubbleAndDate>
-                    <CommentBubble
-                      bgColor={
-                        review.category === "audio"
-                          ? "transparent"
-                          : organizations[category].secondary
-                      }
-                    >
-                      {review.category === "written" && review.text}
-                      {review.category === "audio" && (
-                        <VoiceReview
-                          category={category}
-                          filename={review.text}
-                        />
-                      )}
-                    </CommentBubble>
-                    <CommentDate>
-                      {moment().diff(review.createdAt, "weeks")}w
-                    </CommentDate>
-                    {review.category === "audio" && (
-                      <Icon
-                        icon="voiceRecord"
-                        width="36px"
-                        height="48px"
-                        color={colors.profileFontColor}
-                      />
-                    )}
-                  </BubbleAndDate>
-                  <RatingWithUserInfo style={{ display: "flex" }}>
-                    <Rate
-                      disabled
-                      value={review.rate || 0}
-                      style={{
-                        color: `${colors.stars}`,
-                        fontSize: "0.8rem",
-                      }}
-                      className="last-reviewed-star-rate"
-                    />
-                    <UserInfo
-                      userId={review.user && review.user.userId}
-                      trade={
-                        review.user &&
-                        review.user.trade &&
-                        review.user.trade.length > 0 &&
-                        review.user.trade[0].title
-                      }
-                      helpedUsers={
-                        updatedUsers[review.user._id]
-                          ? updatedUsers[review.user._id].helpedUsers
-                          : review.user.helpedUsers
-                      }
-                      points={
-                        updatedUsers[review.user._id]
-                          ? updatedUsers[review.user._id].points
-                          : review.user.points
-                      }
-                    />
-                  </RatingWithUserInfo>
-                  {/*  BUTTONS SECTION */}
-                  <ActionsDiv>
-                    <ButtonsWrapper>
-                      {review.user._id !== userId && (
-                        <LikeWrapper
-                          as="button"
-                          onClick={
-                            isAuthorized ? this.toggleHelpful : undefined
-                          }
-                          id={review._id}
-                          data-user-id={review.user._id}
-                          data-type={review.category}
-                          data-organization={review.organization}
-                          data-target={
-                            review.category === "written"
-                              ? "overallReview"
-                              : "voiceReview"
-                          }
-                          data-category={category}
-                          disabled={level < 2}
-                          active={
-                            counters[review.category][review._id] &&
-                            counters[review.category][review._id].counter > 0 &&
-                            counters[review.category][review._id].byUser
-                          }
-                        >
-                          <Icon
-                            icon="like"
-                            fill={
-                              counters[review.category][review._id] &&
-                              counters[review.category][review._id].counter > 0
-                                ? colors.primary
-                                : colors.gray
-                            }
-                            width="27"
-                            height="27"
-                          />
-                        </LikeWrapper>
-                      )}
-                      {review.adminReplied !== true && (
-                        <CommentIconWrapper
-                          onClick={level >= 2 ? this.goTOReply : undefined}
-                          data-target={
-                            review.category === "written"
-                              ? "overallReview"
-                              : "voiceReview"
-                          }
-                          data-category={category}
-                          data-org-id={orgId}
-                          data-review-id={review._id}
-                          disabled={level < 2}
-                        >
-                          <Icon
-                            icon="comment"
-                            fill={colors.gray}
-                            width="27"
-                            height="27"
-                          />
-                        </CommentIconWrapper>
-                      )}
-                    </ButtonsWrapper>
-                    {/* FLAG ICON */}
-                    <Link
-                      style={{ right: 0, width: "10%" }}
-                      to={{
-                        pathname: REPORT_CONTENT_URL,
-                        state: {
-                          review: {
-                            overallReview:
-                              review.review && review.review.overallReview,
-                            user: review.user,
-                          },
-                          organization: summary,
-                          target:
-                            review.category === "written"
-                              ? "overallReview"
-                              : "voiceReview",
-                        },
-                      }}
-                      disabled={level < 1}
-                    >
-                      <Icon
-                        icon="flag"
-                        fill={colors.gray}
-                        width="27"
-                        height="27"
-                      />
-                    </Link>
-                  </ActionsDiv>
-                  {review.repliesCount ? (
-                    <RepliesAndCommentsCollaps
-                      id={review._id}
-                      isActive={
-                        activeReview === `${review._id}/${review.category}` &&
-                        activeOverallId === review._id
-                      }
-                      panelKey={`${review._id}/${review.category}`}
-                      count={review.repliesCount}
-                      activeKey={activeReview}
-                      onToggle={this.togglePanel}
-                    >
-                      {overallReplies.map(reply => {
-                        return (
-                          <div
-                            key={reply.replies._id}
-                            style={{
-                              position: "relative",
-                              marginBottom: "2rem",
-                              direction: `${reply.replies.displayName &&
-                                "rtl"}`,
-                            }}
-                          >
-                            {level < 3 && reply.replies.user._id === userId && (
-                              <Alert
-                                message="Your replies are only visible to you until we've checked your verification photo."
-                                type="warning"
-                                style={{
-                                  display: "inline-block",
-                                  marginBottom: "0.5rem",
-                                }}
-                                banner
-                              />
-                            )}
-
-                            <UserDiv>
-                              <UserID adminReply={!!reply.replies.displayName}>
-                                {" "}
-                                {reply.replies.displayName ||
-                                  reply.replies.user.userId}
-                              </UserID>
-
-                              <UserTrade>
-                                {!reply.replies.displayName &&
-                                  reply.replies.user.trade[0] &&
-                                  reply.replies.user.trade[0].title}
-                              </UserTrade>
-                            </UserDiv>
-                            {!reply.replies.displayName && (
-                              <UserAdditionalDetails>
-                                <p>
-                                  Helped{" "}
-                                  {updatedUsers[reply.replies.user._id]
-                                    ? updatedUsers[reply.replies.user._id]
-                                        .helpedUsers
-                                    : reply.replies.user.helpedUsers}{" "}
-                                  · Points{" "}
-                                  {updatedUsers[reply.replies.user._id]
-                                    ? updatedUsers[reply.replies.user._id]
-                                        .points
-                                    : reply.replies.user.points}
-                                </p>
-                              </UserAdditionalDetails>
-                            )}
-                            <div
-                              style={{
-                                position: "relative",
-                                marginBottom: "2rem",
-                              }}
-                            >
-                              <BubbleAndDate>
-                                <CommentBubble
-                                  style={{ maxWidth: "100%" }}
-                                  bgColor={
-                                    reply.replies.displayName
-                                      ? "white"
-                                      : organizations[category].secondary
-                                  }
-                                  color={
-                                    reply.replies.displayName &&
-                                    organizations[category].primary
-                                  }
-                                  adminReply={!!reply.replies.displayName}
-                                  category={category}
-                                >
-                                  {reply.replies.text}
-                                </CommentBubble>
-                                <CommentDate>
-                                  {reply.replies.createdAt &&
-                                    `${moment().diff(
-                                      reply.replies.createdAt,
-                                      "weeks"
-                                    )}w`}
-                                </CommentDate>
-                              </BubbleAndDate>
-                              <Link
-                                style={{
-                                  [reply.replies.displayName
-                                    ? "left"
-                                    : "right"]: 0,
-                                  width: "10%",
-                                  position: "absolute",
-                                  top: "50%",
-                                  transform: "translateY(-50%)",
-                                }}
-                                to={{
-                                  pathname: REPORT_CONTENT_URL,
-                                  state: {
-                                    review: {
-                                      overallReview: review.overallReview,
-                                      user: review.user,
-                                    },
-                                    organization: summary,
-                                    reply: reply.replies,
-                                    target: "overallReply",
-                                  },
-                                }}
-                              >
-                                <Icon
-                                  icon="flag"
-                                  fill={colors.gray}
-                                  width="27"
-                                  height="27"
-                                />
-                              </Link>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </RepliesAndCommentsCollaps>
-                  ) : null}
-                </CommentDiv>
+                <OverallReviewsContent
+                  key={`${review._id}comment${reviewCategory}`}
+                  bgColor={
+                    isAudio ? "transparent" : organizations[category].secondary
+                  }
+                  written={isWritten}
+                  text={reviewText}
+                  audio={isAudio}
+                  time={review.createdAt}
+                  rate={rate}
+                  owner={owner}
+                  helpedUsers={helpedUsers}
+                  userPoints={userPoints}
+                  // _id
+                  userId={userId}
+                  isAuthorized={isAuthorized}
+                  category={category}
+                  level={level}
+                  reviewId={reviewId}
+                  reviewCategory={reviewCategory}
+                  reviewOrganizationId={reviewOrganizationId}
+                  counters={counters}
+                  adminReplied={adminReplied}
+                  updatedUsers={updatedUsers}
+                  repliesCount={repliesCount}
+                  overallReplies={overallReplies}
+                  activeReview={activeReview}
+                  activeOverallId={activeOverallId}
+                  overallReview={overallReview}
+                  orgId={orgId}
+                  orgName={orgName}
+                  togglePanel={this.togglePanel}
+                  toggleHelpful={this.toggleHelpful}
+                  goTOReply={this.goTOReply}
+                  ownerTrade={ownerTrade}
+                  ownerId={ownerId}
+                  ownerUserId={ownerUserId}
+                />
               );
             }
             return null;

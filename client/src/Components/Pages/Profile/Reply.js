@@ -1,7 +1,10 @@
 import React, { Component } from "react";
-import { Mentions, Input, message, Alert } from "antd";
+import { Mentions, Input, message } from "antd";
 import * as yup from "yup";
 import axios from "axios";
+
+import UserInfo from "../../Common/UserInfo";
+import InvisibleCommentAlert from "../../Common/InvisibleCommentAlert";
 
 import { Error } from "./ProfileAnswers/ProfileAnswers.style";
 
@@ -11,13 +14,7 @@ import {
   ReplyWrapper,
   CommentsWrapper,
 } from "./Reply.style";
-import {
-  UserDiv,
-  UserTrade,
-  UserAdditionalDetails,
-  UserID,
-  CommentBubble,
-} from "./Profile.style";
+import { CommentBubble } from "./Profile.style";
 
 import { organizations, colors } from "../../../theme";
 
@@ -224,36 +221,24 @@ export default class Reply extends Component {
                   category={category}
                 >
                   {!verified && reply.replies.user._id === id && (
-                    <Alert
-                      message="Your replies are only visible to you until we've checked your verification photo."
-                      type="warning"
-                      style={{
-                        display: "inline-block",
-                        marginBottom: "0.5rem",
-                      }}
-                      banner
-                    />
+                    <InvisibleCommentAlert />
                   )}
-                  <UserDiv>
-                    <UserID adminReply={!!reply.replies.displayName}>
-                      {" "}
-                      {reply.replies.displayName || reply.replies.user.userId}
-                    </UserID>
-                    <UserTrade>
-                      {!reply.replies.displayName &&
-                        reply.replies.user.trade &&
-                        reply.replies.user.trade[0] &&
-                        reply.replies.user.trade[0].title}
-                    </UserTrade>
-                  </UserDiv>
-                  {!reply.replies.displayName && (
-                    <UserAdditionalDetails>
-                      <p>
-                        Helped {reply.replies.user.helpedUsers} · Points{" "}
-                        {reply.replies.user.points}
-                      </p>
-                    </UserAdditionalDetails>
-                  )}
+
+                  <UserInfo
+                    userId={
+                      reply.replies.displayName || reply.replies.user.userId
+                    }
+                    adminReply={!!reply.replies.displayName}
+                    trade={
+                      !reply.replies.displayName &&
+                      reply.replies.user.trade &&
+                      reply.replies.user.trade[0] &&
+                      reply.replies.user.trade[0].title
+                    }
+                    helpedUsers={reply.replies.user.helpedUsers}
+                    points={reply.replies.user.points}
+                  />
+
                   <CommentBubble
                     as="pre"
                     style={{ maxWidth: "100%" }}

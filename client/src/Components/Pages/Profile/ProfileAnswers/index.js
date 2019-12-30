@@ -68,7 +68,7 @@ const withComments = WrapprdComponent => {
       return (
         <div>
           <WrapprdComponent {...this.props} />
-          {commentsCount && (
+          {commentsCount ? (
             <RepliesAndCommentsCollaps
               id={`${organizationID}/${questionID}`}
               isActive={isActive}
@@ -77,7 +77,7 @@ const withComments = WrapprdComponent => {
               onToggle={this.toggleComments}
               comments
             />
-          )}
+          ) : null}
         </div>
       );
     }

@@ -13,7 +13,7 @@ const UserAdditionalDetails = styled.div`
   margin-top: -10px;
 
   p {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: ${colors.dustyGray2};
   }
 `;
@@ -27,6 +27,7 @@ const UserTrade = styled.p`
   margin-left: 10px;
   color: ${colors.profileFontColor};
   margin-bottom: 0;
+  font-size: 0.75rem;
 `;
 
 const adminTitle = css`
@@ -35,31 +36,42 @@ const adminTitle = css`
 
 const UserID = styled.h3`
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 0.75rem;
   color: ${colors.profileFontColor};
   ${({ adminReply }) => adminReply && adminTitle}
 `;
 
-const UserInfo = ({ userId, trade, helpedUsers, points }) => {
+const UserInfo = ({
+  userId,
+  trade,
+  helpedUsers,
+  points,
+  adminReply,
+  showVerifiedIcon,
+}) => {
   return (
     <>
-      <Icon
-        icon="getVerified"
-        color={colors.black2}
-        height="25"
-        width="25"
-        margin="0 0 0 0.5rem"
-      />
+      {showVerifiedIcon && (
+        <Icon
+          icon="getVerified"
+          color={colors.black2}
+          height="15"
+          width="15"
+          margin="0.25rem 0 0 0.5rem"
+        />
+      )}
       <UserInfoWrapper>
         <UserDiv>
-          <UserID>{userId}</UserID>
+          <UserID adminReply={adminReply}>{userId}</UserID>
           <UserTrade>{trade}</UserTrade>
         </UserDiv>
-        <UserAdditionalDetails>
-          <p>
-            Helped {helpedUsers} · Points {points}
-          </p>
-        </UserAdditionalDetails>
+        {!adminReply && (
+          <UserAdditionalDetails>
+            <p>
+              Helped {helpedUsers} · Points {points}
+            </p>
+          </UserAdditionalDetails>
+        )}
       </UserInfoWrapper>
     </>
   );
