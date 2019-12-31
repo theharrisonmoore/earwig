@@ -296,3 +296,12 @@ export const sortAndCategorizeOrgs = arrayOfOrgs => {
 
   return newArray.orgs;
 };
+
+export const generateReportLink = (params, reportLink) => {
+  let search = `${reportLink}?`;
+  Object.entries(params).forEach(([key, value], index) => {
+    search += `${index ? "&" : ""}${key}=${value}`;
+  });
+  console.log({ search });
+  return search;
+};

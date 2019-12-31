@@ -1,6 +1,8 @@
 import React from "react";
 import moment from "moment";
 
+import { generateReportLink } from "../../../../helpers";
+
 import ReportFlag from "../../../Common/ReportFlag";
 import InvisibleCommentAlert from "../../../Common/InvisibleCommentAlert";
 import UserInfo from "../../../Common/UserInfo";
@@ -13,13 +15,28 @@ const Replies = ({
   overallReplies,
   level,
   userId,
-  updatedUsers,
-  category,
-  overallReview,
-  owner,
   orgId,
   orgName,
+  updatedUsers,
+  category,
+  text,
+  ownerUserId,
 }) => {
+  const replyReportLink = reply => {
+    const reportLink = generateReportLink(
+      {
+        reportedReviewUserId: ownerUserId,
+        reportedReviewText: text,
+        reportedReplyUserId: reply.replies.user.userId,
+        reportedReplyText: reply.replies.text,
+        orgId,
+        orgName,
+      },
+      REPORT_CONTENT_URL
+    );
+    return reportLink;
+  };
+
   return overallReplies.map(reply => {
     return (
       <div
@@ -83,19 +100,7 @@ const Replies = ({
           </BubbleAndDate>
           <ReportFlag
             left={reply.replies.displayName}
-            to={{
-              pathname: REPORT_CONTENT_URL,
-              state: {
-                review: {
-                  overallReview,
-                  user: owner,
-                },
-                orgId,
-                orgName,
-                reply: reply.replies,
-                target: "overallReply",
-              },
-            }}
+            to={replyReportLink(reply)}
           />
         </div>
       </div>

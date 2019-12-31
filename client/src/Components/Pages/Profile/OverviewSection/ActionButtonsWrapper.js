@@ -4,8 +4,6 @@ import ReportFlag from "../../../Common/ReportFlag";
 
 import Icon from "../../../Common/Icon/Icon";
 
-import { REPORT_CONTENT_URL } from "../../../../constants/naviagationUrls";
-
 import { colors } from "../../../../theme";
 
 import {
@@ -26,14 +24,12 @@ const ActionButtonsWrapper = ({
   level,
   adminReplied,
   goTOReply,
-  overallReview,
-  owner,
   orgId,
-  orgName,
   // liked in general (from backend)
   isLiked,
   // liked now by user, for animation
   isLikedByUser,
+  reportLink,
 }) => {
   return (
     <ActionsDiv>
@@ -78,21 +74,10 @@ const ActionButtonsWrapper = ({
       </ButtonsWrapper>
 
       {/* FLAG ICON */}
+      {/* report overall/voice review */}
       <ReportFlag
         style={{ right: 0, width: "10%" }}
-        to={{
-          pathname: REPORT_CONTENT_URL,
-          state: {
-            review: {
-              overallReview,
-              user: owner,
-            },
-            orgId,
-            orgName,
-            target:
-              reviewCategory === "written" ? "overallReview" : "voiceReview",
-          },
-        }}
+        to={reportLink}
         disabled={level < 1}
       />
     </ActionsDiv>

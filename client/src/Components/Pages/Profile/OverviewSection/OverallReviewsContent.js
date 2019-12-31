@@ -2,6 +2,7 @@ import React from "react";
 import moment from "moment";
 
 import Rate from "../../../Common/Rate";
+import { REPORT_CONTENT_URL } from "../../../../constants/naviagationUrls";
 
 import Icon from "../../../Common/Icon/Icon";
 import RepliesAndCommentsCollaps from "../../../Common/RepliesAndCommentsCollaps";
@@ -9,7 +10,7 @@ import RepliesAndCommentsCollaps from "../../../Common/RepliesAndCommentsCollaps
 import { colors } from "../../../../theme";
 import ActionButtonsWrapper from "./ActionButtonsWrapper";
 import UserInfo from "../../../Common/UserInfo";
-
+import { generateReportLink } from "../../../../helpers";
 import {
   CommentDiv,
   CommentBubble,
@@ -31,6 +32,7 @@ export default ({
   rate,
   helpedUsers,
   userPoints,
+  // the logged in user _id
   userId,
   category,
   level,
@@ -42,13 +44,11 @@ export default ({
   repliesCount,
   overallReplies,
   activeKey,
-  overallReview,
   orgId,
   orgName,
   togglePanel,
   toggleHelpful,
   goTOReply,
-  owner,
   ownerTrade,
   ownerId,
   ownerUserId,
@@ -57,6 +57,21 @@ export default ({
   isLikedByUser,
   showRate,
 }) => {
+  const overallParams = {
+    target: reviewCategory === "written" ? "overallReview" : "voiceReview",
+    // review.user.userId
+    reportedReviewUserId: ownerUserId,
+    // review.overallReview.text
+    reportedReviewText: text,
+    orgId,
+    orgName,
+  };
+
+  const overallReportLink = generateReportLink(
+    overallParams,
+    REPORT_CONTENT_URL
+  );
+
   return (
     <CommentDiv>
       <BubbleAndDate>
@@ -86,6 +101,7 @@ export default ({
       </RatingWithUserInfo>
       {/*  BUTTONS SECTION */}
       <ActionButtonsWrapper
+        // _id
         loggedinUserID={userId}
         ownerID={ownerId}
         onClickHelpful={level >= 1 ? toggleHelpful : undefined}
@@ -97,11 +113,9 @@ export default ({
         isLikedByUser={isLikedByUser}
         adminReplied={adminReplied}
         goTOReply={goTOReply}
-        overallReview={overallReview}
-        owner={owner}
         orgId={orgId}
-        orgName={orgName}
         level={level}
+        reportLink={overallReportLink}
       />
       {repliesCount ? (
         <RepliesAndCommentsCollaps
@@ -118,10 +132,10 @@ export default ({
             userId={userId}
             updatedUsers={updatedUsers}
             category={category}
-            overallReview={overallReview}
-            owner={owner}
             orgId={orgId}
             orgName={orgName}
+            text={text}
+            ownerUserId={ownerUserId}
           />
         </RepliesAndCommentsCollaps>
       ) : null}

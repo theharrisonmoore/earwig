@@ -1,15 +1,6 @@
 /**
  * report piece of content can be (worksite image, reply, comment, overall review)
  * this send an email to the admin, that contains the reported content
- * @param {reason} - string - the selected reason
- * @param {description} -string - the more info field
- * @param {target} - string - ["questionComment", "overallReview", "overallReply", "worksiteImage"]
- * @param {question} -object - the question that contain the reported comment
- * @param {organization} -object - the organization that contain the reported comment /overallreview
- * @param {review} -object- the target review
- * @param {comment} -object- the target comment
- * @param {reply} -object- the target reply
- * @param {image} -object- the worksite image
  */
 
 
@@ -22,27 +13,34 @@ module.exports = (req, res, next) => {
     reason,
     description,
     target,
-    question,
     orgId,
     orgName,
-    review,
-    comment,
-    reply,
+    questionText,
+    commentText,
+    reportedUserId,
+    reportedReviewUserId,
+    reportedReviewText,
+    reportedReplyUserId,
+    reportedReplyText,
     image,
   } = req.body;
   const { user } = req;
 
   sendEmail.reportMailing({
+    reporterUserId: user.userId,
+    reporterEmail: user.email,
+    questionText,
+    commentText,
+    reportedUserId,
+    reportedReviewUserId,
+    reportedReviewText,
+    reportedReplyUserId,
+    reportedReplyText,
     reason,
     description,
     target,
-    question,
     orgId,
     orgName,
-    review,
-    comment,
-    user,
-    reply,
     image,
   }).then(() => {
     res.json({ message: "sent" });
