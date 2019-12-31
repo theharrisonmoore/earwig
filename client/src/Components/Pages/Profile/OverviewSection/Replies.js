@@ -12,7 +12,7 @@ import { REPORT_CONTENT_URL } from "../../../../constants/naviagationUrls";
 import { CommentBubble, CommentDate, BubbleAndDate } from "../Profile.style";
 
 const Replies = ({
-  overallReplies,
+  replies,
   level,
   userId,
   orgId,
@@ -27,8 +27,8 @@ const Replies = ({
       {
         reportedReviewUserId: ownerUserId,
         reportedReviewText: text,
-        reportedReplyUserId: reply.replies.user.userId,
-        reportedReplyText: reply.replies.text,
+        reportedReplyUserId: reply.user.userId,
+        reportedReplyText: reply.text,
         orgId,
         orgName,
       },
@@ -37,37 +37,35 @@ const Replies = ({
     return reportLink;
   };
 
-  return overallReplies.map(reply => {
+  return replies.map(reply => {
     return (
       <div
-        key={reply.replies._id}
+        key={reply._id}
         style={{
           position: "relative",
           marginBottom: "2rem",
-          direction: `${reply.replies.displayName && "rtl"}`,
+          direction: `${reply.displayName && "rtl"}`,
         }}
       >
-        {level < 3 && reply.replies.user._id === userId && (
-          <InvisibleCommentAlert />
-        )}
+        {level < 3 && reply.user._id === userId && <InvisibleCommentAlert />}
 
         <UserInfo
-          userId={reply.replies.displayName || reply.replies.user.userId}
-          adminReply={!!reply.replies.displayName}
+          userId={reply.displayName || reply.user.userId}
+          adminReply={!!reply.displayName}
           trade={
-            !reply.replies.displayName &&
-            reply.replies.user.trade[0] &&
-            reply.replies.user.trade[0].title
+            !reply.displayName &&
+            reply.user.trade[0] &&
+            reply.user.trade[0].title
           }
           helpedUsers={
-            updatedUsers[reply.replies.user._id]
-              ? updatedUsers[reply.replies.user._id].helpedUsers
-              : reply.replies.user.helpedUsers
+            updatedUsers[reply.user._id]
+              ? updatedUsers[reply.user._id].helpedUsers
+              : reply.user.helpedUsers
           }
           points={
-            updatedUsers[reply.replies.user._id]
-              ? updatedUsers[reply.replies.user._id].points
-              : reply.replies.user.points
+            updatedUsers[reply.user._id]
+              ? updatedUsers[reply.user._id].points
+              : reply.user.points
           }
         />
 
@@ -81,27 +79,19 @@ const Replies = ({
             <CommentBubble
               style={{ maxWidth: "100%" }}
               bgColor={
-                reply.replies.displayName
-                  ? "white"
-                  : organizations[category].secondary
+                reply.displayName ? "white" : organizations[category].secondary
               }
-              color={
-                reply.replies.displayName && organizations[category].primary
-              }
-              adminReply={!!reply.replies.displayName}
+              color={reply.displayName && organizations[category].primary}
+              adminReply={!!reply.displayName}
               category={category}
             >
-              {reply.replies.text}
+              {reply.text}
             </CommentBubble>
             <CommentDate>
-              {reply.replies.createdAt &&
-                `${moment().diff(reply.replies.createdAt, "weeks")}w`}
+              {reply.createdAt && `${moment().diff(reply.createdAt, "weeks")}w`}
             </CommentDate>
           </BubbleAndDate>
-          <ReportFlag
-            left={reply.replies.displayName}
-            to={replyReportLink(reply)}
-          />
+          <ReportFlag left={reply.displayName} to={replyReportLink(reply)} />
         </div>
       </div>
     );

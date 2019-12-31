@@ -42,7 +42,7 @@ export default ({
   adminReplied,
   updatedUsers,
   repliesCount,
-  overallReplies,
+  replies,
   activeKey,
   orgId,
   orgName,
@@ -127,7 +127,7 @@ export default ({
           onToggle={togglePanel}
         >
           <Replies
-            overallReplies={overallReplies}
+            replies={replies}
             level={level}
             userId={userId}
             updatedUsers={updatedUsers}

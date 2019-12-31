@@ -373,7 +373,7 @@ class OverallReview extends Component {
                   adminReplied={adminReplied}
                   updatedUsers={updatedUsers}
                   repliesCount={repliesCount}
-                  overallReplies={overallReplies}
+                  replies={overallReplies}
                   activeKey={activeKey}
                   overallReview={overallReview}
                   orgId={orgId}

@@ -302,6 +302,5 @@ export const generateReportLink = (params, reportLink) => {
   Object.entries(params).forEach(([key, value], index) => {
     search += `${index ? "&" : ""}${key}=${value}`;
   });
-  console.log({ search });
   return search;
 };
