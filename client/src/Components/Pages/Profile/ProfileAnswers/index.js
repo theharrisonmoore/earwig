@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 
-import axios from "axios";
+import { withRouter } from "react-router-dom";
 
+import axios from "axios";
 import { message } from "antd";
+
+import { REPLY_URL } from "../../../../constants/naviagationUrls";
+
 import { checkAdminReply } from "../utils";
 import RepliesAndCommentsCollaps from "../../../Common/RepliesAndCommentsCollaps";
 
@@ -29,6 +33,7 @@ const withComments = WrapprdComponent => {
       comments: [],
       loading: false,
       isActive: false,
+      counters: {},
     };
 
     toggleComments = () => {
@@ -65,6 +70,35 @@ const withComments = WrapprdComponent => {
         });
     };
 
+    goTOReply = e => {
+      const { reviewId, category, orgId, target } = e.target.dataset;
+      const { pageYOffset } = window;
+      const { history } = this.props;
+      history.push({
+        pathname: REPLY_URL,
+        search: `?reviewId=${reviewId}&target=${target}&category=${category}&orgId=${orgId}&pageYOffset=${pageYOffset}`,
+      });
+    };
+
+    toggleHelpful = e => {
+      const { counters } = this.state;
+      const { id: reviewId } = e.target;
+      // target = "voiceReview" or "overallReview"
+      const counter = counters[reviewId] || {};
+      const updateCounter = counter.points > 0 ? 0 : 1;
+
+      this.setState({
+        counters: {
+          ...counters,
+          [reviewId]: {
+            points: updateCounter,
+            updateCounter,
+            byUser: true,
+          },
+        },
+      });
+    };
+
     render() {
       const {
         question: { commentsCount, _id: questionID } = {},
@@ -72,9 +106,11 @@ const withComments = WrapprdComponent => {
         organizationName,
         category,
         level,
+        userId,
+        // userUserId,
       } = this.props;
 
-      const { isActive, comments } = this.state;
+      const { isActive, comments, counters } = this.state;
 
       const activeKey = isActive && questionID;
       return (
@@ -82,27 +118,33 @@ const withComments = WrapprdComponent => {
           <WrapprdComponent {...this.props} />
           {commentsCount ? (
             <RepliesAndCommentsCollaps
-              id={`${organizationID}/${questionID}`}
+              id={`${questionID}`}
               isActive={isActive}
-              panelKey={questionID}
+              panelKey={`${questionID}`}
               count={commentsCount}
               onToggle={this.toggleComments}
               activeKey={activeKey}
               comments
             >
-              {comments.map(comment => (
-                <>
+              {comments.map(comment => {
+                const isLiked =
+                  counters[comment.review] &&
+                  counters[comment.review].points > 0;
+
+                const isLikedByUser =
+                  isLiked && counters[comment.review].byUser;
+
+                return (
                   <OverallReviewsContent
                     key={`${comment._id}comment`}
                     bgColor={organizations[category].secondary}
                     written
                     text={comment.text}
                     time={comment.createdAt}
-                    owner={{}}
                     helpedUsers={comment.helpedUsers}
                     userPoints={comment.userPoints}
-                    // _id
-                    userId={comment.userId}
+                    // logged in user _id
+                    userId={userId}
                     category={category}
                     level={level}
                     reviewId={comment.review}
@@ -111,9 +153,8 @@ const withComments = WrapprdComponent => {
                     adminReplied={comment.adminReplied}
                     updatedUsers={{}}
                     repliesCount={comment.repliesCount}
-                    // overallReplies={overallReplies}
+                    // replies={replies}
                     activeKey={activeKey}
-                    // overallReview={overallReview}
                     orgId={organizationID}
                     orgName={organizationName}
                     togglePanel={this.togglePanel}
@@ -122,9 +163,12 @@ const withComments = WrapprdComponent => {
                     ownerTrade={comment.trade}
                     ownerId={comment.userId}
                     ownerUserId={comment.userUserId}
+                    target="comment"
+                    isLiked={isLiked}
+                    isLikedByUser={isLikedByUser}
                   />
-                </>
-              ))}
+                );
+              })}
             </RepliesAndCommentsCollaps>
           ) : null}
         </div>
@@ -134,16 +178,16 @@ const withComments = WrapprdComponent => {
 };
 
 export default {
-  BarChartAnswer: withComments(BarChartAnswer),
-  CanteenItemAnswer: withComments(CanteenItemAnswer),
-  // CommentsBox: withComments(CommentsBox),
-  ImageSlider: withComments(ImageSlider),
-  ListAnswer: withComments(ListAnswer),
-  PayrollAnswer: withComments(PayrollAnswer),
-  PieAnswer: withComments(PieAnswer),
-  ScatterAnswer: withComments(ScatterAnswer),
-  SiteItemAnswer: withComments(SiteItemAnswer),
-  VoiceReview: withComments(VoiceReview),
-  YesNoAnswer: withComments(YesNoAnswer),
-  CanteenSubItemAnswer: withComments(CanteenSubItemAnswer),
+  BarChartAnswer: withRouter(withComments(BarChartAnswer)),
+  CanteenItemAnswer: withRouter(withComments(CanteenItemAnswer)),
+  // CommentsBox: withRouter(withComments(CommentsBox)),
+  ImageSlider: withRouter(withComments(ImageSlider)),
+  ListAnswer: withRouter(withComments(ListAnswer)),
+  PayrollAnswer: withRouter(withComments(PayrollAnswer)),
+  PieAnswer: withRouter(withComments(PieAnswer)),
+  ScatterAnswer: withRouter(withComments(ScatterAnswer)),
+  SiteItemAnswer: withRouter(withComments(SiteItemAnswer)),
+  VoiceReview: withRouter(withComments(VoiceReview)),
+  YesNoAnswer: withRouter(withComments(YesNoAnswer)),
+  CanteenSubItemAnswer: withRouter(withComments(CanteenSubItemAnswer)),
 };

@@ -18,7 +18,6 @@ const ActionButtonsWrapper = ({
   ownerID,
   onClickHelpful,
   reviewId,
-  reviewCategory,
   reviewOrganizationId,
   category,
   level,
@@ -30,6 +29,7 @@ const ActionButtonsWrapper = ({
   // liked now by user, for animation
   isLikedByUser,
   reportLink,
+  target,
 }) => {
   return (
     <ActionsDiv>
@@ -40,11 +40,8 @@ const ActionButtonsWrapper = ({
             onClick={onClickHelpful}
             id={reviewId}
             data-user-id={ownerID}
-            data-type={reviewCategory}
             data-organization={reviewOrganizationId}
-            data-target={
-              reviewCategory === "written" ? "overallReview" : "voiceReview"
-            }
+            data-target={target}
             data-category={category}
             disabled={level < 2}
             active={isLikedByUser}
@@ -60,9 +57,7 @@ const ActionButtonsWrapper = ({
         {adminReplied !== true && (
           <CommentIconWrapper
             onClick={level >= 2 ? goTOReply : undefined}
-            data-target={
-              reviewCategory === "written" ? "overallReview" : "voiceReview"
-            }
+            data-target={target}
             data-category={category}
             data-org-id={orgId}
             data-review-id={reviewId}

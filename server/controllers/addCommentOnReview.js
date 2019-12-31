@@ -20,8 +20,8 @@ const { getUserById } = require("./../database/queries/user");
 
 module.exports = async (req, res, next) => {
   const {
- text, displayName, reviewId, target 
-} = req.body;
+    text, displayName, reviewId, target,
+  } = req.body;
 
   const { user } = req;
   const data = {
@@ -49,8 +49,8 @@ module.exports = async (req, res, next) => {
 
   try {
     await addCommentOnOverallReview(reviewId, data, target);
-    res.json();
+    return res.json();
   } catch (error) {
-    next(boom.badImplementation(error));
+    return next(boom.badImplementation(error));
   }
 };

@@ -8,6 +8,8 @@ const DetailedSection = ({
   isTablet,
   reviewDetails,
   summary,
+  id,
+  userId,
 }) => {
   return (
     <>
@@ -18,6 +20,8 @@ const DetailedSection = ({
           reviewDetails={reviewDetails}
           summary={summary}
           level={level}
+          id={id}
+          userId={userId}
         />
       )}
     </>

@@ -43,6 +43,8 @@ export default class ReviewSection extends Component {
       isMobile,
       reviewDetails,
       level,
+      id,
+      userId,
     } = this.props;
 
     const { _id: organizationID, name: organizationName } = summary;
@@ -163,6 +165,8 @@ export default class ReviewSection extends Component {
                           category={category}
                           question={question}
                           organizationID={organizationID}
+                          userId={id}
+                          userUserId={userId}
                           organizationName={organizationName}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
@@ -185,6 +189,8 @@ export default class ReviewSection extends Component {
                           category={category}
                           question={question}
                           organizationID={organizationID}
+                          userId={id}
+                          userUserId={userId}
                           organizationName={organizationName}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
@@ -208,6 +214,8 @@ export default class ReviewSection extends Component {
                           category={category}
                           question={question}
                           organizationID={organizationID}
+                          userId={id}
+                          userUserId={userId}
                           organizationName={organizationName}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
@@ -231,6 +239,8 @@ export default class ReviewSection extends Component {
                           category={category}
                           question={question}
                           organizationID={organizationID}
+                          userId={id}
+                          userUserId={userId}
                           organizationName={organizationName}
                           level={level}
                         />
@@ -248,6 +258,8 @@ export default class ReviewSection extends Component {
                         category={category}
                         question={question}
                         organizationID={organizationID}
+                        userId={id}
+                        userUserId={userId}
                         organizationName={organizationName}
                         toggleComments={toggleComments}
                         profileType={question.profileType}
@@ -317,6 +329,8 @@ export default class ReviewSection extends Component {
                           category={category}
                           question={question}
                           organizationID={organizationID}
+                          userId={id}
+                          userUserId={userId}
                           organizationName={organizationName}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
@@ -346,6 +360,8 @@ export default class ReviewSection extends Component {
                       category={category}
                       question={question}
                       organizationID={organizationID}
+                      userId={id}
+                      userUserId={userId}
                       organizationName={organizationName}
                       organization={summary}
                       level={level}

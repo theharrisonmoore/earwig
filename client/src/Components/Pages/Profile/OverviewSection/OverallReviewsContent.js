@@ -37,7 +37,7 @@ export default ({
   category,
   level,
   reviewId,
-  reviewCategory,
+  target,
   reviewOrganizationId,
   adminReplied,
   updatedUsers,
@@ -58,7 +58,7 @@ export default ({
   showRate,
 }) => {
   const overallParams = {
-    target: reviewCategory === "written" ? "overallReview" : "voiceReview",
+    target,
     // review.user.userId
     reportedReviewUserId: ownerUserId,
     // review.overallReview.text
@@ -106,7 +106,6 @@ export default ({
         ownerID={ownerId}
         onClickHelpful={level >= 1 ? toggleHelpful : undefined}
         reviewId={reviewId}
-        reviewCategory={reviewCategory}
         reviewOrganizationId={reviewOrganizationId}
         category={category}
         isLiked={isLiked}
@@ -116,12 +115,13 @@ export default ({
         orgId={orgId}
         level={level}
         reportLink={overallReportLink}
+        target={target}
       />
       {repliesCount ? (
         <RepliesAndCommentsCollaps
           id={reviewId}
           isOpen={isOpen}
-          panelKey={`${reviewId}/${reviewCategory}`}
+          panelKey={`${reviewId}/${target}`}
           count={repliesCount}
           activeKey={activeKey}
           onToggle={togglePanel}

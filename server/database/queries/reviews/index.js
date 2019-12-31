@@ -527,7 +527,7 @@ module.exports.getFirstLevelCommentsOnQuestion = (organizationID, questionID) =>
         },
       },
       {
-        $unwind: "$trade",
+        $unwind: { path: "$trade", preserveNullAndEmptyArrays: true },
       },
       {
         $lookup: {

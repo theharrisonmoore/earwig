@@ -144,6 +144,7 @@ export default class Profile extends Component {
       verified,
       isAdmin,
       id,
+      userId,
       awaitingReview,
       history,
       level,
@@ -196,6 +197,8 @@ export default class Profile extends Component {
               isTablet={isTablet}
               reviewDetails={reviewDetails}
               summary={summary}
+              id={id}
+              userId={userId}
             />
           )}
         </Wrapper>

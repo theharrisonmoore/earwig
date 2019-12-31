@@ -24,8 +24,8 @@ class OverallReview extends Component {
   state = {
     activeKey: "",
     counters: {
-      written: {},
-      audio: {},
+      overallReview: {},
+      voiceReview: {},
     },
     writtenOrAudioReviews: [],
     updatedUsers: {},
@@ -34,9 +34,9 @@ class OverallReview extends Component {
   toggleHelpful = e => {
     const { counters } = this.state;
     const { id: reviewId } = e.target;
-    // type = "audio" or "written"
-    const { type, organization, userId } = e.target.dataset;
-    const item = counters[type][reviewId];
+    // target = "voiceReview" or "overallReview"
+    const { target, organization, userId } = e.target.dataset;
+    const item = counters[target][reviewId];
     const counter = item ? item.counter : 0;
     const sentNumber = item ? item.sentNumber : 0;
 
@@ -46,8 +46,8 @@ class OverallReview extends Component {
       {
         counters: {
           ...counters,
-          [type]: {
-            ...counters[type],
+          [target]: {
+            ...counters[target],
             [reviewId]: {
               counter: updateCounter,
               sentNumber,
@@ -61,15 +61,14 @@ class OverallReview extends Component {
           points: updateCounter,
           reviewId,
           userId,
-          type,
+          target,
           organization,
         });
       }
     );
   };
 
-  postHelpfulPoints = ({ points, reviewId, userId, type, organization }) => {
-    const target = type === "written" ? "overallReview" : "voiceReview";
+  postHelpfulPoints = ({ points, reviewId, userId, target, organization }) => {
     axios
       .patch(`/api/review/${reviewId}/${target}/helpful-points`, {
         points,
@@ -82,8 +81,8 @@ class OverallReview extends Component {
         this.setState({
           counters: {
             ...counters,
-            [type]: {
-              ...counters[type],
+            [target]: {
+              ...counters[target],
               [reviewId]: {
                 counter: points,
                 sentNumber: points,
@@ -135,13 +134,13 @@ class OverallReview extends Component {
       const newCounters = data.reduce(
         (prev, currReview) => {
           if (currReview.target === "voiceReview") {
-            prev.audio[currReview.review] = {
+            prev.voiceReview[currReview.review] = {
               counter: currReview.points,
               sentNumber: currReview.points,
               byUser: false,
             };
           } else if (currReview.target === "overallReview") {
-            prev.written[currReview.review] = {
+            prev.overallReview[currReview.review] = {
               counter: currReview.points,
               sentNumber: currReview.points,
               byUser: false,
@@ -150,7 +149,7 @@ class OverallReview extends Component {
 
           return prev;
         },
-        { written: {}, audio: {} }
+        { overallReview: {}, voiceReview: {} }
       );
       this.setState({
         counters: newCounters,
@@ -198,7 +197,7 @@ class OverallReview extends Component {
             user: review.user,
             createdAt: review.createdAt,
             _id: review._id,
-            category: "written",
+            category: "overallReview",
             review,
             organization: review.organization,
             rate: review.rate,
@@ -219,7 +218,7 @@ class OverallReview extends Component {
             user: review.user,
             createdAt: review.createdAt,
             _id: review._id,
-            category: "audio",
+            category: "voiceReview",
             organization: review.organization,
             rate: review.rate,
           });
@@ -251,10 +250,10 @@ class OverallReview extends Component {
 
   checkIfReviewExist = review => {
     const { category, text } = review;
-    if (category === "written" && text.length) {
+    if (category === "overallReview" && text.length) {
       return true;
     }
-    if (category === "audio" && text.length) {
+    if (category === "voiceReview" && text.length) {
       return true;
     }
     return false;
@@ -323,8 +322,8 @@ class OverallReview extends Component {
                 userId: ownerUserId,
               } = owner;
 
-              const isAudio = reviewCategory === "audio";
-              const isWritten = reviewCategory === "written";
+              const isAudio = reviewCategory === "voiceReview";
+              const isWritten = reviewCategory === "overallReview";
 
               const ownerTrade =
                 owner.trade && owner.trade.length > 0 && owner.trade[0].title;
@@ -368,7 +367,7 @@ class OverallReview extends Component {
                   category={category}
                   level={level}
                   reviewId={reviewId}
-                  reviewCategory={reviewCategory}
+                  target={reviewCategory}
                   reviewOrganizationId={reviewOrganizationId}
                   adminReplied={adminReplied}
                   updatedUsers={updatedUsers}

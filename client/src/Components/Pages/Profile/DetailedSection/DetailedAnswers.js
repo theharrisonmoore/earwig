@@ -6,7 +6,15 @@ import { SectionTitle } from "./ReviewSection.style";
 
 class DetailedAnswers extends Component {
   render() {
-    const { isTablet, isMobile, reviewDetails, summary, level } = this.props;
+    const {
+      isTablet,
+      isMobile,
+      reviewDetails,
+      summary,
+      level,
+      id,
+      userId,
+    } = this.props;
 
     const { category } = summary;
 
@@ -22,6 +30,8 @@ class DetailedAnswers extends Component {
                 key={section._id}
                 category={category}
                 sectionDetails={section}
+                id={id}
+                userId={userId}
                 toggleComments={this.toggleComments}
                 summary={summary}
                 isMobile={isMobile}
@@ -37,6 +47,8 @@ class DetailedAnswers extends Component {
                 key={section._id}
                 category={category}
                 sectionDetails={section}
+                id={id}
+                userId={userId}
                 toggleComments={this.toggleComments}
                 summary={summary}
                 isMobile={isMobile}
@@ -53,6 +65,8 @@ class DetailedAnswers extends Component {
                 key={section._id}
                 category={category}
                 sectionDetails={section}
+                id={id}
+                userId={userId}
                 toggleComments={this.toggleComments}
                 summary={summary}
                 isMobile={isMobile}
@@ -68,6 +82,8 @@ class DetailedAnswers extends Component {
                 key={section._id}
                 category={category}
                 sectionDetails={section}
+                id={id}
+                userId={userId}
                 toggleComments={this.toggleComments}
                 summary={summary}
                 isMobile={isMobile}
@@ -83,6 +99,8 @@ class DetailedAnswers extends Component {
                 key={section._id}
                 category={category}
                 sectionDetails={section}
+                id={id}
+                userId={userId}
                 toggleComments={this.toggleComments}
                 summary={summary}
                 isMobile={isMobile}
@@ -98,6 +116,8 @@ class DetailedAnswers extends Component {
                 key={section._id}
                 category={category}
                 sectionDetails={section}
+                id={id}
+                userId={userId}
                 toggleComments={this.toggleComments}
                 summary={summary}
                 isMobile={isMobile}
@@ -112,6 +132,8 @@ class DetailedAnswers extends Component {
                 key={section._id}
                 category={category}
                 sectionDetails={section}
+                id={id}
+                userId={userId}
                 toggleComments={this.toggleComments}
                 summary={summary}
                 isMobile={isMobile}
