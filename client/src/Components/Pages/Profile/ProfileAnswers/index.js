@@ -54,7 +54,12 @@ const withComments = WrapprdComponent => {
       const { question: { _id: questionID } = {}, organizationID } = this.props;
       // fetch comments
       axios
-        .post("/api/comments", { organizationID, questionID })
+        .get("/api/comments", {
+          params: {
+            organizationID,
+            questionID,
+          },
+        })
         .then(res => {
           const comments = res.data.map(comment => ({
             ...comment,
@@ -72,8 +77,12 @@ const withComments = WrapprdComponent => {
         });
     };
 
-    goTOReply = parentCommentId => {
-      const { question: { _id: questionID } = {}, organizationID } = this.props;
+    goTOReply = (parentCommentId, reviewId) => {
+      const {
+        question: { _id: questionID } = {},
+        organizationID,
+        category,
+      } = this.props;
 
       // const { pageYOffset } = window;
       const { history } = this.props;
@@ -83,6 +92,8 @@ const withComments = WrapprdComponent => {
         questionId: questionID,
         organizationId: organizationID,
         parentCommentId,
+        reviewId,
+        category,
       };
       const link = addSearchParamsToLink(params, REPLY_URL);
       history.push(link);
@@ -167,7 +178,9 @@ const withComments = WrapprdComponent => {
                     orgName={organizationName}
                     togglePanel={this.togglePanel}
                     toggleHelpful={this.toggleHelpful}
-                    goTOReply={() => this.goTOReply(comment._id)}
+                    goTOReply={() =>
+                      this.goTOReply(comment._id, comment.review)
+                    }
                     ownerTrade={comment.trade}
                     ownerId={comment.userId}
                     ownerUserId={comment.userUserId}

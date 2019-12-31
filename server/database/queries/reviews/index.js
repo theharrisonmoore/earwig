@@ -569,6 +569,109 @@ module.exports.getFirstLevelCommentsOnQuestion = (organizationID, questionID) =>
   },
 );
 
+
+module.exports.getCommentOnQuestionWithReplies = commentId => new Promise(
+  (resolve, reject) => {
+    Comment.aggregate([
+      {
+        $match: {
+          _id: mongoose.Types.ObjectId(commentId),
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "user",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      {
+        $unwind: "$user",
+      },
+      {
+        $lookup: {
+          from: "trades",
+          localField: "user.trade",
+          foreignField: "_id",
+          as: "trade",
+        },
+      },
+      {
+        $unwind: { path: "$trade", preserveNullAndEmptyArrays: true },
+      },
+      // -=--------------------------
+      {
+        $lookup: {
+          from: "comments",
+          let: { parentComment: "$_id" },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [{ $eq: ["$parentComment", "$$parentComment"] }],
+                },
+              },
+            }, {
+              $lookup: {
+                from: "users",
+                localField: "user",
+                foreignField: "_id",
+                as: "user",
+              },
+            },
+            {
+              $unwind: "$user",
+            },
+            {
+              $lookup: {
+                from: "trades",
+                localField: "user.trade",
+                foreignField: "_id",
+                as: "trade",
+              },
+            },
+            {
+              $unwind: { path: "$trade", preserveNullAndEmptyArrays: true },
+            },
+          ],
+          as: "subComments",
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "subComments.user",
+          foreignField: "_id",
+          as: "repliedUsers",
+        },
+      },
+      {
+        $project: {
+          userId: "$user._id",
+          userUserId: "$user.userId",
+          organization: 1,
+          text: 1,
+          displayName: 1,
+          trade: "$trade.title",
+          points: "$user.points",
+          helpedUsers: "$user.helpedUsers",
+          repliesCount: { $size: "$subComments" },
+          createdAt: 1,
+          review: 1,
+          repliedUsers: 1,
+          subComments: 1,
+        },
+      },
+    ])
+      .then((result) => {
+        resolve(result);
+      })
+      .catch(err => reject(err));
+  },
+);
+
+
 // gets all reviews given by 1 user for 1 organisation and sets a flag depending
 // returns true if review is less than 1 month old
 

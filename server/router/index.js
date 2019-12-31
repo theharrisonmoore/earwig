@@ -124,7 +124,8 @@ router.get("/agency-payroll", authentication, authorization("LEVEL3"), getAgence
 // require all the routes in this file
 router.get("/profile/:organizationID", softAuthCheck, profileController);
 
-router.post("/comments", commentsController);
+router.get("/comments/:id", commentsController);
+router.get("/comments", commentsController);
 
 // login route
 router.post(LOGIN_URL, validation("login"), loginController);
