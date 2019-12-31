@@ -20,7 +20,10 @@ import { CommentBubble } from "../Profile/Profile.style";
 
 import { organizations, colors } from "../../../theme";
 
-import { API_ADD_COMMENT_ON_REVIEW_URL } from "../../../apiUrls";
+import {
+  API_ADD_COMMENT_ON_REVIEW_URL,
+  API_ADD_COMMENT_ON_QUESTION_URL,
+} from "../../../apiUrls";
 import { highlightMentions } from "../../../helpers";
 
 import Loading from "../../Common/AntdComponents/Loading";
@@ -82,38 +85,74 @@ export default class Reply extends Component {
   };
 
   handleSubmit = () => {
-    const { reviewId, target } = queryString.parse(this.props.location.search);
+    const {
+      reviewId,
+      target,
+      questionId,
+      organizationId,
+      parentCommentId,
+    } = queryString.parse(this.props.location.search);
 
     this.validate().then(res => {
       if (res) {
         this.setState({ errors: {}, submitting: true }, () => {
-          const data = {
-            text: this.state.commentContentState.trim(),
-            displayName: this.state.user,
-            reviewId,
-            target,
-          };
-          axios
-            .post(API_ADD_COMMENT_ON_REVIEW_URL, data)
-            .then(() => {
-              this.setState(
-                {
-                  commentContentState: "",
-                  user: "",
-                  errors: {},
-                  submitting: false,
-                },
-                () => this.fetchOverallReplies(reviewId, target)
-              );
-              // UNCOMMENT IF YOU WANT TO SEND BACK TO PROFILE AFTER SUBMITTING COMMENT
-              // this.props.history.push(`/profile/${orgId}`);
-            })
-            .catch(err => {
-              this.setState({ submitting: false });
-              const error =
-                err.response && err.response.data && err.response.data.error;
-              message.error(error || "Something went wrong");
-            });
+          if (target === "comment") {
+            const body = {
+              text: this.state.commentContentState,
+              displayName: this.state.user,
+              question: questionId,
+              organization: organizationId,
+              parentCommentId,
+            };
+            axios
+              .post(API_ADD_COMMENT_ON_QUESTION_URL, body)
+              .then(() => {
+                const question = {
+                  ...this.props.question,
+                  _id: this.props.question._id,
+                };
+                this.setState(
+                  {
+                    commentContentState: "",
+                    errors: {},
+                  },
+                  () => this.props.fetchComments(question)
+                );
+              })
+              .catch(err => {
+                const error =
+                  err.response && err.response.data && err.response.data.error;
+                message.error(error || "Something went wrong");
+              });
+          } else {
+            const body = {
+              text: this.state.commentContentState.trim(),
+              displayName: this.state.user,
+              reviewId,
+              target,
+            };
+            axios
+              .post(API_ADD_COMMENT_ON_REVIEW_URL, body)
+              .then(() => {
+                this.setState(
+                  {
+                    commentContentState: "",
+                    user: "",
+                    errors: {},
+                    submitting: false,
+                  },
+                  () => this.fetchOverallReplies(reviewId, target)
+                );
+                // UNCOMMENT IF YOU WANT TO SEND BACK TO PROFILE AFTER SUBMITTING COMMENT
+                // this.props.history.push(`/profile/${orgId}`);
+              })
+              .catch(err => {
+                this.setState({ submitting: false });
+                const error =
+                  err.response && err.response.data && err.response.data.error;
+                message.error(error || "Something went wrong");
+              });
+          }
         });
       }
     });
@@ -153,9 +192,13 @@ export default class Reply extends Component {
 
   componentDidMount() {
     const { reviewId, target } = queryString.parse(this.props.location.search);
-    if (reviewId && target) {
+    if (target) {
       // target equal "overallReview" OR "voiceReview" OR "comment";
-      this.fetchOverallReplies(reviewId, target);
+      if (target === "comment") {
+        console.log("fetch comments");
+      } else {
+        this.fetchOverallReplies(reviewId, target);
+      }
     } else {
       this.goBack();
     }
@@ -178,8 +221,12 @@ export default class Reply extends Component {
       orgId,
       pageYOffset,
     } = queryString.parse(this.props.location.search);
-    if (!reviewId || !target || !category || !orgId || !pageYOffset) {
-      return history.goBack();
+    if (
+      target !== "comment" &&
+      (!reviewId || !target || !category || !orgId || !pageYOffset)
+    ) {
+      history.goBack();
+      return null;
     }
 
     const {

@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 
-import { generateReportLink } from "../../../../helpers";
+import { addSearchParamsToLink } from "../../../../helpers";
 
 import ReportFlag from "../../../Common/ReportFlag";
 import InvisibleCommentAlert from "../../../Common/InvisibleCommentAlert";
@@ -23,7 +23,7 @@ const Replies = ({
   ownerUserId,
 }) => {
   const replyReportLink = reply => {
-    const reportLink = generateReportLink(
+    const reportLink = addSearchParamsToLink(
       {
         reportedReviewUserId: ownerUserId,
         reportedReviewText: text,

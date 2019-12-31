@@ -297,8 +297,8 @@ export const sortAndCategorizeOrgs = arrayOfOrgs => {
   return newArray.orgs;
 };
 
-export const generateReportLink = (params, reportLink) => {
-  let search = `${reportLink}?`;
+export const addSearchParamsToLink = (params, baseLink) => {
+  let search = `${baseLink}?`;
   Object.entries(params).forEach(([key, value], index) => {
     search += `${index ? "&" : ""}${key}=${value}`;
   });

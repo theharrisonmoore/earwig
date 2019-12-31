@@ -5,6 +5,8 @@ import { withRouter } from "react-router-dom";
 import axios from "axios";
 import { message } from "antd";
 
+import { addSearchParamsToLink } from "../../../../helpers";
+
 import { REPLY_URL } from "../../../../constants/naviagationUrls";
 
 import { checkAdminReply } from "../utils";
@@ -70,14 +72,20 @@ const withComments = WrapprdComponent => {
         });
     };
 
-    goTOReply = e => {
-      const { reviewId, category, orgId, target } = e.target.dataset;
-      const { pageYOffset } = window;
+    goTOReply = parentCommentId => {
+      const { question: { _id: questionID } = {}, organizationID } = this.props;
+
+      // const { pageYOffset } = window;
       const { history } = this.props;
-      history.push({
-        pathname: REPLY_URL,
-        search: `?reviewId=${reviewId}&target=${target}&category=${category}&orgId=${orgId}&pageYOffset=${pageYOffset}`,
-      });
+
+      const params = {
+        target: "comment",
+        questionId: questionID,
+        organizationId: organizationID,
+        parentCommentId,
+      };
+      const link = addSearchParamsToLink(params, REPLY_URL);
+      history.push(link);
     };
 
     toggleHelpful = e => {
@@ -159,7 +167,7 @@ const withComments = WrapprdComponent => {
                     orgName={organizationName}
                     togglePanel={this.togglePanel}
                     toggleHelpful={this.toggleHelpful}
-                    goTOReply={this.goTOReply}
+                    goTOReply={() => this.goTOReply(comment._id)}
                     ownerTrade={comment.trade}
                     ownerId={comment.userId}
                     ownerUserId={comment.userUserId}

@@ -12,7 +12,7 @@ const { createComment } = require("./../database/queries/comments");
 
 module.exports = (req, res, next) => {
   const {
-    text, displayName, question, organization,
+    text, displayName, question, organization, parentCommentId,
   } = req.body;
   const { user } = req;
   const data = {
@@ -20,11 +20,13 @@ module.exports = (req, res, next) => {
     question,
     organization,
     user: user._id,
+    parentCommentId,
   };
 
   if (user.isAdmin) {
     data.displayName = displayName;
   }
+
 
   createComment(data)
     .then(() => {

@@ -19,35 +19,35 @@ const {
 const { getUserById } = require("./../database/queries/user");
 
 module.exports = async (req, res, next) => {
-  const {
-    text, displayName, reviewId, target,
-  } = req.body;
-
-  const { user } = req;
-  const data = {
-    text,
-    user: user._id,
-  };
-
-  if (user.isAdmin) {
-    data.displayName = displayName;
-  }
-
-  // check if the last reply was by admin, if so reject request
-  const review = await findById(reviewId);
-  const { replies } = review[target];
-
-  if (replies.length > 0) {
-    const lastReply = replies[replies.length - 1];
-    const foundUser = await getUserById(lastReply.user, true);
-    if (foundUser.isAdmin) {
-      return next(
-        boom.forbidden("No further replies are allowed on this comment."),
-      );
-    }
-  }
-
   try {
+    const {
+      text, displayName, reviewId, target,
+    } = req.body;
+
+    const { user } = req;
+    const data = {
+      text,
+      user: user._id,
+    };
+
+    if (user.isAdmin) {
+      data.displayName = displayName;
+    }
+
+    // check if the last reply was by admin, if so reject request
+    const review = await findById(reviewId);
+    const { replies } = review[target];
+
+    if (replies.length > 0) {
+      const lastReply = replies[replies.length - 1];
+      const foundUser = await getUserById(lastReply.user, true);
+      if (foundUser.isAdmin) {
+        return next(
+          boom.forbidden("No further replies are allowed on this comment."),
+        );
+      }
+    }
+
     await addCommentOnOverallReview(reviewId, data, target);
     return res.json();
   } catch (error) {

@@ -10,7 +10,7 @@ import RepliesAndCommentsCollaps from "../../../Common/RepliesAndCommentsCollaps
 import { colors } from "../../../../theme";
 import ActionButtonsWrapper from "./ActionButtonsWrapper";
 import UserInfo from "../../../Common/UserInfo";
-import { generateReportLink } from "../../../../helpers";
+import { addSearchParamsToLink } from "../../../../helpers";
 import {
   CommentDiv,
   CommentBubble,
@@ -67,7 +67,7 @@ export default ({
     orgName,
   };
 
-  const overallReportLink = generateReportLink(
+  const overallReportLink = addSearchParamsToLink(
     overallParams,
     REPORT_CONTENT_URL
   );
