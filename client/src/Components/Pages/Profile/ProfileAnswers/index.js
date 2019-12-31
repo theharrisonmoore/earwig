@@ -36,6 +36,8 @@ const withComments = WrapprdComponent => {
       loading: false,
       isActive: false,
       counters: {},
+      tabs: {},
+      replies: {},
     };
 
     toggleComments = () => {
@@ -47,6 +49,30 @@ const withComments = WrapprdComponent => {
           isActive: !prevState.isActive,
           loading: true,
         };
+      });
+    };
+
+    toggleReplies = parentCommentId => {
+      this.setState(prevState => {
+        const isActive = prevState.tabs[parentCommentId];
+        if (!isActive) {
+          axios.get(`/api/comments/${parentCommentId}`).then(({ data }) => {
+            this.setState({
+              replies: {
+                ...prevState.replies,
+                [parentCommentId]: data.subComments,
+              },
+              loaded: true,
+            });
+          });
+        }
+        this.setState({
+          tabs: {
+            ...prevState.tabs,
+            [parentCommentId]: !isActive,
+          },
+          loading: true,
+        });
       });
     };
 
@@ -129,7 +155,7 @@ const withComments = WrapprdComponent => {
         // userUserId,
       } = this.props;
 
-      const { isActive, comments, counters } = this.state;
+      const { isActive, comments, counters, replies, tabs } = this.state;
 
       const activeKey = isActive && questionID;
       return (
@@ -172,11 +198,12 @@ const withComments = WrapprdComponent => {
                     adminReplied={comment.adminReplied}
                     updatedUsers={{}}
                     repliesCount={comment.repliesCount}
-                    // replies={replies}
-                    activeKey={activeKey}
+                    replies={replies[comment._id]}
+                    activeKey={comment._id}
+                    isActive={tabs[comment._id]}
                     orgId={organizationID}
                     orgName={organizationName}
-                    togglePanel={this.togglePanel}
+                    togglePanel={() => this.toggleReplies(comment._id)}
                     toggleHelpful={this.toggleHelpful}
                     goTOReply={() =>
                       this.goTOReply(comment._id, comment.review)

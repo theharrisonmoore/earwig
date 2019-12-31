@@ -56,6 +56,7 @@ export default ({
   isLiked,
   isLikedByUser,
   showRate,
+  isActive,
 }) => {
   const overallParams = {
     target,
@@ -121,22 +122,25 @@ export default ({
         <RepliesAndCommentsCollaps
           id={reviewId}
           isOpen={isOpen}
-          panelKey={`${reviewId}/${target}`}
+          panelKey={activeKey}
           count={repliesCount}
-          activeKey={activeKey}
+          activeKey={isActive && activeKey}
           onToggle={togglePanel}
+          isActive={isActive}
         >
-          <Replies
-            replies={replies}
-            level={level}
-            userId={userId}
-            updatedUsers={updatedUsers}
-            category={category}
-            orgId={orgId}
-            orgName={orgName}
-            text={text}
-            ownerUserId={ownerUserId}
-          />
+          {replies && (
+            <Replies
+              replies={replies}
+              level={level}
+              userId={userId}
+              updatedUsers={updatedUsers}
+              category={category}
+              orgId={orgId}
+              orgName={orgName}
+              text={text}
+              ownerUserId={ownerUserId}
+            />
+          )}
         </RepliesAndCommentsCollaps>
       ) : null}
     </CommentDiv>
