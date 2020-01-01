@@ -23,15 +23,11 @@ import { SectionTitle } from "../DetailedSection/ReviewSection.style";
 class OverallReview extends Component {
   state = {
     activeKey: "",
-    counters: {
-      overallReview: {},
-      voiceReview: {},
-    },
     writtenOrAudioReviews: [],
   };
 
   toggleHelpful = e => {
-    const { counters } = this.state;
+    const { counters } = this.props;
     const { id: reviewId } = e.target;
     // target = "voiceReview" or "overallReview"
     const { target, organization, userId } = e.target.dataset;
@@ -41,17 +37,15 @@ class OverallReview extends Component {
 
     const updateCounter = counter > 0 ? 0 : 1;
 
-    this.setState(
+    this.props.setCounters(
       {
-        counters: {
-          ...counters,
-          [target]: {
-            ...counters[target],
-            [reviewId]: {
-              counter: updateCounter,
-              sentNumber,
-              byUser: true,
-            },
+        ...counters,
+        [target]: {
+          ...counters[target],
+          [reviewId]: {
+            counter: updateCounter,
+            sentNumber,
+            byUser: true,
           },
         },
       },
@@ -75,18 +69,16 @@ class OverallReview extends Component {
         organization,
       })
       .then(({ data: { points: newPoints, helpedUsers: newHelpedUsers } }) => {
-        const { counters } = this.state;
+        const { counters } = this.props;
 
-        this.setState({
-          counters: {
-            ...counters,
-            [target]: {
-              ...counters[target],
-              [reviewId]: {
-                counter: points,
-                sentNumber: points,
-                byUser: true,
-              },
+        this.props.setCounters({
+          ...counters,
+          [target]: {
+            ...counters[target],
+            [reviewId]: {
+              counter: points,
+              sentNumber: points,
+              byUser: true,
             },
           },
         });
@@ -127,38 +119,36 @@ class OverallReview extends Component {
     });
   };
 
-  getUserVotesOnProfile = () => {
-    const { id, orgId } = this.props;
-    axios.get(`/api/users/${id}/profile/${orgId}/votes`).then(({ data }) => {
-      const newCounters = data.reduce(
-        (prev, currReview) => {
-          if (currReview.target === "voiceReview") {
-            prev.voiceReview[currReview.review] = {
-              counter: currReview.points,
-              sentNumber: currReview.points,
-              byUser: false,
-            };
-          } else if (currReview.target === "overallReview") {
-            prev.overallReview[currReview.review] = {
-              counter: currReview.points,
-              sentNumber: currReview.points,
-              byUser: false,
-            };
-          }
+  // getUserVotesOnProfile = () => {
+  //   const { id, orgId } = this.props;
+  //   axios.get(`/api/users/${id}/profile/${orgId}/votes`).then(({ data }) => {
+  //     const newCounters = data.reduce(
+  //       (prev, currReview) => {
+  //         if (currReview.target === "voiceReview") {
+  //           prev.voiceReview[currReview.review] = {
+  //             counter: currReview.points,
+  //             sentNumber: currReview.points,
+  //             byUser: false,
+  //           };
+  //         } else if (currReview.target === "overallReview") {
+  //           prev.overallReview[currReview.review] = {
+  //             counter: currReview.points,
+  //             sentNumber: currReview.points,
+  //             byUser: false,
+  //           };
+  //         }
 
-          return prev;
-        },
-        { overallReview: {}, voiceReview: {} }
-      );
-      this.setState({
-        counters: newCounters,
-      });
-    });
-  };
+  //         return prev;
+  //       },
+  //       { overallReview: {}, voiceReview: {} }
+  //     );
+  //     this.setState({
+  //       counters: newCounters,
+  //     });
+  //   });
+  // };
 
   componentDidMount() {
-    this.getUserVotesOnProfile();
-
     const { summary } = this.props;
     const totalReviews = [];
 
@@ -272,10 +262,11 @@ class OverallReview extends Component {
       FilteredReviewMonths,
       id: userId,
       updatedUsers,
+      counters,
     } = this.props;
 
     const { name: orgName, _id: orgId } = summary;
-    const { activeKey, counters, writtenOrAudioReviews } = this.state;
+    const { activeKey, writtenOrAudioReviews } = this.state;
 
     const { level } = authorization({
       isAdmin,

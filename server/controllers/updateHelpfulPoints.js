@@ -5,7 +5,7 @@ const { updateUserHelpfulPoints } = require("./../database/queries/user");
 
 module.exports = async (req, res, next) => {
   const {
-    points, organization, userId, commentId,
+    points, organization, userId, comment,
   } = req.body;
 
   const {
@@ -31,7 +31,7 @@ module.exports = async (req, res, next) => {
     review: reviewId,
     points,
     fromReferral: false,
-    comment: commentId,
+    comment,
   }).then(() => updateUserHelpfulPoints(userId))
     .then((updateData) => {
       res.json(updateData);

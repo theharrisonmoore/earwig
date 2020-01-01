@@ -12,6 +12,8 @@ const DetailedSection = ({
   userId,
   updateUserPoints,
   updatedUsers,
+  counters,
+  setCounters,
 }) => {
   return (
     <>
@@ -26,6 +28,8 @@ const DetailedSection = ({
           userId={userId}
           updateUserPoints={updateUserPoints}
           updatedUsers={updatedUsers}
+          counters={counters}
+          setCounters={setCounters}
         />
       )}
     </>

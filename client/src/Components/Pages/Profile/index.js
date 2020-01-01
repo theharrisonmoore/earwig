@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React, { Component } from "react";
 import axios from "axios";
 import { message, Skeleton } from "antd";
@@ -26,6 +27,11 @@ export default class Profile extends Component {
     FilteredReviewMonths: [],
     activeTab: "overview",
     updatedUsers: {},
+    counters: {
+      overallReview: {},
+      voiceReview: {},
+      comment: {},
+    },
   };
 
   updateUserPoints = ({ userId, points, helpedUsers }) => {
@@ -38,6 +44,47 @@ export default class Profile extends Component {
         },
       },
     }));
+  };
+
+  getUserVotesOnProfile = () => {
+    const { id, match } = this.props;
+    const { profileID } = match.params;
+    axios
+      .get(`/api/users/${id}/profile/${profileID}/votes`)
+      .then(({ data }) => {
+        const newCounters = data.reduce(
+          (prev, currReview) => {
+            if (currReview.target === "voiceReview") {
+              prev.voiceReview[currReview.review] = {
+                counter: currReview.points,
+                sentNumber: currReview.points,
+                byUser: false,
+              };
+            } else if (currReview.target === "overallReview") {
+              prev.overallReview[currReview.review] = {
+                counter: currReview.points,
+                sentNumber: currReview.points,
+                byUser: false,
+              };
+            } else if (currReview.target === "comment") {
+              prev.comment[currReview.comment] = {
+                counter: currReview.points,
+                sentNumber: currReview.points,
+                byUser: false,
+              };
+            }
+            return prev;
+          },
+          { overallReview: {}, voiceReview: {}, comment: {} }
+        );
+        this.setState({
+          counters: newCounters,
+        });
+      });
+  };
+
+  setCounters = (counters, cb) => {
+    this.setState({ counters }, cb);
   };
 
   myDivToFocus = React.createRef();
@@ -110,6 +157,7 @@ export default class Profile extends Component {
   componentDidMount() {
     this.fetchData();
     this.updateLastViewed();
+    this.getUserVotesOnProfile();
   }
 
   componentDidUpdate(prevProps) {
@@ -117,6 +165,7 @@ export default class Profile extends Component {
     const { profileID: currentProfileID } = this.props.match.params;
     if (prevProfileID !== currentProfileID) {
       this.fetchData();
+      this.getUserVotesOnProfile();
     }
   }
 
@@ -150,6 +199,7 @@ export default class Profile extends Component {
       activeOverallId,
       overallReplies,
       updatedUsers,
+      counters,
     } = this.state;
 
     const {
@@ -205,6 +255,8 @@ export default class Profile extends Component {
               loaded={loaded}
               updateUserPoints={this.updateUserPoints}
               updatedUsers={updatedUsers}
+              counters={counters}
+              setCounters={this.setCounters}
             />
           ) : (
             <DetailedSection
@@ -217,6 +269,8 @@ export default class Profile extends Component {
               userId={userId}
               updateUserPoints={this.updateUserPoints}
               updatedUsers={updatedUsers}
+              counters={counters}
+              setCounters={this.setCounters}
             />
           )}
         </Wrapper>

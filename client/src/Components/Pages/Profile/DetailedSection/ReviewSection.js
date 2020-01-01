@@ -47,6 +47,8 @@ export default class ReviewSection extends Component {
       userId,
       updateUserPoints,
       updatedUsers,
+      counters,
+      setCounters,
     } = this.props;
 
     const { _id: organizationID, name: organizationName } = summary;
@@ -178,6 +180,8 @@ export default class ReviewSection extends Component {
                             question.answers
                           )}
                           level={level}
+                          counters={counters}
+                          setCounters={setCounters}
                         />
                       </QuestionContainer>
                     </YesNoQuestionWrapper>
@@ -201,6 +205,8 @@ export default class ReviewSection extends Component {
                           toggleComments={toggleComments}
                           isMobile={isMobile}
                           level={level}
+                          counters={counters}
+                          setCounters={setCounters}
                         />
                       ) : (
                         <LightTitle bar>
@@ -228,6 +234,8 @@ export default class ReviewSection extends Component {
                           toggleComments={toggleComments}
                           isMobile={isMobile}
                           level={level}
+                          counters={counters}
+                          setCounters={setCounters}
                         />
                       ) : (
                         <LightTitle bar>
@@ -253,6 +261,8 @@ export default class ReviewSection extends Component {
                           updateUserPoints={updateUserPoints}
                           updatedUsers={updatedUsers}
                           level={level}
+                          counters={counters}
+                          setCounters={setCounters}
                         />
                       ) : (
                         <LightTitle bar>
@@ -278,6 +288,8 @@ export default class ReviewSection extends Component {
                         isMobile={isMobile}
                         reviewDetails={reviewDetails}
                         level={level}
+                        counters={counters}
+                        setCounters={setCounters}
                       />
                       {/* ) : (
                         <LightTitle bar>
@@ -298,6 +310,8 @@ export default class ReviewSection extends Component {
                                 toggleComments={toggleComments}
                                 isMobile={isMobile}
                                 level={level}
+                                counters={counters}
+                                setCounters={setCounters}
                               />
                             </QuestionWrapper>
                           )}
@@ -320,6 +334,8 @@ export default class ReviewSection extends Component {
                               toggleComments={toggleComments}
                               isMobile={isMobile}
                               level={level}
+                              counters={counters}
+                              setCounters={setCounters}
                             />
                           ) : (
                             <LightTitle bar>
@@ -349,6 +365,8 @@ export default class ReviewSection extends Component {
                           toggleComments={toggleComments}
                           isMobile={isMobile}
                           level={level}
+                          counters={counters}
+                          setCounters={setCounters}
                         />
                       ) : (
                         <LightTitle bar>
@@ -381,6 +399,8 @@ export default class ReviewSection extends Component {
                       updatedUsers={updatedUsers}
                       organization={summary}
                       level={level}
+                      counters={counters}
+                      setCounters={setCounters}
                     />
                   ) : (
                     <LightTitle image bar>

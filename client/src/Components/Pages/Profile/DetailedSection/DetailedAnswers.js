@@ -16,6 +16,8 @@ class DetailedAnswers extends Component {
       userId,
       updateUserPoints,
       updatedUsers,
+      counters,
+      setCounters,
     } = this.props;
 
     const { category } = summary;
@@ -39,6 +41,8 @@ class DetailedAnswers extends Component {
                 toggleComments={this.toggleComments}
                 summary={summary}
                 isMobile={isMobile}
+                counters={counters}
+                setCounters={setCounters}
               />
             )
         )}
@@ -59,6 +63,8 @@ class DetailedAnswers extends Component {
                 summary={summary}
                 isMobile={isMobile}
                 reviewDetails={reviewDetails}
+                counters={counters}
+                setCounters={setCounters}
               />
             )
         )}
@@ -78,6 +84,8 @@ class DetailedAnswers extends Component {
                 toggleComments={this.toggleComments}
                 summary={summary}
                 isMobile={isMobile}
+                counters={counters}
+                setCounters={setCounters}
               />
             )
         )}
@@ -97,6 +105,8 @@ class DetailedAnswers extends Component {
                 toggleComments={this.toggleComments}
                 summary={summary}
                 isMobile={isMobile}
+                counters={counters}
+                setCounters={setCounters}
               />
             )
         )}
@@ -116,6 +126,8 @@ class DetailedAnswers extends Component {
                 toggleComments={this.toggleComments}
                 summary={summary}
                 isMobile={isMobile}
+                counters={counters}
+                setCounters={setCounters}
               />
             )
         )}
@@ -135,6 +147,8 @@ class DetailedAnswers extends Component {
                 toggleComments={this.toggleComments}
                 summary={summary}
                 isMobile={isMobile}
+                counters={counters}
+                setCounters={setCounters}
               />
             )
         )}
@@ -153,6 +167,8 @@ class DetailedAnswers extends Component {
                 toggleComments={this.toggleComments}
                 summary={summary}
                 isMobile={isMobile}
+                counters={counters}
+                setCounters={setCounters}
               />
             )
         )}

@@ -35,7 +35,6 @@ const withComments = WrapprdComponent => {
       comments: [],
       loading: false,
       isActive: false,
-      counters: {},
       tabs: {},
       replies: {},
     };
@@ -126,11 +125,12 @@ const withComments = WrapprdComponent => {
     };
 
     toggleHelpful = (reviewId, commentId, ownerId) => {
-      const { counters } = this.state;
-      const counter = counters[reviewId] || {};
-      const updateCounter = counter.points > 0 ? 0 : 1;
+      const { counters } = this.props;
 
       const target = "comment";
+      const counter = counters[target][commentId] || {};
+      const updateCounter = counter.counter > 0 ? 0 : 1;
+
       const { organizationID } = this.props;
       axios
         .patch(`/api/review/${reviewId}/${target}/helpful-points`, {
@@ -142,16 +142,17 @@ const withComments = WrapprdComponent => {
         .then(
           // new points for the user that got the new points
           ({ data: { points: newPoints, helpedUsers: newHelpedUsers } }) => {
-            this.setState(prevState => ({
-              counters: {
-                ...prevState.counters,
-                [reviewId]: {
-                  points: updateCounter,
+            this.props.setCounters({
+              ...counters,
+              [target]: {
+                ...counters[target],
+                [commentId]: {
+                  counter: updateCounter,
                   updateCounter,
                   byUser: true,
                 },
               },
-            }));
+            });
 
             this.props.updateUserPoints({
               userId: ownerId,
@@ -176,10 +177,12 @@ const withComments = WrapprdComponent => {
         level,
         userId,
         updatedUsers,
+        counters,
         // userUserId,
       } = this.props;
+      const target = "comment";
 
-      const { isActive, comments, counters, replies, tabs } = this.state;
+      const { isActive, comments, replies, tabs } = this.state;
 
       const activeKey = isActive && questionID;
       return (
@@ -197,11 +200,11 @@ const withComments = WrapprdComponent => {
             >
               {comments.map(comment => {
                 const isLiked =
-                  counters[comment.review] &&
-                  counters[comment.review].points > 0;
+                  counters[target][comment._id] &&
+                  counters[target][comment._id].counter > 0;
 
                 const isLikedByUser =
-                  isLiked && counters[comment.review].byUser;
+                  isLiked && counters[target][comment._id].byUser;
                 const OwnerHelpedUsers = comment.helpedUsers;
                 const ownerPoints = comment.points;
 
@@ -225,7 +228,7 @@ const withComments = WrapprdComponent => {
                     category={category}
                     level={level}
                     reviewId={comment.review}
-                    reviewCategory="comment"
+                    reviewCategory={target}
                     reviewOrganizationId={comment.organization}
                     adminReplied={comment.adminReplied}
                     updatedUsers={updatedUsers}
@@ -249,7 +252,7 @@ const withComments = WrapprdComponent => {
                     ownerTrade={comment.trade}
                     ownerId={comment.userId}
                     ownerUserId={comment.userUserId}
-                    target="comment"
+                    target={target}
                     isLiked={isLiked}
                     isLikedByUser={isLikedByUser}
                     helpedUsers={helpedUsers}
