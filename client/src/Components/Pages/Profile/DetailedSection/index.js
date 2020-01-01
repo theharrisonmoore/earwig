@@ -10,6 +10,8 @@ const DetailedSection = ({
   summary,
   id,
   userId,
+  updateUserPoints,
+  updatedUsers,
 }) => {
   return (
     <>
@@ -22,6 +24,8 @@ const DetailedSection = ({
           level={level}
           id={id}
           userId={userId}
+          updateUserPoints={updateUserPoints}
+          updatedUsers={updatedUsers}
         />
       )}
     </>

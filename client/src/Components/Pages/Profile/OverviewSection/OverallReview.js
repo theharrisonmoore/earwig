@@ -28,7 +28,6 @@ class OverallReview extends Component {
       voiceReview: {},
     },
     writtenOrAudioReviews: [],
-    updatedUsers: {},
   };
 
   toggleHelpful = e => {
@@ -90,12 +89,12 @@ class OverallReview extends Component {
               },
             },
           },
-          updatedUsers: {
-            [userId]: {
-              helpedUsers: newHelpedUsers,
-              points: newPoints,
-            },
-          },
+        });
+
+        this.props.updateUserPoints({
+          userId,
+          points: newPoints,
+          helpedUsers: newHelpedUsers,
         });
       })
       .catch(err => {
@@ -272,15 +271,11 @@ class OverallReview extends Component {
       awaitingReview,
       FilteredReviewMonths,
       id: userId,
+      updatedUsers,
     } = this.props;
 
     const { name: orgName, _id: orgId } = summary;
-    const {
-      activeKey,
-      counters,
-      writtenOrAudioReviews,
-      updatedUsers,
-    } = this.state;
+    const { activeKey, counters, writtenOrAudioReviews } = this.state;
 
     const { level } = authorization({
       isAdmin,

@@ -45,6 +45,8 @@ export default class ReviewSection extends Component {
       level,
       id,
       userId,
+      updateUserPoints,
+      updatedUsers,
     } = this.props;
 
     const { _id: organizationID, name: organizationName } = summary;
@@ -168,6 +170,8 @@ export default class ReviewSection extends Component {
                           userId={id}
                           userUserId={userId}
                           organizationName={organizationName}
+                          updateUserPoints={updateUserPoints}
+                          updatedUsers={updatedUsers}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
                           zeroAnswers={this.onlyNeutralAnswers(
@@ -192,6 +196,8 @@ export default class ReviewSection extends Component {
                           userId={id}
                           userUserId={userId}
                           organizationName={organizationName}
+                          updateUserPoints={updateUserPoints}
+                          updatedUsers={updatedUsers}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
                           level={level}
@@ -217,6 +223,8 @@ export default class ReviewSection extends Component {
                           userId={id}
                           userUserId={userId}
                           organizationName={organizationName}
+                          updateUserPoints={updateUserPoints}
+                          updatedUsers={updatedUsers}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
                           level={level}
@@ -242,6 +250,8 @@ export default class ReviewSection extends Component {
                           userId={id}
                           userUserId={userId}
                           organizationName={organizationName}
+                          updateUserPoints={updateUserPoints}
+                          updatedUsers={updatedUsers}
                           level={level}
                         />
                       ) : (
@@ -261,6 +271,8 @@ export default class ReviewSection extends Component {
                         userId={id}
                         userUserId={userId}
                         organizationName={organizationName}
+                        updateUserPoints={updateUserPoints}
+                        updatedUsers={updatedUsers}
                         toggleComments={toggleComments}
                         profileType={question.profileType}
                         isMobile={isMobile}
@@ -332,6 +344,8 @@ export default class ReviewSection extends Component {
                           userId={id}
                           userUserId={userId}
                           organizationName={organizationName}
+                          updateUserPoints={updateUserPoints}
+                          updatedUsers={updatedUsers}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
                           level={level}
@@ -363,6 +377,8 @@ export default class ReviewSection extends Component {
                       userId={id}
                       userUserId={userId}
                       organizationName={organizationName}
+                      updateUserPoints={updateUserPoints}
+                      updatedUsers={updatedUsers}
                       organization={summary}
                       level={level}
                     />

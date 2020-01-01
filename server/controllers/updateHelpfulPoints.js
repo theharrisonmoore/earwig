@@ -5,7 +5,7 @@ const { updateUserHelpfulPoints } = require("./../database/queries/user");
 
 module.exports = async (req, res, next) => {
   const {
-    points, organization, userId,
+    points, organization, userId, commentId,
   } = req.body;
 
   const {
@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
   } = req.params;
   const { user } = req;
 
-  if (!["overallReview", "voiceReview"].includes(target)) {
+  if (!["overallReview", "voiceReview", "comment"].includes(target)) {
     return next(boom.badRequest("invalid arguments"));
   }
 
@@ -31,6 +31,7 @@ module.exports = async (req, res, next) => {
     review: reviewId,
     points,
     fromReferral: false,
+    comment: commentId,
   }).then(() => updateUserHelpfulPoints(userId))
     .then((updateData) => {
       res.json(updateData);

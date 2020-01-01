@@ -24,6 +24,8 @@ const OverviewSection = ({
   FilteredReviewMonths,
   history,
   loaded,
+  updateUserPoints,
+  updatedUsers,
 }) => {
   const { category, name, phoneNumber, email, websiteUrl } = summary && summary;
 
@@ -63,6 +65,8 @@ const OverviewSection = ({
           FilteredReviewMonths={FilteredReviewMonths}
           history={history}
           loaded={loaded}
+          updateUserPoints={updateUserPoints}
+          updatedUsers={updatedUsers}
         />
       </Skeleton>
 

@@ -125,23 +125,46 @@ const withComments = WrapprdComponent => {
       history.push(link);
     };
 
-    toggleHelpful = e => {
+    toggleHelpful = (reviewId, commentId, ownerId) => {
       const { counters } = this.state;
-      const { id: reviewId } = e.target;
-      // target = "voiceReview" or "overallReview"
       const counter = counters[reviewId] || {};
       const updateCounter = counter.points > 0 ? 0 : 1;
 
-      this.setState({
-        counters: {
-          ...counters,
-          [reviewId]: {
-            points: updateCounter,
-            updateCounter,
-            byUser: true,
-          },
-        },
-      });
+      const target = "comment";
+      const { organizationID } = this.props;
+      axios
+        .patch(`/api/review/${reviewId}/${target}/helpful-points`, {
+          points: updateCounter,
+          userId: ownerId,
+          organization: organizationID,
+          comment: commentId,
+        })
+        .then(
+          // new points for the user that got the new points
+          ({ data: { points: newPoints, helpedUsers: newHelpedUsers } }) => {
+            this.setState(prevState => ({
+              counters: {
+                ...prevState.counters,
+                [reviewId]: {
+                  points: updateCounter,
+                  updateCounter,
+                  byUser: true,
+                },
+              },
+            }));
+
+            this.props.updateUserPoints({
+              userId: ownerId,
+              points: newPoints,
+              helpedUsers: newHelpedUsers,
+            });
+          }
+        )
+        .catch(err => {
+          const error =
+            err.response && err.response.data && err.response.data.error;
+          message.error(error || "Something went wrong");
+        });
     };
 
     render() {
@@ -152,6 +175,7 @@ const withComments = WrapprdComponent => {
         category,
         level,
         userId,
+        updatedUsers,
         // userUserId,
       } = this.props;
 
@@ -178,6 +202,16 @@ const withComments = WrapprdComponent => {
 
                 const isLikedByUser =
                   isLiked && counters[comment.review].byUser;
+                const OwnerHelpedUsers = comment.helpedUsers;
+                const ownerPoints = comment.points;
+
+                const helpedUsers = updatedUsers[comment.userId]
+                  ? updatedUsers[comment.userId].helpedUsers
+                  : OwnerHelpedUsers;
+
+                const userPoints = updatedUsers[comment.userId]
+                  ? updatedUsers[comment.userId].points
+                  : ownerPoints;
 
                 return (
                   <OverallReviewsContent
@@ -186,8 +220,6 @@ const withComments = WrapprdComponent => {
                     written
                     text={comment.text}
                     time={comment.createdAt}
-                    helpedUsers={comment.helpedUsers}
-                    userPoints={comment.userPoints}
                     // logged in user _id
                     userId={userId}
                     category={category}
@@ -196,7 +228,7 @@ const withComments = WrapprdComponent => {
                     reviewCategory="comment"
                     reviewOrganizationId={comment.organization}
                     adminReplied={comment.adminReplied}
-                    updatedUsers={{}}
+                    updatedUsers={updatedUsers}
                     repliesCount={comment.repliesCount}
                     replies={replies[comment._id]}
                     activeKey={comment._id}
@@ -204,7 +236,13 @@ const withComments = WrapprdComponent => {
                     orgId={organizationID}
                     orgName={organizationName}
                     togglePanel={() => this.toggleReplies(comment._id)}
-                    toggleHelpful={this.toggleHelpful}
+                    toggleHelpful={() =>
+                      this.toggleHelpful(
+                        comment.review,
+                        comment._id,
+                        comment.userId
+                      )
+                    }
                     goTOReply={() =>
                       this.goTOReply(comment._id, comment.review)
                     }
@@ -214,6 +252,8 @@ const withComments = WrapprdComponent => {
                     target="comment"
                     isLiked={isLiked}
                     isLikedByUser={isLikedByUser}
+                    helpedUsers={helpedUsers}
+                    userPoints={userPoints}
                   />
                 );
               })}

@@ -25,6 +25,19 @@ export default class Profile extends Component {
     reviewsLast30Days: [],
     FilteredReviewMonths: [],
     activeTab: "overview",
+    updatedUsers: {},
+  };
+
+  updateUserPoints = ({ userId, points, helpedUsers }) => {
+    this.setState(prevState => ({
+      updatedUsers: {
+        ...prevState.updatedUsers,
+        [userId]: {
+          helpedUsers,
+          points,
+        },
+      },
+    }));
   };
 
   myDivToFocus = React.createRef();
@@ -136,6 +149,7 @@ export default class Profile extends Component {
       activeTab,
       activeOverallId,
       overallReplies,
+      updatedUsers,
     } = this.state;
 
     const {
@@ -189,6 +203,8 @@ export default class Profile extends Component {
               FilteredReviewMonths={FilteredReviewMonths}
               history={history}
               loaded={loaded}
+              updateUserPoints={this.updateUserPoints}
+              updatedUsers={updatedUsers}
             />
           ) : (
             <DetailedSection
@@ -199,6 +215,8 @@ export default class Profile extends Component {
               summary={summary}
               id={id}
               userId={userId}
+              updateUserPoints={this.updateUserPoints}
+              updatedUsers={updatedUsers}
             />
           )}
         </Wrapper>

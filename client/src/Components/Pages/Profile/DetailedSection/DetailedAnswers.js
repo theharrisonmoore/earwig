@@ -14,6 +14,8 @@ class DetailedAnswers extends Component {
       level,
       id,
       userId,
+      updateUserPoints,
+      updatedUsers,
     } = this.props;
 
     const { category } = summary;
@@ -26,6 +28,8 @@ class DetailedAnswers extends Component {
           section =>
             section._id === "Key ratings" && (
               <ReviewSection
+                updateUserPoints={updateUserPoints}
+                updatedUsers={updatedUsers}
                 level={level}
                 key={section._id}
                 category={category}
@@ -43,6 +47,8 @@ class DetailedAnswers extends Component {
           section =>
             section._id === "Getting on to site" && (
               <ReviewSection
+                updateUserPoints={updateUserPoints}
+                updatedUsers={updatedUsers}
                 level={level}
                 key={section._id}
                 category={category}
@@ -61,6 +67,8 @@ class DetailedAnswers extends Component {
           section =>
             section._id === "Working on the site" && (
               <ReviewSection
+                updateUserPoints={updateUserPoints}
+                updatedUsers={updatedUsers}
                 level={level}
                 key={section._id}
                 category={category}
@@ -78,6 +86,8 @@ class DetailedAnswers extends Component {
           section =>
             section._id === "The site welfare" && (
               <ReviewSection
+                updateUserPoints={updateUserPoints}
+                updatedUsers={updatedUsers}
                 level={level}
                 key={section._id}
                 category={category}
@@ -95,6 +105,8 @@ class DetailedAnswers extends Component {
           section =>
             section._id === "Detailed ratings" && (
               <ReviewSection
+                updateUserPoints={updateUserPoints}
+                updatedUsers={updatedUsers}
                 level={level}
                 key={section._id}
                 category={category}
@@ -112,6 +124,8 @@ class DetailedAnswers extends Component {
           section =>
             section._id === "Supervisors & employees" && (
               <ReviewSection
+                updateUserPoints={updateUserPoints}
+                updatedUsers={updatedUsers}
                 level={level}
                 key={section._id}
                 category={category}
@@ -128,6 +142,8 @@ class DetailedAnswers extends Component {
           section =>
             section._id === "Tools & materials" && (
               <ReviewSection
+                updateUserPoints={updateUserPoints}
+                updatedUsers={updatedUsers}
                 level={level}
                 key={section._id}
                 category={category}
