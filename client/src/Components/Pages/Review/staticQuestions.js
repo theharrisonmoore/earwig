@@ -28,7 +28,7 @@ export const STATIC_QUESTIONS = (category, history, state) => [
       "organisation"} or share a voice review below`,
     type: "overallReview",
     category,
-    label: "What was good? What was bad?",
+    label: `What went well and what do you think this ${category} needs to do to improve?`,
     hintText: (
       <PopoverComponent
         popoverOptions={{
