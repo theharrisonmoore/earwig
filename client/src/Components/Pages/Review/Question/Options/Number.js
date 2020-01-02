@@ -70,7 +70,12 @@ class Number extends Component {
 
     return (
       <QuestionOptionsWrapper>
-        <Options style={{ alignItems: "center", justifyContent: "center" }}>
+        <Options
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <div
             style={{
               marginBottom: "20px",
@@ -101,6 +106,7 @@ class Number extends Component {
           <SliderWrapper
             visibility={answers[number] || answers[number] === 0}
             color={organizations[category].primary}
+            style={{ width: "100%" }}
           >
             {answers[number] || answers[number] === 0 ? (
               <p>
@@ -113,7 +119,7 @@ class Number extends Component {
               value={answers[number] || 0}
               onChange={value => this.handleChange(value, number)}
               style={{ width: "100%" }}
-              step={0.5}
+              step={0.25}
               marks={{
                 0: {
                   style: marksStyle,
