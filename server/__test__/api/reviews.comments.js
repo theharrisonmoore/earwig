@@ -21,16 +21,15 @@ describe("Testing comments route", () => {
 
   test("test with correct organization id and question id", async (done) => {
     const comment = await Comment.findOne();
-    const data = { organizationID: comment.organization, questionID: comment.question };
 
     request(app)
-      .post("/api/comments")
-      .send(data)
+      .get(`/api/comments?organizationID=${comment.organization}&questionID=${comment.question}`)
       .expect("Content-Type", /json/)
       .expect(200)
       .end((err, res) => {
         expect(res).toBeDefined();
         expect(res.body).toBeDefined();
+        console.log(res.body);
         expect(res.body[0].organization).toBeDefined();
         expect(res.body[0].userId).toBeDefined();
         done();
