@@ -28,7 +28,7 @@ describe("Tesing for delete review route", () => {
 
     const review = await Review.findOne();
     const reviewAnswers = await getReviewDetails(review._id);
-    const singleAnswer = reviewAnswers[0].answers[0]._id;
+    const singleAnswer = reviewAnswers[0].questions[0].answer._id;
 
     request(app)
       .post("/api/login")

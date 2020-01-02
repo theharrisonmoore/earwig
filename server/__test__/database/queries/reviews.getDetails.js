@@ -76,7 +76,7 @@ describe("Test get review details query", () => {
     const review = await Review.findOne();
 
     await getReviewDetails(review._id).then(async (reviewAnswers) => {
-      const answer = reviewAnswers[0].answers[0]._id;
+      const answer = reviewAnswers[0].questions[0].answer._id;
       expect(answer).toBeDefined();
       const deletedAnswer = await deleteAnswer(answer);
       expect(deletedAnswer).toBeDefined();
