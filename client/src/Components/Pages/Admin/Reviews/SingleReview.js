@@ -61,7 +61,9 @@ export default class SingleReview extends Component {
   fetchImage = answer => {
     if (!this.state.images[answer]) {
       axios.get(`/api/admin/images/${answer}`).then(({ data }) => {
-        this.setState({ images: { ...this.state.images, [answer]: data.url } });
+        this.setState(prevState => ({
+          images: { ...prevState, [answer]: data.url },
+        }));
       });
     }
   };
@@ -86,7 +88,7 @@ export default class SingleReview extends Component {
         const error =
           err.response && err.response.data && err.response.data.error;
         message.error(error || "Something went wrong");
-        this.fetchData();
+        // this.fetchData();
       });
   };
 
@@ -112,7 +114,7 @@ export default class SingleReview extends Component {
         id,
         bool,
       })
-      .then(res => {
+      .then(() => {
         Swal.fire({
           type: "success",
           title: "Review status updated",
@@ -141,10 +143,10 @@ export default class SingleReview extends Component {
       okType: "danger",
       cancelText: "Cancel",
       onOk: () => {
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
           axios
             .delete(`/api/admin/reviews/delete-answer/${answerID}`)
-            .then(res => {
+            .then(() => {
               message.success("Deleted");
               this.fetchData();
               resolve();
@@ -173,7 +175,7 @@ export default class SingleReview extends Component {
               "voiceReview.audio": "",
             },
           })
-          .then(res => {
+          .then(() => {
             message.success("Deleted");
             this.fetchData();
           })
@@ -247,7 +249,7 @@ export default class SingleReview extends Component {
               return (
                 <FormWrapper>
                   <Form>
-                    <QuestionOptionsWrapper>
+                    <QuestionOptionsWrapper style={{ marginTop: "2rem" }}>
                       <QText>Overall Rating </QText>
                       <StarRating>
                         <StarRatingComponent
@@ -259,7 +261,7 @@ export default class SingleReview extends Component {
                         />
                       </StarRating>
                     </QuestionOptionsWrapper>
-                    <QuestionOptionsWrapper>
+                    <QuestionOptionsWrapper style={{ marginTop: "2rem" }}>
                       <Headline>User Data:</Headline>
                       <DetailsDiv>
                         <QText>Email:</QText>
@@ -270,7 +272,7 @@ export default class SingleReview extends Component {
                         <HintText>{id}</HintText>
                       </DetailsDiv>
                     </QuestionOptionsWrapper>
-                    <QuestionOptionsWrapper>
+                    <QuestionOptionsWrapper style={{ marginTop: "2rem" }}>
                       <Headline>Voice review:</Headline>
                       {!!voiceReview && !!voiceReview.audio ? (
                         <>
@@ -284,7 +286,7 @@ export default class SingleReview extends Component {
                         <div>No voice review</div>
                       )}
                     </QuestionOptionsWrapper>
-                    <QuestionOptionsWrapper>
+                    <QuestionOptionsWrapper style={{ marginTop: "2rem" }}>
                       <Headline>Overall Results</Headline>
 
                       {lastUse && (
@@ -304,9 +306,9 @@ export default class SingleReview extends Component {
                       {!!replies && !!replies.length && (
                         <DetailsDiv>
                           <QText>Replies: </QText>
-                          {replies.map((reply, i) => {
+                          {replies.map(reply => {
                             return (
-                              <div key={i}>
+                              <div key={reply.text}>
                                 <HintText>
                                   {reply.text} by UserID {reply.user}
                                 </HintText>
@@ -325,251 +327,300 @@ export default class SingleReview extends Component {
                             return (
                               <div key={group._id}>
                                 <h2>{group.group.text}</h2>
-                                {group.answers.map((entry, i) => {
-                                  const question = entry.question[0];
-                                  const { answer } = entry;
+                                {group.questions.map(entry => {
+                                  const {
+                                    answer: { answer, _id: answerID } = {},
+                                    comment: { text: commentText } = {},
+                                    question,
+                                  } = entry;
+
                                   const {
                                     type,
                                     options,
                                     number,
-                                    category,
                                     label,
                                     profileText,
                                     text,
+                                    _id: questionId,
                                   } = question;
-                                  if (type === "yesno" || type === "radio") {
-                                    return (
-                                      <QuestionOptionsWrapper>
-                                        <QText>{text}</QText>
-                                        <Options options={options.length}>
-                                          <div
-                                            className={`choices choices-${options.length}`}
-                                          >
-                                            {options.map((option, i, arr) => {
-                                              return (
-                                                <InputWrapper
-                                                  option={option}
-                                                  orgType={category}
-                                                  options={
-                                                    question.options.length
-                                                  }
-                                                  key={option}
-                                                >
-                                                  <input
-                                                    name={question.number}
-                                                    id={`${option}-${question.number}`}
-                                                    type="radio"
-                                                    value={option}
-                                                    className="radio-button"
-                                                    checked={this.checkIten(
-                                                      answer,
-                                                      option
-                                                    )}
-                                                  />
-                                                  <StyledInput
-                                                    htmlFor={`${option}-${question.number}`}
-                                                    className="yesno options-3"
-                                                  >
-                                                    {option}
-                                                  </StyledInput>
-                                                </InputWrapper>
-                                              );
-                                            })}
-                                            {this.createDeleteBtn(entry._id)}
-                                          </div>
-                                        </Options>
-                                      </QuestionOptionsWrapper>
-                                    );
-                                  }
 
-                                  if (type === "open") {
-                                    return (
-                                      <QuestionOptionsWrapper key={i}>
-                                        <QText>{text}</QText>
-                                        <HintText>{question.hintText}</HintText>
-                                        <AnswerDiv>
-                                          <Field name={`questions[${number}]`}>
-                                            {() => (
-                                              <Input
-                                                size="large"
-                                                value={answer}
-                                                style={{
-                                                  border: `1px solid ${colors.dustyGray1}`,
-                                                }}
-                                              />
-                                            )}
-                                          </Field>
-                                          {this.createDeleteBtn(entry._id)}
-                                        </AnswerDiv>
-                                      </QuestionOptionsWrapper>
-                                    );
-                                  }
-
-                                  if (type === "number") {
-                                    return (
-                                      <QuestionOptionsWrapper key={i}>
-                                        <QText>{text}</QText>
-                                        <HintText>{question.hintText}</HintText>
-                                        <AnswerDiv>
-                                          <Field
-                                            name={`questions[${number}]`}
-                                            type="number"
-                                          >
-                                            {() => (
-                                              <InputNumber
-                                                style={{
-                                                  border: `1px solid ${colors.dustyGray1}`,
-                                                  width: "12rem",
-                                                  height: "70px",
-                                                  lineHeight: "70px",
-                                                }}
-                                                size="large"
-                                                value={answer}
-                                                placeholder={`£       ${label}`}
-                                              />
-                                            )}
-                                          </Field>
-                                          {this.createDeleteBtn(entry._id)}
-                                        </AnswerDiv>
-                                      </QuestionOptionsWrapper>
-                                    );
-                                  }
-
-                                  if (type === "dropdown") {
-                                    return (
-                                      <QuestionOptionsWrapper key={i}>
-                                        <QText>{text}</QText>
-                                        <HintText>{question.hintText}</HintText>
-                                        <AnswerDiv>
-                                          <Field name={`questions[${number}]`}>
-                                            {() => {
-                                              if (
-                                                answer &&
-                                                answer.name &&
-                                                profileText ===
-                                                  "Main contractor"
-                                              ) {
-                                                return (
-                                                  <Link
-                                                    to={`/profile/${answer._id}`}
-                                                  >
-                                                    {answer.name}
-                                                  </Link>
-                                                );
-                                              }
-                                              return (
-                                                <>
-                                                  <Select
-                                                    value={answer.name}
-                                                    disabled
-                                                    style={{
-                                                      border: `1px solid ${colors.dustyGray1}`,
-                                                    }}
-                                                  />
-                                                </>
-                                              );
-                                            }}
-                                          </Field>
-                                          {this.createDeleteBtn(entry._id)}
-                                        </AnswerDiv>
-                                      </QuestionOptionsWrapper>
-                                    );
-                                  }
-
-                                  if (type === "overallReview") {
-                                    return (
-                                      <QuestionOptionsWrapper>
-                                        <QText>{text}</QText>
-                                        <HintText>{question.hintText}</HintText>
-                                        <AnswerDiv>
-                                          <Field name="review.overallReview">
-                                            {() => (
-                                              <Input.TextArea
-                                                rows={4}
-                                                // {...form}
-                                                value={answer}
-                                                style={{
-                                                  border: `1px solid ${colors.inputBorder}`,
-                                                }}
-                                              />
-                                            )}
-                                          </Field>
-                                          {this.createDeleteBtn(entry._id)}
-                                        </AnswerDiv>
-                                      </QuestionOptionsWrapper>
-                                    );
-                                  }
-
-                                  if (type === "checklist") {
-                                    return (
-                                      <QuestionOptionsWrapper key={i}>
-                                        <QText>{text}</QText>
-                                        <HintText>{question.hintText}</HintText>
-                                        <AnswerDiv>
-                                          <FieldArray
-                                            name={`questions[${number}]`}
-                                            render={() => (
-                                              <div>
-                                                {options &&
-                                                  options.length > 0 &&
-                                                  options.map(
-                                                    (option, index) => (
-                                                      <div key={option}>
-                                                        <Field
-                                                          id={`${option}-${number}`}
-                                                          type="checkbox"
-                                                          name={`questions[${number}].${index}`}
-                                                          checked={answer.includes(
-                                                            option
-                                                          )}
-                                                        />
-                                                        <label
-                                                          htmlFor={`${option}-${number}`}
-                                                        >
-                                                          {option}
-                                                        </label>
-                                                      </div>
-                                                    )
-                                                  )}
-                                              </div>
-                                            )}
-                                          />
-                                          {this.createDeleteBtn(entry._id)}
-                                        </AnswerDiv>
-                                      </QuestionOptionsWrapper>
-                                    );
-                                  }
-
-                                  if (type === "image") {
-                                    this.fetchImage(answer);
-                                    return (
-                                      <QuestionOptionsWrapper key={i}>
-                                        <QText>{text}</QText>
-                                        <HintText>{question.hintText}</HintText>
-                                        {this.state.images[answer] ? (
-                                          <div style={{ position: "relative" }}>
-                                            <img
-                                              style={{ width: "90%" }}
-                                              src={this.state.images[answer]}
-                                              alt={answer}
-                                            />
+                                  return (
+                                    <>
+                                      {commentText && (
+                                        <p>Comment: {commentText}</p>
+                                      )}
+                                      {(type === "yesno" ||
+                                        type === "radio") && (
+                                        <QuestionOptionsWrapper
+                                          style={{ marginTop: "2rem" }}
+                                        >
+                                          <QText>{text}</QText>
+                                          <Options options={options.length}>
                                             <div
-                                              style={{
-                                                position: "absolute",
-                                                right: 0,
-                                                top: 0,
-                                              }}
+                                              className={`choices choices-${options.length}`}
                                             >
-                                              {this.createDeleteBtn(entry._id)}
+                                              {options.map(option => {
+                                                return (
+                                                  <InputWrapper
+                                                    option={option}
+                                                    orgType={category}
+                                                    options={
+                                                      question.options.length
+                                                    }
+                                                    key={option}
+                                                  >
+                                                    <input
+                                                      name={question.number}
+                                                      id={`${option}-${question.number}`}
+                                                      type="radio"
+                                                      value={option}
+                                                      className="radio-button"
+                                                      checked={this.checkIten(
+                                                        answer,
+                                                        option
+                                                      )}
+                                                    />
+                                                    <StyledInput
+                                                      htmlFor={`${option}-${question.number}`}
+                                                      className="yesno options-3"
+                                                    >
+                                                      {option}
+                                                    </StyledInput>
+                                                  </InputWrapper>
+                                                );
+                                              })}
+                                              {answerID
+                                                ? this.createDeleteBtn(answerID)
+                                                : null}
                                             </div>
-                                          </div>
-                                        ) : (
-                                          <p>image Not Found</p>
-                                        )}
-                                      </QuestionOptionsWrapper>
-                                    );
-                                  }
-                                  return null;
+                                          </Options>
+                                        </QuestionOptionsWrapper>
+                                      )}
+
+                                      {type === "open" && (
+                                        <QuestionOptionsWrapper
+                                          key={questionId}
+                                        >
+                                          <QText>{text}</QText>
+                                          <HintText>
+                                            {question.hintText}
+                                          </HintText>
+                                          <AnswerDiv>
+                                            <Field
+                                              name={`questions[${number}]`}
+                                            >
+                                              {() => (
+                                                <Input
+                                                  size="large"
+                                                  value={answer}
+                                                  style={{
+                                                    border: `1px solid ${colors.dustyGray1}`,
+                                                  }}
+                                                />
+                                              )}
+                                            </Field>
+                                            {answerID
+                                              ? this.createDeleteBtn(answerID)
+                                              : null}
+                                          </AnswerDiv>
+                                        </QuestionOptionsWrapper>
+                                      )}
+
+                                      {type === "number" && (
+                                        <QuestionOptionsWrapper
+                                          key={questionId}
+                                        >
+                                          <QText>{text}</QText>
+                                          <HintText>
+                                            {question.hintText}
+                                          </HintText>
+                                          <AnswerDiv>
+                                            <Field
+                                              name={`questions[${number}]`}
+                                              type="number"
+                                            >
+                                              {() => (
+                                                <InputNumber
+                                                  style={{
+                                                    border: `1px solid ${colors.dustyGray1}`,
+                                                    width: "12rem",
+                                                    height: "70px",
+                                                    lineHeight: "70px",
+                                                  }}
+                                                  size="large"
+                                                  value={answer}
+                                                  placeholder={`£       ${label}`}
+                                                />
+                                              )}
+                                            </Field>
+                                            {answerID
+                                              ? this.createDeleteBtn(answerID)
+                                              : null}
+                                          </AnswerDiv>
+                                        </QuestionOptionsWrapper>
+                                      )}
+
+                                      {type === "dropdown" && (
+                                        <QuestionOptionsWrapper
+                                          key={questionId}
+                                        >
+                                          <QText>{text}</QText>
+                                          <HintText>
+                                            {question.hintText}
+                                          </HintText>
+                                          <AnswerDiv>
+                                            <Field
+                                              name={`questions[${number}]`}
+                                            >
+                                              {() => {
+                                                if (
+                                                  answer &&
+                                                  answer.name &&
+                                                  profileText ===
+                                                    "Main contractor"
+                                                ) {
+                                                  return (
+                                                    <Link
+                                                      to={`/profile/${answer._id}`}
+                                                    >
+                                                      {answer.name}
+                                                    </Link>
+                                                  );
+                                                }
+                                                if (answer && answer.name) {
+                                                  return (
+                                                    <>
+                                                      <Select
+                                                        value={answer.name}
+                                                        disabled
+                                                        style={{
+                                                          border: `1px solid ${colors.dustyGray1}`,
+                                                        }}
+                                                      />
+                                                    </>
+                                                  );
+                                                }
+                                                return null;
+                                              }}
+                                            </Field>
+                                            {answerID
+                                              ? this.createDeleteBtn(answerID)
+                                              : null}
+                                          </AnswerDiv>
+                                        </QuestionOptionsWrapper>
+                                      )}
+
+                                      {type === "overallReview" && (
+                                        <QuestionOptionsWrapper
+                                          style={{ marginTop: "2rem" }}
+                                        >
+                                          <QText>{text}</QText>
+                                          <HintText>
+                                            {question.hintText}
+                                          </HintText>
+                                          <AnswerDiv>
+                                            <Field name="review.overallReview">
+                                              {() => (
+                                                <Input.TextArea
+                                                  rows={4}
+                                                  // {...form}
+                                                  value={answer}
+                                                  style={{
+                                                    border: `1px solid ${colors.inputBorder}`,
+                                                  }}
+                                                />
+                                              )}
+                                            </Field>
+                                            {answerID
+                                              ? this.createDeleteBtn(answerID)
+                                              : null}
+                                          </AnswerDiv>
+                                        </QuestionOptionsWrapper>
+                                      )}
+
+                                      {type === "checklist" && (
+                                        <QuestionOptionsWrapper
+                                          key={questionId}
+                                        >
+                                          <QText>{text}</QText>
+                                          <HintText>
+                                            {question.hintText}
+                                          </HintText>
+                                          <AnswerDiv>
+                                            <FieldArray
+                                              name={`questions[${number}]`}
+                                              render={() => (
+                                                <div>
+                                                  {options &&
+                                                    options.length > 0 &&
+                                                    options.map(
+                                                      (option, index) => (
+                                                        <div key={option}>
+                                                          <Field
+                                                            id={`${option}-${number}`}
+                                                            type="checkbox"
+                                                            name={`questions[${number}].${index}`}
+                                                            checked={answer.includes(
+                                                              option
+                                                            )}
+                                                          />
+                                                          <label
+                                                            htmlFor={`${option}-${number}`}
+                                                          >
+                                                            {option}
+                                                          </label>
+                                                        </div>
+                                                      )
+                                                    )}
+                                                </div>
+                                              )}
+                                            />
+                                            {answerID
+                                              ? this.createDeleteBtn(answerID)
+                                              : null}
+                                          </AnswerDiv>
+                                        </QuestionOptionsWrapper>
+                                      )}
+
+                                      {type === "image" && (
+                                        <QuestionOptionsWrapper
+                                          key={questionId}
+                                        >
+                                          {this.fetchImage(answer)}
+                                          <QText>{text}</QText>
+                                          <HintText>
+                                            {question.hintText}
+                                          </HintText>
+                                          {this.state.images[answer] ? (
+                                            <div
+                                              style={{ position: "relative" }}
+                                            >
+                                              <img
+                                                style={{ width: "90%" }}
+                                                src={this.state.images[answer]}
+                                                alt={answer}
+                                              />
+                                              <div
+                                                style={{
+                                                  position: "absolute",
+                                                  right: 0,
+                                                  top: 0,
+                                                }}
+                                              >
+                                                {answerID
+                                                  ? this.createDeleteBtn(
+                                                      answerID
+                                                    )
+                                                  : null}
+                                              </div>
+                                            </div>
+                                          ) : (
+                                            <p>image Not Found</p>
+                                          )}
+                                        </QuestionOptionsWrapper>
+                                      )}
+                                    </>
+                                  );
                                 })}
                               </div>
                             );

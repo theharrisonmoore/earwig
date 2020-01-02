@@ -17,7 +17,7 @@ import ErrorBoundry from "./Components/Common/ErrorBoundry";
 // third party apps
 if (process.env.NODE_ENV === "production") {
   Sentry.init({
-    dsn: "https://2b089a5f39714cd3bc694a5b2484302b@sentry.io/1524934"
+    dsn: "https://2b089a5f39714cd3bc694a5b2484302b@sentry.io/1524934",
   });
 
   // set up logrocket
@@ -31,8 +31,12 @@ if (process.env.NODE_ENV === "production") {
 mixpanel.init("6e556a55e4e9c20a0ecbc15e28fc00d8");
 
 ReactDOM.render(
-  <ErrorBoundry>
+  process.env.NODE_ENV === "production" ? (
+    <ErrorBoundry>
+      <App />
+    </ErrorBoundry>
+  ) : (
     <App />
-  </ErrorBoundry>,
+  ),
   document.getElementById("root")
 );
