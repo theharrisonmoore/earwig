@@ -11,7 +11,13 @@ import Routes from "./Components";
 
 import ScrollToTop from "./Components/Common/ScrollToTop";
 
-import { isSMobile, isMobile, isTablet, isDesktop } from "./helpers";
+import {
+  isXSMobile,
+  isSMobile,
+  isMobile,
+  isTablet,
+  isDesktop,
+} from "./helpers";
 
 import { API_USERS } from "./apiUrls";
 
@@ -47,6 +53,7 @@ class App extends Component {
 
   updateWindowDimensions() {
     this.setState({
+      isXSMobile: isXSMobile(window.innerWidth),
       isSMobile: isSMobile(window.innerWidth),
       isMobile: isMobile(window.innerWidth),
       isTablet: isTablet(window.innerWidth),
