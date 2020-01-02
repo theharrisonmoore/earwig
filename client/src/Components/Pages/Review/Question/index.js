@@ -87,7 +87,8 @@ class Question extends Component {
             <Icon
               icon={icon}
               width={isXSMobile(window.innerWidth) ? "35" : "40"}
-              height={isXSMobile(window.innerWidth) ? "35" : "40"}
+              fill-opacity="0.5"
+              fill="#000"
             />
           )}
         </IconContainer>
