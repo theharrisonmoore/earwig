@@ -20,7 +20,6 @@ class RepliesAndCommentsCollaps extends Component {
       isOpen,
       panelKey,
       count,
-      activeKey,
       onToggle,
       comments,
     } = this.props;
@@ -32,7 +31,7 @@ class RepliesAndCommentsCollaps extends Component {
           data-id={id}
           onChange={onToggle}
           accordion
-          activeKey={activeKey}
+          activeKey={isOpen ? panelKey : "-"}
         >
           <Panel
             showArrow={false}

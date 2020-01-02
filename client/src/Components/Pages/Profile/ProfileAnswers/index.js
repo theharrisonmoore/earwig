@@ -34,18 +34,18 @@ const withComments = WrapprdComponent => {
     state = {
       comments: [],
       loading: false,
-      isActive: false,
+      isOpen: false,
       tabs: {},
       replies: {},
     };
 
     toggleComments = () => {
       this.setState(prevState => {
-        if (!prevState.isActive) {
+        if (!prevState.isOpen) {
           this.fetchComments();
         }
         return {
-          isActive: !prevState.isActive,
+          isOpen: !prevState.isOpen,
           loading: true,
         };
       });
@@ -53,8 +53,8 @@ const withComments = WrapprdComponent => {
 
     toggleReplies = parentCommentId => {
       this.setState(prevState => {
-        const isActive = prevState.tabs[parentCommentId];
-        if (!isActive) {
+        const isOpen = prevState.tabs[parentCommentId];
+        if (!isOpen) {
           axios.get(`/api/comments/${parentCommentId}`).then(({ data }) => {
             this.setState({
               replies: {
@@ -68,7 +68,7 @@ const withComments = WrapprdComponent => {
         this.setState({
           tabs: {
             ...prevState.tabs,
-            [parentCommentId]: !isActive,
+            [parentCommentId]: !isOpen,
           },
           loading: true,
         });
@@ -182,20 +182,18 @@ const withComments = WrapprdComponent => {
       } = this.props;
       const target = "comment";
 
-      const { isActive, comments, replies, tabs } = this.state;
+      const { isOpen, comments, replies, tabs } = this.state;
 
-      const activeKey = isActive && questionID;
       return (
         <div>
           <WrapprdComponent {...this.props} />
           {commentsCount ? (
             <RepliesAndCommentsCollaps
               id={`${questionID}`}
-              isActive={isActive}
+              isOpen={isOpen}
               panelKey={`${questionID}`}
               count={commentsCount}
               onToggle={this.toggleComments}
-              activeKey={activeKey}
               comments
             >
               {comments.map(comment => {
@@ -234,8 +232,8 @@ const withComments = WrapprdComponent => {
                     updatedUsers={updatedUsers}
                     repliesCount={comment.repliesCount}
                     replies={replies[comment._id]}
-                    activeKey={comment._id}
-                    isActive={tabs[comment._id]}
+                    panelKey={comment._id}
+                    isOpen={tabs[comment._id]}
                     orgId={organizationID}
                     orgName={organizationName}
                     togglePanel={() => this.toggleReplies(comment._id)}

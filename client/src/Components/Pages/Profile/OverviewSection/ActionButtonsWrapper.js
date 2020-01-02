@@ -34,7 +34,7 @@ const ActionButtonsWrapper = ({
   return (
     <ActionsDiv>
       <ButtonsWrapper>
-        {ownerID !== loggedinUserID && (
+        {ownerID !== loggedinUserID && level >= 3 && (
           <LikeWrapper
             as="button"
             onClick={onClickHelpful}
@@ -54,7 +54,7 @@ const ActionButtonsWrapper = ({
             />
           </LikeWrapper>
         )}
-        {adminReplied !== true && (
+        {adminReplied !== true && level >= 2 && (
           <CommentIconWrapper
             onClick={level >= 2 ? goTOReply : undefined}
             data-target={target}
@@ -70,11 +70,13 @@ const ActionButtonsWrapper = ({
 
       {/* FLAG ICON */}
       {/* report overall/voice review */}
-      <ReportFlag
-        style={{ right: 0, width: "10%" }}
-        to={reportLink}
-        disabled={level < 1}
-      />
+      {level >= 1 && (
+        <ReportFlag
+          style={{ right: 0, width: "10%" }}
+          to={reportLink}
+          disabled={level < 1}
+        />
+      )}
     </ActionsDiv>
   );
 };

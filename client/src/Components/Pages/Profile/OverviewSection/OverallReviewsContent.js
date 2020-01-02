@@ -43,7 +43,6 @@ export default ({
   updatedUsers,
   repliesCount,
   replies,
-  activeKey,
   orgId,
   orgName,
   togglePanel,
@@ -56,7 +55,7 @@ export default ({
   isLiked,
   isLikedByUser,
   showRate,
-  isActive,
+  panelKey,
 }) => {
   const overallParams = {
     target,
@@ -122,11 +121,9 @@ export default ({
         <RepliesAndCommentsCollaps
           id={reviewId}
           isOpen={isOpen}
-          panelKey={activeKey}
+          panelKey={panelKey}
           count={repliesCount}
-          activeKey={isActive && activeKey}
           onToggle={togglePanel}
-          isActive={isActive}
         >
           {replies && (
             <Replies

@@ -99,8 +99,8 @@ class OverallReview extends Component {
   togglePanel = key => {
     if (!key) return this.setState({ activeKey: "" });
 
-    const [reviewId, type] = key.split("/");
-    const target = type === "written" ? "overallReview" : "voiceReview";
+    const [reviewId, target] = key.split("/");
+
     if (reviewId) {
       return this.setState({ activeKey: key }, () => {
         this.props.fetchOverallReplies(reviewId, target);
@@ -359,7 +359,7 @@ class OverallReview extends Component {
                   updatedUsers={updatedUsers}
                   repliesCount={repliesCount}
                   replies={overallReplies}
-                  activeKey={activeKey}
+                  panelKey={`${reviewId}/${reviewCategory}`}
                   overallReview={overallReview}
                   orgId={orgId}
                   orgName={orgName}
