@@ -9,7 +9,6 @@ import { colors } from "../../../theme";
 import Select from "../../Common/Select";
 import Button from "../../Common/Button";
 import PopoverComponent from "../../Common/Popover";
-import CancelLink from "../../Common/CancelLink";
 
 import {
   UploadImageWrapper,
@@ -272,7 +271,7 @@ export default class UploadImage extends Component {
     this.props.handleChangeState({ awaitingReview: true });
     if (redirectToProfile && orgId) {
       this.props.history.push({
-        pathname: `/profile/${orgId}`,
+        pathname: `/pre-review/${orgId}`,
       });
     } else if (redirectToCreateProfile && name && category) {
       this.props.history.push({
