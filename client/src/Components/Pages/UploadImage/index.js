@@ -27,7 +27,7 @@ import {
 
 import example from "../../../assets/example.png";
 
-import { INTRO_URL } from "../../../constants/naviagationUrls";
+import { HOME_PAGE } from "../../../constants/naviagationUrls";
 
 const {
   API_TRADE_URL,
@@ -279,7 +279,7 @@ export default class UploadImage extends Component {
       });
     } else {
       this.props.history.push({
-        pathname: INTRO_URL,
+        pathname: HOME_PAGE,
       });
     }
   };
