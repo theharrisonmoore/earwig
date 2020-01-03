@@ -31,10 +31,7 @@ export default props => {
       <AddWrapper>
         <MainDiv>
           <HeadlineDiv>
-            <H2>
-              Hold up! You need to be a verified worker to create a new{" "}
-              {category} in our database.
-            </H2>
+            <H2>Hold up! You need to be a verified worker to give a review.</H2>
           </HeadlineDiv>
           <SubHeading margin="2rem auto">
             You only need to get verified once :)
