@@ -30,8 +30,8 @@ export default WrappedComponent => {
       searchTerm: "",
     };
 
-    handleOpen = () => {
-      this.setState(prevState => ({ open: !prevState.open }), this.scrollToTop);
+    handleOpen = isOpen => {
+      this.setState({ open: isOpen }, this.scrollToTop);
     };
 
     isElementFixed = element => {
@@ -107,12 +107,12 @@ export default WrappedComponent => {
     onFocus = () => {
       this.addMarginToPage();
       this.scrollToTop();
-      this.handleOpen();
+      this.handleOpen(true);
     };
 
     onBlur = () => {
       this.removeMarginFromPage();
-      this.handleOpen();
+      this.handleOpen(false);
     };
 
     render() {
