@@ -51,23 +51,23 @@ export const PurpleDiv = styled.div`
 `;
 
 export const Heading = styled.h1`
-  color: ${colors.mineShaft2};
-  font-size: 2rem;
-  font-weight: 900;
+  color: ${colors.dustyGray4};
+  font-size: 1.125rem;
+  font-weight: bold;
   margin-bottom: 2rem;
 `;
 
 export const SubHeading = styled.h2`
-  font-weight: 900;
-  font-size: 1.125rem;
-  color: ${colors.mineShaft2};
+  font-weight: bold;
+  font-size: 1rem;
+  color: ${colors.dustyGray3};
   text-align: left;
   margin-bottom: 0;
 `;
 
 export const Example = styled.img`
   max-width: 70%;
-  margin: 1rem auto;
+  margin: 1rem auto 0 auto;
 `;
 
 export const Label = styled.label``;

@@ -2,14 +2,13 @@ import React, { Component } from "react";
 import { Prompt } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Modal, Input, Alert } from "antd";
+import { Modal, Input, Alert, Divider } from "antd";
 
 import { colors } from "../../../theme";
 
 import Select from "../../Common/Select";
 import Button from "../../Common/Button";
 import PopoverComponent from "../../Common/Popover";
-import CancelLink from "../../Common/CancelLink";
 
 import {
   UploadImageWrapper,
@@ -28,7 +27,7 @@ import {
 
 import example from "../../../assets/example.png";
 
-import { INTRO_URL } from "../../../constants/naviagationUrls";
+import { HOME_PAGE } from "../../../constants/naviagationUrls";
 
 const {
   API_TRADE_URL,
@@ -231,6 +230,13 @@ export default class UploadImage extends Component {
   getTooltipText = () => {
     return (
       <>
+        <EditIcon
+          icon="getVerified"
+          height="25"
+          width="25"
+          margin="0 0.5rem 0 0"
+          fill={colors.profileFontColor}
+        />
         <p>
           earwig is free for workers. All we ask is that you get verified as a
           genuine worker. This means all reviews are credible and protects the
@@ -265,7 +271,7 @@ export default class UploadImage extends Component {
     this.props.handleChangeState({ awaitingReview: true });
     if (redirectToProfile && orgId) {
       this.props.history.push({
-        pathname: `/profile/${orgId}`,
+        pathname: `/pre-review/${orgId}`,
       });
     } else if (redirectToCreateProfile && name && category) {
       this.props.history.push({
@@ -273,7 +279,7 @@ export default class UploadImage extends Component {
       });
     } else {
       this.props.history.push({
-        pathname: INTRO_URL,
+        pathname: HOME_PAGE,
       });
     }
   };
@@ -289,13 +295,12 @@ export default class UploadImage extends Component {
       isPopupVisible,
       browserBackAttempt,
     } = this.state;
-    const { level } = this.props;
+    const { level, history } = this.props;
 
     return (
       <UploadImageWrapper className="test">
         <PurpleDiv />
         <ContentWrapper>
-          <CancelLink history={this.props.history} CancelText="Back" />
           <EditIcon
             icon="getVerified"
             height="25"
@@ -365,16 +370,18 @@ export default class UploadImage extends Component {
               Please upload a photo of your face holding your trade ID like the
               example below. Once we’ve verified you, we’ll delete the photo to
               protect your anonymity.
+              <br />
+              <PopoverComponent
+                popoverOptions={{
+                  text: this.getTooltipText(),
+                  linkText: "Learn more",
+                  icon: "info",
+                  margin: "0 0 0.5rem 0",
+                }}
+                history={this.props.history}
+              />
             </Paragraph>
-            <PopoverComponent
-              popoverOptions={{
-                text: this.getTooltipText(),
-                linkText: "Learn more",
-                icon: "info",
-                margin: "0 0 0.5rem 0",
-              }}
-              history={this.props.history}
-            />
+
             <Button
               as="label"
               htmlFor="image-input"
@@ -391,6 +398,7 @@ export default class UploadImage extends Component {
             />
             <Example src={image || example} />
             {error && <Error>{error}</Error>}
+            <Divider style={{ margin: "2rem 0" }} />
             <Button
               marginTop
               type="submit"
@@ -399,6 +407,12 @@ export default class UploadImage extends Component {
               loading={loading}
               styleType="primary"
               text="Done"
+            />
+            <Button
+              margin="0 auto"
+              styleType="secondary"
+              text="Cancel"
+              onClick={history.goBack}
             />
           </form>
           <Modal

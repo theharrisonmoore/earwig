@@ -23,6 +23,7 @@ const sharedStyles = css`
   justify-content: center;
   align-items: center;
   width: ${({ width }) => width || "auto"};
+  min-width: 108px;
   background: none;
   pointer-events: all !important;
 
@@ -115,6 +116,7 @@ const linkStyles = css`
   display: inline;
   text-align: left;
   padding-left: 0;
+  font-size: 1rem;
 `;
 
 const ButtonElement = styled.button`

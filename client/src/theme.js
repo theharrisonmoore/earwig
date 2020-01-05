@@ -57,6 +57,7 @@ const colorCodes = {
   dustyGray1: "#979797",
   dustyGray2: "#9B9B9B",
   dustyGray3: "#767676",
+  dustyGray4: "#949494",
   veryLightGray: "#CDCDCD",
   black: "#000000",
   black2: "#363636",

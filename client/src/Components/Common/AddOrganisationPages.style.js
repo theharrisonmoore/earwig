@@ -8,11 +8,11 @@ export const HeadlineDiv = styled.div`
   flex-direction: column;
   text-align: center;
   padding-top: 5rem;
-  color: ${colors.profileFontColor};
+  color: ${colors.dustyGray4};
   h2 {
-    font-size: 24px;
-    font-weight: 300;
-    line-height: 2.5rem;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.5rem;
   }
   p {
     font-style: italic;
@@ -25,11 +25,12 @@ export const H2 = styled.h2`
   opacity: 0.7;
   max-width: 22rem;
   margin: 0 auto;
+  color: ${colors.dustyGray4};
 `;
 
 export const SubHeading = styled.h4`
-  font-size: 15px
-  opacity: 0.7;
+  font-size: 15px;
+  color: ${colors.dustyGray3};
   ${margin => margin};
 `;
 
