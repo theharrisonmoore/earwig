@@ -1,43 +1,23 @@
 import React, { Component } from "react";
 
-import {
-  ListWrapper,
-  CanteenItem,
-  CanteenSubList,
-} from "./ProfileAnswers.style";
+import { ListWrapper, CanteenItem } from "./ProfileAnswers.style";
 
+import CanteenSubItemAnswer from "./CanteenSubItemAnswer";
 import Icon from "../../../Common/Icon/Icon";
 
 export default class CanteenItemAnswer extends Component {
   getAverage = answers => {
     // start count at 1 to give benefit to yes
     let count = 1;
-    answers.map(answer =>
-      answer.answer === "Yes" ? (count += 1) : (count -= 1)
-    );
-
-    return count > 0;
-  };
-
-  getSelectedItems = (answers, option) => {
-    const totalAnswers = [];
-    answers.map(userAnswers => {
-      return userAnswers.answer === "I didn't check"
-        ? totalAnswers.push(userAnswers.answer)
-        : userAnswers.answer.map(individAnswer =>
-            totalAnswers.push(individAnswer)
-          );
+    answers.forEach(answer => {
+      if (answer.answer === "Yes") {
+        count += 1;
+      } else {
+        count -= 1;
+      }
     });
 
-    return totalAnswers.includes(option);
-  };
-
-  onlyNeutralAnswers = answers => {
-    const yesOrNo = answers.filter(
-      answer => answer.answer !== "I didn't check"
-    );
-
-    return yesOrNo.length === 0;
+    return count > 0;
   };
 
   render() {
@@ -67,32 +47,13 @@ export default class CanteenItemAnswer extends Component {
                 question =>
                   question.profileText !== "Canteen on this site with:"
               )
-              .map((question, index) =>
-                question.profileText === "heated" ? (
-                  <CanteenSubList
-                    key={index}
-                    hide={this.onlyNeutralAnswers(question.answers)}
-                  >
-                    - {question.profileText}
-                  </CanteenSubList>
-                ) : (
-                  question.options.map(
-                    (option, index) =>
-                      option !== "I didn't check" && (
-                        <CanteenSubList
-                          key={index}
-                          itemAvailable={this.getSelectedItems(
-                            question.answers,
-                            option
-                          )}
-                          hide={this.onlyNeutralAnswers(question.answers)}
-                        >
-                          - {option}{" "}
-                        </CanteenSubList>
-                      )
-                  )
-                )
-              )}
+              .map(question => (
+                <CanteenSubItemAnswer
+                  profileText={question.profileText}
+                  id={question._id}
+                  options={question.options}
+                />
+              ))}
           </>
         ) : (
           <CanteenItem>

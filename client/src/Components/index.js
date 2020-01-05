@@ -63,7 +63,7 @@ import AddProfileSelection from "./Pages/AddProfileSelection";
 import AddProfileStartReview from "./Pages/AddProfileReviewStart";
 import Intro from "./Pages/Intro";
 import PrivateRoute from "./Common/PrivateRoute";
-import Reply from "./Pages/Profile/Reply";
+import Reply from "./Pages/Reply";
 import ResetPassword from "./Pages/ResetPassword";
 import EditProfileSection from "./Pages/EditProfile/EditProfileSection";
 import OrgCheck from "./Pages/OrgCheck";

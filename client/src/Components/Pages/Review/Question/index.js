@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Input } from "antd";
 
 import QuestionOptions from "./Options";
 import PopoverComponent from "../../../Common/Popover";
@@ -13,6 +14,16 @@ import UploadAudio3 from "./UploadAudio3";
 import Icon from "../../../Common/Icon/Icon";
 
 class Question extends Component {
+  state = {
+    showComment: false,
+  };
+
+  toggleShowComment = () => {
+    this.setState(prevState => ({
+      showComment: !prevState.showComment,
+    }));
+  };
+
   render() {
     if (!this.props) {
       return null;
@@ -27,7 +38,8 @@ class Question extends Component {
       category,
       name,
       label,
-      next
+      next,
+      hasComment,
     } = this.props.question;
 
     const {
@@ -48,7 +60,8 @@ class Question extends Component {
       id,
       voiceReviewUrl,
       state,
-      history
+      history,
+      question,
     } = this.props;
 
     const popoverOptions = {
@@ -56,7 +69,7 @@ class Question extends Component {
         "We’re asking this because it will be useful to track over time how much agencies are paying workers",
       linkText: "Learn more",
       icon: "info",
-      margin: "0 0 0.5rem 0"
+      margin: "0 0 0.5rem 0",
     };
 
     return (
@@ -128,12 +141,24 @@ class Question extends Component {
           label={label}
           handleChange={handleChange}
           handleSliderChange={handleSliderChange}
-          question={this.props.question}
+          question={question}
           state={this.props.state}
           runValidation={this.props.runValidation}
           handleReviewChange={this.props.handleReviewChange}
           handleAddNewOrgChange={handleAddNewOrgChange}
+          hasComment={hasComment}
+          toggleShowComment={this.toggleShowComment}
         />
+        {hasComment && this.state.showComment && (
+          <Input.TextArea
+            placeholder="Say more..."
+            onChange={this.props.handleReviewChange}
+            data-type="comments"
+            value={state.comments[question.number]}
+            name={question.number}
+            style={{ margin: "0.25rem 0 0" }}
+          />
+        )}
       </QuestionWrapper>
     );
   }

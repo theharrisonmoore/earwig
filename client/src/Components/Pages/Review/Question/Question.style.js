@@ -372,3 +372,12 @@ export const CheckboxWrapper = styled.div`
     border: 2px solid ${colors.gray};
   }
 `;
+
+export const CommentIconWrapper = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+`;

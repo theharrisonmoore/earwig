@@ -51,13 +51,14 @@ module.exports = (id, target, userId) => {
         as: "replies.user.trade",
       },
     },
+    { $replaceRoot: { newRoot: "$replies" } },
     {
       $project: {
-        "replies.user.password": 0,
-        "replies.user.awaitingReview": 0,
-        "replies.user.email": 0,
-        "replies.user.updatedAt": 0,
-        "replies.user.createdAt": 0,
+        "user.password": 0,
+        "user.awaitingReview": 0,
+        "user.email": 0,
+        "user.updatedAt": 0,
+        "user.createdAt": 0,
       },
     },
   ]);
