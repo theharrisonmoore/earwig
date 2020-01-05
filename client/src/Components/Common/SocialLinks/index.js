@@ -22,38 +22,34 @@ const buttonStyle = {
 };
 
 export default class SocialLinks extends Component {
-  fbSendBrowser = referralLink => {
+  fbSendBrowser = url => {
     if (isMobileDevice.any()) {
       window.open(
         `fb-messenger://share?link=${encodeURIComponent(
-          referralLink
+          url
         )}&app_id=${encodeURIComponent("1065819443628486")}`
       );
     } else {
       // eslint-disable-next-line no-undef
       FB.ui({
         method: "send",
-        link: referralLink,
+        link: url,
       });
     }
   };
 
   render() {
-    const { id: userId } = this.props;
-    let referralLink = `https://${window.location.host}/signup/${userId}`;
-    if (process.env.NODE_ENV === "development") {
-      referralLink = `http://${window.location.host}/signup/${userId}`;
-    }
+    const { url, title, body, emailSubject } = this.props;
+
     return (
       <SocialIcons>
         <SocialButtonWrapper>
           <EmailShareButton
             style={buttonStyle}
-            url={referralLink}
-            subject="Mate, never choose a bad construction job again!"
-            body={`Hi mate, have you heard about earwig? It’s the first construction worker voice platform that lets us give and get feedback about every agency, payroll company, worksite and employer in the industry so we can avoid bad jobs and choose the best. It was set-up by a sparky who’s used agencies for 7 years. I’ve joined up. You should too mate. It’s free and secure.
-              >>> ${referralLink}
-              If the link isn’t working, copy and paste it into your browser.`}
+            url={url}
+            subject={emailSubject}
+            body={body}
+            separator=" "
           >
             <Icon icon="email" width="15" height="15" fill={colors.white} />
             Email
@@ -63,8 +59,8 @@ export default class SocialLinks extends Component {
         <SocialButtonWrapper>
           <WhatsappShareButton
             style={buttonStyle}
-            url={referralLink}
-            title="Mate, never choose a bad construction job again! Have you heard about earwig? It’s the first construction worker voice platform that lets us give and get feedback about every agency, payroll company, worksite and employer in the industry so we can avoid bad jobs and choose the best. It was set-up by a sparky who’s used agencies for 7 years. I’ve joined up. You should too mate. It’s free and secure."
+            url={url}
+            title={title}
             separator=": "
           >
             <Icon icon="whatsapp" width="15" height="15" fill={colors.white} />
@@ -75,7 +71,7 @@ export default class SocialLinks extends Component {
         <SocialButtonWrapper>
           <FacebookMessengerShareButton
             style={buttonStyle}
-            url={referralLink}
+            url={url}
             appId="1065819443628486"
           >
             <Icon icon="messenger" width="15" height="15" fill={colors.white} />
@@ -84,18 +80,14 @@ export default class SocialLinks extends Component {
         </SocialButtonWrapper>
 
         <SocialButtonWrapper>
-          <LinkedinShareButton url={referralLink} style={buttonStyle}>
+          <LinkedinShareButton url={url} style={buttonStyle}>
             <Icon icon="linkedin" width="15" height="15" fill={colors.white} />
             Linkedin
           </LinkedinShareButton>
         </SocialButtonWrapper>
 
         <SocialButtonWrapper>
-          <FacebookShareButton
-            style={buttonStyle}
-            url={referralLink}
-            title="Mate, never choose a bad construction job again! Have you heard about earwig? It’s the first construction worker voice platform that lets us give and get feedback about every agency, payroll company, worksite and employer in the industry so we can avoid bad jobs and choose the best. It was set-up by a sparky who’s used agencies for 7 years. I’ve joined up. You should too mate. It’s free and secure."
-          >
+          <FacebookShareButton style={buttonStyle} url={url} title={title}>
             <Icon icon="facebook" width="15" height="15" fill={colors.white} />
             Facebook
           </FacebookShareButton>

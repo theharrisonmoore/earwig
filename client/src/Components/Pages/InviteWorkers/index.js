@@ -8,6 +8,20 @@ import { InviteWrapper, Head3, PromoParagraph } from "./inviteWorkers.style";
 import { colors } from "../../../theme";
 
 const InviteWorkers = ({ id: userId }) => {
+  let referralLink = `https://${window.location.host}/signup/${userId}`;
+  if (process.env.NODE_ENV === "development") {
+    referralLink = `http://${window.location.host}/signup/${userId}`;
+  }
+
+  const title =
+    "Mate, never choose a bad construction job again! Have you heard about earwig? It’s the first construction worker voice platform that lets us give and get feedback about every agency, payroll company, worksite and employer in the industry so we can avoid bad jobs and choose the best. It was set-up by a sparky who’s used agencies for 7 years. I’ve joined up. You should too mate. It’s free and secure.";
+
+  const body = `Hi mate, have you heard about earwig? It’s the first construction worker voice platform that lets us give and get feedback about every agency, payroll company, worksite and employer in the industry so we can avoid bad jobs and choose the best. It was set-up by a sparky who’s used agencies for 7 years. I’ve joined up. You should too mate. It’s free and secure.
+              >>> ${referralLink}
+              If the link isn’t working, copy and paste it into your browser.`;
+
+  const emailSubject = "Mate, never choose a bad construction job again!";
+
   return (
     <CentredBluePurpleLayout>
       <InviteWrapper>
@@ -25,7 +39,12 @@ const InviteWorkers = ({ id: userId }) => {
         </PromoParagraph>
 
         <PromoParagraph>Share your magic link via:</PromoParagraph>
-        <SocialLinks userId={userId} />
+        <SocialLinks
+          url={referralLink}
+          title={title}
+          body={body}
+          emailSubject={emailSubject}
+        />
         <PromoParagraph bottom>
           You’ll earn 1 point for every worker who gets verified using your
           magic link. Your points are an important measure of how helpful you’ve
