@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 
-import whatsAppIcon from "../../../assets/whatsapp-logo.svg";
-import facebookMsgIcon from "../../../assets/messenger-logo.svg";
-import emailIcon from "../../../assets/email-logo.svg";
+import {
+  EmailShareButton,
+  WhatsappShareButton,
+  FacebookMessengerShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+} from "react-share";
 
 import Icon from "../../Common/Icon/Icon";
 import CentredBluePurpleLayout from "../../Common/Layout/CentredBluePurpleLayout";
@@ -11,14 +15,17 @@ import { isMobileDevice } from "../../../helpers";
 import {
   InviteWrapper,
   SocialIcons,
-  FbShare,
   ShareParagraph,
   Head3,
   PromoParagraph,
-  WhatsappShare,
-  EmailShare,
-  Image,
+  SocialButtonWrapper,
 } from "./inviteWorkers.style";
+
+const buttonStyle = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+};
 
 export default class InviteWorkers extends Component {
   fbSendBrowser = referralLink => {
@@ -56,29 +63,60 @@ export default class InviteWorkers extends Component {
 
           <ShareParagraph>Share your magic link via:</ShareParagraph>
           <SocialIcons>
-            <EmailShare
-              url={referralLink}
-              subject="Mate, never choose a bad construction job again!"
-              body={`Hi mate, have you heard about earwig? It’s the first construction worker voice platform that lets us give and get feedback about every agency, payroll company, worksite and employer in the industry so we can avoid bad jobs and choose the best. It was set-up by a sparky who’s used agencies for 7 years. I’ve joined up. You should too mate. It’s free and secure.
-            >>> ${referralLink}
-If the link isn’t working, copy and paste it into your browser.`}
-            >
-              <Image src={emailIcon} alt="" />
-              Email
-            </EmailShare>
-            <WhatsappShare
-              url={referralLink}
-              title="Mate, never choose a bad construction job again! Have you heard about earwig? It’s the first construction worker voice platform that lets us give and get feedback about every agency, payroll company, worksite and employer in the industry so we can avoid bad jobs and choose the best. It was set-up by a sparky who’s used agencies for 7 years. I’ve joined up. You should too mate. It’s free and secure."
-              separator=": "
-            >
-              <Image src={whatsAppIcon} alt="" />
-              WhatsApp
-            </WhatsappShare>
+            <SocialButtonWrapper>
+              <EmailShareButton
+                style={buttonStyle}
+                url={referralLink}
+                subject="Mate, never choose a bad construction job again!"
+                body={`Hi mate, have you heard about earwig? It’s the first construction worker voice platform that lets us give and get feedback about every agency, payroll company, worksite and employer in the industry so we can avoid bad jobs and choose the best. It was set-up by a sparky who’s used agencies for 7 years. I’ve joined up. You should too mate. It’s free and secure.
+              >>> ${referralLink}
+              If the link isn’t working, copy and paste it into your browser.`}
+              >
+                <Icon icon="email" width="15" height="15" />
+                Email
+              </EmailShareButton>
+            </SocialButtonWrapper>
 
-            <FbShare onClick={() => this.fbSendBrowser(referralLink)}>
-              <Image src={facebookMsgIcon} alt="" />
-              Facebook
-            </FbShare>
+            <SocialButtonWrapper>
+              <WhatsappShareButton
+                style={buttonStyle}
+                url={referralLink}
+                title="Mate, never choose a bad construction job again! Have you heard about earwig? It’s the first construction worker voice platform that lets us give and get feedback about every agency, payroll company, worksite and employer in the industry so we can avoid bad jobs and choose the best. It was set-up by a sparky who’s used agencies for 7 years. I’ve joined up. You should too mate. It’s free and secure."
+                separator=": "
+              >
+                <Icon icon="whatsapp" width="15" height="15" fill="#fff" />
+                WhatsApp
+              </WhatsappShareButton>
+            </SocialButtonWrapper>
+
+            <SocialButtonWrapper>
+              <FacebookMessengerShareButton
+                style={buttonStyle}
+                url={referralLink}
+                appId="1065819443628486"
+              >
+                <Icon icon="messenger" width="15" height="15" fill="#fff" />
+                Messenger
+              </FacebookMessengerShareButton>
+            </SocialButtonWrapper>
+
+            <SocialButtonWrapper>
+              <LinkedinShareButton url={referralLink} style={buttonStyle}>
+                <Icon icon="linkedin" width="15" height="15" fill="#fff" />
+                Linkedin
+              </LinkedinShareButton>
+            </SocialButtonWrapper>
+
+            <SocialButtonWrapper>
+              <FacebookShareButton
+                style={buttonStyle}
+                url={referralLink}
+                title="Mate, never choose a bad construction job again! Have you heard about earwig? It’s the first construction worker voice platform that lets us give and get feedback about every agency, payroll company, worksite and employer in the industry so we can avoid bad jobs and choose the best. It was set-up by a sparky who’s used agencies for 7 years. I’ve joined up. You should too mate. It’s free and secure."
+              >
+                <Icon icon="facebook" width="15" height="15" fill="#fff" />
+                Facebook
+              </FacebookShareButton>
+            </SocialButtonWrapper>
           </SocialIcons>
           <PromoParagraph>
             You’ll earn 1 point for every worker who gets verified using your

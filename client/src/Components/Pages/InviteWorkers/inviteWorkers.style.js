@@ -1,5 +1,4 @@
-import styled, { css } from "styled-components";
-import { EmailShareButton, WhatsappShareButton } from "react-share";
+import styled from "styled-components";
 
 import { colors } from "../../../theme";
 
@@ -13,9 +12,10 @@ export const InviteWrapper = styled.div`
 export const SocialIcons = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 `;
 
-const SocialButtonsSharedStyle = css`
+export const SocialButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   cursor: pointer;
@@ -28,20 +28,9 @@ const SocialButtonsSharedStyle = css`
   color: ${colors.white};
   font-weight: 700;
   margin-right: 12px;
+  margin-bottom: 15px;
   font-size: 12px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
-`;
-
-export const FbShare = styled.div`
-  ${SocialButtonsSharedStyle}
-  margin-right: 0;
-`;
-
-export const WhatsappShare = styled(WhatsappShareButton)`
-  ${SocialButtonsSharedStyle}
-`;
-export const EmailShare = styled(EmailShareButton)`
-  ${SocialButtonsSharedStyle}
 `;
 
 export const ShareParagraph = styled.p`
