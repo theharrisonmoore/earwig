@@ -16,11 +16,7 @@ ${({ left }) => (left ? "left" : "right")}: 0;
 
 export default ({ left, to, ...rest }) => {
   return (
-    <StyledLink
-      // TODO : use path query string
-      to={to}
-      {...rest}
-    >
+    <StyledLink to={to} left={left} {...rest}>
       <Icon icon="flag" fill={colors.gray} width="27" height="27" />
     </StyledLink>
   );
