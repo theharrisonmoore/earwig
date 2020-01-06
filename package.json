@@ -17,7 +17,7 @@
   "proxy": "http://localhost:8080",
   "scripts": {
     "start": "node ./server/bin/www",
-    "dev": "NODE_ENV=development nodemon ./server/bin/www",
+    "dev": "NODE_ENV=development concurrently --kill-others-on-fail \"cd client && npm start\" \"nodemon ./server/bin/www\"",
     "dev:both": "NODE_ENV=development concurrently --kill-others-on-fail \"cd client && npm start\" \"nodemon ./server/bin/www\"",
     "client:init": "cd client && npm i",
     "build": "cd client && npm run build",

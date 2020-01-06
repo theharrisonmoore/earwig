@@ -87,7 +87,7 @@ export const getVerifiedUsers = usersArray => {
 export const checkAdminReply = usersArray => {
   const adminReplies = usersArray.filter(user => user.isAdmin);
   return adminReplies.length > 0;
-}
+};
 
 export const getVerifiedRepliesCount = (replies, verifiedUsers) => {
   if (!replies || replies.length === 0) {

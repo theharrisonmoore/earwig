@@ -1,9 +1,14 @@
 import React, { Component } from "react";
-import { Mentions, Input, message, Alert } from "antd";
+import { Mentions, Input, message } from "antd";
 import * as yup from "yup";
 import axios from "axios";
 
-import { Error } from "./ProfileAnswers/ProfileAnswers.style";
+import queryString from "query-string";
+
+import UserInfo from "../../Common/UserInfo";
+import InvisibleCommentAlert from "../../Common/InvisibleCommentAlert";
+
+import { Error } from "../Profile/ProfileAnswers/ProfileAnswers.style";
 
 import {
   Wrapper,
@@ -11,17 +16,14 @@ import {
   ReplyWrapper,
   CommentsWrapper,
 } from "./Reply.style";
-import {
-  UserDiv,
-  UserTrade,
-  UserAdditionalDetails,
-  UserID,
-  CommentBubble,
-} from "./Profile.style";
+import { CommentBubble } from "../Profile/Profile.style";
 
 import { organizations, colors } from "../../../theme";
 
-import { API_ADD_COMMENT_ON_REVIEW_URL } from "../../../apiUrls";
+import {
+  API_ADD_COMMENT_ON_REVIEW_URL,
+  API_ADD_COMMENT_ON_QUESTION_URL,
+} from "../../../apiUrls";
 import { highlightMentions } from "../../../helpers";
 
 import Loading from "../../Common/AntdComponents/Loading";
@@ -82,39 +84,93 @@ export default class Reply extends Component {
       });
   };
 
+  postCommentOnOverallReview = ({ reviewId, target }) => {
+    const body = {
+      text: this.state.commentContentState.trim(),
+      displayName: this.state.user,
+      reviewId,
+      target,
+    };
+    axios
+      .post(API_ADD_COMMENT_ON_REVIEW_URL, body)
+      .then(() => {
+        this.setState(
+          {
+            commentContentState: "",
+            user: "",
+            errors: {},
+            submitting: false,
+          },
+          () => this.fetchOverallReplies(reviewId, target)
+        );
+        // UNCOMMENT IF YOU WANT TO SEND BACK TO PROFILE AFTER SUBMITTING COMMENT
+        // this.props.history.push(`/profile/${orgId}`);
+      })
+      .catch(err => {
+        this.setState({ submitting: false });
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        message.error(error || "Something went wrong");
+      });
+  };
+
+  postReplyOnComment = ({
+    questionId,
+    organizationId,
+    parentCommentId,
+    reviewId,
+  }) => {
+    const body = {
+      text: this.state.commentContentState,
+      displayName: this.state.user,
+      question: questionId,
+      organization: organizationId,
+      parentCommentId,
+      reviewId,
+    };
+
+    axios
+      .post(API_ADD_COMMENT_ON_QUESTION_URL, body)
+      .then(() => {
+        this.setState(
+          {
+            commentContentState: "",
+            user: "",
+            errors: {},
+            submitting: false,
+          },
+          () => this.fetchComments(parentCommentId)
+        );
+      })
+      .catch(err => {
+        const error =
+          err.response && err.response.data && err.response.data.error;
+        message.error(error || "Something went wrong");
+      });
+  };
+
   handleSubmit = () => {
-    const { reviewId, target } = this.props.location.state;
+    const {
+      reviewId,
+      target,
+      questionId,
+      organizationId,
+      parentCommentId,
+    } = queryString.parse(this.props.location.search);
 
     this.validate().then(res => {
       if (res) {
         this.setState({ errors: {}, submitting: true }, () => {
-          const data = {
-            text: this.state.commentContentState.trim(),
-            displayName: this.state.user,
-            reviewId,
-            target,
-          };
-          axios
-            .post(API_ADD_COMMENT_ON_REVIEW_URL, data)
-            .then(() => {
-              this.setState(
-                {
-                  commentContentState: "",
-                  user: "",
-                  errors: {},
-                  submitting: false,
-                },
-                () => this.fetchOverallReplies(reviewId, target)
-              );
-              // UNCOMMENT IF YOU WANT TO SEND BACK TO PROFILE AFTER SUBMITTING COMMENT
-              // this.props.history.push(`/profile/${orgId}`);
-            })
-            .catch(err => {
-              this.setState({ submitting: false });
-              const error =
-                err.response && err.response.data && err.response.data.error;
-              message.error(error || "Something went wrong");
+          if (target === "comment") {
+            this.postReplyOnComment({
+              questionId,
+              organizationId,
+              parentCommentId,
+              reviewId,
             });
+          } else {
+            this.postCommentOnOverallReview({ reviewId, target });
+          }
         });
       }
     });
@@ -153,24 +209,53 @@ export default class Reply extends Component {
   };
 
   componentDidMount() {
-    if (this.props.location && this.props.location.state) {
-      const { reviewId, target } = this.props.location.state;
-      // target equal "overallReview" OR "voiceReview";
-      this.fetchOverallReplies(reviewId, target);
+    const { reviewId, target, parentCommentId } = queryString.parse(
+      this.props.location.search
+    );
+    if (target) {
+      // target equal "overallReview" OR "voiceReview" OR "comment";
+      if (target === "comment") {
+        this.fetchComments(parentCommentId);
+      } else {
+        this.fetchOverallReplies(reviewId, target);
+      }
     } else {
       this.goBack();
     }
   }
 
+  fetchComments = parentCommentId => {
+    axios.get(`/api/comments/${parentCommentId}`).then(({ data }) => {
+      this.setState({
+        replies: data.subComments,
+        loaded: true,
+      });
+    });
+  };
+
   goBack = () => {
-    const { orgId, pageYOffset } = this.props.location.state;
+    const { orgId, pageYOffset } = queryString.parse(
+      this.props.location.search
+    );
+
     this.props.history.replace(`/profile/${orgId}`, { pageYOffset });
   };
 
   render() {
-    const { verified, history, location, id } = this.props;
-    if (!location || !location.state) {
-      return history.goBack();
+    const { verified, history, id } = this.props;
+    const {
+      reviewId,
+      target,
+      category,
+      orgId,
+      pageYOffset,
+    } = queryString.parse(this.props.location.search);
+    if (
+      target !== "comment" &&
+      (!reviewId || !target || !category || !orgId || !pageYOffset)
+    ) {
+      history.goBack();
+      return null;
     }
 
     const {
@@ -181,12 +266,11 @@ export default class Reply extends Component {
       commentContentState,
     } = this.state;
     const { isAdmin } = this.props;
-    const { category } = this.props.location.state;
 
     const users =
       replies &&
       replies.reduce((prev, curr) => {
-        prev.push(curr.replies.displayName || curr.replies.user.userId);
+        prev.push(curr.displayName || curr.user.userId);
         return prev;
       }, []);
 
@@ -219,57 +303,40 @@ export default class Reply extends Component {
             {replies &&
               replies.map(reply => (
                 <IndividComment
-                  key={reply.replies._id}
-                  adminReply={reply.replies.displayName}
+                  key={reply._id}
+                  adminReply={reply.displayName}
                   category={category}
                 >
-                  {!verified && reply.replies.user._id === id && (
-                    <Alert
-                      message="Your replies are only visible to you until we've checked your verification photo."
-                      type="warning"
-                      style={{
-                        display: "inline-block",
-                        marginBottom: "0.5rem",
-                      }}
-                      banner
-                    />
+                  {!verified && reply.user._id === id && (
+                    <InvisibleCommentAlert />
                   )}
-                  <UserDiv>
-                    <UserID adminReply={!!reply.replies.displayName}>
-                      {" "}
-                      {reply.replies.displayName || reply.replies.user.userId}
-                    </UserID>
-                    <UserTrade>
-                      {!reply.replies.displayName &&
-                        reply.replies.user.trade &&
-                        reply.replies.user.trade[0] &&
-                        reply.replies.user.trade[0].title}
-                    </UserTrade>
-                  </UserDiv>
-                  {!reply.replies.displayName && (
-                    <UserAdditionalDetails>
-                      <p>
-                        Helped {reply.replies.user.helpedUsers} · Points{" "}
-                        {reply.replies.user.points}
-                      </p>
-                    </UserAdditionalDetails>
-                  )}
+
+                  <UserInfo
+                    userId={reply.displayName || reply.user.userId}
+                    adminReply={!!reply.displayName}
+                    trade={
+                      !reply.displayName &&
+                      reply.user.trade &&
+                      reply.user.trade[0] &&
+                      reply.user.trade[0].title
+                    }
+                    helpedUsers={reply.user.helpedUsers}
+                    points={reply.user.points}
+                  />
+
                   <CommentBubble
                     as="pre"
                     style={{ maxWidth: "100%" }}
                     bgColor={
-                      reply.replies.displayName
+                      reply.displayName
                         ? "white"
                         : organizations[category].secondary
                     }
-                    color={
-                      reply.replies.displayName &&
-                      organizations[category].primary
-                    }
-                    adminReply={!!reply.replies.displayName}
+                    color={reply.displayName && organizations[category].primary}
+                    adminReply={!!reply.displayName}
                     category={category}
                   >
-                    {highlightMentions(reply.replies.text)}
+                    {highlightMentions(reply.text)}
                   </CommentBubble>
                 </IndividComment>
               ))}

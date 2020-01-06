@@ -612,7 +612,7 @@ module.exports = async () => {
         text: "Getting on to site",
       },
 
-      hasComment: false,
+      hasComment: true,
       icon: "bus",
     },
     {
@@ -637,7 +637,7 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
-      hasComment: false,
+      hasComment: true,
       icon: "parkingSign",
     },
     {
@@ -653,7 +653,7 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
-      hasComment: false,
+      hasComment: true,
     },
     {
       number: 4,
@@ -675,7 +675,7 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
-      hasComment: false,
+      hasComment: true,
       icon: "lockers",
     },
 
@@ -698,7 +698,7 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
-      hasComment: false,
+      hasComment: true,
       icon: "fingerprint",
     },
     {
@@ -720,7 +720,7 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
-      hasComment: false,
+      hasComment: true,
       icon: "gasmask",
     },
     {
@@ -874,7 +874,7 @@ module.exports = async () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
-      hasComment: false,
+      hasComment: true,
       icon: "prayerRoom",
     },
     {
@@ -942,7 +942,7 @@ module.exports = async () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
-      hasComment: false,
+      hasComment: true,
       icon: "hotFood",
     },
     // {

@@ -338,18 +338,10 @@ export const BubbleAndDate = styled.div`
   margin-bottom: 0.625rem;
 `;
 
-const adminTitle = css`
-  text-align: right;
-`;
-
-export const UserID = styled.h3`
+export const LightTitle = styled.h3`
   font-weight: 900;
   font-size: 1rem;
   color: ${colors.profileFontColor};
-  ${({ adminReply }) => adminReply && adminTitle}
-`;
-
-export const LightTitle = styled(UserID)`
   opacity: 0.5;
 `;
 
@@ -536,26 +528,6 @@ export const ButtonsWrapper = styled(ActionsDiv)`
   width: 90%;
 `;
 
-export const UserTrade = styled.p`
-  font-style: italic;
-  margin-left: 10px;
-  color: ${colors.profileFontColor};
-  margin-bottom: 0;
-`;
-
-export const UserDiv = styled.div`
-  display: flex;
-`;
-
-export const UserAdditionalDetails = styled.div`
-  margin-top: -10px;
-
-  p {
-    font-size: 0.8rem;
-    color: ${colors.dustyGray2};
-  }
-`;
-
 export const ActionButton = styled.button`
   background: ${({ color }) => color};
   box-shadow: 0px 4px 13px rgba(173, 145, 183, 0.273438);
@@ -686,10 +658,6 @@ export const RightInfo = styled.div`
   width: 60%;
   display: flex;
   align-items: center;
-`;
-
-export const UserInfoWrapper = styled.div`
-  margin-left: 0.625rem;
 `;
 
 export const RatingWithUserInfo = styled.div`

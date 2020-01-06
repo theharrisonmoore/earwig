@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   min-height: 100vh;
   position: relative;
   display: flex;
+  padding-top: 3rem;
 `;
 
 export const ContentWrapper = styled.div`
@@ -372,7 +373,7 @@ export const SelectWrapper = styled.div`
 
 export const BoldWord = styled.span`
   font-weight: bold;
-`
+`;
 export const BasicLink = styled.a`
   color: ${colors.profileFontColor};
   text-decoration: underline;
@@ -380,4 +381,4 @@ export const BasicLink = styled.a`
   :hover {
     color: ${colors.heliotrope};
   }
-`
+`;

@@ -9,7 +9,7 @@ const Comment = props => (
     y="0px"
     viewBox="0 0 60 60"
     xmlSpace="preserve"
-    heigh={props.heigh}
+    height={props.height}
     width={props.width}
     {...props}
   >

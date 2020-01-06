@@ -12,22 +12,26 @@ const { createComment } = require("./../database/queries/comments");
 
 module.exports = (req, res, next) => {
   const {
-    text, displayName, question, organization,
+    text, displayName, question, organization, parentCommentId, reviewId,
   } = req.body;
+
   const { user } = req;
   const data = {
     text,
     question,
     organization,
     user: user._id,
+    parentComment: parentCommentId,
+    review: reviewId,
   };
 
   if (user.isAdmin) {
     data.displayName = displayName;
   }
 
+
   createComment(data)
     .then(() => {
       res.json({});
-    }).catch(() => next(boom.badImplementation()));
+    }).catch(e => next(boom.badImplementation(e)));
 };

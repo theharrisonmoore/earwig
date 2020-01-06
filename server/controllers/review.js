@@ -158,6 +158,7 @@ const postReview = async (req, res, next) => {
             organization: organizationData,
             question: questionsObject[c],
             text: comments[c],
+            review: currentReview._id,
           };
           return comment;
         }

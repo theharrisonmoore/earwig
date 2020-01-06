@@ -21,7 +21,7 @@ export default class ListAnswer extends Component {
       .map(answer => answer.answer)
       .reduce((accum, curr) => {
         if (typeof curr === "number") {
-          count++;
+          count += 1;
           return accum + curr;
         }
         return accum;
@@ -47,8 +47,8 @@ export default class ListAnswer extends Component {
     if (question.profileText === "Recommended nearby shops and cafés") {
       return (
         <ListWrapper style={{ paddingLeft: "2rem" }}>
-          {question.answers.map((answer, index) => (
-            <ListItem color={question.category} key={index}>
+          {question.answers.map(answer => (
+            <ListItem color={question.category} key={answer.answer}>
               - {answer.answer}
             </ListItem>
           ))}
@@ -57,7 +57,7 @@ export default class ListAnswer extends Component {
     }
     return (
       <ListWrapper>
-        {question.answers.map((answer, index) => (
+        {question.answers.map(answer => (
           <ListItem
             color={
               question.profileText ===
@@ -65,7 +65,7 @@ export default class ListAnswer extends Component {
                 ? "agency"
                 : question.category
             }
-            key={index}
+            key={answer.answer.name}
           >
             <Link
               to={`/profile/${answer.answer._id}`}
