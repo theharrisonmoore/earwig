@@ -10,13 +10,13 @@
  */
 
 const boom = require("boom");
-
+const { getUserById } = require("./../database/queries/user");
+const sendEmail = require("./../helpers/emails");
 const {
   addCommentOnOverallReview,
   findById,
 } = require("./../database/queries/reviews");
 
-const { getUserById } = require("./../database/queries/user");
 
 module.exports = async (req, res, next) => {
   try {
@@ -49,6 +49,9 @@ module.exports = async (req, res, next) => {
     }
 
     await addCommentOnOverallReview(reviewId, data, target);
+
+    const { email } = await getUserById(review.user);
+    await sendEmail.gotReplies({ orgId: review.organization, recipientEmail: email });
     return res.json();
   } catch (error) {
     return next(boom.badImplementation(error));
