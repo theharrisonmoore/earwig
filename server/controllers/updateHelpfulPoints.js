@@ -6,10 +6,16 @@ const { updateUserHelpfulPoints, getUserById } = require("./../database/queries/
 const sendEmail = require("././../helpers/emails");
 
 module.exports = async (req, res, next) => {
+<<<<<<< HEAD
   try {
     const {
       points, organization, userId, comment,
     } = req.body;
+=======
+  const {
+    points, organization, userId, comment,
+  } = req.body;
+>>>>>>> 8424017eb28ee2b9777e318428dd17b77b8adb2c
 
     const {
       reviewId, target,
