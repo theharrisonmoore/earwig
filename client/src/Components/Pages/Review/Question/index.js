@@ -86,8 +86,9 @@ class Question extends Component {
           {icon && (
             <Icon
               icon={icon}
-              width={isXSMobile(window.innerWidth) ? "35" : "40"}
-              fill-opacity="0.5"
+              width={isXSMobile(window.innerWidth) ? "45" : "45"}
+              height={isXSMobile(window.innerWidth) ? "50" : "50"}
+              fill-opacity="0.85"
               fill="#000"
             />
           )}

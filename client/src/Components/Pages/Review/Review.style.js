@@ -311,8 +311,9 @@ export const GroupTitle = styled.h2`
   font-size: 1.75rem;
   font-weight: normal;
   color: ${colors.profileFontColor};
+  margin-bottom: 2.25rem;
 `;
 
 export const GroupSection = styled.div`
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
 `;

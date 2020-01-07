@@ -46,14 +46,15 @@ export const AnswerDiv = styled.div`
 
 export const Options = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   justify-content: space-between;
   font-size: 16px;
 
   justify-content: ${({ options }) =>
     options === 4 ? "flex-end" : "space-between"};
   .choices {
-    width: calc(85% - 1rem);
+    // width: calc(85% - 1rem);
+    width: 100%;
     display: flex;
     justify-content: space-between;
   }
@@ -139,10 +140,12 @@ export const StyledInput = styled.label`
   height: 100%;
   width: 100%;
   vertical-align: center;
+  padding-top: 0 !important;
 `;
 
 export const InputWrapper = styled.div`
   color: ${colors.lightGray};
+  padding-top: 0;
 
   .radio-button {
     display: none;
@@ -150,10 +153,12 @@ export const InputWrapper = styled.div`
 
   .yesno {
     border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   width: 100%;
-  margin-right: 14px;
-  margin-right: ${({ options }) => (options === 4 ? "0" : "14px")};
+  margin-right: ${({ options }) => (options === 4 ? "0" : "8px")};
   :last-child {
     margin-right: 0;
   }
@@ -381,12 +386,14 @@ export const CommentIconWrapper = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 8px;
   display: flex;
   align-items: center;
 `;
 
 export const IconContainer = styled.div`
-  padding-top: 1.125rem;
   padding-right: 0.8rem;
+  padding-top: 0.25rem;
+  display: flex;
+  align-items: flex-start;
 `;
