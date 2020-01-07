@@ -218,6 +218,8 @@ const schemas = {
     organization: Joi.string()
       .length(24)
       .required(),
+    parentCommentId: Joi.string().allow(""),
+    reviewId: Joi.string().allow(""),
   },
   addCommentOnReview: {
     text: Joi.string().required(),

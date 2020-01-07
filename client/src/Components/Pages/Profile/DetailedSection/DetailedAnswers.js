@@ -1,127 +1,186 @@
-import React from "react";
+import React, { Component } from "react";
 
 import { ReviewDiv } from "../Profile.style";
 import ReviewSection from "./ReviewSection";
 import { SectionTitle } from "./ReviewSection.style";
 
-const DetailedAnswers = ({
-  isTablet,
-  isMobile,
-  reviewDetails,
-  summary,
-  toggleComments,
-}) => {
-  const { category } = summary;
-  return (
-    <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
-      <SectionTitle>Detailed answers by workers</SectionTitle>
-      {/* KEY RATINGS SECTION */}
-      {reviewDetails.map(
-        section =>
-          section._id === "Key ratings" && (
-            <ReviewSection
-              key={section._id}
-              category={category}
-              sectionDetails={section}
-              toggleComments={toggleComments}
-              summary={summary}
-              isMobile={isMobile}
-            />
-          ),
-      )}
-      {/* OTHER SECTIONS */}
-      {reviewDetails.map(
-        section =>
-          section._id === "Getting on to site" && (
-            <ReviewSection
-              key={section._id}
-              category={category}
-              sectionDetails={section}
-              toggleComments={toggleComments}
-              summary={summary}
-              isMobile={isMobile}
-              reviewDetails={reviewDetails}
-            />
-          ),
-      )}
+class DetailedAnswers extends Component {
+  render() {
+    const {
+      isTablet,
+      isMobile,
+      reviewDetails,
+      summary,
+      level,
+      id,
+      userId,
+      updateUserPoints,
+      updatedUsers,
+      counters,
+      setCounters,
+    } = this.props;
 
-      {reviewDetails.map(
-        section =>
-          section._id === "Working on the site" && (
-            <ReviewSection
-              key={section._id}
-              category={category}
-              sectionDetails={section}
-              toggleComments={toggleComments}
-              summary={summary}
-              isMobile={isMobile}
-            />
-          ),
-      )}
+    const { category } = summary;
 
-      {reviewDetails.map(
-        section =>
-          section._id === "The site welfare" && (
-            <ReviewSection
-              key={section._id}
-              category={category}
-              sectionDetails={section}
-              toggleComments={toggleComments}
-              summary={summary}
-              isMobile={isMobile}
-            />
-          ),
-      )}
+    return (
+      <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
+        <SectionTitle>Detailed answers by workers</SectionTitle>
+        {/* KEY RATINGS SECTION */}
+        {reviewDetails.map(
+          section =>
+            section._id === "Key ratings" && (
+              <ReviewSection
+                updateUserPoints={updateUserPoints}
+                updatedUsers={updatedUsers}
+                level={level}
+                key={section._id}
+                category={category}
+                sectionDetails={section}
+                id={id}
+                userId={userId}
+                toggleComments={this.toggleComments}
+                summary={summary}
+                isMobile={isMobile}
+                counters={counters}
+                setCounters={setCounters}
+              />
+            )
+        )}
+        {/* OTHER SECTIONS */}
+        {reviewDetails.map(
+          section =>
+            section._id === "Getting on to site" && (
+              <ReviewSection
+                updateUserPoints={updateUserPoints}
+                updatedUsers={updatedUsers}
+                level={level}
+                key={section._id}
+                category={category}
+                sectionDetails={section}
+                id={id}
+                userId={userId}
+                toggleComments={this.toggleComments}
+                summary={summary}
+                isMobile={isMobile}
+                reviewDetails={reviewDetails}
+                counters={counters}
+                setCounters={setCounters}
+              />
+            )
+        )}
 
-      {reviewDetails.map(
-        section =>
-          section._id === "Detailed ratings" && (
-            <ReviewSection
-              key={section._id}
-              category={category}
-              sectionDetails={section}
-              toggleComments={toggleComments}
-              summary={summary}
-              isMobile={isMobile}
-            />
-          ),
-      )}
+        {reviewDetails.map(
+          section =>
+            section._id === "Working on the site" && (
+              <ReviewSection
+                updateUserPoints={updateUserPoints}
+                updatedUsers={updatedUsers}
+                level={level}
+                key={section._id}
+                category={category}
+                sectionDetails={section}
+                id={id}
+                userId={userId}
+                toggleComments={this.toggleComments}
+                summary={summary}
+                isMobile={isMobile}
+                counters={counters}
+                setCounters={setCounters}
+              />
+            )
+        )}
 
-      {reviewDetails.map(
-        section =>
-          section._id === "Supervisors & employees" && (
-            <ReviewSection
-              key={section._id}
-              category={category}
-              sectionDetails={section}
-              toggleComments={toggleComments}
-              summary={summary}
-              isMobile={isMobile}
-            />
-          ),
-      )}
-      {reviewDetails.map(
-        section =>
-          section._id === "Tools & materials" && (
-            <ReviewSection
-              key={section._id}
-              category={category}
-              sectionDetails={section}
-              toggleComments={toggleComments}
-              summary={summary}
-              isMobile={isMobile}
-            />
-          ),
-      )}
-      {/* MONTHLY REVIEWS
+        {reviewDetails.map(
+          section =>
+            section._id === "The site welfare" && (
+              <ReviewSection
+                updateUserPoints={updateUserPoints}
+                updatedUsers={updatedUsers}
+                level={level}
+                key={section._id}
+                category={category}
+                sectionDetails={section}
+                id={id}
+                userId={userId}
+                toggleComments={this.toggleComments}
+                summary={summary}
+                isMobile={isMobile}
+                counters={counters}
+                setCounters={setCounters}
+              />
+            )
+        )}
+
+        {reviewDetails.map(
+          section =>
+            section._id === "Detailed ratings" && (
+              <ReviewSection
+                updateUserPoints={updateUserPoints}
+                updatedUsers={updatedUsers}
+                level={level}
+                key={section._id}
+                category={category}
+                sectionDetails={section}
+                id={id}
+                userId={userId}
+                toggleComments={this.toggleComments}
+                summary={summary}
+                isMobile={isMobile}
+                counters={counters}
+                setCounters={setCounters}
+              />
+            )
+        )}
+
+        {reviewDetails.map(
+          section =>
+            section._id === "Supervisors & employees" && (
+              <ReviewSection
+                updateUserPoints={updateUserPoints}
+                updatedUsers={updatedUsers}
+                level={level}
+                key={section._id}
+                category={category}
+                sectionDetails={section}
+                id={id}
+                userId={userId}
+                toggleComments={this.toggleComments}
+                summary={summary}
+                isMobile={isMobile}
+                counters={counters}
+                setCounters={setCounters}
+              />
+            )
+        )}
+        {reviewDetails.map(
+          section =>
+            section._id === "Tools & materials" && (
+              <ReviewSection
+                updateUserPoints={updateUserPoints}
+                updatedUsers={updatedUsers}
+                level={level}
+                key={section._id}
+                category={category}
+                sectionDetails={section}
+                id={id}
+                userId={userId}
+                toggleComments={this.toggleComments}
+                summary={summary}
+                isMobile={isMobile}
+                counters={counters}
+                setCounters={setCounters}
+              />
+            )
+        )}
+        {/* MONTHLY REVIEWS
 {level > 0 && (
   <MonthlyReviews
-    category={category}
-    reviewsByMonth={this.reviewsByMonth()}
+  category={category}
+  reviewsByMonth={this.reviewsByMonth()}
   />
 )} */}
-    </ReviewDiv>
-  );
-};
-
+      </ReviewDiv>
+    );
+  }
+}
 export default DetailedAnswers;

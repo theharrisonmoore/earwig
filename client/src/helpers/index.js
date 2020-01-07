@@ -3,6 +3,7 @@ import React from "react";
 import StarRatingComponent from "react-star-rating-component";
 import SVG from "react-inlinesvg";
 import {
+  XS_MOBILE_WIDTH,
   S_MOBILE_WIDTH,
   MOBILE_WIDTH,
   TABLET_WIDTH,
@@ -46,6 +47,9 @@ export const SortArrayNewest = (a, b) => {
   // eslint-disable-next-line no-nested-ternary
   return a.lastViewed > b.lastViewed ? -1 : b.lastViewed > a.lastViewed ? 1 : 0;
 };
+
+export const isXSMobile = width => width <= XS_MOBILE_WIDTH;
+
 export const isSMobile = width => width <= S_MOBILE_WIDTH;
 
 export const isMobile = width => width <= MOBILE_WIDTH;
@@ -295,4 +299,12 @@ export const sortAndCategorizeOrgs = arrayOfOrgs => {
   );
 
   return newArray.orgs;
+};
+
+export const addSearchParamsToLink = (params, baseLink) => {
+  let search = `${baseLink}?`;
+  Object.entries(params).forEach(([key, value], index) => {
+    search += `${index ? "&" : ""}${key}=${value}`;
+  });
+  return search;
 };

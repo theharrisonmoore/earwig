@@ -4,10 +4,7 @@ import { Link } from "react-router-dom";
 import ReviewNotAllowedButton from "./ReviewNotAllowedButton";
 import GeneralTabs from "../../Common/GeneralTabs";
 
-import {
-  USER_PROFILE_URL,
-  PRE_REVIEW,
-} from "../../../constants/naviagationUrls";
+import { PRE_REVIEW } from "../../../constants/naviagationUrls";
 
 import {
   Header,
@@ -111,7 +108,8 @@ export default class HeaderSection extends Component {
               to={{
                 pathname:
                   level <= 1
-                    ? USER_PROFILE_URL
+                    ? // VERIFICATION_REQUIRED
+                      `/verification-required/${category}/${name}`
                     : PRE_REVIEW.replace(":orgId", orgId),
                 state: { name, category, redirectToProfile: true, orgId },
               }}

@@ -4,6 +4,7 @@ import { ErrorMessage } from "formik";
 import { Slider } from "antd";
 
 import { organizations, colors } from "../../../../../theme";
+import Icon from "../../../../Common/Icon/Icon";
 
 import {
   QuestionOptionsWrapper,
@@ -11,6 +12,7 @@ import {
   StyledErrorMessage,
   SliderWrapper,
   StyledButton,
+  CommentIconWrapper,
 } from "../Question.style";
 
 const marksStyle = {
@@ -58,6 +60,8 @@ class Number extends Component {
       state,
       category,
       question,
+      hasComment,
+      toggleShowComment,
     } = props;
     const { answers } = state && state;
     if (!props && !props.options) {
@@ -66,24 +70,43 @@ class Number extends Component {
 
     return (
       <QuestionOptionsWrapper>
-        <Options style={{ alignItems: "center", justifyContent: "center" }}>
-          {question.text.includes("parking cost") && (
-            <StyledButton
-              style={{ ...this.getStyle(), marginBottom: "20px" }}
-              type="button"
-              onClick={e => {
-                e.preventDefault();
-                this.setState({ clicked: true });
-                // reset the slider
-                handleSliderChange(undefined, number);
-              }}
-            >
-              Don&apos;t know
-            </StyledButton>
-          )}
+        <Options
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              marginBottom: "20px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            {question.text.includes("parking cost") && (
+              <StyledButton
+                style={{ ...this.getStyle(), marginRight: "0" }}
+                type="button"
+                onClick={e => {
+                  e.preventDefault();
+                  this.setState({ clicked: true });
+                  // reset the slider
+                  handleSliderChange(undefined, number);
+                }}
+              >
+                Don&apos;t know
+              </StyledButton>
+            )}
+            {hasComment && (
+              <CommentIconWrapper type="button" onClick={toggleShowComment}>
+                <Icon icon="comment" width="27" height="27" opacity="0.5" />
+              </CommentIconWrapper>
+            )}
+          </div>
           <SliderWrapper
             visibility={answers[number] || answers[number] === 0}
             color={organizations[category].primary}
+            style={{ width: "100%" }}
           >
             {answers[number] || answers[number] === 0 ? (
               <p>
@@ -96,7 +119,7 @@ class Number extends Component {
               value={answers[number] || 0}
               onChange={value => this.handleChange(value, number)}
               style={{ width: "100%" }}
-              step={0.5}
+              step={0.25}
               marks={{
                 0: {
                   style: marksStyle,

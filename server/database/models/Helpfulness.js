@@ -22,7 +22,7 @@ const helpfulnessSchema = new Schema(
       type: Boolean,
       default: true,
     },
-    // "overallReview" OR "voiceReview"
+    // "overallReview" OR "voiceReview" OR "comment"
     target: String,
     review: {
       type: ObjectId,
@@ -31,6 +31,10 @@ const helpfulnessSchema = new Schema(
     organization: {
       type: ObjectId,
       ref: "organizations",
+    },
+    comment: {
+      type: ObjectId,
+      ref: "comments",
     },
   },
   { timestamps: true },

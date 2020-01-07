@@ -2,48 +2,88 @@
 // used in admin panel to show review answers
 
 const mongoose = require("mongoose");
-const Answer = require("./../../models/Answer");
+const Review = require("./../../models/Review");
 
-module.exports = reviewID => Answer.aggregate([
-  // get all answers related to the review
+module.exports = reviewID => Review.aggregate([
   {
-    $match: { review: mongoose.Types.ObjectId(reviewID) },
+    $match: { _id: mongoose.Types.ObjectId(reviewID) },
   },
-  // insert question info
   {
+    // get organisation details
+    $lookup: {
+      from: "organizations",
+      localField: "organization",
+      foreignField: "_id",
+      as: "organization",
+    },
+  }, {
+    $unwind: "$organization",
+  }, {
+    // get all questions for the organisation type
     $lookup: {
       from: "questions",
-      localField: "question",
-      foreignField: "_id",
+      localField: "organization.category",
+      foreignField: "category",
       as: "question",
+    },
+  }, {
+    $unwind: { path: "$question", preserveNullAndEmptyArrays: true },
+  },
+  {
+    // get all question's answers
+    $lookup: {
+      from: "answers",
+      let: { organization: "$organization._id", question: "$question._id" },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $and: [
+                { $eq: ["$question", "$$question"] },
+                { $eq: ["$organization", "$$organization"] },
+              ],
+            },
+          },
+        },
+      ],
+      as: "answer",
     },
   },
   {
+    $unwind: { path: "$answer", preserveNullAndEmptyArrays: true },
+  },
+  // get comments
+  {
     $lookup: {
-      from: "reviews",
-      localField: "review",
-      foreignField: "_id",
-      as: "review",
+      from: "comments",
+      let: { organization: "$organization._id", question: "$question._id" },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $and: [
+                { $eq: ["$question", "$$question"] },
+                { $eq: ["$organization", "$$organization"] },
+                { $eq: ["$review", mongoose.Types.ObjectId(reviewID)] },
+
+              ],
+            },
+          },
+        },
+      ],
+      as: "comment",
     },
+  },
+  {
+    $unwind: { path: "$comment", preserveNullAndEmptyArrays: true },
   },
   {
     $group: {
-      _id: {
-        $arrayElemAt: ["$question.group.name", 0],
-      },
-      answers: { $push: "$$CURRENT" },
-      review: { $first: "$review" },
+      _id: "$question.group.name",
+      questions: { $push: "$$CURRENT" },
       group: {
-        $push: {
-          $arrayElemAt: ["$question.group", 0],
-        },
-      },
-    },
-  },
-  {
-    $addFields: {
-      group: {
-        $arrayElemAt: ["$group", 0],
+        $first: "$question.group"
+        ,
       },
     },
   },

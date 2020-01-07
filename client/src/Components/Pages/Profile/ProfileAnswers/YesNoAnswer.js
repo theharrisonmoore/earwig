@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import {
   YesNoWrapper,
   Row,
@@ -59,6 +60,7 @@ export default class YesNoAnswer extends Component {
 
   render() {
     const { question, zeroAnswers } = this.props;
+
     const answerObj = this.countYesNo(question.answers);
     const { yesCount, noCount } = answerObj;
 

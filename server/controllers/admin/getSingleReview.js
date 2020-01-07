@@ -2,8 +2,7 @@
 
 const boom = require("boom");
 
-const { getReviewDetails } = require("./../../database/queries/reviews");
-const { getOneReviewWithOrgAndUser } = require("../../database/queries/reviews");
+const { getReviewDetails, getOneReviewWithOrgAndUser } = require("./../../database/queries/reviews");
 
 module.exports = async (req, res, next) => {
   const { reviewID } = req.params;
@@ -14,6 +13,6 @@ module.exports = async (req, res, next) => {
     const details = await Promise.all(promises);
     res.send({ review: details[0], details: details[1] });
   } catch (error) {
-    next(boom.badImplementation());
+    next(boom.badImplementation(error));
   }
 };
