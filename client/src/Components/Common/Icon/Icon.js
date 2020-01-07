@@ -56,6 +56,7 @@ import PrivacyTerms from "./PrivacyTerms";
 import RaiseHand from "./RaiseHand";
 import Recent from "./Recent";
 import ReportFlag from "./ReportFlag";
+import Rewards from "./Rewards";
 import Search from "./Search";
 import ShapeEarwig from "./ShapeEarwig";
 import StarComment from "./StarComment";
@@ -165,6 +166,7 @@ const iconMap = {
   raiseHand: RaiseHand,
   recent: Recent,
   reportFlag: ReportFlag,
+  rewards: Rewards,
   search: Search,
   shapeEarwig: ShapeEarwig,
   starComment: StarComment,
