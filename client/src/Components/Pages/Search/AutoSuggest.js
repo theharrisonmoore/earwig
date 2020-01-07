@@ -160,7 +160,7 @@ class AutosuggestComponent extends Component {
   };
 
   renderSuggestion = suggestion => {
-    const { isButton, storeOrg, noIcon } = this.props;
+    const { isButton, storeOrg, searchIcon } = this.props;
     if (suggestion.isEmpty) {
       return null;
     }
@@ -169,7 +169,7 @@ class AutosuggestComponent extends Component {
         organisation={suggestion}
         isButton={isButton}
         storeOrg={storeOrg}
-        noIcon={noIcon}
+        searchIcon={searchIcon}
       />
     );
   };
@@ -244,7 +244,7 @@ class AutosuggestComponent extends Component {
 
   render() {
     const { value, suggestions } = this.state;
-    const { height, width, placeholderText, iconTop, noIcon } = this.props;
+    const { height, width, placeholderText, iconTop, searchIcon } = this.props;
 
     const inputProps = {
       placeholder: `${placeholderText}`,
@@ -259,9 +259,9 @@ class AutosuggestComponent extends Component {
     const filteredSuggestions = suggestions.slice(0, suggestionLimit);
 
     return (
-      <AutosuggestWrapper height={height} width={width} noIcon>
+      <AutosuggestWrapper height={height} width={width} searchIcon>
         <Spin spinning={!this.state.isLoaded} tip="Adding the new org.">
-          {!noIcon && (
+          {searchIcon && (
             <IconDiv iconTop={iconTop} onClick={this.delSearchInput}>
               {value.length > 0 ? (
                 <Icon

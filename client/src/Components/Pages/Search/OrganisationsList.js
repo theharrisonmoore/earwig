@@ -80,37 +80,38 @@ class OrganisationsList extends Component {
           <SkeletonWrapper />
         ) : (
           <>
-          {sortedOrgs.length > 0 ? 
-          <>
-            <div ref={this.listRef}>
-              {sortedOrgs.slice(0, rederedListLength).map(org => (
-                <div key={org._id}>
-                  {org.mainKey && <MainKey>{org.mainKey}</MainKey>}
-                  {org.subKey && <SubKey>{org.subKey}</SubKey>}
+            {sortedOrgs.length > 0 ? (
+              <>
+                <div ref={this.listRef}>
+                  {sortedOrgs.slice(0, rederedListLength).map(org => (
+                    <div key={org._id}>
+                      {org.mainKey && <MainKey>{org.mainKey}</MainKey>}
+                      {org.subKey && <SubKey>{org.subKey}</SubKey>}
 
-                  <Suggestion
-                    organisation={org}
-                    key={org._id}
-                    withoutBorder
-                    noIcon
-                  />
+                      <Suggestion
+                        organisation={org}
+                        key={org._id}
+                        withoutBorder
+                        logoIcon
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <div
-              style={{
-                width: "100%",
-                height: `${Math.min(
-                  elementsShouldBeInPage - elementsNotLoadedYet,
-                  0
-                ) * approxDivHeight}px`,
-              }}
-            />
-          </> :
-          <>
-            <NoDataTitle>No relevant reviews found</NoDataTitle>
-          </>
-          }
+                <div
+                  style={{
+                    width: "100%",
+                    height: `${Math.min(
+                      elementsShouldBeInPage - elementsNotLoadedYet,
+                      0
+                    ) * approxDivHeight}px`,
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <NoDataTitle>No relevant reviews found</NoDataTitle>
+              </>
+            )}
           </>
         )}
       </OrgsListWrapper>

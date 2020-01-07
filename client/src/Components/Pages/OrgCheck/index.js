@@ -256,7 +256,7 @@ export default class index extends Component {
                 placeholderText={`Type the name of the ${section}`}
                 isButton
                 storeOrg={this.storeOrg}
-                noIcon={false}
+                searchIcon
                 origin="checkOrg"
                 addOrganisation={this.addOrganisation}
                 section={section}
