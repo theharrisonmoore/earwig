@@ -305,7 +305,6 @@ export const CompanyNameAndStars = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
   padding: 0 4.5%;
   height: 5rem;
 `;
@@ -707,4 +706,22 @@ export const LikeWrapper = styled(IconsWrapper)`
 
 export const CommentIconWrapper = styled(IconsWrapper)`
   margin: 0.75rem 1rem 0.75rem 1.5rem;
+`;
+
+export const LogoWrapper = styled.div`
+  border-radius: 50%;
+  width: 2.25rem;
+  height: 2.25rem;
+  background-color: ${colors.white};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+
+  p {
+    font-size: 10px;
+    color: ${props => props.orgColor || colors.heliotrope};
+    margin-bottom: 0;
+    font-weight: bold;
+  }
 `;
