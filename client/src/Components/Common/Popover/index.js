@@ -4,6 +4,8 @@ import { Popover } from "antd";
 
 import Button from "../Button";
 
+import Icon from "../Icon/Icon";
+
 import { PopoverDiv, PopoverText } from "./Popover.style";
 
 class PopoverComponent extends React.Component {
@@ -13,7 +15,7 @@ class PopoverComponent extends React.Component {
 
   hide = () => {
     this.setState({
-      popoverVisible: false
+      popoverVisible: false,
     });
   };
 
@@ -33,12 +35,20 @@ class PopoverComponent extends React.Component {
       if (popoverVisible) {
         this.hide();
       }
-    }
+    };
   }
 
   render() {
     const { popoverOptions, category } = this.props;
-    const { text, linkText, icon, margin, action, color } = popoverOptions;
+    const {
+      text,
+      linkText,
+      icon,
+      margin,
+      action,
+      color,
+      iconTooltip,
+    } = popoverOptions;
 
     return (
       <Popover
@@ -59,6 +69,17 @@ class PopoverComponent extends React.Component {
         visible={this.state.popoverVisible}
         onVisibleChange={this.handleVisibleChange}
       >
+        {iconTooltip ? (
+          <Icon
+            icon={iconTooltip.icon}
+            fill={iconTooltip.fill}
+            width={iconTooltip.width}
+            height={iconTooltip.height}
+          />
+        ) : (
+          <p>{this.props.children}</p>
+        )}
+
         {linkText ? (
           <Button
             styleType="link"
@@ -70,6 +91,7 @@ class PopoverComponent extends React.Component {
         ) : (
           <p>{this.props.children}</p>
         )}
+        {}
       </Popover>
     );
   }

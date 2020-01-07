@@ -56,6 +56,7 @@ export default ({
   isLikedByUser,
   showRate,
   panelKey,
+  history,
 }) => {
   const overallParams = {
     target,
@@ -69,10 +70,11 @@ export default ({
 
   const overallReportLink = addSearchParamsToLink(
     overallParams,
-    REPORT_CONTENT_URL
+    REPORT_CONTENT_URL,
   );
 
   return (
+    // content of comment section
     <CommentDiv>
       <BubbleAndDate>
         <CommentBubble bgColor={bgColor}>
@@ -116,6 +118,7 @@ export default ({
         level={level}
         reportLink={overallReportLink}
         target={target}
+        history={history}
       />
       {repliesCount ? (
         <RepliesAndCommentsCollaps
