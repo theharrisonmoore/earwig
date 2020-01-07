@@ -15,25 +15,30 @@ import {
 
 import PopoverComponent from "../../../Common/Popover";
 
-const getTooltipText = () => {
+const getTooltipText = type => {
   return (
     <>
       <Icon
-        icon="getVerified"
-        height="25"
-        width="25"
-        margin="0 0.5rem 0 0"
-        fill={colors.profileFontColor}
+        icon={type}
+        height="50"
+        width="50"
+        margin="1rem 0 1rem 0"
+        fill={colors.gray}
       />
-      <p>
-        earwig is free for workers. All we ask is that you get verified as a
-        genuine worker. This means all reviews are credible and protects the
-        worker community from fake reviews and spam by non-workers.
-      </p>
-      <p>
-        You can hold up any card or ticket that shows you are a worker, eg CSCS
-        card.
-      </p>
+      {type === "like" && (
+        <p>
+          If you want to give workers points by liking their reviews, you first
+          need to get verified as a worker. This protects the worker community
+          from fake reviews and spam by non-workers.
+        </p>
+      )}
+      {type === "comment" && (
+        <p>
+          If you want to post replies to workers, you first need to get verified
+          as a worker. This protects the worker community from fake reviews and
+          spam by non-workers.
+        </p>
+      )}
     </>
   );
 };
@@ -83,7 +88,7 @@ const ActionButtonsWrapper = ({
           ) : (
             <PopoverComponent
               popoverOptions={{
-                text: getTooltipText(),
+                text: getTooltipText("like"),
                 iconTooltip: {
                   icon: "like",
                   fill: colors.gray,
@@ -93,21 +98,36 @@ const ActionButtonsWrapper = ({
                 margin: "1rem 0 0 0",
               }}
               history={history && history}
-            ></PopoverComponent>
+            />
           ))}
 
-        {adminReplied !== true && level >= 2 && (
-          <CommentIconWrapper
-            onClick={level >= 2 ? goTOReply : undefined}
-            data-target={target}
-            data-category={category}
-            data-org-id={orgId}
-            data-review-id={reviewId}
-            disabled={level < 2}
-          >
-            <Icon icon="comment" fill={colors.gray} width="27" height="27" />
-          </CommentIconWrapper>
-        )}
+        {adminReplied !== true &&
+          (level >= 3 ? (
+            <CommentIconWrapper
+              onClick={level >= 2 ? goTOReply : undefined}
+              data-target={target}
+              data-category={category}
+              data-org-id={orgId}
+              data-review-id={reviewId}
+              disabled={level < 2}
+            >
+              <Icon icon="comment" fill={colors.gray} width="27" height="27" />
+            </CommentIconWrapper>
+          ) : (
+            <PopoverComponent
+              popoverOptions={{
+                text: getTooltipText("comment"),
+                iconTooltip: {
+                  icon: "comment",
+                  fill: colors.gray,
+                  width: "27",
+                  height: "27",
+                },
+                margin: "1rem 0 0 3rem",
+              }}
+              history={history && history}
+            />
+          ))}
       </ButtonsWrapper>
 
       {/* FLAG ICON */}

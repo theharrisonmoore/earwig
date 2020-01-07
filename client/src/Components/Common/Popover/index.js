@@ -69,7 +69,7 @@ class PopoverComponent extends React.Component {
         visible={this.state.popoverVisible}
         onVisibleChange={this.handleVisibleChange}
       >
-        {iconTooltip ? (
+        {iconTooltip && (
           <Icon
             icon={iconTooltip.icon}
             fill={iconTooltip.fill}
@@ -78,8 +78,6 @@ class PopoverComponent extends React.Component {
             margin={margin}
             cursor="pointer"
           />
-        ) : (
-          <p>{this.props.children}</p>
         )}
 
         {linkText ? (
