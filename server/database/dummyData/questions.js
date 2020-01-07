@@ -970,8 +970,7 @@ module.exports = async () => {
       number: 18,
       next: 19,
       type: "open",
-      text:
-        "Is there a shop or café near this site that you would recommend to other workers?",
+      text: "Add the name of a shop or café near this site that you would recommend to other workers?",
       label: "",
       category: "worksite",
 
