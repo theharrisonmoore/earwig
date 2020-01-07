@@ -220,15 +220,15 @@ export default class FAQ extends Component {
             We believe that every voice counts and should be protected by
             anonymity - everybody has a right to speak and be heard without fear
             of blacklisting. To protect you, we’ll randomly assign you an earwig
-            Username, which is the only thing that will be shown beside your
-            reviews and activity. You can change your earwig Username at any
+            display name, which is the only thing that will be shown beside your
+            reviews and activity. You can change your earwig display name at any
             time.
             <br />
             <br />
             What’s more, we’ve built earwig so it has two different databases
-            separating your email address from your earwig Username. This means
-            your email address is not connected to your reviews and activity
-            even in the unlikely event that earwig is hacked.
+            separating your email address from your earwig display name. This
+            means your email address is not connected to your reviews and
+            activity even in the unlikely event that earwig is hacked.
           </SmallParagraph>
           <Element name="pay-remove">
             <SectionHeading sublist="true">
@@ -440,7 +440,7 @@ export default class FAQ extends Component {
             <br />
             Your points are an important measure of how helpful you’ve been to
             other workers. Your points are displayed publicly beside your earwig
-            Username when you give reviews and comment on other reviews.
+            display name when you give reviews and comment on other reviews.
             <br />
             <br />
             earwig is a young organisation and we’re still coming up with ideas

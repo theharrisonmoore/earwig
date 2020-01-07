@@ -94,7 +94,7 @@ const signupSchema = Yup.object().shape({
       otherwise: Yup.string()
         .required("You must select an organisation type")
         .oneOf(
-          ["agency", "payroll", "company", "mainContractor", "other"],
+          ["agency", "payroll", "company", "mainCompany", "other"],
           "Must select organisation"
         ),
     })
@@ -583,13 +583,13 @@ export default class Signup extends Component {
                           component={RadioButton}
                           name="orgType"
                           orgType
-                          id="mainContractor"
-                          label="Main contractor"
+                          id="mainCompany"
+                          label="Main company"
                           onChange={e => {
-                            this.handleOrgType("mainContractor");
+                            this.handleOrgType("mainCompany");
                             handleChange(e);
                           }}
-                          option="mainContractor"
+                          option="mainCompany"
                         />
                         <Field
                           component={RadioButton}

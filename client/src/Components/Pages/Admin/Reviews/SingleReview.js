@@ -476,8 +476,7 @@ export default class SingleReview extends Component {
                                                 if (
                                                   answer &&
                                                   answer.name &&
-                                                  profileText ===
-                                                    "Main contractor"
+                                                  profileText === "Main company"
                                                 ) {
                                                   return (
                                                     <Link

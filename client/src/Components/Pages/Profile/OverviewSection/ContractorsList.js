@@ -20,7 +20,7 @@ export default ({ contractorAnswers }) => {
   return (
     <ContractorDiv>
       <ContractorText>
-        Main Contractor:{" "}
+        Main Company:{" "}
         <span className="contactor-name">
           {contractorAnswers[0] && contractorAnswers[0].name ? (
             <Link
@@ -42,7 +42,7 @@ export default ({ contractorAnswers }) => {
           trigger="click"
         >
           <ContractorListLink>
-            More main contractors on this site
+            More main companies on this site
           </ContractorListLink>
           <AntdIcon style={{ color: "black" }} type="caret-down" />
         </Popover>

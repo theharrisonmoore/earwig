@@ -7,9 +7,9 @@ export const getContractorsFromReviews = reviewDetails => {
   const [
     contractorQuestion,
   ] = worksiteQuestionsGroup.questions.filter(question =>
-    question.text.includes("main contractor")
+    question.text.includes("main company")
   );
-  // question => question.text === "Who is the main contractor on site?"
+  // question => question.text === "Who is the main company on site?"
   const orderedAnswers = contractorQuestion.answers.sort(
     (a, b) => moment(a.updatedAt).valueOf() - moment(b.updatedAt).valueOf()
   );

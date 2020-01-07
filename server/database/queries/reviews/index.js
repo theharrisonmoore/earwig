@@ -384,7 +384,7 @@ module.exports.allQsAndAs = (orgType, orgId, justContractor) => new Promise((res
     match = {
       $match: {
         category: orgType,
-        text: "Who was the main contractor on site?",
+        text: "Who was the main company on site?",
       },
     };
   }
