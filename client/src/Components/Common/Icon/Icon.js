@@ -238,8 +238,8 @@ const Icon = props => {
     return null;
   }
   const StyledIcon = styledIconMap[props.icon];
-
-  return <StyledIcon {...props} />;
+  const color = props.color || props.fill || "currentColor";
+  return <StyledIcon {...props} color={color} fill={color} />;
 };
 
 export default Icon;
