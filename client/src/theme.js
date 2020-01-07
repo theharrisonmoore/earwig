@@ -143,6 +143,7 @@ export const borders = {
   buttonBox: `1px solid ${colors.black}`,
   commentBox: `1px solid ${colors.veryLightGray}`,
   recording: `1px solid ${colors.red}`,
+  section: `1px solid ${colors.sectionBorder}`,
 };
 
 export const pieColors = {

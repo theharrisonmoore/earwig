@@ -278,9 +278,10 @@ export const VerifySection = styled.div`
 
 export const BorderedSubSectionWrapper = styled.div`
   max-width: 700px;
-  margin: 0 auto;
+  margin: 0 auto 1rem auto;
   padding: ${({ padding }) => padding || "3rem 0"};
   border: none;
+  border-bottom: ${borders.section};
 
   & > div {
     max-width: 500px;
@@ -296,12 +297,21 @@ export const BorderedSubSectionWrapper = styled.div`
 
 export const SubSectionTitleParagraph = styled.p`
   margin: 0 auto;
+  width: 80%;
+  text-align: center;
+  color: ${colors.dustyGray3};
+  font-size: 15px;
+`;
+
+export const SubSectionTitle = styled.h3`
+  margin: 0 auto;
+  font-size: 18px;
+  font-weight: bold;
   margin-top: ${({ marginTop }) => marginTop || "2rem"};
-  padding-bottom: 2rem;
-  border-bottom: 1px solid ${colors.veryLightGray};
+  margin-bottom: 0.5rem;
   width: 90%;
   text-align: center;
-  color: ${colors.lightGray};
+  color: ${colors.dustyGray3};
 
   @media ${breakpoints.tablet} {
     margin-top: 3.5rem;

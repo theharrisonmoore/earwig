@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import {
   BorderedSubSectionWrapper,
   SubSectionTitleParagraph,
+  SubSectionTitle,
 } from "./UserProfile.style";
 
 import PopoverComponent from "../../Common/Popover";
@@ -32,12 +33,13 @@ export default class UserPoints extends Component {
     return (
       <Wrapper>
         <BorderedSubSectionWrapper padding="1.5rem 0">
+          <SubSectionTitle marginTop="2.5rem">
+            How you can earn points
+          </SubSectionTitle>
           <SubSectionTitleParagraph marginTop="2.5rem">
-            You earn points when workers like your reviews. Make your reviews
-            helpful to earn more points. You also earn points when workers
-            sign-up using your magic referral links.
-            <br />
-            Build your network to earn more points.
+            You earn points when workers like your reviews because they are
+            helpful. You also earn points when workers sign-up using your magic
+            referral link. Build your network to earn more points.
           </SubSectionTitleParagraph>
         </BorderedSubSectionWrapper>
         <ProgressSection>
