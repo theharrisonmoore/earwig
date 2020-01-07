@@ -28,6 +28,7 @@ export const QuestionWrapper = styled.div`
   display: ${props => (props.hide ? "none" : "flex")};
   flex-direction: column;
   padding: 1.125rem 0;
+  max-width: 100%;
 `;
 
 export const YesNoQuestionWrapper = styled.div`
@@ -38,6 +39,7 @@ export const QuestionContainer = styled.div`
   display: ${props => (props.hide ? "none" : "flex")};
   flex-direction: column;
   padding: 1.125rem 0;
+  max-width: 100%;
 `;
 
 export const IconContainer = styled.div`
