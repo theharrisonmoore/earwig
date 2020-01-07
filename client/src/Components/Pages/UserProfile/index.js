@@ -31,6 +31,7 @@ import {
 } from "./UserProfile.style";
 
 import Icon from "../../Common/Icon/Icon";
+import { colors } from "../../../theme";
 
 export default class index extends Component {
   state = {
@@ -106,6 +107,12 @@ export default class index extends Component {
           </TopSection>
           <BottomSection isSMobile={isSMobile}>
             <StatWrapper>
+              <Icon
+                icon="overview"
+                width="42px"
+                height="26px"
+                color={colors.dustyGray4}
+              />
               <StatTitle isSMobile={isSMobile}>Given</StatTitle>
               <Stat>
                 <Skeleton
@@ -124,6 +131,12 @@ export default class index extends Component {
               </Stat>
             </StatWrapper>
             <StatWrapper>
+              <Icon
+                icon="helped"
+                width="42px"
+                height="26px"
+                color={colors.dustyGray4}
+              />
               <StatTitle>Helped</StatTitle>
               <Stat>
                 <Skeleton
@@ -137,6 +150,12 @@ export default class index extends Component {
               </Stat>
             </StatWrapper>
             <StatWrapper>
+              <Icon
+                icon="like"
+                width="42px"
+                height="26px"
+                color={colors.dustyGray4}
+              />
               <StatTitle>Earned</StatTitle>
               <Stat>
                 <Skeleton

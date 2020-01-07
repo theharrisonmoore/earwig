@@ -53,12 +53,13 @@ export const StatWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  align-items: center;
 `;
 
 export const StatTitle = styled.p`
   margin-top: ${props => (props.isSMobile ? "20px" : "0px")};
   margin: 0;
-  color: ${colors.veryLightGray};
+  color: ${colors.dustyGray4};
 `;
 
 export const Stat = styled.p`

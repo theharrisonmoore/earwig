@@ -25,6 +25,7 @@ import Fingerprint from "./Fingerprint";
 import Gasmask from "./Gasmask";
 import GetVerified from "./GetVerified";
 import Hamburger from "./Hamburger";
+import Helped from "./Helped";
 import HelpfulLinks from "./HelpfulLinks";
 import HelpingHand from "./HelpingHand";
 import Home from "./Home";
@@ -135,6 +136,7 @@ const iconMap = {
   hamburger: Hamburger,
   home: Home,
   hotFood: HotFood,
+  helped: Helped,
   helpfulLinks: HelpfulLinks,
   helpingHand: HelpingHand,
   info: Info,
