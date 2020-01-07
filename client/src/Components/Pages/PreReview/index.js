@@ -5,6 +5,7 @@ import { message } from "antd";
 
 import Layout from "../../Common/Layout";
 import Button from "../../Common/Button";
+import Icon from "../../Common/Icon/Icon";
 
 import {
   Wrapper,
@@ -70,10 +71,14 @@ export default class PreReview extends Component {
         <Wrapper>
           <Body>
             <Header category={category}>
+              <Icon
+                icon="overview"
+                width="63"
+                height="63"
+                margin="0 0 32px 0"
+              />
               <Title>
-                You’re about to give a review about the {category}
-                <br />
-                {name}
+                You’re about to give a review about the {category} {name}
               </Title>
               <SubTitile>
                 Make it as detailed as possible to help workers and they’ll give

@@ -24,17 +24,19 @@ import {
 } from "../../Common/AddOrganisationPages.style";
 
 export default props => {
-  const { match: { params: { category, name } } = {}, history, level } = props;
+  const {
+    match: { params: { category, name } } = {},
+    history,
+    level,
+    location,
+  } = props;
 
   return (
     <Layout type="side">
       <AddWrapper>
         <MainDiv>
           <HeadlineDiv>
-            <H2>
-              Hold up! You need to be a verified worker to create a new{" "}
-              {category} in our database.
-            </H2>
+            <H2>Hold up! You need to be a verified worker to give a review.</H2>
           </HeadlineDiv>
           <SubHeading margin="2rem auto">
             You only need to get verified once :)
@@ -42,11 +44,14 @@ export default props => {
           <Link
             to={{
               pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
-              state: {
-                category,
-                name,
-                redirectToCreateProfile: true,
-              },
+              state:
+                location.state && location.state.redirectToProfile
+                  ? location.state
+                  : {
+                      category,
+                      name,
+                      redirectToCreateProfile: true,
+                    },
             }}
             style={{ textAlign: "center" }}
           >
