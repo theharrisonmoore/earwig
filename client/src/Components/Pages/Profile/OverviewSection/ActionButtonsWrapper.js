@@ -90,7 +90,7 @@ const ActionButtonsWrapper = ({
                   width: "27",
                   height: "27",
                 },
-                margin: "0 0 0.5rem 0",
+                margin: "1rem 0 0 0",
               }}
               history={history && history}
             ></PopoverComponent>

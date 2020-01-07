@@ -75,6 +75,8 @@ class PopoverComponent extends React.Component {
             fill={iconTooltip.fill}
             width={iconTooltip.width}
             height={iconTooltip.height}
+            margin={margin}
+            cursor="pointer"
           />
         ) : (
           <p>{this.props.children}</p>
