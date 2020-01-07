@@ -6,7 +6,7 @@ export default function InvisibleCommentAlert() {
   return (
     <div>
       <Alert
-        message="Your replies are only visible to you until we've checked your verification photo."
+        message="Your reply will be shown publicly as soon as we've checked your verification photo."
         type="warning"
         style={{
           display: "inline-block",

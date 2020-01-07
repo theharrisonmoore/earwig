@@ -109,7 +109,7 @@ class OrganisationsList extends Component {
               </>
             ) : (
               <>
-                <NoDataTitle>No relevant reviews found</NoDataTitle>
+                <NoDataTitle>No recent reviews yet</NoDataTitle>
               </>
             )}
           </>
