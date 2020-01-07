@@ -1,6 +1,6 @@
 // Render Prop
 import React, { Component } from "react";
-import { Prompt } from "react-router-dom";
+import { Prompt, Link as ReactLink } from "react-router-dom";
 import axios from "axios";
 import * as Yup from "yup";
 import { Modal, Alert, Input, Divider } from "antd";
@@ -461,7 +461,9 @@ export default class Signup extends Component {
           >
             Already signed up? <span>Log in</span>
           </LogIn>
-          <Logo />
+          <ReactLink to={HOME_PAGE}>
+            <Logo />
+          </ReactLink>
           <Formik
             initialValues={initialValues}
             validationSchema={signupSchema}

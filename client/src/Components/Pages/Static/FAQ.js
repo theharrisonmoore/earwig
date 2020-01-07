@@ -45,28 +45,6 @@ export default class FAQ extends Component {
             >
               <TopSubTitle list="true">Getting started</TopSubTitle>
             </ScrollLink>
-            <ScrollLink
-              to="homepage-video"
-              spy
-              smooth
-              duration={500}
-              offset={-60}
-            >
-              <TopSubTitle sublist="true" list="true">
-                Homepage video
-              </TopSubTitle>
-            </ScrollLink>
-            <ScrollLink
-              to="important-message"
-              spy
-              smooth
-              duration={500}
-              offset={-60}
-            >
-              <TopSubTitle sublist="true" list="true">
-                An important message for workers
-              </TopSubTitle>
-            </ScrollLink>
             <ScrollLink to="pay" spy smooth duration={500} offset={-60}>
               <TopSubTitle list="true" sublist="true">
                 Do I have to pay to use earwig?
@@ -165,26 +143,6 @@ export default class FAQ extends Component {
           <Element name="getting-started">
             <SectionHeading>Getting started</SectionHeading>
           </Element>
-          <Element name="homepage-video">
-            <SectionHeading sublist="true">Homepage Video</SectionHeading>
-          </Element>
-          <Iframe
-            src="https://www.youtube.com/embed/Z4F7iJeYgqE?controls=0"
-            frameBorder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          />
-          <Element name="important-message">
-            <SectionHeading sublist="true">
-              An important message for workers
-            </SectionHeading>
-          </Element>
-          <Iframe
-            src="https://www.youtube.com/embed/nV2Wbg3pMPE?controls=0"
-            frameBorder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          />
           <Element name="pay">
             <SectionHeading sublist="true">
               Do I have to pay to use earwig?
