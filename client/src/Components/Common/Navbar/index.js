@@ -80,7 +80,12 @@ export default class Navbar extends Component {
                   </ToggleMenu>
                 ) : (
                   <ToggleMenu isMobile={isMobile} onClick={this.toggleMenu}>
-                    <Icon icon="hamburger" width="1.5rem" height="1.5rem" />
+                    <Icon
+                      icon="hamburger"
+                      width="1.5rem"
+                      height="1.5rem"
+                      color={colors.primary}
+                    />
                   </ToggleMenu>
                 )}
               </>
@@ -107,7 +112,7 @@ export default class Navbar extends Component {
                   icon="home"
                   height="26"
                   width="26"
-                  color={colors.profileFontColor}
+                  color={colors.primary}
                 />
               </MenuItem>
             )}
@@ -140,7 +145,12 @@ export default class Navbar extends Component {
               </ToggleMenu>
             ) : (
               <ToggleMenu isMobile={isMobile} onClick={this.toggleMenu}>
-                <Icon icon="hamburger" width="1.5rem" height="1.5rem" />
+                <Icon
+                  icon="hamburger"
+                  width="1.5rem"
+                  height="1.5rem"
+                  color={colors.primary}
+                />
               </ToggleMenu>
             )}
           </SideDiv>
@@ -149,12 +159,7 @@ export default class Navbar extends Component {
         <SideDiv position="flex-end">
           {currentPath !== HOME_PAGE && (
             <MenuItem to={HOME_PAGE} extraRightPadding>
-              <Icon
-                icon="home"
-                height="22"
-                width="22"
-                color={colors.profileFontColor}
-              />
+              <Icon icon="home" height="22" width="22" color={colors.primary} />
             </MenuItem>
           )}
         </SideDiv>

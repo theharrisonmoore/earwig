@@ -25,6 +25,7 @@ export const YesNoWrapper = styled.div`
 export const Row = styled.div`
   display: flex;
   min-width: 240px;
+  padding-left: 0.25rem;
 
   @media ${breakpoints.tablet} {
     min-width: 400px;
