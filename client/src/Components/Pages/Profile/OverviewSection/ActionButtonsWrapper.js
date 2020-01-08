@@ -32,20 +32,12 @@ const getTooltipText = type => {
         margin="1rem 0 1rem 0"
         fill={colors.gray}
       />
-      {type === "like" && (
-        <p>
-          If you want to give workers points by liking their reviews, you first
-          need to get verified as a worker. This protects the worker community
-          from fake reviews and spam by non-workers.
-        </p>
-      )}
-      {type === "comment" && (
-        <p>
-          If you want to post replies to workers, you first need to get verified
-          as a worker. This protects the worker community from fake reviews and
-          spam by non-workers.
-        </p>
-      )}
+      {type === "like" &&
+        "If you want to give workers points by liking their reviews, you first need to get verified as a worker. This protects the worker community from fake reviews and spam by non-workers."}
+      {type === "comment" &&
+        "If you want to post replies to workers, you first need to get verified as a worker. This protects the worker community from fake reviews and spam by non-workers."}
+      {type === "report" &&
+        "If you want to report content, you first need to sign up using a valid email address so we can get back to you."}
     </>
   );
 };
@@ -66,13 +58,14 @@ const ActionButtonsWrapper = ({
   // liked now by user, for animation
   isLikedByUser,
   reportLink,
-  target,
-
+  target
 }) => {
   return (
     <ActionsDiv>
       <ButtonsWrapper>
         {ownerID !== loggedinUserID &&
+          // LIKE FUNCTIONS
+          // user is verified and can comment and like replies
           (level >= 3 ? (
             <LikeWrapper
               as="button"
@@ -93,6 +86,7 @@ const ActionButtonsWrapper = ({
               />
             </LikeWrapper>
           ) : (
+            // user is not yet verified and sees popover
             <PopoverComponent
               popoverOptions={{
                 text: getTooltipText("like"),
@@ -113,11 +107,12 @@ const ActionButtonsWrapper = ({
                 },
                 margin: "1rem 0 0 0"
               }}
-
             />
           ))}
 
         {adminReplied !== true &&
+          // COMMENT FUNCTIONS
+          // verified users can comment
           (level >= 3 ? (
             <CommentIconWrapper
               onClick={level >= 2 ? goTOReply : undefined}
@@ -130,6 +125,7 @@ const ActionButtonsWrapper = ({
               <Icon icon="comment" fill={colors.gray} width="27" height="27" />
             </CommentIconWrapper>
           ) : (
+            // non verified users see popover
             <PopoverComponent
               popoverOptions={{
                 text: getTooltipText("comment"),
@@ -145,23 +141,44 @@ const ActionButtonsWrapper = ({
                   state: {
                     category,
                     orgId,
-                    redirectToProfile: true,
+                    redirectToProfile: true
                   }
                 },
                 margin: "1rem 0 0 3rem"
               }}
-
             />
           ))}
       </ButtonsWrapper>
 
       {/* FLAG ICON */}
       {/* report overall/voice review */}
-      {level >= 1 && (
+      {level >= 1 ? (
         <ReportFlag
           style={{ right: 0, width: "10%" }}
           to={reportLink}
           disabled={level < 1}
+        />
+      ) : (
+        <PopoverComponent
+          popoverOptions={{
+            text: getTooltipText("report"),
+            iconTooltip: {
+              icon: "flag",
+              fill: colors.gray,
+              width: "27",
+              height: "27"
+            },
+            actionButtonTxt: "Sign up",
+            linkButtonOptions: {
+              pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
+              state: {
+                category,
+                orgId,
+                redirectToProfile: true
+              }
+            },
+            margin: "1rem 0 0 3rem"
+          }}
         />
       )}
     </ActionsDiv>
