@@ -25,7 +25,7 @@ export default class SiteItemAnswer extends Component {
   };
 
   render() {
-    const { question, isMobile, reviewDetails } = this.props;
+    const { question, reviewDetails } = this.props;
 
     const carParkingPrice = getCarCost(reviewDetails);
     const averageResponse = this.getAverage(question.answers);

@@ -5,9 +5,8 @@ import {
   colors,
   shadows,
   organizations,
-  breakpoints
+  breakpoints,
 } from "../../../theme";
-import OrganisationsList from "./OrganisationsList";
 
 export const classNames = {
   container: "react-autosuggest__container",
@@ -18,7 +17,7 @@ export const classNames = {
   suggestionsContainerOpen: "react-autosuggest__suggestions-container--open",
   suggestionsList: "react-autosuggest__suggestions-list",
   suggestions: "react-autosuggest__suggestion",
-  suggestionHighlighted: "react-autosuggest__suggestion--highlighted"
+  suggestionHighlighted: "react-autosuggest__suggestion--highlighted",
 };
 
 export const AutosuggestWrapper = styled.div.attrs(classNames)`

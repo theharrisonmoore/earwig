@@ -4,7 +4,6 @@ import {
   Wrapper,
   ContentWrapper,
   SmallParagraph,
-  Iframe,
   BlueDiv,
   PurpleDiv,
   SubTitleGroup,

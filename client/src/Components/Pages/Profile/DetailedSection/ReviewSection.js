@@ -12,7 +12,6 @@ import {
   HintText,
 } from "./ReviewSection.style";
 import Icon from "../../../Common/Icon/Icon";
-import { isXSMobile } from "../../../../helpers";
 import ProfileAnswers from "../ProfileAnswers";
 
 const {
