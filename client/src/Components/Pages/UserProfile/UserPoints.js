@@ -34,7 +34,7 @@ export default class UserPoints extends Component {
           height="50"
           width="50"
           margin="0 0 1rem 0"
-          fill={colors.dustyGray3}
+          color={colors.dustyGray4}
         />
         <p style={{ color: colors.dustyGray3, fontSize: "15px" }}>
           Give reviews often on earwig to be eligible for perks and early access

@@ -4,6 +4,8 @@ import { ListWrapper, SiteItem, SiteAnswer } from "./ProfileAnswers.style";
 
 import Icon from "../../../Common/Icon/Icon";
 
+import { colors } from "../../../../theme";
+
 import { getCarCost } from "../utils";
 import { LightTitle } from "../DetailedSection/ReviewSection.style";
 
@@ -37,8 +39,9 @@ export default class SiteItemAnswer extends Component {
               <Icon
                 icon={question.icon}
                 margin="0 1rem 0 0"
-                height={isMobile ? "50" : "2rem"}
-                width={isMobile ? "50" : "2rem"}
+                height="45"
+                width="45"
+                color={colors.dustyGray4}
               />
               {question.answers.length > 0 ? (
                 <>
@@ -65,8 +68,9 @@ export default class SiteItemAnswer extends Component {
               <Icon
                 icon={question.icon}
                 margin="0 1rem 0 0"
-                height={isMobile ? "50" : "2rem"}
-                width={isMobile ? "50" : "2rem"}
+                height="45"
+                width="45"
+                color={colors.dustyGray4}
               />
               {question.answers.length > 0 ? (
                 <p>{question.profileText}</p>

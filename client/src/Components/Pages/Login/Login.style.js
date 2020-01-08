@@ -33,7 +33,7 @@ export const StyledLink = styled(Link).attrs({})`
 `;
 
 export const SmallLink = styled(StyledLink)`
-  font-size: 1rem;
+  font-size: 15px;
   text-align: right;
   font-weight: initial;
   margin-bottom: 0.25rem;

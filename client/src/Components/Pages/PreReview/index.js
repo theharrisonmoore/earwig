@@ -76,6 +76,7 @@ export default class PreReview extends Component {
                 width="63"
                 height="63"
                 margin="0 0 32px 0"
+                color="white"
               />
               <Title>
                 You’re about to give a review about the {category} {name}

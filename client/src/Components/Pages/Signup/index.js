@@ -372,7 +372,7 @@ export default class Signup extends Component {
           height="68"
           width="68"
           margin="0.5rem 0 1rem 0"
-          color={colors.veryLightGray}
+          color={colors.profileFontColor}
         />
         <p>
           earwig is free for workers. All we ask is that you get verified as a

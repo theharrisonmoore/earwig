@@ -53,7 +53,7 @@ export const Tab = styled(({ isActive, ...rest }) => <Link {...rest} />)`
   max-width: 5.875rem;
   width: 25%;
   height: 2.75rem;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 15px;
   text-align: center;
   letter-spacing: 0.216667px;
@@ -66,6 +66,10 @@ export const Tab = styled(({ isActive, ...rest }) => <Link {...rest} />)`
   :hover {
     color: #ffffff;
     font-weight: bold;
+  }
+
+  @media ${breakpointsMax.mobileM} {
+    font-size: 13px;
   }
 `;
 

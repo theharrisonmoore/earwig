@@ -92,20 +92,20 @@ export const SubTitle = styled.h2`
 export const Paragraph = styled.p`
   color: ${colors.profileFontColor};
   margin-bottom: 3rem;
-  font-size: 1rem;
+  font-size: 15px;
 `;
 
 export const ErrorMessage = styled.p.attrs()`
   color: ${colors.red};
   font-weight: 100;
-  font-size: 1rem;
+  font-size: 15px;
   text-align: center;
   width: 100%;
 `;
 
 export const CurrentValue = styled.p`
   text-align: left;
-  font-size: 1rem;
+  font-size: 15px;
   margin-bottom: 2rem;
 `;
 
@@ -146,7 +146,7 @@ export const Row = styled.div`
 
 export const EditButton = styled.button`
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 15px;
   color: ${colors.primary};
   background: none;
   border: none;
@@ -178,7 +178,7 @@ export const PasswordWrapper = styled.div`
 
 export const LightLabel = styled(Label)`
   font-weight: 100;
-  font-size: 1rem;
+  font-size: 15px;
 `;
 
 export const StyledButton = styled(Button)`
@@ -226,7 +226,7 @@ export const StatusWrapper = styled.div`
 
 export const Status = styled.h3`
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 15px;
   color: ${colors.gray};
   line-height: 7rem;
   text-align: left;
@@ -247,14 +247,6 @@ export const UnVerifiedTitle = styled.h1`
     display: block;
   }
 `;
-
-// export const Paragraph = styled.p`
-//   font-weight: 500;
-//   font-size: 1rem;
-//   text-align: left;
-//   color: ${colors.gray};
-//   margin-top: 1rem;
-// `;
 
 export const UnVerifiedButton = styled(Link)`
   border-radius: 5px;

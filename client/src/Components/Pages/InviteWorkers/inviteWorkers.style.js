@@ -45,24 +45,21 @@ export const EmailShare = styled(EmailShareButton)`
 `;
 
 export const ShareParagraph = styled.p`
-  font-size: 16px;
-  color: ${colors.dustyGray2};
+  font-size: 15px;
+  color: ${colors.profileFontColor};
 `;
 
 export const Head3 = styled.h3`
-  font-size: 34px;
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: ${colors.dustyGray4};
   text-align: center;
-  line-height: 1.4;
-  font-family: "Lato", sans-serif;
 `;
 
 export const PromoParagraph = styled.p`
-  font-size: 20px;
-  line-height: 19px;
-  font-family: "Lato", sans-serif;
+  font-size: 15px;
   margin: 2rem 0;
-  letter-spacing: 0.34px;
-  opacity: 0.8;
+  color: ${colors.profileFontColor};
 `;
 
 export const Image = styled.img`

@@ -46,7 +46,7 @@ export default class InviteWorkers extends Component {
     return (
       <CentredBluePurpleLayout>
         <InviteWrapper>
-          <Icon icon="win" height="50" width="50" margin="1rem 0 0.5rem 0" />
+          <Icon icon="win" height="45" width="45" margin="1rem 0 0.5rem 0" />
 
           <Head3>Together we are powerful!</Head3>
           <PromoParagraph>

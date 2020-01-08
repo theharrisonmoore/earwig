@@ -65,7 +65,7 @@ export default class SelectReason extends Component {
           icon="flag"
           width="2.5rem"
           height="2.5rem"
-          color={colors.profileFontColor}
+          color={colors.dustyGray4}
         />
         <PageTitle
           style={{

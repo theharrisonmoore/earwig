@@ -42,7 +42,7 @@ export const Title = styled.h1`
 `;
 
 export const SubTitile = styled.p`
-  font-size: 1rem;
+  font-size: 15px;
   color: ${colors.white};
   max-width: 400px;
   text-align: center;

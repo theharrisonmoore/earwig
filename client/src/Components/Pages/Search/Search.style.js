@@ -5,7 +5,7 @@ import {
   colors,
   shadows,
   organizations,
-  breakpoints,
+  breakpoints
 } from "../../../theme";
 import OrganisationsList from "./OrganisationsList";
 
@@ -18,7 +18,7 @@ export const classNames = {
   suggestionsContainerOpen: "react-autosuggest__suggestions-container--open",
   suggestionsList: "react-autosuggest__suggestions-list",
   suggestions: "react-autosuggest__suggestion",
-  suggestionHighlighted: "react-autosuggest__suggestion--highlighted",
+  suggestionHighlighted: "react-autosuggest__suggestion--highlighted"
 };
 
 export const AutosuggestWrapper = styled.div.attrs(classNames)`
@@ -41,7 +41,7 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
     height: ${props => props.height};
     padding: 10px 20px;
     font-weight: 300;
-    font-size: 1rem;
+    font-size: 15px;
     width: 100%;
 
   }
@@ -146,7 +146,7 @@ export const LastReviewsContainer = styled.div`
 
 export const LegendTitle = styled.h2`
   color: ${props => organizations[props.orgType].primary};
-  font-size: 1rem;
+  font-size: 15px;
   margin: 0;
 `;
 
@@ -195,7 +195,7 @@ export const OrganisationDetailsDiv = styled.div`
   justify-content: center;
   h3 {
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 15px;
   }
 `;
 
@@ -205,7 +205,7 @@ export const AddItemDetails = styled.div`
   padding-left: 30px;
   h3 {
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 15px;
     margin-top: 0.2rem;
   }
 `;

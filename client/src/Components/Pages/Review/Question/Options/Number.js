@@ -99,7 +99,12 @@ class Number extends Component {
             )}
             {hasComment && (
               <CommentIconWrapper type="button" onClick={toggleShowComment}>
-                <Icon icon="comment" width="27" height="27" opacity="0.5" />
+                <Icon
+                  icon="comment"
+                  width="27"
+                  height="27"
+                  color={colors.dustyGray4}
+                />
               </CommentIconWrapper>
             )}
           </div>

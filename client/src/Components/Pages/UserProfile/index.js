@@ -83,6 +83,7 @@ export default class index extends Component {
                   width="20"
                   height="20"
                   margin="0 0 0 0"
+                  color={colors.dustyGray4}
                 />
               )}
               <UsernameStatusDiv>

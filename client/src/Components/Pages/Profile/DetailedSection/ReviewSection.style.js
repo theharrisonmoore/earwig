@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { colors, borders } from "../../../../theme";
 
-const titleFontSize = "20px";
+const titleFontSize = "18px";
 const titleFontWeight = "bold";
 
 const generalFontSize = "15px";
@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
 
 export const SectionTitle = styled.h2`
   font-size: ${titleFontSize};
-  color: ${colors.dustyGray3};
+  color: ${colors.dustyGray4};
   border-bottom: ${({ bordered }) => (bordered ? borders.commentBox : "none")};
   margin: 0;
   margin-bottom: 1rem;
@@ -48,9 +48,9 @@ export const IconContainer = styled.div`
 `;
 
 export const QuestionTitle = styled.h3`
-  font-size: 1.1rem;
+  font-size: 15px;
   color: ${colors.dustyGray3};
-  font-weight: 500;
+  font-weight: bold;
   margin: 0;
   margin-bottom: 0.5rem;
   text-align: left;
@@ -78,7 +78,7 @@ export const CategoryTitle = styled.h2`
 export const LightTitle = styled.div`
   opacity: 0.5;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 15px;
   color: ${colors.dustyGray3};
   border: ${({ bar }) => (bar ? `1px solid ${colors.inputBorder}80` : "none")};
   text-align: ${({ bar }) => (bar ? `center` : "left")};

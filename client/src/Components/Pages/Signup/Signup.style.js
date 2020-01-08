@@ -24,7 +24,7 @@ export const StyledLink = styled(Link).attrs({})`
 
 export const LinkSpan = styled(Link)`
   color: ${colors.purpleLinks};
-  font-size: 1rem;
+  font-size: 15px;
   font-weight: 700;
   text-decoration: underline;
 
@@ -88,7 +88,7 @@ export const StyledInput = styled.label`
   width: 90%;
   border: 1px solid;
   border-radius: 3px;
-  font-size: 1rem;
+  font-size: 15px;
   box-shadow: 0px 4px 13px rgba(173, 145, 183, 0.273438);
   ${({ value, id }) =>
     value &&
@@ -125,7 +125,7 @@ export const SubHeading = styled.h2`
 `;
 
 export const Paragraph = styled.p`
-  font-size: 1rem;
+  font-size: 15px;
   text-align: left;
   color: ${colors.dustyGray};
   margin-bottom: 0.25rem;

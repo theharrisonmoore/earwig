@@ -161,6 +161,7 @@ export default class CommentsBox extends Component {
                   width="30px"
                   height="30px"
                   cursor="pointer"
+                  color={colors.dustyGray4}
                 />
               </CommentsHeader>
 
@@ -209,7 +210,7 @@ export default class CommentsBox extends Component {
                     >
                       <Icon
                         icon="flag"
-                        fill={colors.gray}
+                        color={colors.dustyGray4}
                         width="27"
                         height="27"
                       />

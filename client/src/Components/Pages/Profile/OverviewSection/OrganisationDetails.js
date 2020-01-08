@@ -88,7 +88,7 @@ const OrganisationDetails = ({
 
       {category !== "worksite" && (
         <InfoRow>
-          <LeftInfo>Website:</LeftInfo>
+          <LeftInfo>Website</LeftInfo>
           <RightInfo>
             <OrgLink
               href={`${websiteUrl}`}
@@ -105,7 +105,7 @@ const OrganisationDetails = ({
 
       {["payroll", "agency"].includes(category) && (
         <InfoRow>
-          <LeftInfo>Email:</LeftInfo>
+          <LeftInfo>Email</LeftInfo>
           <RightInfo>
             <OrgLink
               href={`mailto:${email}`}
@@ -120,7 +120,7 @@ const OrganisationDetails = ({
 
       {["payroll", "agency"].includes(category) && (
         <InfoRow>
-          <LeftInfo>Phone:</LeftInfo>
+          <LeftInfo>Phone</LeftInfo>
           <RightInfo>
             <OrgLink
               href={`tel:${phoneNumber}`}

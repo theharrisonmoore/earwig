@@ -174,6 +174,6 @@ export const Button = styled.button`
 
   // desktop
   @media ${breakpoints.mobileXL} {
-    font-size: 1rem;
+    font-size: 15px;
   }
 `;

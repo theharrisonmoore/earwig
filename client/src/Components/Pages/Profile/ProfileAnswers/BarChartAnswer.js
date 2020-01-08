@@ -82,7 +82,7 @@ export default class BarChartAnswer extends Component {
             font: {
               weight: "900",
               size: "16",
-              family: "roboto",
+              family: "arial",
             },
           },
         },

@@ -33,7 +33,7 @@ export const MenuWrapper = styled.div``;
 
 export const WrapperH2 = styled.h2`
   margin: 0;
-  font-size: 1rem;
+  font-size: 15px;
   margin-right: 1rem;
   width: 100%;
   font-weight: 900;

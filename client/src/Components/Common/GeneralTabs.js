@@ -42,7 +42,7 @@ export const Tab = styled.div`
 `;
 
 export const TabTitle = styled.span`
-  font-size: 1rem;
+  font-size: 15px;
   margin-top: 0.25rem;
   text-transform: capitalize;
 
@@ -69,7 +69,7 @@ const GeneralTabs = ({
   tabOne,
   tabTwo,
   zIndex,
-  fixedHeight,
+  fixedHeight
 }) => {
   return (
     <TabsDivFullWidth zIndex={zIndex} fixedHeight={fixedHeight}>

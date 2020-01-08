@@ -268,14 +268,14 @@ class AutosuggestComponent extends Component {
                   icon="close"
                   height="24px"
                   width="24px"
-                  color={colors.dustyGray1}
+                  color={colors.dustyGray4}
                 />
               ) : (
                 <Icon
                   icon="search"
                   height="24px"
                   width="24px"
-                  color={colors.dustyGray1}
+                  color={colors.dustyGray4}
                 />
               )}
             </IconDiv>

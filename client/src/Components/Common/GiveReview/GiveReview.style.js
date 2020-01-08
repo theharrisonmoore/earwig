@@ -43,7 +43,7 @@ export const ReviewButton = styled.button`
 
   h4 {
     margin: 0;
-    font-size: 1rem;
+    font-size: 15px;
     width: 70%;
     text-align: left;
     line-height: 0.9rem;

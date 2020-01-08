@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   padding-bottom: 100px;
   display: flex;
   flex-direction: column;
-  font-size: 1rem;
+  font-size: 15px;
   min-height: 100vh;
 
   @media ${breakpoints.laptop} {
@@ -147,7 +147,7 @@ export const SectionTitle = styled.h1`
 
 export const Paragraph = styled.p`
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 15px;
   color: ${colors.gray};
   margin-top: 1rem;
   margin-bottom: 2rem;

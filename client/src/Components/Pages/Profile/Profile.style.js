@@ -21,7 +21,7 @@ export const Wrapper = styled.div`
       : `calc(13.75rem - ${showTabs ? "0px" : "60px"})`};
   text-align: left;
   padding-bottom: 100px;
-  font-size: 1rem;
+  font-size: 15px;
   position: relative;
   & * {
     z-index: 1;
@@ -109,7 +109,7 @@ export const Tab = styled.div`
 `;
 
 export const TabTitle = styled.span`
-  font-size: 1rem;
+  font-size: 15px;
   margin-top: 0.25rem;
 
   font-weight: ${({ isActive }) => (isActive ? "500" : "normal")};
@@ -150,10 +150,10 @@ export const CompanyDiv = styled.div`
 
 export const CompanyTitle = styled.h2`
   font-size: 1.125rem;
-  font-weight: 500;
+  font-weight: bold;
   margin: 0;
   text-transform: capitalize;
-  color: ${({ white }) => (white ? colors.white : colors.profileFontColor)};
+  color: ${({ white }) => (white ? colors.white : colors.dustyGray4)};
   margin: 0.25rem 0;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -340,7 +340,7 @@ export const BubbleAndDate = styled.div`
 
 export const LightTitle = styled.h3`
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 15px;
   color: ${colors.profileFontColor};
   opacity: 0.5;
 `;
@@ -650,8 +650,8 @@ export const LeftInfo = styled.div`
   width: 40%;
   display: flex;
   align-items: center;
-  color: ${colors.profileFontColor};
-  font-weight: 500;
+  color: ${colors.dustyGray3};
+  font-weight: bold;
   font-size: 15px;
 `;
 

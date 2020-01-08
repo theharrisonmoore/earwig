@@ -17,7 +17,7 @@ export const StyledForm = styled(Form).attrs()`
 export const StyledFormikErrorMessage = styled(ErrorMessage).attrs()`
   color: ${colors.red};
   font-weight: 100;
-  font-size: 1rem;
+  font-size: 15px;
   text-align: left;
   margin-bottom: 0rem;
 `;
@@ -25,7 +25,7 @@ export const StyledFormikErrorMessage = styled(ErrorMessage).attrs()`
 export const GeneralErrorMessage = styled.p.attrs()`
   color: ${colors.red};
   font-weight: 100;
-  font-size: 1rem;
+  font-size: 15px;
   text-align: left;
   padding: 1rem 0;
 `;
@@ -88,7 +88,7 @@ export const Checkbox = styled(Field).attrs({
 export const CheckboxLabel = styled.label.attrs({
   className: "custom-control-label",
 })`
-  font-size: 1rem;
+  font-size: 15px;
   color: ${colors.profileFontColor};
   padding-left: 0.75rem;
   cursor: pointer;

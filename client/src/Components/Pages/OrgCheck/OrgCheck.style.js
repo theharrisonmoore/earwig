@@ -126,7 +126,7 @@ export const OrgText = styled.p`
   margin: 0;
   font-weight: ${props => (props.noOrg ? "normal" : "bold")};
   color: ${props => props.noOrg && colors.gray}
-  font-size: 1rem;
+  font-size: 15px;
 `;
 export const StyledLink = styled.div`
   cursor: pointer;

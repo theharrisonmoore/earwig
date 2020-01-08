@@ -15,8 +15,9 @@ export const QuestionWrapper = styled.div.attrs({ className: "" })`
 
 export const QText = styled.p`
   margin: 0 0 0.25rem;
-  font-weight: 900;
-  font-size: 18px;
+  font-weight: bold;
+  font-size: 15px;
+  color: ${colors.dustyGray3};
 `;
 
 export const Warning = styled.div`
@@ -27,9 +28,10 @@ export const Warning = styled.div`
 export const HintText = styled.p`
   margin: 0;
   font-style: italic;
-  font-size: 16px;
+  font-size: 15px;
   color: ${props =>
     props.voiceWarn ? colors.warningText : colors.profileFontColor};
+  font-weight: ${props => props.voiceWarn && "bold"};
 `;
 
 export const QuestionOptionsWrapper = styled.div`
@@ -81,7 +83,7 @@ export const Options = styled.div`
   .ant-checkbox-group-item {
     display: block;
     color: ${colors.profileFontColor};
-    font-size: 1rem;
+    font-size: 15px;
     margin-bottom: 0.75rem;
   }
 
@@ -124,7 +126,7 @@ export const CommentsIcon = styled.div`
 export const StyledErrorMessage = styled.div`
   color: ${colors.red};
   font-weight: 100;
-  font-size: 1rem;
+  font-size: 15px;
   text-align: left;
   margin-bottom: 0rem;
 `;

@@ -8,6 +8,7 @@ import {
   CommentIconWrapper,
 } from "../Question.style";
 import Icon from "../../../../Common/Icon/Icon";
+import { colors } from "../../../../../theme";
 
 class YesNo extends Component {
   shouldComponentUpdate(nextProps) {
@@ -73,7 +74,12 @@ class YesNo extends Component {
           </div>
           {hasComment && (
             <CommentIconWrapper type="button" onClick={toggleShowComment}>
-              <Icon icon="comment" width="27" height="27" opacity="0.5" />
+              <Icon
+                icon="comment"
+                width="27"
+                height="27"
+                color={colors.dustyGray4}
+              />
             </CommentIconWrapper>
           )}
         </Options>

@@ -193,7 +193,12 @@ class Slider extends React.Component {
                 },
               }}
             >
-              <Icon icon="flag" fill={colors.gray} width="27" height="27" />
+              <Icon
+                icon="flag"
+                color={colors.dustyGray4}
+                width="27"
+                height="27"
+              />
             </Link>
           </div>
         ) : (
