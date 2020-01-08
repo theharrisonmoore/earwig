@@ -48,6 +48,7 @@ class PopoverComponent extends React.Component {
       action,
       color,
       iconTooltip,
+      actionButtonTxt
     } = popoverOptions;
 
     return (
@@ -60,7 +61,7 @@ class PopoverComponent extends React.Component {
               onClick={action || this.hide}
               category={category}
               styleType="primary"
-              text="Okay"
+              text={actionButtonTxt || "Okay"}
               margin="1rem auto"
             />
           </PopoverDiv>

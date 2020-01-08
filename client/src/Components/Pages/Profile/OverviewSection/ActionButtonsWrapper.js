@@ -15,6 +15,7 @@ import {
 
 import PopoverComponent from "../../../Common/Popover";
 
+// renders pop up tooltip and icon
 const getTooltipText = type => {
   return (
     <>
@@ -95,6 +96,7 @@ const ActionButtonsWrapper = ({
                   width: "27",
                   height: "27",
                 },
+                actionButtonTxt: 'Get verified',
                 margin: "1rem 0 0 0",
               }}
               history={history && history}
@@ -123,6 +125,7 @@ const ActionButtonsWrapper = ({
                   width: "27",
                   height: "27",
                 },
+                actionButtonTxt: 'Get verified',
                 margin: "1rem 0 0 3rem",
               }}
               history={history && history}
