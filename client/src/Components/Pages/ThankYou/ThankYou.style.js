@@ -1,74 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { EmailShareButton, WhatsappShareButton } from "react-share";
 
-import { colors, organizations, shadows } from "../../../theme";
-
-export const EmailShare = styled(EmailShareButton)`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  background-color: ${colors.primary};
-  width: 90px;
-  box-shadow: ${shadows.buttonShadow};
-  height: 45px;
-  border-radius: 22.5px;
-  color: ${colors.white};
-  font-weight: bold;
-  font-size: 12px;
-  margin: 0 auto;
-  :hover,
-  :active,
-  :focus {
-    opacity: 0.8;
-  }
-`;
-
-export const WhatsappShare = styled(WhatsappShareButton)`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  background-color: ${colors.primary};
-  width: 90px;
-  box-shadow: ${shadows.buttonShadow};
-  height: 45px;
-  border-radius: 22.5px;
-  color: ${colors.white};
-  font-weight: bold;
-  font-size: 12px;
-  margin: 0 auto;
-  :hover,
-  :active,
-  :focus {
-    opacity: 0.8;
-  }
-`;
-
-export const FbShare = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  background-color: ${colors.primary};
-  width: 90px;
-  box-shadow: ${shadows.buttonShadow};
-  height: 45px;
-  border-radius: 22.5px;
-  color: ${colors.white};
-  font-weight: bold;
-  font-size: 12px;
-  margin: 0 auto;
-  :hover,
-  :active,
-  :focus {
-    opacity: 0.8;
-  }
-`;
+import { colors, organizations } from "../../../theme";
 
 export const ThankYouWrapper = styled.div`
   width: 100%;
@@ -124,21 +57,21 @@ export const Image = styled.img`
 `;
 
 export const Heading = styled.h1`
-  color: ${colors.profileFontColor};
-  font-size: 1.75rem;
+  color: ${colors.dustyGray1};
+  font-size: 18px;
   margin: 1.5rem 0 0.5rem 0;
   font-style: italic;
 `;
 
 export const Thanks = styled.p`
-  color: ${colors.profileFontColor};
-  font-size: 1.75rem;
+  color: ${colors.dustyGray1};
+  font-size: 18px;
   font-style: italic;
   margin-top: 1.5rem;
 `;
 
 export const Paragraph = styled.p`
-  color: ${colors.profileFontColor};
+  color: ${colors.dustyGray1};
   padding: 0 1rem;
 `;
 
@@ -150,23 +83,14 @@ export const SubHeading = styled.h2`
 `;
 
 export const List = styled.ul`
-  color: ${colors.profileFontColor};
+  color: ${colors.dustyGray1};
   padding-top: 0.5rem;
 
   & li {
+    color: ${colors.dustyGray1};
     text-align: center;
     list-style-type: none;
   }
-`;
-
-export const IconWrapper = styled.div`
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-`;
-
-export const IconImg = styled.img`
-  width: 14px;
 `;
 
 export const Icon = styled.i`
@@ -216,8 +140,9 @@ export const SquareSection = styled.section`
 `;
 
 export const PromoTitle = styled.h3`
-  font-size: 2rem;
+  font-size: 18px;
   line-height: 2.25rem;
   text-align: center;
-  color: ${colors.profileFontColor};
+  color: ${colors.dustyGray1};
+  font-weight: 500;
 `;
