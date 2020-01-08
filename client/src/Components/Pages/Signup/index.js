@@ -7,6 +7,7 @@ import { Modal, Alert, Input, Divider } from "antd";
 
 import Logo from "../../Common/Logo";
 import CancelLink from "../../Common/CancelLink";
+import Icon from "../../Common/Icon/Icon";
 
 import Select from "../../Common/Select";
 import Button from "../../Common/Button";
@@ -54,6 +55,7 @@ import {
   LOGIN_URL,
   INTRO_URL,
 } from "../../../constants/naviagationUrls";
+import { colors } from "../../../theme";
 
 const { API_TRADE_URL } = require("../../../apiUrls");
 
@@ -365,6 +367,13 @@ export default class Signup extends Component {
   getTooltipText = () => {
     return (
       <>
+        <Icon
+          icon="getVerified"
+          height="68"
+          width="68"
+          margin="0.5rem 0 1rem 0"
+          color={colors.veryLightGray}
+        />
         <p>
           earwig is free for workers. All we ask is that you get verified as a
           genuine worker. This means all reviews are credible and protects the

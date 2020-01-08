@@ -12,6 +12,7 @@ import {
   RightInfo,
   LeftInfo,
   OrgLink,
+  StarLabel,
 } from "../Profile.style";
 
 const OrganisationDetails = ({
@@ -25,6 +26,25 @@ const OrganisationDetails = ({
   contractorAnswers,
   rate,
 }) => {
+  const getRateValue = () => {
+    if (rate === 5) {
+      return { text: "Excellent", padding: "85px" };
+    }
+    if (rate >= 4 && rate < 5) {
+      return { text: "Good", padding: "68px" };
+    }
+    if (rate >= 3 && rate < 4) {
+      return { text: "Average", padding: "39px" };
+    }
+    if (rate >= 2 && rate < 3) {
+      return { text: "Poor", padding: "24px" };
+    }
+    if (rate >= 1 && rate < 2) {
+      return { text: "Bad", padding: "3px" };
+    }
+    return { text: "", padding: "0px" };
+  };
+
   return (
     <OrganisationDetailsWrapper isMobile={isMobile} isTablet={isTablet}>
       <CompanyTitle>{name}</CompanyTitle>
@@ -37,11 +57,28 @@ const OrganisationDetails = ({
             value={rate}
             style={{
               color: `${colors.stars}`,
-              fontSize: "0.75rem",
+              fontSize: "1.25rem",
               minWidth: "78px",
             }}
             className="last-reviewed-star-rate"
           />
+          <div
+            style={{
+              width: "100px",
+              display: "inline-block",
+              height: "8px",
+            }}
+          >
+            {["Bad", "Poor", "Average", "Good", "Excellent"].map(option => (
+              <StarLabel
+                key={option}
+                currValue={option === getRateValue().text}
+                padding={getRateValue().padding}
+              >
+                {option}
+              </StarLabel>
+            ))}
+          </div>
         </RightInfo>
       </InfoRow>
       {/* contractor section */}

@@ -81,7 +81,7 @@ export const STATIC_QUESTIONS = (category, history, state) => [
     number: 23,
     text: `How would you rate this ${category}`,
     type: "rate",
-    options: ["Bad", "Poor", "Average", "Great", "Excellent"],
+    options: ["Bad", "Poor", "Average", "Good", "Excellent"],
     category,
   },
   {

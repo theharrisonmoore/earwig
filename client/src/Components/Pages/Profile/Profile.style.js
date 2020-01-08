@@ -658,7 +658,21 @@ export const LeftInfo = styled.div`
 export const RightInfo = styled.div`
   width: 60%;
   display: flex;
-  align-items: center;
+  // align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+
+  // .anticon {
+  //   position: relative;
+  //   :after {
+  //     content: "hello";
+  //     position: absolute;
+  //     bottom: -0.25rem;
+  //     left: 0.075rem;
+  //     font-size: 8px;
+  //   }
+  // }
 `;
 
 export const RatingWithUserInfo = styled.div`
@@ -726,4 +740,15 @@ export const LogoWrapper = styled.div`
     margin-bottom: 0;
     font-weight: bold;
   }
+`;
+
+export const StarLabel = styled.span`
+  font-size: 8px;
+  font-weight: bold;
+  color: ${({ currValue }) => currValue && colors.stars};
+  display: ${({ currValue }) => !currValue && "none"};
+  padding: 0;
+  padding-left: ${({ padding }) => padding};
+  position: absolute;
+  bottom: 0rem;
 `;
