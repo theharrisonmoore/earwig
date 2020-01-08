@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { colors } from "../../../theme";
 
 export const InviteWrapper = styled.div`
-  padding-top: 3rem;
   max-width: 20rem;
   margin: 0 auto;
   padding-bottom: 100px;

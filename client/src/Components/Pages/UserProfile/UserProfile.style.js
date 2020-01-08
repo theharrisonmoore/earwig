@@ -6,7 +6,7 @@ import {
   shadows,
   borders,
   organizations,
-  breakpoints,
+  breakpoints
 } from "../../../theme";
 
 export const Wrapper = styled.div`
@@ -15,6 +15,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   font-size: 15px;
   min-height: 100vh;
+  padding-top: ${({ paddingTop }) => paddingTop};
 
   @media ${breakpoints.laptop} {
     margin: 0 16rem;
