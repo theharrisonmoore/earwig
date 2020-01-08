@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 import { Popover } from "antd";
 
 import Button from "../Button";
@@ -10,12 +12,12 @@ import { PopoverDiv, PopoverText } from "./Popover.style";
 
 class PopoverComponent extends React.Component {
   state = {
-    popoverVisible: false,
+    popoverVisible: false
   };
 
   hide = () => {
     this.setState({
-      popoverVisible: false,
+      popoverVisible: false
     });
   };
 
@@ -48,7 +50,8 @@ class PopoverComponent extends React.Component {
       action,
       color,
       iconTooltip,
-      actionButtonTxt
+      actionButtonTxt,
+      linkButtonOptions
     } = popoverOptions;
 
     return (
@@ -57,13 +60,30 @@ class PopoverComponent extends React.Component {
         content={
           <PopoverDiv>
             <PopoverText>{text}</PopoverText>
-            <Button
-              onClick={action || this.hide}
-              category={category}
-              styleType="primary"
-              text={actionButtonTxt || "Okay"}
-              margin="1rem auto"
-            />
+            {linkButtonOptions ? (
+              <Link
+                to={{
+                  pathname: linkButtonOptions.pathname,
+                  state: linkButtonOptions.state
+                }}
+              >
+                <Button
+                  onClick={action || this.hide}
+                  category={category}
+                  styleType="primary"
+                  text={actionButtonTxt || "Okay"}
+                  margin="1rem auto"
+                ></Button>
+              </Link>
+            ) : (
+              <Button
+                onClick={action || this.hide}
+                category={category}
+                styleType="primary"
+                text={actionButtonTxt || "Okay"}
+                margin="1rem auto"
+              />
+            )}
           </PopoverDiv>
         }
         trigger="click"

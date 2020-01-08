@@ -14,13 +14,14 @@ import {
   PurpleDiv,
   BlueDiv,
   Title,
-  LogoWrapper,
+  LogoWrapper
 } from "./Intro.style";
 
 import Button from "../../Common/Button";
 
 export default class Intro extends Component {
   render() {
+    console.log("propppps", this.props);
     return (
       <IntroWrapper>
         <VideoContainer>
