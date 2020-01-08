@@ -9,6 +9,13 @@ const Wrapper = styled.div`
   .ant-collapse-borderless > .ant-collapse-item {
     border-bottom: none;
   }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    padding: 0.5rem 0 0 1.625rem !important;
+  }
+
+  .ant-collapse-content > .ant-collapse-content-box {
+    padding: 0.5rem 0 0 1.625rem !important;
+  }
 `;
 
 const { Panel } = Collapse;
