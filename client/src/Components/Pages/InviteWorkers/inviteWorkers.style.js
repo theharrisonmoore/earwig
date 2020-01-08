@@ -14,11 +14,12 @@ export const Head3 = styled.h3`
   font-weight: bold;
   color: ${colors.dustyGray4};
   text-align: center;
+  margin-bottom: 1.5rem;
 `;
 
 export const PromoParagraph = styled.p`
   font-size: 15px;
-  margin: 2rem 0;
+  margin: 1rem 0;
   color: ${colors.profileFontColor};
 `;
 
