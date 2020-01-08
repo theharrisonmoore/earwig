@@ -17,8 +17,8 @@ export const Wrapper = styled.div`
   flex-direction: column;
   padding-top: ${({ showTabs, isMobile }) =>
     isMobile
-      ? `calc(13.25rem - ${showTabs ? "0px" : "60px"})`
-      : `calc(13.25rem - ${showTabs ? "0px" : "60px"})`};
+      ? `calc(13.75rem - ${showTabs ? "0px" : "60px"})`
+      : `calc(13.75rem - ${showTabs ? "0px" : "60px"})`};
   text-align: left;
   padding-bottom: 100px;
   font-size: 1rem;
@@ -229,13 +229,14 @@ export const ActionButtonsDiv = styled.div`
   flex-direction: row;
   justify-content: center;
   padding-top: 0.75rem;
+  padding-bottom: 0.25rem;
   background-color: ${colors.white};
   width: 100%;
   border-bottom: 1px solid ${colors.dustyGray2};
-
-  @media ${breakpoints.mobileL} {
-    justify-content: center;
-  }
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: ${({ zIndex }) => zIndex || "2"} !important;
+  top: 4.5rem;
 `;
 
 const dividerHieght = 14;
@@ -631,6 +632,7 @@ export const OrganisationDetailsWrapper = styled(ReviewDiv)`
   position: relative;
   padding-top: calc(${dividerHieght}px + 1rem);
   padding-bottom: 1.25rem !important;
+  z-index: 99;
 
   ${dividerStyle}
 `;

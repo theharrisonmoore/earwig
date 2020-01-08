@@ -114,6 +114,7 @@ export default class HeaderSection extends Component {
             tabOne="overview"
             tabTwo="detailed"
             zIndex="2"
+            fixedHeight="4.5rem"
           />
         )}
         {level > 0 ? (
