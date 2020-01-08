@@ -55,7 +55,8 @@ export default ({
   isLiked,
   isLikedByUser,
   showRate,
-  panelKey
+  panelKey,
+  verificationPhoto
 }) => {
   const overallParams = {
     target,
@@ -103,6 +104,7 @@ export default ({
       {/*  BUTTONS SECTION */}
       <ActionButtonsWrapper
         // _id
+        verificationPhoto={verificationPhoto}
         loggedinUserID={userId}
         ownerID={ownerId}
         onClickHelpful={level >= 1 ? toggleHelpful : undefined}

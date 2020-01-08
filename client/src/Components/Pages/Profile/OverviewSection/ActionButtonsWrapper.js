@@ -58,8 +58,13 @@ const ActionButtonsWrapper = ({
   // liked now by user, for animation
   isLikedByUser,
   reportLink,
-  target
+  target,
+  verificationPhoto
 }) => {
+  console.log("level", level);
+  console.log("forooo", verificationPhoto);
+  console.log("loggedIn", loggedinUserID);
+  console.log("owner", ownerID);
   return (
     <ActionsDiv>
       <ButtonsWrapper>
@@ -153,12 +158,14 @@ const ActionButtonsWrapper = ({
       {/* FLAG ICON */}
       {/* report overall/voice review */}
       {level >= 1 ? (
+        // if user is signed up they can report content
         <ReportFlag
           style={{ right: 0, width: "10%" }}
           to={reportLink}
           disabled={level < 1}
         />
       ) : (
+        // if not registered they see popover
         <PopoverComponent
           popoverOptions={{
             text: getTooltipText("report"),
