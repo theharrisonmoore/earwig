@@ -6,10 +6,7 @@ import Icon from "../../../Common/Icon/Icon";
 
 import { colors } from "../../../../theme";
 
-import {
-  SIGNUP_URL,
-  UPLOAD_VERIFICATION_PHOTO
-} from "../../../../constants/naviagationUrls";
+import { SIGNUP_URL } from "../../../../constants/naviagationUrls";
 
 import {
   ActionsDiv,
@@ -20,8 +17,8 @@ import {
 
 import PopoverComponent from "../../../Common/Popover";
 
-// renders pop up tooltip and icon
-const getTooltipText = type => {
+// renders pop up tooltip content
+const getTooltipContent = type => {
   return (
     <div
       style={{
@@ -99,14 +96,14 @@ const ActionButtonsWrapper = ({
         return (
           <PopoverComponent
             popoverOptions={{
-              text: getTooltipText("info"),
+              text: getTooltipContent("info"),
               iconTooltip: {
                 icon: "like",
                 fill: colors.gray,
                 width: "27",
                 height: "27"
               },
-
+              closeButton: true,
               margin: "1rem 0 0 0"
             }}
           />
@@ -116,7 +113,7 @@ const ActionButtonsWrapper = ({
         return (
           <PopoverComponent
             popoverOptions={{
-              text: getTooltipText("like"),
+              text: getTooltipContent("like"),
               iconTooltip: {
                 icon: "like",
                 fill: colors.gray,
@@ -132,6 +129,7 @@ const ActionButtonsWrapper = ({
                   redirectToProfile: true
                 }
               },
+              closeButton: true,
               margin: "1rem 0 0 0"
             }}
           />
@@ -161,14 +159,14 @@ const ActionButtonsWrapper = ({
         return (
           <PopoverComponent
             popoverOptions={{
-              text: getTooltipText("info"),
+              text: getTooltipContent("info"),
               iconTooltip: {
                 icon: "comment",
                 fill: colors.gray,
                 width: "27",
                 height: "27"
               },
-
+              closeButton: true,
               margin: "1rem 0 0 3rem"
             }}
           />
@@ -178,7 +176,7 @@ const ActionButtonsWrapper = ({
         return (
           <PopoverComponent
             popoverOptions={{
-              text: getTooltipText("comment"),
+              text: getTooltipContent("comment"),
               iconTooltip: {
                 icon: "comment",
                 fill: colors.gray,
@@ -194,6 +192,7 @@ const ActionButtonsWrapper = ({
                   redirectToProfile: true
                 }
               },
+              closeButton: true,
               margin: "1rem 0 0 3rem"
             }}
           />
@@ -220,7 +219,7 @@ const ActionButtonsWrapper = ({
         // if not registered they see popover with sign up prompt
         <PopoverComponent
           popoverOptions={{
-            text: getTooltipText("flag"),
+            text: getTooltipContent("flag"),
             iconTooltip: {
               icon: "flag",
               fill: colors.gray,
@@ -236,6 +235,7 @@ const ActionButtonsWrapper = ({
                 redirectToProfile: true
               }
             },
+            closeButton: true,
             margin: "1rem 0 0 3rem"
           }}
         />

@@ -8,7 +8,8 @@ import Button from "../Button";
 
 import Icon from "../Icon/Icon";
 
-import { PopoverDiv, PopoverText } from "./Popover.style";
+import { PopoverDiv } from "./Popover.style";
+import { colors } from "../../../theme";
 
 class PopoverComponent extends React.Component {
   state = {
@@ -51,7 +52,8 @@ class PopoverComponent extends React.Component {
       color,
       iconTooltip,
       actionButtonTxt,
-      linkButtonOptions
+      linkButtonOptions,
+      closeButton
     } = popoverOptions;
 
     return (
@@ -59,6 +61,19 @@ class PopoverComponent extends React.Component {
         placement="top"
         content={
           <PopoverDiv>
+            {/* x button to close */}
+            {closeButton && (
+              <Button
+                margin="-1rem -3rem 0 auto"
+                style={{
+                  border: "none",
+                  color: colors.primary
+                }}
+                icon="close"
+                onClick={this.hide}
+              />
+            )}
+
             {text}
             {/* uses link */}
             {linkButtonOptions ? (
