@@ -8,30 +8,42 @@
 
 const boom = require("boom");
 
-const { createComment } = require("./../database/queries/comments");
+const { createComment, getCommentById } = require("./../database/queries/comments");
+const { getUserById } = require("./../database/queries/user");
 
-module.exports = (req, res, next) => {
-  const {
-    text, displayName, question, organization, parentCommentId, reviewId,
-  } = req.body;
+const sendEmail = require("./../helpers/emails");
 
-  const { user } = req;
-  const data = {
-    text,
-    question,
-    organization,
-    user: user._id,
-    parentComment: parentCommentId,
-    review: reviewId,
-  };
+module.exports = async (req, res, next) => {
+  try {
+    const {
+      text, displayName, question, organization, parentCommentId, reviewId,
+    } = req.body;
 
-  if (user.isAdmin) {
-    data.displayName = displayName;
+    const { user } = req;
+    const data = {
+      text,
+      question,
+      organization,
+      user: user._id,
+      parentComment: parentCommentId,
+      review: reviewId,
+    };
+
+    if (user.isAdmin) {
+      data.displayName = displayName;
+    }
+
+    await createComment(data);
+
+    // get parent comment user
+    const parentComment = await getCommentById(parentCommentId);
+    const { email } = await getUserById(parentComment.user);
+
+
+    await sendEmail.gotReplies({ orgId: organization, recipientEmail: email });
+
+    res.json({});
+  } catch (error) {
+    next(boom.badImplementation(error));
   }
-
-
-  createComment(data)
-    .then(() => {
-      res.json({});
-    }).catch(e => next(boom.badImplementation(e)));
 };
