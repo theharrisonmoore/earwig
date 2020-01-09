@@ -59,7 +59,8 @@ class PopoverComponent extends React.Component {
         placement="top"
         content={
           <PopoverDiv>
-            <PopoverText>{text}</PopoverText>
+            {text}
+            {/* uses link */}
             {linkButtonOptions ? (
               <Link
                 to={{
@@ -76,6 +77,7 @@ class PopoverComponent extends React.Component {
                 ></Button>
               </Link>
             ) : (
+              // otherwise just a button
               <Button
                 onClick={action || this.hide}
                 category={category}
@@ -90,6 +92,7 @@ class PopoverComponent extends React.Component {
         visible={this.state.popoverVisible}
         onVisibleChange={this.handleVisibleChange}
       >
+        {/* renders popover styled as icon */}
         {iconTooltip && (
           <Icon
             icon={iconTooltip.icon}
@@ -100,7 +103,7 @@ class PopoverComponent extends React.Component {
             cursor="pointer"
           />
         )}
-
+        {/* renders popover styled as link */}
         {linkText ? (
           <Button
             styleType="link"
@@ -110,7 +113,7 @@ class PopoverComponent extends React.Component {
             color={color}
           />
         ) : (
-          <p>{this.props.children}</p>
+          <>{this.props.children}</>
         )}
         {}
       </Popover>

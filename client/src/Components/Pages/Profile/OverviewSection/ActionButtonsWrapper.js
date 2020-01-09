@@ -23,7 +23,14 @@ import PopoverComponent from "../../../Common/Popover";
 // renders pop up tooltip and icon
 const getTooltipText = type => {
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center"
+      }}
+    >
       <Icon
         icon={type}
         height="50"
@@ -35,12 +42,12 @@ const getTooltipText = type => {
         "If you want to give workers points by liking their reviews, you first need to get verified as a worker. This protects the worker community from fake reviews and spam by non-workers."}
       {type === "comment" &&
         "If you want to post replies to workers, you first need to get verified as a worker. This protects the worker community from fake reviews and spam by non-workers."}
-      {type === "report" &&
+      {type === "flag" &&
         "If you want to report content, you first need to sign up using a valid email address so we can get back to you."}
 
       {type === "info" &&
         "Hang on! You can’t do this until we’ve checked your photo. Give us a few minutes. You might need to refresh your page."}
-    </>
+    </div>
   );
 };
 
@@ -62,7 +69,7 @@ const ActionButtonsWrapper = ({
   reportLink,
   target
 }) => {
-  console.log("loggedInUser", loggedinUserID);
+  // decides what like functions to render
   function renderLikeIcon(level) {
     switch (level) {
       // user is verified and can like
@@ -132,6 +139,7 @@ const ActionButtonsWrapper = ({
     }
   }
 
+  // decides what comment function to render
   function renderCommentButton(level) {
     switch (level) {
       // user is verified and can comment
@@ -212,7 +220,7 @@ const ActionButtonsWrapper = ({
         // if not registered they see popover with sign up prompt
         <PopoverComponent
           popoverOptions={{
-            text: getTooltipText("report"),
+            text: getTooltipText("flag"),
             iconTooltip: {
               icon: "flag",
               fill: colors.gray,
