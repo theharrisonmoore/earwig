@@ -39,7 +39,7 @@ const getTooltipText = type => {
       {type === "report" &&
         "If you want to report content, you first need to sign up using a valid email address so we can get back to you."}
 
-      {type === "awaitingVerification" &&
+      {type === "info" &&
         "Hang on! You can’t do this until we’ve checked your photo. Give us a few minutes. You might need to refresh your page."}
     </>
   );
@@ -65,10 +65,9 @@ const ActionButtonsWrapper = ({
 }) => {
   //  takes user level and photo and decides what form of like functionality to render
 
-  const renderLikeIcon = level => {
-    console.log("levellll", level);
+  function renderLikeIcon(level) {
     switch (level) {
-      // user is verified and can use like button
+      // user is verified and can like
       case 3 || 4:
         return (
           <LikeWrapper
@@ -96,7 +95,7 @@ const ActionButtonsWrapper = ({
         return (
           <PopoverComponent
             popoverOptions={{
-              text: getTooltipText("awaitingVerification"),
+              text: getTooltipText("info"),
               iconTooltip: {
                 icon: "like",
                 fill: colors.gray,
@@ -122,7 +121,7 @@ const ActionButtonsWrapper = ({
               },
               actionButtonTxt: "Get verified",
               linkButtonOptions: {
-                pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
+                pathname: SIGNUP_URL,
                 state: {
                   category,
                   orgId,
@@ -134,53 +133,80 @@ const ActionButtonsWrapper = ({
           />
         );
     }
-  };
+  }
 
-  return (
-    <ActionsDiv>
-      <ButtonsWrapper>
-        {ownerID !== loggedinUserID && renderLikeIcon(level)
-        // LIKE FUNCTIONS
-        }
+  function renderCommentButton(level) {
+    switch (level) {
+      // user is verified and can comment
+      case 3 || 4:
+        return (
+          <CommentIconWrapper
+            onClick={level >= 2 ? goTOReply : undefined}
+            data-target={target}
+            data-category={category}
+            data-org-id={orgId}
+            data-review-id={reviewId}
+            disabled={level < 2}
+          >
+            <Icon icon="comment" fill={colors.gray} width="27" height="27" />
+          </CommentIconWrapper>
+        );
 
-        {adminReplied !== true &&
-          // COMMENT FUNCTIONS
-          // verified users can comment
-          (level >= 3 ? (
-            <CommentIconWrapper
-              onClick={level >= 2 ? goTOReply : undefined}
-              data-target={target}
-              data-category={category}
-              data-org-id={orgId}
-              data-review-id={reviewId}
-              disabled={level < 2}
-            >
-              <Icon icon="comment" fill={colors.gray} width="27" height="27" />
-            </CommentIconWrapper>
-          ) : (
-            // non verified users see popover
+      // user awaits verification --> sees hold on popup
+      case 2:
+        return (
+          <div style={{ marginLeft: "2rem" }}>
             <PopoverComponent
               popoverOptions={{
-                text: getTooltipText("comment"),
+                text: getTooltipText("info"),
                 iconTooltip: {
                   icon: "comment",
                   fill: colors.gray,
                   width: "27",
                   height: "27"
                 },
-                actionButtonTxt: "Get verified",
-                linkButtonOptions: {
-                  pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
-                  state: {
-                    category,
-                    orgId,
-                    redirectToProfile: true
-                  }
-                },
-                margin: "1rem 0 0 3rem"
+
+                margin: "1rem 0 0 0"
               }}
             />
-          ))}
+          </div>
+        );
+      // user has not undergone verification process --> sees get verified popover
+      default:
+        return (
+          <PopoverComponent
+            popoverOptions={{
+              text: getTooltipText("comment"),
+              iconTooltip: {
+                icon: "comment",
+                fill: colors.gray,
+                width: "27",
+                height: "27"
+              },
+              actionButtonTxt: "Get verified",
+              linkButtonOptions: {
+                pathname: SIGNUP_URL,
+                state: {
+                  category,
+                  orgId,
+                  redirectToProfile: true
+                }
+              },
+              margin: "1rem 0 0 3rem"
+            }}
+          />
+        );
+    }
+  }
+
+  return (
+    <ActionsDiv>
+      <ButtonsWrapper>
+        {/* LIKE FUNCTIONS */}
+        {ownerID !== loggedinUserID && renderLikeIcon(level)}
+
+        {/* COMMENT FUNCTIONS */}
+        {adminReplied !== true && renderCommentButton(level)}
       </ButtonsWrapper>
 
       {/* FLAG ICON */}
