@@ -127,7 +127,12 @@ export default class Menu extends PureComponent {
             )} */}
             {level >= 3 && (
               <MenuItem to={INVITE_WORKERS_URL} onClick={toggleMenu}>
-                <PriorityIcon icon="win" height="19" width="19" />
+                <PriorityIcon
+                  icon="win"
+                  height="19"
+                  width="19"
+                  fill={colors.primary}
+                />
                 Build your network
               </MenuItem>
             )}
