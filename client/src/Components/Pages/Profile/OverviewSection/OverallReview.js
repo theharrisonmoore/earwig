@@ -14,7 +14,6 @@ import {
 
 import { organizations } from "../../../../theme";
 import { REPLY_URL } from "../../../../constants/naviagationUrls";
-import { authorization } from "../../../../helpers";
 
 import { LightTitle, ReviewDiv } from "../Profile.style";
 
