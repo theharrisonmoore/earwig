@@ -65,7 +65,8 @@ export default class UploadImage extends Component {
     } else if (this.props.awaitingReview) {
       Swal.fire({
         type: "warning",
-        title: "We are currently verifying your account",
+        title:
+          "No need! We're currently checking your photo. Give us a few minutes",
         text: "Please come back soon!",
       }).then(() => {
         this.props.history.goBack();
@@ -235,7 +236,7 @@ export default class UploadImage extends Component {
           height="25"
           width="25"
           margin="0 0.5rem 0 0"
-          fill={colors.profileFontColor}
+          color={colors.dustyGray4}
         />
         <p>
           earwig is free for workers. All we ask is that you get verified as a
@@ -388,7 +389,7 @@ export default class UploadImage extends Component {
               margin="1rem auto"
               styleType="secondary"
               text="Upload photo"
-              width="160px"
+              width="180px"
             />
             <ImageInput
               id="image-input"

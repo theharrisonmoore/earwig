@@ -25,6 +25,7 @@ import Fingerprint from "./Fingerprint";
 import Gasmask from "./Gasmask";
 import GetVerified from "./GetVerified";
 import Hamburger from "./Hamburger";
+import Helped from "./Helped";
 import HelpfulLinks from "./HelpfulLinks";
 import HelpingHand from "./HelpingHand";
 import Home from "./Home";
@@ -55,6 +56,7 @@ import PrivacyTerms from "./PrivacyTerms";
 import RaiseHand from "./RaiseHand";
 import Recent from "./Recent";
 import ReportFlag from "./ReportFlag";
+import Rewards from "./Rewards";
 import Search from "./Search";
 import ShapeEarwig from "./ShapeEarwig";
 import StarComment from "./StarComment";
@@ -140,6 +142,7 @@ const iconMap = {
   hamburger: Hamburger,
   home: Home,
   hotFood: HotFood,
+  helped: Helped,
   helpfulLinks: HelpfulLinks,
   helpingHand: HelpingHand,
   info: Info,
@@ -168,6 +171,7 @@ const iconMap = {
   raiseHand: RaiseHand,
   recent: Recent,
   reportFlag: ReportFlag,
+  rewards: Rewards,
   search: Search,
   shapeEarwig: ShapeEarwig,
   starComment: StarComment,

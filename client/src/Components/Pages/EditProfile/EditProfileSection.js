@@ -237,7 +237,7 @@ export default class EditProfileSection extends Component {
       if (!value) {
         errors[name] = "Required";
       } else if (value.length < 6 || value.length > 15) {
-        errors[name] = "Username must be between 6 and 15 characters long";
+        errors[name] = "Display name must be between 6 and 15 characters long";
       }
     }
 
@@ -312,12 +312,14 @@ export default class EditProfileSection extends Component {
                   use your real name or any name that could identify you
                 </SubTitle>
                 <Paragraph>
-                  Your username is shown beside your reviews and activity, and
-                  is publicly visible
+                  Your display name is shown beside your reviews and activity,
+                  and is publicly visible
                 </Paragraph>
-                <CurrentValue>Current username: {userId}</CurrentValue>
+                <CurrentValue>Current display name: {userId}</CurrentValue>
                 <InputDiv>
-                  <InputLabel htmlFor="newUsername">New username</InputLabel>
+                  <InputLabel htmlFor="newUsername">
+                    New display name
+                  </InputLabel>
                   <Input
                     type="text"
                     name="newUsername"

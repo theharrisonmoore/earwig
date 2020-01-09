@@ -14,6 +14,7 @@ export const TabsDivFullWidth = styled.div`
   background-color: ${colors.white};
   z-index: ${({ zIndex }) => zIndex || "2"} !important;
   margin: 0;
+  height: ${({ fixedHeight }) => fixedHeight};
 `;
 
 export const TabsDiv = styled.div`
@@ -41,7 +42,7 @@ export const Tab = styled.div`
 `;
 
 export const TabTitle = styled.span`
-  font-size: 1rem;
+  font-size: 15px;
   margin-top: 0.25rem;
   text-transform: capitalize;
 
@@ -62,9 +63,16 @@ export const Underline = styled.div`
   transition: 400ms all;
 `;
 
-const GeneralTabs = ({ setActiveTab, activeTab, tabOne, tabTwo, zIndex }) => {
+const GeneralTabs = ({
+  setActiveTab,
+  activeTab,
+  tabOne,
+  tabTwo,
+  zIndex,
+  fixedHeight
+}) => {
   return (
-    <TabsDivFullWidth zIndex={zIndex}>
+    <TabsDivFullWidth zIndex={zIndex} fixedHeight={fixedHeight}>
       <TabsDiv onClick={setActiveTab}>
         <Tab isActive={activeTab === tabOne} data-tab={tabOne}>
           <Icon icon={tabOne} width="19" height="19" />

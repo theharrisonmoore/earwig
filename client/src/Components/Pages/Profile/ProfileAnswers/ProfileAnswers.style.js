@@ -25,6 +25,7 @@ export const YesNoWrapper = styled.div`
 export const Row = styled.div`
   display: flex;
   min-width: 240px;
+  padding-left: 0.25rem;
 
   @media ${breakpoints.tablet} {
     min-width: 400px;
@@ -126,7 +127,7 @@ export const ListItem = styled.p`
       : colors.profileFontColor};
 
   font-weight: ${generalFontWeight};
-  font-size: 1rem;
+  font-size: 15px;
   /* width: "100%"; */
   line-height: 2rem;
 `;
@@ -148,7 +149,7 @@ export const PayrollListRow = styled.div`
     props.color === "default"
       ? `${colors.profileFontColor}`
       : `${organizations[props.color].primary}`};
-  font-size: 1rem;
+  font-size: 15px;
   display: flex;
 `;
 
@@ -162,6 +163,7 @@ export const PayrollFee = styled.p`
   width: 50%;
   margin: 0;
   margin-right: auto;
+  font-size: 15px;
 `;
 
 export const Wrapper = styled.div`
@@ -226,7 +228,7 @@ export const IndividComment = styled.div`
 
 export const UserID = styled.h3`
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 15px;
   color: ${colors.profileFontColor};
 `;
 

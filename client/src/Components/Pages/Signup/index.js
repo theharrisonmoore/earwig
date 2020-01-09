@@ -1,12 +1,13 @@
 // Render Prop
 import React, { Component } from "react";
-import { Prompt } from "react-router-dom";
+import { Prompt, Link as ReactLink } from "react-router-dom";
 import axios from "axios";
 import * as Yup from "yup";
 import { Modal, Alert, Input, Divider } from "antd";
 
 import Logo from "../../Common/Logo";
 import CancelLink from "../../Common/CancelLink";
+import Icon from "../../Common/Icon/Icon";
 
 import Select from "../../Common/Select";
 import Button from "../../Common/Button";
@@ -54,6 +55,7 @@ import {
   LOGIN_URL,
   INTRO_URL,
 } from "../../../constants/naviagationUrls";
+import { colors } from "../../../theme";
 
 const { API_TRADE_URL } = require("../../../apiUrls");
 
@@ -94,7 +96,7 @@ const signupSchema = Yup.object().shape({
       otherwise: Yup.string()
         .required("You must select an organisation type")
         .oneOf(
-          ["agency", "payroll", "company", "mainContractor", "other"],
+          ["agency", "payroll", "company", "mainCompany", "other"],
           "Must select organisation"
         ),
     })
@@ -365,6 +367,13 @@ export default class Signup extends Component {
   getTooltipText = () => {
     return (
       <>
+        <Icon
+          icon="getVerified"
+          height="68"
+          width="68"
+          margin="0.5rem 0 1rem 0"
+          color={colors.profileFontColor}
+        />
         <p>
           earwig is free for workers. All we ask is that you get verified as a
           genuine worker. This means all reviews are credible and protects the
@@ -461,7 +470,9 @@ export default class Signup extends Component {
           >
             Already signed up? <span>Log in</span>
           </LogIn>
-          <Logo />
+          <ReactLink to={HOME_PAGE}>
+            <Logo />
+          </ReactLink>
           <Formik
             initialValues={initialValues}
             validationSchema={signupSchema}
@@ -583,13 +594,13 @@ export default class Signup extends Component {
                           component={RadioButton}
                           name="orgType"
                           orgType
-                          id="mainContractor"
-                          label="Main contractor"
+                          id="mainCompany"
+                          label="Main company"
                           onChange={e => {
-                            this.handleOrgType("mainContractor");
+                            this.handleOrgType("mainCompany");
                             handleChange(e);
                           }}
-                          option="mainContractor"
+                          option="mainCompany"
                         />
                         <Field
                           component={RadioButton}

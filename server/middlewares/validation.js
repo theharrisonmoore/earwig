@@ -36,7 +36,7 @@ const schemas = {
       is: "no",
       then: Joi.string()
         .valid(
-          ["agency", "payroll", "company", "mainContractor", "other"],
+          ["agency", "payroll", "company", "mainCompany", "other"],
           "invalid organisation type",
         )
         .required(),

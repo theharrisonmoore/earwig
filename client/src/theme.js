@@ -106,7 +106,7 @@ export const colors = {
   green: colorCodes.malachite,
   headingUnderline: colorCodes.gray,
   sectionBorder: colorCodes.mischkaa,
-  profileFontColor: colorCodes.tundora,
+  profileFontColor: colorCodes.dustyGray3,
   inputBorder: colorCodes.dustyGray1,
   purpleLinks: colorCodes.heliotrope,
   lightGray: colorCodes.dustyGray2,
@@ -143,6 +143,7 @@ export const borders = {
   buttonBox: `1px solid ${colors.black}`,
   commentBox: `1px solid ${colors.veryLightGray}`,
   recording: `1px solid ${colors.red}`,
+  section: `1px solid ${colors.sectionBorder}`,
 };
 
 export const pieColors = {
