@@ -17,11 +17,11 @@ export const Wrapper = styled.div`
   flex-direction: column;
   padding-top: ${({ showTabs, isMobile }) =>
     isMobile
-      ? `calc(13.25rem - ${showTabs ? "0px" : "60px"})`
-      : `calc(13.25rem - ${showTabs ? "0px" : "60px"})`};
+      ? `calc(13.75rem - ${showTabs ? "0px" : "60px"})`
+      : `calc(13.75rem - ${showTabs ? "0px" : "60px"})`};
   text-align: left;
   padding-bottom: 100px;
-  font-size: 1rem;
+  font-size: 15px;
   position: relative;
   & * {
     z-index: 1;
@@ -110,7 +110,7 @@ export const Tab = styled.div`
 `;
 
 export const TabTitle = styled.span`
-  font-size: 1rem;
+  font-size: 15px;
   margin-top: 0.25rem;
 
   font-weight: ${({ isActive }) => (isActive ? "500" : "normal")};
@@ -151,10 +151,10 @@ export const CompanyDiv = styled.div`
 
 export const CompanyTitle = styled.h2`
   font-size: 1.125rem;
-  font-weight: 500;
+  font-weight: bold;
   margin: 0;
   text-transform: capitalize;
-  color: ${({ white }) => (white ? colors.white : colors.profileFontColor)};
+  color: ${({ white }) => (white ? colors.white : colors.dustyGray4)};
   margin: 0.25rem 0;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -230,13 +230,14 @@ export const ActionButtonsDiv = styled.div`
   flex-direction: row;
   justify-content: center;
   padding-top: 0.75rem;
+  padding-bottom: 0.25rem;
   background-color: ${colors.white};
   width: 100%;
   border-bottom: 1px solid ${colors.dustyGray2};
-
-  @media ${breakpoints.mobileL} {
-    justify-content: center;
-  }
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: ${({ zIndex }) => zIndex || "2"} !important;
+  top: 4.5rem;
 `;
 
 const dividerHieght = 14;
@@ -306,7 +307,6 @@ export const CompanyNameAndStars = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
   padding: 0 4.5%;
   height: 5rem;
 `;
@@ -341,7 +341,7 @@ export const BubbleAndDate = styled.div`
 
 export const LightTitle = styled.h3`
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 15px;
   color: ${colors.profileFontColor};
   opacity: 0.5;
 `;
@@ -633,6 +633,7 @@ export const OrganisationDetailsWrapper = styled(ReviewDiv)`
   position: relative;
   padding-top: calc(${dividerHieght}px + 1rem);
   padding-bottom: 1.25rem !important;
+  z-index: 99;
 
   ${dividerStyle}
 `;
@@ -650,15 +651,29 @@ export const LeftInfo = styled.div`
   width: 40%;
   display: flex;
   align-items: center;
-  color: ${colors.profileFontColor};
-  font-weight: 500;
+  color: ${colors.dustyGray3};
+  font-weight: bold;
   font-size: 15px;
 `;
 
 export const RightInfo = styled.div`
   width: 60%;
   display: flex;
-  align-items: center;
+  // align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+
+  // .anticon {
+  //   position: relative;
+  //   :after {
+  //     content: "hello";
+  //     position: absolute;
+  //     bottom: -0.25rem;
+  //     left: 0.075rem;
+  //     font-size: 8px;
+  //   }
+  // }
 `;
 
 export const RatingWithUserInfo = styled.div`
@@ -708,4 +723,33 @@ export const LikeWrapper = styled(IconsWrapper)`
 
 export const CommentIconWrapper = styled(IconsWrapper)`
   margin: 0.75rem 1rem 0.75rem 1.5rem;
+`;
+
+export const LogoWrapper = styled.div`
+  border-radius: 50%;
+  width: 2.25rem;
+  height: 2.25rem;
+  background-color: ${colors.white};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+
+  p {
+    font-size: 10px;
+    color: ${props => props.orgColor || colors.heliotrope};
+    margin-bottom: 0;
+    font-weight: bold;
+  }
+`;
+
+export const StarLabel = styled.span`
+  font-size: 8px;
+  font-weight: bold;
+  color: ${({ currValue }) => currValue && colors.stars};
+  display: ${({ currValue }) => !currValue && "none"};
+  padding: 0;
+  padding-left: ${({ padding }) => padding};
+  position: absolute;
+  bottom: 0rem;
 `;

@@ -73,7 +73,7 @@ export const MenuItem = styled(NavLink)`
 export const PriorityMenuItem = styled(MenuItem)`
   border: none;
   padding: 1.3rem;
-  font-size: 1rem;
+  font-size: 15px;
   margin-bottom: 1px;
   color: ${colors.white};
   background-color: ${colors.heliotrope};

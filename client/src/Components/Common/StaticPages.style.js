@@ -141,7 +141,7 @@ export const SectionHeading = styled(TopSubTitle)`
 `;
 
 export const SmallParagraph = styled.p`
-  font-size: 1rem;
+  font-size: 15px;
   margin-bottom: 2rem;
   color: ${colors.profileFontColor};
   text-align: ${({ center }) => (center ? "center" : "left")};
@@ -151,7 +151,7 @@ export const SmallParagraph = styled.p`
 `;
 
 export const StyledOl = styled.ol`
-  font-size: 1rem;
+  font-size: 15px;
   margin-bottom: 2rem;
   color: ${colors.profileFontColor};
   text-align: ${({ center }) => (center ? "center" : "left")};
@@ -162,7 +162,7 @@ export const StyledOl = styled.ol`
 `;
 
 export const BoldLink = styled(Link)`
-  font-size: 1rem;
+  font-size: 15px;
 
   color: ${colors.primary};
   text-align: left;

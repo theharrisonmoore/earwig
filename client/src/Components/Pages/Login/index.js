@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link as ReactLink } from "react-router-dom";
 import * as Yup from "yup";
 import axios from "axios";
 import { Alert } from "antd";
@@ -95,7 +96,9 @@ export default class Login extends Component {
 
     return (
       <LoginWrapper>
-        <Logo />
+        <ReactLink to={HOME_PAGE}>
+          <Logo />
+        </ReactLink>
         <Formik
           initialValues={initalValues}
           validationSchema={loginSchema}

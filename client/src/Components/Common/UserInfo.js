@@ -5,16 +5,18 @@ import Icon from "./Icon/Icon";
 
 import { colors } from "../../theme";
 
-const UserInfoWrapper = styled.div`
-  margin-left: 0.625rem;
+const UserWrapper = styled.div`
+  display: flex;
 `;
+
+const UserInfoWrapper = styled.div``;
 
 const UserAdditionalDetails = styled.div`
   margin-top: -10px;
 
   p {
     font-size: 0.75rem;
-    color: ${colors.dustyGray2};
+    color: ${colors.profileFontColor};
   }
 `;
 
@@ -50,14 +52,14 @@ const UserInfo = ({
   showVerifiedIcon,
 }) => {
   return (
-    <>
+    <UserWrapper>
       {showVerifiedIcon && (
         <Icon
           icon="getVerified"
-          color={colors.black2}
-          height="15"
-          width="15"
-          margin="0.25rem 0 0 0.5rem"
+          color={colors.profileFontColor}
+          height="14"
+          width="14"
+          margin="0.25rem 0.4rem 0 0.5rem"
         />
       )}
       <UserInfoWrapper>
@@ -73,7 +75,7 @@ const UserInfo = ({
           </UserAdditionalDetails>
         )}
       </UserInfoWrapper>
-    </>
+    </UserWrapper>
   );
 };
 
