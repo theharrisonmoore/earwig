@@ -36,7 +36,7 @@ const getTooltipContent = type => {
         icon={type}
         height="50"
         width="50"
-        margin="1rem 0 1rem 0"
+        margin="-0.6rem 0 1rem 0"
         fill={colors.gray}
       />
       {type === "like" &&
@@ -70,7 +70,6 @@ const ActionButtonsWrapper = ({
   reportLink,
   target
 }) => {
-  console.log("level", level);
   // decides what like functions to render
   function renderLikeIcon(level) {
     switch (level) {

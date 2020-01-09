@@ -42,7 +42,7 @@ class PopoverComponent extends React.Component {
   }
 
   render() {
-    const { popoverOptions, category } = this.props;
+    const { popoverOptions, category, children } = this.props;
 
     const {
       placement,
@@ -75,6 +75,8 @@ class PopoverComponent extends React.Component {
                   color: colors.primary
                 }}
                 icon="close"
+                iconHeight="19px"
+                iconWidth="19px"
                 onClick={this.hide}
               />
             )}
@@ -143,7 +145,7 @@ class PopoverComponent extends React.Component {
             color={color}
           />
         ) : (
-          <>{this.props.children}</>
+          <>{children}</>
         )}
         {}
       </Popover>

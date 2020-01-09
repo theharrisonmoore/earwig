@@ -71,7 +71,7 @@ export default class Menu extends PureComponent {
             icon="newWindow"
             height="50"
             width="50"
-            margin="1rem 0 1rem 0"
+            margin="-0.6rem 0 1rem 0"
             fill={colors.gray}
           />
           Helpful stuff will open in a new window.
