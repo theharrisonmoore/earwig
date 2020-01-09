@@ -29,7 +29,6 @@ describe("Testing comments route", () => {
       .end((err, res) => {
         expect(res).toBeDefined();
         expect(res.body).toBeDefined();
-        console.log(res.body);
         expect(res.body[0].organization).toBeDefined();
         expect(res.body[0].userId).toBeDefined();
         done();
