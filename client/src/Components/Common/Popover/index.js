@@ -83,7 +83,7 @@ class PopoverComponent extends React.Component {
             {/* uses link */}
             {linkButtonOptions ? (
               <Link
-                target={linkButtonOptions.target || "_self"}
+                target={linkButtonOptions.target}
                 to={{
                   pathname: linkButtonOptions.pathname,
                   state: linkButtonOptions.state
@@ -107,6 +107,7 @@ class PopoverComponent extends React.Component {
                 margin="1rem auto"
               />
             )}
+            {/* renders additional cancel button */}
             {bottomCancelBtn && (
               <Button
                 onClick={this.hide}
