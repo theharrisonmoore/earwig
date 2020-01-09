@@ -6,7 +6,10 @@ import Icon from "../../../Common/Icon/Icon";
 
 import { colors } from "../../../../theme";
 
-import { SIGNUP_URL } from "../../../../constants/naviagationUrls";
+import {
+  SIGNUP_URL,
+  UPLOAD_VERIFICATION_PHOTO
+} from "../../../../constants/naviagationUrls";
 
 import {
   ActionsDiv,
@@ -25,7 +28,8 @@ const getTooltipContent = type => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        textAlign: "center"
       }}
     >
       <Icon
@@ -66,6 +70,7 @@ const ActionButtonsWrapper = ({
   reportLink,
   target
 }) => {
+  console.log("level", level);
   // decides what like functions to render
   function renderLikeIcon(level) {
     switch (level) {
@@ -122,7 +127,7 @@ const ActionButtonsWrapper = ({
               },
               actionButtonTxt: "Get verified",
               linkButtonOptions: {
-                pathname: SIGNUP_URL,
+                pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
                 state: {
                   category,
                   orgId,
@@ -185,7 +190,7 @@ const ActionButtonsWrapper = ({
               },
               actionButtonTxt: "Get verified",
               linkButtonOptions: {
-                pathname: SIGNUP_URL,
+                pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
                 state: {
                   category,
                   orgId,
@@ -228,7 +233,7 @@ const ActionButtonsWrapper = ({
             },
             actionButtonTxt: "Sign up",
             linkButtonOptions: {
-              pathname: SIGNUP_URL,
+              pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
               state: {
                 category,
                 orgId,

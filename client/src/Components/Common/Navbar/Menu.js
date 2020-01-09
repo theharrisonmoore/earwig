@@ -63,7 +63,8 @@ export default class Menu extends PureComponent {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
+            textAlign: "center"
           }}
         >
           <Icon

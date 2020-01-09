@@ -262,18 +262,19 @@ class OverallReview extends Component {
       FilteredReviewMonths,
       id: userId,
       updatedUsers,
-      counters
+      counters,
+      level
     } = this.props;
 
     const { name: orgName, _id: orgId } = summary;
     const { activeKey, writtenOrAudioReviews } = this.state;
 
-    const { level } = authorization({
-      isAdmin,
-      verified,
-      awaitingReview,
-      minimumLevel: "LEVEL3"
-    });
+    // const { level } = authorization({
+    //   isAdmin,
+    //   verified,
+    //   awaitingReview,
+    //   minimumLevel: "LEVEL3"
+    // });
 
     return FilteredReviewMonths[0] && FilteredReviewMonths[0].createdAt ? (
       <ReviewDiv isTablet={isTablet} isMobile={isMobile}>

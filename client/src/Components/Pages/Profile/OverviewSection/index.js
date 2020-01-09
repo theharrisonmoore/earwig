@@ -71,6 +71,7 @@ const OverviewSection = ({
           updatedUsers={updatedUsers}
           counters={counters}
           setCounters={setCounters}
+          level={level}
         />
       </Skeleton>
 

@@ -210,11 +210,11 @@ export default class Profile extends Component {
       id,
       userId,
       awaitingReview,
-      verificationPhoto,
       history,
       level
     } = this.props;
 
+    console.log("props", level);
     // if (!loaded) return <Loading />;
 
     return (
@@ -251,7 +251,6 @@ export default class Profile extends Component {
               organizationID={organizationID}
               id={id}
               awaitingReview={awaitingReview}
-              verificationPhoto={verificationPhoto}
               FilteredReviewMonths={FilteredReviewMonths}
               history={history}
               loaded={loaded}
