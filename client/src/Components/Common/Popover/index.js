@@ -43,6 +43,7 @@ class PopoverComponent extends React.Component {
 
   render() {
     const { popoverOptions, category } = this.props;
+
     const {
       placement,
       overlayStyle,
@@ -55,7 +56,8 @@ class PopoverComponent extends React.Component {
       iconTooltip,
       actionButtonTxt,
       linkButtonOptions,
-      closeButton
+      closeButton,
+      bottomCancelBtn
     } = popoverOptions;
 
     return (
@@ -81,6 +83,7 @@ class PopoverComponent extends React.Component {
             {/* uses link */}
             {linkButtonOptions ? (
               <Link
+                target={linkButtonOptions.target || "_self"}
                 to={{
                   pathname: linkButtonOptions.pathname,
                   state: linkButtonOptions.state
@@ -92,7 +95,7 @@ class PopoverComponent extends React.Component {
                   styleType="primary"
                   text={actionButtonTxt || "Okay"}
                   margin="1rem auto"
-                ></Button>
+                />
               </Link>
             ) : (
               // otherwise just a button
@@ -101,6 +104,14 @@ class PopoverComponent extends React.Component {
                 category={category}
                 styleType="primary"
                 text={actionButtonTxt || "Okay"}
+                margin="1rem auto"
+              />
+            )}
+            {bottomCancelBtn && (
+              <Button
+                onClick={this.hide}
+                styleType="secondary"
+                text="Cancel"
                 margin="1rem auto"
               />
             )}

@@ -157,21 +157,20 @@ export default class Menu extends PureComponent {
             )}
             {/* helpful stuff section */}
             {level >= 3 && (
-              <MenuItem to="/">
+              <MenuItem to="/" target="_blank">
                 <MenuIcon icon="helpfulLinks" height="19" width="19" />
 
                 <PopoverComponent
-                  // to="//www.earwigwork.com/blog"
-                  // target="_blank"
                   popoverOptions={{
                     text: getPopoverContent(),
                     placement: "right",
                     linkButtonOptions: {
-                      pathname: "www.earwigwork.com/blog",
-                      target: "_blank"
+                      target: "_blank",
+                      pathname: "//www.earwigwork.com/blog"
                     },
                     overlayStyle: { paddingLeft: "4.3rem" },
-                    margin: "1rem 0 0 0"
+                    margin: "1rem 0 0 0",
+                    bottomCancelBtn: true
                   }}
                 >
                   Helpful stuff
