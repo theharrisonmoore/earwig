@@ -214,7 +214,6 @@ export default class Profile extends Component {
       level
     } = this.props;
 
-    console.log("props", level);
     // if (!loaded) return <Loading />;
 
     return (
