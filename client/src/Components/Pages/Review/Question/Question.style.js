@@ -391,6 +391,8 @@ export const CommentIconWrapper = styled.button`
   margin-left: 8px;
   display: flex;
   align-items: center;
+  position: ${({ absolute }) => absolute && "absolute"};
+  right: ${({ absolute }) => absolute && "0"};
 `;
 
 export const IconContainer = styled.div`

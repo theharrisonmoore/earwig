@@ -72,6 +72,7 @@ class Number extends Component {
       <QuestionOptionsWrapper>
         <Options
           style={{
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
           }}
@@ -81,6 +82,9 @@ class Number extends Component {
               marginBottom: "20px",
               display: "flex",
               alignItems: "center",
+              justifyContent: "center",
+              position: "relative",
+              width: "100%",
             }}
           >
             {question.text.includes("parking cost") && (
@@ -98,7 +102,11 @@ class Number extends Component {
               </StyledButton>
             )}
             {hasComment && (
-              <CommentIconWrapper type="button" onClick={toggleShowComment}>
+              <CommentIconWrapper
+                type="button"
+                onClick={toggleShowComment}
+                absolute
+              >
                 <Icon
                   icon="comment"
                   width="27"
