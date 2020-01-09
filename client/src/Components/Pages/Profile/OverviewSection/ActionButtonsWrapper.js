@@ -8,7 +8,6 @@ import { colors } from "../../../../theme";
 
 import {
   SIGNUP_URL,
-  LOGIN_URL,
   UPLOAD_VERIFICATION_PHOTO
 } from "../../../../constants/naviagationUrls";
 
@@ -63,8 +62,7 @@ const ActionButtonsWrapper = ({
   reportLink,
   target
 }) => {
-  //  takes user level and photo and decides what form of like functionality to render
-
+  console.log("loggedInUser", loggedinUserID);
   function renderLikeIcon(level) {
     switch (level) {
       // user is verified and can like
@@ -78,7 +76,6 @@ const ActionButtonsWrapper = ({
             data-organization={reviewOrganizationId}
             data-target={target}
             data-category={category}
-            disabled={level < 2}
             active={isLikedByUser}
           >
             <Icon
@@ -141,12 +138,11 @@ const ActionButtonsWrapper = ({
       case 3 || 4:
         return (
           <CommentIconWrapper
-            onClick={level >= 2 ? goTOReply : undefined}
+            onClick={goTOReply}
             data-target={target}
             data-category={category}
             data-org-id={orgId}
             data-review-id={reviewId}
-            disabled={level < 2}
           >
             <Icon icon="comment" fill={colors.gray} width="27" height="27" />
           </CommentIconWrapper>
@@ -155,21 +151,19 @@ const ActionButtonsWrapper = ({
       // user awaits verification --> sees hold on popup
       case 2:
         return (
-          <div style={{ marginLeft: "2rem" }}>
-            <PopoverComponent
-              popoverOptions={{
-                text: getTooltipText("info"),
-                iconTooltip: {
-                  icon: "comment",
-                  fill: colors.gray,
-                  width: "27",
-                  height: "27"
-                },
+          <PopoverComponent
+            popoverOptions={{
+              text: getTooltipText("info"),
+              iconTooltip: {
+                icon: "comment",
+                fill: colors.gray,
+                width: "27",
+                height: "27"
+              },
 
-                margin: "1rem 0 0 0"
-              }}
-            />
-          </div>
+              margin: "1rem 0 0 3rem"
+            }}
+          />
         );
       // user has not undergone verification process --> sees get verified popover
       default:
@@ -211,15 +205,11 @@ const ActionButtonsWrapper = ({
 
       {/* FLAG ICON */}
       {/* report overall/voice review */}
-      {level >= 1 ? (
+      {loggedinUserID ? (
         // if user is signed up they can report content
-        <ReportFlag
-          style={{ right: 0, width: "10%" }}
-          to={reportLink}
-          disabled={level < 1}
-        />
+        <ReportFlag style={{ right: 0, width: "10%" }} to={reportLink} />
       ) : (
-        // if not registered they see popover
+        // if not registered they see popover with sign up prompt
         <PopoverComponent
           popoverOptions={{
             text: getTooltipText("report"),
@@ -231,7 +221,7 @@ const ActionButtonsWrapper = ({
             },
             actionButtonTxt: "Sign up",
             linkButtonOptions: {
-              pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
+              pathname: SIGNUP_URL,
               state: {
                 category,
                 orgId,
