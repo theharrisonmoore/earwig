@@ -7,7 +7,7 @@ import Layout from "../../Common/Layout";
 import {
   SIGNUP_URL,
   LOGIN_URL,
-  UPLOAD_VERIFICATION_PHOTO,
+  UPLOAD_VERIFICATION_PHOTO
 } from "../../../constants/naviagationUrls";
 
 // common component
@@ -20,7 +20,7 @@ import {
   MainDiv,
   AddWrapper,
   SubHeading,
-  StyledLink,
+  StyledLink
 } from "../../Common/AddOrganisationPages.style";
 
 export default props => {
@@ -28,8 +28,10 @@ export default props => {
     match: { params: { category, name } } = {},
     history,
     level,
-    location,
+    location
   } = props;
+
+  console.log(location);
 
   return (
     <Layout type="side">
@@ -45,13 +47,13 @@ export default props => {
             to={{
               pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
               state:
-                location.state && location.state.redirectToProfile
+                location.state && location.state.redirectToReview
                   ? location.state
                   : {
                       category,
                       name,
-                      redirectToCreateProfile: true,
-                    },
+                      redirectToCreateProfile: true
+                    }
             }}
             style={{ textAlign: "center" }}
           >
@@ -76,8 +78,8 @@ export default props => {
                 state: {
                   category,
                   name,
-                  redirectToCreateProfile: true,
-                },
+                  redirectToCreateProfile: true
+                }
               }}
             >
               Log in
