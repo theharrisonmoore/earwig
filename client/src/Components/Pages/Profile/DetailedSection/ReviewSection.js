@@ -12,7 +12,7 @@ import {
   HintText,
 } from "./ReviewSection.style";
 import Icon from "../../../Common/Icon/Icon";
-
+import { isXSMobile } from "../../../../helpers";
 import ProfileAnswers from "../ProfileAnswers";
 
 const {
@@ -156,7 +156,12 @@ export default class ReviewSection extends Component {
                     >
                       <IconContainer>
                         {question.icon && (
-                          <Icon icon={question.icon} width="40" height="40" />
+                          <Icon
+                            icon={question.icon}
+                            width={isXSMobile(window.innerWidth) ? "35" : "40"}
+                            fill-opacity="0.5"
+                            fill="#000"
+                          />
                         )}
                       </IconContainer>
                       <QuestionContainer>

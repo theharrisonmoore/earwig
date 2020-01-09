@@ -77,7 +77,7 @@ const Replies = ({
         >
           <BubbleAndDate>
             <CommentBubble
-              style={{ maxWidth: "100%" }}
+              style={{ maxWidth: "90%", overflow: "auto" }}
               bgColor={
                 reply.displayName ? "white" : organizations[category].secondary
               }

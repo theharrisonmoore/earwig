@@ -2,10 +2,15 @@ import styled from "styled-components";
 
 import { colors, borders } from "../../../../theme";
 
+export const QuestionWithIconWrapper = styled.div`
+  display: flex;
+`;
+
 export const QuestionWrapper = styled.div.attrs({ className: "" })`
   font-size: 18px;
   margin-bottom: 2.25rem;
   color: ${colors.profileFontColor};
+  width: 100%;
 `;
 
 export const QText = styled.p`
@@ -51,7 +56,6 @@ export const Options = styled.div`
     width: calc(85% - 1rem);
     display: flex;
     justify-content: space-between;
-    margin-right: 1rem;
   }
 
   .choices-3 div:last-child label {
@@ -380,4 +384,9 @@ export const CommentIconWrapper = styled.button`
   margin-left: 10px;
   display: flex;
   align-items: center;
+`;
+
+export const IconContainer = styled.div`
+  padding-top: 1.125rem;
+  padding-right: 0.8rem;
 `;
