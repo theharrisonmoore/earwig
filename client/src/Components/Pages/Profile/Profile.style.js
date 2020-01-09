@@ -49,6 +49,7 @@ export const Banner = styled.div`
   }
 `;
 
+
 export const Header = styled.div`
   display: flex;
   flex-direction: column;

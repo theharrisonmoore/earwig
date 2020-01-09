@@ -44,6 +44,8 @@ class PopoverComponent extends React.Component {
   render() {
     const { popoverOptions, category } = this.props;
     const {
+      placement,
+      overlayStyle,
       text,
       linkText,
       icon,
@@ -58,7 +60,8 @@ class PopoverComponent extends React.Component {
 
     return (
       <Popover
-        placement="top"
+        overlayStyle={overlayStyle}
+        placement={placement || "top"}
         content={
           <PopoverDiv>
             {/* x button to close */}
@@ -73,7 +76,7 @@ class PopoverComponent extends React.Component {
                 onClick={this.hide}
               />
             )}
-
+            {/* renders text contents */}
             {text}
             {/* uses link */}
             {linkButtonOptions ? (
