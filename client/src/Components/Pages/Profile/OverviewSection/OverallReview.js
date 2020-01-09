@@ -262,11 +262,8 @@ class OverallReview extends Component {
       FilteredReviewMonths,
       id: userId,
       updatedUsers,
-      counters,
-      verificationPhoto
+      counters
     } = this.props;
-
-    console.log("prohobsss", verificationPhoto);
 
     const { name: orgName, _id: orgId } = summary;
     const { activeKey, writtenOrAudioReviews } = this.state;
@@ -353,7 +350,6 @@ class OverallReview extends Component {
                   userPoints={userPoints}
                   // _id
                   userId={userId}
-                  verificationPhoto={verificationPhoto}
                   category={category}
                   level={level}
                   reviewId={reviewId}

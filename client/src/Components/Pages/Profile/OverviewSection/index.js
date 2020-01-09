@@ -27,8 +27,7 @@ const OverviewSection = ({
   updateUserPoints,
   updatedUsers,
   counters,
-  setCounters,
-  verificationPhoto
+  setCounters
 }) => {
   const { category, name, phoneNumber, email, websiteUrl } = summary && summary;
 
@@ -72,7 +71,6 @@ const OverviewSection = ({
           updatedUsers={updatedUsers}
           counters={counters}
           setCounters={setCounters}
-          verificationPhoto={verificationPhoto}
         />
       </Skeleton>
 

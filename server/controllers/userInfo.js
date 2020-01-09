@@ -11,8 +11,7 @@ module.exports = (req, res) => {
     helpedUsers: user.helpedUsers,
     isAdmin: user.isAdmin,
     email: user.email,
-    city: user.city,
-    verificationPhoto: user.verificationPhoto
+    city: user.city
   };
   return res.json(userInfo);
 };
