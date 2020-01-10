@@ -8,7 +8,12 @@ const DetailedSection = ({
   isTablet,
   reviewDetails,
   summary,
-  toggleComments,
+  id,
+  userId,
+  updateUserPoints,
+  updatedUsers,
+  counters,
+  setCounters,
 }) => {
   return (
     <>
@@ -18,7 +23,13 @@ const DetailedSection = ({
           isMobile={isMobile}
           reviewDetails={reviewDetails}
           summary={summary}
-          toggleComments={toggleComments}
+          level={level}
+          id={id}
+          userId={userId}
+          updateUserPoints={updateUserPoints}
+          updatedUsers={updatedUsers}
+          counters={counters}
+          setCounters={setCounters}
         />
       )}
     </>

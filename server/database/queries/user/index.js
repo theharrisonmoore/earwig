@@ -127,7 +127,9 @@ const getUsersTrade = tradeId => Trade.findById(tradeId);
 
 const getUserVotesOnProfile = ({ userId, orgId }) => Helpfulness.find(
   { helpedUser: userId, organization: orgId, fromReferral: false },
-  { points: 1, review: 1, target: 1 },
+  {
+    points: 1, review: 1, target: 1, comment: 1,
+  },
 );
 
 module.exports = {

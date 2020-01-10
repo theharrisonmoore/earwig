@@ -67,6 +67,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "correctHours",
     },
     {
       number: 2,
@@ -87,6 +88,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "correctRate",
     },
     {
       number: 3,
@@ -109,6 +111,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "correctWork",
     },
     // {
     //   number: 4,
@@ -215,6 +218,7 @@ module.exports = async () => {
         text: "Getting your wages",
       },
       hasComment: false,
+      icon: "contract",
     },
 
     // ///////////////////////
@@ -259,9 +263,10 @@ module.exports = async () => {
         text: "Getting your wages",
       },
       hasComment: false,
+      icon: "timesheetCharge",
     },
 
-    // //////////////////
+    // ////////////////
     {
       number: 11,
       next: 12,
@@ -281,6 +286,7 @@ module.exports = async () => {
         text: "Getting your wages",
       },
       hasComment: true,
+      icon: "paidOnTime",
     },
     {
       number: 12,
@@ -302,6 +308,7 @@ module.exports = async () => {
         text: "Getting your wages",
       },
       hasComment: true,
+      icon: "amountExpected",
     },
     {
       number: 13,
@@ -322,6 +329,7 @@ module.exports = async () => {
         text: "Getting your wages",
       },
       hasComment: true,
+      icon: "payslipsAccessible",
     },
     {
       number: 14,
@@ -342,6 +350,7 @@ module.exports = async () => {
         text: "Getting your wages",
       },
       hasComment: true,
+      icon: "payslipsInfo",
     },
     // new section (overall rating)
     {
@@ -362,6 +371,7 @@ module.exports = async () => {
         text: "Overall rating",
       },
       hasComment: false,
+      icon: "overall",
     },
 
     /* =========================== questionsPayroll ==================================== */
@@ -376,7 +386,7 @@ module.exports = async () => {
 
       profileText: "This payroll charges you",
       profileSection: "Key ratings",
-      profileType: "list",
+      profileType: "yesno",
       profileOrder: 8,
 
       group: {
@@ -384,6 +394,7 @@ module.exports = async () => {
         name: "general",
         text: "General",
       },
+      icon: "timesheetCharge",
     },
     {
       number: 2,
@@ -428,6 +439,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "contract",
     },
 
     {
@@ -452,6 +464,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "contractBefore",
     },
     {
       number: 5,
@@ -472,6 +485,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "paidOnTime",
     },
     {
       number: 6,
@@ -493,6 +507,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "amountExpected",
     },
     {
       number: 7,
@@ -511,6 +526,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "payslipsAccessible",
     },
     {
       number: 8,
@@ -531,6 +547,7 @@ module.exports = async () => {
         text: "General",
       },
       hasComment: true,
+      icon: "payslipsInfo",
     },
     {
       number: 9,
@@ -571,6 +588,7 @@ module.exports = async () => {
         text: "Overall rating",
       },
       hasComment: false,
+      icon: "overall",
     },
 
     /* =============================== worksite =============================== */
@@ -594,7 +612,7 @@ module.exports = async () => {
         text: "Getting on to site",
       },
 
-      hasComment: false,
+      hasComment: true,
       icon: "bus",
     },
     {
@@ -619,7 +637,7 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
-      hasComment: false,
+      hasComment: true,
       icon: "parkingSign",
     },
     {
@@ -635,7 +653,7 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
-      hasComment: false,
+      hasComment: true,
     },
     {
       number: 4,
@@ -657,7 +675,7 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
-      hasComment: false,
+      hasComment: true,
       icon: "lockers",
     },
 
@@ -680,7 +698,7 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
-      hasComment: false,
+      hasComment: true,
       icon: "fingerprint",
     },
     {
@@ -702,18 +720,18 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
-      hasComment: false,
+      hasComment: true,
       icon: "gasmask",
     },
     {
       number: 7,
       next: 8,
       type: "dropdown",
-      text: "Who was the main contractor in charge of this whole site?",
+      text: "Who was the main company in charge of this whole site?",
       category: "worksite",
-      label: "Choose main contractor",
+      label: "Choose main company",
 
-      profileText: "Main contractor",
+      profileText: "Main company",
       profileSection: "Working on the site",
       // profileType: "siteItem",
       // profileOrder: 1,
@@ -745,6 +763,7 @@ module.exports = async () => {
         text: "Working on the site",
       },
       hasComment: true,
+      icon: "tidySite",
     },
 
     {
@@ -752,7 +771,7 @@ module.exports = async () => {
       next: 10,
       type: "yesno",
       text: "Did you find it easy to get around this site?",
-      hintText: "eg Gateways, walkways, signage, etc.",
+      hintText: "ie Gateways, walkways, signage",
       options: ["Yes", "No"],
       category: "worksite",
 
@@ -767,6 +786,7 @@ module.exports = async () => {
         text: "Working on the site",
       },
       hasComment: true,
+      icon: "getAround",
     },
 
     {
@@ -788,6 +808,7 @@ module.exports = async () => {
         text: "Working on the site",
       },
       hasComment: true,
+      icon: "safeSite",
     },
 
     {
@@ -833,6 +854,7 @@ module.exports = async () => {
         text: "The site welfare",
       },
       hasComment: true,
+      icon: "toiletsClean",
     },
     {
       number: 13,
@@ -852,7 +874,7 @@ module.exports = async () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
-      hasComment: false,
+      hasComment: true,
       icon: "prayerRoom",
     },
     {
@@ -920,7 +942,7 @@ module.exports = async () => {
         name: "siteWelfare",
         text: "The site welfare",
       },
-      hasComment: false,
+      hasComment: true,
       icon: "hotFood",
     },
     // {
@@ -948,8 +970,7 @@ module.exports = async () => {
       number: 18,
       next: 19,
       type: "open",
-      text:
-        "Is there a shop or café near this site that you would recommend to other workers?",
+      text: "Add the name of a shop or café near this site that you would recommend to other workers?",
       label: "",
       category: "worksite",
 
@@ -983,6 +1004,7 @@ module.exports = async () => {
         text: "Overall rating",
       },
       hasComment: false,
+      icon: "overall",
     },
 
     /* ============================= company ================================== */
@@ -1009,6 +1031,7 @@ module.exports = async () => {
         text: "Supervisors & employees",
       },
       hasComment: true,
+      icon: "sharedInfo",
     },
     {
       number: 2,
@@ -1029,6 +1052,7 @@ module.exports = async () => {
         text: "Supervisors & employees",
       },
       hasComment: true,
+      icon: "respect",
     },
     {
       number: 3,
@@ -1051,6 +1075,7 @@ module.exports = async () => {
         text: "Supervisors & employees",
       },
       hasComment: true,
+      icon: "otherEmployees",
     },
 
     // Tools & materials
@@ -1075,6 +1100,7 @@ module.exports = async () => {
         text: "Tools & materials",
       },
       hasComment: true,
+      icon: "materials",
     },
     {
       number: 5,
@@ -1097,16 +1123,18 @@ module.exports = async () => {
         text: "Tools & materials",
       },
       hasComment: true,
+      icon: "secureTools",
     },
     {
       number: 6,
       next: 7,
       type: "yesno",
-      text: "Did you feel this company asked you to work unsafely?",
+      text: "Did you feel this company took your safety on side seriously?",
       options: ["Yes", "No"],
       category: "company",
 
-      profileText: "Did you feel this company asked you to work unsafely?",
+      profileText:
+        "Did you feel this company took your safety on side seriously?",
       profileSection: "Tools & materials",
       profileType: "yesno",
       profileOrder: 7,
@@ -1117,6 +1145,7 @@ module.exports = async () => {
         text: "Tools & materials",
       },
       hasComment: true,
+      icon: "safetySeriously",
     },
 
     // new section (overall)
@@ -1138,6 +1167,7 @@ module.exports = async () => {
         text: "Overall rating",
       },
       hasComment: false,
+      icon: "overall",
     },
   ];
   return Question.create(questions);

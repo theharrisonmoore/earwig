@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   padding: 6rem 1.5rem;
 
   @media (max-width: ${MOBILE_WIDTH}px) {
-    padding-top: 5rem;
+    padding-top: 6rem;
   }
 `;
 

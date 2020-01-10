@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React, { Component } from "react";
 import axios from "axios";
 import { message, Skeleton } from "antd";
@@ -18,10 +19,6 @@ export default class Profile extends Component {
     summary: [],
     reviewDetails: [],
     loaded: false,
-    commentsOpen: false,
-    commentsQuestion: null,
-    comments: null,
-    commentsLoaded: false,
     organizationID: "",
     overallReplies: [],
     activeOverallId: "",
@@ -29,6 +26,65 @@ export default class Profile extends Component {
     reviewsLast30Days: [],
     FilteredReviewMonths: [],
     activeTab: "overview",
+    updatedUsers: {},
+    counters: {
+      overallReview: {},
+      voiceReview: {},
+      comment: {}
+    }
+  };
+
+  updateUserPoints = ({ userId, points, helpedUsers }) => {
+    this.setState(prevState => ({
+      updatedUsers: {
+        ...prevState.updatedUsers,
+        [userId]: {
+          helpedUsers,
+          points
+        }
+      }
+    }));
+  };
+
+  getUserVotesOnProfile = () => {
+    const { id, match } = this.props;
+    const { profileID } = match.params;
+    axios
+      .get(`/api/users/${id}/profile/${profileID}/votes`)
+      .then(({ data }) => {
+        const newCounters = data.reduce(
+          (prev, currReview) => {
+            if (currReview.target === "voiceReview") {
+              prev.voiceReview[currReview.review] = {
+                counter: currReview.points,
+                sentNumber: currReview.points,
+                byUser: false
+              };
+            } else if (currReview.target === "overallReview") {
+              prev.overallReview[currReview.review] = {
+                counter: currReview.points,
+                sentNumber: currReview.points,
+                byUser: false
+              };
+            } else if (currReview.target === "comment") {
+              prev.comment[currReview.comment] = {
+                counter: currReview.points,
+                sentNumber: currReview.points,
+                byUser: false
+              };
+            }
+            return prev;
+          },
+          { overallReview: {}, voiceReview: {}, comment: {} }
+        );
+        this.setState({
+          counters: newCounters
+        });
+      });
+  };
+
+  setCounters = (counters, cb) => {
+    this.setState({ counters }, cb);
   };
 
   myDivToFocus = React.createRef();
@@ -42,7 +98,7 @@ export default class Profile extends Component {
     if (this.myDivToFocus.current) {
       this.myDivToFocus.current.scrollIntoView({
         behavior: "smooth",
-        block: "start",
+        block: "start"
       });
     }
   };
@@ -78,7 +134,7 @@ export default class Profile extends Component {
           organizationID,
           contractorAnswers,
           reviewsLast30Days,
-          FilteredReviewMonths,
+          FilteredReviewMonths
         });
       })
       .catch(err => {
@@ -101,6 +157,7 @@ export default class Profile extends Component {
   componentDidMount() {
     this.fetchData();
     this.updateLastViewed();
+    this.getUserVotesOnProfile();
   }
 
   componentDidUpdate(prevProps) {
@@ -108,38 +165,9 @@ export default class Profile extends Component {
     const { profileID: currentProfileID } = this.props.match.params;
     if (prevProfileID !== currentProfileID) {
       this.fetchData();
+      this.getUserVotesOnProfile();
     }
   }
-
-  // comments are disabled (will keep this until the testing finish)
-  toggleComments = question => {
-    const { commentsOpen } = this.state;
-    // reset loading state and toggle comments box
-    this.setState({ commentsLoaded: false, commentsOpen: !commentsOpen });
-    this.fetchComments(question);
-  };
-
-  fetchComments = question => {
-    const { summary } = this.state;
-    const { _id: organizationID } = summary;
-    const { _id: questionID } = question;
-
-    // fetch comments
-    axios
-      .post("/api/comments", { organizationID, questionID })
-      .then(res => {
-        this.setState({
-          comments: res.data,
-          commentsLoaded: true,
-          commentsQuestion: question,
-        });
-      })
-      .catch(err => {
-        const error =
-          err.response && err.response.data && err.response.data.error;
-        message.error(error || "Something went wrong");
-      });
-  };
 
   fetchOverallReplies = (id, target) => {
     if (id && target) {
@@ -170,6 +198,8 @@ export default class Profile extends Component {
       activeTab,
       activeOverallId,
       overallReplies,
+      updatedUsers,
+      counters
     } = this.state;
 
     const {
@@ -178,9 +208,10 @@ export default class Profile extends Component {
       verified,
       isAdmin,
       id,
+      userId,
       awaitingReview,
       history,
-      level,
+      level
     } = this.props;
 
     // if (!loaded) return <Loading />;
@@ -222,6 +253,10 @@ export default class Profile extends Component {
               FilteredReviewMonths={FilteredReviewMonths}
               history={history}
               loaded={loaded}
+              updateUserPoints={this.updateUserPoints}
+              updatedUsers={updatedUsers}
+              counters={counters}
+              setCounters={this.setCounters}
             />
           ) : (
             <DetailedSection
@@ -230,6 +265,12 @@ export default class Profile extends Component {
               isTablet={isTablet}
               reviewDetails={reviewDetails}
               summary={summary}
+              id={id}
+              userId={userId}
+              updateUserPoints={this.updateUserPoints}
+              updatedUsers={updatedUsers}
+              counters={counters}
+              setCounters={this.setCounters}
             />
           )}
         </Wrapper>

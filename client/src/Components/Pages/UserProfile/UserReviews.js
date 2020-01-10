@@ -127,7 +127,7 @@ export default class UserReviews extends Component {
     const { reviews, isLoading } = this.state;
 
     return (
-      <Wrapper>
+      <Wrapper paddingTop="2rem">
         <BorderedSubSectionWrapper>
           <SubSectionTitleParagraph>
             You can edit your reviews within four weeks, unless workers have
@@ -190,7 +190,7 @@ export default class UserReviews extends Component {
                 ) : (
                   <div>
                     You haven&apos;t given any reviews yet.&nbsp; <br /> <br />
-                    <Link to="/welcome">Get Started</Link>
+                    <Link to="/">Get Started</Link>
                   </div>
                 )}
               </>

@@ -1,5 +1,6 @@
 module.exports = (req, res) => {
   const { user } = req;
+
   const userInfo = {
     id: user._id,
     trade: user.trade,
@@ -10,7 +11,7 @@ module.exports = (req, res) => {
     helpedUsers: user.helpedUsers,
     isAdmin: user.isAdmin,
     email: user.email,
-    city: user.city,
+    city: user.city
   };
   return res.json(userInfo);
 };

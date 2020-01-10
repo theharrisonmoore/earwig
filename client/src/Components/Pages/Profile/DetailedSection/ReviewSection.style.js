@@ -6,7 +6,7 @@ const titleFontSize = "18px";
 const titleFontWeight = "bold";
 
 const generalFontSize = "15px";
-const generalFontWeight = "normal";
+// const generalFontWeight = "normal";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -16,8 +16,8 @@ export const Wrapper = styled.div`
 `;
 
 export const SectionTitle = styled.h2`
-  font-size: ${({ sub }) => (sub ? generalFontSize : titleFontSize)};
-  color: ${colors.profileFontColor};
+  font-size: ${titleFontSize};
+  color: ${colors.dustyGray4};
   border-bottom: ${({ bordered }) => (bordered ? borders.commentBox : "none")};
   margin: 0;
   margin-bottom: 1rem;
@@ -28,12 +28,29 @@ export const QuestionWrapper = styled.div`
   display: ${props => (props.hide ? "none" : "flex")};
   flex-direction: column;
   padding: 1.125rem 0;
+  max-width: 100%;
+`;
+
+export const YesNoQuestionWrapper = styled.div`
+  display: ${props => (props.hide ? "none" : "flex")};
+`;
+
+export const QuestionContainer = styled.div`
+  display: ${props => (props.hide ? "none" : "flex")};
+  flex-direction: column;
+  padding: 1.125rem 0;
+  max-width: 100%;
+`;
+
+export const IconContainer = styled.div`
+  padding-top: 1.125rem;
+  padding-right: 0.8rem;
 `;
 
 export const QuestionTitle = styled.h3`
-  font-size: ${generalFontSize};
-  color: ${colors.profileFontColor};
-  font-weight: ${generalFontWeight};
+  font-size: 15px;
+  color: ${colors.dustyGray3};
+  font-weight: bold;
   margin: 0;
   margin-bottom: 0.5rem;
   text-align: left;
@@ -41,9 +58,10 @@ export const QuestionTitle = styled.h3`
 
 export const HintText = styled.p`
   margin: 0;
+  padding-bottom: 1.125rem;
   font-style: italic;
   font-size: ${generalFontSize};
-  color: ${colors.profileFontColor};
+  color: ${colors.dustyGray3};
 `;
 
 export const StarWrapper = styled(QuestionTitle)`
@@ -54,14 +72,14 @@ export const CategoryTitle = styled.h2`
   font-size: 1.75rem;
   font-weight: medium;
   margin: 0;
-  color: ${colors.profileFontColor};
+  color: ${colors.dustyGray3};
 `;
 
 export const LightTitle = styled.div`
   opacity: 0.5;
   font-weight: 500;
-  font-size: 1rem;
-  color: ${colors.profileFontColor};
+  font-size: 15px;
+  color: ${colors.dustyGray3};
   border: ${({ bar }) => (bar ? `1px solid ${colors.inputBorder}80` : "none")};
   text-align: ${({ bar }) => (bar ? `center` : "left")};
   padding: ${({ large, image }) => {

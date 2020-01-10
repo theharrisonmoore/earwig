@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { colors } from "./../../../theme";
+import { colors } from "../../../theme";
 
 export const Wrapper = styled.div`
   background: ${colors.heliotrope};
@@ -72,7 +72,7 @@ export const StyledLink = styled(Link).attrs({})`
 `;
 
 export const SmallLink = styled(StyledLink)`
-  font-size: 1rem;
+  font-size: 15px;
   text-align: right;
   margin: 0;
   color: ${colors.white};
@@ -125,7 +125,7 @@ export const SectionTitle = styled.h2`
 
 export const PromiseParagraph = styled.p`
   font-style: italic;
-  font-size: 1rem;
+  font-size: 15px;
   line-height: 3rem;
 `;
 
@@ -141,7 +141,7 @@ export const AwardTitle = styled.h3`
   margin: 0;
   margin-bottom: 1rem;
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 15px;
   color: ${colors.white};
   width: 100%;
 `;

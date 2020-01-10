@@ -36,7 +36,7 @@ const schemas = {
       is: "no",
       then: Joi.string()
         .valid(
-          ["agency", "payroll", "company", "mainContractor", "other"],
+          ["agency", "payroll", "company", "mainCompany", "other"],
           "invalid organisation type",
         )
         .required(),
@@ -218,6 +218,8 @@ const schemas = {
     organization: Joi.string()
       .length(24)
       .required(),
+    parentCommentId: Joi.string().allow(""),
+    reviewId: Joi.string().allow(""),
   },
   addCommentOnReview: {
     text: Joi.string().required(),

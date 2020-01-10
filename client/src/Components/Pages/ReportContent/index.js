@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { message } from "antd";
+import queryString from "query-string";
 
 import { Wrapper, ContentWrapper } from "../../Common/StaticPages.style";
 
@@ -22,9 +23,9 @@ export default class ReportContent extends Component {
   };
 
   componentDidMount() {
-    if (!this.props.location || !this.props.location.state) {
-      this.props.history.goBack();
-    }
+    // if (!this.props.location || !this.props.location.state) {
+    //   this.props.history.goBack();
+    // }
   }
 
   handleSelect = reason => {
@@ -36,13 +37,37 @@ export default class ReportContent extends Component {
   };
 
   handleSubmit = () => {
+    const {
+      target,
+      orgId,
+      orgName,
+      questionText,
+      commentText,
+      reportedUserId,
+      reportedReviewUserId,
+      reportedReviewText,
+      reportedReplyUserId,
+      reportedReplyText,
+      image,
+    } = queryString.parse(this.props.location.search);
+
     if (!this.state.description) {
       return message.error("Please fill in some information!");
     }
     return this.setState({ loading: true }, () => {
       axios
         .post(API_REPORT_CONTENT_URL, {
-          ...this.props.location.state,
+          target,
+          orgId,
+          orgName,
+          questionText,
+          commentText,
+          reportedUserId,
+          reportedReviewUserId,
+          reportedReviewText,
+          reportedReplyUserId,
+          reportedReplyText,
+          image,
           description: this.state.description,
           reason: this.state.reason,
         })

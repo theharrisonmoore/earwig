@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   min-height: 100vh;
   position: relative;
   display: flex;
+  padding-top: 3rem;
 `;
 
 export const ContentWrapper = styled.div`
@@ -140,7 +141,7 @@ export const SectionHeading = styled(TopSubTitle)`
 `;
 
 export const SmallParagraph = styled.p`
-  font-size: 1rem;
+  font-size: 15px;
   margin-bottom: 2rem;
   color: ${colors.profileFontColor};
   text-align: ${({ center }) => (center ? "center" : "left")};
@@ -150,7 +151,7 @@ export const SmallParagraph = styled.p`
 `;
 
 export const StyledOl = styled.ol`
-  font-size: 1rem;
+  font-size: 15px;
   margin-bottom: 2rem;
   color: ${colors.profileFontColor};
   text-align: ${({ center }) => (center ? "center" : "left")};
@@ -161,7 +162,7 @@ export const StyledOl = styled.ol`
 `;
 
 export const BoldLink = styled(Link)`
-  font-size: 1rem;
+  font-size: 15px;
 
   color: ${colors.primary};
   text-align: left;
@@ -372,7 +373,7 @@ export const SelectWrapper = styled.div`
 
 export const BoldWord = styled.span`
   font-weight: bold;
-`
+`;
 export const BasicLink = styled.a`
   color: ${colors.profileFontColor};
   text-decoration: underline;
@@ -380,4 +381,4 @@ export const BasicLink = styled.a`
   :hover {
     color: ${colors.heliotrope};
   }
-`
+`;

@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
   if (!cookies || !cookies.token) {
     return next();
   }
-  console.log("secret", config.server.secret);
+
 
   // verify the token
   return verify(cookies.token, config.server.secret, (err, decoded) => {

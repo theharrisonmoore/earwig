@@ -2,10 +2,10 @@ import React, { Component } from "react";
 // import { Map } from "immutable";
 import { Modal, Alert } from "antd";
 import axios from "axios";
+import ReactSelect from "../../../../Common/ReactSelect";
+import { sortOrganisations } from "../../../../../helpers";
 
 import { QuestionOptionsWrapper, Options, Input } from "../Question.style";
-
-import Select from "../../../../Common/Select";
 
 class DropDown extends Component {
   state = {
@@ -21,7 +21,7 @@ class DropDown extends Component {
   componentDidMount() {
     const { dropdownOptions } = this.props;
 
-    this.setState({ dropdownOptions });
+    this.setState({ dropdownOptions: sortOrganisations(dropdownOptions) });
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -46,8 +46,7 @@ class DropDown extends Component {
     }
   };
 
-  showModal = e => {
-    const { searchTerm } = e.target.dataset;
+  showModal = searchTerm => {
     this.setState({
       ismodalVisible: true,
       newOrg: searchTerm,
@@ -80,10 +79,14 @@ class DropDown extends Component {
             this.setState({
               newOrg: data.name,
               // disableSelect: true,
-              dropdownOptions: [...dropdownOptions, addedOrg],
+              dropdownOptions: sortOrganisations([
+                ...dropdownOptions,
+                addedOrg,
+              ]),
+              addedOrg,
             });
 
-            handleAddNewOrgChange(JSON.stringify(addedOrg), number);
+            handleAddNewOrgChange(addedOrg, number);
 
             this.setState(
               {
@@ -162,7 +165,7 @@ class DropDown extends Component {
       case "payroll":
         return "agency";
       case "worksite":
-        return "main contractor";
+        return "main company";
       default:
         return category;
     }
@@ -175,29 +178,32 @@ class DropDown extends Component {
       confirmLoading,
       newOrg,
       dropdownOptions,
+      addedOrg,
     } = this.state;
 
     return (
       <QuestionOptionsWrapper>
+        <ReactSelect
+          width="calc(85% - 1rem)"
+          showSearch
+          placeholder={label}
+          id="newOrg"
+          name="newOrg"
+          options={dropdownOptions}
+          handleChange={value => {
+            this.setState({ newOrg: value });
+            handleAddNewOrgChange(value, number);
+          }}
+          value={
+            addedOrg ? { label: addedOrg.name, value: addedOrg._id } : newOrg
+          }
+          disabled={this.state.disableSelect}
+          isCreateNew
+          addHandler={this.showModal}
+          scrollToTop
+          ismodalVisible={ismodalVisible}
+        />
         <Options>
-          <Select
-            showSearch
-            placeholder={label}
-            id="newOrg"
-            name="newOrg"
-            options={dropdownOptions}
-            handleChange={value => {
-              this.setState({ newOrg: value });
-              handleAddNewOrgChange(value, number);
-            }}
-            value={newOrg}
-            // disabled={this.state.disableSelect}
-            isCreateNew
-            addHandler={this.showModal}
-            scrollToTop
-            width="calc(85% - 1rem)"
-            ismodalVisible={ismodalVisible}
-          />
           <div>
             <Modal
               title={`Add a new ${this.addOrgType(category)}`}

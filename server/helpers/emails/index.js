@@ -13,6 +13,8 @@ const feedbackEmail = require("./templates/feedbackEmail");
 const thinkOfAccountDeletingEmail = require("./templates/thinkOfAccountDeletingEmail");
 const newReviewPublished = require("./templates/newReviewPublished");
 const newTradeAdded = require("./templates/newTradeAdded");
+const gotHelpfulPoints = require("./templates/gotHelpfulPoints");
+const gotReplies = require("./templates/gotReplies");
 
 
 module.exports = {
@@ -27,4 +29,6 @@ module.exports = {
   thinkOfAccountDeletingEmail,
   newReviewPublished,
   newTradeAdded,
+  gotHelpfulPoints,
+  gotReplies,
 };

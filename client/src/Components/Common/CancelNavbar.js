@@ -52,7 +52,7 @@ const Cancel = styled.p`
   color: ${({ cancelColor }) => cancelColor || colors.primary};
 
   @media ${breakpointsMax.mobileM} {
-    font-size: 1rem;
+    font-size: 15px;
   }
 
   @media ${breakpointsMax.mobileS} {
