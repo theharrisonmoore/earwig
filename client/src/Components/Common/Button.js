@@ -143,6 +143,8 @@ const Button = ({
   color,
   disabled,
   width,
+  iconHeight,
+  iconWidth,
   ...rest
 }) => {
   return (
@@ -164,8 +166,8 @@ const Button = ({
             icon && (
               <Icon
                 icon={icon}
-                width="23"
-                height="23"
+                width={iconWidth || "23"}
+                height={iconHeight || "23"}
                 margin="0 0.5rem 0 0"
                 color={color}
               />

@@ -16,19 +16,19 @@ import {
   StyledFormikErrorMessage as FormikErrorMessage,
   Label,
   GeneralErrorMessage,
-  StyledField,
+  StyledField
 } from "../../Common/Formik/Formik.style";
 
 import {
   SIGNUP_URL,
   RESET_PASSWORD_URL,
-  HOME_PAGE,
+  HOME_PAGE
 } from "../../../constants/naviagationUrls";
 
 import {
   // StyledLink as Link,
   LoginWrapper,
-  Devider,
+  Devider
 } from "./Login.style";
 
 // import { ORG_STATUS_URL_LOGIN } from "./../../../constants/naviagationUrls";
@@ -39,12 +39,12 @@ const loginSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email")
     .required("Required"),
-  password: Yup.string().required("Required"),
+  password: Yup.string().required("Required")
 });
 
 export default class Login extends Component {
   state = {
-    error: "",
+    error: ""
   };
 
   handleSubmit = (values, { setSubmitting }) => {
@@ -55,9 +55,9 @@ export default class Login extends Component {
           redirectToProfile,
           category,
           name,
-          redirectToCreateProfile,
-        } = {},
-      } = {},
+          redirectToCreateProfile
+        } = {}
+      } = {}
     } = this.props;
 
     axios
@@ -66,17 +66,17 @@ export default class Login extends Component {
         Mixpanel.identify(data.userId);
         Mixpanel.track("Successful login");
         Mixpanel.people.append({
-          $userId: data.userId,
+          $userId: data.userId
         });
         this.props.handleChangeState({ ...data, isLoggedIn: true });
 
         if (redirectToProfile && orgId) {
           this.props.history.push({
-            pathname: `/profile/${orgId}`,
+            pathname: `/profile/${orgId}`
           });
         } else if (redirectToCreateProfile && category && name) {
           this.props.history.push({
-            pathname: `/add-profile-sign-up/${category}/${name}`,
+            pathname: `/add-profile-sign-up/${category}/${name}`
           });
         } else {
           this.props.history.push(HOME_PAGE);

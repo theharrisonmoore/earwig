@@ -16,7 +16,7 @@ import {
   CommentBubble,
   CommentDate,
   BubbleAndDate,
-  RatingWithUserInfo,
+  RatingWithUserInfo
 } from "../Profile.style";
 
 import VoiceReview from "../ProfileAnswers/VoiceReview";
@@ -55,7 +55,7 @@ export default ({
   isLiked,
   isLikedByUser,
   showRate,
-  panelKey,
+  panelKey
 }) => {
   const overallParams = {
     target,
@@ -64,7 +64,7 @@ export default ({
     // review.overallReview.text
     reportedReviewText: text,
     orgId,
-    orgName,
+    orgName
   };
 
   const overallReportLink = addSearchParamsToLink(
@@ -73,6 +73,7 @@ export default ({
   );
 
   return (
+    // content of comment section
     <CommentDiv>
       <BubbleAndDate>
         <CommentBubble bgColor={bgColor}>
@@ -102,6 +103,7 @@ export default ({
       {/*  BUTTONS SECTION */}
       <ActionButtonsWrapper
         // _id
+
         loggedinUserID={userId}
         ownerID={ownerId}
         onClickHelpful={level >= 1 ? toggleHelpful : undefined}

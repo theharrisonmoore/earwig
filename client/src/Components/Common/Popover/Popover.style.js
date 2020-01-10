@@ -21,7 +21,6 @@ export const PopoverDiv = styled.div`
   min-width: 250px;
   max-width: 400px;
   padding: 0 1rem;
-
   margin-top: 10px;
 `;
 

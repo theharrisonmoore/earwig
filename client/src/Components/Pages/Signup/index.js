@@ -25,7 +25,7 @@ import {
   Checkbox,
   CheckboxLabel,
   StyledField,
-  AntCheckbox,
+  AntCheckbox
 } from "../../Common/Formik/Formik.style";
 
 import {
@@ -41,7 +41,7 @@ import {
   Example,
   ImageInput,
   ModalText,
-  LogIn,
+  LogIn
 } from "./Signup.style";
 
 import example from "../../../assets/example.png";
@@ -53,7 +53,7 @@ import {
   TERMS_OF_USE_URL,
   PRIVACY_URL,
   LOGIN_URL,
-  INTRO_URL,
+  INTRO_URL
 } from "../../../constants/naviagationUrls";
 import { colors } from "../../../theme";
 
@@ -66,11 +66,11 @@ function equalTo(ref, msg) {
     exclusive: false,
     message: msg || "Passwords do not match",
     params: {
-      reference: ref.path,
+      reference: ref.path
     },
     test(value) {
       return value === this.resolve(ref);
-    },
+    }
   });
 }
 
@@ -98,7 +98,7 @@ const signupSchema = Yup.object().shape({
         .oneOf(
           ["agency", "payroll", "company", "mainCompany", "other"],
           "Must select organisation"
-        ),
+        )
     })
 
     .nullable(),
@@ -123,7 +123,7 @@ const signupSchema = Yup.object().shape({
       }
       return true;
     }
-  ),
+  )
 });
 
 const initialValues = {
@@ -134,7 +134,7 @@ const initialValues = {
   orgType: null,
   otherOrg: "",
   trade: "",
-  verificationImage: undefined,
+  verificationImage: undefined
 };
 
 const RadioButton = ({
@@ -184,7 +184,7 @@ export default class Signup extends Component {
     isPopupVisible: false,
     data: null,
     isPasswordVisible: false,
-    browserBackAttempt: true,
+    browserBackAttempt: true
   };
 
   handleSubmit = (_values, { setSubmitting }) => {
@@ -212,21 +212,21 @@ export default class Signup extends Component {
           url: API_SIGN_UP,
           data: form,
           headers: {
-            "content-type": `multipart/form-data; boundary=${form._boundary}`,
-          },
+            "content-type": `multipart/form-data; boundary=${form._boundary}`
+          }
         })
           .then(({ data }) => {
             if (isWorker === "yes") {
               this.setState({
                 isPopupVisible: true,
                 data,
-                browserBackAttempt: false,
+                browserBackAttempt: false
               });
             } else {
               this.props.handleChangeState({
                 ...data,
                 isLoggedIn: true,
-                browserBackAttempt: false,
+                browserBackAttempt: false
               });
               this.handleModalOk();
             }
@@ -268,7 +268,7 @@ export default class Signup extends Component {
     const { searchTerm } = e.target.dataset;
     this.setState({
       ismodalVisible: true,
-      newTrade: searchTerm,
+      newTrade: searchTerm
     });
   };
 
@@ -276,7 +276,7 @@ export default class Signup extends Component {
     if (this.state.newTrade && this.state.newTrade.length >= 3) {
       this.setState(
         {
-          confirmLoading: true,
+          confirmLoading: true
         },
         () => {
           axios
@@ -287,20 +287,20 @@ export default class Signup extends Component {
               this.setState({
                 trades: [{ value: data._id, label: data.title }],
                 trade: data._id,
-                disableSelect: true,
+                disableSelect: true
               });
               setFieldValue("trade", data._id);
 
               this.setState(
                 {
-                  newTradeSuccess: true,
+                  newTradeSuccess: true
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       newTradeSuccess: false,
                       ismodalVisible: false,
-                      confirmLoading: false,
+                      confirmLoading: false
                     });
                   }, 1000);
                 }
@@ -310,13 +310,13 @@ export default class Signup extends Component {
               this.setState(
                 {
                   newTradeSuccess: false,
-                  newTradeError: err.response.data.error,
+                  newTradeError: err.response.data.error
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       ismodalVisible: false,
-                      confirmLoading: false,
+                      confirmLoading: false
                     });
                   }, 1000);
                 }
@@ -326,7 +326,7 @@ export default class Signup extends Component {
       );
     } else if (this.state.newTrade.length < 3) {
       this.setState({
-        newTradeError: "Trade must be at least 3 characters long",
+        newTradeError: "Trade must be at least 3 characters long"
       });
     }
   };
@@ -335,7 +335,7 @@ export default class Signup extends Component {
     this.setState({
       ismodalVisible: false,
       newTradeSuccess: false,
-      newTradeError: "",
+      newTradeError: ""
     });
   };
 
@@ -351,7 +351,7 @@ export default class Signup extends Component {
     reader.onload = () => {
       const dataURL = reader.result;
       this.setState({
-        verificationImage: dataURL,
+        verificationImage: dataURL
       });
     };
 
@@ -360,7 +360,7 @@ export default class Signup extends Component {
 
   togglePasswordVisibility = () => {
     this.setState(prevState => ({
-      isPasswordVisible: !prevState.isPasswordVisible,
+      isPasswordVisible: !prevState.isPasswordVisible
     }));
   };
 
@@ -396,15 +396,15 @@ export default class Signup extends Component {
           redirectToProfile,
           category,
           name,
-          redirectToCreateProfile,
-        } = {},
-      } = {},
+          redirectToCreateProfile
+        } = {}
+      } = {}
     } = this.props;
 
     this.props.handleChangeState({ ...data, isLoggedIn: true });
     if (redirectToProfile && orgId) {
       this.props.history.push({
-        pathname: `/profile/${orgId}`,
+        pathname: `/profile/${orgId}`
       });
     } else if (
       redirectToCreateProfile &&
@@ -413,12 +413,12 @@ export default class Signup extends Component {
       category
     ) {
       this.props.history.push({
-        pathname: `/add-profile-sign-up/${category}/${name}`,
+        pathname: `/add-profile-sign-up/${category}/${name}`
       });
     } else if (isWorker === "yes") {
       this.props.history.push({
         pathname: INTRO_URL,
-        state: { isWorker },
+        state: { isWorker }
       });
     } else {
       this.props.history.push(HOME_PAGE);
@@ -435,7 +435,7 @@ export default class Signup extends Component {
       isPopupVisible,
       isWorker,
       isPasswordVisible,
-      browserBackAttempt,
+      browserBackAttempt
     } = this.state;
 
     const {
@@ -445,10 +445,10 @@ export default class Signup extends Component {
           redirectToProfile,
           category,
           name,
-          redirectToCreateProfile,
-        } = {},
+          redirectToCreateProfile
+        } = {}
       } = {},
-      history,
+      history
     } = this.props;
 
     return (
@@ -464,8 +464,8 @@ export default class Signup extends Component {
                 redirectToProfile,
                 category,
                 name,
-                redirectToCreateProfile,
-              },
+                redirectToCreateProfile
+              }
             }}
           >
             Already signed up? <span>Log in</span>
@@ -717,7 +717,7 @@ export default class Signup extends Component {
                           text: this.getTooltipText(),
                           linkText: "Learn more",
                           icon: "info",
-                          margin: "0 0 0.5rem 0",
+                          margin: "0 0 0.5rem 0"
                         }}
                       />
 

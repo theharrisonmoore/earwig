@@ -16,7 +16,7 @@ import {
   isSMobile,
   isMobile,
   isTablet,
-  isDesktop,
+  isDesktop
 } from "./helpers";
 
 import { API_USERS } from "./apiUrls";
@@ -35,18 +35,19 @@ export const initialState = {
   trade: "",
   verified: false,
   awaitingReview: false,
+  verificationPhoto: false,
   userId: "",
   points: 0,
   helpedUsers: 0,
   isAdmin: false,
   isMounted: false,
   email: "",
-  city: "",
+  city: ""
 };
 
 class App extends Component {
   state = {
-    ...initialState,
+    ...initialState
   };
 
   updateWindowDimensions = this.updateWindowDimensions.bind(this);
@@ -57,7 +58,7 @@ class App extends Component {
       isSMobile: isSMobile(window.innerWidth),
       isMobile: isMobile(window.innerWidth),
       isTablet: isTablet(window.innerWidth),
-      isDesktop: isDesktop(window.innerWidth),
+      isDesktop: isDesktop(window.innerWidth)
     });
   }
 
@@ -84,7 +85,7 @@ class App extends Component {
     this.getUserInfo();
     window.scrollTo(0, 0);
     mixpanel.track("new mount", {
-      earwig: "earwig",
+      earwig: "earwig"
     });
   }
 
