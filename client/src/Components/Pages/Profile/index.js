@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { message, Skeleton } from "antd";
 
-import queryString from "query-string";
 import HeaderSection from "./HeaderSection";
 import OverviewSection from "./OverviewSection";
 import DetailedSection from "./DetailedSection";

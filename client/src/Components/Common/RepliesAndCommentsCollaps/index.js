@@ -29,7 +29,6 @@ class RepliesAndCommentsCollaps extends Component {
       count,
       onToggle,
       comments,
-      activeTab,
     } = this.props;
 
     return (

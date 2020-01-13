@@ -24,7 +24,7 @@ import {
   API_ADD_COMMENT_ON_REVIEW_URL,
   API_ADD_COMMENT_ON_QUESTION_URL,
 } from "../../../apiUrls";
-import { highlightMentions, addSearchParamsToLink } from "../../../helpers";
+import { highlightMentions } from "../../../helpers";
 
 import Loading from "../../Common/AntdComponents/Loading";
 import Button from "../../Common/Button";
