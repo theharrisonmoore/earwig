@@ -1,18 +1,8 @@
-/** directions:
- * to redirect to to this page
- * add orgType in the Link state
- *  <Link
- *    to={{ pathname: "thank-you", state: { orgType: "worksite" } }}
- *  >
- *    TEST
- *  </Link>
- *
- * */
-
 import React, { Component } from "react";
 import { Divider } from "antd";
 
 import { isMobileDevice } from "../../../helpers";
+import SocialLinks from "../../Common/SocialLinks";
 
 import {
   ThankYouWrapper,
@@ -21,13 +11,8 @@ import {
   Heading,
   Paragraph,
   List,
-  IconWrapper,
-  EmailShare,
-  WhatsappShare,
-  FbShare,
   SquareSection,
   PromoTitle,
-  IconImg,
   Thanks,
   LeftSide,
   RightSide,
@@ -36,10 +21,6 @@ import {
 import Button from "../../Common/Button";
 
 import { EDIT_ID_URL } from "../../../constants/naviagationUrls";
-
-import whatsAppIcon from "../../../assets/whatsapp-logo.svg";
-import facebookMsgIcon from "../../../assets/messenger-logo.svg";
-import emailIcon from "../../../assets/email-logo.svg";
 
 export default class ThankYou extends Component {
   fbSendBrowser = referralLink => {
@@ -78,6 +59,13 @@ export default class ThankYou extends Component {
     // eslint-disable-next-line import/no-dynamic-require, global-require
     const img = require(`./../../../assets/thank-you-${orgType}.svg`);
 
+    const title = `Check this out, I've just given a review about ${orgName} on earwig to help you and other workers.`;
+
+    const body = `Check this out, I've just given a review about ${orgName} on earwig to help you and other workers. 
+     Have a look and if it's helpful to you, give me a point by liking it. I can redeem points for tools and training. 
+     You should get involved with earwig mate. It's like Trip Advisor for construction workers and it's giving us a voice to change the industry for the better.
+     Never choose a bad job again!`;
+
     return (
       <ThankYouWrapper>
         {isDesktop ? (
@@ -106,48 +94,26 @@ export default class ThankYou extends Component {
               <SquareSection>
                 <PromoTitle>Now tell your work mates!</PromoTitle>
                 <Paragraph>
-                  Privately share news of your review with the people you work
-                  with via:
+                  Share news of your review with the people you work with:
                 </Paragraph>
-                <IconWrapper>
-                  <EmailShare
-                    url={orgURL}
-                    subject={`I've reviewed ${orgName} on earwig`}
-                    category={orgType}
-                  >
-                    <IconImg src={emailIcon} alt="email" />
-                    Email
-                  </EmailShare>
-                  <WhatsappShare
-                    url={orgURL}
-                    title={`I've reviewed ${orgName} on earwig`}
-                    separator=": "
-                    category={orgType}
-                  >
-                    <IconImg src={whatsAppIcon} alt="whatsApp" />
-                    WhatsApp
-                  </WhatsappShare>
-
-                  <FbShare
-                    category={orgType}
-                    onClick={() => this.fbSendBrowser(orgURL)}
-                  >
-                    <IconImg src={facebookMsgIcon} alt="facebook" />
-                    Messenger
-                  </FbShare>
-                </IconWrapper>
+                <SocialLinks
+                  url={orgURL}
+                  title={title}
+                  body={body}
+                  emailSubject={title}
+                />
               </SquareSection>
               <Paragraph>
                 Your reviews are seen by workers and everyone in the
                 construction industry.
               </Paragraph>
               <Paragraph>
-                <strong>Don’t worry</strong>, only your username is visible on
-                earwig
+                <strong>Don’t worry</strong>, only your display name is visible
+                on earwig
               </Paragraph>
               <Button
                 styleType="secondary"
-                text="Change your username"
+                text="Change your display name"
                 onClick={() => this.props.history.push(EDIT_ID_URL)}
               />
             </RightSide>
@@ -163,36 +129,14 @@ export default class ThankYou extends Component {
             <SquareSection>
               <PromoTitle>Now tell your work mates!</PromoTitle>
               <Paragraph>
-                Privately share news of your review with the people you work
-                with via:
+                Share news of your review with the people you work with:
               </Paragraph>
-              <IconWrapper>
-                <EmailShare
-                  url={orgURL}
-                  subject={`I've reviewed ${orgName} on earwig`}
-                  category={orgType}
-                >
-                  <IconImg src={emailIcon} alt="email" />
-                  Email
-                </EmailShare>
-                <WhatsappShare
-                  url={orgURL}
-                  title={`I've reviewed ${orgName} on earwig`}
-                  separator=": "
-                  category={orgType}
-                >
-                  <IconImg src={whatsAppIcon} alt="whatsApp" />
-                  WhatsApp
-                </WhatsappShare>
-
-                <FbShare
-                  category={orgType}
-                  onClick={() => this.fbSendBrowser(orgURL)}
-                >
-                  <IconImg src={facebookMsgIcon} alt="facebook" />
-                  Messenger
-                </FbShare>
-              </IconWrapper>
+              <SocialLinks
+                url={orgURL}
+                title={title}
+                body={body}
+                emailSubject={title}
+              />
             </SquareSection>
             <Paragraph>
               Your reviews are seen by workers and everyone in the construction

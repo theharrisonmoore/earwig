@@ -68,6 +68,7 @@ export default class SearchHeader extends Component {
             } ${category}...`}
             isMobile={isMobile}
             isTablet={isTablet}
+            searchIcon
           />
         </SearchBarContainer>
         <GeneralTabs

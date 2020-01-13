@@ -36,8 +36,13 @@ const schemas = {
       is: "no",
       then: Joi.string()
         .valid(
+<<<<<<< HEAD
           ["agency", "payroll", "company", "mainContractor", "other"],
           "invalid organisation type"
+=======
+          ["agency", "payroll", "company", "mainCompany", "other"],
+          "invalid organisation type",
+>>>>>>> develop
         )
         .required(),
       otherwise: Joi.allow("").optional()

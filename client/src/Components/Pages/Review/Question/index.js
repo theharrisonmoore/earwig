@@ -20,6 +20,8 @@ import UploadAudio3 from "./UploadAudio3";
 
 import Icon from "../../../Common/Icon/Icon";
 
+import { colors } from "../../../../theme";
+
 class Question extends Component {
   state = {
     showComment: false,
@@ -86,9 +88,9 @@ class Question extends Component {
           {icon && (
             <Icon
               icon={icon}
-              width={isXSMobile(window.innerWidth) ? "35" : "40"}
-              fill-opacity="0.5"
-              fill="#000"
+              width={isXSMobile(window.innerWidth) ? "45" : "45"}
+              height={isXSMobile(window.innerWidth) ? "50" : "50"}
+              color={colors.dustyGray4}
             />
           )}
         </IconContainer>

@@ -4,9 +4,13 @@ import React, { Component } from "react";
 import {
   BorderedSubSectionWrapper,
   SubSectionTitleParagraph,
+  SubSectionTitle,
 } from "./UserProfile.style";
 
 import PopoverComponent from "../../Common/Popover";
+import Icon from "../../Common/Icon/Icon";
+
+import { colors } from "../../../theme";
 
 // individual styles
 import {
@@ -22,6 +26,27 @@ import {
 } from "./UserPoints.style";
 
 export default class UserPoints extends Component {
+  getTooltipText = () => {
+    return (
+      <>
+        <Icon
+          icon="rewards"
+          height="50"
+          width="50"
+          margin="0 0 1rem 0"
+          color={colors.dustyGray4}
+        />
+        <p style={{ color: colors.dustyGray3, fontSize: "15px" }}>
+          Give reviews often on earwig to be eligible for perks and early access
+          to new features. earwig is a young organisation and we’re still coming
+          up with ideas about what you can win with your points. You’ve told us
+          you’d like to win tools and training so we’re working on it. Keep
+          going to enter our first competition.
+        </p>
+      </>
+    );
+  };
+
   render() {
     const { points } = this.props;
 
@@ -32,12 +57,13 @@ export default class UserPoints extends Component {
     return (
       <Wrapper>
         <BorderedSubSectionWrapper padding="1.5rem 0">
+          <SubSectionTitle marginTop="2.5rem">
+            How you can earn points
+          </SubSectionTitle>
           <SubSectionTitleParagraph marginTop="2.5rem">
-            You earn points when workers like your reviews. Make your reviews
-            helpful to earn more points. You also earn points when workers
-            sign-up using your magic referral links.
-            <br />
-            Build your network to earn more points.
+            You earn points when workers like your reviews because they are
+            helpful. You also earn points when workers sign-up using your magic
+            referral link. Build your network to earn more points.
           </SubSectionTitleParagraph>
         </BorderedSubSectionWrapper>
         <ProgressSection>
@@ -48,7 +74,7 @@ export default class UserPoints extends Component {
               <p>Enter competition</p>
               <PopoverComponent
                 popoverOptions={{
-                  text: `Give reviews often on earwig to be eligible for perks and early access to new features. earwig is a young organisation and we’re still coming up with ideas about what you can win with your points. You’ve told us you’d like to win tools and training so we’re working on it. Keep going to enter our first competition.`,
+                  text: this.getTooltipText(),
                   linkText: "Learn more",
                   icon: "info",
                   margin: "-1rem 0 0 0.2rem",

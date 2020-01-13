@@ -57,7 +57,7 @@ module.exports = async (req, res, next) => {
       // check if username already exists
       const usernameExists = await getUserByUsername(newUsername);
       if (usernameExists) {
-        return next(boom.notAcceptable("That Username is already taken"));
+        return next(boom.notAcceptable("That display name is already taken"));
       }
       updateData.userId = newUsername;
     }

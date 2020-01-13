@@ -59,7 +59,7 @@ export const Heading = styled.h1`
 
 export const SubHeading = styled.h2`
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 15px;
   color: ${colors.dustyGray3};
   text-align: left;
   margin-bottom: 0;
@@ -73,7 +73,7 @@ export const Example = styled.img`
 export const Label = styled.label``;
 
 export const Paragraph = styled.p`
-  font-size: 1rem;
+  font-size: 15px;
   text-align: left;
   color: ${colors.dustyGray};
   margin-bottom: 0.25rem;
@@ -88,7 +88,7 @@ export const Error = styled.p`
   margin-top: 0.5rem;
   margin-bottom: -2rem;
   color: red;
-  font-size: 1rem;
+  font-size: 15px;
 `;
 
 export const ModalText = styled.p`

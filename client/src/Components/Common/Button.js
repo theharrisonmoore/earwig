@@ -11,10 +11,10 @@ const sharedStyles = css`
   /* width: ${props => props.width || "100%"}; */
   min-height: 45px;
   font-weight: bold;
-  font-size: 1.125rem;
+  font-size: 15px;
   outline: none;
   display: block;
-  padding: 0 1rem;
+  padding: 0 2rem;
   cursor: ${props =>
     props.disabled || props.loading ? "not-allowed" : "pointer"};
   margin: ${props => props.margin || "2rem auto"};
@@ -116,7 +116,6 @@ const linkStyles = css`
   display: inline;
   text-align: left;
   padding-left: 0;
-  font-size: 1rem;
 `;
 
 const ButtonElement = styled.button`
@@ -144,6 +143,8 @@ const Button = ({
   color,
   disabled,
   width,
+  iconHeight,
+  iconWidth,
   ...rest
 }) => {
   return (
@@ -165,8 +166,8 @@ const Button = ({
             icon && (
               <Icon
                 icon={icon}
-                width="23"
-                height="23"
+                width={iconWidth || "23"}
+                height={iconHeight || "23"}
                 margin="0 0.5rem 0 0"
                 color={color}
               />

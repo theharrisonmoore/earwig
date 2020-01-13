@@ -40,7 +40,7 @@ export const Paragraph = styled.p`
   font-style: italic;
   color: ${colors.profileFontColor};
   margin-bottom: 2rem;
-  font-size: 1rem;
+  font-size: 15px;
 
   @media (min-width: ${MOBILE_WIDTH}px) {
     margin: 4rem auto;

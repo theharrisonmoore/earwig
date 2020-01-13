@@ -4,6 +4,7 @@ import { ListWrapper, CanteenItem } from "./ProfileAnswers.style";
 
 import CanteenSubItemAnswer from "./CanteenSubItemAnswer";
 import Icon from "../../../Common/Icon/Icon";
+import { colors } from "../../../../theme";
 
 export default class CanteenItemAnswer extends Component {
   getAverage = answers => {
@@ -39,6 +40,7 @@ export default class CanteenItemAnswer extends Component {
                 margin="0 1rem 0 0"
                 height={isMobile ? "50" : "2rem"}
                 width={isMobile ? "50" : "2rem"}
+                color={colors.dustyGray4}
               />
               <p>Canteen on this site</p>
             </CanteenItem>
@@ -62,6 +64,7 @@ export default class CanteenItemAnswer extends Component {
               margin="0 1rem 0 0"
               height="1.5rem"
               width="1.5rem"
+              color={colors.dustyGray4}
             />
             <p>Canteen on this site</p>
           </CanteenItem>

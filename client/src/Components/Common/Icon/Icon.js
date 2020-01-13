@@ -25,6 +25,7 @@ import Fingerprint from "./Fingerprint";
 import Gasmask from "./Gasmask";
 import GetVerified from "./GetVerified";
 import Hamburger from "./Hamburger";
+import Helped from "./Helped";
 import HelpfulLinks from "./HelpfulLinks";
 import HelpingHand from "./HelpingHand";
 import Home from "./Home";
@@ -55,6 +56,7 @@ import PrivacyTerms from "./PrivacyTerms";
 import RaiseHand from "./RaiseHand";
 import Recent from "./Recent";
 import ReportFlag from "./ReportFlag";
+import Rewards from "./Rewards";
 import Search from "./Search";
 import ShapeEarwig from "./ShapeEarwig";
 import StarComment from "./StarComment";
@@ -100,6 +102,11 @@ import ToiletsClean from "./ToiletsClean";
 import SafeSite from "./SafeSite";
 import GetAround from "./GetAround";
 import TidySite from "./TidySite";
+import Facebook from "./Facebook";
+import Instagram from "./Instagram";
+import Linkedin from "./Linkedin";
+import Messenger from "./Messenger";
+import Whatsapp from "./Whatsapp";
 
 const iconStyles = props => css`
   width: ${props.width || "100%"};
@@ -135,6 +142,7 @@ const iconMap = {
   hamburger: Hamburger,
   home: Home,
   hotFood: HotFood,
+  helped: Helped,
   helpfulLinks: HelpfulLinks,
   helpingHand: HelpingHand,
   info: Info,
@@ -163,6 +171,7 @@ const iconMap = {
   raiseHand: RaiseHand,
   recent: Recent,
   reportFlag: ReportFlag,
+  rewards: Rewards,
   search: Search,
   shapeEarwig: ShapeEarwig,
   starComment: StarComment,
@@ -208,6 +217,11 @@ const iconMap = {
   safeSite: SafeSite,
   getAround: GetAround,
   tidySite: TidySite,
+  facebook: Facebook,
+  instagram: Instagram,
+  linkedin: Linkedin,
+  messenger: Messenger,
+  whatsapp: Whatsapp,
 };
 
 const styledIconMap = Object.keys(iconMap).reduce((accum, curr) => {
@@ -228,8 +242,8 @@ const Icon = props => {
     return null;
   }
   const StyledIcon = styledIconMap[props.icon];
-
-  return <StyledIcon {...props} />;
+  const color = props.color || props.fill || "currentColor";
+  return <StyledIcon {...props} color={color} fill={color} />;
 };
 
 export default Icon;

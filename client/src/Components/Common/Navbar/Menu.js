@@ -9,12 +9,13 @@ import {
   MenuIcon,
   LogoutButton,
   PriorityIcon,
-  MenuWrapper,
+  MenuWrapper
 } from "./Menu.style";
 
 import { ToggleMenu } from "./Navbar.style";
 
 import Icon from "../Icon/Icon";
+import PopoverComponent from "../Popover";
 
 import { colors } from "../../../theme";
 
@@ -27,7 +28,7 @@ import {
   SIGNUP_URL,
   PRIVACY_AND_TERMS_URL,
   ADMIN,
-  INVITE_WORKERS_URL,
+  INVITE_WORKERS_URL
 } from "../../../constants/naviagationUrls";
 
 export default class Menu extends PureComponent {
@@ -41,18 +42,42 @@ export default class Menu extends PureComponent {
       verified,
       history,
       handleChangeState,
-      level,
+      level
     } = this.props;
+
     const data = {
       isAdmin,
       awaitingReview,
       verified,
-      isLoggedIn,
+      isLoggedIn
     };
 
     const isWorker = awaitingReview || verified;
 
     const { isAuthorized } = authorization({ ...data, minimumLevel: "ADMIN" });
+
+    const getPopoverContent = () => {
+      return (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center"
+          }}
+        >
+          <Icon
+            icon="newWindow"
+            height="50"
+            width="50"
+            margin="-0.6rem 0 1rem 0"
+            fill={colors.gray}
+          />
+          Helpful stuff will open in a new window.
+        </div>
+      );
+    };
 
     return (
       <Wrapper isMobile={isMobile}>
@@ -70,7 +95,7 @@ export default class Menu extends PureComponent {
               style={{
                 fontSize: "19px",
                 color: colors.white,
-                marginRight: "16px",
+                marginRight: "16px"
               }}
             />
             Admin Dashboard
@@ -103,7 +128,12 @@ export default class Menu extends PureComponent {
             )} */}
             {level >= 3 && (
               <MenuItem to={INVITE_WORKERS_URL} onClick={toggleMenu}>
-                <PriorityIcon icon="win" height="19" width="19" />
+                <PriorityIcon
+                  icon="win"
+                  height="19"
+                  width="19"
+                  fill={colors.primary}
+                />
                 Build your network
               </MenuItem>
             )}
@@ -131,20 +161,32 @@ export default class Menu extends PureComponent {
                 FAQ & how to use earwig
               </MenuItem>
             )}
+            {/* helpful stuff section */}
             {level >= 3 && (
-              <MenuItem
-                to="//www.earwigwork.com/blog"
-                target="_blank"
-                onClick={toggleMenu}
-              >
+              <MenuItem to="/" target="_blank">
                 <MenuIcon icon="helpfulLinks" height="19" width="19" />
-                Helpful stuff
-                <MenuIcon
-                  icon="newWindow"
-                  height="12"
-                  width="12"
-                  margin="0 0 0 0.5rem"
-                />
+
+                <PopoverComponent
+                  popoverOptions={{
+                    text: getPopoverContent(),
+                    placement: "right",
+                    linkButtonOptions: {
+                      target: "_blank",
+                      pathname: "//www.earwigwork.com/blog"
+                    },
+                    overlayStyle: { paddingLeft: "4.3rem" },
+                    margin: "1rem 0 0 0",
+                    bottomCancelBtn: true
+                  }}
+                >
+                  Helpful stuff
+                  <MenuIcon
+                    icon="newWindow"
+                    height="12"
+                    width="12"
+                    margin="0 0 0 0.5rem"
+                  />
+                </PopoverComponent>
               </MenuItem>
             )}
             {level >= 3 && (

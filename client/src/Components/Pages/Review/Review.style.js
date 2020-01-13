@@ -69,7 +69,7 @@ export const Header = styled.section`
   max-width: 57.5rem;
 
   @media (max-width: ${size.mobileL}) {
-    font-size: 1rem;
+    font-size: 15px;
   }
 `;
 
@@ -140,7 +140,7 @@ export const Paragraph = styled.p`
   margin-bottom: 0;
   margin: 0 auto;
   margin-top: auto;
-  font-size: 1rem;
+  font-size: 15px;
   font-weight: 400;
   ${({ cancel }) => (cancel ? "cursor: pointer;" : "")}
   ${({ cancel }) => (cancel ? "line-height: 3;" : "")}
@@ -164,7 +164,7 @@ export const OrgName = styled.p`
   text-transform: capitalize;
 
   @media (max-width: ${size.mobileL}) {
-    font-size: 1rem;
+    font-size: 15px;
     font-weight: 600;
   }
 `;
@@ -176,7 +176,7 @@ export const ReviewTimePhone = styled.p`
 `;
 export const ReviewTime = styled.p`
   margin-top: 0.5rem;
-  font-size: 1rem;
+  font-size: 15px;
 `;
 
 export const FormWrapper = styled.div`
@@ -262,7 +262,7 @@ export const Button = styled.button`
   box-shadow: ${colors.buttonShadow};
   border-radius: 6px;
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 15px;
   padding: 1rem 1rem;
   display: block;
   margin: 1rem auto 2rem;
@@ -283,7 +283,7 @@ export const DelButton = styled.button`
 
 export const LinkSpan = styled(Link)`
   color: ${({ color }) => color};
-  font-size: 1rem;
+  font-size: 15px;
   font-weight: 700;
   text-decoration: underline;
   z-index: 4;
@@ -302,7 +302,7 @@ export const ErrorsWrapper = styled.div`
 `;
 
 export const ErrorsTitle = styled.h4`
-  font-size: 1rem;
+  font-size: 15px;
   color: ${colors.red};
 `;
 
@@ -311,8 +311,9 @@ export const GroupTitle = styled.h2`
   font-size: 1.75rem;
   font-weight: normal;
   color: ${colors.profileFontColor};
+  margin-bottom: 2.25rem;
 `;
 
 export const GroupSection = styled.div`
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
 `;

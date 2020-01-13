@@ -6,15 +6,16 @@ import {
   shadows,
   borders,
   organizations,
-  breakpoints,
+  breakpoints
 } from "../../../theme";
 
 export const Wrapper = styled.div`
   padding-bottom: 100px;
   display: flex;
   flex-direction: column;
-  font-size: 1rem;
+  font-size: 15px;
   min-height: 100vh;
+  padding-top: ${({ paddingTop }) => paddingTop};
 
   @media ${breakpoints.laptop} {
     margin: 0 16rem;
@@ -53,12 +54,13 @@ export const StatWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  align-items: center;
 `;
 
 export const StatTitle = styled.p`
   margin-top: ${props => (props.isSMobile ? "20px" : "0px")};
   margin: 0;
-  color: ${colors.veryLightGray};
+  color: ${colors.dustyGray4};
 `;
 
 export const Stat = styled.p`
@@ -146,7 +148,7 @@ export const SectionTitle = styled.h1`
 
 export const Paragraph = styled.p`
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 15px;
   color: ${colors.gray};
   margin-top: 1rem;
   margin-bottom: 2rem;
@@ -277,9 +279,10 @@ export const VerifySection = styled.div`
 
 export const BorderedSubSectionWrapper = styled.div`
   max-width: 700px;
-  margin: 0 auto;
+  margin: 0 auto 1rem auto;
   padding: ${({ padding }) => padding || "3rem 0"};
   border: none;
+  border-bottom: ${borders.section};
 
   & > div {
     max-width: 500px;
@@ -295,12 +298,21 @@ export const BorderedSubSectionWrapper = styled.div`
 
 export const SubSectionTitleParagraph = styled.p`
   margin: 0 auto;
+  width: 80%;
+  text-align: center;
+  color: ${colors.dustyGray3};
+  font-size: 15px;
+`;
+
+export const SubSectionTitle = styled.h3`
+  margin: 0 auto;
+  font-size: 18px;
+  font-weight: bold;
   margin-top: ${({ marginTop }) => marginTop || "2rem"};
-  padding-bottom: 2rem;
-  border-bottom: 1px solid ${colors.veryLightGray};
+  margin-bottom: 0.5rem;
   width: 90%;
   text-align: center;
-  color: ${colors.lightGray};
+  color: ${colors.dustyGray3};
 
   @media ${breakpoints.tablet} {
     margin-top: 3.5rem;

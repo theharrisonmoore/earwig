@@ -3,6 +3,7 @@ import React, { Component, createRef } from "react";
 import { Link } from "react-router-dom";
 import ReviewNotAllowedButton from "./ReviewNotAllowedButton";
 import GeneralTabs from "../../Common/GeneralTabs";
+import Icon from "../../Common/Icon/Icon";
 
 import { PRE_REVIEW } from "../../../constants/naviagationUrls";
 
@@ -12,9 +13,10 @@ import {
   ActionButtonsDiv,
   CompanyNameAndStars,
   CompanyTitle,
+  LogoWrapper
 } from "./Profile.style";
 
-import { colors } from "../../../theme";
+import { colors, organizations } from "../../../theme";
 
 import Button from "../../Common/Button";
 
@@ -22,6 +24,18 @@ const ColoredBanner = ({ category, name, isMobile }) => {
   return (
     <ColoredDiv category={category} isMobile={isMobile}>
       <CompanyNameAndStars>
+        <LogoWrapper orgColor={organizations[category].primary}>
+          {category === "worksite" ? (
+            <Icon
+              icon="worksite"
+              width="26"
+              height="26"
+              color={organizations[category].primary}
+            />
+          ) : (
+            <p>LOGO</p>
+          )}
+        </LogoWrapper>
         <CompanyTitle white>{name}</CompanyTitle>
         {/* <Rate
           disabled
@@ -80,7 +94,7 @@ export default class HeaderSection extends Component {
       reviewsLast30Days,
       orgId,
       setActiveTab,
-      activeTab = "overview",
+      activeTab = "overview"
     } = this.props;
     const { category, name } = summary;
     // if there are reviews less dating before 1 month user not allowed
@@ -100,6 +114,7 @@ export default class HeaderSection extends Component {
             tabOne="overview"
             tabTwo="detailed"
             zIndex="2"
+            fixedHeight="4.5rem"
           />
         )}
         {level > 0 ? (
@@ -111,7 +126,7 @@ export default class HeaderSection extends Component {
                     ? // VERIFICATION_REQUIRED
                       `/verification-required/${category}/${name}`
                     : PRE_REVIEW.replace(":orgId", orgId),
-                state: { name, category, redirectToProfile: true, orgId },
+                state: { name, category, redirectToReview: true, orgId }
               }}
               onClick={e =>
                 reviewNotAllowed &&
@@ -125,7 +140,7 @@ export default class HeaderSection extends Component {
                 style={{
                   opacity: `${
                     reviewNotAllowed && reviewsLast30Days.length > 0 ? 0.5 : 1
-                  }`,
+                  }`
                 }}
                 text={`Review this ${category || "organisation"}`}
                 disabled={reviewNotAllowed && reviewsLast30Days.length > 0}

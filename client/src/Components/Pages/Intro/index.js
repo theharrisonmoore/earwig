@@ -14,7 +14,7 @@ import {
   PurpleDiv,
   BlueDiv,
   Title,
-  LogoWrapper,
+  LogoWrapper
 } from "./Intro.style";
 
 import Button from "../../Common/Button";

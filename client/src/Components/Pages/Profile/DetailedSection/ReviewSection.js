@@ -12,7 +12,6 @@ import {
   HintText,
 } from "./ReviewSection.style";
 import Icon from "../../../Common/Icon/Icon";
-import { isXSMobile } from "../../../../helpers";
 import ProfileAnswers from "../ProfileAnswers";
 
 const {
@@ -158,7 +157,8 @@ export default class ReviewSection extends Component {
                         {question.icon && (
                           <Icon
                             icon={question.icon}
-                            width={isXSMobile(window.innerWidth) ? "35" : "40"}
+                            width="45"
+                            height="50"
                             fill-opacity="0.5"
                             fill="#000"
                           />

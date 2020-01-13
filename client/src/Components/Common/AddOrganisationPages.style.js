@@ -21,7 +21,8 @@ export const HeadlineDiv = styled.div`
 `;
 
 export const H2 = styled.h2`
-  font-size: 24px;
+  font-size: 18px;
+  font-weight: bold;
   opacity: 0.7;
   max-width: 22rem;
   margin: 0 auto;

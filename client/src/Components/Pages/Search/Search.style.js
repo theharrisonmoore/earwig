@@ -40,7 +40,7 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
     height: ${props => props.height};
     padding: 10px 20px;
     font-weight: 300;
-    font-size: 1rem;
+    font-size: 15px;
     width: 100%;
 
   }
@@ -49,7 +49,7 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
 
   }
   input {
-    text-indent: ${props => (props.noIcon ? "0px" : "45px")};
+    text-indent: ${props => (props.searchIcon ? "0px" : "45px")};
   }
 
   .${classNames.containerInputOpen} {
@@ -145,7 +145,7 @@ export const LastReviewsContainer = styled.div`
 
 export const LegendTitle = styled.h2`
   color: ${props => organizations[props.orgType].primary};
-  font-size: 1rem;
+  font-size: 15px;
   margin: 0;
 `;
 
@@ -194,7 +194,7 @@ export const OrganisationDetailsDiv = styled.div`
   justify-content: center;
   h3 {
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 15px;
   }
 `;
 
@@ -204,7 +204,7 @@ export const AddItemDetails = styled.div`
   padding-left: 30px;
   h3 {
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 15px;
     margin-top: 0.2rem;
   }
 `;
@@ -236,7 +236,7 @@ export const AddProfileLink = styled(Link)`
 
 export const OrgsListWrapper = styled.div`
   text-align: left;
-  padding: 0 0 6.5rem 0;
+  padding: 0 0 6.5rem 1rem;
   width: 100%;
   max-width: 25rem;
   margin: 0 auto;
@@ -247,8 +247,9 @@ export const MainKey = styled.p`
   line-height: 30px;
   letter-spacing: 0.541667px;
   margin-top: 35px;
-  color: #9b9b9b;
+  color: ${colors.dustyGray4};
   padding-left: 0.75rem;
+  font-weight: bold;
 `;
 
 export const SubKey = styled(MainKey)`
@@ -256,6 +257,7 @@ export const SubKey = styled(MainKey)`
   margin-top: 30px;
   margin-bottom: 0;
   padding-left: 0.75rem;
+  font-weight: bold;
 `;
 
 export const ButtonsWrpper = styled.div`
@@ -277,4 +279,21 @@ export const NoDataTitle = styled.p`
   padding-top: 2rem;
   color: ${colors.dustyGray1};
   padding-left: 1rem;
+`;
+
+export const LogoWrapper = styled.div`
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  background-color: ${props => props.orgColor || colors.heliotrope};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+
+  p {
+    font-size: 8px;
+    color: white;
+    margin-bottom: 0;
+  }
 `;

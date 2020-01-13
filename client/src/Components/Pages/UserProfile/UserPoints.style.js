@@ -4,7 +4,7 @@ import { colors, breakpoints } from "../../../theme";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 1rem;
+  font-size: 15px;
   height: 100vh;
   font-family: Roboto;
 `;

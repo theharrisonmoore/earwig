@@ -50,6 +50,7 @@ const Replies = ({
         {level < 3 && reply.user._id === userId && <InvisibleCommentAlert />}
 
         <UserInfo
+          showVerifiedIcon
           userId={reply.displayName || reply.user.userId}
           adminReply={!!reply.displayName}
           trade={

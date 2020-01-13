@@ -5,7 +5,7 @@ import { Rate } from "antd";
 import PopOverWrapper from "./PopOverWrapper";
 import Icon from "../../Common/Icon/Icon";
 
-import { organizations } from "../../../theme";
+import { organizations, colors } from "../../../theme";
 
 import {
   ProfileLink,
@@ -14,7 +14,24 @@ import {
   SymbolDiv,
   OrganisationDetailsDiv,
   ReviewDetailsDiv,
+  LogoWrapper,
 } from "./Search.style";
+
+// renders the organisation logo
+const renderLogo = orgType => {
+  if (orgType === "worksite") {
+    return (
+      <LogoWrapper orgColor={organizations[orgType].primary}>
+        <Icon icon="worksite" width="24" height="24" color={colors.white} />
+      </LogoWrapper>
+    );
+  }
+  return (
+    <LogoWrapper orgColor={organizations[orgType].primary}>
+      <p>LOGO</p>
+    </LogoWrapper>
+  );
+};
 
 // renders individual suggestions
 const Suggestion = props => {
@@ -22,7 +39,14 @@ const Suggestion = props => {
 
   // also need to check if button to see if we make it a link or not
   // THIS RELATES TO THE ORGCHECK COMPONENT
-  const { isButton, storeOrg, noIcon, organisation, withoutBorder } = props;
+  const {
+    isButton,
+    storeOrg,
+    searchIcon,
+    organisation,
+    withoutBorder,
+    logoIcon,
+  } = props;
 
   const url = `/profile/${organisation._id}`;
 
@@ -41,7 +65,7 @@ const Suggestion = props => {
         >
           <InnerDivSuggestions>
             <SymbolDiv>
-              {!noIcon && (
+              {searchIcon && (
                 <Icon
                   icon="search"
                   height="1.5rem"
@@ -49,6 +73,7 @@ const Suggestion = props => {
                   margin="0 1rem 0 0"
                 />
               )}
+              {logoIcon && renderLogo(organisation.category)}
             </SymbolDiv>
             <OrganisationDetailsDiv>
               <h3
