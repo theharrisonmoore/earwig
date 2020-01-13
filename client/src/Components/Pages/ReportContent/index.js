@@ -55,7 +55,6 @@ export default class ReportContent extends Component {
       return message.error("Please fill in some information!");
     }
     return this.setState({ loading: true }, () => {
-      console.log("orgName", typeof orgName, typeof orgId);
       axios
         .post(API_REPORT_CONTENT_URL, {
           target,
@@ -76,7 +75,6 @@ export default class ReportContent extends Component {
           this.setState({ loading: false, activePage: "thanks" });
         })
         .catch(err => {
-          console.log("err", err);
           this.setState({ loading: false }, () => {
             const error =
               err.response && err.response.data && err.response.data.error;

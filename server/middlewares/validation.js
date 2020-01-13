@@ -36,13 +36,8 @@ const schemas = {
       is: "no",
       then: Joi.string()
         .valid(
-<<<<<<< HEAD
-          ["agency", "payroll", "company", "mainContractor", "other"],
-          "invalid organisation type"
-=======
           ["agency", "payroll", "company", "mainCompany", "other"],
-          "invalid organisation type",
->>>>>>> develop
+          "invalid organisation type"
         )
         .required(),
       otherwise: Joi.allow("").optional()
@@ -209,6 +204,8 @@ const schemas = {
     orgName: Joi.string().required(),
     reportedReviewUserId: Joi.string().required(),
     reportedReviewText: Joi.string().required(),
+    reportedReplyUserId: Joi.string(),
+    reportedReplyText: Joi.string(),
     question: Joi.object(),
     review: Joi.object(),
     comment: Joi.object(),

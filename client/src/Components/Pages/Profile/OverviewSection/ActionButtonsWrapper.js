@@ -70,6 +70,7 @@ const ActionButtonsWrapper = ({
   reportLink,
   target
 }) => {
+
   // decides what like functions to render
   function renderLikeIcon(level) {
     switch (level) {

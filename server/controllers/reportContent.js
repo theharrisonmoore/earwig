@@ -8,8 +8,6 @@ const boom = require("boom");
 const sendEmail = require("./../helpers/emails");
 
 module.exports = (req, res, next) => {
-  console.log("reached");
-  console.log("body", req.body);
   const {
     reason,
     description,
@@ -25,6 +23,7 @@ module.exports = (req, res, next) => {
     reportedReplyText,
     image
   } = req.body;
+
   const { user } = req;
 
   sendEmail

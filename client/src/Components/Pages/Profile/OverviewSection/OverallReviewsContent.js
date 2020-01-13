@@ -130,6 +130,7 @@ export default ({
           {replies && (
             <Replies
               replies={replies}
+              target={target}
               level={level}
               userId={userId}
               updatedUsers={updatedUsers}

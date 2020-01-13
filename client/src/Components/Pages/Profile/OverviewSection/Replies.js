@@ -21,6 +21,7 @@ const Replies = ({
   category,
   text,
   ownerUserId,
+  target
 }) => {
   const replyReportLink = reply => {
     const reportLink = addSearchParamsToLink(
@@ -31,6 +32,7 @@ const Replies = ({
         reportedReplyText: reply.text,
         orgId,
         orgName,
+        target
       },
       REPORT_CONTENT_URL
     );
@@ -38,13 +40,14 @@ const Replies = ({
   };
 
   return replies.map(reply => {
+    console.log("linkkk", replyReportLink(reply));
     return (
       <div
         key={reply._id}
         style={{
           position: "relative",
           marginBottom: "2rem",
-          direction: `${reply.displayName && "rtl"}`,
+          direction: `${reply.displayName && "rtl"}`
         }}
       >
         {level < 3 && reply.user._id === userId && <InvisibleCommentAlert />}
@@ -73,7 +76,7 @@ const Replies = ({
         <div
           style={{
             position: "relative",
-            marginBottom: "2rem",
+            marginBottom: "2rem"
           }}
         >
           <BubbleAndDate>
