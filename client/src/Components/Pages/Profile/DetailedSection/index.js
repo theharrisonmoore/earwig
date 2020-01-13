@@ -14,6 +14,7 @@ const DetailedSection = ({
   updatedUsers,
   counters,
   setCounters,
+  activeTab,
 }) => {
   return (
     <>
@@ -30,6 +31,7 @@ const DetailedSection = ({
           updatedUsers={updatedUsers}
           counters={counters}
           setCounters={setCounters}
+          activeTab={activeTab}
         />
       )}
     </>
