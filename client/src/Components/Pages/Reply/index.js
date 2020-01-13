@@ -114,17 +114,12 @@ export default class Reply extends Component {
       });
   };
 
-  postReplyOnComment = ({
-    questionId,
-    organizationId,
-    parentCommentId,
-    reviewId,
-  }) => {
+  postReplyOnComment = ({ questionId, orgId, parentCommentId, reviewId }) => {
     const body = {
       text: this.state.commentContentState,
       displayName: this.state.user,
       question: questionId,
-      organization: organizationId,
+      organization: orgId,
       parentCommentId,
       reviewId,
     };
@@ -154,7 +149,7 @@ export default class Reply extends Component {
       reviewId,
       target,
       questionId,
-      organizationId,
+      orgId,
       parentCommentId,
     } = queryString.parse(this.props.location.search);
 
@@ -164,7 +159,7 @@ export default class Reply extends Component {
           if (target === "comment") {
             this.postReplyOnComment({
               questionId,
-              organizationId,
+              orgId,
               parentCommentId,
               reviewId,
             });
