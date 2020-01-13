@@ -6,7 +6,7 @@ const app = require("../../app");
 
 const user = {
   email: "level2@earwig.com",
-  password: "123456",
+  password: "123456"
 };
 describe("Tesing for get report content", () => {
   beforeAll(async () => {
@@ -18,15 +18,14 @@ describe("Tesing for get report content", () => {
     await mongoose.disconnect();
   });
 
-  test("test for report content with valid data", (done) => {
+  test("test for report content with valid data", done => {
     const data = {
       reason: "reason as string",
       description: "description as string",
       target: "target as string",
-      question: { any: "any" },
-      organization: { any: "any" },
-      review: { any: "any" },
-      comment: { any: "any" },
+      orgId: "any",
+      orgName: "any",
+      reportedReviewUserId: "any"
     };
 
     // login with the origin password
@@ -51,14 +50,13 @@ describe("Tesing for get report content", () => {
       });
   });
 
-  test("test for report content with invalid data", (done) => {
+  test("test for report content with missing data", done => {
     const data = {
       description: "description as string",
       target: "target as string",
-      question: { any: "any" },
-      organization: { any: "any" },
-      review: { any: "any" },
-      comment: { any: "any" },
+      orgId: "any",
+      orgName: "any",
+      reportedReviewUserId: "any"
     };
 
     // login with the origin password
@@ -77,7 +75,7 @@ describe("Tesing for get report content", () => {
           .expect("Content-Type", /json/)
           .expect(400)
           .end((err, res) => {
-            expect(res.body.error).toMatch("\"reason\" is required");
+            expect(res.body.error).toMatch('"reason" is required');
             done(err);
           });
       });

@@ -1,8 +1,6 @@
 const nodemailer = require("nodemailer");
 
-module.exports = ({
-  from, to, subject, html, user, pass, attachments,
-}) => {
+module.exports = ({ from, to, subject, html, user, pass, attachments }) => {
   const transporter = nodemailer.createTransport({
     service: "Office365",
     host: "smtp.office365.com",
@@ -12,17 +10,17 @@ module.exports = ({
     //                     but the default is false so just remove this completely
     auth: {
       user,
-      pass,
+      pass
     },
     tls: {
-      rejectUnauthorized: false,
-    },
+      rejectUnauthorized: false
+    }
   });
 
   // send mail with defined transport object
-  if (!(process.env.NODE_ENV === "production" && user.role !== "admin")) {
+  if (true) {
     // eslint-disable-next-line no-console
-    console.log("email suppose to be sent");
+    console.log(from, to, subject, html);
     return Promise.resolve();
   }
   return transporter.sendMail({
@@ -30,6 +28,6 @@ module.exports = ({
     to, // list of receivers
     subject, // Subject line
     html, // html body
-    attachments,
+    attachments
   });
 };
