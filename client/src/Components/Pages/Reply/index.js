@@ -24,7 +24,7 @@ import {
   API_ADD_COMMENT_ON_REVIEW_URL,
   API_ADD_COMMENT_ON_QUESTION_URL,
 } from "../../../apiUrls";
-import { highlightMentions } from "../../../helpers";
+import { highlightMentions, addSearchParamsToLink } from "../../../helpers";
 
 import Loading from "../../Common/AntdComponents/Loading";
 import Button from "../../Common/Button";
@@ -241,6 +241,18 @@ export default class Reply extends Component {
     this.props.history.replace(`/profile/${orgId}`, { pageYOffset });
   };
 
+  goToSameTab = () => {
+    const { orgId, activeTab } = queryString.parse(this.props.location.search);
+
+    if (activeTab) {
+      this.props.history.push(`/profile/${orgId}`, {
+        activeTab,
+      });
+    } else {
+      this.props.history.goBack();
+    }
+  };
+
   render() {
     const { verified, history, id } = this.props;
     const {
@@ -291,6 +303,7 @@ export default class Reply extends Component {
           title="Replying"
           titleColor={colors.profileFontColor}
           CancelText="Back"
+          customAction={() => this.goToSameTab()}
         />
         <Wrapper
           style={{

@@ -107,6 +107,7 @@ const withComments = WrapprdComponent => {
         question: { _id: questionID } = {},
         organizationID,
         category,
+        activeTab,
       } = this.props;
 
       // const { pageYOffset } = window;
@@ -115,10 +116,11 @@ const withComments = WrapprdComponent => {
       const params = {
         target: "comment",
         questionId: questionID,
-        organizationId: organizationID,
+        orgId: organizationID,
         parentCommentId,
         reviewId,
         category,
+        activeTab,
       };
       const link = addSearchParamsToLink(params, REPLY_URL);
       history.push(link);
@@ -178,6 +180,7 @@ const withComments = WrapprdComponent => {
         userId,
         updatedUsers,
         counters,
+        activeTab,
         // userUserId,
       } = this.props;
       const target = "comment";
@@ -195,6 +198,7 @@ const withComments = WrapprdComponent => {
               count={commentsCount}
               onToggle={this.toggleComments}
               comments
+              activeTab={activeTab}
             >
               {comments.map(comment => {
                 const isLiked =

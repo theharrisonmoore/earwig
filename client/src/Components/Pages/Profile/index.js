@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { message, Skeleton } from "antd";
 
+import queryString from "query-string";
 import HeaderSection from "./HeaderSection";
 import OverviewSection from "./OverviewSection";
 import DetailedSection from "./DetailedSection";
@@ -162,6 +163,13 @@ export default class Profile extends Component {
     this.fetchData();
     this.updateLastViewed();
     this.getUserVotesOnProfile();
+
+    const { history } = this.props;
+    const { location } = history;
+
+    if (location && location.state && location.state.activeTab) {
+      this.setState({ activeTab: location.state.activeTab });
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -261,6 +269,7 @@ export default class Profile extends Component {
               updatedUsers={updatedUsers}
               counters={counters}
               setCounters={this.setCounters}
+              activeTab={activeTab}
             />
           ) : (
             <DetailedSection
@@ -275,6 +284,7 @@ export default class Profile extends Component {
               updatedUsers={updatedUsers}
               counters={counters}
               setCounters={this.setCounters}
+              activeTab={activeTab}
             />
           )}
         </Wrapper>
