@@ -10,9 +10,11 @@ import {
   QuestionTitle,
   LightTitle,
   HintText,
+  ListWrapper,
 } from "./ReviewSection.style";
 import Icon from "../../../Common/Icon/Icon";
 import ProfileAnswers from "../ProfileAnswers";
+import { colors } from "../../../../theme";
 
 const {
   YesNoAnswer,
@@ -352,33 +354,46 @@ export default class ReviewSection extends Component {
                     </div>
                   )}
                   {question.profileType === "list" && (
-                    <QuestionWrapper key={`${question._id}list`}>
-                      <QuestionTitle>{question.profileText}</QuestionTitle>
-                      {question.hintText && (
-                        <HintText>{question.hintText}</HintText>
+                    <ListWrapper>
+                      {question.icon && (
+                        <IconContainer>
+                          <Icon
+                            icon={question.icon}
+                            width="45"
+                            height="50"
+                            color={colors.dustyGray4}
+                          />
+                        </IconContainer>
                       )}
-                      {question.answers.length > 0 ? (
-                        <ListAnswer
-                          category={category}
-                          question={question}
-                          organizationID={organizationID}
-                          userId={id}
-                          userUserId={userId}
-                          organizationName={organizationName}
-                          updateUserPoints={updateUserPoints}
-                          updatedUsers={updatedUsers}
-                          toggleComments={toggleComments}
-                          isMobile={isMobile}
-                          level={level}
-                          counters={counters}
-                          setCounters={setCounters}
-                        />
-                      ) : (
-                        <LightTitle bar>
-                          <p>No answers yet</p>
-                        </LightTitle>
-                      )}
-                    </QuestionWrapper>
+
+                      <QuestionWrapper key={`${question._id}list`} width="100%">
+                        <QuestionTitle>{question.profileText}</QuestionTitle>
+                        {question.hintText && (
+                          <HintText>{question.hintText}</HintText>
+                        )}
+                        {question.answers.length > 0 ? (
+                          <ListAnswer
+                            category={category}
+                            question={question}
+                            organizationID={organizationID}
+                            userId={id}
+                            userUserId={userId}
+                            organizationName={organizationName}
+                            updateUserPoints={updateUserPoints}
+                            updatedUsers={updatedUsers}
+                            toggleComments={toggleComments}
+                            isMobile={isMobile}
+                            level={level}
+                            counters={counters}
+                            setCounters={setCounters}
+                          />
+                        ) : (
+                          <LightTitle bar>
+                            <p>No answers yet</p>
+                          </LightTitle>
+                        )}
+                      </QuestionWrapper>
+                    </ListWrapper>
                   )}
                 </div>
               )

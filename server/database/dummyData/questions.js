@@ -655,6 +655,7 @@ module.exports = async () => {
         text: "Getting on to site",
       },
       hasComment: true,
+      icon: "parkingCost",
     },
     {
       number: 4,
@@ -987,6 +988,7 @@ module.exports = async () => {
         text: "The site welfare",
       },
       hasComment: false,
+      icon: "cafe",
     },
     {
       number: 19,

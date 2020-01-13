@@ -8,6 +8,10 @@ import {
   PayrollItem,
 } from "./ProfileAnswers.style";
 
+import Icon from "../../../Common/Icon/Icon";
+
+import { colors } from "../../../../theme";
+
 export default class ListAnswer extends Component {
   decideColor = questionCategory => {
     if (questionCategory === "agency") return "payroll";

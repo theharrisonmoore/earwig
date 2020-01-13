@@ -48,6 +48,7 @@ import OrHorizontal from "./OrHorizontal";
 import OrVertical from "./OrVertical";
 import OrWhite from "./OrWhite";
 import OverviewWhiteGrey from "./OverviewWhiteGrey";
+import ParkingCost from "./ParkingCost";
 import ParkingSign from "./ParkingSign";
 import Payroll from "./Payroll";
 import PayrollCharges from "./PayrollCharges";
@@ -111,7 +112,6 @@ import Instagram from "./Instagram";
 import Linkedin from "./Linkedin";
 import Messenger from "./Messenger";
 import Whatsapp from "./Whatsapp";
-import Cafe from "./Cafe";
 
 const iconStyles = props => css`
   width: ${props.width || "100%"};
@@ -168,6 +168,7 @@ const iconMap = {
   orVertical: OrVertical,
   orWhite: OrWhite,
   overviewWhiteGrey: OverviewWhiteGrey,
+  parkingCost: ParkingCost,
   parkingSign: ParkingSign,
   payroll: Payroll,
   payrollCharges: PayrollCharges,
