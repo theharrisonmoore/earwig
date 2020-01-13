@@ -156,6 +156,7 @@ module.exports = async () => {
         text: "Getting your wages",
       },
       hasComment: false,
+      icon: "hourlyRate",
     },
     {
       number: 6,
@@ -896,6 +897,7 @@ module.exports = async () => {
         text: "The site welfare",
       },
       hasComment: true,
+      icon: "canteen",
     },
     // {
     //   number: 15,

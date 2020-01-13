@@ -11,6 +11,7 @@ import AgencyThanks from "./AgencyThanks";
 import All from "./All";
 import Arrow from "./Arrow";
 import Bus from "./Bus";
+import Cafe from "./Cafe";
 import Canteen from "./Canteen";
 import CheapFood from "./CheapFood";
 import Clock30s from "./Clock30s";
@@ -31,6 +32,7 @@ import HelpfulLinks from "./HelpfulLinks";
 import HelpingHand from "./HelpingHand";
 import Home from "./Home";
 import HotFood from "./HotFood";
+import HourlyRate from "./HourlyRate";
 import Info from "./Info";
 import JobBoard from "./JobBoard";
 import Lockers from "./Lockers";
@@ -109,6 +111,7 @@ import Instagram from "./Instagram";
 import Linkedin from "./Linkedin";
 import Messenger from "./Messenger";
 import Whatsapp from "./Whatsapp";
+import Cafe from "./Cafe";
 
 const iconStyles = props => css`
   width: ${props.width || "100%"};
@@ -128,6 +131,7 @@ const iconMap = {
   all: All,
   arrow: Arrow,
   bus: Bus,
+  cafe: Cafe,
   canteen: Canteen,
   cheapFood: CheapFood,
   clock30s: Clock30s,
@@ -145,6 +149,7 @@ const iconMap = {
   hamburger: Hamburger,
   home: Home,
   hotFood: HotFood,
+  hourlyRate: HourlyRate,
   helped: Helped,
   helpfulLinks: HelpfulLinks,
   helpingHand: HelpingHand,
