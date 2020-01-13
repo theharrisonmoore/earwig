@@ -7,5 +7,7 @@ module.exports = (req, res, next) => {
 
   updateLastViewed(id)
     .then(() => res.json())
-    .catch(err => next(boom.badImplementation(err)));
+    .catch((err) => {
+      next(boom.badImplementation(err));
+    });
 };

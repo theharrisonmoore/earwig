@@ -30,8 +30,8 @@ export default class Profile extends Component {
     counters: {
       overallReview: {},
       voiceReview: {},
-      comment: {}
-    }
+      comment: {},
+    },
   };
 
   updateUserPoints = ({ userId, points, helpedUsers }) => {
@@ -40,9 +40,9 @@ export default class Profile extends Component {
         ...prevState.updatedUsers,
         [userId]: {
           helpedUsers,
-          points
-        }
-      }
+          points,
+        },
+      },
     }));
   };
 
@@ -58,19 +58,19 @@ export default class Profile extends Component {
               prev.voiceReview[currReview.review] = {
                 counter: currReview.points,
                 sentNumber: currReview.points,
-                byUser: false
+                byUser: false,
               };
             } else if (currReview.target === "overallReview") {
               prev.overallReview[currReview.review] = {
                 counter: currReview.points,
                 sentNumber: currReview.points,
-                byUser: false
+                byUser: false,
               };
             } else if (currReview.target === "comment") {
               prev.comment[currReview.comment] = {
                 counter: currReview.points,
                 sentNumber: currReview.points,
-                byUser: false
+                byUser: false,
               };
             }
             return prev;
@@ -78,7 +78,7 @@ export default class Profile extends Component {
           { overallReview: {}, voiceReview: {}, comment: {} }
         );
         this.setState({
-          counters: newCounters
+          counters: newCounters,
         });
       });
   };
@@ -98,7 +98,7 @@ export default class Profile extends Component {
     if (this.myDivToFocus.current) {
       this.myDivToFocus.current.scrollIntoView({
         behavior: "smooth",
-        block: "start"
+        block: "start",
       });
     }
   };
@@ -134,7 +134,7 @@ export default class Profile extends Component {
           organizationID,
           contractorAnswers,
           reviewsLast30Days,
-          FilteredReviewMonths
+          FilteredReviewMonths,
         });
       })
       .catch(err => {
@@ -145,12 +145,16 @@ export default class Profile extends Component {
   };
 
   updateLastViewed = () => {
-    const organizationID = window.location.href.split("/")[4];
+    const rawOrgId = window.location.href.split("/")[4];
+
+    // remove FB tag if added
+    const organizationID = rawOrgId.split("?")[0];
 
     axios.post("/api/update-last-viewed", { id: organizationID }).catch(err => {
       const error =
         err.response && err.response.data && err.response.data.error;
-      message.error(error || "Something went wrong");
+      // eslint-disable-next-line no-console
+      return console.error("error", error || "Something went wrong");
     });
   };
 
@@ -199,7 +203,7 @@ export default class Profile extends Component {
       activeOverallId,
       overallReplies,
       updatedUsers,
-      counters
+      counters,
     } = this.state;
 
     const {
@@ -211,7 +215,7 @@ export default class Profile extends Component {
       userId,
       awaitingReview,
       history,
-      level
+      level,
     } = this.props;
 
     // if (!loaded) return <Loading />;
