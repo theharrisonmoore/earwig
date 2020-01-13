@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const buildDB = require("../../../database/dummyData/index");
-const { allComments } = require("../../../database/queries/reviews");
+const { getFirstLevelCommentsOnQuestion } = require("../../../database/queries/reviews");
 
 // const Organization = require("../../../database/models/Organization");
 const Review = require("../../../database/models/Review");
-const Comment = require("../../../database/models/Comment")
+const Comment = require("../../../database/models/Comment");
 
-describe("Test allComments query", () => {
+describe("Test getFirstLevelCommentsOnQuestion query", () => {
   beforeAll(async () => {
     await buildDB();
   });
@@ -20,13 +20,11 @@ describe("Test allComments query", () => {
     const organizationID = comment.organization;
     const questionID = comment.question;
 
-    allComments(organizationID, questionID).then((result) => {
+    getFirstLevelCommentsOnQuestion(organizationID, questionID).then((result) => {
       expect(result).toBeDefined();
       expect(result[0].organization).toEqual(organizationID);
-      expect(result[0].text).toBeDefined()
+      expect(result[0].text).toBeDefined();
       done();
     });
   });
-
-
 });

@@ -29,7 +29,7 @@ import {
 
 import { StyledErrorMessage } from "./Question/Question.style";
 
-import Question from "./Question/index";
+import Question from "./Question";
 
 import {
   validationSchema,
@@ -332,8 +332,7 @@ class Review extends Component {
 
   handleAddNewOrgChange = (value, number) => {
     const { answers } = this.state;
-    const answer = JSON.parse(value);
-    this.setState({ answers: { ...answers, [number]: answer } });
+    this.setState({ answers: { ...answers, [number]: value } });
   };
 
   handleImageUpload = (value, number) => {
@@ -648,6 +647,7 @@ class Review extends Component {
                   handleChange={this.handleDateChage}
                   state={this.state}
                   history={history}
+                  isMobile={isMobile}
                 />
                 <div>
                   {Object.keys(groupss).map(groupId => {
@@ -676,6 +676,7 @@ class Review extends Component {
                                   this.handleAddNewOrgChange
                                 }
                                 history={history}
+                                isMobile={isMobile}
                               />
                             );
                           })}
@@ -693,6 +694,7 @@ class Review extends Component {
                     state={this.state}
                     runValidation={this.runValidation}
                     history={history}
+                    isMobile={isMobile}
                   />
                   <Question
                     question={staticQuestion[1]}
@@ -700,6 +702,7 @@ class Review extends Component {
                     handleChange={this.handleReviewChange}
                     state={this.state}
                     history={history}
+                    isMobile={isMobile}
                   />
                   {/* The voice questions */}
                   <Question
@@ -711,6 +714,7 @@ class Review extends Component {
                     id={id}
                     voiceReviewUrl={this.state.voiceReviewUrl}
                     history={history}
+                    isMobile={isMobile}
                   />
                 </div>
                 <UserAgreement>

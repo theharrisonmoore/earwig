@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { Link } from "react-router-dom";
-import { WELCOME_URL } from "../../../constants/naviagationUrls";
+import { HOME_PAGE } from "../../../constants/naviagationUrls";
 
 import Logo from "../../Common/Logo";
 
@@ -14,7 +14,7 @@ import {
   PurpleDiv,
   BlueDiv,
   Title,
-  LogoWrapper,
+  LogoWrapper
 } from "./Intro.style";
 
 import Button from "../../Common/Button";
@@ -34,7 +34,7 @@ export default class Intro extends Component {
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
           />
-          <Link to={WELCOME_URL}>
+          <Link to={HOME_PAGE}>
             <Button styleType="primary" text="Okay" />
           </Link>
         </VideoContainer>

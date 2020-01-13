@@ -38,7 +38,7 @@ export default class PieAnswer extends Component {
             font: {
               weight: "700",
               size: "12",
-              family: "roboto",
+              family: "arial",
             },
           },
           hoverBackgroundColor: pieColors[`${category}`],

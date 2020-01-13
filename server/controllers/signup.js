@@ -10,12 +10,13 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 
 const { findByEmail, addNew, checkValidReferral } = require("./../database/queries/user");
-const createAccountEmails = require("./../helpers/emails/createAccountEmail");
-const verificationPhotoEmail = require("./../helpers/emails/verificationPhotoEmail");
+const sendEmail = require("./../helpers/emails");
 
 const addToMailchimpList = require("../helpers/3dParty/mailchimp");
+const { isProduction } = require("../helpers/checkEnv");
 
 const { tokenMaxAge } = require("./../constants");
+const config = require("../config");
 
 module.exports = async (req, res, next) => {
   const session = await mongoose.startSession();
@@ -67,17 +68,17 @@ module.exports = async (req, res, next) => {
     const [user] = await addNew(newUserData, session);
 
     // if in production add email to list
-    if (process.env.NODE_ENV === "production") {
+    if (isProduction()) {
       const resp = await addToMailchimpList(email);
       const { data } = resp;
 
       if (data.errors.length) {
         throw boom.badData(data.errors[0].error);
       }
-      await createAccountEmails(email);
+      await sendEmail.createAccount(email);
       if (fieldName === "verificationImage") {
         // send an email to the admin.
-        await verificationPhotoEmail();
+        await sendEmail.verificationPhotoEmail();
       }
     }
 
@@ -94,7 +95,7 @@ module.exports = async (req, res, next) => {
     };
 
     // create token for 30 day
-    const token = jwt.sign({ id: user._id }, process.env.SECRET, {
+    const token = jwt.sign({ id: user._id }, config.server.secret, {
       expiresIn: tokenMaxAge.string,
     });
 

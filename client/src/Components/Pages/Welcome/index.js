@@ -52,7 +52,8 @@ export default class Welcome extends Component {
             <ContentWrapper>
               <SubtitleWrapper>
                 <Subtitle>
-                Get workers reviews about agencies, payrolls, worksites and companies
+                  Give and get workers' reviews about agencies, payrolls,
+                  worksites <i>and</i> companies
                 </Subtitle>
               </SubtitleWrapper>
               <ButtonsWrapper>
@@ -81,7 +82,7 @@ export default class Welcome extends Component {
             </ContentWrapper>
             <FooterTitle>
               <Subtitle>
-              Empowering construction workers to own their work culture
+                Empowering construction workers to own their work culture
               </Subtitle>
             </FooterTitle>
           </Body>

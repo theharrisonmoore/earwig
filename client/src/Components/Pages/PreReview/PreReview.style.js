@@ -19,6 +19,9 @@ export const Header = styled.header`
   position: relative;
   margin: 0 auto;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   background-color: ${({ category }) =>
     (organizations[category] && organizations[category].primary) || "#FFF"};
@@ -30,21 +33,20 @@ export const Header = styled.header`
 `;
 
 export const Title = styled.h1`
-  margin-top: 6rem;
-  max-width: 450px;
-  font-size: 2rem;
-  font-weight: 400;
-  line-height: 2.5rem;
+  max-width: 250px;
+  font-size: 1.125rem;
+  font-weight: bold;
   color: ${colors.white};
-  margin-bottom: 1rem;
-  margin: 0 auto;
+  margin: 1rem auto 1rem auto;
+  text-align: center;
 `;
 
 export const SubTitile = styled.p`
-  font-size: 18px;
+  font-size: 15px;
   color: ${colors.white};
-  max-width: 450px;
-  margin: 2rem auto 0;
+  max-width: 400px;
+  text-align: center;
+  margin-bottom: 0;
 `;
 
 export const Content = styled.div`

@@ -23,6 +23,15 @@ const commentSchema = new Schema({
     type: String,
     required: true,
   },
+  review: {
+    type: ObjectId,
+    ref: "reviews",
+    required: true,
+  },
+  parentComment: {
+    type: ObjectId,
+    ref: "comments", // self-relation
+  },
   displayName: String,
 }, {
   timestamps: true,

@@ -8,10 +8,12 @@ const compression = require("compression");
 
 const router = require("./router");
 const dbConnection = require("./database/dbConnection");
+const config = require("./config");
+const { isProduction } = require("./helpers/checkEnv");
 
 const app = express();
-if (process.env.NODE_ENV === "production") {
-  Sentry.init({ dsn: process.env.SENTRY_DSN });
+if (isProduction()) {
+  Sentry.init({ dsn: config.thirdParty.sentry.dsn });
   // The request handler must be the first middleware on the app
   app.use(Sentry.Handlers.requestHandler());
 }
@@ -29,7 +31,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api", router);
 
-if (process.env.NODE_ENV === "production") {
+if (isProduction()) {
   // serve any static files
   app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
@@ -44,7 +46,7 @@ app.use((req, res, next) => {
   next(boom.notFound("Not Found"));
 });
 
-if (process.env.NODE_ENV === "production") {
+if (isProduction()) {
   // this must be before any error handling middlewares
   app.use(Sentry.Handlers.errorHandler());
 }

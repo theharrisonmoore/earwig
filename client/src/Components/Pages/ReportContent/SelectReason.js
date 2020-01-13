@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import {
-  MainIcon,
   SmallParagraph,
   BoldLink,
   SelectWrapper,
@@ -10,9 +9,11 @@ import {
   LargeParagraph,
 } from "../../Common/StaticPages.style";
 
+import { colors } from "../../../theme";
+
 import Button from "../../Common/Button";
 
-import flagIcon from "../../../assets/flag.svg";
+import Icon from "../../Common/Icon/Icon";
 
 import { COMMUNITY_GUIDELINES_URL } from "../../../constants/naviagationUrls";
 
@@ -60,7 +61,12 @@ export default class SelectReason extends Component {
 
     return (
       <div>
-        <MainIcon src={flagIcon} />
+        <Icon
+          icon="flag"
+          width="2.5rem"
+          height="2.5rem"
+          color={colors.dustyGray4}
+        />
         <PageTitle
           style={{
             fontSize: "1.75rem",

@@ -55,14 +55,15 @@ export const Header = styled.header`
 
 export const Title = styled.h1`
   font-size: 3.125rem;
-  font-weight: 500;
+  font-weight: bold;
   color: ${colors.white};
   margin: 0;
   margin-bottom: 0.25rem;
+  font-style: italic;
 `;
 
 export const SubtitleWrapper = styled.section`
-  width: 75%;
+  width: 85%;
   margin-top: -0.5rem;
   padding-bottom: 1rem;
 
@@ -86,9 +87,11 @@ export const FooterTitle = styled.section`
 `;
 
 export const Subtitle = styled.h2`
-  font-size: 1rem;
-  font-weight: normal;
+  font-size: 15px;
+  font-weight: 400;
   color: ${colors.white};
+  max-width: 500px;
+  margin: 0 auto;
 `;
 
 export const LogoContainer = styled.div`
@@ -171,6 +174,6 @@ export const Button = styled.button`
 
   // desktop
   @media ${breakpoints.mobileXL} {
-    font-size: 1rem;
+    font-size: 15px;
   }
 `;

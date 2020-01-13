@@ -2,7 +2,7 @@ const boom = require("boom");
 const sharp = require("sharp");
 
 const fs = require("fs").promises;
-const { admin } = require("../config");
+const { admin } = require("../services/firebase");
 
 /**
  * function returns a middleware

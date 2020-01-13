@@ -56,6 +56,8 @@ const colorCodes = {
   tundora: "#4A4A4A",
   dustyGray1: "#979797",
   dustyGray2: "#9B9B9B",
+  dustyGray3: "#767676",
+  dustyGray4: "#949494",
   veryLightGray: "#CDCDCD",
   black: "#000000",
   black2: "#363636",
@@ -104,7 +106,7 @@ export const colors = {
   green: colorCodes.malachite,
   headingUnderline: colorCodes.gray,
   sectionBorder: colorCodes.mischkaa,
-  profileFontColor: colorCodes.tundora,
+  profileFontColor: colorCodes.dustyGray3,
   inputBorder: colorCodes.dustyGray1,
   purpleLinks: colorCodes.heliotrope,
   lightGray: colorCodes.dustyGray2,
@@ -141,6 +143,7 @@ export const borders = {
   buttonBox: `1px solid ${colors.black}`,
   commentBox: `1px solid ${colors.veryLightGray}`,
   recording: `1px solid ${colors.red}`,
+  section: `1px solid ${colors.sectionBorder}`,
 };
 
 export const pieColors = {

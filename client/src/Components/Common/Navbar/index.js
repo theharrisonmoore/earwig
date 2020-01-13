@@ -3,7 +3,16 @@ import { NavLink } from "react-router-dom";
 import { Button, Icon as AntIcon } from "antd";
 
 import Icon from "../Icon/Icon";
-import { ADMIN, WELCOME_URL } from "../../../constants/naviagationUrls";
+import Link from "../Link";
+
+import {
+  ADMIN,
+  HOME_PAGE,
+  MY_REVIEWS_URL,
+  MY_POINTS_URL,
+  PROFILE_URL,
+} from "../../../constants/naviagationUrls";
+
 import { Wrapper, ToggleMenu, SideDiv, WrapperH2 } from "./Navbar.style";
 import Menu from "./Menu";
 import { colors } from "../../../theme";
@@ -65,9 +74,20 @@ export default class Navbar extends Component {
               </>
             ) : (
               <>
-                <ToggleMenu isMobile={isMobile} onClick={this.toggleMenu}>
-                  <Icon icon="hamburger" width="1.5rem" height="1.5rem" />
-                </ToggleMenu>
+                {[MY_POINTS_URL, MY_REVIEWS_URL].includes(currentPath) ? (
+                  <ToggleMenu isMobile={isMobile}>
+                    <Link to={PROFILE_URL} type="primary" text="Back" />
+                  </ToggleMenu>
+                ) : (
+                  <ToggleMenu isMobile={isMobile} onClick={this.toggleMenu}>
+                    <Icon
+                      icon="hamburger"
+                      width="1.5rem"
+                      height="1.5rem"
+                      color={colors.primary}
+                    />
+                  </ToggleMenu>
+                )}
               </>
             )}
           </SideDiv>
@@ -86,13 +106,13 @@ export default class Navbar extends Component {
                 </Button>
               </NavLink>
             )}
-            {currentPath !== WELCOME_URL && (
-              <MenuItem to={WELCOME_URL} extraRightPadding>
+            {currentPath !== HOME_PAGE && (
+              <MenuItem to={HOME_PAGE} extraRightPadding>
                 <Icon
                   icon="home"
                   height="26"
                   width="26"
-                  color={colors.profileFontColor}
+                  color={colors.primary}
                 />
               </MenuItem>
             )}
@@ -114,25 +134,32 @@ export default class Navbar extends Component {
               handleChangeState={handleChangeState}
               verified={verified}
               awaitingReview={awaitingReview}
+              level={level}
             />
           </>
         ) : (
           <SideDiv position="flex-start">
-            <ToggleMenu onClick={this.toggleMenu}>
-              <Icon icon="hamburger" width="1.5rem" height="1.5rem" />
-            </ToggleMenu>
+            {[MY_POINTS_URL, MY_REVIEWS_URL].includes(currentPath) ? (
+              <ToggleMenu isMobile={isMobile}>
+                <Link to={PROFILE_URL} type="primary" text="Back" />
+              </ToggleMenu>
+            ) : (
+              <ToggleMenu isMobile={isMobile} onClick={this.toggleMenu}>
+                <Icon
+                  icon="hamburger"
+                  width="1.5rem"
+                  height="1.5rem"
+                  color={colors.primary}
+                />
+              </ToggleMenu>
+            )}
           </SideDiv>
         )}
         <WrapperH2 style={{ fontWeight: "900" }}>{text && text}</WrapperH2>
         <SideDiv position="flex-end">
-          {currentPath !== WELCOME_URL && (
-            <MenuItem to={WELCOME_URL} extraRightPadding>
-              <Icon
-                icon="home"
-                height="22"
-                width="22"
-                color={colors.profileFontColor}
-              />
+          {currentPath !== HOME_PAGE && (
+            <MenuItem to={HOME_PAGE} extraRightPadding>
+              <Icon icon="home" height="22" width="22" color={colors.primary} />
             </MenuItem>
           )}
         </SideDiv>

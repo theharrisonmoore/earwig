@@ -1,7 +1,7 @@
 const Helpfulness = require("./../../models/Helpfulness");
 
 const updateHelpfulPoints = ({
-  helpfulUser, helpedUser, target, organization, review, points, fromReferral,
+  helpfulUser, helpedUser, target, organization, review, points, fromReferral, comment,
 }) => {
   if (points > 0) {
     let match = {
@@ -10,7 +10,7 @@ const updateHelpfulPoints = ({
 
     if (!fromReferral) {
       match = {
-        ...match, target, review, organization,
+        ...match, target, review, organization, comment,
       };
     }
     return Helpfulness.updateOne(
@@ -25,8 +25,9 @@ const updateHelpfulPoints = ({
       },
     );
   }
+
   return Helpfulness.deleteOne({
-    fromReferral: false, helpfulUser, helpedUser, target, review, organization,
+    fromReferral: false, helpfulUser, helpedUser, target, review, organization, comment,
   });
 };
 

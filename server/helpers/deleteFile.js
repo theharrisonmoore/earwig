@@ -1,10 +1,11 @@
-const { admin } = require("./../config");
+const { admin } = require("../services/firebase");
+const config = require("../config");
 
 module.exports = fileName => new Promise(async (resolve, reject) => {
   try {
     const bucket = admin.storage().bucket();
 
-    if (process.env.NODE_ENV === "test") {
+    if (config.env === "test") {
       return resolve();
     }
 

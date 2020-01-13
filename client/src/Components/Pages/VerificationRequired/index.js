@@ -7,7 +7,7 @@ import Layout from "../../Common/Layout";
 import {
   SIGNUP_URL,
   LOGIN_URL,
-  UPLOAD_VERIFICATION_PHOTO,
+  UPLOAD_VERIFICATION_PHOTO
 } from "../../../constants/naviagationUrls";
 
 // common component
@@ -20,21 +20,25 @@ import {
   MainDiv,
   AddWrapper,
   SubHeading,
-  StyledLink,
+  StyledLink
 } from "../../Common/AddOrganisationPages.style";
 
 export default props => {
-  const { match: { params: { category, name } } = {}, history, level } = props;
+  const {
+    match: { params: { category, name } } = {},
+    history,
+    level,
+    location
+  } = props;
+
+  console.log(location);
 
   return (
     <Layout type="side">
       <AddWrapper>
         <MainDiv>
           <HeadlineDiv>
-            <H2>
-              Hold up! You need to be a verified worker to create a new{" "}
-              {category} in our database.
-            </H2>
+            <H2>Hold up! You need to be a verified worker to give a review.</H2>
           </HeadlineDiv>
           <SubHeading margin="2rem auto">
             You only need to get verified once :)
@@ -42,11 +46,14 @@ export default props => {
           <Link
             to={{
               pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
-              state: {
-                category,
-                name,
-                redirectToCreateProfile: true,
-              },
+              state:
+                location.state && location.state.redirectToReview
+                  ? location.state
+                  : {
+                      category,
+                      name,
+                      redirectToCreateProfile: true
+                    }
             }}
             style={{ textAlign: "center" }}
           >
@@ -71,8 +78,8 @@ export default props => {
                 state: {
                   category,
                   name,
-                  redirectToCreateProfile: true,
-                },
+                  redirectToCreateProfile: true
+                }
               }}
             >
               Log in

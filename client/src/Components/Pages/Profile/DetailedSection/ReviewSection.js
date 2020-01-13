@@ -4,21 +4,27 @@ import {
   Wrapper,
   SectionTitle,
   QuestionWrapper,
+  YesNoQuestionWrapper,
+  IconContainer,
+  QuestionContainer,
   QuestionTitle,
   LightTitle,
   HintText,
 } from "./ReviewSection.style";
+import Icon from "../../../Common/Icon/Icon";
+import ProfileAnswers from "../ProfileAnswers";
 
-import YesNoAnswer from "../ProfileAnswers/YesNoAnswer";
-import ListAnswer from "../ProfileAnswers/ListAnswer";
-import PieAnswer from "../ProfileAnswers/PieAnswer";
-import ScatterAnswer from "../ProfileAnswers/ScatterAnswer";
-import SiteItemAnswer from "../ProfileAnswers/SiteItemAnswer";
-import CanteenItemAnswer from "../ProfileAnswers/CanteenItemAnswer";
-import BarChartAnswer from "../ProfileAnswers/BarChartAnswer";
-import PayrollAnswer from "../ProfileAnswers/PayrollAnswer";
-import ImageSlider from "../ProfileAnswers/ImageSlider";
-
+const {
+  YesNoAnswer,
+  ListAnswer,
+  PieAnswer,
+  ScatterAnswer,
+  SiteItemAnswer,
+  CanteenItemAnswer,
+  BarChartAnswer,
+  PayrollAnswer,
+  ImageSlider,
+} = ProfileAnswers;
 export default class ReviewSection extends Component {
   onlyNeutralAnswers = answers => {
     const yesOrNo = answers.filter(
@@ -35,7 +41,17 @@ export default class ReviewSection extends Component {
       summary,
       isMobile,
       reviewDetails,
+      level,
+      id,
+      userId,
+      updateUserPoints,
+      updatedUsers,
+      counters,
+      setCounters,
     } = this.props;
+
+    const { _id: organizationID, name: organizationName } = summary;
+
     const { _id: sectionTitle, questions } = sectionDetails;
 
     let canteenQuestions =
@@ -69,7 +85,6 @@ export default class ReviewSection extends Component {
             {sectionTitle}
           </SectionTitle>
         )}
-
         {/* {sectionTitle === "Key ratings" && (
           <QuestionWrapper>
             <QuestionTitle>
@@ -119,10 +134,9 @@ export default class ReviewSection extends Component {
             </>
           </QuestionWrapper>
         )} */}
-
         {questions &&
           questions.map(
-            (question, index) =>
+            question =>
               [
                 "yesno",
                 "pieChart",
@@ -133,40 +147,52 @@ export default class ReviewSection extends Component {
                 "payrollList",
                 "list",
               ].includes(question.profileType) && (
-                <div key={index}>
+                <div key={question._id}>
                   {question.profileType === "yesno" && (
-                    <QuestionWrapper
-                      key={index}
+                    <YesNoQuestionWrapper
+                      key={question.profileText}
                       // hide={this.onlyNeutralAnswers(question.answers)}
                     >
-                      <QuestionTitle>{question.profileText}</QuestionTitle>
-                      {question.hintText && (
-                        <HintText>{question.hintText}</HintText>
-                      )}
-                      {this.onlyNeutralAnswers(question.answers) === false ? (
+                      <IconContainer>
+                        {question.icon && (
+                          <Icon
+                            icon={question.icon}
+                            width="45"
+                            height="50"
+                            fill-opacity="0.5"
+                            fill="#000"
+                          />
+                        )}
+                      </IconContainer>
+                      <QuestionContainer>
+                        <QuestionTitle>{question.profileText}</QuestionTitle>
+
+                        {question.hintText && (
+                          <HintText>{question.hintText}</HintText>
+                        )}
                         <YesNoAnswer
                           category={category}
                           question={question}
+                          organizationID={organizationID}
+                          userId={id}
+                          userUserId={userId}
+                          organizationName={organizationName}
+                          updateUserPoints={updateUserPoints}
+                          updatedUsers={updatedUsers}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
+                          zeroAnswers={this.onlyNeutralAnswers(
+                            question.answers
+                          )}
+                          level={level}
+                          counters={counters}
+                          setCounters={setCounters}
                         />
-                      ) : (
-                        <LightTitle
-                          bar
-                          large={
-                            question.profileText &&
-                            question.profileText.includes(
-                              "Overall, would you be happy"
-                            )
-                          }
-                        >
-                          <p>No answers yet</p>
-                        </LightTitle>
-                      )}
-                    </QuestionWrapper>
+                      </QuestionContainer>
+                    </YesNoQuestionWrapper>
                   )}
                   {question.profileType === "pieChart" && (
-                    <QuestionWrapper key={index}>
+                    <QuestionWrapper key={`${question._id}pieChart`}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
                       {question.hintText && (
                         <HintText>{question.hintText}</HintText>
@@ -175,8 +201,17 @@ export default class ReviewSection extends Component {
                         <PieAnswer
                           category={category}
                           question={question}
+                          organizationID={organizationID}
+                          userId={id}
+                          userUserId={userId}
+                          organizationName={organizationName}
+                          updateUserPoints={updateUserPoints}
+                          updatedUsers={updatedUsers}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
+                          level={level}
+                          counters={counters}
+                          setCounters={setCounters}
                         />
                       ) : (
                         <LightTitle bar>
@@ -186,7 +221,7 @@ export default class ReviewSection extends Component {
                     </QuestionWrapper>
                   )}
                   {question.profileType === "dotChart" && (
-                    <QuestionWrapper key={index}>
+                    <QuestionWrapper key={`${question._id}dotChart`}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
                       {question.hintText && (
                         <HintText>{question.hintText}</HintText>
@@ -195,8 +230,17 @@ export default class ReviewSection extends Component {
                         <ScatterAnswer
                           category={category}
                           question={question}
+                          organizationID={organizationID}
+                          userId={id}
+                          userUserId={userId}
+                          organizationName={organizationName}
+                          updateUserPoints={updateUserPoints}
+                          updatedUsers={updatedUsers}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
+                          level={level}
+                          counters={counters}
+                          setCounters={setCounters}
                         />
                       ) : (
                         <LightTitle bar>
@@ -206,7 +250,7 @@ export default class ReviewSection extends Component {
                     </QuestionWrapper>
                   )}
                   {question.profileType === "barChart" && (
-                    <QuestionWrapper key={index}>
+                    <QuestionWrapper key={`${question._id}barChart`}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
                       {question.hintText && (
                         <HintText>{question.hintText}</HintText>
@@ -215,6 +259,15 @@ export default class ReviewSection extends Component {
                         <BarChartAnswer
                           category={category}
                           question={question}
+                          organizationID={organizationID}
+                          userId={id}
+                          userUserId={userId}
+                          organizationName={organizationName}
+                          updateUserPoints={updateUserPoints}
+                          updatedUsers={updatedUsers}
+                          level={level}
+                          counters={counters}
+                          setCounters={setCounters}
                         />
                       ) : (
                         <LightTitle bar>
@@ -224,15 +277,24 @@ export default class ReviewSection extends Component {
                     </QuestionWrapper>
                   )}
                   {question.profileType === "siteItem" && (
-                    <QuestionWrapper key={index}>
+                    <QuestionWrapper key={`${question._id}siteItem`}>
                       {/* {question.answers.length > 0 ? ( */}
                       <SiteItemAnswer
                         category={category}
                         question={question}
+                        organizationID={organizationID}
+                        userId={id}
+                        userUserId={userId}
+                        organizationName={organizationName}
+                        updateUserPoints={updateUserPoints}
+                        updatedUsers={updatedUsers}
                         toggleComments={toggleComments}
                         profileType={question.profileType}
                         isMobile={isMobile}
                         reviewDetails={reviewDetails}
+                        level={level}
+                        counters={counters}
+                        setCounters={setCounters}
                       />
                       {/* ) : (
                         <LightTitle bar>
@@ -242,7 +304,7 @@ export default class ReviewSection extends Component {
                     </QuestionWrapper>
                   )}
                   {question.profileType === "canteenItem" && (
-                    <div key={index}>
+                    <div key={`${question._id}canteenItem`}>
                       {/* CANTEEN SECTION */}
                       {canteenQuestions && (
                         <>
@@ -252,6 +314,9 @@ export default class ReviewSection extends Component {
                                 questions={canteenQuestions}
                                 toggleComments={toggleComments}
                                 isMobile={isMobile}
+                                level={level}
+                                counters={counters}
+                                setCounters={setCounters}
                               />
                             </QuestionWrapper>
                           )}
@@ -260,7 +325,7 @@ export default class ReviewSection extends Component {
                     </div>
                   )}
                   {question.profileType === "payrollList" && (
-                    <div key={index}>
+                    <div key={`${question._id}payrollList`}>
                       {/* PAYROLL LIST */}
                       {payrollQuestions && (
                         <QuestionWrapper>
@@ -273,6 +338,9 @@ export default class ReviewSection extends Component {
                               questions={payrollQuestions}
                               toggleComments={toggleComments}
                               isMobile={isMobile}
+                              level={level}
+                              counters={counters}
+                              setCounters={setCounters}
                             />
                           ) : (
                             <LightTitle bar>
@@ -284,7 +352,7 @@ export default class ReviewSection extends Component {
                     </div>
                   )}
                   {question.profileType === "list" && (
-                    <QuestionWrapper key={index}>
+                    <QuestionWrapper key={`${question._id}list`}>
                       <QuestionTitle>{question.profileText}</QuestionTitle>
                       {question.hintText && (
                         <HintText>{question.hintText}</HintText>
@@ -293,8 +361,17 @@ export default class ReviewSection extends Component {
                         <ListAnswer
                           category={category}
                           question={question}
+                          organizationID={organizationID}
+                          userId={id}
+                          userUserId={userId}
+                          organizationName={organizationName}
+                          updateUserPoints={updateUserPoints}
+                          updatedUsers={updatedUsers}
                           toggleComments={toggleComments}
                           isMobile={isMobile}
+                          level={level}
+                          counters={counters}
+                          setCounters={setCounters}
                         />
                       ) : (
                         <LightTitle bar>
@@ -311,7 +388,7 @@ export default class ReviewSection extends Component {
         {questions &&
           questions
             .filter(question => question.type === "image")
-            .map((question, index) => {
+            .map(question => {
               return (
                 <QuestionWrapper key={question._id}>
                   <QuestionTitle>{question.profileText}</QuestionTitle>
@@ -319,7 +396,16 @@ export default class ReviewSection extends Component {
                     <ImageSlider
                       category={category}
                       question={question}
+                      organizationID={organizationID}
+                      userId={id}
+                      userUserId={userId}
+                      organizationName={organizationName}
+                      updateUserPoints={updateUserPoints}
+                      updatedUsers={updatedUsers}
                       organization={summary}
+                      level={level}
+                      counters={counters}
+                      setCounters={setCounters}
                     />
                   ) : (
                     <LightTitle image bar>

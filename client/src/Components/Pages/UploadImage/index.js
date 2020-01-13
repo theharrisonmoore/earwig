@@ -2,14 +2,13 @@ import React, { Component } from "react";
 import { Prompt } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Modal, Input, Alert } from "antd";
+import { Modal, Input, Alert, Divider } from "antd";
 
 import { colors } from "../../../theme";
 
 import Select from "../../Common/Select";
 import Button from "../../Common/Button";
 import PopoverComponent from "../../Common/Popover";
-import CancelLink from "../../Common/CancelLink";
 
 import {
   UploadImageWrapper,
@@ -23,16 +22,16 @@ import {
   Error,
   EditIcon,
   PurpleDiv,
-  ModalText,
+  ModalText
 } from "./UploadImage.style";
 
 import example from "../../../assets/example.png";
 
-import { INTRO_URL } from "../../../constants/naviagationUrls";
+import { HOME_PAGE } from "../../../constants/naviagationUrls";
 
 const {
   API_TRADE_URL,
-  API_UPLOAD_VERIFICATION_IMAGE_URL,
+  API_UPLOAD_VERIFICATION_IMAGE_URL
 } = require("../../../apiUrls");
 
 const placeholder = "Choose your trade";
@@ -51,7 +50,7 @@ export default class UploadImage extends Component {
     city: "",
     loading: false,
     isPopupVisible: false,
-    browserBackAttempt: true,
+    browserBackAttempt: true
   };
 
   componentDidMount() {
@@ -59,15 +58,16 @@ export default class UploadImage extends Component {
       Swal.fire({
         type: "warning",
         title: "Already verified",
-        text: "you are already verified!",
+        text: "you are already verified!"
       }).then(() => {
         this.props.history.goBack();
       });
     } else if (this.props.awaitingReview) {
       Swal.fire({
         type: "warning",
-        title: "We are currently verifying your account",
-        text: "Please come back soon!",
+        title:
+          "No need! We're currently checking your photo. Give us a few minutes",
+        text: "Please come back soon!"
       }).then(() => {
         this.props.history.goBack();
       });
@@ -98,13 +98,13 @@ export default class UploadImage extends Component {
     reader.onload = () => {
       const dataURL = reader.result;
       this.setState({
-        image: dataURL,
+        image: dataURL
       });
     };
 
     this.setState(
       {
-        imageFile: image,
+        imageFile: image
       },
       () => {
         // eslint-disable-next-line no-unused-expressions
@@ -132,14 +132,14 @@ export default class UploadImage extends Component {
         url: API_UPLOAD_VERIFICATION_IMAGE_URL,
         data: form,
         headers: {
-          "content-type": `multipart/form-data; boundary=${form._boundary}`,
-        },
+          "content-type": `multipart/form-data; boundary=${form._boundary}`
+        }
       })
         .then(() => {
           this.setState({
             loading: false,
             isPopupVisible: true,
-            browserBackAttempt: false,
+            browserBackAttempt: false
           });
         })
         .catch(err => {
@@ -147,7 +147,7 @@ export default class UploadImage extends Component {
             Swal.fire({
               type: "error",
               title: "Oops...",
-              text: err.response.data.error,
+              text: err.response.data.error
             });
           });
         });
@@ -158,7 +158,7 @@ export default class UploadImage extends Component {
     const { searchTerm } = e.target.dataset;
     this.setState({
       ismodalVisible: true,
-      newTrade: searchTerm,
+      newTrade: searchTerm
     });
   };
 
@@ -166,7 +166,7 @@ export default class UploadImage extends Component {
     if (this.state.newTrade && this.state.newTrade.length >= 3) {
       this.setState(
         {
-          confirmLoading: true,
+          confirmLoading: true
         },
         () => {
           axios
@@ -177,19 +177,19 @@ export default class UploadImage extends Component {
               this.setState({
                 trades: [{ value: data._id, label: data.title }],
                 tradeId: data._id,
-                disableSelect: true,
+                disableSelect: true
               });
 
               this.setState(
                 {
-                  newTradeSuccess: true,
+                  newTradeSuccess: true
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       newTradeSuccess: false,
                       ismodalVisible: false,
-                      confirmLoading: false,
+                      confirmLoading: false
                     });
                   }, 1000);
                 }
@@ -199,13 +199,13 @@ export default class UploadImage extends Component {
               this.setState(
                 {
                   newTradeSuccess: false,
-                  newTradeError: err.response.data.error,
+                  newTradeError: err.response.data.error
                 },
                 () => {
                   setTimeout(() => {
                     this.setState({
                       ismodalVisible: false,
-                      confirmLoading: false,
+                      confirmLoading: false
                     });
                   }, 1000);
                 }
@@ -215,7 +215,7 @@ export default class UploadImage extends Component {
       );
     } else if (this.state.newTrade.length < 3) {
       this.setState({
-        newTradeError: "Trade must be 3 charachters length at least",
+        newTradeError: "Trade must be 3 charachters length at least"
       });
     }
   };
@@ -224,13 +224,20 @@ export default class UploadImage extends Component {
     this.setState({
       ismodalVisible: false,
       newTradeSuccess: false,
-      newTradeError: "",
+      newTradeError: ""
     });
   };
 
   getTooltipText = () => {
     return (
       <>
+        <EditIcon
+          icon="getVerified"
+          height="25"
+          width="25"
+          margin="0 0.5rem 0 0"
+          color={colors.dustyGray4}
+        />
         <p>
           earwig is free for workers. All we ask is that you get verified as a
           genuine worker. This means all reviews are credible and protects the
@@ -255,25 +262,37 @@ export default class UploadImage extends Component {
         state: {
           orgId,
           redirectToProfile,
+          redirectToReview,
           category,
           name,
-          redirectToCreateProfile,
-        } = {},
-      } = {},
+          redirectToCreateProfile
+        } = {}
+      } = {}
     } = this.props;
 
     this.props.handleChangeState({ awaitingReview: true });
-    if (redirectToProfile && orgId) {
+
+    // user coming from review page
+    if (redirectToReview && orgId) {
       this.props.history.push({
-        pathname: `/profile/${orgId}`,
+        pathname: `/pre-review/${orgId}`
       });
-    } else if (redirectToCreateProfile && name && category) {
+    }
+
+    // user coming from profile page
+    else if (redirectToProfile && orgId) {
       this.props.history.push({
-        pathname: `/add-profile-sign-up/${category}/${name}`,
+        pathname: `/profile/${orgId}`
+      });
+    }
+    // user coming from create profile page
+    else if (redirectToCreateProfile && name && category) {
+      this.props.history.push({
+        pathname: `/add-profile-sign-up/${category}/${name}`
       });
     } else {
       this.props.history.push({
-        pathname: INTRO_URL,
+        pathname: HOME_PAGE
       });
     }
   };
@@ -287,15 +306,14 @@ export default class UploadImage extends Component {
       loading,
       newTrade,
       isPopupVisible,
-      browserBackAttempt,
+      browserBackAttempt
     } = this.state;
-    const { level } = this.props;
+    const { level, history } = this.props;
 
     return (
       <UploadImageWrapper className="test">
         <PurpleDiv />
         <ContentWrapper>
-          <CancelLink history={this.props.history} CancelText="Back" />
           <EditIcon
             icon="getVerified"
             height="25"
@@ -365,23 +383,25 @@ export default class UploadImage extends Component {
               Please upload a photo of your face holding your trade ID like the
               example below. Once we’ve verified you, we’ll delete the photo to
               protect your anonymity.
+              <br />
+              <PopoverComponent
+                popoverOptions={{
+                  text: this.getTooltipText(),
+                  linkText: "Learn more",
+                  icon: "info",
+                  margin: "0 0 0.5rem 0"
+                }}
+                history={this.props.history}
+              />
             </Paragraph>
-            <PopoverComponent
-              popoverOptions={{
-                text: this.getTooltipText(),
-                linkText: "Learn more",
-                icon: "info",
-                margin: "0 0 0.5rem 0",
-              }}
-              history={this.props.history}
-            />
+
             <Button
               as="label"
               htmlFor="image-input"
               margin="1rem auto"
               styleType="secondary"
               text="Upload photo"
-              width="160px"
+              width="180px"
             />
             <ImageInput
               id="image-input"
@@ -391,6 +411,7 @@ export default class UploadImage extends Component {
             />
             <Example src={image || example} />
             {error && <Error>{error}</Error>}
+            <Divider style={{ margin: "2rem 0" }} />
             <Button
               marginTop
               type="submit"
@@ -399,6 +420,12 @@ export default class UploadImage extends Component {
               loading={loading}
               styleType="primary"
               text="Done"
+            />
+            <Button
+              margin="0 auto"
+              styleType="secondary"
+              text="Cancel"
+              onClick={history.goBack}
             />
           </form>
           <Modal

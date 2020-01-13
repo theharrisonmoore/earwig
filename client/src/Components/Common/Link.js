@@ -28,7 +28,7 @@ const plainStyles = css`
   color: ${props => props.color || colors.profileFontColor};
   font-weight: normal;
   text-decoration: underline;
-  font-size: 1rem;
+  font-size: 15px;
 
   &:hover,
   &:active {
