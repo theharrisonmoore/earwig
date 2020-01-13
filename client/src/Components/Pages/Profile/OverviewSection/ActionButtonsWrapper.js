@@ -8,14 +8,14 @@ import { colors } from "../../../../theme";
 
 import {
   SIGNUP_URL,
-  UPLOAD_VERIFICATION_PHOTO
+  UPLOAD_VERIFICATION_PHOTO,
 } from "../../../../constants/naviagationUrls";
 
 import {
   ActionsDiv,
   ButtonsWrapper,
   LikeWrapper,
-  CommentIconWrapper
+  CommentIconWrapper,
 } from "../Profile.style";
 
 import PopoverComponent from "../../../Common/Popover";
@@ -29,7 +29,7 @@ const getTooltipContent = type => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        textAlign: "center"
+        textAlign: "center",
       }}
     >
       <Icon
@@ -46,7 +46,7 @@ const getTooltipContent = type => {
       {type === "flag" &&
         "If you want to report content, you first need to sign up using a valid email address so we can get back to you."}
 
-      {type === "info" &&
+      {type === "exclamation" &&
         "Hang on! You can’t do this until we’ve checked your photo. Give us a few minutes. You might need to refresh your page."}
     </div>
   );
@@ -68,7 +68,7 @@ const ActionButtonsWrapper = ({
   // liked now by user, for animation
   isLikedByUser,
   reportLink,
-  target
+  target,
 }) => {
   // decides what like functions to render
   function renderLikeIcon(level) {
@@ -100,15 +100,15 @@ const ActionButtonsWrapper = ({
         return (
           <PopoverComponent
             popoverOptions={{
-              text: getTooltipContent("info"),
+              text: getTooltipContent("exclamation"),
               iconTooltip: {
                 icon: "like",
                 fill: colors.gray,
                 width: "27",
-                height: "27"
+                height: "27",
               },
               closeButton: true,
-              margin: "1rem 0 0 0"
+              margin: "1rem 0 0 0",
             }}
           />
         );
@@ -122,7 +122,7 @@ const ActionButtonsWrapper = ({
                 icon: "like",
                 fill: colors.gray,
                 width: "27",
-                height: "27"
+                height: "27",
               },
               actionButtonTxt: "Get verified",
               linkButtonOptions: {
@@ -130,11 +130,11 @@ const ActionButtonsWrapper = ({
                 state: {
                   category,
                   orgId,
-                  redirectToProfile: true
-                }
+                  redirectToProfile: true,
+                },
               },
               closeButton: true,
-              margin: "1rem 0 0 0"
+              margin: "1rem 0 0 0",
             }}
           />
         );
@@ -163,15 +163,15 @@ const ActionButtonsWrapper = ({
         return (
           <PopoverComponent
             popoverOptions={{
-              text: getTooltipContent("info"),
+              text: getTooltipContent("exclamation"),
               iconTooltip: {
                 icon: "comment",
                 fill: colors.gray,
                 width: "27",
-                height: "27"
+                height: "27",
               },
               closeButton: true,
-              margin: "1rem 0 0 3rem"
+              margin: "1rem 0 0 3rem",
             }}
           />
         );
@@ -185,7 +185,7 @@ const ActionButtonsWrapper = ({
                 icon: "comment",
                 fill: colors.gray,
                 width: "27",
-                height: "27"
+                height: "27",
               },
               actionButtonTxt: "Get verified",
               linkButtonOptions: {
@@ -193,11 +193,11 @@ const ActionButtonsWrapper = ({
                 state: {
                   category,
                   orgId,
-                  redirectToProfile: true
-                }
+                  redirectToProfile: true,
+                },
               },
               closeButton: true,
-              margin: "1rem 0 0 3rem"
+              margin: "1rem 0 0 3rem",
             }}
           />
         );
@@ -228,7 +228,7 @@ const ActionButtonsWrapper = ({
               icon: "flag",
               fill: colors.gray,
               width: "27",
-              height: "27"
+              height: "27",
             },
             actionButtonTxt: "Sign up",
             linkButtonOptions: {
@@ -236,11 +236,11 @@ const ActionButtonsWrapper = ({
               state: {
                 category,
                 orgId,
-                redirectToProfile: true
-              }
+                redirectToProfile: true,
+              },
             },
             closeButton: true,
-            margin: "1rem 0 0 3rem"
+            margin: "1rem 0 0 3rem",
           }}
         />
       )}

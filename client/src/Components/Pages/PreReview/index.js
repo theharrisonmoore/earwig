@@ -72,7 +72,7 @@ export default class PreReview extends Component {
           <Body>
             <Header category={category}>
               <Icon
-                icon="overview"
+                icon="overviewWhiteGrey"
                 width="63"
                 height="63"
                 margin="0 0 32px 0"

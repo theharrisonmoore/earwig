@@ -20,6 +20,7 @@ import CommentsReceived from "./CommentsReceived";
 import Company from "./Company";
 import CompanyThanks from "./CompanyThanks";
 import Email from "./Email";
+import Exclamation from "./Exclamation";
 import FAQ from "./FAQ";
 import Fingerprint from "./Fingerprint";
 import Gasmask from "./Gasmask";
@@ -44,6 +45,7 @@ import OrganisationalRatings from "./OrganisationalRatings";
 import OrHorizontal from "./OrHorizontal";
 import OrVertical from "./OrVertical";
 import OrWhite from "./OrWhite";
+import OverviewWhiteGrey from "./OverviewWhiteGrey";
 import ParkingSign from "./ParkingSign";
 import Payroll from "./Payroll";
 import PayrollCharges from "./PayrollCharges";
@@ -135,6 +137,7 @@ const iconMap = {
   company: Company,
   companyThanks: CompanyThanks,
   email: Email,
+  exclamation: Exclamation,
   faq: FAQ,
   fingerprint: Fingerprint,
   gasmask: Gasmask,
@@ -159,6 +162,7 @@ const iconMap = {
   orHorizontal: OrHorizontal,
   orVertical: OrVertical,
   orWhite: OrWhite,
+  overviewWhiteGrey: OverviewWhiteGrey,
   parkingSign: ParkingSign,
   payroll: Payroll,
   payrollCharges: PayrollCharges,
