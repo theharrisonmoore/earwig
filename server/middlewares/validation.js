@@ -197,13 +197,15 @@ const schemas = {
     active: Joi.boolean().required()
   },
   reportContent: {
+    // required params
     reason: Joi.string().required(),
     description: Joi.string().required(),
     target: Joi.string().required(),
     orgId: Joi.string().required(),
     orgName: Joi.string().required(),
     reportedReviewUserId: Joi.string().required(),
-    reportedReviewText: Joi.string().required(),
+    // optional params
+    reportedReviewText: Joi.string(),
     reportedReplyUserId: Joi.string(),
     reportedReplyText: Joi.string(),
     question: Joi.object(),

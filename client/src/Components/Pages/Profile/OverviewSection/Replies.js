@@ -40,7 +40,6 @@ const Replies = ({
   };
 
   return replies.map(reply => {
-    console.log("linkkk", replyReportLink(reply));
     return (
       <div
         key={reply._id}
