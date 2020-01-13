@@ -6,7 +6,7 @@ const {
   getAgencesAndPayrollsNames,
   postReviewShort,
   updateReview,
-  getOrgById,
+  getOrgById
 } = require("../controllers/review");
 
 const adminRouter = require("./admin");
@@ -36,7 +36,9 @@ const logoutController = require("./../controllers/logout");
 const getWorksiteImgsController = require("./../controllers/getWorksiteImgs");
 const reportContentController = require("./../controllers/reportContent");
 
-const { controller: addOrganizationController } = require("../controllers/organization");
+const {
+  controller: addOrganizationController
+} = require("../controllers/organization");
 
 const thinkingofDeletingController = require("../controllers/thinkingOfDeleting");
 const addCommentOnQuestion = require("../controllers/addCommentOnQuestion");
@@ -92,10 +94,14 @@ const {
   UPLOAD_AUDIO,
   GET_AUDIO_URL,
   GET_USER_VOTES_ON_PROFILE,
-  GET_LAST_30D_ORGANISATIONS_IDS,
+  GET_LAST_30D_ORGANISATIONS_IDS
 } = require("../../client/src/apiUrls");
 
-router.get(GET_LAST_30D_ORGANISATIONS_IDS, authentication, getOrgsReviewedLast30D);
+router.get(
+  GET_LAST_30D_ORGANISATIONS_IDS,
+  authentication,
+  getOrgsReviewedLast30D
+);
 
 router.get(SEARCH_URL, searchController);
 
@@ -107,19 +113,54 @@ router.delete("/reviews", authentication, deleteReview);
 // get user info from the cookies and send it to fron-end
 router.get(USERS, authentication, userInfoController);
 
-router.get("/review/:id/is-edatable", authentication, authorization("LEVEL2"), checkIfEditReview);
+router.get(
+  "/review/:id/is-edatable",
+  authentication,
+  authorization("LEVEL2"),
+  checkIfEditReview
+);
 
 router.get("/questions/:id", authentication, authorization("LEVEL2"), getByOrg);
-router.get("/questions/new/:catgeory/:name", authentication, authorization("LEVEL2"), getByOrg);
+router.get(
+  "/questions/new/:catgeory/:name",
+  authentication,
+  authorization("LEVEL2"),
+  getByOrg
+);
 router.post(REVIEW_URL, authentication, authorization("LEVEL2"), postReview);
-router.put("/review/:id", authentication, authorization("LEVEL2"), updateReview);
-router.post("/short-review", authentication, authorization("LEVEL3"), postReviewShort);
+router.put(
+  "/review/:id",
+  authentication,
+  authorization("LEVEL2"),
+  updateReview
+);
+router.post(
+  "/short-review",
+  authentication,
+  authorization("LEVEL3"),
+  postReviewShort
+);
 
 router.get("/organizations/:id", authentication, getOrgById);
-router.get("/organizations", authentication, authorization("LEVEL3"), getOrgsByType);
+router.get(
+  "/organizations",
+  authentication,
+  authorization("LEVEL3"),
+  getOrgsByType
+);
 // Add new payroll and agency
-router.post("/organizations", authentication, authorization("LEVEL2"), addOrganizationController);
-router.get("/agency-payroll", authentication, authorization("LEVEL3"), getAgencesAndPayrollsNames);
+router.post(
+  "/organizations",
+  authentication,
+  authorization("LEVEL2"),
+  addOrganizationController
+);
+router.get(
+  "/agency-payroll",
+  authentication,
+  authorization("LEVEL3"),
+  getAgencesAndPayrollsNames
+);
 
 // require all the routes in this file
 router.get("/profile/:organizationID", softAuthCheck, profileController);
@@ -134,7 +175,12 @@ router.use(LOGOUT_URL, logoutController);
 
 // get worksite images route
 
-router.post("/wroksite-images", authentication, authorization("LEVEL3"), getWorksiteImgsController);
+router.post(
+  "/wroksite-images",
+  authentication,
+  authorization("LEVEL3"),
+  getWorksiteImgsController
+);
 
 // update user info (verification image, city and trade)
 router.post(
@@ -145,7 +191,7 @@ router.post(
   validation("uploadVerificationImage"),
   toGoogle(true, false, "verificationImage"),
   deleteFileFromServer,
-  uploadVerificationImage,
+  uploadVerificationImage
 );
 
 router.post(
@@ -153,7 +199,7 @@ router.post(
   upload("worksiteImage"),
   toGoogle(),
   deleteFileFromServer,
-  uploadWorksiteController,
+  uploadWorksiteController
 );
 
 router.post(
@@ -162,7 +208,7 @@ router.post(
   // required = true , isVoice = true
   toGoogle(true, true),
   deleteFileFromServer,
-  uploadVoiceRecording,
+  uploadVoiceRecording
 );
 
 router.post(GET_AUDIO_URL, softAuthCheck, voiceReview);
@@ -180,7 +226,7 @@ router.post(
   validation("signup"),
   toGoogle(false, false, "verificationImage"),
   signupController,
-  deleteFileFromServer,
+  deleteFileFromServer
 );
 
 // edit profile route
@@ -193,7 +239,7 @@ router.post(
   validation("editProfile"),
   toGoogle(false),
   deleteFileFromServer,
-  editProfile,
+  editProfile
 );
 
 router.delete("/delete-user", authentication, deleteUserProfile);
@@ -205,7 +251,7 @@ router.post(
   authentication,
   authorization("LEVEL2"),
   validation("addOrganization"),
-  addOrganizationController,
+  addOrganizationController
 );
 
 router.delete("/delete-organization/:id", authentication, deleteOrgController);
@@ -221,7 +267,7 @@ router.post(
   validation("reportContent"),
   authentication,
   authorization("LEVEL1"),
-  reportContentController,
+  reportContentController
 );
 
 // add reply on an organization's question
@@ -230,7 +276,7 @@ router.post(
   authentication,
   authorization("LEVEL3"),
   validation("addCommentOnQuestion"),
-  addCommentOnQuestion,
+  addCommentOnQuestion
 );
 
 // add comment on review includes
@@ -240,7 +286,7 @@ router.post(
   authentication,
   authorization("LEVEL2"),
   validation("addCommentOnReview"),
-  addCommentOnReview,
+  addCommentOnReview
 );
 
 // get all replies on specific overall review
@@ -248,13 +294,17 @@ router.post(
 router.get(
   "/reviews/:target/replies/:id",
   softAuthCheck,
-  getOverallReviewReplies,
+  getOverallReviewReplies
 );
 
 // admin handler
 router.use(ADMIN, authentication, authorization("ADMIN"), adminRouter);
 
-router.post("/thinking-of-deleting", authentication, thinkingofDeletingController);
+router.post(
+  "/thinking-of-deleting",
+  authentication,
+  thinkingofDeletingController
+);
 
 router.post("/give-feedback", authentication, feedbackController);
 

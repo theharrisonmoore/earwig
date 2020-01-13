@@ -19,7 +19,7 @@ export default class ReportContent extends Component {
     reason: "",
     description: "",
     activePage: "selectReason",
-    loading: false,
+    loading: false
   };
 
   componentDidMount() {
@@ -48,13 +48,14 @@ export default class ReportContent extends Component {
       reportedReviewText,
       reportedReplyUserId,
       reportedReplyText,
-      image,
+      image
     } = queryString.parse(this.props.location.search);
 
     if (!this.state.description) {
       return message.error("Please fill in some information!");
     }
     return this.setState({ loading: true }, () => {
+      console.log("orgName", typeof orgName, typeof orgId);
       axios
         .post(API_REPORT_CONTENT_URL, {
           target,
@@ -69,12 +70,13 @@ export default class ReportContent extends Component {
           reportedReplyText,
           image,
           description: this.state.description,
-          reason: this.state.reason,
+          reason: this.state.reason
         })
         .then(() => {
           this.setState({ loading: false, activePage: "thanks" });
         })
         .catch(err => {
+          console.log("err", err);
           this.setState({ loading: false }, () => {
             const error =
               err.response && err.response.data && err.response.data.error;

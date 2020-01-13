@@ -7,13 +7,13 @@ const schemas = {
     email: Joi.string()
       .email({ minDomainAtoms: 2 })
       .required(),
-    password: Joi.string().required(),
+    password: Joi.string().required()
   },
   uploadVerificationImage: {
     tradeId: Joi.string()
       .length(24)
       .required(),
-    city: Joi.string().allow(""),
+    city: Joi.string().allow("")
   },
   signup: {
     email: Joi.string()
@@ -37,16 +37,16 @@ const schemas = {
       then: Joi.string()
         .valid(
           ["agency", "payroll", "company", "mainContractor", "other"],
-          "invalid organisation type",
+          "invalid organisation type"
         )
         .required(),
-      otherwise: Joi.allow("").optional(),
+      otherwise: Joi.allow("").optional()
     }),
     otherOrg: Joi.string().when("orgType", {
       is: "other",
       then: Joi.string().min(3),
-      otherwise: Joi.allow("").optional(),
-    }),
+      otherwise: Joi.allow("").optional()
+    })
   },
   editProfile: {
     oldPassword: Joi.string(),
@@ -59,12 +59,12 @@ const schemas = {
       .optional(),
     newUsername: Joi.string().max(15),
     newTrade: Joi.any(),
-    newCity: Joi.string().allow(""),
+    newCity: Joi.string().allow("")
   },
   addTrade: {
     trade: Joi.string()
       .min(3)
-      .required(),
+      .required()
   },
   addOrganization: {
     name: Joi.string()
@@ -72,7 +72,7 @@ const schemas = {
       .required(),
     category: Joi.string()
       .valid("payroll", "company", "worksite", "agency")
-      .required(),
+      .required()
   },
   agency: {
     questions: Joi.object({
@@ -93,17 +93,17 @@ const schemas = {
       15: Joi.string().required(),
       16: Joi.number().required(),
       17: Joi.string().required(),
-      18: Joi.string().required(),
+      18: Joi.string().required()
     }),
     review: Joi.object({
       lastUse: Joi.date().required(),
       rate: Joi.number().required(),
       overallReview: Joi.string().required(),
-      voiceReview: Joi.any(),
+      voiceReview: Joi.any()
     }),
     hasAgreed: Joi.boolean()
       .valid(true)
-      .error(() => "You should agree Earwig terms of user"),
+      .error(() => "You should agree Earwig terms of user")
   },
 
   payroll: {
@@ -119,17 +119,17 @@ const schemas = {
       9: Joi.number().required(),
       10: Joi.string().required(),
       11: Joi.string().required(),
-      12: Joi.string().required(),
+      12: Joi.string().required()
     }),
     review: Joi.object({
       lastUse: Joi.date().required(),
       rate: Joi.number().required(),
       overallReview: Joi.string().required(),
-      voiceReview: Joi.any(),
+      voiceReview: Joi.any()
     }),
     hasAgreed: Joi.boolean()
       .valid(true)
-      .error(() => "You should agree Earwig terms of user"),
+      .error(() => "You should agree Earwig terms of user")
   },
   worksite: {
     questions: Joi.object({
@@ -151,17 +151,17 @@ const schemas = {
       15: Joi.string().required(),
       16: Joi.string().required(),
       17: Joi.string().required(),
-      18: Joi.string().required(),
+      18: Joi.string().required()
     }),
     review: Joi.object({
       lastUse: Joi.date().required(),
       rate: Joi.number().required(),
       overallReview: Joi.string().required(),
-      voiceReview: Joi.any(),
+      voiceReview: Joi.any()
     }),
     hasAgreed: Joi.boolean()
       .valid(true)
-      .error(() => "You should agree Earwig terms of user"),
+      .error(() => "You should agree Earwig terms of user")
   },
   company: {
     questions: Joi.object({
@@ -173,39 +173,42 @@ const schemas = {
       6: Joi.string().required(),
       7: Joi.string().required(),
       8: Joi.string().required(),
-      9: Joi.string().required(),
+      9: Joi.string().required()
     }),
     review: Joi.object({
       lastUse: Joi.date().required(),
       rate: Joi.number().required(),
       overallReview: Joi.string().required(),
-      voiceReview: Joi.any(),
+      voiceReview: Joi.any()
     }),
     hasAgreed: Joi.boolean()
       .valid(true)
-      .error(() => "You should agree Earwig terms of user"),
+      .error(() => "You should agree Earwig terms of user")
   },
   onlyMongoId: {
     id: Joi.string()
       .length(24)
-      .required(),
+      .required()
   },
   activateOrganization: {
     id: Joi.string()
       .length(24)
       .required(),
-    active: Joi.boolean().required(),
+    active: Joi.boolean().required()
   },
   reportContent: {
     reason: Joi.string().required(),
     description: Joi.string().required(),
     target: Joi.string().required(),
-    organization: Joi.object().required(),
+    orgId: Joi.string().required(),
+    orgName: Joi.string().required(),
+    reportedReviewUserId: Joi.string().required(),
+    reportedReviewText: Joi.string().required(),
     question: Joi.object(),
     review: Joi.object(),
     comment: Joi.object(),
     reply: Joi.object(),
-    image: Joi.string(),
+    image: Joi.string()
   },
   addCommentOnQuestion: {
     text: Joi.string().required(),
@@ -219,7 +222,7 @@ const schemas = {
       .length(24)
       .required(),
     parentCommentId: Joi.string().allow(""),
-    reviewId: Joi.string().allow(""),
+    reviewId: Joi.string().allow("")
   },
   addCommentOnReview: {
     text: Joi.string().required(),
@@ -229,14 +232,14 @@ const schemas = {
     reviewId: Joi.string()
       .length(24)
       .required(),
-    target: Joi.string().required(),
+    target: Joi.string().required()
   },
   setCurrentOrgs: {
     currentAgency: Joi.object(),
     currentPayroll: Joi.object(),
     currentWorksite: Joi.object(),
-    currentCompany: Joi.object(),
-  },
+    currentCompany: Joi.object()
+  }
 };
 
 module.exports = route => (req, res, next) => {
