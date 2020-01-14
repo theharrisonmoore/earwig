@@ -70,12 +70,12 @@ const ActionButtonsWrapper = ({
   reportLink,
   target,
 }) => {
-
   // decides what like functions to render
   function renderLikeIcon(level) {
     switch (level) {
       // user is verified and can like
-      case 3 || 4:
+      case 3:
+      case 4:
         return (
           <LikeWrapper
             as="button"
@@ -146,7 +146,8 @@ const ActionButtonsWrapper = ({
   function renderCommentButton(level) {
     switch (level) {
       // user is verified and can comment
-      case 3 || 4:
+      case 3:
+      case 4:
         return (
           <CommentIconWrapper
             onClick={goTOReply}
