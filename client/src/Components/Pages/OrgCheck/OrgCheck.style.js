@@ -6,7 +6,7 @@ import {
   borders,
   shadows,
   breakpoints
-} from "./../../../theme";
+} from "../../../theme";
 
 export const Wrapper = styled.div`
   width: 100%;

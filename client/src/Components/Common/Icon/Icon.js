@@ -11,6 +11,7 @@ import AgencyThanks from "./AgencyThanks";
 import All from "./All";
 import Arrow from "./Arrow";
 import Bus from "./Bus";
+import Cafe from "./Cafe";
 import Canteen from "./Canteen";
 import CheapFood from "./CheapFood";
 import Clock30s from "./Clock30s";
@@ -20,6 +21,7 @@ import CommentsReceived from "./CommentsReceived";
 import Company from "./Company";
 import CompanyThanks from "./CompanyThanks";
 import Email from "./Email";
+import Exclamation from "./Exclamation";
 import FAQ from "./FAQ";
 import Fingerprint from "./Fingerprint";
 import Gasmask from "./Gasmask";
@@ -30,6 +32,7 @@ import HelpfulLinks from "./HelpfulLinks";
 import HelpingHand from "./HelpingHand";
 import Home from "./Home";
 import HotFood from "./HotFood";
+import HourlyRate from "./HourlyRate";
 import Info from "./Info";
 import JobBoard from "./JobBoard";
 import Lockers from "./Lockers";
@@ -44,6 +47,8 @@ import OrganisationalRatings from "./OrganisationalRatings";
 import OrHorizontal from "./OrHorizontal";
 import OrVertical from "./OrVertical";
 import OrWhite from "./OrWhite";
+import OverviewWhiteGrey from "./OverviewWhiteGrey";
+import ParkingCost from "./ParkingCost";
 import ParkingSign from "./ParkingSign";
 import Payroll from "./Payroll";
 import PayrollCharges from "./PayrollCharges";
@@ -126,6 +131,7 @@ const iconMap = {
   all: All,
   arrow: Arrow,
   bus: Bus,
+  cafe: Cafe,
   canteen: Canteen,
   cheapFood: CheapFood,
   clock30s: Clock30s,
@@ -135,6 +141,7 @@ const iconMap = {
   company: Company,
   companyThanks: CompanyThanks,
   email: Email,
+  exclamation: Exclamation,
   faq: FAQ,
   fingerprint: Fingerprint,
   gasmask: Gasmask,
@@ -142,6 +149,7 @@ const iconMap = {
   hamburger: Hamburger,
   home: Home,
   hotFood: HotFood,
+  hourlyRate: HourlyRate,
   helped: Helped,
   helpfulLinks: HelpfulLinks,
   helpingHand: HelpingHand,
@@ -159,6 +167,8 @@ const iconMap = {
   orHorizontal: OrHorizontal,
   orVertical: OrVertical,
   orWhite: OrWhite,
+  overviewWhiteGrey: OverviewWhiteGrey,
+  parkingCost: ParkingCost,
   parkingSign: ParkingSign,
   payroll: Payroll,
   payrollCharges: PayrollCharges,
