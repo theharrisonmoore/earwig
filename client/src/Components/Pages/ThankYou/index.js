@@ -143,12 +143,12 @@ export default class ThankYou extends Component {
               industry.
             </Paragraph>
             <Paragraph>
-              <strong>Don’t worry</strong>, only your username is visible on
+              <strong>Don’t worry</strong>, only your display name is visible on
               earwig
             </Paragraph>
             <Button
               styleType="secondary"
-              text="Change your username"
+              text="Change your display name"
               onClick={() => this.props.history.push(EDIT_ID_URL)}
             />
             <Divider />
