@@ -25,7 +25,7 @@ module.exports = ({
   target,
   orgId,
   orgName,
-  image,
+  image
 }) => {
   let html;
   if (target === "questionComment") {
@@ -38,7 +38,7 @@ module.exports = ({
           <span style="font-weight: 700;">User ID:</span> ${reporterUserId}
           <br />
 
-          <span style="font-weight: 700;">User email:</span> ${reporterEmail} 
+          <span style="font-weight: 700;">User email:</span> ${reporterEmail}
           <br />
 
           <span style="display: inline-block; margin-top: 1rem;">Reported a comment on a question:</span>
@@ -53,7 +53,7 @@ module.exports = ({
           <span style="font-weight: 700">Comment words: </span><span style="font-weight: 100; padding: 0 11px; border-radius: 10px; background: #ababab29; display: block">"${commentText}"</span>
           <br />
 
-          <span style="font-weight: 700;">Organization:</span> <a href="${config.server.domain}/profile/${orgId}">${orgName}</a> 
+          <span style="font-weight: 700;">Organization:</span> <a href="${config.server.domain}/profile/${orgId}">${orgName}</a>
           <br />
 
         </p>
@@ -61,8 +61,8 @@ module.exports = ({
         <span style="font-weight: 700;">Reason: </span><span>${reason}</span>
         <br />
         <span style="font-weight: 700;">Description: </span><span>${description}</span>
-      </div> 
-    </div> 
+      </div>
+    </div>
   `;
   } else if (target === "overallReview" || target === "voiceReview") {
     let overallReview = "";
@@ -81,17 +81,21 @@ module.exports = ({
           <span style="font-weight: 700;">User ID:</span> ${reporterUserId}
           <br />
 
-          <span style="font-weight: 700;">User Email:</span> ${reporterEmail} 
+          <span style="font-weight: 700;">User Email:</span> ${reporterEmail}
           <br />
 
-          <span style="display: inline-block; margin-top: 1rem;">Reported ${overallReview ? "an overall" : "a voice"} review:</span>
+          <span style="display: inline-block; margin-top: 1rem;">Reported ${
+            overallReview ? "an overall" : "a voice"
+          } review:</span>
           <br />
 
           <span style="font-weight: 700;">Review owner:</span> ${reportedReviewUserId}
           <br />
           ${overallReview}
 
-          <span style="font-weight: 700;">Organization:</span> <a href="${config.server.domain}/profile/${orgId}">${orgName}</a> 
+          <span style="font-weight: 700;">Organization:</span> <a href="${
+            config.server.domain
+          }/profile/${orgId}">${orgName}</a>
           <br />
 
         </p>
@@ -101,7 +105,7 @@ module.exports = ({
 
         <span style="font-weight: 700;">Description: </span><span>${description}</span>
       </div>
-    </div> 
+    </div>
   `;
   } else if (target === "overallReply") {
     html = `
@@ -113,7 +117,7 @@ module.exports = ({
           <span style="font-weight: 700;">User ID:</span> ${reporterUserId}
           <br />
 
-          <span style="font-weight: 700;">User Email:</span> ${reporterEmail} 
+          <span style="font-weight: 700;">User Email:</span> ${reporterEmail}
           <br />
 
           <span style="display: inline-block; margin-top: 1rem;">Reported a reply on an overall review:</span>
@@ -131,7 +135,7 @@ module.exports = ({
           <span style="font-weight: 700">Reply words: </span><pre style="font-weight: 100; padding: 0 11px; border-radius: 10px; background: #ababab29; display: block">"${reportedReplyText}"</pre>
           <br />
 
-          <span style="font-weight: 700;">Organization:</span> <a href="${config.server.domain}/profile/${orgId}">${orgName}</a> 
+          <span style="font-weight: 700;">Organization:</span> <a href="${config.server.domain}/profile/${orgId}">${orgName}</a>
           <br />
 
         </p>
@@ -141,7 +145,7 @@ module.exports = ({
 
         <span style="font-weight: 700;">Description: </span><pre style="display: block">${description}</pre>
       </div>
-    </div> 
+    </div>
   `;
   } else if (target === "worksiteImage") {
     html = `
@@ -153,7 +157,7 @@ module.exports = ({
           <span style="font-weight: 700;">User ID:</span> ${reporterUserId}
           <br />
 
-          <span style="font-weight: 700;">User Email:</span> ${reporterEmail} 
+          <span style="font-weight: 700;">User Email:</span> ${reporterEmail}
           <br />
 
           <span style="display: inline-block; margin-top: 1rem;">Reported a worksite image:</span>
@@ -165,7 +169,7 @@ module.exports = ({
           <img src="${image}" style="background: white;"/>
           <br />
 
-          <span style="font-weight: 700;">Organization:</span> <a href="${config.server.domain}/profile/${orgId}">${orgName}</a> 
+          <span style="font-weight: 700;">Organization:</span> <a href="${config.server.domain}/profile/${orgId}">${orgName}</a>
           <br />
 
         </p>
@@ -175,10 +179,9 @@ module.exports = ({
 
         <span style="font-weight: 700;">Description: </span><pre style="display: block">${description}</pre>
       </div>
-    </div> 
+    </div>
   `;
   }
-
 
   const { email } = config;
 
@@ -188,13 +191,21 @@ module.exports = ({
   const subject = "Content reported on earwig";
   const to = email.aliases.reportRecive;
 
-  const attachments = [{
-    filename: "logo.png",
-    path: `${__dirname}/../../../assets/logo.png`,
-    cid: "earwig-logo",
-  }];
+  const attachments = [
+    {
+      filename: "logo.png",
+      path: `${__dirname}/../../../assets/logo.png`,
+      cid: "earwig-logo"
+    }
+  ];
 
   return mailer({
-    from, to, subject, html, user: earwig, pass, attachments,
+    from,
+    to,
+    subject,
+    html,
+    user: earwig,
+    pass,
+    attachments
   });
 };

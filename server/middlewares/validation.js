@@ -32,16 +32,9 @@ const schemas = {
     trade: Joi.string()
       .when("isWorker", { is: "no", then: Joi.allow("").optional() })
       .when("isWorker", { is: "yes", then: Joi.required("trade is required") }),
-    orgType: Joi.string().when("isWorker", {
-      is: "no",
-      then: Joi.string()
-        .valid(
-          ["agency", "payroll", "company", "mainCompany", "other"],
-          "invalid organisation type",
-        )
-        .required(),
-      otherwise: Joi.allow("").optional(),
-    }),
+    orgType: Joi.string()
+      .allow("")
+      .optional(),
     otherOrg: Joi.string().when("orgType", {
       is: "other",
       then: Joi.string().min(3),
@@ -197,10 +190,17 @@ const schemas = {
     active: Joi.boolean().required(),
   },
   reportContent: {
+    // required params
     reason: Joi.string().required(),
     description: Joi.string().required(),
     target: Joi.string().required(),
-    organization: Joi.object().required(),
+    orgId: Joi.string().required(),
+    orgName: Joi.string().required(),
+    reportedReviewUserId: Joi.string().required(),
+    // optional params
+    reportedReviewText: Joi.string(),
+    reportedReplyUserId: Joi.string(),
+    reportedReplyText: Joi.string(),
     question: Joi.object(),
     review: Joi.object(),
     comment: Joi.object(),

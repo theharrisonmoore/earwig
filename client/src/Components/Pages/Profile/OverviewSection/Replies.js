@@ -21,6 +21,7 @@ const Replies = ({
   category,
   text,
   ownerUserId,
+  target,
 }) => {
   const replyReportLink = reply => {
     const reportLink = addSearchParamsToLink(
@@ -31,8 +32,9 @@ const Replies = ({
         reportedReplyText: reply.text,
         orgId,
         orgName,
+        target,
       },
-      REPORT_CONTENT_URL
+      REPORT_CONTENT_URL,
     );
     return reportLink;
   };

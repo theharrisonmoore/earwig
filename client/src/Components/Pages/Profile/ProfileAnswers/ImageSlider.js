@@ -8,6 +8,7 @@ import { SliderWrapper, ImgWrapper, Image } from "./ProfileAnswers.style";
 
 import { colors } from "../../../../theme";
 import Icon from "../../../Common/Icon/Icon";
+import { addSearchParamsToLink } from "../../../../helpers";
 
 import { REPORT_CONTENT_URL } from "../../../../constants/naviagationUrls";
 
@@ -26,7 +27,7 @@ class Slider extends React.Component {
       errors: { image: "" },
       answers: [],
       activeIndex: 0,
-      isOpen: false,
+      isOpen: false
     };
   }
 
@@ -41,7 +42,7 @@ class Slider extends React.Component {
       })
       .catch(err => {
         this.setState({
-          errors: { ...this.state.errors, image: "image error" },
+          errors: { ...this.state.errors, image: "image error" }
         });
       });
   }
@@ -69,20 +70,23 @@ class Slider extends React.Component {
   onMovePrevRequest = () => {
     const { activeIndex, images } = this.state;
     this.setState({
-      activeIndex: (activeIndex + images.length - 1) % images.length,
+      activeIndex: (activeIndex + images.length - 1) % images.length
     });
   };
 
   onMoveNextRequest = () => {
     const { activeIndex, images } = this.state;
     this.setState({
-      activeIndex: (activeIndex + 1) % images.length,
+      activeIndex: (activeIndex + 1) % images.length
     });
   };
 
   render() {
     const { images, activeIndex, isOpen } = this.state;
     const { organization } = this.props;
+
+    const { name: orgName, _id: orgId } = organization;
+
     const [activeReview] = organization.reviews.filter(
       item => item._id === this.state.answers[this.state.activeIndex]
     );
@@ -92,14 +96,29 @@ class Slider extends React.Component {
           mixBlendMode: "difference",
           cursor: "pointer",
           width: "2rem",
-          height: "2rem",
+          height: "2rem"
         }
       : {
           background: "#364d79",
           cursor: "pointer",
           width: "2rem",
-          height: "2rem",
+          height: "2rem"
         };
+
+    // creates link to report content
+    const reportLink = () => {
+      const createLink = addSearchParamsToLink(
+        {
+          reportedReviewUserId: activeReview && activeReview.user._id,
+          orgName,
+          orgId,
+          target: "worksiteImage",
+          image: images[activeIndex] && images[activeIndex].link
+        },
+        REPORT_CONTENT_URL
+      );
+      return createLink;
+    };
 
     return (
       <>
@@ -121,7 +140,7 @@ class Slider extends React.Component {
             style={{
               position: "relative",
               maxWidth: "500px",
-              margin: " 0 auto",
+              margin: " 0 auto"
             }}
           >
             <SliderWrapper>
@@ -179,19 +198,9 @@ class Slider extends React.Component {
                 justifyContent: "center",
                 height: "33px",
                 alignItems: "center",
-                borderRadius: "50%",
+                borderRadius: "50%"
               }}
-              to={{
-                pathname: REPORT_CONTENT_URL,
-                state: {
-                  review: {
-                    user: activeReview && activeReview.user,
-                  },
-                  organization,
-                  image: images[activeIndex],
-                  target: "worksiteImage",
-                },
-              }}
+              to={reportLink()}
             >
               <Icon
                 icon="flag"

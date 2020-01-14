@@ -70,7 +70,7 @@ export default ({
 
   const overallReportLink = addSearchParamsToLink(
     overallParams,
-    REPORT_CONTENT_URL
+    REPORT_CONTENT_URL,
   );
 
   return (
@@ -132,6 +132,7 @@ export default ({
           {replies && (
             <Replies
               replies={replies}
+              target={target}
               level={level}
               userId={userId}
               updatedUsers={updatedUsers}

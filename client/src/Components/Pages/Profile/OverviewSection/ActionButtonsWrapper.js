@@ -46,7 +46,7 @@ const getTooltipContent = type => {
       {type === "flag" &&
         "If you want to report content, you first need to sign up using a valid email address so we can get back to you."}
 
-      {type === "info" &&
+      {type === "exclamation" &&
         "Hang on! You can’t do this until we’ve checked your photo. Give us a few minutes. You might need to refresh your page."}
     </div>
   );
@@ -70,6 +70,7 @@ const ActionButtonsWrapper = ({
   reportLink,
   target,
 }) => {
+
   // decides what like functions to render
   function renderLikeIcon(level) {
     switch (level) {
@@ -100,7 +101,7 @@ const ActionButtonsWrapper = ({
         return (
           <PopoverComponent
             popoverOptions={{
-              text: getTooltipContent("info"),
+              text: getTooltipContent("exclamation"),
               iconTooltip: {
                 icon: "like",
                 fill: colors.gray,
@@ -163,7 +164,7 @@ const ActionButtonsWrapper = ({
         return (
           <PopoverComponent
             popoverOptions={{
-              text: getTooltipContent("info"),
+              text: getTooltipContent("exclamation"),
               iconTooltip: {
                 icon: "comment",
                 fill: colors.gray,
