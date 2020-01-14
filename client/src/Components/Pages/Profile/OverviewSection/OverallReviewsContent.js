@@ -56,6 +56,7 @@ export default ({
   isLikedByUser,
   showRate,
   panelKey,
+  activeTab,
 }) => {
   const overallParams = {
     target,
@@ -126,6 +127,7 @@ export default ({
           panelKey={panelKey}
           count={repliesCount}
           onToggle={togglePanel}
+          activeTab={activeTab}
         >
           {replies && (
             <Replies

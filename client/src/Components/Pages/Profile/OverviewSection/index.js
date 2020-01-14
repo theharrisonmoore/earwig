@@ -27,7 +27,8 @@ const OverviewSection = ({
   updateUserPoints,
   updatedUsers,
   counters,
-  setCounters
+  setCounters,
+  activeTab,
 }) => {
   const { category, name, phoneNumber, email, websiteUrl } = summary && summary;
 
@@ -72,6 +73,7 @@ const OverviewSection = ({
           counters={counters}
           setCounters={setCounters}
           level={level}
+          activeTab={activeTab}
         />
       </Skeleton>
 

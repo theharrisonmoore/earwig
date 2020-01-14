@@ -8,14 +8,14 @@ import { colors } from "../../../../theme";
 
 import {
   SIGNUP_URL,
-  UPLOAD_VERIFICATION_PHOTO
+  UPLOAD_VERIFICATION_PHOTO,
 } from "../../../../constants/naviagationUrls";
 
 import {
   ActionsDiv,
   ButtonsWrapper,
   LikeWrapper,
-  CommentIconWrapper
+  CommentIconWrapper,
 } from "../Profile.style";
 
 import PopoverComponent from "../../../Common/Popover";
@@ -29,7 +29,7 @@ const getTooltipContent = type => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        textAlign: "center"
+        textAlign: "center",
       }}
     >
       <Icon
@@ -68,7 +68,7 @@ const ActionButtonsWrapper = ({
   // liked now by user, for animation
   isLikedByUser,
   reportLink,
-  target
+  target,
 }) => {
 
   // decides what like functions to render
@@ -106,10 +106,10 @@ const ActionButtonsWrapper = ({
                 icon: "like",
                 fill: colors.gray,
                 width: "27",
-                height: "27"
+                height: "27",
               },
               closeButton: true,
-              margin: "1rem 0 0 0"
+              margin: "1rem 0 0 0",
             }}
           />
         );
@@ -123,7 +123,7 @@ const ActionButtonsWrapper = ({
                 icon: "like",
                 fill: colors.gray,
                 width: "27",
-                height: "27"
+                height: "27",
               },
               actionButtonTxt: "Get verified",
               linkButtonOptions: {
@@ -131,11 +131,11 @@ const ActionButtonsWrapper = ({
                 state: {
                   category,
                   orgId,
-                  redirectToProfile: true
-                }
+                  redirectToProfile: true,
+                },
               },
               closeButton: true,
-              margin: "1rem 0 0 0"
+              margin: "1rem 0 0 0",
             }}
           />
         );
@@ -169,10 +169,10 @@ const ActionButtonsWrapper = ({
                 icon: "comment",
                 fill: colors.gray,
                 width: "27",
-                height: "27"
+                height: "27",
               },
               closeButton: true,
-              margin: "1rem 0 0 3rem"
+              margin: "1rem 0 0 3rem",
             }}
           />
         );
@@ -186,7 +186,7 @@ const ActionButtonsWrapper = ({
                 icon: "comment",
                 fill: colors.gray,
                 width: "27",
-                height: "27"
+                height: "27",
               },
               actionButtonTxt: "Get verified",
               linkButtonOptions: {
@@ -194,11 +194,11 @@ const ActionButtonsWrapper = ({
                 state: {
                   category,
                   orgId,
-                  redirectToProfile: true
-                }
+                  redirectToProfile: true,
+                },
               },
               closeButton: true,
-              margin: "1rem 0 0 3rem"
+              margin: "1rem 0 0 3rem",
             }}
           />
         );
@@ -213,38 +213,42 @@ const ActionButtonsWrapper = ({
 
         {/* COMMENT FUNCTIONS */}
         {adminReplied !== true && renderCommentButton(level)}
-      </ButtonsWrapper>
 
-      {/* FLAG ICON */}
-      {/* report overall/voice review */}
-      {loggedinUserID ? (
-        // if user is signed up they can report content
-        <ReportFlag style={{ right: 0, width: "10%" }} to={reportLink} />
-      ) : (
-        // if not registered they see popover with sign up prompt
-        <PopoverComponent
-          popoverOptions={{
-            text: getTooltipContent("flag"),
-            iconTooltip: {
-              icon: "flag",
-              fill: colors.gray,
-              width: "27",
-              height: "27"
-            },
-            actionButtonTxt: "Sign up",
-            linkButtonOptions: {
-              pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
-              state: {
-                category,
-                orgId,
-                redirectToProfile: true
-              }
-            },
-            closeButton: true,
-            margin: "1rem 0 0 3rem"
-          }}
-        />
-      )}
+        {/* FLAG ICON */}
+        {/* report overall/voice review */}
+        {loggedinUserID ? (
+          // if user is signed up they can report content
+          <ReportFlag
+            style={{ right: 0, width: "10%" }}
+            to={reportLink}
+            bottom
+          />
+        ) : (
+          // if not registered they see popover with sign up prompt
+          <PopoverComponent
+            popoverOptions={{
+              text: getTooltipContent("flag"),
+              iconTooltip: {
+                icon: "flag",
+                fill: colors.gray,
+                width: "27",
+                height: "27",
+              },
+              actionButtonTxt: "Sign up",
+              linkButtonOptions: {
+                pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
+                state: {
+                  category,
+                  orgId,
+                  redirectToProfile: true,
+                },
+              },
+              closeButton: true,
+              margin: "1rem 0 0 3rem",
+            }}
+          />
+        )}
+      </ButtonsWrapper>
     </ActionsDiv>
   );
 };
