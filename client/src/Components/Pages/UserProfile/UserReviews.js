@@ -118,7 +118,8 @@ export default class UserReviews extends Component {
     } catch (err) {
       Modal.error({
         title: "Edit is not allowed",
-        content: "You can't edit this review, please check the rules above",
+        content:
+          "You can't edit this review because either it's older than four weeks, the company has replied or other workers have given you points for it.",
       });
     }
   };

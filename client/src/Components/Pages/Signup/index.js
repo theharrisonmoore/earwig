@@ -53,7 +53,6 @@ import {
   TERMS_OF_USE_URL,
   PRIVACY_URL,
   LOGIN_URL,
-  INTRO_URL,
 } from "../../../constants/naviagationUrls";
 import { colors } from "../../../theme";
 
@@ -415,7 +414,7 @@ export default class Signup extends Component {
       });
     } else if (isWorker === "yes") {
       this.props.history.push({
-        pathname: INTRO_URL,
+        pathname: HOME_PAGE,
         state: { isWorker },
       });
     } else {

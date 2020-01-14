@@ -654,7 +654,7 @@ module.exports = async () => {
         name: "getToSite",
         text: "Getting on to site",
       },
-      hasComment: true,
+      hasComment: false,
       icon: "parkingCost",
     },
     {

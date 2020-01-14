@@ -92,6 +92,7 @@ const ActionButtonsWrapper = ({
               fill={isLiked ? colors.primary : colors.gray}
               width="27"
               height="27"
+              margin="0 2rem 0 0"
             />
           </LikeWrapper>
         );
@@ -109,7 +110,7 @@ const ActionButtonsWrapper = ({
                 height: "27",
               },
               closeButton: true,
-              margin: "1rem 0 0 0",
+              margin: "0 2rem 0 0",
             }}
           />
         );
@@ -135,7 +136,7 @@ const ActionButtonsWrapper = ({
                 },
               },
               closeButton: true,
-              margin: "1rem 0 0 0",
+              margin: "0 2rem 0 0",
             }}
           />
         );
@@ -173,7 +174,7 @@ const ActionButtonsWrapper = ({
                 height: "27",
               },
               closeButton: true,
-              margin: "1rem 0 0 3rem",
+              margin: "0",
             }}
           />
         );
@@ -199,7 +200,7 @@ const ActionButtonsWrapper = ({
                 },
               },
               closeButton: true,
-              margin: "1rem 0 0 3rem",
+              margin: "0",
             }}
           />
         );
