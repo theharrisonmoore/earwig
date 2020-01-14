@@ -7,11 +7,11 @@ import Icon from "./Icon/Icon";
 import { colors } from "../../theme";
 
 const StyledLink = styled(Link)`
-${({ left }) => (left ? "left" : "right")}: 0;
+  ${({ left }) => (left ? "left" : "right")}: 0;
   width: 10%;
-  position: absolute
-  top: 50%
-  transform: translateY(-50%)
+  position: absolute;
+  ${({ bottom }) => (bottom ? "bottom: 0" : "top: 50%")};
+  // transform: translateY(-50%);
 `;
 
 export default ({ left, to, ...rest }) => {

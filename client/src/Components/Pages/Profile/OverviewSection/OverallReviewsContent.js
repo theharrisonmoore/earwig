@@ -16,7 +16,7 @@ import {
   CommentBubble,
   CommentDate,
   BubbleAndDate,
-  RatingWithUserInfo
+  RatingWithUserInfo,
 } from "../Profile.style";
 
 import VoiceReview from "../ProfileAnswers/VoiceReview";
@@ -55,7 +55,8 @@ export default ({
   isLiked,
   isLikedByUser,
   showRate,
-  panelKey
+  panelKey,
+  activeTab,
 }) => {
   const overallParams = {
     target,
@@ -64,7 +65,7 @@ export default ({
     // review.overallReview.text
     reportedReviewText: text,
     orgId,
-    orgName
+    orgName,
   };
 
   const overallReportLink = addSearchParamsToLink(
@@ -126,6 +127,7 @@ export default ({
           panelKey={panelKey}
           count={repliesCount}
           onToggle={togglePanel}
+          activeTab={activeTab}
         >
           {replies && (
             <Replies
