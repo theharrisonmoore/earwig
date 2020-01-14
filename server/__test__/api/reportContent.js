@@ -6,7 +6,7 @@ const app = require("../../app");
 
 const user = {
   email: "level2@earwig.com",
-  password: "123456"
+  password: "123456",
 };
 describe("Tesing for get report content", () => {
   beforeAll(async () => {
@@ -25,7 +25,7 @@ describe("Tesing for get report content", () => {
       target: "target as string",
       orgId: "any",
       orgName: "any",
-      reportedReviewUserId: "any"
+      reportedReviewUserId: "any",
     };
 
     // login with the origin password
@@ -56,7 +56,7 @@ describe("Tesing for get report content", () => {
       target: "target as string",
       orgId: "any",
       orgName: "any",
-      reportedReviewUserId: "any"
+      reportedReviewUserId: "any",
     };
 
     // login with the origin password

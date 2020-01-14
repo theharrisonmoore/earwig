@@ -19,7 +19,7 @@ export default class ReportContent extends Component {
     reason: "",
     description: "",
     activePage: "selectReason",
-    loading: false
+    loading: false,
   };
 
   componentDidMount() {
@@ -48,7 +48,7 @@ export default class ReportContent extends Component {
       reportedReviewText,
       reportedReplyUserId,
       reportedReplyText,
-      image
+      image,
     } = queryString.parse(this.props.location.search);
 
     if (!this.state.description) {
@@ -69,7 +69,7 @@ export default class ReportContent extends Component {
           reportedReplyText,
           image,
           description: this.state.description,
-          reason: this.state.reason
+          reason: this.state.reason,
         })
         .then(() => {
           this.setState({ loading: false, activePage: "thanks" });

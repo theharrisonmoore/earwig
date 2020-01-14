@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import {
   MainIcon,
   SubTitle,
-  SmallParagraph
+  SmallParagraph,
 } from "./../../Common/StaticPages.style";
 
 import Button from "./../../Common/Button";

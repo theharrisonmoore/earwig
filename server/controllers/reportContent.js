@@ -21,7 +21,7 @@ module.exports = (req, res, next) => {
     reportedReviewText,
     reportedReplyUserId,
     reportedReplyText,
-    image
+    image,
   } = req.body;
 
   const { user } = req;
@@ -42,7 +42,7 @@ module.exports = (req, res, next) => {
       target,
       orgId,
       orgName,
-      image
+      image,
     })
     .then(() => {
       res.json({ message: "sent" });

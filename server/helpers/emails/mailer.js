@@ -10,17 +10,17 @@ module.exports = ({ from, to, subject, html, user, pass, attachments }) => {
     //                     but the default is false so just remove this completely
     auth: {
       user,
-      pass
+      pass,
     },
     tls: {
-      rejectUnauthorized: false
-    }
+      rejectUnauthorized: false,
+    },
   });
 
   // send mail with defined transport object
-  if (true) {
+  if (!(process.env.NODE_ENV === "production" && user.role !== "admin")) {
     // eslint-disable-next-line no-console
-    console.log(from, to, subject, html);
+    console.log("email suppose to be sent");
     return Promise.resolve();
   }
   return transporter.sendMail({
@@ -28,6 +28,6 @@ module.exports = ({ from, to, subject, html, user, pass, attachments }) => {
     to, // list of receivers
     subject, // Subject line
     html, // html body
-    attachments
+    attachments,
   });
 };
