@@ -126,7 +126,6 @@ class AutosuggestComponent extends Component {
 
   // the onChange handler sets the users input and prevents that the value is undefined
   onChange = (event, { newValue }) => {
-    console.log("NEW", newValue);
     this.setState({ value: typeof newValue !== "undefined" ? newValue : "" });
   };
 
@@ -160,7 +159,8 @@ class AutosuggestComponent extends Component {
   };
 
   renderSuggestion = suggestion => {
-    const { isButton, storeOrg, searchIcon } = this.props;
+    const { isButton, storeOrg, searchIcon, category } = this.props;
+    const { value } = this.state;
     if (suggestion.isEmpty) {
       return null;
     }
@@ -170,6 +170,8 @@ class AutosuggestComponent extends Component {
         isButton={isButton}
         storeOrg={storeOrg}
         searchIcon={searchIcon}
+        category={category}
+        searchText={value}
       />
     );
   };
