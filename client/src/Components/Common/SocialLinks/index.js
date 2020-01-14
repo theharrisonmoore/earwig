@@ -23,11 +23,12 @@ const buttonStyle = {
 
 export default class SocialLinks extends Component {
   fbSendBrowser = url => {
-    if (isMobileDevice.any()) {
+    if (isMobileDevice.any() !== null) {
+      console.log("reached messanger");
       window.open(
         `fb-messenger://share?link=${encodeURIComponent(
-          url
-        )}&app_id=${encodeURIComponent("1065819443628486")}`
+          url,
+        )}&app_id=${encodeURIComponent("1065819443628486")}`,
       );
     } else {
       // eslint-disable-next-line no-undef
@@ -80,14 +81,20 @@ export default class SocialLinks extends Component {
         </SocialButtonWrapper>
 
         <SocialButtonWrapper>
-          <LinkedinShareButton url={url} style={buttonStyle}>
+          <LinkedinShareButton
+            source={url}
+            url={url}
+            style={buttonStyle}
+            title={title}
+            summary={body}
+          >
             <Icon icon="linkedin" width="15" height="15" fill={colors.white} />
             Linkedin
           </LinkedinShareButton>
         </SocialButtonWrapper>
 
         <SocialButtonWrapper>
-          <FacebookShareButton style={buttonStyle} url={url} title={title}>
+          <FacebookShareButton style={buttonStyle} url={url} quote={title}>
             <Icon icon="facebook" width="15" height="15" fill={colors.white} />
             Facebook
           </FacebookShareButton>
