@@ -5,7 +5,7 @@ module.exports = to => {
   const { domain } = config.server;
   const giveReviewLink = `${domain}/search/review`;
   // const viewProfileLink = `${domain}/search/profile`;
-  const introLink = `${domain}/intro`;
+  // const introLink = `${domain}/intro`;
   const welcomeLink = `${domain}/`;
 
   const html = `
