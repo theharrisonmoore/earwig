@@ -70,23 +70,26 @@ export default class SocialLinks extends Component {
         </SocialButtonWrapper>
 
         <SocialButtonWrapper>
-          <FacebookMessengerShareButton
+          <button onclick={() => this.fbSendBrowser(url)}>
+            shareMessenger
+          </button>
+          {/* <FacebookMessengerShareButton
             style={buttonStyle}
             url={url}
             appId="1065819443628486"
           >
             <Icon icon="messenger" width="15" height="15" fill={colors.white} />
             Messenger
-          </FacebookMessengerShareButton>
+          </FacebookMessengerShareButton> */}
         </SocialButtonWrapper>
 
         <SocialButtonWrapper>
           <LinkedinShareButton
             source={url}
-            url={url}
+            // url={url}
             style={buttonStyle}
             title={title}
-            summary={body}
+            summary={title}
           >
             <Icon icon="linkedin" width="15" height="15" fill={colors.white} />
             Linkedin
