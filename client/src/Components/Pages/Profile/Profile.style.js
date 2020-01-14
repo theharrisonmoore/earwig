@@ -49,7 +49,6 @@ export const Banner = styled.div`
   }
 `;
 
-
 export const Header = styled.div`
   display: flex;
   flex-direction: column;
@@ -527,6 +526,7 @@ export const ButtonsWrapper = styled(ActionsDiv)`
   /* justify-content: space-around; */
   align-items: center;
   width: 90%;
+  position: relative;
 `;
 
 export const ActionButton = styled.button`

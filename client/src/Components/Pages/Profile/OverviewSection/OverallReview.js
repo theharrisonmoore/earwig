@@ -9,7 +9,7 @@ import OverallReviewsContent from "./OverallReviewsContent";
 import {
   getVerifiedUsers,
   getVerifiedRepliesCount,
-  checkAdminReply
+  checkAdminReply,
 } from "../utils";
 
 import { organizations } from "../../../../theme";
@@ -18,11 +18,12 @@ import { REPLY_URL } from "../../../../constants/naviagationUrls";
 import { LightTitle, ReviewDiv } from "../Profile.style";
 
 import { SectionTitle } from "../DetailedSection/ReviewSection.style";
+import { addSearchParamsToLink } from "../../../../helpers";
 
 class OverallReview extends Component {
   state = {
     activeKey: "",
-    writtenOrAudioReviews: []
+    writtenOrAudioReviews: [],
   };
 
   toggleHelpful = e => {
@@ -44,9 +45,9 @@ class OverallReview extends Component {
           [reviewId]: {
             counter: updateCounter,
             sentNumber,
-            byUser: true
-          }
-        }
+            byUser: true,
+          },
+        },
       },
       () => {
         this.postHelpfulPoints({
@@ -54,7 +55,7 @@ class OverallReview extends Component {
           reviewId,
           userId,
           target,
-          organization
+          organization,
         });
       }
     );
@@ -65,7 +66,7 @@ class OverallReview extends Component {
       .patch(`/api/review/${reviewId}/${target}/helpful-points`, {
         points,
         userId,
-        organization
+        organization,
       })
       .then(({ data: { points: newPoints, helpedUsers: newHelpedUsers } }) => {
         const { counters } = this.props;
@@ -77,15 +78,15 @@ class OverallReview extends Component {
             [reviewId]: {
               counter: points,
               sentNumber: points,
-              byUser: true
-            }
-          }
+              byUser: true,
+            },
+          },
         });
 
         this.props.updateUserPoints({
           userId,
           points: newPoints,
-          helpedUsers: newHelpedUsers
+          helpedUsers: newHelpedUsers,
         });
       })
       .catch(err => {
@@ -111,11 +112,19 @@ class OverallReview extends Component {
   goTOReply = e => {
     const { reviewId, category, orgId, target } = e.target.dataset;
     const { pageYOffset } = window;
-    const { history } = this.props;
-    history.push({
-      pathname: REPLY_URL,
-      search: `?reviewId=${reviewId}&target=${target}&category=${category}&orgId=${orgId}&pageYOffset=${pageYOffset}`
-    });
+    const { history, activeTab } = this.props;
+    const params = {
+      reviewId,
+      target,
+      category,
+      orgId,
+      pageYOffset,
+      activeTab,
+    };
+
+    const link = addSearchParamsToLink(params, REPLY_URL);
+
+    history.push(link);
   };
 
   // getUserVotesOnProfile = () => {
@@ -157,13 +166,13 @@ class OverallReview extends Component {
         if (review.overallReview && review.overallReview.allRepliesUsers) {
           repliedUsers = [
             ...repliedUsers,
-            ...review.overallReview.allRepliesUsers
+            ...review.overallReview.allRepliesUsers,
           ];
         }
         if (review.voiceReview && review.voiceReview.allRepliesUsers) {
           repliedUsers = [
             ...repliedUsers,
-            ...review.voiceReview.allRepliesUsers
+            ...review.voiceReview.allRepliesUsers,
           ];
         }
         const verifiedUsers = getVerifiedUsers(repliedUsers);
@@ -189,7 +198,7 @@ class OverallReview extends Component {
             review,
             organization: review.organization,
             rate: review.rate,
-            adminReplied: review.adminReplied
+            adminReplied: review.adminReplied,
           });
         }
 
@@ -208,14 +217,14 @@ class OverallReview extends Component {
             _id: review._id,
             category: "voiceReview",
             organization: review.organization,
-            rate: review.rate
+            rate: review.rate,
           });
         }
       });
 
     this.setState(
       {
-        writtenOrAudioReviews: totalReviews
+        writtenOrAudioReviews: totalReviews,
       },
       () => {
         const pageYOffset =
@@ -259,7 +268,8 @@ class OverallReview extends Component {
       id: userId,
       updatedUsers,
       counters,
-      level
+      level,
+      activeTab,
     } = this.props;
 
     const { name: orgName, _id: orgId } = summary;
@@ -295,14 +305,14 @@ class OverallReview extends Component {
                 review: { overallReview } = {},
                 rate = 0,
                 user: owner = {},
-                text: reviewText
+                text: reviewText,
               } = review;
 
               const {
                 _id: ownerId,
                 helpedUsers: OwnerHelpedUsers,
                 points: ownerPoints,
-                userId: ownerUserId
+                userId: ownerUserId,
               } = owner;
 
               const isAudio = reviewCategory === "voiceReview";
@@ -370,6 +380,7 @@ class OverallReview extends Component {
                   isLiked={isLiked}
                   isLikedByUser={isLikedByUser}
                   showRate
+                  activeTab={activeTab}
                 />
               );
             }
