@@ -415,7 +415,7 @@ export default class Signup extends Component {
       });
     } else if (isWorker === "yes") {
       this.props.history.push({
-        pathname: INTRO_URL,
+        pathname: HOME_PAGE,
         state: { isWorker },
       });
     } else {
