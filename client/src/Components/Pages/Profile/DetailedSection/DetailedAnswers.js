@@ -18,6 +18,7 @@ class DetailedAnswers extends Component {
       updatedUsers,
       counters,
       setCounters,
+      activeTab,
     } = this.props;
 
     const { category } = summary;
@@ -43,6 +44,7 @@ class DetailedAnswers extends Component {
                 isMobile={isMobile}
                 counters={counters}
                 setCounters={setCounters}
+                activeTab={activeTab}
               />
             )
         )}

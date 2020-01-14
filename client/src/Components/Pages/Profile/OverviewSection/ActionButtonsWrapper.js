@@ -212,38 +212,42 @@ const ActionButtonsWrapper = ({
 
         {/* COMMENT FUNCTIONS */}
         {adminReplied !== true && renderCommentButton(level)}
-      </ButtonsWrapper>
 
-      {/* FLAG ICON */}
-      {/* report overall/voice review */}
-      {loggedinUserID ? (
-        // if user is signed up they can report content
-        <ReportFlag style={{ right: 0, width: "10%" }} to={reportLink} />
-      ) : (
-        // if not registered they see popover with sign up prompt
-        <PopoverComponent
-          popoverOptions={{
-            text: getTooltipContent("flag"),
-            iconTooltip: {
-              icon: "flag",
-              fill: colors.gray,
-              width: "27",
-              height: "27",
-            },
-            actionButtonTxt: "Sign up",
-            linkButtonOptions: {
-              pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
-              state: {
-                category,
-                orgId,
-                redirectToProfile: true,
+        {/* FLAG ICON */}
+        {/* report overall/voice review */}
+        {loggedinUserID ? (
+          // if user is signed up they can report content
+          <ReportFlag
+            style={{ right: 0, width: "10%" }}
+            to={reportLink}
+            bottom
+          />
+        ) : (
+          // if not registered they see popover with sign up prompt
+          <PopoverComponent
+            popoverOptions={{
+              text: getTooltipContent("flag"),
+              iconTooltip: {
+                icon: "flag",
+                fill: colors.gray,
+                width: "27",
+                height: "27",
               },
-            },
-            closeButton: true,
-            margin: "1rem 0 0 3rem",
-          }}
-        />
-      )}
+              actionButtonTxt: "Sign up",
+              linkButtonOptions: {
+                pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
+                state: {
+                  category,
+                  orgId,
+                  redirectToProfile: true,
+                },
+              },
+              closeButton: true,
+              margin: "1rem 0 0 3rem",
+            }}
+          />
+        )}
+      </ButtonsWrapper>
     </ActionsDiv>
   );
 };

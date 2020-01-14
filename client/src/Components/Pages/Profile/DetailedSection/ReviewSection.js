@@ -50,6 +50,7 @@ export default class ReviewSection extends Component {
       updatedUsers,
       counters,
       setCounters,
+      activeTab,
     } = this.props;
 
     const { _id: organizationID, name: organizationName } = summary;
@@ -189,6 +190,7 @@ export default class ReviewSection extends Component {
                           level={level}
                           counters={counters}
                           setCounters={setCounters}
+                          activeTab={activeTab}
                         />
                       </QuestionContainer>
                     </YesNoQuestionWrapper>
@@ -214,6 +216,7 @@ export default class ReviewSection extends Component {
                           level={level}
                           counters={counters}
                           setCounters={setCounters}
+                          activeTab={activeTab}
                         />
                       ) : (
                         <LightTitle bar>
@@ -243,6 +246,7 @@ export default class ReviewSection extends Component {
                           level={level}
                           counters={counters}
                           setCounters={setCounters}
+                          activeTab={activeTab}
                         />
                       ) : (
                         <LightTitle bar>
@@ -270,6 +274,7 @@ export default class ReviewSection extends Component {
                           level={level}
                           counters={counters}
                           setCounters={setCounters}
+                          activeTab={activeTab}
                         />
                       ) : (
                         <LightTitle bar>
@@ -297,6 +302,7 @@ export default class ReviewSection extends Component {
                         level={level}
                         counters={counters}
                         setCounters={setCounters}
+                        activeTab={activeTab}
                       />
                       {/* ) : (
                         <LightTitle bar>
@@ -319,6 +325,7 @@ export default class ReviewSection extends Component {
                                 level={level}
                                 counters={counters}
                                 setCounters={setCounters}
+                                activeTab={activeTab}
                               />
                             </QuestionWrapper>
                           )}
@@ -343,6 +350,7 @@ export default class ReviewSection extends Component {
                               level={level}
                               counters={counters}
                               setCounters={setCounters}
+                              activeTab={activeTab}
                             />
                           ) : (
                             <LightTitle bar>
@@ -365,7 +373,6 @@ export default class ReviewSection extends Component {
                           />
                         </IconContainer>
                       )}
-
                       <QuestionWrapper key={`${question._id}list`} width="100%">
                         <QuestionTitle>{question.profileText}</QuestionTitle>
                         {question.hintText && (
@@ -386,6 +393,7 @@ export default class ReviewSection extends Component {
                             level={level}
                             counters={counters}
                             setCounters={setCounters}
+                            activeTab={activeTab}
                           />
                         ) : (
                           <LightTitle bar>
@@ -421,6 +429,7 @@ export default class ReviewSection extends Component {
                       level={level}
                       counters={counters}
                       setCounters={setCounters}
+                      activeTab={activeTab}
                     />
                   ) : (
                     <LightTitle image bar>

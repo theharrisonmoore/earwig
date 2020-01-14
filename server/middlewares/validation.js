@@ -32,16 +32,7 @@ const schemas = {
     trade: Joi.string()
       .when("isWorker", { is: "no", then: Joi.allow("").optional() })
       .when("isWorker", { is: "yes", then: Joi.required("trade is required") }),
-    orgType: Joi.string().when("isWorker", {
-      is: "no",
-      then: Joi.string()
-        .valid(
-          ["agency", "payroll", "company", "mainCompany", "other"],
-          "invalid organisation type",
-        )
-        .required(),
-      otherwise: Joi.allow("").optional(),
-    }),
+    orgType: Joi.string().allow("").optional(),
     otherOrg: Joi.string().when("orgType", {
       is: "other",
       then: Joi.string().min(3),
