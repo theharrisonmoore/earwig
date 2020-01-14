@@ -22,22 +22,28 @@ const buttonStyle = {
 };
 
 export default class SocialLinks extends Component {
-  fbSendBrowser = url => {
-    if (isMobileDevice.any() !== null) {
-      console.log("reached messanger");
-      window.open(
-        `fb-messenger://share?link=${encodeURIComponent(
-          url,
-        )}&app_id=${encodeURIComponent("1065819443628486")}`,
-      );
-    } else {
-      // eslint-disable-next-line no-undef
-      FB.ui({
-        method: "send",
-        link: url,
-      });
-    }
-  };
+  // fbSendBrowser = url => {
+  //   if (isMobileDevice.any() !== null) {
+  //     window.open(
+  //       `https://web.facebook.com/dialog/send?app_id=${encodeURIComponent(
+  //         "1065819443628486",
+  //       )}&link=${encodeURIComponent(url)}&redirect_uri=${encodeURIComponent(
+  //         url,
+  //       )}`,
+  //     );
+  //   } else {
+  //     // eslint-disable-next-line no-undef
+  //     FB.ui(
+  //       {
+  //         method: "share",
+  //         href: url,
+  //         title: title,
+  //         description: body,
+  //       },
+  //       function(response) {},
+  //     );
+  //   }
+  // };
 
   render() {
     const { title, body, emailSubject } = this.props;
@@ -70,25 +76,31 @@ export default class SocialLinks extends Component {
           </WhatsappShareButton>
         </SocialButtonWrapper>
 
-        <SocialButtonWrapper>
-          <FacebookMessengerShareButton
-            style={buttonStyle}
-            url={url}
-            title={title}
-            appId="1065819443628486"
-          >
-            <Icon icon="messenger" width="15" height="15" fill={colors.white} />
-            Messenger
-          </FacebookMessengerShareButton>
-        </SocialButtonWrapper>
+        {/* render share on messenger button only on desktop
+        as this is not supported on mobile
+        https://developers.facebook.com/docs/sharing/reference/send-dialog/?locale=en_US
+        */}
+        {isMobileDevice.any() === null && (
+          <SocialButtonWrapper>
+            <FacebookMessengerShareButton
+              style={buttonStyle}
+              url={url}
+              title={title}
+              appId="1065819443628486"
+            >
+              <Icon
+                icon="messenger"
+                width="15"
+                height="15"
+                fill={colors.white}
+              />
+              Messenger
+            </FacebookMessengerShareButton>
+          </SocialButtonWrapper>
+        )}
 
         <SocialButtonWrapper>
-          <LinkedinShareButton
-            url={url}
-            style={buttonStyle}
-            title="testing"
-            summary="also testing"
-          >
+          <LinkedinShareButton url={url} style={buttonStyle}>
             <Icon icon="linkedin" width="15" height="15" fill={colors.white} />
             Linkedin
           </LinkedinShareButton>
