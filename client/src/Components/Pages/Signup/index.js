@@ -53,7 +53,6 @@ import {
   TERMS_OF_USE_URL,
   PRIVACY_URL,
   LOGIN_URL,
-  INTRO_URL,
 } from "../../../constants/naviagationUrls";
 import { colors } from "../../../theme";
 

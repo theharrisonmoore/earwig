@@ -3,7 +3,7 @@ import { Rate as AntdRate } from "antd";
 
 import { colors } from "../../theme";
 
-export default function Rate({ rate }) {
+export default function Rate({ rate, margin }) {
   return (
     <div>
       <AntdRate
@@ -12,6 +12,7 @@ export default function Rate({ rate }) {
         style={{
           color: `${colors.stars}`,
           fontSize: "0.8rem",
+          margin: `${margin}`,
         }}
         className="last-reviewed-star-rate"
       />

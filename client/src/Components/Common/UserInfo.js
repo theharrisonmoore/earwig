@@ -59,7 +59,7 @@ const UserInfo = ({
           color={colors.profileFontColor}
           height="14"
           width="14"
-          margin="0.25rem 0.4rem 0 0.5rem"
+          margin="0.25rem 0.4rem 0 0"
         />
       )}
       <UserInfoWrapper>
