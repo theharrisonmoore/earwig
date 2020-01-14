@@ -40,7 +40,8 @@ export default class SocialLinks extends Component {
   };
 
   render() {
-    const { url, title, body, emailSubject } = this.props;
+    const { title, body, emailSubject } = this.props;
+    const url = "https://earwig-app.herokuapp.com/thank-you";
 
     return (
       <SocialIcons>
@@ -70,26 +71,23 @@ export default class SocialLinks extends Component {
         </SocialButtonWrapper>
 
         <SocialButtonWrapper>
-          <button onclick={() => this.fbSendBrowser(url)}>
-            shareMessenger
-          </button>
-          {/* <FacebookMessengerShareButton
+          <FacebookMessengerShareButton
             style={buttonStyle}
             url={url}
+            title={title}
             appId="1065819443628486"
           >
             <Icon icon="messenger" width="15" height="15" fill={colors.white} />
             Messenger
-          </FacebookMessengerShareButton> */}
+          </FacebookMessengerShareButton>
         </SocialButtonWrapper>
 
         <SocialButtonWrapper>
           <LinkedinShareButton
-            source={url}
-            // url={url}
+            url={url}
             style={buttonStyle}
-            title={title}
-            summary={title}
+            title="testing"
+            summary="also testing"
           >
             <Icon icon="linkedin" width="15" height="15" fill={colors.white} />
             Linkedin
