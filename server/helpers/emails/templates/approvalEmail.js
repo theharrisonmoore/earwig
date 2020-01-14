@@ -13,15 +13,12 @@ module.exports = to => {
     <img src="cid:earwig-logo" style="background: white;"/>
     <p style="font-weight: 700; font-size: 20px;">Thank you for getting verified as a worker</p>
       <div style="text-align: left;">
-      <p>If you haven’t already, you should watch this <a href="${introLink}">important video</a>.</p>
       <p>You can now enjoy full access to the earwig platform, including:</p>
       <ul style="marrgin-bottom: 1rem; padding-left: 1rem;">
         <li>Giving reviews</li>
-        <li>Replying to other workers’ reviews and comments</li>
         <li>Earning points from other workers for helping them</li>
         <li>Asking and answering questions</li>
         <li>Inviting other workers to earwig</li>
-        <li>Searching jobs</li>
         <li>Plus, other stuff you might find helpful</li>
       </ul>
 
