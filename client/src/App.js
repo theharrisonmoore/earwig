@@ -4,6 +4,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import CookieConsent from "react-cookie-consent";
 import mixpanel from "mixpanel-browser";
 
+import { FBPixelInit } from "./FBPixel";
+
 import "antd/dist/antd.css";
 import "./App.css";
 
@@ -16,7 +18,7 @@ import {
   isSMobile,
   isMobile,
   isTablet,
-  isDesktop
+  isDesktop,
 } from "./helpers";
 
 import { API_USERS } from "./apiUrls";
@@ -42,12 +44,12 @@ export const initialState = {
   isAdmin: false,
   isMounted: false,
   email: "",
-  city: ""
+  city: "",
 };
 
 class App extends Component {
   state = {
-    ...initialState
+    ...initialState,
   };
 
   updateWindowDimensions = this.updateWindowDimensions.bind(this);
@@ -58,7 +60,7 @@ class App extends Component {
       isSMobile: isSMobile(window.innerWidth),
       isMobile: isMobile(window.innerWidth),
       isTablet: isTablet(window.innerWidth),
-      isDesktop: isDesktop(window.innerWidth)
+      isDesktop: isDesktop(window.innerWidth),
     });
   }
 
@@ -81,11 +83,12 @@ class App extends Component {
 
   componentDidMount() {
     this.updateWindowDimensions();
+    FBPixelInit();
     window.addEventListener("resize", this.updateWindowDimensions);
     this.getUserInfo();
     window.scrollTo(0, 0);
     mixpanel.track("new mount", {
-      earwig: "earwig"
+      earwig: "earwig",
     });
   }
 

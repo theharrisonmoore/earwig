@@ -4,7 +4,7 @@ import { Rate } from "antd";
 import ContractorsList from "./ContractorsList";
 
 import { colors } from "../../../../theme";
-
+import { FBPixelTrack } from "../../../../FBPixel";
 import {
   OrganisationDetailsWrapper,
   CompanyTitle,
@@ -14,6 +14,29 @@ import {
   OrgLink,
   StarLabel,
 } from "../Profile.style";
+
+const getRateValue = rate => {
+  if (rate === 5) {
+    return { text: "Excellent", padding: "85px" };
+  }
+  if (rate >= 4 && rate < 5) {
+    return { text: "Good", padding: "68px" };
+  }
+  if (rate >= 3 && rate < 4) {
+    return { text: "Average", padding: "39px" };
+  }
+  if (rate >= 2 && rate < 3) {
+    return { text: "Poor", padding: "24px" };
+  }
+  if (rate >= 1 && rate < 2) {
+    return { text: "Bad", padding: "3px" };
+  }
+  return { text: "", padding: "0px" };
+};
+
+const onClickContact = () => {
+  FBPixelTrack("Contact");
+};
 
 const OrganisationDetails = ({
   name,
@@ -26,25 +49,6 @@ const OrganisationDetails = ({
   contractorAnswers,
   rate,
 }) => {
-  const getRateValue = () => {
-    if (rate === 5) {
-      return { text: "Excellent", padding: "85px" };
-    }
-    if (rate >= 4 && rate < 5) {
-      return { text: "Good", padding: "68px" };
-    }
-    if (rate >= 3 && rate < 4) {
-      return { text: "Average", padding: "39px" };
-    }
-    if (rate >= 2 && rate < 3) {
-      return { text: "Poor", padding: "24px" };
-    }
-    if (rate >= 1 && rate < 2) {
-      return { text: "Bad", padding: "3px" };
-    }
-    return { text: "", padding: "0px" };
-  };
-
   return (
     <OrganisationDetailsWrapper isMobile={isMobile} isTablet={isTablet}>
       <CompanyTitle>{name}</CompanyTitle>
@@ -72,8 +76,8 @@ const OrganisationDetails = ({
             {["Bad", "Poor", "Average", "Good", "Excellent"].map(option => (
               <StarLabel
                 key={option}
-                currValue={option === getRateValue().text}
-                padding={getRateValue().padding}
+                currValue={option === getRateValue(rate).text}
+                padding={getRateValue(rate).padding}
               >
                 {option}
               </StarLabel>
@@ -91,6 +95,7 @@ const OrganisationDetails = ({
           <LeftInfo>Website</LeftInfo>
           <RightInfo>
             <OrgLink
+              onClick={onClickContact}
               href={`${websiteUrl}`}
               hasDetails={websiteUrl}
               rel="noopener noreferrer"
@@ -108,6 +113,7 @@ const OrganisationDetails = ({
           <LeftInfo>Email</LeftInfo>
           <RightInfo>
             <OrgLink
+              onClick={onClickContact}
               href={`mailto:${email}`}
               hasDetails={email}
               disabled={!email}
@@ -123,6 +129,7 @@ const OrganisationDetails = ({
           <LeftInfo>Phone</LeftInfo>
           <RightInfo>
             <OrgLink
+              onClick={onClickContact}
               href={`tel:${phoneNumber}`}
               hasDetails={phoneNumber}
               disabled={!phoneNumber}

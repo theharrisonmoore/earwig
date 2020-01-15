@@ -1,6 +1,6 @@
 import React from "react";
-
 import { Rate } from "antd";
+import { FBPixelTrack } from "../../../FBPixel";
 
 import PopOverWrapper from "./PopOverWrapper";
 import Icon from "../../Common/Icon/Icon";
@@ -33,6 +33,14 @@ const renderLogo = orgType => {
   );
 };
 
+const clickOnOrg = ({ name, category, searchText, id }) => {
+  FBPixelTrack("Search", {
+    search_string: searchText,
+    content_name: name,
+    content_category: category,
+    content_ids: [id],
+  });
+};
 // renders individual suggestions
 const Suggestion = props => {
   // check if no suggestion is available and returns so that renderSuggestionsContainer function is still being called (gets deactivated otherwise)
@@ -46,6 +54,8 @@ const Suggestion = props => {
     organisation,
     withoutBorder,
     logoIcon,
+    category,
+    searchText,
   } = props;
 
   const url = `/profile/${organisation._id}`;
@@ -55,9 +65,18 @@ const Suggestion = props => {
       <ProfileLink
         as={isButton}
         to={isButton || url}
-        onClick={() =>
-          storeOrg instanceof Function ? storeOrg(organisation) : undefined
-        }
+        onClick={() => {
+          clickOnOrg({
+            name: organisation.name,
+            category,
+            searchText,
+            id: organisation._id,
+          });
+          if (storeOrg instanceof Function) {
+            storeOrg(organisation);
+          }
+          return undefined;
+        }}
       >
         <SuggestionBox
           orgType={organisation.category}

@@ -5,6 +5,8 @@ import axios from "axios";
 import * as Yup from "yup";
 import { Modal, Alert, Input, Divider } from "antd";
 
+import { FBPixelTrack } from "../../../FBPixel";
+
 import Logo from "../../Common/Logo";
 import CancelLink from "../../Common/CancelLink";
 import Icon from "../../Common/Icon/Icon";
@@ -53,7 +55,6 @@ import {
   TERMS_OF_USE_URL,
   PRIVACY_URL,
   LOGIN_URL,
-  INTRO_URL,
 } from "../../../constants/naviagationUrls";
 import { colors } from "../../../theme";
 
@@ -214,6 +215,8 @@ export default class Signup extends Component {
           },
         })
           .then(({ data }) => {
+            FBPixelTrack("CompleteRegistration");
+
             if (isWorker === "yes") {
               this.setState({
                 isPopupVisible: true,
@@ -415,7 +418,7 @@ export default class Signup extends Component {
       });
     } else if (isWorker === "yes") {
       this.props.history.push({
-        pathname: INTRO_URL,
+        pathname: HOME_PAGE,
         state: { isWorker },
       });
     } else {

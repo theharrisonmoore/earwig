@@ -75,7 +75,8 @@ const ActionButtonsWrapper = ({
   function renderLikeIcon(level) {
     switch (level) {
       // user is verified and can like
-      case 3 || 4:
+      case 3:
+      case 4:
         return (
           <LikeWrapper
             as="button"
@@ -92,6 +93,7 @@ const ActionButtonsWrapper = ({
               fill={isLiked ? colors.primary : colors.gray}
               width="27"
               height="27"
+              margin="0 2rem 0 0"
             />
           </LikeWrapper>
         );
@@ -109,7 +111,7 @@ const ActionButtonsWrapper = ({
                 height: "27",
               },
               closeButton: true,
-              margin: "1rem 0 0 0",
+              margin: "0 2rem 0 0",
             }}
           />
         );
@@ -135,7 +137,7 @@ const ActionButtonsWrapper = ({
                 },
               },
               closeButton: true,
-              margin: "1rem 0 0 0",
+              margin: "0 2rem 0 0",
             }}
           />
         );
@@ -146,7 +148,8 @@ const ActionButtonsWrapper = ({
   function renderCommentButton(level) {
     switch (level) {
       // user is verified and can comment
-      case 3 || 4:
+      case 3:
+      case 4:
         return (
           <CommentIconWrapper
             onClick={goTOReply}
@@ -172,7 +175,7 @@ const ActionButtonsWrapper = ({
                 height: "27",
               },
               closeButton: true,
-              margin: "1rem 0 0 3rem",
+              margin: "0",
             }}
           />
         );
@@ -198,7 +201,7 @@ const ActionButtonsWrapper = ({
                 },
               },
               closeButton: true,
-              margin: "1rem 0 0 3rem",
+              margin: "0",
             }}
           />
         );

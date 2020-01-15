@@ -92,7 +92,7 @@ export default ({
         )}
       </BubbleAndDate>
       <RatingWithUserInfo style={{ display: "flex" }}>
-        {showRate && <Rate rate={rate} />}
+        {showRate && <Rate rate={rate} margin="0 0.5rem 0 0" />}
         <UserInfo
           userId={ownerUserId}
           trade={ownerTrade}

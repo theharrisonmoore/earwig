@@ -55,7 +55,7 @@ class ReactSelect extends Component {
         cacheOptions
         menuIsOpen={this.props.open}
         closeMenuOnScroll
-        noOptionsMessage={() => (value ? null : "Input to search")}
+        noOptionsMessage={() => (value ? null : "Type to search")}
         // keep this dummy function to auto clear the input value on blur
         onInputChange={() => {}}
       />
