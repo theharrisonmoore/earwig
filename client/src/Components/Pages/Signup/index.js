@@ -5,6 +5,8 @@ import axios from "axios";
 import * as Yup from "yup";
 import { Modal, Alert, Input, Divider } from "antd";
 
+import { FBPixelTrack } from "../../../FBPixel";
+
 import Logo from "../../Common/Logo";
 import CancelLink from "../../Common/CancelLink";
 import Icon from "../../Common/Icon/Icon";
@@ -213,6 +215,8 @@ export default class Signup extends Component {
           },
         })
           .then(({ data }) => {
+            FBPixelTrack("CompleteRegistration");
+
             if (isWorker === "yes") {
               this.setState({
                 isPopupVisible: true,
