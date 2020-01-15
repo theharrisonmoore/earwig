@@ -109,7 +109,7 @@ export default class index extends Component {
           <BottomSection isSMobile={isSMobile}>
             <StatWrapper>
               <Icon
-                icon="overview"
+                icon="overviewWhiteGrey"
                 width="42px"
                 height="26px"
                 color={colors.dustyGray4}

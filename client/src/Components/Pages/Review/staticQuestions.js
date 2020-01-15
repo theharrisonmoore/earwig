@@ -34,27 +34,27 @@ export const STATIC_QUESTIONS = (category, history, state) => [
         popoverOptions={{
           text: (
             <>
-              <p style={{ fontWeight: "bold" }}>
+              <p>
                 Workers give you points if they find your reviews helpful.
                 Here’s how to do that:
               </p>
               <p>
-                <span style={{ fontWeight: "bold" }}>
-                  Write for other workers.
-                </span>{" "}
-                Mention things you would care about if you were looking for a
-                new job. More detail = more helpful.
+                <span style={{ fontWeight: "bold" }}>Be detailed.</span> Talk
+                about things you would care about if you were looking for a new
+                job. More detail = more helpful.
               </p>
               <p>
-                <span style={{ fontWeight: "bold" }}>Try to be balanced. </span>
-                Even if you loved working on a job, there was probably some room
-                for improvement somewhere and this is useful for others to know.
+                <span style={{ fontWeight: "bold" }}>Be balanced. </span>
+                Even if you liked a job, there was probably some room for
+                improvement somewhere and this is useful for others to know.
+                Others will find your reviews more realistic if they’re not
+                completely positive (or completely negative).
               </p>
               <p>
                 <span style={{ fontWeight: "bold" }}>Be authentic. </span>
-                Communicate your true self and opinions. If your reviews speak
-                about specific situations that are interesting and relevant,
-                then you’re bound to help more people.
+                Speak your true self and opinions. If your reviews talk about
+                specific situations that are interesting and relevant, then
+                you’re bound to help more people.
               </p>
             </>
           ),

@@ -55,7 +55,6 @@ import {
   TERMS_OF_USE_URL,
   PRIVACY_URL,
   LOGIN_URL,
-  INTRO_URL,
 } from "../../../constants/naviagationUrls";
 import { colors } from "../../../theme";
 
@@ -95,12 +94,10 @@ const signupSchema = Yup.object().shape({
     .when("isWorker", {
       is: "yes",
       then: Yup.string().nullable(),
-      otherwise: Yup.string()
-        .required("You must select an organisation type")
-        .oneOf(
-          ["agency", "payroll", "company", "mainCompany", "other"],
-          "Must select organisation"
-        ),
+      otherwise: Yup.string().oneOf(
+        ["agency", "payroll", "company", "mainCompany", "other", null],
+        "invalid organisation type"
+      ),
     })
 
     .nullable(),
@@ -421,7 +418,7 @@ export default class Signup extends Component {
       });
     } else if (isWorker === "yes") {
       this.props.history.push({
-        pathname: INTRO_URL,
+        pathname: HOME_PAGE,
         state: { isWorker },
       });
     } else {

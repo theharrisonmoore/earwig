@@ -525,8 +525,9 @@ export const ButtonsWrapper = styled(ActionsDiv)`
   display: flex;
   /* justify-content: space-around; */
   align-items: center;
-  width: 90%;
+  width: 100%;
   position: relative;
+  padding-top: 0.5rem;
 `;
 
 export const ActionButton = styled.button`
