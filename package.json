@@ -31,7 +31,7 @@
     "heroku-postbuild": "npm run client:init && npm run client:build",
     "build:data": "NODE_ENV=development node server/database/dummyData/index.js",
     "build:data2": "NODE_ENV=development node server/database/dummyData/index.js",
-    "build:data:danger": "NODE_ENV=production node server/database/dummyData/index.js"
+    "build:data:danger": "NODE_ENV=production READ_ENV=true node server/database/dummyData/index.js"
   },
   "devDependencies": {
     "babel-eslint": "10.0.3",
