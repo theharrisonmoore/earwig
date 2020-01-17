@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   width: 100%;
   max-width: 30rem;
   margin: 0 auto;
-  padding: 6rem 1.5rem;
+  padding: 8rem 1.5rem;
 
   @media (max-width: ${MOBILE_WIDTH}px) {
     padding-top: 6rem;
