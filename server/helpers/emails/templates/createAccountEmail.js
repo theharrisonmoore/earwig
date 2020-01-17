@@ -1,7 +1,7 @@
 const mailer = require("../mailer");
 const config = require("../../../config");
 
-module.exports = to => {
+module.exports = (to) => {
   const html = `
   <div>
     <div style="text-align: center;" >
@@ -9,7 +9,7 @@ module.exports = to => {
     </div>
     <h2 style="font-weight: 700;">Thank you for signing-up to earwig,</h2>
 
-    <p>You can now <a href="${config.server.domain}/search" target="_blank" rel="noreferrer" rel="noopener"
+    <p>You can now <a href="${config.server.domain}/" target="_blank" rel="noreferrer" rel="noopener"
         style="color: #8c6bfc; font-weight: 900;"> read
         reviews and ratings</a>&nbsp; workers have given about agencies, payrolls, worksites and construction
       companies.</p>
