@@ -1,6 +1,8 @@
 const nodemailer = require("nodemailer");
 
-module.exports = ({ from, to, subject, html, user, pass, attachments }) => {
+module.exports = ({
+  from, to, subject, html, user, pass, attachments,
+}) => {
   const transporter = nodemailer.createTransport({
     service: "Office365",
     host: "smtp.office365.com",
@@ -21,7 +23,6 @@ module.exports = ({ from, to, subject, html, user, pass, attachments }) => {
   if (!(process.env.NODE_ENV === "production" && user.role !== "admin")) {
     // eslint-disable-next-line no-console
     console.log("email suppose to be sent");
-
     return Promise.resolve();
   }
   return transporter.sendMail({
