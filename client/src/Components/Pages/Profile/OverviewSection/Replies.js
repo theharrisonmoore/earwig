@@ -40,6 +40,11 @@ const Replies = ({
   };
 
   return replies.map(reply => {
+    // check if replying user is admin
+    const {
+      user: { isAdmin },
+    } = reply;
+
     return (
       <div
         key={reply._id}
@@ -94,7 +99,10 @@ const Replies = ({
               {reply.createdAt && `${moment().diff(reply.createdAt, "weeks")}w`}
             </CommentDate>
           </BubbleAndDate>
-          <ReportFlag left={reply.displayName} to={replyReportLink(reply)} />
+          {/* only render report icon if replying user is not an admin */}
+          {!isAdmin && (
+            <ReportFlag left={reply.displayName} to={replyReportLink(reply)} />
+          )}
         </div>
       </div>
     );
