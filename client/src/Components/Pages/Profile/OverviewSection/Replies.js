@@ -9,7 +9,12 @@ import UserInfo from "../../../Common/UserInfo";
 import { organizations } from "../../../../theme";
 import { REPORT_CONTENT_URL } from "../../../../constants/naviagationUrls";
 
-import { CommentBubble, CommentDate, BubbleAndDate } from "../Profile.style";
+import {
+  CommentBubble,
+  CommentDate,
+  BubbleAndDate,
+  ReplyDetailWrapper,
+} from "../Profile.style";
 
 const Replies = ({
   replies,
@@ -44,7 +49,7 @@ const Replies = ({
     const {
       user: { isAdmin },
     } = reply;
-    console.log("reply", !!reply.displayName);
+
     return (
       <div
         key={reply._id}
@@ -78,12 +83,7 @@ const Replies = ({
           }
         />
 
-        <div
-          style={{
-            position: "relative",
-            marginBottom: "2rem",
-          }}
-        >
+        <ReplyDetailWrapper>
           <BubbleAndDate>
             <CommentBubble
               style={{ maxWidth: "90%", overflow: "auto" }}
@@ -104,7 +104,7 @@ const Replies = ({
           {!isAdmin && (
             <ReportFlag left={reply.displayName} to={replyReportLink(reply)} />
           )}
-        </div>
+        </ReplyDetailWrapper>
       </div>
     );
   });

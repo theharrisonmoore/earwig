@@ -372,6 +372,7 @@ export const CommentBubble = styled.p`
   text-align: left;
   margin-right: 0.25rem;
   max-width: 90%;
+  // font-size: 0.75rem;
 
   ${({ adminReply }) => adminReply && adminBorder}
 `;
@@ -753,4 +754,10 @@ export const StarLabel = styled.span`
   padding-left: ${({ padding }) => padding};
   position: absolute;
   bottom: 0rem;
+`;
+
+export const ReplyDetailWrapper = styled.div`
+  position: relative;
+  marginbottom: 2rem;
+  display: flex;
 `;
