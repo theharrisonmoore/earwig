@@ -372,7 +372,7 @@ export const CommentBubble = styled.p`
   text-align: left;
   margin-right: 0.25rem;
   max-width: 90%;
-  // font-size: 0.75rem;
+  font-size: 15px;
 
   ${({ adminReply }) => adminReply && adminBorder}
 `;
