@@ -33,6 +33,7 @@ const UserTrade = styled.p`
 `;
 
 const adminTitle = css`
+  margin-right: 0.3rem;
   text-align: right;
 `;
 

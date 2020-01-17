@@ -44,7 +44,7 @@ const Replies = ({
     const {
       user: { isAdmin },
     } = reply;
-
+    console.log("reply", !!reply.displayName);
     return (
       <div
         key={reply._id}
@@ -57,7 +57,8 @@ const Replies = ({
         {level < 3 && reply.user._id === userId && <InvisibleCommentAlert />}
 
         <UserInfo
-          showVerifiedIcon
+          // only render verified icon if no admin user
+          showVerifiedIcon={!isAdmin}
           userId={reply.displayName || reply.user.userId}
           adminReply={!!reply.displayName}
           trade={
