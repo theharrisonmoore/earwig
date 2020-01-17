@@ -1,9 +1,9 @@
 /* eslint-disable global-require, import/no-dynamic-require */
 
 // load .env in local development
-// if (process.env.NODE_ENV !== "production") {
-require("dotenv").config();
-// }
+if (process.env.NODE_ENV !== "production" || process.env.READ_ENV === "true") {
+  require("dotenv").config();
+}
 
 const processType = process.env.PROCESS_TYPE;
 
