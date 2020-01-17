@@ -1,7 +1,7 @@
 /* eslint-disable global-require, import/no-dynamic-require */
 
 // load .env in local development
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== "production" || process.env.READ_ENV === "true") {
   require("dotenv").config();
 }
 

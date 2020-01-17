@@ -9,7 +9,12 @@ import UserInfo from "../../../Common/UserInfo";
 import { organizations } from "../../../../theme";
 import { REPORT_CONTENT_URL } from "../../../../constants/naviagationUrls";
 
-import { CommentBubble, CommentDate, BubbleAndDate } from "../Profile.style";
+import {
+  CommentBubble,
+  CommentDate,
+  BubbleAndDate,
+  ReplyDetailWrapper,
+} from "../Profile.style";
 
 const Replies = ({
   replies,
@@ -40,6 +45,11 @@ const Replies = ({
   };
 
   return replies.map(reply => {
+    // check if replying user is admin
+    const {
+      user: { isAdmin },
+    } = reply;
+
     return (
       <div
         key={reply._id}
@@ -52,7 +62,8 @@ const Replies = ({
         {level < 3 && reply.user._id === userId && <InvisibleCommentAlert />}
 
         <UserInfo
-          showVerifiedIcon
+          // only render verified icon if no admin user
+          showVerifiedIcon={!isAdmin}
           userId={reply.displayName || reply.user.userId}
           adminReply={!!reply.displayName}
           trade={
@@ -72,12 +83,7 @@ const Replies = ({
           }
         />
 
-        <div
-          style={{
-            position: "relative",
-            marginBottom: "2rem",
-          }}
-        >
+        <ReplyDetailWrapper>
           <BubbleAndDate>
             <CommentBubble
               style={{ maxWidth: "90%", overflow: "auto" }}
@@ -94,8 +100,11 @@ const Replies = ({
               {reply.createdAt && `${moment().diff(reply.createdAt, "weeks")}w`}
             </CommentDate>
           </BubbleAndDate>
-          <ReportFlag left={reply.displayName} to={replyReportLink(reply)} />
-        </div>
+          {/* only render report icon if replying user is not an admin */}
+          {!isAdmin && (
+            <ReportFlag left={reply.displayName} to={replyReportLink(reply)} />
+          )}
+        </ReplyDetailWrapper>
       </div>
     );
   });

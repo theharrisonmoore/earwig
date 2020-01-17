@@ -33,7 +33,9 @@ const UserTrade = styled.p`
 `;
 
 const adminTitle = css`
+  margin-right: 0.2rem;
   text-align: right;
+  font-size: 0.75rem;
 `;
 
 const UserID = styled.h3`

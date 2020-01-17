@@ -72,6 +72,7 @@ class RepliesAndCommentsCollaps extends Component {
                     fontWeight: 700,
                     color: colors.primary,
                     marginBottom: "1rem",
+                    fontSize: 15,
                   }}
                 >
                   {isOpen

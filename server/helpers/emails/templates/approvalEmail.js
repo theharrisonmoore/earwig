@@ -1,9 +1,9 @@
 const mailer = require("../mailer");
 const config = require("../../../config");
 
-module.exports = to => {
+module.exports = (to) => {
   const { domain } = config.server;
-  const giveReviewLink = `${domain}/search/review`;
+  const giveReviewLink = `${domain}/`;
   // const viewProfileLink = `${domain}/search/profile`;
   // const introLink = `${domain}/intro`;
   const welcomeLink = `${domain}/`;
