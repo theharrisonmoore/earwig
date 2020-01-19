@@ -42,6 +42,12 @@ export default class Search extends Component {
       company: [],
       agency: [],
     },
+    rawOrgs: {
+      worksite: [],
+      payroll: [],
+      company: [],
+      agency: [],
+    },
     activeTab: "all",
   };
 
@@ -74,6 +80,7 @@ export default class Search extends Component {
                 searchData: { ...prevState.searchData, [category]: newData },
                 category,
                 sortedOrgs: { ...prevState.sortedOrgs, [category]: sortedOrgs },
+                rawOrgs: { ...prevState.rawOrgs, [category]: newData },
               };
             });
           })
@@ -96,14 +103,17 @@ export default class Search extends Component {
   };
 
   filterRecentReviews = () => {
-    const { category, sortedOrgs, recentReviews } = this.state;
+    const { category, rawOrgs, recentReviews } = this.state;
     if (!recentReviews[category].length) {
-      const hasReviews = sortedOrgs[category].filter(
-        org => org.totalReviews > 0
-      );
-      this.setState({
-        recentReviews: { ...recentReviews, [category]: hasReviews },
-      });
+      const hasReviews = rawOrgs[category].filter(org => org.totalReviews > 0);
+      if (hasReviews && hasReviews.length) {
+        this.setState({
+          recentReviews: {
+            ...recentReviews,
+            [category]: sortAndCategorizeOrgs(hasReviews),
+          },
+        });
+      }
     }
   };
 
