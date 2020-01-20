@@ -5,6 +5,8 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const Sentry = require("@sentry/node");
 const compression = require("compression");
+const Sqreen = require("sqreen");
+
 
 const router = require("./router");
 const dbConnection = require("./database/dbConnection");
@@ -23,6 +25,7 @@ app.use(compression());
 // connect to DB
 dbConnection();
 
+app.use(Sqreen.middleware);
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

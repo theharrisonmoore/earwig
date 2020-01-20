@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 
+require("sqreen");
 const debug = require("debug")("server:server");
 const http = require("http");
 
