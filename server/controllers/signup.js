@@ -100,6 +100,8 @@ module.exports = async (req, res, next) => {
     });
 
     res.cookie("token", token, { maxAge: tokenMaxAge.number, httpOnly: true });
+    req.sqreen.signup_track({ email: user.email });
+
     await session.commitTransaction();
     session.endSession();
     // send the user info

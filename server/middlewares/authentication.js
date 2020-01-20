@@ -11,6 +11,7 @@ module.exports = (req, res, next) => {
 
   // if no cookies or token send unauthorized error
   if (!cookies || !cookies.token) {
+    req.sqreen.auth_track(false);
     return next(boom.unauthorized("no credentials"));
   }
 
@@ -19,6 +20,7 @@ module.exports = (req, res, next) => {
     // if not valid send unauthorized error
     if (err) {
       res.clearCookie("token");
+      req.sqreen.auth_track(false);
       return next(boom.unauthorized("credentials are not valid"));
     }
 
@@ -28,12 +30,14 @@ module.exports = (req, res, next) => {
       .then((user) => {
         if (!user) {
           res.clearCookie("token");
+          req.sqreen.auth_track(false);
           return next(boom.unauthorized("credentials are not valid"));
         }
 
         // put the user info in the req to be accessed in the next middlewares
         req.user = user;
+        req.sqreen.auth_track(true, { email: user.email });
         return next();
-      }).catch(() => next(boom.badImplementation()));
+      }).catch(error => next(boom.badImplementation(error)));
   });
 };
