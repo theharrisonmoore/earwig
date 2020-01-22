@@ -22,7 +22,6 @@ class DetailedAnswers extends Component {
     } = this.props;
 
     const { category } = summary;
-    console.log("reviewDetails", reviewDetails);
     return (
       <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
         <SectionTitle>Detailed answers by workers</SectionTitle>
