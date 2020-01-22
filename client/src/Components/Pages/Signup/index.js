@@ -404,7 +404,9 @@ export default class Signup extends Component {
                       Show password
                     </CheckboxLabel>
                   </CheckboxWrapper>
-                  <Label htmlFor="isWorker">Are you are worker?</Label>
+                  <Label style={{ marginTop: "1rem" }} htmlFor="isWorker">
+                    Are you are worker?
+                  </Label>
                   <ButtonsWrapper style={{ display: "flex" }}>
                     <Field
                       component={RadioButton}
@@ -524,7 +526,9 @@ export default class Signup extends Component {
                   )}
                   {isWorker && isWorker === "yes" && (
                     <>
-                      <SubHeading>Upload a verification photo</SubHeading>
+                      <SubHeading style={{ marginTop: "0.5rem" }}>
+                        Upload a verification photo
+                      </SubHeading>
                       <Paragraph>
                         Please upload a photo of your face holding your trade ID
                         like the example below. Once we’ve verified you, we’ll

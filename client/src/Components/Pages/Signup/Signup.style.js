@@ -104,17 +104,17 @@ export const ButtonsWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-export const SelectWrapper = styled.div`
-  width: 100%;
+// export const SelectWrapper = styled.div`
+//   width: 100%;
 
-  .ant-select-lg .ant-select-selection--single {
-    height: 48px;
-  }
+//   .ant-select-lg .ant-select-selection--single {
+//     height: 48px;
+//   }
 
-  .ant-select-lg .ant-select-selection__rendered {
-    line-height: 48px;
-  }
-`;
+//   .ant-select-lg .ant-select-selection__rendered {
+//     line-height: 48px;
+//   }
+// `;
 
 export const SubHeading = styled.h2`
   font-weight: 900;
