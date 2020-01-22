@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Prompt, Link as ReactLink } from "react-router-dom";
 import axios from "axios";
 import * as Yup from "yup";
-import { Modal, Alert, Input, Divider } from "antd";
+import { Modal,   Divider } from "antd";
 
 import { FBPixelTrack } from "../../../FBPixel";
 
@@ -11,7 +11,7 @@ import Logo from "../../Common/Logo";
 import CancelLink from "../../Common/CancelLink";
 import Icon from "../../Common/Icon/Icon";
 
-import Select from "../../Common/Select";
+
 import Button from "../../Common/Button";
 import Link from "../../Common/Link";
 import PopoverComponent from "../../Common/Popover";
@@ -37,7 +37,7 @@ import {
   OptionsWrapper,
   StyledInput,
   ButtonsWrapper,
-  SelectWrapper,
+
   SubHeading,
   Paragraph,
   Example,
@@ -58,7 +58,6 @@ import {
 } from "../../../constants/naviagationUrls";
 import { colors } from "../../../theme";
 
-const { API_TRADE_URL } = require("../../../apiUrls");
 
 // create custom function
 function equalTo(ref, msg) {
@@ -102,15 +101,7 @@ const signupSchema = Yup.object().shape({
 
     .nullable(),
   otherOrg: Yup.string(),
-  trade: Yup.string().test("trade", "You must choose your trade", function(
-    trade
-  ) {
-    const isWorker = this.resolve(Yup.ref("isWorker"));
-    if (isWorker === "yes" && !trade) {
-      return false;
-    }
-    return true;
-  }),
+
   verificationImage: Yup.mixed().test(
     "verificationImage",
     "You must upload a verification photo",
@@ -132,7 +123,7 @@ const initialValues = {
   isWorker: null,
   orgType: null,
   otherOrg: "",
-  trade: "",
+
   verificationImage: undefined,
 };
 
@@ -178,7 +169,7 @@ export default class Signup extends Component {
     isWorker: null,
     orgType: "agency",
     ismodalVisible: false,
-    newTrade: "",
+
     error: "",
     isPopupVisible: false,
     data: null,
@@ -250,100 +241,12 @@ export default class Signup extends Component {
     this.setState({ orgType: value });
   };
 
-  componentDidMount() {
-    axios.get(API_TRADE_URL).then(res => {
-      const { data } = res;
-      const trades = data.reduce((accu, current) => {
-        accu.push({ value: current._id, label: current.title });
-        return accu;
-      }, []);
-      this.setState({ trades });
-    });
-  }
 
-  handleChange = value => {
-    this.setState({ trade: value });
-  };
 
-  showModal = e => {
-    const { searchTerm } = e.target.dataset;
-    this.setState({
-      ismodalVisible: true,
-      newTrade: searchTerm,
-    });
-  };
 
-  handleOk = setFieldValue => {
-    if (this.state.newTrade && this.state.newTrade.length >= 3) {
-      this.setState(
-        {
-          confirmLoading: true,
-        },
-        () => {
-          axios
-            .post(API_TRADE_URL, { trade: this.state.newTrade })
-            .then(res => {
-              const { data } = res;
 
-              this.setState({
-                trades: [{ value: data._id, label: data.title }],
-                trade: data._id,
-                disableSelect: true,
-              });
-              setFieldValue("trade", data._id);
 
-              this.setState(
-                {
-                  newTradeSuccess: true,
-                },
-                () => {
-                  setTimeout(() => {
-                    this.setState({
-                      newTradeSuccess: false,
-                      ismodalVisible: false,
-                      confirmLoading: false,
-                    });
-                  }, 1000);
-                }
-              );
-            })
-            .catch(err => {
-              this.setState(
-                {
-                  newTradeSuccess: false,
-                  newTradeError: err.response.data.error,
-                },
-                () => {
-                  setTimeout(() => {
-                    this.setState({
-                      ismodalVisible: false,
-                      confirmLoading: false,
-                    });
-                  }, 1000);
-                }
-              );
-            });
-        }
-      );
-    } else if (this.state.newTrade.length < 3) {
-      this.setState({
-        newTradeError: "Trade must be at least 3 characters long",
-      });
-    }
-  };
 
-  handleCancel = () => {
-    this.setState({
-      ismodalVisible: false,
-      newTradeSuccess: false,
-      newTradeError: "",
-    });
-  };
-
-  addNewTradeHandler = event => {
-    const { value } = event.target;
-    this.setState({ newTrade: value, newTradeError: "" });
-  };
 
   handleImageChange = event => {
     const verificationImage = event.target.files && event.target.files[0];
@@ -429,10 +332,9 @@ export default class Signup extends Component {
   render() {
     const {
       error,
-      ismodalVisible,
-      confirmLoading,
+
       verificationImage,
-      newTrade,
+
       isPopupVisible,
       isWorker,
       isPasswordVisible,
@@ -634,78 +536,7 @@ export default class Signup extends Component {
                   )}
                   {isWorker && isWorker === "yes" && (
                     <>
-                      <SelectWrapper>
-                        <Label htmlFor="trade">
-                          Trade
-                          <Field name="trade">
-                            {({ form }) => (
-                              <>
-                                <Select
-                                  id="trade"
-                                  name="trade"
-                                  placeholder="Choose your trade"
-                                  options={this.state.trades}
-                                  handleChange={value => {
-                                    form.setFieldValue("trade", value);
-                                    this.handleChange(value);
-                                  }}
-                                  value={this.state.trade}
-                                  disabled={this.state.disableSelect}
-                                  isCreateNew
-                                  showSearch
-                                  addHandler={this.showModal}
-                                  // onBlur={this.showModal}
-                                  ismodalVisible={ismodalVisible}
-                                />
-                              </>
-                            )}
-                          </Field>
-                          <FormikErrorMessage
-                            name="trade"
-                            component="div"
-                            id="trade"
-                          />
-                          <div>
-                            <div>
-                              <Modal
-                                title="Add new trade"
-                                visible={ismodalVisible}
-                                onOk={() => this.handleOk(setFieldValue)}
-                                confirmLoading={confirmLoading}
-                                onCancel={this.handleCancel}
-                              >
-                                {this.state.newTradeError && (
-                                  <>
-                                    <Alert
-                                      message={this.state.newTradeError}
-                                      type="error"
-                                      showIcon
-                                    />
-                                    <br />
-                                  </>
-                                )}
-                                {this.state.newTradeSuccess && (
-                                  <>
-                                    <Alert
-                                      message="Trade added successfully"
-                                      type="success"
-                                      showIcon
-                                    />
-                                    <br />
-                                  </>
-                                )}
-                                <Input
-                                  autoFocus
-                                  placeholder="Add your trade..."
-                                  allowClear
-                                  onChange={this.addNewTradeHandler}
-                                  value={newTrade}
-                                />
-                              </Modal>
-                            </div>
-                          </div>
-                        </Label>
-                      </SelectWrapper>
+
 
                       <SubHeading>Upload a verification photo</SubHeading>
                       <Paragraph>
