@@ -9,7 +9,6 @@ import { FBPixelTrack } from "../../../FBPixel";
 
 import Logo from "../../Common/Logo";
 import CancelLink from "../../Common/CancelLink";
-import Icon from "../../Common/Icon/Icon";
 
 import Button from "../../Common/Button";
 import Link from "../../Common/Link";
@@ -54,7 +53,6 @@ import {
   PRIVACY_URL,
   LOGIN_URL,
 } from "../../../constants/naviagationUrls";
-import { colors } from "../../../theme";
 
 // create custom function
 function equalTo(ref, msg) {
