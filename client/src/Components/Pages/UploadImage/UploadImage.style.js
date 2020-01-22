@@ -34,11 +34,11 @@ export const ContentWrapper = styled.div`
   }
 `;
 
-export const SelectWrapper = styled.div`
-  width: 100%;
-  margin-bottom: 2rem;
-  /* max-width: 24rem; */
-`;
+// export const SelectWrapper = styled.div`
+//   width: 100%;
+//   margin-bottom: 2rem;
+//   /* max-width: 24rem; */
+// `;
 
 export const PurpleDiv = styled.div`
   width: 0%;
@@ -50,10 +50,15 @@ export const PurpleDiv = styled.div`
   }
 `;
 
+export const PopoverDiv = styled.div`
+  text-align: left;
+`;
+
 export const Heading = styled.h1`
-  color: ${colors.dustyGray4};
-  font-size: 1.125rem;
-  font-weight: bold;
+  color: ${colors.black2};
+  opacity: 0.8;
+  font-size: 1.5rem;
+  font-weight: medium;
   margin-bottom: 2rem;
 `;
 
@@ -66,7 +71,7 @@ export const SubHeading = styled.h2`
 `;
 
 export const Example = styled.img`
-  max-width: 70%;
+  max-width: 100%;
   margin: 1rem auto 0 auto;
 `;
 
@@ -89,6 +94,13 @@ export const Error = styled.p`
   margin-bottom: -2rem;
   color: red;
   font-size: 15px;
+`;
+
+export const ModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ModalText = styled.p`

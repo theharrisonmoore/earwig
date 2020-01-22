@@ -104,7 +104,7 @@ export default class EditProfileSection extends Component {
                       confirmLoading: false,
                     });
                   }, 1000);
-                }
+                },
               );
             })
             .catch(err => {
@@ -120,10 +120,10 @@ export default class EditProfileSection extends Component {
                       confirmLoading: false,
                     });
                   }, 1000);
-                }
+                },
               );
             });
-        }
+        },
       );
     } else if (this.state.newTrade.length < 3) {
       this.setState({
@@ -377,7 +377,10 @@ export default class EditProfileSection extends Component {
             {section === "trade" && (
               <div>
                 <InputDiv>
-                  <CurrentValue>Current trade: {currentTradeName}</CurrentValue>
+                  <CurrentValue>
+                    Current trade: <br />{" "}
+                    {currentTradeName || "Please select a trade"}
+                  </CurrentValue>
                   <InputLabel htmlFor="newTrade">New trade</InputLabel>
                   <Select
                     id="newTrade"
