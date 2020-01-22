@@ -120,13 +120,13 @@ export const PopoverDiv = styled.div`
 //   }
 // `;
 
-export const SubHeading = styled.h2`
-  font-weight: 900;
-  font-size: 1.125rem;
+// export const SubHeading = styled.h2`
+//   font-weight: 900;
+//   font-size: 1.125rem;
 
-  text-align: left;
-  margin-bottom: 0;
-`;
+//   text-align: left;
+//   margin-bottom: 0;
+// `;
 
 export const Paragraph = styled.p`
   font-size: 15px;
@@ -136,7 +136,7 @@ export const Paragraph = styled.p`
 `;
 
 export const Example = styled.img`
-  width: 70%;
+  width: 100%;
   margin: 1rem auto;
 `;
 

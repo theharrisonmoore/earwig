@@ -44,7 +44,7 @@ import {
   LogIn,
 } from "./Signup.style";
 
-import example from "../../../assets/example.png";
+import example from "../../../assets/example.jpg";
 
 import { API_SIGN_UP } from "../../../apiUrls";
 
@@ -259,22 +259,12 @@ export default class Signup extends Component {
   getTooltipText = () => {
     return (
       <>
-        <Icon
-          icon="getVerified"
-          height="68"
-          width="68"
-          margin="0.5rem 0 1rem 0"
-          color={colors.profileFontColor}
-        />
-        <p>
-          earwig is free for workers. All we ask is that you get verified as a
-          genuine worker. This means all reviews are credible and protects the
+        <p style={{ textAlign: "center" }}>
+          earwig is free for workers. All we ask is that you prove you are a
+          genuine worker. This means all reviews are real and protects the
           worker community from fake reviews and spam by non-workers.
         </p>
-        <p>
-          You can hold up any card or ticket that shows you are a worker, eg
-          CSCS card.
-        </p>
+        <p>Don't worry, you are always anonymous on earwig.</p>
       </>
     );
   };
@@ -551,13 +541,6 @@ export default class Signup extends Component {
                       <Field name="verificationImage">
                         {({ form }) => (
                           <>
-                            <Button
-                              as="label"
-                              htmlFor="verificationImage"
-                              styleType="secondary"
-                              text="Upload photo"
-                              margin="1rem auto"
-                            />
                             <ImageInput
                               id="verificationImage"
                               type="file"
@@ -571,6 +554,13 @@ export default class Signup extends Component {
                               accept="image/*"
                             />
                             <Example src={verificationImage || example} />
+                            <Button
+                              as="label"
+                              htmlFor="verificationImage"
+                              styleType="primary"
+                              text="Upload photo of trade card"
+                              margin="1rem auto"
+                            />
                           </>
                         )}
                       </Field>
