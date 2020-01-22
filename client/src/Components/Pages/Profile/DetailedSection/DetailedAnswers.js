@@ -22,7 +22,6 @@ class DetailedAnswers extends Component {
     } = this.props;
 
     const { category } = summary;
-
     return (
       <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
         <SectionTitle>Detailed answers by workers</SectionTitle>
@@ -46,7 +45,7 @@ class DetailedAnswers extends Component {
                 setCounters={setCounters}
                 activeTab={activeTab}
               />
-            )
+            ),
         )}
         {/* OTHER SECTIONS */}
         {reviewDetails.map(
@@ -68,7 +67,7 @@ class DetailedAnswers extends Component {
                 counters={counters}
                 setCounters={setCounters}
               />
-            )
+            ),
         )}
 
         {reviewDetails.map(
@@ -89,7 +88,7 @@ class DetailedAnswers extends Component {
                 counters={counters}
                 setCounters={setCounters}
               />
-            )
+            ),
         )}
 
         {reviewDetails.map(
@@ -110,7 +109,7 @@ class DetailedAnswers extends Component {
                 counters={counters}
                 setCounters={setCounters}
               />
-            )
+            ),
         )}
 
         {reviewDetails.map(
@@ -131,7 +130,7 @@ class DetailedAnswers extends Component {
                 counters={counters}
                 setCounters={setCounters}
               />
-            )
+            ),
         )}
 
         {reviewDetails.map(
@@ -152,7 +151,7 @@ class DetailedAnswers extends Component {
                 counters={counters}
                 setCounters={setCounters}
               />
-            )
+            ),
         )}
         {reviewDetails.map(
           section =>
@@ -172,7 +171,7 @@ class DetailedAnswers extends Component {
                 counters={counters}
                 setCounters={setCounters}
               />
-            )
+            ),
         )}
         {/* MONTHLY REVIEWS
 {level > 0 && (

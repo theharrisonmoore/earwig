@@ -3,15 +3,13 @@ import React, { Component } from "react";
 import { Prompt, Link as ReactLink } from "react-router-dom";
 import axios from "axios";
 import * as Yup from "yup";
-import { Modal, Alert, Input, Divider } from "antd";
+import { Modal, Divider } from "antd";
 
 import { FBPixelTrack } from "../../../FBPixel";
 
 import Logo from "../../Common/Logo";
 import CancelLink from "../../Common/CancelLink";
-import Icon from "../../Common/Icon/Icon";
 
-import Select from "../../Common/Select";
 import Button from "../../Common/Button";
 import Link from "../../Common/Link";
 import PopoverComponent from "../../Common/Popover";
@@ -37,16 +35,18 @@ import {
   OptionsWrapper,
   StyledInput,
   ButtonsWrapper,
-  SelectWrapper,
-  SubHeading,
+  PopoverDiv,
   Paragraph,
   Example,
   ImageInput,
+  ModalContent,
   ModalText,
   LogIn,
+  EditIcon,
 } from "./Signup.style";
 
-import example from "../../../assets/example.png";
+import example from "../../../assets/example.jpg";
+import { colors } from "../../../theme";
 
 import { API_SIGN_UP } from "../../../apiUrls";
 
@@ -56,9 +56,6 @@ import {
   PRIVACY_URL,
   LOGIN_URL,
 } from "../../../constants/naviagationUrls";
-import { colors } from "../../../theme";
-
-const { API_TRADE_URL } = require("../../../apiUrls");
 
 // create custom function
 function equalTo(ref, msg) {
@@ -96,21 +93,13 @@ const signupSchema = Yup.object().shape({
       then: Yup.string().nullable(),
       otherwise: Yup.string().oneOf(
         ["agency", "payroll", "company", "mainCompany", "other", null],
-        "invalid organisation type"
+        "invalid organisation type",
       ),
     })
 
     .nullable(),
   otherOrg: Yup.string(),
-  trade: Yup.string().test("trade", "You must choose your trade", function(
-    trade
-  ) {
-    const isWorker = this.resolve(Yup.ref("isWorker"));
-    if (isWorker === "yes" && !trade) {
-      return false;
-    }
-    return true;
-  }),
+
   verificationImage: Yup.mixed().test(
     "verificationImage",
     "You must upload a verification photo",
@@ -121,7 +110,7 @@ const signupSchema = Yup.object().shape({
         return false;
       }
       return true;
-    }
+    },
   ),
 });
 
@@ -132,7 +121,7 @@ const initialValues = {
   isWorker: null,
   orgType: null,
   otherOrg: "",
-  trade: "",
+
   verificationImage: undefined,
 };
 
@@ -177,8 +166,6 @@ export default class Signup extends Component {
   state = {
     isWorker: null,
     orgType: "agency",
-    ismodalVisible: false,
-    newTrade: "",
     error: "",
     isPopupVisible: false,
     data: null,
@@ -250,101 +237,6 @@ export default class Signup extends Component {
     this.setState({ orgType: value });
   };
 
-  componentDidMount() {
-    axios.get(API_TRADE_URL).then(res => {
-      const { data } = res;
-      const trades = data.reduce((accu, current) => {
-        accu.push({ value: current._id, label: current.title });
-        return accu;
-      }, []);
-      this.setState({ trades });
-    });
-  }
-
-  handleChange = value => {
-    this.setState({ trade: value });
-  };
-
-  showModal = e => {
-    const { searchTerm } = e.target.dataset;
-    this.setState({
-      ismodalVisible: true,
-      newTrade: searchTerm,
-    });
-  };
-
-  handleOk = setFieldValue => {
-    if (this.state.newTrade && this.state.newTrade.length >= 3) {
-      this.setState(
-        {
-          confirmLoading: true,
-        },
-        () => {
-          axios
-            .post(API_TRADE_URL, { trade: this.state.newTrade })
-            .then(res => {
-              const { data } = res;
-
-              this.setState({
-                trades: [{ value: data._id, label: data.title }],
-                trade: data._id,
-                disableSelect: true,
-              });
-              setFieldValue("trade", data._id);
-
-              this.setState(
-                {
-                  newTradeSuccess: true,
-                },
-                () => {
-                  setTimeout(() => {
-                    this.setState({
-                      newTradeSuccess: false,
-                      ismodalVisible: false,
-                      confirmLoading: false,
-                    });
-                  }, 1000);
-                }
-              );
-            })
-            .catch(err => {
-              this.setState(
-                {
-                  newTradeSuccess: false,
-                  newTradeError: err.response.data.error,
-                },
-                () => {
-                  setTimeout(() => {
-                    this.setState({
-                      ismodalVisible: false,
-                      confirmLoading: false,
-                    });
-                  }, 1000);
-                }
-              );
-            });
-        }
-      );
-    } else if (this.state.newTrade.length < 3) {
-      this.setState({
-        newTradeError: "Trade must be at least 3 characters long",
-      });
-    }
-  };
-
-  handleCancel = () => {
-    this.setState({
-      ismodalVisible: false,
-      newTradeSuccess: false,
-      newTradeError: "",
-    });
-  };
-
-  addNewTradeHandler = event => {
-    const { value } = event.target;
-    this.setState({ newTrade: value, newTradeError: "" });
-  };
-
   handleImageChange = event => {
     const verificationImage = event.target.files && event.target.files[0];
     const reader = new FileReader();
@@ -368,22 +260,12 @@ export default class Signup extends Component {
   getTooltipText = () => {
     return (
       <>
-        <Icon
-          icon="getVerified"
-          height="68"
-          width="68"
-          margin="0.5rem 0 1rem 0"
-          color={colors.profileFontColor}
-        />
-        <p>
-          earwig is free for workers. All we ask is that you get verified as a
-          genuine worker. This means all reviews are credible and protects the
+        <p style={{ textAlign: "center" }}>
+          earwig is free for workers. All we ask is that you prove you are a
+          genuine worker. This means all reviews are real and protects the
           worker community from fake reviews and spam by non-workers.
         </p>
-        <p>
-          You can hold up any card or ticket that shows you are a worker, eg
-          CSCS card.
-        </p>
+        <p>Don't worry, you are always anonymous on earwig.</p>
       </>
     );
   };
@@ -429,10 +311,9 @@ export default class Signup extends Component {
   render() {
     const {
       error,
-      ismodalVisible,
-      confirmLoading,
+
       verificationImage,
-      newTrade,
+
       isPopupVisible,
       isWorker,
       isPasswordVisible,
@@ -514,7 +395,12 @@ export default class Signup extends Component {
                       Show password
                     </CheckboxLabel>
                   </CheckboxWrapper>
-                  <Label htmlFor="isWorker">Are you are worker?</Label>
+                  <Label
+                    style={{ marginTop: "1rem", marginBottom: "-0.02rem" }}
+                    htmlFor="isWorker"
+                  >
+                    Are you are worker?
+                  </Label>
                   <ButtonsWrapper style={{ display: "flex" }}>
                     <Field
                       component={RadioButton}
@@ -634,117 +520,48 @@ export default class Signup extends Component {
                   )}
                   {isWorker && isWorker === "yes" && (
                     <>
-                      <SelectWrapper>
-                        <Label htmlFor="trade">
-                          Trade
-                          <Field name="trade">
-                            {({ form }) => (
-                              <>
-                                <Select
-                                  id="trade"
-                                  name="trade"
-                                  placeholder="Choose your trade"
-                                  options={this.state.trades}
-                                  handleChange={value => {
-                                    form.setFieldValue("trade", value);
-                                    this.handleChange(value);
-                                  }}
-                                  value={this.state.trade}
-                                  disabled={this.state.disableSelect}
-                                  isCreateNew
-                                  showSearch
-                                  addHandler={this.showModal}
-                                  // onBlur={this.showModal}
-                                  ismodalVisible={ismodalVisible}
-                                />
-                              </>
-                            )}
-                          </Field>
-                          <FormikErrorMessage
-                            name="trade"
-                            component="div"
-                            id="trade"
-                          />
-                          <div>
-                            <div>
-                              <Modal
-                                title="Add new trade"
-                                visible={ismodalVisible}
-                                onOk={() => this.handleOk(setFieldValue)}
-                                confirmLoading={confirmLoading}
-                                onCancel={this.handleCancel}
-                              >
-                                {this.state.newTradeError && (
-                                  <>
-                                    <Alert
-                                      message={this.state.newTradeError}
-                                      type="error"
-                                      showIcon
-                                    />
-                                    <br />
-                                  </>
-                                )}
-                                {this.state.newTradeSuccess && (
-                                  <>
-                                    <Alert
-                                      message="Trade added successfully"
-                                      type="success"
-                                      showIcon
-                                    />
-                                    <br />
-                                  </>
-                                )}
-                                <Input
-                                  autoFocus
-                                  placeholder="Add your trade..."
-                                  allowClear
-                                  onChange={this.addNewTradeHandler}
-                                  value={newTrade}
-                                />
-                              </Modal>
-                            </div>
-                          </div>
-                        </Label>
-                      </SelectWrapper>
-
-                      <SubHeading>Upload a verification photo</SubHeading>
+                      <Label
+                        style={{ marginTop: "1rem", marginBottom: "-0.3rem" }}
+                      >
+                        Please prove you are a worker{" "}
+                      </Label>
                       <Paragraph>
-                        Please upload a photo of your face holding your trade ID
-                        like the example below. Once we’ve verified you, we’ll
-                        delete the photo to protect your anonymity.
+                        Upload a photo of any of your trade cards, <br /> such
+                        as your CSCS.
                       </Paragraph>
-                      <PopoverComponent
-                        popoverOptions={{
-                          text: this.getTooltipText(),
-                          linkText: "Learn more",
-                          icon: "info",
-                          margin: "0 0 0.5rem 0",
-                        }}
-                      />
-
+                      <PopoverDiv>
+                        <PopoverComponent
+                          popoverOptions={{
+                            text: this.getTooltipText(),
+                            linkText: "Learn more",
+                            icon: "info",
+                            margin: "0 0 0.5rem 0",
+                          }}
+                        />
+                      </PopoverDiv>
                       <Field name="verificationImage">
                         {({ form }) => (
                           <>
-                            <Button
-                              as="label"
-                              htmlFor="verificationImage"
-                              styleType="secondary"
-                              text="Upload photo"
-                              margin="1rem auto"
-                            />
                             <ImageInput
                               id="verificationImage"
                               type="file"
                               onChange={event => {
                                 form.setFieldValue(
                                   "verificationImage",
-                                  event.currentTarget.files[0]
+                                  event.currentTarget.files[0],
                                 );
                                 this.handleImageChange(event);
                               }}
                               accept="image/*"
                             />
                             <Example src={verificationImage || example} />
+                            <Button
+                              as="label"
+                              htmlFor="verificationImage"
+                              styleType="primary"
+                              text="Upload photo of trade card"
+                              margin="1rem auto"
+                            />
                           </>
                         )}
                       </Field>
@@ -823,16 +640,39 @@ export default class Signup extends Component {
             closable={false}
             afterClose={this.handleModalOk}
           >
-            <ModalText>
-              Thanks, we&apos;re checking your photo. Any reviews you give
-              won&apos;t be shown on earwig until we&apos;ve checked your photo
-            </ModalText>
-            <Button
-              styleType="primary"
-              margin="1rem auto"
-              text="Okay"
-              onClick={this.handleModalOk}
-            />
+            <ModalContent>
+              <EditIcon
+                icon="getVerified"
+                height="25"
+                width="25"
+                margin="0 0.5rem 0 0"
+                color={colors.dustyGray4}
+                style={{ marginTop: "1rem" }}
+              />
+              <ModalText>
+                Thanks, we&apos;re checking your photo. Any reviews you give
+                won&apos;t be shown on earwig until we&apos;ve checked your
+                photo
+              </ModalText>
+              <EditIcon
+                icon="inbox"
+                height="25"
+                width="25"
+                margin="0 0.5rem 0 0"
+                color={colors.dustyGray4}
+                style={{ marginTop: "2rem" }}
+              />
+              <ModalText>
+                Check your email and make sure earwig is not marked as Spam,
+                otherwise you&apos;ll miss important notifications.
+              </ModalText>
+              <Button
+                styleType="primary"
+                margin="1rem auto"
+                text="Okay"
+                onClick={this.handleModalOk}
+              />
+            </ModalContent>
           </Modal>
         </ContentWrapper>
         <Prompt

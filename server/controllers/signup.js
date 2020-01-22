@@ -9,7 +9,11 @@ const boom = require("boom");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 
-const { findByEmail, addNew, checkValidReferral } = require("./../database/queries/user");
+const {
+  findByEmail,
+  addNew,
+  checkValidReferral,
+} = require("./../database/queries/user");
 const sendEmail = require("./../helpers/emails");
 
 const addToMailchimpList = require("../helpers/3dParty/mailchimp");
@@ -22,9 +26,7 @@ module.exports = async (req, res, next) => {
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    const {
-      email, password, referral, isWorker, orgType, trade, city, otherOrg,
-    } = req.body;
+    const { email, password, referral, isWorker, orgType, otherOrg } = req.body;
     const uploadedFileName = req.file && req.file.uploadedFileName;
 
     const newUserData = {
@@ -35,8 +37,6 @@ module.exports = async (req, res, next) => {
     const { fieldName } = req;
 
     if (isWorker === "yes") {
-      newUserData.trade = trade;
-      newUserData.city = city;
       newUserData.awaitingReview = true;
       newUserData.verificationPhoto = uploadedFileName;
     } else {
@@ -85,7 +85,7 @@ module.exports = async (req, res, next) => {
     // data to be sent in the response
     const userInfo = {
       id: user._id,
-      trade: user.trade,
+
       verified: user.verified,
       awaitingReview: user.awaitingReview,
       userId: user.userId,

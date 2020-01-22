@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
+import Icon from "../../Common/Icon/Icon";
 import { colors, breakpoints } from "../../../theme";
 
 export const SignupWrapper = styled.div`
@@ -104,25 +104,29 @@ export const ButtonsWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-export const SelectWrapper = styled.div`
-  width: 100%;
-
-  .ant-select-lg .ant-select-selection--single {
-    height: 48px;
-  }
-
-  .ant-select-lg .ant-select-selection__rendered {
-    line-height: 48px;
-  }
-`;
-
-export const SubHeading = styled.h2`
-  font-weight: 900;
-  font-size: 1.125rem;
-  color: ${colors.mineShaft2};
+export const PopoverDiv = styled.div`
   text-align: left;
-  margin-bottom: 0;
 `;
+
+// export const SelectWrapper = styled.div`
+//   width: 100%;
+
+//   .ant-select-lg .ant-select-selection--single {
+//     height: 48px;
+//   }
+
+//   .ant-select-lg .ant-select-selection__rendered {
+//     line-height: 48px;
+//   }
+// `;
+
+// export const SubHeading = styled.h2`
+//   font-weight: 900;
+//   font-size: 1.125rem;
+
+//   text-align: left;
+//   margin-bottom: 0;
+// `;
 
 export const Paragraph = styled.p`
   font-size: 15px;
@@ -132,7 +136,7 @@ export const Paragraph = styled.p`
 `;
 
 export const Example = styled.img`
-  width: 70%;
+  width: 100%;
   margin: 1rem auto;
 `;
 
@@ -167,4 +171,19 @@ export const LogIn = styled(Link)`
   :hover {
     color: ${colors.dustyGray1};
   }
+`;
+
+export const EditIcon = styled(Icon)`
+  width: 15vw;
+  height: 15vw;
+  max-width: 5rem;
+  max-height: 5rem;
+  margin-bottom: 1rem;
+`;
+
+export const ModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;

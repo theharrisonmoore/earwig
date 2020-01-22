@@ -9,12 +9,7 @@ const schemas = {
       .required(),
     password: Joi.string().required(),
   },
-  uploadVerificationImage: {
-    tradeId: Joi.string()
-      .length(24)
-      .required(),
-    city: Joi.string().allow(""),
-  },
+  uploadVerificationImage: {},
   signup: {
     email: Joi.string()
       .email({ minDomainAtoms: 2 })
@@ -29,9 +24,6 @@ const schemas = {
     isWorker: Joi.string()
       .valid(["yes", "no"], "Must select an option")
       .required("Required"),
-    trade: Joi.string()
-      .when("isWorker", { is: "no", then: Joi.allow("").optional() })
-      .when("isWorker", { is: "yes", then: Joi.required("trade is required") }),
     orgType: Joi.string()
       .allow("")
       .optional(),
