@@ -3,14 +3,13 @@ import React, { Component } from "react";
 import { Prompt, Link as ReactLink } from "react-router-dom";
 import axios from "axios";
 import * as Yup from "yup";
-import { Modal,   Divider } from "antd";
+import { Modal, Divider } from "antd";
 
 import { FBPixelTrack } from "../../../FBPixel";
 
 import Logo from "../../Common/Logo";
 import CancelLink from "../../Common/CancelLink";
 import Icon from "../../Common/Icon/Icon";
-
 
 import Button from "../../Common/Button";
 import Link from "../../Common/Link";
@@ -37,7 +36,6 @@ import {
   OptionsWrapper,
   StyledInput,
   ButtonsWrapper,
-
   SubHeading,
   Paragraph,
   Example,
@@ -57,7 +55,6 @@ import {
   LOGIN_URL,
 } from "../../../constants/naviagationUrls";
 import { colors } from "../../../theme";
-
 
 // create custom function
 function equalTo(ref, msg) {
@@ -95,7 +92,7 @@ const signupSchema = Yup.object().shape({
       then: Yup.string().nullable(),
       otherwise: Yup.string().oneOf(
         ["agency", "payroll", "company", "mainCompany", "other", null],
-        "invalid organisation type"
+        "invalid organisation type",
       ),
     })
 
@@ -112,7 +109,7 @@ const signupSchema = Yup.object().shape({
         return false;
       }
       return true;
-    }
+    },
   ),
 });
 
@@ -168,8 +165,6 @@ export default class Signup extends Component {
   state = {
     isWorker: null,
     orgType: "agency",
-    ismodalVisible: false,
-
     error: "",
     isPopupVisible: false,
     data: null,
@@ -240,13 +235,6 @@ export default class Signup extends Component {
   handleOrgType = value => {
     this.setState({ orgType: value });
   };
-
-
-
-
-
-
-
 
   handleImageChange = event => {
     const verificationImage = event.target.files && event.target.files[0];
@@ -536,8 +524,6 @@ export default class Signup extends Component {
                   )}
                   {isWorker && isWorker === "yes" && (
                     <>
-
-
                       <SubHeading>Upload a verification photo</SubHeading>
                       <Paragraph>
                         Please upload a photo of your face holding your trade ID
@@ -569,7 +555,7 @@ export default class Signup extends Component {
                               onChange={event => {
                                 form.setFieldValue(
                                   "verificationImage",
-                                  event.currentTarget.files[0]
+                                  event.currentTarget.files[0],
                                 );
                                 this.handleImageChange(event);
                               }}

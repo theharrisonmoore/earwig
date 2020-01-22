@@ -29,9 +29,6 @@ const schemas = {
     isWorker: Joi.string()
       .valid(["yes", "no"], "Must select an option")
       .required("Required"),
-    trade: Joi.string()
-      .when("isWorker", { is: "no", then: Joi.allow("").optional() })
-      .when("isWorker", { is: "yes", then: Joi.required("trade is required") }),
     orgType: Joi.string()
       .allow("")
       .optional(),
