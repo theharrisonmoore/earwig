@@ -47,7 +47,6 @@ export const Label = styled.label.attrs()`
   font-size: 1.25rem;
   font-weight: 900;
   margin-bottom: 1.25rem;
-  color: ${colors.mineShaft2};
 `;
 
 export const Button = styled.button`

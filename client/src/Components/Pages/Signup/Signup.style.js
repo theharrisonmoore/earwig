@@ -104,6 +104,10 @@ export const ButtonsWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
+export const PopoverDiv = styled.div`
+  text-align: left;
+`;
+
 // export const SelectWrapper = styled.div`
 //   width: 100%;
 
@@ -119,7 +123,7 @@ export const ButtonsWrapper = styled.div`
 export const SubHeading = styled.h2`
   font-weight: 900;
   font-size: 1.125rem;
-  color: ${colors.mineShaft2};
+
   text-align: left;
   margin-bottom: 0;
 `;

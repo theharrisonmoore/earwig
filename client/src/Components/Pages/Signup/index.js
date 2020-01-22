@@ -36,7 +36,7 @@ import {
   OptionsWrapper,
   StyledInput,
   ButtonsWrapper,
-  SubHeading,
+  PopoverDiv,
   Paragraph,
   Example,
   ImageInput,
@@ -404,7 +404,10 @@ export default class Signup extends Component {
                       Show password
                     </CheckboxLabel>
                   </CheckboxWrapper>
-                  <Label style={{ marginTop: "1rem" }} htmlFor="isWorker">
+                  <Label
+                    style={{ marginTop: "1rem", marginBottom: "-0.02rem" }}
+                    htmlFor="isWorker"
+                  >
                     Are you are worker?
                   </Label>
                   <ButtonsWrapper style={{ display: "flex" }}>
@@ -526,23 +529,25 @@ export default class Signup extends Component {
                   )}
                   {isWorker && isWorker === "yes" && (
                     <>
-                      <SubHeading style={{ marginTop: "0.5rem" }}>
-                        Upload a verification photo
-                      </SubHeading>
+                      <Label
+                        style={{ marginTop: "1rem", marginBottom: "-0.3rem" }}
+                      >
+                        Please prove you are a worker{" "}
+                      </Label>
                       <Paragraph>
-                        Please upload a photo of your face holding your trade ID
-                        like the example below. Once we’ve verified you, we’ll
-                        delete the photo to protect your anonymity.
+                        Upload a photo of any of your trade cards, <br /> such
+                        as your CSCS.
                       </Paragraph>
-                      <PopoverComponent
-                        popoverOptions={{
-                          text: this.getTooltipText(),
-                          linkText: "Learn more",
-                          icon: "info",
-                          margin: "0 0 0.5rem 0",
-                        }}
-                      />
-
+                      <PopoverDiv>
+                        <PopoverComponent
+                          popoverOptions={{
+                            text: this.getTooltipText(),
+                            linkText: "Learn more",
+                            icon: "info",
+                            margin: "0 0 0.5rem 0",
+                          }}
+                        />
+                      </PopoverDiv>
                       <Field name="verificationImage">
                         {({ form }) => (
                           <>
