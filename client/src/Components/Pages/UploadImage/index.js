@@ -258,7 +258,8 @@ export default class UploadImage extends Component {
             />
           </form>
           <Modal
-            visible={isPopupVisible}
+            // visible={isPopupVisible}
+            visible
             footer={null}
             closable={false}
             afterClose={this.handleModalOk}
@@ -278,7 +279,7 @@ export default class UploadImage extends Component {
                 photo
               </ModalText>
               <EditIcon
-                icon="email"
+                icon="inbox"
                 height="25"
                 width="25"
                 margin="0 0.5rem 0 0"
