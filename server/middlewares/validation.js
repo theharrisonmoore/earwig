@@ -9,12 +9,7 @@ const schemas = {
       .required(),
     password: Joi.string().required(),
   },
-  uploadVerificationImage: {
-    tradeId: Joi.string()
-      .length(24)
-      .required(),
-    city: Joi.string().allow(""),
-  },
+  uploadVerificationImage: {},
   signup: {
     email: Joi.string()
       .email({ minDomainAtoms: 2 })
