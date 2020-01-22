@@ -258,8 +258,7 @@ export default class UploadImage extends Component {
             />
           </form>
           <Modal
-            // visible={isPopupVisible}
-            visible
+            visible={isPopupVisible}
             footer={null}
             closable={false}
             afterClose={this.handleModalOk}
