@@ -96,6 +96,13 @@ export const Error = styled.p`
   font-size: 15px;
 `;
 
+export const ModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const ModalText = styled.p`
   font-weight: bold;
   color: ${colors.dustyGray2};

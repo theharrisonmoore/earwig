@@ -20,6 +20,7 @@ import {
   Error,
   EditIcon,
   PurpleDiv,
+  ModalContent,
   ModalText,
   PopoverDiv,
 } from "./UploadImage.style";
@@ -262,16 +263,39 @@ export default class UploadImage extends Component {
             closable={false}
             afterClose={this.handleModalOk}
           >
-            <ModalText>
-              Thanks, we&apos;re checking your photo. Any reviews you give
-              won&apos;t be shown on earwig until we&apos;ve checked your photo
-            </ModalText>
-            <Button
-              styleType="primary"
-              margin="1rem auto"
-              text="Okay"
-              onClick={this.handleModalOk}
-            />
+            <ModalContent>
+              <EditIcon
+                icon="getVerified"
+                height="25"
+                width="25"
+                margin="0 0.5rem 0 0"
+                color={colors.dustyGray4}
+                style={{ marginTop: "1rem" }}
+              />
+              <ModalText>
+                Thanks, we&apos;re checking your photo. Any reviews you give
+                won&apos;t be shown on earwig until we&apos;ve checked your
+                photo
+              </ModalText>
+              <EditIcon
+                icon="email"
+                height="25"
+                width="25"
+                margin="0 0.5rem 0 0"
+                color={colors.dustyGray4}
+                style={{ marginTop: "2rem" }}
+              />
+              <ModalText>
+                Check your email and make sure earwig is not marked as Spam,
+                otherwise you&apos;ll miss important notifications.
+              </ModalText>
+              <Button
+                styleType="primary"
+                margin="1rem auto"
+                text="Okay"
+                onClick={this.handleModalOk}
+              />
+            </ModalContent>
           </Modal>
         </ContentWrapper>
         <Prompt
