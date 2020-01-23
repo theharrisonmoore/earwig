@@ -18,11 +18,11 @@ import { LightTitle } from "../DetailedSection/ReviewSection.style";
 function getAverage(answers) {
   // set up yes/no and dont know counters
   let count = 0;
-  let dontKnowCount = 0;
+  let emptyCount = 0;
 
   // if question has no answers show no answers
   if (answers.length === 0) {
-    dontKnowCount += 1;
+    emptyCount += 1;
   }
   // else check each answer and count
   else {
@@ -30,22 +30,22 @@ function getAverage(answers) {
       if (answer.includes("Yes")) {
         count += 1;
       } else if (["Don't know", "I didn't check"].includes(answer)) {
-        dontKnowCount += 1;
+        emptyCount += 1;
       } else if (answer.includes("No")) {
         count -= 1;
       } else if (!answer) {
-        dontKnowCount += 1;
+        emptyCount += 1;
       }
     });
   }
 
-  return { moreYes: count > 0, dontKnow: dontKnowCount > 0 };
+  return { moreYes: count > 0, dontKnow: emptyCount > 0 };
 }
 
 export default class SiteItemAnswer extends Component {
   render() {
     const { question, reviewDetails } = this.props;
-    const { answers, profileText, icon } = question;
+    const { profileText, icon } = question;
 
     const carParkingPrice = getCarCost(reviewDetails);
     const averageResponse = getAverage(question.answers);
@@ -103,13 +103,8 @@ export default class SiteItemAnswer extends Component {
                     width="45"
                     color={colors.dustyGray4}
                   />
-                  {answers.length > 0 ? (
-                    <p>{profileText}</p>
-                  ) : (
-                    <LightTitle bar>
-                      <p>No answers yet</p>
-                    </LightTitle>
-                  )}
+
+                  <p>{profileText}</p>
                 </SiteAnswer>
               )}
             </>

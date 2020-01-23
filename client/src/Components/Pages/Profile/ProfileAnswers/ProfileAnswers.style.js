@@ -254,11 +254,9 @@ export const SiteAnswer = styled.div`
   margin: 0;
   color: ${({ itemAvailable }) =>
     itemAvailable ? `${colors.green}` : `${colors.strikedOutItem}`}
-  text-decoration: ${({ itemAvailable }) => {
-    console.log("av", itemAvailable);
-    return itemAvailable === false && "line-through";
-  }}
-
+  text-decoration: ${({ itemAvailable }) =>
+    itemAvailable === false && "line-through"}
+  border: none;
   display: flex;
   align-items: center;
   width: 100%;
@@ -273,6 +271,7 @@ export const NoAnswer = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
+
   p {
     margin: 0;
   }
