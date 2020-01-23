@@ -42,7 +42,7 @@ export default class SiteItemAnswer extends Component {
         <SiteItem>
           {/* check if most answers are don't know */}
           {dontKnow ? (
-            <SiteAnswer dontKnow={dontKnow} itemAvailable={moreYes}>
+            <SiteAnswer dontKnow={dontKnow}>
               <Icon
                 icon={question.icon}
                 margin="0 1rem 0 0"
@@ -55,10 +55,11 @@ export default class SiteItemAnswer extends Component {
               </LightTitle>
             </SiteAnswer>
           ) : (
+            // if not don't know render yes/no
             <>
               {question.profileText ===
               "Car parking within 10 mins walk of this site" ? (
-                <SiteAnswer dontKnow={dontKnow} itemAvailable={moreYes}>
+                <SiteAnswer itemAvailable={moreYes}>
                   <Icon
                     icon={question.icon}
                     margin="0 1rem 0 0"
@@ -87,7 +88,7 @@ export default class SiteItemAnswer extends Component {
                   )}
                 </SiteAnswer>
               ) : (
-                <SiteAnswer dontKnow={dontKnow} itemAvailable={moreYes}>
+                <SiteAnswer itemAvailable={moreYes}>
                   <Icon
                     icon={question.icon}
                     margin="0 1rem 0 0"

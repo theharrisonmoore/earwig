@@ -247,32 +247,25 @@ export const SiteItem = styled.div`
   display: flex;
   align-items: center;
   font-size: ${generalFontSize};
-  border: 1px solid red;
 `;
 
 export const SiteAnswer = styled.div`
   margin: 0;
   color: ${({ itemAvailable, dontKnow }) => {
-    console.log("itemYes: ", itemAvailable);
-    console.log("dont know :", dontKnow);
-
-    switch ((itemAvailable, dontKnow)) {
-      case itemAvailable:
-        return `${colors.green}`;
-      case !itemAvailable:
-        return `${colors.strikedOutItem}`;
-      case dontKnow:
-        return ` ${colors.profileFontColor}`;
-      default:
-        return null;
+    if (dontKnow) {
+      return `${colors.profileFontColor}`;
     }
+    if (itemAvailable) {
+      return `${colors.green}`;
+    }
+    return `${colors.strikedOutItem}`;
   }};
   font-weight: ${generalFontWeight};
-  text-decoration: ${props => !props.itemAvailable && "line-through"};
+  text-decoration: ${({ itemAvailable }) =>
+    itemAvailable === false && "line-through"};
   display: flex;
   align-items: center;
   width: 100%;
-  border: 1px solid blue;
   p {
     margin: 0;
   }
