@@ -13,34 +13,7 @@ import { colors } from "../../../../theme";
 
 import { getCarCost } from "../utils";
 import { LightTitle } from "../DetailedSection/ReviewSection.style";
-
-// checks if answers for specific question and count
-function getAverage(answers) {
-  // set up yes/no and dont know counters
-  let count = 0;
-  let emptyCount = 0;
-
-  // if question has no answers show no answers
-  if (answers.length === 0) {
-    emptyCount += 1;
-  }
-  // else check each answer and count
-  else {
-    answers.forEach(({ answer }) => {
-      if (answer.includes("Yes")) {
-        count += 1;
-      } else if (["Don't know", "I didn't check"].includes(answer)) {
-        emptyCount += 1;
-      } else if (answer.includes("No")) {
-        count -= 1;
-      } else if (!answer) {
-        emptyCount += 1;
-      }
-    });
-  }
-
-  return { moreYes: count > 0, dontKnow: emptyCount > 0 };
-}
+import { getAverage } from "../../../../helpers";
 
 export default class SiteItemAnswer extends Component {
   render() {

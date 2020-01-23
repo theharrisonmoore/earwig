@@ -295,7 +295,7 @@ export const sortAndCategorizeOrgs = arrayOfOrgs => {
         orgs: newOrgs,
       };
     },
-    { lastMainKey: "", lastSubKey: "", orgs: [] }
+    { lastMainKey: "", lastSubKey: "", orgs: [] },
   );
 
   return newArray.orgs;
@@ -308,3 +308,31 @@ export const addSearchParamsToLink = (params, baseLink) => {
   });
   return search;
 };
+
+// checks if answers for specific question and count
+export function getAverage(answers) {
+  // set up yes/no and dont know counters
+  let count = 0;
+  let emptyCount = 0;
+
+  // if question has no answers show no answers
+  if (answers.length === 0) {
+    emptyCount += 1;
+  }
+  // else check each answer and count
+  else {
+    answers.forEach(({ answer }) => {
+      if (answer.includes("Yes")) {
+        count += 1;
+      } else if (["Don't know", "I didn't check"].includes(answer)) {
+        emptyCount += 1;
+      } else if (answer.includes("No")) {
+        count -= 1;
+      } else if (!answer) {
+        emptyCount += 1;
+      }
+    });
+  }
+
+  return { moreYes: count > 0, dontKnow: emptyCount > 0 };
+}
