@@ -67,11 +67,17 @@ class OrganisationsList extends Component {
     const { sortedOrgs, loading } = this.props;
     const { rederedListLength } = this.state;
 
-    const elementsNotLoadedYet = Math.min(rederedListLength, sortedOrgs.length);
+    console.log("props sorted orgs", sortedOrgs);
+    console.log("rendered list lenght", rederedListLength);
+
+    const elementsNotLoadedYet = Math.min(
+      rederedListLength,
+      sortedOrgs && sortedOrgs.length,
+    );
 
     const elementsShouldBeInPage = Math.min(
       sortedOrgs.length,
-      rederedListLength + 20
+      rederedListLength + 20,
     );
 
     return (
@@ -102,7 +108,7 @@ class OrganisationsList extends Component {
                     width: "100%",
                     height: `${Math.min(
                       elementsShouldBeInPage - elementsNotLoadedYet,
-                      0
+                      0,
                     ) * approxDivHeight}px`,
                   }}
                 />

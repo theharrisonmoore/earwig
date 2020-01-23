@@ -18,6 +18,7 @@ export const axiosCall = async category => {
   const response = await axios.get(
     API_SEARCH_URL.replace(":category", category),
   );
+
   return response;
 };
 
@@ -73,14 +74,23 @@ export default class Search extends Component {
     this.setState({ loading: true, category }, () => {
       if (!searchData[category].length) {
         axiosCall(category)
-          .then(({ data: [{ searchData: newData }] }) => {
+          .then(({ data: [{ searchData: newData, lastReviewed }] }) => {
             const sortedOrgs = sortAndCategorizeOrgs(newData);
+            const lastReviewedOrgs = lastReviewed.map(org => org.lastReviewed);
+
             this.setState(prevState => {
               return {
                 searchData: { ...prevState.searchData, [category]: newData },
                 category,
-                sortedOrgs: { ...prevState.sortedOrgs, [category]: sortedOrgs },
+                sortedOrgs: {
+                  ...prevState.sortedOrgs,
+                  [category]: sortedOrgs,
+                },
                 rawOrgs: { ...prevState.rawOrgs, [category]: newData },
+                recentReviews: {
+                  ...prevState.lastReviewedOrgs,
+                  [category]: lastReviewedOrgs,
+                },
               };
             });
           })
@@ -97,25 +107,29 @@ export default class Search extends Component {
     const { tab } = e.target.dataset;
     this.setState({ activeTab: tab });
 
-    if (tab === "recent") {
-      this.filterRecentReviews();
-    }
+    // if (tab === "recent") {
+    //   this.filterRecentReviews();
+    // }
   };
 
-  filterRecentReviews = () => {
-    const { category, rawOrgs, recentReviews } = this.state;
-    if (!recentReviews[category].length) {
-      const hasReviews = rawOrgs[category].filter(org => org.totalReviews > 0);
-      if (hasReviews && hasReviews.length) {
-        this.setState({
-          recentReviews: {
-            ...recentReviews,
-            [category]: hasReviews,
-          },
-        });
-      }
-    }
-  };
+  // filterRecentReviews = () => {
+  //   const { category, rawOrgs, recentReviews } = this.state;
+
+  //   if (!recentReviews[category].length) {
+  //     const hasReviews = rawOrgs[category].filter(org => {
+  //       return org.totalReviews > 0;
+  //     });
+
+  //     if (hasReviews && hasReviews.length) {
+  //       this.setState({
+  //         recentReviews: {
+  //           ...recentReviews,
+  //           [category]: hasReviews,
+  //         },
+  //       });
+  //     }
+  //   }
+  // };
 
   render() {
     const {
@@ -125,6 +139,7 @@ export default class Search extends Component {
       activeTab,
       recentReviews,
     } = this.state;
+    console.log(recentReviews);
     const { isMobile, isTablet, match } = this.props;
     const { category = "agency" } = match.params;
     return (
