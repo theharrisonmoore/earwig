@@ -9,33 +9,41 @@ import { colors } from "../../../../theme";
 import { getCarCost } from "../utils";
 import { LightTitle } from "../DetailedSection/ReviewSection.style";
 
+// checks each reviewer's answer and counts yes, no and don't know
+function getAverage(answers) {
+  // start count at 1 to give benefit to yes
+  let count = 0;
+  let dontKnowCount = 0;
+  answers.forEach(({ answer }) => {
+    console.log("answe", answer);
+    if (answer.includes("Yes")) {
+      count += 1;
+    } else if (["Don't know", "I didn't check"].includes(answer)) {
+      dontKnowCount += 1;
+    } else if (answer.includes("No")) {
+      count -= 1;
+    } else {
+      count += 1;
+    }
+  });
+
+  return { moreYes: count > 0, dontKnow: dontKnowCount > 0 };
+}
+
 export default class SiteItemAnswer extends Component {
-  getAverage = answers => {
-    // start count at 1 to give benefit to yes
-    let count = 1;
-    answers.forEach(answer => {
-      if (answer.answer === "Yes") {
-        count += 1;
-      } else {
-        count -= 1;
-      }
-    });
-
-    return count > 0;
-  };
-
   render() {
     const { question, reviewDetails } = this.props;
 
     const carParkingPrice = getCarCost(reviewDetails);
-    const averageResponse = this.getAverage(question.answers);
-
+    const averageResponse = getAverage(question.answers);
+    const { moreYes, dontKnow } = averageResponse;
+    console.log("reviewdet", averageResponse);
     return (
       <ListWrapper>
-        <SiteItem itemAvailable={averageResponse}>
+        <SiteItem itemAvailable={moreYes}>
           {question.profileText ===
           "Car parking within 10 mins walk of this site" ? (
-            <SiteAnswer itemAvailable={averageResponse}>
+            <SiteAnswer itemAvailable={moreYes}>
               <Icon
                 icon={question.icon}
                 margin="0 1rem 0 0"
@@ -45,7 +53,7 @@ export default class SiteItemAnswer extends Component {
               />
               {question.answers.length > 0 ? (
                 <>
-                  {averageResponse ? (
+                  {moreYes ? (
                     <p>
                       {question.profileText}
 
@@ -64,7 +72,7 @@ export default class SiteItemAnswer extends Component {
               )}
             </SiteAnswer>
           ) : (
-            <SiteAnswer itemAvailable={averageResponse}>
+            <SiteAnswer itemAvailable={moreYes}>
               <Icon
                 icon={question.icon}
                 margin="0 1rem 0 0"

@@ -251,6 +251,7 @@ export const SiteItem = styled.div`
   display: flex;
   align-items: center;
   font-size: ${generalFontSize};
+  border: 1px solid red;
 `;
 
 export const SiteAnswer = styled.div`
