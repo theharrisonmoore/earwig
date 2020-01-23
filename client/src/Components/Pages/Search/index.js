@@ -16,7 +16,7 @@ import { SearchWrapper } from "./Search.style";
 // gets all organisations from db
 export const axiosCall = async category => {
   const response = await axios.get(
-    API_SEARCH_URL.replace(":category", category)
+    API_SEARCH_URL.replace(":category", category),
   );
   return response;
 };
@@ -110,7 +110,7 @@ export default class Search extends Component {
         this.setState({
           recentReviews: {
             ...recentReviews,
-            [category]: sortAndCategorizeOrgs(hasReviews),
+            [category]: hasReviews,
           },
         });
       }
