@@ -247,22 +247,29 @@ export const SiteItem = styled.div`
   display: flex;
   align-items: center;
   font-size: ${generalFontSize};
+  font-weight: ${generalFontWeight};
 `;
 
 export const SiteAnswer = styled.div`
   margin: 0;
-  color: ${({ itemAvailable, dontKnow }) => {
-    if (dontKnow) {
-      return `${colors.profileFontColor}`;
-    }
-    if (itemAvailable) {
-      return `${colors.green}`;
-    }
-    return `${colors.strikedOutItem}`;
-  }};
-  font-weight: ${generalFontWeight};
-  text-decoration: ${({ itemAvailable }) =>
-    itemAvailable === false && "line-through"};
+  color: ${({ itemAvailable }) =>
+    itemAvailable ? `${colors.green}` : `${colors.strikedOutItem}`}
+  text-decoration: ${({ itemAvailable }) => {
+    console.log("av", itemAvailable);
+    return itemAvailable === false && "line-through";
+  }}
+
+  display: flex;
+  align-items: center;
+  width: 100%;
+  p {
+    margin: 0;
+  }
+`;
+
+export const NoAnswer = styled.div`
+  margin: 0;
+  color: ${colors.profileFontColor};
   display: flex;
   align-items: center;
   width: 100%;

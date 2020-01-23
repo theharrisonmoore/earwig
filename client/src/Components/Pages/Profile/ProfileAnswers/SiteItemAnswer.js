@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 
-import { ListWrapper, SiteItem, SiteAnswer } from "./ProfileAnswers.style";
+import {
+  ListWrapper,
+  SiteItem,
+  SiteAnswer,
+  NoAnswer,
+} from "./ProfileAnswers.style";
 
 import Icon from "../../../Common/Icon/Icon";
 
@@ -9,22 +14,30 @@ import { colors } from "../../../../theme";
 import { getCarCost } from "../utils";
 import { LightTitle } from "../DetailedSection/ReviewSection.style";
 
-// checks each reviewer's answer and counts yes, no and don't know
+// checks if answers for specific question and count
 function getAverage(answers) {
-  // start count at 1 to give benefit to yes
+  // set up yes/no and dont know counters
   let count = 0;
   let dontKnowCount = 0;
-  answers.forEach(({ answer }) => {
-    if (answer.includes("Yes")) {
-      count += 1;
-    } else if (["Don't know", "I didn't check"].includes(answer)) {
-      dontKnowCount += 1;
-    } else if (answer.includes("No")) {
-      count -= 1;
-    } else {
-      count += 1;
-    }
-  });
+
+  // if question has no answers show no answers
+  if (answers.length === 0) {
+    dontKnowCount += 1;
+  }
+  // else check each answer and count
+  else {
+    answers.forEach(({ answer }) => {
+      if (answer.includes("Yes")) {
+        count += 1;
+      } else if (["Don't know", "I didn't check"].includes(answer)) {
+        dontKnowCount += 1;
+      } else if (answer.includes("No")) {
+        count -= 1;
+      } else if (!answer) {
+        dontKnowCount += 1;
+      }
+    });
+  }
 
   return { moreYes: count > 0, dontKnow: dontKnowCount > 0 };
 }
@@ -32,19 +45,20 @@ function getAverage(answers) {
 export default class SiteItemAnswer extends Component {
   render() {
     const { question, reviewDetails } = this.props;
+    const { answers, profileText, icon } = question;
 
     const carParkingPrice = getCarCost(reviewDetails);
     const averageResponse = getAverage(question.answers);
     const { moreYes, dontKnow } = averageResponse;
-    console.log("reviewdet", averageResponse);
+
     return (
       <ListWrapper>
         <SiteItem>
           {/* check if most answers are don't know */}
           {dontKnow ? (
-            <SiteAnswer dontKnow={dontKnow}>
+            <NoAnswer>
               <Icon
-                icon={question.icon}
+                icon={icon}
                 margin="0 1rem 0 0"
                 height="45"
                 width="45"
@@ -53,51 +67,44 @@ export default class SiteItemAnswer extends Component {
               <LightTitle bar>
                 <p>No answers yet</p>
               </LightTitle>
-            </SiteAnswer>
+            </NoAnswer>
           ) : (
             // if not don't know render yes/no
             <>
-              {question.profileText ===
+              {profileText ===
               "Car parking within 10 mins walk of this site" ? (
                 <SiteAnswer itemAvailable={moreYes}>
                   <Icon
-                    icon={question.icon}
+                    icon={icon}
                     margin="0 1rem 0 0"
                     height="45"
                     width="45"
                     color={colors.dustyGray4}
                   />
-                  {question.answers.length > 0 ? (
-                    <>
-                      {moreYes ? (
-                        <p>
-                          {question.profileText}
 
-                          {carParkingPrice === "N/A"
-                            ? null
-                            : `(£${carParkingPrice}) `}
-                        </p>
-                      ) : (
-                        <p>{question.profileText}</p>
-                      )}
-                    </>
+                  {moreYes ? (
+                    <p>
+                      {profileText}
+
+                      {carParkingPrice === "N/A"
+                        ? null
+                        : `(£${carParkingPrice}) `}
+                    </p>
                   ) : (
-                    <LightTitle bar>
-                      <p>No answers yet</p>
-                    </LightTitle>
+                    <p>{profileText}</p>
                   )}
                 </SiteAnswer>
               ) : (
                 <SiteAnswer itemAvailable={moreYes}>
                   <Icon
-                    icon={question.icon}
+                    icon={icon}
                     margin="0 1rem 0 0"
                     height="45"
                     width="45"
                     color={colors.dustyGray4}
                   />
-                  {question.answers.length > 0 ? (
-                    <p>{question.profileText}</p>
+                  {answers.length > 0 ? (
+                    <p>{profileText}</p>
                   ) : (
                     <LightTitle bar>
                       <p>No answers yet</p>
