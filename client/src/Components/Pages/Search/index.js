@@ -37,18 +37,19 @@ export default class Search extends Component {
       company: [],
       agency: [],
     },
+    recentReviewsDump: {
+      worksite: [],
+      payroll: [],
+      company: [],
+      agency: [],
+    },
     recentReviews: {
       worksite: [],
       payroll: [],
       company: [],
       agency: [],
     },
-    rawOrgs: {
-      worksite: [],
-      payroll: [],
-      company: [],
-      agency: [],
-    },
+
     activeTab: "all",
   };
 
@@ -86,8 +87,7 @@ export default class Search extends Component {
                   ...prevState.sortedOrgs,
                   [category]: sortedOrgs,
                 },
-                rawOrgs: { ...prevState.rawOrgs, [category]: newData },
-                recentReviews: {
+                recentReviewsDump: {
                   ...prevState.lastReviewedOrgs,
                   [category]: lastReviewedOrgs,
                 },
@@ -107,29 +107,23 @@ export default class Search extends Component {
     const { tab } = e.target.dataset;
     this.setState({ activeTab: tab });
 
-    // if (tab === "recent") {
-    //   this.filterRecentReviews();
-    // }
+    if (tab === "recent") {
+      this.filterRecentReviews();
+    }
   };
 
-  // filterRecentReviews = () => {
-  //   const { category, rawOrgs, recentReviews } = this.state;
+  filterRecentReviews = () => {
+    const { category, recentReviews, recentReviewsDump } = this.state;
 
-  //   if (!recentReviews[category].length) {
-  //     const hasReviews = rawOrgs[category].filter(org => {
-  //       return org.totalReviews > 0;
-  //     });
-
-  //     if (hasReviews && hasReviews.length) {
-  //       this.setState({
-  //         recentReviews: {
-  //           ...recentReviews,
-  //           [category]: hasReviews,
-  //         },
-  //       });
-  //     }
-  //   }
-  // };
+    if (recentReviewsDump[category] && recentReviewsDump[category].length) {
+      this.setState({
+        recentReviews: {
+          ...recentReviews,
+          [category]: recentReviewsDump[category],
+        },
+      });
+    }
+  };
 
   render() {
     const {
@@ -139,7 +133,7 @@ export default class Search extends Component {
       activeTab,
       recentReviews,
     } = this.state;
-    console.log(recentReviews);
+
     const { isMobile, isTablet, match } = this.props;
     const { category = "agency" } = match.params;
     return (
