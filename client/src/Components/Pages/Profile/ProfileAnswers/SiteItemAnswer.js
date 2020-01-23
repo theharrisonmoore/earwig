@@ -22,13 +22,12 @@ export default class SiteItemAnswer extends Component {
 
     const carParkingPrice = getCarCost(reviewDetails);
     const averageResponse = getAverage(question.answers);
-    const { moreYes, dontKnow } = averageResponse;
+    const { moreYes, noAnswers } = averageResponse;
 
     return (
       <ListWrapper>
         <SiteItem>
-          {/* check if most answers are don't know */}
-          {dontKnow ? (
+          {noAnswers ? (
             <NoAnswer>
               <Icon
                 icon={icon}
@@ -42,7 +41,6 @@ export default class SiteItemAnswer extends Component {
               </LightTitle>
             </NoAnswer>
           ) : (
-            // if not don't know render yes/no
             <>
               {profileText ===
               "Car parking within 10 mins walk of this site" ? (
