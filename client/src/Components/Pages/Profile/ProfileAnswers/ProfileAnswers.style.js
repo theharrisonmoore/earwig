@@ -244,10 +244,6 @@ export const CommentBubble = styled.p`
 `;
 
 export const SiteItem = styled.div`
-  margin: 0;
-  color: ${props =>
-    props.itemAvailable ? `${colors.green}` : `${colors.strikedOutItem}`};
-  font-weight: ${generalFontWeight};
   display: flex;
   align-items: center;
   font-size: ${generalFontSize};
@@ -256,14 +252,27 @@ export const SiteItem = styled.div`
 
 export const SiteAnswer = styled.div`
   margin: 0;
-  /* color: ${props =>
-    props.itemAvailable ? `${colors.green}` : `${colors.red}`}; */
+  color: ${({ itemAvailable, dontKnow }) => {
+    console.log("itemYes: ", itemAvailable);
+    console.log("dont know :", dontKnow);
+
+    switch ((itemAvailable, dontKnow)) {
+      case itemAvailable:
+        return `${colors.green}`;
+      case !itemAvailable:
+        return `${colors.strikedOutItem}`;
+      case dontKnow:
+        return ` ${colors.profileFontColor}`;
+      default:
+        return null;
+    }
+  }};
   font-weight: ${generalFontWeight};
   text-decoration: ${props => !props.itemAvailable && "line-through"};
   display: flex;
   align-items: center;
   width: 100%;
-
+  border: 1px solid blue;
   p {
     margin: 0;
   }

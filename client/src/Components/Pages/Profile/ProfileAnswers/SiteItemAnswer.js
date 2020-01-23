@@ -15,7 +15,6 @@ function getAverage(answers) {
   let count = 0;
   let dontKnowCount = 0;
   answers.forEach(({ answer }) => {
-    console.log("answe", answer);
     if (answer.includes("Yes")) {
       count += 1;
     } else if (["Don't know", "I didn't check"].includes(answer)) {
@@ -40,10 +39,10 @@ export default class SiteItemAnswer extends Component {
     console.log("reviewdet", averageResponse);
     return (
       <ListWrapper>
-        <SiteItem itemAvailable={moreYes}>
-          {question.profileText ===
-          "Car parking within 10 mins walk of this site" ? (
-            <SiteAnswer itemAvailable={moreYes}>
+        <SiteItem>
+          {/* check if most answers are don't know */}
+          {dontKnow ? (
+            <SiteAnswer dontKnow={dontKnow} itemAvailable={moreYes}>
               <Icon
                 icon={question.icon}
                 margin="0 1rem 0 0"
@@ -51,43 +50,61 @@ export default class SiteItemAnswer extends Component {
                 width="45"
                 color={colors.dustyGray4}
               />
-              {question.answers.length > 0 ? (
-                <>
-                  {moreYes ? (
-                    <p>
-                      {question.profileText}
-
-                      {carParkingPrice === "N/A"
-                        ? null
-                        : `(£${carParkingPrice}) `}
-                    </p>
-                  ) : (
-                    <p>{question.profileText}</p>
-                  )}
-                </>
-              ) : (
-                <LightTitle bar>
-                  <p>No answers yet</p>
-                </LightTitle>
-              )}
+              <LightTitle bar>
+                <p>No answers yet</p>
+              </LightTitle>
             </SiteAnswer>
           ) : (
-            <SiteAnswer itemAvailable={moreYes}>
-              <Icon
-                icon={question.icon}
-                margin="0 1rem 0 0"
-                height="45"
-                width="45"
-                color={colors.dustyGray4}
-              />
-              {question.answers.length > 0 ? (
-                <p>{question.profileText}</p>
+            <>
+              {question.profileText ===
+              "Car parking within 10 mins walk of this site" ? (
+                <SiteAnswer dontKnow={dontKnow} itemAvailable={moreYes}>
+                  <Icon
+                    icon={question.icon}
+                    margin="0 1rem 0 0"
+                    height="45"
+                    width="45"
+                    color={colors.dustyGray4}
+                  />
+                  {question.answers.length > 0 ? (
+                    <>
+                      {moreYes ? (
+                        <p>
+                          {question.profileText}
+
+                          {carParkingPrice === "N/A"
+                            ? null
+                            : `(£${carParkingPrice}) `}
+                        </p>
+                      ) : (
+                        <p>{question.profileText}</p>
+                      )}
+                    </>
+                  ) : (
+                    <LightTitle bar>
+                      <p>No answers yet</p>
+                    </LightTitle>
+                  )}
+                </SiteAnswer>
               ) : (
-                <LightTitle bar>
-                  <p>No answers yet</p>
-                </LightTitle>
+                <SiteAnswer dontKnow={dontKnow} itemAvailable={moreYes}>
+                  <Icon
+                    icon={question.icon}
+                    margin="0 1rem 0 0"
+                    height="45"
+                    width="45"
+                    color={colors.dustyGray4}
+                  />
+                  {question.answers.length > 0 ? (
+                    <p>{question.profileText}</p>
+                  ) : (
+                    <LightTitle bar>
+                      <p>No answers yet</p>
+                    </LightTitle>
+                  )}
+                </SiteAnswer>
               )}
-            </SiteAnswer>
+            </>
           )}
         </SiteItem>
       </ListWrapper>
