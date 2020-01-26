@@ -59,7 +59,6 @@ class PopoverComponent extends React.Component {
       closeButton,
       bottomCancelBtn,
     } = popoverOptions;
-    console.log("pla", placement);
     return (
       <Popover
         overlayStyle={overlayStyle}
