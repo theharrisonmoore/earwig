@@ -8,13 +8,29 @@ import {
   ContractorListLink,
 } from "../Profile.style";
 
-const DropdownList = ({ contractorAnswers }) => (
-  <div style={{ maxHeight: "150px", overflow: "auto" }}>
-    {contractorAnswers.map(item => (
-      <Link to={`/profile/${item._id}`}>{item.name}</Link>
-    ))}
-  </div>
-);
+const DropdownList = ({ contractorAnswers }) => {
+  // filter out all duplicate values
+  const uniqueContractors = contractorAnswers.filter(
+    (val, idx, arr) => idx === arr.findIndex(v => v.name === val.name),
+  );
+
+  // create list of contractors on site
+  return (
+    <div style={{ maxHeight: "150px", overflow: "auto" }}>
+      {uniqueContractors.length > 0 && (
+        <ol>
+          {uniqueContractors.map(item => {
+            return (
+              <li key={`contractor-list-item-${Math.random()}`}>
+                <Link to={`/profile/${item._id}`}>{item.name}</Link>
+              </li>
+            );
+          })}
+        </ol>
+      )}
+    </div>
+  );
+};
 
 export default ({ contractorAnswers }) => {
   return (
