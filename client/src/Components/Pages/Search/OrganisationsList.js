@@ -64,7 +64,7 @@ class OrganisationsList extends Component {
   listRef = createRef();
 
   render() {
-    const { sortedOrgs, loading } = this.props;
+    const { sortedOrgs, loading, recentReviews } = this.props;
     const { rederedListLength } = this.state;
 
     const elementsNotLoadedYet = Math.min(rederedListLength, sortedOrgs.length);
@@ -75,7 +75,7 @@ class OrganisationsList extends Component {
     );
 
     return (
-      <OrgsListWrapper>
+      <OrgsListWrapper recent={recentReviews}>
         {loading ? (
           <SkeletonWrapper />
         ) : (
