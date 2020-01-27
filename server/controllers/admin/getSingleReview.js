@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
 
   try {
     const details = await Promise.all(promises);
-    console.log("rev", details[1].questions);
+
     res.send({ review: details[0], details: details[1] });
   } catch (error) {
     next(boom.badImplementation(error));
