@@ -295,7 +295,7 @@ export const sortAndCategorizeOrgs = arrayOfOrgs => {
         orgs: newOrgs,
       };
     },
-    { lastMainKey: "", lastSubKey: "", orgs: [] }
+    { lastMainKey: "", lastSubKey: "", orgs: [] },
   );
 
   return newArray.orgs;
@@ -308,3 +308,10 @@ export const addSearchParamsToLink = (params, baseLink) => {
   });
   return search;
 };
+
+// filter out all duplicate values from array
+export function filterDuplicates(inputArr) {
+  return inputArr.filter(
+    (val, idx, arr) => idx === arr.findIndex(v => v.name === val.name),
+  );
+}

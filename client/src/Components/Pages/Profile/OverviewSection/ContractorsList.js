@@ -8,24 +8,22 @@ import {
   ContractorListLink,
 } from "../Profile.style";
 
-const DropdownList = ({ contractorAnswers }) => {
-  // filter out all duplicate values
-  const uniqueContractors = contractorAnswers.filter(
-    (val, idx, arr) => idx === arr.findIndex(v => v.name === val.name),
-  );
+import { filterDuplicates } from "../../../../helpers";
 
-  // create list of contractors on site
+const DropdownList = ({ contractors }) => {
+  // creates list of contractors on site
+
   return (
     <div style={{ maxHeight: "150px", overflow: "auto" }}>
-      {uniqueContractors.length > 0 && (
+      {contractors.length > 0 && (
         <ol>
-          {uniqueContractors.map(item => {
-            return (
+          {contractors.map((item, i) =>
+            i > 0 ? (
               <li key={`contractor-list-item-${Math.random()}`}>
                 <Link to={`/profile/${item._id}`}>{item.name}</Link>
               </li>
-            );
-          })}
+            ) : null,
+          )}
         </ol>
       )}
     </div>
@@ -33,28 +31,36 @@ const DropdownList = ({ contractorAnswers }) => {
 };
 
 export default ({ contractorAnswers }) => {
+  // filter out all duplicate values
+  const uniqueCompanies =
+    contractorAnswers &&
+    contractorAnswers.length > 0 &&
+    filterDuplicates(contractorAnswers);
+
   return (
     <ContractorDiv>
+      {/* MAIN COMPANY */}
       <ContractorText>
         Main Company:{" "}
         <span className="contactor-name">
-          {contractorAnswers[0] && contractorAnswers[0].name ? (
+          {uniqueCompanies[0] && uniqueCompanies[0].name ? (
             <Link
-              to={`/profile/${contractorAnswers[0]._id}`}
+              to={`/profile/${uniqueCompanies[0]._id}`}
               style={{ color: "black", textDecoration: "underline" }}
             >
-              {contractorAnswers[0] && contractorAnswers[0].name}
+              {uniqueCompanies[0] && uniqueCompanies[0].name}
             </Link>
           ) : (
             "No answers yet"
           )}
         </span>
       </ContractorText>
-      {contractorAnswers && contractorAnswers.length > 1 && (
+      {/* OTHER COMPANIES ON SITE */}
+      {uniqueCompanies && uniqueCompanies.length > 1 && (
         <Popover
           placement="bottom"
           title="Contractors List"
-          content={<DropdownList contractorAnswers={contractorAnswers} />}
+          content={<DropdownList contractors={uniqueCompanies} />}
           trigger="click"
         >
           <ContractorListLink>
