@@ -43,8 +43,8 @@ export const Tracker = styled.div`
 `;
 
 export const ExtendedTracker = styled.div`
-  height: 150px;
-  margin: -20px auto;
+  height: 400px;
+  margin: -100px auto;
   overflow: hidden;
   background: ${colors.veryLightGray}
   width: 3px;

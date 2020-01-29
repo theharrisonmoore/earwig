@@ -295,7 +295,7 @@ export const sortAndCategorizeOrgs = arrayOfOrgs => {
         orgs: newOrgs,
       };
     },
-    { lastMainKey: "", lastSubKey: "", orgs: [] }
+    { lastMainKey: "", lastSubKey: "", orgs: [] },
   );
 
   return newArray.orgs;
@@ -308,3 +308,32 @@ export const addSearchParamsToLink = (params, baseLink) => {
   });
   return search;
 };
+
+// filter out all duplicate values from array
+export function filterDuplicates(inputArr) {
+  return inputArr.filter(
+    (val, idx, arr) => idx === arr.findIndex(v => v.name === val.name),
+  );
+}
+
+// checks if answers for specific question and count
+export function getAverage(answers) {
+  // set up yes/no and dont know counters
+  // yes has benefit
+  let yesCount = 1;
+  // set up array that decides if yes no answers are present
+  const yesNoAnswers = [];
+
+  answers.forEach(({ answer }) => {
+    // check if answer is yes or no
+    if (answer.includes("Yes")) {
+      yesCount += 1;
+      yesNoAnswers.push(answer);
+    } else if (answer.includes("No")) {
+      yesCount -= 1;
+      yesNoAnswers.push(answer);
+    }
+  });
+
+  return { moreYes: yesCount > 0, noAnswers: yesNoAnswers.length === 0 };
+}
