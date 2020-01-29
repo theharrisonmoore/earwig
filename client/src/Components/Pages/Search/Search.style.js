@@ -237,6 +237,8 @@ export const AddProfileLink = styled(Link)`
 export const OrgsListWrapper = styled.div`
   text-align: left;
   padding: 0 0 6.5rem 1rem;
+  // increase top padding on recent section
+  padding-top: ${({ recent }) => (recent ? "3rem" : "0")};
   width: 100%;
   max-width: 25rem;
   margin: 0 auto;
