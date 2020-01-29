@@ -192,7 +192,6 @@ const withComments = WrapprdComponent => {
 
       const { isOpen, comments, replies, tabs } = this.state;
 
-      console.log("comments", comments);
       return (
         <div>
           <WrapprdComponent {...this.props} />
