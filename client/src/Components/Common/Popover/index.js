@@ -33,7 +33,7 @@ class PopoverComponent extends React.Component {
   }
 
   componentDidUpdate() {
-    window.onpopstate = e => {
+    window.onpopstate = () => {
       const { popoverVisible } = this.state;
       if (popoverVisible) {
         this.hide();
