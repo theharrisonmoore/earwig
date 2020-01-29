@@ -14,7 +14,7 @@ import RepliesAndCommentsCollaps from "../../../Common/RepliesAndCommentsCollaps
 
 import OverallReviewsContent from "../OverviewSection/OverallReviewsContent";
 import BarChartAnswer from "./BarChartAnswer";
-import CanteenItemAnswer from "./CanteenItemAnswer";
+// import CanteenItemAnswer from "./CanteenItemAnswer";
 // import CommentsBox from "./CommentsBox";
 import ImageSlider from "./ImageSlider";
 import ListAnswer from "./ListAnswer";
@@ -24,13 +24,13 @@ import ScatterAnswer from "./ScatterAnswer";
 import SiteItemAnswer from "./SiteItemAnswer";
 import VoiceReview from "./VoiceReview";
 import YesNoAnswer from "./YesNoAnswer";
-import CanteenSubItemAnswer from "./CanteenSubItemAnswer";
+// import CanteenSubItemAnswer from "./CanteenSubItemAnswer";
 
 import { organizations } from "../../../../theme";
 
 // custom HOC to append the comments for each question
-const withComments = WrapprdComponent => {
-  return class WrapprdComponentWithComments extends Component {
+const withComments = WrappedComponent => {
+  return class WrappedComponentWithComments extends Component {
     state = {
       comments: [],
       loading: false,
@@ -161,7 +161,7 @@ const withComments = WrapprdComponent => {
               points: newPoints,
               helpedUsers: newHelpedUsers,
             });
-          }
+          },
         )
         .catch(err => {
           const error =
@@ -189,7 +189,7 @@ const withComments = WrapprdComponent => {
 
       return (
         <div>
-          <WrapprdComponent {...this.props} />
+          <WrappedComponent {...this.props} />
           {commentsCount ? (
             <RepliesAndCommentsCollaps
               id={`${questionID}`}
@@ -245,7 +245,7 @@ const withComments = WrapprdComponent => {
                       this.toggleHelpful(
                         comment.review,
                         comment._id,
-                        comment.userId
+                        comment.userId,
                       )
                     }
                     goTOReply={() =>
@@ -272,7 +272,7 @@ const withComments = WrapprdComponent => {
 
 export default {
   BarChartAnswer: withRouter(withComments(BarChartAnswer)),
-  CanteenItemAnswer: withRouter(withComments(CanteenItemAnswer)),
+  // CanteenItemAnswer: withRouter(withComments(CanteenItemAnswer)),
   // CommentsBox: withRouter(withComments(CommentsBox)),
   ImageSlider: withRouter(withComments(ImageSlider)),
   ListAnswer: withRouter(withComments(ListAnswer)),
@@ -282,5 +282,5 @@ export default {
   SiteItemAnswer: withRouter(withComments(SiteItemAnswer)),
   VoiceReview: withRouter(withComments(VoiceReview)),
   YesNoAnswer: withRouter(withComments(YesNoAnswer)),
-  CanteenSubItemAnswer: withRouter(withComments(CanteenSubItemAnswer)),
+  // CanteenSubItemAnswer: withRouter(withComments(CanteenSubItemAnswer)),
 };

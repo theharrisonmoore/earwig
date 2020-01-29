@@ -259,14 +259,14 @@ export default class Signup extends Component {
 
   getTooltipText = () => {
     return (
-      <>
-        <p style={{ textAlign: "center" }}>
+      <div style={{ textAlign: "center" }}>
+        <p>
           earwig is free for workers. All we ask is that you prove you are a
           genuine worker. This means all reviews are real and protects the
           worker community from fake reviews and spam by non-workers.
         </p>
         <p>Don't worry, you are always anonymous on earwig.</p>
-      </>
+      </div>
     );
   };
 
