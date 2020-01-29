@@ -309,6 +309,13 @@ export const addSearchParamsToLink = (params, baseLink) => {
   return search;
 };
 
+// filter out all duplicate values from array
+export function filterDuplicates(inputArr) {
+  return inputArr.filter(
+    (val, idx, arr) => idx === arr.findIndex(v => v.name === val.name),
+  );
+}
+
 // checks if answers for specific question and count
 export function getAverage(answers) {
   // set up yes/no and dont know counters
