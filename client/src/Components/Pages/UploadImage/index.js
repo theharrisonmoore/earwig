@@ -121,7 +121,7 @@ export default class UploadImage extends Component {
 
   getTooltipText = () => {
     return (
-      <>
+      <div style={{ textAlign: "center" }}>
         <EditIcon
           icon="getVerified"
           height="25"
@@ -129,13 +129,13 @@ export default class UploadImage extends Component {
           margin="0 0.5rem 0 0"
           color={colors.dustyGray4}
         />
-        <p style={{ textAlign: "center" }}>
+        <p>
           earwig is free for workers. All we ask is that you prove you are a
           genuine worker. This means all reviews are real and protects the
           worker community from fake reviews and spam by non-workers.
         </p>
         <p>Don't worry, you are always anonymous on earwig.</p>
-      </>
+      </div>
     );
   };
 

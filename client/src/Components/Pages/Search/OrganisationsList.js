@@ -64,18 +64,18 @@ class OrganisationsList extends Component {
   listRef = createRef();
 
   render() {
-    const { sortedOrgs, loading } = this.props;
+    const { sortedOrgs, loading, recentReviews } = this.props;
     const { rederedListLength } = this.state;
 
     const elementsNotLoadedYet = Math.min(rederedListLength, sortedOrgs.length);
 
     const elementsShouldBeInPage = Math.min(
       sortedOrgs.length,
-      rederedListLength + 20
+      rederedListLength + 20,
     );
 
     return (
-      <OrgsListWrapper>
+      <OrgsListWrapper recent={recentReviews}>
         {loading ? (
           <SkeletonWrapper />
         ) : (
@@ -102,7 +102,7 @@ class OrganisationsList extends Component {
                     width: "100%",
                     height: `${Math.min(
                       elementsShouldBeInPage - elementsNotLoadedYet,
-                      0
+                      0,
                     ) * approxDivHeight}px`,
                   }}
                 />
