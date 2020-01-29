@@ -86,10 +86,15 @@ const withComments = WrappedComponent => {
           },
         })
         .then(res => {
-          const comments = res.data.map(comment => ({
+          let comments = res.data.map(comment => ({
             ...comment,
             adminReplied: checkAdminReply(comment.repliedUsers),
           }));
+
+          // sort by creation date
+          comments = comments.sort((a, b) =>
+            a.createdAt > b.createdAt ? -1 : 1,
+          );
           this.setState({
             comments,
             loading: false,
@@ -200,68 +205,69 @@ const withComments = WrappedComponent => {
               comments
               activeTab={activeTab}
             >
-              {comments.map(comment => {
-                const isLiked =
-                  counters[target][comment._id] &&
-                  counters[target][comment._id].counter > 0;
+              {comments.length > 0 &&
+                comments.map(comment => {
+                  const isLiked =
+                    counters[target][comment._id] &&
+                    counters[target][comment._id].counter > 0;
 
-                const isLikedByUser =
-                  isLiked && counters[target][comment._id].byUser;
-                const OwnerHelpedUsers = comment.helpedUsers;
-                const ownerPoints = comment.points;
+                  const isLikedByUser =
+                    isLiked && counters[target][comment._id].byUser;
+                  const OwnerHelpedUsers = comment.helpedUsers;
+                  const ownerPoints = comment.points;
 
-                const helpedUsers = updatedUsers[comment.userId]
-                  ? updatedUsers[comment.userId].helpedUsers
-                  : OwnerHelpedUsers;
+                  const helpedUsers = updatedUsers[comment.userId]
+                    ? updatedUsers[comment.userId].helpedUsers
+                    : OwnerHelpedUsers;
 
-                const userPoints = updatedUsers[comment.userId]
-                  ? updatedUsers[comment.userId].points
-                  : ownerPoints;
+                  const userPoints = updatedUsers[comment.userId]
+                    ? updatedUsers[comment.userId].points
+                    : ownerPoints;
 
-                return (
-                  <OverallReviewsContent
-                    key={`${comment._id}comment`}
-                    bgColor={organizations[category].secondary}
-                    written
-                    text={comment.text}
-                    time={comment.createdAt}
-                    // logged in user _id
-                    userId={userId}
-                    category={category}
-                    level={level}
-                    reviewId={comment.review}
-                    reviewCategory={target}
-                    reviewOrganizationId={comment.organization}
-                    adminReplied={comment.adminReplied}
-                    updatedUsers={updatedUsers}
-                    repliesCount={comment.repliesCount}
-                    replies={replies[comment._id]}
-                    panelKey={comment._id}
-                    isOpen={tabs[comment._id]}
-                    orgId={organizationID}
-                    orgName={organizationName}
-                    togglePanel={() => this.toggleReplies(comment._id)}
-                    toggleHelpful={() =>
-                      this.toggleHelpful(
-                        comment.review,
-                        comment._id,
-                        comment.userId,
-                      )
-                    }
-                    goTOReply={() =>
-                      this.goTOReply(comment._id, comment.review)
-                    }
-                    ownerTrade={comment.trade}
-                    ownerId={comment.userId}
-                    ownerUserId={comment.userUserId}
-                    target={target}
-                    isLiked={isLiked}
-                    isLikedByUser={isLikedByUser}
-                    helpedUsers={helpedUsers}
-                    userPoints={userPoints}
-                  />
-                );
-              })}
+                  return (
+                    <OverallReviewsContent
+                      key={`${comment._id}comment`}
+                      bgColor={organizations[category].secondary}
+                      written
+                      text={comment.text}
+                      time={comment.createdAt}
+                      // logged in user _id
+                      userId={userId}
+                      category={category}
+                      level={level}
+                      reviewId={comment.review}
+                      reviewCategory={target}
+                      reviewOrganizationId={comment.organization}
+                      adminReplied={comment.adminReplied}
+                      updatedUsers={updatedUsers}
+                      repliesCount={comment.repliesCount}
+                      replies={replies[comment._id]}
+                      panelKey={comment._id}
+                      isOpen={tabs[comment._id]}
+                      orgId={organizationID}
+                      orgName={organizationName}
+                      togglePanel={() => this.toggleReplies(comment._id)}
+                      toggleHelpful={() =>
+                        this.toggleHelpful(
+                          comment.review,
+                          comment._id,
+                          comment.userId,
+                        )
+                      }
+                      goTOReply={() =>
+                        this.goTOReply(comment._id, comment.review)
+                      }
+                      ownerTrade={comment.trade}
+                      ownerId={comment.userId}
+                      ownerUserId={comment.userUserId}
+                      target={target}
+                      isLiked={isLiked}
+                      isLikedByUser={isLikedByUser}
+                      helpedUsers={helpedUsers}
+                      userPoints={userPoints}
+                    />
+                  );
+                })}
             </RepliesAndCommentsCollaps>
           ) : null}
         </div>
