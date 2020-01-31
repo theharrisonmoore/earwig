@@ -30,7 +30,7 @@ const {
 export default class ReviewSection extends Component {
   onlyNeutralAnswers = answers => {
     const yesOrNo = answers.filter(
-      answer => answer.answer === "Yes" || answer.answer === "No"
+      answer => answer.answer === "Yes" || answer.answer === "No",
     );
     return yesOrNo.length === 0;
   };
@@ -60,7 +60,7 @@ export default class ReviewSection extends Component {
     let canteenQuestions =
       questions &&
       questions.filter(question =>
-        ["canteenItem", "canteenSubItem"].includes(question.profileType)
+        ["canteenItem", "canteenSubItem"].includes(question.profileType),
       );
 
     if (!canteenQuestions || canteenQuestions.length < 1)
@@ -74,7 +74,7 @@ export default class ReviewSection extends Component {
     let payrollQuestions =
       questions &&
       questions.filter(question =>
-        ["payrollList", "payrollSubList"].includes(question.profileType)
+        ["payrollList", "payrollSubList"].includes(question.profileType),
       );
 
     if (!payrollQuestions || payrollQuestions.length < 1)
@@ -185,7 +185,7 @@ export default class ReviewSection extends Component {
                           toggleComments={toggleComments}
                           isMobile={isMobile}
                           zeroAnswers={this.onlyNeutralAnswers(
-                            question.answers
+                            question.answers,
                           )}
                           level={level}
                           counters={counters}
@@ -404,7 +404,7 @@ export default class ReviewSection extends Component {
                     </ListWrapper>
                   )}
                 </div>
-              )
+              ),
           )}
 
         {/* site images */}

@@ -887,9 +887,9 @@ module.exports = async () => {
       options: ["Yes", "No", "I didn't check"],
       category: "worksite",
 
-      profileText: "Canteen on this site with:",
+      profileText: "Canteen on this site",
       profileSection: "The site welfare",
-      profileType: "canteenItem",
+      profileType: "siteItem",
       profileOrder: 13,
 
       group: {
@@ -973,7 +973,8 @@ module.exports = async () => {
       number: 18,
       next: 19,
       type: "open",
-      text: "Add the name of a shop or café near this site that you would recommend to other workers?",
+      text:
+        "Add the name of a shop or café near this site that you would recommend to other workers?",
       label: "",
       category: "worksite",
 

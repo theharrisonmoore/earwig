@@ -244,21 +244,30 @@ export const CommentBubble = styled.p`
 `;
 
 export const SiteItem = styled.div`
-  margin: 0;
-  color: ${props =>
-    props.itemAvailable ? `${colors.green}` : `${colors.strikedOutItem}`};
-  font-weight: ${generalFontWeight};
   display: flex;
   align-items: center;
   font-size: ${generalFontSize};
+  font-weight: ${generalFontWeight};
 `;
 
 export const SiteAnswer = styled.div`
   margin: 0;
-  /* color: ${props =>
-    props.itemAvailable ? `${colors.green}` : `${colors.red}`}; */
-  font-weight: ${generalFontWeight};
-  text-decoration: ${props => !props.itemAvailable && "line-through"};
+  color: ${({ itemAvailable }) =>
+    itemAvailable ? `${colors.green}` : `${colors.strikedOutItem}`}
+  text-decoration: ${({ itemAvailable }) =>
+    itemAvailable === false && "line-through"}
+  border: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  p {
+    margin: 0;
+  }
+`;
+
+export const NoAnswer = styled.div`
+  margin: 0;
+  color: ${colors.profileFontColor};
   display: flex;
   align-items: center;
   width: 100%;

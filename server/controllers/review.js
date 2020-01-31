@@ -26,11 +26,12 @@ const getByOrg = async (req, res, next) => {
   let orgCategory = catgeory;
   let orgName = name;
   if (!orgCategory) {
-    const { category: _category, name: _name } = await getOrganizationById(orgId);
+    const { category: _category, name: _name } = await getOrganizationById(
+      orgId,
+    );
     orgCategory = _category;
     orgName = _name;
   }
-
 
   try {
     // if (!req.query.edit) {
@@ -67,14 +68,15 @@ const getByOrg = async (req, res, next) => {
 
 const postReviewShort = async (req, res, next) => {
   const {
-    review: {
-      rate, overallReview, lastUse, voiceReview,
-    },
+    review: { rate, overallReview, lastUse, voiceReview },
   } = req.body.values;
   const { user, organization } = req.body;
 
   try {
-    const organizationData = await getOrganization(organization.category, organization.name);
+    const organizationData = await getOrganization(
+      organization.category,
+      organization.name,
+    );
     const userData = await findByEmail(user.email);
 
     const newReview = new Review({
@@ -95,16 +97,10 @@ const postReviewShort = async (req, res, next) => {
 };
 
 const postReview = async (req, res, next) => {
-  const {
-    organization,
-    createNewProfile,
-    values,
-  } = req.body;
+  const { organization, createNewProfile, values } = req.body;
   const {
     answers: questionsAnswers,
-    review: {
-      rate, overallReview, lastUse, voiceReview,
-    },
+    review: { rate, overallReview, lastUse, voiceReview },
     comments,
   } = values;
   const { user } = req;
@@ -128,7 +124,7 @@ const postReview = async (req, res, next) => {
       next(boom.badData());
     }
     const questionsObject = {};
-    questions.forEach((q) => {
+    questions.forEach(q => {
       if (!questionsObject[q.number]) {
         questionsObject[q.number] = q;
       }
@@ -151,7 +147,7 @@ const postReview = async (req, res, next) => {
 
     const commentsData = Object.keys(comments)
       .sort((a, b) => a - b)
-      .map((c) => {
+      .map(c => {
         if (comments[c]) {
           const comment = {
             user: userData,
@@ -174,7 +170,7 @@ const postReview = async (req, res, next) => {
 
     const reviewAnswers = Object.keys(questionsAnswers)
       .sort((a, b) => a - b)
-      .map((qAnswer) => {
+      .map(qAnswer => {
         if (questionsAnswers[qAnswer] || questionsAnswers[qAnswer] === 0) {
           const answer = {
             user: userData,
@@ -183,7 +179,7 @@ const postReview = async (req, res, next) => {
             answer: questionsAnswers[qAnswer],
             organization: organizationData,
           };
-          commentedQuestions.forEach((item) => {
+          commentedQuestions.forEach(item => {
             // eslint-disable-next-line eqeqeq
             if (item.id == qAnswer) {
               answer.comment = item.comment;
@@ -212,9 +208,7 @@ const postReview = async (req, res, next) => {
 const updateReview = async (req, res, next) => {
   const {
     answers: questionsAnswers,
-    review: {
-      rate, overallReview, lastUse, voiceReview,
-    },
+    review: { rate, overallReview, lastUse, voiceReview },
   } = req.body.values;
   const { user } = req;
 
@@ -223,23 +217,29 @@ const updateReview = async (req, res, next) => {
 
   try {
     const questions = await getQuestionsByOrgCategory(organization.category);
-    const organizationData = await getOrganization(organization.category, organization.name);
+    const organizationData = await getOrganization(
+      organization.category,
+      organization.name,
+    );
     const userData = await findByEmail(user.email);
 
     const questionsObject = {};
-    questions.forEach((q) => {
+    questions.forEach(q => {
       if (!questionsObject[q.number]) {
         questionsObject[q.number] = q;
       }
     });
 
     await findReviewByIdAndUpdate(reviewId, {
-      rate, text: overallReview, lastUse, audio: voiceReview || "",
+      rate,
+      text: overallReview,
+      lastUse,
+      audio: voiceReview || "",
     });
 
     const reviewAnswers = Object.keys(questionsAnswers)
       .sort((a, b) => a - b)
-      .map((qAnswer) => {
+      .map(qAnswer => {
         if (questionsAnswers[qAnswer]) {
           const answer = {
             answer: questionsAnswers[qAnswer],
@@ -252,7 +252,7 @@ const updateReview = async (req, res, next) => {
 
     const allAnswers = [...reviewAnswers].filter(answer => answer !== null);
 
-    allAnswers.forEach(async (ans) => {
+    allAnswers.forEach(async ans => {
       await Answer.updateOne(
         {
           review: reviewId,
@@ -269,7 +269,6 @@ const updateReview = async (req, res, next) => {
     next(boom.badImplementation(err));
   }
 };
-
 
 const getOrgsByType = async (req, res, next) => {
   const { category } = req.body;
