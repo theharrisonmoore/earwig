@@ -46,10 +46,10 @@ const InviteWorkers = ({ id: userId }) => {
           emailSubject={emailSubject}
         />
         <PromoParagraph bottom>
-          You’ll earn 1 point for every worker who gets verified using your
-          magic link. Your points are an important measure of how helpful you’ve
-          been to other workers. We give awards and run competitions from time
-          to time.
+          You’ll earn 1 point for every worker who signs up using your magic
+          link. Your points are an important measure of how helpful you’ve been
+          to other workers. We give awards and run competitions from time to
+          time.
         </PromoParagraph>
       </InviteWrapper>
     </CentredBluePurpleLayout>
