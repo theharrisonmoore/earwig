@@ -13,12 +13,12 @@ import { colors } from "../../../theme";
 
 class PopoverComponent extends React.Component {
   state = {
-    popoverVisible: false
+    popoverVisible: false,
   };
 
   hide = () => {
     this.setState({
-      popoverVisible: false
+      popoverVisible: false,
     });
   };
 
@@ -33,7 +33,7 @@ class PopoverComponent extends React.Component {
   }
 
   componentDidUpdate() {
-    window.onpopstate = e => {
+    window.onpopstate = () => {
       const { popoverVisible } = this.state;
       if (popoverVisible) {
         this.hide();
@@ -57,9 +57,8 @@ class PopoverComponent extends React.Component {
       actionButtonTxt,
       linkButtonOptions,
       closeButton,
-      bottomCancelBtn
+      bottomCancelBtn,
     } = popoverOptions;
-
     return (
       <Popover
         overlayStyle={overlayStyle}
@@ -72,7 +71,7 @@ class PopoverComponent extends React.Component {
                 margin="-1rem -3rem 0 auto"
                 style={{
                   border: "none",
-                  color: colors.primary
+                  color: colors.primary,
                 }}
                 icon="close"
                 iconHeight="19px"
@@ -88,7 +87,7 @@ class PopoverComponent extends React.Component {
                 target={linkButtonOptions.target}
                 to={{
                   pathname: linkButtonOptions.pathname,
-                  state: linkButtonOptions.state
+                  state: linkButtonOptions.state,
                 }}
               >
                 <Button

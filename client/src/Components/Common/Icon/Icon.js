@@ -112,6 +112,7 @@ import Instagram from "./Instagram";
 import Linkedin from "./Linkedin";
 import Messenger from "./Messenger";
 import Whatsapp from "./Whatsapp";
+import Inbox from "./Inbox";
 
 const iconStyles = props => css`
   width: ${props.width || "100%"};
@@ -232,6 +233,7 @@ const iconMap = {
   linkedin: Linkedin,
   messenger: Messenger,
   whatsapp: Whatsapp,
+  inbox: Inbox,
 };
 
 const styledIconMap = Object.keys(iconMap).reduce((accum, curr) => {

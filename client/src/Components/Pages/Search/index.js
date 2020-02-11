@@ -16,8 +16,9 @@ import { SearchWrapper } from "./Search.style";
 // gets all organisations from db
 export const axiosCall = async category => {
   const response = await axios.get(
-    API_SEARCH_URL.replace(":category", category)
+    API_SEARCH_URL.replace(":category", category),
   );
+
   return response;
 };
 
@@ -36,12 +37,19 @@ export default class Search extends Component {
       company: [],
       agency: [],
     },
+    recentReviewsDump: {
+      worksite: [],
+      payroll: [],
+      company: [],
+      agency: [],
+    },
     recentReviews: {
       worksite: [],
       payroll: [],
       company: [],
       agency: [],
     },
+
     activeTab: "all",
   };
 
@@ -67,13 +75,22 @@ export default class Search extends Component {
     this.setState({ loading: true, category }, () => {
       if (!searchData[category].length) {
         axiosCall(category)
-          .then(({ data: [{ searchData: newData }] }) => {
+          .then(({ data: [{ searchData: newData, lastReviewed }] }) => {
             const sortedOrgs = sortAndCategorizeOrgs(newData);
+            const lastReviewedOrgs = lastReviewed.map(org => org.lastReviewed);
+
             this.setState(prevState => {
               return {
                 searchData: { ...prevState.searchData, [category]: newData },
                 category,
-                sortedOrgs: { ...prevState.sortedOrgs, [category]: sortedOrgs },
+                sortedOrgs: {
+                  ...prevState.sortedOrgs,
+                  [category]: sortedOrgs,
+                },
+                recentReviewsDump: {
+                  ...prevState.lastReviewedOrgs,
+                  [category]: lastReviewedOrgs,
+                },
               };
             });
           })
@@ -96,13 +113,14 @@ export default class Search extends Component {
   };
 
   filterRecentReviews = () => {
-    const { category, sortedOrgs, recentReviews } = this.state;
-    if (!recentReviews[category].length) {
-      const hasReviews = sortedOrgs[category].filter(
-        org => org.totalReviews > 0
-      );
+    const { category, recentReviews, recentReviewsDump } = this.state;
+
+    if (recentReviewsDump[category] && recentReviewsDump[category].length) {
       this.setState({
-        recentReviews: { ...recentReviews, [category]: hasReviews },
+        recentReviews: {
+          ...recentReviews,
+          [category]: recentReviewsDump[category],
+        },
       });
     }
   };
@@ -115,6 +133,7 @@ export default class Search extends Component {
       activeTab,
       recentReviews,
     } = this.state;
+
     const { isMobile, isTablet, match } = this.props;
     const { category = "agency" } = match.params;
     return (

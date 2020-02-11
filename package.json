@@ -17,8 +17,8 @@
   "proxy": "http://localhost:8080",
   "scripts": {
     "start": "node ./server/bin/www",
-    "dev": "NODE_ENV=development concurrently --kill-others-on-fail \"cd client && npm start\" \"nodemon ./server/bin/www\"",
-    "dev:both": "NODE_ENV=development concurrently --kill-others-on-fail \"cd client && npm start\" \"nodemon ./server/bin/www\"",
+    "dev": "NODE_ENV=development concurrently --kill-others-on-fail \"cd client && npm start\" \"node ./server/bin/www\"",
+    "dev:both": "NODE_ENV=development concurrently --kill-others-on-fail \"cd client && npm start\" \"node ./server/bin/www\"",
     "client:init": "cd client && npm i",
     "build": "cd client && npm run build",
     "client:build": "cd client && npm run build",
@@ -74,6 +74,7 @@
     "request": "^2.88.0",
     "sharp": "^0.23.4",
     "shortid": "^2.2.14",
+    "sqreen": "^1.38.3",
     "supertest": "^4.0.2"
   }
 }

@@ -23,6 +23,7 @@ module.exports = (req, res, next) => {
     .then((user) => {
       if (!user) {
         // no user founded
+        req.sqreen.auth_track(false, { email });
         return next(boom.unauthorized("Whoops! Either you typed something wrong or you're not registered."));
       }
 
@@ -30,6 +31,7 @@ module.exports = (req, res, next) => {
       return compare(plainPassword, user.password)
         .then((matched) => {
           if (!matched) {
+            req.sqreen.auth_track(false, { email });
             return next(boom.unauthorized("Whoops! Either you typed something wrong or you're not registered."));
           }
 
@@ -52,6 +54,7 @@ module.exports = (req, res, next) => {
             { expiresIn: tokenMaxAge.string },
           );
           res.cookie("token", token, { maxAge: tokenMaxAge.number, httpOnly: true });
+          req.sqreen.auth_track(true, { email });
 
           // send the user info
           return res.json(userInfo);
