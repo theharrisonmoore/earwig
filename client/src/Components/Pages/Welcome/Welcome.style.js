@@ -42,6 +42,7 @@ export const ContentWrapper = styled.div`
   justify-content: center;
   margin: 0 auto;
   max-width: 33rem;
+  margin-top: 1rem;
 `;
 
 export const Header = styled.header`
@@ -87,8 +88,8 @@ export const FooterTitle = styled.section`
 `;
 
 export const Subtitle = styled.h2`
-  font-size: 15px;
-  font-weight: 400;
+  font-size: 25px;
+  font-weight: 500;
   color: ${colors.white};
   max-width: 500px;
   margin: 0 auto;
@@ -150,17 +151,16 @@ export const Button = styled.button`
     box-shadow: none;
   }
 
-    ::after {
-      content: "";
-      display: block;
-      top: 0px;
-      right: 0px;
-      bottom: 0px;
-      left: 0px;
-      background: ${colors.btnClick};
-      box-shadow: none;
-      border-radius: 300px;
-    }
+  ::after {
+    content: "";
+    display: block;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: ${colors.btnClick};
+    box-shadow: none;
+    border-radius: 300px;
   }
 
   &:active,
