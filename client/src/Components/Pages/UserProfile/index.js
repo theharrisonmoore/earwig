@@ -4,14 +4,14 @@ import { Skeleton } from "antd";
 
 import {
   EDIT_PROFILE_URL,
-  UPLOAD_VERIFICATION_URL,
+  // UPLOAD_VERIFICATION_URL,
   MY_REVIEWS_URL,
   MY_POINTS_URL,
 } from "../../../constants/naviagationUrls";
 
 import Link from "../../Common/Link";
 
-import Button from "../../Common/Button";
+// import Button from "../../Common/Button";
 
 import {
   Wrapper,
@@ -22,11 +22,11 @@ import {
   StatTitle,
   Stat,
   IDWrapper,
-  Verified,
+  // Verified,
   IDText,
-  MainSection,
-  SectionTitle,
-  Paragraph,
+  // MainSection,
+  // SectionTitle,
+  // Paragraph,
   UsernameStatusDiv,
 } from "./UserProfile.style";
 
@@ -53,20 +53,20 @@ export default class index extends Component {
     const {
       userId,
       verified,
-      trade,
+      // trade,
       points,
       helpedUsers,
       isSMobile,
-      awaitingReview,
-      location: {
-        state: {
-          orgId,
-          redirectToProfile,
-          category,
-          name,
-          redirectToCreateProfile,
-        } = {},
-      } = {},
+      // awaitingReview,
+      // location: {
+      //   state: {
+      //     orgId,
+      //     redirectToProfile,
+      //     category,
+      //     name,
+      //     redirectToCreateProfile,
+      //   } = {},
+      // } = {},
       level,
     } = this.props;
 
@@ -87,8 +87,9 @@ export default class index extends Component {
                 />
               )}
               <UsernameStatusDiv>
-                <IDText>{userId}</IDText>
-                {verified ? (
+                <Stat noPadding>Display name</Stat>
+                <IDText style={{ margin: 0 }}>{userId}</IDText>
+                {/* {verified ? (
                   <Verified>
                     <p>{trade ? "Verified worker" : "Registered user"}</p>
                   </Verified>
@@ -100,7 +101,7 @@ export default class index extends Component {
                         : `${trade ? "Unverified" : "Registered user"}`}
                     </p>
                   </Verified>
-                )}
+                )} */}
               </UsernameStatusDiv>
             </IDWrapper>
 
@@ -176,7 +177,7 @@ export default class index extends Component {
             </StatWrapper>
           </BottomSection>
         </Header>
-        {!verified && (
+        {/* {!verified && (
           <MainSection>
             <SectionTitle>
               Wait! You’re not yet verified as a worker
@@ -207,7 +208,7 @@ export default class index extends Component {
               styleType="primary"
             />
           </MainSection>
-        )}
+        )} */}
       </Wrapper>
     );
   }
