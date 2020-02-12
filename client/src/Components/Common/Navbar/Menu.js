@@ -9,7 +9,7 @@ import {
   MenuIcon,
   LogoutButton,
   PriorityIcon,
-  MenuWrapper
+  MenuWrapper,
 } from "./Menu.style";
 
 import { ToggleMenu } from "./Navbar.style";
@@ -28,7 +28,7 @@ import {
   SIGNUP_URL,
   PRIVACY_AND_TERMS_URL,
   ADMIN,
-  INVITE_WORKERS_URL
+  INVITE_WORKERS_URL,
 } from "../../../constants/naviagationUrls";
 
 export default class Menu extends PureComponent {
@@ -42,14 +42,14 @@ export default class Menu extends PureComponent {
       verified,
       history,
       handleChangeState,
-      level
+      level,
     } = this.props;
 
     const data = {
       isAdmin,
       awaitingReview,
       verified,
-      isLoggedIn
+      isLoggedIn,
     };
 
     const isWorker = awaitingReview || verified;
@@ -64,7 +64,7 @@ export default class Menu extends PureComponent {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            textAlign: "center"
+            textAlign: "center",
           }}
         >
           <Icon
@@ -95,7 +95,7 @@ export default class Menu extends PureComponent {
               style={{
                 fontSize: "19px",
                 color: colors.white,
-                marginRight: "16px"
+                marginRight: "16px",
               }}
             />
             Admin Dashboard
@@ -172,11 +172,11 @@ export default class Menu extends PureComponent {
                     placement: "right",
                     linkButtonOptions: {
                       target: "_blank",
-                      pathname: "//www.earwigwork.com/blog"
+                      pathname: "//www.earwigwork.com/blog",
                     },
                     overlayStyle: { paddingLeft: "4.3rem" },
                     margin: "1rem 0 0 0",
-                    bottomCancelBtn: true
+                    bottomCancelBtn: true,
                   }}
                 >
                   Helpful stuff

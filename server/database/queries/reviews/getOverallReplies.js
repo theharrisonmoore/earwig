@@ -3,15 +3,20 @@ const mongoose = require("mongoose");
 const Review = require("../../models/Review");
 
 module.exports = (id, target, userId) => {
-  let match = { "replies.user.verified": true };
+  // COMMENTED_VERIFICATION_CHECK
+  // let match = { "replies.user.verified": true };
+  let match = { };
 
   if (userId) {
-    match = {
-      $or: [
-        { "replies.user.verified": true },
-        { "replies.user._id": mongoose.Types.ObjectId(userId) },
-      ],
-    };
+    // COMMENTED_VERIFICATION_CHECK
+    // match = {
+    //   $or: [
+    //     { "replies.user.verified": true },
+    //     { "replies.user._id": mongoose.Types.ObjectId(userId) },
+    //   ],
+    // };
+
+    match = { "replies.user._id": mongoose.Types.ObjectId(userId) };
   }
 
   return Review.aggregate([

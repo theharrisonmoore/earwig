@@ -11,13 +11,17 @@ module.exports = async (req, res, next) => {
   try {
     const user = await getUserById(id);
     if (!user) {
-      return boom.notFound("User not found");
+      return next(boom.notFound("User not found"));
     }
-    if (!user.verified) {
-      await deleteUserCompletelyWithProfiles(id);
-    } else {
-      await deleteUserCompletely(id);
-    }
+    // COMMENTED_VERIFICATION_CHECK
+    // if (!user.verified) {
+    //   await deleteUserCompletelyWithProfiles(id);
+    // } else {
+    //   await deleteUserCompletely(id);
+    // }
+
+    await deleteUserCompletely(id);
+
     return res.json({ success: "User successfully deleted" });
   } catch (error) {
     return next(boom.badImplementation(error));

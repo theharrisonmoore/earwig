@@ -1,8 +1,14 @@
 const boom = require("boom");
 
 const levels = {
-  LEVEL1: 1, // just logged in user
-  LEVEL2: 2, // awaiting verification user
+  // COMMENTED_VERIFICATION_CHECK
+  // LEVEL1: 1, // just logged in user
+  // LEVEL2: 2, // awaiting verification user
+  // LEVEL3: 3, // verified user
+  // ADMIN: 4, // admin
+
+  LEVEL1: 3, // just logged in user
+  LEVEL2: 3, // awaiting verification user
   LEVEL3: 3, // verified user
   ADMIN: 4, // admin
 };
