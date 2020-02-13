@@ -21,17 +21,17 @@ const schemas = {
       .valid(true)
       .error(() => "You should agree Earwig terms of user"),
     referral: Joi.string().length(24),
-    isWorker: Joi.string()
-      .valid(["yes", "no"], "Must select an option")
-      .required("Required"),
-    orgType: Joi.string()
-      .allow("")
-      .optional(),
-    otherOrg: Joi.string().when("orgType", {
-      is: "other",
-      then: Joi.string().min(3),
-      otherwise: Joi.allow("").optional(),
-    }),
+    // isWorker: Joi.string()
+    // .valid(["yes", "no"], "Must select an option")
+    // .required("Required"),
+    // orgType: Joi.string()
+    //   .allow("")
+    //   .optional(),
+    // otherOrg: Joi.string().when("orgType", {
+    //   is: "other",
+    //   then: Joi.string().min(3),
+    //   otherwise: Joi.allow("").optional(),
+    // }),
   },
   editProfile: {
     oldPassword: Joi.string(),
