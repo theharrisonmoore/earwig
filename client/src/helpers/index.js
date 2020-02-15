@@ -59,9 +59,16 @@ export const isTablet = width => width <= TABLET_WIDTH && width > MOBILE_WIDTH;
 export const isDesktop = width => width > TABLET_WIDTH;
 
 const levels = {
+  // COMMENTED_VERIFICATION_CHECK
+  // LEVEL0: 0, // not logged in user
+  // LEVEL1: 1, // just logged in user
+  // LEVEL2: 2, // awaiting verification user
+  // LEVEL3: 3, // verified user
+  // ADMIN: 4, // admin
+
   LEVEL0: 0, // not logged in user
-  LEVEL1: 1, // just logged in user
-  LEVEL2: 2, // awaiting verification user
+  LEVEL1: 3, // just logged in user
+  LEVEL2: 3, // awaiting verification user
   LEVEL3: 3, // verified user
   ADMIN: 4, // admin
 };
@@ -295,7 +302,7 @@ export const sortAndCategorizeOrgs = arrayOfOrgs => {
         orgs: newOrgs,
       };
     },
-    { lastMainKey: "", lastSubKey: "", orgs: [] },
+    { lastMainKey: "", lastSubKey: "", orgs: [] }
   );
 
   return newArray.orgs;
@@ -312,7 +319,7 @@ export const addSearchParamsToLink = (params, baseLink) => {
 // filter out all duplicate values from array
 export function filterDuplicates(inputArr) {
   return inputArr.filter(
-    (val, idx, arr) => idx === arr.findIndex(v => v.name === val.name),
+    (val, idx, arr) => idx === arr.findIndex(v => v.name === val.name)
   );
 }
 

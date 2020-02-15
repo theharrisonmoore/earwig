@@ -57,7 +57,7 @@ class OverallReview extends Component {
           target,
           organization,
         });
-      },
+      }
     );
   };
 
@@ -185,7 +185,7 @@ class OverallReview extends Component {
         if (overallReview && overallReview.text) {
           const repliesCount = getVerifiedRepliesCount(
             review.overallReview.replies,
-            verifiedUsers,
+            verifiedUsers
           );
 
           totalReviews.push({
@@ -206,7 +206,7 @@ class OverallReview extends Component {
         if (voiceReview && voiceReview.audio) {
           const repliesCount = getVerifiedRepliesCount(
             review.voiceReview.replies,
-            verifiedUsers,
+            verifiedUsers
           );
 
           totalReviews.push({
@@ -224,7 +224,7 @@ class OverallReview extends Component {
     // sort total reviews by creation date (newest on top)
 
     totalReviews = totalReviews.sort((a, b) =>
-      a.createdAt > b.createdAt ? -1 : 1,
+      a.createdAt > b.createdAt ? -1 : 1
     );
 
     this.setState(
@@ -238,13 +238,13 @@ class OverallReview extends Component {
         if (pageYOffset) {
           window.scrollTo(0, pageYOffset);
         }
-      },
+      }
     );
   }
 
   checkWrittenComments = reviews => {
     const writtenReviews = reviews.filter(
-      review => review.overallReview.text.length > 0,
+      review => review.overallReview.text.length > 0
     );
 
     return writtenReviews.length > 0;

@@ -70,7 +70,7 @@ export default ({
 
   const overallReportLink = addSearchParamsToLink(
     overallParams,
-    REPORT_CONTENT_URL,
+    REPORT_CONTENT_URL
   );
 
   return (

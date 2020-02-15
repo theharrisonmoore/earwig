@@ -3,7 +3,7 @@ const boom = require("boom");
 const {
   overallReview,
   basicReview,
-  allAnswers,
+  // allAnswers,
   allQsAndAs,
   checkOrgExists,
   checkUsersLatestReview,
@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
   const { user } = req;
   try {
     // check organisation exists
-    const organization = await checkOrgExists(organizationID).catch(err => next(boom.badImplementation(err)));
+    const organization = await checkOrgExists(organizationID);
 
     if (!organization) return next(boom.notFound("Cannot find the organization you're looking for"));
 
@@ -24,11 +24,7 @@ module.exports = async (req, res, next) => {
     // let newReviewDetails;
 
     if (user) {
-      summary = await overallReview(organizationID).catch((err) => {
-        next(boom.badImplementation(err));
-      });
-
-
+      summary = await overallReview(organizationID);
       // check if user has already given reviews less old than 4 weeks
       const userReviews = await checkUsersLatestReview(organizationID, user._id);
 
@@ -42,9 +38,9 @@ module.exports = async (req, res, next) => {
       // reviewDetails = await allAnswers(organizationID)
       //   .catch(err => next(boom.badImplementation(err)));
 
-      reviewDetails = await allQsAndAs(organization.category, organizationID).catch(err => next(boom.badImplementation(err)));
+      reviewDetails = await allQsAndAs(organization.category, organizationID);
     } else {
-      summary = await basicReview(organizationID).catch(err => next(boom.badImplementation(err)));
+      summary = await basicReview(organizationID);
 
       if (summary[0].reviews.length === 0) summary[0].reviews = [{}];
       if (organization.category === "worksite") {

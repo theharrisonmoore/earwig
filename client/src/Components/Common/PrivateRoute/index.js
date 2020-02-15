@@ -12,9 +12,15 @@ const PrivateRoute = ({
   path,
   exact,
   navbar,
+  isLoggedIn,
+  verified,
   ...rest
 }) => {
-  const { isAuthorized, level } = authorization({ ...rest });
+  const { isAuthorized, level } = authorization({
+    isLoggedIn,
+    verified,
+    ...rest,
+  });
 
   return isMounted ? (
     <Wrapper>
@@ -24,8 +30,23 @@ const PrivateRoute = ({
         render={LinkProps =>
           isAuthorized ? (
             <>
-              {navbar && <Navbar {...LinkProps} level={level} {...rest} />}
-              <Component {...LinkProps} level={level} {...rest} />
+              {navbar && (
+                <Navbar
+                  {...LinkProps}
+                  level={level}
+                  isLoggedIn={isLoggedIn}
+                  {...rest}
+                />
+              )}
+              {/* // COMMENTED_VERIFICATION_CHECK */}
+              {/* <Component {...LinkProps} level={level} {...rest}/> */}
+              <Component
+                {...LinkProps}
+                level={level}
+                verified={isLoggedIn}
+                isLoggedIn={isLoggedIn}
+                {...rest}
+              />
             </>
           ) : (
             <Redirect to="/login" />

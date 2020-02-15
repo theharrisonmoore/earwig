@@ -73,11 +73,12 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
               as: "user",
             },
           },
-          {
-            $match: {
-              "user.verified": true,
-            },
-          },
+          // COMMENTED_VERIFICATION_CHECK
+          // {
+          //   $match: {
+          //     "user.verified": true,
+          //   },
+          // },
           {
             $addFields: {
               user: { $arrayElemAt: ["$user", 0] },
@@ -95,20 +96,24 @@ module.exports.overallReview = organizationID => new Promise((resolve, reject) =
             input: "$reviews",
             initialValue: { avg: 0, count: 0, size: 0 },
             in: {
-              count: {
-                $cond: {
-                  if: { $eq: ["$$this.user.verified", true] },
-                  then: { $add: ["$$value.count", "$$this.rate"] },
-                  else: "$$value.count",
-                },
-              },
-              size: {
-                $cond: {
-                  if: { $eq: ["$$this.user.verified", true] },
-                  then: { $add: [1, "$$value.size"] },
-                  else: "$$value.size",
-                },
-              },
+              count: { $add: ["$$value.count", "$$this.rate"] },
+              // COMMENTED_VERIFICATION_CHECK
+              // count: {
+              //   $cond: {
+              //     if: { $eq: ["$$this.user.verified", true] },
+              //     then: { $add: ["$$value.count", "$$this.rate"] },
+              //     else: "$$value.count",
+              //   },
+              // },
+              size: { $add: [1, "$$value.size"] },
+              // COMMENTED_VERIFICATION_CHECK
+              // size: {
+              //   $cond: {
+              //     if: { $eq: ["$$this.user.verified", true] },
+              //     then: { $add: [1, "$$value.size"] },
+              //     else: "$$value.size",
+              //   },
+              // },
             },
           },
         },
@@ -242,11 +247,12 @@ module.exports.basicReview = organizationID => Organization.aggregate([
             as: "user",
           },
         },
-        {
-          $match: {
-            "user.verified": true,
-          },
-        },
+        // COMMENTED_VERIFICATION_CHECK
+        // {
+        //   $match: {
+        //     "user.verified": true,
+        //   },
+        // },
         {
           $addFields: {
             user: { $arrayElemAt: ["$user", 0] },
@@ -321,7 +327,8 @@ module.exports.allAnswers = organizationID => new Promise((resolve, reject) => {
               $expr: {
                 $and: [
                   { $eq: ["$_id", "$$user"] },
-                  { $eq: ["$verified", true] },
+                  // COMMENTED_VERIFICATION_CHECK
+                  // { $eq: ["$verified", true] },
                 ],
               },
             },
@@ -414,7 +421,8 @@ module.exports.allQsAndAs = (orgType, orgId, justContractor) => new Promise((res
                     $expr: {
                       $and: [
                         { $eq: ["$_id", "$$user"] },
-                        { $eq: ["$verified", true] },
+                        // COMMENTED_VERIFICATION_CHECK
+                        // { $eq: ["$verified", true] },
                       ],
                     },
                   },
