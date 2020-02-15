@@ -77,7 +77,7 @@ export default class index extends Component {
         <Header>
           <TopSection>
             <IDWrapper>
-              {verified && (
+              {/* {verified && (
                 <Icon
                   icon="getVerified"
                   width="20"
@@ -85,7 +85,7 @@ export default class index extends Component {
                   margin="0 0 0 0"
                   color={colors.dustyGray4}
                 />
-              )}
+              )} */}
               <UsernameStatusDiv>
                 <Stat noPadding>Display name</Stat>
                 <IDText style={{ margin: 0 }}>{userId}</IDText>
