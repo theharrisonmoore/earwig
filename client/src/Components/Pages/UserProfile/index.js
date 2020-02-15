@@ -52,7 +52,6 @@ export default class index extends Component {
   render() {
     const {
       userId,
-      verified,
       // trade,
       points,
       helpedUsers,
