@@ -46,21 +46,20 @@ export const ContentWrapper = styled.div`
 `;
 
 export const Header = styled.header`
-  padding-top: 2rem;
+  padding-top: 1rem;
   width: 95%;
   // desktop
   @media ${breakpoints.mobileXL} {
-    padding-top: 3.5rem;
+    padding-top: 2rem;
   }
 `;
 
 export const Title = styled.h1`
-  font-size: 3.125rem;
-  font-weight: bold;
+  font-size: 50px;
+  font-weight: 500;
   color: ${colors.white};
   margin: 0;
-  margin-bottom: 0.25rem;
-  font-style: italic;
+  margin-bottom: 1.5rem;
 `;
 
 export const SubtitleWrapper = styled.section`
