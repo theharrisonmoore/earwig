@@ -84,13 +84,13 @@ export default class FAQ extends Component {
                 remove reviews?
               </TopSubTitle>
             </ScrollLink>
-            <ScrollLink to="favour" spy smooth duration={500} offset={-60}>
+            {/* <ScrollLink to="favour" spy smooth duration={500} offset={-60}>
               <TopSubTitle list="true" sublist="true">
                 What’s stopping agencies, payrolls or construction companies
                 from asking their own staff to sign-up and give reviews in their
                 favour?
               </TopSubTitle>
-            </ScrollLink>
+            </ScrollLink> */}
             <ScrollLink to="delete" spy smooth duration={500}>
               <TopSubTitle list="true" sublist="true">
                 Can I delete my earwig account at any time?
