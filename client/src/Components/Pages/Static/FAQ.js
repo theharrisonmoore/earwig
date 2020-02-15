@@ -17,7 +17,7 @@ import CommentSection from "../../Common/CommentSection";
 
 // ROUTES
 import {
-  UPLOAD_VERIFICATION_PHOTO,
+  // UPLOAD_VERIFICATION_PHOTO,
   COMMUNITY_GUIDELINES_URL,
   CONTACT_URL,
   DELETE_PROFILE_URL,
@@ -56,10 +56,10 @@ export default class FAQ extends Component {
               duration={500}
               offset={-60}
             >
-              <TopSubTitle list="true" sublist="true">
+              {/* <TopSubTitle list="true" sublist="true">
                 Why do I have to get verified as a worker before I can give
                 reviews?
-              </TopSubTitle>
+              </TopSubTitle> */}
             </ScrollLink>
             <ScrollLink to="blacklisted" spy smooth duration={500} offset={-60}>
               <TopSubTitle list="true" sublist="true">
@@ -84,13 +84,13 @@ export default class FAQ extends Component {
                 remove reviews?
               </TopSubTitle>
             </ScrollLink>
-            <ScrollLink to="favour" spy smooth duration={500} offset={-60}>
+            {/* <ScrollLink to="favour" spy smooth duration={500} offset={-60}>
               <TopSubTitle list="true" sublist="true">
                 What’s stopping agencies, payrolls or construction companies
                 from asking their own staff to sign-up and give reviews in their
                 favour?
               </TopSubTitle>
-            </ScrollLink>
+            </ScrollLink> */}
             <ScrollLink to="delete" spy smooth duration={500}>
               <TopSubTitle list="true" sublist="true">
                 Can I delete my earwig account at any time?
@@ -148,13 +148,13 @@ export default class FAQ extends Component {
             </SectionHeading>
           </Element>
           <SmallParagraph>
-            As a member of the public browsing reviews or as a verified worker
-            giving reviews, earwig is completely free. In the future, we may
-            introduce charges for agencies, payrolls, and construction companies
-            who want to claim their earwig profiles and post jobs. We’ll notify
-            you if this happens.
+            As a member of the public browsing reviews or as a worker giving
+            reviews, earwig is completely free. In the future, we may introduce
+            charges for agencies, payrolls, and construction companies who want
+            to claim their earwig profiles and post jobs. We’ll notify you if
+            this happens.
           </SmallParagraph>
-          <Element name="verification">
+          {/* <Element name="verification">
             <SectionHeading sublist="true">
               Why do I have to get verified as a worker before I can give
               reviews?
@@ -167,7 +167,7 @@ export default class FAQ extends Component {
             as a genuine worker. This means all reviews are credible and
             protects the worker community from fake reviews and spam by
             non-workers.
-          </SmallParagraph>
+          </SmallParagraph> */}
           <Element name="blacklisted">
             <SectionHeading sublist="true">
               Could I be blacklisted if I give bad reviews?
@@ -234,6 +234,7 @@ export default class FAQ extends Component {
             <br />
             You can delete your reviews at any time.
           </SmallParagraph>
+          {/* 
           <Element name="favour">
             <SectionHeading sublist="true">
               What’s stopping agencies, payrolls or construction companies from
@@ -258,7 +259,9 @@ export default class FAQ extends Component {
             <br />
             This means all reviews are credible and protects the worker
             community from fake reviews and spam by non-workers.
-          </SmallParagraph>
+          </SmallParagraph> 
+          */}
+
           <Element name="delete">
             <SectionHeading sublist="true">
               Can I delete my earwig account at any time?
@@ -360,9 +363,9 @@ export default class FAQ extends Component {
             isn’t shown on earwig. Either:
             <StyledOl>
               <li>
+                {/* <li>
                 Your review is being held until we’ve verified you are a worker;
-              </li>
-              <li>
+              </li> */}
                 Your review (or a portion of it) has been reported by a user and
                 we’re in the process of checking whether it violates our ​
                 <NormalLink to={COMMUNITY_GUIDELINES_URL}>
@@ -390,9 +393,8 @@ export default class FAQ extends Component {
             </SectionHeading>
           </Element>
           <SmallParagraph>
-            You earn points when verified workers mark your comments as helpful.
-            You can also earn points when you invite other workers to use earwig
-            and they get verified.
+            You earn points when workers mark your comments as helpful. You can
+            also earn points when you invite other workers to use earwig.
             <br />
             <br />
             Your points are an important measure of how helpful you’ve been to

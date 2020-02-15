@@ -4,10 +4,14 @@ import Icon from "../../Common/Icon/Icon";
 import SocialLinks from "../../Common/SocialLinks";
 import CentredBluePurpleLayout from "../../Common/Layout/CentredBluePurpleLayout";
 
+import Link from "../../Common/Link";
+
 import { InviteWrapper, Head3, PromoParagraph } from "./inviteWorkers.style";
 import { colors } from "../../../theme";
 
-const InviteWorkers = ({ id: userId }) => {
+import { MY_POINTS_URL } from "../../../constants/naviagationUrls";
+
+const InviteWorkers = ({ id: userId, points }) => {
   let referralLink = `https://${window.location.host}/signup/${userId}`;
   if (process.env.NODE_ENV === "development") {
     referralLink = `http://${window.location.host}/signup/${userId}`;
@@ -46,10 +50,19 @@ const InviteWorkers = ({ id: userId }) => {
           emailSubject={emailSubject}
         />
         <PromoParagraph bottom>
-          You’ll earn 1 point for every worker who gets verified using your
-          magic link. Your points are an important measure of how helpful you’ve
-          been to other workers. We give awards and run competitions from time
-          to time.
+          You’ll earn 1 point for every worker who signs up using your magic
+          link. Your points are an important measure of how helpful you’ve been
+          to other workers. We give awards and run competitions from time to
+          time.
+        </PromoParagraph>
+        <PromoParagraph bottom>
+          Points you've earned:{" "}
+          <Link
+            to={MY_POINTS_URL}
+            text={`${points} points`}
+            type="primary"
+            style={{ display: "inline", fontSize: "15px" }}
+          />
         </PromoParagraph>
       </InviteWrapper>
     </CentredBluePurpleLayout>

@@ -7,25 +7,26 @@ module.exports = (to) => {
     <div style="text-align: center;" >
       <img src="cid:earwig-logo" style="background: white;text-align: center;" />
     </div>
-    <h2 style="font-weight: 700;">Thank you for signing-up to earwig,</h2>
+    <h2 style="font-weight: 700;">Thank you for joining earwig,</h2>
 
-    <p>You can now <a href="${config.server.domain}/" target="_blank" rel="noreferrer" rel="noopener"
-        style="color: #8c6bfc; font-weight: 900;"> read
-        reviews and ratings</a>&nbsp; workers have given about agencies, payrolls, worksites and construction
-      companies.</p>
-    <p>If you’re a worker, you should <a href="${config.server.domain}/upload-verification-photo"
-    style="color: #8c6bfc; font-weight: 900;">get verified</a> so you can enjoy full access to the earwig
-      platform, including:</p>
+    <p>You can 
+      <a href="${config.server.domain}/" target="_blank" rel="noreferrer" rel="noopener" style="color: #8c6bfc; font-weight: 900;">
+        read what workers have said 
+      </a>
+      &nbsp;
+      about agencies, payrolls, worksites and construction companies. You can also:
+    </p>
 
     <ul>
-      <li> Giving reviews</li>
-      <li>Earning points from other workers for helping them</li>
-      <li>Asking and answering questions</li>
-      <li>Inviting other workers to earwig</li>
-      <li>Plus, other stuff you might find helpful</li>
+      <li>Giving reviews</li>
+      <li>Reply to workers</li>
+      <li>Invite workers to earwig</li>
+      <li>Find other helpful stuff</li>
     </ul>
 
-    <p>Thanks for choosing to be part of the earwig worker community.</p>
+    <p>
+      Give a review (or two) about your working conditions every four weeks so other workers can choose the best jobs and avoid the worst.
+    </p>
 
     <p style="margin-bottom: 0;">Have a good day,</p>
     <p style="margin-bottom: 0;">Harrison</p>
@@ -37,7 +38,7 @@ module.exports = (to) => {
   const user = email.main;
   const pass = email.password;
   const from = email.main;
-  const subject = "You're now signed-up to earwig";
+  const subject = "Nice one! You’re now part of the earwig community";
 
   const attachments = [
     {

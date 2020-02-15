@@ -7,7 +7,7 @@ import Layout from "../../Common/Layout";
 import {
   SIGNUP_URL,
   LOGIN_URL,
-  UPLOAD_VERIFICATION_PHOTO
+  UPLOAD_VERIFICATION_PHOTO,
 } from "../../../constants/naviagationUrls";
 
 // common component
@@ -20,7 +20,7 @@ import {
   MainDiv,
   AddWrapper,
   SubHeading,
-  StyledLink
+  StyledLink,
 } from "../../Common/AddOrganisationPages.style";
 
 export default props => {
@@ -28,7 +28,7 @@ export default props => {
     match: { params: { category, name } } = {},
     history,
     level,
-    location
+    location,
   } = props;
 
   console.log(location);
@@ -38,10 +38,13 @@ export default props => {
       <AddWrapper>
         <MainDiv>
           <HeadlineDiv>
-            <H2>Hold up! You need to be a verified worker to give a review.</H2>
+            <H2>
+              Hold up! You need to sign up to create a new agency in our
+              database.
+            </H2>
           </HeadlineDiv>
           <SubHeading margin="2rem auto">
-            You only need to get verified once :)
+            You only need to sign up once :)
           </SubHeading>
           <Link
             to={{
@@ -52,16 +55,12 @@ export default props => {
                   : {
                       category,
                       name,
-                      redirectToCreateProfile: true
-                    }
+                      redirectToCreateProfile: true,
+                    },
             }}
             style={{ textAlign: "center" }}
           >
-            <Button
-              margin="2rem auto"
-              styleType="primary"
-              text="Get verified now"
-            />
+            <Button margin="2rem auto" styleType="primary" text="Sign up now" />
           </Link>
 
           <Button
@@ -71,15 +70,15 @@ export default props => {
             onClick={history.goBack}
           />
           <SubHeading margin="6rem auto 4rem">
-            Already verified?{" "}
+            Already signed up?{" "}
             <StyledLink
               to={{
                 pathname: LOGIN_URL,
                 state: {
                   category,
                   name,
-                  redirectToCreateProfile: true
-                }
+                  redirectToCreateProfile: true,
+                },
               }}
             >
               Log in

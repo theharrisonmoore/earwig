@@ -52,8 +52,6 @@ export default class Menu extends PureComponent {
       isLoggedIn,
     };
 
-    const isWorker = awaitingReview || verified;
-
     const { isAuthorized } = authorization({ ...data, minimumLevel: "ADMIN" });
 
     const getPopoverContent = () => {
@@ -155,12 +153,10 @@ export default class Menu extends PureComponent {
                 Reviews you&apos;ve given
               </MenuItem>
             )} */}
-            {isWorker && (
-              <MenuItem to={FAQ_URL} onClick={toggleMenu}>
-                <MenuIcon icon="faq" height="19" width="19" />
-                FAQ & how to use earwig
-              </MenuItem>
-            )}
+            <MenuItem to={FAQ_URL} onClick={toggleMenu}>
+              <MenuIcon icon="faq" height="19" width="19" />
+              FAQ & how to use earwig
+            </MenuItem>
             {/* helpful stuff section */}
             {level >= 3 && (
               <MenuItem to="/" target="_blank">

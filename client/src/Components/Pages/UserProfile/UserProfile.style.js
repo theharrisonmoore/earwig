@@ -6,7 +6,7 @@ import {
   shadows,
   borders,
   organizations,
-  breakpoints
+  breakpoints,
 } from "../../../theme";
 
 export const Wrapper = styled.div`
@@ -42,7 +42,7 @@ export const TopSection = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
-  align-items: center;
+  align-items: baseline;
 `;
 
 export const BottomSection = styled.div`
@@ -65,10 +65,10 @@ export const StatTitle = styled.p`
 
 export const Stat = styled.p`
   margin: 0;
-  color: ${colors.lightGray};
+  color: ${colors.tundora};
   font-size: 1.125rem;
-  font-weight: 700;
-  padding-left: 4px;
+  font-weight: normal;
+  padding-left: ${({ noPadding }) => (noPadding ? "0" : "4px")};
 `;
 
 export const IDWrapper = styled.div`
@@ -78,6 +78,7 @@ export const IDWrapper = styled.div`
 export const UsernameStatusDiv = styled.div`
   display: flex;
   flex-direction: column;
+  text-align: left;
 `;
 
 export const Verified = styled.div`
