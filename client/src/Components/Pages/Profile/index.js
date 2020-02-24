@@ -114,9 +114,11 @@ export default class Profile extends Component {
         const { reviews } = summary[0];
 
         // filter the reviews on user state
-        const FilteredReviewMonths = reviews.filter(review => {
-          return review.user && review.user.verified;
-        });
+        const FilteredReviewMonths = reviews;
+        // COMMENTED_VERIFICATION_CHECK
+        // const FilteredReviewMonths = reviews.filter(review => {
+        // return review.user && review.user.verified;
+        // });
 
         let contractorAnswers = [];
         if (

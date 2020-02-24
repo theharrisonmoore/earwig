@@ -12,7 +12,7 @@ import CancelLink from "../../Common/CancelLink";
 
 import Button from "../../Common/Button";
 import Link from "../../Common/Link";
-import PopoverComponent from "../../Common/Popover";
+// import PopoverComponent from "../../Common/Popover";
 
 import {
   StyledFormik as Formik,
@@ -32,20 +32,20 @@ import {
   SignupWrapper,
   ContentWrapper,
   PurpleDiv,
-  OptionsWrapper,
-  StyledInput,
-  ButtonsWrapper,
-  PopoverDiv,
-  Paragraph,
-  Example,
-  ImageInput,
+  // OptionsWrapper,
+  // StyledInput,
+  // ButtonsWrapper,
+  // PopoverDiv,
+  // Paragraph,
+  // Example,
+  // ImageInput,
   ModalContent,
   ModalText,
   LogIn,
   EditIcon,
 } from "./Signup.style";
 
-import example from "../../../assets/example.jpg";
+// import example from "../../../assets/example.jpg";
 import { colors } from "../../../theme";
 
 import { API_SIGN_UP } from "../../../apiUrls";
@@ -84,79 +84,77 @@ const signupSchema = Yup.object().shape({
   checkbox: Yup.boolean()
     .required("You must agree to the earwig Terms of use")
     .oneOf([true], "You must agree to the earwig Terms of use"),
-  isWorker: Yup.string()
-    .required("You must select if you are a worker")
-    .oneOf(["yes", "no"], "You must select if you are a worker"),
-  orgType: Yup.string()
-    .when("isWorker", {
-      is: "yes",
-      then: Yup.string().nullable(),
-      otherwise: Yup.string().oneOf(
-        ["agency", "payroll", "company", "mainCompany", "other", null],
-        "invalid organisation type",
-      ),
-    })
+  // isWorker: Yup.string()
+  //   .required("You must select if you are a worker")
+  //   .oneOf(["yes", "no"], "You must select if you are a worker"),
+  // orgType: Yup.string()
+  //   .when("isWorker", {
+  //     is: "yes",
+  //     then: Yup.string().nullable(),
+  //     otherwise: Yup.string().oneOf(
+  //       ["agency", "payroll", "company", "mainCompany", "other", null],
+  //       "invalid organisation type"
+  //     ),
+  //   })
+  // .nullable(),
+  // otherOrg: Yup.string(),
 
-    .nullable(),
-  otherOrg: Yup.string(),
+  // verificationImage: Yup.mixed().test(
+  //   "verificationImage",
+  //   "You must upload a verification photo",
+  //   function(verificationImage) {
+  //     const isWorker = this.resolve(Yup.ref("isWorker"));
 
-  verificationImage: Yup.mixed().test(
-    "verificationImage",
-    "You must upload a verification photo",
-    function(verificationImage) {
-      const isWorker = this.resolve(Yup.ref("isWorker"));
-
-      if (isWorker === "yes" && !verificationImage) {
-        return false;
-      }
-      return true;
-    },
-  ),
+  //     if (isWorker === "yes" && !verificationImage) {
+  //       return false;
+  //     }
+  //     return true;
+  //   }
+  // ),
 });
 
 const initialValues = {
   email: "",
   password: "",
   checkbox: false,
-  isWorker: null,
-  orgType: null,
-  otherOrg: "",
-
-  verificationImage: undefined,
+  // isWorker: "yes",
+  // orgType: null,
+  // otherOrg: "",
+  // verificationImage: undefined,
 };
 
-const RadioButton = ({
-  field: { name, value, onChange, onBlur },
-  id,
-  label,
-  className,
-  orgType,
-  ...props
-}) => {
-  return (
-    <OptionsWrapper
-      className="test"
-      option={props.option}
-      orgType={props.category}
-      options={props.count}
-    >
-      <input
-        name={name}
-        id={id}
-        type="radio"
-        value={id}
-        checked={id === value}
-        onChange={onChange}
-        onBlur={onBlur}
-        className="radio-button"
-        {...props}
-      />
-      <StyledInput htmlFor={id} value={value} id={id} orgType={orgType}>
-        {label}
-      </StyledInput>
-    </OptionsWrapper>
-  );
-};
+// const RadioButton = ({
+//   field: { name, value, onChange, onBlur },
+//   id,
+//   label,
+//   className,
+//   orgType,
+//   ...props
+// }) => {
+//   return (
+//     <OptionsWrapper
+//       className="test"
+//       option={props.option}
+//       orgType={props.category}
+//       options={props.count}
+//     >
+//       <input
+//         name={name}
+//         id={id}
+//         type="radio"
+//         value={id}
+//         checked={id === value}
+//         onChange={onChange}
+//         onBlur={onBlur}
+//         className="radio-button"
+//         {...props}
+//       />
+//       <StyledInput htmlFor={id} value={value} id={id} orgType={orgType}>
+//         {label}
+//       </StyledInput>
+//     </OptionsWrapper>
+//   );
+// };
 
 const CustomCheckbox = ({ field, ...props }) => (
   <AntCheckbox type="checkbox" {...field} {...props} />
@@ -164,8 +162,8 @@ const CustomCheckbox = ({ field, ...props }) => (
 
 export default class Signup extends Component {
   state = {
-    isWorker: null,
-    orgType: "agency",
+    // isWorker: "yes",
+    // orgType: "agency",
     error: "",
     isPopupVisible: false,
     data: null,
@@ -177,7 +175,7 @@ export default class Signup extends Component {
     const { referral } = this.props.match.params;
     const values = { ..._values };
     const form = new FormData();
-    const { isWorker } = this.state;
+    // const { isWorker } = this.state;
 
     if (referral) {
       values.referral = referral;
@@ -204,20 +202,13 @@ export default class Signup extends Component {
           .then(({ data }) => {
             FBPixelTrack("CompleteRegistration");
 
-            if (isWorker === "yes") {
-              this.setState({
-                isPopupVisible: true,
-                data,
-                browserBackAttempt: false,
-              });
-            } else {
-              this.props.handleChangeState({
-                ...data,
-                isLoggedIn: true,
-                browserBackAttempt: false,
-              });
-              this.handleModalOk();
-            }
+            this.setState({
+              isPopupVisible: true,
+              data,
+              browserBackAttempt: false,
+            });
+
+            setSubmitting(false);
           })
           .catch(err => {
             this.setState({ error: err.response.data.error });
@@ -229,27 +220,27 @@ export default class Signup extends Component {
     }
   };
 
-  handleIsworker = value => {
-    this.setState({ isWorker: value });
-  };
+  // handleIsworker = value => {
+  //   this.setState({ isWorker: value });
+  // };
 
-  handleOrgType = value => {
-    this.setState({ orgType: value });
-  };
+  // handleOrgType = value => {
+  //   this.setState({ orgType: value });
+  // };
 
-  handleImageChange = event => {
-    const verificationImage = event.target.files && event.target.files[0];
-    const reader = new FileReader();
+  // handleImageChange = event => {
+  //   const verificationImage = event.target.files && event.target.files[0];
+  //   const reader = new FileReader();
 
-    reader.onload = () => {
-      const dataURL = reader.result;
-      this.setState({
-        verificationImage: dataURL,
-      });
-    };
+  //   reader.onload = () => {
+  //     const dataURL = reader.result;
+  //     this.setState({
+  //       verificationImage: dataURL,
+  //     });
+  //   };
 
-    if (verificationImage) reader.readAsDataURL(verificationImage);
-  };
+  //   if (verificationImage) reader.readAsDataURL(verificationImage);
+  // };
 
   togglePasswordVisibility = () => {
     this.setState(prevState => ({
@@ -265,13 +256,13 @@ export default class Signup extends Component {
           genuine worker. This means all reviews are real and protects the
           worker community from fake reviews and spam by non-workers.
         </p>
-        <p>Don't worry, you are always anonymous on earwig.</p>
+        <p>Don&apos;t worry, you are always anonymous on earwig.</p>
       </div>
     );
   };
 
   handleModalOk = () => {
-    const { isWorker, data } = this.state;
+    const { data } = this.state;
     const {
       location: {
         state: {
@@ -285,23 +276,19 @@ export default class Signup extends Component {
     } = this.props;
 
     this.props.handleChangeState({ ...data, isLoggedIn: true });
+
     if (redirectToProfile && orgId) {
       this.props.history.push({
         pathname: `/profile/${orgId}`,
       });
     } else if (
       redirectToCreateProfile &&
-      isWorker === "yes" &&
+      // isWorker === "yes" &&
       name &&
       category
     ) {
       this.props.history.push({
         pathname: `/add-profile-sign-up/${category}/${name}`,
-      });
-    } else if (isWorker === "yes") {
-      this.props.history.push({
-        pathname: HOME_PAGE,
-        state: { isWorker },
       });
     } else {
       this.props.history.push(HOME_PAGE);
@@ -311,11 +298,9 @@ export default class Signup extends Component {
   render() {
     const {
       error,
-
-      verificationImage,
-
+      // verificationImage,
       isPopupVisible,
-      isWorker,
+      // isWorker,
       isPasswordVisible,
       browserBackAttempt,
     } = this.state;
@@ -360,7 +345,12 @@ export default class Signup extends Component {
             validationSchema={signupSchema}
             onSubmit={this.handleSubmit}
           >
-            {({ errors, isSubmitting, handleChange, setFieldValue }) => {
+            {({
+              errors,
+              isSubmitting,
+              // handleChange,
+              // setFieldValue
+            }) => {
               return (
                 <Form style={{ width: "100%" }}>
                   <Label htmlFor="email">
@@ -395,13 +385,13 @@ export default class Signup extends Component {
                       Show password
                     </CheckboxLabel>
                   </CheckboxWrapper>
-                  <Label
+                  {/* <Label
                     style={{ marginTop: "1rem", marginBottom: "-0.02rem" }}
                     htmlFor="isWorker"
                   >
                     Are you are worker?
-                  </Label>
-                  <ButtonsWrapper style={{ display: "flex" }}>
+                  </Label> */}
+                  {/* <ButtonsWrapper style={{ display: "flex" }}>
                     <Field
                       component={RadioButton}
                       name="isWorker"
@@ -427,16 +417,16 @@ export default class Signup extends Component {
                       }}
                       option="no"
                     />
-                  </ButtonsWrapper>
+                  </ButtonsWrapper> */}
 
-                  <FormikErrorMessage
+                  {/* <FormikErrorMessage
                     name="isWorker"
                     component="div"
                     id="isWorker"
-                  />
+                  /> */}
 
                   {/* start of orgs options */}
-                  {isWorker && isWorker === "no" && (
+                  {/* {isWorker && isWorker === "no" && (
                     <>
                       <Label htmlFor="orgType">Do you work for an:</Label>
                       <ButtonsWrapper style={{ display: "flex" }}>
@@ -517,8 +507,8 @@ export default class Signup extends Component {
                         </>
                       )}
                     </>
-                  )}
-                  {isWorker && isWorker === "yes" && (
+                  )} */}
+                  {/* {isWorker && isWorker === "yes" && (
                     <>
                       <Label
                         style={{ marginTop: "1rem", marginBottom: "-0.3rem" }}
@@ -548,7 +538,7 @@ export default class Signup extends Component {
                               onChange={event => {
                                 form.setFieldValue(
                                   "verificationImage",
-                                  event.currentTarget.files[0],
+                                  event.currentTarget.files[0]
                                 );
                                 this.handleImageChange(event);
                               }}
@@ -572,9 +562,9 @@ export default class Signup extends Component {
                         id="verificationImage"
                       />
                     </>
-                  )}
+                  )} */}
                   {/* end of orgs options */}
-                  {isWorker && (
+                  {
                     <>
                       <Divider style={{ marginTop: "2rem" }} />
 
@@ -628,7 +618,7 @@ export default class Signup extends Component {
                         margin="1rem auto 2rem auto"
                       />
                     </>
-                  )}
+                  }
                 </Form>
               );
             }}
@@ -638,10 +628,10 @@ export default class Signup extends Component {
             visible={isPopupVisible}
             footer={null}
             closable={false}
-            afterClose={this.handleModalOk}
+            // afterClose={this.handleModalOk}
           >
             <ModalContent>
-              <EditIcon
+              {/* <EditIcon
                 icon="getVerified"
                 height="25"
                 width="25"
@@ -653,7 +643,7 @@ export default class Signup extends Component {
                 Thanks, we&apos;re checking your photo. Any reviews you give
                 won&apos;t be shown on earwig until we&apos;ve checked your
                 photo
-              </ModalText>
+              </ModalText> */}
               <EditIcon
                 icon="inbox"
                 height="25"
@@ -663,8 +653,8 @@ export default class Signup extends Component {
                 style={{ marginTop: "2rem" }}
               />
               <ModalText>
-                Check your email and make sure earwig is not marked as Spam,
-                otherwise you&apos;ll miss important notifications.
+                Check your email and make sure earwig is not marked as Spam
+                otherwise you’ll miss important notifications.
               </ModalText>
               <Button
                 styleType="primary"

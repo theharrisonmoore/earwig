@@ -7,7 +7,7 @@ import CancelNavbar from "../../Common/CancelNavbar";
 // nagivation routes
 import {
   EDIT_TRADE_URL,
-  EDIT_CITY_URL,
+  // EDIT_CITY_URL,
   EDIT_ID_URL,
   EDIT_PASSWORD_URL,
 } from "../../../constants/naviagationUrls";
@@ -46,7 +46,13 @@ export default class EditProfile extends Component {
   }
 
   render() {
-    const { userId, city, history, verified, awaitingReview } = this.props;
+    const {
+      userId,
+      // city,
+      history,
+      verified,
+      awaitingReview,
+    } = this.props;
 
     const isWorker = awaitingReview || verified;
 
@@ -89,14 +95,14 @@ export default class EditProfile extends Component {
                     </NavLink>
                   </Row>
                 </Section>
-                <Section>
+                {/* <Section>
                   <Row>
                     <Option>Town or City:&nbsp;{city}</Option>
                     <NavLink to={EDIT_CITY_URL}>
                       <EditButton type="button">Change</EditButton>
                     </NavLink>
                   </Row>
-                </Section>
+                </Section> */}
                 <Section>
                   <Row>
                     <Option>Delete your account</Option>

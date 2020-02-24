@@ -81,7 +81,9 @@ export const getCarCost = (reviewDetails = []) => {
 };
 
 export const getVerifiedUsers = usersArray => {
-  return usersArray.filter(user => user.verified).map(({ _id }) => _id);
+  // COMMENTED_VERIFICATION_CHECK
+  // return usersArray.filter(user => user.verified).map(({ _id }) => _id);
+  return usersArray.map(({ _id }) => _id);
 };
 
 export const checkAdminReply = usersArray => {

@@ -9,7 +9,7 @@ import {
   MenuIcon,
   LogoutButton,
   PriorityIcon,
-  MenuWrapper
+  MenuWrapper,
 } from "./Menu.style";
 
 import { ToggleMenu } from "./Navbar.style";
@@ -28,7 +28,7 @@ import {
   SIGNUP_URL,
   PRIVACY_AND_TERMS_URL,
   ADMIN,
-  INVITE_WORKERS_URL
+  INVITE_WORKERS_URL,
 } from "../../../constants/naviagationUrls";
 
 export default class Menu extends PureComponent {
@@ -42,17 +42,15 @@ export default class Menu extends PureComponent {
       verified,
       history,
       handleChangeState,
-      level
+      level,
     } = this.props;
 
     const data = {
       isAdmin,
       awaitingReview,
       verified,
-      isLoggedIn
+      isLoggedIn,
     };
-
-    const isWorker = awaitingReview || verified;
 
     const { isAuthorized } = authorization({ ...data, minimumLevel: "ADMIN" });
 
@@ -64,7 +62,7 @@ export default class Menu extends PureComponent {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            textAlign: "center"
+            textAlign: "center",
           }}
         >
           <Icon
@@ -95,7 +93,7 @@ export default class Menu extends PureComponent {
               style={{
                 fontSize: "19px",
                 color: colors.white,
-                marginRight: "16px"
+                marginRight: "16px",
               }}
             />
             Admin Dashboard
@@ -155,12 +153,10 @@ export default class Menu extends PureComponent {
                 Reviews you&apos;ve given
               </MenuItem>
             )} */}
-            {isWorker && (
-              <MenuItem to={FAQ_URL} onClick={toggleMenu}>
-                <MenuIcon icon="faq" height="19" width="19" />
-                FAQ & how to use earwig
-              </MenuItem>
-            )}
+            <MenuItem to={FAQ_URL} onClick={toggleMenu}>
+              <MenuIcon icon="faq" height="19" width="19" />
+              FAQ & how to use earwig
+            </MenuItem>
             {/* helpful stuff section */}
             {level >= 3 && (
               <MenuItem to="/" target="_blank">
@@ -172,11 +168,11 @@ export default class Menu extends PureComponent {
                     placement: "right",
                     linkButtonOptions: {
                       target: "_blank",
-                      pathname: "//www.earwigwork.com/blog"
+                      pathname: "//www.earwigwork.com/blog",
                     },
                     overlayStyle: { paddingLeft: "4.3rem" },
                     margin: "1rem 0 0 0",
-                    bottomCancelBtn: true
+                    bottomCancelBtn: true,
                   }}
                 >
                   Helpful stuff

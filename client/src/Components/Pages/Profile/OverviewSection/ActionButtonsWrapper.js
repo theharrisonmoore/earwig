@@ -8,7 +8,7 @@ import { colors } from "../../../../theme";
 
 import {
   SIGNUP_URL,
-  UPLOAD_VERIFICATION_PHOTO,
+  // UPLOAD_VERIFICATION_PHOTO,
 } from "../../../../constants/naviagationUrls";
 
 import {
@@ -40,14 +40,13 @@ const getTooltipContent = type => {
         fill={colors.gray}
       />
       {type === "like" &&
-        "If you want to give workers points by liking their reviews, you first need to get verified as a worker. This protects the worker community from fake reviews and spam by non-workers."}
+        "If you want to give workers points by liking their reviews, you need to sign up."}
       {type === "comment" &&
-        "If you want to post replies to workers, you first need to get verified as a worker. This protects the worker community from fake reviews and spam by non-workers."}
-      {type === "flag" &&
-        "If you want to report content, you first need to sign up using a valid email address so we can get back to you."}
-
+        "If you want to reply to workers, you need to sign up."}
+      {type === "flag" && "If you want to report content, you need to sign up."}
+      {/* 
       {type === "exclamation" &&
-        "Hang on! You can’t do this until we’ve checked your photo. Give us a few minutes. You might need to refresh your page."}
+        "Hang on! You can’t do this until we’ve checked your photo. Give us a few minutes. You might need to refresh your page."} */}
     </div>
   );
 };
@@ -70,11 +69,12 @@ const ActionButtonsWrapper = ({
   reportLink,
   target,
 }) => {
-
   // decides what like functions to render
   function renderLikeIcon(level) {
     switch (level) {
       // user is verified and can like
+      case 1:
+      case 2:
       case 3:
       case 4:
         return (
@@ -98,23 +98,24 @@ const ActionButtonsWrapper = ({
           </LikeWrapper>
         );
 
-      // user awaits verification --> sees hold on popup
-      case 2:
-        return (
-          <PopoverComponent
-            popoverOptions={{
-              text: getTooltipContent("exclamation"),
-              iconTooltip: {
-                icon: "like",
-                fill: colors.gray,
-                width: "27",
-                height: "27",
-              },
-              closeButton: true,
-              margin: "0 2rem 0 0",
-            }}
-          />
-        );
+      // COMMENTED_VERIFICATION_CHECK
+      // // user awaits verification --> sees hold on popup
+      // case 2:
+      //   return (
+      //     <PopoverComponent
+      //       popoverOptions={{
+      //         text: getTooltipContent("exclamation"),
+      //         iconTooltip: {
+      //           icon: "like",
+      //           fill: colors.gray,
+      //           width: "27",
+      //           height: "27",
+      //         },
+      //         closeButton: true,
+      //         margin: "0 2rem 0 0",
+      //       }}
+      //     />
+      //   );
       // user has not undergone verification process --> sees get verified popover
       default:
         return (
@@ -127,9 +128,11 @@ const ActionButtonsWrapper = ({
                 width: "27",
                 height: "27",
               },
-              actionButtonTxt: "Get verified",
+              actionButtonTxt: "Sign up now",
               linkButtonOptions: {
-                pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
+                pathname: SIGNUP_URL,
+                // COMMENTED_VERIFICATION_CHECK
+                // pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
                 state: {
                   category,
                   orgId,
@@ -148,6 +151,8 @@ const ActionButtonsWrapper = ({
   function renderCommentButton(level) {
     switch (level) {
       // user is verified and can comment
+      case 1:
+      case 2:
       case 3:
       case 4:
         return (
@@ -162,23 +167,24 @@ const ActionButtonsWrapper = ({
           </CommentIconWrapper>
         );
 
+      // COMMENTED_VERIFICATION_CHECK
       // user awaits verification --> sees hold on popup
-      case 2:
-        return (
-          <PopoverComponent
-            popoverOptions={{
-              text: getTooltipContent("exclamation"),
-              iconTooltip: {
-                icon: "comment",
-                fill: colors.gray,
-                width: "27",
-                height: "27",
-              },
-              closeButton: true,
-              margin: "0",
-            }}
-          />
-        );
+      // case 2:
+      //   return (
+      //     <PopoverComponent
+      //       popoverOptions={{
+      //         text: getTooltipContent("exclamation"),
+      //         iconTooltip: {
+      //           icon: "comment",
+      //           fill: colors.gray,
+      //           width: "27",
+      //           height: "27",
+      //         },
+      //         closeButton: true,
+      //         margin: "0",
+      //       }}
+      //     />
+      //   );
       // user has not undergone verification process --> sees get verified popover
       default:
         return (
@@ -191,9 +197,11 @@ const ActionButtonsWrapper = ({
                 width: "27",
                 height: "27",
               },
-              actionButtonTxt: "Get verified",
+              actionButtonTxt: "Sign up now",
               linkButtonOptions: {
-                pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
+                pathname: SIGNUP_URL,
+                // COMMENTED_VERIFICATION_CHECK
+                // pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
                 state: {
                   category,
                   orgId,
@@ -237,9 +245,11 @@ const ActionButtonsWrapper = ({
                 width: "27",
                 height: "27",
               },
-              actionButtonTxt: "Sign up",
+              actionButtonTxt: "Sign up now",
               linkButtonOptions: {
-                pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
+                pathname: SIGNUP_URL,
+                // COMMENTED_VERIFICATION_CHECK
+                // pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
                 state: {
                   category,
                   orgId,
@@ -247,7 +257,7 @@ const ActionButtonsWrapper = ({
                 },
               },
               closeButton: true,
-              margin: "1rem 0 0 3rem",
+              margin: "0rem 0 0 3rem",
             }}
           />
         )}

@@ -51,10 +51,7 @@ export default class Welcome extends Component {
             </Header>
             <ContentWrapper>
               <SubtitleWrapper>
-                <Subtitle>
-                  Give and get workers' reviews about agencies, payrolls,
-                  worksites <i>and</i> companies
-                </Subtitle>
+                <Subtitle>Choose…</Subtitle>
               </SubtitleWrapper>
               <ButtonsWrapper>
                 <Link to={SEARCH_URL.replace(":category?", "agency")}>
@@ -81,9 +78,9 @@ export default class Welcome extends Component {
               </ButtonsWrapper>
             </ContentWrapper>
             <FooterTitle>
-              <Subtitle>
+              {/* <Subtitle>
                 Empowering construction workers to own their work culture
-              </Subtitle>
+              </Subtitle> */}
             </FooterTitle>
           </Body>
         </Wrapper>
