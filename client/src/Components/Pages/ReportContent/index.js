@@ -37,7 +37,6 @@ export default class ReportContent extends Component {
   };
 
   handleSubmit = () => {
-    console.log("REACHED");
     const {
       target,
       orgId,
@@ -56,7 +55,6 @@ export default class ReportContent extends Component {
       this.props.location.search &&
       this.props.location.search.split("image")[1];
     const image = isImage && isImage.replace(/^=/, "");
-    console.log("im", isImage);
 
     if (!this.state.description) {
       return message.error("Please fill in some information!");
