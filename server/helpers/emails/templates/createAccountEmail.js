@@ -1,7 +1,7 @@
 const mailer = require("../mailer");
 const config = require("../../../config");
 
-module.exports = (to) => {
+module.exports = to => {
   const html = `
   <div>
     <div style="text-align: center;" >
@@ -18,7 +18,7 @@ module.exports = (to) => {
     </p>
 
     <ul>
-      <li>Giving reviews</li>
+      <li>Give reviews</li>
       <li>Reply to workers</li>
       <li>Invite workers to earwig</li>
       <li>Find other helpful stuff</li>
