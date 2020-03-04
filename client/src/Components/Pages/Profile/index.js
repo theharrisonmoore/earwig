@@ -75,7 +75,7 @@ export default class Profile extends Component {
             }
             return prev;
           },
-          { overallReview: {}, voiceReview: {}, comment: {} }
+          { overallReview: {}, voiceReview: {}, comment: {} },
         );
         this.setState({
           counters: newCounters,
