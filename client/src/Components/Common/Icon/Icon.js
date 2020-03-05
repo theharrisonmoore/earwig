@@ -113,6 +113,7 @@ import Linkedin from "./Linkedin";
 import Messenger from "./Messenger";
 import Whatsapp from "./Whatsapp";
 import Inbox from "./Inbox";
+import Twitter from "./Twitter";
 
 const iconStyles = props => css`
   width: ${props.width || "100%"};
@@ -234,6 +235,7 @@ const iconMap = {
   messenger: Messenger,
   whatsapp: Whatsapp,
   inbox: Inbox,
+  twitter: Twitter,
 };
 
 const styledIconMap = Object.keys(iconMap).reduce((accum, curr) => {

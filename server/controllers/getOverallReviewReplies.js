@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
   const userId = user && user._id;
 
   getOverallReplies(id, target, userId)
-    .then((replies) => {
+    .then(replies => {
       res.json(replies);
     })
     .catch(() => {

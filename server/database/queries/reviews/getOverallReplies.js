@@ -5,19 +5,19 @@ const Review = require("../../models/Review");
 module.exports = (id, target, userId) => {
   // COMMENTED_VERIFICATION_CHECK
   // let match = { "replies.user.verified": true };
-  let match = { };
+  // let match = { };
 
-  if (userId) {
-    // COMMENTED_VERIFICATION_CHECK
-    // match = {
-    //   $or: [
-    //     { "replies.user.verified": true },
-    //     { "replies.user._id": mongoose.Types.ObjectId(userId) },
-    //   ],
-    // };
+  // if (userId) {
+  //   // COMMENTED_VERIFICATION_CHECK
+  //   // match = {
+  //   //   $or: [
+  //   //     { "replies.user.verified": true },
+  //   //     { "replies.user._id": mongoose.Types.ObjectId(userId) },
+  //   //   ],
+  //   // };
 
-    match = { "replies.user._id": mongoose.Types.ObjectId(userId) };
-  }
+  //   match = { "replies.user._id": mongoose.Types.ObjectId(userId) };
+  // }
 
   return Review.aggregate([
     {
@@ -41,10 +41,11 @@ module.exports = (id, target, userId) => {
         as: "replies.user",
       },
     },
-    {
-      $match: match,
+    // don't need a match because all replies are shown now without verification
+    // {
+    //   $match: match,
 
-    },
+    // },
     {
       $unwind: { path: "$replies.user", preserveNullAndEmptyArrays: true },
     },
