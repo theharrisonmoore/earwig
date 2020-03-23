@@ -18,7 +18,7 @@ export const axiosCall = async category => {
   const response = await axios.get(
     API_SEARCH_URL.replace(":category", category),
   );
-
+  console.log("response", response);
   return response;
 };
 
@@ -78,6 +78,7 @@ export default class Search extends Component {
           .then(({ data: [{ searchData: newData, lastReviewed }] }) => {
             const sortedOrgs = sortAndCategorizeOrgs(newData);
             const lastReviewedOrgs = lastReviewed.map(org => org.lastReviewed);
+            console.log("review", lastReviewedOrgs);
 
             this.setState(prevState => {
               return {
