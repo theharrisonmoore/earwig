@@ -277,8 +277,7 @@ export const ReviewDiv = styled.div`
   display: flex;
   flex-direction: column;
   text-align: left;
-  ${sharedReviewSectionStyle}
-  ${dividerStyle}
+  ${sharedReviewSectionStyle} ${dividerStyle};
 `;
 
 export const Level0PromoWrapper = styled.div`
@@ -286,7 +285,6 @@ export const Level0PromoWrapper = styled.div`
   flex-direction: column;
   text-align: left;
   ${sharedReviewSectionStyle}
-
   margin-top: 1rem;
 `;
 
@@ -471,7 +469,7 @@ export const AccountLink = styled(VerifyLink)`
   justify-content: flex-start;
   position: ${({ sticky }) => (sticky ? "-webkit-sticky" : "-webkit-static")};
   position: ${({ sticky }) => (sticky ? "sticky" : "static")};
-  top: 0;
+  top: 4.5rem;
   width: 100%;
   background-color: ${colors.white};
   position: sticky;

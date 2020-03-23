@@ -1,9 +1,12 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import Icon from "./Icon/Icon";
+import PopoverComponent from "./Popover";
 
 import { colors } from "../../theme";
+
+import { SIGNUP_URL } from "../../constants/naviagationUrls";
 
 export const TabsDivFullWidth = styled.div`
   border-bottom: 1px solid ${colors.dustyGray2};
@@ -25,6 +28,10 @@ export const TabsDiv = styled.div`
   position: relative;
 `;
 
+export const level0PromoStyle = css`
+  color: ${colors.dustyGray2};
+`;
+
 export const Tab = styled.div`
   display: flex;
   color: ${colors.primary};
@@ -39,6 +46,8 @@ export const Tab = styled.div`
   * {
     pointer-events: none;
   }
+
+  ${({ level }) => level === 0 && level0PromoStyle}
 `;
 
 export const TabTitle = styled.span`
@@ -69,7 +78,10 @@ const GeneralTabs = ({
   tabOne,
   tabTwo,
   zIndex,
-  fixedHeight
+  fixedHeight,
+  level,
+  category,
+  orgId,
 }) => {
   return (
     <TabsDivFullWidth zIndex={zIndex} fixedHeight={fixedHeight}>
@@ -78,10 +90,53 @@ const GeneralTabs = ({
           <Icon icon={tabOne} width="19" height="19" />
           <TabTitle isActive={activeTab === tabOne}>{tabOne}</TabTitle>
         </Tab>
-        <Tab isActive={activeTab === tabTwo} data-tab={tabTwo}>
-          <Icon icon={tabTwo} width="19" height="19" />
-          <TabTitle isActive={activeTab === tabTwo}>{tabTwo}</TabTitle>
-        </Tab>
+        {level > 0 ? (
+          <Tab isActive={activeTab === tabTwo} data-tab={tabTwo}>
+            <Icon icon={tabTwo} width="19" height="19" />
+            <TabTitle isActive={activeTab === tabTwo}>{tabTwo}</TabTitle>
+          </Tab>
+        ) : (
+          // <Tab level={level} data-tab={tabTwo}>
+          //   <Icon
+          //     icon={tabTwo}
+          //     width="19"
+          //     height="19"
+          //     color={colors.dustyGray2}
+          //     opacity={tabTwo === "detailed" && "0.5"}
+          //   />
+          //   <TabTitle>{tabTwo}</TabTitle>
+          // </Tab>
+          <div style={{ width: "50%" }}>
+            <PopoverComponent
+              popoverOptions={{
+                text: `Sign up to see more information including detailed reviews and company contact details.`,
+                actionButtonTxt: "Sign up to see more",
+                linkButtonOptions: {
+                  pathname: SIGNUP_URL,
+                  // COMMENTED_VERIFICATION_CHECK
+                  // pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
+                  state: {
+                    category,
+                    orgId,
+                    redirectToProfile: true,
+                  },
+                },
+              }}
+              children={
+                <Tab level={level} data-tab={tabTwo} style={{ width: "100%" }}>
+                  <Icon
+                    icon={tabTwo}
+                    width="19"
+                    height="19"
+                    color={colors.dustyGray2}
+                    opacity={tabTwo === "detailed" && "0.5"}
+                  />
+                  <TabTitle>{tabTwo}</TabTitle>
+                </Tab>
+              }
+            />
+          </div>
+        )}
         <Underline left={activeTab === tabOne} />
       </TabsDiv>
     </TabsDivFullWidth>

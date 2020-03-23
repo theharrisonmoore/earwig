@@ -289,7 +289,7 @@ class OverallReview extends Component {
     // });
 
     return FilteredReviewMonths[0] && FilteredReviewMonths[0].createdAt ? (
-      <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
+      <ReviewDiv isTablet={isTablet} isMobile={isMobile} level={level}>
         <SectionTitle>
           Reviews by workers ({writtenOrAudioReviews.length})
         </SectionTitle>
@@ -395,7 +395,11 @@ class OverallReview extends Component {
       </ReviewDiv>
     ) : (
       <>
-        <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
+        <ReviewDiv
+          isTablet={isTablet}
+          isMobile={isMobile}
+          style={{ marginTop: "4.25rem" }}
+        >
           <SectionTitle>Reviews</SectionTitle>
           <LightTitle>No reviews yet. Be the first…</LightTitle>
         </ReviewDiv>
