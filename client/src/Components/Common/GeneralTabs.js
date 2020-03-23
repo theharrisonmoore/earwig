@@ -25,7 +25,7 @@ export const TabsDiv = styled.div`
   max-width: 376px;
   width: 100%;
   margin: 0 auto;
-  // position: relative;
+  position: relative;
 `;
 
 export const level0PromoStyle = css`
@@ -90,22 +90,7 @@ const GeneralTabs = ({
           <Icon icon={tabOne} width="19" height="19" />
           <TabTitle isActive={activeTab === tabOne}>{tabOne}</TabTitle>
         </Tab>
-        {level > 0 ? (
-          <Tab isActive={activeTab === tabTwo} data-tab={tabTwo}>
-            <Icon icon={tabTwo} width="19" height="19" />
-            <TabTitle isActive={activeTab === tabTwo}>{tabTwo}</TabTitle>
-          </Tab>
-        ) : (
-          // <Tab level={level} data-tab={tabTwo}>
-          //   <Icon
-          //     icon={tabTwo}
-          //     width="19"
-          //     height="19"
-          //     color={colors.dustyGray2}
-          //     opacity={tabTwo === "detailed" && "0.5"}
-          //   />
-          //   <TabTitle>{tabTwo}</TabTitle>
-          // </Tab>
+        {level === 0 ? (
           <div style={{ width: "50%" }}>
             <PopoverComponent
               popoverOptions={{
@@ -141,6 +126,11 @@ const GeneralTabs = ({
               }
             />
           </div>
+        ) : (
+          <Tab isActive={activeTab === tabTwo} data-tab={tabTwo}>
+            <Icon icon={tabTwo} width="19" height="19" />
+            <TabTitle isActive={activeTab === tabTwo}>{tabTwo}</TabTitle>
+          </Tab>
         )}
         <Underline left={activeTab === tabOne} />
       </TabsDiv>
