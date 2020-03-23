@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import React, { Component } from "react";
 import axios from "axios";
-import { message, Skeleton, Popover } from "antd";
+import { message, Skeleton } from "antd";
 
 import HeaderSection from "./HeaderSection";
 import OverviewSection from "./OverviewSection";
@@ -94,7 +94,7 @@ export default class Profile extends Component {
     const { level } = this.props;
     // if level 0 then show pop up instead
     if (level === 0) {
-      return null;
+      return window.scrollTo(0, 0);
     }
     this.setState({ activeTab: tab });
   };

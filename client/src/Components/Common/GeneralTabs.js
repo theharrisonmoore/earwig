@@ -25,7 +25,7 @@ export const TabsDiv = styled.div`
   max-width: 376px;
   width: 100%;
   margin: 0 auto;
-  position: relative;
+  // position: relative;
 `;
 
 export const level0PromoStyle = css`
@@ -120,6 +120,11 @@ const GeneralTabs = ({
                     orgId,
                     redirectToProfile: true,
                   },
+                  overlayStyle: {
+                    position: "absolute",
+                    margin: "auto",
+                  },
+                  placement: "bottom",
                 },
               }}
               children={
