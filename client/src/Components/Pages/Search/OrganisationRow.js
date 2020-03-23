@@ -118,6 +118,14 @@ const Suggestion = props => {
                 <p>{organisation.totalReviews} reviews</p>
               </ReviewDetailsDiv>
             </OrganisationDetailsDiv>
+            <div style={{ margin: "auto 1.5rem auto auto" }}>
+              <Icon
+                icon="right"
+                height="1.375rem"
+                width="1.375rem"
+                color={organizations[organisation.category].primary}
+              />
+            </div>
           </InnerDivSuggestions>
         </SuggestionBox>
       </ProfileLink>
