@@ -94,7 +94,12 @@ const GeneralTabs = ({
           <div style={{ width: "50%" }}>
             <PopoverComponent
               popoverOptions={{
-                text: `Sign up to see more information including detailed reviews and company contact details.`,
+                text: (
+                  <p style={{ color: colors.dustyGray2, textAlign: "center" }}>
+                    Sign up to see more information including detailed reviews
+                    and company contact details.
+                  </p>
+                ),
                 actionButtonTxt: "Sign up to see more",
                 linkButtonOptions: {
                   pathname: SIGNUP_URL,
