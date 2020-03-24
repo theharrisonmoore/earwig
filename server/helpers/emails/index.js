@@ -15,7 +15,8 @@ const newReviewPublished = require("./templates/newReviewPublished");
 const newTradeAdded = require("./templates/newTradeAdded");
 const gotHelpfulPoints = require("./templates/gotHelpfulPoints");
 const gotReplies = require("./templates/gotReplies");
-
+// notify admin about new user signing up
+const newUserAdded = require("./templates/newUserAdded");
 
 module.exports = {
   approvalEmail,
@@ -31,4 +32,5 @@ module.exports = {
   newTradeAdded,
   gotHelpfulPoints,
   gotReplies,
+  newUserAdded,
 };

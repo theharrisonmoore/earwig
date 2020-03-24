@@ -2,13 +2,14 @@ import React from "react";
 
 // original height 351
 
-const Detailed = ({ width, height }) => (
+const Detailed = ({ width, height, opacity }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xlink="http://www.w3.org/1999/xlink"
     width={width}
     height={height}
     viewBox={`0 0 ${width} ${height}`}
+    opacity={opacity}
   >
     <image
       y={(248 / 351) * height}

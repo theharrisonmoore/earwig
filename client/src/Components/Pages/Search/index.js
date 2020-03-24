@@ -18,7 +18,6 @@ export const axiosCall = async category => {
   const response = await axios.get(
     API_SEARCH_URL.replace(":category", category),
   );
-
   return response;
 };
 

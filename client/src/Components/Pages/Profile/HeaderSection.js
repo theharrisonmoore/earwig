@@ -13,7 +13,7 @@ import {
   ActionButtonsDiv,
   CompanyNameAndStars,
   CompanyTitle,
-  LogoWrapper
+  LogoWrapper,
 } from "./Profile.style";
 
 import { colors, organizations } from "../../../theme";
@@ -94,7 +94,7 @@ export default class HeaderSection extends Component {
       reviewsLast30Days,
       orgId,
       setActiveTab,
-      activeTab = "overview"
+      activeTab = "overview",
     } = this.props;
     const { category, name } = summary;
     // if there are reviews less dating before 1 month user not allowed
@@ -107,16 +107,17 @@ export default class HeaderSection extends Component {
         // ref={this.headerRef}
       >
         <ColoredBanner category={category} name={name} isMobile={isMobile} />
-        {level > 0 && (
-          <GeneralTabs
-            setActiveTab={setActiveTab}
-            activeTab={activeTab}
-            tabOne="overview"
-            tabTwo="detailed"
-            zIndex="2"
-            fixedHeight="4.5rem"
-          />
-        )}
+        <GeneralTabs
+          setActiveTab={setActiveTab}
+          activeTab={activeTab}
+          tabOne="overview"
+          tabTwo="detailed"
+          zIndex="2"
+          fixedHeight="4.5rem"
+          level={level}
+          category={category}
+          orgId={orgId}
+        />
         {level > 0 ? (
           <ActionButtonsDiv>
             <Link
@@ -126,7 +127,7 @@ export default class HeaderSection extends Component {
                     ? // VERIFICATION_REQUIRED
                       `/verification-required/${category}/${name}`
                     : PRE_REVIEW.replace(":orgId", orgId),
-                state: { name, category, redirectToReview: true, orgId }
+                state: { name, category, redirectToReview: true, orgId },
               }}
               onClick={e =>
                 reviewNotAllowed &&
@@ -140,7 +141,7 @@ export default class HeaderSection extends Component {
                 style={{
                   opacity: `${
                     reviewNotAllowed && reviewsLast30Days.length > 0 ? 0.5 : 1
-                  }`
+                  }`,
                 }}
                 text={`Review this ${category || "organisation"}`}
                 disabled={reviewNotAllowed && reviewsLast30Days.length > 0}

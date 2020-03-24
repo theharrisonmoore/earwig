@@ -76,10 +76,15 @@ module.exports = async (req, res, next) => {
         throw boom.badData(data.errors[0].error);
       }
       await sendEmail.createAccount(email);
-      if (fieldName === "verificationImage") {
-        // send an email to the admin.
-        await sendEmail.verificationPhotoEmail();
-      }
+
+      // notify admin about new user
+      await sendEmail.newUserAdded(email);
+
+      // NOT NEEDED CURRENTLY BECAUSE NO VERIFICATION
+      // if (fieldName === "verificationImage") {
+      //   // send an email to the admin.
+      //   await sendEmail.verificationPhotoEmail();
+      // }
     }
 
     // data to be sent in the response

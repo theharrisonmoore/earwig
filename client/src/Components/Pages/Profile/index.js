@@ -91,6 +91,11 @@ export default class Profile extends Component {
 
   setActiveTab = e => {
     const { tab } = e.target.dataset;
+    const { level } = this.props;
+    // if level 0 then show pop up instead
+    if (level === 0) {
+      return window.scrollTo(0, 0);
+    }
     this.setState({ activeTab: tab });
   };
 
