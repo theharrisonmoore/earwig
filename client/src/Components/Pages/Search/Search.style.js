@@ -195,6 +195,7 @@ export const OrganisationDetailsDiv = styled.div`
   h3 {
     font-weight: 700;
     font-size: 15px;
+    word-wrap: break-word !important;
   }
 `;
 

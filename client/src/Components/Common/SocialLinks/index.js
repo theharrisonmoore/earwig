@@ -6,6 +6,7 @@ import {
   FacebookMessengerShareButton,
   FacebookShareButton,
   LinkedinShareButton,
+  TwitterShareButton,
 } from "react-share";
 
 import Icon from "../Icon/Icon";
@@ -46,8 +47,7 @@ export default class SocialLinks extends Component {
   // };
 
   render() {
-    const { title, body, emailSubject } = this.props;
-    const url = "https://earwig-app.herokuapp.com/thank-you";
+    const { title, body, emailSubject, url } = this.props;
 
     return (
       <SocialIcons>
@@ -111,6 +111,13 @@ export default class SocialLinks extends Component {
             <Icon icon="facebook" width="15" height="15" fill={colors.white} />
             Facebook
           </FacebookShareButton>
+        </SocialButtonWrapper>
+
+        <SocialButtonWrapper>
+          <TwitterShareButton style={buttonStyle} url={url} quote={title}>
+            <Icon icon="twitter" width="15" height="15" fill={colors.white} />
+            Twitter
+          </TwitterShareButton>
         </SocialButtonWrapper>
       </SocialIcons>
     );

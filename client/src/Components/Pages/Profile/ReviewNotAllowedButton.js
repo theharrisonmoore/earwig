@@ -18,7 +18,11 @@ const ReviewNotAllowedButton = ({ category, sticky, match }) => {
       }}
       category={category}
     >
-      <Button text="Sign up for more" styleType="primary" margin="1rem auto" />
+      <Button
+        text="Sign up to see more"
+        styleType="primary"
+        margin="1rem auto"
+      />
     </AccountLink>
   );
 };

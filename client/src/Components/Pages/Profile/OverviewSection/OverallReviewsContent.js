@@ -70,7 +70,7 @@ export default ({
 
   const overallReportLink = addSearchParamsToLink(
     overallParams,
-    REPORT_CONTENT_URL
+    REPORT_CONTENT_URL,
   );
 
   return (
@@ -129,6 +129,7 @@ export default ({
           onToggle={togglePanel}
           activeTab={activeTab}
         >
+          {console.log("replies", replies)}
           {replies && (
             <Replies
               replies={replies}

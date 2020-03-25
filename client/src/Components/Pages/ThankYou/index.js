@@ -27,8 +27,8 @@ export default class ThankYou extends Component {
     if (isMobileDevice.any()) {
       window.open(
         `fb-messenger://share?link=${encodeURIComponent(
-          referralLink
-        )}&app_id=${encodeURIComponent("1065819443628486")}`
+          referralLink,
+        )}&app_id=${encodeURIComponent("1065819443628486")}`,
       );
     } else {
       // eslint-disable-next-line no-undef
@@ -51,8 +51,8 @@ export default class ThankYou extends Component {
 
     const orgURL =
       state && state.orgId
-        ? `${window.location.hostname}/profile/${state.orgId}`
-        : `${window.location.hostname}`;
+        ? `https://${window.location.hostname}/profile/${state.orgId}`
+        : `https://${window.location.hostname}`;
 
     const orgName = state && state.orgName ? state.orgName : "an organization";
 

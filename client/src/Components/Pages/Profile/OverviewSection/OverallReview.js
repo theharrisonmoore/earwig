@@ -57,7 +57,7 @@ class OverallReview extends Component {
           target,
           organization,
         });
-      }
+      },
     );
   };
 
@@ -175,6 +175,7 @@ class OverallReview extends Component {
             ...review.voiceReview.allRepliesUsers,
           ];
         }
+
         const verifiedUsers = getVerifiedUsers(repliedUsers);
         const { overallReview, voiceReview } = review;
 
@@ -185,7 +186,7 @@ class OverallReview extends Component {
         if (overallReview && overallReview.text) {
           const repliesCount = getVerifiedRepliesCount(
             review.overallReview.replies,
-            verifiedUsers
+            verifiedUsers,
           );
 
           totalReviews.push({
@@ -206,7 +207,7 @@ class OverallReview extends Component {
         if (voiceReview && voiceReview.audio) {
           const repliesCount = getVerifiedRepliesCount(
             review.voiceReview.replies,
-            verifiedUsers
+            verifiedUsers,
           );
 
           totalReviews.push({
@@ -224,7 +225,7 @@ class OverallReview extends Component {
     // sort total reviews by creation date (newest on top)
 
     totalReviews = totalReviews.sort((a, b) =>
-      a.createdAt > b.createdAt ? -1 : 1
+      a.createdAt > b.createdAt ? -1 : 1,
     );
 
     this.setState(
@@ -238,13 +239,13 @@ class OverallReview extends Component {
         if (pageYOffset) {
           window.scrollTo(0, pageYOffset);
         }
-      }
+      },
     );
   }
 
   checkWrittenComments = reviews => {
     const writtenReviews = reviews.filter(
-      review => review.overallReview.text.length > 0
+      review => review.overallReview.text.length > 0,
     );
 
     return writtenReviews.length > 0;
@@ -288,7 +289,7 @@ class OverallReview extends Component {
     // });
 
     return FilteredReviewMonths[0] && FilteredReviewMonths[0].createdAt ? (
-      <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
+      <ReviewDiv isTablet={isTablet} isMobile={isMobile} level={level}>
         <SectionTitle>
           Reviews by workers ({writtenOrAudioReviews.length})
         </SectionTitle>
@@ -394,7 +395,11 @@ class OverallReview extends Component {
       </ReviewDiv>
     ) : (
       <>
-        <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
+        <ReviewDiv
+          isTablet={isTablet}
+          isMobile={isMobile}
+          style={{ marginTop: "4.25rem" }}
+        >
           <SectionTitle>Reviews</SectionTitle>
           <LightTitle>No reviews yet. Be the first…</LightTitle>
         </ReviewDiv>

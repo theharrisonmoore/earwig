@@ -51,9 +51,10 @@ export default class ReportContent extends Component {
     } = queryString.parse(this.props.location.search);
 
     // get image from URL
-    const image =
+    const isImage =
       this.props.location.search &&
-      this.props.location.search.split("image")[1].replace(/^=/, "");
+      this.props.location.search.split("image")[1];
+    const image = isImage && isImage.replace(/^=/, "");
 
     if (!this.state.description) {
       return message.error("Please fill in some information!");
