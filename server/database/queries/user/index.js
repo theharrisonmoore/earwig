@@ -129,6 +129,8 @@ const getUserVotesOnProfile = ({ userId, orgId }) => Helpfulness.find(
   },
 );
 
+const getSignedUpReferrals = userId => User.find({ referral: userId }).count();
+
 module.exports = {
   updateUserHelpfulPoints,
   checkValidReferral,
@@ -148,4 +150,5 @@ module.exports = {
   deleteUserCompletely,
   deleteDataAddedByUser,
   getAllUsers,
+  getSignedUpReferrals,
 };
