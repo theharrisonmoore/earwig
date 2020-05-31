@@ -43,6 +43,9 @@ import {
   ModalText,
   LogIn,
   EditIcon,
+  HeaderSection,
+  HeaderTitle,
+  SubTitle
 } from "./Signup.style";
 
 // import example from "../../../assets/example.jpg";
@@ -337,9 +340,10 @@ export default class Signup extends Component {
           >
             Already signed up? <span>Log in</span>
           </LogIn>
-          <ReactLink to={HOME_PAGE}>
-            <Logo />
-          </ReactLink>
+          <HeaderSection>
+            <HeaderTitle>Create an earwig account</HeaderTitle>
+            <SubTitle><span role="img">👀</span> Your reviews are always anonymous</SubTitle>
+          </HeaderSection>
           <Formik
             initialValues={initialValues}
             validationSchema={signupSchema}
@@ -614,7 +618,7 @@ export default class Signup extends Component {
                         disabled={isSubmitting}
                         loading={isSubmitting}
                         styleType="primary"
-                        text="Done"
+                        text="Create account"
                         margin="1rem auto 2rem auto"
                       />
                     </>
