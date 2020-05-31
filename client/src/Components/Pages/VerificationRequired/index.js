@@ -6,7 +6,6 @@ import Layout from "../../Common/Layout";
 // constants
 import {
   SIGNUP_URL,
-  LOGIN_URL,
   UPLOAD_VERIFICATION_PHOTO,
 } from "../../../constants/naviagationUrls";
 
@@ -19,8 +18,6 @@ import {
   H2,
   MainDiv,
   AddWrapper,
-  SubHeading,
-  StyledLink,
 } from "../../Common/AddOrganisationPages.style";
 
 export default props => {
@@ -30,8 +27,6 @@ export default props => {
     level,
     location,
   } = props;
-
-  console.log(location);
 
   return (
     <Layout type="side">

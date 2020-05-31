@@ -1,7 +1,6 @@
 import React from "react";
 
 import { ITEMS } from "../../../../constants/promoItems";
-import ReviewNotAllowedButton from "../ReviewNotAllowedButton";
 import Icon from "../../../Common/Icon/Icon";
 
 import {
@@ -29,7 +28,6 @@ const Level0Promo = ({ isMobile, isTablet, category }) => {
               </AccountItem>
             ))}
         </div>
-        {/* <ReviewNotAllowedButton category={category} /> */}
       </AccountPromo>
     </Level0PromoWrapper>
   );

@@ -1,13 +1,12 @@
 // Render Prop
 import React, { Component } from "react";
-import { Prompt, Link as ReactLink } from "react-router-dom";
+import { Prompt } from "react-router-dom";
 import axios from "axios";
 import * as Yup from "yup";
 import { Modal, Divider } from "antd";
 
 import { FBPixelTrack } from "../../../FBPixel";
 
-import Logo from "../../Common/Logo";
 import CancelLink from "../../Common/CancelLink";
 
 import Button from "../../Common/Button";
@@ -342,7 +341,7 @@ export default class Signup extends Component {
           </LogIn>
           <HeaderSection>
             <HeaderTitle>Create an earwig account</HeaderTitle>
-            <SubTitle><span role="img">👀</span> Your reviews are always anonymous</SubTitle>
+            <SubTitle><span role="img" aria-label="emoji">👀</span> Your reviews are always anonymous</SubTitle>
           </HeaderSection>
           <Formik
             initialValues={initialValues}
