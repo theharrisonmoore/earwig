@@ -97,6 +97,20 @@ export default ({
       ...getColumnSearchProps("helpedUsers"),
     },
     {
+      title: "Signed Up",
+      dataIndex: "numOfSignUps",
+      key: "numOfSignUps",
+      render: (text = "error") => (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text.toString()}
+        />
+      ),
+      ...getColumnSearchProps("numOfSignUps"),
+    },
+    {
       title: "Trade",
       dataIndex: "trade",
       key: "trade",
