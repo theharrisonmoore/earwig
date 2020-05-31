@@ -14,7 +14,7 @@ const Level0Promo = ({ isMobile, isTablet, category }) => {
   return (
     <Level0PromoWrapper isTablet={isTablet} isMobile={isMobile}>
       <AccountPromo>
-        <p>Create an account to see more detail, including:</p>
+        <p>Login or create an account to see more detail, including:</p>
         <div>
           {ITEMS[category] &&
             ITEMS[category].map(item => (
@@ -29,7 +29,7 @@ const Level0Promo = ({ isMobile, isTablet, category }) => {
               </AccountItem>
             ))}
         </div>
-        <ReviewNotAllowedButton category={category} />
+        {/* <ReviewNotAllowedButton category={category} /> */}
       </AccountPromo>
     </Level0PromoWrapper>
   );

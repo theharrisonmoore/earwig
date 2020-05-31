@@ -18,7 +18,7 @@ import {
 } from "./Search.style";
 
 // renders the organisation logo
-const renderLogo = orgType => {
+const renderLogo = (orgType) => {
   if (orgType === "worksite") {
     return (
       <LogoWrapper orgColor={organizations[orgType].primary}>
@@ -42,7 +42,7 @@ const clickOnOrg = ({ name, category, searchText, id }) => {
   });
 };
 // renders individual suggestions
-const Suggestion = props => {
+const Suggestion = (props) => {
   // check if no suggestion is available and returns so that renderSuggestionsContainer function is still being called (gets deactivated otherwise)
 
   // also need to check if button to see if we make it a link or not
@@ -123,7 +123,7 @@ const Suggestion = props => {
                 icon="right"
                 height="1.375rem"
                 width="1.375rem"
-                color={organizations[organisation.category].primary}
+                color={colors.primary}
               />
             </div>
           </InnerDivSuggestions>
