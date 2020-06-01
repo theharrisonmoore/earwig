@@ -61,7 +61,7 @@
     "dotenv": "^8.2.0",
     "env2": "^2.2.2",
     "express": "^4.16.4",
-    "firebase-admin": "^7.2.0",
+    "firebase-admin": "^8.12.1",
     "http-errors": "^1.7.2",
     "immutable": "^4.0.0-rc.12",
     "joi": "^14.3.1",
