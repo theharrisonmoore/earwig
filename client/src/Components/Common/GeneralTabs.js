@@ -96,11 +96,10 @@ const GeneralTabs = ({
               popoverOptions={{
                 text: (
                   <p style={{ color: colors.dustyGray2, textAlign: "center" }}>
-                    Sign up to see more information including detailed reviews
-                    and company contact details.
+                    Login or create an account to see more detailed reviews
                   </p>
                 ),
-                actionButtonTxt: "Sign up to see more",
+                actionButtonTxt: "Continue to Login",
                 linkButtonOptions: {
                   pathname: SIGNUP_URL,
                   // COMMENTED_VERIFICATION_CHECK

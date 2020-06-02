@@ -132,7 +132,7 @@ export default class Menu extends PureComponent {
                   width="19"
                   fill={colors.primary}
                 />
-                Build your network
+                Refer a friend
               </MenuItem>
             )}
             <MenuItem to={PROFILE_URL} onClick={toggleMenu}>
@@ -210,7 +210,7 @@ export default class Menu extends PureComponent {
             </MenuItem>
             <MenuItem to={SIGNUP_URL} onClick={toggleMenu}>
               <MenuIcon icon="user" height="19" width="19" />
-              Sign up to see more
+              Create an account for more
             </MenuItem>
             <MenuItem to={PRIVACY_AND_TERMS_URL} onClick={toggleMenu}>
               <MenuIcon icon="privacyTerms" height="19" width="19" />

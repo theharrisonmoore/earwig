@@ -75,6 +75,14 @@ module.exports = (awaitingReview) => {
       },
     },
     {
+      $lookup: {
+        from: "users",
+        localField: "_id",
+        foreignField: "referral",
+        as: "numOfSignUps",
+      },
+    },
+    {
       $project: {
         status: {
           $cond: {
@@ -98,6 +106,7 @@ module.exports = (awaitingReview) => {
         verified: 1,
         points: 1,
         numOfReviews: { $size: "$numOfReviews" },
+        numOfSignUps: { $size: "$numOfSignUps" },
         helpedUsers: 1,
         awaitingReview: 1,
         currentAgency: { $arrayElemAt: ["$currentAgency", 0] },

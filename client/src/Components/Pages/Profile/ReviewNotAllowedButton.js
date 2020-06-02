@@ -4,25 +4,23 @@ import { withRouter } from "react-router-dom";
 
 import Button from "../../Common/Button";
 import { SIGNUP_URL } from "../../../constants/naviagationUrls";
-import { AccountLink } from "./Profile.style";
+import { AccountLink, AccountText } from "./Profile.style";
 
-const ReviewNotAllowedButton = ({ category, sticky, match }) => {
+const ReviewNotAllowedButton = ({ category, sticky, match, header }) => {
   const { params: { profileID } = {} } = match;
 
   return (
     <AccountLink
       sticky={sticky}
+      header={header}
       to={{
         pathname: SIGNUP_URL,
         state: { orgId: profileID, redirectToProfile: true },
       }}
       category={category}
     >
-      <Button
-        text="Sign up to see more"
-        styleType="primary"
-        margin="1rem auto"
-      />
+      {header && <AccountText>Login or create an account to review this {category}.</AccountText>}
+      <Button text="Continue to Login" styleType="primary" margin="1rem auto" />
     </AccountLink>
   );
 };
