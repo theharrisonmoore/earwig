@@ -13,6 +13,7 @@ const {
   findByEmail,
   addNew,
   checkValidReferral,
+  updateUserHelpfulPoints,
 } = require("./../database/queries/user");
 const sendEmail = require("./../helpers/emails");
 
@@ -21,6 +22,8 @@ const { isProduction } = require("../helpers/checkEnv");
 
 const { tokenMaxAge } = require("./../constants");
 const config = require("../config");
+const { referralPoints } = require("./../constants");
+const { updateHelpfulPoints } = require("./../database/queries/reviews");
 
 module.exports = async (req, res, next) => {
   const session = await mongoose.startSession();
@@ -85,6 +88,20 @@ module.exports = async (req, res, next) => {
       //   // send an email to the admin.
       //   await sendEmail.verificationPhotoEmail();
       // }
+    }
+
+    // UPDATE THE HELPFULNESS
+    if (referral) {
+      const referralUser = await checkValidReferral(referral);
+      if (referralUser) {
+        await updateHelpfulPoints({
+          points: referralPoints,
+          helpfulUser: referral,
+          helpedUser: user._id,
+          fromReferral: true,
+        });
+      }
+      await updateUserHelpfulPoints(user.referral);
     }
 
     // data to be sent in the response
