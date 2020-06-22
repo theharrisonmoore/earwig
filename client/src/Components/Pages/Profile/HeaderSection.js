@@ -71,10 +71,16 @@ const ColoredBanner = ({ category, name, isMobile }) => {
 // };
 
 export default class HeaderSection extends Component {
+  state = {
+    height: 150,
+  };
+
   headerRef = createRef();
 
   componentDidMount() {
     document.querySelector("#navbar").style.position = "relative";
+    const headerHeight = this.headerRef.current.clientHeight;
+    this.setState({ height: headerHeight / 5.25 });
   }
 
   componentWillUnmount() {
@@ -104,7 +110,8 @@ export default class HeaderSection extends Component {
       <Header
         isTablet={isTablet}
         isMobile={isMobile}
-        // ref={this.headerRef}
+        headerHeight={this.state.height}
+        ref={this.headerRef}
       >
         <ColoredBanner category={category} name={name} isMobile={isMobile} />
         <GeneralTabs
@@ -151,7 +158,7 @@ export default class HeaderSection extends Component {
             </Link>
           </ActionButtonsDiv>
         ) : (
-          <ReviewNotAllowedButton category={category} sticky />
+          <ReviewNotAllowedButton category={category} sticky header />
         )}
       </Header>
     );

@@ -6,7 +6,6 @@ import Layout from "../../Common/Layout";
 // constants
 import {
   SIGNUP_URL,
-  LOGIN_URL,
   UPLOAD_VERIFICATION_PHOTO,
 } from "../../../constants/naviagationUrls";
 
@@ -19,8 +18,6 @@ import {
   H2,
   MainDiv,
   AddWrapper,
-  SubHeading,
-  StyledLink,
 } from "../../Common/AddOrganisationPages.style";
 
 export default props => {
@@ -31,21 +28,15 @@ export default props => {
     location,
   } = props;
 
-  console.log(location);
-
   return (
     <Layout type="side">
       <AddWrapper>
         <MainDiv>
           <HeadlineDiv>
             <H2>
-              Hold up! You need to sign up to create a new agency in our
-              database.
+              Hold up! You need to login or create an account to add a firm or site to the database.
             </H2>
           </HeadlineDiv>
-          <SubHeading margin="2rem auto">
-            You only need to sign up once :)
-          </SubHeading>
           <Link
             to={{
               pathname: level >= 1 ? UPLOAD_VERIFICATION_PHOTO : SIGNUP_URL,
@@ -60,7 +51,7 @@ export default props => {
             }}
             style={{ textAlign: "center" }}
           >
-            <Button margin="2rem auto" styleType="primary" text="Sign up now" />
+            <Button margin="2rem auto" styleType="primary" text="Continue to Login" />
           </Link>
 
           <Button
@@ -69,21 +60,6 @@ export default props => {
             text="Cancel"
             onClick={history.goBack}
           />
-          <SubHeading margin="6rem auto 4rem">
-            Already signed up?{" "}
-            <StyledLink
-              to={{
-                pathname: LOGIN_URL,
-                state: {
-                  category,
-                  name,
-                  redirectToCreateProfile: true,
-                },
-              }}
-            >
-              Log in
-            </StyledLink>
-          </SubHeading>
         </MainDiv>
       </AddWrapper>
     </Layout>

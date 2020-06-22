@@ -23,8 +23,7 @@ export default props => {
         <MainDiv>
           <HeadlineDiv>
             <H2>
-              Great! Now please review {name} to finish adding it to the
-              database
+              Thanks! Now please review {name} to finish.
             </H2>
           </HeadlineDiv>
 
@@ -36,7 +35,7 @@ export default props => {
             <Button
               margin="2rem auto"
               styleType="primary"
-              text="Start your review"
+              text="Write your review"
             />
           </Link>
         </MainDiv>

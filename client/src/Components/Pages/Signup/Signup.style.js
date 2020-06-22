@@ -187,3 +187,23 @@ export const ModalContent = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const HeaderSection = styled.header`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+
+`;
+
+export const HeaderTitle = styled.h1`
+  font-size: 26px;
+  font-weight: 400;
+  text-align: center;
+`;
+
+export const SubTitle = styled.p`
+  text-align: center;
+  color: ${colors.black};
+  opacity: 1;
+`;

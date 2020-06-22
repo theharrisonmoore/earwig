@@ -466,15 +466,25 @@ export const AccountPromo = styled.div`
 export const AccountLink = styled(VerifyLink)`
   z-index: 2;
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 0 0.5rem 0;
+  // justify-content: flex-start;
   position: ${({ sticky }) => (sticky ? "-webkit-sticky" : "-webkit-static")};
   position: ${({ sticky }) => (sticky ? "sticky" : "static")};
   top: 4.5rem;
   width: 100%;
-  background-color: ${colors.white};
+  background-color: ${({ header }) => header ? colors.secondary : colors.white};
   position: sticky;
   border-bottom: ${({ sticky }) =>
     sticky ? `1px solid ${colors.dustyGray2}` : "none"};
+`;
+
+export const AccountText = styled.p`
+  color: ${colors.white};
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
 `;
 
 export const AccountItem = styled.div`

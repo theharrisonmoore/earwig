@@ -1,13 +1,12 @@
 // Render Prop
 import React, { Component } from "react";
-import { Prompt, Link as ReactLink } from "react-router-dom";
+import { Prompt } from "react-router-dom";
 import axios from "axios";
 import * as Yup from "yup";
 import { Modal, Divider } from "antd";
 
 import { FBPixelTrack } from "../../../FBPixel";
 
-import Logo from "../../Common/Logo";
 import CancelLink from "../../Common/CancelLink";
 
 import Button from "../../Common/Button";
@@ -43,6 +42,9 @@ import {
   ModalText,
   LogIn,
   EditIcon,
+  HeaderSection,
+  HeaderTitle,
+  SubTitle
 } from "./Signup.style";
 
 // import example from "../../../assets/example.jpg";
@@ -337,9 +339,10 @@ export default class Signup extends Component {
           >
             Already signed up? <span>Log in</span>
           </LogIn>
-          <ReactLink to={HOME_PAGE}>
-            <Logo />
-          </ReactLink>
+          <HeaderSection>
+            <HeaderTitle>Create an earwig account</HeaderTitle>
+            <SubTitle><span role="img" aria-label="emoji">👀</span> Your reviews are always anonymous</SubTitle>
+          </HeaderSection>
           <Formik
             initialValues={initialValues}
             validationSchema={signupSchema}
@@ -614,7 +617,7 @@ export default class Signup extends Component {
                         disabled={isSubmitting}
                         loading={isSubmitting}
                         styleType="primary"
-                        text="Done"
+                        text="Create account"
                         margin="1rem auto 2rem auto"
                       />
                     </>

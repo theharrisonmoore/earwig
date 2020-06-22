@@ -28,6 +28,7 @@ export const Body = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  padding-bottom: 3rem;
 
   @media ${breakpoints.mobileXL} {
     background-image: url(${backgroundDesktop});
@@ -48,6 +49,7 @@ export const ContentWrapper = styled.div`
 export const Header = styled.header`
   padding-top: 1rem;
   width: 95%;
+  margin-bottom: 2rem;
   // desktop
   @media ${breakpoints.mobileXL} {
     padding-top: 2rem;
@@ -55,11 +57,11 @@ export const Header = styled.header`
 `;
 
 export const Title = styled.h1`
-  font-size: 50px;
-  font-weight: 500;
+  font-size: 38px;
+  font-weight: 400;
   color: ${colors.white};
   margin: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 `;
 
 export const SubtitleWrapper = styled.section`
@@ -74,11 +76,10 @@ export const SubtitleWrapper = styled.section`
 `;
 
 export const FooterTitle = styled.section`
-  position: absolute;
-  bottom: 1.5rem;
   width: 100%;
   height: calc(100vh - 82%);
   width: 75%;
+  padding-top: 3rem;
 
   // desktop
   @media ${breakpoints.mobileXL} {
@@ -87,8 +88,15 @@ export const FooterTitle = styled.section`
 `;
 
 export const Subtitle = styled.h2`
-  font-size: 25px;
-  font-weight: 500;
+  font-size: 26px;
+  font-weight: 400;
+  color: ${colors.white};
+  max-width: 500px;
+  margin: 0 auto;
+`;
+
+export const Explanation = styled.p`
+  font-size: 15px;
   color: ${colors.white};
   max-width: 500px;
   margin: 0 auto;

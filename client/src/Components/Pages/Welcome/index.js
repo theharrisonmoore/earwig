@@ -20,6 +20,7 @@ import {
   DownArrow,
   FooterTitle,
   Button,
+  Explanation,
 } from "./Welcome.style";
 
 // NAV ROUTES
@@ -29,7 +30,7 @@ import {
 } from "../../../constants/naviagationUrls";
 import { organizations } from "../../../theme";
 
-const createButtonContent = text => (
+const createButtonContent = (text) => (
   <span>
     {text}
     <br></br>
@@ -47,11 +48,22 @@ export default class Welcome extends Component {
               <Logo />
             </LogoContainer>
             <Header>
-              <Title>Welcome!</Title>
+              <Title>Let&apos;s find where you work</Title>
+              <Explanation>
+                If you’re looking for new jobs, you know how helpful reviews
+                from real workers like you can be. earwig is where workers help
+                each other find the best jobs.
+              </Explanation>
             </Header>
             <ContentWrapper>
               <SubtitleWrapper>
-                <Subtitle>Choose…</Subtitle>
+                <Subtitle>
+                  Pick a category and we’ll show you a list of firms or sites to
+                  review
+                  <span role="img" aria-label="point down">
+                    👇
+                  </span>
+                </Subtitle>
               </SubtitleWrapper>
               <ButtonsWrapper>
                 <Link to={SEARCH_URL.replace(":category?", "agency")}>
@@ -78,9 +90,11 @@ export default class Welcome extends Component {
               </ButtonsWrapper>
             </ContentWrapper>
             <FooterTitle>
-              {/* <Subtitle>
-                Empowering construction workers to own their work culture
-              </Subtitle> */}
+              <Explanation>
+                Tip! You can{" "}
+                <span style={{ fontWeight: "500" }}>create new</span> firms and
+                sites in the database if they’re not already listed
+              </Explanation>
             </FooterTitle>
           </Body>
         </Wrapper>

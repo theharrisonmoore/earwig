@@ -11,7 +11,7 @@ const sharedStyles = css`
   /* width: ${props => props.width || "100%"}; */
   min-height: 45px;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 18px;
   outline: none;
   display: block;
   padding: 0 2rem;
