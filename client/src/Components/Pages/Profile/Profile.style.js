@@ -278,6 +278,8 @@ export const ReviewDiv = styled.div`
   flex-direction: column;
   text-align: left;
   ${sharedReviewSectionStyle} ${dividerStyle};
+
+  margin-top: ${({ moveUp }) => moveUp && "-5rem"}
 `;
 
 export const Level0PromoWrapper = styled.div`
@@ -646,6 +648,10 @@ export const OrganisationDetailsWrapper = styled(ReviewDiv)`
   z-index: 99;
 
   ${dividerStyle}
+`;
+
+export const OrgInnerWrapper = styled.div`
+  margin-top: -5rem;
 `;
 
 export const InfoRow = styled.div`

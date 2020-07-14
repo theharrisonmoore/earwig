@@ -19,7 +19,11 @@ const ReviewNotAllowedButton = ({ category, sticky, match, header }) => {
       }}
       category={category}
     >
-      {header && <AccountText>Login or create an account to review this {category}.</AccountText>}
+      {header && (
+        <AccountText>
+          Login or create an account to review this {category}.
+        </AccountText>
+      )}
       <Button text="Continue to Login" styleType="primary" margin="1rem auto" />
     </AccountLink>
   );

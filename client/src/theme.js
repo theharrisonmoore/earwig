@@ -194,9 +194,6 @@ export const cookieStyles = {
     paddingRight: "10rem",
     textAlign: "left",
   },
-  contentStyle: {
-    border: "1px red solid",
-  },
   button: {
     background: `${colors.white}`,
     color: `${colors.black}`,

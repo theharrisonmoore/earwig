@@ -22,6 +22,7 @@ export const SectionTitle = styled.h2`
   margin: 0;
   margin-bottom: 1rem;
   font-weight: ${titleFontWeight};
+  padding-top: 1rem;
 `;
 
 export const QuestionWrapper = styled.div`
