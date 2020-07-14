@@ -68,6 +68,7 @@ const Replies = ({
           adminReply={!!reply.displayName}
           trade={
             !reply.displayName &&
+            reply.user.trade &&
             reply.user.trade[0] &&
             reply.user.trade[0].title
           }
