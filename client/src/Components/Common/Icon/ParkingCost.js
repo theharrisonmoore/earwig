@@ -6,7 +6,6 @@ const ParkingCost = props => (
     viewBox="15 15 75 75"
     height={props.height}
     width={props.width}
-    border="1px red solid"
     {...props}
   >
     <style></style>

@@ -13,6 +13,7 @@ import {
   LeftInfo,
   OrgLink,
   StarLabel,
+  OrgInnerWrapper
 } from "../Profile.style";
 
 const getRateValue = rate => {
@@ -51,94 +52,96 @@ const OrganisationDetails = ({
 }) => {
   return (
     <OrganisationDetailsWrapper isMobile={isMobile} isTablet={isTablet}>
-      <CompanyTitle>{name}</CompanyTitle>
+      <OrgInnerWrapper>
+        <CompanyTitle>{name}</CompanyTitle>
 
-      <InfoRow>
-        <LeftInfo>Overall rating</LeftInfo>
-        <RightInfo>
-          <Rate
-            disabled
-            value={rate}
-            style={{
-              color: `${colors.stars}`,
-              fontSize: "1.25rem",
-              minWidth: "78px",
-            }}
-            className="last-reviewed-star-rate"
-          />
-          <div
-            style={{
-              width: "100px",
-              display: "inline-block",
-              height: "8px",
-            }}
-          >
-            {["Bad", "Poor", "Average", "Good", "Excellent"].map(option => (
-              <StarLabel
-                key={option}
-                currValue={option === getRateValue(rate).text}
-                padding={getRateValue(rate).padding}
+        <InfoRow>
+          <LeftInfo>Overall rating</LeftInfo>
+          <RightInfo>
+            <Rate
+              disabled
+              value={rate}
+              style={{
+                color: `${colors.stars}`,
+                fontSize: "1.25rem",
+                minWidth: "78px",
+              }}
+              className="last-reviewed-star-rate"
+            />
+            <div
+              style={{
+                width: "100px",
+                display: "inline-block",
+                height: "8px",
+              }}
+            >
+              {["Bad", "Poor", "Average", "Good", "Excellent"].map((option) => (
+                <StarLabel
+                  key={option}
+                  currValue={option === getRateValue(rate).text}
+                  padding={getRateValue(rate).padding}
+                >
+                  {option}
+                </StarLabel>
+              ))}
+            </div>
+          </RightInfo>
+        </InfoRow>
+        {/* contractor section */}
+        {category === "worksite" && (
+          <ContractorsList contractorAnswers={contractorAnswers} />
+        )}
+
+        {category !== "worksite" && (
+          <InfoRow>
+            <LeftInfo>Website</LeftInfo>
+            <RightInfo>
+              <OrgLink
+                onClick={onClickContact}
+                href={`${websiteUrl}`}
+                hasDetails={websiteUrl}
+                rel="noopener noreferrer"
+                target="_blank"
+                disabled={!websiteUrl}
               >
-                {option}
-              </StarLabel>
-            ))}
-          </div>
-        </RightInfo>
-      </InfoRow>
-      {/* contractor section */}
-      {category === "worksite" && (
-        <ContractorsList contractorAnswers={contractorAnswers} />
-      )}
+                {websiteUrl || "-"}
+              </OrgLink>
+            </RightInfo>
+          </InfoRow>
+        )}
 
-      {category !== "worksite" && (
-        <InfoRow>
-          <LeftInfo>Website</LeftInfo>
-          <RightInfo>
-            <OrgLink
-              onClick={onClickContact}
-              href={`${websiteUrl}`}
-              hasDetails={websiteUrl}
-              rel="noopener noreferrer"
-              target="_blank"
-              disabled={!websiteUrl}
-            >
-              {websiteUrl || "-"}
-            </OrgLink>
-          </RightInfo>
-        </InfoRow>
-      )}
+        {["payroll", "agency"].includes(category) && (
+          <InfoRow>
+            <LeftInfo>Email</LeftInfo>
+            <RightInfo>
+              <OrgLink
+                onClick={onClickContact}
+                href={`mailto:${email}`}
+                hasDetails={email}
+                disabled={!email}
+              >
+                {email || "-"}
+              </OrgLink>
+            </RightInfo>
+          </InfoRow>
+        )}
 
-      {["payroll", "agency"].includes(category) && (
-        <InfoRow>
-          <LeftInfo>Email</LeftInfo>
-          <RightInfo>
-            <OrgLink
-              onClick={onClickContact}
-              href={`mailto:${email}`}
-              hasDetails={email}
-              disabled={!email}
-            >
-              {email || "-"}
-            </OrgLink>
-          </RightInfo>
-        </InfoRow>
-      )}
-
-      {["payroll", "agency"].includes(category) && (
-        <InfoRow>
-          <LeftInfo>Phone</LeftInfo>
-          <RightInfo>
-            <OrgLink
-              onClick={onClickContact}
-              href={`tel:${phoneNumber}`}
-              hasDetails={phoneNumber}
-              disabled={!phoneNumber}
-            >
-              {phoneNumber || "-"}
-            </OrgLink>
-          </RightInfo>
-        </InfoRow>
-      )}
+        {["payroll", "agency"].includes(category) && (
+          <InfoRow>
+            <LeftInfo>Phone</LeftInfo>
+            <RightInfo>
+              <OrgLink
+                onClick={onClickContact}
+                href={`tel:${phoneNumber}`}
+                hasDetails={phoneNumber}
+                disabled={!phoneNumber}
+              >
+                {phoneNumber || "-"}
+              </OrgLink>
+            </RightInfo>
+          </InfoRow>
+        )}
+      </OrgInnerWrapper>
     </OrganisationDetailsWrapper>
   );
 };

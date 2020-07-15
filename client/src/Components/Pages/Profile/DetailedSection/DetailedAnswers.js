@@ -23,7 +23,7 @@ class DetailedAnswers extends Component {
 
     const { category } = summary;
     return (
-      <ReviewDiv isTablet={isTablet} isMobile={isMobile}>
+      <ReviewDiv isTablet={isTablet} isMobile={isMobile} moveUp>
         <SectionTitle>Detailed answers by workers</SectionTitle>
         {/* KEY RATINGS SECTION */}
         {reviewDetails.map(
