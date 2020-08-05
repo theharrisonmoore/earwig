@@ -305,4 +305,5 @@ export const ListTitle = styled.h2`
   color: ${colors.dustyGray1};
   font-weight: bold;
   font-size: 1.25rem;
+  padding-left: 0.75rem;
 `;
