@@ -295,9 +295,11 @@ export const LogoWrapper = styled.div`
   margin-right: 1rem;
 
   p {
-    font-size: 8px;
+    font-size: 6px;
     color: white;
     margin-bottom: 0;
+    text-transform: capitalize;
+    font-weight: bold;
   }
 `;
 

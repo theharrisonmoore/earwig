@@ -28,7 +28,7 @@ const renderLogo = (orgType) => {
   }
   return (
     <LogoWrapper orgColor={organizations[orgType].primary}>
-      <p>LOGO</p>
+      <p>{orgType}</p>
     </LogoWrapper>
   );
 };

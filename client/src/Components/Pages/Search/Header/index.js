@@ -4,7 +4,6 @@ import AutosuggestComponent from "../AutoSuggest";
 
 import { HeaderWrapper, SearchBarContainer } from "./Header.style";
 import Tabs from "./Tabs";
-import GeneralTabs from "../../../Common/GeneralTabs";
 
 export default class SearchHeader extends Component {
   state = {
