@@ -14,7 +14,7 @@ import { API_SEARCH_URL } from "../../../apiUrls";
 import { SearchWrapper } from "./Search.style";
 
 // gets all organisations from db
-export const axiosCall = async category => {
+export const axiosCall = async (category) => {
   const response = await axios.get(
     API_SEARCH_URL.replace(":category", category),
   );
@@ -49,7 +49,7 @@ export default class Search extends Component {
       agency: [],
     },
 
-    activeTab: "all",
+    activeTab: "recent",
   };
 
   componentDidMount() {
@@ -76,9 +76,11 @@ export default class Search extends Component {
         axiosCall(category)
           .then(({ data: [{ searchData: newData, lastReviewed }] }) => {
             const sortedOrgs = sortAndCategorizeOrgs(newData);
-            const lastReviewedOrgs = lastReviewed.map(org => org.lastReviewed);
+            const lastReviewedOrgs = lastReviewed.map(
+              (org) => org.lastReviewed,
+            );
 
-            this.setState(prevState => {
+            this.setState((prevState) => {
               return {
                 searchData: { ...prevState.searchData, [category]: newData },
                 category,
@@ -94,6 +96,7 @@ export default class Search extends Component {
             });
           })
           .finally(() => {
+            this.filterRecentReviews();
             this.setState({ loading: false });
           });
       } else {
@@ -102,13 +105,9 @@ export default class Search extends Component {
     });
   };
 
-  setActiveTab = e => {
+  setActiveTab = (e) => {
     const { tab } = e.target.dataset;
     this.setState({ activeTab: tab });
-
-    if (tab === "recent") {
-      this.filterRecentReviews();
-    }
   };
 
   filterRecentReviews = () => {
@@ -125,13 +124,7 @@ export default class Search extends Component {
   };
 
   render() {
-    const {
-      searchData,
-      sortedOrgs,
-      loading,
-      activeTab,
-      recentReviews,
-    } = this.state;
+    const { searchData, loading, activeTab, recentReviews } = this.state;
 
     const { isMobile, isTablet, match } = this.props;
     const { category = "agency" } = match.params;
@@ -146,20 +139,13 @@ export default class Search extends Component {
             activeTab={activeTab}
             setActiveTab={this.setActiveTab}
           />
-          {activeTab === "all" ? (
-            <OrganisationsList
-              sortedOrgs={sortedOrgs[category]}
-              loading={loading}
-              category={category}
-            />
-          ) : (
-            <OrganisationsList
-              sortedOrgs={recentReviews[category]}
-              loading={loading}
-              category={category}
-              recentReviews
-            />
-          )}
+
+          <OrganisationsList
+            sortedOrgs={recentReviews[category]}
+            loading={loading}
+            category={category}
+            recentReviews
+          />
         </SearchWrapper>
       </Layout>
     );
