@@ -29,7 +29,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Banner = styled.div`
-  background: ${props => organizations[`${props.category}`].primary};
+  background: ${(props) => organizations[`${props.category}`].primary};
   width: 100%;
   color: ${colors.white};
   display: flex;
@@ -69,7 +69,7 @@ export const Header = styled.div`
 `;
 
 export const ColoredDiv = styled.div`
-  background-color: ${props => organizations[`${props.category}`].primary};
+  background-color: ${(props) => organizations[`${props.category}`].primary};
   width: 100%;
   margin-top: 0;
 `;
@@ -130,12 +130,12 @@ export const Underline = styled.div`
 `;
 
 export const CompanyDetails = styled.div`
-  /* border-bottom: ${props =>
+  /* border-bottom: ${(props) =>
     props.level > 0 ? `${borders.commentBox}` : "none"}; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* padding-bottom: ${props =>
+  /* padding-bottom: ${(props) =>
     props.isTablet || props.isMobile ? "2rem" : "1rem"}; */
 `;
 
@@ -162,8 +162,8 @@ export const CompanyTitle = styled.h2`
 `;
 
 export const ButtonDiv = styled.div`
-  min-width: ${props => (props.isTablet || props.isMobile ? "100%" : "50%")};
-  display: ${props => (props.organization === "worksite" ? "none" : "flex")};
+  min-width: ${(props) => (props.isTablet || props.isMobile ? "100%" : "50%")};
+  display: ${(props) => (props.organization === "worksite" ? "none" : "flex")};
   justify-content: center;
   align-items: center;
   height: ${({ shrink }) => (shrink ? "1px" : "auto")};
@@ -173,7 +173,7 @@ export const ButtonDiv = styled.div`
 `;
 
 export const OrgLink = styled.a`
-  display: ${props => props.hasDetails === null && "none"};
+  display: ${(props) => props.hasDetails === null && "none"};
   font-weight: normal;
   font-size: 15px;
   max-width: 100%;
@@ -186,7 +186,7 @@ export const OrgButton = styled.button`
   color: ${colors.primary};
   background: none;
   transition: all ease-in 0.1s;
-  width: ${props => (props.isMobile ? "5rem" : "7rem")};
+  width: ${(props) => (props.isMobile ? "5rem" : "7rem")};
   height: 2.5rem;
   border-radius: 22.25px;
   margin: 1rem 0.5rem;
@@ -219,7 +219,7 @@ export const InactiveButton = styled(OrgButton)`
   cursor: not-allowed !important;
   outline: none;
   box-shadow: none;
-  display: ${props => props.hasDetails === undefined && "none"};
+  display: ${(props) => props.hasDetails === undefined && "none"};
 
   opacity: ${({ shrink }) => (shrink ? "0" : "0.3")};
 `;
@@ -279,7 +279,7 @@ export const ReviewDiv = styled.div`
   text-align: left;
   ${sharedReviewSectionStyle} ${dividerStyle};
 
-  margin-top: ${({ moveUp }) => moveUp && "-5rem"}
+  margin-top: ${({ moveUp }) => moveUp && "-5rem"};
 `;
 
 export const Level0PromoWrapper = styled.div`
@@ -299,7 +299,7 @@ export const GiveReviewTitle = styled.h3`
 `;
 
 export const SVGIcon = styled(SVG)`
-  margin: ${props => props.margin};
+  margin: ${(props) => props.margin};
 `;
 
 export const CompanyNameAndStars = styled.div`
@@ -319,7 +319,7 @@ export const CommentDiv = styled.div`
   padding: 1.5rem 0 1rem;
   width: 100%;
   position: relative;
-  display: ${props => props.noReview && "none"};
+  display: ${(props) => props.noReview && "none"};
   color: ${colors.white};
   border-bottom: 1px solid ${colors.dustyGray1}40;
 
@@ -430,12 +430,12 @@ export const VerifyLink = styled(NavLink)`
   color: ${colors.profileFontColor};
 
   :hover {
-    color: ${props => organizations[`${props.category}`].primary};
+    color: ${(props) => organizations[`${props.category}`].primary};
   }
 `;
 
 export const AccountIcon = styled(SVG)`
-  margin: ${props => props.margin};
+  margin: ${(props) => props.margin};
   width: 1rem;
   fill: ${colors.profileFontColor};
 `;
@@ -476,7 +476,8 @@ export const AccountLink = styled(VerifyLink)`
   position: ${({ sticky }) => (sticky ? "sticky" : "static")};
   top: 4.5rem;
   width: 100%;
-  background-color: ${({ header }) => header ? colors.secondary : colors.white};
+  background-color: ${({ header }) =>
+    header ? colors.secondary : colors.white};
   position: sticky;
   border-bottom: ${({ sticky }) =>
     sticky ? `1px solid ${colors.dustyGray2}` : "none"};
@@ -553,7 +554,7 @@ export const ActionButton = styled.button`
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   font-size: 12px;
   font-weight: 700;
-  text-align: ${props => (props.isMobile ? "center" : "left")};
+  text-align: ${(props) => (props.isMobile ? "center" : "left")};
   color: ${colors.white};
   box-shadow: ${shadows.buttonShadow};
   display: flex;
@@ -752,9 +753,10 @@ export const LogoWrapper = styled.div`
   margin-right: 1rem;
 
   p {
-    font-size: 10px;
-    color: ${props => props.orgColor || colors.heliotrope};
+    font-size: 7px;
+    color: ${(props) => props.orgColor || colors.heliotrope};
     margin-bottom: 0;
+    text-transform: capitalize;
     font-weight: bold;
   }
 `;

@@ -33,7 +33,7 @@ const ColoredBanner = ({ category, name, isMobile }) => {
               color={organizations[category].primary}
             />
           ) : (
-            <p>LOGO</p>
+            <p>{category}</p>
           )}
         </LogoWrapper>
         <CompanyTitle white>{name}</CompanyTitle>
@@ -136,7 +136,7 @@ export default class HeaderSection extends Component {
                     : PRE_REVIEW.replace(":orgId", orgId),
                 state: { name, category, redirectToReview: true, orgId },
               }}
-              onClick={e =>
+              onClick={(e) =>
                 reviewNotAllowed &&
                 reviewsLast30Days.length > 0 &&
                 e.preventDefault()
