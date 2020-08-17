@@ -2,7 +2,13 @@ import React, { Component, createRef } from "react";
 
 import { Skeleton, Spin } from "antd";
 
-import { OrgsListWrapper, MainKey, SubKey, NoDataTitle } from "./Search.style";
+import {
+  OrgsListWrapper,
+  MainKey,
+  SubKey,
+  NoDataTitle,
+  ListTitle,
+} from "./Search.style";
 
 import Suggestion from "./OrganisationRow";
 
@@ -82,8 +88,9 @@ class OrganisationsList extends Component {
           <>
             {sortedOrgs.length > 0 ? (
               <>
+                <ListTitle>Latest reviews by workers</ListTitle>
                 <div ref={this.listRef}>
-                  {sortedOrgs.slice(0, rederedListLength).map(org => (
+                  {sortedOrgs.slice(0, rederedListLength).map((org) => (
                     <div key={org._id}>
                       {org.mainKey && <MainKey>{org.mainKey}</MainKey>}
                       {org.subKey && <SubKey>{org.subKey}</SubKey>}

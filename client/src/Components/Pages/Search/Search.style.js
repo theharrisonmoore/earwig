@@ -22,7 +22,7 @@ export const classNames = {
 
 export const AutosuggestWrapper = styled.div.attrs(classNames)`
   position: relative;
-  /* width: ${props => props.width}; */
+  /* width: ${(props) => props.width}; */
   width: 100%;
   outline: none;
 
@@ -37,7 +37,7 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
   }
   .${classNames.containerOpen} {
     border: ${borders.searchBox};
-    height: ${props => props.height};
+    height: ${(props) => props.height};
     padding: 10px 20px;
     font-weight: 300;
     font-size: 15px;
@@ -49,7 +49,7 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
 
   }
   input {
-    text-indent: ${props => (props.searchIcon ? "0px" : "45px")};
+    text-indent: ${(props) => (props.searchIcon ? "0px" : "45px")};
   }
 
   .${classNames.containerInputOpen} {
@@ -105,10 +105,10 @@ export const AutosuggestWrapper = styled.div.attrs(classNames)`
 export const IconDiv = styled.div`
   width: 32px;
   height: 32px;
-  /* background: url(${props => props.bgr}) no-repeat; */
+  /* background: url(${(props) => props.bgr}) no-repeat; */
   object-fit: fill;
   position: absolute;
-  top: ${props => props.iconTop};
+  top: ${(props) => props.iconTop};
   margin-left: 20px;
   cursor: pointer;
   z-index: 1;
@@ -133,7 +133,7 @@ export const SearchLegendDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: ${props => (props.isMobile ? "0" : "0 2rem 1rem 2rem")};
+  padding: ${(props) => (props.isMobile ? "0" : "0 2rem 1rem 2rem")};
   width: 100%;
   max-width: 600px;
 `;
@@ -144,7 +144,7 @@ export const LastReviewsContainer = styled.div`
 `;
 
 export const LegendTitle = styled.h2`
-  color: ${props => organizations[props.orgType].primary};
+  color: ${(props) => organizations[props.orgType].primary};
   font-size: 15px;
   margin: 0;
 `;
@@ -153,7 +153,7 @@ export const SuggestionBox = styled.div`
   border: ${({ withoutBorder }) =>
     withoutBorder ? "none" : `0.2px solid ${colors.lightGray}`};
   box-shadow: ${colors.searchBoxShadow};
-  color: ${props => organizations[props.orgType].primary};
+  color: ${(props) => organizations[props.orgType].primary};
   border-color: ${colors.lightGray};
 `;
 
@@ -184,8 +184,8 @@ export const SymbolDiv = styled.div`
 `;
 
 export const ImgDiv = styled.div`
-  height: ${props => props.height};
-  width: ${props => props.width};
+  height: ${(props) => props.height};
+  width: ${(props) => props.width};
 `;
 
 export const OrganisationDetailsDiv = styled.div`
@@ -288,15 +288,24 @@ export const LogoWrapper = styled.div`
   border-radius: 50%;
   width: 2rem;
   height: 2rem;
-  background-color: ${props => props.orgColor || colors.heliotrope};
+  background-color: ${(props) => props.orgColor || colors.heliotrope};
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 1rem;
 
   p {
-    font-size: 8px;
+    font-size: 6px;
     color: white;
     margin-bottom: 0;
+    text-transform: capitalize;
+    font-weight: bold;
   }
+`;
+
+export const ListTitle = styled.h2`
+  color: ${colors.dustyGray1};
+  font-weight: bold;
+  font-size: 1.25rem;
+  padding-left: 0.75rem;
 `;
