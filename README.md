@@ -59,6 +59,8 @@ Add a 'Secret' for password encryption.
 SECRET = "[SOMETHING SECRET]"
 ```
 
+For full details on environment variables please speak to one of the admin of this codebase
+
 #### 5. Build the Database
 Use this script that runs the dummy data build to set up your survey questions and put in some inital dummy data
 ```
